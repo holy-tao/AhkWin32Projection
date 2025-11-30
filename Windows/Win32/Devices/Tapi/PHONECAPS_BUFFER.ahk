@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PHONECAPS_BUFFER enum is used by methods that set or get phone capabilities described by a buffer.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class PHONECAPS_BUFFER{
+class PHONECAPS_BUFFER extends Win32Enum{
 
     /**
      * Device-specific phone capabilities.

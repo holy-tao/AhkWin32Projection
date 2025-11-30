@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The CompositingQuality enumeration specifies whether gamma correction is applied when colors are blended with background colors.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class CompositingQuality{
+class CompositingQuality extends Win32Enum{
 
     /**
      * 

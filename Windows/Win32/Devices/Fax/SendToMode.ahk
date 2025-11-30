@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the way a file will be faxed from within an application. With Windows Vista there is only one possible value.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
-class SendToMode{
+class SendToMode extends Win32Enum{
 
     /**
      * The file is faxed as it is. The user cannot add typed material preceding it or following it.

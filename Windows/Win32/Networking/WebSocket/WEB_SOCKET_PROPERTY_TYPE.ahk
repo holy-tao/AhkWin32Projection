@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a WebSocket property type.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WebSocket
  * @version v4.0.30319
  */
-class WEB_SOCKET_PROPERTY_TYPE{
+class WEB_SOCKET_PROPERTY_TYPE extends Win32Enum{
 
     /**
      * Property type: <b>ULONG</b>

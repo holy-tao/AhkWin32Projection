@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The types of operations that can be performed on placeholder files and directories.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
-class CF_OPERATION_TYPE{
+class CF_OPERATION_TYPE extends Win32Enum{
 
     /**
      * Transfers data to hydrate a placeholder.

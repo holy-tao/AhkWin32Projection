@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how a bitmap can be used.
@@ -23,7 +24,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_BITMAP_OPTIONS{
+class D2D1_BITMAP_OPTIONS extends Win32BitflagEnum{
 
     /**
      * The bitmap is created with default properties.

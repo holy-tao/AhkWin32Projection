@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of valid flags for a file system.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_FILE_SYSTEM_FLAG{
+class VDS_FILE_SYSTEM_FLAG extends Win32Enum{
 
     /**
      * If set, the file system supports format. The drop-down list of a user interface should display only file systems that support formatting.

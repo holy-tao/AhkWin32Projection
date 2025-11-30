@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the possible states of a Transmission Control Protocol (TCP) connection.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
-class TCPSTATE{
+class TCPSTATE extends Win32Enum{
 
     /**
      * The TCP connection has no connection state at all. This state represents the state when there is no Transmission Control Block (TCB), and therefore,

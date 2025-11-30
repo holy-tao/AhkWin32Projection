@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Controls the type of connections to a class object.
@@ -57,7 +58,7 @@
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class REGCLS{
+class REGCLS extends Win32BitflagEnum{
 
     /**
      * After an application is connected to a class object with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetclassobject">CoGetClassObject</a>, the class object is removed from public view so that no other applications can connect to it. This value is commonly used for single document interface (SDI) applications. Specifying this value does not affect the responsibility of the object application to call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-corevokeclassobject">CoRevokeClassObject</a>; it must always call <b>CoRevokeClassObject</b> when it is finished with an object class.

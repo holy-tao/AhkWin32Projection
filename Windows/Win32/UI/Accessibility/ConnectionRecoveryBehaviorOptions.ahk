@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains possible values for the ConnectionRecoveryBehavior property, which indicates whether an accessible technology client adjusts provider request timeouts when the provider is non-responsive.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
-class ConnectionRecoveryBehaviorOptions{
+class ConnectionRecoveryBehaviorOptions extends Win32Enum{
 
     /**
      * Connection recovery is disabled.

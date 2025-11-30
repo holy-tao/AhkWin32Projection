@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains flags that describe content-protection capabilities.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_CONTENT_PROTECTION_CAPS{
+class D3D11_CONTENT_PROTECTION_CAPS extends Win32Enum{
 
     /**
      * The content protection is implemented in software by the driver.

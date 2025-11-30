@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Direction of network traffic.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class FWP_DIRECTION{
+class FWP_DIRECTION extends Win32Enum{
 
     /**
      * Specifies outbound traffic.

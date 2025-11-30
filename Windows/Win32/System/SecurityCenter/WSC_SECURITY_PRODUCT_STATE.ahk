@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the current state of the security product that is made available to Windows Security Center.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.SecurityCenter
  * @version v4.0.30319
  */
-class WSC_SECURITY_PRODUCT_STATE{
+class WSC_SECURITY_PRODUCT_STATE extends Win32Enum{
 
     /**
      * The security product software is turned on and protecting the user.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies which objects are enumerated for autocompletion lists.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class AUTOCOMPLETELISTOPTIONS{
+class AUTOCOMPLETELISTOPTIONS extends Win32Enum{
 
     /**
      * No enumeration should take place.

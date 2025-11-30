@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the interaction states used for configuring an Interaction Context object.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.InteractionContext
  * @version v4.0.30319
  */
-class INTERACTION_ID{
+class INTERACTION_ID extends Win32Enum{
 
     /**
      * Not used.

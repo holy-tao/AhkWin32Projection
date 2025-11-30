@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes property information for a delegate request.
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */
-class HTTP_DELEGATE_REQUEST_PROPERTY_ID{
+class HTTP_DELEGATE_REQUEST_PROPERTY_ID extends Win32Enum{
 
     /**
      * This property is reserved.

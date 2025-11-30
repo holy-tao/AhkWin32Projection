@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The FSM_STATE enumeration defines the set of possible failover relationship states on a DHCPv4 server.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */
-class FSM_STATE{
+class FSM_STATE extends Win32Enum{
 
     /**
      * Indicates that no state is configured for the DHCPv4 failover relationship.

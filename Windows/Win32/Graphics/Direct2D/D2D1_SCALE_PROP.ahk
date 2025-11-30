@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifiers for properties of the Scale effect.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_SCALE_PROP{
+class D2D1_SCALE_PROP extends Win32Enum{
 
     /**
      * The scale amount in the X and Y direction as a ratio of the output size to the input size.

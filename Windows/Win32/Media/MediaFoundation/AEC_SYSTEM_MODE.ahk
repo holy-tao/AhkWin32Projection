@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the processing mode for the voice capture DSP. This enumeration is used with the MFPKEY_WMAAECMA_SYSTEM_MODE property.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class AEC_SYSTEM_MODE{
+class AEC_SYSTEM_MODE extends Win32Enum{
 
     /**
      * AEC processing only.

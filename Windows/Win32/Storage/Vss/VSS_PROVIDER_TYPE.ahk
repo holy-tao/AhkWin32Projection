@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the provider type.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_PROVIDER_TYPE{
+class VSS_PROVIDER_TYPE extends Win32Enum{
 
     /**
      * The provider type is unknown. 

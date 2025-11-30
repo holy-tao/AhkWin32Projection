@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * TARGET_INFORMATION_CLASS enumeration specifies information about the indicated target device that the GetIScsiTargetInformation function retrieves.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @version v4.0.30319
  */
-class TARGET_INFORMATION_CLASS{
+class TARGET_INFORMATION_CLASS extends Win32Enum{
 
     /**
      * A value of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ne-iscsidsc-targetprotocoltype">TARGETPROTOCOLTYPE</a> structure, indicating the protocol that the initiator uses to communicate with the target device.

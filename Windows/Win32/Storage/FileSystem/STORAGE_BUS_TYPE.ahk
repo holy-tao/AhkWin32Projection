@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the various types of storage buses.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
-class STORAGE_BUS_TYPE{
+class STORAGE_BUS_TYPE extends Win32Enum{
 
     /**
      * Unknown bus type.

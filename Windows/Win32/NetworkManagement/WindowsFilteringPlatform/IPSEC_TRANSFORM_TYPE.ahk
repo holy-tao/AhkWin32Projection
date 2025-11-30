@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the type of an IPsec security association (SA) transform.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class IPSEC_TRANSFORM_TYPE{
+class IPSEC_TRANSFORM_TYPE extends Win32Enum{
 
     /**
      * Specifies Authentication Header (AH) transform.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DWRITE_PANOSE_CHARACTER_RANGES enumeration contains values that specify the type of characters available in the font.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_PANOSE_CHARACTER_RANGES{
+class DWRITE_PANOSE_CHARACTER_RANGES extends Win32Enum{
 
     /**
      * Any range.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the attributes of a specified verb for an object.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
-class OLEVERBATTRIB{
+class OLEVERBATTRIB extends Win32Enum{
 
     /**
      * Executing this verb will not cause the object to become dirty and is therefore in need of saving to persistent storage.

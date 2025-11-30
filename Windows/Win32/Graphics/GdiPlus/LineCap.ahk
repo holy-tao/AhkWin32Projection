@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The LineCap enumeration specifies the type of graphic shape to use on the end of a line drawn with a Windows GDI+ pen.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class LineCap{
+class LineCap extends Win32Enum{
 
     /**
      * Specifies that the line ends at the last point. The end is squared off.

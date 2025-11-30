@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the possible values for whether the EAP method configured on the supplicant for 802.1X authentication is supported on the authentication server.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
-class ONEX_EAP_METHOD_BACKEND_SUPPORT{
+class ONEX_EAP_METHOD_BACKEND_SUPPORT extends Win32Enum{
 
     /**
      * It is not known whether the EAP method configured on the supplicant for 802.1X authentication is supported on the authentication server. This value can be returned if the 802.1X authentication process is in the initial state.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines a subset of the DVD text-string types.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class DVD_TextStringType{
+class DVD_TextStringType extends Win32Enum{
 
     /**
      * Indicates the top-level of the logical hierarchy. Refers to the entire contents of a one-sided disc or one side of a two-sided disc.

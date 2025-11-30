@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how text is decorated (underlined and so on).
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_TIMED_TEXT_DECORATION{
+class MF_TIMED_TEXT_DECORATION extends Win32Enum{
 
     /**
      * Text isn't decorated.

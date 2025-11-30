@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by members of the IColumnManager interface to specify which set of columns are being requested, either all or only those currently visible.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class CM_ENUM_FLAGS{
+class CM_ENUM_FLAGS extends Win32BitflagEnum{
 
     /**
      * Enumerate all.

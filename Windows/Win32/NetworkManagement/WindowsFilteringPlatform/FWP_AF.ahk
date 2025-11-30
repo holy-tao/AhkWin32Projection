@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The FWP_AF enumerated type.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class FWP_AF{
+class FWP_AF extends Win32Enum{
 
     /**
      * Specifies an address as an IPv4 address.

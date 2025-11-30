@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The type flags.
@@ -24,7 +25,7 @@
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
-class TYPEFLAGS{
+class TYPEFLAGS extends Win32Enum{
 
     /**
      * A type description that describes an Application object.

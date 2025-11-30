@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The NETSOURCE_URLCREDPOLICY_SETTINGS enumeration type is used for an output parameter of IWMSInternalAdminNetSource2::GetCredentialsEx.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
-class NETSOURCE_URLCREDPOLICY_SETTINGS{
+class NETSOURCE_URLCREDPOLICY_SETTINGS extends Win32Enum{
 
     /**
      * Specifies that your application can log on to servers for which passwords are cached without informing the user.

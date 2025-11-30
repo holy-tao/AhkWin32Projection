@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The VMRPresentationFlags enumeration type is a member of the VMRPRESENTATIONINFO structure .
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class VMRPresentationFlags{
+class VMRPresentationFlags extends Win32Enum{
 
     /**
      * Indicates that the sample is a sync point.

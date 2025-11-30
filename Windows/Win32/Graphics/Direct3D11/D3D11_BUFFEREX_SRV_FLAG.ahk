@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies how to view a buffer resource.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_BUFFEREX_SRV_FLAG{
+class D3D11_BUFFEREX_SRV_FLAG extends Win32Enum{
 
     /**
      * View the buffer as raw. For more info about raw viewing of buffers, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-resources-intro">Raw Views of Buffers</a>.

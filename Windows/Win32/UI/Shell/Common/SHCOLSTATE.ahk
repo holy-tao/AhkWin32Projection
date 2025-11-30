@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes how a property should be treated. These values are defined in Shtypes.h.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell.Common
  * @version v4.0.30319
  */
-class SHCOLSTATE{
+class SHCOLSTATE extends Win32Enum{
 
     /**
      * The value is displayed according to default settings for the column.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by the CLUSCTL_RESOURCE_STATE_CHANGE_REASON_STRUCT and CLUSCTL_RESOURCE_STATE_CHANGE_REASON control codes to describe the reason for a resource state change.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_RESOURCE_STATE_CHANGE_REASON{
+class CLUSTER_RESOURCE_STATE_CHANGE_REASON extends Win32Enum{
 
     /**
      * This reason code is never sent by the cluster. 

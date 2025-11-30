@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the parameter stages for video extension commands.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE{
+class D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE extends Win32Enum{
 
     /**
      * The parameter stage is in video extension command creation.

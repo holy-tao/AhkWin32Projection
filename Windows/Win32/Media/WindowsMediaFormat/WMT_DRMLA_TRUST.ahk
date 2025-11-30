@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the trust state of a DRM license acquisition URL.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
-class WMT_DRMLA_TRUST{
+class WMT_DRMLA_TRUST extends Win32Enum{
 
     /**
      * Indicates that the validity of the license acquisition URL cannot be guaranteed because it is not signed. All protected content created prior to Windows Media 9 Series will cause this value to be returned.

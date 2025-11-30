@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies each policy property and its associated value.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_POLICY_PROPERTY_ID{
+class WS_POLICY_PROPERTY_ID extends Win32Enum{
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetpolicyproperty">WsGetPolicyProperty</a>.

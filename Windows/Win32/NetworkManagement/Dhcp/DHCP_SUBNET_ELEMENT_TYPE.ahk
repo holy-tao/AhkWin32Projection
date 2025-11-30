@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DHCP_SUBNET_ELEMENT_TYPE enumeration defines the set of possible subnet element types.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */
-class DHCP_SUBNET_ELEMENT_TYPE{
+class DHCP_SUBNET_ELEMENT_TYPE extends Win32Enum{
 
     /**
      * The subnet element contains the range of DHCP-served IP addresses.

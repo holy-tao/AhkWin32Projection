@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The SHV_COMBINATION_TYPE enumeration type specifies the type of a System Health Validator (SHV) combination.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class SHV_COMBINATION_TYPE{
+class SHV_COMBINATION_TYPE extends Win32Enum{
 
     /**
      * 

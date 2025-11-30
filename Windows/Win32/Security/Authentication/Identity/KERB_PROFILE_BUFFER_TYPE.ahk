@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Lists the type of logon profile returned.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
-class KERB_PROFILE_BUFFER_TYPE{
+class KERB_PROFILE_BUFFER_TYPE extends Win32Enum{
 
     /**
      * The buffer contains information about an interactive <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a>.

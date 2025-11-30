@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WS-Security specification version to be used with message security and mixed-mode security.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_SECURITY_HEADER_VERSION{
+class WS_SECURITY_HEADER_VERSION extends Win32Enum{
 
     /**
      * WS-Security 1.0.

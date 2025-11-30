@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the data source for a data chunk.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */
-class HTTP_DATA_CHUNK_TYPE{
+class HTTP_DATA_CHUNK_TYPE extends Win32Enum{
 
     /**
      * The data source is a memory data block. The union should be interpreted as a <b>FromMemory</b> structure.

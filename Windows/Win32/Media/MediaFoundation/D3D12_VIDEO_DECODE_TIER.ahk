@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the decoding tier of a hardware video decoder, which determines the required format of application-defined textures and buffers.
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class D3D12_VIDEO_DECODE_TIER{
+class D3D12_VIDEO_DECODE_TIER extends Win32Enum{
 
     /**
      * Video decoding is not supported.

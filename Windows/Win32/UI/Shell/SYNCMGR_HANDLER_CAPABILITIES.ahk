@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the capabilities of a handler regarding the actions that can be performed against it.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SYNCMGR_HANDLER_CAPABILITIES{
+class SYNCMGR_HANDLER_CAPABILITIES extends Win32Enum{
 
     /**
      * No capability flags are set.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The BrushType enumeration indicates the type of brush. There are five types of brushes.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class BrushType{
+class BrushType extends Win32Enum{
 
     /**
      * Indicates a brush of type <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusbrush/nl-gdiplusbrush-solidbrush">SolidBrush</a>. A solid brush paints a single, constant color that can be opaque or transparent.

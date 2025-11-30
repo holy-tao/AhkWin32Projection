@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the conversion matrices between Y'PbPr (component video) and studio R'G'B'.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFVideoTransferMatrix{
+class MFVideoTransferMatrix extends Win32Enum{
 
     /**
      * Unknown transfer matrix. Treat as MFVideoTransferMatrix_BT709.

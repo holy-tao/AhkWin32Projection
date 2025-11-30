@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specify how a shadow copy is to be created, queried, or deleted and the degree of writer involvement.
@@ -43,7 +44,7 @@
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_SNAPSHOT_CONTEXT{
+class VSS_SNAPSHOT_CONTEXT extends Win32Enum{
 
     /**
      * The standard backup context. Specifies an auto-release, nonpersistent shadow copy in which writers are 

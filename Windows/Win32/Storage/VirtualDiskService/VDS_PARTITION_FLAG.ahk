@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines a set of valid flags for a partition.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_PARTITION_FLAG{
+class VDS_PARTITION_FLAG extends Win32Enum{
 
     /**
      * If set, the partition is a system partition.

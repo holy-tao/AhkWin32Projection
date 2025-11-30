@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the bit values used to construct the WebSocket frame header.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Networking.WebSocket
  * @version v4.0.30319
  */
-class WEB_SOCKET_BUFFER_TYPE{
+class WEB_SOCKET_BUFFER_TYPE extends Win32Enum{
 
     /**
      * Indicates the buffer contains the last, and possibly only, part of a UTF8 message.

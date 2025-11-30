@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the actions that can be triggered in response to a quota or file screen event (for example, a quota is exceeded or a file violates a file screen).
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
-class FsrmActionType{
+class FsrmActionType extends Win32Enum{
 
     /**
      * The action is of an unknown type. Do not use this value to specify an action type.

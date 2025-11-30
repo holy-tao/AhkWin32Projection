@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Values that specify debug message severity levels for an information queue.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
-class DXGI_INFO_QUEUE_MESSAGE_SEVERITY{
+class DXGI_INFO_QUEUE_MESSAGE_SEVERITY extends Win32Enum{
 
     /**
      * Defines some type of corruption that has occurred.

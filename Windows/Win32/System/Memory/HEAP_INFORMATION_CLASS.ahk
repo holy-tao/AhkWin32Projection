@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the class of heap information to be set or retrieved.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.System.Memory
  * @version v4.0.30319
  */
-class HEAP_INFORMATION_CLASS{
+class HEAP_INFORMATION_CLASS extends Win32Enum{
 
     /**
      * The heap features that are enabled. The available features vary based on operating system. Depending on the <i>HeapInformation</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapqueryinformation">HeapQueryInformation</a> or <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapsetinformation">HeapSetInformation</a> functions, specifying this enumeration value can indicate one of the following features:

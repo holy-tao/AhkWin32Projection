@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the type of security protocol to be used on a socket to secure network traffic.
@@ -17,7 +18,7 @@
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
-class SOCKET_SECURITY_PROTOCOL{
+class SOCKET_SECURITY_PROTOCOL extends Win32Enum{
 
     /**
      * The default system security will be used.

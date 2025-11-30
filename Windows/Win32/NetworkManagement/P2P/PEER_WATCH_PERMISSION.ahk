@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines whether a peer contact can receive presence updates from a contact.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
-class PEER_WATCH_PERMISSION{
+class PEER_WATCH_PERMISSION extends Win32Enum{
 
     /**
      * The peer contact cannot receive presence updates.

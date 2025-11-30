@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the parameter set used by a raw codec.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICRawParameterSet{
+class WICRawParameterSet extends Win32Enum{
 
     /**
      * An as shot parameter set.

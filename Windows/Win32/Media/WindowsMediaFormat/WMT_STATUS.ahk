@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WMT_STATUS enumeration type defines a range of file status information.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
-class WMT_STATUS{
+class WMT_STATUS extends Win32Enum{
 
     /**
      * An error occurred.

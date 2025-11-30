@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies values that identify the Ribbon framework View.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
-class UI_VIEWTYPE{
+class UI_VIEWTYPE extends Win32Enum{
 
     /**
      * A Ribbon View.

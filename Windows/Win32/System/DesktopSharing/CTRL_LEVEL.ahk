@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the level of control that an attendee has on a session.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
-class CTRL_LEVEL{
+class CTRL_LEVEL extends Win32Enum{
 
     /**
      * Minimum enumeration value.

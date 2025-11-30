@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents types of statistics that convey information about a component.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
-class SYNC_STATISTICS{
+class SYNC_STATISTICS extends Win32Enum{
 
     /**
      * Indicates that the statistic represents the number of ranges that are contained in an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncknowledge">ISyncKnowledge</a> object.

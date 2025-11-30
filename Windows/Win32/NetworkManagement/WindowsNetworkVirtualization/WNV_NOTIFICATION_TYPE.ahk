@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of a given Windows Network Virtualization (WNV) notification.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
  * @version v4.0.30319
  */
-class WNV_NOTIFICATION_TYPE{
+class WNV_NOTIFICATION_TYPE extends Win32Enum{
 
     /**
      * A policy mismatch notification.

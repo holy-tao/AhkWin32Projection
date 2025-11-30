@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the render intent of the next CopyPixels call.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICRawRenderMode{
+class WICRawRenderMode extends Win32Enum{
 
     /**
      * Use speed priority mode.

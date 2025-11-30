@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * This enumeration is intended for infrastructure use only.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.WindowsProgramming
  * @version v4.0.30319
  */
-class FEATURE_ENABLED_STATE{
+class FEATURE_ENABLED_STATE extends Win32Enum{
 
     /**
      * TBD

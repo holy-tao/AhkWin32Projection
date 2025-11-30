@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values for the XML canonicalization algorithms.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_XML_CANONICALIZATION_ALGORITHM{
+class WS_XML_CANONICALIZATION_ALGORITHM extends Win32Enum{
 
     /**
      * The exclusive XML canonicalization algorithm

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the possible language extensions in a specified subpicture stream.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class DVD_SUBPICTURE_LANG_EXT{
+class DVD_SUBPICTURE_LANG_EXT extends Win32Enum{
 
     /**
      * Indicates that no language extensions are present.

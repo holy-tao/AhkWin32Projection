@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the action for which an update is explicitly deployed.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
-class DeploymentAction{
+class DeploymentAction extends Win32Enum{
 
     /**
      * No explicit deployment action is specified on the update. The update  inherits the value from its bundled updates.

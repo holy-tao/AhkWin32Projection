@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the profile flags that are set in the MF_TRANSCODE_ADJUST_PROFILE attribute.
@@ -56,7 +57,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_TRANSCODE_ADJUST_PROFILE_FLAGS{
+class MF_TRANSCODE_ADJUST_PROFILE_FLAGS extends Win32Enum{
 
     /**
      * Media Foundation uses the application-specified settings for audio and video streams. If the required settings are not provided by the application, the topology is created but the encoding session fails. For the video stream, the frame rate and the interlace mode settings are modified. For more information, see Remarks.

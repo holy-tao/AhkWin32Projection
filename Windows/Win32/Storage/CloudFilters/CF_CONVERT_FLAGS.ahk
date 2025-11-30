@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Normal file/directory to placeholder file/directory conversion flags.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
-class CF_CONVERT_FLAGS{
+class CF_CONVERT_FLAGS extends Win32BitflagEnum{
 
     /**
      * No conversion flags.

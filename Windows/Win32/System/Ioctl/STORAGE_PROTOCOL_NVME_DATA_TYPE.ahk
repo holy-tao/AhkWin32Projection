@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the type of NVMe protocol-specific data that's to be queried during an IOCTL_STORAGE_QUERY_PROPERTY request.
@@ -22,7 +23,7 @@
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
-class STORAGE_PROTOCOL_NVME_DATA_TYPE{
+class STORAGE_PROTOCOL_NVME_DATA_TYPE extends Win32Enum{
 
     /**
      * Unknown data type.

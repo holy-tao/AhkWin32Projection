@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of assignment for a personal desktop resolution.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE{
+class TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE extends Win32Enum{
 
     /**
      * A new personal desktop was created for the user.

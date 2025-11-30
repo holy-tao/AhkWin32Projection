@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
  * @version v4.0.30319
  */
-class CTL_MODIFY_REQUEST_OPERATION{
+class CTL_MODIFY_REQUEST_OPERATION extends Win32Enum{
 
     /**
      * @type {Integer (UInt32)}

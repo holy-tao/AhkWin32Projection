@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the type of the parameter value.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.ServerBackup
  * @version v4.0.30319
  */
-class WSB_OB_STATUS_ENTRY_PAIR_TYPE{
+class WSB_OB_STATUS_ENTRY_PAIR_TYPE extends Win32Enum{
 
     /**
      * The value type is undefined.

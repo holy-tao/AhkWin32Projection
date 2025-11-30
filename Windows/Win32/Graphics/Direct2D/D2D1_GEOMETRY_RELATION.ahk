@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes how one geometry object is spatially related to another geometry object.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_GEOMETRY_RELATION{
+class D2D1_GEOMETRY_RELATION extends Win32Enum{
 
     /**
      * The relationship between the two geometries cannot be determined. This value is never returned by any D2D method.

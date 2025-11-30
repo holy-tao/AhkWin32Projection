@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the measurement system for a depth value in a video frame.
@@ -20,7 +21,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFDepthMeasurement{
+class MFDepthMeasurement extends Win32Enum{
 
     /**
      * The measurement is the distance to the focal plane.

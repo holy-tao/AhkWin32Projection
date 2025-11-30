@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DIRECTORY_TYPE enum is used to indicate the type of directory server.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class DIRECTORY_TYPE{
+class DIRECTORY_TYPE extends Win32Enum{
 
     /**
      * Directory type is NTDS.

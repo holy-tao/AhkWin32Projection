@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Controls aspects of the behavior of the IOleObject::GetMoniker and IOleClientSite::GetMoniker methods.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
-class OLEGETMONIKER{
+class OLEGETMONIKER extends Win32Enum{
 
     /**
      * If a moniker for the object or container does not exist, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleclientsite-getmoniker">IOleClientSite::GetMoniker</a> should return E_FAIL and not assign a moniker.

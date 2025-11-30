@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The FilterType enumeration specifies the type of filter used for an RSVP FILTERSPEC.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */
-class FilterType{
+class FilterType extends Win32Enum{
 
     /**
      * Indicates an IPv4 FILTERSPEC.

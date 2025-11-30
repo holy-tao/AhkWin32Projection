@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Enumerates the possible versions for parameters for the TakeSnapshotVhdSet function.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */
-class TAKE_SNAPSHOT_VHDSET_VERSION{
+class TAKE_SNAPSHOT_VHDSET_VERSION extends Win32Enum{
 
     /**
      * Not Supported.

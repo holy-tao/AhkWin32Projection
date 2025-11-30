@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the state of a managed service account.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */
-class MSA_INFO_STATE{
+class MSA_INFO_STATE extends Win32Enum{
 
     /**
      * The account does not exist.

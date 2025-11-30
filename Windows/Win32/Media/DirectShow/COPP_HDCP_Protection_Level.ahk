@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the HDCP protection level.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class COPP_HDCP_Protection_Level{
+class COPP_HDCP_Protection_Level extends Win32Enum{
 
     /**
      * HDCP protection is not enabled. See Remarks.

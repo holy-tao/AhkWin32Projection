@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the blend operation on two color sources.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_BLEND_OPERATION{
+class D2D1_BLEND_OPERATION extends Win32Enum{
 
     /**
      * Add source 1 and source 2.

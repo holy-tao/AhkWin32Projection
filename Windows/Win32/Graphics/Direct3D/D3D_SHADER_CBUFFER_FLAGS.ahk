@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Values that identify the indended use of a constant-data buffer.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */
-class D3D_SHADER_CBUFFER_FLAGS{
+class D3D_SHADER_CBUFFER_FLAGS extends Win32Enum{
 
     /**
      * Bind the constant buffer to an input slot defined in HLSL code (instead of letting the compiler choose the input slot).

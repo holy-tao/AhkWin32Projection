@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the file management job types.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
-class FsrmFileManagementType{
+class FsrmFileManagementType extends Win32Enum{
 
     /**
      * The file management type is unknown; do not use this value.

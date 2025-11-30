@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ADS_SD_CONTROL_ENUM enumeration specifies control flags for a security descriptor.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class ADS_SD_CONTROL_ENUM{
+class ADS_SD_CONTROL_ENUM extends Win32Enum{
 
     /**
      * A default mechanism provides the owner security identifier (SID) of the security descriptor rather than the original provider of the security descriptor.

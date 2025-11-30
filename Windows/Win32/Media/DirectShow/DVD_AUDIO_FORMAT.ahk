@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the audio format of a DVD.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class DVD_AUDIO_FORMAT{
+class DVD_AUDIO_FORMAT extends Win32Enum{
 
     /**
      * Audio format is Dolby AC-3.

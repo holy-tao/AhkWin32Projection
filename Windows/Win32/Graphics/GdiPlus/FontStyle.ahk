@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The FontStyle enumeration specifies the style of the typeface of a font. Styles can be combined.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class FontStyle{
+class FontStyle extends Win32Enum{
 
     /**
      * Specifies normal weight or thickness of the typeface.

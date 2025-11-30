@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the isolation level that is to be used for transactions.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
-class COMAdminTxIsolationLevelOptions{
+class COMAdminTxIsolationLevelOptions extends Win32Enum{
 
     /**
      * Any isolation level is supported. A downstream component that has this isolation level always uses the same isolation level that its immediate upstream component uses. If the root object in a transaction has its isolation level configured to COMAdminTxIsolationLevelAny, its isolation level becomes COMAdminTxIsolationLevelSerializable.

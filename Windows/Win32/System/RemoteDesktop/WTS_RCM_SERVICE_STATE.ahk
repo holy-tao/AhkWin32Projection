@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains information about the state of the Remote Desktop Services service.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class WTS_RCM_SERVICE_STATE{
+class WTS_RCM_SERVICE_STATE extends Win32Enum{
 
     /**
      * There has been no change in the state of the service.

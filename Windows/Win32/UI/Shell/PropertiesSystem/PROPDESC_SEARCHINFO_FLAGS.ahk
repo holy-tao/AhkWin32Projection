@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Determines whether and how a property is indexed by Windows Search.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
-class PROPDESC_SEARCHINFO_FLAGS{
+class PROPDESC_SEARCHINFO_FLAGS extends Win32BitflagEnum{
 
     /**
      * The property is not indexed.

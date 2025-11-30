@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies values that identify whether the font size of a highlighted text run should be incremented or decremented.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
-class UI_FONTDELTASIZE{
+class UI_FONTDELTASIZE extends Win32Enum{
 
     /**
      * Increment the font size.

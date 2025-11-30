@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values for the type of access granted to the attendee for the channel.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
-class CHANNEL_ACCESS_ENUM{
+class CHANNEL_ACCESS_ENUM extends Win32Enum{
 
     /**
      * No access. The attendee cannot send or receive data on the channel.

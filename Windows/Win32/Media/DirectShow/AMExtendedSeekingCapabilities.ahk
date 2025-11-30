@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The AMExtendedSeekingCapabilities enumeration contains flags that describe the extended seeking capabilities of a filter.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class AMExtendedSeekingCapabilities{
+class AMExtendedSeekingCapabilities extends Win32Enum{
 
     /**
      * Indicates that the stream is seekable.

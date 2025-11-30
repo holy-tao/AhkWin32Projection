@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the origin of a package.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
-class PackageOrigin{
+class PackageOrigin extends Win32Enum{
 
     /**
      * The package's origin is unknown.

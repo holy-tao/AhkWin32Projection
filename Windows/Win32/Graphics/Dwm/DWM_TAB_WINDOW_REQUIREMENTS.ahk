@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Returned by DwmGetUnmetTabRequirements to indicate the requirements needed for a window to put tabs in the application title bar.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Dwm
  * @version v4.0.30319
  */
-class DWM_TAB_WINDOW_REQUIREMENTS{
+class DWM_TAB_WINDOW_REQUIREMENTS extends Win32BitflagEnum{
 
     /**
      * The window meets all requirements requested.

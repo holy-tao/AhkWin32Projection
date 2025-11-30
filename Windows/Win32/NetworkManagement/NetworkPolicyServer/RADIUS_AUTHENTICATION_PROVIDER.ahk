@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The RADIUS_AUTHENTICATION_PROVIDER type enumerates the possible authentication providers that NPS can use.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class RADIUS_AUTHENTICATION_PROVIDER{
+class RADIUS_AUTHENTICATION_PROVIDER extends Win32Enum{
 
     /**
      * The authentication provider is unknown.

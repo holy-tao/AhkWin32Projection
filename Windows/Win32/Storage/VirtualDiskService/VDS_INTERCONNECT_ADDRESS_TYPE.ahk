@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of the valid address types of a physical interconnect.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_INTERCONNECT_ADDRESS_TYPE{
+class VDS_INTERCONNECT_ADDRESS_TYPE extends Win32Enum{
 
     /**
      * This value is reserved.

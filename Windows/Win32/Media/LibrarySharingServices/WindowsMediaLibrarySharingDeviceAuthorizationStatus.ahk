@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WindowsMediaLibrarySharingDeviceAuthorizationStatus enumeration defines constants that indicate whether a media device is authorized to have access to a media library.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.LibrarySharingServices
  * @version v4.0.30319
  */
-class WindowsMediaLibrarySharingDeviceAuthorizationStatus{
+class WindowsMediaLibrarySharingDeviceAuthorizationStatus extends Win32Enum{
 
     /**
      * It is not known whether the device is authorized to have access to the media library.

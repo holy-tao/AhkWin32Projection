@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the interest in a set of operating system-specific gestures.
@@ -17,7 +18,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InkSystemGesture{
+class InkSystemGesture extends Win32Enum{
 
     /**
      * A click of the left mouse button. This can be used to choose a command from the menu or toolbar, take action if a command is chosen, set an insertion point (IP), or show selection feedback.

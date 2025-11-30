@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The type of WS_XML_NODE structure.
@@ -24,7 +25,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_XML_NODE_TYPE{
+class WS_XML_NODE_TYPE extends Win32Enum{
 
     /**
      * A start element. (e.g. &lt;a:purchaseOrder xmlns:a="http://tempuri.org" id="5"&gt;)

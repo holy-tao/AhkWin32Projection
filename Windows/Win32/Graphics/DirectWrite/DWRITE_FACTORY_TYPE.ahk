@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of DirectWrite factory object.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_FACTORY_TYPE{
+class DWRITE_FACTORY_TYPE extends Win32Enum{
 
     /**
      * Indicates that the DirectWrite factory is a shared factory and that it allows for the reuse of cached font data across multiple in-process components. Such factories also take advantage of cross process font caching components for better performance.

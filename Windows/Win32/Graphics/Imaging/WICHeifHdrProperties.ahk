@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the HDR properties of a High Efficiency Image Format (HEIF) image.
@@ -48,7 +49,7 @@
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICHeifHdrProperties{
+class WICHeifHdrProperties extends Win32Enum{
 
     /**
      * [VT_UI2] Specifies the maximum luminance level of the content in Nits.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that indicate the type of session information to retrieve in a call to the WTSQuerySessionInformation function.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class WTS_INFO_CLASS{
+class WTS_INFO_CLASS extends Win32Enum{
 
     /**
      * A null-terminated string that contains the name of the initial program that Remote Desktop Services runs when the 

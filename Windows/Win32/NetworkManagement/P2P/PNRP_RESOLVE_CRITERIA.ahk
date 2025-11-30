@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PNRP_RESOLVE_CRITERIA enumeration specifies the criteria that PNRP uses to resolve searches.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
-class PNRP_RESOLVE_CRITERIA{
+class PNRP_RESOLVE_CRITERIA extends Win32Enum{
 
     /**
      * Use the PNRP_RESOLVE_CRITERIA_NON_CURRENT_PROCESS_PEER_NAME criteria. This is also the default behavior if <a href="https://docs.microsoft.com/windows/desktop/api/pnrpns/ns-pnrpns-pnrpinfo_v1">PNRPINFO</a> is not specified.

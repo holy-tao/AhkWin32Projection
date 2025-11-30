@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values that are used with the Text Object Model (TOM) API.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
-class tomConstants{
+class tomConstants extends Win32Enum{
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that indicates false.

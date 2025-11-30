@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of mouse pointer to appear.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InkMousePointer{
+class InkMousePointer extends Win32Enum{
 
     /**
      * The default mouse pointer.

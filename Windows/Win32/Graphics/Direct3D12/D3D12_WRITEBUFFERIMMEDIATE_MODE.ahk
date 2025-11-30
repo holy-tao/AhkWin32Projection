@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the mode used by a WriteBufferImmediate operation.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_WRITEBUFFERIMMEDIATE_MODE{
+class D3D12_WRITEBUFFERIMMEDIATE_MODE extends Win32Enum{
 
     /**
      * The write operation behaves the same as normal copy-write operations.

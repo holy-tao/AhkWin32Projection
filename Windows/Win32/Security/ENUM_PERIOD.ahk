@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the units of a time span.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */
-class ENUM_PERIOD{
+class ENUM_PERIOD extends Win32Enum{
 
     /**
      * 

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how a geometry is simplified to an ID2D1SimplifiedGeometrySink.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_GEOMETRY_SIMPLIFICATION_OPTION{
+class D2D1_GEOMETRY_SIMPLIFICATION_OPTION extends Win32Enum{
 
     /**
      * The output can contain cubic Bezier curves and line segments.

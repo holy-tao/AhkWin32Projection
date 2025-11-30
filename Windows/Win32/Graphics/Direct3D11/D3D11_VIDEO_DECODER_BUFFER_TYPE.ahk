@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a type of compressed buffer for decoding.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_VIDEO_DECODER_BUFFER_TYPE{
+class D3D11_VIDEO_DECODER_BUFFER_TYPE extends Win32Enum{
 
     /**
      * Picture decoding parameter buffer.

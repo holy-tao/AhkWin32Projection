@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the type of remote configuration possible for a component.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319
  */
-class RemoteConfigurationType{
+class RemoteConfigurationType extends Win32Enum{
 
     /**
      * The component allows  remote configuration directly on the machine.

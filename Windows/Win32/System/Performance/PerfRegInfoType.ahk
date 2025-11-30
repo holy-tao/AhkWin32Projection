@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the types of information that you can request about a performance counter set by calling the PerfQueryCounterSetRegistrationInfo function.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
-class PerfRegInfoType{
+class PerfRegInfoType extends Win32Enum{
 
     /**
      * Gets the registration information for a counter set and all of the counters it contains as a <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_reg_info">PERF_COUNTERSET_REG_INFO</a> block.  The block includes a <b>PERF_COUNTERSET_REG_INFO</b> structure followed by one or  

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values that set the interest in a set of application-specific gesture.Application gestures are gestures that you can choose to have your application support.
@@ -17,7 +18,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InkApplicationGesture{
+class InkApplicationGesture extends Win32Enum{
 
     /**
      * All application-specific gestures.

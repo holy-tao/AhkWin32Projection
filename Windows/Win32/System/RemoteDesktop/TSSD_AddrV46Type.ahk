@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the IP address type.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class TSSD_AddrV46Type{
+class TSSD_AddrV46Type extends Win32Enum{
 
     /**
      * The IP address is not valid.

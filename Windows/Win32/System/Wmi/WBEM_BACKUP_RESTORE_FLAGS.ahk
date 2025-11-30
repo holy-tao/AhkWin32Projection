@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains flags used for the IWbemBackupRestore::Restore method and the IWbemBackupRestoreEx::Restore method.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class WBEM_BACKUP_RESTORE_FLAGS{
+class WBEM_BACKUP_RESTORE_FLAGS extends Win32Enum{
 
     /**
      * Does not shut down active clients; returns an error if there are any.

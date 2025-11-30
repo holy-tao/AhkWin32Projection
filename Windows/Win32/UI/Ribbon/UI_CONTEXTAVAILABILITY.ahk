@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies values that identify the availability of a contextual tab.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
-class UI_CONTEXTAVAILABILITY{
+class UI_CONTEXTAVAILABILITY extends Win32Enum{
 
     /**
      * A contextual tab is not available for the selected object.

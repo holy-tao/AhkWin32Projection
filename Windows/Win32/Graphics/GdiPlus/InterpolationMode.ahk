@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The InterpolationMode enumeration specifies the algorithm that is used when images are scaled or rotated. This enumeration is used by the Graphics::GetInterpolationMode and Graphics::SetInterpolationMode methods of the Graphics class.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class InterpolationMode{
+class InterpolationMode extends Win32Enum{
 
     /**
      * Used internally

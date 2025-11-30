@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies values that identify the execution IDs that map to actions a user can initiate on a Command.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
-class UI_EXECUTIONVERB{
+class UI_EXECUTIONVERB extends Win32Enum{
 
     /**
      * Execute a command.

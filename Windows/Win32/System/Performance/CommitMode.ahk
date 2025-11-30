@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the action to take when committing changes to the data collector set.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
-class CommitMode{
+class CommitMode extends Win32Enum{
 
     /**
      * Save the set. The set must not already exist. 

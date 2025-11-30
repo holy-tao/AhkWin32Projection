@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by the RestartAction resource common property to specify the action to be taken by the cluster service if the resource fails.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_RESOURCE_RESTART_ACTION{
+class CLUSTER_RESOURCE_RESTART_ACTION extends Win32Enum{
 
     /**
      * Do not restart the resource after a failure.

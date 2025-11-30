@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Elements of the TfActiveSelEnd enumeration specify which end of a selected range of text is active.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
-class TfActiveSelEnd{
+class TfActiveSelEnd extends Win32Enum{
 
     /**
      * The selected range has no active end. This is typical for selected ranges other than the default selected range.

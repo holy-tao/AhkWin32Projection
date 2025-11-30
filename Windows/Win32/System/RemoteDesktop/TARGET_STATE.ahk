@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the state of a target.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class TARGET_STATE{
+class TARGET_STATE extends Win32Enum{
 
     /**
      * The target state is unknown.

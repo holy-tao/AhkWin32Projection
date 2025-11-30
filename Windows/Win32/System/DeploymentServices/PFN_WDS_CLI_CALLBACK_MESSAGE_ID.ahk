@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */
-class PFN_WDS_CLI_CALLBACK_MESSAGE_ID{
+class PFN_WDS_CLI_CALLBACK_MESSAGE_ID extends Win32Enum{
 
     /**
      * @type {Integer (UInt32)}

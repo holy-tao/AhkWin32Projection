@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that specify whether data in a table should be read primarily by row or by column.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
-class RowOrColumnMajor{
+class RowOrColumnMajor extends Win32Enum{
 
     /**
      * Data in the table should be read row by row.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The InputScope enumeration contains values that specify which input scopes are applied to a given field.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
-class InputScope{
+class InputScope extends Win32Enum{
 
     /**
      * Indicates the standard recognition bias. Treated as default and uses the default lexicon. If combined with another input scope, it does not force coercion on the other input scope.

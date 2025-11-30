@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The AudioSessionState enumeration defines constants that indicate the current state of an audio session.
@@ -17,7 +18,7 @@
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
-class AudioSessionState{
+class AudioSessionState extends Win32Enum{
 
     /**
      * The audio session is inactive. (It contains at least one stream, but none of the streams in the session is currently running.)

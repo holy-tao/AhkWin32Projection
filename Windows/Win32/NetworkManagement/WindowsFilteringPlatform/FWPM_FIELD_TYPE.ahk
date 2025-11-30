@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Provides additional information about how the field's data should be interpreted.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class FWPM_FIELD_TYPE{
+class FWPM_FIELD_TYPE extends Win32Enum{
 
     /**
      * Value contains raw data.

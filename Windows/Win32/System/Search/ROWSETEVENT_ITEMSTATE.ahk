@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes whether an item that matches the search criteria of a rowset is currently in that rowset.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
-class ROWSETEVENT_ITEMSTATE{
+class ROWSETEVENT_ITEMSTATE extends Win32Enum{
 
     /**
      * The item is definitely not in the rowset.

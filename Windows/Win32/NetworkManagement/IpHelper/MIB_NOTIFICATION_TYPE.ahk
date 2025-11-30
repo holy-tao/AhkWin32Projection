@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the notification type passed to a callback function when a notification occurs.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */
-class MIB_NOTIFICATION_TYPE{
+class MIB_NOTIFICATION_TYPE extends Win32Enum{
 
     /**
      * A parameter was changed.

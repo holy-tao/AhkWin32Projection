@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DNS_FREE_TYPE enumeration specifies the type of data to free.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */
-class DNS_FREE_TYPE{
+class DNS_FREE_TYPE extends Win32Enum{
 
     /**
      * The data freed is a flat structure.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of valid flags for a disk object.Note   Except for VDS_DF_READ_ONLY, these flags cannot be set by using the IVdsDisk::SetFlags method or cleared by using the IVdsDisk::ClearFlags method.
@@ -26,7 +27,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_DISK_FLAG{
+class VDS_DISK_FLAG extends Win32Enum{
 
     /**
      * The media in a CDROM or DVD drive is an audio CD.

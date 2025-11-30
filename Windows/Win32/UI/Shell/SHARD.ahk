@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the interpretation of the data passed by SHAddToRecentDocs in its pv parameter to identify the item whose usage statistics are being tracked.
@@ -24,7 +25,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SHARD{
+class SHARD extends Win32Enum{
 
     /**
      * The <i>pv</i> parameter points to a PIDL that identifies the document's file object. PIDLs that identify non-file objects are not accepted.

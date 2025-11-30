@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the shape at the end of a line or segment.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_CAP_STYLE{
+class D2D1_CAP_STYLE extends Win32Enum{
 
     /**
      * A cap that does not extend past the last point of the line. Comparable to cap used for objects other than lines.

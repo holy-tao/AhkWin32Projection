@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of event that the ITSGAccountingEngine::DoAccounting method is being notified of.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class AAAccountingDataType{
+class AAAccountingDataType extends Win32Enum{
 
     /**
      * A new session was created.

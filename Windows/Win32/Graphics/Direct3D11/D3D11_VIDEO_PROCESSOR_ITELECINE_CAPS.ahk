@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the inverse telecine (IVTC) capabilities of a video processor.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS{
+class D3D11_VIDEO_PROCESSOR_ITELECINE_CAPS extends Win32Enum{
 
     /**
      * The video processor can reverse 3:2 pulldown.

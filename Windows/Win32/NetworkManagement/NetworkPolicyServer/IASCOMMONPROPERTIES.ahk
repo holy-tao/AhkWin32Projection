@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the IASCOMMONPROPERTIES enumeration type enumerate properties that are present in all SDO objects.
@@ -20,7 +21,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class IASCOMMONPROPERTIES{
+class IASCOMMONPROPERTIES extends Win32Enum{
 
     /**
      * This property is reserved.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ADS_PREFERENCES_ENUM enumeration specifies the query preferences of the OLE DB provider for ADSI.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class ADS_PREFERENCES_ENUM{
+class ADS_PREFERENCES_ENUM extends Win32Enum{
 
     /**
      * Requests an asynchronous search.

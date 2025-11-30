@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The AGENTHANDLER_EVENT enum describes agent handler events. The ITAgentHandlerEvent::get_Event method returns a member of this enum to indicate the type of agent handler event that occurred.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class AGENTHANDLER_EVENT{
+class AGENTHANDLER_EVENT extends Win32Enum{
 
     /**
      * A new AgentHandler object has been added.

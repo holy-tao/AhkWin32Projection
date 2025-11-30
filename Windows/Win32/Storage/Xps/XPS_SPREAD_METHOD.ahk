@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes how the spread region is to be filled.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
-class XPS_SPREAD_METHOD{
+class XPS_SPREAD_METHOD extends Win32Enum{
 
     /**
      * The spread region is filled with the color whose value equals the color  at the end of the gradient region.

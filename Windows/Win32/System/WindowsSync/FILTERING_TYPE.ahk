@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the type of information that is included in a change batch during filtered synchronization.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
-class FILTERING_TYPE{
+class FILTERING_TYPE extends Win32Enum{
 
     /**
      * The change batch includes data and metadata for items that are currently in the filter.

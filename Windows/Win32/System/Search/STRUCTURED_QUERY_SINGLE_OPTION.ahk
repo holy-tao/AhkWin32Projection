@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * A set of flags to be used with IQueryParser::SetOption and IQueryParser::GetOption to indicate individual options.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
-class STRUCTURED_QUERY_SINGLE_OPTION{
+class STRUCTURED_QUERY_SINGLE_OPTION extends Win32Enum{
 
     /**
      * The option value should be a <b>VT_LPWSTR</b> that is the path to a file containing a schema binary. It is set automatically when obtaining a query parser through <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nf-structuredquery-iqueryparsermanager-createloadedparser">IQueryParserManager::CreateLoadedParser</a>.

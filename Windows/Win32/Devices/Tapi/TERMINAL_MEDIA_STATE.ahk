@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The TERMINAL_MEDIA_STATE enum indicates the state of a file terminal.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class TERMINAL_MEDIA_STATE{
+class TERMINAL_MEDIA_STATE extends Win32Enum{
 
     /**
      * The file terminal is idle.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the status of a search preference set with the IDirectorySearch::SetSearchPreference method.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class ADS_STATUSENUM{
+class ADS_STATUSENUM extends Win32Enum{
 
     /**
      * The search preference was set successfully.

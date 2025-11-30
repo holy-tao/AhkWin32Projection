@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PenType enumeration indicates the type of pattern, texture, or gradient that a pen draws.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class PenType{
+class PenType extends Win32Enum{
 
     /**
      * Indicates that the pen draws with a solid color.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the types of event notifications, on a particular account, that the server sends to listening clients.
@@ -43,7 +44,7 @@
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
-class FAX_ACCOUNT_EVENTS_TYPE_ENUM{
+class FAX_ACCOUNT_EVENTS_TYPE_ENUM extends Win32Enum{
 
     /**
      * No notifications are sent.

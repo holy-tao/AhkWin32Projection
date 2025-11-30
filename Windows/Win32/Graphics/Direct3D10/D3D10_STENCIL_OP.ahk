@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The stencil operations that can be performed during depth-stencil testing.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
-class D3D10_STENCIL_OP{
+class D3D10_STENCIL_OP extends Win32Enum{
 
     /**
      * Keep the existing stencil data.

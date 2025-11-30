@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Scan opcodes.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3DX11_SCAN_OPCODE{
+class D3DX11_SCAN_OPCODE extends Win32Enum{
 
     /**
      * Add values.

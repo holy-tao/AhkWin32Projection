@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Provides a set of flags to be used with IAttachmentExecute::Prompt to indicate the action to be performed upon user confirmation.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class ATTACHMENT_ACTION{
+class ATTACHMENT_ACTION extends Win32Enum{
 
     /**
      * Cancel

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The type of a state subobject. Use with D3D12_STATE_SUBOBJECT.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_STATE_SUBOBJECT_TYPE{
+class D3D12_STATE_SUBOBJECT_TYPE extends Win32Enum{
 
     /**
      * Subobject type is <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_state_object_config">D3D12_STATE_OBJECT_CONFIG</a>.

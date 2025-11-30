@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the possible ways in which the IUpdateServiceManager2 interface can process service registration requests.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
-class AddServiceFlag{
+class AddServiceFlag extends Win32Enum{
 
     /**
      * Allows the update agent to process the service registration at a later time, when it next performs an online scan for updates.

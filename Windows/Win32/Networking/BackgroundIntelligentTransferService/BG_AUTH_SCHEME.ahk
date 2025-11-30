@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify the authentication scheme to use when a proxy or server requests user authentication.
@@ -20,7 +21,7 @@
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */
-class BG_AUTH_SCHEME{
+class BG_AUTH_SCHEME extends Win32Enum{
 
     /**
      * <em>Basic</em> is a scheme in which the user name and password are sent in clear-text to the server or proxy.

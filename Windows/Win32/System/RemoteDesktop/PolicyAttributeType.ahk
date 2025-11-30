@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the redirection settings associated with a connection.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class PolicyAttributeType{
+class PolicyAttributeType extends Win32Enum{
 
     /**
      * Enable device redirection for all devices.

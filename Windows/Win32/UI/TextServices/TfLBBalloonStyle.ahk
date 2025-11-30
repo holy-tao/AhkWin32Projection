@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Elements of the TfLBBalloonStyle enumeration are used to specify a language bar balloon style.
@@ -19,7 +20,7 @@
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
-class TfLBBalloonStyle{
+class TfLBBalloonStyle extends Win32Enum{
 
     /**
      * This balloon style is used to represent a reconversion operation.

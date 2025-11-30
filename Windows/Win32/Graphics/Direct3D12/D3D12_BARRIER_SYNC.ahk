@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_BARRIER_SYNC{
+class D3D12_BARRIER_SYNC extends Win32BitflagEnum{
 
     /**
      * @type {Integer (Int32)}

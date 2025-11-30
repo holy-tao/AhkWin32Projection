@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the types of CPU access allowed for a resource.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
-class D3D10_CPU_ACCESS_FLAG{
+class D3D10_CPU_ACCESS_FLAG extends Win32Enum{
 
     /**
      * The resource is to be <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-mapping">mappable</a> so that the CPU can change its contents. Resources created with this flag cannot be set as outputs of the pipeline and must be created with either dynamic or staging usage (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_usage">D3D10_USAGE</a>).

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Do not use. The Gender enumeration specifies the possible values for the PR_GENDER property.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */
-class Gender{
+class Gender extends Win32Enum{
 
     /**
      * No gender is specified.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines stream marker information for the IMFStreamSink::PlaceMarker method.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFSTREAMSINK_MARKER_TYPE{
+class MFSTREAMSINK_MARKER_TYPE extends Win32Enum{
 
     /**
      * This marker is for the application's use and does not convey any information to the stream sink.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the data collector types.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
-class DataCollectorType{
+class DataCollectorType extends Win32Enum{
 
     /**
      * Collects performance counter data. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-iperformancecounterdatacollector">IPerformanceCounterDataCollector</a> interface represents this data collector.

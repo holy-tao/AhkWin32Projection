@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify the mechanism by which a font came to be included in a font set.
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_FONT_SOURCE_TYPE{
+class DWRITE_FONT_SOURCE_TYPE extends Win32Enum{
 
     /**
      * Specifies that the font source is unknown, or is not any of the other defined font source types.

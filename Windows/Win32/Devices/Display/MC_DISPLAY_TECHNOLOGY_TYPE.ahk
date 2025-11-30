@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies monitor display technologies.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
-class MC_DISPLAY_TECHNOLOGY_TYPE{
+class MC_DISPLAY_TECHNOLOGY_TYPE extends Win32Enum{
 
     /**
      * Shadow-mask cathode ray tube (CRT).

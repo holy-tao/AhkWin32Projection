@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * If the PnP manager rejects a request to perform an operation, the PNP_VETO_TYPE enumeration is used to identify the reason for the rejection.
@@ -146,7 +147,7 @@
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */
-class PNP_VETO_TYPE{
+class PNP_VETO_TYPE extends Win32Enum{
 
     /**
      * The specified operation was rejected for an unknown reason.

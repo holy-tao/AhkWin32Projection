@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the type of resource to view as a render target.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_RTV_DIMENSION{
+class D3D12_RTV_DIMENSION extends Win32Enum{
 
     /**
      * Do not use this value, as it will cause <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createrendertargetview">ID3D12Device::CreateRenderTargetView</a> to fail.

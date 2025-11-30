@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies which unordered resource options are supported for a provided format.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_FORMAT_SUPPORT2{
+class D3D12_FORMAT_SUPPORT2 extends Win32BitflagEnum{
 
     /**
      * No unordered resource options are supported.

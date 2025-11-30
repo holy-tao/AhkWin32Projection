@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies DVD warning conditions.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class DVD_WARNING{
+class DVD_WARNING extends Win32Enum{
 
     /**
      * DVD-Video disc is authored incorrectly. Playback can continue, but unexpected behavior might occur.

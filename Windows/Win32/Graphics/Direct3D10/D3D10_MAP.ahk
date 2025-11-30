@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies a resource to be accessed for reading and writing by the CPU. Applications may combine one or more of these flags.
@@ -35,7 +36,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
-class D3D10_MAP{
+class D3D10_MAP extends Win32Enum{
 
     /**
      * Resource is mapped for reading. The resource must have been created with read access (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_cpu_access_flag">D3D10_CPU_ACCESS_READ</a>).

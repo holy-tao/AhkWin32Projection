@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the copy options of the Clipboard.
@@ -17,7 +18,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InkClipboardModes{
+class InkClipboardModes extends Win32Enum{
 
     /**
      * The ink is copied to the Clipboard.

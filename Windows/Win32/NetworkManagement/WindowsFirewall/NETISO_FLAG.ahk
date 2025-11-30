@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether binaries should be returned for app containers.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
-class NETISO_FLAG{
+class NETISO_FLAG extends Win32Enum{
 
     /**
      * Specifies that all binaries will be computed before the app container is returned.

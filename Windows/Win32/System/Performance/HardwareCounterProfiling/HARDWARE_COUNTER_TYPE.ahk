@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the types of hardware counters being profiled.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Performance.HardwareCounterProfiling
  * @version v4.0.30319
  */
-class HARDWARE_COUNTER_TYPE{
+class HARDWARE_COUNTER_TYPE extends Win32Enum{
 
     /**
      * Hardware performance monitoring counters.

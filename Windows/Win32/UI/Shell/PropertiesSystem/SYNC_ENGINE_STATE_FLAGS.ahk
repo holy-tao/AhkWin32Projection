@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies values used by any sync engine to expose their internal engine states to the Property Store's PKEY_StorageProviderStatus value in the File Indexer To update the property, first call IShellItem2::GetPropertyStore with the GPS_EXTRINSICPROPERTIES flag. Next, call the IPropertyStore::SetValue method of the returned object, specifying the PKEY_StorageProviderStatus key, to set the property's bitmask value using these SYNC_ENGINE_STATE_FLAGS.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
-class SYNC_ENGINE_STATE_FLAGS{
+class SYNC_ENGINE_STATE_FLAGS extends Win32BitflagEnum{
 
     /**
      * No state.

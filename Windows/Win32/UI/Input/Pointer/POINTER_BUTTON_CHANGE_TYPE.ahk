@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies a change in the state of a button associated with a pointer.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Input.Pointer
  * @version v4.0.30319
  */
-class POINTER_BUTTON_CHANGE_TYPE{
+class POINTER_BUTTON_CHANGE_TYPE extends Win32Enum{
 
     /**
      * No change in button state.

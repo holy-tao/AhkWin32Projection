@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * In Per Monitor v2 contexts, dialogs will automatically respond to DPI changes by resizing themselves and re-computing the positions of their child windows (here referred to as re-layouting).
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.HiDpi
  * @version v4.0.30319
  */
-class DIALOG_DPI_CHANGE_BEHAVIORS{
+class DIALOG_DPI_CHANGE_BEHAVIORS extends Win32BitflagEnum{
 
     /**
      * The default behavior of the dialog manager. In response to a DPI change, the dialog manager will re-layout each control, update the font on each control, resize the dialog, and update the dialog's own font.

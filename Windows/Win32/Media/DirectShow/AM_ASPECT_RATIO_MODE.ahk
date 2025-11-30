@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the aspect ratio of a video image in a display window.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class AM_ASPECT_RATIO_MODE{
+class AM_ASPECT_RATIO_MODE extends Win32Enum{
 
     /**
      * No aspect ratio correction.

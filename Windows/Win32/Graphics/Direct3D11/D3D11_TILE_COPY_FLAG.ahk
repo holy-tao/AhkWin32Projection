@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies how to copy a tile.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_TILE_COPY_FLAG{
+class D3D11_TILE_COPY_FLAG extends Win32Enum{
 
     /**
      * Indicates that the GPU isn't currently referencing any of the 

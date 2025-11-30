@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the level of certainty for a named entity.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
-class NAMED_ENTITY_CERTAINTY{
+class NAMED_ENTITY_CERTAINTY extends Win32Enum{
 
     /**
      * It could be this named entity but additional evidence is advisable.

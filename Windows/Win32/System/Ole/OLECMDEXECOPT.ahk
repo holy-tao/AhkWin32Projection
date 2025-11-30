@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies command execution options.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
-class OLECMDEXECOPT{
+class OLECMDEXECOPT extends Win32Enum{
 
     /**
      * Prompt the user for input or not, whichever is the default behavior.

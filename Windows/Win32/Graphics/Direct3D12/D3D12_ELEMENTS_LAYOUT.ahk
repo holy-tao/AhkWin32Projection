@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes how the locations of elements are identified.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_ELEMENTS_LAYOUT{
+class D3D12_ELEMENTS_LAYOUT extends Win32Enum{
 
     /**
      * For a data set of <i>n</i> elements, the pointer parameter points to the start of <i>n</i> elements in memory.

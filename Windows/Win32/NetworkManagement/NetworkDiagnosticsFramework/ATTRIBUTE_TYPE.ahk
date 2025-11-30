@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ATTRIBUTE_TYPE enumeration defines possible values for a helper attribute.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */
-class ATTRIBUTE_TYPE{
+class ATTRIBUTE_TYPE extends Win32Enum{
 
     /**
      * An invalid attribute.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of IPsec security association (SA) context change event.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class IPSEC_SA_CONTEXT_EVENT_TYPE0{
+class IPSEC_SA_CONTEXT_EVENT_TYPE0 extends Win32Enum{
 
     /**
      * A new IPsec SA context was added.

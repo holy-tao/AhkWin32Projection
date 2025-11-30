@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PlayerState enumeration type provides some basic states of Windows Media Player.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
-class PlayerState{
+class PlayerState extends Win32Enum{
 
     /**
      * 

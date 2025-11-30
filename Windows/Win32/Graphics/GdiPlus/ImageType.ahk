@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ImageType enumeration indicates whether an image is a bitmap or a metafile. The Image::GetType method returns an element of this enumeration.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class ImageType{
+class ImageType extends Win32Enum{
 
     /**
      * Indicates that the image type is not known.

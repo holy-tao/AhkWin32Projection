@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a range of hardware features, to be used when checking for feature support.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
-class DXGI_FEATURE{
+class DXGI_FEATURE extends Win32Enum{
 
     /**
      * The display supports tearing, a requirement of variable refresh rate displays.

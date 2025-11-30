@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of values used to indicate the type of table returned by calls to GetExtendedUdpTable.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */
-class UDP_TABLE_CLASS{
+class UDP_TABLE_CLASS extends Win32Enum{
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udptable">MIB_UDPTABLE</a> structure that contains all UDP endpoints on the local computer is returned to the caller.

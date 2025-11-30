@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The _AM_ASFWRITERCONFIG_PARAM DirectShow QASF enumeration type defines filter configuration parameters used in the IConfigAsfWriter2::GetParam and SetParam methods.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
-class _AM_ASFWRITERCONFIG_PARAM{
+class _AM_ASFWRITERCONFIG_PARAM extends Win32Enum{
 
     /**
      * Indicates whether the <a href="https://docs.microsoft.com/windows/desktop/wmformat/wm-asf-writer-filter">WM ASF Writer</a> should automatically create a temporal index after it has completed encoding a file. Set this parameter to <b>FALSE</b> if you want to create a frame-based index using the Windows Media Format SDK directly.

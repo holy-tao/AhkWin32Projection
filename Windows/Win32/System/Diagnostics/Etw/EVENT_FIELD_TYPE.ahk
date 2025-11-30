@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the provider information to retrieve.
@@ -19,7 +20,7 @@
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
-class EVENT_FIELD_TYPE{
+class EVENT_FIELD_TYPE extends Win32Enum{
 
     /**
      * Keyword information defined in the manifest. For providers that define themselves using MOF classes, this type returns the enable flags values if the provider class includes the Flags property. For details, see the "Specifying level and enable flags values for a provider" section of <a href="https://docs.microsoft.com/windows/desktop/ETW/event-tracing-mof-qualifiers">Event Tracing MOF Qualifiers</a>.

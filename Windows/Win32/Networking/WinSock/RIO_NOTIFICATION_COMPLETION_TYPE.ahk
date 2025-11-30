@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of completion queue notifications to use with the RIONotify function when sending or receiving data using the Winsock registered I/O extensions.
@@ -23,7 +24,7 @@
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
-class RIO_NOTIFICATION_COMPLETION_TYPE{
+class RIO_NOTIFICATION_COMPLETION_TYPE extends Win32Enum{
 
     /**
      * An event handle is used to signal completion queue notifications. 

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the alternative name types that can be specified when initializing an IAlternativeName object.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class AlternativeNameType{
+class AlternativeNameType extends Win32Enum{
 
     /**
      * The name type is not identified.

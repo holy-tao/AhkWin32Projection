@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the thread pool in which the work runs that is submitted through the activity returned from CoCreateActivity.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
-class CSC_ThreadPool{
+class CSC_ThreadPool extends Win32Enum{
 
     /**
      * No thread pool is used. If this value is used to configure a <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> object that is passed to <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-cocreateactivity">CoCreateActivity</a>, an error (CO_E_THREADPOOL_CONFIG) is returned. This is the default thread pool setting for <b>CServiceConfig</b> when <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_inheritanceconfig">CSC_InheritanceConfig</a> is set to CSC_Ignore.

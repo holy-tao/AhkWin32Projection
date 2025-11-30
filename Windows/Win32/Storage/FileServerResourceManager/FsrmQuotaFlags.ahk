@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the options for failing IO operations that violate a quota, enabling or disabling quota tracking, and providing the status of the quota scan operation.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
-class FsrmQuotaFlags{
+class FsrmQuotaFlags extends Win32Enum{
 
     /**
      * If this flag is set, the server will fail an IO operation that causes the disk space usage to exceed the 

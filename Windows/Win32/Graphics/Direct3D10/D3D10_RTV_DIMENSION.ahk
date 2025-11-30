@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how to access a resource used in a render-target view.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
-class D3D10_RTV_DIMENSION{
+class D3D10_RTV_DIMENSION extends Win32Enum{
 
     /**
      * The resource will be accessed according to its type as determined from the actual instance this enumeration is paired with when the render-target view is created.

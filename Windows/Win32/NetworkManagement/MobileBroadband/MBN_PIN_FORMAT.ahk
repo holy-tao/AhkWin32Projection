@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MBN_PIN_FORMAT enumerated type indicates whether a PIN is numeric or alphanumeric.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
-class MBN_PIN_FORMAT{
+class MBN_PIN_FORMAT extends Win32Enum{
 
     /**
      * Indicates that the PIN format is not known.

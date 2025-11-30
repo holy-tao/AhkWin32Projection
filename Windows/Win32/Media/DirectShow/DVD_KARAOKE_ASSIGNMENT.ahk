@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the speaker configuration for an audio stream.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class DVD_KARAOKE_ASSIGNMENT{
+class DVD_KARAOKE_ASSIGNMENT extends Win32Enum{
 
     /**
      * Reserved.

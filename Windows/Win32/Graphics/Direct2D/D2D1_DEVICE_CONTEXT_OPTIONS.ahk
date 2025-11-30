@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * This specifies options that apply to the device context for its lifetime.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_DEVICE_CONTEXT_OPTIONS{
+class D2D1_DEVICE_CONTEXT_OPTIONS extends Win32BitflagEnum{
 
     /**
      * The device context is created with default options.

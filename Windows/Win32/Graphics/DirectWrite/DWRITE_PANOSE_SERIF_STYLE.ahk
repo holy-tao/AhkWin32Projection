@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DWRITE_PANOSE_SERIF_STYLE enumeration contains values that specify the appearance of the serif text.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_PANOSE_SERIF_STYLE{
+class DWRITE_PANOSE_SERIF_STYLE extends Win32Enum{
 
     /**
      * Any appearance of the serif text.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines policy settings for the IMFPluginControl2::SetPolicy method.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_PLUGIN_CONTROL_POLICY{
+class MF_PLUGIN_CONTROL_POLICY extends Win32Enum{
 
     /**
      * Enumerate all registered sources and transforms.

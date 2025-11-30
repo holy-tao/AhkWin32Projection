@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines options that should be applied to the color space.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_COLOR_SPACE{
+class D2D1_COLOR_SPACE extends Win32Enum{
 
     /**
      * The color space is otherwise described, such as with a color profile.

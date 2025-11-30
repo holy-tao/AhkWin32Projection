@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Enumerates the possible cluster registry commands that a local node will perform when attempting to join a cluster.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_REG_COMMAND{
+class CLUSTER_REG_COMMAND extends Win32Enum{
 
     /**
      * This constant is not a valid command. It and the <b>CLUSREG_LAST_COMMAND</b> constant act as brackets  that contain the valid commands.

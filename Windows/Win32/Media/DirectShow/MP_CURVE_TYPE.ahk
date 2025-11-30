@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MP_CURVE_TYPE enumeration defines the curve that a media parameter follows within an envelope segment.
@@ -45,7 +46,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class MP_CURVE_TYPE{
+class MP_CURVE_TYPE extends Win32Enum{
 
     /**
      * No interpolation. Jump to the next point.

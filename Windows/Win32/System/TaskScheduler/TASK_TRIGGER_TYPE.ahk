@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the types of triggers associated with a task.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
-class TASK_TRIGGER_TYPE{
+class TASK_TRIGGER_TYPE extends Win32Enum{
 
     /**
      * Trigger is set to run the task a single time. 

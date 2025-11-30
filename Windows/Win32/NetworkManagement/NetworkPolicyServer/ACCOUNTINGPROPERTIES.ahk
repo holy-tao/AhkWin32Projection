@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the ACCOUNTINGPROPERTIES type enumerate properties that control what types of packets are logged and characteristics of the log file.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class ACCOUNTINGPROPERTIES{
+class ACCOUNTINGPROPERTIES extends Win32Enum{
 
     /**
      * Specifies whether accounting packets are logged.

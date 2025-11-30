@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WDMUSB_POWER_STATE enumeration indicates the power state of a host controller or root hub.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Devices.Usb
  * @version v4.0.30319
  */
-class WDMUSB_POWER_STATE{
+class WDMUSB_POWER_STATE extends Win32Enum{
 
     /**
      * Power state information is not mapped.

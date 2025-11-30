@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MSP_EVENT enumerator defines the type of event information contained in MSP_EVENT_INFO.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class MSP_EVENT{
+class MSP_EVENT extends Win32Enum{
 
     /**
      * The event buffer is an 

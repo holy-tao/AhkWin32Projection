@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Information classes for placeholder info.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
-class CF_PLACEHOLDER_INFO_CLASS{
+class CF_PLACEHOLDER_INFO_CLASS extends Win32Enum{
 
     /**
      * Basic placeholder information.  See <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/ns-cfapi-cf_placeholder_basic_info">CF_PLACEHOLDER_BASIC_INFO</a>.

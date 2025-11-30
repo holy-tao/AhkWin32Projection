@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the properties that are configured by the HTTP Server API on a request.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */
-class HTTP_REQUEST_PROPERTY{
+class HTTP_REQUEST_PROPERTY extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

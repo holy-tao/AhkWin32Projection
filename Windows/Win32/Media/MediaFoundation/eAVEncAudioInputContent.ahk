@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether the audio content contains music or voice. This enumeration is used with the AVEncAudioInputContent property.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVEncAudioInputContent{
+class eAVEncAudioInputContent extends Win32Enum{
 
     /**
      * The audio content is not known.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * How a WS_TYPE maps to or from XML when serialized or deserialized.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_TYPE_MAPPING{
+class WS_TYPE_MAPPING extends Win32Enum{
 
     /**
      * This is used when reading or writing an element where the type

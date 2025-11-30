@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how glyphs are rendered.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_RENDERING_MODE1{
+class DWRITE_RENDERING_MODE1 extends Win32Enum{
 
     /**
      * Specifies that the rendering mode is determined automatically, based on the font and size.

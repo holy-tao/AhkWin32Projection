@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DNS_PROXY_INFORMATION_TYPE enumeration defines the proxy information type in the DNS_PROXY_INFORMATION structure.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */
-class DNS_PROXY_INFORMATION_TYPE{
+class DNS_PROXY_INFORMATION_TYPE extends Win32Enum{
 
     /**
      * The type is bypass proxy information.

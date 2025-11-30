@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains flags for the IMF2DBuffer2::Lock2DSize method.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF2DBuffer_LockFlags{
+class MF2DBuffer_LockFlags extends Win32Enum{
 
     /**
      * Reserved.

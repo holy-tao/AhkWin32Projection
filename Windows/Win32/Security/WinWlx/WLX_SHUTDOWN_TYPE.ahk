@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinWlx
  * @version v4.0.30319
  */
-class WLX_SHUTDOWN_TYPE{
+class WLX_SHUTDOWN_TYPE extends Win32Enum{
 
     /**
      * @type {Integer (UInt32)}

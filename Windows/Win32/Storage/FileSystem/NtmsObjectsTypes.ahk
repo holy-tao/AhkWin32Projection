@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The NtmsObjectsTypes enumeration type specifies the types of RSM objects.
@@ -130,7 +131,7 @@
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
-class NtmsObjectsTypes{
+class NtmsObjectsTypes extends Win32Enum{
 
     /**
      * Unknown  object.

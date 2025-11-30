@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether the local, remote, or original copy of an item is being queried.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */
-class OFFLINEFILES_ITEM_COPY{
+class OFFLINEFILES_ITEM_COPY extends Win32Enum{
 
     /**
      * Retrieve the attributes, time values, or size  of the local copy of the item.  If the item is currently offline, this may be different than the attributes associated with the original copy.

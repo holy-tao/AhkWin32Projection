@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The GROUPPROP enumeration defines the constant values for retrieving and setting group property values.
@@ -41,7 +42,7 @@
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */
-class GROUPPROP{
+class GROUPPROP extends Win32Enum{
 
     /**
      * Determines when the QMGR processes the group relative to other groups in the queue.

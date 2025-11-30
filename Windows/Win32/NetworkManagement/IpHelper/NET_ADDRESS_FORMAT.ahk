@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The NET_ADDRESS_FORMAT enumeration specifies the format of a network address returned by the ParseNetworkString function.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */
-class NET_ADDRESS_FORMAT{
+class NET_ADDRESS_FORMAT extends Win32Enum{
 
     /**
      * The format of the network address is unspecified.

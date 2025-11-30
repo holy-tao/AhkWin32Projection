@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains constants used to distinguish between classes and instances.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class WBEM_GENUS_TYPE{
+class WBEM_GENUS_TYPE extends Win32Enum{
 
     /**
      * 

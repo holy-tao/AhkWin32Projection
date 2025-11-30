@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that differentiate between a primary token and an impersonation token.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */
-class TOKEN_TYPE{
+class TOKEN_TYPE extends Win32Enum{
 
     /**
      * Indicates a primary token.

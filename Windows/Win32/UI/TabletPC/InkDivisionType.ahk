@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values for the structural types within the IInkDivisionResult object.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InkDivisionType{
+class InkDivisionType extends Win32Enum{
 
     /**
      * A recognition segment.

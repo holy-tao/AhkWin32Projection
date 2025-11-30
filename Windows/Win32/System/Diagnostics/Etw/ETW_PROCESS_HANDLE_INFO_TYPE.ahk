@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies what kind of operation will be done on a handle.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
-class ETW_PROCESS_HANDLE_INFO_TYPE{
+class ETW_PROCESS_HANDLE_INFO_TYPE extends Win32Enum{
 
     /**
      * Used to query partition identifying information.  <i>InBuffer</i> should be Null.  <i>OutBuffer</i> should be large enough to hold the returned <a href="https://docs.microsoft.com/windows/desktop/ETW/etw-trace-partition-information">ETW_TRACE_PARTITION_INFORMATION</a> structure.  Note that this will only return a non-zero structure when the queried handle is for a trace file generated from a non-host partition on Windows 10, version 1709.

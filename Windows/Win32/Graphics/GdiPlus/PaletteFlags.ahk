@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PaletteFlags enumeration indicates attributes of the color data in a palette.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class PaletteFlags{
+class PaletteFlags extends Win32Enum{
 
     /**
      * Indicates that one or more of the palette entries contains alpha (transparency) information.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DRMSECURITYPROVIDERTYPE enumeration specifies the type of secure DRM environment used.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Data.RightsManagement
  * @version v4.0.30319
  */
-class DRMSECURITYPROVIDERTYPE{
+class DRMSECURITYPROVIDERTYPE extends Win32Enum{
 
     /**
      * Software-level security, using a lockbox.

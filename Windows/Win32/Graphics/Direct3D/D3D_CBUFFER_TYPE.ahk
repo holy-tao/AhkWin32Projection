@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Values that identify the intended use of constant-buffer data.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */
-class D3D_CBUFFER_TYPE{
+class D3D_CBUFFER_TYPE extends Win32Enum{
 
     /**
      * A buffer containing scalar constants.

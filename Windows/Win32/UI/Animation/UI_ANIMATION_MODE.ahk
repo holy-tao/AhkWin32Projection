@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines animation modes.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319
  */
-class UI_ANIMATION_MODE{
+class UI_ANIMATION_MODE extends Win32Enum{
 
     /**
      * Animation is disabled.

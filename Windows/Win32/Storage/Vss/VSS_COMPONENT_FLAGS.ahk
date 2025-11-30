@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by writers to indicate support for auto-recovery.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_COMPONENT_FLAGS{
+class VSS_COMPONENT_FLAGS extends Win32Enum{
 
     /**
      * The writer will need write access to this component after the shadow copy has been created.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the possible reasons that 802.1X authentication was restarted.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
-class ONEX_AUTH_RESTART_REASON{
+class ONEX_AUTH_RESTART_REASON extends Win32Enum{
 
     /**
      * The EAPHost component (the peer) requested the 802.1x module to restart 802.1X authentication. This results from a <a href="https://docs.microsoft.com/windows/win32/api/eaphostpeertypes/ne-eaphostpeertypes-eaphostpeerresponseaction">EapHostPeerProcessReceivedPacket</a> function call that returns an <a href="https://docs.microsoft.com/windows/desktop/api/eaphostpeertypes/ne-eaphostpeertypes-eaphostpeerresponseaction">EapHostPeerResponseAction</a> enumeration value of <b>EapHostPeerResponseStartAuthentication</b> in the <i>pEapOutput</i> parameter.

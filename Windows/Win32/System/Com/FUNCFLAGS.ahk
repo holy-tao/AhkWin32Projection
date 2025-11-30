@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies function flags.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class FUNCFLAGS{
+class FUNCFLAGS extends Win32Enum{
 
     /**
      * The function should not be accessible from macro languages. This flag is intended for system-level functions or functions that type browsers should not display.

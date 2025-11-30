@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of sampler filter reduction.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_FILTER_REDUCTION_TYPE{
+class D3D11_FILTER_REDUCTION_TYPE extends Win32Enum{
 
     /**
      * Indicates standard (default) filter reduction.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32Enum.ahk
 
 /**
  * Identifies one of the types of word lists used by spell checkers.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */
-class WORDLIST_TYPE{
+class WORDLIST_TYPE extends Win32Enum{
 
     /**
      * Words considered to be correctly spelled, but which are not offered as  suggestions. This word list isn't saved and is specific to a spelling session. (The others types of word lists are saved in the default custom dictionary files, and are global.)

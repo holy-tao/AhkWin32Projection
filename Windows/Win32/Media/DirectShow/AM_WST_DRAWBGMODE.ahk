@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The AM_WST_DRAWBGMODE enumeration specifies whether the background of the WST frame is opaque or transparent.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class AM_WST_DRAWBGMODE{
+class AM_WST_DRAWBGMODE extends Win32Enum{
 
     /**
      * The background is opaque.

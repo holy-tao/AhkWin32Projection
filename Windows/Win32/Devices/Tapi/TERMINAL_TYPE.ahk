@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The TERMINAL_TYPE enum describes the type of the terminal. This enum is returned by the ITTerminal::get_TerminalType method.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class TERMINAL_TYPE{
+class TERMINAL_TYPE extends Win32Enum{
 
     /**
      * A static terminal is a terminal that cannot be created and usually refers to hardware device. TAPI enumerates these terminals.

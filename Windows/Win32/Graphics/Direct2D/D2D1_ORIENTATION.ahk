@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the flip and rotation at which an image appears.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_ORIENTATION{
+class D2D1_ORIENTATION extends Win32Enum{
 
     /**
      * The orientation is unchanged.

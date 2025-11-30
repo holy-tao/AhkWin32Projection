@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the identifiers of the metadata items in an 8BIM IPTC digest metadata block.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WIC8BIMIptcDigestProperties{
+class WIC8BIMIptcDigestProperties extends Win32Enum{
 
     /**
      * [VT_LPSTR] A name that identifies the 8BIM block.

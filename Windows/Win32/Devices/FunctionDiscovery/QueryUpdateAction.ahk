@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents the type of action Function Discovery is performing on the specified function instance. This information is used by the client program's change notification handler.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  * @version v4.0.30319
  */
-class QueryUpdateAction{
+class QueryUpdateAction extends Win32Enum{
 
     /**
      * Function Discovery is adding the specified function instance.

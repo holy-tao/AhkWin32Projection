@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by IQueryAssociations::GetData to define the type of data that is to be returned.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class ASSOCDATA{
+class ASSOCDATA extends Win32Enum{
 
     /**
      * The component descriptor to pass to the Windows Installer API.

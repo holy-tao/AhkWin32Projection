@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Which resources are supported for a given format and given device (see ID3D10Device::CheckFormatSupport).
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
-class D3D10_FORMAT_SUPPORT{
+class D3D10_FORMAT_SUPPORT extends Win32Enum{
 
     /**
      * Buffer resources supported.

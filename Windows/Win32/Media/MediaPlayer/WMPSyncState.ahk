@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WMPSyncState enumeration type defines the possible operational states of Windows Media Player as it synchronizes digital media to a device. To use this enumeration you must create a remoted instance of the Windows Media Player 10 or later control.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
-class WMPSyncState{
+class WMPSyncState extends Win32Enum{
 
     /**
      * Synchronization state is unknown.

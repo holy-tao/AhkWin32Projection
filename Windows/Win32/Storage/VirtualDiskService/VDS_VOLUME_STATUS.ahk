@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of object status values for a volume.
@@ -21,7 +22,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_VOLUME_STATUS{
+class VDS_VOLUME_STATUS extends Win32Enum{
 
     /**
      * The status of the volume is unknown. This value does not apply to dynamic volumes.

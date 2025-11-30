@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies access rights assigned to an Active Directory object.
@@ -41,7 +42,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class ADS_RIGHTS_ENUM{
+class ADS_RIGHTS_ENUM extends Win32Enum{
 
     /**
      * The right to delete the object.

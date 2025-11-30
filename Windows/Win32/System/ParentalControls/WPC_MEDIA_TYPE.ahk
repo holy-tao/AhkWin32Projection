@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates information about the type of media file accessed.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
-class WPC_MEDIA_TYPE{
+class WPC_MEDIA_TYPE extends Win32Enum{
 
     /**
      * The type of media file accessed is not one of the types available.

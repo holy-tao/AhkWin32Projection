@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Each xml writer property is identified by an ID and has an associated value.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_XML_WRITER_PROPERTY_ID{
+class WS_XML_WRITER_PROPERTY_ID extends Win32Enum{
 
     /**
      * A <b>ULONG</b> that specifies the maximum depth of the document that the writer will permit.

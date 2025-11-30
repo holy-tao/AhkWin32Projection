@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MIB_IF_TABLE_LEVEL enumeration type defines the level of interface information to retrieve.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */
-class MIB_IF_TABLE_LEVEL{
+class MIB_IF_TABLE_LEVEL extends Win32Enum{
 
     /**
      * The values of statistics and state that are returned in members of the 

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates a high, medium, or low impact of a device running an out-of-date OS.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.System.UpdateAssessment
  * @version v4.0.30319
  */
-class UpdateImpactLevel{
+class UpdateImpactLevel extends Win32Enum{
 
     /**
      * There is no foreseeable impact to your device. This can be because the device is up-to-date, or is not up-to-date because the device is honoring its Windows Update for Business deferral periods, or is out-of-date but has not yet reached the <b>daysOutOfDate</b> threshold to reach a higher impact level.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines a set of possible input field types available when querying for user credentials.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */
-class EAP_CONFIG_INPUT_FIELD_TYPE{
+class EAP_CONFIG_INPUT_FIELD_TYPE extends Win32Enum{
 
     /**
      * The input field contains a user's application logon name.

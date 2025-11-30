@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The alignment portion of the SVG preserveAspectRatio attribute.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_SVG_ASPECT_ALIGN{
+class D2D1_SVG_ASPECT_ALIGN extends Win32Enum{
 
     /**
      * The alignment is set to SVG's 'none' value.

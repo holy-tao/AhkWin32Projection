@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Provides information about when a particular log record to the CRM compensator was written.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
-class CRMFLAGS{
+class CRMFLAGS extends Win32Enum{
 
     /**
      * 

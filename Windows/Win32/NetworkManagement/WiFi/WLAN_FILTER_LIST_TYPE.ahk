@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates types of filter lists.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
-class WLAN_FILTER_LIST_TYPE{
+class WLAN_FILTER_LIST_TYPE extends Win32Enum{
 
     /**
      * Group policy permit list.

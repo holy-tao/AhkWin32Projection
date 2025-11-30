@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether a display is showing desktop windows instead of Windows Store apps.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class MONITOR_APP_VISIBILITY{
+class MONITOR_APP_VISIBILITY extends Win32Enum{
 
     /**
      * The display state is not known.

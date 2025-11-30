@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of serialized data. Use a value from this enumeration when calling ID3D12Device5::CheckDriverMatchingIdentifier.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_SERIALIZED_DATA_TYPE{
+class D3D12_SERIALIZED_DATA_TYPE extends Win32Enum{
 
     /**
      * The serialized data is a raytracing acceleration structure.

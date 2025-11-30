@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * WCN_ATTRIBUTE_TYPE enumeration defines the attribute buffer types defined for Wi-Fi Protected Setup. The overall size occupied by each attribute buffer includes an additional 4 bytes (2 bytes of ID, 2 bytes of Length).
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
  * @version v4.0.30319
  */
-class WCN_ATTRIBUTE_TYPE{
+class WCN_ATTRIBUTE_TYPE extends Win32Enum{
 
     /**
      * This attribute value indicates that the <i>puInteger</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/wcndevice/nf-wcndevice-iwcndevice-getintegerattribute">IWCNDevice::GetIntegerAttribute</a> method is a value containing data that specifies the 802.11 channel the access point is hosting.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify a shading rate combiner (for variable-rate shading, or VRS).
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_SHADING_RATE_COMBINER{
+class D3D12_SHADING_RATE_COMBINER extends Win32Enum{
 
     /**
      * Specifies the combiner `C.xy = A.xy`, for combiner (C) and inputs (A and B).

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The type of device that sent the input message.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Input
  * @version v4.0.30319
  */
-class INPUT_MESSAGE_DEVICE_TYPE{
+class INPUT_MESSAGE_DEVICE_TYPE extends Win32Enum{
 
     /**
      * The device type isn't identified.

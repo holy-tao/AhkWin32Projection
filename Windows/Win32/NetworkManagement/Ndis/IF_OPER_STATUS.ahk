@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The IF_OPER_STATUS enumeration specifies the operational status of an interface.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.NetworkManagement.Ndis
  * @version v4.0.30319
  */
-class IF_OPER_STATUS{
+class IF_OPER_STATUS extends Win32Enum{
 
     /**
      * The interface is up and operational. The interface is able to pass packets.

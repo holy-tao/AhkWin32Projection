@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The NL_ROUTER_DISCOVERY_BEHAVIOR enumeration type defines the router discovery behavior, as described in RFC 2461.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
-class NL_ROUTER_DISCOVERY_BEHAVIOR{
+class NL_ROUTER_DISCOVERY_BEHAVIOR extends Win32Enum{
 
     /**
      * Router discovery is disabled.

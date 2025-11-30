@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Different match types allowed in filter conditions.
@@ -23,7 +24,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class FWP_MATCH_TYPE{
+class FWP_MATCH_TYPE extends Win32Enum{
 
     /**
      * Tests whether the value is equal to the condition value. 

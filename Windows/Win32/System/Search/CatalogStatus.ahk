@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by ISearchCatalogManager::GetCatalogStatus to determine the current state of the catalog.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
-class CatalogStatus{
+class CatalogStatus extends Win32Enum{
 
     /**
      * Index is current; no indexing needed. Queries can be processed.

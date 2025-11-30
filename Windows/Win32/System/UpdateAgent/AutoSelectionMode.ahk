@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the types of logic that is used to determine whether a particular update will be automatically selected when the user views available updates in the Windows Update user interface.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
-class AutoSelectionMode{
+class AutoSelectionMode extends Win32Enum{
 
     /**
      * Use the standard logic. The update will be automatically selected if it is important, or if it is recommended and Windows Update has been configured to treat recommended updates as important. Otherwise, the update will not be automatically selected.

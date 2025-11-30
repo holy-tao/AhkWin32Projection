@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates approximately how long the caller will wait to bind to an object.
@@ -17,7 +18,7 @@
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
-class BINDSPEED{
+class BINDSPEED extends Win32Enum{
 
     /**
      * There is no time limit on the binding operation.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify DXCore adapter preferences to be used as list-sorting criteria.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DXCore
  * @version v4.0.30319
  */
-class DXCoreAdapterPreference{
+class DXCoreAdapterPreference extends Win32Enum{
 
     /**
      * Specifies a preference for hardware adapters (as opposed to software adapters).

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MBN_CONTEXT_TYPE enumerated type specifies the represented context type.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
-class MBN_CONTEXT_TYPE{
+class MBN_CONTEXT_TYPE extends Win32Enum{
 
     /**
      * Context has not yet provisioned for this ID.

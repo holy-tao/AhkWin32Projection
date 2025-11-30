@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DWRITE_OUTLINE_THRESHOLD enumeration contains values that specify the policy used by the IDWriteFontFace1::GetRecommendedRenderingMode method to determine whether to render glyphs in outline mode.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_OUTLINE_THRESHOLD{
+class DWRITE_OUTLINE_THRESHOLD extends Win32Enum{
 
     /**
      * Graphics system renders anti-aliased outlines.

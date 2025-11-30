@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Elements of the TfAnchor enumeration specify the start anchor or end anchor of an ITfRange object.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
-class TfAnchor{
+class TfAnchor extends Win32Enum{
 
     /**
      * Specifies the start anchor of the <b>ITfRange</b> object.

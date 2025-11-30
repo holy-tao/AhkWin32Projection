@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The Windows Sockets WSAECOMPARATOR enumeration type is used for version-comparison semantics in Windows Sockets 2.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
-class WSAECOMPARATOR{
+class WSAECOMPARATOR extends Win32Enum{
 
     /**
      * Used for determining whether version values are equal.

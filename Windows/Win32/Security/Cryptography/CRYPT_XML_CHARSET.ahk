@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used to specify the character set used in the XML.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
-class CRYPT_XML_CHARSET{
+class CRYPT_XML_CHARSET extends Win32Enum{
 
     /**
      * This value is only supported in the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nf-cryptxml-cryptxmlopentodecode">CryptXmlOpenToDecode</a> function. The encoded XML character set is determined by the parser and is based on the XML declaration or the best guess on the characters.

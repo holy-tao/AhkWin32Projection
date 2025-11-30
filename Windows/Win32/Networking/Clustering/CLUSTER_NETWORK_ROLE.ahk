@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the role a network plays in the cluster.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_NETWORK_ROLE{
+class CLUSTER_NETWORK_ROLE extends Win32Enum{
 
     /**
      * The network is not used by the cluster.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies one of the marshaling context attributes that you can query by using the GetMarshalingContextAttribute method.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class CO_MARSHALING_CONTEXT_ATTRIBUTES{
+class CO_MARSHALING_CONTEXT_ATTRIBUTES extends Win32Enum{
 
     /**
      * The source of the marshaling data is an app container process.

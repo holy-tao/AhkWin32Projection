@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The NLM_NETWORK_CATEGORY enumeration is a set of flags that specify the category type of a network.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Networking.NetworkListManager
  * @version v4.0.30319
  */
-class NLM_NETWORK_CATEGORY{
+class NLM_NETWORK_CATEGORY extends Win32Enum{
 
     /**
      * The network is a public (untrusted) network.

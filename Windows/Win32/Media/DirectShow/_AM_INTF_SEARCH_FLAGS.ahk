@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the types of object to search, when attempting to find an interface on the filter graph.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class _AM_INTF_SEARCH_FLAGS{
+class _AM_INTF_SEARCH_FLAGS extends Win32Enum{
 
     /**
      * Search input pins.

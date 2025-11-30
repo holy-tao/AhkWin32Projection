@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines flags that apply to type libraries.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
-class LIBFLAGS{
+class LIBFLAGS extends Win32Enum{
 
     /**
      * The type library is restricted, and should not be displayed to users.

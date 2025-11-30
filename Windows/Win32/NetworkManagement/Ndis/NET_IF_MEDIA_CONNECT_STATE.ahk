@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The NET_IF_MEDIA_CONNECT_STATE enumeration type specifies the NDIS network interface connection state.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.NetworkManagement.Ndis
  * @version v4.0.30319
  */
-class NET_IF_MEDIA_CONNECT_STATE{
+class NET_IF_MEDIA_CONNECT_STATE extends Win32Enum{
 
     /**
      * The connection state of the interface is unknown.

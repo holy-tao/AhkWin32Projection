@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Enumerates policies specified by a sync handler that deviate from the default policy.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SYNCMGR_HANDLER_POLICIES{
+class SYNCMGR_HANDLER_POLICIES extends Win32Enum{
 
     /**
      * No handler policy flags are set.

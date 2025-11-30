@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Provides a set of values that indicate from which base key an item will be deleted.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SHREGDEL_FLAGS{
+class SHREGDEL_FLAGS extends Win32Enum{
 
     /**
      * Deletes from <b>HKEY_CURRENT_USER</b>. If the specified item is not found under <b>HKEY_CURRENT_USER</b>, deletes from <b>HKEY_LOCAL_MACHINE</b>.

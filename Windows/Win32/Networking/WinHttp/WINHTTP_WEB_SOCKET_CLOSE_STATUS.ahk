@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WINHTTP_WEB_SOCKET_CLOSE_STATUS enumeration includes the status of a WebSocket close operation.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */
-class WINHTTP_WEB_SOCKET_CLOSE_STATUS{
+class WINHTTP_WEB_SOCKET_CLOSE_STATUS extends Win32Enum{
 
     /**
      * The connection closed successfully.

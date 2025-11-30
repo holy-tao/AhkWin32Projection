@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how one of the color sources is to be derived and optionally specifies a preblend operation on the color source.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_BLEND{
+class D2D1_BLEND extends Win32Enum{
 
     /**
      * The data source is black (0, 0, 0, 0). There is no preblend operation.

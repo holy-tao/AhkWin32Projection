@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the type of a Local Security Authority forest trust record.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
-class LSA_FOREST_TRUST_RECORD_TYPE{
+class LSA_FOREST_TRUST_RECORD_TYPE extends Win32Enum{
 
     /**
      * Record contains an included top-level name.

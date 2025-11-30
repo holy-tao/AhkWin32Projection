@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used in the SYNCMGRHANDLERINFO structure as flags that apply to the current handler.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SYNCMGRHANDLERFLAGS{
+class SYNCMGRHANDLERFLAGS extends Win32Enum{
 
     /**
      * The current handler provides a property sheet dialog.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the relative position in the result set from which to seek.
@@ -60,7 +61,7 @@
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */
-class EVT_SEEK_FLAGS{
+class EVT_SEEK_FLAGS extends Win32Enum{
 
     /**
      * Seek to the specified offset from the first entry in the result set. The offset must be a positive value.

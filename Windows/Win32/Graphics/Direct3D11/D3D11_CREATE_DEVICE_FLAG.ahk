@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes parameters that are used to create a device.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_CREATE_DEVICE_FLAG{
+class D3D11_CREATE_DEVICE_FLAG extends Win32BitflagEnum{
 
     /**
      * Use this flag if your application will only call methods of Direct3D 11 interfaces from a single thread. By default, the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11device">ID3D11Device</a> object is  <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-render-multi-thread-differences">thread-safe</a>. 

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes how a render target behaves when it presents its content. This enumeration allows a bitwise combination of its member values.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_PRESENT_OPTIONS{
+class D2D1_PRESENT_OPTIONS extends Win32BitflagEnum{
 
     /**
      * The render target waits until the display refreshes to present and discards the frame upon presenting.

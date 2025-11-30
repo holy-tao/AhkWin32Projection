@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes an action being performed that requires progress to be shown to the user using an IActionProgress interface.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SPACTION{
+class SPACTION extends Win32Enum{
 
     /**
      * No action is being performed.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines stereo 3D capabilities for a Microsoft Direct3D 11 video processor.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_VIDEO_PROCESSOR_STEREO_CAPS{
+class D3D11_VIDEO_PROCESSOR_STEREO_CAPS extends Win32Enum{
 
     /**
      * The video processor supports the <b>D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_MONO_OFFSET</b> 

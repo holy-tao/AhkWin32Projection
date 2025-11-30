@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify a DirectML *feature level*. A feature level defines a broad umbrella of functionality supported by DirectML.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
-class DML_FEATURE_LEVEL{
+class DML_FEATURE_LEVEL extends Win32Enum{
 
     /**
      * Specifies feature level 1_0.

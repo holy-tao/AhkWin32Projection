@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of a vSwitch event.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class FWPM_VSWITCH_EVENT_TYPE{
+class FWPM_VSWITCH_EVENT_TYPE extends Win32Enum{
 
     /**
      * The filter engine is not enabled on all vSwitch instances. As a result, the filter(s) being added may not be fully enforced.

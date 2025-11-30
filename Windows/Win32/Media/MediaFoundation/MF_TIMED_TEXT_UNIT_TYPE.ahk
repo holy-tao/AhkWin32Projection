@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the units in which the timed text is measured.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_TIMED_TEXT_UNIT_TYPE{
+class MF_TIMED_TEXT_UNIT_TYPE extends Win32Enum{
 
     /**
      * The timed text is measured in pixels.

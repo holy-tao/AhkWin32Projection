@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifiers for the properties of the 3D Lookup Table effect.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_LOOKUPTABLE3D_PROP{
+class D2D1_LOOKUPTABLE3D_PROP extends Win32Enum{
 
     /**
      * The D2D1_LOOKUPTABLE3D_PROP_LUT property is a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1lookuptable3d">ID2D1LookupTable3D</a> object.  The default value is null.

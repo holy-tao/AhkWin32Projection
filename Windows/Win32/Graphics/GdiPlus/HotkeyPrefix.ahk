@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The HotkeyPrefix enumeration specifies how to display hot keys. There are three options:\_do nothing, display hot keys underlined, and hide the hot key underlines.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class HotkeyPrefix{
+class HotkeyPrefix extends Win32Enum{
 
     /**
      * Specifies that no hot key processing occurs.

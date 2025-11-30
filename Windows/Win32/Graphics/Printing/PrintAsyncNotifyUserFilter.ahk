@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether notifications will go only to listening applications that are associated with the same user as the Print Spooler-hosted sender, or go to a broader set of listening applications.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */
-class PrintAsyncNotifyUserFilter{
+class PrintAsyncNotifyUserFilter extends Win32Enum{
 
     /**
      * When passed to <a href="https://docs.microsoft.com/windows/desktop/api/prnasnot/nf-prnasnot-createprintasyncnotifychannel">CreatePrintAsyncNotifyChannel

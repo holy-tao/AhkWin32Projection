@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Flags for a raytracing acceleration structure instance. These flags can be used to override D3D12_RAYTRACING_GEOMETRY_FLAGS for individual instances.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_RAYTRACING_INSTANCE_FLAGS{
+class D3D12_RAYTRACING_INSTANCE_FLAGS extends Win32BitflagEnum{
 
     /**
      * No options specified.

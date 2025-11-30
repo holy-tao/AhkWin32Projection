@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specify special retrieval options for known folders. These values supersede CSIDL values, which have parallel meanings.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class KNOWN_FOLDER_FLAG{
+class KNOWN_FOLDER_FLAG extends Win32BitflagEnum{
 
     /**
      * 0x00000000. No flags.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains the version of the MODIFY_VHDSET_PARAMETERS structure to use in calls to virtual disk functions.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */
-class MODIFY_VHDSET_VERSION{
+class MODIFY_VHDSET_VERSION extends Win32Enum{
 
     /**
      * Not Supported.

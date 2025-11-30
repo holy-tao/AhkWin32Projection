@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the behavior of a RandomAccessStream that encapsulates a Component Object Model (COM) IStream.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
-class BSOS_OPTIONS{
+class BSOS_OPTIONS extends Win32Enum{
 
     /**
      * When creating a <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> over a stream, use the base <a href="https://docs.microsoft.com/previous-versions/hh438400(v=vs.85)">IRandomAccessStream</a> behavior on the <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-stgmove">STGM</a> mode from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-stat">Stat</a> method.

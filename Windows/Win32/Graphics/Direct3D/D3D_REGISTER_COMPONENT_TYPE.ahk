@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Values that identify the data types that can be stored in a register.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */
-class D3D_REGISTER_COMPONENT_TYPE{
+class D3D_REGISTER_COMPONENT_TYPE extends Win32Enum{
 
     /**
      * The data type is unknown.

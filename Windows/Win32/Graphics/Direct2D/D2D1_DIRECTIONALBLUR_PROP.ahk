@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifiers for properties of the Directional blur effect.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_DIRECTIONALBLUR_PROP{
+class D2D1_DIRECTIONALBLUR_PROP extends Win32Enum{
 
     /**
      * The amount of blur to be applied to the image. You can compute the blur radius of the kernel by multiplying the standard deviation by 3. 

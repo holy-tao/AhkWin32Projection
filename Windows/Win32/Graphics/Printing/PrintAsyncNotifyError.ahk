@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the error code portion of the HRESULT returned after an asynchronous notification failure.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */
-class PrintAsyncNotifyError{
+class PrintAsyncNotifyError extends Win32Enum{
 
     /**
      * The Print Spooler-hosted printing system component closed the communication channel.

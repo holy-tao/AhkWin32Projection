@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Callback flags for canceling data fetching for a placeholder file or folder.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
-class CF_CALLBACK_CANCEL_FLAGS{
+class CF_CALLBACK_CANCEL_FLAGS extends Win32BitflagEnum{
 
     /**
      * No cancel flag.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Elements of the TsLayoutCode enumeration are used to specify the type of layout change in an ITextStoreACPSink::OnLayoutChange or ITextStoreAnchorSink::OnLayoutChange notification.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
-class TsLayoutCode{
+class TsLayoutCode extends Win32Enum{
 
     /**
      * The view has just been created.

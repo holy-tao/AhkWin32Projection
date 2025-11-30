@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the action for a rule or default setting.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
-class NET_FW_ACTION{
+class NET_FW_ACTION extends Win32Enum{
 
     /**
      * Block traffic.

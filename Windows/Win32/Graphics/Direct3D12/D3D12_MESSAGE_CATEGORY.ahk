@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies categories of debug messages.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_MESSAGE_CATEGORY{
+class D3D12_MESSAGE_CATEGORY extends Win32Enum{
 
     /**
      * Indicates a user defined message, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12infoqueue-addmessage">ID3D12InfoQueue::AddMessage</a>.

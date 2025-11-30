@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how units in Direct2D will be interpreted.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_UNIT_MODE{
+class D2D1_UNIT_MODE extends Win32Enum{
 
     /**
      * Units will be interpreted as device-independent pixels (1/96").

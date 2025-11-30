@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies tasks that Knowledge Consistency Checker (KCC) can execute.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class DS_KCC_TASKID{
+class DS_KCC_TASKID extends Win32Enum{
 
     /**
      * Dynamically adjusts the data replication topology of a network.

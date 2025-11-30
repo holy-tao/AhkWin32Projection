@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The CALLINFO_STRING enum is used by ITCallInfo methods that set and get call information involving the use of strings.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class CALLINFO_STRING{
+class CALLINFO_STRING extends Win32Enum{
 
     /**
      * The name of the caller.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Flags controlling what is returned in the enumeration.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  * @version v4.0.30319
  */
-class PRJ_CALLBACK_DATA_FLAGS{
+class PRJ_CALLBACK_DATA_FLAGS extends Win32Enum{
 
     /**
      * Start the scan at the first entry in the directory.

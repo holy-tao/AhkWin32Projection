@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The NET_IF_ADMIN_STATUS enumeration type specifies the NDIS network interface administrative status, as described in RFC 2863.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.NetworkManagement.Ndis
  * @version v4.0.30319
  */
-class NET_IF_ADMIN_STATUS{
+class NET_IF_ADMIN_STATUS extends Win32Enum{
 
     /**
      * Specifies that the interface is initialized and enabled, but the interface is not necessarily

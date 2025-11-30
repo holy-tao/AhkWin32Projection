@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Flags for acknowledging placeholder file or directory renaming.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
-class CF_OPERATION_ACK_RENAME_FLAGS{
+class CF_OPERATION_ACK_RENAME_FLAGS extends Win32BitflagEnum{
 
     /**
      * No acknowledgment of placeholder renaming.

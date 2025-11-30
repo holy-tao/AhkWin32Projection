@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Allows a caller to control the channel depth of a stage in the rendering pipeline.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_CHANNEL_DEPTH{
+class D2D1_CHANNEL_DEPTH extends Win32Enum{
 
     /**
      * The channel depth is the default. It is inherited from the inputs.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The UI_INFO_TYPE enumeration identifies repairs that perform user interface tasks.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */
-class UI_INFO_TYPE{
+class UI_INFO_TYPE extends Win32Enum{
 
     /**
      * 

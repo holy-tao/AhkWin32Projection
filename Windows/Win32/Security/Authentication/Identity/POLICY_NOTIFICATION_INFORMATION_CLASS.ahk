@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * The POLICY_NOTIFICATION_INFORMATION_CLASS enumeration defines the types of policy information and policy domain information for which your application can request notification of changes.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
-class POLICY_NOTIFICATION_INFORMATION_CLASS{
+class POLICY_NOTIFICATION_INFORMATION_CLASS extends Win32Enum{
 
     /**
      * Notify when any of the audited categories are changed.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether the topology loader enables Microsoft DirectX Video Acceleration (DXVA) in the topology.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFTOPOLOGY_DXVA_MODE{
+class MFTOPOLOGY_DXVA_MODE extends Win32Enum{
 
     /**
      * The topology loader enables DXVA

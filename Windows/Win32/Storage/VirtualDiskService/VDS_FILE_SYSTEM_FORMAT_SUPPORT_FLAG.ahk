@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the properties of file systems that are supported for formatting volumes.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_FILE_SYSTEM_FORMAT_SUPPORT_FLAG{
+class VDS_FILE_SYSTEM_FORMAT_SUPPORT_FLAG extends Win32Enum{
 
     /**
      * The file system is the default file system to be used for formatting the volume.

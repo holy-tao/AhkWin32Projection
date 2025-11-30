@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the interpolation mode to be used when a bitmap is composed with any transform where the pixels in the bitmap don't line up exactly one-to-one with pixels on screen.
@@ -26,7 +27,7 @@
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */
-class DCOMPOSITION_BITMAP_INTERPOLATION_MODE{
+class DCOMPOSITION_BITMAP_INTERPOLATION_MODE extends Win32Enum{
 
     /**
      * Bitmaps are interpolated by using nearest-neighbor sampling.

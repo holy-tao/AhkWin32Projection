@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Values that identify information about a shader variable.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */
-class D3D_SHADER_VARIABLE_FLAGS{
+class D3D_SHADER_VARIABLE_FLAGS extends Win32Enum{
 
     /**
      * Indicates that the registers assigned to this shader variable were explicitly declared in shader code (instead of automatically assigned by the compiler).

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the type of triggers that can be used by tasks.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
-class TASK_TRIGGER_TYPE2{
+class TASK_TRIGGER_TYPE2 extends Win32Enum{
 
     /**
      * Triggers the task when a specific event occurs. For more information about event triggers, see <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-ieventtrigger">IEventTrigger</a>.

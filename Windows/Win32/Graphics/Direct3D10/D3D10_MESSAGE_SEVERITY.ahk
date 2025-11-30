@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Debug message severity levels for an information queue.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
-class D3D10_MESSAGE_SEVERITY{
+class D3D10_MESSAGE_SEVERITY extends Win32Enum{
 
     /**
      * Defines some type of corruption which has occurred.

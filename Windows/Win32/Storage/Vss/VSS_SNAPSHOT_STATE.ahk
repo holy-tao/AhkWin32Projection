@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specify the state of a given shadow copy operation.
@@ -31,7 +32,7 @@
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_SNAPSHOT_STATE{
+class VSS_SNAPSHOT_STATE extends Win32Enum{
 
     /**
      * Reserved for system use. 

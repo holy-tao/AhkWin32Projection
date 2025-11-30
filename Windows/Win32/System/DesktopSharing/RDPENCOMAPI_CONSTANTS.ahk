@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values for some of the constants used in this API.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
-class RDPENCOMAPI_CONSTANTS{
+class RDPENCOMAPI_CONSTANTS extends Win32Enum{
 
     /**
      * Maximum message size, in bytes.

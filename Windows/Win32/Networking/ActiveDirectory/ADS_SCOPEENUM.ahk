@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the scope of a directory search.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class ADS_SCOPEENUM{
+class ADS_SCOPEENUM extends Win32Enum{
 
     /**
      * Limits the search to the base object. The result contains, at most, one object.

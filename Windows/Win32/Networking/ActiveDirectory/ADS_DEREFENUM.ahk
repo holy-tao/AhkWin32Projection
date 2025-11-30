@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ADS_DEREFENUM enumeration specifies the process through which aliases are dereferenced.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class ADS_DEREFENUM{
+class ADS_DEREFENUM extends Win32Enum{
 
     /**
      * Does not dereference aliases when searching or locating the base object of the search.

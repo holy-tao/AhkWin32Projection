@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that specify the current state of the window for purposes of user interaction.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
-class WindowInteractionState{
+class WindowInteractionState extends Win32Enum{
 
     /**
      * The window is running. This does not guarantee that the window is ready for user interaction or is responding.

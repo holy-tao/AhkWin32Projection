@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Server Hardening level.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */
-class HTTP_AUTHENTICATION_HARDENING_LEVELS{
+class HTTP_AUTHENTICATION_HARDENING_LEVELS extends Win32Enum{
 
     /**
      * Server is not hardened and operates without Channel Binding Token (CBT) support.

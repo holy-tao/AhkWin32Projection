@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ADSI_DIALECT_ENUM enumeration specifies query dialects used in the OLE DB provider for ADSI.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class ADSI_DIALECT_ENUM{
+class ADSI_DIALECT_ENUM extends Win32Enum{
 
     /**
      * ADSI queries are based on the LDAP dialect.

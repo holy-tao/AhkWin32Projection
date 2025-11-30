@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how a 3D video frame is stored in a media sample.
@@ -26,7 +27,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFVideo3DSampleFormat{
+class MFVideo3DSampleFormat extends Win32Enum{
 
     /**
      * Each view is stored in a separate buffer. The sample contains one buffer per view.

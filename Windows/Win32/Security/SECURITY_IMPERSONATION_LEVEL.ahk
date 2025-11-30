@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that specify security impersonation levels. Security impersonation levels govern the degree to which a server process can act on behalf of a client process.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */
-class SECURITY_IMPERSONATION_LEVEL{
+class SECURITY_IMPERSONATION_LEVEL extends Win32Enum{
 
     /**
      * The server process cannot obtain identification information about the client, and it cannot impersonate the client. It is defined with no value given, and thus, by ANSI C rules, defaults to a value of zero.

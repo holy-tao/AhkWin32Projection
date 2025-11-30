@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of CSV control operation to use with the FSCTL_CSV_CONTROL control code.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
-class CSV_CONTROL_OP{
+class CSV_CONTROL_OP extends Win32Enum{
 
     /**
      * Start file redirection.

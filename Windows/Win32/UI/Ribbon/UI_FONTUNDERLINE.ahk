@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies values that identify the underline state of a FontControl.
@@ -18,7 +19,7 @@
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
-class UI_FONTUNDERLINE{
+class UI_FONTUNDERLINE extends Win32Enum{
 
     /**
      * Underlining is not enabled.

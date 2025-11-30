@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values for the type of keys that control the state of a keyboard, such as the Caps Lock key.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
-class RDPSRAPI_KBD_SYNC_FLAG{
+class RDPSRAPI_KBD_SYNC_FLAG extends Win32Enum{
 
     /**
      * 

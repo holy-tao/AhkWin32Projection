@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the digital video (DV) format.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class _DVENCODERFORMAT{
+class _DVENCODERFORMAT extends Win32Enum{
 
     /**
      * Use the 'dvsd' stream handler.

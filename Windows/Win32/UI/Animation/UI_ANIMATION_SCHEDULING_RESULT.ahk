@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines results for storyboard scheduling.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319
  */
-class UI_ANIMATION_SCHEDULING_RESULT{
+class UI_ANIMATION_SCHEDULING_RESULT extends Win32Enum{
 
     /**
      * Scheduling failed for an unexpected reason.

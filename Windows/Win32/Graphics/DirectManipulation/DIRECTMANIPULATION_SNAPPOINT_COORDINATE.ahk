@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the coordinate system for a collection of snap points.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */
-class DIRECTMANIPULATION_SNAPPOINT_COORDINATE{
+class DIRECTMANIPULATION_SNAPPOINT_COORDINATE extends Win32BitflagEnum{
 
     /**
      * Default. 

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines how to decorate the file name or subdirectory name.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
-class AutoPathFormat{
+class AutoPathFormat extends Win32Enum{
 
     /**
      * Do not decorate the name.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates information about contacting someone by using email.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
-class WPC_ARGS_EMAILCONTACTEVENT{
+class WPC_ARGS_EMAILCONTACTEVENT extends Win32Enum{
 
     /**
      * The name of the application used for the email contact.

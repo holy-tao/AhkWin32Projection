@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the type of message passed in the COPYFILE2_MESSAGE structure to the CopyFile2ProgressRoutine callback function.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
-class COPYFILE2_MESSAGE_TYPE{
+class COPYFILE2_MESSAGE_TYPE extends Win32Enum{
 
     /**
      * Not a valid value.

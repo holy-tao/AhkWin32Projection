@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes authentication types for content access.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
-class AUTH_TYPE{
+class AUTH_TYPE extends Win32Enum{
 
     /**
      * Anonymous.

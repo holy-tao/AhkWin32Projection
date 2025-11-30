@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PROBLEM_TYPE enumeration describes the type of problem a helper class indicates is present.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */
-class PROBLEM_TYPE{
+class PROBLEM_TYPE extends Win32Enum{
 
     /**
      * 

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a file's perceived type. This set of constants is used in the AssocGetPerceivedType function.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.UI.Shell.Common
  * @version v4.0.30319
  */
-class PERCEIVED{
+class PERCEIVED extends Win32Enum{
 
     /**
      * 

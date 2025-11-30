@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Flags to use when importing a PFX certificate.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class ImportPFXFlags{
+class ImportPFXFlags extends Win32Enum{
 
     /**
      * None

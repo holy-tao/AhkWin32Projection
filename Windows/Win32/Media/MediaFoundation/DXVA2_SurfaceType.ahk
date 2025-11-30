@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes a DirectX surface type for DirectX Video Acceleration (DXVA).
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class DXVA2_SurfaceType{
+class DXVA2_SurfaceType extends Win32Enum{
 
     /**
      * The surface is a decoder render target.

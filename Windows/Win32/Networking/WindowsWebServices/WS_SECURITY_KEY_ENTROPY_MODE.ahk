@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines how randomness should be contributed to the issued key during a security token negotiation done with message and mixed-mode security.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_SECURITY_KEY_ENTROPY_MODE{
+class WS_SECURITY_KEY_ENTROPY_MODE extends Win32Enum{
 
     /**
      * Only client contributes entropy.

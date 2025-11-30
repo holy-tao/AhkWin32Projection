@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Determines the type and direction of automatic scrolling animation to apply.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */
-class DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION{
+class DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION extends Win32Enum{
 
     /**
      * If content is scrolling, slowly stop along the direction of the motion.

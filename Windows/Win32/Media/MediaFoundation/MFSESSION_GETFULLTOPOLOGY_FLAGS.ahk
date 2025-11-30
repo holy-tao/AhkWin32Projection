@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines flags for the IMFMediaSession::GetFullTopology method.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFSESSION_GETFULLTOPOLOGY_FLAGS{
+class MFSESSION_GETFULLTOPOLOGY_FLAGS extends Win32Enum{
 
     /**
      * Get the full topology for the presentation that the Media Session is currently playing.

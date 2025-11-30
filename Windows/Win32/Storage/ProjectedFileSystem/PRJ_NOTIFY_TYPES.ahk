@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Types of notifications describing a change to the file or folder.
@@ -26,7 +27,7 @@
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  * @version v4.0.30319
  */
-class PRJ_NOTIFY_TYPES{
+class PRJ_NOTIFY_TYPES extends Win32BitflagEnum{
 
     /**
      * No notification.

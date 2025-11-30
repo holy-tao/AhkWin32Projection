@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains flags affecting the behavior of the ApplySnapshotVhdSet function.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */
-class APPLY_SNAPSHOT_VHDSET_FLAG{
+class APPLY_SNAPSHOT_VHDSET_FLAG extends Win32BitflagEnum{
 
     /**
      * No flag specified.

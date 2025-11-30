@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Flags used by the [DwmGetWindowAttribute](/windows/desktop/api/dwmapi/nf-dwmapi-dwmgetwindowattribute) and [DwmSetWindowAttribute](/windows/desktop/api/dwmapi/nf-dwmapi-dwmsetwindowattribute) functions to specify window attributes for Desktop Window Manager (DWM) non-client rendering.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.Graphics.Dwm
  * @version v4.0.30319
  */
-class DWMWINDOWATTRIBUTE{
+class DWMWINDOWATTRIBUTE extends Win32Enum{
 
     /**
      * Use with <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/nf-dwmapi-dwmgetwindowattribute">DwmGetWindowAttribute</a>. Discovers whether non-client rendering is enabled. The retrieved value is of type <b>BOOL</b>. <b>TRUE</b> if non-client rendering is enabled; otherwise, <b>FALSE</b>.

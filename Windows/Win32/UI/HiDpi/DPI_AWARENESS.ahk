@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the dots per inch (dpi) setting for a thread, process, or window.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.UI.HiDpi
  * @version v4.0.30319
  */
-class DPI_AWARENESS{
+class DPI_AWARENESS extends Win32Enum{
 
     /**
      * Invalid DPI awareness. This is an invalid DPI awareness value.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The RAS_HARDWARE_CONDITION enumeration type specifies hardware status information about a given RAS port.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */
-class RAS_HARDWARE_CONDITION{
+class RAS_HARDWARE_CONDITION extends Win32Enum{
 
     /**
      * The port is operational.

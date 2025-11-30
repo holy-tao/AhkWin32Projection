@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the status for a storyboard.
@@ -23,7 +24,7 @@
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319
  */
-class UI_ANIMATION_STORYBOARD_STATUS{
+class UI_ANIMATION_STORYBOARD_STATUS extends Win32Enum{
 
     /**
      * The storyboard has never been scheduled.

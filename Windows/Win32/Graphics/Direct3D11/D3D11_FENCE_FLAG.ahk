@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies fence options.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_FENCE_FLAG{
+class D3D11_FENCE_FLAG extends Win32BitflagEnum{
 
     /**
      * No options are specified.

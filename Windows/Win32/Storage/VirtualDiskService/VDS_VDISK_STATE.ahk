@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of status values for a virtual disk object.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_VDISK_STATE{
+class VDS_VDISK_STATE extends Win32Enum{
 
     /**
      * VDS was not able to identify the virtual disk's current status.

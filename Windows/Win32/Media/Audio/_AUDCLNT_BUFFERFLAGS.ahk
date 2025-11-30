@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The _AUDCLNT_BUFFERFLAGS enumeration defines flags that indicate the status of an audio endpoint buffer.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
-class _AUDCLNT_BUFFERFLAGS{
+class _AUDCLNT_BUFFERFLAGS extends Win32Enum{
 
     /**
      * The data in the packet is not correlated with the previous packet's device position; this is possibly due to a stream state transition or timing glitch.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by requesters to identify an object as a shadow copy set, shadow copy, or provider.
@@ -24,7 +25,7 @@
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_OBJECT_TYPE{
+class VSS_OBJECT_TYPE extends Win32Enum{
 
     /**
      * The object type is not known.

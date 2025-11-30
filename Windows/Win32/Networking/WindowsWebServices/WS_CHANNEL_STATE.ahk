@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The different states that a channel can be in.
@@ -24,7 +25,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_CHANNEL_STATE{
+class WS_CHANNEL_STATE extends Win32Enum{
 
     /**
      * 

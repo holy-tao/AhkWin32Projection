@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The HTTP_SERVICE_CONFIG_TIMEOUT_KEY enumeration defines the type of timer that is queried or configured through the HTTP_SERVICE_CONFIG_TIMEOUT_SET structure.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */
-class HTTP_SERVICE_CONFIG_TIMEOUT_KEY{
+class HTTP_SERVICE_CONFIG_TIMEOUT_KEY extends Win32Enum{
 
     /**
      * The maximum time allowed for a connection to remain idle, after which, the connection is timed out and reset.

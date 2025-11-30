@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Callback flags for notifying a sync provider that a placeholder under one of its sync root is going to be dehydrated.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
-class CF_CALLBACK_DEHYDRATE_FLAGS{
+class CF_CALLBACK_DEHYDRATE_FLAGS extends Win32BitflagEnum{
 
     /**
      * No dehydrate flag.

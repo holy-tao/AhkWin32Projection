@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether the input frames for an encoder are progressive or interlaced. This enumeration is used with the AVEncVideoForceSourceScanType property.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVEncVideoSourceScanType{
+class eAVEncVideoSourceScanType extends Win32Enum{
 
     /**
      * Use the media type on the encoder's input pin to determine whether the frames are progressive or interlaced.

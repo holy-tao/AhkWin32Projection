@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the NAMESPROPERTIES enumeration type enumerate properties related to the name of the user requesting network access.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class NAMESPROPERTIES{
+class NAMESPROPERTIES extends Win32Enum{
 
     /**
      * <b>Note</b>  Specifies a set of "search text" and "replacement text" pairs in a <b>VARIANT</b> array. This is the equivalent of attribute manipulation in Windows XP. More documentation on the Realms functionality and the use of regular expressions is included in the online help for IAS.

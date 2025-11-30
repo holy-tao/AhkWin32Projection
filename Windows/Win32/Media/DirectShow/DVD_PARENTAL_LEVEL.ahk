@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies flags for the generic parental levels defined in the DVD specification.
@@ -43,7 +44,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class DVD_PARENTAL_LEVEL{
+class DVD_PARENTAL_LEVEL extends Win32Enum{
 
     /**
      * Parental level 8.

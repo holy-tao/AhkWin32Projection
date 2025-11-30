@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates information about a file that has been downloaded.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
-class WPC_ARGS_FILEDOWNLOADEVENT{
+class WPC_ARGS_FILEDOWNLOADEVENT extends Win32Enum{
 
     /**
      * The URL or web address of the downloaded file.

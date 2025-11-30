@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify where the effective value of a property was set.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  * @version v4.0.30319
  */
-class BaseValueSource{
+class BaseValueSource extends Win32Enum{
 
     /**
      * The source of the property value is not known.

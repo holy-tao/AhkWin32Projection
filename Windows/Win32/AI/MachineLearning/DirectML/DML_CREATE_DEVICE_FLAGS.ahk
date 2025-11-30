@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Supplies additional device creation options to DMLCreateDevice. Values can be bitwise OR'd together.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
-class DML_CREATE_DEVICE_FLAGS{
+class DML_CREATE_DEVICE_FLAGS extends Win32BitflagEnum{
 
     /**
      * No creation options are specified.

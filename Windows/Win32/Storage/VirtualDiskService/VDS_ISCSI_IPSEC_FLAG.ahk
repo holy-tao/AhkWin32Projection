@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Not supported.This enumeration is reserved for future use.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_ISCSI_IPSEC_FLAG{
+class VDS_ISCSI_IPSEC_FLAG extends Win32Enum{
 
     /**
      * This bit must be set for the field to contain significant information.

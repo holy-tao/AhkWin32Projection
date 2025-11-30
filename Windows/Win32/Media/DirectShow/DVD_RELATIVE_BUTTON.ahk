@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the four directional buttons used for DVD menu navigation and other operations.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class DVD_RELATIVE_BUTTON{
+class DVD_RELATIVE_BUTTON extends Win32Enum{
 
     /**
      * Upper button.

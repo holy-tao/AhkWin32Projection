@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the header metadata type.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
-class DXGI_HDR_METADATA_TYPE{
+class DXGI_HDR_METADATA_TYPE extends Win32Enum{
 
     /**
      * Indicates there is no header metadata.

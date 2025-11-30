@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a type of descriptor heap.
@@ -23,7 +24,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_DESCRIPTOR_HEAP_TYPE{
+class D3D12_DESCRIPTOR_HEAP_TYPE extends Win32Enum{
 
     /**
      * The descriptor heap for the combination of constant-buffer, shader-resource, and unordered-access views.

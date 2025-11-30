@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the rights that may be specified in a DRM license.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
-class WMT_RIGHTS{
+class WMT_RIGHTS extends Win32Enum{
 
     /**
      * Specifies the right to play content without restriction.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of connection object change event.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class FWPM_CONNECTION_EVENT_TYPE{
+class FWPM_CONNECTION_EVENT_TYPE extends Win32Enum{
 
     /**
      * A new connection object was added.

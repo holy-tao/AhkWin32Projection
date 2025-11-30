@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the level of confidence the recognizer has in the recognition result.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class CONFIDENCE_LEVEL{
+class CONFIDENCE_LEVEL extends Win32Enum{
 
     /**
      * The recognizer is confident that the best alternate is correct.

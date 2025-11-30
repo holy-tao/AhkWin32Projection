@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DHCP_FORCE_FLAG enumeration defines the set of flags describing the force level of a DHCP subnet element deletion operation.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */
-class DHCP_FORCE_FLAG{
+class DHCP_FORCE_FLAG extends Win32Enum{
 
     /**
      * The operation deletes all client records affected by the element, and then deletes the element.

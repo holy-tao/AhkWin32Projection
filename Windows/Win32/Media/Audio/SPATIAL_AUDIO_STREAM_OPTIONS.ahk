@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * 
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
-class SPATIAL_AUDIO_STREAM_OPTIONS{
+class SPATIAL_AUDIO_STREAM_OPTIONS extends Win32BitflagEnum{
 
     /**
      * @type {Integer (Int32)}

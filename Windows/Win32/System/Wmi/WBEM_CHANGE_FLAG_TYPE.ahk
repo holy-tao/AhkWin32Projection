@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains method parameter flags.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class WBEM_CHANGE_FLAG_TYPE{
+class WBEM_CHANGE_FLAG_TYPE extends Win32Enum{
 
     /**
      * The class is created if it does not exist, or overwritten if it exists already.

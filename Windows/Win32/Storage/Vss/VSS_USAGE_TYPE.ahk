@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how the host system uses the data managed by a writer involved in a VSS operation.
@@ -18,7 +19,7 @@
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_USAGE_TYPE{
+class VSS_USAGE_TYPE extends Win32Enum{
 
     /**
      * The usage type is not known. 

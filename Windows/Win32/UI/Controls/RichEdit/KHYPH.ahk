@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values used to specify how to do hyphenation in a rich edit control. The HyphenateProc callback function uses this enumeration type.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
-class KHYPH{
+class KHYPH extends Win32Enum{
 
     /**
      * No hyphenation is allowed.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of a handler. Used by ISyncMgrHandlerInfo::GetType.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SYNCMGR_HANDLER_TYPE{
+class SYNCMGR_HANDLER_TYPE extends Win32Enum{
 
     /**
      * The handler type is unknown. This value is also used if <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrhandlerinfo-gettype">ISyncMgrHandlerInfo::GetType</a> fails.

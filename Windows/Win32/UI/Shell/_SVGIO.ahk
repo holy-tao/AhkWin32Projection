@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used with the IFolderView::Items, IFolderView::ItemCount, and IShellView::GetItemObject methods to restrict or control the items in their collections.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class _SVGIO{
+class _SVGIO extends Win32BitflagEnum{
 
     /**
      * 0x00000000. Refers to the background of the view. It is used with IID_IContextMenu to get a shortcut menu for the view background and with IID_IDispatch to get a dispatch interface that represents the <a href="https://docs.microsoft.com/windows/desktop/shell/shellfolderview">ShellFolderView</a> object for the view.

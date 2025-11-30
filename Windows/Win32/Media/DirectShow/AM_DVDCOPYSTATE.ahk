@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the copy protection state.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class AM_DVDCOPYSTATE{
+class AM_DVDCOPYSTATE extends Win32Enum{
 
     /**
      * Starting a full key-exchange algorithm.

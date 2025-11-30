@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies options for the Metafile::EmfToWmfBits method, which converts an Enhanced Metafile (EMF) metafile to a Windows Metafile Format (WMF) metafile.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class EmfToWmfBitsFlags{
+class EmfToWmfBitsFlags extends Win32Enum{
 
     /**
      * Specifies the default conversion.

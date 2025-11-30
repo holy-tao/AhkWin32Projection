@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the log file rollover types.
@@ -130,7 +131,7 @@
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */
-class HTTP_LOGGING_ROLLOVER_TYPE{
+class HTTP_LOGGING_ROLLOVER_TYPE extends Win32Enum{
 
     /**
      * The log files are rolled over when they reach a specified size.

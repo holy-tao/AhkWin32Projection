@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The FAX_ACCESS_RIGHTS_ENUM enumeration defines access rights to the fax server.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
-class FAX_ACCESS_RIGHTS_ENUM{
+class FAX_ACCESS_RIGHTS_ENUM extends Win32Enum{
 
     /**
      * The user can submit low-priority fax jobs. Users can view and manage their jobs in the fax server's queue and their messages in the outgoing fax archive.

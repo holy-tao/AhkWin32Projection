@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * 
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
-class WLAN_POWER_SETTING{
+class WLAN_POWER_SETTING extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

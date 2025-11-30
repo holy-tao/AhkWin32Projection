@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the direction of how lines of text are placed relative to one another.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_FLOW_DIRECTION{
+class DWRITE_FLOW_DIRECTION extends Win32Enum{
 
     /**
      * Specifies that text lines are placed from top to bottom.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies other, less common options for resources.
@@ -17,7 +18,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
-class D3D10_RESOURCE_MISC_FLAG{
+class D3D10_RESOURCE_MISC_FLAG extends Win32Enum{
 
     /**
      * Enables an application to call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-generatemips">ID3D10Device::GenerateMips</a> on 

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of query syntax.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
-class STRUCTURED_QUERY_SYNTAX{
+class STRUCTURED_QUERY_SYNTAX extends Win32Enum{
 
     /**
      * No syntax.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies a type of tensor description.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
-class DML_TENSOR_TYPE{
+class DML_TENSOR_TYPE extends Win32Enum{
 
     /**
      * Indicates an unknown tensor description type. This value is never valid.

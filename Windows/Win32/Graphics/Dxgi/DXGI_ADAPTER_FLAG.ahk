@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the type of DXGI adapter.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
-class DXGI_ADAPTER_FLAG{
+class DXGI_ADAPTER_FLAG extends Win32BitflagEnum{
 
     /**
      * Specifies no flags.

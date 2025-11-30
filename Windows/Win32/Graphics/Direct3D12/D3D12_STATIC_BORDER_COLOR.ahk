@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the border color for a static sampler.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_STATIC_BORDER_COLOR{
+class D3D12_STATIC_BORDER_COLOR extends Win32Enum{
 
     /**
      * Indicates black, with the alpha component as fully transparent.

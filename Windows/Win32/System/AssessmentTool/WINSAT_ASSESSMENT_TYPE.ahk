@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the possible subcomponents of an assessment.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.AssessmentTool
  * @version v4.0.30319
  */
-class WINSAT_ASSESSMENT_TYPE{
+class WINSAT_ASSESSMENT_TYPE extends Win32Enum{
 
     /**
      * Assess the memory of the computer.

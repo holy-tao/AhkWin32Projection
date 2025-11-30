@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of authentication used to connect to Remote Desktop Gateway (RD Gateway).
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class AAAuthSchemes{
+class AAAuthSchemes extends Win32Enum{
 
     /**
      * This value is reserved.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the kind of data stored in a WSD_CONFIG_PARAM structure.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
-class WSD_CONFIG_PARAM_TYPE{
+class WSD_CONFIG_PARAM_TYPE extends Win32Enum{
 
     /**
      * The <i>pConfigData</i> member is a pointer to a <b>DWORD</b> that specifies the maximum size,  in octets, of an inbound message.

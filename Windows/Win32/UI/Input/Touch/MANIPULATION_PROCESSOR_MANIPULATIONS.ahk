@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * The MANIPULATION_PROCESSOR_MANIPULATIONS enumeration different kinds of manipulation which can be applied on a target object.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.UI.Input.Touch
  * @version v4.0.30319
  */
-class MANIPULATION_PROCESSOR_MANIPULATIONS{
+class MANIPULATION_PROCESSOR_MANIPULATIONS extends Win32BitflagEnum{
 
     /**
      * Indicates that no manipulations are performed.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies where to attach the new InkOverlay object, behind or in front of the active layer.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InkOverlayAttachMode{
+class InkOverlayAttachMode extends Win32Enum{
 
     /**
      * The new <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> object is attached behind the active window.

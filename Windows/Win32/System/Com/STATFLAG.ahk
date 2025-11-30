@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicate whether the method should try to return a name in the pwcsName member of the STATSTG structure.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class STATFLAG{
+class STATFLAG extends Win32Enum{
 
     /**
      * Requests that the statistics include the <b>pwcsName</b> member of the 

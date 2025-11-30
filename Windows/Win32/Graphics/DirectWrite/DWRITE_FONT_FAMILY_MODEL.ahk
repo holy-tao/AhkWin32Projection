@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify how font families are grouped together.
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_FONT_FAMILY_MODEL{
+class DWRITE_FONT_FAMILY_MODEL extends Win32Enum{
 
     /**
      * Families are grouped by the typographic family name preferred by the font author. The family can contain as many faces as the font author wants. This corresponds to <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_font_property_id">DWRITE_FONT_PROPERTY_ID_TYPOGRAPHIC_FAMILY_NAME</a>.

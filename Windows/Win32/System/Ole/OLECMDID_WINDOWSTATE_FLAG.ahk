@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the window state.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
-class OLECMDID_WINDOWSTATE_FLAG{
+class OLECMDID_WINDOWSTATE_FLAG extends Win32Enum{
 
     /**
      * The window is visible.

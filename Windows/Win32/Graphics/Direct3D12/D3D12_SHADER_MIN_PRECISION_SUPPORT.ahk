@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes minimum precision support options for shaders in the current graphics driver.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_SHADER_MIN_PRECISION_SUPPORT{
+class D3D12_SHADER_MIN_PRECISION_SUPPORT extends Win32BitflagEnum{
 
     /**
      * The driver supports only full 32-bit precision for all shader stages.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes whether a reference represented by the IOpcSignatureRelationshipReference interface refers to all or a subset of relationships represented as relationship objects in a relationship set object.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
-class OPC_RELATIONSHIPS_SIGNING_OPTION{
+class OPC_RELATIONSHIPS_SIGNING_OPTION extends Win32Enum{
 
     /**
      * The reference refers to a subset of relationships represented as relationship objects and identified using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselectorset">IOpcRelationshipSelectorSet</a> interface.

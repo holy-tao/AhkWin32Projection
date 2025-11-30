@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PEER_APPLICATION_REGISTRATION_TYPE enumeration defines the set of peer application registration flags.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
-class PEER_APPLICATION_REGISTRATION_TYPE{
+class PEER_APPLICATION_REGISTRATION_TYPE extends Win32Enum{
 
     /**
      * The application is available only to the current user account logged into the machine.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the conversion function from R'G'B' to RGB. This enumeration is used with the AVEncVideoInputColorTransferFunction and AVEncVideoOutputColorTransferFunction properties.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVEncVideoColorTransferFunction{
+class eAVEncVideoColorTransferFunction extends Win32Enum{
 
     /**
      * Use the same function as the input video. This flag applies to the <b>AVEncVideoOutputColorTransferFunction</b> property only.

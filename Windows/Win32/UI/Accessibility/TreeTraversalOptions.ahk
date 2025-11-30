@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values that can be used to customize tree navigation order.
@@ -22,7 +23,7 @@
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
-class TreeTraversalOptions{
+class TreeTraversalOptions extends Win32Enum{
 
     /**
      * Pre-order,

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the supported protection schemes for encrypted samples.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFSampleEncryptionProtectionScheme{
+class MFSampleEncryptionProtectionScheme extends Win32Enum{
 
     /**
      * No encryption scheme.

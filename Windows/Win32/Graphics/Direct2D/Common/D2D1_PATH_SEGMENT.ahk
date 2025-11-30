@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates whether a segment should be stroked and whether the join between this segment and the previous one should be smooth. This enumeration allows a bitwise combination of its member values.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */
-class D2D1_PATH_SEGMENT{
+class D2D1_PATH_SEGMENT extends Win32BitflagEnum{
 
     /**
      * The segment is joined  as specified by the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1strokestyle">ID2D1StrokeStyle</a> interface, and it is stroked.

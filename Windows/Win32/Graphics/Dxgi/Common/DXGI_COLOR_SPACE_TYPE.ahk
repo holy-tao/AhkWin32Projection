@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies color space types.
@@ -187,7 +188,7 @@
  * @namespace Windows.Win32.Graphics.Dxgi.Common
  * @version v4.0.30319
  */
-class DXGI_COLOR_SPACE_TYPE{
+class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
 
     /**
      * <table>

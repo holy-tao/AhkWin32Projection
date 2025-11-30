@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies which part of a selection, if any, was hit during a hit test.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class SelectionHitResult{
+class SelectionHitResult extends Win32Enum{
 
     /**
      * No part of the selection was hit.

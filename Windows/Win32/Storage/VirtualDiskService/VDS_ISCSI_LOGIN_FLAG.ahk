@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of valid flags for specifying iSCSI target login options.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_ISCSI_LOGIN_FLAG{
+class VDS_ISCSI_LOGIN_FLAG extends Win32Enum{
 
     /**
      * Reserved for future use.

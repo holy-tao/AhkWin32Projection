@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the options for access denied remediation (ADR) email.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
-class AdrEmailFlags{
+class AdrEmailFlags extends Win32Enum{
 
     /**
      * The ADR email will include the owner on the To: line.

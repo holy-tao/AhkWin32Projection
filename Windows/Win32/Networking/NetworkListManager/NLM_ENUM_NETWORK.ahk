@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The NLM_ENUM_NETWORK enumeration contains a set of flags that specify what types of networks are enumerated.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.NetworkListManager
  * @version v4.0.30319
  */
-class NLM_ENUM_NETWORK{
+class NLM_ENUM_NETWORK extends Win32Enum{
 
     /**
      * Returns connected networks

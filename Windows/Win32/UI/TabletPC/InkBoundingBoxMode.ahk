@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies which characteristics of a stroke, such as drawing attributes, are used to calculate the bounding box of the ink.The bounding box is the smallest rectangle that includes all points in the InkDisp object.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InkBoundingBoxMode{
+class InkBoundingBoxMode extends Win32Enum{
 
     /**
      * The definition of each stroke (polyline or Bezier) is used to calculate the bounding box; includes the drawing attributes, such as pen width, in the calculation.

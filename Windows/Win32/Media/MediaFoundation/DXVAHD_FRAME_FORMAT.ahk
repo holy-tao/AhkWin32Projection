@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes how a video stream is interlaced.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class DXVAHD_FRAME_FORMAT{
+class DXVAHD_FRAME_FORMAT extends Win32Enum{
 
     /**
      * Frames are progressive.

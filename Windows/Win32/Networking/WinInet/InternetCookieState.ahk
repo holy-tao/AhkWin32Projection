@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The InternetCookieState enumeration defines the state of the cookie.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
  */
-class InternetCookieState{
+class InternetCookieState extends Win32Enum{
 
     /**
      * Reserved.

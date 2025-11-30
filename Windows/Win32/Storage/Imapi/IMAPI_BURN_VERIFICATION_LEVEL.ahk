@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values for the burn verification implemented by the IBurnVerification interface.
@@ -89,7 +90,7 @@
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
-class IMAPI_BURN_VERIFICATION_LEVEL{
+class IMAPI_BURN_VERIFICATION_LEVEL extends Win32Enum{
 
     /**
      * No burn verification.

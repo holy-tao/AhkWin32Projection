@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * THE MBN_SIGNAL_CONSTANTS enumerated type contains specific values used by IMbnSignal interface operations.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
-class MBN_SIGNAL_CONSTANTS{
+class MBN_SIGNAL_CONSTANTS extends Win32Enum{
 
     /**
      * Use the default value for signal state reporting.

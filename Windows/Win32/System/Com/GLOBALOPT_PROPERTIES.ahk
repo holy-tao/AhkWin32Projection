@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies process-global options that you can set or query by using the IGlobalOptions interface.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class GLOBALOPT_PROPERTIES{
+class GLOBALOPT_PROPERTIES extends Win32Enum{
 
     /**
      * Defines COM exception-handling behavior.

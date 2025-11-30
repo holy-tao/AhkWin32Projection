@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The HTTP_HEADER_ID enumeration type lists known headers for HTTP requests and responses, and associates an array index with each such header.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */
-class HTTP_HEADER_ID{
+class HTTP_HEADER_ID extends Win32Enum{
 
     /**
      * Used to specify caching behavior along the request or response chain, overriding the default caching algorithm.

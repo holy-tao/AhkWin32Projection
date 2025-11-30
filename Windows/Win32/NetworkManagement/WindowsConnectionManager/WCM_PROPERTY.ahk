@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a property of a connection.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
  * @version v4.0.30319
  */
-class WCM_PROPERTY{
+class WCM_PROPERTY extends Win32Enum{
 
     /**
      * Domain policy.

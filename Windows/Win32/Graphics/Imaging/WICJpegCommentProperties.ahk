@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the JPEG comment properties.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICJpegCommentProperties{
+class WICJpegCommentProperties extends Win32Enum{
 
     /**
      * Indicates the metadata property is comment text.

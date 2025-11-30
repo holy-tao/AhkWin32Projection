@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates which user operation (UOP) commands are currently allowed by the DVD.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class VALID_UOP_FLAG{
+class VALID_UOP_FLAG extends Win32Enum{
 
     /**
      * Annex J commands: Time_Play, TimeSearch.

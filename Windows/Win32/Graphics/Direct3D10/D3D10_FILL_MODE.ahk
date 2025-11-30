@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Determines the fill mode to use when rendering triangles.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
-class D3D10_FILL_MODE{
+class D3D10_FILL_MODE extends Win32Enum{
 
     /**
      * Draw lines connecting the vertices. <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-primitive-topologies">Adjacent vertices</a> are not drawn.

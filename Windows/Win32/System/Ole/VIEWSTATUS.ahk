@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the opacity of the object and the drawing aspects supported by the object.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
-class VIEWSTATUS{
+class VIEWSTATUS extends Win32Enum{
 
     /**
      * The object is completely opaque. So, for any aspect, it promises to draw the entire rectangle passed to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iviewobject-draw">IViewObject::Draw</a> method. If this value is not set, the object contains transparent parts. If it also support DVASPECT_TRANSPARENT, then this aspect may be used to draw the transparent parts only.

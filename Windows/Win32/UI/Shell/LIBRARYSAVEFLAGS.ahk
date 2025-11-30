@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the options for handling a name collision when saving a library.
@@ -22,7 +23,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class LIBRARYSAVEFLAGS{
+class LIBRARYSAVEFLAGS extends Win32BitflagEnum{
 
     /**
      * If a library with the same name already exists, the save operation fails.

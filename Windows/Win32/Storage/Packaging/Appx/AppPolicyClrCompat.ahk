@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * The AppPolicyClrCompat enumeration indicates the application type of a process so that you can determine whether to enable private reflection and/or make managed objects agile.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
-class AppPolicyClrCompat{
+class AppPolicyClrCompat extends Win32Enum{
 
     /**
      * Indicates an application type other than the ones indicated by the other enumerated constants. The Common Language Runtime (CLR) should not be called by applications that are not Universal Windows Platform (UWP), Win32, nor Desktop Bridge.

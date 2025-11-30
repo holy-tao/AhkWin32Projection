@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Enumerates the possible states of an interface on a router.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */
-class ROUTER_CONNECTION_STATE{
+class ROUTER_CONNECTION_STATE extends Win32Enum{
 
     /**
      * The interface is unreachable. For a list of possible reasons, see 

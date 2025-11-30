@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MP_TYPE enumeration specifies the data type for a parameter.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class MP_TYPE{
+class MP_TYPE extends Win32Enum{
 
     /**
      * Value is a signed 32-bit integer.

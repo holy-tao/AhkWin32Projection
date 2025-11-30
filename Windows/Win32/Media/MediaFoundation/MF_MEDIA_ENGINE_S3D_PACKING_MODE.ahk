@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the layout for a packed 3D video frame.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_MEDIA_ENGINE_S3D_PACKING_MODE{
+class MF_MEDIA_ENGINE_S3D_PACKING_MODE extends Win32Enum{
 
     /**
      * None.

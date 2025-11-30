@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * The AppPolicyThreadInitializationType enumeration indicates the kind of initialization that should be automatically performed for a process when beginthread[ex] creates a thread.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
-class AppPolicyThreadInitializationType{
+class AppPolicyThreadInitializationType extends Win32Enum{
 
     /**
      * Indicates that no initialization should be performed.

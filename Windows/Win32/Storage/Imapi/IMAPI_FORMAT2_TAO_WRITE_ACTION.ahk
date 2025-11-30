@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values that indicate the current state of the write operation when using the IDiscFormat2TrackAtOnceEventArgs interface.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
-class IMAPI_FORMAT2_TAO_WRITE_ACTION{
+class IMAPI_FORMAT2_TAO_WRITE_ACTION extends Win32Enum{
 
     /**
      * Indicates an unknown state.

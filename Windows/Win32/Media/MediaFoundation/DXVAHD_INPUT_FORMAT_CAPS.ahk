@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines capabilities related to input formats for a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class DXVAHD_INPUT_FORMAT_CAPS{
+class DXVAHD_INPUT_FORMAT_CAPS extends Win32Enum{
 
     /**
      * The device can deinterlace an input stream that contains interlaced RGB video.

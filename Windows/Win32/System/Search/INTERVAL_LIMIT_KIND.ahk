@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * These values are returned by IInterval::GetLimits as pairs to specify a range with an upper and lower limit.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
-class INTERVAL_LIMIT_KIND{
+class INTERVAL_LIMIT_KIND extends Win32Enum{
 
     /**
      * The value is included in the range. For example, an integer range of numbers that is equal to or greater than 3 and less than or equal to 6 includes both 3 and 6. So the values 3 and 6 would both be returned with <b>ILK_EXPLICIT_INCLUDED</b>.

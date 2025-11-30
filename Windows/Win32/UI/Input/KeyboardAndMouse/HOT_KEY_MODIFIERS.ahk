@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
  * @version v4.0.30319
  */
-class HOT_KEY_MODIFIERS{
+class HOT_KEY_MODIFIERS extends Win32BitflagEnum{
 
     /**
      * @type {Integer (UInt32)}

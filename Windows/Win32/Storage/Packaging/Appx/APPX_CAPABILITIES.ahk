@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the capabilities or privileges requested by a package.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
-class APPX_CAPABILITIES{
+class APPX_CAPABILITIES extends Win32BitflagEnum{
 
     /**
      * Your Internet connection for outgoing connections to the Internet.

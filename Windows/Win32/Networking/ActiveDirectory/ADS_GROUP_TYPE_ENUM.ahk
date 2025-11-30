@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of group objects in ADSI.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class ADS_GROUP_TYPE_ENUM{
+class ADS_GROUP_TYPE_ENUM extends Win32Enum{
 
     /**
      * Specifies a group that can contain accounts from the same domain and other global groups from the same domain. This type of group can be exported to a different domain.

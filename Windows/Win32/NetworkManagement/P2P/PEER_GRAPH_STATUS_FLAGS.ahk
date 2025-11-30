@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PEER_GRAPH_STATUS_FLAGS enumeration is a set of flags that show the current status of a node within the peer graph.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
-class PEER_GRAPH_STATUS_FLAGS{
+class PEER_GRAPH_STATUS_FLAGS extends Win32Enum{
 
     /**
      * Specifies whether or not the node is listening for connections.

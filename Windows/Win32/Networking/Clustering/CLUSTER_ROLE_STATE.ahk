@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the potential return values for the ResUtilGetClusterRoleState function.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_ROLE_STATE{
+class CLUSTER_ROLE_STATE extends Win32Enum{
 
     /**
      * It is unknown whether or not the role is clustered.

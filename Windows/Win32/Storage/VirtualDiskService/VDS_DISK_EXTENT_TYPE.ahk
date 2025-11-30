@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of disk extents types. The type can be a partition, volume, or free space.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_DISK_EXTENT_TYPE{
+class VDS_DISK_EXTENT_TYPE extends Win32Enum{
 
     /**
      * An extent of any unknown partition.

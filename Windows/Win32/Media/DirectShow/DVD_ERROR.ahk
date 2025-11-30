@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DVD_ERROR enumeration value defines DVD error conditions.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class DVD_ERROR{
+class DVD_ERROR extends Win32Enum{
 
     /**
      * Something unexpected happened; perhaps content is authored incorrectly. Playback is stopped.

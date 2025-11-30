@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies methods for sorting category data.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class CATSORT_FLAGS{
+class CATSORT_FLAGS extends Win32BitflagEnum{
 
     /**
      * Use the default sort order.

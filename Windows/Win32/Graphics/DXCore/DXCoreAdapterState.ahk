@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify kinds of DXCore adapter states.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DXCore
  * @version v4.0.30319
  */
-class DXCoreAdapterState{
+class DXCoreAdapterState extends Win32Enum{
 
     /**
      * Specifies the <em>IsDriverUpdateInProgress</em> adapter state, which when `true` indicates that a driver update has been initiated on the adapter but it has not yet completed. If the driver update has already completed, then the adapter will have been invalidated, and your [QueryState](/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-querystate) call will return a <b>HRESULT</b> of <b>DXGI_ERROR_DEVICE_REMOVED</b>.

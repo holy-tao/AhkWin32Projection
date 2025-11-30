@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies an H.264 video profile.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVEncH264VProfile{
+class eAVEncH264VProfile extends Win32Enum{
 
     /**
      * The profile is unknown or not specified.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of dither algorithm to apply when converting between image formats.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICBitmapDitherType{
+class WICBitmapDitherType extends Win32Enum{
 
     /**
      * A solid color algorithm without dither.

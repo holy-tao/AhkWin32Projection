@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * This topic applies only to Windows XP Service Pack 1 or later.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
-class STREAMBUFFER_ATTR_DATATYPE{
+class STREAMBUFFER_ATTR_DATATYPE extends Win32Enum{
 
     /**
      * The attribute is a 32-bit <b>DWORD</b> value.

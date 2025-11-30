@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Lists qualifier flavors.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class WBEM_FLAVOR_TYPE{
+class WBEM_FLAVOR_TYPE extends Win32Enum{
 
     /**
      * The qualifier is not propagated to instances or derived classes.

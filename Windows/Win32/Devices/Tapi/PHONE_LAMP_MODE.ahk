@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PHONE_LAMP_MODE enum provides indicators of a phone lamp's status.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class PHONE_LAMP_MODE{
+class PHONE_LAMP_MODE extends Win32Enum{
 
     /**
      * The lamp identifier has no corresponding lamp.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of the indirect parameter.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_INDIRECT_ARGUMENT_TYPE{
+class D3D12_INDIRECT_ARGUMENT_TYPE extends Win32Enum{
 
     /**
      * Indicates the type is a Draw call.

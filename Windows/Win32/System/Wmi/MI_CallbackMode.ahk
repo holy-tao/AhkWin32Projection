@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the callback mode for the CIM extensions for WriteError and PromptUser functions.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class MI_CallbackMode{
+class MI_CallbackMode extends Win32Enum{
 
     /**
      * Report the details to the client, but the provider will receive a preconfigured response.  The provider does not wait for the client to receive the request before continuing.

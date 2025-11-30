@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the version of root signature layout.
@@ -26,7 +27,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D_ROOT_SIGNATURE_VERSION{
+class D3D_ROOT_SIGNATURE_VERSION extends Win32Enum{
 
     /**
      * Version one of root signature layout.

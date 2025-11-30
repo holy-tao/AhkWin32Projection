@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies color space support for the swap chain.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
-class DXGI_SWAP_CHAIN_COLOR_SPACE_SUPPORT_FLAG{
+class DXGI_SWAP_CHAIN_COLOR_SPACE_SUPPORT_FLAG extends Win32BitflagEnum{
 
     /**
      * Color space support is present.

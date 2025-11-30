@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PPP_EAP_ACTION enumerated type specifies actions that the Connection Manager should take on behalf of the authentication protocol.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */
-class PPP_EAP_ACTION{
+class PPP_EAP_ACTION extends Win32Enum{
 
     /**
      * Directs the Connection Manager to be passive.

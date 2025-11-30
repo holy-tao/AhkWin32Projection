@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * This AGENT_SESSION_STATE enum defines the agent session indicators used by the ITAgentSession::get_State and the ITAgentSession::put_State methods.
@@ -58,7 +59,7 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class AGENT_SESSION_STATE{
+class AGENT_SESSION_STATE extends Win32Enum{
 
     /**
      * The agent is unable to handle calls for this session.

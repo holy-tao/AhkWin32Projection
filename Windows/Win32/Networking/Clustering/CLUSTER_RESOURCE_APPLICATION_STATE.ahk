@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Enumerates resource application states.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_RESOURCE_APPLICATION_STATE{
+class CLUSTER_RESOURCE_APPLICATION_STATE extends Win32Enum{
 
     /**
      * Application state is unknown.

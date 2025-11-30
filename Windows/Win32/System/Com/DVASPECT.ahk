@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the desired data or view aspect of the object when drawing or getting data.
@@ -19,7 +20,7 @@
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class DVASPECT{
+class DVASPECT extends Win32Enum{
 
     /**
      * Provides a representation of an object so it can be displayed as an embedded object inside of a container. This value is typically specified for compound document objects. The presentation can be provided for the screen or printer.

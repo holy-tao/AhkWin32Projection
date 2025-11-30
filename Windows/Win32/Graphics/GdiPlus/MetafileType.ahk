@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MetafileType enumeration specifies types of metafiles. The MetafileHeader::GetType method returns an element of this enumeration.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class MetafileType{
+class MetafileType extends Win32Enum{
 
     /**
      * Specifies a metafile format that is not recognized in GDI+.

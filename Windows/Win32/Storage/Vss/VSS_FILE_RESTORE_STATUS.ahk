@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of statuses of a file restore operation.
@@ -34,7 +35,7 @@
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_FILE_RESTORE_STATUS{
+class VSS_FILE_RESTORE_STATUS extends Win32Enum{
 
     /**
      * The restore state is undefined. 

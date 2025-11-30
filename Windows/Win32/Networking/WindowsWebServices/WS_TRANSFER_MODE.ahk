@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Whether messages that are sent or received are streamed or buffered.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_TRANSFER_MODE{
+class WS_TRANSFER_MODE extends Win32Enum{
 
     /**
      * Setting this flag means messages are delivered in chunks.  The start of the message

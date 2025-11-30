@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies heap options, such as whether the heap can contain textures, and whether resources are shared across adapters.
@@ -101,7 +102,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_HEAP_FLAGS{
+class D3D12_HEAP_FLAGS extends Win32BitflagEnum{
 
     /**
      * No options are specified.

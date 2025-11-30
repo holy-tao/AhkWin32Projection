@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by IObjectWithFolderEnumMode::GetMode and IObjectWithFolderEnumMode::SetMode methods to get and set the display modes for the folders.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class FOLDER_ENUM_MODE{
+class FOLDER_ENUM_MODE extends Win32Enum{
 
     /**
      * Display mode to view the contents of a folder.

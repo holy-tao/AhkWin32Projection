@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Provides a set of flags to be used with the following interfaces to indicate the type of condition tree node:\_ICondition, ICondition2, IConditionFactory, IConditionFactory2, and IConditionGenerator.
@@ -19,7 +20,7 @@
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
-class CONDITION_CREATION_OPTIONS{
+class CONDITION_CREATION_OPTIONS extends Win32BitflagEnum{
 
     /**
      * Indicates that the condition is set to the default value.

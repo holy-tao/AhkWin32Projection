@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ADDRESS_CAPABILITY_STRING enum is used to check on address capabilities which are described by strings.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class ADDRESS_CAPABILITY_STRING{
+class ADDRESS_CAPABILITY_STRING extends Win32Enum{
 
     /**
      * Describes a protocol-specific capability. The value is returned as a GUID in string format. For possible values, see 

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the effective power mode the system is running.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */
-class EFFECTIVE_POWER_MODE{
+class EFFECTIVE_POWER_MODE extends Win32Enum{
 
     /**
      * The system is in battery saver mode.

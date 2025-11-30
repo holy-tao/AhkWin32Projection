@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the memory pool for the heap.
@@ -20,7 +21,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_MEMORY_POOL{
+class D3D12_MEMORY_POOL extends Win32Enum{
 
     /**
      * The memory pool is unknown.

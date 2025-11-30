@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the content protection requirements for a video frame.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_MEDIA_ENGINE_FRAME_PROTECTION_FLAGS{
+class MF_MEDIA_ENGINE_FRAME_PROTECTION_FLAGS extends Win32Enum{
 
     /**
      * The video frame should be protected.

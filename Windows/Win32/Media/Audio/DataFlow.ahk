@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DataFlow enumeration indicates the data-flow direction of an audio stream through a connector.
@@ -19,7 +20,7 @@
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
-class DataFlow{
+class DataFlow extends Win32Enum{
 
     /**
      * Input stream. The audio stream flows into the device through the connector.

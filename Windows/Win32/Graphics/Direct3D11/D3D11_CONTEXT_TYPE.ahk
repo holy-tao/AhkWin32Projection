@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the context in which a query occurs.
@@ -22,7 +23,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_CONTEXT_TYPE{
+class D3D11_CONTEXT_TYPE extends Win32Enum{
 
     /**
      * The query can occur in all contexts.

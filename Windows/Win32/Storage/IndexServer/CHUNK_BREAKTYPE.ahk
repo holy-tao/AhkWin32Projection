@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the type of break that separates the current chunk from the previous chunk.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Storage.IndexServer
  * @version v4.0.30319
  */
-class CHUNK_BREAKTYPE{
+class CHUNK_BREAKTYPE extends Win32Enum{
 
     /**
      * No break is placed between the current chunk and the previous chunk. The chunks are glued together.

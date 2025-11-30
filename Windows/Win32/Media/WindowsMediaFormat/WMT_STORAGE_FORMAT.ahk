@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WMT_STORAGE_FORMAT enumeration type defines the file types that can be manipulated with this SDK.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
-class WMT_STORAGE_FORMAT{
+class WMT_STORAGE_FORMAT extends Win32Enum{
 
     /**
      * The file is encoded in MP3 format.

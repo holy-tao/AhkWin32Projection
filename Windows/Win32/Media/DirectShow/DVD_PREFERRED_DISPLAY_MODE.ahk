@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the user's preferred window aspect ratio and conversion method.
@@ -55,7 +56,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class DVD_PREFERRED_DISPLAY_MODE{
+class DVD_PREFERRED_DISPLAY_MODE extends Win32Enum{
 
     /**
      * Use the default window size and content type.

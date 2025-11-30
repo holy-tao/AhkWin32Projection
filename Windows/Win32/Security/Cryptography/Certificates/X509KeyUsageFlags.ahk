@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the purpose of a key contained in a certificate.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class X509KeyUsageFlags{
+class X509KeyUsageFlags extends Win32Enum{
 
     /**
      * The purpose of the key is not defined.

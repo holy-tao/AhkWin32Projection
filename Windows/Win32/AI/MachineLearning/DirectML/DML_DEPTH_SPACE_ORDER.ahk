@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants controlling the transform applied in the DirectML operators [DML_OPERATOR_DEPTH_TO_SPACE1](/windows/win32/api/directml/ne-directml-dml_operator_type) and **DML_OPERATOR_SPACE_TO_DEPTH1**.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
-class DML_DEPTH_SPACE_ORDER{
+class DML_DEPTH_SPACE_ORDER extends Win32Enum{
 
     /**
      * Causes tensors used in [DML_DEPTH_TO_SPACE1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_depth_to_space1_operator_desc) and [DML_SPACE_TO_DEPTH1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_space_to_depth1_operator_desc) to be interpreted with the following layouts, where dimensions in parenthesis are flattened together.

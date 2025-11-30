@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Values that specify the folder being acted on by methods of the ISharingConfigurationManager interface.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class DEF_SHARE_ID{
+class DEF_SHARE_ID extends Win32Enum{
 
     /**
      * The <b>Users</b> folder (<a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">FOLDERID_UserProfiles</a>). This folder is usually found at C:\Users.

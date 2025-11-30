@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Type of locale is needed when setting and getting locales.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class MI_LocaleType{
+class MI_LocaleType extends Win32Enum{
 
     /**
      * The preferred language of error messages and dialog boxes.

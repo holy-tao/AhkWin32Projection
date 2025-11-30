@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the types of enumeration flags.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  * @version v4.0.30319
  */
-class WcmNamespaceEnumerationFlags{
+class WcmNamespaceEnumerationFlags extends Win32Enum{
 
     /**
      * Describes a shared enumeration. It enumerates all namespaces that have been compiled for the machine space.

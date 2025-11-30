@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the type of caching requested for newly created objects.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
-class OLERENDER{
+class OLERENDER extends Win32Enum{
 
     /**
      * The client is not requesting any locally cached drawing or data retrieval capabilities in the object. The <i>pFormatEtc</i> parameter of the calls is ignored when this value is specified for the <i>renderopts</i> parameter.

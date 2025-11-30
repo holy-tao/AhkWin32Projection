@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The _AM_AUDIO_RENDERER_STAT_PARAM enumeration specifies which performance information to retrieve from the audio renderer.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class _AM_AUDIO_RENDERER_STAT_PARAM{
+class _AM_AUDIO_RENDERER_STAT_PARAM extends Win32Enum{
 
     /**
      * <i>Param1</i>: The cumulative number of breaks in the audio stream.

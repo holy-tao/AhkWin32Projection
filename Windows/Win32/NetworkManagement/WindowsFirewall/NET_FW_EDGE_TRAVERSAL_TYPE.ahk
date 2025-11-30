@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The conditions under which edge traversal traffic is allowed.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
-class NET_FW_EDGE_TRAVERSAL_TYPE{
+class NET_FW_EDGE_TRAVERSAL_TYPE extends Win32Enum{
 
     /**
      * Edge traversal traffic is always blocked.

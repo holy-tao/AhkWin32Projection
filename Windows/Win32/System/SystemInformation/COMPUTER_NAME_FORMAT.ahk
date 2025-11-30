@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a type of computer name.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  */
-class COMPUTER_NAME_FORMAT{
+class COMPUTER_NAME_FORMAT extends Win32Enum{
 
     /**
      * The NetBIOS name of the local computer or the cluster associated with the local computer. This name is limited to MAX_COMPUTERNAME_LENGTH + 1 characters and may be a truncated version of the DNS host name. For example, if the DNS host name is "corporate-mail-server", the NetBIOS name would be "corporate-mail-".

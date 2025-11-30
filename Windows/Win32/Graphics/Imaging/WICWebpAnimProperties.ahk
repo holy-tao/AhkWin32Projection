@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the animation properties of a WebP image.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICWebpAnimProperties{
+class WICWebpAnimProperties extends Win32Enum{
 
     /**
      * The number of times the animation loops. A value of 0 indicates that the animation will loop infinitely.

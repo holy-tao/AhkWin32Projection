@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * This enumeration defines the WMI provider architecture used on the server.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class MI_ProviderArchitecture{
+class MI_ProviderArchitecture extends Win32Enum{
 
     /**
      * Use this value if the client calls a 32-bit provider on the remote machine.

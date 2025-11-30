@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the contents of a stream buffer.
@@ -24,7 +25,7 @@
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319
  */
-class XAPO_BUFFER_FLAGS{
+class XAPO_BUFFER_FLAGS extends Win32Enum{
 
     /**
      * Stream buffer contains only silent samples.

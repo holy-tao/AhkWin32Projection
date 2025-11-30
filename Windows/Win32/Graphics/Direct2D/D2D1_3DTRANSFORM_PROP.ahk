@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifiers for properties of the 3D transform effect.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_3DTRANSFORM_PROP{
+class D2D1_3DTRANSFORM_PROP extends Win32Enum{
 
     /**
      * The interpolation mode the effect uses on the image. There are 5 scale modes that range in quality and speed.

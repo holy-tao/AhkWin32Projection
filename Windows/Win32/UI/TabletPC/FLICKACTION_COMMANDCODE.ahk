@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the possible flick actions that can be assigned to a pen flick.
@@ -18,7 +19,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class FLICKACTION_COMMANDCODE{
+class FLICKACTION_COMMANDCODE extends Win32Enum{
 
     /**
      * No action is assigned to the pen flick.

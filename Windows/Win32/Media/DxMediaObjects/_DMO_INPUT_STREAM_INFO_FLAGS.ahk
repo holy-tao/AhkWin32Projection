@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DMO_INPUT_STREAM_INFO_FLAGS enumeration defines flags that describe an input stream.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.DxMediaObjects
  * @version v4.0.30319
  */
-class _DMO_INPUT_STREAM_INFO_FLAGS{
+class _DMO_INPUT_STREAM_INFO_FLAGS extends Win32Enum{
 
     /**
      * The stream requires whole samples. Samples must not span multiple buffers, and buffers must not contain partial samples.

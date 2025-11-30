@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * A set of property values associated with the error. They are set and retrieved using WsGetErrorProperty and WsSetErrorProperty.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_ERROR_PROPERTY_ID{
+class WS_ERROR_PROPERTY_ID extends Win32Enum{
 
     /**
      * The number of error strings (ULONG) available in the error object. Error strings 

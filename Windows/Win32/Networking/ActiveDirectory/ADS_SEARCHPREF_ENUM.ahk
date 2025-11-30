@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies preferences for an IDirectorySearch object.
@@ -125,7 +126,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class ADS_SEARCHPREF_ENUM{
+class ADS_SEARCHPREF_ENUM extends Win32Enum{
 
     /**
      * Specifies that searches should be performed asynchronously. By default, searches are synchronous.

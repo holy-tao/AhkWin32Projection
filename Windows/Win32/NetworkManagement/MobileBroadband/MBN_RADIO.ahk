@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MBN_RADIO enumerated type indicates whether the device radio is on or off.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
-class MBN_RADIO{
+class MBN_RADIO extends Win32Enum{
 
     /**
      * The device radio is off.

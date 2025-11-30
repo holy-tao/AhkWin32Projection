@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Note  This API is deprecated. New applications should not use it. Describes the state of the stream.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class STREAM_STATE{
+class STREAM_STATE extends Win32Enum{
 
     /**
      * Stop state.

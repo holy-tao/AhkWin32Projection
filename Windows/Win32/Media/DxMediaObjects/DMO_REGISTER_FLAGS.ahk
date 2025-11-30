@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DMO_REGISTER_FLAGS enumeration defines flags that specify registry information for a Microsoft DirectX Media Object (DMO).
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.DxMediaObjects
  * @version v4.0.30319
  */
-class DMO_REGISTER_FLAGS{
+class DMO_REGISTER_FLAGS extends Win32Enum{
 
     /**
      * Use of the DMO is restricted by a software key.

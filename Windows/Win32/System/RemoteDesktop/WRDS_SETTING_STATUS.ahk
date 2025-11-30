@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the status of a policy setting for various members of the WRDS_SETTINGS_1 structure.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class WRDS_SETTING_STATUS{
+class WRDS_SETTING_STATUS extends Win32Enum{
 
     /**
      * The setting status has not been defined.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WMT_CREDENTIAL_FLAGS enumeration type contains values used in the IWMCredentialCallback::AcquireCredentials method.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
-class WMT_CREDENTIAL_FLAGS{
+class WMT_CREDENTIAL_FLAGS extends Win32Enum{
 
     /**
      * The application can set this flag to indicate that the caller should save the credentials in a persistent manner.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Values that identify shader-input options.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */
-class D3D_SHADER_INPUT_FLAGS{
+class D3D_SHADER_INPUT_FLAGS extends Win32Enum{
 
     /**
      * Assign a shader input to a register based on the register assignment in the HLSL code (instead of letting the compiler choose the register).

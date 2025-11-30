@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies algorithmic style simulations to be applied to the font face. Bold and oblique simulations can be combined via bitwise OR operation.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_FONT_SIMULATIONS{
+class DWRITE_FONT_SIMULATIONS extends Win32BitflagEnum{
 
     /**
      * Indicates that no simulations are applied to the font face.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of application that is described by the RM_PROCESS_INFO structure.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RestartManager
  * @version v4.0.30319
  */
-class RM_APP_TYPE{
+class RM_APP_TYPE extends Win32Enum{
 
     /**
      * The application cannot be classified as any other type. An application of this type can only be shut down by a forced shutdown.

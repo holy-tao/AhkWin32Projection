@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The RPC_NOTIFICATIONS enumeration specifies the notifications a server can receive from RPC.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */
-class RPC_NOTIFICATIONS{
+class RPC_NOTIFICATIONS extends Win32Enum{
 
     /**
      * Do not send a notification.

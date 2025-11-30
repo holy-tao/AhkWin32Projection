@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values for the operating system architecture that the boot image supports.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
-class PlatformId{
+class PlatformId extends Win32Enum{
 
     /**
      * Intel Pentium™ series of chip sets. This entry implies a Windows  operating system.

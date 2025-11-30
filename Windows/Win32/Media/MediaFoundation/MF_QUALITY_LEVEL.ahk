@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the quality level for a pipeline component.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_QUALITY_LEVEL{
+class MF_QUALITY_LEVEL extends Win32Enum{
 
     /**
      * Normal quality.

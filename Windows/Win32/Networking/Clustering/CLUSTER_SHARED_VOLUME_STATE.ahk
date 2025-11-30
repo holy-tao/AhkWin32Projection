@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the states of a cluster shared volume.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_SHARED_VOLUME_STATE{
+class CLUSTER_SHARED_VOLUME_STATE extends Win32Enum{
 
     /**
      * The shared volume is unavailable.

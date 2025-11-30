@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicate to a requester the conditions under which it will handle events generated during a restore operation.
@@ -17,7 +18,7 @@
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_WRITERRESTORE_ENUM{
+class VSS_WRITERRESTORE_ENUM extends Win32Enum{
 
     /**
      * It is not known whether the writer will perform special operations during the restore operation. 

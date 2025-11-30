@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY enumeration specifies the target's connector type.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
-class DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY{
+class DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY extends Win32Enum{
 
     /**
      * Indicates a connector that is not one of the types that is indicated by the following enumerators in this enumeration.

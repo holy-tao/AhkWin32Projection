@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the tiling behavior of a tile brush.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
-class XPS_TILE_MODE{
+class XPS_TILE_MODE extends Win32Enum{
 
     /**
      * Only the base tile is drawn.

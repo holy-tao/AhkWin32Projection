@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the version of the specification used for the addressing headers.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_ADDRESSING_VERSION{
+class WS_ADDRESSING_VERSION extends Win32Enum{
 
     /**
      * The message addressing headers correspond to version 0.9 (August 2004)

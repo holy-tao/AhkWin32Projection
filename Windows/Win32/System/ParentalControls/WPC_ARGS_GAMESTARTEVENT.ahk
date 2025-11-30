@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates information about the start of a computer game.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
-class WPC_ARGS_GAMESTARTEVENT{
+class WPC_ARGS_GAMESTARTEVENT extends Win32Enum{
 
     /**
      * The application identifier of the computer game.

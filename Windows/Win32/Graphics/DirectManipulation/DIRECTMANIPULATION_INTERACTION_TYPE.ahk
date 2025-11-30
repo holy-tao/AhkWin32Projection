@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines gestures recognized by Direct Manipulation.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */
-class DIRECTMANIPULATION_INTERACTION_TYPE{
+class DIRECTMANIPULATION_INTERACTION_TYPE extends Win32Enum{
 
     /**
      * Marks the beginning of an interaction.

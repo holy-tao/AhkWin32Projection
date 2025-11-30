@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * A member of the ADDRESS_CAPABILITY enum is used by the ITAddressCapabilities::get_AddressCapability method to indicate the address capability required.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class ADDRESS_CAPABILITY{
+class ADDRESS_CAPABILITY extends Win32Enum{
 
     /**
      * An address may support more than one 

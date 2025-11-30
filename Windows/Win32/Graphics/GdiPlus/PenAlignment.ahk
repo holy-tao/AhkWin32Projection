@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PenAlignment enumeration specifies the alignment of a pen relative to the stroke that is being drawn.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class PenAlignment{
+class PenAlignment extends Win32Enum{
 
     /**
      * Specifies that the pen is aligned on the center of the line that is drawn.

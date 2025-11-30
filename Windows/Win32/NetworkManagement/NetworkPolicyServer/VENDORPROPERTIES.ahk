@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the VENDORPROPERTIES enumeration type specify properties of objects in the vendors collection.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class VENDORPROPERTIES{
+class VENDORPROPERTIES extends Win32Enum{
 
     /**
      * The SMI Network Management Private Enterprise Code assigned to this vendor by the Internet Assigned Numbers Authority (IANA).

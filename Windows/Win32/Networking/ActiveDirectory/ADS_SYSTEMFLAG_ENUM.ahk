@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ADS_SYSTEMFLAG_ENUM enumeration defines some of the values that can be assigned to the systemFlags attribute. Some of the values in the enumeration are specific to attributeSchema objects; other values can be set on objects of any class.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class ADS_SYSTEMFLAG_ENUM{
+class ADS_SYSTEMFLAG_ENUM extends Win32Enum{
 
     /**
      * Identifies an object that cannot be deleted.

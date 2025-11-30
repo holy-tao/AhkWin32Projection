@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the possible TCP offload states for a TCP connection.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */
-class TCP_CONNECTION_OFFLOAD_STATE{
+class TCP_CONNECTION_OFFLOAD_STATE extends Win32Enum{
 
     /**
      * The TCP connection is currently owned by the network stack on the local computer, and is not offloaded

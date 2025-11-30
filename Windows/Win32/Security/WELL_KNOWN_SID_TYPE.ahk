@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32Enum.ahk
 
 /**
  * A list of commonly used security identifiers (SIDs). Programs can pass these values to the CreateWellKnownSid function to create a SID from this list.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */
-class WELL_KNOWN_SID_TYPE{
+class WELL_KNOWN_SID_TYPE extends Win32Enum{
 
     /**
      * Indicates a null SID.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the possible local IP address formats supported by RPC.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */
-class RpcLocalAddressFormat{
+class RpcLocalAddressFormat extends Win32Enum{
 
     /**
      * The address format is not supported.

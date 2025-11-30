@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the vertical alignment settings for content within the viewport.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */
-class DIRECTMANIPULATION_VERTICALALIGNMENT{
+class DIRECTMANIPULATION_VERTICALALIGNMENT extends Win32BitflagEnum{
 
     /**
      * No alignment. The object can be positioned anywhere within the viewport.

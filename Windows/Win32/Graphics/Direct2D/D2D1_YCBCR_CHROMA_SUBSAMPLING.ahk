@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the chroma subsampling of the input chroma image used by the YCbCr effect.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_YCBCR_CHROMA_SUBSAMPLING{
+class D2D1_YCBCR_CHROMA_SUBSAMPLING extends Win32Enum{
 
     /**
      * This mode attempts to infer the chroma subsampling from the bounds of the input images. When this option is selected, 

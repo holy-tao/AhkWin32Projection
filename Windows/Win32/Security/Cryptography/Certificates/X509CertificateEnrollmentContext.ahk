@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the nature of the end entity for which the certificate is intended.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class X509CertificateEnrollmentContext{
+class X509CertificateEnrollmentContext extends Win32Enum{
 
     /**
      * 

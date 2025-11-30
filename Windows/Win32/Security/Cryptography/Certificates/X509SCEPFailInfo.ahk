@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the nature of an SCEP certificate enrollment failure.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class X509SCEPFailInfo{
+class X509SCEPFailInfo extends Win32Enum{
 
     /**
      * 

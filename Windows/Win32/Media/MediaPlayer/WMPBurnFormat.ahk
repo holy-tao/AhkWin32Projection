@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WMPBurnFormat enumeration type defines the possible types of CDs for burning.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
-class WMPBurnFormat{
+class WMPBurnFormat extends Win32Enum{
 
     /**
      * The CD being burned is an audio CD.

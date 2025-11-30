@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Elements of the TfSapiObject enumeration are used with the ITfFnGetSAPIObject::Get method to specify a specific type of Speech API (SAPI) object.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
-class TfSapiObject{
+class TfSapiObject extends Win32Enum{
 
     /**
      * Specifies an ISpResourceManager object.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Device creation flags.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
-class D3D10_CREATE_DEVICE_FLAG{
+class D3D10_CREATE_DEVICE_FLAG extends Win32Enum{
 
     /**
      * Use this flag if an application will only be calling D3D10 from a single thread. If this flag is not specified, the default behavior of D3D10 

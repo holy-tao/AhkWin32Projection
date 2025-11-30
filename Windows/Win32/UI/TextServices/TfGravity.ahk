@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Elements of the TfGravity enumeration specify the type of gravity associated with the anchor of an ITfRange object.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
-class TfGravity{
+class TfGravity extends Win32Enum{
 
     /**
      * The anchor has backward gravity.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a range of tile mappings to use with ID3D11DeviceContext2::UpdateTiles.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_TILE_RANGE_FLAG{
+class D3D11_TILE_RANGE_FLAG extends Win32Enum{
 
     /**
      * The tile range is <b>NULL</b>.

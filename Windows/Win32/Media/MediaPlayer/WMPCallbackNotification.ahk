@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Note  This section describes functionality designed for use by online stores.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
-class WMPCallbackNotification{
+class WMPCallbackNotification extends Win32Enum{
 
     /**
      * The user has either signed in or signed out.

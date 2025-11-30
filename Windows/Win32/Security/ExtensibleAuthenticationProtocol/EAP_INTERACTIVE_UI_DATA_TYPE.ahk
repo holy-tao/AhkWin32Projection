@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the set of types of interactive UI context data supplied to certain supplicant API calls.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */
-class EAP_INTERACTIVE_UI_DATA_TYPE{
+class EAP_INTERACTIVE_UI_DATA_TYPE extends Win32Enum{
 
     /**
      * The data contains an EAP security credential retry request.

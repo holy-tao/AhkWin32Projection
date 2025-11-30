@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The version of the specification used for the envelope structure.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_ENVELOPE_VERSION{
+class WS_ENVELOPE_VERSION extends Win32Enum{
 
     /**
      * The XML namespace for this version is: 'http://schemas.xmlsoap.org/soap/envelope/'.

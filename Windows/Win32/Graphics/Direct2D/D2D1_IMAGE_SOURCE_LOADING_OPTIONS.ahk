@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Controls option flags for a new ID2D1ImageSource when it is created.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_IMAGE_SOURCE_LOADING_OPTIONS{
+class D2D1_IMAGE_SOURCE_LOADING_OPTIONS extends Win32BitflagEnum{
 
     /**
      * No options are used.

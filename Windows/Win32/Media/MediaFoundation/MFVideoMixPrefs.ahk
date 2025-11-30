@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains flags that are used to configure how the enhanced video renderer (EVR) performs deinterlacing.
@@ -44,7 +45,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFVideoMixPrefs{
+class MFVideoMixPrefs extends Win32Enum{
 
     /**
      * Force the EVR  to skip the second field (in temporal order) of every interlaced frame.

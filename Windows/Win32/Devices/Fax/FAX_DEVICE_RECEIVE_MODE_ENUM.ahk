@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The FAX_DEVICE_RECEIVE_MODE_ENUM enumeration defines the way a device answers an incoming call.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
-class FAX_DEVICE_RECEIVE_MODE_ENUM{
+class FAX_DEVICE_RECEIVE_MODE_ENUM extends Win32Enum{
 
     /**
      * The device will not answer the call.

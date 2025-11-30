@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the desired behavior when an ISpatialAudioMetadataWriter attempts to write more items into the metadata buffer than was specified when the client was initialized.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
-class SpatialAudioMetadataWriterOverflowMode{
+class SpatialAudioMetadataWriterOverflowMode extends Win32Enum{
 
     /**
      * The write operation will fail.

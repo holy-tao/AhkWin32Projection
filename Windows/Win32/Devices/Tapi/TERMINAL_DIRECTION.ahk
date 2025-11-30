@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The TERMINAL_DIRECTION enumeration is used to describe the direction of the media stream with respect to the local computer or the directional capabilities of a terminal.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class TERMINAL_DIRECTION{
+class TERMINAL_DIRECTION extends Win32Enum{
 
     /**
      * The stream is captured on the local computer, and the data is sent out to the remote end of the connection. When applied to a terminal, this means it can originate a stream.

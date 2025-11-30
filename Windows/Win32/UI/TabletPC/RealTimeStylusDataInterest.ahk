@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the values used by plug-ins to specify which event notifications the plug-ins receive.
@@ -27,7 +28,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class RealTimeStylusDataInterest{
+class RealTimeStylusDataInterest extends Win32Enum{
 
     /**
      * The plug-in receives notifications for all stylus data.

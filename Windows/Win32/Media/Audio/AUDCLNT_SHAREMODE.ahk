@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The AUDCLNT_SHAREMODE enumeration defines constants that indicate whether an audio stream will run in shared mode or in exclusive mode.
@@ -19,7 +20,7 @@
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
-class AUDCLNT_SHAREMODE{
+class AUDCLNT_SHAREMODE extends Win32Enum{
 
     /**
      * The audio stream will run in shared mode. For more information, see Remarks.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The VMR9AlphaBitmapFlags enumeration type defines the possible values for the dwFlags member of the VMR9AlphaBitmap structure.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class VMR9AlphaBitmapFlags{
+class VMR9AlphaBitmapFlags extends Win32Enum{
 
     /**
      * Disable the alpha bitmap. This flag cannot be combined with any other flags.

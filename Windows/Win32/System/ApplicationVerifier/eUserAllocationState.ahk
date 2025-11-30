@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the application's current heap allocation state.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.ApplicationVerifier
  * @version v4.0.30319
  */
-class eUserAllocationState{
+class eUserAllocationState extends Win32Enum{
 
     /**
      * The allocation state cannot be determined.

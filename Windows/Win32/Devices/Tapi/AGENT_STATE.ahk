@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The AGENT_STATE enum is used by the ITAgent::put_State and ITAgent::get_State methods to describe the agent state.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class AGENT_STATE{
+class AGENT_STATE extends Win32Enum{
 
     /**
      * Agent is not ready

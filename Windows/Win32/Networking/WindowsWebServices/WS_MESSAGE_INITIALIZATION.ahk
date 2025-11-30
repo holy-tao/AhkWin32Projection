@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies what headers the WsInitializeMessageshould add to the message.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_MESSAGE_INITIALIZATION{
+class WS_MESSAGE_INITIALIZATION extends Win32Enum{
 
     /**
      * The headers of the message are empty.

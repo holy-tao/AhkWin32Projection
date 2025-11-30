@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a mapping for a class ID.
@@ -35,7 +36,7 @@
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class TYSPEC{
+class TYSPEC extends Win32Enum{
 
     /**
      * A CLSID.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the use of a color. Used by IVisualProperties methods.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class VPCOLORFLAGS{
+class VPCOLORFLAGS extends Win32Enum{
 
     /**
      * A text color.

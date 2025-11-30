@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines flags that indicate server certificate errors during SSL negotiation with the server by handling the OnServerCertificateReceived method on the IXMLHTTPRequest3Callback interface.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Data.Xml.MsXml
  * @version v4.0.30319
  */
-class XHR_CERT_ERROR_FLAG{
+class XHR_CERT_ERROR_FLAG extends Win32Enum{
 
     /**
      * The certificate received from the server has an invalid certificate revocation.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how the pipeline interprets geometry or hull shader input primitives.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_PRIMITIVE_TOPOLOGY_TYPE{
+class D3D12_PRIMITIVE_TOPOLOGY_TYPE extends Win32Enum{
 
     /**
      * The shader has not been initialized with an input primitive type.

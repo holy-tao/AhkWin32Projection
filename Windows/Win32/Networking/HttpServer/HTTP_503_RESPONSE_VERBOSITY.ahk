@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The HTTP_503_RESPONSE_VERBOSITY enumeration defines the verbosity levels for a 503, service unavailable, error responses.This structure must be used when setting or querying the HttpServer503ResponseProperty on a request queue.
@@ -18,7 +19,7 @@
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */
-class HTTP_503_RESPONSE_VERBOSITY{
+class HTTP_503_RESPONSE_VERBOSITY extends Win32Enum{
 
     /**
      * A 503 response is not sent; the connection is reset.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the type of cluster object being enumerated by the ClusterResourceTypeEnum and ClusterResourceTypeOpenEnum functions.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_RESOURCE_TYPE_ENUM{
+class CLUSTER_RESOURCE_TYPE_ENUM extends Win32Enum{
 
     /**
      * The object is a node that can be a possible owner of the resource type.

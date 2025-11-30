@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PEER_CONNECTION_STATUS enumeration specifies the status of a peer direct or neighbor connection.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
-class PEER_CONNECTION_STATUS{
+class PEER_CONNECTION_STATUS extends Win32Enum{
 
     /**
      * The peer is connected to another peer.

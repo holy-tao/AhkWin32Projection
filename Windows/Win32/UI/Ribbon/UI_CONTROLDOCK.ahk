@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies values that identify the dock state of the Quick Access Toolbar (QAT).
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
-class UI_CONTROLDOCK{
+class UI_CONTROLDOCK extends Win32Enum{
 
     /**
      * The QAT is docked in the nonclient area of the Ribbon host application, as shown in the following screen shot.

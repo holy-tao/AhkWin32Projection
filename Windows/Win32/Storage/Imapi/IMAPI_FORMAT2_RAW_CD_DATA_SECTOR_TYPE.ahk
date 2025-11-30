@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values that indicate the type of sub-channel data.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
-class IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE{
+class IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE extends Win32Enum{
 
     /**
      * The data contains P and Q sub-channel data.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Values for the D2D1_RGBTOHUE_PROP_OUTPUT_COLOR_SPACE property of the RGB to Hue effect.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_RGBTOHUE_OUTPUT_COLOR_SPACE{
+class D2D1_RGBTOHUE_OUTPUT_COLOR_SPACE extends Win32Enum{
 
     /**
      * The effect converts from RGB to Hue Saturation Value (HSV).

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that specify the state of a UI element that can be expanded and collapsed.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
-class ExpandCollapseState{
+class ExpandCollapseState extends Win32Enum{
 
     /**
      * No children are visible.

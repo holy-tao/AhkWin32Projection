@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Flags used with ReportLiveObjects to specify the amount of info to report about an object's lifetime.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
-class DXGI_DEBUG_RLO_FLAGS{
+class DXGI_DEBUG_RLO_FLAGS extends Win32BitflagEnum{
 
     /**
      * A flag that specifies to obtain a summary about an object's lifetime.

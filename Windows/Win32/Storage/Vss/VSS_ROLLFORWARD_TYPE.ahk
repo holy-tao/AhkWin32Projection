@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The VSS_ROLLFORWARD_TYPE enumeration is used by a requester to indicate the type of roll-forward operation it is about to perform.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_ROLLFORWARD_TYPE{
+class VSS_ROLLFORWARD_TYPE extends Win32Enum{
 
     /**
      * No roll-forward type is defined. 

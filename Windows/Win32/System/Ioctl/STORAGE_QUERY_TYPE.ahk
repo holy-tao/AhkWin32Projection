@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by the STORAGE_PROPERTY_QUERY structure passed to the IOCTL_STORAGE_QUERY_PROPERTY control code to indicate what information is returned about a property of a storage device or adapter.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
-class STORAGE_QUERY_TYPE{
+class STORAGE_QUERY_TYPE extends Win32Enum{
 
     /**
      * Instructs the driver to return an appropriate descriptor.

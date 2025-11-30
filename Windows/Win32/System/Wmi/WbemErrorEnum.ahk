@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Define the errors that may be returned by Scripting API for WMI calls.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class WbemErrorEnum{
+class WbemErrorEnum extends Win32Enum{
 
     /**
      * The call was successful.

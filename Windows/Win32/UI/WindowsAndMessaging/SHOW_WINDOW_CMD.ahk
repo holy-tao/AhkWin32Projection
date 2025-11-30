@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */
-class SHOW_WINDOW_CMD{
+class SHOW_WINDOW_CMD extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

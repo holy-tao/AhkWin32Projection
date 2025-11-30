@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32Enum.ahk
 
 /**
  * Reserved for Microsoft use.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Gaming
  * @version v4.0.30319
  */
-class XBL_IDP_AUTH_TOKEN_STATUS{
+class XBL_IDP_AUTH_TOKEN_STATUS extends Win32Enum{
 
     /**
      * Reserved for Microsoft use.

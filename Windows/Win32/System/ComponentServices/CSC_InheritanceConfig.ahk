@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates whether to create a new context based on the current context or to create a new context based solely upon the information in CServiceConfig.
@@ -114,7 +115,7 @@
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
-class CSC_InheritanceConfig{
+class CSC_InheritanceConfig extends Win32Enum{
 
     /**
      * The new context is created from the existing context.

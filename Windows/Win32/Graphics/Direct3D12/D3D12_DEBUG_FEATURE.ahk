@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Flags for optional D3D12 Debug Layer features.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_DEBUG_FEATURE{
+class D3D12_DEBUG_FEATURE extends Win32BitflagEnum{
 
     /**
      * The default. No optional Debug Layer features.

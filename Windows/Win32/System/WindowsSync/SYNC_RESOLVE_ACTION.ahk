@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents actions that are taken to resolve a specific concurrency conflict.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
-class SYNC_RESOLVE_ACTION{
+class SYNC_RESOLVE_ACTION extends Win32Enum{
 
     /**
      * Ignore the conflict and do not apply the change. The change applier does not pass the conflict data to the destination provider.

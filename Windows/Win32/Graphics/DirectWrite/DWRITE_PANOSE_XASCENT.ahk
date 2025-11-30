@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DWRITE_PANOSE_XASCENT enumeration contains values that specify the relative size of the lowercase letters.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_PANOSE_XASCENT{
+class DWRITE_PANOSE_XASCENT extends Win32Enum{
 
     /**
      * Any xascent.

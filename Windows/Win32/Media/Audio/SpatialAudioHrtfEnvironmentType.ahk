@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of acoustic environment that is simulated when audio is processed for an ISpatialAudioObjectForHrtf.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
-class SpatialAudioHrtfEnvironmentType{
+class SpatialAudioHrtfEnvironmentType extends Win32Enum{
 
     /**
      * A small room.

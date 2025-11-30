@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Options for swap-chain behavior.
@@ -19,7 +20,7 @@
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
-class DXGI_SWAP_CHAIN_FLAG{
+class DXGI_SWAP_CHAIN_FLAG extends Win32BitflagEnum{
 
     /**
      * Set this flag to turn off automatic image rotation; that is, do not perform a rotation when transferring the contents of the front buffer to the monitor. 

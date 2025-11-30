@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the RADIUSPROPERTIES enumeration type enumerate properties of the Microsoft RADIUS protocol SDO.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class RADIUSPROPERTIES{
+class RADIUSPROPERTIES extends Win32Enum{
 
     /**
      * The TCP port used for RADIUS accounting.

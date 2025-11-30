@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify a debug event level.
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class DebugEventLevel{
+class DebugEventLevel extends Win32Enum{
 
     /**
      * Specifies the *fatal* debug event level.

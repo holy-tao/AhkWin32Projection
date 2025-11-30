@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates whether the write cache features of a device are changeable.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
-class WRITE_CACHE_CHANGE{
+class WRITE_CACHE_CHANGE extends Win32Enum{
 
     /**
      * The system cannot report the write cache change capability of the device.

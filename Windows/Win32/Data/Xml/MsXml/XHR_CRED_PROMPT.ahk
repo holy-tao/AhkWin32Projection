@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether to allow credential prompts to the user for authentication.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Data.Xml.MsXml
  * @version v4.0.30319
  */
-class XHR_CRED_PROMPT{
+class XHR_CRED_PROMPT extends Win32Enum{
 
     /**
      * Allow all credential prompts for authentication. 

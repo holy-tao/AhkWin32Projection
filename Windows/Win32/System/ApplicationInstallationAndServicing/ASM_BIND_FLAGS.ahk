@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */
-class ASM_BIND_FLAGS{
+class ASM_BIND_FLAGS extends Win32BitflagEnum{
 
     /**
      * @type {Integer (Int32)}

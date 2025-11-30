@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the rounding modes to be used when the value of an animation variable is converted from a floating-point type to an integer type.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319
  */
-class UI_ANIMATION_ROUNDING_MODE{
+class UI_ANIMATION_ROUNDING_MODE extends Win32Enum{
 
     /**
      * Round to the nearest integer.

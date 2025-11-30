@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Information about a fault.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_FAULT_ERROR_PROPERTY_ID{
+class WS_FAULT_ERROR_PROPERTY_ID extends Win32Enum{
 
     /**
      * An optional <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_fault">WS_FAULT</a> value that is the fault representation of the error.  If no

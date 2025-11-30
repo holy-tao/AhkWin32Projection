@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the priority of processing an item that has changed.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
-class SEARCH_NOTIFICATION_PRIORITY{
+class SEARCH_NOTIFICATION_PRIORITY extends Win32Enum{
 
     /**
      * The changed item is added to the end of the indexer's queue.

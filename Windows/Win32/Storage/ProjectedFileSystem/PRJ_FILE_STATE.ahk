@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The state of an item.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  * @version v4.0.30319
  */
-class PRJ_FILE_STATE{
+class PRJ_FILE_STATE extends Win32BitflagEnum{
 
     /**
      * The item is a placeholder.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates which resource types to track.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_SHADER_TRACKING_RESOURCE_TYPE{
+class D3D11_SHADER_TRACKING_RESOURCE_TYPE extends Win32Enum{
 
     /**
      * No resource types are tracked.

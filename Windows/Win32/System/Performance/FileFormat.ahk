@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the format of the data in the log file.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
-class FileFormat{
+class FileFormat extends Win32Enum{
 
     /**
      * Comma-separated log file. The first line in the text file contains column headings followed by comma-separated data in the remaining lines of the log file.

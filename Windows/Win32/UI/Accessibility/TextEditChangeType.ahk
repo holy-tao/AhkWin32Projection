@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the text editing change being performed by controls when text-edit events are raised or handled.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
-class TextEditChangeType{
+class TextEditChangeType extends Win32Enum{
 
     /**
      * Not related to a specific change type.

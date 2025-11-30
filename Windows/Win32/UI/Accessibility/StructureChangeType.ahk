@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that specify the type of change in the Microsoft UI Automation tree structure.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
-class StructureChangeType{
+class StructureChangeType extends Win32Enum{
 
     /**
      * A child element was added to the UI Automation element tree.

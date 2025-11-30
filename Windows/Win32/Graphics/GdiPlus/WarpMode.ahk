@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WarpMode enumeration specifies warp modes that can be used to transform images.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class WarpMode{
+class WarpMode extends Win32Enum{
 
     /**
      * Specifies the perspective warp mode.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The different possible values for MS_ATTRIBUTE_IDENTITY_TYPE.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class IDENTITY_TYPE{
+class IDENTITY_TYPE extends Win32Enum{
 
     /**
      * 

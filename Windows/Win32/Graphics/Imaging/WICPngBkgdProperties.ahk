@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the Portable Network Graphics (PNG) background (bKGD) chunk metadata properties.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICPngBkgdProperties{
+class WICPngBkgdProperties extends Win32Enum{
 
     /**
      * Indicates the background color. There are three possible types, depending on the image's pixel format.

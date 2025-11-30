@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Current status of a sync provider.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
-class CF_SYNC_PROVIDER_STATUS{
+class CF_SYNC_PROVIDER_STATUS extends Win32BitflagEnum{
 
     /**
      * The sync provider is disconnected.

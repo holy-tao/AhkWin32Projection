@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the units for an SVG length.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_SVG_LENGTH_UNITS{
+class D2D1_SVG_LENGTH_UNITS extends Win32Enum{
 
     /**
      * The length is unitless.

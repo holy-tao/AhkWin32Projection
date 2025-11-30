@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The different faces of a cube texture.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_TEXTURECUBE_FACE{
+class D3D11_TEXTURECUBE_FACE extends Win32Enum{
 
     /**
      * Positive X face.

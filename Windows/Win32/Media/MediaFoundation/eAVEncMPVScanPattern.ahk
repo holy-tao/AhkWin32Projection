@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the macroblock scan pattern. This enumeration is used with the AVEncMPVScanPattern property.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVEncMPVScanPattern{
+class eAVEncMPVScanPattern extends Win32Enum{
 
     /**
      * The encoder selects the scan pattern.

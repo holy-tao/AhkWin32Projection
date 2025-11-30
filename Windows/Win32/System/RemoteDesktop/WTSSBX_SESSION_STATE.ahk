@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that indicate the connection state of a user session.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class WTSSBX_SESSION_STATE{
+class WTSSBX_SESSION_STATE extends Win32Enum{
 
     /**
      * The session state is unspecified.

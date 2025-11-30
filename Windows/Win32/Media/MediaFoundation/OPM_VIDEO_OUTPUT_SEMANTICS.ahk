@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether the IOPMVideoOutput interface will use Output Protection Manager (OPM) semantics or Certified Output Protection Protocol (COPP) semantics.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class OPM_VIDEO_OUTPUT_SEMANTICS{
+class OPM_VIDEO_OUTPUT_SEMANTICS extends Win32Enum{
 
     /**
      * The interface will use COPP semantics.

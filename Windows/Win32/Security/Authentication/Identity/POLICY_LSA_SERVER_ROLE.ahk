@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values that indicate the role of an LSA server.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
-class POLICY_LSA_SERVER_ROLE{
+class POLICY_LSA_SERVER_ROLE extends Win32Enum{
 
     /**
      * Indicates a backup LSA server.

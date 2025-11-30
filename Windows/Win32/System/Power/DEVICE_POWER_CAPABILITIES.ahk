@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */
-class DEVICE_POWER_CAPABILITIES{
+class DEVICE_POWER_CAPABILITIES extends Win32BitflagEnum{
 
     /**
      * @type {Integer (UInt32)}

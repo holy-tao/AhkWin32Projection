@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the level of GPU-based validation to perform at runtime.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_GPU_BASED_VALIDATION_FLAGS{
+class D3D12_GPU_BASED_VALIDATION_FLAGS extends Win32BitflagEnum{
 
     /**
      * Default behavior; resource states, descriptors, and descriptor tables are all validated.

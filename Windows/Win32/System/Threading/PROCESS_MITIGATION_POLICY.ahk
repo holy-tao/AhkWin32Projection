@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents the different process mitigation policies.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */
-class PROCESS_MITIGATION_POLICY{
+class PROCESS_MITIGATION_POLICY extends Win32Enum{
 
     /**
      * The data execution prevention (DEP) policy of the process.

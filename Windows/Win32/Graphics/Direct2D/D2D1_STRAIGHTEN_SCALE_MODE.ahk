@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Values for the D2D1_STRAIGHTEN_PROP_SCALE_MODE property of the Straighten effect.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_STRAIGHTEN_SCALE_MODE{
+class D2D1_STRAIGHTEN_SCALE_MODE extends Win32Enum{
 
     /**
      * Indicates nearest neighbor interpolation should be used.

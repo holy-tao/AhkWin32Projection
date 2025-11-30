@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of a raytracing hit group state subobject. Use a value from this enumeration with the D3D12_HIT_GROUP_DESC structure.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_HIT_GROUP_TYPE{
+class D3D12_HIT_GROUP_TYPE extends Win32Enum{
 
     /**
      * The hit group uses a list of triangles to calculate ray hits. Hit groups that use triangles can’t contain an intersection shader.

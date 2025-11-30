@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that specify the type of a security identifier (SID).
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */
-class SID_NAME_USE{
+class SID_NAME_USE extends Win32Enum{
 
     /**
      * A user SID.

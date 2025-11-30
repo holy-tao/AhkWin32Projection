@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DHCP_POL_COMPARATOR enumeration defines the comparison operator for a condition when building a DHCP server policy.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */
-class DHCP_POL_COMPARATOR{
+class DHCP_POL_COMPARATOR extends Win32Enum{
 
     /**
      * The DHCP client message field specified by the criterion must exactly match the value supplied in the condition.

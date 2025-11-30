@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values for the feature that are supported by the logical unit (CD and DVD device).
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
-class IMAPI_FEATURE_PAGE_TYPE{
+class IMAPI_FEATURE_PAGE_TYPE extends Win32Enum{
 
     /**
      * Identifies profiles supported by the logical unit.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The VideoProcAmpFlags enumeration indicates whether a particular video property is controlled manually or automatically.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class VideoProcAmpFlags{
+class VideoProcAmpFlags extends Win32Enum{
 
     /**
      * The setting is controlled automatically.

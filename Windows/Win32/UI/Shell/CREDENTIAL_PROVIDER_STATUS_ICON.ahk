@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates which status icon should be displayed.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class CREDENTIAL_PROVIDER_STATUS_ICON{
+class CREDENTIAL_PROVIDER_STATUS_ICON extends Win32Enum{
 
     /**
      * No icon indicated.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the specific SSP package to be used for Windows Integrated Authentication.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_WINDOWS_INTEGRATED_AUTH_PACKAGE{
+class WS_WINDOWS_INTEGRATED_AUTH_PACKAGE extends Win32Enum{
 
     /**
      * The Kerberos package.

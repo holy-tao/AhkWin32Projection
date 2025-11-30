@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the valid object text formats to be used by SWbemObjectEx.GetText_.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class WMI_OBJ_TEXT{
+class WMI_OBJ_TEXT extends Win32Enum{
 
     /**
      * XML format conforming to the DMTF (Distributed Management Task Force) CIM document type definition (DTD) version 2.0.

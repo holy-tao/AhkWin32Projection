@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values for the possible media states.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
-class IMAPI_FORMAT2_DATA_MEDIA_STATE{
+class IMAPI_FORMAT2_DATA_MEDIA_STATE extends Win32Enum{
 
     /**
      * Indicates that the interface does not know the media state.

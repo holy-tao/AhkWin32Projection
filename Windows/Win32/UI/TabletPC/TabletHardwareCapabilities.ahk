@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the hardware capabilities of the Tablet PC.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class TabletHardwareCapabilities{
+class TabletHardwareCapabilities extends Win32Enum{
 
     /**
      * The digitizer is integrated with the display.

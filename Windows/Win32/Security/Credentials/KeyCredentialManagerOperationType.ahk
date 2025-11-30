@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * These are the operational enum values that are passed to KeyCredentialManagerShowUIOperation.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319
  */
-class KeyCredentialManagerOperationType{
+class KeyCredentialManagerOperationType extends Win32Enum{
 
     /**
      * Start the Provisioning operation.

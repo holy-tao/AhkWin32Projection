@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the read settings for caching package components and validating them against ECMA-376 OpenXML, 1st Edition, Part 2:\_Open Packaging Conventions (OPC) conformance requirements.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
-class OPC_READ_FLAGS{
+class OPC_READ_FLAGS extends Win32BitflagEnum{
 
     /**
      * Validate a package component against <i>OPC</i> conformance requirements when the  component is accessed. For more information about <i>OPC</i> conformance validation, see Remarks.

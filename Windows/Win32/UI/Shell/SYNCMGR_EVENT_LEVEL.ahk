@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of event being reported to Sync Center.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SYNCMGR_EVENT_LEVEL{
+class SYNCMGR_EVENT_LEVEL extends Win32Enum{
 
     /**
      * The event is informational in nature and will be displayed with the appropriate icon.

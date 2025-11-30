@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of physical connector.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class COPP_ConnectorType{
+class COPP_ConnectorType extends Win32Enum{
 
     /**
      * Unknown connector type.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ColorChannelFlags enumeration specifies individual channels in the CMYK (cyan, magenta, yellow, black) color space. This enumeration is used by the ImageAttributes::SetOutputChannel method.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class ColorChannelFlags{
+class ColorChannelFlags extends Win32Enum{
 
     /**
      * Specifies the cyan color channel.

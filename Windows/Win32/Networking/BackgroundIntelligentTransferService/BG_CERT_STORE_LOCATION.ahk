@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify the location of the certificate store.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */
-class BG_CERT_STORE_LOCATION{
+class BG_CERT_STORE_LOCATION extends Win32Enum{
 
     /**
      * Use the current user's certificate store.

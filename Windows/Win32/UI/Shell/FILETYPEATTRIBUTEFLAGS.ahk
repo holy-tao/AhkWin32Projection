@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates FILETYPEATTRIBUTEFLAGS constants that are used in the EditFlags value of a file association PROGID registry key.
@@ -58,7 +59,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class FILETYPEATTRIBUTEFLAGS{
+class FILETYPEATTRIBUTEFLAGS extends Win32BitflagEnum{
 
     /**
      * No <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-filetypeattributeflags">FILETYPEATTRIBUTEFLAGS</a> options set.

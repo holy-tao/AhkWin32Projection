@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * WCN_VALUE_TYPE_AUTHENTICATION_TYPE enumeration defines the authentication types supported by the Enrollee (access point or station).
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
  * @version v4.0.30319
  */
-class WCN_VALUE_TYPE_AUTHENTICATION_TYPE{
+class WCN_VALUE_TYPE_AUTHENTICATION_TYPE extends Win32Enum{
 
     /**
      * Specifies IEEE 802.11 Open System authentication.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DMO_ENUM_FLAGS enumeration defines flags that specify search criteria when enumerating Microsoft DirectX Media Objects (DMOs).
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.DxMediaObjects
  * @version v4.0.30319
  */
-class DMO_ENUM_FLAGS{
+class DMO_ENUM_FLAGS extends Win32Enum{
 
     /**
      * The enumeration should include DMOs whose use is restricted by a software key. If this flag is absent, keyed DMOs are omitted from the enumeration.

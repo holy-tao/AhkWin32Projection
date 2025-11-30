@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the behavior mode of the InkOverlay object and the InkPicture control.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InkOverlayEditingMode{
+class InkOverlayEditingMode extends Win32Enum{
 
     /**
      * The object or control is in collection mode.

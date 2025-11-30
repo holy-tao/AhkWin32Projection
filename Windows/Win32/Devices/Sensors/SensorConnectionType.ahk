@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines types of sensor device connections.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Sensors
  * @version v4.0.30319
  */
-class SensorConnectionType{
+class SensorConnectionType extends Win32Enum{
 
     /**
      * The sensor device is built into the computer.

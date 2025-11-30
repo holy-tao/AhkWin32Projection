@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the type of sync operation that was being performed when a sync error was encountered.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */
-class OFFLINEFILES_SYNC_OPERATION{
+class OFFLINEFILES_SYNC_OPERATION extends Win32Enum{
 
     /**
      * Operation was creating a new file or directory copy on the server.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents disk partition information. The enumeration flags identify certain properties of a disk partition, which is a storage class resource.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSPROP_PIFLAGS{
+class CLUSPROP_PIFLAGS extends Win32Enum{
 
     /**
      * The drive letter is sticky.

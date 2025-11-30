@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Option(s) for raising an error to a non-continuable exception.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_RAISE_FLAG{
+class D3D11_RAISE_FLAG extends Win32Enum{
 
     /**
      * Raise an internal driver error to a non-continuable exception.

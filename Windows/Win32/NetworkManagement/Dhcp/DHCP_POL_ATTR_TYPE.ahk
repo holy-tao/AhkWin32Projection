@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DHCP_POL_ATTR_TYPE enumeration defines the attribute type for a condition in a DHCP server policy.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */
-class DHCP_POL_ATTR_TYPE{
+class DHCP_POL_ATTR_TYPE extends Win32Enum{
 
     /**
      * The condition is based on the hardware address (MAC address) present in the <b>chaddr</b> field of the DHCP message header as defined in <a href="http://www.ietf.org/rfc/rfc2131.txt">RFC2131</a>.

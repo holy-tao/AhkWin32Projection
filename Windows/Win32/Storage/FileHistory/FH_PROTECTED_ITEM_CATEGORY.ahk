@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of an inclusion or exclusion list.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Storage.FileHistory
  * @version v4.0.30319
  */
-class FH_PROTECTED_ITEM_CATEGORY{
+class FH_PROTECTED_ITEM_CATEGORY extends Win32Enum{
 
     /**
      * The inclusion or exclusion list is a list of folders.

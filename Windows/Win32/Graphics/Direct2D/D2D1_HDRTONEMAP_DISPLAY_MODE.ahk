@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify a value for the D2D1_HDRTONEMAP_PROP_DISPLAY_MODE property of the HDR Tone Map effect.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_HDRTONEMAP_DISPLAY_MODE{
+class D2D1_HDRTONEMAP_DISPLAY_MODE extends Win32Enum{
 
     /**
      * Specifies that the tone mapper algorithm be optimized for best appearance on a standard dynamic range (SDR) display.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Flags the describe the type of classification property.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
-class FsrmPropertyDefinitionFlags{
+class FsrmPropertyDefinitionFlags extends Win32Enum{
 
     /**
      * The FSRM classification property definition is defined globally, using group policy.

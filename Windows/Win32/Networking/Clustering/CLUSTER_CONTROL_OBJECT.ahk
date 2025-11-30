@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The 8-bit object component of a control code that indicates the type of cluster object to which the control code applies. For more information, see Control Code Architecture.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_CONTROL_OBJECT{
+class CLUSTER_CONTROL_OBJECT extends Win32Enum{
 
     /**
      * Zero is not a valid object code value.

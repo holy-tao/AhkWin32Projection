@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies which modifier key was pressed.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InkShiftKeyModifierFlags{
+class InkShiftKeyModifierFlags extends Win32Enum{
 
     /**
      * The SHIFT key was used as a modifier.

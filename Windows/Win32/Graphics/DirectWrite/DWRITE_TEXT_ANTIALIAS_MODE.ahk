@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DWRITE_TEXT_ANTIALIAS_MODE enumeration contains values that specify the type of antialiasing to use for text when the rendering mode calls for antialiasing.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_TEXT_ANTIALIAS_MODE{
+class DWRITE_TEXT_ANTIALIAS_MODE extends Win32Enum{
 
     /**
      * ClearType antialiasing computes coverage independently for the red, green, and blue color elements of each pixel. This allows for more detail than conventional antialiasing. However, because there is no one alpha value for each pixel, ClearType is not suitable for rendering text onto a transparent intermediate bitmap.

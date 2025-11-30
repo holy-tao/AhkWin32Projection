@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the OEM's preferred power management profile.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */
-class POWER_PLATFORM_ROLE{
+class POWER_PLATFORM_ROLE extends Win32Enum{
 
     /**
      * The OEM did not specify a specific role.

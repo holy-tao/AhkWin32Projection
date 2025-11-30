@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether or not hard links are allowed on placeholder files.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
-class CF_HARDLINK_POLICY{
+class CF_HARDLINK_POLICY extends Win32BitflagEnum{
 
     /**
      * Default; No hard links can be created on any placeholder.

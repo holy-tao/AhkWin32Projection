@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the possible values of the operation code for the properties to query or set on the wireless Hosted Network.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
-class WLAN_HOSTED_NETWORK_OPCODE{
+class WLAN_HOSTED_NETWORK_OPCODE extends Win32Enum{
 
     /**
      * The opcode used to query or set the wireless Hosted Network connection settings.

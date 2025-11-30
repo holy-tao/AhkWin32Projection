@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Flags for setting split resource barriers.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_RESOURCE_BARRIER_FLAGS{
+class D3D12_RESOURCE_BARRIER_FLAGS extends Win32BitflagEnum{
 
     /**
      * No flags.

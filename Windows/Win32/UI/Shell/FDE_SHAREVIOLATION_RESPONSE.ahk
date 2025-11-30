@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the values used by the IFileDialogEvents::OnShareViolation method to indicate an application's response to a sharing violation that occurs when a file is opened or saved.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class FDE_SHAREVIOLATION_RESPONSE{
+class FDE_SHAREVIOLATION_RESPONSE extends Win32Enum{
 
     /**
      * The application has not handled the event. The dialog displays a UI that indicates that the file is in use and a different file must be chosen.

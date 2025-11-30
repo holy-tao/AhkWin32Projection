@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the type of data provided by a frame source.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFFrameSourceTypes{
+class MFFrameSourceTypes extends Win32Enum{
 
     /**
      * The frame source provides color data.

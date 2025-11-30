@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Requests the form of an item's display name to retrieve through IShellItem::GetDisplayName and SHGetNameFromIDList.
@@ -27,7 +28,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SIGDN{
+class SIGDN extends Win32Enum{
 
     /**
      * 0x00000000. Returns the display name relative to the parent folder. In UI this name is generally ideal for display to the user.

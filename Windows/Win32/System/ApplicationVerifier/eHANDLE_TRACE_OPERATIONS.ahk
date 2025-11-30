@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the type of handle operation that has occurred.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.ApplicationVerifier
  * @version v4.0.30319
  */
-class eHANDLE_TRACE_OPERATIONS{
+class eHANDLE_TRACE_OPERATIONS extends Win32Enum{
 
     /**
      * Not used at this time.

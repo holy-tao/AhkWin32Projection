@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies which gamma is used for interpolation.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_GAMMA{
+class D2D1_GAMMA extends Win32Enum{
 
     /**
      * Interpolation is performed in the standard RGB (sRGB) gamma.

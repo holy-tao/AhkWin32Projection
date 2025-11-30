@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Determines whether the enumeration operation should continue or stop.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.ApplicationVerifier
  * @version v4.0.30319
  */
-class eHeapEnumerationLevel{
+class eHeapEnumerationLevel extends Win32Enum{
 
     /**
      * A constant that specifies the enumeration should continue.

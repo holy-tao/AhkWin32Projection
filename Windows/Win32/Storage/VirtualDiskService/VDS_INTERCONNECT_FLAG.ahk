@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of interconnect types that subsystems can support.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_INTERCONNECT_FLAG{
+class VDS_INTERCONNECT_FLAG extends Win32Enum{
 
     /**
      * The subsystem supports a PCI RAID interconnect.

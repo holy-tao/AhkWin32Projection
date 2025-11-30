@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the REMEDIATIONSERVERSPROPERTIES enumeration type enumerate the properties of a set of remediation server groups.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class REMEDIATIONSERVERSPROPERTIES{
+class REMEDIATIONSERVERSPROPERTIES extends Win32Enum{
 
     /**
      * 

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Performance counter types.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
-class D3D10_COUNTER{
+class D3D10_COUNTER extends Win32Enum{
 
     /**
      * Percentage of the time that the GPU is idle.

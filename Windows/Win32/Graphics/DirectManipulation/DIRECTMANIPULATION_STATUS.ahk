@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the possible states of Direct Manipulation.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */
-class DIRECTMANIPULATION_STATUS{
+class DIRECTMANIPULATION_STATUS extends Win32Enum{
 
     /**
      * The viewport is being initialized and is not yet able to process input.

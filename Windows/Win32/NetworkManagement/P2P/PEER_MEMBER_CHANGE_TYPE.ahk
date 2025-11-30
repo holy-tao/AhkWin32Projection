@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PEER_MEMBER_CHANGE_TYPE enumeration defines the set of possible peer group membership and presence states for a peer.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
-class PEER_MEMBER_CHANGE_TYPE{
+class PEER_MEMBER_CHANGE_TYPE extends Win32Enum{
 
     /**
      * A member is connected to a peer group.

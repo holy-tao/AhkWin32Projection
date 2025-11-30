@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents the severity of the log event passed to the LogEvent callback function.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class LOG_LEVEL{
+class LOG_LEVEL extends Win32Enum{
 
     /**
      * The event is informational.

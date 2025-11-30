@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of notifications that are generated for a resource type.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_CHANGE_RESOURCE_TYPE_V2{
+class CLUSTER_CHANGE_RESOURCE_TYPE_V2 extends Win32Enum{
 
     /**
      * Indicates that the resource type has been deleted.

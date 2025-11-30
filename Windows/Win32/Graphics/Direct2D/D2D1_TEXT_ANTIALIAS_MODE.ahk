@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the antialiasing mode used for drawing text.
@@ -32,7 +33,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_TEXT_ANTIALIAS_MODE{
+class D2D1_TEXT_ANTIALIAS_MODE extends Win32Enum{
 
     /**
      * Use the system default. See Remarks.

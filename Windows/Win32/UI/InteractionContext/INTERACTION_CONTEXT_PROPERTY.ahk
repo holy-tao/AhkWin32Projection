@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies properties of the Interaction Context object.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.InteractionContext
  * @version v4.0.30319
  */
-class INTERACTION_CONTEXT_PROPERTY{
+class INTERACTION_CONTEXT_PROPERTY extends Win32Enum{
 
     /**
      * Measurement units used by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a> object: himetric (0.01mm) or screen pixels.

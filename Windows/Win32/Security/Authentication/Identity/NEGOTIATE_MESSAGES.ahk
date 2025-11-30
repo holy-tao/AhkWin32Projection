@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
-class NEGOTIATE_MESSAGES{
+class NEGOTIATE_MESSAGES extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

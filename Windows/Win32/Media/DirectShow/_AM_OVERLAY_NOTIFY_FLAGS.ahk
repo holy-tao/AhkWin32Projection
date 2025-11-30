@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The AM_OVERLAY_NOTIFY_FLAGS enumeration indicates what the overlay has changed, or is about to change.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class _AM_OVERLAY_NOTIFY_FLAGS{
+class _AM_OVERLAY_NOTIFY_FLAGS extends Win32Enum{
 
     /**
      * The rectangle will be changed from visible to invisible, or vice-versa.

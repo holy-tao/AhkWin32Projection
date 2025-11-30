@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the in-sync state for placeholder files and folders.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
-class CF_IN_SYNC_STATE{
+class CF_IN_SYNC_STATE extends Win32Enum{
 
     /**
      * The platform clears the placeholder’s in-sync state upon a successful return from the <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfsetinsyncstate">CfSetInSyncState</a> call.

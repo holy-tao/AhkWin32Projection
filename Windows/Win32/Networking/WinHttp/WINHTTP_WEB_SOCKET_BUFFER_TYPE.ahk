@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WINHTTP_WEB_SOCKET_BUFFER_TYPE enumeration includes types of WebSocket buffers.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */
-class WINHTTP_WEB_SOCKET_BUFFER_TYPE{
+class WINHTTP_WEB_SOCKET_BUFFER_TYPE extends Win32Enum{
 
     /**
      * Buffer contains either the entire binary message or the last part of it.

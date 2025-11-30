@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the possible states that a storage class resource can be placed in when marked for maintenance.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class MAINTENANCE_MODE_TYPE_ENUM{
+class MAINTENANCE_MODE_TYPE_ENUM extends Win32Enum{
 
     /**
      * Indicates that the server is ignoring the result of the resource's health check.

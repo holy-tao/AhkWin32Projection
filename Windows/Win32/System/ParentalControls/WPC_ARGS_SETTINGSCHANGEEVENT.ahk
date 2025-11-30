@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates information about the changes to settings being made by a user.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
-class WPC_ARGS_SETTINGSCHANGEEVENT{
+class WPC_ARGS_SETTINGSCHANGEEVENT extends Win32Enum{
 
     /**
      * The class of change made to the setting.

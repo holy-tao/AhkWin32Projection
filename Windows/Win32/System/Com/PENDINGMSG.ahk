@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the return values for the IMessageFilter::MessagePending method.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class PENDINGMSG{
+class PENDINGMSG extends Win32Enum{
 
     /**
      * Cancel the outgoing call.

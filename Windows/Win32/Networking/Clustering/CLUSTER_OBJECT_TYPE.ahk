@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the type of object for which a notification is requested or generated.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_OBJECT_TYPE{
+class CLUSTER_OBJECT_TYPE extends Win32Enum{
 
     /**
      * The notification is for an unspecified type.

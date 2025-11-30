@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the Portable Network Graphics (PNG) tIME chunk metadata properties.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICPngTimeProperties{
+class WICPngTimeProperties extends Win32Enum{
 
     /**
      * [VT_UI2] Indicates the year of the last modification.

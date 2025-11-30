@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a format for a directory service object name.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
-class EXTENDED_NAME_FORMAT{
+class EXTENDED_NAME_FORMAT extends Win32Enum{
 
     /**
      * An unknown name type.

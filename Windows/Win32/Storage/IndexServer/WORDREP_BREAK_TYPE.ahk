@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the type of break that separates the current word from the previous word.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.IndexServer
  * @version v4.0.30319
  */
-class WORDREP_BREAK_TYPE{
+class WORDREP_BREAK_TYPE extends Win32Enum{
 
     /**
      * A word break is placed between this word and the previous word that was placed in the <b>WordSink</b>. This break is the default used by the <a href="https://docs.microsoft.com/windows/desktop/search/iwordsink-putword">PutWord</a> method.

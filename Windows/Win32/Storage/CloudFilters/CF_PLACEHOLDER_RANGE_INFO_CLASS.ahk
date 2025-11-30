@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Types of the range of placeholder file data.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
-class CF_PLACEHOLDER_RANGE_INFO_CLASS{
+class CF_PLACEHOLDER_RANGE_INFO_CLASS extends Win32Enum{
 
     /**
      * On-disk data is data that is physical present in the file, which is a super set of other types of ranges.

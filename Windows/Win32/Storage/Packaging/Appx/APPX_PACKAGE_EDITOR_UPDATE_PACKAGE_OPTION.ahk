@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Options to use when updating an app package.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
-class APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION{
+class APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION extends Win32Enum{
 
     /**
      * Appends the delta (difference) of the baseline package and the updated package.

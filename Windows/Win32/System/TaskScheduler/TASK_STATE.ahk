@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the different states that a registered task can be in.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
-class TASK_STATE{
+class TASK_STATE extends Win32Enum{
 
     /**
      * The state of the task is unknown.

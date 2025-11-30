@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MBN_CTRL_CAPS enumerated type represents all of the Mobile Broadband device control capabilities as bit fields.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
-class MBN_CTRL_CAPS{
+class MBN_CTRL_CAPS extends Win32Enum{
 
     /**
      * Device control capabilities are unavailable.

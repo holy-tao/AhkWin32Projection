@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Flags for creating a placeholder on a per-placeholder basis.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
-class CF_PLACEHOLDER_CREATE_FLAGS{
+class CF_PLACEHOLDER_CREATE_FLAGS extends Win32BitflagEnum{
 
     /**
      * No placeholder create flags.

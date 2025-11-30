@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the status of the user.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  * @version v4.0.30319
  */
-class WcmUserStatus{
+class WcmUserStatus extends Win32Enum{
 
     /**
      * Indicates a problem with the store.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify what parts of the visual tree should be rendered.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  * @version v4.0.30319
  */
-class RenderTargetBitmapOptions{
+class RenderTargetBitmapOptions extends Win32Enum{
 
     /**
      * Only the texture associated with the visual should be rendered.

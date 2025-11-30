@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the DVD domains.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class DVD_DOMAIN{
+class DVD_DOMAIN extends Win32Enum{
 
     /**
      * Performing default initialization of a DVD disc.

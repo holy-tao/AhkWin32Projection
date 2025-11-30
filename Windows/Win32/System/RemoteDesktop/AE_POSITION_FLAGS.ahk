@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants for the AE_CURRENT_POSITION structure. These constants describe the degree of validity of the current position.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class AE_POSITION_FLAGS{
+class AE_POSITION_FLAGS extends Win32Enum{
 
     /**
      * The position is not valid and must not be used.

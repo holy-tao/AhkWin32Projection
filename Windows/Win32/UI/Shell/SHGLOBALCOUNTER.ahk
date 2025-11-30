@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifiers for various global counters, or shared variables. Each global counter can be incremented or decremented using SHGlobalCounterIncrement and SHGlobalCounterDecrement.
@@ -39,7 +40,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SHGLOBALCOUNTER{
+class SHGLOBALCOUNTER extends Win32Enum{
 
     /**
      * The global counter for use with the <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nn-searchapi-isearchmanager">ISearchManager</a>.

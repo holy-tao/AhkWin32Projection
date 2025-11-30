@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents the type of processor cache identified in the corresponding CACHE_DESCRIPTOR structure.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  */
-class PROCESSOR_CACHE_TYPE{
+class PROCESSOR_CACHE_TYPE extends Win32Enum{
 
     /**
      * The cache is unified.

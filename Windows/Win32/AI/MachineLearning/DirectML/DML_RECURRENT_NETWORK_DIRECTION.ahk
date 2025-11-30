@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify a direction for a recurrent DirectML operator.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
-class DML_RECURRENT_NETWORK_DIRECTION{
+class DML_RECURRENT_NETWORK_DIRECTION extends Win32Enum{
 
     /**
      * Indicates the forward pass.

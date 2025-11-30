@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the conversion function from linear RGB to non-linear RGB (R'G'B').
@@ -111,7 +112,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class DXVA2_VideoTransferFunction{
+class DXVA2_VideoTransferFunction extends Win32Enum{
 
     /**
      * Bitmask to validate flag values. This value is not a valid flag.

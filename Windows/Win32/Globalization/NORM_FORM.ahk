@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the supported normalization forms.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */
-class NORM_FORM{
+class NORM_FORM extends Win32Enum{
 
     /**
      * Not supported.

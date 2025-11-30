@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines where the trace events are delivered.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
-class StreamMode{
+class StreamMode extends Win32Enum{
 
     /**
      * Write the trace events to a log file.

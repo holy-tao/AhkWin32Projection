@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PNRP_CLOUD_STATE enumeration specifies the different states a PNRP cloud can be in.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
-class PNRP_CLOUD_STATE{
+class PNRP_CLOUD_STATE extends Win32Enum{
 
     /**
      * The cloud is not yet initialized.

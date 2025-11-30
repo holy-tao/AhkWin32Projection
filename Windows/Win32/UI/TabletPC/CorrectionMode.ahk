@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the correction modes of the Tablet PC Input Panel.
@@ -18,7 +19,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class CorrectionMode{
+class CorrectionMode extends Win32Enum{
 
     /**
      * The Input Panel and the correction comb are not visible.

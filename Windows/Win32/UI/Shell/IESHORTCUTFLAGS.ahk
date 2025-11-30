@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how a shortcut should be handled by the browser.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class IESHORTCUTFLAGS{
+class IESHORTCUTFLAGS extends Win32Enum{
 
     /**
      * A new browser window should be opened for each shortcut.

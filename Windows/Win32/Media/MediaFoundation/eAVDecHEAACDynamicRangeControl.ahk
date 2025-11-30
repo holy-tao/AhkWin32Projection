@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether an AAC decoder performs dynamic range control.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVDecHEAACDynamicRangeControl{
+class eAVDecHEAACDynamicRangeControl extends Win32Enum{
 
     /**
      * The decoder does not apply dynamic range control.

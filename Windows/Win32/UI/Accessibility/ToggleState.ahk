@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that specify the toggle state of a Microsoft UI Automation element that implements the Toggle control pattern.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
-class ToggleState{
+class ToggleState extends Win32Enum{
 
     /**
      * The UI Automation element is not selected, checked, marked or otherwise activated.

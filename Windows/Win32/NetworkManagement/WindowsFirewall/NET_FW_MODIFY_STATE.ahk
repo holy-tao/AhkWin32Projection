@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the effect of modifications to the current policy.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
-class NET_FW_MODIFY_STATE{
+class NET_FW_MODIFY_STATE extends Win32Enum{
 
     /**
      * Changing or adding a firewall rule or firewall group to the current profile will take effect.

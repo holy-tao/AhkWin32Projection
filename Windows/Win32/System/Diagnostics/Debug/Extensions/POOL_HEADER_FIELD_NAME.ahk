@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  * @version v4.0.30319
  */
-class POOL_HEADER_FIELD_NAME{
+class POOL_HEADER_FIELD_NAME extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * IKE_AUTHENTICATION_METHOD enumeration indicates the type of Internet Key Exchange (IKE) authentication method.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @version v4.0.30319
  */
-class IKE_AUTHENTICATION_METHOD{
+class IKE_AUTHENTICATION_METHOD extends Win32Enum{
 
     /**
      * The authentication method was preshared.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how aggressively a pipeline component should drop samples.
@@ -33,7 +34,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_QUALITY_DROP_MODE{
+class MF_QUALITY_DROP_MODE extends Win32Enum{
 
     /**
      * Normal processing of samples. Drop mode is disabled.

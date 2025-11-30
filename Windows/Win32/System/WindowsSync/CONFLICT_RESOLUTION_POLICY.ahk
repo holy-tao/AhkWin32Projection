@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents the options for the concurrency conflict resolution policy to use for the synchronization session.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
-class CONFLICT_RESOLUTION_POLICY{
+class CONFLICT_RESOLUTION_POLICY extends Win32Enum{
 
     /**
      * The change applier notifies the synchronization application of each conflict as it occurs, by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isynccallback-onconflict">ISyncCallback::OnConflict</a> method. The application examines the conflicting items and specifies the conflict resolution action by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-ichangeconflict-setresolveactionforchange">IChangeConflict::SetResolveActionForChange</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-ichangeconflict-setresolveactionforchangeunit">IChangeConflict::SetResolveActionForChangeUnit</a>.

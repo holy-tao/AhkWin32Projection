@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies types of Shell windows.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class ShellWindowTypeConstants{
+class ShellWindowTypeConstants extends Win32Enum{
 
     /**
      * An Windows Explorer (Explorer.exe) window.

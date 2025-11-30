@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of Internet Control Message Protocol (ICMP) for IP version 4.0 (IPv4) message types.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */
-class ICMP4_TYPE{
+class ICMP4_TYPE extends Win32Enum{
 
     /**
      * ICMP echo reply message.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the current data type of the union in the WSMAN_DATA structure.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */
-class WSManDataType{
+class WSManDataType extends Win32Enum{
 
     /**
      * The structure is not valid yet.

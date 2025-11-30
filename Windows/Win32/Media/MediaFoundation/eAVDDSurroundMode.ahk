@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether the audio is encoded in Dolby Surround. This enumeration is used with the AVDDSurroundMode property.
@@ -35,7 +36,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVDDSurroundMode{
+class eAVDDSurroundMode extends Win32Enum{
 
     /**
      * The bit stream does not indicate whether the audio is encoded in Dolby Surround.

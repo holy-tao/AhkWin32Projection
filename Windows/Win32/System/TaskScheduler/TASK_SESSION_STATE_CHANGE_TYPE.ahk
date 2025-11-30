@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines what kind of Terminal Server session state change you can use to trigger a task to start.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
-class TASK_SESSION_STATE_CHANGE_TYPE{
+class TASK_SESSION_STATE_CHANGE_TYPE extends Win32Enum{
 
     /**
      * Terminal Server console connection state change. For example, when you connect to a user session on the local computer by switching users on the computer.

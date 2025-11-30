@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the data type of a property value in a property list.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_PROPERTY_FORMAT{
+class CLUSTER_PROPERTY_FORMAT extends Win32Enum{
 
     /**
      * Data is in an unknown format.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type and usage of the XML property.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
-class CRYPT_XML_PROPERTY_ID{
+class CRYPT_XML_PROPERTY_ID extends Win32Enum{
 
     /**
      * Specifies the maximum heap size, in bytes, that the  XML layer can use.

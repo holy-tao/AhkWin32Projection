@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that indicate the types of property pages in an access control editor property sheet.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Authorization.UI
  * @version v4.0.30319
  */
-class SI_PAGE_TYPE{
+class SI_PAGE_TYPE extends Win32Enum{
 
     /**
      * The 

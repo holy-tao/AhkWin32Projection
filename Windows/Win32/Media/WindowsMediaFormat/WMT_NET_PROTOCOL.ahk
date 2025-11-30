@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WMT_STREAM_SELECTION enumeration type defines the types of protocols that the network sink supports.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
-class WMT_NET_PROTOCOL{
+class WMT_NET_PROTOCOL extends Win32Enum{
 
     /**
      * The network sink supports hypertext transfer protocol (HTTP).

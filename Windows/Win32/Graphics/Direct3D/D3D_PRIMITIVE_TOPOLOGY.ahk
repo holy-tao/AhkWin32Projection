@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Values that indicate how the pipeline interprets vertex data that is bound to the input-assembler stage. These primitive topology values determine how the vertex data is rendered on screen.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */
-class D3D_PRIMITIVE_TOPOLOGY{
+class D3D_PRIMITIVE_TOPOLOGY extends Win32Enum{
 
     /**
      * The IA stage has not been initialized with a primitive topology. The IA stage will not function properly unless a primitive topology is defined.

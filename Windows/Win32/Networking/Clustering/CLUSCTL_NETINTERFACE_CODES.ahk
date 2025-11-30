@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Enumerates Network Interface control codes.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSCTL_NETINTERFACE_CODES{
+class CLUSCTL_NETINTERFACE_CODES extends Win32Enum{
 
     /**
      * See 

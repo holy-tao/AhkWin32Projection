@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Flags for indicating a subset of components used with video decode histogram.
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAGS{
+class D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT_FLAGS extends Win32BitflagEnum{
 
     /**
      * No associated component.

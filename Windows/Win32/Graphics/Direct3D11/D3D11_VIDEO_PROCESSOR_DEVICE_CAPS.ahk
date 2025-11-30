@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines video processing capabilities for a Microsoft Direct3D 11 video processor.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_VIDEO_PROCESSOR_DEVICE_CAPS{
+class D3D11_VIDEO_PROCESSOR_DEVICE_CAPS extends Win32Enum{
 
     /**
      * The video processor can blend video content in linear color space. Most video content is gamma corrected, resulting in nonlinear values. This capability flag means that the video processor converts colors to linear space before blending, which produces better results.

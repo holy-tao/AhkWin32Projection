@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the type of module information that will be written to the minidump file by the MiniDumpWriteDump function.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */
-class MODULE_WRITE_FLAGS{
+class MODULE_WRITE_FLAGS extends Win32Enum{
 
     /**
      * Only module information will be written to the minidump file.

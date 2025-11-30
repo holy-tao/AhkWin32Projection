@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The types supported for serialization.
@@ -26,7 +27,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_TYPE{
+class WS_TYPE extends Win32Enum{
 
     /**
      * Used when serializing a <b>BOOL</b> value.

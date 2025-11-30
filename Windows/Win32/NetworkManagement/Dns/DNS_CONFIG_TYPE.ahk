@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DNS_CONFIG_TYPE enumeration provides DNS configuration type information.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */
-class DNS_CONFIG_TYPE{
+class DNS_CONFIG_TYPE extends Win32Enum{
 
     /**
      * For use with Unicode on Windows 2000.

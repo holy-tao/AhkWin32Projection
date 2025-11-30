@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values that specify different CIM data types.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class CIMTYPE_ENUMERATION{
+class CIMTYPE_ENUMERATION extends Win32Enum{
 
     /**
      * An illegal value.

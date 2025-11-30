@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of possible authentication parameter values.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */
-class EapHostPeerAuthParams{
+class EapHostPeerAuthParams extends Win32Enum{
 
     /**
      * Contains the current status of authentication for the supplicant.

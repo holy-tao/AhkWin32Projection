@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the preferred direction of the In-Place Input Panel relative to the text entry field.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InPlaceDirection{
+class InPlaceDirection extends Win32Enum{
 
     /**
      * Restores the system default.

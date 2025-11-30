@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Determines which, if any, modifier keys were pressed when the flick gesture occurred.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class KEYMODIFIER{
+class KEYMODIFIER extends Win32Enum{
 
     /**
      * The Control key was pressed when the Flicks gesture occurred.

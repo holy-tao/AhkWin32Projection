@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the physical type of pin (audio or video).
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class PhysicalConnectorType{
+class PhysicalConnectorType extends Win32Enum{
 
     /**
      * Specifies a tuner pin for video.

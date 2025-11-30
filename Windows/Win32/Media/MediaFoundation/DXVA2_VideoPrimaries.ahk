@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the color primaries of a video source.
@@ -78,7 +79,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class DXVA2_VideoPrimaries{
+class DXVA2_VideoPrimaries extends Win32Enum{
 
     /**
      * Bitmask to validate flag values. This value is not a valid flag.
