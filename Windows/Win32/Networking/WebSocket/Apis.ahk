@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\WEB_SOCKET_HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WebSocket
@@ -25,20 +24,24 @@ class WebSocket {
      * @param {Integer} ulPropertyCount Type: <b>ULONG</b>
      * 
      * Number of properties in <i>pProperties</i>.
-     * @returns {WEB_SOCKET_HANDLE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a>*</b>
+     * @param {Pointer<WEB_SOCKET_HANDLE>} phWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a>*</b>
      * 
      * On successful output, pointer to a  newly allocated client-side WebSocket session handle.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the function succeeds, it returns <b>S_OK</b>.
+     * 
+     * If the function fails, it returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * @see https://docs.microsoft.com/windows/win32/api//websocket/nf-websocket-websocketcreateclienthandle
      * @since windows8.0
      */
-    static WebSocketCreateClientHandle(pProperties, ulPropertyCount) {
-        phWebSocket := WEB_SOCKET_HANDLE()
+    static WebSocketCreateClientHandle(pProperties, ulPropertyCount, phWebSocket) {
         result := DllCall("websocket.dll\WebSocketCreateClientHandle", "ptr", pProperties, "uint", ulPropertyCount, "ptr", phWebSocket, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return phWebSocket
+        return result
     }
 
     /**
@@ -185,20 +188,24 @@ class WebSocket {
      * @param {Integer} ulPropertyCount Type: <b>ULONG</b>
      * 
      * Number of properties in <i>pProperties</i>.
-     * @returns {WEB_SOCKET_HANDLE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a>*</b>
+     * @param {Pointer<WEB_SOCKET_HANDLE>} phWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a>*</b>
      * 
      * On successful output, pointer to a newly allocated server-side WebSocket session handle.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the function succeeds, it returns <b>S_OK</b>.
+     * 
+     * If the function fails, it returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * @see https://docs.microsoft.com/windows/win32/api//websocket/nf-websocket-websocketcreateserverhandle
      * @since windows8.0
      */
-    static WebSocketCreateServerHandle(pProperties, ulPropertyCount) {
-        phWebSocket := WEB_SOCKET_HANDLE()
+    static WebSocketCreateServerHandle(pProperties, ulPropertyCount, phWebSocket) {
         result := DllCall("websocket.dll\WebSocketCreateServerHandle", "ptr", pProperties, "uint", ulPropertyCount, "ptr", phWebSocket, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return phWebSocket
+        return result
     }
 
     /**

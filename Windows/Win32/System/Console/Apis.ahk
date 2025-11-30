@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\HPCON.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\UI\WindowsAndMessaging\HMENU.ahk
@@ -865,20 +864,20 @@ class Console {
      * @param {HANDLE} hInput 
      * @param {HANDLE} hOutput 
      * @param {Integer} dwFlags 
-     * @returns {HPCON} 
+     * @param {Pointer<HPCON>} phPC 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/console/createpseudoconsole
      */
-    static CreatePseudoConsole(size, hInput, hOutput, dwFlags) {
+    static CreatePseudoConsole(size, hInput, hOutput, dwFlags, phPC) {
         hInput := hInput is Win32Handle ? NumGet(hInput, "ptr") : hInput
         hOutput := hOutput is Win32Handle ? NumGet(hOutput, "ptr") : hOutput
 
-        phPC := HPCON()
         result := DllCall("KERNEL32.dll\CreatePseudoConsole", "ptr", size, "ptr", hInput, "ptr", hOutput, "uint", dwFlags, "ptr", phPC, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return phPC
+        return result
     }
 
     /**

@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\HIORING.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -16282,17 +16281,17 @@ class FileSystem {
      * @param {IORING_CREATE_FLAGS} flags 
      * @param {Integer} submissionQueueSize 
      * @param {Integer} completionQueueSize 
-     * @returns {HIORING} 
+     * @param {Pointer<HIORING>} h 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-createioring
      */
-    static CreateIoRing(ioringVersion, flags, submissionQueueSize, completionQueueSize) {
-        h := HIORING()
+    static CreateIoRing(ioringVersion, flags, submissionQueueSize, completionQueueSize, h) {
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\CreateIoRing", "int", ioringVersion, "ptr", flags, "uint", submissionQueueSize, "uint", completionQueueSize, "ptr", h, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return h
+        return result
     }
 
     /**

@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
-#Include .\HPTPROVIDER.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing.PrintTicket
@@ -70,20 +68,22 @@ class PrintTicket {
      * Opens an instance of a print ticket provider.
      * @param {PWSTR} pszPrinterName A pointer to the full name of a print queue.
      * @param {Integer} dwVersion The version of the <a href="https://docs.microsoft.com/windows/desktop/printdocs/printschema">Print Schema</a> requested by the caller.
-     * @returns {HPTPROVIDER} A pointer to a handle for the provider.
+     * @param {Pointer<HPTPROVIDER>} phProvider A pointer to a handle for the provider.
+     * @returns {HRESULT} If the operation succeeds, the return value is S_OK, otherwise the <b>HRESULT</b> contains an error code.
+     * 
+     * For more information about COM error codes, see <a href="/windows/desktop/SetupApi/error-handling">Error Handling</a>.
      * @see https://docs.microsoft.com/windows/win32/api//prntvpt/nf-prntvpt-ptopenprovider
      * @since windows5.1.2600
      */
-    static PTOpenProvider(pszPrinterName, dwVersion) {
+    static PTOpenProvider(pszPrinterName, dwVersion, phProvider) {
         pszPrinterName := pszPrinterName is String ? StrPtr(pszPrinterName) : pszPrinterName
 
-        phProvider := HPTPROVIDER()
         result := DllCall("prntvpt.dll\PTOpenProvider", "ptr", pszPrinterName, "uint", dwVersion, "ptr", phProvider, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return phProvider
+        return result
     }
 
     /**
@@ -92,24 +92,19 @@ class PrintTicket {
      * @param {Integer} dwMaxVersion The latest version of the <a href="https://docs.microsoft.com/windows/desktop/printdocs/printschema">Print Schema</a> that the caller supports.
      * @param {Integer} dwPrefVersion The version of the Print Schema requested by the caller.
      * @param {Pointer<HPTPROVIDER>} phProvider A pointer to a handle for the provider.
-     * @param {Pointer<Integer>} pUsedVersion A pointer to the version of the Print Schema that the print ticket provider will use.
-     * @returns {HRESULT} If the operation succeeds, the return value is S_OK, otherwise the <b>HRESULT</b> contains an error code.
-     * 
-     * For more information about COM error codes, see <a href="/windows/desktop/SetupApi/error-handling">Error Handling</a>.
+     * @returns {Integer} A pointer to the version of the Print Schema that the print ticket provider will use.
      * @see https://docs.microsoft.com/windows/win32/api//prntvpt/nf-prntvpt-ptopenproviderex
      * @since windows5.1.2600
      */
-    static PTOpenProviderEx(pszPrinterName, dwMaxVersion, dwPrefVersion, phProvider, pUsedVersion) {
+    static PTOpenProviderEx(pszPrinterName, dwMaxVersion, dwPrefVersion, phProvider) {
         pszPrinterName := pszPrinterName is String ? StrPtr(pszPrinterName) : pszPrinterName
 
-        pUsedVersionMarshal := pUsedVersion is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("prntvpt.dll\PTOpenProviderEx", "ptr", pszPrinterName, "uint", dwMaxVersion, "uint", dwPrefVersion, "ptr", phProvider, pUsedVersionMarshal, pUsedVersion, "int")
+        result := DllCall("prntvpt.dll\PTOpenProviderEx", "ptr", pszPrinterName, "uint", dwMaxVersion, "uint", dwPrefVersion, "ptr", phProvider, "uint*", &pUsedVersion := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return pUsedVersion
     }
 
     /**
@@ -159,20 +154,30 @@ class PrintTicket {
      * @param {HPTPROVIDER} hProvider A handle to an open provider whose print capabilities are to be retrieved. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenprovider">PTOpenProvider</a> or the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenproviderex">PTOpenProviderEx</a> function.
      * @param {IStream} pPrintTicket A pointer to a stream with its seek position at the beginning of the print ticket content. This parameter can be <b>NULL</b>.
      * @param {IStream} pCapabilities A pointer to the stream where the print capabilities will be written, starting at the current seek position.
-     * @returns {BSTR} A pointer to a string that specifies what, if anything, is invalid about <i>pPrintTicket</i>. If it is valid, this value is <b>NULL</b>.
+     * @param {Pointer<BSTR>} pbstrErrorMessage A pointer to a string that specifies what, if anything, is invalid about <i>pPrintTicket</i>. If it is valid, this value is <b>NULL</b>.
+     * @returns {HRESULT} If the operation succeeds, the return value is S_OK.
+     * 
+     * If <i>hProvider</i> was opened in a different thread, the <b>HRESULT</b> is E_INVALIDARG.
+     * 
+     * If the <i>pPrintTicket</i> is not compliant with the <a href="/windows/desktop/printdocs/printschema">Print Schema</a> , the <b>HRESULT</b> is E_PRINTTICKET_FORMAT.
+     * 
+     * If the <i>pCapabilities</i> is not compliant with the <a href="/windows/desktop/printdocs/printschema">Print Schema</a> , the <b>HRESULT</b> is E_PRINTCAPABILITIES_FORMAT.
+     * 
+     * If <i>hProvider</i> was opened in a different thread, the <b>HRESULT</b> is E_INVALIDARG.
+     * 
+     * Otherwise, another error code is returned in the <b>HRESULT</b>. For more information about COM error codes, see <a href="/windows/desktop/SetupApi/error-handling">Error Handling</a>.
      * @see https://docs.microsoft.com/windows/win32/api//prntvpt/nf-prntvpt-ptgetprintcapabilities
      * @since windows5.1.2600
      */
-    static PTGetPrintCapabilities(hProvider, pPrintTicket, pCapabilities) {
+    static PTGetPrintCapabilities(hProvider, pPrintTicket, pCapabilities, pbstrErrorMessage) {
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
 
-        pbstrErrorMessage := BSTR()
         result := DllCall("prntvpt.dll\PTGetPrintCapabilities", "ptr", hProvider, "ptr", pPrintTicket, "ptr", pCapabilities, "ptr", pbstrErrorMessage, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return pbstrErrorMessage
+        return result
     }
 
     /**
@@ -180,20 +185,20 @@ class PrintTicket {
      * @param {HPTPROVIDER} hProvider A handle to an open device provider whose print capabilities are to be retrieved. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenprovider">PTOpenProvider</a> or the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenproviderex">PTOpenProviderEx</a> function.
      * @param {IStream} pPrintTicket An optional pointer to a stream with its seek position at the beginning of the print ticket content. This parameter can be <b>NULL</b>.
      * @param {IStream} pDeviceCapabilities A pointer to the stream where the device print capabilities will be written, starting at the current seek position.
-     * @returns {BSTR} A pointer to a PDC file or string that specifies what, if anything, is invalid about <i>pPrintTicket</i>. If it is valid, this value is <b>NULL</b>.The function uses this parameter only used if <i>pPrintTicket</i> is used.
+     * @param {Pointer<BSTR>} pbstrErrorMessage A pointer to a PDC file or string that specifies what, if anything, is invalid about <i>pPrintTicket</i>. If it is valid, this value is <b>NULL</b>.The function uses this parameter only used if <i>pPrintTicket</i> is used.
+     * @returns {HRESULT} If the operation succeeds, the return value is S_OK. Otherwise, returns an error message.
      * @see https://docs.microsoft.com/windows/win32/api//prntvpt/nf-prntvpt-ptgetprintdevicecapabilities
      * @since windows10.0.15063
      */
-    static PTGetPrintDeviceCapabilities(hProvider, pPrintTicket, pDeviceCapabilities) {
+    static PTGetPrintDeviceCapabilities(hProvider, pPrintTicket, pDeviceCapabilities, pbstrErrorMessage) {
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
 
-        pbstrErrorMessage := BSTR()
         result := DllCall("prntvpt.dll\PTGetPrintDeviceCapabilities", "ptr", hProvider, "ptr", pPrintTicket, "ptr", pDeviceCapabilities, "ptr", pbstrErrorMessage, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return pbstrErrorMessage
+        return result
     }
 
     /**
@@ -202,21 +207,21 @@ class PrintTicket {
      * @param {PWSTR} pszLocaleName Optional pointer to the locale name. This parameter can be <b>NULL</b>.
      * @param {IStream} pPrintTicket A pointer to a stream with its seek position at the beginning of the print ticket content. This parameter can be <b>NULL</b>.
      * @param {IStream} pDeviceResources A pointer to the stream where the device print resources will be written, starting at the current seek position.
-     * @returns {BSTR} A pointer to a PDC file or string that specifies what, if anything, is invalid about <i>pPrintTicket</i>. If it is valid, this value is <b>NULL</b>.
+     * @param {Pointer<BSTR>} pbstrErrorMessage A pointer to a PDC file or string that specifies what, if anything, is invalid about <i>pPrintTicket</i>. If it is valid, this value is <b>NULL</b>.
+     * @returns {HRESULT} If the operation succeeds, the return value is S_OK. Otherwise, returns an error message.
      * @see https://docs.microsoft.com/windows/win32/api//prntvpt/nf-prntvpt-ptgetprintdeviceresources
      * @since windows10.0.15063
      */
-    static PTGetPrintDeviceResources(hProvider, pszLocaleName, pPrintTicket, pDeviceResources) {
+    static PTGetPrintDeviceResources(hProvider, pszLocaleName, pPrintTicket, pDeviceResources, pbstrErrorMessage) {
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
         pszLocaleName := pszLocaleName is String ? StrPtr(pszLocaleName) : pszLocaleName
 
-        pbstrErrorMessage := BSTR()
         result := DllCall("prntvpt.dll\PTGetPrintDeviceResources", "ptr", hProvider, "ptr", pszLocaleName, "ptr", pPrintTicket, "ptr", pDeviceResources, "ptr", pbstrErrorMessage, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return pbstrErrorMessage
+        return result
     }
 
     /**
@@ -232,20 +237,30 @@ class PrintTicket {
      * <div> </div>
      * @param {Integer} scope A value specifying whether the scope of <i>pDeltaTicket</i> and <i>pResultTicket</i> is a single page, an entire document, or all documents in the print job. See Remarks.
      * @param {IStream} pResultTicket A pointer to the stream where the viable, merged ticket will be written. The seek position will be at the end of the print ticket. See Remarks.
-     * @returns {BSTR} A pointer to a string that specifies what, if anything, is invalid about <i>pBaseTicket</i> or <i>pDeltaTicket</i>. If both are valid, this is <b>NULL</b>. Viability problems are not reported in <i>pbstrErrorMessage</i>.
+     * @param {Pointer<BSTR>} pbstrErrorMessage A pointer to a string that specifies what, if anything, is invalid about <i>pBaseTicket</i> or <i>pDeltaTicket</i>. If both are valid, this is <b>NULL</b>. Viability problems are not reported in <i>pbstrErrorMessage</i>.
+     * @returns {HRESULT} If the operation succeeds with no conflict between the settings of the merged ticket and the capabilities of the printer, the <b>HRESULT</b> is S_PT_NO_CONFLICT.
+     * 
+     * If the operation succeeds but the merged ticket had to be changed in one or more settings because it requested functionality that the printer does not support, the <b>HRESULT</b> is S_PT_CONFLICT_RESOLVED. See Remarks.
+     * 
+     * If <i>hProvider</i> was opened in a different thread, the <b>HRESULT</b> is E_INVALIDARG.
+     * 
+     * If <i>pBaseTicket</i> is invalid, the <b>HRESULT</b> is E_PRINTTICKET_FORMAT.
+     * 
+     * If <i>pDeltaTicket</i> is invalid, the <b>HRESULT</b> is E_DELTA_PRINTTICKET_FORMAT.
+     * 
+     * Otherwise, some other error code is returned in the <b>HRESULT</b>. For more information about COM error codes, see <a href="/windows/desktop/SetupApi/error-handling">Error Handling</a>.
      * @see https://docs.microsoft.com/windows/win32/api//prntvpt/nf-prntvpt-ptmergeandvalidateprintticket
      * @since windows5.1.2600
      */
-    static PTMergeAndValidatePrintTicket(hProvider, pBaseTicket, pDeltaTicket, scope, pResultTicket) {
+    static PTMergeAndValidatePrintTicket(hProvider, pBaseTicket, pDeltaTicket, scope, pResultTicket, pbstrErrorMessage) {
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
 
-        pbstrErrorMessage := BSTR()
         result := DllCall("prntvpt.dll\PTMergeAndValidatePrintTicket", "ptr", hProvider, "ptr", pBaseTicket, "ptr", pDeltaTicket, "int", scope, "ptr", pResultTicket, "ptr", pbstrErrorMessage, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return pbstrErrorMessage
+        return result
     }
 
     /**

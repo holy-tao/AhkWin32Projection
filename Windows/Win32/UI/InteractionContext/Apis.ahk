@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\HINTERACTIONCONTEXT.ahk
 
 /**
  * @namespace Windows.Win32.UI.InteractionContext
@@ -14,18 +13,20 @@ class InteractionContext {
 ;@region Methods
     /**
      * Creates and initializes an Interaction Context object.
-     * @returns {HINTERACTIONCONTEXT} Pointer to a handle for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
+     * @param {Pointer<HINTERACTIONCONTEXT>} interactionContext Pointer to a handle for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
+     * @returns {HRESULT} If this function succeeds, it returns S_OK.
+     *  
+     * Otherwise, it returns an HRESULT error code.
      * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-createinteractioncontext
      * @since windows8.0
      */
-    static CreateInteractionContext() {
-        interactionContext := HINTERACTIONCONTEXT()
+    static CreateInteractionContext(interactionContext) {
         result := DllCall("NInput.dll\CreateInteractionContext", "ptr", interactionContext, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return interactionContext
+        return result
     }
 
     /**

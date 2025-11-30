@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IStream.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 
@@ -1185,22 +1184,24 @@ class PropertiesSystem {
      * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
-     * @returns {BSTR} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
+     * @param {Pointer<BSTR>} value Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
      * 
      * When this function returns, contains a pointer to a <b>BSTR</b> property value.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-pspropertybag_readbstr
      * @since windows6.1
      */
-    static PSPropertyBag_ReadBSTR(propBag, propName) {
+    static PSPropertyBag_ReadBSTR(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        value := BSTR()
         result := DllCall("PROPSYS.dll\PSPropertyBag_ReadBSTR", "ptr", propBag, "ptr", propName, "ptr", value, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return value
+        return result
     }
 
     /**

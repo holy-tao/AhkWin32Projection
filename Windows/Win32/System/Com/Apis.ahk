@@ -8,9 +8,7 @@
 #Include .\IRunningObjectTable.ahk
 #Include .\IBindStatusCallback.ahk
 #Include .\IMalloc.ahk
-#Include .\CO_MTA_USAGE_COOKIE.ahk
 #Include .\IUnknown.ahk
-#Include .\CO_DEVICE_CATALOG_COOKIE.ahk
 #Include .\IUri.ahk
 #Include .\IUriBuilder.ahk
 #Include .\IErrorInfo.ahk
@@ -1541,17 +1539,17 @@ class Com {
 
     /**
      * Keeps MTA support active when no MTA threads are running.
-     * @returns {CO_MTA_USAGE_COOKIE} Address of a <b>PVOID</b> variable that receives the cookie for the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-codecrementmtausage">CoDecrementMTAUsage</a> function, or <b>NULL</b> if the call fails.
+     * @param {Pointer<CO_MTA_USAGE_COOKIE>} pCookie Address of a <b>PVOID</b> variable that receives the cookie for the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-codecrementmtausage">CoDecrementMTAUsage</a> function, or <b>NULL</b> if the call fails.
+     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-coincrementmtausage
      */
-    static CoIncrementMTAUsage() {
-        pCookie := CO_MTA_USAGE_COOKIE()
+    static CoIncrementMTAUsage(pCookie) {
         result := DllCall("OLE32.dll\CoIncrementMTAUsage", "ptr", pCookie, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return pCookie
+        return result
     }
 
     /**
@@ -3241,19 +3239,19 @@ class Com {
     /**
      * 
      * @param {PWSTR} deviceInstanceId 
-     * @returns {CO_DEVICE_CATALOG_COOKIE} 
+     * @param {Pointer<CO_DEVICE_CATALOG_COOKIE>} cookie 
+     * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coregisterdevicecatalog
      */
-    static CoRegisterDeviceCatalog(deviceInstanceId) {
+    static CoRegisterDeviceCatalog(deviceInstanceId, cookie) {
         deviceInstanceId := deviceInstanceId is String ? StrPtr(deviceInstanceId) : deviceInstanceId
 
-        cookie := CO_DEVICE_CATALOG_COOKIE()
         result := DllCall("OLE32.dll\CoRegisterDeviceCatalog", "ptr", deviceInstanceId, "ptr", cookie, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return cookie
+        return result
     }
 
     /**

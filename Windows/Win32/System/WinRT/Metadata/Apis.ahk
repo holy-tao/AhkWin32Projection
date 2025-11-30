@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ROPARAMIIDHANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
@@ -1361,22 +1360,65 @@ class Metadata {
      * @param {Pointer<Guid>} iid Type: <b>GUID*</b>
      * 
      * The IID of the interface or delegate that corresponds with <i>nameElements</i>.
-     * @returns {ROPARAMIIDHANDLE} Type: <b>ROPARAMIIDHANDLE*</b>
+     * @param {Pointer<ROPARAMIIDHANDLE>} pExtra Type: <b>ROPARAMIIDHANDLE*</b>
      * 
      * Handle to the IID that corresponds with <i>nameElements</i>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The call was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory available to complete the task.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The wrong number of type arguments are provided for a parameterized type.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * A failure may also occur if a type is inappropriate for the context in which it appears.
      * @see https://docs.microsoft.com/windows/win32/api//roparameterizediid/nf-roparameterizediid-rogetparameterizedtypeinstanceiid
      * @since windows8.0
      */
-    static RoGetParameterizedTypeInstanceIID(nameElementCount, nameElements, metaDataLocator, iid) {
+    static RoGetParameterizedTypeInstanceIID(nameElementCount, nameElements, metaDataLocator, iid, pExtra) {
         nameElementsMarshal := nameElements is VarRef ? "ptr*" : "ptr"
 
-        pExtra := ROPARAMIIDHANDLE()
         result := DllCall("api-ms-win-core-winrt-roparameterizediid-l1-1-0.dll\RoGetParameterizedTypeInstanceIID", "uint", nameElementCount, nameElementsMarshal, nameElements, "ptr", metaDataLocator, "ptr", iid, "ptr", pExtra, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return pExtra
+        return result
     }
 
     /**

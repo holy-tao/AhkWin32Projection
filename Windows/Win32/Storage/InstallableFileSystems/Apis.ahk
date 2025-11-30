@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\HFILTER.ahk
-#Include .\HFILTER_INSTANCE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Storage.InstallableFileSystems
@@ -554,19 +551,19 @@ class InstallableFileSystems {
     /**
      * The FilterCreate function creates a handle for the given minifilter.
      * @param {PWSTR} lpFilterName Pointer to a null-terminated wide-character string containing the name of the minifilter. This parameter is required and cannot be <b>NULL</b>.
-     * @returns {HFILTER} Pointer to a caller-allocated variable that receives a handle for the minifilter if the call to <b>FilterCreate</b> succeeds; otherwise, it receives INVALID_HANDLE_VALUE.
+     * @param {Pointer<HFILTER>} hFilter Pointer to a caller-allocated variable that receives a handle for the minifilter if the call to <b>FilterCreate</b> succeeds; otherwise, it receives INVALID_HANDLE_VALUE.
+     * @returns {HRESULT} <b>FilterCreate</b> returns S_OK if successful. Otherwise, it returns an error value.
      * @see https://docs.microsoft.com/windows/win32/api//fltuser/nf-fltuser-filtercreate
      */
-    static FilterCreate(lpFilterName) {
+    static FilterCreate(lpFilterName, hFilter) {
         lpFilterName := lpFilterName is String ? StrPtr(lpFilterName) : lpFilterName
 
-        hFilter := HFILTER()
         result := DllCall("FLTLIB.dll\FilterCreate", "ptr", lpFilterName, "ptr", hFilter, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return hFilter
+        return result
     }
 
     /**
@@ -612,21 +609,21 @@ class InstallableFileSystems {
      * </li>
      * </ul>
      * @param {PWSTR} lpInstanceName Pointer to a null-terminated wide-character string containing the instance name for the instance. This parameter is optional and can be <b>NULL</b>. If it is <b>NULL</b>, the first instance found for this minifilter on this volume is returned.
-     * @returns {HFILTER_INSTANCE} Pointer to a caller-allocated variable that receives an opaque handle for the minifilter instance if the call to <b>FilterInstanceCreate</b> succeeds; otherwise, it receives INVALID_HANDLE_VALUE.
+     * @param {Pointer<HFILTER_INSTANCE>} hInstance Pointer to a caller-allocated variable that receives an opaque handle for the minifilter instance if the call to <b>FilterInstanceCreate</b> succeeds; otherwise, it receives INVALID_HANDLE_VALUE.
+     * @returns {HRESULT} <b>FilterInstanceCreate</b> returns S_OK if successful. Otherwise, it returns an error value.
      * @see https://docs.microsoft.com/windows/win32/api//fltuser/nf-fltuser-filterinstancecreate
      */
-    static FilterInstanceCreate(lpFilterName, lpVolumeName, lpInstanceName) {
+    static FilterInstanceCreate(lpFilterName, lpVolumeName, lpInstanceName, hInstance) {
         lpFilterName := lpFilterName is String ? StrPtr(lpFilterName) : lpFilterName
         lpVolumeName := lpVolumeName is String ? StrPtr(lpVolumeName) : lpVolumeName
         lpInstanceName := lpInstanceName is String ? StrPtr(lpInstanceName) : lpInstanceName
 
-        hInstance := HFILTER_INSTANCE()
         result := DllCall("FLTLIB.dll\FilterInstanceCreate", "ptr", lpFilterName, "ptr", lpVolumeName, "ptr", lpInstanceName, "ptr", hInstance, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return hInstance
+        return result
     }
 
     /**
@@ -855,61 +852,17 @@ class InstallableFileSystems {
      * @param {Integer} dwInformationClass 
      * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
-     * @param {Pointer<Integer>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterFindFirst</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @param {Pointer<HANDLE>} lpFilterFind Pointer to a caller-allocated variable that receives a search handle for the filter driver if the call to <b>FilterFindFirst</b> succeeds; otherwise, it receives INVALID_HANDLE_VALUE. This search handle can be used in subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterfindnext">FilterFindNext</a> and <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterfindclose">FilterFindClose</a>.
-     * @returns {HRESULT} <b>FilterFindFirst</b> returns S_OK if successful. Otherwise, it returns an HRESULT error value, such as one of the following:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER)</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The buffer pointed to by <i>lpBuffer</i> is not large enough to contain the requested information.  When this value is returned, <i>lpBytesReturned</i> will contain the size, in bytes, of the buffer required for the given <i>dwInformationClass</i> structure.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>HRESULT_FROM_WIN32(ERROR_INVALID_PARAMETER)</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An invalid value was specified for the <i>dwInformationClass</i> parameter.  For example, if <i>FilterAggregateStandardInformation</i> is specified for an operating system prior to Windows Vista, <b>FilterFindFirst</b> returns this HRESULT value.
-     *        
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>HRESULT_FROM_WIN32(ERROR_NO_MORE_ITEMS)</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A filter driver was not found in the global list of registered filters.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterFindFirst</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//fltuser/nf-fltuser-filterfindfirst
      */
-    static FilterFindFirst(dwInformationClass, lpBuffer, dwBufferSize, lpBytesReturned, lpFilterFind) {
-        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("FLTLIB.dll\FilterFindFirst", "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpFilterFind, "int")
+    static FilterFindFirst(dwInformationClass, lpBuffer, dwBufferSize, lpFilterFind) {
+        result := DllCall("FLTLIB.dll\FilterFindFirst", "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", &lpBytesReturned := 0, "ptr", lpFilterFind, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return lpBytesReturned
     }
 
     /**
@@ -954,60 +907,17 @@ class InstallableFileSystems {
      * @param {Integer} dwInformationClass 
      * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
-     * @param {Pointer<Integer>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterVolumeFindFirst</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @param {Pointer<HANDLE>} lpVolumeFind Pointer to a caller-allocated variable that receives a search handle for the minifilter if the call to <b>FilterVolumeFindFirst</b> succeeds; otherwise, it receives INVALID_HANDLE_VALUE. This search handle can be used in subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtervolumefindnext">FilterVolumeFindNext</a> and <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtervolumefindclose">FilterVolumeFindClose</a>.
-     * @returns {HRESULT} <b>FilterVolumeFindFirst</b> returns S_OK if it successfully returns information about a volume. Otherwise, it returns an HRESULT error value, such as one of the following:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER)</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The buffer pointed to by <i>lpBuffer</i> is not large enough to contain the requested information.  When this value is returned, <i>lpBytesReturned</i> will contain the size, in bytes, of the buffer required for the given <i>dwInformationClass</i> structure.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>HRESULT_FROM_WIN32(ERROR_INVALID_PARAMETER)</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An invalid value was specified for the <i>dwInformationClass</i> parameter.  For example, if <b>FilterVolumeStandardInformation</b> is specified for an operating system prior to Windows Vista, <b>FilterVolumeFindFirst</b> returns this HRESULT value.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>HRESULT_FROM_WIN32(ERROR_NO_MORE_ITEMS)</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A volume was not found in the list of volumes known to the filter manager.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterVolumeFindFirst</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//fltuser/nf-fltuser-filtervolumefindfirst
      */
-    static FilterVolumeFindFirst(dwInformationClass, lpBuffer, dwBufferSize, lpBytesReturned, lpVolumeFind) {
-        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("FLTLIB.dll\FilterVolumeFindFirst", "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpVolumeFind, "int")
+    static FilterVolumeFindFirst(dwInformationClass, lpBuffer, dwBufferSize, lpVolumeFind) {
+        result := DllCall("FLTLIB.dll\FilterVolumeFindFirst", "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", &lpBytesReturned := 0, "ptr", lpVolumeFind, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return lpBytesReturned
     }
 
     /**
@@ -1053,62 +963,19 @@ class InstallableFileSystems {
      * @param {Integer} dwInformationClass 
      * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
-     * @param {Pointer<Integer>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to, if the call to <b>FilterInstanceFindFirst</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @param {Pointer<HANDLE>} lpFilterInstanceFind Pointer to a caller-allocated variable that receives a search handle for the minifilter if the call to <b>FilterInstanceFindFirst</b> succeeds; otherwise, it receives INVALID_HANDLE_VALUE. This search handle can be used in subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterinstancefindnext">FilterInstanceFindNext</a> and <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterinstancefindclose">FilterInstanceFindClose</a>.
-     * @returns {HRESULT} <b>FilterInstanceFindFirst</b> returns S_OK if successful. Otherwise, it returns an HRESULT error value, such as one of the following:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER)</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The buffer pointed to by <i>lpBuffer</i> is not large enough to contain the requested information.  When this value is returned, <i>lpBytesReturned</i> will contain the size, in bytes, of the buffer required for the given <i>dwInformationClass</i> structure.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>HRESULT_FROM_WIN32(ERROR_INVALID_PARAMETER)</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An invalid value was specified for the <i>dwInformationClass</i> parameter.  For example, if <b>InstanceAggregateStandardInformation</b> is specified for operating systems prior to Windows Vista, the function returns this HRESULT value.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>HRESULT_FROM_WIN32(ERROR_NO_MORE_ITEMS)</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The minifilter specified by the <i>lpFilterName</i> parameter does not have an instance on the file system stack.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to, if the call to <b>FilterInstanceFindFirst</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//fltuser/nf-fltuser-filterinstancefindfirst
      */
-    static FilterInstanceFindFirst(lpFilterName, dwInformationClass, lpBuffer, dwBufferSize, lpBytesReturned, lpFilterInstanceFind) {
+    static FilterInstanceFindFirst(lpFilterName, dwInformationClass, lpBuffer, dwBufferSize, lpFilterInstanceFind) {
         lpFilterName := lpFilterName is String ? StrPtr(lpFilterName) : lpFilterName
 
-        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("FLTLIB.dll\FilterInstanceFindFirst", "ptr", lpFilterName, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpFilterInstanceFind, "int")
+        result := DllCall("FLTLIB.dll\FilterInstanceFindFirst", "ptr", lpFilterName, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", &lpBytesReturned := 0, "ptr", lpFilterInstanceFind, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return lpBytesReturned
     }
 
     /**
@@ -1175,62 +1042,19 @@ class InstallableFileSystems {
      * @param {Integer} dwInformationClass 
      * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
-     * @param {Pointer<Integer>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterVolumeInstanceFindFirst</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @param {Pointer<HANDLE>} lpVolumeInstanceFind Pointer to a caller-allocated variable that receives a search handle for the minifilter instance or legacy filter (only when <b>InstanceAggregateStandardInformation</b> is specified) if the call to <b>FilterVolumeInstanceFindFirst</b> succeeds. Otherwise, <i>lpVolumeInstanceFind</i> receives INVALID_HANDLE_VALUE. This search handle can be used in subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtervolumeinstancefindnext">FilterVolumeInstanceFindNext</a> and <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtervolumeinstancefindclose">FilterVolumeInstanceFindClose</a>.
-     * @returns {HRESULT} <b>FilterVolumeInstanceFindFirst</b> returns S_OK if successful. Otherwise, it returns an HRESULT error value, such as one of the following:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER)</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The buffer pointed to by <i>lpBuffer</i> is not large enough to contain the requested information.  When this value is returned, <i>lpBytesReturned</i> will contain the size, in bytes, of the buffer required for the given <i>dwInformationClass</i> structure.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>HRESULT_FROM_WIN32(ERROR_INVALID_PARAMETER)</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An invalid value was specified for the <i>dwInformationClass</i> parameter.  For example, if <b>InstanceAggregateStandardInformation</b> is specified for an operating system prior to Windows Vista, <b>FilterVolumeInstanceFindFirst</b> returns this HRESULT value.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>HRESULT_FROM_WIN32(ERROR_NO_MORE_ITEMS)</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A filter driver was not found on the given volume.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterVolumeInstanceFindFirst</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//fltuser/nf-fltuser-filtervolumeinstancefindfirst
      */
-    static FilterVolumeInstanceFindFirst(lpVolumeName, dwInformationClass, lpBuffer, dwBufferSize, lpBytesReturned, lpVolumeInstanceFind) {
+    static FilterVolumeInstanceFindFirst(lpVolumeName, dwInformationClass, lpBuffer, dwBufferSize, lpVolumeInstanceFind) {
         lpVolumeName := lpVolumeName is String ? StrPtr(lpVolumeName) : lpVolumeName
 
-        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("FLTLIB.dll\FilterVolumeInstanceFindFirst", "ptr", lpVolumeName, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpVolumeInstanceFind, "int")
+        result := DllCall("FLTLIB.dll\FilterVolumeInstanceFindFirst", "ptr", lpVolumeName, "int", dwInformationClass, "ptr", lpBuffer, "uint", dwBufferSize, "uint*", &lpBytesReturned := 0, "ptr", lpVolumeInstanceFind, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return lpBytesReturned
     }
 
     /**
@@ -1334,19 +1158,19 @@ class InstallableFileSystems {
      * @param {Pointer} lpContext Pointer to caller-supplied context information to be passed to the kernel-mode minifilter's connect notification routine. (See the <i>ConnectNotifyCallback</i> parameter in the reference page for <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/fltkernel/nf-fltkernel-fltcreatecommunicationport">FltCreateCommunicationPort</a>.) This parameter is optional and can be <b>NULL</b>.
      * @param {Integer} wSizeOfContext Size, in bytes, of the structure that the <i>lpContext</i> parameter points to. If the value of <i>lpContext</i> is non-<b>NULL</b>, this parameter must be nonzero. If <i>lpContext</i> is <b>NULL</b>, this parameter must be zero.
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes Pointer to a SECURITY_ATTRIBUTES structure that determines whether the returned handle can be inherited by child processes. For more information about the SECURITY_ATTRIBUTES structure, see the Microsoft Windows SDK documentation. This parameter is optional and can be <b>NULL</b>. If this parameter is <b>NULL</b>, the handle cannot be inherited.
-     * @returns {HANDLE} Pointer to a caller-allocated variable that receives a handle for the newly created connection port if the call to <b>FilterConnectCommunicationPort</b> succeeds; otherwise, it receives INVALID_HANDLE_VALUE.
+     * @param {Pointer<HANDLE>} hPort Pointer to a caller-allocated variable that receives a handle for the newly created connection port if the call to <b>FilterConnectCommunicationPort</b> succeeds; otherwise, it receives INVALID_HANDLE_VALUE.
+     * @returns {HRESULT} <b>FilterConnectCommunicationPort</b> returns S_OK if successful. Otherwise, it returns an error value.
      * @see https://docs.microsoft.com/windows/win32/api//fltuser/nf-fltuser-filterconnectcommunicationport
      */
-    static FilterConnectCommunicationPort(lpPortName, dwOptions, lpContext, wSizeOfContext, lpSecurityAttributes) {
+    static FilterConnectCommunicationPort(lpPortName, dwOptions, lpContext, wSizeOfContext, lpSecurityAttributes, hPort) {
         lpPortName := lpPortName is String ? StrPtr(lpPortName) : lpPortName
 
-        hPort := HANDLE()
         result := DllCall("FLTLIB.dll\FilterConnectCommunicationPort", "ptr", lpPortName, "uint", dwOptions, "ptr", lpContext, "ushort", wSizeOfContext, "ptr", lpSecurityAttributes, "ptr", hPort, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return hPort
+        return result
     }
 
     /**

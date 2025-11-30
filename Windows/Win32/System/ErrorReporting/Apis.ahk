@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\HREPORT.ahk
-#Include .\HREPORTSTORE.ahk
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
@@ -248,20 +246,20 @@ class ErrorReporting {
      * @param {PWSTR} pwzEventType A pointer to a Unicode string that specifies the name of the event.
      * @param {Integer} repType 
      * @param {Pointer<WER_REPORT_INFORMATION>} pReportInformation A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/werapi/ns-werapi-wer_report_information">WER_REPORT_INFORMATION</a> structure that specifies information for the report.
-     * @returns {HREPORT} A handle to the report. If the function fails, this handle is <b>NULL</b>.
+     * @param {Pointer<HREPORT>} phReportHandle A handle to the report. If the function fails, this handle is <b>NULL</b>.
+     * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure.
      * @see https://docs.microsoft.com/windows/win32/api//werapi/nf-werapi-werreportcreate
      * @since windows6.0.6000
      */
-    static WerReportCreate(pwzEventType, repType, pReportInformation) {
+    static WerReportCreate(pwzEventType, repType, pReportInformation, phReportHandle) {
         pwzEventType := pwzEventType is String ? StrPtr(pwzEventType) : pwzEventType
 
-        phReportHandle := HREPORT()
         result := DllCall("wer.dll\WerReportCreate", "ptr", pwzEventType, "int", repType, "ptr", pReportInformation, "ptr", phReportHandle, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return phReportHandle
+        return result
     }
 
     /**
@@ -1243,18 +1241,36 @@ class ErrorReporting {
     /**
      * Opens the collection of stored error reports.
      * @param {Integer} repStoreType The type of report store to open. See Remarks for details.
-     * @returns {HREPORTSTORE} A pointer to a report store. On a successful call, this will point to the retrieved report store.
+     * @param {Pointer<HREPORTSTORE>} phReportStore A pointer to a report store. On a successful call, this will point to the retrieved report store.
+     * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure, including the following error code.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the arguments is not a valid value.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//werapi/nf-werapi-werstoreopen
      * @since windows10.0.15063
      */
-    static WerStoreOpen(repStoreType) {
-        phReportStore := HREPORTSTORE()
+    static WerStoreOpen(repStoreType, phReportStore) {
         result := DllCall("wer.dll\WerStoreOpen", "int", repStoreType, "ptr", phReportStore, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return phReportStore
+        return result
     }
 
     /**

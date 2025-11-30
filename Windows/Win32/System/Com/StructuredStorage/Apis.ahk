@@ -3,11 +3,9 @@
 #Include .\IStorage.ahk
 #Include .\IFillLockBytes.ahk
 #Include ..\IStream.ahk
-#Include ..\..\..\Foundation\HGLOBAL.ahk
 #Include .\IPropertyStorage.ahk
 #Include .\IPropertySetStorage.ahk
 #Include .\ILockBytes.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.StructuredStorage
@@ -573,18 +571,18 @@ class StructuredStorage {
      * The GetHGlobalFromStream function retrieves the global memory handle to a stream that was created through a call to the CreateStreamOnHGlobal function.
      * @param {IStream} pstm <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> pointer to the stream object previously created by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-createstreamonhglobal">CreateStreamOnHGlobal</a> function.
-     * @returns {HGLOBAL} Pointer to the current memory handle used by the specified stream object.
+     * @param {Pointer<HGLOBAL>} phglobal Pointer to the current memory handle used by the specified stream object.
+     * @returns {HRESULT} This function returns HRESULT.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-gethglobalfromstream
      * @since windows5.0
      */
-    static GetHGlobalFromStream(pstm) {
-        phglobal := HGLOBAL()
+    static GetHGlobalFromStream(pstm, phglobal) {
         result := DllCall("OLE32.dll\GetHGlobalFromStream", "ptr", pstm, "ptr", phglobal, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return phglobal
+        return result
     }
 
     /**
@@ -1104,18 +1102,18 @@ class StructuredStorage {
      * @param {ILockBytes} plkbyt Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ilockbytes">ILockBytes</a> interface on the byte-array object previously created by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/coml2api/nf-coml2api-createilockbytesonhglobal">CreateILockBytesOnHGlobal</a> function.
-     * @returns {HGLOBAL} Pointer to the current memory handle used by the specified byte-array object.
+     * @param {Pointer<HGLOBAL>} phglobal Pointer to the current memory handle used by the specified byte-array object.
+     * @returns {HRESULT} This function returns HRESULT.
      * @see https://docs.microsoft.com/windows/win32/api//coml2api/nf-coml2api-gethglobalfromilockbytes
      * @since windows5.0
      */
-    static GetHGlobalFromILockBytes(plkbyt) {
-        phglobal := HGLOBAL()
+    static GetHGlobalFromILockBytes(plkbyt, phglobal) {
         result := DllCall("OLE32.dll\GetHGlobalFromILockBytes", "ptr", plkbyt, "ptr", phglobal, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return phglobal
+        return result
     }
 
     /**
@@ -2391,20 +2389,22 @@ class StructuredStorage {
      * @param {Pointer<PROPVARIANT>} propvar Type: <b>REFPROPVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
-     * @returns {BSTR} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
+     * @param {Pointer<BSTR>} pbstrOut Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, contains an empty string.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-propvarianttobstr
      * @since windows5.1.2600
      */
-    static PropVariantToBSTR(propvar) {
-        pbstrOut := BSTR()
+    static PropVariantToBSTR(propvar, pbstrOut) {
         result := DllCall("PROPSYS.dll\PropVariantToBSTR", "ptr", propvar, "ptr", pbstrOut, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return pbstrOut
+        return result
     }
 
     /**

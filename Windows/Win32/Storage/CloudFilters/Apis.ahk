@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include .\CF_CONNECTION_KEY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -99,22 +98,22 @@ class CloudFilters {
      * @param {Pointer<CF_CALLBACK_REGISTRATION>} CallbackTable The callback table to be registered.
      * @param {Pointer<Void>} CallbackContext A callback context used by the platform anytime a specified callback function is invoked.
      * @param {Integer} ConnectFlags Provides additional information when a callback is invoked.
-     * @returns {CF_CONNECTION_KEY} A connection key representing the communication channel with the sync filter.
+     * @param {Pointer<CF_CONNECTION_KEY>} ConnectionKey A connection key representing the communication channel with the sync filter.
+     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//cfapi/nf-cfapi-cfconnectsyncroot
      * @since windows10.0.16299
      */
-    static CfConnectSyncRoot(SyncRootPath, CallbackTable, CallbackContext, ConnectFlags) {
+    static CfConnectSyncRoot(SyncRootPath, CallbackTable, CallbackContext, ConnectFlags, ConnectionKey) {
         SyncRootPath := SyncRootPath is String ? StrPtr(SyncRootPath) : SyncRootPath
 
         CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-        ConnectionKey := CF_CONNECTION_KEY()
         result := DllCall("cldapi.dll\CfConnectSyncRoot", "ptr", SyncRootPath, "ptr", CallbackTable, CallbackContextMarshal, CallbackContext, "int", ConnectFlags, "ptr", ConnectionKey, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return ConnectionKey
+        return result
     }
 
     /**
@@ -267,20 +266,20 @@ class CloudFilters {
      * Opens an asynchronous opaque handle to a file or directory (for both normal and placeholder files) and sets up a proper oplock on it based on the open flags.
      * @param {PWSTR} FilePath Fully qualified path to the file or directory to be opened.
      * @param {Integer} Flags Flags to specify permissions on opening the file.
-     * @returns {HANDLE} An opaque handle to the file or directory that is just opened. Note that this is not a normal Win32 handle and hence cannot be used with non-CfApi Win32 APIs directly.
+     * @param {Pointer<HANDLE>} ProtectedHandle An opaque handle to the file or directory that is just opened. Note that this is not a normal Win32 handle and hence cannot be used with non-CfApi Win32 APIs directly.
+     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//cfapi/nf-cfapi-cfopenfilewithoplock
      * @since windows10.0.16299
      */
-    static CfOpenFileWithOplock(FilePath, Flags) {
+    static CfOpenFileWithOplock(FilePath, Flags, ProtectedHandle) {
         FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
 
-        ProtectedHandle := HANDLE()
         result := DllCall("cldapi.dll\CfOpenFileWithOplock", "ptr", FilePath, "int", Flags, "ptr", ProtectedHandle, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return ProtectedHandle
+        return result
     }
 
     /**
