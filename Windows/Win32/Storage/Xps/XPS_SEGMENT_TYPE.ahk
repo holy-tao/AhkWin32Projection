@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes a line segment.
@@ -56,7 +57,7 @@
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
-class XPS_SEGMENT_TYPE{
+class XPS_SEGMENT_TYPE extends Win32Enum{
 
     /**
      * The line segment is an arc that covers more than 180 degrees and is drawn in a clockwise direction from the start point to the end point.

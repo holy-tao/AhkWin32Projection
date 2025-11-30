@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DISPLAYCONFIG_PIXELFORMAT enumeration specifies pixel format in various bits per pixel (BPP) values.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
-class DISPLAYCONFIG_PIXELFORMAT{
+class DISPLAYCONFIG_PIXELFORMAT extends Win32Enum{
 
     /**
      * Indicates 8 BPP format.

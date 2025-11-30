@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The Status enumeration indicates the result of a Windows GDI+ method call.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class Status{
+class Status extends Win32Enum{
 
     /**
      * Indicates that the method call was successful.

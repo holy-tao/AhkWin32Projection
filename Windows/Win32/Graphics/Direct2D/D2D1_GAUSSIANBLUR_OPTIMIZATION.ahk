@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The optimization mode for the Gaussian blur effect.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_GAUSSIANBLUR_OPTIMIZATION{
+class D2D1_GAUSSIANBLUR_OPTIMIZATION extends Win32Enum{
 
     /**
      * Applies internal optimizations such as pre-scaling at relatively small radii. Uses linear filtering.

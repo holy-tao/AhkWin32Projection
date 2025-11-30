@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the types of properties supported by the Direct2D property interface.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_PROPERTY_TYPE{
+class D2D1_PROPERTY_TYPE extends Win32Enum{
 
     /**
      * An unknown property.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The TOC_POS_TYPE enumeration contains members that specify the position type of a table of contents.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class TOC_POS_TYPE{
+class TOC_POS_TYPE extends Win32Enum{
 
     /**
      * Specifies that the table of contents is stored in the header of the media file.

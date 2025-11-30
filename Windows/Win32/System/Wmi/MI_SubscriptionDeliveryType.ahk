@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Differentiates between a push or pull subscription delivery type. This is not supported when using the DCOM protocol.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class MI_SubscriptionDeliveryType{
+class MI_SubscriptionDeliveryType extends Win32Enum{
 
     /**
      * Pull delivery is required for subscriptions. Pulling the indications from the server is more firewall friendly. However, it can also be slower than the push delivery type.

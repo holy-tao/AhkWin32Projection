@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32Enum.ahk
 
 /**
  * Defines the type of geographical location information requested in the GetGeoInfo or GetGeoInfoEx function.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */
-class SYSGEOTYPE{
+class SYSGEOTYPE extends Win32Enum{
 
     /**
      * The geographical location identifier (GEOID) of a nation. This value is stored in a long integer.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the vendor of the console that the game is running on.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Gaming
  * @version v4.0.30319
  */
-class GAMING_DEVICE_VENDOR_ID{
+class GAMING_DEVICE_VENDOR_ID extends Win32Enum{
 
     /**
      * The vendor of the device is not known.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents the internal structure of a device pixel (that is, the physical arrangement of red, green, and blue color components) that is assumed for purposes of rendering text.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_PIXEL_GEOMETRY{
+class DWRITE_PIXEL_GEOMETRY extends Win32Enum{
 
     /**
      * The red, green, and blue color components of each pixel are assumed to occupy the same point.

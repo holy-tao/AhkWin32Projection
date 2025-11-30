@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of application that created a certificate request.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class RequestClientInfoClientId{
+class RequestClientInfoClientId extends Win32Enum{
 
     /**
      * No client identifier is specified.

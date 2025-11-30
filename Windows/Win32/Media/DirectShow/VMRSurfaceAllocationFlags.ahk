@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The VMRSurfaceAllocationFlags enumeration is used with the IVMRSurfaceAllocator::AllocateSurface method to specify surface creation parameters.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class VMRSurfaceAllocationFlags{
+class VMRSurfaceAllocationFlags extends Win32Enum{
 
     /**
      * Indicates that the <b>lpPxFmt</b> field contains valid data that should be used to create the DirectDraw surface.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Strip flag options.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D.Fxc
  * @version v4.0.30319
  */
-class D3DCOMPILER_STRIP_FLAGS{
+class D3DCOMPILER_STRIP_FLAGS extends Win32Enum{
 
     /**
      * Remove reflection data.

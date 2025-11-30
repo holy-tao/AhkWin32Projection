@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by a writer to indicate the types of backup operations it can participate in.
@@ -28,7 +29,7 @@
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_BACKUP_SCHEMA{
+class VSS_BACKUP_SCHEMA extends Win32Enum{
 
     /**
      * The writer supports a simple full backup and restoration of entire files (as defined by a 

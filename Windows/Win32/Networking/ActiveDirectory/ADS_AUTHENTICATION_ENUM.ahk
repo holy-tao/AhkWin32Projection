@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies authentication options used in ADSI for binding to directory service objects.
@@ -26,7 +27,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class ADS_AUTHENTICATION_ENUM{
+class ADS_AUTHENTICATION_ENUM extends Win32Enum{
 
     /**
      * Requests secure authentication. When this flag is set, the WinNT provider uses NT LAN Manager (NTLM) to 

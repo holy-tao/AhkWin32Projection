@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Options that specify how to perform shader debug tracking.
@@ -30,7 +31,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_SHADER_TRACKING_OPTIONS{
+class D3D11_SHADER_TRACKING_OPTIONS extends Win32Enum{
 
     /**
      * No debug tracking is performed.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DitherType enumeration identifies the available algorithms for dithering when a bitmap is converted.
@@ -22,7 +23,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class DitherType{
+class DitherType extends Win32Enum{
 
     /**
      * No dithering is performed. Pixels in the source bitmap are mapped to the nearest color in the palette specified by the <i>palette</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusheaders/nf-gdiplusheaders-bitmap-convertformat">Bitmap::ConvertFormat</a> method. This algorithm can be used with any palette. If the palette specified by the <i>palette</i> parameter does not have one of the standard fixed formats listed in the <a href="https://docs.microsoft.com/windows/desktop/api/gdipluspixelformats/ne-gdipluspixelformats-palettetype">PaletteType</a> enumeration, pass <b>PaletteTypeCustom</b> to the <i>palettetype</i> parameter.

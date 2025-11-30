@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the types of logic that is used to determine whether Automatic Updates will automatically download an update once it is determined to be applicable for the computer.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
-class AutoDownloadMode{
+class AutoDownloadMode extends Win32Enum{
 
     /**
      * Use the standard logic. The update will be automatically downloaded if it is important, or if it is recommended and Windows Update has been configured to treat recommended updates as important. Otherwise, the update will not be automatically downloaded.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines protection levels for MFPROTECTION_CGMSA.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_OPM_CGMSA_PROTECTION_LEVEL{
+class MF_OPM_CGMSA_PROTECTION_LEVEL extends Win32Enum{
 
     /**
      * CGMS-A is disabled.

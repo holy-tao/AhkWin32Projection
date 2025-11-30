@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Flags that control the filtering process.
@@ -24,7 +25,7 @@
  * @namespace Windows.Win32.Storage.IndexServer
  * @version v4.0.30319
  */
-class IFILTER_INIT{
+class IFILTER_INIT extends Win32Enum{
 
     /**
      * Paragraph breaks should be marked with the Unicode PARAGRAPH SEPARATOR (0x2029).

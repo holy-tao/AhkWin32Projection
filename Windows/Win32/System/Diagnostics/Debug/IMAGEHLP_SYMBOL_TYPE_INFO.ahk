@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the type of symbol information to be retrieved.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */
-class IMAGEHLP_SYMBOL_TYPE_INFO{
+class IMAGEHLP_SYMBOL_TYPE_INFO extends Win32Enum{
 
     /**
      * The symbol tag.

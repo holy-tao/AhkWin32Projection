@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of hosting expected for a namespace provider.
@@ -19,7 +20,7 @@
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
-class NAPI_PROVIDER_TYPE{
+class NAPI_PROVIDER_TYPE extends Win32Enum{
 
     /**
      * The namespace provider is expected to be hosted by an application. There may be multiple namespace providers of type <b>ProviderType_Application</b> running at the same time on a local system. 

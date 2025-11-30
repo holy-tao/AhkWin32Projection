@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the type of information that will be written to the minidump file by the MiniDumpWriteDump function.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */
-class MINIDUMP_TYPE{
+class MINIDUMP_TYPE extends Win32BitflagEnum{
 
     /**
      * Include just the information necessary to capture stack traces for all existing threads in a process.

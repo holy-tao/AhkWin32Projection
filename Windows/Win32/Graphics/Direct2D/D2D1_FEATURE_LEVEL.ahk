@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the minimum DirectX support required for hardware rendering by a render target.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_FEATURE_LEVEL{
+class D2D1_FEATURE_LEVEL extends Win32Enum{
 
     /**
      * Direct2D determines whether the video card provides adequate hardware rendering support.

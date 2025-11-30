@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the strategy that the Overlay Mixer Filter filter uses to scale the video image down to a smaller size.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class DECIMATION_USAGE{
+class DECIMATION_USAGE extends Win32Enum{
 
     /**
      * Decimate the video by taking the following steps, in the order listed, until one of them succeeds.

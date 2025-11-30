@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies types of character input modes.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InkRecognizerCharacterAutoCompletionMode{
+class InkRecognizerCharacterAutoCompletionMode extends Win32Enum{
 
     /**
      * Recognition occurs as if all strokes have been input.

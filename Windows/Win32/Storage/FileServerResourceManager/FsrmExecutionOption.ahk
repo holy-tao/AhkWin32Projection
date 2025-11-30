@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the options for how to apply the rule to the file.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
-class FsrmExecutionOption{
+class FsrmExecutionOption extends Win32Enum{
 
     /**
      * The execution option is unknown. Do not use this value.

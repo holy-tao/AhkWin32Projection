@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how the recognizer interprets the ink and determines the result string.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InkRecognitionModes{
+class InkRecognitionModes extends Win32Enum{
 
     /**
      * The recognizer applies no recognition modes.

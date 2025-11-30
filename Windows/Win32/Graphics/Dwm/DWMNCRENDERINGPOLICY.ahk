@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Flags used by the DwmSetWindowAttribute function to specify the non-client area rendering policy.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.Graphics.Dwm
  * @version v4.0.30319
  */
-class DWMNCRENDERINGPOLICY{
+class DWMNCRENDERINGPOLICY extends Win32Enum{
 
     /**
      * The non-client rendering area is rendered based on the window style.

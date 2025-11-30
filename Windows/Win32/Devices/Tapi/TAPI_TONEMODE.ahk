@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The TAPI_TONEMODE enum is used to describe the different selections that are used when generating line tones.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class TAPI_TONEMODE{
+class TAPI_TONEMODE extends Win32Enum{
 
     /**
      * The tone is a ringback tone. Exact definition is service-provider defined.

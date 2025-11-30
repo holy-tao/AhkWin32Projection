@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the set of features targeted by a Direct3D device.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */
-class D3D_FEATURE_LEVEL{
+class D3D_FEATURE_LEVEL extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

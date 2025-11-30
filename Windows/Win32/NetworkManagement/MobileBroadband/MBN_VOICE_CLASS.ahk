@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MBN_VOICE_CLASS enumerated type specifies a device's voice capabilities and how they interact with the data service.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
-class MBN_VOICE_CLASS{
+class MBN_VOICE_CLASS extends Win32Enum{
 
     /**
      * The device voice class is unknown.

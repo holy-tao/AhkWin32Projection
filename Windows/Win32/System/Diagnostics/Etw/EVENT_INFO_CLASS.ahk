@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * The EVENT_INFO_CLASS enumeration type is used with the EventSetInformation function to specify the configuration operation to be performed on an ETW event provider registration.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
-class EVENT_INFO_CLASS{
+class EVENT_INFO_CLASS extends Win32Enum{
 
     /**
      * Adds binary tracking information from this provider to each session that

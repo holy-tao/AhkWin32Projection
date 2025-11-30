@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ATTRIBUTEID enumeration type enumerates the RADIUS attributes supported by the SDO API.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class ATTRIBUTEID{
+class ATTRIBUTEID extends Win32Enum{
 
     /**
      * Specifies a value equal to zero, and used as the <b>NULL</b> terminator in an array of attributes.

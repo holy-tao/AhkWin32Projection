@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the type of logon requested by a logon process.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
-class SECURITY_LOGON_TYPE{
+class SECURITY_LOGON_TYPE extends Win32Enum{
 
     /**
      * 

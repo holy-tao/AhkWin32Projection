@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the interactions to enable when configuring an Interaction Context object.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.InteractionContext
  * @version v4.0.30319
  */
-class INTERACTION_CONFIGURATION_FLAGS{
+class INTERACTION_CONFIGURATION_FLAGS extends Win32BitflagEnum{
 
     /**
      * No interactions enabled.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by a requester to indicate the type of restore operation it is about to perform.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_RESTORE_TYPE{
+class VSS_RESTORE_TYPE extends Win32Enum{
 
     /**
      * No restore type is defined. 

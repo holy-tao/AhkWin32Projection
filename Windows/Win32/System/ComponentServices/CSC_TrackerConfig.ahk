@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates whether the tracker property is added to the context in which the enclosed code runs.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
-class CSC_TrackerConfig{
+class CSC_TrackerConfig extends Win32Enum{
 
     /**
      * The tracker property is not added to the context in which the enclosed code runs.

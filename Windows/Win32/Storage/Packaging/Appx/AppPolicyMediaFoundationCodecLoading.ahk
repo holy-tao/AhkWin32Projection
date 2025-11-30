@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * The AppPolicyMediaFoundationCodecLoading enumeration indicates whether a process’s policy allows it to load non-Windows (third-party) plugins.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
-class AppPolicyMediaFoundationCodecLoading{
+class AppPolicyMediaFoundationCodecLoading extends Win32Enum{
 
     /**
      * Indicates that the process’s policy allows it to load non-Windows (third-party) plugins.

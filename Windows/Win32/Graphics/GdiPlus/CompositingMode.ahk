@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The CompositingMode enumeration specifies how rendered colors are combined with background colors. This enumeration is used by the Graphics::GetCompositingMode and Graphics::SetCompositingMode methods of the Graphics class.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class CompositingMode{
+class CompositingMode extends Win32Enum{
 
     /**
      * Specifies that when a color is rendered, it is blended with the background color. The blend is determined by the alpha component of the color being rendered.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the processor architectures supported by a package.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
-class APPX_PACKAGE_ARCHITECTURE{
+class APPX_PACKAGE_ARCHITECTURE extends Win32Enum{
 
     /**
      * The x86 processor architecture.

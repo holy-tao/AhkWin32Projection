@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * An enumeration of the different security binding combinations that are supported.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_BINDING_TEMPLATE_TYPE{
+class WS_BINDING_TEMPLATE_TYPE extends Win32Enum{
 
     /**
      * The policy specifies HTTP channel binding.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the form factor of a device.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
-class STORAGE_DEVICE_FORM_FACTOR{
+class STORAGE_DEVICE_FORM_FACTOR extends Win32Enum{
 
     /**
      * 

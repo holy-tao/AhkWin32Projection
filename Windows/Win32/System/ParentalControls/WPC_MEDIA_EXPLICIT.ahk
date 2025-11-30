@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates information about the explicit rating of the media file.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
-class WPC_MEDIA_EXPLICIT{
+class WPC_MEDIA_EXPLICIT extends Win32Enum{
 
     /**
      * The media file is not rated as explicit.

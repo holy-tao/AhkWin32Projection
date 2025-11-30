@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether a storage device supports write-through caching.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
-class WRITE_THROUGH{
+class WRITE_THROUGH extends Win32Enum{
 
     /**
      * Indicates that no information is available about the write-through capabilities of the device.

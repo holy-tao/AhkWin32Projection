@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Determines the source of the performance counter data.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
-class DataSourceTypeConstants{
+class DataSourceTypeConstants extends Win32Enum{
 
     /**
      * No data source.

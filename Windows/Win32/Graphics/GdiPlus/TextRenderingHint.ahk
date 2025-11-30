@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The TextRenderingHint enumeration specifies the process used to render text. The process affects the quality of the text.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class TextRenderingHint{
+class TextRenderingHint extends Win32Enum{
 
     /**
      * Specifies that a character is drawn using the currently selected system font smoothing mode (also called a rendering hint).

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the current state of the filter engine.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class FWPM_SERVICE_STATE{
+class FWPM_SERVICE_STATE extends Win32Enum{
 
     /**
      * The filter engine is not running.

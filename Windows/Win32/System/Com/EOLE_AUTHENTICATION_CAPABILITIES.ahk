@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies various capabilities in CoInitializeSecurity and IClientSecurity::SetBlanket (or its helper function CoSetProxyBlanket).
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class EOLE_AUTHENTICATION_CAPABILITIES{
+class EOLE_AUTHENTICATION_CAPABILITIES extends Win32Enum{
 
     /**
      * Indicates that no capability flags are set.

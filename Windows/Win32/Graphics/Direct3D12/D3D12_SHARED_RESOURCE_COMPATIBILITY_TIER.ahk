@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify a cross-API sharing support tier.
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER{
+class D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER extends Win32Enum{
 
     /**
      * Specifies that the most basic level of cross-API sharing is supported, including the following resource data formats.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Options for resolving data into a condition tree.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
-class STRUCTURED_QUERY_RESOLVE_OPTION{
+class STRUCTURED_QUERY_RESOLVE_OPTION extends Win32BitflagEnum{
 
     /**
      * <b>Windows 7 and later.</b> The default flag.

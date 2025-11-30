@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how to access a resource that is used in a video processor output view.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_VPOV_DIMENSION{
+class D3D11_VPOV_DIMENSION extends Win32Enum{
 
     /**
      * Not a valid value.

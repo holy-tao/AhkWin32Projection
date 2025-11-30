@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies each XML canonicalization property and its associated value. This enumeration is used within the WS_XML_CANONICALIZATION_PROPERTY structure, which is used as a parameter to WsStartReaderCanonicalization and WsStartWriterCanonicalization.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_XML_CANONICALIZATION_PROPERTY_ID{
+class WS_XML_CANONICALIZATION_PROPERTY_ID extends Win32Enum{
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_xml_canonicalization_algorithm">WS_XML_CANONICALIZATION_ALGORITHM</a> value that specifies the algorithm to be used for canonicalization.  If this is not specified,

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify render/compute GPU operations.
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_AUTO_BREADCRUMB_OP{
+class D3D12_AUTO_BREADCRUMB_OP extends Win32Enum{
 
     /**
      * 

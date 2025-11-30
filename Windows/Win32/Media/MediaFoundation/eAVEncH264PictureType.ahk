@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of picture that is output by a video encoder.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVEncH264PictureType{
+class eAVEncH264PictureType extends Win32Enum{
 
     /**
      * Instantaneous decoding refresh (IDR) picture.

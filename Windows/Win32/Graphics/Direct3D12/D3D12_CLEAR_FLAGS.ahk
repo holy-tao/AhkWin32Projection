@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies what to clear from the depth stencil view.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_CLEAR_FLAGS{
+class D3D12_CLEAR_FLAGS extends Win32BitflagEnum{
 
     /**
      * Indicates the depth buffer should be cleared.

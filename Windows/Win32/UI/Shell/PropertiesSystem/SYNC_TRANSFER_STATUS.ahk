@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies possible status values used in the System.SyncTransferStatus property.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
-class SYNC_TRANSFER_STATUS{
+class SYNC_TRANSFER_STATUS extends Win32BitflagEnum{
 
     /**
      * There is no current sync activity.

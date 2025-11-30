@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * An enumeration used to specify how to handle HTTP cookies.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_COOKIE_MODE{
+class WS_COOKIE_MODE extends Win32Enum{
 
     /**
      * In this mode, cookies are not processed by the client channel.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of possible EAP credentials that can be passed to the EapPeerGetConfigBlobAndUserBlob function.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */
-class EapCredentialType{
+class EapCredentialType extends Win32Enum{
 
     /**
      * The EAP method has no credential passed to it. The method must attempt a machine authentication.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The units of the maximum power threshold.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
-class STORAGE_DEVICE_POWER_CAP_UNITS{
+class STORAGE_DEVICE_POWER_CAP_UNITS extends Win32Enum{
 
     /**
      * Units in percent.

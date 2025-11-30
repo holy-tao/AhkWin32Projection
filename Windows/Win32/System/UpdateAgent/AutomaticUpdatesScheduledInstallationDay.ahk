@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the days of the week when Automatic Updates installs or uninstalls updates.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
-class AutomaticUpdatesScheduledInstallationDay{
+class AutomaticUpdatesScheduledInstallationDay extends Win32Enum{
 
     /**
      * Every day.

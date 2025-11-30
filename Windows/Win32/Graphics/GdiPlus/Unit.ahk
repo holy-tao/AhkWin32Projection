@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The Unit enumeration specifies the unit of measure for a given data type.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class Unit{
+class Unit extends Win32Enum{
 
     /**
      * Specifies world coordinates, a nonphysical unit.

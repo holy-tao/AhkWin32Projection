@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * WCN_VALUE_TYPE_ENCRYPTION_TYPE enumeration defines the supported WLAN encryption types.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
  * @version v4.0.30319
  */
-class WCN_VALUE_TYPE_ENCRYPTION_TYPE{
+class WCN_VALUE_TYPE_ENCRYPTION_TYPE extends Win32Enum{
 
     /**
      * Specifies support for unsecured wireless activity.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The CALL_MEDIA_EVENT enum describes call media events. The ITCallMediaEvent::get_Event method returns a member of this enum to indicate the type of call media event that occurred.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class CALL_MEDIA_EVENT{
+class CALL_MEDIA_EVENT extends Win32Enum{
 
     /**
      * A new media stream has been created.

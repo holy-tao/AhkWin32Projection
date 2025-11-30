@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DRMENCODINGTYPE enumeration identifies possible encoding types used in licenses.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Data.RightsManagement
  * @version v4.0.30319
  */
-class DRMENCODINGTYPE{
+class DRMENCODINGTYPE extends Win32Enum{
 
     /**
      * Base 64 encoded value.

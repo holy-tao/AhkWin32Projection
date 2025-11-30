@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * An IPsec token type.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class IPSEC_TOKEN_TYPE{
+class IPSEC_TOKEN_TYPE extends Win32Enum{
 
     /**
      * Machine token.

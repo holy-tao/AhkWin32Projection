@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a firmware type.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  */
-class FIRMWARE_TYPE{
+class FIRMWARE_TYPE extends Win32Enum{
 
     /**
      * The firmware type is unknown.

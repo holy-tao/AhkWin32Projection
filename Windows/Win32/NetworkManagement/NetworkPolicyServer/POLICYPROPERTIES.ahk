@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the POLICYPROPERTIES enumeration type enumerate properties of a Network Access Policy (NAP).
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class POLICYPROPERTIES{
+class POLICYPROPERTIES extends Win32Enum{
 
     /**
      * String that contains all the text of the conditions.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Values that identify various data, texture, and buffer types that can be assigned to a shader variable.
@@ -26,7 +27,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */
-class D3D_SHADER_VARIABLE_TYPE{
+class D3D_SHADER_VARIABLE_TYPE extends Win32Enum{
 
     /**
      * The variable is a void pointer.

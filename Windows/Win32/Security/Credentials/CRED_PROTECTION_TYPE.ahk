@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the security context in which credentials are encrypted when using the CredProtect function.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319
  */
-class CRED_PROTECTION_TYPE{
+class CRED_PROTECTION_TYPE extends Win32Enum{
 
     /**
      * The credentials are not encrypted.

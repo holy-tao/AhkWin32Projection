@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of object status values for a subsystem.
@@ -17,7 +18,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_SUB_SYSTEM_STATUS{
+class VDS_SUB_SYSTEM_STATUS extends Win32Enum{
 
     /**
      * This value is reserved.

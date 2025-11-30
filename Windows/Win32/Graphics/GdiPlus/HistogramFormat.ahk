@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The HistogramFormat enumeration specifies the number and type of histograms that represent the color channels of a bitmap. This enumeration is used with the Bitmap::GetHistogram method.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class HistogramFormat{
+class HistogramFormat extends Win32Enum{
 
     /**
      * Specifies that the <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusheaders/nf-gdiplusheaders-bitmap-gethistogram">Bitmap::GetHistogram</a> method returns four histograms: one each for the alpha, red, green, and blue channels. The alpha-channel histogram is written to the buffer pointed to by the <i>channel0</i> parameter of the <b>Bitmap::GetHistogram</b> method. The red-channel histogram is written to the buffer pointed to by the <i>channel1</i> parameter. The green-channel histogram is written to the buffer pointed to by the <i>channel2</i> parameter.  The blue-channel histogram is written to the buffer pointed to by the <i>channel3</i> parameter.

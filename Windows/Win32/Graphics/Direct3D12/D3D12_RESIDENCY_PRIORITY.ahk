@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies broad residency priority buckets useful for quickly establishing an application priority scheme.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_RESIDENCY_PRIORITY{
+class D3D12_RESIDENCY_PRIORITY extends Win32Enum{
 
     /**
      * Indicates a minimum priority.

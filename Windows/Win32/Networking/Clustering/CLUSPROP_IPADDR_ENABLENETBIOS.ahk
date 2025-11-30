@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * When used with the CLUSPROP_DWORD structure, enables or disables the functionality of the EnableNetBIOS property of IP Address resources.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSPROP_IPADDR_ENABLENETBIOS{
+class CLUSPROP_IPADDR_ENABLENETBIOS extends Win32Enum{
 
     /**
      * Disable the functionality of the 

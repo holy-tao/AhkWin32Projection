@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the manipulations that can be mapped to mouse wheel rotation.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.InteractionContext
  * @version v4.0.30319
  */
-class MOUSE_WHEEL_PARAMETER{
+class MOUSE_WHEEL_PARAMETER extends Win32Enum{
 
     /**
      * Scrolling/panning distance along the x-axis.

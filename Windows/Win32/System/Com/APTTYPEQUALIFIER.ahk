@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the set of possible COM apartment type qualifiers.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class APTTYPEQUALIFIER{
+class APTTYPEQUALIFIER extends Win32Enum{
 
     /**
      * No qualifier information for the current COM apartment type is available.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DWRITE_GLYPH_ORIENTATION_ANGLE enumeration contains values that specify how the glyph is oriented to the x-axis.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_GLYPH_ORIENTATION_ANGLE{
+class DWRITE_GLYPH_ORIENTATION_ANGLE extends Win32Enum{
 
     /**
      * Glyph orientation is upright.

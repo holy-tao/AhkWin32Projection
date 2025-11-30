@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether a swatch has normal or monochrome mode.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
-class UI_SWATCHCOLORMODE{
+class UI_SWATCHCOLORMODE extends Win32Enum{
 
     /**
      * The swatch is normal mode.

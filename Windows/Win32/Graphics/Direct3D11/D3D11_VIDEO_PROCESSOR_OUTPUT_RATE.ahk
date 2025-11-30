@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the rate at which the video processor produces output frames from an input stream.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_VIDEO_PROCESSOR_OUTPUT_RATE{
+class D3D11_VIDEO_PROCESSOR_OUTPUT_RATE extends Win32Enum{
 
     /**
      * The output is the normal frame rate.

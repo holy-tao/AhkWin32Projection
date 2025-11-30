@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specify the type of component being used with a shadow copy backup operation.
@@ -31,7 +32,7 @@
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_COMPONENT_TYPE{
+class VSS_COMPONENT_TYPE extends Win32Enum{
 
     /**
      * Undefined component type. 

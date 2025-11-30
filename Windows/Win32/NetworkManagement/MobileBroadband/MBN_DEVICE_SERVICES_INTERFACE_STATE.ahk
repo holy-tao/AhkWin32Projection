@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * .
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
-class MBN_DEVICE_SERVICES_INTERFACE_STATE{
+class MBN_DEVICE_SERVICES_INTERFACE_STATE extends Win32Enum{
 
     /**
      * A Mobile Broadband device capable of supporting device service functionality has arrived.

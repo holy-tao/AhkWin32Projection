@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the scaling capabilities of the video scaler.
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class D3D12_VIDEO_SCALE_SUPPORT_FLAGS{
+class D3D12_VIDEO_SCALE_SUPPORT_FLAGS extends Win32BitflagEnum{
 
     /**
      * All possible output size width/height combinations that exist between the maximum size and minimum size for the extent, inclusive, are supported.

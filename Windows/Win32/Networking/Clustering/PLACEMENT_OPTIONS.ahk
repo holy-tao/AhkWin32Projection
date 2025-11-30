@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines options for placing the cluster.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class PLACEMENT_OPTIONS{
+class PLACEMENT_OPTIONS extends Win32Enum{
 
     /**
      * Minimum value

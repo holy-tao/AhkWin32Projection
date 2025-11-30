@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Options for app manifest validation when updating the manifest.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
-class APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS{
+class APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS extends Win32BitflagEnum{
 
     /**
      * No options.

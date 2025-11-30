@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify the context in which the error occurred.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */
-class BG_ERROR_CONTEXT{
+class BG_ERROR_CONTEXT extends Win32Enum{
 
     /**
      * An error has not occurred.

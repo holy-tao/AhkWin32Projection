@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the type of change to the rowset's data.
@@ -21,7 +22,7 @@
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
-class ROWSETEVENT_TYPE{
+class ROWSETEVENT_TYPE extends Win32Enum{
 
     /**
      * Indicates that data backing the rowset has expired, and that a new rowset should be requested.

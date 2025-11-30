@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the type of response received to an invitation to start a Peer Collaboration activity.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
-class PEER_INVITATION_RESPONSE_TYPE{
+class PEER_INVITATION_RESPONSE_TYPE extends Win32Enum{
 
     /**
      * The invitation was declined by the peer.

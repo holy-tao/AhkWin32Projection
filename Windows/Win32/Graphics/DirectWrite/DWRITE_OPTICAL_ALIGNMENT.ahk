@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The optical margin alignment mode.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_OPTICAL_ALIGNMENT{
+class DWRITE_OPTICAL_ALIGNMENT extends Win32Enum{
 
     /**
      * Align to the default origin and side-bearings of the glyph.

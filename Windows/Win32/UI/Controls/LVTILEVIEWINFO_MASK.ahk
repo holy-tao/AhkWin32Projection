@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
-class LVTILEVIEWINFO_MASK{
+class LVTILEVIEWINFO_MASK extends Win32BitflagEnum{
 
     /**
      * @type {Integer (UInt32)}

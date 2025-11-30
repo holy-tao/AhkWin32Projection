@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that specify the scope of various operations in the Microsoft UI Automation tree.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
-class TreeScope{
+class TreeScope extends Win32Enum{
 
     /**
      * The scope excludes the subtree from the search.

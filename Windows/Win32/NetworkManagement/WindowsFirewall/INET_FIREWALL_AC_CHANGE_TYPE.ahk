@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies which type of app container change occurred.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
-class INET_FIREWALL_AC_CHANGE_TYPE{
+class INET_FIREWALL_AC_CHANGE_TYPE extends Win32Enum{
 
     /**
      * This value is reserved for system use.

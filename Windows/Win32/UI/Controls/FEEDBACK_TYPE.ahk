@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the visual feedback associated with an event.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
-class FEEDBACK_TYPE{
+class FEEDBACK_TYPE extends Win32Enum{
 
     /**
      * Feedback for a touch contact event.

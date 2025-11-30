@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Flags used by the DwmSetWindowAttribute function to specify the Flip3D window policy.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Dwm
  * @version v4.0.30319
  */
-class DWMFLIP3DWINDOWPOLICY{
+class DWMFLIP3DWINDOWPOLICY extends Win32Enum{
 
     /**
      * Use the window's style and visibility settings to determine whether to hide or include the window in Flip3D rendering.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Determines the type of data to return from a given data point on the graph.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
-class SysmonDataType{
+class SysmonDataType extends Win32Enum{
 
     /**
      * Average value of the counter.

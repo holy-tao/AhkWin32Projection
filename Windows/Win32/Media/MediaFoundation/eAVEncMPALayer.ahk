@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the MPEG audio layer. This enumeration is used with the AVEncMPALayer property.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVEncMPALayer{
+class eAVEncMPALayer extends Win32Enum{
 
     /**
      * MPEG Audio Layer-1.

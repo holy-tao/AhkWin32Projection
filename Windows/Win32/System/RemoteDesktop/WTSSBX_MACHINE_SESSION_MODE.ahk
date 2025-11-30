@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that indicate the session mode of a Remote Desktop Session Host (RD Session Host) server.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class WTSSBX_MACHINE_SESSION_MODE{
+class WTSSBX_MACHINE_SESSION_MODE extends Win32Enum{
 
     /**
      * The session mode of the server is unspecified.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the type of SID operations that can be made by a call to the AuthzModifySids function.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
-class AUTHZ_SID_OPERATION{
+class AUTHZ_SID_OPERATION extends Win32Enum{
 
     /**
      * Do not modify anything.

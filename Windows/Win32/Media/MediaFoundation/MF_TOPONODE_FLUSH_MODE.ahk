@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines when a transform in a topology is flushed.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_TOPONODE_FLUSH_MODE{
+class MF_TOPONODE_FLUSH_MODE extends Win32Enum{
 
     /**
      * The transform is flushed whenever the stream changes, including seeks and new segments.

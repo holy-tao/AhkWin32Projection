@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values that determine whether ink, gestures, or ink and gestures are recognized as the user writes.
@@ -78,7 +79,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InkCollectionMode{
+class InkCollectionMode extends Win32Enum{
 
     /**
      * Collects only ink, creating a stroke.

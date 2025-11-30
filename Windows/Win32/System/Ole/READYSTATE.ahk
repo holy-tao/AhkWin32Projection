@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ReadyState property retrieves the ReadyState of the MSWebDVD object.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
-class READYSTATE{
+class READYSTATE extends Win32Enum{
 
     /**
      * Default initialization state.

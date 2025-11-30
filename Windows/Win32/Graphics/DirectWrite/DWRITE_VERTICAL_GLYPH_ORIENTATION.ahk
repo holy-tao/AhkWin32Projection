@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DWRITE_VERTICAL_GLYPH_ORIENTATION enumeration contains values that specify the desired kind of glyph orientation for the text.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_VERTICAL_GLYPH_ORIENTATION{
+class DWRITE_VERTICAL_GLYPH_ORIENTATION extends Win32Enum{
 
     /**
      * The default glyph orientation. In vertical layout, naturally horizontal scripts (Latin, Thai, Arabic, Devanagari) rotate 90 degrees clockwise, while ideographic scripts (Chinese, Japanese, Korean) remain upright, 0 degrees.

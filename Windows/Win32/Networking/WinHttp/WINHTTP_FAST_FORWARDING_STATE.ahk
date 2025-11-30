@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */
-class WINHTTP_FAST_FORWARDING_STATE{
+class WINHTTP_FAST_FORWARDING_STATE extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

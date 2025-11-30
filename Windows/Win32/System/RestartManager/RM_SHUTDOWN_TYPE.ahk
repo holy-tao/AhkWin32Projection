@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Configures the shut down of applications.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.System.RestartManager
  * @version v4.0.30319
  */
-class RM_SHUTDOWN_TYPE{
+class RM_SHUTDOWN_TYPE extends Win32Enum{
 
     /**
      * Forces unresponsive applications and services to shut down after the timeout period. An application that does not respond to a shutdown request by the Restart Manager is forced to shut down after 30 seconds. A service that does not respond to a shutdown request is forced to shut down after 20 seconds. These default times can be changed by modifying the registry keys described in the Remarks section.

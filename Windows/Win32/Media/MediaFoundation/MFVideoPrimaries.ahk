@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the color primaries of a video source.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFVideoPrimaries{
+class MFVideoPrimaries extends Win32Enum{
 
     /**
      * The color primaries are unknown.

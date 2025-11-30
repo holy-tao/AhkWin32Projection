@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the possible types of file system property ids.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
-class FsrmFileSystemPropertyId{
+class FsrmFileSystemPropertyId extends Win32Enum{
 
     /**
      * The file system property id is not used. This is the default.

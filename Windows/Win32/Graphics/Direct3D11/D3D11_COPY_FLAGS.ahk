@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how to handle the existing contents of a resource during a copy or update operation of a region within that resource.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_COPY_FLAGS{
+class D3D11_COPY_FLAGS extends Win32Enum{
 
     /**
      * The existing contents of the resource cannot be overwritten.

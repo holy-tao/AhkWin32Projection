@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the intended lighting conditions for viewing video content.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class DXVA2_VideoLighting{
+class DXVA2_VideoLighting extends Win32Enum{
 
     /**
      * Bitmask to validate flag values. This value is not a valid flag.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The version of hardware acceleration requested.
@@ -19,7 +20,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
-class D3D10_FEATURE_LEVEL1{
+class D3D10_FEATURE_LEVEL1 extends Win32Enum{
 
     /**
      * The hardware supports Direct3D 10.0 features.

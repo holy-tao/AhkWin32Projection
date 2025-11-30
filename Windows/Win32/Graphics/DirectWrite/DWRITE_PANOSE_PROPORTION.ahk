@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DWRITE_PANOSE_PROPORTION enumeration contains values that specify the proportion of the glyph shape by considering additional detail to standard characters.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_PANOSE_PROPORTION{
+class DWRITE_PANOSE_PROPORTION extends Win32Enum{
 
     /**
      * Any proportion for the text.

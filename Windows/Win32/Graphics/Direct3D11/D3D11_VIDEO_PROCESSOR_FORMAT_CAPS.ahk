@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines capabilities related to input formats for a Microsoft Direct3D 11 video processor.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_VIDEO_PROCESSOR_FORMAT_CAPS{
+class D3D11_VIDEO_PROCESSOR_FORMAT_CAPS extends Win32Enum{
 
     /**
      * The video processor can deinterlace an input stream that contains interlaced RGB video.

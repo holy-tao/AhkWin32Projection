@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of authentication method used by Internet Key Exchange (IKE), Authenticated Internet Protocol (AuthIP), or IKEv2.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class IKEEXT_AUTHENTICATION_METHOD_TYPE{
+class IKEEXT_AUTHENTICATION_METHOD_TYPE extends Win32Enum{
 
     /**
      * Specifies pre-shared key authentication method. Available only for IKE.

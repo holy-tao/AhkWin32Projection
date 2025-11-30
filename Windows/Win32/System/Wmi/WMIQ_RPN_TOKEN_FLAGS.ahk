@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains flags that describe query tokens used in the GetAnalysis method.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class WMIQ_RPN_TOKEN_FLAGS{
+class WMIQ_RPN_TOKEN_FLAGS extends Win32Enum{
 
     /**
      * This token is an expression, for example, J = 7.

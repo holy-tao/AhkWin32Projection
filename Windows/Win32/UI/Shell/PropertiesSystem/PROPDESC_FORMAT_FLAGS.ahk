@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by property description helper functions, such as PSFormatForDisplay, to indicate the format of a property string.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
-class PROPDESC_FORMAT_FLAGS{
+class PROPDESC_FORMAT_FLAGS extends Win32BitflagEnum{
 
     /**
      * Use the format settings specified in the property's .propdesc file.

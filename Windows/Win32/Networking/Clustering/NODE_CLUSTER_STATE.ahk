@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the state of the cluster.
@@ -48,7 +49,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class NODE_CLUSTER_STATE{
+class NODE_CLUSTER_STATE extends Win32Enum{
 
     /**
      * The Cluster service is not installed on the node.

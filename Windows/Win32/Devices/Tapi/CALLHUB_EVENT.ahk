@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The CALLHUB_EVENT enum describes CallHub events. The ITCallHubEvent::get_Event method returns a member of this enum to indicate the type of CallHub event that occurred.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class CALLHUB_EVENT{
+class CALLHUB_EVENT extends Win32Enum{
 
     /**
      * A new call has joined the CallHub.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The BCRYPT_MULTI_OPERATION_TYPE enumeration specifies type of multi-operation that is passed to the BCryptProcessMultiOperations function.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
-class BCRYPT_MULTI_OPERATION_TYPE{
+class BCRYPT_MULTI_OPERATION_TYPE extends Win32Enum{
 
     /**
      * A hash operation.

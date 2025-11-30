@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of possible reasons that describe the results returned by an EAP method to a supplicant.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */
-class EapHostPeerMethodResultReason{
+class EapHostPeerMethodResultReason extends Win32Enum{
 
     /**
      * Authentication was successful.

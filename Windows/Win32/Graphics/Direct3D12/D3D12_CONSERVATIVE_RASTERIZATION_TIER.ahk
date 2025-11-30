@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the tier level of conservative rasterization.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_CONSERVATIVE_RASTERIZATION_TIER{
+class D3D12_CONSERVATIVE_RASTERIZATION_TIER extends Win32Enum{
 
     /**
      * Conservative rasterization is not supported.

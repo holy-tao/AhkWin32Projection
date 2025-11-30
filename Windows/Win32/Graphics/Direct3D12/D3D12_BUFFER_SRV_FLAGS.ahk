@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies how to view a buffer resource.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_BUFFER_SRV_FLAGS{
+class D3D12_BUFFER_SRV_FLAGS extends Win32BitflagEnum{
 
     /**
      * Indicates a default view.

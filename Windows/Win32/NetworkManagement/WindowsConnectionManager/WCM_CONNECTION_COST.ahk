@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Determines the connection cost type and flags.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
  * @version v4.0.30319
  */
-class WCM_CONNECTION_COST{
+class WCM_CONNECTION_COST extends Win32Enum{
 
     /**
      * Connection cost information is not available.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the category or group to which an object identifier (OID) belongs.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class ObjectIdGroupId{
+class ObjectIdGroupId extends Win32Enum{
 
     /**
      * The group OID is not identified. All OID groups will be included when searching.

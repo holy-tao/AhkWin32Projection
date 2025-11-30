@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Additional information that can be requested by a sync provider when its callbacks are invoked.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
-class CF_CONNECT_FLAGS{
+class CF_CONNECT_FLAGS extends Win32BitflagEnum{
 
     /**
      * No connection flags.

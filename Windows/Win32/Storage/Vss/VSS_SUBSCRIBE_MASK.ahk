@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the events that the writer is willing to receive.
@@ -17,7 +18,7 @@
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_SUBSCRIBE_MASK{
+class VSS_SUBSCRIBE_MASK extends Win32Enum{
 
     /**
      * This enumeration value is reserved for future use. 

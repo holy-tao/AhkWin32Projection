@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the flip and rotation transforms.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICBitmapTransformOptions{
+class WICBitmapTransformOptions extends Win32Enum{
 
     /**
      * A rotation of 0 degrees.

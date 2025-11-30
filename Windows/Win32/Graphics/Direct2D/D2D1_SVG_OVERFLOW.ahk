@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a value for the SVG overflow property.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_SVG_OVERFLOW{
+class D2D1_SVG_OVERFLOW extends Win32Enum{
 
     /**
      * The element is not clipped to its viewport.

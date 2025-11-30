@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines media key error codes for the media engine.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_MEDIA_ENGINE_KEYERR{
+class MF_MEDIA_ENGINE_KEYERR extends Win32Enum{
 
     /**
      * Unknown error occurred.

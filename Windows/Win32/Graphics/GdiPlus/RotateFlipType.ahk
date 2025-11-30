@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The RotateFlipType enumeration specifies the direction of an image's rotation and the axis used to flip the image.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class RotateFlipType{
+class RotateFlipType extends Win32Enum{
 
     /**
      * Specifies no rotation and no flipping.

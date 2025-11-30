@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Define the settings for object comparison and are used by SWbemObject.CompareTo_.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class WbemComparisonFlagEnum{
+class WbemComparisonFlagEnum extends Win32Enum{
 
     /**
      * Used to compare all properties, qualifiers, and flavors.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values for the type of mouse buttons.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
-class RDPSRAPI_MOUSE_BUTTON_TYPE{
+class RDPSRAPI_MOUSE_BUTTON_TYPE extends Win32Enum{
 
     /**
      * 

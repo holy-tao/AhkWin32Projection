@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Enumerates the possible values of the status of a node drain.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_NODE_DRAIN_STATUS{
+class CLUSTER_NODE_DRAIN_STATUS extends Win32Enum{
 
     /**
      * Indicates that node draining has not started.

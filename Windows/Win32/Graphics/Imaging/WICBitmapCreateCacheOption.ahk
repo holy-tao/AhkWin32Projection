@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the desired cache usage.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICBitmapCreateCacheOption{
+class WICBitmapCreateCacheOption extends Win32Enum{
 
     /**
      * Do not cache the bitmap.

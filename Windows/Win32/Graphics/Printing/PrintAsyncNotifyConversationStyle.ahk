@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether communication is bidirectional or unidirectional between applications and Print Spooler-hosted components such as printer drivers, print processors, and port monitors.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */
-class PrintAsyncNotifyConversationStyle{
+class PrintAsyncNotifyConversationStyle extends Win32Enum{
 
     /**
      * Indicates that applications can send replies to the Print Spooler-hosted component that sent a notification.

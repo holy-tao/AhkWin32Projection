@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates information about an email message that has been received.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
-class WPC_ARGS_EMAILRECEIEVEDEVENT{
+class WPC_ARGS_EMAILRECEIEVEDEVENT extends Win32Enum{
 
     /**
      * The sender who sent the email message.

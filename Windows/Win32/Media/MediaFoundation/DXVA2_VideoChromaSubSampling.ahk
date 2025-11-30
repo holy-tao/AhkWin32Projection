@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes how chroma values are positioned relative to the luma samples in a YUV video frame.
@@ -45,7 +46,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class DXVA2_VideoChromaSubSampling{
+class DXVA2_VideoChromaSubSampling extends Win32Enum{
 
     /**
      * Bitmask to validate flag values. This value is not a valid flag.

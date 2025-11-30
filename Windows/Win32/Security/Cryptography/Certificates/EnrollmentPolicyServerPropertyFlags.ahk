@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the default policy server.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class EnrollmentPolicyServerPropertyFlags{
+class EnrollmentPolicyServerPropertyFlags extends Win32Enum{
 
     /**
      * No default policy server URL has been specified.

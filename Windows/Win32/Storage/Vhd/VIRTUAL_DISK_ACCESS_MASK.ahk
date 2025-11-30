@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * 
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */
-class VIRTUAL_DISK_ACCESS_MASK{
+class VIRTUAL_DISK_ACCESS_MASK extends Win32BitflagEnum{
 
     /**
      * @type {Integer (Int32)}

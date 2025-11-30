@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls.Dialogs
  * @version v4.0.30319
  */
-class CHOOSEFONT_FONT_TYPE{
+class CHOOSEFONT_FONT_TYPE extends Win32BitflagEnum{
 
     /**
      * @type {Integer (UInt16)}

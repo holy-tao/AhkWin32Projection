@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the replicated disk types for the SR_RESOURCE_TYPE_REPLICATED_DISK structure.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class SR_REPLICATED_DISK_TYPE{
+class SR_REPLICATED_DISK_TYPE extends Win32Enum{
 
     /**
      * None.

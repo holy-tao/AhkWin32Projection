@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Flags to specify what parts of a PSS_HANDLE_ENTRY structure are valid.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
  * @version v4.0.30319
  */
-class PSS_HANDLE_FLAGS{
+class PSS_HANDLE_FLAGS extends Win32BitflagEnum{
 
     /**
      * No parts specified.

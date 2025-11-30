@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the type of protocol supported by a port.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
-class WSD_PROTOCOL_TYPE{
+class WSD_PROTOCOL_TYPE extends Win32Enum{
 
     /**
      * No protocols supported.

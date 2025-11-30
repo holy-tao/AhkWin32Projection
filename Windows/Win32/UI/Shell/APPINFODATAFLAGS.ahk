@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies application information to return from IShellApp::GetAppInfo. These flags are bitmasks used in the dwMask member of the APPINFODATA structure.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class APPINFODATAFLAGS{
+class APPINFODATAFLAGS extends Win32Enum{
 
     /**
      * Returns the display name.

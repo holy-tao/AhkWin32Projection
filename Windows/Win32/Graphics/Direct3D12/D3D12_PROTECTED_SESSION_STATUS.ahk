@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify protected session status.
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_PROTECTED_SESSION_STATUS{
+class D3D12_PROTECTED_SESSION_STATUS extends Win32Enum{
 
     /**
      * Indicates that the protected session is in a valid state.

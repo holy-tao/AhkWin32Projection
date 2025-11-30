@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Values that identify resource types that can be bound to a shader and that are reflected as part of the resource description for the shader.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */
-class D3D_SHADER_INPUT_TYPE{
+class D3D_SHADER_INPUT_TYPE extends Win32Enum{
 
     /**
      * The shader resource is a constant buffer.

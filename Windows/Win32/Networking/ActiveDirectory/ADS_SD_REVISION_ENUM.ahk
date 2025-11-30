@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the revision number of the access-control entry (ACE), or the access-control list (ACL), for Active Directory.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class ADS_SD_REVISION_ENUM{
+class ADS_SD_REVISION_ENUM extends Win32Enum{
 
     /**
      * The revision number of the ACE, or the ACL, for Active Directory.

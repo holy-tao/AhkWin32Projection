@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Provides customization options for a single field in a logon or credential UI.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS{
+class CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS extends Win32BitflagEnum{
 
     /**
      * Default. Don't show the "password reveal" glyph, and use the standard on-screen keyboard layout.

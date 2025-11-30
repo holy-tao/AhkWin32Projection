@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the NETCON_MEDIATYPE enumerate the possible ways the computer connects to the network.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
-class NETCON_MEDIATYPE{
+class NETCON_MEDIATYPE extends Win32Enum{
 
     /**
      * No media is present.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the state of a request queue, server session, or URL Group.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */
-class HTTP_ENABLED_STATE{
+class HTTP_ENABLED_STATE extends Win32Enum{
 
     /**
      * The HTTP Server API object is enabled.

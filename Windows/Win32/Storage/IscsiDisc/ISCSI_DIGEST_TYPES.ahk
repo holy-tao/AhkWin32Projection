@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * ISCSI_DIGEST_TYPES enumeration indicates the digest type.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @version v4.0.30319
  */
-class ISCSI_DIGEST_TYPES{
+class ISCSI_DIGEST_TYPES extends Win32Enum{
 
     /**
      * No digest is in use for guaranteeing data integrity.

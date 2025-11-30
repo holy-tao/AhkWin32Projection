@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains flags for the IMFTimer::SetTimer method.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFTIMER_FLAGS{
+class MFTIMER_FLAGS extends Win32Enum{
 
     /**
      * The time passed to the timer is relative to the current time. If this flag is absent, the time is expressed as an absolute clock time.

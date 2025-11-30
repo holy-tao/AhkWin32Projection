@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * 
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFSampleAllocatorUsage{
+class MFSampleAllocatorUsage extends Win32Enum{
 
     /**
      * The output stream will use the camera pipeline's sample allocator to allocate new media samples. If the output stream is producing samples in CPU memory, it is recommended that it use this mode to ensure consistent performance when used in a cross-container scenario.

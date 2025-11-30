@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Determines which resource monitor a given resource will be assigned to.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_RESOURCE_CREATE_FLAGS{
+class CLUSTER_RESOURCE_CREATE_FLAGS extends Win32Enum{
 
     /**
      * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a> determines the 

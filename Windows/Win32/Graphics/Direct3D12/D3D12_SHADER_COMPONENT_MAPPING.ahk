@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how memory gets routed by a shader resource view (SRV).
@@ -18,7 +19,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_SHADER_COMPONENT_MAPPING{
+class D3D12_SHADER_COMPONENT_MAPPING extends Win32Enum{
 
     /**
      * Indicates return component 0 (red).

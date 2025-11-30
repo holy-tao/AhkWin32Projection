@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies logical operations to configure for a render target.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_LOGIC_OP{
+class D3D12_LOGIC_OP extends Win32Enum{
 
     /**
      * Clears the render target (<c>0</c>).

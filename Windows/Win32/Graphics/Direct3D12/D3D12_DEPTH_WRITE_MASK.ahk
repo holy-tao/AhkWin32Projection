@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the portion of a depth-stencil buffer for writing depth data.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_DEPTH_WRITE_MASK{
+class D3D12_DEPTH_WRITE_MASK extends Win32Enum{
 
     /**
      * Turn off writes to the depth-stencil buffer.

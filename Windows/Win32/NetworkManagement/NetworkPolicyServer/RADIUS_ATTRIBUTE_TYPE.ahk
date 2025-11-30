@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The RADIUS_ATTRIBUTE_TYPE type enumerates the possible types for a RADIUS attribute.
@@ -22,7 +23,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class RADIUS_ATTRIBUTE_TYPE{
+class RADIUS_ATTRIBUTE_TYPE extends Win32Enum{
 
     /**
      * This value is equal to zero, and used as the null-terminator in any array of 

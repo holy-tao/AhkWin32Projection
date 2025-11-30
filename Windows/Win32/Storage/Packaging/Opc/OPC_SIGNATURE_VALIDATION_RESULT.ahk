@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the status of the signature.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
-class OPC_SIGNATURE_VALIDATION_RESULT{
+class OPC_SIGNATURE_VALIDATION_RESULT extends Win32Enum{
 
     /**
      * The signature is valid.

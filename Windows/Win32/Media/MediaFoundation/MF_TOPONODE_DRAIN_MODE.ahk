@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines at what times a transform in a topology is drained.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_TOPONODE_DRAIN_MODE{
+class MF_TOPONODE_DRAIN_MODE extends Win32Enum{
 
     /**
      * The transform is drained when the end of a stream is reached. It is not drained when markout is reached at the end of a segment.

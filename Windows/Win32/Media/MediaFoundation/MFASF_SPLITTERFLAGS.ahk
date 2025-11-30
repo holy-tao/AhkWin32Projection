@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the ASF splitter options.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFASF_SPLITTERFLAGS{
+class MFASF_SPLITTERFLAGS extends Win32Enum{
 
     /**
      * The splitter delivers samples for the ASF content in reverse order to accommodate reverse playback.

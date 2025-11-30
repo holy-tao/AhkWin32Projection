@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies additional features supportable by a compatible render target when it is created. This enumeration allows a bitwise combination of its member values.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS{
+class D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS extends Win32BitflagEnum{
 
     /**
      * The render target supports no additional features.

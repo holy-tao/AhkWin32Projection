@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Values that are used in activation calls to indicate the execution contexts in which an object is to be run.
@@ -183,7 +184,7 @@
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class CLSCTX{
+class CLSCTX extends Win32BitflagEnum{
 
     /**
      * The code that creates and manages objects of this class is a DLL that runs in the same process as the caller of the function specifying the class context.

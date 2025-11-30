@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MBN_BAND_CLASS enumerated type defines the frequency band classes.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
-class MBN_BAND_CLASS{
+class MBN_BAND_CLASS extends Win32Enum{
 
     /**
      * Unknown band class.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether a public key algorithm is used for signing or for encryption.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class ObjectIdPublicKeyFlags{
+class ObjectIdPublicKeyFlags extends Win32Enum{
 
     /**
      * The algorithm can be used for signing or encryption.

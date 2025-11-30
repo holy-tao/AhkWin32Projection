@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The TERMINAL_STATE enum describes the current state of a terminal device. This enum is returned by the ITTerminal::get_State method.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class TERMINAL_STATE{
+class TERMINAL_STATE extends Win32Enum{
 
     /**
      * The terminal is currently in use.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DRMATTESTTYPE enumeration specifies what kind of signature to create for a data blob.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Data.RightsManagement
  * @version v4.0.30319
  */
-class DRMATTESTTYPE{
+class DRMATTESTTYPE extends Win32Enum{
 
     /**
      * Create a signature using full environment information.

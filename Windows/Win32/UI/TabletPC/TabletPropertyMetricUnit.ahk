@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the unit of measurement of a property.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class TabletPropertyMetricUnit{
+class TabletPropertyMetricUnit extends Win32Enum{
 
     /**
      * The units are unknown.

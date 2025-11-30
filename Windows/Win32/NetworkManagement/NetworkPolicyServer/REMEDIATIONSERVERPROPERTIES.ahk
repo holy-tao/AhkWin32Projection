@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the REMEDIATIONSERVERPROPERTIES enumeration type enumerate the properties of a remediation server.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class REMEDIATIONSERVERPROPERTIES{
+class REMEDIATIONSERVERPROPERTIES extends Win32Enum{
 
     /**
      * IP address value for a Remediation Server. Used in Network Policy Server (NPS) user interface.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Enumerates the start settings for a cluster group.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUS_GROUP_START_SETTING{
+class CLUS_GROUP_START_SETTING extends Win32Enum{
 
     /**
      * Always start the cluster.

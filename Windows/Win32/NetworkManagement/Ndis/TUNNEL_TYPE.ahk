@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The TUNNEL_TYPE enumeration type defines the encapsulation method used by a tunnel, as described by the Internet Assigned Names Authority (IANA).
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.NetworkManagement.Ndis
  * @version v4.0.30319
  */
-class TUNNEL_TYPE{
+class TUNNEL_TYPE extends Win32Enum{
 
     /**
      * Indicates that a tunnel is not specified.

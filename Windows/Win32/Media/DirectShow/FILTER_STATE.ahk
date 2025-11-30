@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a filter's state or the state of the filter graph.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class FILTER_STATE{
+class FILTER_STATE extends Win32Enum{
 
     /**
      * Stopped. The filter is not processing data.

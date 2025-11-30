@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates options for presenting frames to the swap chain.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
-class DXGI_FRAME_PRESENTATION_MODE{
+class DXGI_FRAME_PRESENTATION_MODE extends Win32Enum{
 
     /**
      * Specifies that the presentation mode is a composition surface, meaning that the conversion from YUV to RGB is happening once per output refresh (for example, 60 Hz).

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the reason for non-fatal or soft errors recorded on a TCP connection.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */
-class TCP_SOFT_ERROR{
+class TCP_SOFT_ERROR extends Win32Enum{
 
     /**
      * No soft errors have occurred.

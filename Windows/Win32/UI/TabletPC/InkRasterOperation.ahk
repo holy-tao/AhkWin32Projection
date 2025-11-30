@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values for performing raster operations on drawn ink.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InkRasterOperation{
+class InkRasterOperation extends Win32Enum{
 
     /**
      * Black pen color.

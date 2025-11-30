@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains flags that describe a video stream.
@@ -83,7 +84,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFVideoFlags{
+class MFVideoFlags extends Win32Enum{
 
     /**
      * Use this value to mask out the next three flags, which describe the effective aspect ratio of the image. This value by itself is not a valid flag.

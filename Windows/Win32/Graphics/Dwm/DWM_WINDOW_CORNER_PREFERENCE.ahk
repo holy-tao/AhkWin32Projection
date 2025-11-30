@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * 
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Dwm
  * @version v4.0.30319
  */
-class DWM_WINDOW_CORNER_PREFERENCE{
+class DWM_WINDOW_CORNER_PREFERENCE extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

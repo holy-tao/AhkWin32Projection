@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by methods of the INameSpaceTreeControl2 to specify extended display styles in a Shell namespace treeview.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class NSTCSTYLE2{
+class NSTCSTYLE2 extends Win32BitflagEnum{
 
     /**
      * 

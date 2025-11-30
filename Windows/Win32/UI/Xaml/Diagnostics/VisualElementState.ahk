@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify the state of an element in the visual tree.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  * @version v4.0.30319
  */
-class VisualElementState{
+class VisualElementState extends Win32Enum{
 
     /**
      * The error has been fixed.

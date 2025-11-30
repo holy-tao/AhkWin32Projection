@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the closed captioning service.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class AM_LINE21_CCSERVICE{
+class AM_LINE21_CCSERVICE extends Win32Enum{
 
     /**
      * No current service.

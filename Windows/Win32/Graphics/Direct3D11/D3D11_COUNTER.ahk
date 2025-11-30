@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Options for performance counters.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_COUNTER{
+class D3D11_COUNTER extends Win32Enum{
 
     /**
      * Define a performance counter that is dependent on the hardware device.

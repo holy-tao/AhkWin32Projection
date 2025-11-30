@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the pointer device cursor types.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.UI.Input.Pointer
  * @version v4.0.30319
  */
-class POINTER_DEVICE_CURSOR_TYPE{
+class POINTER_DEVICE_CURSOR_TYPE extends Win32Enum{
 
     /**
      * Unidentified cursor.

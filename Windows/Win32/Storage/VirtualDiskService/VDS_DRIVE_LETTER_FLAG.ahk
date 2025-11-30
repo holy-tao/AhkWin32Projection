@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of valid flags for a drive letter.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_DRIVE_LETTER_FLAG{
+class VDS_DRIVE_LETTER_FLAG extends Win32Enum{
 
     /**
      * If set, the drive letter disappears after the computer reboots.

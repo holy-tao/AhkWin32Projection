@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MMC_FILTER_TYPE enumeration is introduced in MMC 1.2.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
-class MMC_FILTER_TYPE{
+class MMC_FILTER_TYPE extends Win32Enum{
 
     /**
      * String filter.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates information about joining an existing conversation.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
-class WPC_ARGS_CONVERSATIONJOINEVENT{
+class WPC_ARGS_CONVERSATIONJOINEVENT extends Win32Enum{
 
     /**
      * The name of the application used for joining an existing conversation.

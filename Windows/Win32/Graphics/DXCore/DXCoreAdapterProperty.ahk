@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify DXCore adapter properties.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DXCore
  * @version v4.0.30319
  */
-class DXCoreAdapterProperty{
+class DXCoreAdapterProperty extends Win32Enum{
 
     /**
      * Specifies the <em>InstanceLuid</em> adapter property, which contains a locally unique identifier representing the adapter. This value remains constant for the lifetime of this adapter. The LUID of an adapter changes on reboot, driver upgrade, or device disablement/enablement.

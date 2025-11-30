@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how the picture behaves inside the InkPicture control.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InkPictureSizeMode{
+class InkPictureSizeMode extends Win32Enum{
 
     /**
      * The control auto sizes to fit the picture.

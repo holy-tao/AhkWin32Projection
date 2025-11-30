@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the threading behavior for SetInputMode or SetUpdateMode. The exact meaning of each constant depends on the method called.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */
-class DIRECTMANIPULATION_INPUT_MODE{
+class DIRECTMANIPULATION_INPUT_MODE extends Win32Enum{
 
     /**
      * Input is automatically passed to the viewport in an independent thread.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the status of the current search indexing phase.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
-class SEARCH_INDEXING_PHASE{
+class SEARCH_INDEXING_PHASE extends Win32Enum{
 
     /**
      * Sent in the event that an error occurs while a notification is in the gatherer. For instance, if the notification fails the exclusion-rule tests, a status update will be sent with the error.

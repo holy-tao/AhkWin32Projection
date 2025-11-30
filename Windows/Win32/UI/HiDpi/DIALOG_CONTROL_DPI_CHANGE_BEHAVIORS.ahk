@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * 
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.HiDpi
  * @version v4.0.30319
  */
-class DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS{
+class DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS extends Win32BitflagEnum{
 
     /**
      * @type {Integer (Int32)}

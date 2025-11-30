@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains the various types of callbacks used on placeholder files or folders.
@@ -23,7 +24,7 @@
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
-class CF_CALLBACK_TYPE{
+class CF_CALLBACK_TYPE extends Win32Enum{
 
     /**
      * Callback to satisfy an I/O request, or a placeholder hydration request.

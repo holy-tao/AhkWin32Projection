@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether the topology loader will insert hardware-based Media Foundation transforms (MFTs) into the topology.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFTOPOLOGY_HARDWARE_MODE{
+class MFTOPOLOGY_HARDWARE_MODE extends Win32Enum{
 
     /**
      * Use only software  MFTs. Do not use hardware-based MFTs. This mode is the default, for backward compatibility with existing applications.

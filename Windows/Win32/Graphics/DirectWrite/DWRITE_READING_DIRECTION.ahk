@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the direction in which reading progresses.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_READING_DIRECTION{
+class DWRITE_READING_DIRECTION extends Win32Enum{
 
     /**
      * Indicates that reading progresses from left to right.

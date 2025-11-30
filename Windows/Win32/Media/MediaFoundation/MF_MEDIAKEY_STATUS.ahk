@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the status of a Content Decryption Module (CDM) session key.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_MEDIAKEY_STATUS{
+class MF_MEDIAKEY_STATUS extends Win32Enum{
 
     /**
      * The CDM is certain the key is currently usable for decryption.

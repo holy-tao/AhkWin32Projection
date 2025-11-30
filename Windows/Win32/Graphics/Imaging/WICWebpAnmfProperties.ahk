@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the animation frame properties of a WebP image.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICWebpAnmfProperties{
+class WICWebpAnmfProperties extends Win32Enum{
 
     /**
      * The time to wait before displaying the next frame, in milliseconds.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WMT_PLAY_MODE enumeration type defines the playback options of the reader.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
-class WMT_PLAY_MODE{
+class WMT_PLAY_MODE extends Win32Enum{
 
     /**
      * The reader will select the most appropriate play mode based on the location of the content.

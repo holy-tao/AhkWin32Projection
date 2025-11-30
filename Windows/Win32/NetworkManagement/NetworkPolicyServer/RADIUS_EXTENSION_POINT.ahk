@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The RADIUS_EXTENSION_POINT enumeration type enumerates the possible points in the RADIUS request process when the RadiusExtensionProcess2 function can be called.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class RADIUS_EXTENSION_POINT{
+class RADIUS_EXTENSION_POINT extends Win32Enum{
 
     /**
      * Indicates that the 

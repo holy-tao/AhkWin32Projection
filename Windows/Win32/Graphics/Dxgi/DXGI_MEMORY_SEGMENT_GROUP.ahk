@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the memory segment group to use.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
-class DXGI_MEMORY_SEGMENT_GROUP{
+class DXGI_MEMORY_SEGMENT_GROUP extends Win32Enum{
 
     /**
      * The grouping of segments which is considered local to the video adapter, and represents the fastest available memory to the GPU. Applications should target the local segment group as the target size for their working set.

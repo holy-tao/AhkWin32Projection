@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The mode to use to blend the bitmap content of a visual with the render target.
@@ -24,7 +25,7 @@
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */
-class DCOMPOSITION_COMPOSITE_MODE{
+class DCOMPOSITION_COMPOSITE_MODE extends Win32Enum{
 
     /**
      * The standard source-over-destination blend mode.

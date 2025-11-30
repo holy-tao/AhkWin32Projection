@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the tier level at which view instancing is supported.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_VIEW_INSTANCING_TIER{
+class D3D12_VIEW_INSTANCING_TIER extends Win32Enum{
 
     /**
      * View instancing is not supported.

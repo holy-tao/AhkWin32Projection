@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify an identifier for an HTTP feature.
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */
-class HTTP_FEATURE_ID{
+class HTTP_FEATURE_ID extends Win32Enum{
 
     /**
      * Specifies an unknown feature.

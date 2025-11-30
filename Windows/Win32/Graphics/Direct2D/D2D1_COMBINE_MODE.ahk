@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the different methods by which two geometries can be combined.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_COMBINE_MODE{
+class D2D1_COMBINE_MODE extends Win32Enum{
 
     /**
      * The two regions are combined by taking the union of both. Given two geometries, <i>A</i> and <i>B</i>, the resulting geometry is geometry <i>A</i> + geometry <i>B</i>.

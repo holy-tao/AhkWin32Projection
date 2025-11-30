@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how the filter enum conditions should be interpreted.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class FWP_FILTER_ENUM_TYPE{
+class FWP_FILTER_ENUM_TYPE extends Win32Enum{
 
     /**
      * Return only filters that fully contain the enum conditions.

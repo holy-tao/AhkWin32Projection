@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies values that identify the vertical-alignment state of a FontControl.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
-class UI_FONTVERTICALPOSITION{
+class UI_FONTVERTICALPOSITION extends Win32Enum{
 
     /**
      * Vertical positioning is not enabled.

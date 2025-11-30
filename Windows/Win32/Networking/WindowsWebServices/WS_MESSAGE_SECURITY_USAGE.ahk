@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines how a message security binding attaches the security token corresponding to it to a message using WS-Security mechanisms.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_MESSAGE_SECURITY_USAGE{
+class WS_MESSAGE_SECURITY_USAGE extends Win32Enum{
 
     /**
      * The security token obtained security binding is used for client

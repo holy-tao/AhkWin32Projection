@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The LinearGradientMode enumeration specifies the direction in which the change of color occurs for a linear gradient brush.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class LinearGradientMode{
+class LinearGradientMode extends Win32Enum{
 
     /**
      * Specifies the color to change in a horizontal direction from the left of the display to the right of the display.

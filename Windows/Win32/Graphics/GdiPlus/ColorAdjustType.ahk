@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ColorAdjustType enumeration specifies which GDI+ objects use color-adjustment information.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class ColorAdjustType{
+class ColorAdjustType extends Win32Enum{
 
     /**
      * Specifies that color or grayscale adjustment applies to all categories that do not have adjustment settings of their own.

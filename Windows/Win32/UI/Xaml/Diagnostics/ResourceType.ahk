@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify the type of a resource in a resource dictionary.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  * @version v4.0.30319
  */
-class ResourceType{
+class ResourceType extends Win32Enum{
 
     /**
      * The resource is a <a href="https://docs.microsoft.com/windows/uwp/xaml-platform/staticresource-markup-extension">StaticResource</a>.

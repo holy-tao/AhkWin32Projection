@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The REPAIR_SCOPE enumeration describes the scope of modification for a given repair.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */
-class REPAIR_SCOPE{
+class REPAIR_SCOPE extends Win32Enum{
 
     /**
      * The repair effect is system-wide.

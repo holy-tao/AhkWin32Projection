@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the access level of a Windows Graphics Device Interface (GDI) section.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICSectionAccessLevel{
+class WICSectionAccessLevel extends Win32Enum{
 
     /**
      * Indicates a read only access level.

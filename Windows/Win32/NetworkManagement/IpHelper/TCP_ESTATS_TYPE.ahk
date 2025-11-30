@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the type of extended statistics for a TCP connection that is requested or being set.
@@ -21,7 +22,7 @@
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */
-class TCP_ESTATS_TYPE{
+class TCP_ESTATS_TYPE extends Win32Enum{
 
     /**
      * This value specifies SYN exchange information for a TCP connection.

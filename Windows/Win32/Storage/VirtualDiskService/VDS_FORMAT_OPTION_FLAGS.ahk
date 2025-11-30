@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of valid formatting options for the IVdsDiskPartitionMF2::FormatPartitionEx2 method.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_FORMAT_OPTION_FLAGS{
+class VDS_FORMAT_OPTION_FLAGS extends Win32Enum{
 
     /**
      * No options are specified.

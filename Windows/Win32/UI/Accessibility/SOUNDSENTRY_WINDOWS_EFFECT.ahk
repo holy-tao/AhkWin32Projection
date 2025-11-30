@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
-class SOUNDSENTRY_WINDOWS_EFFECT{
+class SOUNDSENTRY_WINDOWS_EFFECT extends Win32Enum{
 
     /**
      * @type {Integer (UInt32)}

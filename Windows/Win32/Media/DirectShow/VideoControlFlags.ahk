@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the video mode of operation for a video device.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class VideoControlFlags{
+class VideoControlFlags extends Win32Enum{
 
     /**
      * Specifies that the picture is flipped horizontally.

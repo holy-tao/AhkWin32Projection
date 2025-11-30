@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the IASCOMPONENTPROPERTIES enumeration type enumerate identifiers for an SDO object.
@@ -20,7 +21,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class IASCOMPONENTPROPERTIES{
+class IASCOMPONENTPROPERTIES extends Win32Enum{
 
     /**
      * The component ID for the SDO object.

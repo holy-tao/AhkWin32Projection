@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the direction that an elliptical arc is drawn.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_SWEEP_DIRECTION{
+class D2D1_SWEEP_DIRECTION extends Win32Enum{
 
     /**
      * Arcs are drawn in a counterclockwise (negative-angle) direction.

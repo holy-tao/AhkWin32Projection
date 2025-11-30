@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the dots per inch (dpi) setting for a monitor.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.UI.HiDpi
  * @version v4.0.30319
  */
-class MONITOR_DPI_TYPE{
+class MONITOR_DPI_TYPE extends Win32Enum{
 
     /**
      * The effective DPI. This value should be used when determining the correct scale factor for scaling UI elements. This incorporates the scale factor set by the user for this specific display.

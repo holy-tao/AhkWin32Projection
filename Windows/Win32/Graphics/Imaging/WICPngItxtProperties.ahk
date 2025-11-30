@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the Portable Network Graphics (PNG) iTXT chunk metadata properties.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICPngItxtProperties{
+class WICPngItxtProperties extends Win32Enum{
 
     /**
      * [VT_LPSTR] Indicates the keywords in the iTXT metadata chunk.

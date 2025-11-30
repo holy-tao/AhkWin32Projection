@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes ways to compress part content.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
-class OPC_COMPRESSION_OPTIONS{
+class OPC_COMPRESSION_OPTIONS extends Win32Enum{
 
     /**
      * Compression is turned off.

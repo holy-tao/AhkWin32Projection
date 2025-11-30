@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values for the priority used to send packets on the channel.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
-class CHANNEL_PRIORITY{
+class CHANNEL_PRIORITY extends Win32Enum{
 
     /**
      * Send the packets at a low priority.

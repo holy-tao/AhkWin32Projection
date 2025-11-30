@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the IP version for a port.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
-class NET_FW_IP_VERSION{
+class NET_FW_IP_VERSION extends Win32Enum{
 
     /**
      * The port supports IPv4.

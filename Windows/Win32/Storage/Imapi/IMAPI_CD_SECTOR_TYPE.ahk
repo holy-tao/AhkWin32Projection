@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the sector types that can be written to CD media.
@@ -17,7 +18,7 @@
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
-class IMAPI_CD_SECTOR_TYPE{
+class IMAPI_CD_SECTOR_TYPE extends Win32Enum{
 
     /**
      * With this sector type, Audio data has 2352 bytes per sector/frame.  This can be broken down into 588 contiguous samples, each sample being four bytes.  The layout of a single sample matches the 16-bit stereo 44.1KHz WAV file data.  This type of sector has no additional error correcting codes.

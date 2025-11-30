@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Provides the possible values for the syntax structures in a property list.
@@ -25,7 +26,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_PROPERTY_SYNTAX{
+class CLUSTER_PROPERTY_SYNTAX extends Win32Enum{
 
     /**
      * Marks the end of a value list.

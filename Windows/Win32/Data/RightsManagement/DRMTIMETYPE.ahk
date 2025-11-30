@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DRMTIMETYPE enumeration specifies a time type.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Data.RightsManagement
  * @version v4.0.30319
  */
-class DRMTIMETYPE{
+class DRMTIMETYPE extends Win32Enum{
 
     /**
      * Greenwich Mean Time (Universal Time).

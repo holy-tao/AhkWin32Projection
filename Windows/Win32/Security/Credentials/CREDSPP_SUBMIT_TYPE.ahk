@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of credentials specified by a CREDSSP_CRED structure.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319
  */
-class CREDSPP_SUBMIT_TYPE{
+class CREDSPP_SUBMIT_TYPE extends Win32Enum{
 
     /**
      * The credentials are a user name and password.

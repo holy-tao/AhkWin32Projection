@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the different types of WinML bindings.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  * @version v4.0.30319
  */
-class WINML_BINDING_TYPE{
+class WINML_BINDING_TYPE extends Win32Enum{
 
     /**
      * Binding type undefined.

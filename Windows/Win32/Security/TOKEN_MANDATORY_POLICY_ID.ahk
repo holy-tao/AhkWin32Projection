@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */
-class TOKEN_MANDATORY_POLICY_ID{
+class TOKEN_MANDATORY_POLICY_ID extends Win32Enum{
 
     /**
      * @type {Integer (UInt32)}

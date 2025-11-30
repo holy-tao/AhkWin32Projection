@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the dimension type of the data contained in DDS image.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICDdsDimension{
+class WICDdsDimension extends Win32Enum{
 
     /**
      * DDS image contains a 1-dimensional texture .

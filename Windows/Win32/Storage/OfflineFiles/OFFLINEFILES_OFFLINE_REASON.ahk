@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the reason why an item is offline.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */
-class OFFLINEFILES_OFFLINE_REASON{
+class OFFLINEFILES_OFFLINE_REASON extends Win32Enum{
 
     /**
      * The reason is unknown because the method failed.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The FAX_SMTP_AUTHENTICATION_TYPE_ENUM enumeration defines the configuration options for delivery receipts sent through email.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
-class FAX_SMTP_AUTHENTICATION_TYPE_ENUM{
+class FAX_SMTP_AUTHENTICATION_TYPE_ENUM extends Win32Enum{
 
     /**
      * The server sends fax transmission receipts using a nonauthenticated SMTP protocol.

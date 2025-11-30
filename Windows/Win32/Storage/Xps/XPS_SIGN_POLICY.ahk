@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * A bitwise enumerator that indicates which, if any, optional parts of an XPS document are signed.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
-class XPS_SIGN_POLICY{
+class XPS_SIGN_POLICY extends Win32BitflagEnum{
 
     /**
      * No optional parts or relationships are signed.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies dots per inch (dpi) awareness values. DPI awareness indicates how much scaling work an application performs for DPI versus how much is done by the system.
@@ -52,7 +53,7 @@
  * @namespace Windows.Win32.UI.HiDpi
  * @version v4.0.30319
  */
-class PROCESS_DPI_AWARENESS{
+class PROCESS_DPI_AWARENESS extends Win32Enum{
 
     /**
      * DPI unaware. This app does not scale for DPI changes and is always assumed to have a scale factor of 100% (96 DPI). It will be automatically scaled by the system on any other DPI setting.

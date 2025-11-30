@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the kind of change affecting an item when a source sink notifies a client that an item has been changed.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
-class SEARCH_KIND_OF_CHANGE{
+class SEARCH_KIND_OF_CHANGE extends Win32Enum{
 
     /**
      * An item was added.

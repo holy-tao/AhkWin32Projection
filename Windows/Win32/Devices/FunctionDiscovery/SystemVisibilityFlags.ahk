@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Determines the visibility of the function instance's data.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  * @version v4.0.30319
  */
-class SystemVisibilityFlags{
+class SystemVisibilityFlags extends Win32Enum{
 
     /**
      * The function instance's data is available to all users on the system.

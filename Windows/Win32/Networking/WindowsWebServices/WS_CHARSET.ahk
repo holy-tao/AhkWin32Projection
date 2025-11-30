@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the character set of a document.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_CHARSET{
+class WS_CHARSET extends Win32Enum{
 
     /**
      * Specifies that the charset of a document should be determined automatically by inspecting

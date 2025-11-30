@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the values that determine whether the event includes the security identifier (SID) of the principal that logged the event.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */
-class EVT_CHANNEL_SID_TYPE{
+class EVT_CHANNEL_SID_TYPE extends Win32Enum{
 
     /**
      * Do not include with the event the SID of the principal that logged the event.

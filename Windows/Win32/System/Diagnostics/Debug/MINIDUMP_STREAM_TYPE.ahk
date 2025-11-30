@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents the type of a minidump data stream.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */
-class MINIDUMP_STREAM_TYPE{
+class MINIDUMP_STREAM_TYPE extends Win32Enum{
 
     /**
      * Reserved. Do not use this enumeration value.

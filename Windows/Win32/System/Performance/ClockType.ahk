@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the clock resolution to use when tracing events.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
-class ClockType{
+class ClockType extends Win32Enum{
 
     /**
      * Use the raw (unconverted) time stamp.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DS_SPN_NAME_TYPE enumeration is used by the DsGetSPN function to identify the format for composing SPNs.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class DS_SPN_NAME_TYPE{
+class DS_SPN_NAME_TYPE extends Win32Enum{
 
     /**
      * The SPN format for the distinguished name service of the host-based service, which provides services identified with its host computer. This SPN uses the following format:

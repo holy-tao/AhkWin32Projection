@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify the type of transfer job, such as download.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */
-class BG_JOB_TYPE{
+class BG_JOB_TYPE extends Win32Enum{
 
     /**
      * Specifies that the job downloads files to the client.

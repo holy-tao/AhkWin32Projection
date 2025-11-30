@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ColorCurve class encompasses the eight bitmap adjustments listed in the CurveAdjustments enumeration.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class CurveAdjustments{
+class CurveAdjustments extends Win32Enum{
 
     /**
      * Simulates increasing or decreasing the exposure of a photograph. When you set the <b>adjustment</b> member of a <a href="https://docs.microsoft.com/windows/desktop/api/gdipluseffects/ns-gdipluseffects-colorcurveparams">ColorCurveParams</a> object to <a href="https://docs.microsoft.com/windows/desktop/api/gdipluseffects/ne-gdipluseffects-curveadjustments">AdjustExposure</a>, you should set the <b>adjustValue</b> member to an integer in the range -255 through 255. A value of 0 specifies no change in exposure. Positive values specify increased exposure and negative values specify decreased exposure.

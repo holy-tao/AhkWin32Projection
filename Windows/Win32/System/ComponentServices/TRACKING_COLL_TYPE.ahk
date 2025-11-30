@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the type of objects in a tracking information collection.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
-class TRACKING_COLL_TYPE{
+class TRACKING_COLL_TYPE extends Win32Enum{
 
     /**
      * The objects in the referenced tracking information collections are processes.

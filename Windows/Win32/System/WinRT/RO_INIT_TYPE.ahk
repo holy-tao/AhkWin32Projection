@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Determines the concurrency model used for incoming calls to the objects created by this thread.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
-class RO_INIT_TYPE{
+class RO_INIT_TYPE extends Win32Enum{
 
     /**
      * 

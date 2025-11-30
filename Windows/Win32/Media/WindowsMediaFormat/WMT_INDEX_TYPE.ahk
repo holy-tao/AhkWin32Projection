@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WMT_INDEX_TYPE enumeration type defines the type of object that will be associated with an index.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
-class WMT_INDEX_TYPE{
+class WMT_INDEX_TYPE extends Win32Enum{
 
     /**
      * The index will associate indexes with the nearest data unit, or packet, in the Windows Media file.

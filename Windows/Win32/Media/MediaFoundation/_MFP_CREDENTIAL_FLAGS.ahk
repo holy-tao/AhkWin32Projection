@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains flags for the MFP_ACQUIRE_USER_CREDENTIAL_EVENT structure.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class _MFP_CREDENTIAL_FLAGS{
+class _MFP_CREDENTIAL_FLAGS extends Win32Enum{
 
     /**
      * The player object does not have any stored credentials and requires them from the application. If the player object can provide cached or stored credentials to the server, it does not set this flag.

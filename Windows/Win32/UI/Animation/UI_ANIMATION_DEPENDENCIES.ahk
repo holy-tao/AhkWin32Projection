@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines which aspects of an interpolator depend on a given input.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319
  */
-class UI_ANIMATION_DEPENDENCIES{
+class UI_ANIMATION_DEPENDENCIES extends Win32BitflagEnum{
 
     /**
      * No aspect depends on the input.

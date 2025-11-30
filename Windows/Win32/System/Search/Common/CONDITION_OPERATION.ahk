@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Provides a set of flags to be used with following methods to indicate the operation in ICondition::GetComparisonInfo, ICondition2::GetLeafConditionInfo, IConditionFactory::MakeLeaf, IConditionFactory2::CreateBooleanLeaf, IConditionFactory2::CreateIntegerLeaf, IConditionFactory2::MakeLeaf, IConditionFactory2::CreateStringLeaf, and IConditionGenerator::GenerateForLeaf.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.System.Search.Common
  * @version v4.0.30319
  */
-class CONDITION_OPERATION{
+class CONDITION_OPERATION extends Win32Enum{
 
     /**
      * An implicit comparison between the value of the property and the value of the constant. For an unresolved condition, <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/ne-structuredquerycondition-condition_operation">COP_IMPLICIT</a> means that a user did not type an operation. In contrast, a resolved condition will always have a condition other than the <b>COP_IMPLICIT</b> operation.

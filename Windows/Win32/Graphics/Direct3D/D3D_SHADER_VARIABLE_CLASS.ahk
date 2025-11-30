@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Values that identify the class of a shader variable.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */
-class D3D_SHADER_VARIABLE_CLASS{
+class D3D_SHADER_VARIABLE_CLASS extends Win32Enum{
 
     /**
      * The shader variable is a scalar.

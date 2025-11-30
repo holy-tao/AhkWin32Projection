@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The AM_DVD_GRAPH_FLAGS enumeration specifies how the DVD Navigator builds a DVD playback graph. These flags are used with the IDvdGraphBuilder::RenderDvdVideoVolume method.
@@ -21,7 +22,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class AM_DVD_GRAPH_FLAGS{
+class AM_DVD_GRAPH_FLAGS extends Win32Enum{
 
     /**
      * Use a hardware decoder if possible. If none is available, use a software decoder. This is the default setting. Hardware DVD decoders are registered under the CLSID_DVDHWDecodersCategory filter category. See <a href="https://docs.microsoft.com/windows/desktop/DirectShow/filter-categories">Filter Categories</a>.

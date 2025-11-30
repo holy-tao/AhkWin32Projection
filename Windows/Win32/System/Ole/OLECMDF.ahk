@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of support provided by an object for the command specified in an OLECMD structure.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
-class OLECMDF{
+class OLECMDF extends Win32Enum{
 
     /**
      * The command is supported by this object.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the type of geometry shader input primitive.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_TRACE_GS_INPUT_PRIMITIVE{
+class D3D11_TRACE_GS_INPUT_PRIMITIVE extends Win32Enum{
 
     /**
      * Identifies the geometry shader input primitive as undefined.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Allows additional attributes to be specified for a shadow copy.
@@ -56,7 +57,7 @@
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_VOLUME_SNAPSHOT_ATTRIBUTES{
+class VSS_VOLUME_SNAPSHOT_ATTRIBUTES extends Win32Enum{
 
     /**
      * The shadow copy is persistent across reboots.

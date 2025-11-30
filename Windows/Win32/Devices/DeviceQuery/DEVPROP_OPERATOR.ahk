@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.Devices.DeviceQuery
  * @version v4.0.30319
  */
-class DEVPROP_OPERATOR{
+class DEVPROP_OPERATOR extends Win32BitflagEnum{
 
     /**
      * @type {Integer (UInt32)}

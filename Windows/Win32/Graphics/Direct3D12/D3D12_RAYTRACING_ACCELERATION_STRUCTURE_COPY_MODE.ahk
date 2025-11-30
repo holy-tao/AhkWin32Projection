@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of copy operation performed when calling CopyRaytracingAccelerationStructure.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE{
+class D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE extends Win32Enum{
 
     /**
      * Copy an acceleration structure while fixing any self-referential pointers that may be present so that the destination is a self-contained copy of the source.  Any external pointers to other acceleration structures remain unchanged from source to destination in the copy.  The size of the destination is identical to the size of the source.

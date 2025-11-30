@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents the various forms of device media.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
-class MEDIA_TYPE{
+class MEDIA_TYPE extends Win32Enum{
 
     /**
      * Format is unknown

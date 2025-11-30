@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines priority levels for a command queue.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_COMMAND_QUEUE_PRIORITY{
+class D3D12_COMMAND_QUEUE_PRIORITY extends Win32Enum{
 
     /**
      * Normal priority.

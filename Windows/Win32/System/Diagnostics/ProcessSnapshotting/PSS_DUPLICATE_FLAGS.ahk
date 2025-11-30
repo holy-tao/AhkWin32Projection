@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Duplication flags for use by PssDuplicateSnapshot.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
  * @version v4.0.30319
  */
-class PSS_DUPLICATE_FLAGS{
+class PSS_DUPLICATE_FLAGS extends Win32BitflagEnum{
 
     /**
      * No flag.

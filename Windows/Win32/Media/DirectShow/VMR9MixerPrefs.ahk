@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The VMR9MixerPrefs enumeration type contains flags that specify how the Video Mixing Render 9 filter (VMR-9) mixes the video streams. Settings include decimation, filtering, and render target preferences.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class VMR9MixerPrefs{
+class VMR9MixerPrefs extends Win32Enum{
 
     /**
      * No decimation. The video will be rendered onto the surface in its native size.

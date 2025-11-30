@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the conversion function from linear RGB to non-linear RGB (R'G'B').
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFVideoTransferFunction{
+class MFVideoTransferFunction extends Win32Enum{
 
     /**
      * Unknown. Treat as MFVideoTransFunc_709.

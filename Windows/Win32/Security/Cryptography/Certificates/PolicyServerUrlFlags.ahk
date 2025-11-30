@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains certificate enrollment policy (CEP) server flags.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class PolicyServerUrlFlags{
+class PolicyServerUrlFlags extends Win32Enum{
 
     /**
      * No flags are specified.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains flags that define the chroma encoding scheme for Y'Cb'Cr' data.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFVideoChromaSubsampling{
+class MFVideoChromaSubsampling extends Win32Enum{
 
     /**
      * Unknown encoding scheme.

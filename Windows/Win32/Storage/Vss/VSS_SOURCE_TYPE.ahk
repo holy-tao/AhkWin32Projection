@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of data that a writer manages.
@@ -17,7 +18,7 @@
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_SOURCE_TYPE{
+class VSS_SOURCE_TYPE extends Win32Enum{
 
     /**
      * The source of the data is not known. 

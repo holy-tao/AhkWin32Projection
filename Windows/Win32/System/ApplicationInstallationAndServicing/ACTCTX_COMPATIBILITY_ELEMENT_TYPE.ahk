@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ACTCTX_COMPATIBILITY_ELEMENT_TYPE enumeration describes the compatibility element in the application manifest.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */
-class ACTCTX_COMPATIBILITY_ELEMENT_TYPE{
+class ACTCTX_COMPATIBILITY_ELEMENT_TYPE extends Win32Enum{
 
     /**
      * 

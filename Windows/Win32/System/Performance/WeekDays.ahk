@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the days of the week on which to run the data collector set.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
-class WeekDays{
+class WeekDays extends Win32Enum{
 
     /**
      * Run only once on the specified start date and time.

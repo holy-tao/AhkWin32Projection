@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that correspond to the types of Windows objects that support security.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
-class SE_OBJECT_TYPE{
+class SE_OBJECT_TYPE extends Win32Enum{
 
     /**
      * Unknown object type.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The AM_PROPERTY_DVD_RATE_CHANGE enumeration is not used.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class AM_PROPERTY_DVD_RATE_CHANGE{
+class AM_PROPERTY_DVD_RATE_CHANGE extends Win32Enum{
 
     /**
      * Reserved.

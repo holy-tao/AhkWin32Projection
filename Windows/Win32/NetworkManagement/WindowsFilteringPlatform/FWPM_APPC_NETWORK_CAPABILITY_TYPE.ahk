@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of app container network capability that is associated with the object or traffic in question.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class FWPM_APPC_NETWORK_CAPABILITY_TYPE{
+class FWPM_APPC_NETWORK_CAPABILITY_TYPE extends Win32Enum{
 
     /**
      * Allows the app container to make network requests to servers on the Internet. It acts as a client.

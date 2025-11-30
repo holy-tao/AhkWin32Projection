@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The interpolation mode used to scale the image in the Bitmap source effect.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_BITMAPSOURCE_INTERPOLATION_MODE{
+class D2D1_BITMAPSOURCE_INTERPOLATION_MODE extends Win32Enum{
 
     /**
      * Samples the nearest single point and uses that. Doesn't generate a mipmap.

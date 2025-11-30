@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines when font resources should be subset during printing.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_PRINT_FONT_SUBSET_MODE{
+class D2D1_PRINT_FONT_SUBSET_MODE extends Win32Enum{
 
     /**
      * Uses a heuristic strategy to decide when to subset fonts. 

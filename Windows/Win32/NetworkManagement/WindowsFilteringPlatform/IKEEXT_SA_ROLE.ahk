@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Security association (SA) role for Internet Key Exchange (IKE) and Authenticated Internet Protocol (AuthIP) Main Mode or Quick Mode negotiations.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class IKEEXT_SA_ROLE{
+class IKEEXT_SA_ROLE extends Win32Enum{
 
     /**
      * SA is the initiator.

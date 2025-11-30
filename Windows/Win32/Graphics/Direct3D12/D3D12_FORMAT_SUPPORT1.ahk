@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies resources that are supported for a provided format.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_FORMAT_SUPPORT1{
+class D3D12_FORMAT_SUPPORT1 extends Win32BitflagEnum{
 
     /**
      * No resources are supported.

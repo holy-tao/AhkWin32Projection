@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes flags that influence how the renderer interacts with a custom vertex shader.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_CHANGE_TYPE{
+class D2D1_CHANGE_TYPE extends Win32BitflagEnum{
 
     /**
      * There were no changes.

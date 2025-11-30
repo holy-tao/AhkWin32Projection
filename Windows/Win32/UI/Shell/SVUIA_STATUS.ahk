@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used with the IBrowserService2::_UIActivateView method to set the state of a browser view.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SVUIA_STATUS{
+class SVUIA_STATUS extends Win32Enum{
 
     /**
      * The browser view has been deactivated.

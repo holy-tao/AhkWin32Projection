@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the authentication algorithm for user or machine authentication on an ad hoc network.
@@ -34,7 +35,7 @@
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
-class DOT11_ADHOC_AUTH_ALGORITHM{
+class DOT11_ADHOC_AUTH_ALGORITHM extends Win32Enum{
 
     /**
      * The authentication algorithm specified is invalid.

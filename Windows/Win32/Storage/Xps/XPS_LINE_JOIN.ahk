@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the joint made by two intersecting line segments.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
-class XPS_LINE_JOIN{
+class XPS_LINE_JOIN extends Win32Enum{
 
     /**
      * Produces a sharp or clipped corner, depending on whether the length of the miter exceeds the miter limit.

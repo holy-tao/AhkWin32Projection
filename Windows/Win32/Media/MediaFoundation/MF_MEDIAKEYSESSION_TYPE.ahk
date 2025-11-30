@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of a Content Decryption Module (CDM) session, represented by an IMFContentDecryptionModuleSession object.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_MEDIAKEYSESSION_TYPE{
+class MF_MEDIAKEYSESSION_TYPE extends Win32Enum{
 
     /**
      * A session for which the license, key(s) and record of or data related to the session are not persisted.

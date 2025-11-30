@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies flags to be used when creating a command queue.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_COMMAND_QUEUE_FLAGS{
+class D3D12_COMMAND_QUEUE_FLAGS extends Win32BitflagEnum{
 
     /**
      * Indicates a default command queue.

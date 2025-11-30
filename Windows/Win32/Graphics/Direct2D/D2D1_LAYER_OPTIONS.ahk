@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies options that can be applied when a layer resource is applied to create a layer.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_LAYER_OPTIONS{
+class D2D1_LAYER_OPTIONS extends Win32BitflagEnum{
 
     /**
      * The text in this layer does not use ClearType antialiasing.

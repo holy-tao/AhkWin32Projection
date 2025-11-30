@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the active tab when the wireless profile user interface dialog box appears.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
-class WL_DISPLAY_PAGES{
+class WL_DISPLAY_PAGES extends Win32Enum{
 
     /**
      * Displays the <b>Connection</b> tab.

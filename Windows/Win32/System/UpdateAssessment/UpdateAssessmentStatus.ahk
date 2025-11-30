@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes how up-to-date the OS on a device is.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.System.UpdateAssessment
  * @version v4.0.30319
  */
-class UpdateAssessmentStatus{
+class UpdateAssessmentStatus extends Win32Enum{
 
     /**
      * This result within <b>assessmentForCurrent</b> implies that the device is on the latest feature update and quality update available for that device. Within <b>assessmentForUpToDate</b>, this result implies that the device is on the latest quality update for the release of Windows it is running.

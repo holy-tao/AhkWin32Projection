@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * This topic applies to Windows XP or later.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
-class SourceSizeList{
+class SourceSizeList extends Win32Enum{
 
     /**
      * Do not clip the source video rectangle.

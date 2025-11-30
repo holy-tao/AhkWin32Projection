@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of valid status values for an iSCSI portal.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_ISCSI_PORTAL_STATUS{
+class VDS_ISCSI_PORTAL_STATUS extends Win32Enum{
 
     /**
      * The status is unknown.

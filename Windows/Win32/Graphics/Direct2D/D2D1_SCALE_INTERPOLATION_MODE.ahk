@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The interpolation mode the Scale effect uses to scale the image. There are 6 scale modes that range in quality and speed.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_SCALE_INTERPOLATION_MODE{
+class D2D1_SCALE_INTERPOLATION_MODE extends Win32Enum{
 
     /**
      * Samples the nearest single point and uses that. This mode uses less processing time, but outputs the lowest quality image.

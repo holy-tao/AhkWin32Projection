@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates information about a user-defined event that is not covered by the general events.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
-class WPC_ARGS_CUSTOMEVENT{
+class WPC_ARGS_CUSTOMEVENT extends Win32Enum{
 
     /**
      * The publisher of the custom event.

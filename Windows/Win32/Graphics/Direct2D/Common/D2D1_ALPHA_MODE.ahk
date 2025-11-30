@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how the alpha value of a bitmap or render target should be treated.
@@ -33,7 +34,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */
-class D2D1_ALPHA_MODE{
+class D2D1_ALPHA_MODE extends Win32Enum{
 
     /**
      * The alpha value might not be meaningful.

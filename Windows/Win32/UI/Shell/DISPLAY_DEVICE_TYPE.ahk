@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates whether the device is a primary or immersive type of display.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class DISPLAY_DEVICE_TYPE{
+class DISPLAY_DEVICE_TYPE extends Win32Enum{
 
     /**
      * The device is a primary display device.

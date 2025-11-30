@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PathPointType enumeration indicates point types and flags for the data points in a path.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class PathPointType{
+class PathPointType extends Win32Enum{
 
     /**
      * Indicates that the point is the start of a figure.

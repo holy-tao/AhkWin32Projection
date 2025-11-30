@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Communication
  * @version v4.0.30319
  */
-class DCB_PARITY{
+class DCB_PARITY extends Win32Enum{
 
     /**
      * @type {Integer (Byte)}

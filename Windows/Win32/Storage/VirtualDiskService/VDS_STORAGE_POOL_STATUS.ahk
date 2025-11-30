@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of object status values for a storage pool.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_STORAGE_POOL_STATUS{
+class VDS_STORAGE_POOL_STATUS extends Win32Enum{
 
     /**
      * The provider failed to get the storage pool properties or could not access the storage pool.

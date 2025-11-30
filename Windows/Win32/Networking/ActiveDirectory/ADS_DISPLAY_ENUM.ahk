@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ADS_DISPLAY_ENUM enumeration specifies how a path is to be displayed.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class ADS_DISPLAY_ENUM{
+class ADS_DISPLAY_ENUM extends Win32Enum{
 
     /**
      * The path  is displayed with both attributes and values. For example, CN=Jeff Smith.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that indicate the type of virtual channel information to retrieve.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class WTS_VIRTUAL_CLASS{
+class WTS_VIRTUAL_CLASS extends Win32Enum{
 
     /**
      * This value is not currently supported.

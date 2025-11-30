@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * WCN_VALUE_TYPE_WI_FI_PROTECTED_SETUP_STATE enumeration.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
  * @version v4.0.30319
  */
-class WCN_VALUE_TYPE_WI_FI_PROTECTED_SETUP_STATE{
+class WCN_VALUE_TYPE_WI_FI_PROTECTED_SETUP_STATE extends Win32Enum{
 
     /**
      * This value is reserved.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Flags that control caching and notification of changes in data.
@@ -19,7 +20,7 @@
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class ADVF{
+class ADVF extends Win32Enum{
 
     /**
      * For data advisory connections (<a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataadviseholder-advise">IDataAdviseHolder::Advise</a>), this flag requests the data object not to send data when it calls <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iadvisesink-ondatachange">IAdviseSink::OnDataChange</a>. The recipient of the change notification can later request the data by calling <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-getdata">IDataObject::GetData</a>. The data object can honor the request by passing TYMED_NULL in the STGMEDIUM parameter, or it can provide the data anyway. For example, the data object might have multiple advisory connections, not all of which specified ADVF_NODATA, in which case the object might send the same notification to all connections. Regardless of the container's request, its <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> implementation must check the STGMEDIUM parameter because it is responsible for releasing the medium if it is not TYMED_NULL.

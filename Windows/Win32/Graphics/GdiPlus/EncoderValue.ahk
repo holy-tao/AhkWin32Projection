@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The EncoderValue enumeration specifies values that can be passed as arguments to image encoders. For more information about image encoders, see Using Image Encoders and Decoders .
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class EncoderValue{
+class EncoderValue extends Win32Enum{
 
     /**
      * Not used in GDI+ version 1.0.

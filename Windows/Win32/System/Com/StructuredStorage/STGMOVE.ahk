@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicate whether a storage element is to be moved or copied.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Com.StructuredStorage
  * @version v4.0.30319
  */
-class STGMOVE{
+class STGMOVE extends Win32Enum{
 
     /**
      * Indicates that the method should move the data from the source to the destination.

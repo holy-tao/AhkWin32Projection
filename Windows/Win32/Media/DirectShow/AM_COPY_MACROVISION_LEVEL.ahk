@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the analog copy protection level.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class AM_COPY_MACROVISION_LEVEL{
+class AM_COPY_MACROVISION_LEVEL extends Win32Enum{
 
     /**
      * Disabled.

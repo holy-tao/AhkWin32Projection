@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the flags used for setting user properties in the directory.
@@ -22,7 +23,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class ADS_USER_FLAG_ENUM{
+class ADS_USER_FLAG_ENUM extends Win32Enum{
 
     /**
      * The logon script is executed. This flag does not work for the ADSI LDAP provider on either read or write 

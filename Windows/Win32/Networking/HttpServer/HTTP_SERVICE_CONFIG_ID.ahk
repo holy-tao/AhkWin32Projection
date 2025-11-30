@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines service configuration options.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */
-class HTTP_SERVICE_CONFIG_ID{
+class HTTP_SERVICE_CONFIG_ID extends Win32Enum{
 
     /**
      * Specifies the IP Listen List used to register IP addresses on which to listen for SSL connections.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of the valid target types (subjects) of a VDS notification.
@@ -17,7 +18,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_NOTIFICATION_TARGET_TYPE{
+class VDS_NOTIFICATION_TARGET_TYPE extends Win32Enum{
 
     /**
      * This value is reserved.

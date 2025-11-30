@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies different configuration modes that change the default settings for a subscription.
@@ -19,7 +20,7 @@
  * @namespace Windows.Win32.System.EventCollector
  * @version v4.0.30319
  */
-class EC_SUBSCRIPTION_CONFIGURATION_MODE{
+class EC_SUBSCRIPTION_CONFIGURATION_MODE extends Win32Enum{
 
     /**
      * This mode is used when an administrator needs the events to be delivered reliably and for the subscription to work with minimal configuration, and when network usage is not a concern. This mode sets the default subscription delivery mode to pull subscriptions.

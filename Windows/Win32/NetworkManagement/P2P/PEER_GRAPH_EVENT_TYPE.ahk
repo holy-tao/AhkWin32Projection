@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PEER_GRAPH_EVENT_TYPE enumeration specifies peer event types the application is to be notified for.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
-class PEER_GRAPH_EVENT_TYPE{
+class PEER_GRAPH_EVENT_TYPE extends Win32Enum{
 
     /**
      * The peer graph   status has changed in some manner. For example, the node has synchronized with the peer graph.

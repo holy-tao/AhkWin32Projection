@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies flags for raytracing geometry in a D3D12_RAYTRACING_GEOMETRY_DESC structure.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_RAYTRACING_GEOMETRY_FLAGS{
+class D3D12_RAYTRACING_GEOMETRY_FLAGS extends Win32BitflagEnum{
 
     /**
      * No options specified.

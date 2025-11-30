@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifiers for properties of the Gamma transfer effect.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_GAMMATRANSFER_PROP{
+class D2D1_GAMMATRANSFER_PROP extends Win32Enum{
 
     /**
      * The amplitude of the gamma transfer function for the Red channel.

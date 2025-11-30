@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Reserved for system use.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
-class STORAGE_PORT_CODE_SET{
+class STORAGE_PORT_CODE_SET extends Win32Enum{
 
     /**
      * Indicates an unknown storage adapter driver type.

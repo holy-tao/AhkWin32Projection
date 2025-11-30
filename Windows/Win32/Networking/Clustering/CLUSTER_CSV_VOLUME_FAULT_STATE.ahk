@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the various fault states for a cluster shared volume (CSV).
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_CSV_VOLUME_FAULT_STATE{
+class CLUSTER_CSV_VOLUME_FAULT_STATE extends Win32Enum{
 
     /**
      * The CSV has no faults.

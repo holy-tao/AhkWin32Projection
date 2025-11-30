@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the style of a dash cap on a dashed stroke.
@@ -34,7 +35,7 @@
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
-class XPS_DASH_CAP{
+class XPS_DASH_CAP extends Win32Enum{
 
     /**
      * Flat-line cap.

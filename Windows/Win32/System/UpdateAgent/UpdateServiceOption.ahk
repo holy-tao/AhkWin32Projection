@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the options that affect how the service registration for a scan package service is removed.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
-class UpdateServiceOption{
+class UpdateServiceOption extends Win32Enum{
 
     /**
      * Indicates that you must call the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdateservicemanager-removeservice">IUpdateServiceManager::RemoveService</a> method to remove the service registration. 

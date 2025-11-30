@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The HatchStyle enumeration specifies the hatch pattern used by a brush of type HatchBrush. The hatch pattern consists of a solid background color and lines drawn over the background.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class HatchStyle{
+class HatchStyle extends Win32Enum{
 
     /**
      * Specifies horizontal lines. 

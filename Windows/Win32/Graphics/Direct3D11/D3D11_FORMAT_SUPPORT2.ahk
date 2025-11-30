@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Unordered resource support options for a compute shader resource (see ID3D11Device::CheckFeatureSupport).
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_FORMAT_SUPPORT2{
+class D3D11_FORMAT_SUPPORT2 extends Win32Enum{
 
     /**
      * Format supports atomic add.

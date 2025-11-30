@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of storage pool types.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_STORAGE_POOL_TYPE{
+class VDS_STORAGE_POOL_TYPE extends Win32Enum{
 
     /**
      * The storage pool type is unknown.

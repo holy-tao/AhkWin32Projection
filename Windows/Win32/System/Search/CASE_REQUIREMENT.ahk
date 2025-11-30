@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the case requirements of keywords, if any, for a query.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
-class CASE_REQUIREMENT{
+class CASE_REQUIREMENT extends Win32Enum{
 
     /**
      * Keywords are recognized regardless of case.

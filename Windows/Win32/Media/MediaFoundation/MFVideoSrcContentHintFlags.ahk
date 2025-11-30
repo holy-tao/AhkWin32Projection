@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the intended aspect ratio for a video stream.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFVideoSrcContentHintFlags{
+class MFVideoSrcContentHintFlags extends Win32Enum{
 
     /**
      * The aspect ratio is unknown.

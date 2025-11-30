@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PaletteType enumeration is used by the Bitmap::InitializePalette and Bitmap::ConvertFormat methods of the Bitmap class. The members of the enumeration identify several standard color palette formats.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class PaletteType{
+class PaletteType extends Win32Enum{
 
     /**
      * An arbitrary custom palette provided by the caller.

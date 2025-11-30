@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the ASF indexer options.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFASF_INDEXER_FLAGS{
+class MFASF_INDEXER_FLAGS extends Win32Enum{
 
     /**
      * The indexer creates a new index object.

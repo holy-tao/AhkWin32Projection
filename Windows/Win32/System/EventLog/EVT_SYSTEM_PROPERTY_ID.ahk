@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the identifiers that identify the system-specific properties of an event.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */
-class EVT_SYSTEM_PROPERTY_ID{
+class EVT_SYSTEM_PROPERTY_ID extends Win32Enum{
 
     /**
      * Identifies the <b>Name</b> attribute of the provider element. The variant type for this property is <b>EvtVarTypeString</b>.

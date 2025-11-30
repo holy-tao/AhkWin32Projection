@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines algorithms for the video processor which is use by MF_VIDEO_PROCESSOR_ALGORITHM.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_VIDEO_PROCESSOR_ALGORITHM_TYPE{
+class MF_VIDEO_PROCESSOR_ALGORITHM_TYPE extends Win32Enum{
 
     /**
      * default mode favors a balance of quality and speed

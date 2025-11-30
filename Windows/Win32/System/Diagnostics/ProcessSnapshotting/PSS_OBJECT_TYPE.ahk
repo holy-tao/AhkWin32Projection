@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the object type in a PSS_HANDLE_ENTRY structure.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
  * @version v4.0.30319
  */
-class PSS_OBJECT_TYPE{
+class PSS_OBJECT_TYPE extends Win32Enum{
 
     /**
      * The object type is either unknown or unsupported.

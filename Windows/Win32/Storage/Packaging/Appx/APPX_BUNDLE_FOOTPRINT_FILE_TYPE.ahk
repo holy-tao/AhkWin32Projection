@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of footprint file in a bundle.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
-class APPX_BUNDLE_FOOTPRINT_FILE_TYPE{
+class APPX_BUNDLE_FOOTPRINT_FILE_TYPE extends Win32Enum{
 
     /**
      * The bundle's first footprint file, which is the bundle manifest.

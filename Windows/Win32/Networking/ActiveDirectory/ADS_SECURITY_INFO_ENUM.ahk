@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the available options for examining security data of an object.
@@ -36,7 +37,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class ADS_SECURITY_INFO_ENUM{
+class ADS_SECURITY_INFO_ENUM extends Win32Enum{
 
     /**
      * Reads or sets the owner data.

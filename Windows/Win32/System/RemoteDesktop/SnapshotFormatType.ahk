@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The data format used for a Remote Desktop Protocol (RDP) app container client snapshot.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class SnapshotFormatType{
+class SnapshotFormatType extends Win32Enum{
 
     /**
      * 

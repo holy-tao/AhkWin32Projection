@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how the credential manager should obtain user credentials.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFNetCredentialRequirements{
+class MFNetCredentialRequirements extends Win32Enum{
 
     /**
      * The credential manager should prompt the user to provide the credentials.

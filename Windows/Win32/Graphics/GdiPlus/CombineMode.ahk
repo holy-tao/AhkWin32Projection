@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The CombineMode enumeration specifies how a new region is combined with an existing region.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class CombineMode{
+class CombineMode extends Win32Enum{
 
     /**
      * Specifies that the existing region is replaced by the new region.

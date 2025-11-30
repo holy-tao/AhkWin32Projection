@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the simulation style of a font or glyph.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
-class XPS_STYLE_SIMULATION{
+class XPS_STYLE_SIMULATION extends Win32Enum{
 
     /**
      * No font style simulation.

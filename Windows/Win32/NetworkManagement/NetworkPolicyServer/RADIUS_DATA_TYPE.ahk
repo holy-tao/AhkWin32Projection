@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The RADIUS_DATA_TYPE type enumerates the possible data type for a RADIUS attribute or extended attribute.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class RADIUS_DATA_TYPE{
+class RADIUS_DATA_TYPE extends Win32Enum{
 
     /**
      * The value is a pointer to an unknown data type.

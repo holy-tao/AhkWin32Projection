@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the SERVICE_TYPE enumeration type specify the type of service administered from the SDO API.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class SERVICE_TYPE{
+class SERVICE_TYPE extends Win32Enum{
 
     /**
      * The service is Internet Authentication Service (IAS) or Network Policy Server (NPS).

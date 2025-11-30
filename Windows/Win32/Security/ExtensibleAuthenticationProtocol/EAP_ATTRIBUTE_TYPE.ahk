@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of possible EAP attribute types available on an authenticating entity.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */
-class EAP_ATTRIBUTE_TYPE{
+class EAP_ATTRIBUTE_TYPE extends Win32Enum{
 
     /**
      * Specifies a value equal to zero, and used as the <b>NULL</b> terminator in any array of 

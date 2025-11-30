@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates triangles facing a particular direction are not drawn.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
-class D3D10_CULL_MODE{
+class D3D10_CULL_MODE extends Win32Enum{
 
     /**
      * Always draw all triangles.

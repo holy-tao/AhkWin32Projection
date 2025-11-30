@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates whether Data Deduplication should perform an unoptimized or optimized restore.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.DataDeduplication
  * @version v4.0.30319
  */
-class DEDUP_BACKUP_SUPPORT_PARAM_TYPE{
+class DEDUP_BACKUP_SUPPORT_PARAM_TYPE extends Win32Enum{
 
     /**
      * Perform an unoptimized restore.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies a technique for resolving texture coordinates that are outside of the boundaries of a texture.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_TEXTURE_ADDRESS_MODE{
+class D3D12_TEXTURE_ADDRESS_MODE extends Win32Enum{
 
     /**
      * Tile the texture at every (u,v) integer junction.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Values that indicate the location of a shader
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */
-class D3D_INCLUDE_TYPE{
+class D3D_INCLUDE_TYPE extends Win32Enum{
 
     /**
      * The local directory.

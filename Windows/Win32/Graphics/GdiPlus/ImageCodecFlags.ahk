@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ImageCodecFlags enumeration indicates attributes of an image codec.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class ImageCodecFlags{
+class ImageCodecFlags extends Win32Enum{
 
     /**
      * Indicates that the codec supports encoding (saving).

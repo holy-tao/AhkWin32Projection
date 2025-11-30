@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * FFT data types.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3DX11_FFT_DATA_TYPE{
+class D3DX11_FFT_DATA_TYPE extends Win32Enum{
 
     /**
      * Real numbers.

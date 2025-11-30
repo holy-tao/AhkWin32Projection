@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify the stage of a parameter to a meta command.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_META_COMMAND_PARAMETER_STAGE{
+class D3D12_META_COMMAND_PARAMETER_STAGE extends Win32Enum{
 
     /**
      * Specifies that the parameter is used at the meta command creation stage.

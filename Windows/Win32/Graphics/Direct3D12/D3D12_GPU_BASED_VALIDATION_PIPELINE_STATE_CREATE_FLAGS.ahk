@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how GPU-Based Validation handles patched pipeline states during ID3D12Device::CreateGraphicsPipelineState and ID3D12Device::CreateComputePipelineState.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAGS{
+class D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAGS extends Win32BitflagEnum{
 
     /**
      * This is the default value.  Indicates no patching of pipeline states should be done during PSO creation.  Instead PSO’s are patched on first use in a command list.  This can help to reduce the up-front cost of PSO creation but may instead slow down command list recording until a steady-state is reached.

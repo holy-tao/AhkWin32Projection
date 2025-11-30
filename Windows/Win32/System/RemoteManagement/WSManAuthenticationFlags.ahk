@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Determines the authentication method for the operation.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */
-class WSManAuthenticationFlags{
+class WSManAuthenticationFlags extends Win32Enum{
 
     /**
      * Use the default authentication.

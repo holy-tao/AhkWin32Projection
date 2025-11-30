@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates one of several stock directivity patterns.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319
  */
-class HrtfDirectivityType{
+class HrtfDirectivityType extends Win32Enum{
 
     /**
      * The sound emission is in all directions.

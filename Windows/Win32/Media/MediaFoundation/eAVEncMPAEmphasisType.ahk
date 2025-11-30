@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of de-emphasis filter that should be used when decoding. This enumeration is used with the AVEncMPAEmphasisType property.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVEncMPAEmphasisType{
+class eAVEncMPAEmphasisType extends Win32Enum{
 
     /**
      * None.

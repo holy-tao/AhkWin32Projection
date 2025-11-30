@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ItemDataPosition enumeration is used to specify the location of custom metadata in an image file.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class ItemDataPosition{
+class ItemDataPosition extends Win32Enum{
 
     /**
      * Specifies that custom metadata is stored after the file header. Valid for JPEG, PNG, and GIF.

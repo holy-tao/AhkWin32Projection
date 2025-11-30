@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the properties of a High Efficiency Image Format (HEIF) image.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICHeifProperties{
+class WICHeifProperties extends Win32Enum{
 
     /**
      * [VT_UI2] Indicates the orientation of the image.

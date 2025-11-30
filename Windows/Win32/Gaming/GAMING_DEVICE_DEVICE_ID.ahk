@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the type of device that the game is running on.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Gaming
  * @version v4.0.30319
  */
-class GAMING_DEVICE_DEVICE_ID{
+class GAMING_DEVICE_DEVICE_ID extends Win32Enum{
 
     /**
      * The device is not in the Xbox family.

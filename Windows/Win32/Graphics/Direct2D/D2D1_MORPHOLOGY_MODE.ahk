@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The mode for the Morphology effect.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_MORPHOLOGY_MODE{
+class D2D1_MORPHOLOGY_MODE extends Win32Enum{
 
     /**
      * The maximum value from each RGB channel in the kernel is used.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the possible comparison operations that can be used to determine whether a property value of a file meets a particular condition.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
-class FsrmPropertyConditionType{
+class FsrmPropertyConditionType extends Win32Enum{
 
     /**
      * The operator is unknown; do not use this value.

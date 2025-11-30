@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines properties that you can assign to an outgoing HTTP request by calling the SetProperty method.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Data.Xml.MsXml
  * @version v4.0.30319
  */
-class XHR_PROPERTY{
+class XHR_PROPERTY extends Win32Enum{
 
     /**
      * Sets a flag in the HTTP request that suppresses automatic prompts for credentials.

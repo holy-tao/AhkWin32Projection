@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Provides a set of flags for use with the CATEGORY_INFO structure.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class CATEGORYINFO_FLAGS{
+class CATEGORYINFO_FLAGS extends Win32BitflagEnum{
 
     /**
      * 0x00000000. Applies default properties for the category.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the state of the cookie.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Data.Xml.MsXml
  * @version v4.0.30319
  */
-class XHR_COOKIE_STATE{
+class XHR_COOKIE_STATE extends Win32Enum{
 
     /**
      * The state of the cookie is unknown.

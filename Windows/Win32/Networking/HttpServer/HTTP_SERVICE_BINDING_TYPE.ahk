@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * HTTP_SERVICE_BINDING_TYPE enumerated type specifies the string type for service names.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */
-class HTTP_SERVICE_BINDING_TYPE{
+class HTTP_SERVICE_BINDING_TYPE extends Win32Enum{
 
     /**
      * No type.

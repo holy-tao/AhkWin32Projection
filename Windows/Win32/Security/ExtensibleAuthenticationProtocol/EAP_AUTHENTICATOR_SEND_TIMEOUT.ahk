@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates to the authenticator method the amount of time to wait for user input after the packet is sent. The timeout value can be set to none.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */
-class EAP_AUTHENTICATOR_SEND_TIMEOUT{
+class EAP_AUTHENTICATOR_SEND_TIMEOUT extends Win32Enum{
 
     /**
      * Sends the packet and never times out; the user can enter a response at any time.

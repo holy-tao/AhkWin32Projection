@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the possible values of the NotificationCode parameter for received notifications on the wireless Hosted Network.
@@ -63,7 +64,7 @@
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
-class WLAN_HOSTED_NETWORK_NOTIFICATION_CODE{
+class WLAN_HOSTED_NETWORK_NOTIFICATION_CODE extends Win32Enum{
 
     /**
      * The Hosted Network state has changed.

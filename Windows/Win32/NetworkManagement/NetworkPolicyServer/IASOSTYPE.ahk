@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the IASOSTYPE enumeration type specify what type of operating system the client requesting authentication (SDO computer) is running.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class IASOSTYPE{
+class IASOSTYPE extends Win32Enum{
 
     /**
      * Not supported.

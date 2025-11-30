@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the values for the source stream category.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_CAPTURE_ENGINE_STREAM_CATEGORY{
+class MF_CAPTURE_ENGINE_STREAM_CATEGORY extends Win32Enum{
 
     /**
      * Specifies a video preview stream.

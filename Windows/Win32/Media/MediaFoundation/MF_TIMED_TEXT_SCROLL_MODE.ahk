@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how text appears when the parent element is scrolled.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_TIMED_TEXT_SCROLL_MODE{
+class MF_TIMED_TEXT_SCROLL_MODE extends Win32Enum{
 
     /**
      * Text pops on when the parent element is scrolled.

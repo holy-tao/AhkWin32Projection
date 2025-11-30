@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The layout rules applied to the elements of the WS-Security security header. This setting is relevant to message security bindings and mixed-mode security bindings.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_SECURITY_HEADER_LAYOUT{
+class WS_SECURITY_HEADER_LAYOUT extends Win32Enum{
 
     /**
      * The elements of the security header must follow a 'declare before use'

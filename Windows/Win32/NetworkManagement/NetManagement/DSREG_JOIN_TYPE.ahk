@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the possible ways that a device can be joined to Microsoft Azure Active Directory.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */
-class DSREG_JOIN_TYPE{
+class DSREG_JOIN_TYPE extends Win32Enum{
 
     /**
      * The type of join is not known.

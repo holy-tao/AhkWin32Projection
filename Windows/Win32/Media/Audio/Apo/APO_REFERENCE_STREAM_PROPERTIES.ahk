@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
  */
-class APO_REFERENCE_STREAM_PROPERTIES{
+class APO_REFERENCE_STREAM_PROPERTIES extends Win32BitflagEnum{
 
     /**
      * @type {Integer (Int32)}

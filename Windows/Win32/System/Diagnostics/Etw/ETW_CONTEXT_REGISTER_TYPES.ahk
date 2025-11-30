@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
-class ETW_CONTEXT_REGISTER_TYPES{
+class ETW_CONTEXT_REGISTER_TYPES extends Win32BitflagEnum{
 
     /**
      * @type {Integer (Int32)}

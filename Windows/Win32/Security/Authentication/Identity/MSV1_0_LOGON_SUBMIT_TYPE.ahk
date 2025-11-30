@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the kind of logon being requested.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
-class MSV1_0_LOGON_SUBMIT_TYPE{
+class MSV1_0_LOGON_SUBMIT_TYPE extends Win32Enum{
 
     /**
      * Requests an interactive user logon. This dispatch routine handles NTLM interactive logons initiated by 

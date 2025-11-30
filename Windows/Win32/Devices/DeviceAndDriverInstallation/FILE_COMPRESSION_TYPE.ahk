@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */
-class FILE_COMPRESSION_TYPE{
+class FILE_COMPRESSION_TYPE extends Win32BitflagEnum{
 
     /**
      * @type {Integer (UInt32)}

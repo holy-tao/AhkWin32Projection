@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies values for the luminance range of YUV data.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_VIDEO_PROCESSOR_NOMINAL_RANGE{
+class D3D11_VIDEO_PROCESSOR_NOMINAL_RANGE extends Win32Enum{
 
     /**
      * Driver defaults are used, which should be Studio luminance range [16-235],

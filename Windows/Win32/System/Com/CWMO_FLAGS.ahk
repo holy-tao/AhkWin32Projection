@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Provides flags for the CoWaitForMultipleObjects function.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class CWMO_FLAGS{
+class CWMO_FLAGS extends Win32BitflagEnum{
 
     /**
      * No call dispatch.

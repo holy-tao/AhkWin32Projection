@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */
-class NET_USER_ENUM_FILTER_FLAGS{
+class NET_USER_ENUM_FILTER_FLAGS extends Win32BitflagEnum{
 
     /**
      * @type {Integer (UInt32)}

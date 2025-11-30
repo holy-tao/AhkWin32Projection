@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Flags that specify what PssCaptureSnapshot captures.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
  * @version v4.0.30319
  */
-class PSS_CAPTURE_FLAGS{
+class PSS_CAPTURE_FLAGS extends Win32BitflagEnum{
 
     /**
      * Capture nothing.

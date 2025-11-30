@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the data type returned by the IOfflineFilesSetting::GetValueType method.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */
-class OFFLINEFILES_SETTING_VALUE_TYPE{
+class OFFLINEFILES_SETTING_VALUE_TYPE extends Win32Enum{
 
     /**
      * A single VT_UI4 value. Used to represent single REG_DWORD values. REG_DWORD is by far the most common type of setting value.

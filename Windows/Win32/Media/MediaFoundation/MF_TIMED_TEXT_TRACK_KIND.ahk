@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the kind of timed text track.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_TIMED_TEXT_TRACK_KIND{
+class MF_TIMED_TEXT_TRACK_KIND extends Win32Enum{
 
     /**
      * The kind of timed text track is unknown.

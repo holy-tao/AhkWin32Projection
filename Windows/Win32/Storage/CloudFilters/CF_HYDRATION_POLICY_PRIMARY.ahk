@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Allows a sync provider to control how placeholder files should be hydrated by the platform. This is the primary policy.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
-class CF_HYDRATION_POLICY_PRIMARY{
+class CF_HYDRATION_POLICY_PRIMARY extends Win32Enum{
 
     /**
      * The same behavior as <b>CF_HYDRATION_POLICY_PROGRESSIVE</b>, except that <b>CF_HYDRATION_POLICY_PARTIAL</b> does not have continuous hydration in the background.

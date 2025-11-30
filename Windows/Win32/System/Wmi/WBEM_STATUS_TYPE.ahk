@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the status of an asynchronous operation.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class WBEM_STATUS_TYPE{
+class WBEM_STATUS_TYPE extends Win32Enum{
 
     /**
      * The operation has completed.

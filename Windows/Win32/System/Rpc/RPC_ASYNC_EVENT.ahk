@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The RPC_ASYNC_EVENT enumerated type describes the asynchronous notification events that an RPC application can receive.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */
-class RPC_ASYNC_EVENT{
+class RPC_ASYNC_EVENT extends Win32Enum{
 
     /**
      * The remote procedure call has completely executed.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies media engine extension types.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_MEDIA_ENGINE_EXTENSION_TYPE{
+class MF_MEDIA_ENGINE_EXTENSION_TYPE extends Win32Enum{
 
     /**
      * 

@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_NF_DISK{
+class VDS_NF_DISK extends Win32Enum{
 
     /**
      * @type {Integer (UInt32)}

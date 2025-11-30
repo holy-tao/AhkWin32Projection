@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The edge mode for the Border effect.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_BORDER_EDGE_MODE{
+class D2D1_BORDER_EDGE_MODE extends Win32Enum{
 
     /**
      * Repeats the pixels from the edges of the image.

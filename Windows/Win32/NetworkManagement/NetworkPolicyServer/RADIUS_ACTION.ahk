@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The RADIUS_ACTION type enumerates the responses that a NPS Extension DLL can generate in response to an Access-Request.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class RADIUS_ACTION{
+class RADIUS_ACTION extends Win32Enum{
 
     /**
      * NPS continues to process the request. NPS also continues to call 

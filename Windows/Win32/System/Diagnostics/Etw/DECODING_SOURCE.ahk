@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the source of the event data.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
-class DECODING_SOURCE{
+class DECODING_SOURCE extends Win32Enum{
 
     /**
      * The source of the event data is a XML manifest.

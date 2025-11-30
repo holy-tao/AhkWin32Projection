@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the elevation type of token being queried by the GetTokenInformation function or set by the SetTokenInformation function.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */
-class TOKEN_ELEVATION_TYPE{
+class TOKEN_ELEVATION_TYPE extends Win32Enum{
 
     /**
      * The token does not have a linked token.

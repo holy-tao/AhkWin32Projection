@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates whether the app is enlightened for Windows Information Protection (WIP) and whether the app is managed by policy.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.EnterpriseData
  * @version v4.0.30319
  */
-class ENTERPRISE_DATA_POLICIES{
+class ENTERPRISE_DATA_POLICIES extends Win32BitflagEnum{
 
     /**
      * The app is not managed by enterprise policy.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Enumerates the available flags for the ResizeVirtualDisk function.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */
-class RESIZE_VIRTUAL_DISK_FLAG{
+class RESIZE_VIRTUAL_DISK_FLAG extends Win32BitflagEnum{
 
     /**
      * No flags are specified.

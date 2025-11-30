@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the selection options for an ASF stream.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class ASF_SELECTION_STATUS{
+class ASF_SELECTION_STATUS extends Win32Enum{
 
     /**
      * No samples from the stream are delivered.

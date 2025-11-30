@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The BTH_LE_GATT_EVENT_TYPE enumeration describes the different types of Bluetooth Low Energy (LE) generic attribute (GATT) profile events.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */
-class BTH_LE_GATT_EVENT_TYPE{
+class BTH_LE_GATT_EVENT_TYPE extends Win32Enum{
 
     /**
      * The characteristic value has changed.

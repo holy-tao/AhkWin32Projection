@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the type of information provided by the Direct2D Debug Layer.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_DEBUG_LEVEL{
+class D2D1_DEBUG_LEVEL extends Win32Enum{
 
     /**
      * Direct2D does not produce any debugging output.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PNRP_CLOUD_FLAGS enumeration specifies the validity of a cloud name.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
-class PNRP_CLOUD_FLAGS{
+class PNRP_CLOUD_FLAGS extends Win32Enum{
 
     /**
      * The cloud name is valid on the network.

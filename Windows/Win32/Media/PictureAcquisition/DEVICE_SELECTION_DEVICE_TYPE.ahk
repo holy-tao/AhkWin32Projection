@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DEVICE_SELECTION_DEVICE_TYPE enumeration type indicates the type of a selected device.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.PictureAcquisition
  * @version v4.0.30319
  */
-class DEVICE_SELECTION_DEVICE_TYPE{
+class DEVICE_SELECTION_DEVICE_TYPE extends Win32Enum{
 
     /**
      * Specifies that the type of the selected device is unknown.

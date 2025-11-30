@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the actions that the data manager takes when it runs.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
-class DataManagerSteps{
+class DataManagerSteps extends Win32Enum{
 
     /**
      * Runs TraceRpt.exe using as input all the binary performance files (.blg) or event trace files (.etl) in the collection. You can use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatamanager-get_reportschema">IDataManager::ReportSchema</a> property to customize the report.

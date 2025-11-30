@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DWRITE_PANOSE_SYMBOL_ASPECT_RATIO enumeration contains values that specify the aspect ratio of symbolic characters.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_PANOSE_SYMBOL_ASPECT_RATIO{
+class DWRITE_PANOSE_SYMBOL_ASPECT_RATIO extends Win32Enum{
 
     /**
      * Any aspect ratio of symbolic characters.

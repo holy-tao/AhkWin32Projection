@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how ink is persisted.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InkPersistenceFormat{
+class InkPersistenceFormat extends Win32Enum{
 
     /**
      * Ink is persisted using ink serialized format (ISF).

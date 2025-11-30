@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the status of a topology during playback.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_TOPOSTATUS{
+class MF_TOPOSTATUS extends Win32Enum{
 
     /**
      * This value is not used.

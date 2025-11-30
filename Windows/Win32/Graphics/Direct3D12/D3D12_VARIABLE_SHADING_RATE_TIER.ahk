@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify a shading rate tier (for variable-rate shading, or VRS).
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_VARIABLE_SHADING_RATE_TIER{
+class D3D12_VARIABLE_SHADING_RATE_TIER extends Win32Enum{
 
     /**
      * Specifies that variable-rate shading is not supported.

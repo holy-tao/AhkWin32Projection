@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how the effective opacity value of a visual is applied to that visual’s content and children.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */
-class DCOMPOSITION_OPACITY_MODE{
+class DCOMPOSITION_OPACITY_MODE extends Win32Enum{
 
     /**
      * The target visual defines a logical layer into which its entire sub-tree is composed with a starting effective opacity of 1.0. The original opacity value is then used to blend the layer onto the visual’s background.

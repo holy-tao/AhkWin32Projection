@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates a type of certificate configuration.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class IKEEXT_CERT_CONFIG_TYPE{
+class IKEEXT_CERT_CONFIG_TYPE extends Win32Enum{
 
     /**
      * An explicit trust list will be used for authentication.

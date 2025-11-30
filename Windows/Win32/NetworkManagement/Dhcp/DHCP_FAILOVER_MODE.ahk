@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DHCP_FAILOVER_MODE enumeration defines the DHCPv4 server mode operation in a failover relationship.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */
-class DHCP_FAILOVER_MODE{
+class DHCP_FAILOVER_MODE extends Win32Enum{
 
     /**
      * The DHCPv4 server failover relationship is in <i>Load Balancing</i> mode.

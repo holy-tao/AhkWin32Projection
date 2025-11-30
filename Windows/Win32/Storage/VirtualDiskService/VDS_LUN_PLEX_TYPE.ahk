@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of valid types for a LUN plex.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_LUN_PLEX_TYPE{
+class VDS_LUN_PLEX_TYPE extends Win32Enum{
 
     /**
      * This value is reserved.

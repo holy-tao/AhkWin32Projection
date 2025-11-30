@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the reason for locking the System Monitor.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
-class SysmonBatchReason{
+class SysmonBatchReason extends Win32Enum{
 
     /**
      * Use to free all locks. Typically, you call <a href="https://docs.microsoft.com/windows/desktop/SysMon/systemmonitor-batchinglock">SystemMonitor.BatchingLock</a> with the same reason you used to gain the lock. For example, if you gained the lock using SysmonBatchAddFiles, you would use SysmonBatchAddFiles when releasing the lock.

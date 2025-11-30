@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify what should be done with the results of earlier workload instrumentation.
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_MEASUREMENTS_ACTION{
+class D3D12_MEASUREMENTS_ACTION extends Win32Enum{
 
     /**
      * The default setting. Specifies that all results should be kept.

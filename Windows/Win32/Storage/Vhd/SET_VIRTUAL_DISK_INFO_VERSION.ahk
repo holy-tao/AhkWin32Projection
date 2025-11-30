@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains the version of the virtual disk SET_VIRTUAL_DISK_INFO structure to use in calls to VHD functions.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */
-class SET_VIRTUAL_DISK_INFO_VERSION{
+class SET_VIRTUAL_DISK_INFO_VERSION extends Win32Enum{
 
     /**
      * Not used. Will fail the operation.

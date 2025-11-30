@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the options for logging when running a file management job.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
-class FsrmFileManagementLoggingFlags{
+class FsrmFileManagementLoggingFlags extends Win32Enum{
 
     /**
      * Do not log events.

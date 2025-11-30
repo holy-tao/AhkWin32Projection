@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values that indicate the type of a notification event, and a hint to the listener about the processing of the event.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
-class NotificationKind{
+class NotificationKind extends Win32Enum{
 
     /**
      * The current element and/or the container has had something added to it that should be presented to the user.

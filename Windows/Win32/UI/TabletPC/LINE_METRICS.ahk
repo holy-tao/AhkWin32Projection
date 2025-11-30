@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents the lines found in a recognition segment.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class LINE_METRICS{
+class LINE_METRICS extends Win32Enum{
 
     /**
      * Requests baseline metrics. For an example that shows the baseline of a segment, see the Remarks section.

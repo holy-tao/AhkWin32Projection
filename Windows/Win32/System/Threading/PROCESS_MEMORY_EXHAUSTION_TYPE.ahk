@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents the different memory exhaustion types.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */
-class PROCESS_MEMORY_EXHAUSTION_TYPE{
+class PROCESS_MEMORY_EXHAUSTION_TYPE extends Win32Enum{
 
     /**
      * Anytime memory management fails an allocation due to an inability to commit memory, it will cause the process to trigger a Windows Error Reporting report and then terminate immediately with <b>STATUS_COMMITMENT_LIMIT</b>. 

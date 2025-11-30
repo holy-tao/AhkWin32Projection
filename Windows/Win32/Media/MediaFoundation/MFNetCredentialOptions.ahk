@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes options for the caching network credentials.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFNetCredentialOptions{
+class MFNetCredentialOptions extends Win32Enum{
 
     /**
      * Allow the credential cache object to save  credentials in persistant storage.

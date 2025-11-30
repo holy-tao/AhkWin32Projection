@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * This callback is used to inform the sync provider that a placeholder file or directory under one of its sync roots is about to be deleted.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
-class CF_CALLBACK_DELETE_FLAGS{
+class CF_CALLBACK_DELETE_FLAGS extends Win32BitflagEnum{
 
     /**
      * No delete flag.

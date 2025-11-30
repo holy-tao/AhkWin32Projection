@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies which ICC rendering intent the Color management effect should use.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_COLORMANAGEMENT_RENDERING_INTENT{
+class D2D1_COLORMANAGEMENT_RENDERING_INTENT extends Win32Enum{
 
     /**
      * The effect compresses or expands the full color gamut of the image to fill the color gamut of the device, 

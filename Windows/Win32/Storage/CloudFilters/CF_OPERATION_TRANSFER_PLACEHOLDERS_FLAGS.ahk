@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Flags to specify the behavior when transferring a placeholder file or directory.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
-class CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAGS{
+class CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAGS extends Win32BitflagEnum{
 
     /**
      * No transfer placeholder flags.

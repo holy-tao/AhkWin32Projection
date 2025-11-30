@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of valid flags for a LUN plex object.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_LUN_PLEX_FLAG{
+class VDS_LUN_PLEX_FLAG extends Win32Enum{
 
     /**
      * If set, the provider remaps LUN extents to drive extents automatically. This flag corresponds to the <b>VDS_LF_LBN_REMAP_ENABLED</b> value of   the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_lun_flag">VDS_LUN_FLAG</a> enumeration.

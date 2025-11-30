@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates flags used by IFolderView, IFolderView2, IShellView and IShellView2 to specify a type of selection to apply.
@@ -19,7 +20,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class _SVSIF{
+class _SVSIF extends Win32Enum{
 
     /**
      * 0x00000000. Deselect the item.

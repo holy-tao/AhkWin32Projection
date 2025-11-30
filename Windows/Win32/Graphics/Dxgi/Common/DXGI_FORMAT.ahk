@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Resource data formats, including fully-typed and typeless formats. A list of modifiers at the bottom of the page more fully describes each format type.
@@ -160,7 +161,7 @@
  * @namespace Windows.Win32.Graphics.Dxgi.Common
  * @version v4.0.30319
  */
-class DXGI_FORMAT{
+class DXGI_FORMAT extends Win32Enum{
 
     /**
      * The format is not known.

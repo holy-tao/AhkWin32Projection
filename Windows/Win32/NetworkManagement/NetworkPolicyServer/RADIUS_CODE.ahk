@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The RADIUS_CODE enumeration type enumerates the possible RADIUS packet codes.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class RADIUS_CODE{
+class RADIUS_CODE extends Win32Enum{
 
     /**
      * The packet type is unrecognized. This is used to indicate that the disposition of a request is not being set by this extension DLL.

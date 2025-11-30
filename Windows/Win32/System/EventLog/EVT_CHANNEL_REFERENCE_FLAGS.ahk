@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the values that specify how a channel is referenced.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */
-class EVT_CHANNEL_REFERENCE_FLAGS{
+class EVT_CHANNEL_REFERENCE_FLAGS extends Win32Enum{
 
     /**
      * Specifies that the channel is imported.

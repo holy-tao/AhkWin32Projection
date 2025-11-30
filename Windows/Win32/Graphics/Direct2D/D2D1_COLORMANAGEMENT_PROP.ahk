@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifiers for the properties of the Color management effect.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_COLORMANAGEMENT_PROP{
+class D2D1_COLORMANAGEMENT_PROP extends Win32Enum{
 
     /**
      * The source color space information. 

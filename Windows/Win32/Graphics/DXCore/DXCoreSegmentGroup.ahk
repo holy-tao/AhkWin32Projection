@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify an adapter's memory segment grouping.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DXCore
  * @version v4.0.30319
  */
-class DXCoreSegmentGroup{
+class DXCoreSegmentGroup extends Win32Enum{
 
     /**
      * Specifies a grouping of segments that is considered local to the adapter, and represents the fastest memory available to the GPU. Your application should target the local segment group as the target size for its working set.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates whether a target belongs to a pool or farm.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class TARGET_TYPE{
+class TARGET_TYPE extends Win32Enum{
 
     /**
      * The target type is unknown.

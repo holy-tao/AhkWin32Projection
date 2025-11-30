@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents the action to take on a file that exists or doesn't exist.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.WinRT.Storage
  * @version v4.0.30319
  */
-class HANDLE_CREATION_OPTIONS{
+class HANDLE_CREATION_OPTIONS extends Win32Enum{
 
     /**
      * Create a new file, only if it doesn't already exist.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines possible operational states for sensors.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Sensors
  * @version v4.0.30319
  */
-class SensorState{
+class SensorState extends Win32Enum{
 
     /**
      * Minimum enumerated sensor state. Use <b>SENSOR_STATE_READY</b> instead.

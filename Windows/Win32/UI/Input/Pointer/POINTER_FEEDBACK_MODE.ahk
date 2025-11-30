@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the visual feedback behaviors available to CreateSyntheticPointerDevice.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Input.Pointer
  * @version v4.0.30319
  */
-class POINTER_FEEDBACK_MODE{
+class POINTER_FEEDBACK_MODE extends Win32Enum{
 
     /**
      * Visual feedback might be suppressed by the user's pen (Settings -&gt; Devices -&gt; Pen &amp; Windows Ink) and touch (Settings -&gt; Ease of Access -&gt; Cursor &amp; pointer size) settings.

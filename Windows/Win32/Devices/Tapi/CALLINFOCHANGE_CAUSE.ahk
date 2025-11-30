@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The CALLINFOCHANGE_CAUSE enum is used by the ITCallInfoChangeEvent::get_Cause method to return a description of the type of call information that has changed.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class CALLINFOCHANGE_CAUSE{
+class CALLINFOCHANGE_CAUSE extends Win32Enum{
 
     /**
      * Unspecified call information has changed.

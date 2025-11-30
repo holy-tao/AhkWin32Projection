@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Option flags for transformed image sources.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS{
+class D2D1_TRANSFORMED_IMAGE_SOURCE_OPTIONS extends Win32BitflagEnum{
 
     /**
      * No option flags.

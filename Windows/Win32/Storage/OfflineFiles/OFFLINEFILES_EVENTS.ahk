@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Event identifier codes describing events to be received or excluded by an event sink.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */
-class OFFLINEFILES_EVENTS{
+class OFFLINEFILES_EVENTS extends Win32Enum{
 
     /**
      * This value is reserved for future use.

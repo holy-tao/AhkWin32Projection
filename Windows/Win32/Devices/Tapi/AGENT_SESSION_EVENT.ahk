@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The AGENT_SESSION_EVENT enum describes agent session events. The ITAgentSessionEvent::get_Event method returns a member of this enum to indicate the type of agent session event that occurred.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class AGENT_SESSION_EVENT{
+class AGENT_SESSION_EVENT extends Win32Enum{
 
     /**
      * A new agent session has been created.

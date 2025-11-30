@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the file format of a complete font face.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_FONT_FACE_TYPE{
+class DWRITE_FONT_FACE_TYPE extends Win32Enum{
 
     /**
      * OpenType font face with CFF outlines.

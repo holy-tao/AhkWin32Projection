@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how a brush paints areas outside of its normal content area.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_EXTEND_MODE{
+class D2D1_EXTEND_MODE extends Win32Enum{
 
     /**
      * Repeat the edge pixels of the brush's content for all regions outside the normal content area.

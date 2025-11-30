@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether an error occurred during recognition and, if so, which error occurred.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InkRecognitionStatus{
+class InkRecognitionStatus extends Win32Enum{
 
     /**
      * Specifies no error.

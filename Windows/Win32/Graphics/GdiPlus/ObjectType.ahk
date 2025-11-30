@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ObjectType enumeration indicates the object type value of an EMF+ record.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class ObjectType{
+class ObjectType extends Win32Enum{
 
     /**
      * Object type is invalid.

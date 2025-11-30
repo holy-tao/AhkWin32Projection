@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values that indicate requests sent to a device using the MODE_SENSE10 MMC command.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
-class IMAPI_MODE_PAGE_REQUEST_TYPE{
+class IMAPI_MODE_PAGE_REQUEST_TYPE extends Win32Enum{
 
     /**
      * Requests current settings of the mode page.  This is the most common request type, and the most commonly supported type of this command.

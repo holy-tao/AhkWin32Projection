@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the requested sharing mode of the file handle.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.WinRT.Storage
  * @version v4.0.30319
  */
-class HANDLE_SHARING_OPTIONS{
+class HANDLE_SHARING_OPTIONS extends Win32BitflagEnum{
 
     /**
      * Prevents other processes from opening a file if they request delete, read, or write access.

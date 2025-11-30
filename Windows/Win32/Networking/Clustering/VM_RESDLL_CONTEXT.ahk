@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains actions for a virtual machine to perform.
@@ -18,7 +19,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class VM_RESDLL_CONTEXT{
+class VM_RESDLL_CONTEXT extends Win32Enum{
 
     /**
      * Turns off the virtual machine.

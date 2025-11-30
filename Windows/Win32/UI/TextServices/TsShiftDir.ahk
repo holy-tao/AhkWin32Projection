@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Elements of the TsShiftDir enumeration specify which direction an anchor is moved.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
-class TsShiftDir{
+class TsShiftDir extends Win32Enum{
 
     /**
      * Specifies that the anchor will be moved to the region immediately preceding a range of text.

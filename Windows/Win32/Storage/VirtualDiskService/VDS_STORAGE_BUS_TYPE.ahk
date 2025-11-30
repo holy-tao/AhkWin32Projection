@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of valid bus types of a storage device.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_STORAGE_BUS_TYPE{
+class VDS_STORAGE_BUS_TYPE extends Win32Enum{
 
     /**
      * This value is reserved.

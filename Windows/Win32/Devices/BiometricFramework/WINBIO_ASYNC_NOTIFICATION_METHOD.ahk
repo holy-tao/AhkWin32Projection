@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify how completion notifications for asynchronous operations are to be delivered to the client application.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */
-class WINBIO_ASYNC_NOTIFICATION_METHOD{
+class WINBIO_ASYNC_NOTIFICATION_METHOD extends Win32Enum{
 
     /**
      * The operation is synchronous.

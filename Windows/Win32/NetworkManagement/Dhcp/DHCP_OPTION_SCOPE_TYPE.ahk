@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DHCP_OPTION_SCOPE_TYPE enumeration defines the set of possible DHCP option scopes.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */
-class DHCP_OPTION_SCOPE_TYPE{
+class DHCP_OPTION_SCOPE_TYPE extends Win32Enum{
 
     /**
      * The DHCP options correspond to the default scope.

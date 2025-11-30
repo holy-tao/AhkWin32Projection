@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the cache type.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
-class WRITE_CACHE_TYPE{
+class WRITE_CACHE_TYPE extends Win32Enum{
 
     /**
      * The system cannot report the type of the write cache.

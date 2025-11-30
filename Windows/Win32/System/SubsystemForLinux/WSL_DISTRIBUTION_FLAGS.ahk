@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WSL_DISTRIBUTION_FLAGS enumeration specifies the behavior of a distribution in the Windows Subsystem for Linux (WSL).
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.SubsystemForLinux
  * @version v4.0.30319
  */
-class WSL_DISTRIBUTION_FLAGS{
+class WSL_DISTRIBUTION_FLAGS extends Win32BitflagEnum{
 
     /**
      * No flags are being supplied.

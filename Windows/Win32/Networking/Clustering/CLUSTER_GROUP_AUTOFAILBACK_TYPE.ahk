@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by the AutoFailbackType group common property to specify whether the group should be failed back to the node identified as its preferred owner when that node comes back online following a failover.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_GROUP_AUTOFAILBACK_TYPE{
+class CLUSTER_GROUP_AUTOFAILBACK_TYPE extends Win32Enum{
 
     /**
      * Prevents <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/failback">failback</a>.

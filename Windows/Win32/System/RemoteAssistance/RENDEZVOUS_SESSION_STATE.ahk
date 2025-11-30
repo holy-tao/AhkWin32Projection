@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Provides the list of possible state codes of the session invitation.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RemoteAssistance
  * @version v4.0.30319
  */
-class RENDEZVOUS_SESSION_STATE{
+class RENDEZVOUS_SESSION_STATE extends Win32Enum{
 
     /**
      * Unknown response.

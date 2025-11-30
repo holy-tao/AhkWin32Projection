@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents the role of a provider, relative to the other provider in the synchronization session.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
-class SYNC_PROVIDER_ROLE{
+class SYNC_PROVIDER_ROLE extends Win32Enum{
 
     /**
      * The provider is the source provider.

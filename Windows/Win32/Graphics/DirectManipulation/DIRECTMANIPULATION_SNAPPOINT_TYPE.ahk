@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Modifies how the final inertia end position is calculated.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */
-class DIRECTMANIPULATION_SNAPPOINT_TYPE{
+class DIRECTMANIPULATION_SNAPPOINT_TYPE extends Win32Enum{
 
     /**
      * Content always stops at the snap point closest to where inertia would naturally stop along the direction of inertia.

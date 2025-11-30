@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the type of a channel.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */
-class EVT_CHANNEL_TYPE{
+class EVT_CHANNEL_TYPE extends Win32Enum{
 
     /**
      * The channel's type is Admin.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Constants used by IFileIsInUse::GetUsage to indicate how a file in use is being used.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class FILE_USAGE_TYPE{
+class FILE_USAGE_TYPE extends Win32Enum{
 
     /**
      * The file is being played by the process that has it open.

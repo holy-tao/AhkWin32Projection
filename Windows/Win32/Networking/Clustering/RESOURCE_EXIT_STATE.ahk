@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Enumerates the possible exit states of a resource.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class RESOURCE_EXIT_STATE{
+class RESOURCE_EXIT_STATE extends Win32Enum{
 
     /**
      * The resource has not been terminated. Worker threads may continue 

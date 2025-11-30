@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of possible attributes used to search DHCPv6 client information records.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */
-class DHCP_SEARCH_INFO_TYPE_V6{
+class DHCP_SEARCH_INFO_TYPE_V6 extends Win32Enum{
 
     /**
      * The search will be performed against the assigned DHCPv6 client IPv6 address.

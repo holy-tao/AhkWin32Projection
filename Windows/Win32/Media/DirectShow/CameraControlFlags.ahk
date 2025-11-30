@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The CameraControlFlags enumeration defines whether a camera setting is controlled manually or automatically.
@@ -39,7 +40,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class CameraControlFlags{
+class CameraControlFlags extends Win32Enum{
 
     /**
      * The setting is controlled automatically.

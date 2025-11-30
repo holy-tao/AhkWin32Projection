@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ConnectorType enumeration indicates the type of connection that a connector is part of.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
-class ConnectorType{
+class ConnectorType extends Win32Enum{
 
     /**
      * The connector is part of a connection of unknown type.

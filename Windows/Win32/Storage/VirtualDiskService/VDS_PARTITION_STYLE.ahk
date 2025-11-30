@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of partition style values.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_PARTITION_STYLE{
+class VDS_PARTITION_STYLE extends Win32Enum{
 
     /**
      * An uninitialized disk. New disks or newly cleaned disks have this partitioning type.

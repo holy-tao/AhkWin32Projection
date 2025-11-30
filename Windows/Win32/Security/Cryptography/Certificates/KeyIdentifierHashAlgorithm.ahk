@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the algorithm used to hash the public key in a certificate request.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class KeyIdentifierHashAlgorithm{
+class KeyIdentifierHashAlgorithm extends Win32Enum{
 
     /**
      * The default hash algorithm. This is redundant with the <b>SKIHashSha1</b> value.

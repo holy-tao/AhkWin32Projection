@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Provides miscellaneous property information about a document object.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
-class DOCMISC{
+class DOCMISC extends Win32Enum{
 
     /**
      * Object supports multiple views.

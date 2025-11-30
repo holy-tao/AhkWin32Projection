@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the variety of updates that should be returned by the search:\_per-machine updates, per-user updates, or both.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
-class SearchScope{
+class SearchScope extends Win32Enum{
 
     /**
      * Search by using the default scope (the scope that Automatic Updates would use when searching for updates). This is currently equivalent to search ScopeMachineOnly.

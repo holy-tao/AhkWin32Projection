@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Is used in the RAS_PROJECTION_INFO structure to represent either a RASPPP_PROJECTION_INFO or RASIKEV2_PROJECTION_INFO structure.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */
-class RASPROJECTION_INFO_TYPE{
+class RASPROJECTION_INFO_TYPE extends Win32Enum{
 
     /**
      * Represents a <a href="https://docs.microsoft.com/windows/desktop/api/ras/ns-ras-rasppp_projection_info">RASPPP_PROJECTION_INFO</a> structure.

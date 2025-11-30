@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of work queue for the RtwqAllocateWorkQueue function to create.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */
-class RTWQ_WORKQUEUE_TYPE{
+class RTWQ_WORKQUEUE_TYPE extends Win32Enum{
 
     /**
      * Create a work queue without a message loop.

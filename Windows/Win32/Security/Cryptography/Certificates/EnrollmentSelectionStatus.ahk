@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether the enrollment status of an object will be monitored during the enrollment process.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class EnrollmentSelectionStatus{
+class EnrollmentSelectionStatus extends Win32Enum{
 
     /**
      * The enrollment status is not monitored.

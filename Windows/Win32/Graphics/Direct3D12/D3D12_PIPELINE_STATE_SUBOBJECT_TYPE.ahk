@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of a sub-object in a pipeline state stream description.
@@ -16,7 +17,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_PIPELINE_STATE_SUBOBJECT_TYPE{
+class D3D12_PIPELINE_STATE_SUBOBJECT_TYPE extends Win32Enum{
 
     /**
      * Indicates a root signature subobject type.

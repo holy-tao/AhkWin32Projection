@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the CONDITIONPROPERTIES enumeration type specify the properties of a Network Access Policy (NAP) condition.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class CONDITIONPROPERTIES{
+class CONDITIONPROPERTIES extends Win32Enum{
 
     /**
      * The text of the NAP condition.

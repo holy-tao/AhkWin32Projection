@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the JPEG YCrCB subsampling options.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICJpegYCrCbSubsamplingOption{
+class WICJpegYCrCbSubsamplingOption extends Win32Enum{
 
     /**
      * The default subsampling option.

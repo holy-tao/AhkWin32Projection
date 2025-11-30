@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the source of configuration information returned by the WTSQueryUserConfig function.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class WTS_CONFIG_SOURCE{
+class WTS_CONFIG_SOURCE extends Win32Enum{
 
     /**
      * The configuration information came from the Security Accounts Manager (SAM) database.

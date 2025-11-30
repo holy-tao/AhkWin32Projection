@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the possible data types of a variant data item.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */
-class EVT_VARIANT_TYPE{
+class EVT_VARIANT_TYPE extends Win32Enum{
 
     /**
      * Null content that implies that the element that contains the content does not exist.

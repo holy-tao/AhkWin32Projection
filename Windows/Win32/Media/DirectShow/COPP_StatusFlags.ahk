@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the status of a Certified Output Protection Protocol (COPP) session.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class COPP_StatusFlags{
+class COPP_StatusFlags extends Win32Enum{
 
     /**
      * Normal status.

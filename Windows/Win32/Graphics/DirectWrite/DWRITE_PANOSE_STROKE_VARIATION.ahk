@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DWRITE_PANOSE_STROKE_VARIATION enumeration contains values that specify the relationship between thin and thick stems of text characters.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_PANOSE_STROKE_VARIATION{
+class DWRITE_PANOSE_STROKE_VARIATION extends Win32Enum{
 
     /**
      * Any stroke variation for text characters.

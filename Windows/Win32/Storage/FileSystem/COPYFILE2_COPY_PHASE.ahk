@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the phase of a copy at the time of an error.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
-class COPYFILE2_COPY_PHASE{
+class COPYFILE2_COPY_PHASE extends Win32Enum{
 
     /**
      * The copy had not yet started processing.

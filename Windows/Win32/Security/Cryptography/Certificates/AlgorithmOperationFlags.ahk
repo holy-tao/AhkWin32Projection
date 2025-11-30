@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the operations that an algorithm can perform.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class AlgorithmOperationFlags{
+class AlgorithmOperationFlags extends Win32Enum{
 
     /**
      * No operation is specified.

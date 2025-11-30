@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines types of I/O statistics reported by CLFS and is used when a client calls GetLogIoStatistics.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
-class CLFS_IOSTATS_CLASS{
+class CLFS_IOSTATS_CLASS extends Win32Enum{
 
     /**
      * The default I/O statistics exported.

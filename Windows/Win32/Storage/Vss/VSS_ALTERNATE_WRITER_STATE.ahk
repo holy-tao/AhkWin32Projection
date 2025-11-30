@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used to indicate whether a given writer has an associated alternate writer.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_ALTERNATE_WRITER_STATE{
+class VSS_ALTERNATE_WRITER_STATE extends Win32Enum{
 
     /**
      * No information is available as to the existence of an alternate writer. This value indicates an application 

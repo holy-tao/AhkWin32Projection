@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * When using triangle strip primitive topology, vertex positions are interpreted as vertices of a continuous triangle “strip”.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_INDEX_BUFFER_STRIP_CUT_VALUE{
+class D3D12_INDEX_BUFFER_STRIP_CUT_VALUE extends Win32Enum{
 
     /**
      * Indicates that there is no cut value.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a state type for a service registry key.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  */
-class SERVICE_REGISTRY_STATE_TYPE{
+class SERVICE_REGISTRY_STATE_TYPE extends Win32Enum{
 
     /**
      * Immutable service state, populated by INF to the Parameters subkey.

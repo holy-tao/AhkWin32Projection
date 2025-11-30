@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the export policy for a private key.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class X509PrivateKeyExportFlags{
+class X509PrivateKeyExportFlags extends Win32Enum{
 
     /**
      * Export is not allowed. This is the default value.

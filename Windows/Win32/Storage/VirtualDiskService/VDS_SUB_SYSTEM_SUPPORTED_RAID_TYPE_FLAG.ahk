@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of RAID levels that can be supported by subsystems.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG{
+class VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG extends Win32Enum{
 
     /**
      * Supports RAID level 2.

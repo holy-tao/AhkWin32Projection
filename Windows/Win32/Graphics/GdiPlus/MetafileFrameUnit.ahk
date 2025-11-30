@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MetafileFrameUnit enumeration specifies the unit of measure for a metafile frame rectangle.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class MetafileFrameUnit{
+class MetafileFrameUnit extends Win32Enum{
 
     /**
      * Specifies that a unit is 1 pixel.

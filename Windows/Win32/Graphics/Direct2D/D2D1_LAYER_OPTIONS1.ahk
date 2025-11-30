@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how the layer contents should be prepared.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_LAYER_OPTIONS1{
+class D2D1_LAYER_OPTIONS1 extends Win32BitflagEnum{
 
     /**
      * Default layer behavior. A premultiplied layer target is pushed and its contents are cleared to transparent black.

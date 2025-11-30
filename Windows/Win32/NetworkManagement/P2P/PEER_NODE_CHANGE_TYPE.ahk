@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PEER_NODE_CHANGE_TYPE enumeration specifies the types of peer node graph status changes.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
-class PEER_NODE_CHANGE_TYPE{
+class PEER_NODE_CHANGE_TYPE extends Win32Enum{
 
     /**
      * The peer node has connected to the graph.

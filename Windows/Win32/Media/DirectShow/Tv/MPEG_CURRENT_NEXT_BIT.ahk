@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * The MPEG_CURRENT_NEXT_BIT enumeration type specifies the value of the current_next_indicator bit.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
-class MPEG_CURRENT_NEXT_BIT{
+class MPEG_CURRENT_NEXT_BIT extends Win32Enum{
 
     /**
      * Indicates that the table is current applicable.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates whether all, some, or none of the segments in a figure are stroked.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
-class XPS_SEGMENT_STROKE_PATTERN{
+class XPS_SEGMENT_STROKE_PATTERN extends Win32Enum{
 
     /**
      * All segments in the figure are stroked.

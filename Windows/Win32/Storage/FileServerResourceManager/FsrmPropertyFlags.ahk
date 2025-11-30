@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines flag values that provide additional information about a classification property.
@@ -20,7 +21,7 @@
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
-class FsrmPropertyFlags{
+class FsrmPropertyFlags extends Win32Enum{
 
     /**
      * 

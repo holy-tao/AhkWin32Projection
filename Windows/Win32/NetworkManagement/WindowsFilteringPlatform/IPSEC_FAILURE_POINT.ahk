@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * At what point IPsec has failed.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class IPSEC_FAILURE_POINT{
+class IPSEC_FAILURE_POINT extends Win32Enum{
 
     /**
      * IPsec has not failed.

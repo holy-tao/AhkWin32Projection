@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the direction of traffic to which a rule applies.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
-class NET_FW_RULE_DIRECTION{
+class NET_FW_RULE_DIRECTION extends Win32Enum{
 
     /**
      * The rule applies to inbound traffic.

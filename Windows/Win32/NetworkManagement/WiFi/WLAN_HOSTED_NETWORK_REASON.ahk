@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the possible values for the result of a wireless Hosted Network function call.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
-class WLAN_HOSTED_NETWORK_REASON{
+class WLAN_HOSTED_NETWORK_REASON extends Win32Enum{
 
     /**
      * The operation was successful.

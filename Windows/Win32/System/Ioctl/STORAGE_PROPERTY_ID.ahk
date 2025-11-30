@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Enumerates the possible values of the PropertyId member of the STORAGE_PROPERTY_QUERY structure passed as input to the IOCTL_STORAGE_QUERY_PROPERTY request to retrieve the properties of a storage device or adapter.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
-class STORAGE_PROPERTY_ID{
+class STORAGE_PROPERTY_ID extends Win32Enum{
 
     /**
      * Indicates that the caller is querying for the device descriptor, [STORAGE_DEVICE_DESCRIPTOR](ns-winioctl-storage_device_descriptor.md).

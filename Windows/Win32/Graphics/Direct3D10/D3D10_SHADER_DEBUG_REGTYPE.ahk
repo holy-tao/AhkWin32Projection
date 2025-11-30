@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Shader register types.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
-class D3D10_SHADER_DEBUG_REGTYPE{
+class D3D10_SHADER_DEBUG_REGTYPE extends Win32Enum{
 
     /**
      * Input register.

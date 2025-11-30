@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains flags for adding a topology to the sequencer source, or updating a topology already in the queue.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFSequencerTopologyFlags{
+class MFSequencerTopologyFlags extends Win32Enum{
 
     /**
      * This topology is the last topology in the sequence.

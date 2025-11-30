@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicate the activation policy of the object and are used in the IPointerInactive::GetActivationPolicy method.
@@ -24,7 +25,7 @@
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
-class POINTERINACTIVE{
+class POINTERINACTIVE extends Win32Enum{
 
     /**
      * The object should be in-place activated when the mouse enters it during a mouse move operation.

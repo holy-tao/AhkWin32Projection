@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the argument type of a D3D12_VIDEO_DECODE_FRAME_ARGUMENT
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class D3D12_VIDEO_DECODE_ARGUMENT_TYPE{
+class D3D12_VIDEO_DECODE_ARGUMENT_TYPE extends Win32Enum{
 
     /**
      * The argument is a picture decoding parameter buffer.

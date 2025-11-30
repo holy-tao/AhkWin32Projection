@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The AM_WST_STATE enumeration specifies whether WST closed captioning is enabled or disabled.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class AM_WST_STATE{
+class AM_WST_STATE extends Win32Enum{
 
     /**
      * Specifies that WST closed captioning is enabled.

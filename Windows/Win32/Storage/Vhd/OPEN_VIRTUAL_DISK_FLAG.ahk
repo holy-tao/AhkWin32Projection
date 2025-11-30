@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains virtual hard disk (VHD) or CD or DVD image file (ISO) open request flags.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */
-class OPEN_VIRTUAL_DISK_FLAG{
+class OPEN_VIRTUAL_DISK_FLAG extends Win32BitflagEnum{
 
     /**
      * No flag specified.

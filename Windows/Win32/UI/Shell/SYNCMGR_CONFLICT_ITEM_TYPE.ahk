@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes conflict item type.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SYNCMGR_CONFLICT_ITEM_TYPE{
+class SYNCMGR_CONFLICT_ITEM_TYPE extends Win32Enum{
 
     /**
      * The conflict item was updated.

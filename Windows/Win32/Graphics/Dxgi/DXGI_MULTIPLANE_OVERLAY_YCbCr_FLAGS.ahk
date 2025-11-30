@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Options for swap-chain color space.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
-class DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS{
+class DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS extends Win32BitflagEnum{
 
     /**
      * Specifies nominal range YCbCr, which isn't an absolute color space, but a way of encoding RGB info.

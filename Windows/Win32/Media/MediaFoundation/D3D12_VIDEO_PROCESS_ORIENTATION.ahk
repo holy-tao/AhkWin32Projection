@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies an orientation operation to be performed by a video processor.
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class D3D12_VIDEO_PROCESS_ORIENTATION{
+class D3D12_VIDEO_PROCESS_ORIENTATION extends Win32Enum{
 
     /**
      * No change in orientation. 0 degrees.

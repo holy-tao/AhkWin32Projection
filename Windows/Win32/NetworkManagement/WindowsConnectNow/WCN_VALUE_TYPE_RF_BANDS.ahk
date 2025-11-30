@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * WCN_VALUE_TYPE_RF_BANDS enumeration defines the possible radio frequency bands on which an enrollee can send Discovery requests.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
  * @version v4.0.30319
  */
-class WCN_VALUE_TYPE_RF_BANDS{
+class WCN_VALUE_TYPE_RF_BANDS extends Win32Enum{
 
     /**
      * The request is being sent on the 2.4 GHz frequency band.

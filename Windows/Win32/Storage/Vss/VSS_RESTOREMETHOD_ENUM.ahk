@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by a writer at backup time to specify through its Writer Metadata Document the default file restore method.
@@ -62,7 +63,7 @@
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_RESTOREMETHOD_ENUM{
+class VSS_RESTOREMETHOD_ENUM extends Win32Enum{
 
     /**
      * No restore method is defined. 

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates whether the write cache is enabled or disabled.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
-class WRITE_CACHE_ENABLE{
+class WRITE_CACHE_ENABLE extends Win32Enum{
 
     /**
      * The system cannot report whether the device's write cache is enabled or disabled.

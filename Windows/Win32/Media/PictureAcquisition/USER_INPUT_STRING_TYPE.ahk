@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The USER_INPUT_STRING_TYPE enumeration type indicates the type of string to obtain from the user in IPhotoAcquireProgressCB::GetUserInput.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.PictureAcquisition
  * @version v4.0.30319
  */
-class USER_INPUT_STRING_TYPE{
+class USER_INPUT_STRING_TYPE extends Win32Enum{
 
     /**
      * Indicates that any string is allowed.

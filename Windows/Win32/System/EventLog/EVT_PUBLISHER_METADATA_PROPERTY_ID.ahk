@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the identifiers that identify the metadata properties of a provider.
@@ -37,7 +38,7 @@
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */
-class EVT_PUBLISHER_METADATA_PROPERTY_ID{
+class EVT_PUBLISHER_METADATA_PROPERTY_ID extends Win32Enum{
 
     /**
      * Identifies the <b>guid</b> attribute of the provider. The variant type for this property is <b>EvtVarTypeGuid</b>.

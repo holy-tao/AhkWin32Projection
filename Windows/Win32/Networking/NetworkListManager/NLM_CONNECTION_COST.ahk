@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The NLM_CONNECTION_COST enumeration specifies a set of cost levels and cost flags supported in Windows 8 Cost APIs.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Networking.NetworkListManager
  * @version v4.0.30319
  */
-class NLM_CONNECTION_COST{
+class NLM_CONNECTION_COST extends Win32Enum{
 
     /**
      * The cost is unknown.

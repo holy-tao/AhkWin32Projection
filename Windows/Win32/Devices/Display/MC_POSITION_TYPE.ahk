@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether to get or set the vertical or horizontal position of a monitor's display area.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
-class MC_POSITION_TYPE{
+class MC_POSITION_TYPE extends Win32Enum{
 
     /**
      * Horizontal position.

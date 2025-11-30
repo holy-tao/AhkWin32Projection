@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines possible status for new reports of a particular report type.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Devices.Geolocation
  * @version v4.0.30319
  */
-class LOCATION_REPORT_STATUS{
+class LOCATION_REPORT_STATUS extends Win32Enum{
 
     /**
      * The requested report type is not supported by the API. No location providers of the requested type are installed.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes whether a window is occluded.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_WINDOW_STATE{
+class D2D1_WINDOW_STATE extends Win32BitflagEnum{
 
     /**
      * The window is not occluded.

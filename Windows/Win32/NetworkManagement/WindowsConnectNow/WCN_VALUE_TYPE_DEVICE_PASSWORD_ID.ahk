@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * WCN_VALUE_TYPE_DEVICE_PASSWORD_ID enumeration defines values that specify the origin or 'type' of a password.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
  * @version v4.0.30319
  */
-class WCN_VALUE_TYPE_DEVICE_PASSWORD_ID{
+class WCN_VALUE_TYPE_DEVICE_PASSWORD_ID extends Win32Enum{
 
     /**
      * The PIN password, obtained from the label, or

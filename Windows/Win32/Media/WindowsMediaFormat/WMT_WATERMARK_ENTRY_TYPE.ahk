@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WMT_WATERMARK_ENTRY_TYPE enumeration type identifies the types of watermarking systems. Each watermarking system is a DirectX media object (DMO) that embeds some sort of digital watermark in digital media content.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
-class WMT_WATERMARK_ENTRY_TYPE{
+class WMT_WATERMARK_ENTRY_TYPE extends Win32Enum{
 
     /**
      * Identifies a watermarking DMO for audio.

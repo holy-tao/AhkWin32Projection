@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates how pixel shader sampling will be restricted.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_PIXEL_OPTIONS{
+class D2D1_PIXEL_OPTIONS extends Win32BitflagEnum{
 
     /**
      * The pixel shader is not restricted in its sampling.

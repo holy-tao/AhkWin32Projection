@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates information about the type of logoff method used.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
-class WPCFLAG_LOGOFF_TYPE{
+class WPCFLAG_LOGOFF_TYPE extends Win32Enum{
 
     /**
      * The user logged off by logging off the computer.

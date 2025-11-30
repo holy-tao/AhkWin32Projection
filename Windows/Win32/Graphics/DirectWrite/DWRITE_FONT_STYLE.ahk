@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents the style of a font face as normal, italic, or oblique.
@@ -44,7 +45,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_FONT_STYLE{
+class DWRITE_FONT_STYLE extends Win32Enum{
 
     /**
      * Font style : Normal.

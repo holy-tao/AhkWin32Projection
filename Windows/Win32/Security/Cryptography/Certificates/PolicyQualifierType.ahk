@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of qualifier applied to a certificate policy.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class PolicyQualifierType{
+class PolicyQualifierType extends Win32Enum{
 
     /**
      * The qualifier type is not specified.

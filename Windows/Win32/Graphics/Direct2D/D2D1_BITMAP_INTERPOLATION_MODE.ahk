@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the algorithm that is used when images are scaled or rotated.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_BITMAP_INTERPOLATION_MODE{
+class D2D1_BITMAP_INTERPOLATION_MODE extends Win32Enum{
 
     /**
      * Use the exact color of the nearest bitmap pixel to the current rendering pixel.

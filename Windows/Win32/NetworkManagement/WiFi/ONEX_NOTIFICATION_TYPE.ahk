@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the possible values of the NotificationCode member of the WLAN_NOTIFICATION_DATA structure for 802.1X module notifications.
@@ -17,7 +18,7 @@
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
-class ONEX_NOTIFICATION_TYPE{
+class ONEX_NOTIFICATION_TYPE extends Win32Enum{
 
     /**
      * Indicates the beginning of the range that specifies the possible values for 802.1X notifications.

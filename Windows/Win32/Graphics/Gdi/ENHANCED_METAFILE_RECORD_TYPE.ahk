@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
-class ENHANCED_METAFILE_RECORD_TYPE{
+class ENHANCED_METAFILE_RECORD_TYPE extends Win32Enum{
 
     /**
      * @type {Integer (UInt32)}

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies result flags for the ReclaimResources1 method.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
-class DXGI_RECLAIM_RESOURCE_RESULTS{
+class DXGI_RECLAIM_RESOURCE_RESULTS extends Win32Enum{
 
     /**
      * The surface was successfully reclaimed and has valid content. This result is identical to the <i>false</i> value returned by the older <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgidevice2-reclaimresources">ReclaimResources</a> API.

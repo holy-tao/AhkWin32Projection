@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies ways to update a named property in the cache.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class ADS_PROPERTY_OPERATION_ENUM{
+class ADS_PROPERTY_OPERATION_ENUM extends Win32Enum{
 
     /**
      * Instructs the directory service to remove all the property value(s) from the object.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the network type of a vSwitch.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class FWP_VSWITCH_NETWORK_TYPE{
+class FWP_VSWITCH_NETWORK_TYPE extends Win32Enum{
 
     /**
      * Specifies an unknown network type.

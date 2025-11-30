@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies indices for arrays of per component histogram information.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT{
+class D3D12_VIDEO_DECODE_HISTOGRAM_COMPONENT extends Win32Enum{
 
     /**
      * If the format is a YUV format, indicates a histogram for the Y component.

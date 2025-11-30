@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether to enable grid-fitting of glyph outlines (also known as hinting).
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_GRID_FIT_MODE{
+class DWRITE_GRID_FIT_MODE extends Win32Enum{
 
     /**
      * Choose grid fitting based on the font's table information.

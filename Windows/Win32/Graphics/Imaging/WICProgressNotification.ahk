@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies when the progress notification callback should be called.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICProgressNotification{
+class WICProgressNotification extends Win32Enum{
 
     /**
      * The callback should be called when codec operations begin.

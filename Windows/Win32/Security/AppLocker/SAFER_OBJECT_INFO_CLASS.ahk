@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the type of information requested about a Safer object.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.Security.AppLocker
  * @version v4.0.30319
  */
-class SAFER_OBJECT_INFO_CLASS{
+class SAFER_OBJECT_INFO_CLASS extends Win32Enum{
 
     /**
      * Queries for the LEVELID constant.

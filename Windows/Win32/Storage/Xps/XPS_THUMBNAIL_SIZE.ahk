@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the size of a thumbnail image.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
-class XPS_THUMBNAIL_SIZE{
+class XPS_THUMBNAIL_SIZE extends Win32Enum{
 
     /**
      * The thumbnail image is 32 pixels wide and 32 pixels high.

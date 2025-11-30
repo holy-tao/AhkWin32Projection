@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates information about a safer application that is being blocked.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
-class WPC_ARGS_SAFERAPPBLOCKED{
+class WPC_ARGS_SAFERAPPBLOCKED extends Win32Enum{
 
     /**
      * The time stamp for the blocked application.

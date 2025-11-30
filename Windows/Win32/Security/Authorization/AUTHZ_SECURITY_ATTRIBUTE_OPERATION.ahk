@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the type of modification to be made to security attributes by a call to the AuthzModifySecurityAttributes function.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
-class AUTHZ_SECURITY_ATTRIBUTE_OPERATION{
+class AUTHZ_SECURITY_ATTRIBUTE_OPERATION extends Win32Enum{
 
     /**
      * Do not perform any modification.

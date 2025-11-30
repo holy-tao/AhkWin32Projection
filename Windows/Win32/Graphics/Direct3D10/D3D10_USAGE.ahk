@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies expected resource use during rendering. The usage directly reflects whether a resource is accessible by the CPU and/or the GPU.
@@ -111,7 +112,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
-class D3D10_USAGE{
+class D3D10_USAGE extends Win32Enum{
 
     /**
      * A resource that requires read and write access by the GPU. This is likely to be the most common usage choice.

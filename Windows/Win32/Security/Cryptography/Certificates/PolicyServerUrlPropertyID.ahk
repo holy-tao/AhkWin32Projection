@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that specify the type of property value to be returned by the GetStringProperty method or set by the SetStringProperty method on the IX509PolicyServerUrl interface.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class PolicyServerUrlPropertyID{
+class PolicyServerUrlPropertyID extends Win32Enum{
 
     /**
      * Specify or retrieve an ID for the policy server.

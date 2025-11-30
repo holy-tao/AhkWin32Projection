@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Characters are underlined.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.SystemServices
  * @version v4.0.30319
  */
-class CFE_UNDERLINE{
+class CFE_UNDERLINE extends Win32BitflagEnum{
 
     /**
      * @type {Integer (UInt32)}

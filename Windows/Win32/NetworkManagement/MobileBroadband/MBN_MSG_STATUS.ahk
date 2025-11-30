@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MBN_MSG_STATUS enumerated type defines the type of message being handled.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
-class MBN_MSG_STATUS{
+class MBN_MSG_STATUS extends Win32Enum{
 
     /**
      * The received message is newly arrived or unread.

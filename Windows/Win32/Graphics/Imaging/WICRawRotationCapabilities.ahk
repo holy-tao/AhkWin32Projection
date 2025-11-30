@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the rotation capabilities of the codec.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICRawRotationCapabilities{
+class WICRawRotationCapabilities extends Win32Enum{
 
     /**
      * Rotation is not supported.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains information about the device registration.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Management.MobileDeviceManagementRegistration
  * @version v4.0.30319
  */
-class REGISTRATION_INFORMATION_CLASS{
+class REGISTRATION_INFORMATION_CLASS extends Win32Enum{
 
     /**
      * Information about the device registration.

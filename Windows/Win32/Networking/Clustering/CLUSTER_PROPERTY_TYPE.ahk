@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the property types that are supported by a cluster property list.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_PROPERTY_TYPE{
+class CLUSTER_PROPERTY_TYPE extends Win32Enum{
 
     /**
      * The property type is unknown.

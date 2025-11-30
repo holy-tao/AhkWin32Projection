@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the type of backup to be performed.
@@ -32,7 +33,7 @@
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_BACKUP_TYPE{
+class VSS_BACKUP_TYPE extends Win32Enum{
 
     /**
      * The backup type is not known. 

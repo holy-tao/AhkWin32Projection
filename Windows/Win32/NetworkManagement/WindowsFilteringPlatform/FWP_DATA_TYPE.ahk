@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Data types that can be stored in an FWP_VALUE0 or an FWP_CONDITION_VALUE0structure.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class FWP_DATA_TYPE{
+class FWP_DATA_TYPE extends Win32Enum{
 
     /**
      * Indicates no data.

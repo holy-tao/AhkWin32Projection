@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Qualifies the filter conditions used for searching for function instances.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  * @version v4.0.30319
  */
-class PropertyConstraint{
+class PropertyConstraint extends Win32Enum{
 
     /**
      * The constraint's PKEY and the function instance's  PKEY must be equal.

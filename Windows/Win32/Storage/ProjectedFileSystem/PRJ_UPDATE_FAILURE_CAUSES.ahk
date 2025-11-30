@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Descriptions for the reason an update failed.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  * @version v4.0.30319
  */
-class PRJ_UPDATE_FAILURE_CAUSES{
+class PRJ_UPDATE_FAILURE_CAUSES extends Win32BitflagEnum{
 
     /**
      * The update did not fail.

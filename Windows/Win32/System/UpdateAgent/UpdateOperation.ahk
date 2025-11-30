@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines operations that can be attempted on an update.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
-class UpdateOperation{
+class UpdateOperation extends Win32Enum{
 
     /**
      * Under the security context of the caller, install the update on the target computer.

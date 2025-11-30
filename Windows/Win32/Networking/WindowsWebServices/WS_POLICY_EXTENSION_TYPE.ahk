@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values in this enumeration are used to identify the sub-types of WS_POLICY_EXTENSION.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_POLICY_EXTENSION_TYPE{
+class WS_POLICY_EXTENSION_TYPE extends Win32Enum{
 
     /**
      * This value is used in the type field of <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_endpoint_policy_extension">WS_POLICY_EXTENSION</a>to identify a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_endpoint_policy_extension">WS_ENDPOINT_POLICY_EXTENSION</a> structure.

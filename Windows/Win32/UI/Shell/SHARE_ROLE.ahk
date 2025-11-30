@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the access permissions assigned to the Users or Public folder. Used in CreateShare and GetSharePermissions.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SHARE_ROLE{
+class SHARE_ROLE extends Win32Enum{
 
     /**
      * The folder is not shared.

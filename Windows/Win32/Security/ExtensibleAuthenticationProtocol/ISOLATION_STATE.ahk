@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of possible isolation state values of a machine.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */
-class ISOLATION_STATE{
+class ISOLATION_STATE extends Win32Enum{
 
     /**
      * The client's access to the network is unknown.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifiers for properties of the Edge Detection effect.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_EDGEDETECTION_PROP{
+class D2D1_EDGEDETECTION_PROP extends Win32Enum{
 
     /**
      * The D2D1_EDGEDETECTION_PROP_STRENGTH property is a float value modulating the response of the edge detection filter. A low strength value means that weaker edges will get filtered out, 

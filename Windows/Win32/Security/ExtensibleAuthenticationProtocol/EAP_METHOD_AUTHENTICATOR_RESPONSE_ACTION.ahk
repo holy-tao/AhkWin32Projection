@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of response instructions sent by the authenticator to the supplicant or EAP peer method.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */
-class EAP_METHOD_AUTHENTICATOR_RESPONSE_ACTION{
+class EAP_METHOD_AUTHENTICATOR_RESPONSE_ACTION extends Win32Enum{
 
     /**
      * The supplicant should discard the response as it is not usable by EAPHost.

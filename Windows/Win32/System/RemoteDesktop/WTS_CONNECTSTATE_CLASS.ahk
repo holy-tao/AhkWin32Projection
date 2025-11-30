@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the connection state of a Remote Desktop Services session.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class WTS_CONNECTSTATE_CLASS{
+class WTS_CONNECTSTATE_CLASS extends Win32Enum{
 
     /**
      * A user is logged on to the WinStation. This state occurs when a user is signed in and actively connected to the device.

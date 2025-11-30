@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PEER_RECORD_FLAGS enumeration specifies a set of flags for peer record behaviors.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
-class PEER_RECORD_FLAGS{
+class PEER_RECORD_FLAGS extends Win32Enum{
 
     /**
      * The peer record must be automatically refreshed any time an event for the record is raised.

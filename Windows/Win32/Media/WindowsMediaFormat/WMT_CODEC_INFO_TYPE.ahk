@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WMT_CODEC_INFO_TYPE enumeration type defines the broad categories of codecs supported by this SDK.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
-class WMT_CODEC_INFO_TYPE{
+class WMT_CODEC_INFO_TYPE extends Win32Enum{
 
     /**
      * Audio codec.

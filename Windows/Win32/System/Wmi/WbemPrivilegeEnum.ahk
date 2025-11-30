@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Define privileges. These constants are used with SWbemSecurity to grant the privileges required for some operations.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class WbemPrivilegeEnum{
+class WbemPrivilegeEnum extends Win32Enum{
 
     /**
      * Required to create a primary token.

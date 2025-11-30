@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The type of quorum resource to be created.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_QUORUM_TYPE{
+class CLUSTER_QUORUM_TYPE extends Win32Enum{
 
     /**
      * TBD

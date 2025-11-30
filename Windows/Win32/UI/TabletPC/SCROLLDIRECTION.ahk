@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the direction of the scrolling command for a pen flick.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class SCROLLDIRECTION{
+class SCROLLDIRECTION extends Win32Enum{
 
     /**
      * The flick action is a Scroll Up command.

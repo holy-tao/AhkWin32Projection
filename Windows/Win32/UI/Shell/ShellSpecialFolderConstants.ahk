@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies unique, system-independent values that identify special folders.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class ShellSpecialFolderConstants{
+class ShellSpecialFolderConstants extends Win32Enum{
 
     /**
      * 0x00 (0). Windows desktop—the virtual folder that is the root of the namespace.

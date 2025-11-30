@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Lists the types of messages that can be sent to the Kerberos authentication package by calling the LsaCallAuthenticationPackage function.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
-class KERB_PROTOCOL_MESSAGE_TYPE{
+class KERB_PROTOCOL_MESSAGE_TYPE extends Win32Enum{
 
     /**
      * Reserved.

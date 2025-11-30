@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The FlushIntention enumeration specifies when to flush the queue of graphics operations.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class FlushIntention{
+class FlushIntention extends Win32Enum{
 
     /**
      * When passed to the 

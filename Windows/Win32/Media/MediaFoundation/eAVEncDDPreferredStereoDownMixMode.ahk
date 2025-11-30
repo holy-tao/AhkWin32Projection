@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the preferred stereo downmix mode for a Dolby Digital audio stream. This enumeration is used with the AVEncDDPreferredStereoDownMixMode property.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVEncDDPreferredStereoDownMixMode{
+class eAVEncDDPreferredStereoDownMixMode extends Win32Enum{
 
     /**
      * Left total/right total (Lt/Rt) downmix.

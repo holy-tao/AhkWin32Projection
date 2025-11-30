@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the possible values for the authentication state of a peer on the wireless Hosted Network.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
-class WLAN_HOSTED_NETWORK_PEER_AUTH_STATE{
+class WLAN_HOSTED_NETWORK_PEER_AUTH_STATE extends Win32Enum{
 
     /**
      * An invalid peer state.

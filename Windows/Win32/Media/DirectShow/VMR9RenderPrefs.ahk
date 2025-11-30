@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The VMR9RenderPrefs enumeration type specifies basic rendering preferences for the VMR-9. It is used with the IVMRFilterConfig9::GetRenderingPrefs and IVMRFilterConfig9::SetRenderingPrefs methods.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class VMR9RenderPrefs{
+class VMR9RenderPrefs extends Win32Enum{
 
     /**
      * Indicates that the application paints the color keyed areas.

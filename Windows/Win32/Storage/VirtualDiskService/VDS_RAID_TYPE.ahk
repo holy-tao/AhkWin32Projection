@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set enumeration values that can be used to specify the underlying RAID type of a storage pool.
@@ -18,7 +19,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_RAID_TYPE{
+class VDS_RAID_TYPE extends Win32Enum{
 
     /**
      * The RAID level is unknown.

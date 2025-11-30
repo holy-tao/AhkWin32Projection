@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The KSJACK_SINK_CONNECTIONTYPE enumeration defines constants that specify the type of connection. These values are used in the KSJACK_SINK_INFORMATION structure that stores information about an audio jack sink.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.KernelStreaming
  * @version v4.0.30319
  */
-class KSJACK_SINK_CONNECTIONTYPE{
+class KSJACK_SINK_CONNECTIONTYPE extends Win32Enum{
 
     /**
      * High-Definition Multimedia Interface (HDMI) connection.

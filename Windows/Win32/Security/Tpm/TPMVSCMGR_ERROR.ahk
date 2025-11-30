@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Provides predefined error codes to represent the contexts of errors from the TPM virtual smart card manager.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.Security.Tpm
  * @version v4.0.30319
  */
-class TPMVSCMGR_ERROR{
+class TPMVSCMGR_ERROR extends Win32Enum{
 
     /**
      * Failed to impersonate the caller.

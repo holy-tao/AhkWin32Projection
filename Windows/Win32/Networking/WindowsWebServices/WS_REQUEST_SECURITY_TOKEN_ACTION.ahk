@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines which set of actions to use when negotiating security tokens using WS-Trust.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_REQUEST_SECURITY_TOKEN_ACTION{
+class WS_REQUEST_SECURITY_TOKEN_ACTION extends Win32Enum{
 
     /**
      * Use the "request" action defined in WS-Trust.

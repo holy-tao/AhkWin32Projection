@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used to notify an application that a change has occurred in the TAPI object.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class TAPI_EVENT{
+class TAPI_EVENT extends Win32Enum{
 
     /**
      * Change is in TAPI object itself. For more information, see 

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the rotation of the video image in the counter-clockwise direction.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFVideoRotationFormat{
+class MFVideoRotationFormat extends Win32Enum{
 
     /**
      * The image is not rotated.

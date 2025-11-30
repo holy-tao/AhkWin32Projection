@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The FWPM_SYSTEM_PORT_TYPE enumerated type.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class FWPM_SYSTEM_PORT_TYPE{
+class FWPM_SYSTEM_PORT_TYPE extends Win32Enum{
 
     /**
      * Specifies a system port used by an RPC endpoint mapper.

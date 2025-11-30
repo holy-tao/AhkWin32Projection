@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Provides predefined status codes to represent the progress of the TPM virtual smart card manager.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.Security.Tpm
  * @version v4.0.30319
  */
-class TPMVSCMGR_STATUS{
+class TPMVSCMGR_STATUS extends Win32Enum{
 
     /**
      * Initializing the virtual smart card 	manager.

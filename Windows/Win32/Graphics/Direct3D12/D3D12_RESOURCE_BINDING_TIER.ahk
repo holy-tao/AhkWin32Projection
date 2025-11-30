@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the tier of resource binding being used.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_RESOURCE_BINDING_TIER{
+class D3D12_RESOURCE_BINDING_TIER extends Win32Enum{
 
     /**
      * Tier 1.

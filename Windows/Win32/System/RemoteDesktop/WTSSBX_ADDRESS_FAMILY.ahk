@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that indicate the address family of a network address that is being used for redirection.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class WTSSBX_ADDRESS_FAMILY{
+class WTSSBX_ADDRESS_FAMILY extends Win32Enum{
 
     /**
      * An unspecified address family.

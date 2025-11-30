@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the color type used by the XPS_COLOR structure.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
-class XPS_COLOR_TYPE{
+class XPS_COLOR_TYPE extends Win32Enum{
 
     /**
      * The color value is an sRGB value.

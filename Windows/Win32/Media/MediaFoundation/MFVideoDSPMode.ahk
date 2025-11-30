@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the processing mode of the Video Stabilization MFT.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFVideoDSPMode{
+class MFVideoDSPMode extends Win32Enum{
 
     /**
      * Pass-through mode. Video stabilization is not applied.

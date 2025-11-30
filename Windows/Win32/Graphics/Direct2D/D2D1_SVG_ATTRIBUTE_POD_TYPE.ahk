@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the type of SVG POD attribute to set or get.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_SVG_ATTRIBUTE_POD_TYPE{
+class D2D1_SVG_ATTRIBUTE_POD_TYPE extends Win32Enum{
 
     /**
      * The attribute is a FLOAT.

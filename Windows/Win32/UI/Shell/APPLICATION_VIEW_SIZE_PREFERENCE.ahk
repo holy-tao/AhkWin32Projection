@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of possible general window (app view) size preferences. Used by ILaunchSourceViewSizePreference::GetSourceViewSizePreference and ILaunchTargetViewSizePreference::GetTargetViewSizePreference.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class APPLICATION_VIEW_SIZE_PREFERENCE{
+class APPLICATION_VIEW_SIZE_PREFERENCE extends Win32Enum{
 
     /**
      * The app does not specify a window size preference. Windows, rather than the app, sets the size preference, which defaults to <b>AVSP_USE_HALF</b>.

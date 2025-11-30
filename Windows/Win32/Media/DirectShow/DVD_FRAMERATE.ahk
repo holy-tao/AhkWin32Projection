@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates whether the DVD is authored to play at 25 or 30 frames per second.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class DVD_FRAMERATE{
+class DVD_FRAMERATE extends Win32Enum{
 
     /**
      * Twenty-five frames per second.

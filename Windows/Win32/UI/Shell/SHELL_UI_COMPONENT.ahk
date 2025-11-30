@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the type of UI component that is needed in the shell.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SHELL_UI_COMPONENT{
+class SHELL_UI_COMPONENT extends Win32Enum{
 
     /**
      * This UI component is a taskbar icon.

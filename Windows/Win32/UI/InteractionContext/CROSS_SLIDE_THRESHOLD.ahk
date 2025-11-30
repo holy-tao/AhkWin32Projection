@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the cross-slide behavior thresholds.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.InteractionContext
  * @version v4.0.30319
  */
-class CROSS_SLIDE_THRESHOLD{
+class CROSS_SLIDE_THRESHOLD extends Win32Enum{
 
     /**
      * Selection start.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the level of sharing across nodes of an adapter, such as Tier 1 Emulated, Tier 1, or Tier 2.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_CROSS_NODE_SHARING_TIER{
+class D3D12_CROSS_NODE_SHARING_TIER extends Win32Enum{
 
     /**
      * If an adapter has only 1 node, then cross-node sharing doesn't apply, so the <b>CrossNodeSharingTier</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options">D3D12_FEATURE_DATA_D3D12_OPTIONS</a> structure is set to D3D12_CROSS_NODE_SHARING_NOT_SUPPORTED.

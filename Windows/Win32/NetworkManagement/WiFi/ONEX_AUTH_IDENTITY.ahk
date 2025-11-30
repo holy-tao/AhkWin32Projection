@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the possible values of the identity used for 802.1X authentication status.
@@ -19,7 +20,7 @@
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
-class ONEX_AUTH_IDENTITY{
+class ONEX_AUTH_IDENTITY extends Win32Enum{
 
     /**
      * No identity is specified in the profile used for 802.1X authentication.

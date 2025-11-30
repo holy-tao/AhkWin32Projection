@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * The blend mode used for the Blend effect.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */
-class D2D1_BLEND_MODE{
+class D2D1_BLEND_MODE extends Win32Enum{
 
     /**
      * Basic blend formula for alpha only. 

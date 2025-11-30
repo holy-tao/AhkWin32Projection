@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the states that a caller can specify when updating a member in the read/write information for a TCP connection.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */
-class TCP_BOOLEAN_OPTIONAL{
+class TCP_BOOLEAN_OPTIONAL extends Win32Enum{
 
     /**
      * The option should be disabled.

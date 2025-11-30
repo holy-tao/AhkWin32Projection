@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the algorithm being used to disable cryptographic settings.
@@ -9,7 +10,7 @@
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
-class eTlsAlgorithmUsage{
+class eTlsAlgorithmUsage extends Win32Enum{
 
     /**
      * Key exchange algorithm. (*e.g. RSA, ECDHE, DHE*)

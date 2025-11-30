@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * RGB or alpha blending operation.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
-class D3D10_BLEND_OP{
+class D3D10_BLEND_OP extends Win32Enum{
 
     /**
      * Add source 1 and source 2.

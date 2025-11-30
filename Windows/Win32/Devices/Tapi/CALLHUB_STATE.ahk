@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The CALLHUB_STATE enum is a state indicator returned by the ITCallHub::get_State method.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class CALLHUB_STATE{
+class CALLHUB_STATE extends Win32Enum{
 
     /**
      * The CallHub is active. There is at least one call that is not in the CS_DISCONNECTED state.

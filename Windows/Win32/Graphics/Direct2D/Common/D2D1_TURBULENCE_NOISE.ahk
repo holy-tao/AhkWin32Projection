@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * The turbulence noise mode for the Turbulence effect. Indicates whether to generate a bitmap based on Fractal Noise or the Turbulence function.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */
-class D2D1_TURBULENCE_NOISE{
+class D2D1_TURBULENCE_NOISE extends Win32Enum{
 
     /**
      * Computes a sum of the octaves, shifting the output range from [-1, 1], to [0, 1].

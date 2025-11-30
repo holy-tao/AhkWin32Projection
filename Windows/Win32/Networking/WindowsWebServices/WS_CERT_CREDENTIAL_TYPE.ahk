@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The type of the certificate credential, used as a selector for subtypes of WS_CERT_CREDENTIAL.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_CERT_CREDENTIAL_TYPE{
+class WS_CERT_CREDENTIAL_TYPE extends Win32Enum{
 
     /**
      * Type id for the certificate credential <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_subject_name_cert_credential">WS_SUBJECT_NAME_CERT_CREDENTIAL</a>.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by IQueryAssociations::GetString to define the type of string that is to be returned.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class ASSOCSTR{
+class ASSOCSTR extends Win32Enum{
 
     /**
      * A command string associated with a Shell verb.

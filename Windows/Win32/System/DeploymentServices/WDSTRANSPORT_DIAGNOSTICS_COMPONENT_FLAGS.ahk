@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Configures which WDS components have diagnostics enabled. WDS diagnostics log events to the system event log.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */
-class WDSTRANSPORT_DIAGNOSTICS_COMPONENT_FLAGS{
+class WDSTRANSPORT_DIAGNOSTICS_COMPONENT_FLAGS extends Win32Enum{
 
     /**
      * Diagnostics are enabled for the PXE component of WDS, which answers requests from clients performing a PXE network boot. This component is typically used by the WDS Deployment Server role but is also available for various third-party applications that use the WDS Transport Server role.

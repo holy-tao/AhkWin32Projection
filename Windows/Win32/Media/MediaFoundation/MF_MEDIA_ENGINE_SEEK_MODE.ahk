@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values for the media engine seek mode.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_MEDIA_ENGINE_SEEK_MODE{
+class MF_MEDIA_ENGINE_SEEK_MODE extends Win32Enum{
 
     /**
      * Specifies normal seek.

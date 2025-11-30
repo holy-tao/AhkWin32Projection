@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the subtype of the color profile.
@@ -73,7 +74,7 @@
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  */
-class COLORPROFILESUBTYPE{
+class COLORPROFILESUBTYPE extends Win32Enum{
 
     /**
      * A perceptual rendering intent for gamut map model profiles (GMMPs) defined in WCS.

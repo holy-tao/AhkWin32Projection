@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the limit used to limit the files included in a report.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
-class FsrmReportLimit{
+class FsrmReportLimit extends Win32Enum{
 
     /**
      * The report will list up to a maximum number of files. Applies to all report types.

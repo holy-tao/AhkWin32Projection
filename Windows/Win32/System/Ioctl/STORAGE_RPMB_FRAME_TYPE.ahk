@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
-class STORAGE_RPMB_FRAME_TYPE{
+class STORAGE_RPMB_FRAME_TYPE extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

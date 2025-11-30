@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the variant types.
@@ -359,7 +360,7 @@
  * @namespace Windows.Win32.System.Variant
  * @version v4.0.30319
  */
-class VARENUM{
+class VARENUM extends Win32BitflagEnum{
 
     /**
      * Not specified.

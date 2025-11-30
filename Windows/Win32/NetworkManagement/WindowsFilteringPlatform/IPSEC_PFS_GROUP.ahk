@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the Diffie Hellman algorithm that should be used for Quick Mode PFS (Perfect Forward Secrecy).
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class IPSEC_PFS_GROUP{
+class IPSEC_PFS_GROUP extends Win32Enum{
 
     /**
      * Specifies no Quick Mode PFS.

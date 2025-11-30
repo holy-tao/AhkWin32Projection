@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the target mode of a relationship.
@@ -15,7 +16,7 @@
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
-class OPC_URI_TARGET_MODE{
+class OPC_URI_TARGET_MODE extends Win32Enum{
 
     /**
      * The target of the relationship  is a part inside the package.

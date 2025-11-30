@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the functionality that the Windows Update Agent (WUA) object can access from Windows Update.
@@ -152,7 +153,7 @@
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
-class UpdateLockdownOption{
+class UpdateLockdownOption extends Win32Enum{
 
     /**
      * If access is from Windows Update, restrict access to the WUA interfaces that implement the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatelockdown">IUpdateLockdown</a> interface.

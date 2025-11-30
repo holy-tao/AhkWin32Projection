@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the category of an audio stream.
@@ -35,7 +36,7 @@
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
-class AUDIO_STREAM_CATEGORY{
+class AUDIO_STREAM_CATEGORY extends Win32Enum{
 
     /**
      * Other audio stream.

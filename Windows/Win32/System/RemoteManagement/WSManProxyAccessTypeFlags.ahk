@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the proxy access type flags.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */
-class WSManProxyAccessTypeFlags{
+class WSManProxyAccessTypeFlags extends Win32Enum{
 
     /**
      * Use the Internet Explorer proxy configuration for the current user.

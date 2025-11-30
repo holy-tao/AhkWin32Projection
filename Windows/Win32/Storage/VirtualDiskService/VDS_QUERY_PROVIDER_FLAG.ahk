@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of valid flags for provider query operations. Callers can query for hardware providers, software providers, or both.
@@ -14,7 +15,7 @@
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_QUERY_PROVIDER_FLAG{
+class VDS_QUERY_PROVIDER_FLAG extends Win32Enum{
 
     /**
      * If set, the operation queries for software providers.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the optimal lighting for viewing a particular set of video content.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFVideoLighting{
+class MFVideoLighting extends Win32Enum{
 
     /**
      * The optimal lighting is unknown.

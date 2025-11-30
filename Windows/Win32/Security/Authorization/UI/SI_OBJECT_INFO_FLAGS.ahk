@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authorization.UI
  * @version v4.0.30319
  */
-class SI_OBJECT_INFO_FLAGS{
+class SI_OBJECT_INFO_FLAGS extends Win32BitflagEnum{
 
     /**
      * @type {Integer (UInt32)}

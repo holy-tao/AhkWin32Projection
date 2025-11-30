@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WrapMode enumeration specifies how repeated copies of an image are used to tile an area.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class WrapMode{
+class WrapMode extends Win32Enum{
 
     /**
      * Specifies tiling without flipping.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The types of fixed-size primitives.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_VALUE_TYPE{
+class WS_VALUE_TYPE extends Win32Enum{
 
     /**
      * Used to indicate a BOOL value.

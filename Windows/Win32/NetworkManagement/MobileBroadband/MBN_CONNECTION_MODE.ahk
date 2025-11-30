@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MBN_CONNECTION_MODE enumerated type specifies the mode of connection requested.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
-class MBN_CONNECTION_MODE{
+class MBN_CONNECTION_MODE extends Win32Enum{
 
     /**
      * Profile name is used for connection.

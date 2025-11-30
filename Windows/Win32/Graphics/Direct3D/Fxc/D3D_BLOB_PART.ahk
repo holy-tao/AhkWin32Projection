@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Values that identify parts of the content of an arbitrary length data buffer.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D.Fxc
  * @version v4.0.30319
  */
-class D3D_BLOB_PART{
+class D3D_BLOB_PART extends Win32Enum{
 
     /**
      * The blob part is an input signature.

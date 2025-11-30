@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the folder view type.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class FOLDERVIEWMODE{
+class FOLDERVIEWMODE extends Win32Enum{
 
     /**
      * The view should determine the best option.

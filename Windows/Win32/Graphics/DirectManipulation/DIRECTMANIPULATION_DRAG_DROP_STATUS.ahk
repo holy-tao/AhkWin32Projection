@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the drag-and-drop interaction states for the viewport.
@@ -20,7 +21,7 @@
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */
-class DIRECTMANIPULATION_DRAG_DROP_STATUS{
+class DIRECTMANIPULATION_DRAG_DROP_STATUS extends Win32Enum{
 
     /**
      * The viewport is at rest and ready for input.

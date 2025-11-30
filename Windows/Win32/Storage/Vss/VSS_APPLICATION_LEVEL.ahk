@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the application level, the point in the course of the creation of a shadow copy that a writer is notified of a freeze.
@@ -26,7 +27,7 @@
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_APPLICATION_LEVEL{
+class VSS_APPLICATION_LEVEL extends Win32Enum{
 
     /**
      * The level at which this writer's freeze state will occur is not known. This indicates an application 

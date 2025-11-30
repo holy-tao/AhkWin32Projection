@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies filtering options during texture sampling.
@@ -23,7 +24,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_FILTER{
+class D3D12_FILTER extends Win32Enum{
 
     /**
      * Use point sampling for minification, magnification, and mip-level sampling.

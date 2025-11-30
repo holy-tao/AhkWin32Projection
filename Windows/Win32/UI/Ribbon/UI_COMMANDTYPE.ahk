@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies values that identify the type of Command associated with a Ribbon control.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
-class UI_COMMANDTYPE{
+class UI_COMMANDTYPE extends Win32Enum{
 
     /**
      * The type of command is not known.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of scopes for the publication of peer objects or data.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
-class PEER_PUBLICATION_SCOPE{
+class PEER_PUBLICATION_SCOPE extends Win32Enum{
 
     /**
      * No scope is set for the publication of this data.

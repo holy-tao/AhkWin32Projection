@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used with the IRDVTaskPluginNotifySink::OnTaskStateChange method to indicate the status of a task.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class RDV_TASK_STATUS{
+class RDV_TASK_STATUS extends Win32Enum{
 
     /**
      * The task state cannot be determined.

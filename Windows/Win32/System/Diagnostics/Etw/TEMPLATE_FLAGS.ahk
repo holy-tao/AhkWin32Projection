@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constant values that indicates the layout of the event data.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
-class TEMPLATE_FLAGS{
+class TEMPLATE_FLAGS extends Win32Enum{
 
     /**
      * The layout of the event data is determined by the order of the data items defined in the event data template definition.

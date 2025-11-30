@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether to pad a video image so that it fits within a specified aspect ratio.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFVideoPadFlags{
+class MFVideoPadFlags extends Win32Enum{
 
     /**
      * Do not pad the image.

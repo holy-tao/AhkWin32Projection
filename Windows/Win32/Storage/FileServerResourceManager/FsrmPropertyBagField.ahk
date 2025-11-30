@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the type of property bag.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
-class FsrmPropertyBagField{
+class FsrmPropertyBagField extends Win32Enum{
 
     /**
      * Indicates if the property bag should include the name of the volume being accessed, which may be a 

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used with the DSROLE_OPERATION_STATE_INFO structure to indicate the operational state of a computer.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class DSROLE_OPERATION_STATE{
+class DSROLE_OPERATION_STATE extends Win32Enum{
 
     /**
      * The computer is idle.

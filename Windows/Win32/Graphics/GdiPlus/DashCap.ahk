@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DashCap enumeration specifies the type of graphic shape to use on both ends of each dash in a dashed line.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class DashCap{
+class DashCap extends Win32Enum{
 
     /**
      * Specifies a square cap that squares off both ends of each dash.

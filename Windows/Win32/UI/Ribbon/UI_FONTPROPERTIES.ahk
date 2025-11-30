@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies values that identify the font property state of a FontControl, such as Strikethrough.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
-class UI_FONTPROPERTIES{
+class UI_FONTPROPERTIES extends Win32Enum{
 
     /**
      * The property is not available.

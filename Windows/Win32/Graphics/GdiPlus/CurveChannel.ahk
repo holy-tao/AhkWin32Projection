@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The CurveChannel enumeration specifies which color channels are affected by a ColorCurve bitmap adjustment.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class CurveChannel{
+class CurveChannel extends Win32Enum{
 
     /**
      * Specifies that the color adjustment applies to all channels.

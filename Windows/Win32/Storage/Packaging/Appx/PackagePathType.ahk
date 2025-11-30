@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the type of package folder to retrieve.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
-class PackagePathType{
+class PackagePathType extends Win32Enum{
 
     /**
      * Retrieve the package path in the original install folder for the application.

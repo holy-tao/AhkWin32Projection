@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how the topology loader connects a topology node.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_CONNECT_METHOD{
+class MF_CONNECT_METHOD extends Win32Enum{
 
     /**
      * Connect the node directly to its upstream neighbor. Fail otherwise.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the filtered list of property descriptions that is returned.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
-class PROPDESC_ENUMFILTER{
+class PROPDESC_ENUMFILTER extends Win32Enum{
 
     /**
      * The list contains all property descriptions in the system.

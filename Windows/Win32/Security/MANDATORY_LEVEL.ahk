@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32Enum.ahk
 
 /**
  * Lists the possible security levels.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */
-class MANDATORY_LEVEL{
+class MANDATORY_LEVEL extends Win32Enum{
 
     /**
      * The required security level is untrusted.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the options for failing IO operations that violate a file screen.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
-class FsrmFileScreenFlags{
+class FsrmFileScreenFlags extends Win32Enum{
 
     /**
      * If this flag is set, the server will fail any IO operation that violates the file screen. If this flag is 

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Determines the concurrency model used for incoming calls to objects created by this thread. This concurrency model can be either apartment-threaded or multithreaded.
@@ -21,7 +22,7 @@
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class COINIT{
+class COINIT extends Win32BitflagEnum{
 
     /**
      * Initializes the thread for apartment-threaded object concurrency (see Remarks).

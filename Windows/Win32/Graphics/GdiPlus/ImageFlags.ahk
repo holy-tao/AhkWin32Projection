@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ImageFlags enumeration specifies the attributes of the pixel data contained in an Image object. The Image::GetFlags method returns an element of this enumeration.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
-class ImageFlags{
+class ImageFlags extends Win32Enum{
 
     /**
      * Specifies no format information.

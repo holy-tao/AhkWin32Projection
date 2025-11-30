@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The EndpointFormFactor enumeration defines constants that indicate the general physical attributes of an audio endpoint device.
@@ -19,7 +20,7 @@
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
-class EndpointFormFactor{
+class EndpointFormFactor extends Win32Enum{
 
     /**
      * An audio endpoint device that the user accesses remotely through a network.

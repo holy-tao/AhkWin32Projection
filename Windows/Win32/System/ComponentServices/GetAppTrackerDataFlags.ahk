@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Controls what data is returned from calls to the IGetAppTrackerData interface.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
-class GetAppTrackerDataFlags{
+class GetAppTrackerDataFlags extends Win32Enum{
 
     /**
      * Include the name of the process's executable image in the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ns-comsvcs-applicationprocesssummary">ApplicationProcessSummary</a> structure. If set, it is the caller's responsibility to free the memory allocated for this string.

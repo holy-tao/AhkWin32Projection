@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the intended use for a video processor.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_VIDEO_USAGE{
+class D3D11_VIDEO_USAGE extends Win32Enum{
 
     /**
      * Normal video playback. The graphics driver should expose a set of capabilities that are appropriate for real-time video playback.

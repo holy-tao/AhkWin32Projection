@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the type of data contained in an input slot.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_INPUT_CLASSIFICATION{
+class D3D12_INPUT_CLASSIFICATION extends Win32Enum{
 
     /**
      * Input data is per-vertex data.

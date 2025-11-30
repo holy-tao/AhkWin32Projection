@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The NET_IF_OPER_STATUS enumeration type defines the current NDIS network interface operational status.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.Ndis
  * @version v4.0.30319
  */
-class NET_IF_OPER_STATUS{
+class NET_IF_OPER_STATUS extends Win32Enum{
 
     /**
      * Specifies that the interface is ready to transmit and receive all supported packet types.

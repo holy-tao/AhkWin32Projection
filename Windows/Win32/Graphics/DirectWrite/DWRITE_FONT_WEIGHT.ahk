@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents the density of a typeface, in terms of the lightness or heaviness of the strokes.
@@ -18,7 +19,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_FONT_WEIGHT{
+class DWRITE_FONT_WEIGHT extends Win32Enum{
 
     /**
      * Predefined font weight : Thin (100).

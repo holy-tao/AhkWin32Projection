@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used to specified the usage type for the socket.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
-class SOCKET_USAGE_TYPE{
+class SOCKET_USAGE_TYPE extends Win32Enum{
 
     /**
      * The usage type is critical to the system.

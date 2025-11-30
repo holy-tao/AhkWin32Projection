@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the border mode to use when composing a bitmap or applying a clip with any transform such that the edges of the bitmap or clip are not axis-aligned with integer coordinates.
@@ -26,7 +27,7 @@
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */
-class DCOMPOSITION_BORDER_MODE{
+class DCOMPOSITION_BORDER_MODE extends Win32Enum{
 
     /**
      * Bitmap and clip edges are antialiased.

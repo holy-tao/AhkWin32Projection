@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of a per-service directory path.
@@ -12,7 +13,7 @@
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  */
-class SERVICE_DIRECTORY_TYPE{
+class SERVICE_DIRECTORY_TYPE extends Win32Enum{
 
     /**
      * Mutable, persistent service state. This state is both readable and writeable by the service, and is inaccessible outside of the service. This state persists across reboots and and OS updates.

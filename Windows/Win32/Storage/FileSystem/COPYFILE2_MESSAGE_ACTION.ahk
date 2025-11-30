@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Returned by the CopyFile2ProgressRoutine callback function to indicate what action should be taken for the pending copy operation.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
-class COPYFILE2_MESSAGE_ACTION{
+class COPYFILE2_MESSAGE_ACTION extends Win32Enum{
 
     /**
      * Continue the copy operation.

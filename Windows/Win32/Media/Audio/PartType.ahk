@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PartType enumeration defines constants that indicate whether a part in a device topology is a connector or subunit.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
-class PartType{
+class PartType extends Win32Enum{
 
     /**
      * The part is a connector. A connector can represent an audio jack, an internal connection to an integrated endpoint device, or a software connection implemented through DMA transfers. For more information about connector types, see <a href="https://docs.microsoft.com/windows/win32/api/devicetopology/ne-devicetopology-connectortype">ConnectorType Enumeration</a>.

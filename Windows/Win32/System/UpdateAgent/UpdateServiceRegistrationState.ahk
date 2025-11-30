@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the possible states for an update service.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
-class UpdateServiceRegistrationState{
+class UpdateServiceRegistrationState extends Win32Enum{
 
     /**
      * The service is not registered.

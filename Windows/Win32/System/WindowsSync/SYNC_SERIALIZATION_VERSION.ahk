@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents the version of Microsoft Sync Framework that a particular component is compatible with.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
-class SYNC_SERIALIZATION_VERSION{
+class SYNC_SERIALIZATION_VERSION extends Win32Enum{
 
     /**
      * Indicates a component is compatible with Sync Framework 1.0.

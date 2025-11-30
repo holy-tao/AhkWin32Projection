@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a range of tile mappings.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_TILE_RANGE_FLAGS{
+class D3D12_TILE_RANGE_FLAGS extends Win32Enum{
 
     /**
      * No tile-mapping flags are specified.

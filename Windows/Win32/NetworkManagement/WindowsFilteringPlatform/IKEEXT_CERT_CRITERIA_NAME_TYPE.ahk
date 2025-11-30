@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of NAME fields possible for a certificate selection &quot;subject&quot; criteria.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class IKEEXT_CERT_CRITERIA_NAME_TYPE{
+class IKEEXT_CERT_CRITERIA_NAME_TYPE extends Win32Enum{
 
     /**
      * DNS name in the Subject Alternative Name of the certificate.

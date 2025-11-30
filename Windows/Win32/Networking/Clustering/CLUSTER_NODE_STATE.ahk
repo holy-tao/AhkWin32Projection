@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the state of a cluster node.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_NODE_STATE{
+class CLUSTER_NODE_STATE extends Win32Enum{
 
     /**
      * The operation was not successful. For more information about the error, call the function 

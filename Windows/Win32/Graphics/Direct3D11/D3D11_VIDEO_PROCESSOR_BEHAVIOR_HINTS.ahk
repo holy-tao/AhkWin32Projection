@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies flags that indicate the most efficient methods for performing video processing operations.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_VIDEO_PROCESSOR_BEHAVIOR_HINTS{
+class D3D11_VIDEO_PROCESSOR_BEHAVIOR_HINTS extends Win32Enum{
 
     /**
      * Multi-plane overlay hardware can perform the rotation operation more efficiently than the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorblt">ID3D11VideoContext::VideoProcessorBlt</a> method.

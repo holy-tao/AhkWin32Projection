@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WMT_VERSION enumeration type defines the versions of the Windows Media Format SDK.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
-class WMT_VERSION{
+class WMT_VERSION extends Win32Enum{
 
     /**
      * Compatible with version 4 of the Windows Media Format SDK.

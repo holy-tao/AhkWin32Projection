@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the options for enumerating collections of objects.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
-class FsrmEnumOptions{
+class FsrmEnumOptions extends Win32Enum{
 
     /**
      * Use no options and enumerate objects synchronously.

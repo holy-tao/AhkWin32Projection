@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains flags to control the execution of the IWbemClassObject::GetObjectText method.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class WBEM_TEXT_FLAG_TYPE{
+class WBEM_TEXT_FLAG_TYPE extends Win32Enum{
 
     /**
      * Present qualifiers without propagation or flavor information.

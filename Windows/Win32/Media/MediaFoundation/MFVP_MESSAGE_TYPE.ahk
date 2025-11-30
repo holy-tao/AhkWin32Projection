@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines messages for an enhanced video renderer (EVR) presenter.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFVP_MESSAGE_TYPE{
+class MFVP_MESSAGE_TYPE extends Win32Enum{
 
     /**
      * The presenter should discard any pending samples. The <i>ulParam</i> parameter is not used and should be zero.

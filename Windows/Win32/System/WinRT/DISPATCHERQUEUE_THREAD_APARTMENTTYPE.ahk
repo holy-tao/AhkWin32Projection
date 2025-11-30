@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the threading apartment type for a new DispatcherQueueController.
@@ -13,7 +14,7 @@
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
-class DISPATCHERQUEUE_THREAD_APARTMENTTYPE{
+class DISPATCHERQUEUE_THREAD_APARTMENTTYPE extends Win32Enum{
 
     /**
      * No COM threading apartment type specified.

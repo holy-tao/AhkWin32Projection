@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates which WDS features are installed on the WDS server.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */
-class WDSTRANSPORT_FEATURE_FLAGS{
+class WDSTRANSPORT_FEATURE_FLAGS extends Win32Enum{
 
     /**
      * The server has the WDS administrator pack installed. This feature is used for managing WDS local or remote WDS servers.

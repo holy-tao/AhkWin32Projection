@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * FFT creation flags.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3DX11_FFT_CREATE_FLAG{
+class D3DX11_FFT_CREATE_FLAG extends Win32Enum{
 
     /**
      * Do not AddRef or Release temp and precompute buffers, caller is responsible for holding 

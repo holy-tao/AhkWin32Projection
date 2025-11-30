@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
-class BI_COMPRESSION{
+class BI_COMPRESSION extends Win32Enum{
 
     /**
      * @type {Integer (UInt32)}

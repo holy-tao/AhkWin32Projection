@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines capabilities of the underlying Direct3D device which may be queried using ID2D1EffectContext::CheckFeatureSupport.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_FEATURE{
+class D2D1_FEATURE extends Win32Enum{
 
     /**
      * A D2D1_FEATURE_DATA_DOUBLES structure should be filled.

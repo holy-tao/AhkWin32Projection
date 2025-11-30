@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the properties used to specify security binding settings. Security binding settings are present in security bindingsthat are used, in turn, in a security description.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_SECURITY_BINDING_PROPERTY_ID{
+class WS_SECURITY_BINDING_PROPERTY_ID extends Win32Enum{
 
     /**
      * A <b>BOOL</b> that specifies whether a client certificate should be demanded when using SSL.  The

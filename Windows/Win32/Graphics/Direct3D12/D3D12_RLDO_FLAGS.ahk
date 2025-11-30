@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies options for the amount of information to report about a live device object's lifetime.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_RLDO_FLAGS{
+class D3D12_RLDO_FLAGS extends Win32BitflagEnum{
 
     /**
      * 

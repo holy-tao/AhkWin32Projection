@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the USERPROPERTIES enumeration type enumerate the user properties supported by the SDO API.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class USERPROPERTIES{
+class USERPROPERTIES extends Win32Enum{
 
     /**
      * The number from which the user must call.

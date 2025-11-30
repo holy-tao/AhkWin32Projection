@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The NL_ROUTE_PROTOCOL enumeration type defines the routing mechanism that an IP route was added with, as described in RFC 4292.
@@ -17,7 +18,7 @@
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
-class NL_ROUTE_PROTOCOL{
+class NL_ROUTE_PROTOCOL extends Win32Enum{
 
     /**
      * Reserved for system use. Do not use this value in your driver.

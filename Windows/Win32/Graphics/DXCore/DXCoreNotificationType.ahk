@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * TBD
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DXCore
  * @version v4.0.30319
  */
-class DXCoreNotificationType{
+class DXCoreNotificationType extends Win32Enum{
 
     /**
      * This notification is raised by an <a href="https://docs.microsoft.com/windows/win32/api/dxcore_interface/nn-dxcore_interface-idxcoreadapterlist">IDXCoreAdapterList</a> object when the adapter list becomes stale. The fresh-to-stale transition is one-way, and one-time, so this notification is raised at most one time.

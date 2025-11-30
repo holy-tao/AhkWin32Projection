@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.System.Variant
  * @version v4.0.30319
  */
-class DRAWPROGRESSFLAGS{
+class DRAWPROGRESSFLAGS extends Win32BitflagEnum{
 
     /**
      * @type {Integer (Int32)}

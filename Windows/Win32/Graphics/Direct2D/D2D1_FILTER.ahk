@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents filtering modes that a transform may select to use on input textures.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_FILTER{
+class D2D1_FILTER extends Win32Enum{
 
     /**
      * Use point sampling for minification, magnification, and mip-level sampling.

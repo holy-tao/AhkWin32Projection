@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the ASM_NAME enumeration are the property IDs for the name-value pairs included in a side-by-side assembly name.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */
-class ASM_NAME{
+class ASM_NAME extends Win32Enum{
 
     /**
      * Property ID for the assembly's public key. The value is a byte array.

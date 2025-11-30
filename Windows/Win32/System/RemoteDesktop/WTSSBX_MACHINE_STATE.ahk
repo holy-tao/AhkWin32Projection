@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that indicate the current state of a server.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class WTSSBX_MACHINE_STATE{
+class WTSSBX_MACHINE_STATE extends Win32Enum{
 
     /**
      * The server state is unspecified.

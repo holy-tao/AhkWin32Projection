@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how a field of a structure is represented in XML. This is used within a WS_FIELD_DESCRIPTION.
@@ -18,7 +19,7 @@
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_FIELD_MAPPING{
+class WS_FIELD_MAPPING extends Win32Enum{
 
     /**
      * The field corresponds to the XML type attribute (xsi:type).  This

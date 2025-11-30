@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Allows a sync provider to control how placeholder directories and files should be created by the platform. This is the primary policy.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
-class CF_POPULATION_POLICY_PRIMARY{
+class CF_POPULATION_POLICY_PRIMARY extends Win32Enum{
 
     /**
      * With <b>CF_POPULATION_POLICY_PARTIAL</b> population policy, when the platform detects access on a not fully populated directory, it will request only the entries required by the user application from the sync provider. This policy is not currently supported by the platform.

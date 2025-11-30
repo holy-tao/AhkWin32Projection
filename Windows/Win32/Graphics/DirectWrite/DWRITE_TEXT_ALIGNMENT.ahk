@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the alignment of paragraph text along the reading direction axis, relative to the leading and trailing edge of the layout box.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_TEXT_ALIGNMENT{
+class DWRITE_TEXT_ALIGNMENT extends Win32Enum{
 
     /**
      * The leading edge of the paragraph text is aligned to the leading edge of the layout box.

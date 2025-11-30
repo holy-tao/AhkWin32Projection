@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify a matrix transform to be applied to a DirectML tensor.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
-class DML_MATRIX_TRANSFORM{
+class DML_MATRIX_TRANSFORM extends Win32Enum{
 
     /**
      * Specifies that no transform is to be applied.

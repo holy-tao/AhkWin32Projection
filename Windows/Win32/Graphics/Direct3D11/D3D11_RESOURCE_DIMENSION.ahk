@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the type of resource being used.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_RESOURCE_DIMENSION{
+class D3D11_RESOURCE_DIMENSION extends Win32Enum{
 
     /**
      * Resource is of unknown type.

@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the state of a field and how it a user can interact with it. Fields can be displayed by a credential provider in a variety of different interactive states.
@@ -10,7 +11,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE{
+class CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE extends Win32Enum{
 
     /**
      * The field can be edited if the field type supports editing. It also contains none of the other available interactive states.

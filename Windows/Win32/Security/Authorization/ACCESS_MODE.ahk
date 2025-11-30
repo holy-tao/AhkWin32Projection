@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that indicate how the access rights in an EXPLICIT_ACCESS structure apply to the trustee.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
-class ACCESS_MODE{
+class ACCESS_MODE extends Win32Enum{
 
     /**
      * Value not used.

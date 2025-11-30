@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of personal desktop resolution being requested.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class TSPUB_PLUGIN_PD_RESOLUTION_TYPE{
+class TSPUB_PLUGIN_PD_RESOLUTION_TYPE extends Win32Enum{
 
     /**
      * Resolve an existing personal desktop for the user. If no personal desktop exists, the <a href="https://docs.microsoft.com/windows/desktop/api/tspubplugin2com/nf-tspubplugin2com-itspubplugin2-resolvepersonaldesktop">ResolvePersonalDesktop</a> method should create a new one.

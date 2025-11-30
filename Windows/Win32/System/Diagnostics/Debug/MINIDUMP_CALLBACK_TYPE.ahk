@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the type of information returned by the MiniDumpCallback function.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */
-class MINIDUMP_CALLBACK_TYPE{
+class MINIDUMP_CALLBACK_TYPE extends Win32Enum{
 
     /**
      * The callback function returns module information.

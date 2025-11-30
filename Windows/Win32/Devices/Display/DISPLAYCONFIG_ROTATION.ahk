@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DISPLAYCONFIG_ROTATION enumeration specifies the clockwise rotation of the display.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
-class DISPLAYCONFIG_ROTATION{
+class DISPLAYCONFIG_ROTATION extends Win32Enum{
 
     /**
      * Indicates that rotation is 0 degrees—landscape mode.

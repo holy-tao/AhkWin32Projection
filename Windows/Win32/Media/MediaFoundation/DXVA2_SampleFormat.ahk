@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the content of a video sample. These flags are used in the DXVA2_ExtendedFormat structure.
@@ -53,7 +54,7 @@
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class DXVA2_SampleFormat{
+class DXVA2_SampleFormat extends Win32Enum{
 
     /**
      * Bitmask to validate flag values. This value is not a valid flag.

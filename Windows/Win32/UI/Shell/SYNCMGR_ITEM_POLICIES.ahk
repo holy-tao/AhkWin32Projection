@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies an item's policies to control how they can be enabled or disabled by group policy.
@@ -6,7 +7,7 @@
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SYNCMGR_ITEM_POLICIES{
+class SYNCMGR_ITEM_POLICIES extends Win32Enum{
 
     /**
      * No policy flags are set.

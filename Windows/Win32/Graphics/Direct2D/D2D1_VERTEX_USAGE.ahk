@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates whether the vertex buffer changes infrequently or frequently.
@@ -11,7 +12,7 @@
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_VERTEX_USAGE{
+class D2D1_VERTEX_USAGE extends Win32Enum{
 
     /**
      * The created vertex buffer is updated infrequently.
