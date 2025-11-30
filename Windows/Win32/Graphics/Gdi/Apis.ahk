@@ -5727,7 +5727,7 @@ class Gdi {
 
         result := DllCall("GDI32.dll\CreateMetaFileA", "ptr", pszFile, "ptr")
         resultHandle := HDC({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: Gdi.DeleteMetaFile})
+        resultHandle.DefineProp("Free", { Call: (self) => Gdi.DeleteMetaFile(self.Value) })
         return resultHandle
     }
 
@@ -5745,7 +5745,7 @@ class Gdi {
 
         result := DllCall("GDI32.dll\CreateMetaFileW", "ptr", pszFile, "ptr")
         resultHandle := HDC({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: Gdi.DeleteMetaFile})
+        resultHandle.DefineProp("Free", { Call: (self) => Gdi.DeleteMetaFile(self.Value) })
         return resultHandle
     }
 
@@ -10578,7 +10578,7 @@ class Gdi {
 
         result := DllCall("GDI32.dll\CreateEnhMetaFileA", "ptr", hdc, "ptr", lpFilename, "ptr", lprc, "ptr", lpDesc, "ptr")
         resultHandle := HDC({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: Gdi.DeleteEnhMetaFile})
+        resultHandle.DefineProp("Free", { Call: (self) => Gdi.DeleteEnhMetaFile(self.Value) })
         return resultHandle
     }
 
@@ -10601,7 +10601,7 @@ class Gdi {
 
         result := DllCall("GDI32.dll\CreateEnhMetaFileW", "ptr", hdc, "ptr", lpFilename, "ptr", lprc, "ptr", lpDesc, "ptr")
         resultHandle := HDC({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: Gdi.DeleteEnhMetaFile})
+        resultHandle.DefineProp("Free", { Call: (self) => Gdi.DeleteEnhMetaFile(self.Value) })
         return resultHandle
     }
 

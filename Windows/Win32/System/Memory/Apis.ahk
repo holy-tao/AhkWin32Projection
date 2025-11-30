@@ -100,7 +100,7 @@ class Memory {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: Memory.HeapDestroy})
+        resultHandle.DefineProp("Free", { Call: (self) => Memory.HeapDestroy(self.Value) })
         return resultHandle
     }
 

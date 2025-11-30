@@ -29650,7 +29650,7 @@ class ApplicationInstallationAndServicing {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: ApplicationInstallationAndServicing.ReleaseActCtx})
+        resultHandle.DefineProp("Free", { Call: (self) => ApplicationInstallationAndServicing.ReleaseActCtx(self.Value) })
         return resultHandle
     }
 
@@ -29676,7 +29676,7 @@ class ApplicationInstallationAndServicing {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: ApplicationInstallationAndServicing.ReleaseActCtx})
+        resultHandle.DefineProp("Free", { Call: (self) => ApplicationInstallationAndServicing.ReleaseActCtx(self.Value) })
         return resultHandle
     }
 

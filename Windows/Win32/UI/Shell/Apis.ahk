@@ -11640,7 +11640,7 @@ class Shell {
 
         result := DllCall("SHELL32.dll\SHChangeNotification_Lock", "ptr", hChange, "uint", dwProcId, pppidlMarshal, pppidl, plEventMarshal, plEvent, "ptr")
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: Shell.SHChangeNotification_Unlock})
+        resultHandle.DefineProp("Free", { Call: (self) => Shell.SHChangeNotification_Unlock(self.Value) })
         return resultHandle
     }
 
