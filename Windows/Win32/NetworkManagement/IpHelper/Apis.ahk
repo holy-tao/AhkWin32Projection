@@ -2404,7 +2404,7 @@ class IpHelper {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: IpHelper.IcmpCloseHandle})
+        resultHandle.DefineProp("Free", { Call: (self) => IpHelper.IcmpCloseHandle(self.Value) })
         return resultHandle
     }
 
@@ -2425,7 +2425,7 @@ class IpHelper {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: IpHelper.IcmpCloseHandle})
+        resultHandle.DefineProp("Free", { Call: (self) => IpHelper.IcmpCloseHandle(self.Value) })
         return resultHandle
     }
 

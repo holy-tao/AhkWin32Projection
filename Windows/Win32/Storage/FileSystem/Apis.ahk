@@ -2868,7 +2868,7 @@ class FileSystem {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: FileSystem.FindCloseChangeNotification})
+        resultHandle.DefineProp("Free", { Call: (self) => FileSystem.FindCloseChangeNotification(self.Value) })
         return resultHandle
     }
 
@@ -2901,7 +2901,7 @@ class FileSystem {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: FileSystem.FindCloseChangeNotification})
+        resultHandle.DefineProp("Free", { Call: (self) => FileSystem.FindCloseChangeNotification(self.Value) })
         return resultHandle
     }
 
@@ -2954,7 +2954,7 @@ class FileSystem {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        resultHandle.DefineProp("Free", { Call: (self) => FileSystem.FindClose(self.Value) })
         return resultHandle
     }
 
@@ -3007,7 +3007,7 @@ class FileSystem {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        resultHandle.DefineProp("Free", { Call: (self) => FileSystem.FindClose(self.Value) })
         return resultHandle
     }
 
@@ -3116,7 +3116,7 @@ class FileSystem {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        resultHandle.DefineProp("Free", { Call: (self) => FileSystem.FindClose(self.Value) })
         return resultHandle
     }
 
@@ -3225,7 +3225,7 @@ class FileSystem {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        resultHandle.DefineProp("Free", { Call: (self) => FileSystem.FindClose(self.Value) })
         return resultHandle
     }
 
@@ -3256,7 +3256,7 @@ class FileSystem {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: FileSystem.FindVolumeClose})
+        resultHandle.DefineProp("Free", { Call: (self) => FileSystem.FindVolumeClose(self.Value) })
         return resultHandle
     }
 
@@ -7175,7 +7175,7 @@ class FileSystem {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        resultHandle.DefineProp("Free", { Call: (self) => FileSystem.FindClose(self.Value) })
         return resultHandle
     }
 
@@ -7291,7 +7291,7 @@ class FileSystem {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        resultHandle.DefineProp("Free", { Call: (self) => FileSystem.FindClose(self.Value) })
         return resultHandle
     }
 
@@ -22226,7 +22226,7 @@ class FileSystem {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        resultHandle.DefineProp("Free", { Call: (self) => FileSystem.FindClose(self.Value) })
         return resultHandle
     }
 
@@ -22303,7 +22303,7 @@ class FileSystem {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        resultHandle.DefineProp("Free", { Call: (self) => FileSystem.FindClose(self.Value) })
         return resultHandle
     }
 
@@ -24062,7 +24062,7 @@ class FileSystem {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        resultHandle.DefineProp("Free", { Call: (self) => FileSystem.FindClose(self.Value) })
         return resultHandle
     }
 
@@ -24105,7 +24105,7 @@ class FileSystem {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: FileSystem.FindClose})
+        resultHandle.DefineProp("Free", { Call: (self) => FileSystem.FindClose(self.Value) })
         return resultHandle
     }
 
@@ -24401,7 +24401,7 @@ class FileSystem {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: FileSystem.FindVolumeClose})
+        resultHandle.DefineProp("Free", { Call: (self) => FileSystem.FindVolumeClose(self.Value) })
         return resultHandle
     }
 
@@ -24464,7 +24464,7 @@ class FileSystem {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: FileSystem.FindVolumeMountPointClose})
+        resultHandle.DefineProp("Free", { Call: (self) => FileSystem.FindVolumeMountPointClose(self.Value) })
         return resultHandle
     }
 
@@ -24496,7 +24496,7 @@ class FileSystem {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: FileSystem.FindVolumeMountPointClose})
+        resultHandle.DefineProp("Free", { Call: (self) => FileSystem.FindVolumeMountPointClose(self.Value) })
         return resultHandle
     }
 

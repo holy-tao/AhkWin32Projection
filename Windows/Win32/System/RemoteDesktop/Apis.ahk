@@ -2338,7 +2338,7 @@ class RemoteDesktop {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: RemoteDesktop.WTSVirtualChannelClose})
+        resultHandle.DefineProp("Free", { Call: (self) => RemoteDesktop.WTSVirtualChannelClose(self.Value) })
         return resultHandle
     }
 
@@ -2381,7 +2381,7 @@ class RemoteDesktop {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: RemoteDesktop.WTSVirtualChannelClose})
+        resultHandle.DefineProp("Free", { Call: (self) => RemoteDesktop.WTSVirtualChannelClose(self.Value) })
         return resultHandle
     }
 

@@ -1836,7 +1836,7 @@ class EventLog {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: EventLog.CloseEventLog})
+        resultHandle.DefineProp("Free", { Call: (self) => EventLog.CloseEventLog(self.Value) })
         return resultHandle
     }
 
@@ -1866,7 +1866,7 @@ class EventLog {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: EventLog.CloseEventLog})
+        resultHandle.DefineProp("Free", { Call: (self) => EventLog.CloseEventLog(self.Value) })
         return resultHandle
     }
 
@@ -1900,7 +1900,7 @@ class EventLog {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: EventLog.DeregisterEventSource})
+        resultHandle.DefineProp("Free", { Call: (self) => EventLog.DeregisterEventSource(self.Value) })
         return resultHandle
     }
 
@@ -1934,7 +1934,7 @@ class EventLog {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: EventLog.DeregisterEventSource})
+        resultHandle.DefineProp("Free", { Call: (self) => EventLog.DeregisterEventSource(self.Value) })
         return resultHandle
     }
 
@@ -1962,7 +1962,7 @@ class EventLog {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: EventLog.CloseEventLog})
+        resultHandle.DefineProp("Free", { Call: (self) => EventLog.CloseEventLog(self.Value) })
         return resultHandle
     }
 
@@ -1990,7 +1990,7 @@ class EventLog {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: EventLog.CloseEventLog})
+        resultHandle.DefineProp("Free", { Call: (self) => EventLog.CloseEventLog(self.Value) })
         return resultHandle
     }
 

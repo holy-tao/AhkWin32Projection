@@ -1801,7 +1801,7 @@ class LibraryLoader {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: LibraryLoader.EndUpdateResourceA})
+        resultHandle.DefineProp("Free", { Call: (self) => LibraryLoader.EndUpdateResourceA(self.Value) })
         return resultHandle
     }
 
@@ -1830,7 +1830,7 @@ class LibraryLoader {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", {Call: LibraryLoader.EndUpdateResourceW})
+        resultHandle.DefineProp("Free", { Call: (self) => LibraryLoader.EndUpdateResourceW(self.Value) })
         return resultHandle
     }
 
