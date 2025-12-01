@@ -3,7 +3,7 @@
 
 /**
  * Contains a bitmask of the driver letters that are available on a node. It is used as the return value of the CLUSCTL_RESOURCE_TYPE_STORAGE_GET_DRIVELETTERS control code.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clus_storage_get_available_driveletters
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_storage_get_available_driveletters
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

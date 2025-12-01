@@ -4,13 +4,10 @@
 /**
  * Contains file remote protocol information.
  * @remarks
- * 
  * The <b>FILE_REMOTE_PROTOCOL_INFO</b> 
  *     structure is valid only for use with the 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getfileinformationbyhandleex">GetFileInformationByHandleEx</a> function.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-file_remote_protocol_info
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_remote_protocol_info
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

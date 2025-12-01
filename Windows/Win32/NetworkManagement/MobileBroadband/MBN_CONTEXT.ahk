@@ -4,7 +4,7 @@
 
 /**
  * The MBN_CONTEXT structure stores information about the connection context.
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ns-mbnapi-mbn_context
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ns-mbnapi-mbn_context
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

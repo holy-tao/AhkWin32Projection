@@ -3,7 +3,7 @@
 
 /**
  * Identifies the conflict resolution code returned by the IOfflineFilesSyncConflictHandler::ResolveConflict method.
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/ne-cscobj-offlinefiles_sync_conflict_resolve
+ * @see https://learn.microsoft.com/windows/win32/api/cscobj/ne-cscobj-offlinefiles_sync_conflict_resolve
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */

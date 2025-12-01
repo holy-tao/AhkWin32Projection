@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of decay applied over distance from the position of an ISpatialAudioObjectForHrtf to the position of the listener.
- * @see https://docs.microsoft.com/windows/win32/api//spatialaudiohrtf/ne-spatialaudiohrtf-spatialaudiohrtfdistancedecaytype
+ * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/ne-spatialaudiohrtf-spatialaudiohrtfdistancedecaytype
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

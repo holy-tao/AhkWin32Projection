@@ -3,7 +3,7 @@
 
 /**
  * The values for the XML canonicalization algorithms.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_xml_canonicalization_algorithm
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_canonicalization_algorithm
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -12,14 +12,14 @@ class WS_XML_CANONICALIZATION_ALGORITHM extends Win32Enum{
     /**
      * The exclusive XML canonicalization algorithm
      *           represented by the URI 'http://www.w3.org/2001/10/xml-exc-c14n#' and
-     *           defined in <a href="http://tools.ietf.org/html/rfc3741">RFC 3741</a>.
+     *           defined in <a href="https://datatracker.ietf.org/doc/html/rfc3741">RFC 3741</a>.
      * @type {Integer (Int32)}
      */
     static WS_EXCLUSIVE_XML_CANONICALIZATION_ALGORITHM => 0
 
     /**
      * The exclusive XML canonicalization with comments algorithm
-     *           defined in <a href="http://tools.ietf.org/html/rfc3741">RFC 3741</a>.
+     *           defined in <a href="https://datatracker.ietf.org/doc/html/rfc3741">RFC 3741</a>.
      * @type {Integer (Int32)}
      */
     static WS_EXCLUSIVE_WITH_COMMENTS_XML_CANONICALIZATION_ALGORITHM => 1

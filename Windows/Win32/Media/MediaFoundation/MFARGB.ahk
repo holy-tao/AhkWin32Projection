@@ -3,7 +3,7 @@
 
 /**
  * Describes an ARGB color value.
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ns-mfobjects-mfargb
+ * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfargb
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies which part of a selection, if any, was hit during a hit test.
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-selectionhitresult
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-selectionhitresult
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * ISCSI_DIGEST_TYPES enumeration indicates the digest type.
- * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/ne-iscsidsc-iscsi_digest_types
+ * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/ne-iscsidsc-iscsi_digest_types
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @version v4.0.30319
  */

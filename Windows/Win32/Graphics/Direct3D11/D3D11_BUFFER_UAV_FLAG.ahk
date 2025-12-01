@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Identifies unordered-access view options for a buffer resource.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_buffer_uav_flag
+ * Identifies unordered-access view options for a buffer resource. (D3D11_BUFFER_UAV_FLAG)
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_buffer_uav_flag
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -26,7 +26,7 @@ class D3D11_BUFFER_UAV_FLAG extends Win32Enum{
 
     /**
      * Adds a counter to the unordered-access-view buffer.  <b>D3D11_BUFFER_UAV_FLAG_COUNTER</b> can only be used on a UAV that is a 
-     *         <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/sm5-object-rwstructuredbuffer">RWStructuredBuffer</a> and it enables the functionality needed for the <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/sm5-object-rwstructuredbuffer-incrementcounter">IncrementCounter</a>and <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/sm5-object-rwstructuredbuffer-decrementcounter">DecrementCounter</a> methods in HLSL.  Requires the UAV format to be DXGI_FORMAT_UNKNOWN.
+     *         <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/sm5-object-rwstructuredbuffer">RWStructuredBuffer</a> and it enables the functionality needed for the <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/sm5-object-rwstructuredbuffer-incrementcounter">IncrementCounter</a> and <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/sm5-object-rwstructuredbuffer-decrementcounter">DecrementCounter</a> methods in HLSL. Requires the UAV format to be DXGI_FORMAT_UNKNOWN.
      * @type {Integer (Int32)}
      */
     static D3D11_BUFFER_UAV_FLAG_COUNTER => 4

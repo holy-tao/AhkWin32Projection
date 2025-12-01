@@ -3,7 +3,7 @@
 
 /**
  * The QOS_PACKET_PRIORITY structure that indicates the priority of the flow traffic.
- * @see https://docs.microsoft.com/windows/win32/api//qos2/ns-qos2-qos_packet_priority
+ * @see https://learn.microsoft.com/windows/win32/api/qos2/ns-qos2-qos_packet_priority
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

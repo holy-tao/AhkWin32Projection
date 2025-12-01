@@ -3,7 +3,7 @@
 
 /**
  * Defines gestures recognized by Direct Manipulation.
- * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/ne-directmanipulation-directmanipulation_interaction_type
+ * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/ne-directmanipulation-directmanipulation_interaction_type
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */

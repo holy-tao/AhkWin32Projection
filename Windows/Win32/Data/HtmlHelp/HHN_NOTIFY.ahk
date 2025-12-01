@@ -5,7 +5,7 @@
 
 /**
  * Use this structure to return the file name of the topic that has been navigated to, or to return the window type name of the help window that has been created.
- * @see https://docs.microsoft.com/windows/win32/api//htmlhelp/ns-htmlhelp-hhn_notify
+ * @see https://learn.microsoft.com/windows/win32/api/htmlhelp/ns-htmlhelp-hhn_notify
  * @namespace Windows.Win32.Data.HtmlHelp
  * @version v4.0.30319
  */

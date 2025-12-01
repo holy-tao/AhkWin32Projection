@@ -3,7 +3,7 @@
 
 /**
  * Elements of the TfIntegratableCandidateListSelectionStyle enumeration specify the integratable candidate list selection styles.
- * @see https://docs.microsoft.com/windows/win32/api//ctffunc/ne-ctffunc-tfintegratablecandidatelistselectionstyle
+ * @see https://learn.microsoft.com/windows/win32/api/ctffunc/ne-ctffunc-tfintegratablecandidatelistselectionstyle
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

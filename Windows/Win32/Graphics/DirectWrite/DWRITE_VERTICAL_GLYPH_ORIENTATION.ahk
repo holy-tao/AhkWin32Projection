@@ -4,14 +4,11 @@
 /**
  * The DWRITE_VERTICAL_GLYPH_ORIENTATION enumeration contains values that specify the desired kind of glyph orientation for the text.
  * @remarks
- * 
  * The client specifies a <b>DWRITE_VERTICAL_GLYPH_ORIENTATION</b>-typed value to the analyzer as the desired orientation.
  * 
  * <div class="alert"><b>Note</b>  This is the client preference, and the constraints of the script determine the final presentation.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/ne-dwrite_1-dwrite_vertical_glyph_orientation
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_vertical_glyph_orientation
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

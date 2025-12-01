@@ -5,8 +5,7 @@
  * Defines constants that specify the mechanism by which a font came to be included in a font set.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/ne-dwrite_3-dwrite_font_source_type
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_font_source_type
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

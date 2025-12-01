@@ -3,7 +3,7 @@
 
 /**
  * Defines a list of all desynchronized client lease IP address on a DHCPv4 server that must be fixed.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_scan_list
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_scan_list
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */
@@ -14,7 +14,7 @@ class DHCP_SCAN_LIST extends Win32Struct
     static packingSize => 8
 
     /**
-     * Specifies the number of <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_scan_item">DHCP_SCAN_ITEM</a>structures listed in <i>ScanItems</i>.
+     * Specifies the number of <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_scan_item">DHCP_SCAN_ITEM</a> structures listed in <i>ScanItems</i>.
      * @type {Integer}
      */
     NumScanItems {
@@ -23,7 +23,7 @@ class DHCP_SCAN_LIST extends Win32Struct
     }
 
     /**
-     * Pointer to a list of <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_scan_item">DHCP_SCAN_ITEM</a>structures that contain the specific client IP addresses whose leases differed between the in-memory cache of client leases and the subnet client lease database during a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcpscandatabase">DhcpScanDatabase</a>operation.
+     * Pointer to a list of <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_scan_item">DHCP_SCAN_ITEM</a> structures that contain the specific client IP addresses whose leases differed between the in-memory cache of client leases and the subnet client lease database during a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcpscandatabase">DhcpScanDatabase</a> operation.
      * @type {Pointer<DHCP_SCAN_ITEM>}
      */
     ScanItems {

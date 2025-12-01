@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of event being reported to Sync Center.
- * @see https://docs.microsoft.com/windows/win32/api//syncmgr/ne-syncmgr-syncmgr_event_level
+ * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ne-syncmgr-syncmgr_event_level
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

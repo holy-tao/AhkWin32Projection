@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of output stream produced by a multiplexer. This enumeration is used with the AVEncMuxOutputStreamType property.
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencmuxoutput
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencmuxoutput
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

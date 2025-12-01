@@ -3,7 +3,7 @@
 
 /**
  * The TAPI_TONEMODE enum is used to describe the different selections that are used when generating line tones.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-tapi_tonemode
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-tapi_tonemode
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

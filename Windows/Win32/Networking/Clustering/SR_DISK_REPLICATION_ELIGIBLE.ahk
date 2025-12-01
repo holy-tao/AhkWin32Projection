@@ -3,7 +3,7 @@
 
 /**
  * Specifies the various reasons a disk on a cluster node can be eligible or ineligible for replication.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ne-clusapi-sr_disk_replication_eligible
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ne-clusapi-sr_disk_replication_eligible
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

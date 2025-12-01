@@ -3,7 +3,7 @@
 
 /**
  * Used by IQueryAssociations::GetData to define the type of data that is to be returned.
- * @see https://docs.microsoft.com/windows/win32/api//shlwapi/ne-shlwapi-assocdata
+ * @see https://learn.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-assocdata
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The SERVER_INFO_503 structure is obsolete. The structure contains information about the specified server.
- * @see https://docs.microsoft.com/windows/win32/api//lmserver/ns-lmserver-server_info_503
+ * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_503
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

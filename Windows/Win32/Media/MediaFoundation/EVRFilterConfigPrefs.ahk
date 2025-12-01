@@ -3,7 +3,7 @@
 
 /**
  * Contains flags that are used to configure the Microsoft DirectShow enhanced video renderer (EVR) filter.
- * @see https://docs.microsoft.com/windows/win32/api//evr/ne-evr-evrfilterconfigprefs
+ * @see https://learn.microsoft.com/windows/win32/api/evr/ne-evr-evrfilterconfigprefs
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

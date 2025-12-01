@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a low-level keyboard input event.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-kbdllhookstruct
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-kbdllhookstruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

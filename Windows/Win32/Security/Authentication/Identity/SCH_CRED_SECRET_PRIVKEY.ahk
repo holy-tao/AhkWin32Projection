@@ -3,7 +3,7 @@
 
 /**
  * Contains private key information needed to authenticate a client or server.
- * @see https://docs.microsoft.com/windows/win32/api//schannel/ns-schannel-sch_cred_secret_privkey
+ * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-sch_cred_secret_privkey
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

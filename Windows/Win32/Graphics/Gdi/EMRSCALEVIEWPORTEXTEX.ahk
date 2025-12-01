@@ -4,7 +4,7 @@
 
 /**
  * The EMRSCALEVIEWPORTEXTEX and EMRSCALEWINDOWEXTEX structures contain members for the ScaleViewportExtEx and ScaleWindowExtEx enhanced metafile records.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrscaleviewportextex
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrscaleviewportextex
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

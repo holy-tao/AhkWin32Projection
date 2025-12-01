@@ -4,14 +4,11 @@
 /**
  * Describes a command queue.
  * @remarks
- * 
  * This structure is passed into <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandqueue">CreateCommandQueue</a>.
  *         
  * 
  * This structure is returned by <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-getdesc">ID3D12CommandQueue::GetDesc</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_command_queue_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_command_queue_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -32,7 +29,7 @@ class D3D12_COMMAND_QUEUE_DESC extends Win32Struct
 
     /**
      * The priority for the command queue, as a 
-     *             <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_command_queue_priority">D3D12_COMMAND_QUEUE_PRIORITY</a>enumeration constant to select normal or high priority.
+     *             <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_command_queue_priority">D3D12_COMMAND_QUEUE_PRIORITY</a> enumeration constant to select normal or high priority.
      * @type {Integer}
      */
     Priority {

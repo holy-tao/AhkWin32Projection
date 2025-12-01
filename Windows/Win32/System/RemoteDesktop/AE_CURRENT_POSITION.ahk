@@ -4,11 +4,8 @@
 /**
  * Reports the current frame position from the device to the clients.
  * @remarks
- * 
  * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client applications.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/ns-audioengineendpoint-ae_current_position
+ * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/ns-audioengineendpoint-ae_current_position
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

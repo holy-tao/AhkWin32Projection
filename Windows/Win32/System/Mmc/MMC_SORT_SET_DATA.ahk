@@ -4,7 +4,6 @@
 /**
  * Used with setting and retrieving list view column sets whose sort data is stored persistently.
  * @remarks
- * 
  * MMC 1.2 only supports single-column sorting, so the nNumItems member of the 
  * MMC_SORT_SET_DATA structure cannot be greater than 1. Otherwise, 
  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icolumndata-setcolumnsortdata">IColumnData::SetColumnSortData</a> will return S_FALSE.
@@ -13,9 +12,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icolumndata-setcolumnconfigdata">IColumnData::SetColumnConfigData</a> method.
  * 
  * The user can hide columns using the Choose Columns dialog.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mmc/ns-mmc-mmc_sort_set_data
+ * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_sort_set_data
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

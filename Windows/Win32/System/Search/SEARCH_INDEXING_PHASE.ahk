@@ -3,7 +3,7 @@
 
 /**
  * Specifies the status of the current search indexing phase.
- * @see https://docs.microsoft.com/windows/win32/api//searchapi/ne-searchapi-search_indexing_phase
+ * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-search_indexing_phase
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

@@ -5,11 +5,8 @@
 /**
  * The EMRSETCOLORSPACE, EMRSELECTCOLORSPACE, and EMRDELETECOLORSPACE structures contain members for the SetColorSpace and DeleteColorSpace enhanced metafile records.
  * @remarks
- * 
  * There is no function that generates an enhanced metafile record with the <b>EMRSELECTCOLORSPACE</b> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrsetcolorspace
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrsetcolorspace
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

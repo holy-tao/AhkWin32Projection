@@ -3,7 +3,7 @@
 
 /**
  * Determines the authentication method for the operation.
- * @see https://docs.microsoft.com/windows/win32/api//wsman/ne-wsman-wsmanauthenticationflags
+ * @see https://learn.microsoft.com/windows/win32/api/wsman/ne-wsman-wsmanauthenticationflags
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */

@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * Defines an 802.11 PHY and media type.
+ * @remarks
+ * An IHV can assign a value for its proprietary PHY types from **dot11\_phy\_type\_IHV\_start** through **dot11\_phy\_type\_IHV\_end**. The IHV must assign a unique number from this range for each of its proprietary PHY types.
  * @see https://learn.microsoft.com/windows/win32/NativeWiFi/dot11-phy-type
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319

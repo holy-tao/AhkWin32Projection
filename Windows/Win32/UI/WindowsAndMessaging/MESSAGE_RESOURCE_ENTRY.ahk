@@ -3,7 +3,7 @@
 
 /**
  * Contains the error message or message box display text for a message table resource.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-message_resource_entry
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-message_resource_entry
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

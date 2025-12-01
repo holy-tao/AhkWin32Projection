@@ -4,11 +4,8 @@
 /**
  * Contains a set of EAP_CONFIG_INPUT_FIELD_DATA structures that collectively contain the user input field data obtained from the user.
  * @remarks
- * 
  * The <b>EAP_CONFIG_INPUT_FIELD_ARRAY</b> structure can be employed to support Single-Sign-On (SSO).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//eaptypes/ns-eaptypes-eap_config_input_field_array
+ * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_config_input_field_array
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

@@ -4,8 +4,7 @@
 /**
  * Specifies color space types.
  * @remarks
- * 
- * This enum is used within DXGI in  the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiswapchain3-checkcolorspacesupport">CheckColorSpaceSupport</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiswapchain3-setcolorspace1">SetColorSpace1</a> and <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgioutput4-checkoverlaycolorspacesupport">CheckOverlayColorSpaceSupport</a> methods. It is also referenced in D3D11 video methods such as <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorsetoutputcolorspace1">ID3D11VideoContext1::VideoProcessorSetOutputColorSpace1</a>, and D2D methods such as <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-createimagesourcefromdxgi">ID2D1DeviceContext2::CreateImageSourceFromDxgi</a>.
+ * This enum is used within DXGI in  the <a href="https://docs.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiswapchain3-checkcolorspacesupport">CheckColorSpaceSupport</a>, <a href="https://docs.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiswapchain3-setcolorspace1">SetColorSpace1</a> and <a href="https://docs.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgioutput4-checkoverlaycolorspacesupport">CheckOverlayColorSpaceSupport</a> methods. It is also referenced in D3D11 video methods such as <a href="https://docs.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorsetoutputcolorspace1">ID3D11VideoContext1::VideoProcessorSetOutputColorSpace1</a>, and D2D methods such as <a href="https://docs.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-createimagesourcefromdxgi">ID2D1DeviceContext2::CreateImageSourceFromDxgi</a>.
  * 
  * The following color parameters are defined:
  * 
@@ -82,7 +81,7 @@
  * <tr>
  * <td>2.2</td>
  * <td>_G22_</td>
- * <td>Commonly used for sRGB and BT.709 (linear segment + 2.222).</td>
+ * <td>Commonly used for sRGB and BT.709 (linear segment + 2.4).</td>
  * </tr>
  * <tr>
  * <td>2084</td>
@@ -124,7 +123,7 @@
  * </table>
  *  
  * 
- * For more information on siting, refer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfvideochromasubsampling">MFVideoChromaSubsampling</a> enum.
+ * For more information on siting, refer to the <a href="https://docs.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mfvideochromasubsampling">MFVideoChromaSubsampling</a> enum.
  * 
  * <h3><a id="Primaries"></a><a id="primaries"></a><a id="PRIMARIES"></a>Primaries</h3>
  * 
@@ -182,9 +181,7 @@
  *  
  * 
  * Subsampling and the layout of the color channels are inferred from the surface format.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgicommon/ne-dxgicommon-dxgi_color_space_type
+ * @see https://learn.microsoft.com/windows/win32/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type
  * @namespace Windows.Win32.Graphics.Dxgi.Common
  * @version v4.0.30319
  */
@@ -197,23 +194,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>RGB</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>0-255</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>2.2</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Image</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.709</td>
      * </tr>
      * </table>
@@ -221,9 +218,10 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * 
      * This is the standard definition for sRGB. 
      * 
-     * 	  Note that this is often implemented with a linear segment, but in that case the exponent is corrected to stay aligned with a gamma 2.2 curve. 
+     * > [!NOTE]
+     * > This is intended to be implemented with sRGB gamma (linear segment + 2.4 power), which is approximately aligned with a gamma 2.2 curve. 
      * 
-     * 	  This is usually used with 8 or 10 bit color channels.
+     * This is usually used with 8 or 10 bit color channels.
      * @type {Integer (Int32)}
      */
     static DXGI_COLOR_SPACE_RGB_FULL_G22_NONE_P709 => 0
@@ -235,23 +233,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>RGB</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>0-255</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>1.0</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Image</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.709</td>
      * </tr>
      * </table>
@@ -269,23 +267,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>RGB</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>16-235</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>2.2</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Image</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.709</td>
      * </tr>
      * </table>
@@ -305,23 +303,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>RGB</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>16-235</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>2.2</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Image</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.2020</td>
      * </tr>
      * </table>
@@ -345,27 +343,27 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>YCbCr</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>0-255</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>2.2</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Image</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.709</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Transfer Matrix</a></td>
+     * <td>Transfer Matrix</td>
      * <td>BT.601</td>
      * </tr>
      * </table>
@@ -383,23 +381,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>YCbCr</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>16-235</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>2.2</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Video</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.601</td>
      * </tr>
      * </table>
@@ -417,23 +415,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>YCbCr</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>0-255</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>2.2</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Video</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.601</td>
      * </tr>
      * </table>
@@ -451,23 +449,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>YCbCr</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>16-235</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>2.2</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Video</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.709</td>
      * </tr>
      * </table>
@@ -485,23 +483,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>YCbCr</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>0-255</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>2.2</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Video</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.709</td>
      * </tr>
      * </table>
@@ -519,23 +517,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>YCbCr</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>16-235</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>2.2</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Video</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.2020</td>
      * </tr>
      * </table>
@@ -553,23 +551,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>YCbCr</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>0-255</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>2.2</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Video</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.2020</td>
      * </tr>
      * </table>
@@ -587,23 +585,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>RGB</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>0-255</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>2084</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Image</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.2020</td>
      * </tr>
      * </table>
@@ -621,23 +619,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>YCbCr</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>16-235</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>2084</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Video</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.2020</td>
      * </tr>
      * </table>
@@ -655,23 +653,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>RGB</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>16-235</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>2084</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Image</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.2020</td>
      * </tr>
      * </table>
@@ -689,23 +687,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>YCbCr</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>16-235</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>2.2</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Video</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.2020</td>
      * </tr>
      * </table>
@@ -723,23 +721,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>YCbCr</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>16-235</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>2084</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Video</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.2020</td>
      * </tr>
      * </table>
@@ -757,23 +755,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>RGB</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>0-255</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>2.2</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Image</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.2020</td>
      * </tr>
      * </table>
@@ -791,23 +789,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>YCBCR</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>16-235</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>HLG</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Video</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.2020</td>
      * </tr>
      * </table>
@@ -825,23 +823,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>YCBCR</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>0-255</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>HLG</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Video</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.2020</td>
      * </tr>
      * </table>
@@ -859,23 +857,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>RGB</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>16-235</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>2.4</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Image</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.709</td>
      * </tr>
      * </table>
@@ -893,23 +891,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>RGB</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>16-235</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>2.4</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Image</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.2020</td>
      * </tr>
      * </table>
@@ -927,23 +925,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>YCBCR</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>16-235</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>2.4</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Video</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.709</td>
      * </tr>
      * </table>
@@ -961,23 +959,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>YCBCR</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>16-235</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>2.4</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Video</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.2020</td>
      * </tr>
      * </table>
@@ -995,23 +993,23 @@ class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
      * <td><b>Value</b></td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Colorspace</a></td>
+     * <td>Colorspace</td>
      * <td>YCBCR</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Range</a></td>
+     * <td>Range</td>
      * <td>16-235</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Gamma</a></td>
+     * <td>Gamma</td>
      * <td>2.4</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Siting</a></td>
+     * <td>Siting</td>
      * <td>Video</td>
      * </tr>
      * <tr>
-     * <td><a href="https://docs.microsoft.com/">Primaries</a></td>
+     * <td>Primaries</td>
      * <td>BT.2020</td>
      * </tr>
      * </table>

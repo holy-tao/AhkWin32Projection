@@ -3,7 +3,7 @@
 
 /**
  * The LINEPROXYREQUESTLIST structure describes a list of proxy requests. The lineGetProxyStatus function returns the LINEPROXYREQUESTLIST structure.
- * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-lineproxyrequestlist
+ * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineproxyrequestlist
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

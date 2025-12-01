@@ -2,18 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Flags used by the [DwmGetWindowAttribute](/windows/desktop/api/dwmapi/nf-dwmapi-dwmgetwindowattribute) and [DwmSetWindowAttribute](/windows/desktop/api/dwmapi/nf-dwmapi-dwmsetwindowattribute) functions to specify window attributes for Desktop Window Manager (DWM) non-client rendering.
- * @remarks
- * 
- * > [!IMPORTANT]
- * > The value described below is available in pre-release versions of the [SDK Insider Preview](https://www.microsoft.com/software-download/windowsinsiderpreviewSDK).
- * 
- * `DWMWA_USE_HOSTBACKDROPBRUSH`
- * 
- * Use with [DwmSetWindowAttribute](/windows/win32/api/dwmapi/nf-dwmapi-dwmsetwindowattribute). Enables a non-UWP window to use host backdrop brushes. If this flag is set, then a Win32 app that calls [Windows::UI::Composition](/uwp/api/windows.ui.composition) APIs can build transparency effects using the host backdrop brush (see [Compositor.CreateHostBackdropBrush](/uwp/api/windows.ui.composition.compositor.createhostbackdropbrush)). The retrieved value is of type **BOOL**. **TRUE** to enable host backdrop brushes for the window; otherwise, **FALSE**.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwmapi/ne-dwmapi-dwmwindowattribute
+ * Flags used by the [DwmGetWindowAttribute](/windows/desktop/api/dwmapi/nf-dwmapi-dwmgetwindowattribute) and [DwmSetWindowAttribute](/windows/desktop/api/dwmapi/nf-dwmapi-dwmsetwindowattribute) functions.
+ * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ne-dwmapi-dwmwindowattribute
  * @namespace Windows.Win32.Graphics.Dwm
  * @version v4.0.30319
  */
@@ -127,41 +117,65 @@ class DWMWINDOWATTRIBUTE extends Win32Enum{
     static DWMWA_PASSIVE_UPDATE_MODE => 16
 
     /**
+     * Use with [DwmSetWindowAttribute](/windows/win32/api/dwmapi/nf-dwmapi-dwmsetwindowattribute). Enables a non-UWP window to use host backdrop brushes. If this flag is set, then a Win32 app that calls [Windows::UI::Composition](/uwp/api/windows.ui.composition) APIs can build transparency effects using the host backdrop brush (see [Compositor.CreateHostBackdropBrush](/uwp/api/windows.ui.composition.compositor.createhostbackdropbrush)). The <i>pvAttribute</i> parameter points to a value of type <b>BOOL</b>. <b>TRUE</b> to enable host backdrop brushes for the window, or <b>FALSE</b> to disable it.
+     * 
+     * This value is supported starting with Windows 11 Build 22000.
      * @type {Integer (Int32)}
      */
     static DWMWA_USE_HOSTBACKDROPBRUSH => 17
 
     /**
+     * Use with [DwmSetWindowAttribute](/windows/win32/api/dwmapi/nf-dwmapi-dwmsetwindowattribute). Allows the window frame for this window to be drawn in dark mode colors when the dark mode system setting is enabled. For compatibility reasons, all windows default to light mode regardless of the system setting. The <i>pvAttribute</i> parameter points to a value of type **BOOL**. <b>TRUE</b> to honor dark mode for the window, <b>FALSE</b> to always use light mode.
+     * 
+     * This value is supported starting with Windows 11 Build 22000.
      * @type {Integer (Int32)}
      */
     static DWMWA_USE_IMMERSIVE_DARK_MODE => 20
 
     /**
+     * Use with [DwmSetWindowAttribute](/windows/win32/api/dwmapi/nf-dwmapi-dwmsetwindowattribute). Specifies the rounded corner preference for a window. The <i>pvAttribute</i> parameter points to a value of type [DWM_WINDOW_CORNER_PREFERENCE](ne-dwmapi-dwm_window_corner_preference.md).
+     * 
+     * This value is supported starting with Windows 11 Build 22000.
      * @type {Integer (Int32)}
      */
     static DWMWA_WINDOW_CORNER_PREFERENCE => 33
 
     /**
+     * Use with [DwmSetWindowAttribute](/windows/win32/api/dwmapi/nf-dwmapi-dwmsetwindowattribute). Specifies the color of the window border. The <i>pvAttribute</i> parameter points to a value of type [COLORREF](/windows/win32/gdi/colorref). The app is responsible for changing the border color according to state changes, such as a change in window activation. 
+     * 
+     * This value is supported starting with Windows 11 Build 22000.
      * @type {Integer (Int32)}
      */
     static DWMWA_BORDER_COLOR => 34
 
     /**
+     * Use with [DwmSetWindowAttribute](/windows/win32/api/dwmapi/nf-dwmapi-dwmsetwindowattribute). Specifies the color of the caption. The <i>pvAttribute</i> parameter points to a value of type [COLORREF](/windows/win32/gdi/colorref). 
+     * 
+     * This value is supported starting with Windows 11 Build 22000.
      * @type {Integer (Int32)}
      */
     static DWMWA_CAPTION_COLOR => 35
 
     /**
+     * Use with [DwmSetWindowAttribute](/windows/win32/api/dwmapi/nf-dwmapi-dwmsetwindowattribute). Specifies the color of the caption text. The <i>pvAttribute</i> parameter points to a value of type [COLORREF](/windows/win32/gdi/colorref). 
+     * 
+     * This value is supported starting with Windows 11 Build 22000.
      * @type {Integer (Int32)}
      */
     static DWMWA_TEXT_COLOR => 36
 
     /**
+     * Use with [DwmGetWindowAttribute](/windows/win32/api/dwmapi/nf-dwmapi-dwmgetwindowattribute). Retrieves the width of the outer border that the DWM would draw around this window. The value can vary depending on the DPI of the window. The <i>pvAttribute</i> parameter points to a value of type **UINT**. 
+     * 
+     * This value is supported starting with Windows 11 Build 22000.
      * @type {Integer (Int32)}
      */
     static DWMWA_VISIBLE_FRAME_BORDER_THICKNESS => 37
 
     /**
+     * Use with [DwmGetWindowAttribute](/windows/win32/api/dwmapi/nf-dwmapi-dwmgetwindowattribute) or [DwmSetWindowAttribute](/windows/win32/api/dwmapi/nf-dwmapi-dwmsetwindowattribute). Retrieves or specifies the system-drawn backdrop material of a window, including behind the non-client area. The *pvAttribute* parameter points to a value of type [DWM_SYSTEMBACKDROP_TYPE](ne-dwmapi-dwm_systembackdrop_type.md). 
+     * 
+     * This value is supported starting with Windows 11 Build 22621.
      * @type {Integer (Int32)}
      */
     static DWMWA_SYSTEMBACKDROP_TYPE => 38

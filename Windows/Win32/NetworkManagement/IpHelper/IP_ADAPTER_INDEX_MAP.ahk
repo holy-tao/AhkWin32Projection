@@ -4,7 +4,6 @@
 /**
  * The IP_ADAPTER_INDEX_MAP structure stores the interface index associated with a network adapter with IPv4 enabled together with the name of the network adapter.
  * @remarks
- * 
  * The 
  * <b>IP_ADAPTER_INDEX_MAP</b> structure is specific to network adapters with IPv4 enabled. 
  * 
@@ -13,9 +12,7 @@
  * On Windows Vista and later, the <b>Name</b> member of the <b>IP_ADAPTER_INDEX_MAP</b> structure may be a Unicode string of the GUID for the network interface (the string begins with the '{' character). 
  * 
  * This structure is defined in the <i>Ipexport.h</i> header file which is automatically included in the <i>Iphlpapi.h</i> header file. The <i>Ipexport.h</i> header file should never be used directly.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ipexport/ns-ipexport-ip_adapter_index_map
+ * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-ip_adapter_index_map
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

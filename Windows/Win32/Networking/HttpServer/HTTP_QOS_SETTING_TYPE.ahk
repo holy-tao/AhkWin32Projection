@@ -3,7 +3,7 @@
 
 /**
  * Identifies the type of a QOS setting contained in a HTTP_QOS_SETTING_INFO structure.
- * @see https://docs.microsoft.com/windows/win32/api//http/ne-http-http_qos_setting_type
+ * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_qos_setting_type
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

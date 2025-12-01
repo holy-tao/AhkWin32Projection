@@ -2,17 +2,14 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Defines the set of valid flags for a subsystem object.
+ * The VDS_SUB_SYSTEM_FLAG enumeration (vdshwprv.h) defines the set of valid flags for a subsystem object.
  * @remarks
- * 
  * This enumeration provides the values for the  <b>ulFlags</b> member of the 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_sub_system_prop">VDS_SUB_SYSTEM_PROP</a> and <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_sub_system_prop2">VDS_SUB_SYSTEM_PROP2</a> structures.
  * 
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_SUB_SYSTEM_FLAG</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_SUB_SYSTEM_FLAG</b> enumeration constant.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_sub_system_flag
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_sub_system_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

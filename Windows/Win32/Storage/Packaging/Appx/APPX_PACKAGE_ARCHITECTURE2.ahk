@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
- * Specifies the processor architectures supported by a package.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/ne-appxpackaging-appx_package_architecture2
+ * Specifies the processor architectures supported by a package. (APPX_PACKAGE_ARCHITECTURE2)
+ * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ne-appxpackaging-appx_package_architecture2
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

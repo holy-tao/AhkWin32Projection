@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Defines the set enumeration values that can be used to specify the underlying RAID type of a storage pool.
+ * The VDS_RAID_TYPE enumeration (vdshwprv.h) defines the set enumeration values that can be used to specify the underlying RAID type of a storage pool.
  * @remarks
- * 
  * A subsystem uses a  <b>VDS_RAID_TYPE</b> enumeration value to specify the underlying RAID type of a storage pool. 
  * 
  * A storage pool does not necessarily have a single underlying RAID type. For example, 
@@ -13,9 +12,7 @@
  * 
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_RAID_TYPE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_RAID_TYPE</b> enumeration constant.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_raid_type
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_raid_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

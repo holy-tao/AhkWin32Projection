@@ -5,7 +5,7 @@
  * Defines event IDs used in an EVENT_FILTER_DESCRIPTOR structure for an event name or stalk walk name filter.
  * @remarks
  * 
- * @see https://docs.microsoft.com/windows/win32/api//evntprov/ns-evntprov-event_filter_event_name
+ * @see https://learn.microsoft.com/windows/win32/api/evntprov/ns-evntprov-event_filter_event_name
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

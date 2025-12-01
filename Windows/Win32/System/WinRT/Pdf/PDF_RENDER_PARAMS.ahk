@@ -4,7 +4,9 @@
 #Include ..\..\..\Graphics\Direct2D\Common\D2D_COLOR_F.ahk
 
 /**
- * 
+ * Represents a set of properties for outputting a single page of a Portable Document Format (PDF) file.
+ * @remarks
+ * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/windows.data.pdf.interop/nf-windows-data-pdf-interop-ipdfrenderernative-renderpagetodevicecontext">RenderPageToDeviceContext</a> and <a href="https://docs.microsoft.com/windows/desktop/api/windows.data.pdf.interop/nf-windows-data-pdf-interop-ipdfrenderernative-renderpagetosurface">RenderPageToSurface</a> methods.
  * @see https://learn.microsoft.com/windows/win32/api/windows.data.pdf.interop/ns-windows-data-pdf-interop-pdf_render_params
  * @namespace Windows.Win32.System.WinRT.Pdf
  * @version v4.0.30319
@@ -16,6 +18,7 @@ class PDF_RENDER_PARAMS extends Win32Struct
     static packingSize => 8
 
     /**
+     * 
      * @type {D2D_RECT_F}
      */
     SourceRect{
@@ -27,6 +30,7 @@ class PDF_RENDER_PARAMS extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     DestinationWidth {
@@ -35,6 +39,7 @@ class PDF_RENDER_PARAMS extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     DestinationHeight {
@@ -43,6 +48,7 @@ class PDF_RENDER_PARAMS extends Win32Struct
     }
 
     /**
+     * 
      * @type {D2D_COLOR_F}
      */
     BackgroundColor{
@@ -54,6 +60,7 @@ class PDF_RENDER_PARAMS extends Win32Struct
     }
 
     /**
+     * 
      * @type {BOOLEAN}
      */
     IgnoreHighContrast {

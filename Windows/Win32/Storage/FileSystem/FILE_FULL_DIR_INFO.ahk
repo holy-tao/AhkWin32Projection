@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains directory information for a file.
+ * Contains directory information for a file. (FILE_FULL_DIR_INFO)
  * @remarks
- * 
  * The <b>FILE_FULL_DIR_INFO</b> structure is a subset of the 
  *     information in the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-file_id_both_dir_info">FILE_ID_BOTH_DIR_INFO</a> structure. 
  *     If the additional information is not needed then the operation will be faster as it comes from the directory 
@@ -25,9 +24,7 @@
  * To compile an application that uses this structure, define the <b>_WIN32_WINNT</b> macro 
  *     as 0x0600 or later. For more information, see 
  *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-file_full_dir_info
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_full_dir_info
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

@@ -4,11 +4,8 @@
 /**
  * The DD_COLORCONTROLCALLBACKS structure contains an entry pointer to the Microsoft DirectDraw color control callback that a device driver supports.
  * @remarks
- * 
  * Entries that the display driver does not use should be set to <b>NULL</b>. The driver should initialize this structure when its <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_getdriverinfo">DdGetDriverInfo</a> function is called with the GUID_ColorControlCallbacks GUID.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_colorcontrolcallbacks
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_colorcontrolcallbacks
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

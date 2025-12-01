@@ -3,7 +3,7 @@
 
 /**
  * Defines a subnet entry within the superscope table.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_super_scope_table_entry
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_super_scope_table_entry
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

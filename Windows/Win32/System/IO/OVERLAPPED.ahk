@@ -5,7 +5,6 @@
 /**
  * Contains information used in asynchronous (or overlapped) input and output (I/O).
  * @remarks
- * 
  * Any unused members of this structure should always be initialized to zero before the structure is used in a function call.  Otherwise, the function may fail and return <b>ERROR_INVALID_PARAMETER</b>.
  * 
  * The <b>Offset</b> and <b>OffsetHigh</b> members together represent a 64-bit file position. It is a byte offset from the start of the file or file-like device, and it is specified by the user; the system will not modify these values. The calling process must set this member before passing the <b>OVERLAPPED</b> structure to functions that use an offset, such as the 
@@ -25,10 +24,7 @@
  * For a general synchronization overview and conceptual <b>OVERLAPPED</b> usage information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-and-overlapped-input-and-output">Synchronization and Overlapped Input and Output</a> and related topics.
  * 
  * For a file I/O–oriented overview of synchronous and asynchronous I/O, see <a href="https://docs.microsoft.com/windows/desktop/FileIO/synchronous-and-asynchronous-i-o">Synchronous and Asynchronous I/O</a>.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//minwinbase/ns-minwinbase-overlapped
+ * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-overlapped
  * @namespace Windows.Win32.System.IO
  * @version v4.0.30319
  */

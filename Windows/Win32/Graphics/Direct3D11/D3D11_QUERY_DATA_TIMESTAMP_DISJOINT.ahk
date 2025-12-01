@@ -2,13 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Query information about the reliability of a timestamp query.
+ * Query information about the reliability of a timestamp query. (D3D11_QUERY_DATA_TIMESTAMP_DISJOINT)
  * @remarks
- * 
  * For a list of query types see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_query">D3D11_QUERY</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_query_data_timestamp_disjoint
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_query_data_timestamp_disjoint
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

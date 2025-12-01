@@ -4,7 +4,7 @@
 
 /**
  * Specifies a property set and a property within the property set.
- * @see https://docs.microsoft.com/windows/win32/api//filter/ns-filter-fullpropspec
+ * @see https://learn.microsoft.com/windows/win32/api/filter/ns-filter-fullpropspec
  * @namespace Windows.Win32.Storage.IndexServer
  * @version v4.0.30319
  */

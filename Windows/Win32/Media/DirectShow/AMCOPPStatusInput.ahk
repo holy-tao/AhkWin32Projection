@@ -4,7 +4,6 @@
 /**
  * The AMCOPPStatusInput structure contains a Certified Output Protection Protocol (COPP) status request.
  * @remarks
- * 
  * The following COPP status requests are defined.
  * 
  * <table>
@@ -45,9 +44,7 @@
  *  
  * 
  * For more information, see the Windows DDK documentation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-amcoppstatusinput
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-amcoppstatusinput
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

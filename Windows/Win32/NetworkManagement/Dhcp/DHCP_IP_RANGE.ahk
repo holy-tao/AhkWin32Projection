@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_IP_RANGE structure defines a range of IP addresses.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_ip_range
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_ip_range
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

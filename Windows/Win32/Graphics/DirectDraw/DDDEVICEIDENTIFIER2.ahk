@@ -4,14 +4,12 @@
 /**
  * The DDDEVICEIDENTIFIER2 structure is passed to the IDirectDraw7::GetDeviceIdentifier method to obtain information about a device.
  * @remarks
- * 
  * The values in <b>szDriver</b> and <b>szDescription</b> are for presentation to the user only. They should not be used to identify particular drivers because different strings might be associated with the same device, or the same driver from different vendors might be described differently.
  * 
  * 
  * 
  * The <b>dwVendorId</b>, <b>dwDeviceId</b>, <b>dwSubSysId</b>, and <b>dwRevision</b> members can be used to identify particular chipsets, but use extreme caution.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ddraw/ns-ddraw-dddeviceidentifier2
+ * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-dddeviceidentifier2
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

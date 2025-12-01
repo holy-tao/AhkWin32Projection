@@ -4,7 +4,7 @@
 
 /**
  * Contains information used to validate a PaxosTagCStruct structure.
- * @see https://docs.microsoft.com/windows/win32/api//resapi/ns-resapi-witnesstaghelper
+ * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-witnesstaghelper
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

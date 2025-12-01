@@ -12,7 +12,6 @@
 /**
  * Contains a table of anycast IP address entries.
  * @remarks
- * 
  * The <b>MIB_ANYCASTIPADDRESS_TABLE</b> structure is defined on Windows Vista and later. 
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getanycastipaddresstable">GetAnycastIpAddressTable</a> function enumerates the anycast IP addresses on a local system and returns this information in a <b>MIB_ANYCASTIPADDRESS_TABLE</b> structure. 
@@ -24,9 +23,7 @@
  * 
  * 
  * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//netioapi/ns-netioapi-mib_anycastipaddress_table
+ * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_anycastipaddress_table
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

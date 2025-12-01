@@ -3,7 +3,7 @@
 
 /**
  * Specifies the various types of storage buses.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ne-winioctl-storage_bus_type
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-storage_bus_type
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

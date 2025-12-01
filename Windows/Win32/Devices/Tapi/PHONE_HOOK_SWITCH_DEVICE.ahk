@@ -3,7 +3,7 @@
 
 /**
  * The PHONE_HOOK_SWITCH_DEVICE enum is used to indicate the types of switch hooks on a phone device.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-phone_hook_switch_device
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-phone_hook_switch_device
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies the various modes for video ports.
- * @see https://docs.microsoft.com/windows/win32/api//vptype/ne-vptype-amvp_mode
+ * @see https://learn.microsoft.com/windows/win32/api/vptype/ne-vptype-amvp_mode
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

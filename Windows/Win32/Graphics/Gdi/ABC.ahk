@@ -4,11 +4,8 @@
 /**
  * The ABC structure contains the width of a character in a TrueType font.
  * @remarks
- * 
  * The total width of a character is the summation of the A, B, and C spaces. Either the A or the C space can be negative to indicate underhangs or overhangs.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-abc
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-abc
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

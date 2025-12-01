@@ -4,12 +4,9 @@
 /**
  * Used with the IOCTL_STORAGE_QUERY_PROPERTY control code request to retrieve the device ID descriptor data for a device.
  * @remarks
- * 
  * The device ID descriptor consists of an array of device IDs taken from the SCSI-3 vital product data (VPD) 
  *     page 0x83 that was retrieved during discovery.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_device_id_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_device_id_descriptor
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

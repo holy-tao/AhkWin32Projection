@@ -2,13 +2,10 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Identify which components of each pixel of a render target are writable during blending.
+ * Identify which components of each pixel of a render target are writable during blending. (D3D10_COLOR_WRITE_ENABLE)
  * @remarks
- * 
  * These flags can be combined with a bitwise OR.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10/ne-d3d10-d3d10_color_write_enable
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_color_write_enable
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

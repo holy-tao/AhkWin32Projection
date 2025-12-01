@@ -3,6 +3,8 @@
 #Include .\IORING_CREATE_FLAGS.ahk
 
 /**
+ * Represents the shape and version information for the specified I/O ring.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/ioringapi/ns-ioringapi-ioring_info
  * @namespace Windows.Win32.Storage.FileSystem
@@ -15,6 +17,7 @@ class IORING_INFO extends Win32Struct
     static packingSize => 8
 
     /**
+     * A [IORING_VERSION](../ntioring_x/ne-ntioring_x-ioring_version.md) structure representing the API version of the associated I/O ring.
      * @type {Integer}
      */
     IoRingVersion {
@@ -23,6 +26,7 @@ class IORING_INFO extends Win32Struct
     }
 
     /**
+     * A [IORING_CREATE_FLAGS](ns-ioringapi-ioring_create_flags.md) structure containing the creation flags with which the associated I/O ring.
      * @type {IORING_CREATE_FLAGS}
      */
     Flags{
@@ -34,6 +38,7 @@ class IORING_INFO extends Win32Struct
     }
 
     /**
+     * The actual minimum submission queue size. The system may round up the value requested in the call to [CreateIoRing](nf-ioringapi-createioring.md) as needed to ensure the actual size is a power of 2.
      * @type {Integer}
      */
     SubmissionQueueSize {
@@ -42,6 +47,7 @@ class IORING_INFO extends Win32Struct
     }
 
     /**
+     * The actual minimum size of the completion queue. The system will round up the value requested in the call to **CreateIoRing** to a power of two that is no less than two times the actual submission queue size to allow for submissions while some operations are still in progress.
      * @type {Integer}
      */
     CompletionQueueSize {

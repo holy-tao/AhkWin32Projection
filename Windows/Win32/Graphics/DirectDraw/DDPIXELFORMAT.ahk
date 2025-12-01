@@ -4,7 +4,6 @@
 /**
  * The DDPIXELFORMAT structure describes the pixel format of a DirectDrawSurface object for the IDirectDrawSurface7::GetPixelFormat method.
  * @remarks
- * 
  * The <b>dwAlphaBitDepth</b> member reflects the bit depth of an alpha-only pixel format (DDPF_ALPHA). For pixel formats that include the alpha component with color components (DDPF_ALPHAPIXELS), the alpha bit depth is obtained by counting the bits in the various mask members. The following code example returns the number of bits set in a given bitmask.
  * 
  * ```cpp
@@ -21,8 +20,7 @@
  * ```
  * 
  * The unions in <b>DDPIXELFORMAT</b> have been updated to work with compilers that do not support nameless unions. If your compiler does not support nameless unions, define the NONAMELESSUNION token before including the Ddraw.h header file.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ddraw/ns-ddraw-ddpixelformat
+ * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddpixelformat
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

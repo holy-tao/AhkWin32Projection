@@ -3,7 +3,7 @@
 
 /**
  * Defines the types of rules that you can define.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmruletype
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmruletype
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

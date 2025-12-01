@@ -4,15 +4,12 @@
 /**
  * Describes the shape at the end of a line or segment.
  * @remarks
- * 
  * The following illustration shows the available cap styles for lines or segments. The red portion of the line shows the extra area added by the line cap setting.
  * 
  * 
  * 
  * <img alt="Illustration of four cap styles" src="./images/linecaps.png"/>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/ne-d2d1-d2d1_cap_style
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_cap_style
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

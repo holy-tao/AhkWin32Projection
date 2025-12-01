@@ -4,16 +4,13 @@
 /**
  * Defines the details of an input disk.
  * @remarks
- * 
  * A disk cannot contribute more than one plex to the same volume; however, a disk can contribute to multiple volumes.
  * 
  * 
  * Callers can specify a member index for all disks or use the default member index for all disks. Never mix specified and default member indexes for the disks included in the same array. Avoid using a default member index in conjunction with the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolume-extend">IVdsVolume::Extend</a> method, unless the volume has only one plex with only one member.
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdspack-createvolume">IVdsPack::CreateVolume</a>, <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolume-extend">IVdsVolume::Extend</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolumeplex-repair">IVdsVolumePlex::Repair</a> methods pass this structure as an argument to specify disk input information.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_input_disk
+ * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_input_disk
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains a list of memory regions.
- * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ns-minidumpapiset-minidump_memory_info_list
+ * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_memory_info_list
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

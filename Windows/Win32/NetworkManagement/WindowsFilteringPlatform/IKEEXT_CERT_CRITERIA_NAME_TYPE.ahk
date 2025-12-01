@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of NAME fields possible for a certificate selection &quot;subject&quot; criteria.
- * @see https://docs.microsoft.com/windows/win32/api//iketypes/ne-iketypes-ikeext_cert_criteria_name_type
+ * @see https://learn.microsoft.com/windows/win32/api/iketypes/ne-iketypes-ikeext_cert_criteria_name_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

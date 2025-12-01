@@ -3,7 +3,7 @@
 
 /**
  * Defines a 16-bit AYUV pixel value.
- * @see https://docs.microsoft.com/windows/win32/api//dxva2api/ns-dxva2api-dxva2_ayuvsample16
+ * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_ayuvsample16
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

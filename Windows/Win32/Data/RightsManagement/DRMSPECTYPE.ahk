@@ -3,7 +3,7 @@
 
 /**
  * The DRMSPECTYPE enumeration indicates what type of security or library providers are used.
- * @see https://docs.microsoft.com/windows/win32/api//msdrmdefs/ne-msdrmdefs-drmspectype
+ * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ne-msdrmdefs-drmspectype
  * @namespace Windows.Win32.Data.RightsManagement
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The RAS_HARDWARE_CONDITION enumeration type specifies hardware status information about a given RAS port.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ne-mprapi-ras_hardware_condition
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ne-mprapi-ras_hardware_condition
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the current computer system. This includes the architecture and type of the processor, the number of processors in the system, the page size, and other such information.
- * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/ns-sysinfoapi-system_info
+ * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/ns-sysinfoapi-system_info
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  */
@@ -75,7 +75,7 @@ class SYSTEM_INFO extends Win32Struct
     }
 
     /**
-     * The number of logical processors in the current group. To retrieve this value, use the <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformation">GetLogicalProcessorInformation</a> function.
+     * The number of logical processors in the current group. To retrieve the current processor group, use the <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformation">GetLogicalProcessorInformation</a> function.
      * 
      * <div class="alert"><b>Note</b>  For information about the  physical processors shared by logical processors, call <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformationex">GetLogicalProcessorInformationEx</a> with the <i>RelationshipType</i> parameter set to RelationProcessorPackage (3).</div>
      * <div> </div>

@@ -5,7 +5,6 @@
 /**
  * Contains rendering options (hardware or software), pixel format, DPI information, remoting options, and Direct3D support requirements for a render target.
  * @remarks
- * 
  * Use this structure when creating a render target, or use it with the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-issupported(constd2d1_render_target_properties_)">ID2D1RenderTarget::IsSupported</a> method to check the properties supported by an existing render target.
  * 
  * As a convenience, Direct2D provides the <a href="https://docs.microsoft.com/windows/win32/api/d2d1helper/nf-d2d1helper-rendertargetproperties">D2D1::RenderTargetProperties</a> helper function for creating <b>D2D1_RENDER_TARGET_PROPERTIES</b> structures. An easy way to create a <b>D2D1_RENDER_TARGET_PROPERTIES</b> structure that works for most render targets is to call the function without specifying any parameters. Doing so creates a <b>D2D1_RENDER_TARGET_PROPERTIES</b> structure that has its fields set to default values. For more information, see   <a href="https://docs.microsoft.com/windows/win32/api/d2d1helper/nf-d2d1helper-rendertargetproperties">D2D1::RenderTargetProperties</a>.
@@ -21,10 +20,7 @@
  * <li>For other render targets, the default DPI is 96.</li>
  * </ul>
  * To use the default DPI setting, both <i>dpiX</i> and <i>dpiY</i> must be set to 0. Setting only one value to 0 causes an  <a href="https://docs.microsoft.com/windows/win32/Direct2D/direct2d-error-codes">E_INVALIDARG</a> error when attempting to create a render target.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/ns-d2d1-d2d1_render_target_properties
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_render_target_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

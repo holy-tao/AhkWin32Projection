@@ -3,7 +3,7 @@
 
 /**
  * Description of a state object. Pass this structure into ID3D12Device::CreateStateObject.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_state_object_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_state_object_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

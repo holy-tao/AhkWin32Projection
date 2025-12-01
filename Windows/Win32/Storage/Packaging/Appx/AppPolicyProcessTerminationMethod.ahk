@@ -3,7 +3,7 @@
 
 /**
  * The AppPolicyProcessTerminationMethod enumeration indicates the method used to end a process.
- * @see https://docs.microsoft.com/windows/win32/api//appmodel/ne-appmodel-apppolicyprocessterminationmethod
+ * @see https://learn.microsoft.com/windows/win32/api/appmodel/ne-appmodel-apppolicyprocessterminationmethod
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

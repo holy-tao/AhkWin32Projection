@@ -4,11 +4,8 @@
 /**
  * Specifies the parameter stages for video extension commands.
  * @remarks
- * 
  * Values from this enumeration are used when querying for video extension parameter information with calls to [ID3D12VideoDevice::CheckFeatureSupport](nf-d3d12video-id3d12videodevice-checkfeaturesupport.md) with the feature specified as [D3D12_FEATURE_VIDEO_EXTENSION_COMMAND_PARAMETERS](ne-d3d12video-d3d12_feature_video.md) or [D3D12_FEATURE_VIDEO_EXTENSION_COMMAND_PARAMETER_COUNT](ne-d3d12video-d3d12_feature_video.md). The results of these parameter queries may be different for different parameter stages.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ne-d3d12video-d3d12_video_extension_command_parameter_stage
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_extension_command_parameter_stage
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The FAX_JOB_TYPE_ENUM enumeration defines the fax job type.
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/ne-faxcomex-fax_job_type_enum
+ * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_job_type_enum
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */

@@ -4,7 +4,6 @@
 /**
  * Defines the set of valid disk SAN policy flags.
  * @remarks
- * 
  * The SAN policy determines whether a newly discovered disk is brought online or remains offline, and whether it is made read/write or remains read-only. When a disk is offline, the disk layout can be read, but no volume devices are surfaced through Plug and Play (PnP). This means that no file system can be mounted on the disk. When a disk is online, one or more volume devices are installed for the disk.
  * 
  * To query the current SAN policy, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservicesan-getsanpolicy">IVdsServiceSAN::GetSANPolicy</a> method.
@@ -27,9 +26,7 @@
  * 
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_SAN_POLICY</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_SAN_POLICY</b> enumeration constant.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_san_policy
+ * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_san_policy
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

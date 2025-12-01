@@ -4,7 +4,6 @@
 /**
  * Provides model-specific information relating to the device.
  * @remarks
- * 
  * <b>WSD_THIS_MODEL_METADATA</b> specifies manufacturer metadata that is common to all instances of a specific model.
  * 
  * 
@@ -13,7 +12,9 @@
  * 
  * Model metadata follows this form:
  * 
- * <pre class="syntax" xml:space="preserve"><code>&lt;wsd:ThisModel&gt;
+ * 
+ * ``` syntax
+ * &lt;wsd:ThisModel&gt;
  *     &lt;wsd:Manufacturer&gt;
  *         A. Datum Corporation
  *     &lt;/wsd:Manufacturer&gt;
@@ -35,9 +36,9 @@
  * &lt;/wsd:ThisModel&gt;
  * 
  * 
- * </code></pre>
  * 
- * @see https://docs.microsoft.com/windows/win32/api//wsdtypes/ns-wsdtypes-wsd_this_model_metadata
+ * ```
+ * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_this_model_metadata
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

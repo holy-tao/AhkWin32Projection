@@ -3,7 +3,7 @@
 
 /**
  * Contains information to update the cloud backup provider status in the Windows Server Backup MMC snap-in.
- * @see https://docs.microsoft.com/windows/win32/api//wsbonline/ns-wsbonline-wsb_ob_status_info
+ * @see https://learn.microsoft.com/windows/win32/api/wsbonline/ns-wsbonline-wsb_ob_status_info
  * @namespace Windows.Win32.System.ServerBackup
  * @version v4.0.30319
  */

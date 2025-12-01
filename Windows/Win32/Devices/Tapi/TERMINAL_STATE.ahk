@@ -3,7 +3,7 @@
 
 /**
  * The TERMINAL_STATE enum describes the current state of a terminal device. This enum is returned by the ITTerminal::get_State method.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-terminal_state
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-terminal_state
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

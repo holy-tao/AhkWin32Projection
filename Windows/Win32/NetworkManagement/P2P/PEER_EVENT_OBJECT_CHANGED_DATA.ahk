@@ -4,7 +4,6 @@
 /**
  * The PEER_EVENT_OBJECT_CHANGED_DATA structure contains information returned when a PEER_EVENT_ENDPOINT_OBJECT_CHANGED or PEER_EVENT_MY_OBJECT_CHANGED event is raised on a peer participating in a peer collaboration network.
  * @remarks
- * 
  * Peer objects are run-time data items associated with a particular application, such as a picture or avatar, a certificate, or a specific description. Each peer object must be smaller than 16K in size.
  * 
  * Trusted contacts watching this peer object will have a PEER_EVENT_OBJECT_CHANGED event raised on them signaling the peer object's change in status.
@@ -12,9 +11,7 @@
  * The PEER_EVENT_OBJECT_CHANGED event is raised when an object is changed by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabsetobject">PeerCollabSetObject</a>. If it is the first time the object is set then <b>changeType</b> is set to PEER_CHANGE_ADDED. On subsequent calls of PeerCollabSetObject for the same object ID the <b>changeType</b> is set to PEER_CHANGE_UDPATED.
  * 
  * If <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabdeleteobject">PeerCollabDeleteObject</a> is called the PEER_CHANGE_DELETED event is raised.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_event_object_changed_data
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_event_object_changed_data
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

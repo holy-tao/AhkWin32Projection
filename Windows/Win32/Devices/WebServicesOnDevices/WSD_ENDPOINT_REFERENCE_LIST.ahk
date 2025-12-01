@@ -3,7 +3,7 @@
 
 /**
  * Represents a node in a single-linked list of WSD_ENDPOINT_REFERENCE structures.
- * @see https://docs.microsoft.com/windows/win32/api//wsdtypes/ns-wsdtypes-wsd_endpoint_reference_list
+ * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_endpoint_reference_list
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

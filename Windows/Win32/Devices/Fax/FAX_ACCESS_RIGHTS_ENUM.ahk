@@ -3,7 +3,7 @@
 
 /**
  * The FAX_ACCESS_RIGHTS_ENUM enumeration defines access rights to the fax server.
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/ne-faxcomex-fax_access_rights_enum
+ * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_access_rights_enum
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */

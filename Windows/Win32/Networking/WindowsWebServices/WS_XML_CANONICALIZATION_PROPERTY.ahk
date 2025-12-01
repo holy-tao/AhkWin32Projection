@@ -3,7 +3,7 @@
 
 /**
  * Specifies a setting that controls how XML canonicalization is done.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_xml_canonicalization_property
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_canonicalization_property
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

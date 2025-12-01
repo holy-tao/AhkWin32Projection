@@ -3,7 +3,7 @@
 
 /**
  * The MMC_BUTTON_STATE enumeration defines the possible states of buttons available in MMC. These values are used in the nState parameter of IConsoleVerb::GetVerbState, IConsoleVerb::SetVerbState, IToolbar::GetButtonState, and IToolbar::SetButtonState.
- * @see https://docs.microsoft.com/windows/win32/api//mmc/ne-mmc-mmc_button_state
+ * @see https://learn.microsoft.com/windows/win32/api/mmc/ne-mmc-mmc_button_state
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

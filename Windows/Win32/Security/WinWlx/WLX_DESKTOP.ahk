@@ -4,7 +4,7 @@
 
 /**
  * Used to pass desktop information between your GINA DLL and Winlogon.
- * @see https://docs.microsoft.com/windows/win32/api//winwlx/ns-winwlx-wlx_desktop
+ * @see https://learn.microsoft.com/windows/win32/api/winwlx/ns-winwlx-wlx_desktop
  * @namespace Windows.Win32.Security.WinWlx
  * @version v4.0.30319
  */

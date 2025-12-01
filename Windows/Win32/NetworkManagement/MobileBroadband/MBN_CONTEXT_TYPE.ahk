@@ -3,7 +3,7 @@
 
 /**
  * The MBN_CONTEXT_TYPE enumerated type specifies the represented context type.
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ne-mbnapi-mbn_context_type
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_context_type
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

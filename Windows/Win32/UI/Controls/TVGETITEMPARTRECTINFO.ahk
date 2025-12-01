@@ -3,7 +3,7 @@
 
 /**
  * Contains information for identifying the &quot;hit zone&quot; for a specified part of a tree item. The structure is used with the TVM_GETITEMPARTRECT message and the TreeView_GetItemPartRect macro.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-tvgetitempartrectinfo
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tvgetitempartrectinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

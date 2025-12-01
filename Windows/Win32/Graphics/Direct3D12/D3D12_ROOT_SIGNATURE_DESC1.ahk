@@ -4,11 +4,8 @@
 /**
  * Describes the layout of a root signature version 1.1.
  * @remarks
- * 
  * Use this structure with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc">D3D12_VERSIONED_ROOT_SIGNATURE_DESC</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_root_signature_desc1
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_root_signature_desc1
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

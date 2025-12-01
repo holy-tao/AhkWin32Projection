@@ -6,7 +6,7 @@
 
 /**
  * The DD_UPDATEOVERLAYDATA structure contains information necessary for updating an overlay surface.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_updateoverlaydata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_updateoverlaydata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

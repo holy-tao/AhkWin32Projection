@@ -4,10 +4,8 @@
 /**
  * Used by SHGetStockIconInfo to identify which stock system icon to retrieve.
  * @remarks
- * 
  * SIID_INVALID, with a value of -1, indicates an invalid **SHSTOCKICONID** value.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shellapi/ne-shellapi-shstockiconid
+ * @see https://learn.microsoft.com/windows/win32/api/shellapi/ne-shellapi-shstockiconid
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -330,7 +328,7 @@ class SHSTOCKICONID extends Win32Enum{
 
     /**
      * :::image type="icon" source="./images/SIID_MEDIACDBURN.jpg":::
-     *  A writeable CD in the process of being burned.
+     *  A writable CD in the process of being burned.
      * @type {Integer (Int32)}
      */
     static SIID_MEDIACDBURN => 68

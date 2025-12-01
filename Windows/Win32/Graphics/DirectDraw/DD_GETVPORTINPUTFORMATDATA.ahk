@@ -3,7 +3,7 @@
 
 /**
  * The DD_GETVPORTINPUTFORMATDATA structure contains the information required for the driver to return the input formats that the video port extensions (VPE) object can accept.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_getvportinputformatdata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_getvportinputformatdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Represents the hang monitoring configuration for a COM+ component.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/ns-comsvcs-componenthangmonitorinfo
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-componenthangmonitorinfo
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */

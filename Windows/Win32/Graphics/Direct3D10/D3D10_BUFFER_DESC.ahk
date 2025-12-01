@@ -2,15 +2,12 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes a buffer resource.
+ * Describes a buffer resource. (D3D10_BUFFER_DESC)
  * @remarks
- * 
  * This structure is used by <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createbuffer">ID3D10Device::CreateBuffer</a> to create buffer resources.
  * 
  * In addition to this structure, there is also a derived structure in D3D10.h (CD3D10_BUFFER_DESC) which behaves like an inherited class to help create a buffer description.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10/ns-d3d10-d3d10_buffer_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_buffer_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
@@ -45,7 +42,7 @@ class D3D10_BUFFER_DESC extends Win32Struct
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * Identify how the buffer will be bound to the <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-pipeline-stages">pipeline</a>. Applications can logicaly OR flags together (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_bind_flag">D3D10_BIND_FLAG</a>) to indicate that the buffer can be accessed in different ways.
+     * Identify how the buffer will be bound to the <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-pipeline-stages">pipeline</a>. Applications can logically OR flags together (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_bind_flag">D3D10_BIND_FLAG</a>) to indicate that the buffer can be accessed in different ways.
      * @type {Integer}
      */
     BindFlags {
@@ -56,7 +53,7 @@ class D3D10_BUFFER_DESC extends Win32Struct
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * CPU access flags (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_cpu_access_flag">D3D10_CPU_ACCESS_FLAG</a>) or 0 if no CPU access is necessary. Applications can logicaly OR flags together.
+     * CPU access flags (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_cpu_access_flag">D3D10_CPU_ACCESS_FLAG</a>) or 0 if no CPU access is necessary. Applications can logically OR flags together.
      * @type {Integer}
      */
     CPUAccessFlags {

@@ -3,7 +3,7 @@
 
 /**
  * This structure specifies the security related constraints as part of WS_POLICY_CONSTRAINTS.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_security_constraints
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_constraints
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -54,7 +54,7 @@ class WS_SECURITY_CONSTRAINTS extends Win32Struct
      *                 
      * 
      * The type of each <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_binding_constraint">WS_SECURITY_BINDING_CONSTRAINT</a> corresponds
-     *                     to the types of security that is specified using a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_security_binding">WS_SECURITY_BINDING</a>structure.  Each security binding specifies one security token, and similarly,
+     *                     to the types of security that is specified using a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_security_binding">WS_SECURITY_BINDING</a> structure.  Each security binding specifies one security token, and similarly,
      *                     each security binding constraint specifies constraints on one security token.
      *                 
      * 

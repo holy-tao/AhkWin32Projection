@@ -3,7 +3,7 @@
 
 /**
  * Contains credentials used to authorize a client session.
- * @see https://docs.microsoft.com/windows/win32/api//wdsclientapi/ns-wdsclientapi-wds_cli_cred
+ * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/ns-wdsclientapi-wds_cli_cred
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

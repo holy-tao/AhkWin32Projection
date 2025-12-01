@@ -3,7 +3,7 @@
 
 /**
  * Values for the D2D1_EDGEDETECTION_PROP_MODE property of the Edge Detection effect.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effects_2/ne-d2d1effects_2-d2d1_edgedetection_mode
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effects_2/ne-d2d1effects_2-d2d1_edgedetection_mode
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

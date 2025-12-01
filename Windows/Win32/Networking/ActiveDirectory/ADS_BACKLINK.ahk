@@ -4,11 +4,8 @@
 /**
  * The ADS_BACKLINK structure is an ADSI representation of the Back Link attribute syntax.
  * @remarks
- * 
  * A <b>Back Link</b> attribute contains one or more servers that hold an external reference to the attached object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/ns-iads-ads_backlink
+ * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_backlink
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

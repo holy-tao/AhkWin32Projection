@@ -4,7 +4,7 @@
 
 /**
  * Reports detailed information on an item in a Shell folder.
- * @see https://docs.microsoft.com/windows/win32/api//shtypes/ns-shtypes-shelldetails
+ * @see https://learn.microsoft.com/windows/win32/api/shtypes/ns-shtypes-shelldetails
  * @namespace Windows.Win32.UI.Shell.Common
  * @version v4.0.30319
  */

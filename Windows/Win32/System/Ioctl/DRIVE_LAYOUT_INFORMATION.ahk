@@ -4,7 +4,7 @@
 
 /**
  * Contains information about the partitions of a drive.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-drive_layout_information
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-drive_layout_information
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

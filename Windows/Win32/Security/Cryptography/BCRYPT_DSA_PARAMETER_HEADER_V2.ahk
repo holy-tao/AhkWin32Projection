@@ -4,23 +4,23 @@
 /**
  * Contains parameter header information for a Digital Signature Algorithm (DSA) key.
  * @remarks
- * 
  * When using this structure in a <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptsetproperty">BCryptSetProperty</a> call, to set the parameters for a DSA key created in a <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratekeypair">BCryptGenerateKeyPair</a> call, (cbKeyLength*8) must equal the previously set dwLength.
  * 
  * The structure applies to DSA keys that exceed 1024 bits in length but are less than or equal to 3072 bits.
  * 
  * This structure is used as a header for a larger buffer. The DSA parameters blob has the following format in contiguous memory. The Seed, q, Modulus, and Generator are in big-endian format.
  * 
- * <pre class="syntax" xml:space="preserve"><code>
+ * 
+ * ``` syntax
+ * 
  * BCRYPT_DSA_PARAMETER_HEADER_V2
  * Seed[cbSeedLength]      // Big-endian.
  * q[cbGroupSize]          // Big-endian.
  * Modulus[cbKeyLength]    // Big-endian.
  * Generator[cbKeyLength]  // Big-endian.
- * </code></pre>
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bcrypt/ns-bcrypt-bcrypt_dsa_parameter_header_v2
+ * ```
+ * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_dsa_parameter_header_v2
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

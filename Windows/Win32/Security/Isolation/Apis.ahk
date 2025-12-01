@@ -18,6 +18,8 @@ class Isolation {
 ;@region Methods
     /**
      * Retrieves the named object path for the app container.
+     * @remarks
+     * For assistive technology tools that work across Windows Store apps and desktop applications and have features that get loaded in the context of Windows Store apps, at times it may be necessary for the in-context feature to synchronize with the tool. Typically such synchronization is accomplished by establishing a named object in the user's session. Windows Store apps pose a challenge for this mechanism because, by default, named objects in the user's or global session are not accessible to Windows Store apps. We recommend that you update assistive technology tools to use <a href="https://docs.microsoft.com/windows/desktop/AppUIStart/user-interface-technologies-for-windows-applications">UI Automation APIs</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/magapi/entry-magapi-sdk">Magnification APIs</a> to avoid such pitfalls. In the interim, it may be necessary to continue using named objects.
      * @param {HANDLE} Token A handle pertaining to the token. If <b>NULL</b> is passed in and no <i>AppContainerSid</i> parameter is passed in, the caller's current process token is used, or the thread token if impersonating.
      * @param {PSID} AppContainerSid The SID of the app container.
      * @param {Integer} ObjectPathLength The length of the buffer.
@@ -25,8 +27,8 @@ class Isolation {
      * @param {Pointer<Integer>} ReturnLength Returns the length required to accommodate the length of the named object path.
      * @returns {BOOL} If the function succeeds, the function returns a value of <b>TRUE</b>. 
      * 
-     * If the function fails, it returns a value of <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//securityappcontainer/nf-securityappcontainer-getappcontainernamedobjectpath
+     * If the function fails, it returns a value of <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/securityappcontainer/nf-securityappcontainer-getappcontainernamedobjectpath
      * @since windows8.0
      */
     static GetAppContainerNamedObjectPath(Token, AppContainerSid, ObjectPathLength, ObjectPath, ReturnLength) {
@@ -77,8 +79,12 @@ class Isolation {
     }
 
     /**
+     * Determines in which execution environment the application is running.
+     * @remarks
+     * Any application using [Windows Defender Application Guard (WDAG)](/windows/security/threat-protection/microsoft-defender-application-guard/md-app-guard-overview) will require the ability to find which execution environment it is running in. This is needed so that the app can behave appropriately to protect user/enterprise data, user identity, and the business interests of the app.
+     * @returns {BOOL} `[out]`
      * 
-     * @returns {BOOL} 
+     * A pointer to a boolean value that receives the result of the API. This parameter will be `true` if the process is in an Isolated Windows Environment, `false` otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/isolatedwindowsenvironmentutils/nf-isolatedwindowsenvironmentutils-isprocessinisolatedwindowsenvironment
      */
     static IsProcessInIsolatedWindowsEnvironment() {
@@ -91,8 +97,19 @@ class Isolation {
     }
 
     /**
+     * IsCrossIsolatedEnvironmentClipboardContent is called after an app detects a paste failure to determine if the content being pasted came from the other side of a Windows Defender Application Guard (WDAG) boundary.
+     * @remarks
+     * This API can be called from both the host and Isolated Windows Environment app instance and can detect both relevant scenarios:
      * 
-     * @returns {BOOL} 
+     * - Scenario 1 -  Called from a host document (ex: pasting content to the host)
+     *   - Returns true if the clipboard content came from any Isolated Windows Environment.
+     * - Scenario 2 -  Called from an Isolated Windows Environment document (ex: pasting content to Isolated Environment)
+     *   - Returns true if the clipboard content came from the host, or from a different Isolated Windows Environment.
+     * 
+     * This API also allows apps to continue to show their default paste error handler where appropriate. For example, copy/pasting content within the same Isolated Environment is not subject to WDAG clipboard policy. Any failure would be due to an unrelated paste error, such as corrupted data. In this case, **IsCrossIsolatedEnvironmentClipboardContent** would return false, so the app knows to follow their default paste error handler flow.
+     * @returns {BOOL} `[out]`
+     * 
+     * A pointer to a boolean value that receives the result of the API. This parameter will be `true` if the clipboard content came from the other side of a WDAG boundary, `false` otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/isolatedwindowsenvironmentutils/nf-isolatedwindowsenvironmentutils-iscrossisolatedenvironmentclipboardcontent
      */
     static IsCrossIsolatedEnvironmentClipboardContent() {
@@ -106,13 +123,17 @@ class Isolation {
 
     /**
      * Creates a per-user, per-app profile for Windows Store apps.
+     * @remarks
+     * A profile contains folders and registry storage that are per-user and per-app. The folders have ACLs that prevent them from being accessed by other users and apps. These folders can be accessed by calling <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetknownfolderpath">SHGetKnownFolderPath</a>.
+     * 
+     * The function creates a profile for the current user. To create a profile on behalf of another user, you must impersonate that user. To create profiles for multiple users of the same app, you must call <b>CreateAppContainerProfile</b> for each user.
      * @param {PWSTR} pszAppContainerName The name of the app container. To ensure uniqueness, it is recommended that this string contains the app name as well as the publisher. This string can be up to 64 characters in length.  Further, it must fit into the pattern described by the regular expression "[-_. A-Za-z0-9]+".
      * @param {PWSTR} pszDisplayName The display name. This string can be up to 512 characters in length.
      * @param {PWSTR} pszDescription A description for the app container. This string can be up to 2048 characters in length.
      * @param {Pointer<SID_AND_ATTRIBUTES>} pCapabilities The SIDs that define the requested capabilities.
      * @param {Integer} dwCapabilityCount The number of SIDs in <i>pCapabilities</i>.
      * @returns {PSID} The SID for the profile. This buffer must be freed using the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-freesid">FreeSid</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-createappcontainerprofile
+     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-createappcontainerprofile
      * @since windows8.0
      */
     static CreateAppContainerProfile(pszAppContainerName, pszDisplayName, pszDescription, pCapabilities, dwCapabilityCount) {
@@ -130,6 +151,12 @@ class Isolation {
 
     /**
      * Deletes the specified per-user, per-app profile.
+     * @remarks
+     * To ensure the best results, close all file handles in the profile storage locations before calling the <b>DeleteAppContainerProfile</b> function. Otherwise, this function may not be able to completely remove the storage locations for the profile.
+     * 
+     * This function deletes the profile for the current user. To delete the profile for another user, you must impersonate that user.
+     * 
+     * If the function fails, the status of the profile is undetermined, and you should call <b>DeleteAppContainerProfile</b> again to complete the operation.
      * @param {PWSTR} pszAppContainerName The name given to the profile in the call to the <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-createappcontainerprofile">CreateAppContainerProfile</a> function. This string is at most 64 characters in length, and  fits into the pattern described by the regular expression "[-_. A-Za-z0-9]+".
      * @returns {HRESULT} If this function succeeds, it returns a standard HRESULT code, including the following:
      * 
@@ -172,7 +199,7 @@ class Isolation {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-deleteappcontainerprofile
+     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-deleteappcontainerprofile
      * @since windows8.0
      */
     static DeleteAppContainerProfile(pszAppContainerName) {
@@ -188,6 +215,8 @@ class Isolation {
 
     /**
      * Gets the location of the registry storage associated with an app container.
+     * @remarks
+     * The function gets the registry storage for the current user. To get the registry storage for another user, you must impersonate that user.
      * @param {Integer} desiredAccess Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/messages">REGSAM</a></b>
      * 
      * The desired registry access.
@@ -226,7 +255,7 @@ class Isolation {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-getappcontainerregistrylocation
+     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-getappcontainerregistrylocation
      * @since windows8.0
      */
     static GetAppContainerRegistryLocation(desiredAccess, phAppContainerKey) {
@@ -240,9 +269,13 @@ class Isolation {
 
     /**
      * Gets the path of the local app data folder for the specified app container.
+     * @remarks
+     * The path retrieved through this function is the same path that you would get by calling the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetknownfolderpath">SHGetKnownFolderPath</a> function with <b>FOLDERID_LocalAppData</b>.
+     * 
+     * If a thread token is set, this function uses the app container for the current user. If no thread token is set, this function uses the app container associated with the process identity.
      * @param {PWSTR} pszAppContainerSid A pointer to the SID of the app container.
      * @returns {PWSTR} The address of a pointer to a string that, when this function returns successfully, receives the path of the local folder. It is the responsibility of the caller to free this string when it is no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-getappcontainerfolderpath
+     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-getappcontainerfolderpath
      * @since windows8.0
      */
     static GetAppContainerFolderPath(pszAppContainerSid) {
@@ -261,7 +294,7 @@ class Isolation {
      * @param {PSID} psidAppContainerSid Reserved.
      * @param {PWSTR} pszRestrictedAppContainerName Reserved.
      * @returns {PSID} Reserved.
-     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-deriverestrictedappcontainersidfromappcontainersidandrestrictedname
+     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-deriverestrictedappcontainersidfromappcontainersidandrestrictedname
      * @since windows10.0.10240
      */
     static DeriveRestrictedAppContainerSidFromAppContainerSidAndRestrictedName(psidAppContainerSid, pszRestrictedAppContainerName) {
@@ -279,7 +312,7 @@ class Isolation {
      * Gets the SID of the specified profile.
      * @param {PWSTR} pszAppContainerName The name of the profile.
      * @returns {PSID} The SID for the profile. This buffer must be freed using the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-freesid">FreeSid</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-deriveappcontainersidfromappcontainername
+     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-deriveappcontainersidfromappcontainername
      * @since windows8.0
      */
     static DeriveAppContainerSidFromAppContainerName(pszAppContainerName) {

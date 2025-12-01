@@ -4,7 +4,7 @@
 
 /**
  * The VMR9VideoStreamInfo structure describes the rendering parameters for a video compositing operation in the VRM-9 filter. This structure is used in the IVMRImageCompositor9::CompositeImage method.
- * @see https://docs.microsoft.com/windows/win32/api//vmr9/ns-vmr9-vmr9videostreaminfo
+ * @see https://learn.microsoft.com/windows/win32/api/vmr9/ns-vmr9-vmr9videostreaminfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

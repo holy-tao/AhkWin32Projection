@@ -6,7 +6,7 @@
 
 /**
  * The DHCPV4_FAILOVER_CLIENT_INFO structure defines DHCP server scope statistics that are part of a failover relationship.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcpv4_failover_client_info
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcpv4_failover_client_info
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

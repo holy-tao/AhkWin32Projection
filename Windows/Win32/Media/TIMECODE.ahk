@@ -2,18 +2,10 @@
 #Include ..\..\..\Win32Struct.ahk
 
 /**
- * The TIMECODE structure contains basic timecode frame count information.
+ * The TIMECODE structure contains basic timecode frame count information. (TIMECODE)
  * @remarks
- * 
- * 
- * 
- * Fractional frame can be used to indicate temporal offset into frame when timecode was actually read from an external device; for example, wFrameFract=0x7ff means the timecode value was read from the device at the end of the first video field. 
- * 
- * 
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-timecode
+ * Fractional frame can be used to indicate temporal offset into frame when timecode was actually read from an external device; for example, wFrameFract=0x7ff means the timecode value was read from the device at the end of the first video field.
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-timecode
  * @namespace Windows.Win32.Media
  * @version v4.0.30319
  */

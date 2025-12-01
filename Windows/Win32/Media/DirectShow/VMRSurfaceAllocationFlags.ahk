@@ -4,11 +4,8 @@
 /**
  * The VMRSurfaceAllocationFlags enumeration is used with the IVMRSurfaceAllocator::AllocateSurface method to specify surface creation parameters.
  * @remarks
- * 
  * AMAP_3D_TARGET cannot be combined with AMAP_FORCE_SYSMEM or AMAP_ALLOW_SYSMEM because 3D surfaces cannot be created in system memory.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-vmrsurfaceallocationflags
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-vmrsurfaceallocationflags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -33,7 +30,7 @@ class VMRSurfaceAllocationFlags extends Win32Enum{
     static AMAP_ALLOW_SYSMEM => 4
 
     /**
-     * Force the surface to be created in system memory. Specify this if you will use GDI to process the image before it is renderered. The surface must match the current monitor display format (pixel depth).
+     * Force the surface to be created in system memory. Specify this if you will use GDI to process the image before it is rendered. The surface must match the current monitor display format (pixel depth).
      * @type {Integer (Int32)}
      */
     static AMAP_FORCE_SYSMEM => 8

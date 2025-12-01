@@ -6,7 +6,6 @@
 /**
  * The DEVINFO structure provides information about the driver and its private PDEV to the graphics engine.
  * @remarks
- * 
  * The driver's <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvenablepdev">DrvEnablePDEV</a> function fills in a DEVINFO structure; the driver should set only the members that are relevant to it. This structure is zero-initialized by GDI before <b>DrvEnablePDEV</b> is called. Applications do not have direct access to this structure.
  * 
  * If a driver sets GCAPS2_JPEGSRC or GCAPS2_PNGSRC in <b>flGraphicsCaps2</b>, the following rules apply:
@@ -41,9 +40,7 @@
  * 
  * </li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-devinfo
+ * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-devinfo
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
@@ -367,7 +364,7 @@ class DEVINFO extends Win32Struct
      * 
      * </td>
      * <td>
-     * Indicates that the display driver is used to support a remote user sesssion.
+     * Indicates that the display driver is used to support a remote user session.
      * 
      * </td>
      * </tr>

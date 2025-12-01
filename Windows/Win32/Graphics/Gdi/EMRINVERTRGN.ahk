@@ -5,7 +5,7 @@
 
 /**
  * The EMRINVERTRGN and EMRPAINTRGN structures contain members for the InvertRgn and PaintRgn enhanced metafile records.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrinvertrgn
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrinvertrgn
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

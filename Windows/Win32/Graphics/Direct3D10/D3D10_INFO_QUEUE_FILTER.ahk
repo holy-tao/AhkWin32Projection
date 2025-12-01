@@ -3,9 +3,8 @@
 #Include .\D3D10_INFO_QUEUE_FILTER_DESC.ahk
 
 /**
- * Debug message filter; contains a lists of message types to allow or deny.
+ * Debug message filter; contains a lists of message types to allow or deny. (D3D10_INFO_QUEUE_FILTER)
  * @remarks
- * 
  * For use with an <a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/nn-d3d10sdklayers-id3d10infoqueue">ID3D10InfoQueue Interface</a>.
  * 
  * Providing an allow list with non-zero values causes only the specified combination of categories, severities and message IDs to be allowed.  
@@ -13,9 +12,7 @@
  * 
  * Providing a deny list with non-zero values causes the specified combination of categories, severities and message IDs to be rejected.
  *       Messages that do not match the specified combination will be allowed.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10sdklayers/ns-d3d10sdklayers-d3d10_info_queue_filter
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/ns-d3d10sdklayers-d3d10_info_queue_filter
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

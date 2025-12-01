@@ -4,7 +4,6 @@
 /**
  * Provides service information for the specified Bluetooth service.
  * @remarks
- * 
  * When using the 
  * <b>BTH_SET_SERVICE</b> structure to query services and devices using the 
  * <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-wsasetservice">WSASetService</a> function and 
@@ -47,9 +46,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-getsockname">getsockname</a> function call.
  * 
  * Bluetooth implements a one-to-one correlation between SDP records and server sockets. As such, there is no need for the <b>SERVICE_MULTIPLE</b> flag.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ws2bth/ns-ws2bth-bth_set_service
+ * @see https://learn.microsoft.com/windows/win32/api/ws2bth/ns-ws2bth-bth_set_service
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

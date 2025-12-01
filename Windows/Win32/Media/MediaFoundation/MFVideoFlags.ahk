@@ -4,7 +4,6 @@
 /**
  * Contains flags that describe a video stream.
  * @remarks
- * 
  * Developers are encouraged to use media type attributes instead of using the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoformat">MFVIDEOFORMAT</a> structure. The following table lists the attributes that correspond to the flags defined in this enumeration.
  * 
  * <table>
@@ -78,9 +77,7 @@
  *           </li>
  * </ul>
  * Instead, components should use sample attributes to describe per-sample interlacing information, as described in the topic <a href="https://docs.microsoft.com/windows/desktop/medfound/video-interlacing">Video Interlacing</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ne-mfobjects-mfvideoflags
+ * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mfvideoflags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

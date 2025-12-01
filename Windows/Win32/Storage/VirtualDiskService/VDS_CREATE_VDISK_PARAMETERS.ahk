@@ -3,7 +3,7 @@
 
 /**
  * Contains the parameters to be used when a virtual disk is created.
- * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_create_vdisk_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_create_vdisk_parameters
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Used by the STORAGE_PROPERTY_QUERY structure passed to the IOCTL_STORAGE_QUERY_PROPERTY control code to indicate what information is returned about a property of a storage device or adapter.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ne-winioctl-storage_query_type
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-storage_query_type
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

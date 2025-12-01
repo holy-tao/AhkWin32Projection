@@ -3,7 +3,7 @@
 
 /**
  * Defines the various fault states for a cluster shared volume (CSV).
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ne-clusapi-cluster_csv_volume_fault_state
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ne-clusapi-cluster_csv_volume_fault_state
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies command flags available in NetShell.
- * @see https://docs.microsoft.com/windows/win32/api//netsh/ne-netsh-ns_cmd_flags
+ * @see https://learn.microsoft.com/windows/win32/api/netsh/ne-netsh-ns_cmd_flags
  * @namespace Windows.Win32.NetworkManagement.NetShell
  * @version v4.0.30319
  */

@@ -4,11 +4,8 @@
 /**
  * The FAX_TIME structure represents a time, using individual members for the current hour and minute. The time is expressed in Coordinated Universal Time (UTC).
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_configurationa">FAX_CONFIGURATION</a> structure includes a <b>FAX_TIME</b> structure to describe the discount period that applies when a fax server is sending fax transmissions.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winfax/ns-winfax-fax_time
+ * @see https://learn.microsoft.com/windows/win32/api/winfax/ns-winfax-fax_time
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */

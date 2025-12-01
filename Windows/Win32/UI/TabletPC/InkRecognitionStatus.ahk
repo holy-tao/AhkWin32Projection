@@ -4,11 +4,8 @@
 /**
  * Specifies whether an error occurred during recognition and, if so, which error occurred.
  * @remarks
- * 
  * The SetGuideFailed, SetFlagsFailed, SetFactoidFailed, and SetPrefixSuffixFailed members are redundant because an error is also raised when the corresponding properties are set.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkrecognitionstatus
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkrecognitionstatus
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

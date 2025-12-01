@@ -4,7 +4,7 @@
 
 /**
  * Describes a module loaded for the enclave.
- * @see https://docs.microsoft.com/windows/win32/api//ntenclv/ns-ntenclv-vbs_enclave_report_module
+ * @see https://learn.microsoft.com/windows/win32/api/ntenclv/ns-ntenclv-vbs_enclave_report_module
  * @namespace Windows.Win32.System.Environment
  * @version v4.0.30319
  */

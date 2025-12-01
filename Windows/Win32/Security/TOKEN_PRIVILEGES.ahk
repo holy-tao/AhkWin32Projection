@@ -5,7 +5,7 @@
 
 /**
  * Contains information about a set of privileges for an access token.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-token_privileges
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_privileges
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

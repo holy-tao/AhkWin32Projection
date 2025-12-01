@@ -3,7 +3,7 @@
 
 /**
  * WCN_VALUE_TYPE_CONFIGURATION_ERROR enumeration defines possible error values returned to a device while attempting to configure to, and associate with, the WLAN.
- * @see https://docs.microsoft.com/windows/win32/api//wcntypes/ne-wcntypes-wcn_value_type_configuration_error
+ * @see https://learn.microsoft.com/windows/win32/api/wcntypes/ne-wcntypes-wcn_value_type_configuration_error
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
  * @version v4.0.30319
  */

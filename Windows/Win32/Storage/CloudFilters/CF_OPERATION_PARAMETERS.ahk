@@ -3,7 +3,7 @@
 
 /**
  * Parameters of an operation on a placeholder file or folder.
- * @see https://docs.microsoft.com/windows/win32/api//cfapi/ns-cfapi-cf_operation_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_operation_parameters
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

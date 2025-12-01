@@ -3,7 +3,7 @@
 
 /**
  * Defines the mode of connection.
- * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ne-wlanapi-wlan_connection_mode
+ * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_connection_mode
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

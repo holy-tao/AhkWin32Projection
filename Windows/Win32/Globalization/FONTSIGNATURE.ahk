@@ -4,11 +4,8 @@
 /**
  * Contains information identifying the code pages and Unicode subranges for which a given font provides glyphs.
  * @remarks
- * 
  * GDI relies on Windows code pages fitting within a 32-bit value. Furthermore, the highest 2 bits within this value are reserved for GDI internal use and may not be assigned to code pages.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-fontsignature
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-fontsignature
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

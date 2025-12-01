@@ -3,7 +3,7 @@
 
 /**
  * Specifies the color context types.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wiccolorcontexttype
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wiccolorcontexttype
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

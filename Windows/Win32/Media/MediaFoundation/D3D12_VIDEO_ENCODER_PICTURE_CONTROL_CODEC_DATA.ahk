@@ -2,7 +2,11 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Represents the picture level control elements for the associated EncodeFrame command for multiple codecs.
+ * @remarks
+ * Slice-level picture reference lists reordering is unsupported.
  * 
+ * Weighted inter-prediction is unsupported.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_control_codec_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
@@ -14,6 +18,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA extends Win32Struct
     static packingSize => 8
 
     /**
+     * The data size of the provided picture level control structure.
      * @type {Integer}
      */
     DataSize {

@@ -3,7 +3,7 @@
 
 /**
  * Used with the IRDVTaskPluginNotifySink::OnTaskStateChange method to indicate the status of a task.
- * @see https://docs.microsoft.com/windows/win32/api//sessdirpublictypes/ne-sessdirpublictypes-rdv_task_status
+ * @see https://learn.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-rdv_task_status
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

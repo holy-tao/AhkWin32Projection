@@ -4,11 +4,8 @@
 /**
  * Contains the total number of bytes that should be allocated for a file.
  * @remarks
- * 
  * The end-of-file (EOF) position for a file must always be less than or equal to the file allocation size. If the allocation size is set to a value that is less than EOF, the EOF position is automatically adjusted to match the file allocation size.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-file_allocation_info
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_allocation_info
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

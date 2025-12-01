@@ -4,7 +4,7 @@
 
 /**
  * Simple description of a color space.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/ns-d2d1_3-d2d1_simple_color_profile
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/ns-d2d1_3-d2d1_simple_color_profile
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -15,7 +15,7 @@ class D2D1_SIMPLE_COLOR_PROFILE extends Win32Struct
     static packingSize => 8
 
     /**
-     * The XY coordinates of the red primary in CIEXYZ space.
+     * The xy coordinates of the red primary in the CIExyY color space.
      * @type {D2D_POINT_2F}
      */
     redPrimary{
@@ -27,7 +27,7 @@ class D2D1_SIMPLE_COLOR_PROFILE extends Win32Struct
     }
 
     /**
-     * The XY coordinates of the green primary in CIEXYZ space.
+     * The xy coordinates of the green primary in the CIExyY color space.
      * @type {D2D_POINT_2F}
      */
     greenPrimary{
@@ -39,7 +39,7 @@ class D2D1_SIMPLE_COLOR_PROFILE extends Win32Struct
     }
 
     /**
-     * The XY coordinates of the blue primary in CIEXYZ space.
+     * The xy coordinates of the blue primary in the CIExyY color space.
      * @type {D2D_POINT_2F}
      */
     bluePrimary{
@@ -51,7 +51,7 @@ class D2D1_SIMPLE_COLOR_PROFILE extends Win32Struct
     }
 
     /**
-     * The X/Z tristimulus values for the whitepoint, normalized for relative luminance.
+     * The XZ tristimulus values for the whitepoint in the CIEXYZ color space, normalized to luminance (Y) of 1.
      * @type {D2D_POINT_2F}
      */
     whitePointXZ{

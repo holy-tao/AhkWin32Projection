@@ -3,7 +3,7 @@
 
 /**
  * Specifies whether a log is ephemeral.
- * @see https://docs.microsoft.com/windows/win32/api//clfs/ne-clfs-clfs_log_archive_mode
+ * @see https://learn.microsoft.com/windows/win32/api/clfs/ne-clfs-clfs_log_archive_mode
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

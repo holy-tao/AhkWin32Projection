@@ -8,10 +8,8 @@
 /**
  * Contains the parameters for an RSAES-OAEP key encryption.
  * @remarks
- * 
  * RSAES-OAEP is normally used for encrypting AES symmetric keys. Normally, only the hash algorithm <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) will need to be set for encoding. For decoding, all the members are explicitly set.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_rsaes_oaep_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_rsaes_oaep_parameters
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

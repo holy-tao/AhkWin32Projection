@@ -6,8 +6,7 @@
  * The WSATHREADID structure enables a provider to identify a thread on which asynchronous procedure calls (APCs) can be queued using the WPUQueueApc function.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ws2spi/ns-ws2spi-wsathreadid
+ * @see https://learn.microsoft.com/windows/win32/api/ws2spi/ns-ws2spi-wsathreadid
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

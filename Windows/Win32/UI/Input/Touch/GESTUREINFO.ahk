@@ -6,7 +6,6 @@
 /**
  * Stores information about a gesture.
  * @remarks
- * 
  * The <b>HIDWORD</b> of the <b>ullArguments</b> member is always 0, with the following exceptions:
  * 
  * <ul>
@@ -106,11 +105,7 @@
  *     typedef GESTUREINFO const * PCGESTUREINFO;	 
  * 
  * ```
- * 
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-gestureinfo
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-gestureinfo
  * @namespace Windows.Win32.UI.Input.Touch
  * @version v4.0.30319
  */

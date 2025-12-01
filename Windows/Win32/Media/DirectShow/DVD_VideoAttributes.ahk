@@ -4,11 +4,8 @@
 /**
  * The DVD_VideoAttributes structure describes the attributes of the video stream for the current title or menu.
  * @remarks
- * 
  * This structure is filled when an application calls the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdinfo2-getcurrentvideoattributes">IDvdInfo2::GetCurrentVideoAttributes</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-dvd_videoattributes
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_videoattributes
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

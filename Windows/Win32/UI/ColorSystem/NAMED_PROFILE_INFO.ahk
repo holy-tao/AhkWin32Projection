@@ -5,8 +5,7 @@
  * The **NAMED_PROFILE_INFO** structure is used to store information about a named color profile.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//icm/ns-icm-named_profile_info
+ * @see https://learn.microsoft.com/windows/win32/api/icm/ns-icm-named_profile_info
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  */

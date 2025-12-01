@@ -3,7 +3,7 @@
 
 /**
  * Represents summary information about a COM+ component hosted in a particular process. It can also represent a Services Without Components (SWC) context.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/ns-comsvcs-componentsummary
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-componentsummary
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */

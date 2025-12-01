@@ -3,7 +3,7 @@
 
 /**
  * Provides information about the input streams passed into the ID3DVideoContext1::VideoProcessorGetBehaviorHints method.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/ns-d3d11_1-d3d11_video_processor_stream_behavior_hint
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/ns-d3d11_1-d3d11_video_processor_stream_behavior_hint
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

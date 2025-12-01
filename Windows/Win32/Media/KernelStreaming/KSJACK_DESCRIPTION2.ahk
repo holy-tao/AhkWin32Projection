@@ -3,7 +3,7 @@
 
 /**
  * The KSJACK_DESCRIPTION2 structure describes an audio jack.To get the description of an audio jack of a connector, call IKsJackDescription2::GetJackDescription2.
- * @see https://docs.microsoft.com/windows/win32/api//devicetopology/ns-devicetopology-ksjack_description2
+ * @see https://learn.microsoft.com/windows/win32/api/devicetopology/ns-devicetopology-ksjack_description2
  * @namespace Windows.Win32.Media.KernelStreaming
  * @version v4.0.30319
  */

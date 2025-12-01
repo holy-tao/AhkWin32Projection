@@ -3,7 +3,7 @@
 
 /**
  * The USER_INFO_1051 structure contains the relative ID (RID) associated with the user account. This information level is valid only when you call the NetUserSetInfo function.
- * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-user_info_1051
+ * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_1051
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

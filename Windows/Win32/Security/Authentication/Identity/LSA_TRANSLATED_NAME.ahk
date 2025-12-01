@@ -4,7 +4,7 @@
 
 /**
  * Used with the LsaLookupSids function to return information about the account identified by a SID.
- * @see https://docs.microsoft.com/windows/win32/api//lsalookup/ns-lsalookup-lsa_translated_name
+ * @see https://learn.microsoft.com/windows/win32/api/lsalookup/ns-lsalookup-lsa_translated_name
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

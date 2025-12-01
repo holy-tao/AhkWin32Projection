@@ -3,7 +3,7 @@
 
 /**
  * The NET_DISPLAY_MACHINE structure contains information that an account manager can access to determine information about computers and their attributes.
- * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-net_display_machine
+ * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-net_display_machine
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

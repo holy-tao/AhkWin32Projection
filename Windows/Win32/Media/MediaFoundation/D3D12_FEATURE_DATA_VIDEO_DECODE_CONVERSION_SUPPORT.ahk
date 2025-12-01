@@ -8,13 +8,10 @@
 #Include .\D3D12_VIDEO_SCALE_SUPPORT.ahk
 
 /**
- * Retrieves the list of supported profiles.
+ * Retrieves the list of supported profiles. (D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT)
  * @remarks
- * 
  * If the colorspace and format conversion is supported, *ScaleFlags* will have the [D3D12\_VIDEO\_SCALE\_SUPPORT\_FLAGS](ne-d3d12video-d3d12_video_scale_support_flags.md) set. Callers should check the [D3D12\_VIDEO\_SIZE\_RANGE](ns-d3d12video-d3d12_video_size_range.md) field to determine if the requested scale is supported.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_feature_data_video_decode_conversion_support
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_decode_conversion_support
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

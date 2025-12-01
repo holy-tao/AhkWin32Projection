@@ -3,7 +3,7 @@
 
 /**
  * Indicates the kind of logon being requested.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ne-ntsecapi-msv1_0_logon_submit_type
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-msv1_0_logon_submit_type
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Information about a single endpoint that was read from metadata documents.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_metadata_endpoint
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_metadata_endpoint
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

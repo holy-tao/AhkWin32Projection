@@ -3,7 +3,7 @@
 
 /**
  * Contains properties that are common to the MI_PropertyDeclMI_ParameterDecland MI_MethodDecl structures.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_featuredecl
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_featuredecl
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Provides serialization information about a single value that is part of an enumeration (WS_ENUM_DESCRIPTION).
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_enum_value
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_enum_value
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

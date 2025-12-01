@@ -5,7 +5,7 @@
 
 /**
  * The EMRSETPIXELV structure contains members for the SetPixelV enhanced metafile record. When an enhanced metafile is created, calls to SetPixel are also recorded in this record.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrsetpixelv
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrsetpixelv
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

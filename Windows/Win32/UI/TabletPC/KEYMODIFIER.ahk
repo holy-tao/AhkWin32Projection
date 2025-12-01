@@ -3,7 +3,7 @@
 
 /**
  * Determines which, if any, modifier keys were pressed when the flick gesture occurred.
- * @see https://docs.microsoft.com/windows/win32/api//tabflicks/ne-tabflicks-keymodifier
+ * @see https://learn.microsoft.com/windows/win32/api/tabflicks/ne-tabflicks-keymodifier
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

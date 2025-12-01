@@ -3,7 +3,7 @@
 
 /**
  * Contains information used to query the binding cache.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_query_binding_cache_request
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_query_binding_cache_request
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

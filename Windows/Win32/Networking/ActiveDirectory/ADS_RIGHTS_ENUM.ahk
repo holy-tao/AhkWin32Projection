@@ -4,7 +4,6 @@
 /**
  * Specifies access rights assigned to an Active Directory object.
  * @remarks
- * 
  * To assign access rights to an object, set the <b>AccessMask</b> field of an
  *     access-control entry (ACE) to a combination of the constants defined in this enumeration. In addition to the 
  *     <b>AccessMask</b> field, an ACE can have other fields, including 
@@ -36,9 +35,7 @@
  *     <b>DS_GENERIC_EXECUTE</b>, and <b>DS_GENERIC_ALL</b>. For more 
  *     information about how to use the  Access Right and Access Masks, see 
  *     <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/ne-iads-ads_rights_enum
+ * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_rights_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

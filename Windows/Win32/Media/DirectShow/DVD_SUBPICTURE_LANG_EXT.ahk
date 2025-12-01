@@ -3,7 +3,7 @@
 
 /**
  * Defines the possible language extensions in a specified subpicture stream.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-dvd_subpicture_lang_ext
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_subpicture_lang_ext
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

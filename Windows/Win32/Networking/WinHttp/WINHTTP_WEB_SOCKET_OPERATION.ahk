@@ -3,7 +3,7 @@
 
 /**
  * The WINHTTP_WEB_SOCKET_OPERATION enumeration includes the WebSocket operation type.
- * @see https://docs.microsoft.com/windows/win32/api//winhttp/ne-winhttp-winhttp_web_socket_operation
+ * @see https://learn.microsoft.com/windows/win32/api/winhttp/ne-winhttp-winhttp_web_socket_operation
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */

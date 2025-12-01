@@ -3,7 +3,7 @@
 
 /**
  * Used by the ClusterSetupProgressCallback function to identify the current phase of the cluster setup process.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ne-clusapi-cluster_setup_phase
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ne-clusapi-cluster_setup_phase
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

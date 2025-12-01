@@ -3,7 +3,7 @@
 
 /**
  * The AM_STREAM_INFO structure contains stream-control information.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-am_stream_info
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-am_stream_info
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies color space support for the swap chain.
- * @see https://docs.microsoft.com/windows/win32/api//dxgi1_4/ne-dxgi1_4-dxgi_swap_chain_color_space_support_flag
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/ne-dxgi1_4-dxgi_swap_chain_color_space_support_flag
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

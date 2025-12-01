@@ -2,17 +2,14 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Defines the set of operations that objects can process.
+ * The VDS_ASYNC_OUTPUT_TYPE enumeration (vdshwprv.h) defines the set of operations that objects can process.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_async_output">VDS_ASYNC_OUTPUT</a> structure includes a <b>VDS_ASYNC_OUTPUT_TYPE</b> 
  *     value as a member to indicate an operation type.
  * 
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_ASYNC_OUTPUT_TYPE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_ASYNC_OUTPUT_TYPE</b> enumeration constant.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_async_output_type
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_async_output_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

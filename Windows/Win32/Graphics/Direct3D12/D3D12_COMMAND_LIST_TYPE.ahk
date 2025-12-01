@@ -4,7 +4,6 @@
 /**
  * Specifies the type of a command list.
  * @remarks
- * 
  * This enum is used by the following methods:
  * 
  * <ul>
@@ -18,9 +17,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandlist">CreateCommandList</a>
  * </li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_command_list_type
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_command_list_type
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

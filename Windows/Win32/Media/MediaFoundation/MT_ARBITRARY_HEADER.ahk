@@ -4,15 +4,12 @@
 /**
  * Contains format data for a binary stream in an Advanced Streaming Format (ASF) file.
  * @remarks
- * 
  * This structure is used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-arbitrary-header">MF_MT_ARBITRARY_HEADER</a> media type attribute.
  * 
  * This structure corresponds to the first 60 bytes of the Type-Specific Data field of the Stream Properties Object, in files where the stream type is ASF_Binary_Media. For more information, see the ASF specification.
  * 
  * The Format Data field of the Type-Specific Data field is contained in the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-arbitrary-format">MF_MT_ARBITRARY_FORMAT</a> attribute of the media type.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-mt_arbitrary_header
+ * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mt_arbitrary_header
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -4,13 +4,10 @@
 /**
  * The PartType enumeration defines constants that indicate whether a part in a device topology is a connector or subunit.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-ipart-getparttype">IPart::GetPartType</a> method uses the constants defined in the <b>PartType</b> enumeration to indicate whether an <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nn-devicetopology-ipart">IPart</a> object represents a connector or a subunit. If an <b>IPart</b> object represents a connector, a client can query that that object for its <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nn-devicetopology-iconnector">IConnector</a> interface. If an <b>IPart</b> object represents a subunit, a client can query that that object for its <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nn-devicetopology-isubunit">ISubunit</a> interface.
  * 
  * For more information about connectors and subunits, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-topologies">Device Topologies</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//devicetopology/ne-devicetopology-parttype
+ * @see https://learn.microsoft.com/windows/win32/api/devicetopology/ne-devicetopology-parttype
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

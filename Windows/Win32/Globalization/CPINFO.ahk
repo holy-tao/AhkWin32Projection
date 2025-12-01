@@ -4,16 +4,13 @@
 /**
  * Contains information about a code page. This structure is used by the GetCPInfo function.
  * @remarks
- * 
  * Lead bytes are unique to DBCS code pages that allow for more than 256 characters. A lead byte is the first byte of a 2-byte character in a DBCS. On each DBCS code page, the lead bytes occupy a specific range of byte values. This range is different for different code pages.
  * 
  * The lead byte information is not very helpful for most code pages, and is not even provided for many multi-byte encodings, for example, UTF-8 and GB18030. Your applications are discouraged from using this information to predict what the <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-multibytetowidechar">MultiByteToWideChar</a> or <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-widechartomultibyte">WideCharToMultiByte</a> function will do. The function might end up using a default character or performing other default behavior if the bytes following the lead byte are not as expected.
  * 
  * 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-cpinfoexa">CPINFOEX</a>, used by the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getcpinfoexa">GetCPInfoEx</a> function, provides an extended version of this structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winnls/ns-winnls-cpinfo
+ * @see https://learn.microsoft.com/windows/win32/api/winnls/ns-winnls-cpinfo
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

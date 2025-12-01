@@ -7,7 +7,6 @@
 /**
  * Contains a list of basic service set (BSS) entries.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlangetnetworkbsslist">WlanGetNetworkBssList</a> function retrieves the BSS list of the wireless network or networks on a given interface and returns this information in a <b>WLAN_BSS_LIST</b> structure. 
  * 
  * 
@@ -20,9 +19,7 @@
  * 
  * 
  * Since the information is returned by the access point for an infrastructure BSS network or by the network peer for an independent BSS network (ad hoc network), the information returned should not be trusted. The <b>ulIeOffset</b> and <b>ulIeSize</b>  members in the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_bss_entry">WLAN_BSS_ENTRY</a> structure should be used to determine the maximum size of the information element data blob in the <b>WLAN_BSS_ENTRY</b> structure, not the data in the information element data blob.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-wlan_bss_list
+ * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_bss_list
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

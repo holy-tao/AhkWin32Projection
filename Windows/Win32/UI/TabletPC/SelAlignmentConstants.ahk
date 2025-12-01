@@ -3,7 +3,7 @@
 
 /**
  * Specifies the alignment of the paragraph relative to the margins of the InkEdit control.
- * @see https://docs.microsoft.com/windows/win32/api//inked/ne-inked-selalignmentconstants
+ * @see https://learn.microsoft.com/windows/win32/api/inked/ne-inked-selalignmentconstants
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

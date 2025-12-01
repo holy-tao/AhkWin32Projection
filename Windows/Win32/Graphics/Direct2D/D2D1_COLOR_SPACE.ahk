@@ -3,7 +3,7 @@
 
 /**
  * Defines options that should be applied to the color space.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/ne-d2d1_1-d2d1_color_space
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ne-d2d1_1-d2d1_color_space
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

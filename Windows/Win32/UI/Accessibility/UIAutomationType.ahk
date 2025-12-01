@@ -3,7 +3,7 @@
 
 /**
  * Contains values used to indicate Microsoft UI Automation data types.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-uiautomationtype
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-uiautomationtype
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class UIAutomationType extends Win32BitflagEnum{
     static UIAutomationType_Double => 4
 
     /**
-     * A <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure containing the x- and y-coordinates of a point.
+     * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure containing the x- and y-coordinates of a point.
      * @type {Integer (Int32)}
      */
     static UIAutomationType_Point => 5
@@ -88,7 +88,7 @@ class UIAutomationType extends Win32BitflagEnum{
     static UIAutomationType_DoubleArray => 65540
 
     /**
-     * An array of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures, each containing the x- and y-coordinates of a point. This type is not supported for a custom UI Automation property.
+     * An array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures, each containing the x- and y-coordinates of a point. This type is not supported for a custom UI Automation property.
      * @type {Integer (Int32)}
      */
     static UIAutomationType_PointArray => 65541
@@ -130,7 +130,7 @@ class UIAutomationType extends Win32BitflagEnum{
     static UIAutomationType_OutDouble => 131076
 
     /**
-     * The address of a variable that receives a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure.
+     * The address of a variable that receives a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure.
      * @type {Integer (Int32)}
      */
     static UIAutomationType_OutPoint => 131077
@@ -172,7 +172,7 @@ class UIAutomationType extends Win32BitflagEnum{
     static UIAutomationType_OutDoubleArray => 196612
 
     /**
-     * The address of a variable that receives an array of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures.
+     * The address of a variable that receives an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures.
      * @type {Integer (Int32)}
      */
     static UIAutomationType_OutPointArray => 196613

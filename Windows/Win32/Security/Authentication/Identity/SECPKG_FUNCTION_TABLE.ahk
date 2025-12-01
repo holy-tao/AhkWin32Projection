@@ -3,7 +3,7 @@
 
 /**
  * The SECPKG_FUNCTION_TABLE structure contains pointers to the LSA functions that a security package must implement. The Local Security Authority (LSA) obtains this structure from an SSP/AP DLL when it calls the SpLsaModeInitialize function.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ns-ntsecpkg-secpkg_function_table
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_function_table
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
@@ -348,6 +348,7 @@ class SECPKG_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
+     * 
      * @type {Pointer<SpGetTbalSupplementalCredsFn>}
      */
     GetTbalSupplementalCreds {
@@ -356,6 +357,7 @@ class SECPKG_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
+     * 
      * @type {Pointer<PLSA_AP_LOGON_USER_EX3>}
      */
     LogonUserEx3 {
@@ -364,6 +366,7 @@ class SECPKG_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
+     * 
      * @type {Pointer<PLSA_AP_PRE_LOGON_USER_SURROGATE>}
      */
     PreLogonUserSurrogate {
@@ -372,6 +375,7 @@ class SECPKG_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
+     * 
      * @type {Pointer<PLSA_AP_POST_LOGON_USER_SURROGATE>}
      */
     PostLogonUserSurrogate {
@@ -380,6 +384,7 @@ class SECPKG_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
+     * 
      * @type {Pointer<SpExtractTargetInfoFn>}
      */
     ExtractTargetInfo {

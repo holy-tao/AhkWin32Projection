@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * Lists the possible sources of policy information for the detection of spoofing for biometric factors.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-policy-source
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319

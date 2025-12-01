@@ -983,7 +983,7 @@ class Metadata {
      * @returns {Pointer<Void>} Type: <b>LPVOID*</b>
      * 
      * The dispenser class. The class implements <b>IMetaDataDispenser</b> or <b>IMetaDataDispenserEx.</b>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadata/nf-rometadata-metadatagetdispenser
+     * @see https://learn.microsoft.com/windows/win32/api/rometadata/nf-rometadata-metadatagetdispenser
      * @since windows8.0
      */
     static MetaDataGetDispenser(rclsid, riid) {
@@ -997,12 +997,141 @@ class Metadata {
 
     /**
      * Locates and retrieves the metadata file that describes the Application Binary Interface (ABI) for the specified typename.
+     * @remarks
+     * The caller can optionally pass-in a metadata dispenser for the <b>RoGetMetaDataFile</b> function to open the metadata files through the <b>IMetaDataDispenserEx::OpenScope</b> method. 
+     * 
+     * If the metadata dispenser parameter is set to <b>nullptr</b>, the function creates an internal instance of the refactored metadata reader and uses that reader’s <b>IMetaDataDispenserEx::OpenScope</b> method.
+     * 
+     * 
+     * 
+     * The <b>RoGetMetaDataFile</b> function is guaranteed to be thread-safe if you pass-in <b>nullptr</b> to the metadata dispenser parameter, as the function creates an internal read-only metadata reader. This guarantee also holds if you pass in the read-only metadata reader, like  RoMetadata to the function.
+     * 
+     * 
+     * 
+     * All three output parameters are optional and none of them needs to be specified. Calling the <b>RoGetMetaDataFile</b> function with <b>nullptr</b> for all output parameters is equivalent to asking whether the input typename or namespace is defined.
+     * 
+     * 
+     * 
+     * The metadata reader object reference and the TypeDef token parameters paired, so both must be set together or be set to  <b>nullptr</b>.  
+     * 
+     * 
+     * There are three possible type resolution scenarios:
+     * 
+     * <table>
+     * <tr>
+     * <td>
+     * Scenario #1
+     * 
+     * </td>
+     * <td>
+     * <b>Typename input string is a type defined in a WinMD file.</b>
+     * 
+     * <ul>
+     * <li>
+     * Return Value
+     * 
+     * <b>S_OK</b>
+     * 
+     * </li>
+     * <li>
+     * Metadata file path output parameter
+     * 
+     * This is an optional output parameter. If not set to <b>nullptr</b> by caller, it holds the absolute path of the .winmd file that describes the given type's ABI. The caller is responsible for freeing the <b>HSTRING</b> by calling <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
+     * 
+     * </li>
+     * <li>
+     * Reference to the metadata reader object output parameter
+     * 
+     * This is an optional output parameter. If not <b>nullptr</b>, it holds a reference to the metadata reader object (<b>IMetaDataImport2</b>) and the caller is responsible for releasing it. If the caller passes <b>nullptr</b> for this parameter, it means that the caller does not want the metadata reader object, so the function releases the internal reference.
+     * 
+     * </li>
+     * <li>
+     * Typedef token output parameter
+     * 
+     * This is an optional output parameter. If not set to <b>nullptr</b> by caller, it is set to the token of the type’s <b>typedef</b> entry. Language projections can use this token to call <b>IMetaDataImport::GetTypeDefProps</b> to get metadata about the type.
+     * 
+     * </li>
+     * </ul>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Scenario #2
+     * 
+     * </td>
+     * <td><b>Typename input string is actually an existing namespace rather than a typename.</b><ul>
+     * <li>
+     * Return value
+     * 
+     * <b>RO_E_METADATA_NAME_IS_NAMESPACE</b>
+     * 
+     * </li>
+     * <li>
+     * Metadata file path output parameter
+     * 
+     * This is an optional output parameter. If not set to <b>nullptr</b> by the caller, it is set to <b>nullptr</b>.
+     * 
+     * </li>
+     * <li>
+     * Reference to the metadata reader object output parameter
+     * 
+     * This is an optional output parameter. If not set to <b>nullptr</b> by caller, it is set to <b>nullptr</b>.
+     * 
+     * </li>
+     * <li>
+     * Typedef token output parameter
+     * 
+     * This is an optional output parameter. If not set to <b>nullptr</b> by caller, it will is to <b>mdTypeDefNil</b>.
+     * 
+     * </li>
+     * </ul>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Scenario #3
+     * 
+     * </td>
+     * <td><b>Input string is not a type defined in any examined WinMD file</b><ul>
+     * <li>
+     * Return value
+     * 
+     * <b>RO_E_METADATA_NAME_NOT_FOUND</b>
+     * 
+     * </li>
+     * <li>
+     * Metadata file path output parameter
+     * 
+     * This is an optional output parameter. If not set to <b>nullptr</b> by caller, it is set to <b>nullptr</b>
+     * 
+     * </li>
+     * <li>
+     * Reference to the metadata reader object output parameter
+     * 
+     * This is an optional output parameter. If not set to <b>nullptr</b> by caller, it is set to <b>nullptr</b>
+     * 
+     * </li>
+     * <li>
+     * Typedef token output parameter
+     * 
+     * This is an optional output parameter. If not set to <b>nullptr</b> by caller, it is set to <b>mdTypeDefNil</b>.
+     * 
+     * </li>
+     * </ul>
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * The <b>RoGetMetaDataFile</b> function resolves an <b>interfacegroup</b>, because the <b>interfacegroup</b> also is a namespace-qualified typename. The <a href="https://docs.microsoft.com/windows/desktop/api/inspectable/nf-inspectable-iinspectable-getruntimeclassname">IInspectable::GetRuntimeClassName</a> method returns the string in dot-separated string format for use by <b>RoGetMetaDataFile</b>.
+     * 
+     * Resolving 3rd-party types from a process that's not in a Windows Store app is not supported. In this case, the function returns error <b>HRESULT_FROM_WIN32(ERROR_NO_PACKAGE)</b> and sets output parameters to <b>nullptr</b>. But Windows types are resolved in a process that's not in a Windows Store app.
      * @param {HSTRING} name Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
      * 
      * The name to resolve, either a typename or a namespace. The name input string must be non-empty and must not contain embedded NUL characters. If the name is a dot-separated string, then the substring to the left of the last dot and the substring to the right of the last dot must be non-empty.
      * @param {IMetaDataDispenserEx} metaDataDispenser Type: <b>IMetaDataDispenserEx*</b>
      * 
-     * A metadata dispenser that the caller can optionally pass in for the <b>RoGetMetaDataFile</b> function to be able to open the metadata files through the provided <b>IMetaDataDispenserEx::OpenScope</b> method. If the metadata dispenser parameter is set to <b>nullptr</b>, the function creates an internal instance of the refactored metadata reader (RoMetadata.dll) and uses its <b>IMetaDataDispenserEx::OpenScope</b> method.
+     * A metadata dispenser that the caller can optionally pass in for the <b>RoGetMetaDataFile</b> function to be able to open the metadata files through the provided <b>IMetaDataDispenserEx::OpenScope</b> method. If the metadata dispenser parameter is set to <b>nullptr</b>, the function creates an internal instance of the refactored metadata reader (RoMetadata.dll) and uses its <b>IMetaDataDispenserEx::OpenScope</b> method. You can create a metadata dispenser using the <a href="https://docs.microsoft.com/windows/win32/api/rometadata/nf-rometadata-metadatagetdispenser">MetaDataGetDispenser</a> function.
      * @param {Pointer<HSTRING>} metaDataFilePath Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>*</b>
      * 
      * The absolute path of the metadata (.winmd) file that describes the ABI, unless set to <b>nullptr</b>. The caller is responsible for freeing the <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a> by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a> method.
@@ -1073,7 +1202,7 @@ class Metadata {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataresolution/nf-rometadataresolution-rogetmetadatafile
+     * @see https://learn.microsoft.com/windows/win32/api/rometadataresolution/nf-rometadataresolution-rogetmetadatafile
      * @since windows8.0
      */
     static RoGetMetaDataFile(name, metaDataDispenser, metaDataFilePath, metaDataImport, typeDefToken) {
@@ -1091,6 +1220,123 @@ class Metadata {
 
     /**
      * Parses a type name and existing type parameters, in the case of parameterized types.
+     * @remarks
+     * The <b>RoParseTypeName</b> function parses the string-encoded  type name and returns an array of <b>HSTRING</b> values. The first element of the array is the base type, and the remaining array elements are the type parameters, if any, in pre-order tree traversal order. <b>S_OK</b> is returned if the parsing was successful. 
+     * 
+     * Here are examples of different possible input typenames:
+     * 
+     * <ul>
+     * <li>
+     * Example 1 (non-namespace-qualified type)
+     * 
+     * <ul>
+     * <li>
+     * <b>Input typename</b>
+     * 
+     * String
+     * 
+     * </li>
+     * <li>
+     * <b>Output</b>
+     * 
+     * Array element 0: String
+     * 
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * Example 2 (non-parameterized namespace-qualified type)
+     * 
+     * <ul>
+     * <li>
+     * <b>Input typename</b>
+     * 
+     * Windows.Foundation.IExtensionInformation
+     * 
+     * </li>
+     * <li>
+     * <b>Output</b>
+     * 
+     * Array element 0: Windows.Foundation.IExtensionInformation
+     * 
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * Example 3 (instantiated parameterized interface type)
+     * 
+     * <ul>
+     * <li>
+     * <b>Input typename</b>
+     * 
+     * Windows.Foundation.Collections.IIterator`1&lt;Windows.Foundation.Collections.IMapView`2&lt;Windows.Foundation.Collections.IVector`1&lt;String&gt;, String&gt;&gt;
+     * 
+     * </li>
+     * <li>
+     * <b>Output</b>
+     * 
+     * Array element 0: Windows.Foundation.Collections.IIterator`1
+     * 
+     * Array element 1: Windows.Foundation.Collections.IMapView`2
+     * 
+     * Array element 2: Windows.Foundation.Collections.IVector`1
+     * 
+     * Array element 3: String
+     * 
+     * Array element 4: String
+     * 
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * When parsing a non-parameterized type, the <b>RoParseTypeName</b> function returns an array that has one element. Please refer to example 1 and example 2 above.
+     * 
+     * The input string must be non-empty and it must not contain any embedded null characters. Otherwise, the API fails with <b>E_INVALIDARG</b>.  If the <i>typename</i> is ill-formed, like  IVector`1&lt;, then the API will fail with  the <b>RO_E_METADATA_INVALID_TYPE_FORMAT</b> error code.
+     * 
+     * The <b>RoParseTypeName</b> function validates only the format of the <i>typename</i> and not its syntax. For example, the function validates that a namespace-qualified parameterized interface <i>typename</i> follows the format shown in the following table, but it does not impose any requirements on what characters/symbols can be used in the <i>typename</i>, except that it should not contain ` , &lt;, or &gt; characters.
+     * 
+     * The format for a string-encoded instantiated parameterized interface is as follows:
+     * 
+     * <table>
+     * <tr>
+     * <td>
+     * Name of parameterized interface
+     * 
+     * </td>
+     * <td>
+     * Backtick character
+     * (`)
+     * 
+     * </td>
+     * <td>
+     * Number of type parameters
+     * 
+     * </td>
+     * <td>
+     * Left angle bracket (&lt;)
+     * 
+     * </td>
+     * <td>
+     * Namespace qualified name of each type parameter, separated by commas.
+     * 
+     * </td>
+     * <td>
+     * Right angle bracket
+     * (&gt;)
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Type parameters may be:
+     * 
+     * <ul>
+     * <li>Non-parameterized, non-namespace-qualified types, like  WinRT fundamental types.</li>
+     * <li>Non-parameterized namespace-qualified types.</li>
+     * <li>Fully-instantiated namespace-qualified parameterized interfaces.</li>
+     * </ul>
+     * On success, the caller is responsible for deallocating the <i>typenameParts</i> array returned by <b>RoParseTypeName</b> by using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> to free the array and <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a> to free the <b>HSTRING</b> values.
      * @param {HSTRING} typeName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
      * 
      * String-encoded typename. The typename can be a non-namespace-qualified type, a non-parameterized namespace-qualified type or a fully instantiated namespace-qualified parameterized type.
@@ -1143,7 +1389,7 @@ class Metadata {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataresolution/nf-rometadataresolution-roparsetypename
+     * @see https://learn.microsoft.com/windows/win32/api/rometadataresolution/nf-rometadataresolution-roparsetypename
      * @since windows8.0
      */
     static RoParseTypeName(typeName, partsCount, typeNameParts) {
@@ -1162,6 +1408,8 @@ class Metadata {
 
     /**
      * Determine the direct children, types, and sub-namespaces of the specified Windows Runtime namespace, from any programming language supported by the Windows Runtime.
+     * @remarks
+     * Use the <b>RoResolveNamespace</b> function to explore Windows Runtime namespace hierarchies.
      * @param {HSTRING} name Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
      * 
      * Full namespace for which we are trying to retrieve direct children. This is a required parameter.
@@ -1244,7 +1492,7 @@ class Metadata {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataresolution/nf-rometadataresolution-roresolvenamespace
+     * @see https://learn.microsoft.com/windows/win32/api/rometadataresolution/nf-rometadataresolution-roresolvenamespace
      * @since windows8.0
      */
     static RoResolveNamespace(name, windowsMetaDataDir, packageGraphDirsCount, packageGraphDirs, metaDataFilePathsCount, metaDataFilePaths, subNamespacesCount, subNamespaces) {
@@ -1266,6 +1514,8 @@ class Metadata {
 
     /**
      * Returns true or false to indicate whether the API contract with the specified name and major and minor version number is present.
+     * @remarks
+     * This function was introduced in Windows 10, version 1809 (build 17763).
      * @param {PWSTR} name Type: <b>PCWSTR</b>
      * 
      * The name of the API contract.
@@ -1278,7 +1528,7 @@ class Metadata {
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * True if the specified API contract is present; otherwise, false.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataresolution/nf-rometadataresolution-roisapicontractpresent
+     * @see https://learn.microsoft.com/windows/win32/api/rometadataresolution/nf-rometadataresolution-roisapicontractpresent
      * @since windows10.0.10240
      */
     static RoIsApiContractPresent(name, majorVersion, minorVersion) {
@@ -1294,6 +1544,8 @@ class Metadata {
 
     /**
      * Returns true or false to indicate whether the API contract with the specified name and major version number is present.
+     * @remarks
+     * This function was introduced in Windows 10, version 1809 (build 17763).
      * @param {PWSTR} name Type: <b>PCWSTR</b>
      * 
      * The name of the API contract.
@@ -1303,7 +1555,7 @@ class Metadata {
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * True if the specified API contract is present; otherwise, false.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataresolution/nf-rometadataresolution-roisapicontractmajorversionpresent
+     * @see https://learn.microsoft.com/windows/win32/api/rometadataresolution/nf-rometadataresolution-roisapicontractmajorversionpresent
      * @since windows10.0.10240
      */
     static RoIsApiContractMajorVersionPresent(name, majorVersion) {
@@ -1345,6 +1597,20 @@ class Metadata {
 
     /**
      * Computes the interface identifier (IID) of the interface or delegate type that results when a parameterized interface or delegate is instantiated with the specified type arguments.
+     * @remarks
+     * The <b>RoGetParameterizedTypeInstanceIID</b> function is for use by programming language implementers.
+     * 
+     * This function is stateless.  The <i>metaDataLocator</i> argument is not preserved between calls and may be released as soon as the call returns.
+     * 
+     * 
+     * 
+     * The <b>RoGetParameterizedTypeInstanceIID</b> function does not perform deep semantic analysis.  For instance, if <a href="https://docs.microsoft.com/windows/desktop/api/roparameterizediid/ns-roparameterizediid-irosimplemetadatabuilder">IRoSimpleMetaDataBuilder</a> specifies that a structure contains an interface pointer, this function returns success, even though such metadata is semantically invalid. The value of the returned IID is unspecified in such cases.
+     * 
+     * This function may recursively invoke the metadata locator provided as an argument.
+     * 
+     * 
+     * 
+     * If a call to the <a href="https://docs.microsoft.com/windows/desktop/api/roparameterizediid/ns-roparameterizediid-irosimplemetadatabuilder">IRoSimpleMetaDataBuilder</a> function fails, this function will return that failure code.
      * @param {Integer} nameElementCount Type: <b>UINT32</b>
      * 
      * Number of elements in <i>nameElements.</i>
@@ -1407,7 +1673,7 @@ class Metadata {
      *  
      * 
      * A failure may also occur if a type is inappropriate for the context in which it appears.
-     * @see https://docs.microsoft.com/windows/win32/api//roparameterizediid/nf-roparameterizediid-rogetparameterizedtypeinstanceiid
+     * @see https://learn.microsoft.com/windows/win32/api/roparameterizediid/nf-roparameterizediid-rogetparameterizedtypeinstanceiid
      * @since windows8.0
      */
     static RoGetParameterizedTypeInstanceIID(nameElementCount, nameElements, metaDataLocator, iid, pExtra) {
@@ -1427,7 +1693,7 @@ class Metadata {
      * 
      * A handle to the IID.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//roparameterizediid/nf-roparameterizediid-rofreeparameterizedtypeextra
+     * @see https://learn.microsoft.com/windows/win32/api/roparameterizediid/nf-roparameterizediid-rofreeparameterizedtypeextra
      * @since windows8.0
      */
     static RoFreeParameterizedTypeExtra(extra) {
@@ -1443,8 +1709,8 @@ class Metadata {
      * A handle to the IID.
      * @returns {PSTR} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//roparameterizediid/nf-roparameterizediid-roparameterizedtypeextragettypesignature
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/roparameterizediid/nf-roparameterizediid-roparameterizedtypeextragettypesignature
      * @since windows8.0
      */
     static RoParameterizedTypeExtraGetTypeSignature(extra) {

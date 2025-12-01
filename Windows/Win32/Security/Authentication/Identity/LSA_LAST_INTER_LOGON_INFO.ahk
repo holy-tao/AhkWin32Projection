@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains information about a logon session.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-lsa_last_inter_logon_info
+ * Contains information about a logon session. (LSA_LAST_INTER_LOGON_INFO)
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-lsa_last_inter_logon_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

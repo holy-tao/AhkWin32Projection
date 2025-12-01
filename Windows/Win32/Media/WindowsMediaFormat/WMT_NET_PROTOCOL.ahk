@@ -4,11 +4,8 @@
 /**
  * The WMT_STREAM_SELECTION enumeration type defines the types of protocols that the network sink supports.
  * @remarks
- * 
  * This enumeration is used in two methods, <b>GetNetworkProtocol</b> and <b>SetNetworkProtocol</b>, from the <b>IWMWriterNetworkSink</b> interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ne-wmsdkidl-wmt_net_protocol
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_net_protocol
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

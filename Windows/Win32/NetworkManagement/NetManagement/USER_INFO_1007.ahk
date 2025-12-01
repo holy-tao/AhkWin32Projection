@@ -3,7 +3,7 @@
 
 /**
  * The USER_INFO_1007 structure contains a comment associated with a user network account. This information level is valid only when you call the NetUserSetInfo function.
- * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-user_info_1007
+ * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_1007
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

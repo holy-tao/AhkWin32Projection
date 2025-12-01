@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Defines picture control subregions as slices for multiple codecs.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_control_subregions_layout_data
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -14,6 +16,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA extends Win32St
     static packingSize => 8
 
     /**
+     * The data size of the provided picture control subregions layout structure.
      * @type {Integer}
      */
     DataSize {

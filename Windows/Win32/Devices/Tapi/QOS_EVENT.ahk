@@ -3,7 +3,7 @@
 
 /**
  * The QOS_EVENT enum describes quality of service (QOS) events. The ITQOSEvent::get_Event method returns a member of this enum to indicate the type of QOS event that occurred.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-qos_event
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-qos_event
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

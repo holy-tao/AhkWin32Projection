@@ -3,7 +3,7 @@
 
 /**
  * The values of the SERVICE_TYPE enumeration type specify the type of service administered from the SDO API.
- * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-service_type
+ * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-service_type
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

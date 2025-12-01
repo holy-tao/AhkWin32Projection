@@ -3,7 +3,7 @@
 
 /**
  * Specifies result flags for the ReclaimResources1 method.
- * @see https://docs.microsoft.com/windows/win32/api//dxgi1_5/ne-dxgi1_5-dxgi_reclaim_resource_results
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/ne-dxgi1_5-dxgi_reclaim_resource_results
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies the state of the Interaction Context object.
- * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/ne-interactioncontext-interaction_state
+ * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ne-interactioncontext-interaction_state
  * @namespace Windows.Win32.UI.InteractionContext
  * @version v4.0.30319
  */

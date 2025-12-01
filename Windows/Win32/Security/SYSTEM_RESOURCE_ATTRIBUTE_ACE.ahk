@@ -4,7 +4,7 @@
 
 /**
  * Defines an access control entry (ACE) for the system access control list (SACL) that specifies the system resource attributes for a securable object.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-system_resource_attribute_ace
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_resource_attribute_ace
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

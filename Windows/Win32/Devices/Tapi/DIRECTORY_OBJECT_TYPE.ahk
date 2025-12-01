@@ -3,7 +3,7 @@
 
 /**
  * The DIRECTORY_OBJECT_TYPE enum is a descriptor of whether a directory object is a conference or a user.
- * @see https://docs.microsoft.com/windows/win32/api//rend/ne-rend-directory_object_type
+ * @see https://learn.microsoft.com/windows/win32/api/rend/ne-rend-directory_object_type
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

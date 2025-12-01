@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains source file information.
- * @see https://docs.microsoft.com/windows/win32/api//dbghelp/ns-dbghelp-sourcefile
+ * The SOURCEFILE structure (dbghelp.h) contains source file information.
+ * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-sourcefile
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  * @charset ANSI

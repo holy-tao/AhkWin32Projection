@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the public key BLOB used by the CryptUIWizDigitalSign function.
- * @see https://docs.microsoft.com/windows/win32/api//cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_blob_info
+ * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_blob_info
  * @namespace Windows.Win32.Security.Cryptography.UI
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The DVD_SubpictureAttributes structure contains information about the DVD subpicture. The IDvdInfo2::GetSubpictureAttributes method fills in a DVD_SubpictureAttributes structure for a specified stream.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-dvd_subpictureattributes
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_subpictureattributes
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

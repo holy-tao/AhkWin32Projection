@@ -3,7 +3,7 @@
 
 /**
  * The VMR9PresentationFlags enumeration type contains flags that describe the status of a video sample. These flags are used in the VMR9PresentationInfo structure.
- * @see https://docs.microsoft.com/windows/win32/api//vmr9/ne-vmr9-vmr9presentationflags
+ * @see https://learn.microsoft.com/windows/win32/api/vmr9/ne-vmr9-vmr9presentationflags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

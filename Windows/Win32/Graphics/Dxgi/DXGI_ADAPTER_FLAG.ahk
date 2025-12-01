@@ -2,14 +2,11 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Identifies the type of DXGI adapter.
+ * Identifies the type of DXGI adapter. (DXGI_ADAPTER_FLAG)
  * @remarks
- * 
  * The <b>DXGI_ADAPTER_FLAG</b> enumerated type is used by the <b>Flags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_adapter_desc1">DXGI_ADAPTER_DESC1</a> or <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ns-dxgi1_2-dxgi_adapter_desc2">DXGI_ADAPTER_DESC2</a> structure to 
  *       identify the type of DXGI adapter.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi/ne-dxgi-dxgi_adapter_flag
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi/ne-dxgi-dxgi_adapter_flag
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

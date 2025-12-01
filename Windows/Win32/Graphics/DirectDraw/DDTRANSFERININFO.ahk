@@ -3,7 +3,7 @@
 
 /**
  * The DDTRANSFERININFO structure contains the transfer information for the surface
- * @see https://docs.microsoft.com/windows/win32/api//dxmini/ns-dxmini-ddtransferininfo
+ * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddtransferininfo
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

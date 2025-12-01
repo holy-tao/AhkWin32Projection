@@ -3,7 +3,7 @@
 
 /**
  * The PDH_TIME_INFO structure contains information on time intervals as applied to the sampling of performance data.
- * @see https://docs.microsoft.com/windows/win32/api//pdh/ns-pdh-pdh_time_info
+ * @see https://learn.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_time_info
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

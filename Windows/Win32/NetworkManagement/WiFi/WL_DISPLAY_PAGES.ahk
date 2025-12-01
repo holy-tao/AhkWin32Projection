@@ -3,7 +3,7 @@
 
 /**
  * Specifies the active tab when the wireless profile user interface dialog box appears.
- * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ne-wlanapi-wl_display_pages
+ * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wl_display_pages
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

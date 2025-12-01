@@ -2,13 +2,8 @@
 #Include ..\..\..\Win32Struct.ahk
 
 /**
- * Describes a local identifier for an adapter.
- * @remarks
- * 
- * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-getadapterluid">ID3D12Device::GetAdapterLuid</a> and <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-getsharedresourceadapterluid">GetSharedResourceAdapterLuid</a> methods.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-luid
+ * The LUID structure is an opaque structure that specifies an identifier that is guaranteed to be unique on the local machine. For more information, see the reference page for LUID in the Microsoft Windows SDK documentation.
+ * @see https://learn.microsoft.com/windows/win32/api/ntdef/ns-ntdef-luid
  * @namespace Windows.Win32.Foundation
  * @version v4.0.30319
  */
@@ -19,7 +14,6 @@ class LUID extends Win32Struct
     static packingSize => 4
 
     /**
-     * Specifies a DWORD that contains the unsigned lower numbers of the id.
      * @type {Integer}
      */
     LowPart {
@@ -28,7 +22,6 @@ class LUID extends Win32Struct
     }
 
     /**
-     * Specifies a LONG that contains the signed high numbers of the id.
      * @type {Integer}
      */
     HighPart {

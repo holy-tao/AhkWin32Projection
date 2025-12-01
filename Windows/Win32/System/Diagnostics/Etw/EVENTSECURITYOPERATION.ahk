@@ -4,11 +4,8 @@
 /**
  * Defines what component of the security descriptor that the EventAccessControl function modifies.
  * @remarks
- * 
  * For information on DACLs and SACLs, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-lists">Access Control Lists</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//evntcons/ne-evntcons-eventsecurityoperation
+ * @see https://learn.microsoft.com/windows/win32/api/evntcons/ne-evntcons-eventsecurityoperation
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

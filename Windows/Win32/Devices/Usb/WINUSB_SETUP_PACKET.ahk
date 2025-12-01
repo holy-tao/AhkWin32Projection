@@ -4,11 +4,8 @@
 /**
  * The WINUSB_SETUP_PACKET structure describes a USB setup packet.
  * @remarks
- * 
  * Callers of the <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_controltransfer">WinUsb_ControlTransfer</a> routine must pass in a <b>WINUSB_SETUP_PACKET</b> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winusb/ns-winusb-winusb_setup_packet
+ * @see https://learn.microsoft.com/windows/win32/api/winusb/ns-winusb-winusb_setup_packet
  * @namespace Windows.Win32.Devices.Usb
  * @version v4.0.30319
  */

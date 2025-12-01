@@ -3,7 +3,7 @@
 
 /**
  * The DS_REPL_INFO_TYPE enumeration is used with the DsReplicaGetInfo and DsReplicaGetInfo2 functions to specify the type of replication data to retrieve.
- * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ne-ntdsapi-ds_repl_info_type
+ * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ne-ntdsapi-ds_repl_info_type
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

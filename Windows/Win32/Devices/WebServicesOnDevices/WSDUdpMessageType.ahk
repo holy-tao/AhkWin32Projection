@@ -3,7 +3,7 @@
 
 /**
  * Identifies the type of UDP message.
- * @see https://docs.microsoft.com/windows/win32/api//wsdbase/ne-wsdbase-wsdudpmessagetype
+ * @see https://learn.microsoft.com/windows/win32/api/wsdbase/ne-wsdbase-wsdudpmessagetype
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

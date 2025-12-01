@@ -3,7 +3,7 @@
 
 /**
  * Defines actions that can be performed on a stream.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mfpolicymanager_action
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfpolicymanager_action
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

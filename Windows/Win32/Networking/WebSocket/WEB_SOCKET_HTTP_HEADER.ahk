@@ -3,7 +3,7 @@
 
 /**
  * Contains an HTTP header.
- * @see https://docs.microsoft.com/windows/win32/api//websocket/ns-websocket-web_socket_http_header
+ * @see https://learn.microsoft.com/windows/win32/api/websocket/ns-websocket-web_socket_http_header
  * @namespace Windows.Win32.Networking.WebSocket
  * @version v4.0.30319
  */

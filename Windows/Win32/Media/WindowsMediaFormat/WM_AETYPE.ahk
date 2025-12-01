@@ -3,7 +3,7 @@
 
 /**
  * The WM_AETYPE enumeration specifies the permissions for an entry in an IP address access list.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ne-wmsdkidl-wm_aetype
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wm_aetype
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

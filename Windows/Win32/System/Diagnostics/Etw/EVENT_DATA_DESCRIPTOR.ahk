@@ -4,7 +4,6 @@
 /**
  * The EVENT_DATA_DESCRIPTOR structure defines a block of data that will be used in an ETW event.
  * @remarks
- * 
  * Most event providers will not call **EventDataDescCreate** directly. Instead,
  * most event providers are implemented using an ETW framework that wraps the calls
  * to **EventRegister**, **EventWrite**, and **EventUnregister**. For example, you
@@ -43,9 +42,7 @@
  * session that uses 32KB buffers will not be able to accept any event larger than
  * 32,696 bytes (32,768-byte buffer minus the 72-byte header leaves 32,696 bytes
  * for events).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//evntprov/ns-evntprov-event_data_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api/evntprov/ns-evntprov-event_data_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
@@ -58,10 +55,13 @@ class EVENT_DATA_DESCRIPTOR extends Win32Struct
     /**
      * A pointer to the data.
      * 
-     * > **Important:** This is a 64-bit unsigned integer value in both 32-bit and
+     * > [!Important]
+     * > This is a 64-bit unsigned integer value in both 32-bit and
      * > 64-bit architectures. To properly set this value, cast your data pointer to an
      * > unsigned integer before assigning it to the `Ptr` field, e.g.
-     * > `EventDataDescriptor.Ptr = (UINT_PTR)dataPointer;`.
+     * > `EventDataDescriptor.Ptr = (UINT_PTR)dataPointer;`, or use the
+     * > [EventDataDescCreate](/windows/win32/api/evntprov/nf-evntprov-eventdatadesccreate)
+     * > function.
      * @type {Integer}
      */
     Ptr {

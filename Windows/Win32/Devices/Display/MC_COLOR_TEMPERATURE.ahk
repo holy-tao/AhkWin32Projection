@@ -3,7 +3,7 @@
 
 /**
  * Describes a monitor's color temperature.
- * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_color_temperature
+ * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_color_temperature
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

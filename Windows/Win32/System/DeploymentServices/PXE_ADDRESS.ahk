@@ -3,7 +3,7 @@
 
 /**
  * Specifies the network address for a packet.
- * @see https://docs.microsoft.com/windows/win32/api//wdspxe/ns-wdspxe-pxe_address
+ * @see https://learn.microsoft.com/windows/win32/api/wdspxe/ns-wdspxe-pxe_address
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

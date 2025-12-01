@@ -3,7 +3,7 @@
 
 /**
  * Defines constants that specify the state of an element in the visual tree.
- * @see https://docs.microsoft.com/windows/win32/api//xamlom/ne-xamlom-visualelementstate
+ * @see https://learn.microsoft.com/windows/win32/api/xamlom/ne-xamlom-visualelementstate
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  * @version v4.0.30319
  */

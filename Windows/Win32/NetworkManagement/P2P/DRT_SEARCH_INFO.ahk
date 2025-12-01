@@ -3,7 +3,7 @@
 
 /**
  * DRT_SEARCH_INFO structure represents a search query issued with DrtStartSearch.
- * @see https://docs.microsoft.com/windows/win32/api//drt/ns-drt-drt_search_info
+ * @see https://learn.microsoft.com/windows/win32/api/drt/ns-drt-drt_search_info
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

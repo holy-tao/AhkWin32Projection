@@ -3,7 +3,7 @@
 
 /**
  * Represents an array of MI_ConstBoolean types.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_constbooleana
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_constbooleana
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

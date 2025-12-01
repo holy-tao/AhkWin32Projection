@@ -4,7 +4,6 @@
 /**
  * Contains read-only dynamic information for extended TCP statistics on data transfer for a TCP connection.
  * @remarks
- * 
  * The <b>TCP_ESTATS_DATA_ROD_v0</b> structure is used as part of the TCP extended statistics feature available on Windows Vista and later. 
  * 
  * The <b>TCP_ESTATS_DATA_ROD_v0</b> is defined as version 0 of the structure for  read-only dynamic information for extended TCP statistics on data transfer for a TCP connection.  This information is available after the connection has been established.
@@ -166,9 +165,7 @@
  * </td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tcpestats/ns-tcpestats-tcp_estats_data_rod_v0
+ * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ns-tcpestats-tcp_estats_data_rod_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */
@@ -348,7 +345,7 @@ class TCP_ESTATS_DATA_ROD_v0 extends Win32Struct
      * 
      * The number of octets for which cumulative acknowledgments
      *            have been sent.  Note that this will be the sum of changes
-     *            to the <b>RcvNxt</b>member.
+     *            to the <b>RcvNxt</b> member.
      * @type {Integer}
      */
     ThruBytesReceived {

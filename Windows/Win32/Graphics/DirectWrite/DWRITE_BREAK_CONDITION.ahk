@@ -3,7 +3,7 @@
 
 /**
  * Indicates the condition at the edges of inline object or text used to determine line-breaking behavior.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_break_condition
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_break_condition
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Structure that contains information for use in processing the LVN_ODSTATECHANGED notification code.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmlvodstatechange
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmlvodstatechange
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

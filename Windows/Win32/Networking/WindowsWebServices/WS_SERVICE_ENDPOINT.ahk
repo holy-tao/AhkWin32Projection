@@ -6,7 +6,7 @@
 
 /**
  * Represents an individual endpoint on a service host. The properties on the endpoint are used to specify the address, binding and contract.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_service_endpoint
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_service_endpoint
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

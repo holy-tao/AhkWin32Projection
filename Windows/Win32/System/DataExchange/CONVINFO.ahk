@@ -9,7 +9,7 @@
 
 /**
  * Contains information about a Dynamic Data Exchange (DDE) conversation.
- * @see https://docs.microsoft.com/windows/win32/api//ddeml/ns-ddeml-convinfo
+ * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-convinfo
  * @namespace Windows.Win32.System.DataExchange
  * @version v4.0.30319
  */

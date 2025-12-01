@@ -4,7 +4,7 @@
 
 /**
  * This structure contains eight primary colors in XYZ coordinates.
- * @see https://docs.microsoft.com/windows/win32/api//wcsplugin/ns-wcsplugin-primaryxyzcolors
+ * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/ns-wcsplugin-primaryxyzcolors
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  */

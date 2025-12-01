@@ -3,7 +3,7 @@
 
 /**
  * Describes the content protection capabilities of a display driver.
- * @see https://docs.microsoft.com/windows/win32/api//d3d9caps/ns-d3d9caps-d3dcontentprotectioncaps
+ * @see https://learn.microsoft.com/windows/win32/api/d3d9caps/ns-d3d9caps-d3dcontentprotectioncaps
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

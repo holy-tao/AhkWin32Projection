@@ -4,14 +4,11 @@
 /**
  * Specifies options for root signature layout.
  * @remarks
- * 
  * This enum is used in the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_signature_desc">D3D12_ROOT_SIGNATURE_DESC</a> structure.
  *       
  * 
  * The value in denying access to shader stages is a minor optimization on some hardware. If, for example, the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_shader_visibility">D3D12_SHADER_VISIBILITY_ALL</a> flag has been set to broadcast the root signature to all shader stages, then denying access can overrule this and save the hardware some work. Alternatively if the shader is so simple that no root signature resources are needed, then denying access could be used here too.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_root_signature_flags
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_root_signature_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -72,21 +69,25 @@ class D3D12_ROOT_SIGNATURE_FLAGS extends Win32BitflagEnum{
     static D3D12_ROOT_SIGNATURE_FLAG_LOCAL_ROOT_SIGNATURE => 128
 
     /**
+     * Denies the amplification shader access to the root signature.
      * @type {Integer (Int32)}
      */
     static D3D12_ROOT_SIGNATURE_FLAG_DENY_AMPLIFICATION_SHADER_ROOT_ACCESS => 256
 
     /**
+     * Denies the mesh shader access to the root signature.
      * @type {Integer (Int32)}
      */
     static D3D12_ROOT_SIGNATURE_FLAG_DENY_MESH_SHADER_ROOT_ACCESS => 512
 
     /**
+     * The shaders are allowed to index the CBV/SRV/UAV descriptor heap directly, using the *ResourceDescriptorHeap* built-in variable.
      * @type {Integer (Int32)}
      */
     static D3D12_ROOT_SIGNATURE_FLAG_CBV_SRV_UAV_HEAP_DIRECTLY_INDEXED => 1024
 
     /**
+     * The shaders are allowed to index the sampler descriptor heap directly, using the *SamplerDescriptorHeap* built-in variable.
      * @type {Integer (Int32)}
      */
     static D3D12_ROOT_SIGNATURE_FLAG_SAMPLER_HEAP_DIRECTLY_INDEXED => 2048

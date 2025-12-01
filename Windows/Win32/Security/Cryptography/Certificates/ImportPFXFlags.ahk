@@ -3,7 +3,7 @@
 
 /**
  * Flags to use when importing a PFX certificate.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-importpfxflags
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-importpfxflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies the containment level of a certificate request within a PKCS
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-innerrequestlevel
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-innerrequestlevel
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

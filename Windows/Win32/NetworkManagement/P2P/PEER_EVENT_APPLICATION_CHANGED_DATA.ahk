@@ -4,7 +4,6 @@
 /**
  * The PEER_EVENT_APPLICATION_CHANGED_DATA structure contains information returned when a PEER_EVENT_ENDPOINT_APPLICATION_CHANGED or PEER_EVENT_MY_APPLICATION_CHANGED event is raised on a peer participating in a peer collaboration network.
  * @remarks
- * 
  * "Application" is a set of software or software  features available on the peer's endpoint. Commonly, this refers to software packages that support peer networking activities, like games or other collaborative applications.
  * 
  * A peer's application has a GUID representing a single specific application. When an application is registered for a peer, this GUID and the corresponding application can be made available to all trusted contacts of the peer, indicating the activities the peer can participate in. To deregister a peer's application, call <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabunregisterapplication">PeerCollabUnregisterApplication</a> with this GUID.
@@ -12,9 +11,7 @@
  * When a new application is registered locally using PeerCollabRegisterApplication or unregistered using PeerCollabUnregisterApplication all peers subscribed to the local peer's presence information receive the PEER_EVENT_ENDPOINT_APPLICATION_CHANGED event. Locally, applications receive the PEER_EVENT_MY_APPLICATION_CHANGED event. 
  * 
  * The <b>current user</b> scope has priority over the <b>all user</b> scope. If the application is registered in both scopes, the event will be fired only if the <b>current user</b> scope is changed.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_event_application_changed_data
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_event_application_changed_data
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

@@ -5,8 +5,7 @@
  * Specifies how a video frame is interlaced.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ne-d3d12video-d3d12_video_field_type
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_field_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

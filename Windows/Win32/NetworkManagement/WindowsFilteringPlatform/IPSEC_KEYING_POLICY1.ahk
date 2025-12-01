@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Defines an unordered set of keying modules that will be tried for IPsec.
- * @see https://docs.microsoft.com/windows/win32/api//ipsectypes/ns-ipsectypes-ipsec_keying_policy1
+ * Defines an unordered set of keying modules that will be tried for IPsec. (IPSEC_KEYING_POLICY1)
+ * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_keying_policy1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

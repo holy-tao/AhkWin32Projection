@@ -3,7 +3,7 @@
 
 /**
  * Contains parameters for the OPM_SET_HDCP_SRM command.
- * @see https://docs.microsoft.com/windows/win32/api//opmapi/ns-opmapi-opm_set_hdcp_srm_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/opmapi/ns-opmapi-opm_set_hdcp_srm_parameters
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

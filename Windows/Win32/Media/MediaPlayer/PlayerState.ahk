@@ -4,11 +4,8 @@
 /**
  * The PlayerState enumeration type provides some basic states of Windows Media Player.
  * @remarks
- * 
  * This enumeration is used by the <b>TimedLevel</b> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//effects/ne-effects-playerstate
+ * @see https://learn.microsoft.com/windows/win32/api/effects/ne-effects-playerstate
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */

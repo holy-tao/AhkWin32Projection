@@ -3,7 +3,7 @@
 
 /**
  * Distinguishes variables from functions in a scope.
- * @see https://docs.microsoft.com/windows/win32/api//d3d10_1shader/ne-d3d10_1shader-d3d10_shader_debug_vartype
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/ne-d3d10_1shader-d3d10_shader_debug_vartype
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

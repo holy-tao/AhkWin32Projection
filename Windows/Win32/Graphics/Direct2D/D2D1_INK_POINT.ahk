@@ -3,7 +3,7 @@
 
 /**
  * Represents a point, radius pair that makes up part of a D2D1_INK_BEZIER_SEGMENT.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/ns-d2d1_3-d2d1_ink_point
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/ns-d2d1_3-d2d1_ink_point
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

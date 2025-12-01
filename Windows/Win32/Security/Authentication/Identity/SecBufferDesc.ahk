@@ -3,7 +3,7 @@
 
 /**
  * The SecBufferDesc structure describes an array of SecBuffer structures to pass from a transport application to a security package.
- * @see https://docs.microsoft.com/windows/win32/api//sspi/ns-sspi-secbufferdesc
+ * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secbufferdesc
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

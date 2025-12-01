@@ -4,7 +4,7 @@
 
 /**
  * The USE_INFO_3 structure contains information about a connection between a local computer and a shared resource, including connection type, connection status, user name, domain name, and specific flags that describe connection behavior.
- * @see https://docs.microsoft.com/windows/win32/api//lmuse/ns-lmuse-use_info_3
+ * @see https://learn.microsoft.com/windows/win32/api/lmuse/ns-lmuse-use_info_3
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

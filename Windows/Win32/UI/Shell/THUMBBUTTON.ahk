@@ -5,7 +5,6 @@
 /**
  * Used by methods of the ITaskbarList3 interface to define buttons used in a toolbar embedded in a window's thumbnail representation.
  * @remarks
- * 
  * When a button is clicked, a <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> message that contains the button ID is sent to the associated application window. The application handles whatever action it has assigned to the button.
  * 
  * <h3><a id="Button_Images"></a><a id="button_images"></a><a id="BUTTON_IMAGES"></a>Button Images</h3>
@@ -24,9 +23,7 @@
  * 
  * 
  * Images must be 32-bit and of dimensions <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a>(SM_CXICON) x <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a>(SM_CYICON). The toolbar itself provides visuals for a button's clicked, disabled, and hover states.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ns-shobjidl_core-thumbbutton
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-thumbbutton
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

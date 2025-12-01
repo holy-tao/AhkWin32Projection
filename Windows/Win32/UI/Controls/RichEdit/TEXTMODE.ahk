@@ -3,7 +3,7 @@
 
 /**
  * Indicates the text mode of a rich edit control. The EM_SETTEXTMODE and EM_GETTEXTMODE messages use this enumeration type.
- * @see https://docs.microsoft.com/windows/win32/api//richedit/ne-richedit-textmode
+ * @see https://learn.microsoft.com/windows/win32/api/richedit/ne-richedit-textmode
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

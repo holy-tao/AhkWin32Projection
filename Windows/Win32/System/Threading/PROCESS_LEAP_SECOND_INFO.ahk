@@ -3,7 +3,7 @@
 
 /**
  * Specifies how the system handles positive leap seconds.
- * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/ns-processthreadsapi-process_leap_second_info
+ * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-process_leap_second_info
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

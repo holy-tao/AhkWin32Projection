@@ -3,7 +3,7 @@
 
 /**
  * Represents the format of a partition.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ne-winioctl-partition_style
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-partition_style
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

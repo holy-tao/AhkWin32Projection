@@ -3,7 +3,7 @@
 
 /**
  * Represents a set of destination options. Destination options are a set of configurations that define the way an operation communicates with the server.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_destinationoptions
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_destinationoptions
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

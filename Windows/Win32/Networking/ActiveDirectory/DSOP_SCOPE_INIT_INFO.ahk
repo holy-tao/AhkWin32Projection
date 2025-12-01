@@ -5,7 +5,7 @@
 
 /**
  * The DSOP_SCOPE_INIT_INFO structure describes one or more scope types that have the same attributes.
- * @see https://docs.microsoft.com/windows/win32/api//objsel/ns-objsel-dsop_scope_init_info
+ * @see https://learn.microsoft.com/windows/win32/api/objsel/ns-objsel-dsop_scope_init_info
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

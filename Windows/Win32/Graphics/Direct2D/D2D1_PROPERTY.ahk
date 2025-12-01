@@ -4,11 +4,8 @@
 /**
  * Specifies the indices of the system properties present on the ID2D1Properties interface for an ID2D1Effect.
  * @remarks
- * 
  * Under normal circumstances the minimum and maximum number of inputs to the effect are the same. If the effect supports a variable number of inputs, the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nf-d2d1_1-id2d1effect-setinputcount">ID2D1Effect::SetNumberOfInputs</a> method can be used to choose the number that the application will enable.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/ne-d2d1_1-d2d1_property
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ne-d2d1_1-d2d1_property
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

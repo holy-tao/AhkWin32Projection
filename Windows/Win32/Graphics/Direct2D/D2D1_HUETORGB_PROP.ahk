@@ -3,7 +3,7 @@
 
 /**
  * Identifiers for properties of the Hue to RGB effect.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effects_2/ne-d2d1effects_2-d2d1_huetorgb_prop
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effects_2/ne-d2d1effects_2-d2d1_huetorgb_prop
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

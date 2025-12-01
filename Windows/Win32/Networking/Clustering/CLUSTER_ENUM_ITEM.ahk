@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains the properties of a cluster object. This structure is used to enumerate clusters in the ClusterEnumEx and ClusterNodeEnumEx functions.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ns-msclus-cluster_enum_item
+ * The CLUSTER_ENUM_ITEM structure contains the properties of a cluster objectand is used to enumerate clusters in the ClusterEnumEx and ClusterNodeEnumEx functions.
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ns-msclus-cluster_enum_item
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

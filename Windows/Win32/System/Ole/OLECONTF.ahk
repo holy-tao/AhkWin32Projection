@@ -3,7 +3,7 @@
 
 /**
  * Indicates the type of objects to be enumerated.
- * @see https://docs.microsoft.com/windows/win32/api//oleidl/ne-oleidl-olecontf
+ * @see https://learn.microsoft.com/windows/win32/api/oleidl/ne-oleidl-olecontf
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * An optional type description used with WS_DECIMAL_TYPE. It is used to specify constraints on the set of values which can be deserialized.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_decimal_description
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_decimal_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

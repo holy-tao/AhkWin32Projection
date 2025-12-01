@@ -7,7 +7,6 @@
 /**
  * Contains a table of IP interface entries.
  * @remarks
- * 
  * The <b>MIB_IPINTERFACE_TABLE</b> structure is defined on Windows Vista and later. 
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getipinterfacetable">GetIpInterfaceTable</a> function enumerates the IP interface entries on a local system and returns this information in a <b>MIB_IPINTERFACE_TABLE</b> structure. 
@@ -19,10 +18,7 @@
  * 
  * 
  * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//netioapi/ns-netioapi-mib_ipinterface_table
+ * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ipinterface_table
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

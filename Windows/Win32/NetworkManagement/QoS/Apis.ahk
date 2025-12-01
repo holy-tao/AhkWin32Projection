@@ -2289,6 +2289,10 @@ class QoS {
 ;@region Methods
     /**
      * This function initializes the QOS subsystem and the QOSHandle parameter. The QOSHandle parameter is used when calling other QOS functions. QOSCreateHandle must be called before any other functions.
+     * @remarks
+     * Every process intending to use qWAVE must first call <b>QOSCreateHandle</b>. The handle returned can be used for performing overlapped I/O. For example, this handle can be associated with an I/O completion port (IOCP) to receive overlapped completion notifications. This function can be  called multiple times to obtain multiple handles although a single handle is sufficient for most applications.
+     * 
+     * If a machine enters a power save mode that interrupts connectivity such as sleep or standby, existing and active network experiments such as <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qosstarttrackingclient">QOSStartTrackingClient</a> must be reinitiated.  This recreation of the flow mirrors the cleanup and creation activities also necessary for existing sockets. A new handle must be created, and the flow must be recreated and readmitted.
      * @param {Pointer<QOS_VERSION>} Version Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/qos2/ns-qos2-qos_version">QOS_VERSION</a> structure that indicates the version of QOS being used.  The <b>MajorVersion</b> member must be set to 1, and the <b>MinorVersion</b> member must be set to 0.
      * @param {Pointer<HANDLE>} QOSHandle Pointer to a variable that receives a QOS handle.  This handle is used when calling other QOS functions.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -2367,7 +2371,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//qos2/nf-qos2-qoscreatehandle
+     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qoscreatehandle
      * @since windows6.0.6000
      */
     static QOSCreateHandle(Version, QOSHandle) {
@@ -2377,6 +2381,10 @@ class QoS {
 
     /**
      * The QOSCloseHandle function closes a handle returned by the QOSCreateHandle function.
+     * @remarks
+     * All flows added on the handle being closed are immediately removed from the system.  Any traffic going out of a socket used to create these flows will no longer be marked with priority values.  Any pending operations on these flows are immediately completed with <b>ERROR_ABORTED</b>.
+     * 
+     * If any clients were being tracked through the handle being closed by a previous call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qosstarttrackingclient">QOSStartTrackingClient</a> function, <b>QOSCloseHandle</b> indicates that the application is no longer using the client endpoint.
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -2399,7 +2407,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//qos2/nf-qos2-qosclosehandle
+     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qosclosehandle
      * @since windows6.0.6000
      */
     static QOSCloseHandle(QOSHandle) {
@@ -2411,6 +2419,14 @@ class QoS {
 
     /**
      * The QOSStartTrackingClient function notifies the QOS subsystem of the existence of a new client.
+     * @remarks
+     * On receipt of a <b>QOSStartTrackingClient</b> call the QoS subsystem begins gathering information about the client such as the QoS capabilities and available bandwidth on the end-to-end path.
+     * 
+     * An application should call this function as soon as it becomes aware of a client device that may need QoS flow.  For example this function should be called when a media player device first connects to a media server application.
+     * 
+     * Network experiments performed by <b>QOSStartTrackingClient</b> do not introduce noteworthy load on the network even if no stream is started for a long period of time.  The qWAVE service dynamically adjusts experiment traffic based on QoS subsystem activity.
+     * 
+     * Link Layer Topology Discovery (LLTD) must be implemented on the sink PC or device for this function to work.
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {Pointer<SOCKADDR>} DestAddr A pointer to a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure that contains the IP address of the client device.  Clients are identified by their IP address and address family.  Any port number specified in the sockaddr structure will be ignored.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -2484,7 +2500,7 @@ class QoS {
      * </dl>
      * </td>
      * <td width="60%">
-     * The indicated device requires reinitialization due to hardware errors. The application should clean up and call <a href="/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a> again.
+     * The indicated device requires reinitialization due to hardware errors. The application should clean up and call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a> again.
      * 
      * </td>
      * </tr>
@@ -2522,7 +2538,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//qos2/nf-qos2-qosstarttrackingclient
+     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qosstarttrackingclient
      * @since windows6.0.6000
      */
     static QOSStartTrackingClient(QOSHandle, DestAddr) {
@@ -2536,6 +2552,8 @@ class QoS {
 
     /**
      * The QOSStopTrackingClient function notifies the QoS subsystem to stop tracking a client that has previously used the QOSStartTrackingClient function. If a flow is currently in progress, this function will not affect it.
+     * @remarks
+     * The Winsock2.h header file must be included to use Winsock defined identifiers or functions.
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {Pointer<SOCKADDR>} DestAddr Pointer to a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure that contains the IP address of the client device.  Clients are identified by their IP address and address family.  A port number is not required and will be ignored.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -2609,7 +2627,7 @@ class QoS {
      * </dl>
      * </td>
      * <td width="60%">
-     * The indicated device requires reinitialization due to hardware errors. The application should clean up and call <a href="/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a> again.
+     * The indicated device requires reinitialization due to hardware errors. The application should clean up and call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a> again.
      * 
      * </td>
      * </tr>
@@ -2625,7 +2643,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//qos2/nf-qos2-qosstoptrackingclient
+     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qosstoptrackingclient
      * @since windows6.0.6000
      */
     static QOSStopTrackingClient(QOSHandle, DestAddr) {
@@ -2639,6 +2657,14 @@ class QoS {
 
     /**
      * Enumerates all existing flows.
+     * @remarks
+     * Successfully calling this function requires administrative privileges
+     * 
+     * Calling the <b>QOSEnumerateFlows</b> function retrieves a list of <b>QOS_FlowId</b>s currently active on the QOS subsystem.   These <b>QOS_FlowId</b>s could then be used to call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qosqueryflow">QOSQueryFlow</a> function in order to gain more information on individual flows.
+     * 
+     * This function has call-twice semantics. First call to get the <i>Buffer</i> size, then call again (with an appropriately sized <i>Buffer</i> if the first call failed with <b>ERROR_INSUFFICIENT_BUFFER</b>) to retrieve the list of flows.  The second call may fail again with <b>ERROR_INSUFFICIENT_BUFFER</b> if new flows ere added since the first call.
+     * 
+     * Flows from another process cannot be modified.
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {Pointer<Integer>} Size Indicates the size of the <i>Buffer</i> parameter, in bytes.
      * 
@@ -2728,12 +2754,12 @@ class QoS {
      * </dl>
      * </td>
      * <td width="60%">
-     * The indicated device requires reinitialization due to hardware errors. The application should clean up and call <a href="/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a> again.
+     * The indicated device requires reinitialization due to hardware errors. The application should clean up and call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a> again.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//qos2/nf-qos2-qosenumerateflows
+     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qosenumerateflows
      * @since windows6.0.6000
      */
     static QOSEnumerateFlows(QOSHandle, Size, Buffer_R) {
@@ -2747,6 +2773,20 @@ class QoS {
 
     /**
      * Adds a new flow for traffic.
+     * @remarks
+     * The use of IPv4/v6 mixed addresses is not supported in qWAVE. The address specified by the <i>DestAddr</i> parameter must be either IPv4 or IPv6.
+     * 
+     * If there is a requirement for network experiments over a specific network interface, the socket must be bound to that particular interface. Otherwise the most appropriate interface for the experiment, as indicated by the network stack, is assigned by the qWAVE subsystem.
+     * 
+     * Network traffic associated with this flow is not affected by making this call alone.  For example, packet prioritization does not occur immediately.
+     * 
+     * There are two categories of applications that use this function:  adaptive and non-adaptive.  An adaptive application makes use of notifications and information in the <a href="https://docs.microsoft.com/windows/desktop/api/qos2/ns-qos2-qos_flow_fundamentals">QOS_FLOW_FUNDAMENTALS</a> structure for adapting to network changes such as congestion.  The qWAVE service uses Link Layer Topology Discovery (LLTD) QoS extensions for adaptive flows which can be present on the destination device.
+     * 
+     * After calling this function adaptive A/V applications should call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qossetflow">QOSSetFlow</a> function with an <i>Operation</i> value of <b>QOSSetFlowRate</b> to affect network traffic.
+     * 
+     * A non-adaptive application either does not adapt to changing network characteristics or is sending traffic to an endpoint that does not support adaptive capabilities as indicated by ERROR_NOT_SUPPORTED.
+     * 
+     * Non-adaptive applications, or adaptive applications making non-adaptive flows, should call this function with the <b>QOS_NON_ADAPTIVE_FLOW</b> flag.  After calling this function A/V applications should call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qossetflow">QOSSetFlow</a> function with a <i>Operation</i>. <b>QOSSetFlow</b> does not need to be called unless shaping is desired.
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {SOCKET} Socket Identifies the socket that the application will use to flow traffic.
      * @param {Pointer<SOCKADDR>} DestAddr Pointer to a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure that contains the destination IP address to which the application will send traffic.  The sockaddr structure must specify a destination port.
@@ -2867,7 +2907,7 @@ class QoS {
      * </dl>
      * </td>
      * <td width="60%">
-     * The indicated device requires reinitialization due to hardware errors. The application should clean up and call <a href="/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a> again.
+     * The indicated device requires reinitialization due to hardware errors. The application should clean up and call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a> again.
      * 
      * </td>
      * </tr>
@@ -2905,7 +2945,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//qos2/nf-qos2-qosaddsockettoflow
+     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qosaddsockettoflow
      * @since windows6.0.6000
      */
     static QOSAddSocketToFlow(QOSHandle, Socket, DestAddr, TrafficType, Flags, FlowId) {
@@ -2920,6 +2960,8 @@ class QoS {
 
     /**
      * Notifies the QOS subsystem that a previously added flow has been terminated.
+     * @remarks
+     * Calling the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qosclosehandle">QOSCloseHandle</a> function immediately aborts all pending operations and flows added by that handle.  If a handle is closed while a <b>QOSRemoveSocketFromFlow</b> call is still progress, the call will complete with <b>ERROR_OPERATION_ABORTED</b>.
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {SOCKET} Socket Socket to be removed from the flow.
      * 
@@ -3007,7 +3049,7 @@ class QoS {
      * </dl>
      * </td>
      * <td width="60%">
-     * The indicated device requires reinitialization due to hardware errors. The application should clean up and call <a href="/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a> again.
+     * The indicated device requires reinitialization due to hardware errors. The application should clean up and call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a> again.
      * 
      * </td>
      * </tr>
@@ -3023,7 +3065,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//qos2/nf-qos2-qosremovesocketfromflow
+     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qosremovesocketfromflow
      * @since windows6.0.6000
      */
     static QOSRemoveSocketFromFlow(QOSHandle, Socket, FlowId) {
@@ -3038,6 +3080,20 @@ class QoS {
 
     /**
      * Is called by an application to request the QOS subsystem to prioritize the application's packets and change the flow traffic.
+     * @remarks
+     * If <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qosstarttrackingclient">QOSStartTrackingClient</a> has not already been called, calling <b>QOSSetFlow</b> will cause the QOS subsystem to perform the following.<ul>
+     * <li>Discover whether the end-to-end network path supports prioritization.</li>
+     * <li>Track end-to-end network characteristics by way of network experiments.  These experiments do not place any noteworthy stress on the network.</li>
+     * </ul>
+     * 
+     * 
+     * If <b>QOSSetFlow</b> returns <b>ERROR_NETWORK_BUSY</b> there is insufficient bandwidth for the specified flow rate and network priority cannot be granted.  The application can still transmit a data stream but the flow will not receive priority marking.  Ideally an application would not attempt to stream at the requested rate if there is insufficient bandwidth. If <b>ERROR_NETWORK_BUSY</b> is returned the following safe strategy is available:<ol>
+     * <li>Query the QoS subsystem with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qosnotifyflow">QOSNotifyFlow</a> in order to determine the current available bandwidth and begin to stream at the received lower rate with priority if the network supports it.</li>
+     * <li>Request notification with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qosnotifyflow">QOSNotifyFlow</a> for when the originally desired amount of bandwidth is available.  When notification is received call  <b>QOSSetFlow</b> with the new bandwidth request and send at the new rate again with prioritization if supported.</li>
+     * </ol>
+     * 
+     * 
+     * This function may optionally be called asynchronously.
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {Integer} FlowId A flow identifier. A <b>QOS_FLOWID</b> is an unsigned 32-bit integer.
      * @param {Integer} Operation A <a href="https://docs.microsoft.com/windows/desktop/api/qos2/ne-qos2-qos_set_flow">QOS_SET_FLOW</a> enumerated type that identifies what will be changed in the flow.  This parameter specifies what structure the <i>Buffer</i> will contain.
@@ -3223,7 +3279,7 @@ class QoS {
      * </dl>
      * </td>
      * <td width="60%">
-     * The indicated device requires reinitialization due to hardware errors. The application should clean up and call <a href="/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a> again.
+     * The indicated device requires reinitialization due to hardware errors. The application should clean up and call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a> again.
      * 
      * </td>
      * </tr>
@@ -3272,7 +3328,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//qos2/nf-qos2-qossetflow
+     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qossetflow
      * @since windows6.0.6000
      */
     static QOSSetFlow(QOSHandle, FlowId, Operation, Size, Buffer_R, Overlapped) {
@@ -3490,7 +3546,7 @@ class QoS {
      * </dl>
      * </td>
      * <td width="60%">
-     * The indicated device requires reinitialization due to hardware errors. The application should clean up and call <a href="/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a> again.
+     * The indicated device requires reinitialization due to hardware errors. The application should clean up and call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a> again.
      * 
      * </td>
      * </tr>
@@ -3539,7 +3595,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//qos2/nf-qos2-qosqueryflow
+     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qosqueryflow
      * @since windows6.0.6000
      */
     static QOSQueryFlow(QOSHandle, FlowId, Operation, Size, Buffer_R, Flags, Overlapped) {
@@ -3553,6 +3609,8 @@ class QoS {
 
     /**
      * Registers the calling application to receive a notification.
+     * @remarks
+     * This function may be called asynchronously.
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {Integer} FlowId Specifies the flow identifier from which the application wishes to receive notifications. A <b>QOS_FLOWID</b> is an unsigned 32-bit integer.
      * @param {Integer} Operation A <a href="https://docs.microsoft.com/windows/desktop/api/qos2/ne-qos2-qos_notify_flow">QOS_NOTIFY_FLOW</a> value that indicates what the type of  notification being requested.
@@ -3678,7 +3736,7 @@ class QoS {
      * </dl>
      * </td>
      * <td width="60%">
-     * The indicated device requires reinitialization due to hardware errors. The application should clean up and call <a href="/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a> again.
+     * The indicated device requires reinitialization due to hardware errors. The application should clean up and call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a> again.
      * 
      * </td>
      * </tr>
@@ -3738,7 +3796,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//qos2/nf-qos2-qosnotifyflow
+     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qosnotifyflow
      * @since windows6.0.6000
      */
     static QOSNotifyFlow(QOSHandle, FlowId, Operation, Size, Buffer_R, Overlapped) {
@@ -3754,6 +3812,12 @@ class QoS {
 
     /**
      * Cancels a pending overlapped operation, like QOSSetFlow.
+     * @remarks
+     * This function would never be called with a <b>NULL</b><i>Overlapped</i> parameter.
+     * 
+     * Successfully canceled operations complete normal completion mechanisms and return <b>ERROR_OPERATION_ABORTED</b> as their completion return code.
+     * 
+     * Closing a handle with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qosclosehandle">QOSCloseHandle</a> will automatically abort all pending operations issued with that handle.  If the handle is closed while a <b>QOSCancel</b> is still in progress, the call will complete with <b>ERROR_OPERATION_ABORTED</b> as the return code.
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {Pointer<OVERLAPPED>} Overlapped Pointer to the OVERLAPPED structure used in the operation to be canceled.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -3827,7 +3891,7 @@ class QoS {
      * </dl>
      * </td>
      * <td width="60%">
-     * The indicated device requires reinitialization due to hardware errors. The application should clean up and call <a href="/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a> again.
+     * The indicated device requires reinitialization due to hardware errors. The application should clean up and call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a> again.
      * 
      * </td>
      * </tr>
@@ -3843,7 +3907,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//qos2/nf-qos2-qoscancel
+     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qoscancel
      * @since windows6.0.6000
      */
     static QOSCancel(QOSHandle, Overlapped) {
@@ -3855,6 +3919,12 @@ class QoS {
 
     /**
      * The TcRegisterClient function is used to register a client with the traffic control interface (TCI). The TcRegisterClient function must be the first function call a client makes to the TCI.
+     * @remarks
+     * Some of the return codes can be found in tcerror.h.
+     * 
+     * <div class="alert"><b>Note</b>  Use of the 
+     * <b>TcRegisterClient</b> function requires administrative privilege.</div>
+     * <div> </div>
      * @param {Integer} TciVersion Traffic control version expected by the client, included to ensure compatibility between traffic control and the client. Clients can pass CURRENT_TCI_VERSION, defined in Traffic.h.
      * @param {HANDLE} ClRegCtx Client registration context. <i>ClRegCtx</i> is returned when the client's notification handler function is called. This can be a container to hold an arbitrary client-defined context for this instance of the interface.
      * @param {Pointer<TCI_CLIENT_FUNC_LIST>} ClientHandlerList Pointer to a list of client-supplied handlers. Client-supplied handlers are used for notification events and asynchronous completions. Each completion routine is optional, with the exception of the notification handler. Setting the notification handler to <b>NULL</b> will return an ERROR_INVALID_PARAMETER.
@@ -3933,7 +4003,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//traffic/nf-traffic-tcregisterclient
+     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcregisterclient
      * @since windows5.0
      */
     static TcRegisterClient(TciVersion, ClRegCtx, ClientHandlerList, pClientHandle) {
@@ -3945,6 +4015,30 @@ class QoS {
 
     /**
      * The TcEnumerateInterfaces function enumerates all traffic control�enabled network interfaces. Clients are notified of interface changes through the ClNotifyHandler function.
+     * @remarks
+     * The client calling the 
+     * <b>TcEnumerateInterfaces</b> function must first allocate a buffer, then pass the buffer to traffic control through <i>InterfaceBuffer</i>. Traffic control returns a pointer to an array of interface descriptors in <i>InterfaceBuffer</i>. Each interface descriptor contains two elements:
+     * 
+     * <ul>
+     * <li>The traffic control interface's identifying text string.</li>
+     * <li>The network address list descriptor currently associated with the interface.</li>
+     * </ul>
+     * The network address list descriptor includes the media type, as well as a list of network addresses. The media type determines how the network address list should be interpreted:
+     * 
+     * <ul>
+     * <li>For connectionless media such as a LAN, the network address list contains all the protocol-specific addresses associated with the interface.</li>
+     * <li>For connection-oriented media such as a WAN, the network address list contains an even number of network addresses: 
+     * 
+     * 
+     * <ul>
+     * <li>The first address in each pair represents the local (source) address of the interface.</li>
+     * <li>The second address in each pair represents the remote (destination) address of the interface.</li>
+     * </ul>
+     * </li>
+     * </ul>
+     * <div class="alert"><b>Note</b>  Use of the 
+     * <b>TcEnumerateInterfaces</b> function requires administrative privilege.</div>
+     * <div> </div>
      * @param {HANDLE} ClientHandle Handle used by traffic control to identify the client. Clients receive handles when registering with traffic control through the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcregisterclient">TcRegisterClient</a> function.
      * @param {Pointer<Integer>} pBufferSize Pointer to a value indicating the size of the buffer. For input, this value is the size of the buffer, in bytes, allocated by the caller. For output, this value is the actual size of the buffer, in bytes, used or needed by traffic control. A value of zero on output indicates that no traffic control interfaces are available, indicating that the QOS Packet Scheduler is not installed.
@@ -4012,7 +4106,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//traffic/nf-traffic-tcenumerateinterfaces
+     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcenumerateinterfaces
      * @since windows5.0
      */
     static TcEnumerateInterfaces(ClientHandle, pBufferSize, InterfaceBuffer) {
@@ -4025,7 +4119,17 @@ class QoS {
     }
 
     /**
-     * The TcOpenInterface function opens an interface.
+     * The TcOpenInterface function opens an interface. (ANSI)
+     * @remarks
+     * Use of the 
+     * <b>TcOpenInterface</b> function requires administrative privilege.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The traffic.h header defines TcOpenInterface as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pInterfaceName Pointer to the text string identifying the interface to be opened. This text string is part of the information returned in a previous call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcenumerateinterfaces">TcEnumerateInterfaces</a>.
      * @param {HANDLE} ClientHandle Handle used by traffic control to identify the client, obtained through the <i>pClientHandle</i> parameter of the client's call to 
@@ -4093,7 +4197,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//traffic/nf-traffic-tcopeninterfacea
+     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcopeninterfacea
      * @since windows5.0
      */
     static TcOpenInterfaceA(pInterfaceName, ClientHandle, ClIfcCtx, pIfcHandle) {
@@ -4106,7 +4210,17 @@ class QoS {
     }
 
     /**
-     * The TcOpenInterface function opens an interface.
+     * The TcOpenInterface function opens an interface. (Unicode)
+     * @remarks
+     * Use of the 
+     * <b>TcOpenInterface</b> function requires administrative privilege.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The traffic.h header defines TcOpenInterface as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pInterfaceName Pointer to the text string identifying the interface to be opened. This text string is part of the information returned in a previous call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcenumerateinterfaces">TcEnumerateInterfaces</a>.
      * @param {HANDLE} ClientHandle Handle used by traffic control to identify the client, obtained through the <i>pClientHandle</i> parameter of the client's call to 
@@ -4174,7 +4288,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//traffic/nf-traffic-tcopeninterfacew
+     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcopeninterfacew
      * @since windows5.0
      */
     static TcOpenInterfaceW(pInterfaceName, ClientHandle, ClIfcCtx, pIfcHandle) {
@@ -4188,6 +4302,15 @@ class QoS {
 
     /**
      * The TcCloseInterface function closes an interface previously opened with a call to TcOpenInterface. All flows and filters on a particular interface should be closed before closing the interface with a call to TcCloseInterface.
+     * @remarks
+     * Regardless of whether 
+     * <b>TcCloseInterface</b> is called, an interface will be closed following a TC_NOTIFY_IFC_CLOSE notification event. If the 
+     * <b>TcCloseInterface</b> function is called with the handle of an interface that has already been closed, the handle will be invalidated and 
+     * <b>TcCloseInterface</b> will return ERROR_INVALID_HANDLE.
+     * 
+     * <div class="alert"><b>Note</b>  Use of 
+     * <b>TcCloseInterface</b> requires administrative privilege.</div>
+     * <div> </div>
      * @param {HANDLE} IfcHandle Handle associated with the interface to be closed. This handle is obtained by a previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcopeninterfacea">TcOpenInterface</a> function.
      * @returns {Integer} <table>
@@ -4229,7 +4352,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//traffic/nf-traffic-tccloseinterface
+     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tccloseinterface
      * @since windows5.0
      */
     static TcCloseInterface(IfcHandle) {
@@ -4241,6 +4364,10 @@ class QoS {
 
     /**
      * The TcQueryInterface function queries traffic control for related per-interface parameters.
+     * @remarks
+     * <div class="alert"><b>Note</b>  Use of the 
+     * <b>TcQueryInterface</b> function requires administrative privilege.</div>
+     * <div> </div>
      * @param {HANDLE} IfcHandle Handle associated with the interface to be queried. This handle is obtained by a previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcopeninterfacea">TcOpenInterface</a> function.
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the traffic control parameter being queried.
@@ -4334,7 +4461,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//traffic/nf-traffic-tcqueryinterface
+     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcqueryinterface
      * @since windows5.0
      */
     static TcQueryInterface(IfcHandle, pGuidParam, NotifyChange, pBufferSize, Buffer_R) {
@@ -4348,6 +4475,11 @@ class QoS {
 
     /**
      * The TcSetInterface function sets individual parameters for a given interface.
+     * @remarks
+     * <div class="alert"><b>Note</b>  Use of the 
+     * <b>TcSetInterface</b> function requires administrative privilege. The list of GUIDs that can be set is explained in 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/guid">GUID</a>.</div>
+     * <div> </div>
      * @param {HANDLE} IfcHandle Handle associated with the interface to be set. This handle is obtained by a previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcopeninterfacea">TcOpenInterface</a> function.
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the parameter to be set. A list of available GUIDs can be found in 
@@ -4426,7 +4558,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//traffic/nf-traffic-tcsetinterface
+     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcsetinterface
      * @since windows5.0
      */
     static TcSetInterface(IfcHandle, pGuidParam, BufferSize, Buffer_R) {
@@ -4437,7 +4569,17 @@ class QoS {
     }
 
     /**
-     * The TcQueryFlow function queries traffic control for the value of a specific flow parameter based on the name of the flow. The name of a flow can be retrieved from the TcEnumerateFlows function or from the TcGetFlowName function.
+     * The TcQueryFlow function queries traffic control for the value of a specific flow parameter based on the name of the flow. The name of a flow can be retrieved from the TcEnumerateFlows function or from the TcGetFlowName function. (ANSI)
+     * @remarks
+     * Use of the 
+     * <b>TcQueryFlow</b> function requires administrative privilege.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The traffic.h header defines TcQueryFlow as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pFlowName Name of the flow being queried.
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the flow parameter of interest. A list of traffic control's GUIDs can be found in 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/guid">GUID</a>.
@@ -4515,7 +4657,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//traffic/nf-traffic-tcqueryflowa
+     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcqueryflowa
      * @since windows5.0
      */
     static TcQueryFlowA(pFlowName, pGuidParam, pBufferSize, Buffer_R) {
@@ -4528,7 +4670,17 @@ class QoS {
     }
 
     /**
-     * The TcQueryFlow function queries traffic control for the value of a specific flow parameter based on the name of the flow. The name of a flow can be retrieved from the TcEnumerateFlows function or from the TcGetFlowName function.
+     * The TcQueryFlow function queries traffic control for the value of a specific flow parameter based on the name of the flow. The name of a flow can be retrieved from the TcEnumerateFlows function or from the TcGetFlowName function. (Unicode)
+     * @remarks
+     * Use of the 
+     * <b>TcQueryFlow</b> function requires administrative privilege.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The traffic.h header defines TcQueryFlow as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pFlowName Name of the flow being queried.
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the flow parameter of interest. A list of traffic control's GUIDs can be found in 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/guid">GUID</a>.
@@ -4606,7 +4758,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//traffic/nf-traffic-tcqueryfloww
+     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcqueryfloww
      * @since windows5.0
      */
     static TcQueryFlowW(pFlowName, pGuidParam, pBufferSize, Buffer_R) {
@@ -4619,7 +4771,16 @@ class QoS {
     }
 
     /**
-     * The TcSetFlow function sets individual parameters for a given flow.
+     * The TcSetFlow function sets individual parameters for a given flow. (ANSI)
+     * @remarks
+     * Use of the 
+     * <b>TcSetFlow</b> function requires administrative privilege.
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The traffic.h header defines TcSetFlow as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pFlowName Name of the flow being set. The value for this parameter is obtained by a previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcenumerateflows">TcEnumerateFlows</a> function or the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcgetflownamea">TcGetFlowName</a> function.
@@ -4713,7 +4874,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//traffic/nf-traffic-tcsetflowa
+     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcsetflowa
      * @since windows5.0
      */
     static TcSetFlowA(pFlowName, pGuidParam, BufferSize, Buffer_R) {
@@ -4724,7 +4885,16 @@ class QoS {
     }
 
     /**
-     * The TcSetFlow function sets individual parameters for a given flow.
+     * The TcSetFlow function sets individual parameters for a given flow. (Unicode)
+     * @remarks
+     * Use of the 
+     * <b>TcSetFlow</b> function requires administrative privilege.
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The traffic.h header defines TcSetFlow as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pFlowName Name of the flow being set. The value for this parameter is obtained by a previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcenumerateflows">TcEnumerateFlows</a> function or the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcgetflownamea">TcGetFlowName</a> function.
@@ -4818,7 +4988,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//traffic/nf-traffic-tcsetfloww
+     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcsetfloww
      * @since windows5.0
      */
     static TcSetFlowW(pFlowName, pGuidParam, BufferSize, Buffer_R) {
@@ -4830,6 +5000,20 @@ class QoS {
 
     /**
      * The TcAddFlow function adds a new flow on the specified interface.
+     * @remarks
+     * If the 
+     * <b>TcAddFlow</b> function returns ERROR_SIGNAL_PENDING, the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_add_flow_complete_handler">ClAddFlowComplete</a> function will be called on a different thread than the thread that called the 
+     * <b>TcAddFlow</b> function.
+     * 
+     * Only the addition of a filter will affect traffic control. However, the addition of a flow will cause resources to be committed within traffic control components. This enables traffic control to prepare for handling traffic on the added flow.
+     * 
+     * Traffic control may delete a flow for various reasons, including the inability to accommodate the flow due to bandwidth restrictions, and adjusted policy requirements. Clients are notified of deleted flows through the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_notify_handler">ClNotifyHandler</a> callback function, with the TC_NOTIFY_FLOW_CLOSE event.
+     * 
+     * <div class="alert"><b>Note</b>  Use of the 
+     * <b>TcAddFlow</b> function requires administrative privilege.</div>
+     * <div> </div>
      * @param {HANDLE} IfcHandle Handle associated with the interface on which the flow is to be added. This handle is obtained by a previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcopeninterfacea">TcOpenInterface</a> function.
      * @param {HANDLE} ClFlowCtx Client provided–flow context handle. Used subsequently by traffic control when referring to the added flow.
@@ -4863,7 +5047,7 @@ class QoS {
      * </td>
      * <td width="60%">
      * The function is being executed asynchronously; the client will be called back through the client-exposed 
-     * <a href="/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_add_flow_complete_handler">ClAddFlowComplete</a> function when the flow has been added or when the process has been completed.
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_add_flow_complete_handler">ClAddFlowComplete</a> function when the flow has been added or when the process has been completed.
      * 
      * </td>
      * </tr>
@@ -4996,7 +5180,7 @@ class QoS {
      * </td>
      * <td width="60%">
      * Applies to Diffserv flows. Indicates that the 
-     * <a href="/windows/desktop/api/qosobjs/ns-qosobjs-qos_diffserv">QOS_DIFFSERV</a> object was passed with an invalid parameter.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/qosobjs/ns-qosobjs-qos_diffserv">QOS_DIFFSERV</a> object was passed with an invalid parameter.
      * 
      * </td>
      * </tr>
@@ -5008,7 +5192,7 @@ class QoS {
      * </td>
      * <td width="60%">
      * Applies to Diffserv flows. Indicates that the QOS_DIFFSERV_RULE specified in 
-     * <a href="/windows/desktop/api/traffic/ns-traffic-tc_gen_flow">TC_GEN_FLOW</a> already applies to an existing flow on the interface.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/traffic/ns-traffic-tc_gen_flow">TC_GEN_FLOW</a> already applies to an existing flow on the interface.
      * 
      * </td>
      * </tr>
@@ -5020,7 +5204,7 @@ class QoS {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="/windows/desktop/api/qos/ns-qos-qos_shaping_rate">QOS_SHAPING_RATE</a> object was passed with an invalid <b>ShapingRate</b> member.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/qos/ns-qos-qos_shaping_rate">QOS_SHAPING_RATE</a> object was passed with an invalid <b>ShapingRate</b> member.
      * 
      * </td>
      * </tr>
@@ -5047,7 +5231,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//traffic/nf-traffic-tcaddflow
+     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcaddflow
      * @since windows5.0
      */
     static TcAddFlow(IfcHandle, ClFlowCtx, Flags, pGenericFlow, pFlowHandle) {
@@ -5059,7 +5243,17 @@ class QoS {
     }
 
     /**
-     * The TcGetFlowName function provides the name of a flow that has been created by the calling client.
+     * The TcGetFlowName function provides the name of a flow that has been created by the calling client. (ANSI)
+     * @remarks
+     * Use of the 
+     * <b>TcGetFlowName</b> function requires administrative privilege.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The traffic.h header defines TcGetFlowName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} FlowHandle Handle for the flow.
      * @param {Integer} StrSize Size of the string buffer provided in <i>pFlowName</i>.
      * @param {PSTR} pFlowName Pointer to the output buffer holding the flow name.
@@ -5113,7 +5307,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//traffic/nf-traffic-tcgetflownamea
+     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcgetflownamea
      * @since windows5.0
      */
     static TcGetFlowNameA(FlowHandle, StrSize, pFlowName) {
@@ -5125,7 +5319,17 @@ class QoS {
     }
 
     /**
-     * The TcGetFlowName function provides the name of a flow that has been created by the calling client.
+     * The TcGetFlowName function provides the name of a flow that has been created by the calling client. (Unicode)
+     * @remarks
+     * Use of the 
+     * <b>TcGetFlowName</b> function requires administrative privilege.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The traffic.h header defines TcGetFlowName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} FlowHandle Handle for the flow.
      * @param {Integer} StrSize Size of the string buffer provided in <i>pFlowName</i>.
      * @param {PWSTR} pFlowName Pointer to the output buffer holding the flow name.
@@ -5179,7 +5383,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//traffic/nf-traffic-tcgetflownamew
+     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcgetflownamew
      * @since windows5.0
      */
     static TcGetFlowNameW(FlowHandle, StrSize, pFlowName) {
@@ -5192,6 +5396,15 @@ class QoS {
 
     /**
      * The TcModifyFlow function modifies an existing flow. When calling TcModifyFlow, new Flowspec parameters and any traffic control objects should be filled.
+     * @remarks
+     * If the 
+     * <b>TcModifyFlow</b> function returns ERROR_SIGNAL_PENDING, the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_mod_flow_complete_handler">ClModifyFlowComplete</a> function will be called on a different thread than the thread that called the 
+     * <b>TcModifyFlow</b> function.
+     * 
+     * <div class="alert"><b>Note</b>  Use of the 
+     * <b>TcModifyFlow</b> function requires administrative privilege.</div>
+     * <div> </div>
      * @param {HANDLE} FlowHandle Handle for the flow, as received from a previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcaddflow">TcAddFlow</a> function.
      * @param {Pointer<TC_GEN_FLOW>} pGenericFlow Pointer to a description of the flow modifications.
@@ -5219,7 +5432,7 @@ class QoS {
      * </td>
      * <td width="60%">
      * The function is being executed asynchronously; the client will be called back through the client-exposed 
-     * <a href="/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_mod_flow_complete_handler">ClModifyFlowComplete</a> function when the flow has been added, or when the process has been completed.
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_mod_flow_complete_handler">ClModifyFlowComplete</a> function when the flow has been added, or when the process has been completed.
      * 
      * </td>
      * </tr>
@@ -5253,9 +5466,9 @@ class QoS {
      * </td>
      * <td width="60%">
      * Action performed on the flow by a previous function call to the 
-     * <a href="/previous-versions/windows/desktop/api/traffic/nf-traffic-tcaddflow">TcAddFlow</a>, 
-     * <a href="/previous-versions/windows/desktop/api/traffic/nf-traffic-tcmodifyflow">TcModifyFlow</a>, or 
-     * <a href="/previous-versions/windows/desktop/api/traffic/nf-traffic-tcdeleteflow">TcDeleteFlow</a> has not yet completed.
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcaddflow">TcAddFlow</a>, 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcmodifyflow">TcModifyFlow</a>, or 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcdeleteflow">TcDeleteFlow</a> has not yet completed.
      * 
      * </td>
      * </tr>
@@ -5366,7 +5579,7 @@ class QoS {
      * </td>
      * <td width="60%">
      * Applies to Diffserv flows. Indicates that the 
-     * <a href="/windows/desktop/api/qosobjs/ns-qosobjs-qos_diffserv">QOS_DIFFSERV</a> object was passed with an invalid parameter.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/qosobjs/ns-qosobjs-qos_diffserv">QOS_DIFFSERV</a> object was passed with an invalid parameter.
      * 
      * </td>
      * </tr>
@@ -5378,8 +5591,8 @@ class QoS {
      * </td>
      * <td width="60%">
      * Applies to Diffserv flows. Indicates that the 
-     * <a href="/windows/desktop/api/qosobjs/ns-qosobjs-qos_diffserv_rule">QOS_DIFFSERV_RULE</a> specified in 
-     * <a href="/windows/desktop/api/traffic/ns-traffic-tc_gen_flow">TC_GEN_FLOW</a> already applies to an existing flow on the interface.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/qosobjs/ns-qosobjs-qos_diffserv_rule">QOS_DIFFSERV_RULE</a> specified in 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/traffic/ns-traffic-tc_gen_flow">TC_GEN_FLOW</a> already applies to an existing flow on the interface.
      * 
      * </td>
      * </tr>
@@ -5391,7 +5604,7 @@ class QoS {
      * </td>
      * <td width="60%">
      * The 
-     * <a href="/windows/desktop/api/qos/ns-qos-qos_shaping_rate">QOS_SHAPING_RATE</a> was passed with an invalid ShapeRate.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/qos/ns-qos-qos_shaping_rate">QOS_SHAPING_RATE</a> was passed with an invalid ShapeRate.
      * 
      * </td>
      * </tr>
@@ -5403,7 +5616,7 @@ class QoS {
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/qosobjs/ns-qosobjs-qos_ds_class">QOS_DS_CLASS</a> is invalid.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/qosobjs/ns-qosobjs-qos_ds_class">QOS_DS_CLASS</a> is invalid.
      * 
      * </td>
      * </tr>
@@ -5419,7 +5632,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//traffic/nf-traffic-tcmodifyflow
+     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcmodifyflow
      * @since windows5.0
      */
     static TcModifyFlow(FlowHandle, pGenericFlow) {
@@ -5431,6 +5644,16 @@ class QoS {
 
     /**
      * The TcAddFilter function associates a new filter with an existing flow that allows packets matching the filter to be directed to the associated flow.
+     * @remarks
+     * Filters can be of different types. They are typically used to filter packets belonging to different network layers. Filter types installed on an interface generally correspond to the address types of the network layer addresses associated with the interface. The address type should be specified in the filter structure.
+     * 
+     * Filters may be rejected for various reasons, including possible conflicts with the requested filter as well as filters already associated with the flow. Error codes specific to traffic control are provided to help the user diagnose the reason behind a rejection to the 
+     * <b>TcAddFilter</b> function.
+     * 
+     * <div class="alert"><b>Note</b>  Use of the 
+     * <b>TcAddFilter</b> function requires administrative privilege.</div>
+     * <div> </div>
+     * In Windows Vista, overlapping and identical filters can be created.  In these situations, the more specific filter takes precedence.
      * @param {HANDLE} FlowHandle Handle for the flow, as received from a previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcaddflow">TcAddFlow</a> function.
      * @param {Pointer<TC_GEN_FILTER>} pGenericFilter Pointer to a description of the filter to be installed.
@@ -5533,7 +5756,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//traffic/nf-traffic-tcaddfilter
+     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcaddfilter
      * @since windows5.0
      */
     static TcAddFilter(FlowHandle, pGenericFilter, pFilterHandle) {
@@ -5545,6 +5768,14 @@ class QoS {
 
     /**
      * The TcDeregisterClient function deregisters a client with the Traffic Control Interface (TCI).
+     * @remarks
+     * Once a client calls 
+     * <b>TcDeregisterClient</b>, the only traffic control function the client is allowed to call is 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcregisterclient">TcRegisterClient</a>.
+     * 
+     * <div class="alert"><b>Note</b>  Use of the 
+     * <b>TcDeregisterClient</b> function requires administrative privilege.</div>
+     * <div> </div>
      * @param {HANDLE} ClientHandle Handle assigned to the client through the previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcregisterclient">TcRegisterClient</a> function.
      * @returns {Integer} <table>
@@ -5586,7 +5817,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//traffic/nf-traffic-tcderegisterclient
+     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcderegisterclient
      * @since windows5.0
      */
     static TcDeregisterClient(ClientHandle) {
@@ -5598,6 +5829,15 @@ class QoS {
 
     /**
      * The TcDeleteFlow function deletes a flow that has been added with the TcAddFlow function. Clients should delete all filters associated with a flow before deleting it, otherwise, an error will be returned and the function will not delete the flow.
+     * @remarks
+     * If the 
+     * <b>TcDeleteFlow</b> function returns ERROR_SIGNAL_PENDING, the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_del_flow_complete_handler">ClDeleteFlowComplete</a> function will be called on a different thread than the thread that called the 
+     * <b>TcDeleteFlow</b> function.
+     * 
+     * <div class="alert"><b>Note</b>  Use of the 
+     * <b>TcDeleteFlow</b> function requires administrative privilege.</div>
+     * <div> </div>
      * @param {HANDLE} FlowHandle Handle for the flow, as received from a previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcaddflow">TcAddFlow</a> function.
      * @returns {Integer} <table>
@@ -5624,7 +5864,7 @@ class QoS {
      * </td>
      * <td width="60%">
      * The function is being executed asynchronously; the client will be called back through the client-exposed 
-     * <a href="/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_del_flow_complete_handler">ClDeleteFlowComplete</a> function when the flow has been added, or when the process has been completed.
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_del_flow_complete_handler">ClDeleteFlowComplete</a> function when the flow has been added, or when the process has been completed.
      * 
      * </td>
      * </tr>
@@ -5647,9 +5887,9 @@ class QoS {
      * </td>
      * <td width="60%">
      * Action performed on the flow by a previous function call to 
-     * <a href="/previous-versions/windows/desktop/api/traffic/nf-traffic-tcmodifyflow">TcModifyFlow</a>, 
-     * <a href="/previous-versions/windows/desktop/api/traffic/nf-traffic-tcdeleteflow">TcDeleteFlow</a>, or 
-     * <a href="/previous-versions/windows/desktop/api/traffic/nf-traffic-tcaddflow">TcAddFlow</a> has not yet completed.
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcmodifyflow">TcModifyFlow</a>, 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcdeleteflow">TcDeleteFlow</a>, or 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcaddflow">TcAddFlow</a> has not yet completed.
      * 
      * </td>
      * </tr>
@@ -5665,7 +5905,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//traffic/nf-traffic-tcdeleteflow
+     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcdeleteflow
      * @since windows5.0
      */
     static TcDeleteFlow(FlowHandle) {
@@ -5712,7 +5952,7 @@ class QoS {
      * <div class="alert"><b>Note</b>  Use of the 
      * <b>TcDeleteFilter</b> function requires administrative privilege.</div>
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//traffic/nf-traffic-tcdeletefilter
+     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcdeletefilter
      * @since windows5.0
      */
     static TcDeleteFilter(FilterHandle) {
@@ -5724,6 +5964,17 @@ class QoS {
 
     /**
      * The TcEnumerateFlows function enumerates installed flows and their associated filters on an interface.
+     * @remarks
+     * Do not request zero flows, or pass a buffer with a size equal to zero or pointer to a <b>NULL</b>.
+     * 
+     * If an enumeration token pointer has been invalidated by traffic control (due to the deletion of a flow), continuing to enumerate flows is not allowed, and the call will return ERROR_INVALID_DATA. Under this circumstance, the process of enumeration must start over. This circumstance can occur when the next flow to be enumerated is deleted while enumeration is in progress.
+     * 
+     * To get the total number of flows for a given interface, call 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcqueryinterface">TcQueryInterface</a> and specify <b>GUID_QOS_FLOW_COUNT</b>.
+     * 
+     * <div class="alert"><b>Note</b>  Use of the 
+     * <b>TcEnumerateFlows</b> function requires administrative privilege.</div>
+     * <div> </div>
      * @param {HANDLE} IfcHandle Handle associated with the interface on which flows are to be enumerated. This handle is obtained by a previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcopeninterfacea">TcOpenInterface</a> function.
      * @param {Pointer<HANDLE>} pEnumHandle Pointer to the enumeration token, used internally by traffic control to maintain returned flow information state. 
@@ -5812,7 +6063,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//traffic/nf-traffic-tcenumerateflows
+     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcenumerateflows
      * @since windows5.0
      */
     static TcEnumerateFlows(IfcHandle, pEnumHandle, pFlowCount, pBufSize, Buffer_R) {

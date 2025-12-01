@@ -3,7 +3,7 @@
 
 /**
  * Stores application data for a session context.
- * @see https://docs.microsoft.com/windows/win32/api//schannel/ns-schannel-secpkgcontext_sessionappdata
+ * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_sessionappdata
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

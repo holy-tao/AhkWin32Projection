@@ -3,7 +3,7 @@
 
 /**
  * The Quality structure describes a quality message by indicating Flood or Famine in the renderer and specifying the percentage of frames to drop or add to optimize the renderer's performance.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-quality
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-quality
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

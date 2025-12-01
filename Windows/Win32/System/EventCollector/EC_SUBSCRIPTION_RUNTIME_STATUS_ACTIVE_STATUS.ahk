@@ -3,7 +3,7 @@
 
 /**
  * Specifies the status of a subscription or an event source with respect to a subscription.
- * @see https://docs.microsoft.com/windows/win32/api//evcoll/ne-evcoll-ec_subscription_runtime_status_active_status
+ * @see https://learn.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_subscription_runtime_status_active_status
  * @namespace Windows.Win32.System.EventCollector
  * @version v4.0.30319
  */

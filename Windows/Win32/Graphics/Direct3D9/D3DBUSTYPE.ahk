@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * Specifies the type of I/O bus used by the graphics adapter.
+ * @remarks
+ * As many as three flags can be set. Flags in the range 0x00 through 0x04 (**D3DBUSTYPE\_Xxx**) provide the basic bus type. Flags in the range 0x10000 through 0x50000 (**D3DBUSIMPL\_MODIFIER\_Xxx**) modify the basic description. The driver sets one bus-type flag, and can set zero or one modifier flag. If the driver sets a modifier flag, it also sets the **D3DBUSIMPL\_MODIFIER\_NON\_STANDARD** flag. Flags are combined with a bitwise **OR**.
  * @see https://learn.microsoft.com/windows/win32/medfound/d3dbustype
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319

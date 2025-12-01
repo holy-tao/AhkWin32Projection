@@ -3,7 +3,7 @@
 
 /**
  * Specifies an item's policies to control how they can be enabled or disabled by group policy.
- * @see https://docs.microsoft.com/windows/win32/api//syncmgr/ne-syncmgr-syncmgr_item_policies
+ * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ne-syncmgr-syncmgr_item_policies
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

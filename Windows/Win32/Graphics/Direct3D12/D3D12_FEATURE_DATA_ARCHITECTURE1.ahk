@@ -4,7 +4,6 @@
 /**
  * Provides detail about each adapter's architectural details, so that your application can better optimize for certain adapter properties.
  * @remarks
- * 
  * <h3><a id="How_to_use_UMA_and_CacheCoherentUMA"></a><a id="how_to_use_uma_and_cachecoherentuma"></a><a id="HOW_TO_USE_UMA_AND_CACHECOHERENTUMA"></a>How to use UMA and CacheCoherentUMA</h3>
  * D3D12 apps should be concerned about managing memory residency and providing the optimal heap properties.
  *             D3D12 apps can stay simplified and run reasonably well across many GPU architectures by only managing the residency for resources in <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_type">D3D12_HEAP_TYPE</a>_DEFAULT heaps.
@@ -53,9 +52,7 @@
  *             As usual, single-adapter applications can simplify the landscape and ensure that the CPU writes to upload heaps use patterns that are write-combine-friendly.
  *             The lower-level details help reinforce the concepts for multi-adapter applications.
  *             Multi-adapter applications likely need to understand adapter architecture properties well enough to choose the optimal custom heap properties to efficiently move data between adapters.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_feature_data_architecture1
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_architecture1
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -107,12 +104,12 @@ class D3D12_FEATURE_DATA_ARCHITECTURE1 extends Win32Struct
     }
 
     /**
-     * <a href="https://docs.microsoft.com/visualstudio/code-quality/annotating-structs-and-classes?view=vs-2015">SAL</a>: <c>_Out_</c>
+     * <a href="https://docs.microsoft.com/visualstudio/code-quality/annotating-structs-and-classes">SAL</a>: <c>_Out_</c>
      * 
      * Specifies whether the hardware and driver support isolated Memory Management Unit (MMU).
      *             The runtime sets this member to <b>TRUE</b> if the GPU honors CPU page table properties like <b>MEM_WRITE_WATCH</b> (for more information, see <a href="https://docs.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc">VirtualAlloc</a>) and <b>PAGE_READONLY</b> (for more information, see <a href="https://docs.microsoft.com/windows/win32/Memory/memory-protection-constants">Memory Protection Constants</a>).
      * 
-     * If <b>TRUE</b>, the application must take care to no use memory with these page table properties with the GPU, as the GPU might trigger these page table properties in unexpected ways. For example, GPU write operations might be coarser than the application expects, particularly writes from within shaders. Certain write-watch pages migth appear dirty, even when it isn't obvious how GPU writes may have affected them. GPU operations associated with upload and readback heap usage scenarios work well with write-watch pages, but might occasionally generate false positives that can be safely ignored.
+     * If <b>TRUE</b>, the application must take care to no use memory with these page table properties with the GPU, as the GPU might trigger these page table properties in unexpected ways. For example, GPU write operations might be coarser than the application expects, particularly writes from within shaders. Certain write-watch pages might appear dirty, even when it isn't obvious how GPU writes may have affected them. GPU operations associated with upload and readback heap usage scenarios work well with write-watch pages, but might occasionally generate false positives that can be safely ignored.
      * @type {BOOL}
      */
     IsolatedMMU {

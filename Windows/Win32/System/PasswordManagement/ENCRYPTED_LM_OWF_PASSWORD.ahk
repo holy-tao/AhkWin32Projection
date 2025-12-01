@@ -5,11 +5,8 @@
 /**
  * The ENCRYPTED_LM_OWF_PASSWORD stores a user's encrypted Lan Manager (LM) one-way function (OWF) password hash.
  * @remarks
- * 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/cc325729(v=vs.85)">ENCRYPTED_NT_OWF_PASSWORD</a> is an alias for this structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mschapp/ns-mschapp-encrypted_lm_owf_password
+ * @see https://learn.microsoft.com/windows/win32/api/mschapp/ns-mschapp-encrypted_lm_owf_password
  * @namespace Windows.Win32.System.PasswordManagement
  * @version v4.0.30319
  */

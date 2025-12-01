@@ -3,7 +3,7 @@
 
 /**
  * The MMC_TASK_DISPLAY_TYPE enumeration is introduced in MMC 1.1.
- * @see https://docs.microsoft.com/windows/win32/api//mmc/ne-mmc-mmc_task_display_type
+ * @see https://learn.microsoft.com/windows/win32/api/mmc/ne-mmc-mmc_task_display_type
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

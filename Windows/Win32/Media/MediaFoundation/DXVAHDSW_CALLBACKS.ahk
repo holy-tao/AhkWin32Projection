@@ -4,13 +4,10 @@
 /**
  * Contains pointers to functions implemented by a software plug-in for Microsoft DirectX Video Acceleration High Definition (DXVA-HD).
  * @remarks
- * 
  * If you provide a software plug-in for DXVA-HD, the plug-in must implement a set of functions that are defined by the function pointer types in this structure.
  * 
  * At initialization, the   DXVA-HD runtime calls the plug-in device's <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_plugin">PDXVAHDSW_Plugin</a> function. This function fills in a <b>DXVAHDSW_CALLBACKS</b> structure with pointers to  the set of functions that are implemented by the plug-in device. When the application calls DXVA-HD methods, the DXVA-HD runtime calls the corresponding plug-in functions.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ns-dxvahd-dxvahdsw_callbacks
+ * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahdsw_callbacks
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

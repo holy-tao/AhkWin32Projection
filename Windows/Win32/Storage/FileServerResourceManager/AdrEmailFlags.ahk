@@ -3,7 +3,7 @@
 
 /**
  * Describes the options for access denied remediation (ADR) email.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-adremailflags
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-adremailflags
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * The PEER_CREDENTIAL_INFO structure defines information used to obtain and issue a peer's security credentials.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_credential_info
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_credential_info
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

@@ -4,11 +4,8 @@
 /**
  * This is a device notification event data structure.
  * @remarks
- * 
  * The notification callback supplied to <a href="https://docs.microsoft.com/windows/desktop/api/cfgmgr32/nf-cfgmgr32-cm_register_notification">CM_Register_Notification</a> receives a pointer to a structure of type <b>CM_NOTIFY_EVENT_DATA</b> in the callback's <i>EventData</i> parameter.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/ns-cfgmgr32-cm_notify_event_data
+ * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-cm_notify_event_data
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

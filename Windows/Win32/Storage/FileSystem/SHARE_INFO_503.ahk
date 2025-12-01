@@ -5,11 +5,8 @@
 /**
  * Contains information about the shared resource. It is identical to the SHARE_INFO_502 structure, except that it also contains the server name.
  * @remarks
- * 
  * The remote server specified in the <b>shi503_servername</b> member must have been bound to a transport protocol using the <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/nf-lmserver-netservertransportaddex">NetServerTransportAddEx</a> function. In the call to  <b>NetServerTransportAddEx</b>, either 2 or 3 must have been specified for the <i>level</i> parameter, and the <b>SVTI2_SCOPED_NAME</b> value must have been specified in the <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/ns-lmserver-server_transport_info_2">SERVER_TRANSPORT_INFO_2</a> structure for the transport protocol.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//lmshare/ns-lmshare-share_info_503
+ * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-share_info_503
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

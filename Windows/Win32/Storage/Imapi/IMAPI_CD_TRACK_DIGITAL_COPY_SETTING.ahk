@@ -3,7 +3,7 @@
 
 /**
  * Defines the digital copy setting values available for a given track.
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/ne-imapi2-imapi_cd_track_digital_copy_setting
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_cd_track_digital_copy_setting
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */

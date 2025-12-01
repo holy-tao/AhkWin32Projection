@@ -6,11 +6,8 @@
 /**
  * The DSMCC_SECTION structure represents a DSM-CC section header. If a section contains a DSM-CC header, you can cast a SECTION pointer to a DSMCC_SECTION pointer. For more information, see the Remarks section in the SECTION reference.
  * @remarks
- * 
  * This structure extends the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ns-mpeg2structs-long_section">LONG_SECTION</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ns-mpeg2structs-dsmcc_section
+ * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-dsmcc_section
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

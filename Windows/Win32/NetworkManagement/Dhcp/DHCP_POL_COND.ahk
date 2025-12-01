@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_POL_COND structure defines the DHCP server policy condition.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_pol_cond
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_pol_cond
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

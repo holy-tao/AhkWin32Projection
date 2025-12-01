@@ -4,7 +4,7 @@
 
 /**
  * The DD_LOCKDATA structure contains information necessary to do a lock as defined by the Microsoft DirectDraw parameter structures.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_lockdata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_lockdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
 
 /**
  * Represents a pinhole camera intrinsic model for a specified resolution.
- * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-mfpinholecameraintrinsic_intrinsicmodel
+ * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mfpinholecameraintrinsic_intrinsicmodel
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

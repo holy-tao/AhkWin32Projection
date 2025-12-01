@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains information about an extension.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_extension
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -14,6 +16,7 @@ class WEBAUTHN_EXTENSION extends Win32Struct
     static packingSize => 8
 
     /**
+     * The extension identifier.
      * @type {PWSTR}
      */
     pwszExtensionIdentifier {
@@ -22,6 +25,7 @@ class WEBAUTHN_EXTENSION extends Win32Struct
     }
 
     /**
+     * The size of **pvExtension**.
      * @type {Integer}
      */
     cbExtension {
@@ -30,6 +34,7 @@ class WEBAUTHN_EXTENSION extends Win32Struct
     }
 
     /**
+     * The extension data.
      * @type {Pointer<Void>}
      */
     pvExtension {

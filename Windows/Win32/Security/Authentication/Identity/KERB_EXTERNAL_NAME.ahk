@@ -4,7 +4,7 @@
 
 /**
  * Contains information about an external name.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_external_name
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_external_name
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

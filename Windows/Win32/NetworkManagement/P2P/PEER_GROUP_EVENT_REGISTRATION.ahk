@@ -3,7 +3,7 @@
 
 /**
  * The PEER_GROUP_EVENT_REGISTRATION structure defines the particular peer group event a member can register for.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_group_event_registration
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_group_event_registration
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

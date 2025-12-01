@@ -6,11 +6,8 @@
 /**
  * The DXGI_OUTDUPL_MOVE_RECT structure describes the movement of a rectangle.
  * @remarks
- * 
  * This structure is used by <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-getframemoverects">GetFrameMoveRects</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi1_2/ns-dxgi1_2-dxgi_outdupl_move_rect
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ns-dxgi1_2-dxgi_outdupl_move_rect
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

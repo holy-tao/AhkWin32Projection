@@ -5,7 +5,7 @@
 
 /**
  * The DISPLAYCONFIG_SUPPORT_VIRTUAL_RESOLUTION structure contains information on the state of virtual resolution support for the monitor.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-displayconfig_support_virtual_resolution
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_support_virtual_resolution
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

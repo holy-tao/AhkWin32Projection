@@ -3,7 +3,7 @@
 
 /**
  * This identifies a type of extension within the extensions field of the WS_ENDPOINT_ADDRESS.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_endpoint_address_extension_type
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_endpoint_address_extension_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

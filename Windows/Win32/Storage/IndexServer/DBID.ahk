@@ -4,10 +4,8 @@
 /**
  * The DBID structure encapsulates various ways of identifying a database object.
  * @remarks
- * 
  * The <b>DBID</b> structure identifies the requested columns for a query. Each unique column is represented by a unique combination of GUID and number or GUID and name.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//oledbguid/ns-oledbguid-dbid
+ * @see https://learn.microsoft.com/windows/win32/api/oledbguid/ns-oledbguid-dbid
  * @namespace Windows.Win32.Storage.IndexServer
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * This topic applies to Windows XP Service Pack 1 or later.
- * @see https://docs.microsoft.com/windows/win32/api//encdec/ne-encdec-prottype
+ * @see https://learn.microsoft.com/windows/win32/api/encdec/ne-encdec-prottype
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

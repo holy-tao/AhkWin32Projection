@@ -4,11 +4,8 @@
 /**
  * Specifies the type of a Content Decryption Module (CDM) session, represented by an IMFContentDecryptionModuleSession object.
  * @remarks
- * 
  * Pass a member of this enumeration into [IMFContentDecryptionModule::CreateSession](../mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodule-createsession.md)
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mf_mediakeysession_type
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_mediakeysession_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

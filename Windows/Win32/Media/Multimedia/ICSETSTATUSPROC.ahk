@@ -3,7 +3,7 @@
 
 /**
  * The ICSETSTATUSPROC structure contains status information used with the ICM_SET_STATUS_PROC message.
- * @see https://docs.microsoft.com/windows/win32/api//vfw/ns-vfw-icsetstatusproc
+ * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-icsetstatusproc
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

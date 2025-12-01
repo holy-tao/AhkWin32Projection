@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of package for a IAppxBundleManifestPackageInfo object.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/ne-appxpackaging-appx_bundle_payload_package_type
+ * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ne-appxpackaging-appx_bundle_payload_package_type
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

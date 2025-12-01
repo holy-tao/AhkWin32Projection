@@ -1744,7 +1744,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-createrecognizer
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-createrecognizer
      * @since windows5.1.2600
      */
     static CreateRecognizer(pCLSID, phrec) {
@@ -1811,7 +1811,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-destroyrecognizer
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-destroyrecognizer
      * @since windows5.1.2600
      */
     static DestroyRecognizer(hrec) {
@@ -1827,6 +1827,12 @@ class TabletPC {
 
     /**
      * Retrieves the attributes of the recognizer.
+     * @remarks
+     * A gesture recognizer should set the RF_OBJECT bit of the <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-reco_attrs">RECO_ATTRS</a><b>::dwRecoCapabilityFlags</b> and should set every element in the <b>RECO_ATTRS</b><b>::awLanguageID</b> array to zero.
+     * 
+     * A gesture recognizer does not normally use a recognition guide. A gesture recognizer with no guide should clear the RF_LINED_INPUT and RF_BOXED_INPUT bits.
+     * 
+     * The <i>awcFriendlyName</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-reco_attrs">RECO_ATTRS</a> structure may be empty (that is, having the first element set to the null character) when you use this structure as a return value from the <b>GetRecoAttributes Function</b>. Because this is not an error, the return code for <i>awcFriendlyName</i> in <b>GetRecoAttributes Function</b> will be S_OK, and the other fields will contain data.
      * @param {HRECOGNIZER} hrec Handle to the recognizer.
      * @param {Pointer<RECO_ATTRS>} pRecoAttrs The attributes of the recognizer. The attributes define the languages and capabilities that the recognizer supports. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-reco_attrs">RECO_ATTRS</a> structure.
      * @returns {HRESULT} This function can return one of these values.
@@ -1881,7 +1887,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-getrecoattributes
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getrecoattributes
      * @since windows5.1.2600
      */
     static GetRecoAttributes(hrec, pRecoAttrs) {
@@ -1962,7 +1968,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-createcontext
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-createcontext
      * @since windows5.1.2600
      */
     static CreateContext(hrec, phrc) {
@@ -2031,7 +2037,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-destroycontext
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-destroycontext
      * @since windows5.1.2600
      */
     static DestroyContext(hrc) {
@@ -2113,7 +2119,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-getresultpropertylist
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getresultpropertylist
      * @since windows5.1.2600
      */
     static GetResultPropertyList(hrec, pPropertyCount, pPropertyGuid) {
@@ -2131,6 +2137,8 @@ class TabletPC {
 
     /**
      * Retrieves a packet description that contains the packet properties the recognizer uses.
+     * @remarks
+     * Typically, recognizers use the (x, y) coordinate properties and ignore the others. If you save the ink to a file for recognition at a later time, use the preferred packet description to only save those properties that the recognizer uses.
      * @param {HRECOGNIZER} hrec Handle to the recognizer.
      * @param {Pointer<PACKET_DESCRIPTION>} pPacketDescription Describes the content of the packets the recognizer uses. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/tpcshrd/ns-tpcshrd-packet_description">PACKET_DESCRIPTION</a> structure.
      * 
@@ -2200,7 +2208,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-getpreferredpacketdescription
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getpreferredpacketdescription
      * @since windows5.1.2600
      */
     static GetPreferredPacketDescription(hrec, pPacketDescription) {
@@ -2216,6 +2224,14 @@ class TabletPC {
 
     /**
      * Returns the ranges of Unicode points that the recognizer supports.
+     * @remarks
+     * This function is optional.
+     * 
+     * Some recognizers do not support this capability, but may still include the <b>GetUnicodeRanges Function</b> function. For such recognizers the <b>GetUnicodeRanges</b> function returns E_NOTIMPL.
+     * 
+     * To control the Unicode ranges used by a specific recognizer context, use the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-getenabledunicoderanges">GetEnabledUnicodeRanges</a> and <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-setenabledunicoderanges">SetEnabledUnicodeRanges</a> functions. These ranges are constrained to be a subset of the ranges returned by <b>GetUnicodeRanges</b>.
+     * 
+     * Microsoft gesture recognizers use Unicode characters from 0xF000 to 0xF0FF. Each single Unicode value in this range represents a single gesture. For a complete list of Unicode values for gestures, see <a href="https://docs.microsoft.com/windows/desktop/tablet/unicode-range-values-of-gestures">Unicode Range Values of Gestures</a>.
      * @param {HRECOGNIZER} hrec Handle to the recognizer.
      * @param {Pointer<Integer>} pcRanges On input, the number of ranges the <i>pcr</i> buffer can hold. On output, the number of ranges the <i>pcr</i> buffer contains.
      * @param {Pointer<CHARACTER_RANGE>} pcr Array of <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-character_range">CHARACTER_RANGE</a> structures. Each structure contains a range of Unicode points that the recognizer supports. The order of the array is arbitrary. To determine the required size of the buffer, set <i>pcr</i> to <b>NULL</b>; use the number of ranges to allocate the <i>pcr</i> buffer.
@@ -2293,7 +2309,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-getunicoderanges
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getunicoderanges
      * @since windows5.1.2600
      */
     static GetUnicodeRanges(hrec, pcRanges, pcr) {
@@ -2311,6 +2327,12 @@ class TabletPC {
 
     /**
      * Adds an ink stroke to the RecognizerContext.
+     * @remarks
+     * The recognizer must return properties such as <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-get_baseline">Baseline</a> in ink space coordinates rather than tablet coordinates.
+     * 
+     * It is recommended that your recognizer place a limit on the number of strokes per context and/or the points allowed in a given stroke. Limit input to 1024 strokes per context and 32767 points per stroke.
+     * 
+     * Strokes with zero points are not allowed. You should return E_FAIL in such a case.
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
      * @param {Pointer<PACKET_DESCRIPTION>} pPacketDesc Describes the contents of the packets. The description must match the contents of the packets in <i>pPacket</i>. If <b>NULL</b>, this function uses the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-getpreferredpacketdescription">GetPreferredPacketDescription</a> function.
      * @param {Integer} cbPacket Size, in bytes, of the <i>pPacket</i> buffer.
@@ -2401,7 +2423,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-addstroke
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-addstroke
      * @since windows5.1.2600
      */
     static AddStroke(hrc, pPacketDesc, cbPacket, pPacket, pXForm) {
@@ -2509,7 +2531,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-getbestresultstring
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getbestresultstring
      * @since windows5.1.2600
      */
     static GetBestResultString(hrc, pcSize, pwcBestResult) {
@@ -2548,7 +2570,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-destroyalternate
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-destroyalternate
      * @since windows5.1.2600
      */
     static DestroyAlternate(hrcalt) {
@@ -2564,6 +2586,8 @@ class TabletPC {
 
     /**
      * Sets the recognition guide to use for boxed or lined input. You must call this function before you add strokes to the context.
+     * @remarks
+     * Guide boxes are numbered based on the <i>iIntex</i> value.
      * @param {HRECOCONTEXT} hrc Handle to the recognizer context.
      * @param {Pointer<RECO_GUIDE>} pGuide Guide to use for box or line input. Setting this parameter to <b>NULL</b> means that the context has no guide. This is the default and means the recognizer is in free input mode. For guide details, see the <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-reco_guide">RECO_GUIDE</a> structure.
      * @param {Integer} iIndex Index value to use for the first box or line in the context.
@@ -2636,12 +2660,12 @@ class TabletPC {
      * </dl>
      * </td>
      * <td width="60%">
-     * Attempted to set guide when there was already some ink in the reco context, or, in the case of recognizers of East Asian characters, <a href="/windows/desktop/api/recapis/nf-recapis-setcacmode">SetCACMode</a> was called previously.
+     * Attempted to set guide when there was already some ink in the reco context, or, in the case of recognizers of East Asian characters, <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-setcacmode">SetCACMode</a> was called previously.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-setguide
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setguide
      * @since windows5.1.2600
      */
     static SetGuide(hrc, pGuide, iIndex) {
@@ -2723,7 +2747,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-getguide
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getguide
      * @since windows5.1.2600
      */
     static GetGuide(hrc, pGuide, piIndex) {
@@ -2741,6 +2765,12 @@ class TabletPC {
 
     /**
      * Stops the recognizer from processing ink because a stroke has been added or deleted.
+     * @remarks
+     * The <b>AdviseInkChange</b> function signals that there will be additional calls to the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-addstroke">AddStroke</a> function. This enables any recognition already in progress to stop at any convenient point. Recognition completion is one such point, so <b>AdviseInkChange</b> can safely do nothing.
+     * 
+     * For example, if you have two threads, one thread may be using <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-addstroke">AddStroke</a> and <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-process">Process</a> with other functions to obtain results. The other thread may be collecting ink, echoing it, and queuing tasks for the first thread. The second thread calls <b>AdviseInkChange</b> to notify the recognizer a change is coming. This enables the first thread to return to the caller sooner than without the call to <b>AdviseInkChange</b>. The first thread can then call the recognizer again with more ink.
+     * 
+     * If you set the bNewStroke parameter to <b>FALSE</b> because a stroke was modified or deleted, you must also call the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-resetcontext">ResetContext</a> function, and then call the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-addstroke">AddStroke</a> function to add the strokes from the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object to the recognizer context. This is done automatically if you attach the recognizer context to the <b>InkDisp</b> object.
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
      * @param {BOOL} bNewStroke <b>TRUE</b> if adding a new stroke. Set to <b>FALSE</b> if strokes were erased, split, merged, extracted, or deleted from the Ink object.
      * @returns {HRESULT} This function can return one of these values.
@@ -2795,7 +2825,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-adviseinkchange
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-adviseinkchange
      * @since windows5.1.2600
      */
     static AdviseInkChange(hrc, bNewStroke) {
@@ -2818,7 +2848,7 @@ class TabletPC {
      * 
      * <table>
      * <tr>
-     * <th>The haracter Autocomplete mode.</th>
+     * <th>The character Autocomplete mode.</th>
      * <th>Meaning</th>
      * </tr>
      * <tr>
@@ -2899,7 +2929,7 @@ class TabletPC {
      * </dl>
      * </td>
      * <td width="60%">
-     * Either you have not called the <a href="/windows/desktop/api/recapis/nf-recapis-setguide">SetGuide</a> function before calling this function, or the guide has more than one box.
+     * Either you have not called the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-setguide">SetGuide</a> function before calling this function, or the guide has more than one box.
      * 
      * </td>
      * </tr>
@@ -2921,12 +2951,12 @@ class TabletPC {
      * </dl>
      * </td>
      * <td width="60%">
-     * Attempted to set guide when there was already some ink in the reco context, or, in the case of recognizers of East Asian characters, <a href="/windows/desktop/api/recapis/nf-recapis-setguide">SetGuide</a> was called previously.
+     * Attempted to set guide when there was already some ink in the reco context, or, in the case of recognizers of East Asian characters, <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-setguide">SetGuide</a> was called previously.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-setcacmode
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setcacmode
      * @since windows5.1.2600
      */
     static SetCACMode(hrc, iMode) {
@@ -2942,6 +2972,13 @@ class TabletPC {
 
     /**
      * Indicates that no more ink will be added to the context.You cannot add strokes to the context after calling this function.
+     * @remarks
+     * The recognition results you receive after calling this function may be different from previous recognition results that were based on partial ink input.
+     * 
+     * The Ink Analysis API queries for the implementation of this method. If implemented, the InkAnalyzer will call it each time it performs an analysis operation. If not implemented, EndInkInput is never called. Therefore, you should only expose and implement this method if it is explicitly needed by your recognizer.
+     * 
+     * <div class="alert"><b>Note</b>  This function is not guaranteed to be called by all applications or operating system components, such as the Tablet PC Input Panel. Therefore, recognizers should not rely on it being called.</div>
+     * <div> </div>
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -2995,7 +3032,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-endinkinput
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-endinkinput
      * @since windows5.1.2600
      */
     static EndInkInput(hrc) {
@@ -3011,6 +3048,8 @@ class TabletPC {
 
     /**
      * Creates a recognizer context that contains the same settings as the original. The new recognizer context does not include the ink or recognition results of the original.
+     * @remarks
+     * The settings  for this context include the recognition guide, character Autocomplete mode, and any factoids that improve the recognition results. An example of a factoid may include whether the ink is a phone number, a name, or a URL. The TextContext and Wordlists are preserved in the new context.
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
      * @param {Pointer<HRECOCONTEXT>} pCloneHrc The new recognizer context.
      * @returns {HRESULT} This function can return one of these values.
@@ -3076,7 +3115,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-clonecontext
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-clonecontext
      * @since windows5.1.2600
      */
     static CloneContext(hrc, pCloneHrc) {
@@ -3134,7 +3173,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-resetcontext
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-resetcontext
      * @since windows5.1.2600
      */
     static ResetContext(hrc) {
@@ -3181,7 +3220,7 @@ class TabletPC {
      * </dl>
      * </td>
      * <td width="60%">
-     * The function did not process the ink because the ink has been fully processed, or the <a href="/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizercontext-endinkinput">EndInkInput</a> function has not been called and the recognizer does not support incremental processing of ink.
+     * The function did not process the ink because the ink has been fully processed, or the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizercontext-endinkinput">EndInkInput</a> function has not been called and the recognizer does not support incremental processing of ink.
      * 
      * </td>
      * </tr>
@@ -3192,7 +3231,7 @@ class TabletPC {
      * </dl>
      * </td>
      * <td width="60%">
-     * The process was interrupted by a call to the <a href="/windows/desktop/api/recapis/nf-recapis-adviseinkchange">AdviseInkChange</a> function.
+     * The process was interrupted by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-adviseinkchange">AdviseInkChange</a> function.
      * 
      * </td>
      * </tr>
@@ -3230,7 +3269,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-process
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-process
      */
     static Process(hrc, pbPartialProcessing) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
@@ -3247,6 +3286,10 @@ class TabletPC {
 
     /**
      * Specifies the factoid a recognizer uses to constrain its search for the result.You specify a factoid if an input field is of a known type, such as if the input field contains a date.
+     * @remarks
+     * For a list of factoids that can be passed in the <i>cwcFactoid</i> parameter, see <a href="https://docs.microsoft.com/windows/desktop/tablet/supported-factoids-from-version-1">Supported Factoids from Version 1</a>. The DEFAULT factoid listed in that topic is not a valid value to pass to <b>SetFactoid</b>; the Tablet PC Platform API's internally convert DEFAULT to <b>NULL</b> before calling the <b>SetFactoid</b> function.
+     * 
+     * It is recommended that you limit the length of the factoid string to no more than 32768 characters.
      * @param {HRECOCONTEXT} hrc Handle to the recognizer context.
      * @param {Integer} cwcFactoid Number of characters in <i>pwcFactoid</i>.
      * @param {PWSTR} pwcFactoid Identifies the factoid to use on the recognizer context. The string is not <b>NULL</b>-terminated.
@@ -3346,7 +3389,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-setfactoid
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setfactoid
      * @since windows5.1.2600
      */
     static SetFactoid(hrc, cwcFactoid, pwcFactoid) {
@@ -3363,6 +3406,13 @@ class TabletPC {
 
     /**
      * Specifies how the recognizer interprets the ink and determines the result string.Call this function before processing the ink for the first time. Therefore, call the SetFlags function before calling the Process function.
+     * @remarks
+     * Prior to Microsoft Windows XP Tablet PC Edition Development Kit 1.7, Tablet PC Input Panel performed smart spacing. Starting with Tablet PC SDK 1.7, Input Panel continues to produce results with preliminary spacing recommendations. Tablet PC Input Panel's spacing results may however be changed by the recognizer's recommendations (results). The recognizer is able to do this by using text contextual information (based on the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-settextcontext">SetTextContext</a> call made by Input Panel) and its internal language model rules.
+     * 
+     * Input Panel is able to determine whether the recognizer is capable of doing auto-spacing by calling this function with the RECOFLAG_AUTOSPACE flag set. If the recognizer does not support auto-spacing, E_INVALIDARG is returned.
+     * 
+     * <div class="alert"><b>Note</b>  Only line mode is supported in the <b>SetFlags</b> function. Boxed mode, free mode, and single-line mode are not supported.</div>
+     * <div> </div>
      * @param {HRECOCONTEXT} hrc Handle to the recognizer context.
      * @param {Integer} dwFlags The following table lists the flags that you may set to specify how the recognizer interprets the ink and determines the result string. Use the <b>OR</b> operator (|) to combine flags as appropriate.
      * 
@@ -3520,7 +3570,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-setflags
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setflags
      * @since windows5.1.2600
      */
     static SetFlags(hrc, dwFlags) {
@@ -3623,7 +3673,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-getlatticeptr
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getlatticeptr
      * @since windows5.1.2600
      */
     static GetLatticePtr(hrc, ppLattice) {
@@ -3641,6 +3691,12 @@ class TabletPC {
 
     /**
      * Provides the text strings that come before and after the text contained in the recognizer context.You call this function before processing the ink for the first time. Therefore, call the SetTextContext function before calling the Process function.
+     * @remarks
+     * The <b>SetTextContext</b> function provides context for a phrase or a word, increasing your recognizer's accuracy. For example, if the <i>pwcBefore</i><i>pwcBefore</i> string is "under the " and the <i>pwcAfter</i> string is "in the house", you can bias your recognizer using a word or words between the strings. Your recognizer should consider the space after "the" and before "in" when performing the recognition.
+     * 
+     * However, if the <i>pwcAfter</i> string is "Hel" and the <i>pwcBefore</i> string is "o", the lack of space between the strings indicates the recognizer should recognize one or more letters inside a word that begins with "Hel" and ends with "o".
+     * 
+     * It is recommended that you limit the length of the text context to no more than 1024 characters each for the left and right contexts.
      * @param {HRECOCONTEXT} hrc Handle to the recognizer context.
      * @param {Integer} cwcBefore Number of characters in <i>pwcBefore</i>.
      * @param {PWSTR} pwcBefore Text string that comes before the text contained in the recognizer context. The string is not <b>NULL</b> terminated.
@@ -3720,7 +3776,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-settextcontext
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-settextcontext
      * @since windows5.1.2600
      */
     static SetTextContext(hrc, cwcBefore, pwcBefore, cwcAfter, pwcAfter) {
@@ -3738,6 +3794,12 @@ class TabletPC {
 
     /**
      * Retrieves a list of Unicode point ranges enabled on the context. If you do not call the SetEnabledUnicodeRanges function to specify the enabled ranges, this function returns the recognizer's default Unicode point ranges.
+     * @remarks
+     * This function is optional.
+     * 
+     * Some recognizers do not support enabling and disabling specific Unicode points, but may still include the <b>GetEnabledUnicodeRanges</b> function. For such recognizers the <b>GetEnabledUnicodeRanges</b> function returns the same ranges as the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-getunicoderanges">GetUnicodeRanges</a> function.
+     * 
+     * Microsoft gesture recognizers use Unicode characters from 0xF000 to 0xF0FF. Each single Unicode value in this range represents a single gesture. For a complete list of Unicode values for gestures, see <a href="https://docs.microsoft.com/windows/desktop/tablet/unicode-range-values-of-gestures">Unicode Range Values of Gestures</a>.
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
      * @param {Pointer<Integer>} pcRanges On input, the number of <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-character_range">CHARACTER_RANGE</a> structures the <i>pcr</i> buffer can contain. On output, the number of ranges the <i>pcr</i> buffer contains.
      * @param {Pointer<CHARACTER_RANGE>} pcr An array of CHARACTER_RANGE structures. Each structure contains a range of Unicode points enabled on the context. The order of the array is arbitrary. To determine the size of the buffer, set <i>pcr</i> to <b>NULL</b>; use the number of ranges to allocate the <i>pcr</i> buffer.
@@ -3815,7 +3877,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-getenabledunicoderanges
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getenabledunicoderanges
      * @since windows5.1.2600
      */
     static GetEnabledUnicodeRanges(hrc, pcRanges, pcr) {
@@ -3833,6 +3895,14 @@ class TabletPC {
 
     /**
      * Enables one or more Unicode point ranges on the context.
+     * @remarks
+     * The <b>SetEnabledUnicodeRanges</b> function is optional.
+     * 
+     * Some recognizers do not support enabling and disabling specific code points, but may still include the <b>SetEnabledUnicodeRanges</b> function. For such recognizers, the <b>SetEnabledUnicodeRanges</b> function returns E_NOTIMPL.
+     * 
+     * Each recognizer supports one or more Unicode point ranges. To determine which Unicode point ranges the recognizer supports, call the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-getunicoderanges">GetUnicodeRanges</a> function. If you do not call this function, the recognizer uses a default set of Unicode point ranges. The default ranges are recognizer specific.
+     * 
+     * The Microsoft gesture recognizer uses Unicode characters from 0xF000 to 0xF0FF. Each single Unicode value in this range represents a single gesture. For a complete list of Unicode values for gestures, see <a href="https://docs.microsoft.com/windows/desktop/tablet/unicode-range-values-of-gestures">Unicode Range Values of Gestures</a>.
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
      * @param {Integer} cRanges The number of ranges in the <i>pRanges</i> buffer.
      * @param {Pointer<CHARACTER_RANGE>} pcr An array of <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-character_range">CHARACTER_RANGE</a> structures. Each structure identifies a range of Unicode points that you want to enable in the recognizer. The order of the array is arbitrary.
@@ -3899,7 +3969,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-setenabledunicoderanges
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setenabledunicoderanges
      * @since windows5.1.2600
      */
     static SetEnabledUnicodeRanges(hrc, cRanges, pcr) {
@@ -3915,6 +3985,10 @@ class TabletPC {
 
     /**
      * Retrieves a list of properties the recognizer supports.
+     * @remarks
+     * This function is optional.
+     * 
+     * When Microsoft recognition engines are called with the <i>pcProperties</i> parameter set to a value larger than the required value, it does not result in an error. Instead, the engine automatically changes the size to the required value for the recognizer.
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
      * @param {Pointer<Integer>} pcProperties On input, the size, in bytes, the <i>pPropertyGUIDS</i> buffer can be. On output, the size, in bytes, the <i>pPropertyGUIDS</i> buffer is.
      * @param {Pointer<Guid>} pPropertyGUIDS The user-allocated buffer to contain a list of properties the recognizer supports. To determine the size of the buffer, set <i>pPropertyGUIDS</i> to <b>NULL</b>; use the size (<i>pcProperties</i>) to allocate <i>pPropertyGUIDS</i>. For a list of predefined properties, see the recognition <a href="https://docs.microsoft.com/windows/desktop/tablet/property-guids">Property GUIDs</a>.
@@ -3981,7 +4055,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-getcontextpropertylist
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getcontextpropertylist
      * @since windows5.1.2600
      */
     static GetContextPropertyList(hrc, pcProperties, pPropertyGUIDS) {
@@ -3999,9 +4073,15 @@ class TabletPC {
 
     /**
      * Returns a specified property value from the recognizer context.
+     * @remarks
+     * This function is optional.
+     * 
+     * You can use the <b>GetContextPropertyValue</b> function to get information that the recognizer is returning to the caller. This enables a customized recognizer to have modes and settings, and to return data that is unique to that recognizer.
+     * 
+     * In the Microsoft recognizers, calling the <b>GetContextPropertyValue</b> function with the <i>pcbSize</i> parameter set to a value larger than required does not result in an incorrect return value. Instead, the code automatically changes the size to the required value for the current GUID.
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
      * @param {Pointer<Guid>} pGuid The property to retrieve. Specify a predefined property globally unique identifier (GUID) or application-defined GUID. For a list of predefined properties, see the recognition <a href="https://docs.microsoft.com/windows/desktop/tablet/property-guids">Property GUIDs</a>.
-     * @param {Pointer<Integer>} pcbSize On input, the size, in bytes, the <i>pProperty </i>buffer can be. On output, the size, in bytes, the <i>pProperty</i>buffer is.
+     * @param {Pointer<Integer>} pcbSize On input, the size, in bytes, the <i>pProperty </i> buffer can be. On output, the size, in bytes, the <i>pProperty</i> buffer is.
      * @param {Pointer<Integer>} pProperty The user allocated buffer to contain the property value. To determine the size of the buffer, set <i>pProperty</i> to <b>NULL</b>; use the size to allocate <i>pProperty</i>.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -4088,7 +4168,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-getcontextpropertyvalue
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getcontextpropertyvalue
      * @since windows5.1.2600
      */
     static GetContextPropertyValue(hrc, pGuid, pcbSize, pProperty) {
@@ -4107,6 +4187,8 @@ class TabletPC {
 
     /**
      * Adds a property to the recognizer context.If a property already exists, its value is modified.
+     * @remarks
+     * The <b>SetContextPropertyValue</b> function is optional.
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
      * @param {Pointer<Guid>} pGuid The property to set. Specify a predefined property globally unique identifier (GUID) or application-defined property GUID. For a list of predefined properties, see the recognition <a href="https://docs.microsoft.com/windows/desktop/tablet/property-guids">Property GUIDs</a>.
      * @param {Integer} cbSize The size, in bytes, of the <i>pProperty</i> buffer.
@@ -4185,7 +4267,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-setcontextpropertyvalue
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setcontextpropertyvalue
      * @since windows5.1.2600
      */
     static SetContextPropertyValue(hrc, pGuid, cbSize, pProperty) {
@@ -4203,6 +4285,14 @@ class TabletPC {
 
     /**
      * Returns a value that indicates whether a word, date, time, number, or other text that is passed in is contained in the dictionary.The results of this test depend on the factoid setting.
+     * @remarks
+     * This function is optional.
+     * 
+     * The results of this test depend on the factoid setting. For example, if the factoid setting is set to default, then "hello","555-1234", and "10/19/2002" all return S_OK. However, if the factoid is set to TELEPHONE, only "555-1234" returns S_OK, the others return S_FALSE. For more information about factoids, see <a href="https://docs.microsoft.com/windows/desktop/tablet/supported-factoids-from-version-1">Supported Factoids from Version 1</a>.
+     * 
+     * Note that this function should take into consideration any information specified in <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-settextcontext">SetTextContext</a> when returning a value. For example, if the recognizer receives calls to SetTextContext ("http:", "") and receives a URL factoid, SetFactoid ((!IS_URL)) then IsStringSupported("www.microsoft.com") should return S_FALSE because it is missing the "//".
+     * 
+     * The COERCE flag has no effect on IsStringSupported.
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
      * @param {Integer} wcString The count, in Unicode (wide) characters, of <i>pwcString</i>.
      * @param {PWSTR} pwcString The Unicode (wide) characters to test.
@@ -4282,7 +4372,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-isstringsupported
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-isstringsupported
      * @since windows5.1.2600
      */
     static IsStringSupported(hrc, wcString, pwcString) {
@@ -4299,6 +4389,12 @@ class TabletPC {
 
     /**
      * Sets the word list for the current recognizer context to recognize.
+     * @remarks
+     * The word list passed in as the second parameter must already exist. You create a word list by using the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-makewordlist">MakeWordList</a> function. The <b>SetWordList</b> function does not alter the word list.
+     * 
+     * To clear the wordlist, pass <b>NULL</b> as the second parameter.
+     * 
+     * It is recommended that you limit the length of individual words in the wordlist to no more than 256 characters and limit memory allocation for wordlists to no more than 128 MB.
      * @param {HRECOCONTEXT} hrc Handle to the recognizer context.
      * @param {HRECOWORDLIST} hwl Handle to recognition word list to be used.
      * @returns {HRESULT} This function can return one of these values.
@@ -4370,12 +4466,12 @@ class TabletPC {
      * </dl>
      * </td>
      * <td width="60%">
-     * The method was called after <a href="/windows/desktop/api/recapis/nf-recapis-process">Process</a> has been called.
+     * The method was called after <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-process">Process</a> has been called.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-setwordlist
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setwordlist
      * @since windows5.1.2600
      */
     static SetWordList(hrc, hwl) {
@@ -4394,8 +4490,8 @@ class TabletPC {
      * Gets the context preference flags.
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
      * @param {Pointer<Integer>} pdwContextPreferenceFlags The handle to the context preference flags.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-getcontextpreferenceflags
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getcontextpreferenceflags
      * @since windows5.1.2600
      */
     static GetContextPreferenceFlags(hrc, pdwContextPreferenceFlags) {
@@ -4416,8 +4512,8 @@ class TabletPC {
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
      * @param {Pointer<Integer>} pcSize A pointer to the size of the right separator.
      * @param {PWSTR} pwcRightSeparator A pointer to the right separator.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-getrightseparator
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getrightseparator
      * @since windows5.1.2600
      */
     static GetRightSeparator(hrc, pcSize, pwcRightSeparator) {
@@ -4439,8 +4535,8 @@ class TabletPC {
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
      * @param {Pointer<Integer>} pcSize A pointer to the size of the left separator.
      * @param {PWSTR} pwcLeftSeparator A pointer to the left separator.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-getleftseparator
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getleftseparator
      * @since windows5.1.2600
      */
     static GetLeftSeparator(hrc, pcSize, pwcLeftSeparator) {
@@ -4512,7 +4608,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-destroywordlist
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-destroywordlist
      * @since windows5.1.2600
      */
     static DestroyWordList(hwl) {
@@ -4582,7 +4678,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-addwordstowordlist
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-addwordstowordlist
      * @since windows5.1.2600
      */
     static AddWordsToWordList(hwl, pwcWords) {
@@ -4676,7 +4772,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-makewordlist
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-makewordlist
      * @since windows5.1.2600
      */
     static MakeWordList(hrec, pBuffer, phwl) {
@@ -4747,7 +4843,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-getallrecognizers
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getallrecognizers
      * @since windows5.1.2600
      */
     static GetAllRecognizers(recognizerClsids, count) {
@@ -4818,7 +4914,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-loadcachedattributes
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-loadcachedattributes
      * @since windows5.1.2600
      */
     static LoadCachedAttributes(clsid, pRecoAttributes) {

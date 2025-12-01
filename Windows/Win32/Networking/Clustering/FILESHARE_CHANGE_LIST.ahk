@@ -4,7 +4,7 @@
 
 /**
  * Describes an event notification list for file shares managed by the File Server resource.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-fileshare_change_list
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-fileshare_change_list
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

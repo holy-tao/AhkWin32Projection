@@ -3,7 +3,7 @@
 
 /**
  * Describes Sync Manager resolution feedback. Used by ISyncMgrResolutionHandler.
- * @see https://docs.microsoft.com/windows/win32/api//syncmgr/ne-syncmgr-syncmgr_resolution_feedback
+ * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ne-syncmgr-syncmgr_resolution_feedback
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

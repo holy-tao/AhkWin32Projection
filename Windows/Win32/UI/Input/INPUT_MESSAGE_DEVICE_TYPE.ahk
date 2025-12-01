@@ -3,7 +3,7 @@
 
 /**
  * The type of device that sent the input message.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ne-winuser-input_message_device_type
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ne-winuser-input_message_device_type
  * @namespace Windows.Win32.UI.Input
  * @version v4.0.30319
  */

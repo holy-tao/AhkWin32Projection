@@ -6,7 +6,7 @@
 
 /**
  * The EMRARC, EMRARCTO, EMRCHORD, and EMRPIE structures contain members for the Arc, ArcTo, Chord, and Pie enhanced metafile records.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrarc
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrarc
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

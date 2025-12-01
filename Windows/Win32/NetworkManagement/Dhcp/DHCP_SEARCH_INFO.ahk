@@ -4,7 +4,7 @@
 
 /**
  * The DHCP_SEARCH_INFO structure defines the DHCP client record data used to search against for particular server operations.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_search_info
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_search_info
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies the callback which is called when a channel is successfully accepted.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_service_property_accept_callback
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_service_property_accept_callback
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

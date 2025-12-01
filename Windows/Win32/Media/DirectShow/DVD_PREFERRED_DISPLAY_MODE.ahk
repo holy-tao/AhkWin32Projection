@@ -4,8 +4,7 @@
 /**
  * Indicates the user's preferred window aspect ratio and conversion method.
  * @remarks
- * 
- * The <b>DVD_PREFERRED_DISPLAY_MODE</b> emumeration indicates the user's preferred window aspect ratio and preferred method of conversion of 16 x 9 content to a 4 x 3 window aspect ratio. Pan-scan and letterboxing are the two conversion methods. Displaying a video at the largest possible size inside the display window without any cropping or stretching is called displaying in letterbox format. <i>Pan-scan</i> is specifically cropping a 16 x 9 video for display in a 4 x 3 window using parameters defined by the video author.
+ * The <b>DVD_PREFERRED_DISPLAY_MODE</b> enumeration indicates the user's preferred window aspect ratio and preferred method of conversion of 16 x 9 content to a 4 x 3 window aspect ratio. Pan-scan and letterboxing are the two conversion methods. Displaying a video at the largest possible size inside the display window without any cropping or stretching is called displaying in letterbox format. <i>Pan-scan</i> is specifically cropping a 16 x 9 video for display in a 4 x 3 window using parameters defined by the video author.
  * 
  * This enumerated type indicates a preference of conversion mechanisms because some content can only be displayed using one of these methods. Content that is 4 x 3 is always converted to a 16 x 9 window by using sideboxing, where black bars are added to the right and left sides of the display instead of the top and bottom of the display as in the 16 x 9 to 4 x 3 conversion using letterboxing.
  * 
@@ -50,9 +49,7 @@
  *  
  * 
  * The native window size used is always the user's preferred size.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-dvd_preferred_display_mode
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_preferred_display_mode
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

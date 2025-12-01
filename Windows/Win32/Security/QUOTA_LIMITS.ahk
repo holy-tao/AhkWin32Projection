@@ -3,7 +3,7 @@
 
 /**
  * Describes the amount of system resources available to a user.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-quota_limits
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-quota_limits
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * This structure is used as an input and output buffer for the IOCTL_STORAGE_DEVICE_POWER_CAP.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_device_power_cap
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_device_power_cap
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

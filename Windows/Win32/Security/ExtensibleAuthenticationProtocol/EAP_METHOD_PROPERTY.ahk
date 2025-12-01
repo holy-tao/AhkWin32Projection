@@ -7,7 +7,7 @@
 
 /**
  * Contains an EAP method property.
- * @see https://docs.microsoft.com/windows/win32/api//eaptypes/ns-eaptypes-eap_method_property
+ * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_method_property
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

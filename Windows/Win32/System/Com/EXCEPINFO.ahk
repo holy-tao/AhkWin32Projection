@@ -5,12 +5,10 @@
 /**
  * Describes an exception that occurred during IDispatch::Invoke.
  * @remarks
- * 
  * Use the <b>pfnDeferredFillIn</b> field to enable an object to defer filling in the <b>bstrDescription</b>, <b>bstrHelpFile</b>, and <b>dwHelpContext</b> fields until they are needed. This field might be used, for example, if loading the string for the error is a time-consuming operation. To use deferred fill-in, the object puts a function pointer in this slot and does not fill any of the other fields except <b>wCode</b>, which is required.
  * 
  * To get additional information, the caller passes the <b>EXCEPINFO</b> structure back to the <b>pexcepinfo</b> callback function, which fills in the additional information. When the ActiveX object and the ActiveX client are in different processes, the ActiveX object calls <b>pfnDeferredFillIn</b> before returning to the controller.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//oaidl/ns-oaidl-excepinfo
+ * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-excepinfo
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -39,7 +37,7 @@ class EXCEPINFO extends Win32Struct
     }
 
     /**
-     * The name of the exception source. Typically, this is an application name. This field should be filled in by the implementor of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>.
+     * The name of the exception source. Typically, this is an application name. This field should be filled in by the implementer of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>.
      * @type {BSTR}
      */
     bstrSource{

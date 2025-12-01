@@ -4,7 +4,7 @@
 
 /**
  * An SP_REMOVEDEVICE_PARAMS structure corresponds to the DIF_REMOVE installation request.
- * @see https://docs.microsoft.com/windows/win32/api//setupapi/ns-setupapi-sp_removedevice_params
+ * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_removedevice_params
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

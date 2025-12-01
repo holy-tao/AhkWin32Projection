@@ -3,7 +3,7 @@
 
 /**
  * Defines values to identify event subscription properties used for subscription configuration.
- * @see https://docs.microsoft.com/windows/win32/api//evcoll/ne-evcoll-ec_subscription_property_id
+ * @see https://learn.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_subscription_property_id
  * @namespace Windows.Win32.System.EventCollector
  * @version v4.0.30319
  */

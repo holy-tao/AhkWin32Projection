@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of key to be returned by IQueryAssociations::GetKey.
- * @see https://docs.microsoft.com/windows/win32/api//shlwapi/ne-shlwapi-assockey
+ * @see https://learn.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-assockey
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

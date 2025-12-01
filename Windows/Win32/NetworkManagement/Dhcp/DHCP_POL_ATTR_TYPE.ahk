@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_POL_ATTR_TYPE enumeration defines the attribute type for a condition in a DHCP server policy.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ne-dhcpsapi-dhcp_pol_attr_type
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_pol_attr_type
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

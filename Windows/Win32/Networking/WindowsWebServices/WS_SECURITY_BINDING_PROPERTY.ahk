@@ -3,7 +3,7 @@
 
 /**
  * Specifies a security binding specific setting.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_security_binding_property
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_binding_property
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

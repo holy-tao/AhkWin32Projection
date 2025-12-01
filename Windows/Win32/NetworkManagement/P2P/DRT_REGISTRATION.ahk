@@ -4,7 +4,7 @@
 
 /**
  * The DRT_REGISTRATION structure contains key and application data that make up a registration.
- * @see https://docs.microsoft.com/windows/win32/api//drt/ns-drt-drt_registration
+ * @see https://learn.microsoft.com/windows/win32/api/drt/ns-drt-drt_registration
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

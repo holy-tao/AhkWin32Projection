@@ -3,7 +3,7 @@
 
 /**
  * The DD_COLORCONTROLDATA structure contains the color control information for the specified overlay.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_colorcontroldata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_colorcontroldata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

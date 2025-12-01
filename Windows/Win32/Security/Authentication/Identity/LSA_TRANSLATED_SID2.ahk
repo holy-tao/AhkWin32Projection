@@ -3,7 +3,7 @@
 
 /**
  * Contains SIDs that are retrieved based on account names.
- * @see https://docs.microsoft.com/windows/win32/api//lsalookup/ns-lsalookup-lsa_translated_sid2
+ * @see https://learn.microsoft.com/windows/win32/api/lsalookup/ns-lsalookup-lsa_translated_sid2
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Indicates whether an object is activated as a windowless object. It is used in IOleInPlaceSiteEx::OnInPlaceActivateEx.
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/ne-ocidl-activateflags
+ * @see https://learn.microsoft.com/windows/win32/api/ocidl/ne-ocidl-activateflags
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

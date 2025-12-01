@@ -4,13 +4,10 @@
 /**
  * Contains the Transmission Control Protocol (TCP) statistics that were collected for a socket.
  * @remarks
- * 
  * To get an instance of this structure,  call the 
- *    <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaioctl">WSAIoctl</a> or <a href="https://docs.microsoft.com/previous-versions/windows/hardware/network/ff566296(v=vs.85)">LPWSPIoctl</a> function with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/mt823415(v=vs.85)">SIO_TCP_INFO</a> 
+ *    <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaioctl">WSAIoctl</a> or <a href="https://docs.microsoft.com/previous-versions/windows/hardware/network/ff566296(v=vs.85)">LPWSPIoctl</a> function with the <a href="https://docs.microsoft.com/windows/win32/winsock/sio-tcp-info">SIO_TCP_INFO</a> 
  *    control code. Specify 0 for the *lpvInBuffer* field to retrieve the v0 version of this structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mstcpip/ns-mstcpip-tcp_info_v0
+ * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-tcp_info_v0
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

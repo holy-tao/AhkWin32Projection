@@ -3,7 +3,7 @@
 
 /**
  * Describes the extended isolation state of a connection.
- * @see https://docs.microsoft.com/windows/win32/api//naptypes/ne-naptypes-extendedisolationstate
+ * @see https://learn.microsoft.com/windows/win32/api/naptypes/ne-naptypes-extendedisolationstate
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319
  */

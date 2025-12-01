@@ -3,7 +3,7 @@
 
 /**
  * Represents a function table for the StartupEx callback function.
- * @see https://docs.microsoft.com/windows/win32/api//resapi/ns-resapi-clres_callback_function_table
+ * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-clres_callback_function_table
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

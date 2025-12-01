@@ -3,7 +3,7 @@
 
 /**
  * Identifies monitor display technologies.
- * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_display_technology_type
+ * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_display_technology_type
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

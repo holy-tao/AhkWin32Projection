@@ -3,7 +3,7 @@
 
 /**
  * Specifies the cache options available for an encoder.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicbitmapencodercacheoption
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicbitmapencodercacheoption
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

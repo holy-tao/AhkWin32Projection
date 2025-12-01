@@ -3,7 +3,7 @@
 
 /**
  * Standard placeholder information.
- * @see https://docs.microsoft.com/windows/win32/api//cfapi/ns-cfapi-cf_placeholder_standard_info
+ * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_placeholder_standard_info
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
@@ -23,7 +23,7 @@ class CF_PLACEHOLDER_STANDARD_INFO extends Win32Struct
     }
 
     /**
-     * Total number of bytes in sync with the cloud.
+     * Total number of bytes that are in sync with the cloud.
      * @type {Integer}
      */
     ValidatedDataSize {
@@ -32,7 +32,7 @@ class CF_PLACEHOLDER_STANDARD_INFO extends Win32Struct
     }
 
     /**
-     * Total number of bytes that have been overwritten/appended locally that are not in sync with the cloud.
+     * Total number of bytes that have been overwritten/appended locally and are not in sync with the cloud.
      * @type {Integer}
      */
     ModifiedDataSize {
@@ -50,7 +50,7 @@ class CF_PLACEHOLDER_STANDARD_INFO extends Win32Struct
     }
 
     /**
-     * The pin state of the placeholder. See <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfsetpinstate">CfSetPinState</a> for more details.
+     * The [CF_PIN_STATE](ne-cfapi-cf_pin_state.md) of the placeholder. See [CfSetPinState](nf-cfapi-cfsetpinstate.md) for more details.
      * @type {Integer}
      */
     PinState {
@@ -59,7 +59,7 @@ class CF_PLACEHOLDER_STANDARD_INFO extends Win32Struct
     }
 
     /**
-     * The in-sync state of the placeholder. see <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfsetinsyncstate">CfSetInSyncState</a> for more details.
+     * The [CF_IN_SYNC_STATE](ne-cfapi-cf_in_sync_state.md) of the placeholder. see [CfSetInSyncState](nf-cfapi-cfsetinsyncstate.md) for more details.
      * @type {Integer}
      */
     InSyncState {
@@ -86,7 +86,7 @@ class CF_PLACEHOLDER_STANDARD_INFO extends Win32Struct
     }
 
     /**
-     * Length, in bytes, of the FileIdentity.
+     * Length, in bytes, of the *FileIdentity*.
      * @type {Integer}
      */
     FileIdentityLength {

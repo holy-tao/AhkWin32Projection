@@ -3,7 +3,7 @@
 
 /**
  * Contains snapshot parameters, indicating information about the new snapshot to be created.
- * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ns-virtdisk-take_snapshot_vhdset_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-take_snapshot_vhdset_parameters
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */

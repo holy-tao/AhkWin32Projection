@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * This AGENT_SESSION_STATE enum defines the agent session indicators used by the ITAgentSession::get_State and the ITAgentSession::put_State methods.
+ * This AGENT_SESSION_STATE enumeration (tapi3cc.h) defines the agent session indicators used by the ITAgentSession::get_State and the ITAgentSession::put_State methods.
  * @remarks
- * 
  * Following is a table of all valid AgentSession state transitions.
  * 
  * <table>
@@ -53,9 +52,7 @@
  * </td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/ne-tapi3cc-agent_session_state
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/ne-tapi3cc-agent_session_state
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

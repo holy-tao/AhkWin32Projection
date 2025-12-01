@@ -3,7 +3,7 @@
 
 /**
  * Indicates information about the address URL of a website viewed.
- * @see https://docs.microsoft.com/windows/win32/api//wpcevent/ne-wpcevent-wpc_args_urlvisitevent
+ * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_args_urlvisitevent
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */

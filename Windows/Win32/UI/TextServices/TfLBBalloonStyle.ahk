@@ -4,7 +4,6 @@
 /**
  * Elements of the TfLBBalloonStyle enumeration are used to specify a language bar balloon style.
  * @remarks
- * 
  * The following image shows an example of a balloon with the TF_LB_BALLOON_RECO style. 
  * 
  * <img alt="TF_LB_BALLOON_RECO balloon" border="border" src="images/Balloon_RECO.gif"/>
@@ -14,9 +13,7 @@
  * The following image shows an example of a balloon with the TF_LB_BALLOON_MISS style. 
  * 
  * <img alt="TF_LB_BALLOON_MISS balloon" border="border" src="images/Balloon_MISS.gif"/>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ctfutb/ne-ctfutb-tflbballoonstyle
+ * @see https://learn.microsoft.com/windows/win32/api/ctfutb/ne-ctfutb-tflbballoonstyle
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

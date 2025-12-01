@@ -3,7 +3,7 @@
 
 /**
  * Defines if the property is contained in a structure or array.
- * @see https://docs.microsoft.com/windows/win32/api//tdh/ne-tdh-property_flags
+ * @see https://learn.microsoft.com/windows/win32/api/tdh/ne-tdh-property_flags
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Indicates information about initiating a conversation.
- * @see https://docs.microsoft.com/windows/win32/api//wpcevent/ne-wpcevent-wpc_args_conversationinitevent
+ * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_args_conversationinitevent
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */

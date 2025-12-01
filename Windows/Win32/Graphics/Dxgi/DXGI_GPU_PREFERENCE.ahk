@@ -4,11 +4,8 @@
 /**
  * The preference of GPU for the app to run on.
  * @remarks
- * 
  * This enumeration is used in the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_6/nf-dxgi1_6-idxgifactory6-enumadapterbygpupreference">IDXGIFactory6::EnumAdapterByGpuPreference</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi1_6/ne-dxgi1_6-dxgi_gpu_preference
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/ne-dxgi1_6-dxgi_gpu_preference
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

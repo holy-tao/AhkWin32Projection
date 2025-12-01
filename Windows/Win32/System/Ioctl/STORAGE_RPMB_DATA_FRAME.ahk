@@ -2,11 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The STORAGE_RPMB_DATA_FRAME structure (winioctl.h) allows an application to use data from IOCTL_STORAGE_QUERY_PROPERTY to create a RPMB frame.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_rpmb_data_frame
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_rpmb_data_frame
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

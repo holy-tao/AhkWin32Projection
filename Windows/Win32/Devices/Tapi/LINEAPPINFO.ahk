@@ -3,7 +3,7 @@
 
 /**
  * The LINEAPPINFO structure contains information about the application that is currently running. The LINEDEVSTATUS structure can contain an array of LINEAPPINFO structures.
- * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-lineappinfo
+ * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineappinfo
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

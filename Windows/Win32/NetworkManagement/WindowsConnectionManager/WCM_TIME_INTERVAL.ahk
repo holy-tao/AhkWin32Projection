@@ -3,7 +3,7 @@
 
 /**
  * Defines a time interval.
- * @see https://docs.microsoft.com/windows/win32/api//wcmapi/ns-wcmapi-wcm_time_interval
+ * @see https://learn.microsoft.com/windows/win32/api/wcmapi/ns-wcmapi-wcm_time_interval
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
  * @version v4.0.30319
  */

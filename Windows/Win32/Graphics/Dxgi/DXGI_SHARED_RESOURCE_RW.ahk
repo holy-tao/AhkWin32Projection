@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * Shared resource constants.
  * @see https://learn.microsoft.com/windows/win32/direct3ddxgi/dxgi-shared-resource-rw
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319

@@ -3,7 +3,7 @@
 
 /**
  * The HTTP_HEADER_ID enumeration type lists known headers for HTTP requests and responses, and associates an array index with each such header.
- * @see https://docs.microsoft.com/windows/win32/api//http/ne-http-http_header_id
+ * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_header_id
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

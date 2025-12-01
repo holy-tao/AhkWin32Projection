@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * HCN_PORT_PROTOCOL
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HCN_PORT_PROTOCOL
  * @namespace Windows.Win32.System.HostComputeNetwork
  * @version v4.0.30319

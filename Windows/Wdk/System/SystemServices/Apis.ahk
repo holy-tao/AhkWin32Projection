@@ -8279,11 +8279,20 @@ class SystemServices {
     }
 
     /**
+     * Compares two Unicode strings.
+     * @param {Pointer<UNICODE_STRING>} String1 Pointer to the first string.
+     * @param {Pointer<UNICODE_STRING>} String2 Pointer to the second string.
+     * @param {BOOLEAN} CaseInSensitive If **TRUE**, case should be ignored when doing the comparison.
+     * @returns {Integer} A signed value that gives the results of the comparison:
      * 
-     * @param {Pointer<UNICODE_STRING>} String1 
-     * @param {Pointer<UNICODE_STRING>} String2 
-     * @param {BOOLEAN} CaseInSensitive 
-     * @returns {Integer} 
+     * 
+     * 
+     * | Return code                                                                               | Description                                     |
+     * |-------------------------------------------------------------------------------------------|-------------------------------------------------|
+     * | <dl> <dt>**Zero**</dt> </dl>       | *String1* equals *String2*.<br/>          |
+     * | <dl> <dt>**< Zero**</dt> </dl>  | *String1* is less than *String2*.<br/>    |
+     * | <dl> <dt>**> Zero** </dt> </dl> | *String1* is greater than *String2*.<br/> |
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/rtlcompareunicodestring
      */
     static RtlCompareUnicodeString(String1, String2, CaseInSensitive) {
         result := DllCall("ntdll.dll\RtlCompareUnicodeString", "ptr", String1, "ptr", String2, "char", CaseInSensitive, "int")
@@ -8401,13 +8410,37 @@ class SystemServices {
     }
 
     /**
+     * Translates the specified Unicode string into a new character string, using the 8-bit Unicode Transformation Format (UTF-8) code page.
+     * @remarks
+     * Although *UTF8StringActualByteCount* is optional and can be **NULL**, callers should provide storage for it, because the received length can be used to determine whether the conversion was successful. This routine does not modify the source string. It returns a null-terminated UTF-8 string if the given *UnicodeStringSource* included a NULL terminator and if the given *UTF8StringMaxByteCount* did not cause truncation.
      * 
-     * @param {Pointer} UTF8StringDestination 
-     * @param {Integer} UTF8StringMaxByteCount 
-     * @param {Pointer<Integer>} UTF8StringActualByteCount 
-     * @param {Pointer} UnicodeStringSource 
+     * If the output is truncated and an invalid input character is encountered then the function returns STATUS\_BUFFER\_TOO\_SMALL error.
+     * 
+     * If the *UTF8StringDestination* is set to **NULL** the function will return the required number of bytes to host the translated string without any truncation in *UTF8StringActualByteCount*.
+     * 
+     * Callers of **RtlUnicodeToUTF8N** must be running at IRQL < DISPATCH\_LEVEL.
+     * @param {Pointer} UTF8StringDestination A pointer to a caller-allocated buffer to receive the translated string.
+     * @param {Integer} UTF8StringMaxByteCount Maximum number of bytes to be written to *UTF8StringDestination*. If this value causes the translated string to be truncated, **RtlUnicodeToUTF8N** returns an error status.
+     * @param {Pointer<Integer>} UTF8StringActualByteCount A pointer to a caller-allocated variable that receives the length, in bytes, of the translated string. This parameter is optional and can be **NULL**. If the string is truncated then the returned number counts the actual truncated string count.
+     * @param {Pointer} UnicodeStringSource A pointer to the Unicode source string to be translated.
+     * 
+     * 
+     * *UnicodeStringByteCount * \[in\]
+     * 
+     * Specifies the number of bytes in the Unicode source string that the *UnicodeStringSource* parameter points to.
      * @param {Integer} UnicodeStringByteCount 
-     * @returns {NTSTATUS} 
+     * @returns {NTSTATUS} **RtlUnicodeToUTF8N** returns one of the following NTSTATUS values:
+     * 
+     * 
+     * 
+     * | Return code                                                                                                  | Description                                                                                                     |
+     * |--------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+     * | <dl> <dt>**STATUS\_SUCCESS**</dt> </dl>               | The Unicode string was converted to UTF-8.<br/>                                                           |
+     * | <dl> <dt>**STATUS\_SOME\_NOT\_MAPPED**</dt> </dl>     | An invalid input character was encountered and replaced. This status is considered a success status.<br/> |
+     * | <dl> <dt>**STATUS\_INVALID\_PARAMETER**</dt> </dl>    | Both pointers to *UTF8StringDestination* and *UTF8StringActualByteCount* were **NULL**.<br/>              |
+     * | <dl> <dt>**STATUS\_INVALID\_PARAMETER\_4**</dt> </dl> | The *UnicodeStringSource* was **NULL**.<br/>                                                              |
+     * | <dl> <dt>**STATUS\_BUFFER\_TOO\_SMALL**</dt> </dl>    | *UTF8StringDestination* was truncated.<br/>                                                               |
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/rtlunicodetoutf8n
      */
     static RtlUnicodeToUTF8N(UTF8StringDestination, UTF8StringMaxByteCount, UTF8StringActualByteCount, UnicodeStringSource, UnicodeStringByteCount) {
         UTF8StringActualByteCountMarshal := UTF8StringActualByteCount is VarRef ? "uint*" : "ptr"
@@ -8417,13 +8450,34 @@ class SystemServices {
     }
 
     /**
+     * Translates the specified source string into a Unicode string, using the 8-bit Unicode Transformation Format (UTF-8) code page.
+     * @remarks
+     * Although *UnicodeStringActualByteCount* is optional and can be **NULL**, callers should provide storage for it, because the received length can be used to determine whether the conversion was successful.
      * 
-     * @param {Pointer} UnicodeStringDestination 
-     * @param {Integer} UnicodeStringMaxByteCount 
-     * @param {Pointer<Integer>} UnicodeStringActualByteCount 
-     * @param {Pointer} UTF8StringSource 
-     * @param {Integer} UTF8StringByteCount 
-     * @returns {NTSTATUS} 
+     * If the output is truncated and an invalid input character is encountered then the function returns STATUS\_BUFFER\_TOO\_SMALL error.
+     * 
+     * If the *UnicodeStringDestination* is set to **NULL** the function will return the required number of bytes to host the translated string without any truncation in *UnicodeStringActualByteCount*.
+     * 
+     * **RtlUTF8ToUnicodeN** does not modify the source string unless the *UnicodeStringDestination* and *UTF8StringSource* pointers are equivalent. The returned Unicode string is not null-terminated.
+     * 
+     * Callers of **RtlUTF8ToUnicodeN** must be running at IRQL < DISPATCH\_LEVEL.
+     * @param {Pointer} UnicodeStringDestination A pointer to a caller-allocated buffer that receives the translated string.
+     * @param {Integer} UnicodeStringMaxByteCount Maximum number of bytes to be written at *UnicodeStringDestination*. If this value causes the translated string to be truncated, **RtlUTF8ToUnicodeN** returns an error status.
+     * @param {Pointer<Integer>} UnicodeStringActualByteCount A pointer to a caller-allocated variable that receives the length, in bytes, of the translated string. This parameter is optional and can be **NULL**. If the string is truncated then the returned number counts the actual truncated string count.
+     * @param {Pointer} UTF8StringSource A pointer to the string to be translated.
+     * @param {Integer} UTF8StringByteCount Size, in bytes, of the string at *UTF8StringSource*.
+     * @returns {NTSTATUS} **RtlUTF8ToUnicodeN** returns one of the following NTSTATUS values:
+     * 
+     * 
+     * 
+     * | Return code                                                                                                  | Description                                                                                                     |
+     * |--------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+     * | <dl> <dt>**STATUS\_SUCCESS**</dt> </dl>               | The string was converted to Unicode.<br/>                                                                 |
+     * | <dl> <dt>**STATUS\_SOME\_NOT\_MAPPED**</dt> </dl>     | An invalid input character was encountered and replaced. This status is considered a success status.<br/> |
+     * | <dl> <dt>**STATUS\_INVALID\_PARAMETER**</dt> </dl>    | Both pointers to *UnicodeStringDestination* and *UnicodeStringActualByteCount* were **NULL**.<br/>       |
+     * | <dl> <dt>**STATUS\_INVALID\_PARAMETER\_4**</dt> </dl> | The *UTF8StringSource* was **NULL**.<br/>                                                                 |
+     * | <dl> <dt>**STATUS\_BUFFER\_TOO\_SMALL**</dt> </dl>    | *UnicodeStringDestination* was truncated.<br/>                                                            |
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/rtlutf8tounicoden
      */
     static RtlUTF8ToUnicodeN(UnicodeStringDestination, UnicodeStringMaxByteCount, UnicodeStringActualByteCount, UTF8StringSource, UTF8StringByteCount) {
         UnicodeStringActualByteCountMarshal := UnicodeStringActualByteCount is VarRef ? "uint*" : "ptr"
@@ -9030,9 +9084,16 @@ class SystemServices {
     }
 
     /**
+     * Gets version information about the currently running operating system.
+     * @remarks
+     * **RtlGetVersion** is the equivalent of the [**GetVersionEx**](/windows/win32/api/sysinfoapi/nf-sysinfoapi-getversionexa) function in the Windows SDK. See the example in the Windows SDK that shows how to get the system version.
      * 
-     * @param {Pointer<OSVERSIONINFOW>} lpVersionInformation 
-     * @returns {NTSTATUS} 
+     * When using **RtlGetVersion** to determine whether a particular version of the operating system is running, a caller should check for version numbers that are greater than or equal to the required version number. This ensures that a version test succeeds for later versions of Windows.
+     * 
+     * Because operating system features can be added in a redistributable DLL, checking only the major and minor version numbers is not the most reliable way to verify the presence of a specific system feature. A driver should use [**RtlVerifyVersionInfo**](/windows-hardware/drivers/ddi/wdm/nf-wdm-rtlverifyversioninfo) to test for the presence of a specific system feature.
+     * @param {Pointer<OSVERSIONINFOW>} lpVersionInformation Pointer to either a [**RTL\_OSVERSIONINFOW**](/windows-hardware/drivers/ddi/wdm/ns-wdm-_osversioninfow) structure or a [**RTL\_OSVERSIONINFOEXW**](/windows-hardware/drivers/ddi/wdm/ns-wdm-_osversioninfoexw) structure that contains the version information about the currently running operating system. A caller specifies which input structure is used by setting the **dwOSVersionInfoSize** member of the structure to the size in bytes of the structure that is used.
+     * @returns {NTSTATUS} Returns STATUS\_SUCCESS.
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/rtlgetversion
      */
     static RtlGetVersion(lpVersionInformation) {
         result := DllCall("ntdll.dll\RtlGetVersion", "ptr", lpVersionInformation, "int")
@@ -17012,10 +17073,15 @@ class SystemServices {
     }
 
     /**
+     * Determines whether two LSNs from the same stream are equal.
+     * @remarks
+     * CLFS_LSN_NULL (the smallest LSN) and CLFS_LSN_INVALID (larger than any valid LSN) are valid arguments to this function.
      * 
-     * @param {Pointer<CLS_LSN>} plsn1 
-     * @param {Pointer<CLS_LSN>} plsn2 
-     * @returns {BOOLEAN} 
+     * LSNs from different streams are not comparable. Do not use this function to compare LSNs from different streams.
+     * @param {Pointer<CLS_LSN>} plsn1 A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure to be compared with  <i>plsn2</i>.
+     * @param {Pointer<CLS_LSN>} plsn2 A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure to be compared with  <i>plsn1</i>.
+     * @returns {BOOLEAN} Returns <b>TRUE</b> if the two LSNs are equal; otherwise,  <b>FALSE</b>.
+     * @see https://learn.microsoft.com/windows/win32/api/clfs/nf-clfs-clfslsnequal
      */
     static ClfsLsnEqual(plsn1, plsn2) {
         result := DllCall("CLFS.SYS\ClfsLsnEqual", "ptr", plsn1, "ptr", plsn2, "char")
@@ -17023,10 +17089,15 @@ class SystemServices {
     }
 
     /**
+     * Determines whether one LSN is less than another LSN. The two LSNs must be from the same stream.
+     * @remarks
+     * CLFS_LSN_NULL (the smallest LSN) and CLFS_LSN_INVALID (larger than any valid LSN) are valid arguments to this function.
      * 
-     * @param {Pointer<CLS_LSN>} plsn1 
-     * @param {Pointer<CLS_LSN>} plsn2 
-     * @returns {BOOLEAN} 
+     * LSNs from different streams are not comparable. Do not use this function to compare LSNs from different streams.
+     * @param {Pointer<CLS_LSN>} plsn1 A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure to be compared with  <i>plsn2</i>.
+     * @param {Pointer<CLS_LSN>} plsn2 A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure to be compared with  <i>plsn1</i>.
+     * @returns {BOOLEAN} <b>TRUE</b> if <i>plsn1</i> is strictly less than <i>plsn2</i>; otherwise,  <b>FALSE</b>.
+     * @see https://learn.microsoft.com/windows/win32/api/clfs/nf-clfs-clfslsnless
      */
     static ClfsLsnLess(plsn1, plsn2) {
         result := DllCall("CLFS.SYS\ClfsLsnLess", "ptr", plsn1, "ptr", plsn2, "char")
@@ -17034,10 +17105,15 @@ class SystemServices {
     }
 
     /**
+     * Determines whether one LSN is greater than another LSN. The two LSNs must be from the same stream.
+     * @remarks
+     * CLFS_LSN_NULL (the smallest LSN) and CLFS_LSN_INVALID (larger than any valid LSN) are valid arguments to this function.
      * 
-     * @param {Pointer<CLS_LSN>} plsn1 
-     * @param {Pointer<CLS_LSN>} plsn2 
-     * @returns {BOOLEAN} 
+     * LSNs from different streams are not comparable. Do not use this function to compare LSNs from different streams.
+     * @param {Pointer<CLS_LSN>} plsn1 A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure to be compared with  <i>plsn2</i>.
+     * @param {Pointer<CLS_LSN>} plsn2 A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure to be compared with  <i>plsn1</i>.
+     * @returns {BOOLEAN} <b>TRUE</b> if <i>plsn1</i> is strictly greater than <i>plsn2</i>; otherwise,  <b>FALSE</b>.
+     * @see https://learn.microsoft.com/windows/win32/api/clfs/nf-clfs-clfslsngreater
      */
     static ClfsLsnGreater(plsn1, plsn2) {
         result := DllCall("CLFS.SYS\ClfsLsnGreater", "ptr", plsn1, "ptr", plsn2, "char")
@@ -17045,9 +17121,10 @@ class SystemServices {
     }
 
     /**
-     * 
-     * @param {Pointer<CLS_LSN>} plsn 
-     * @returns {BOOLEAN} 
+     * Determines whether a specified LSN is equal to the smallest possible LSN, which is CLFS_LSN_NULL.
+     * @param {Pointer<CLS_LSN>} plsn A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure to be tested.
+     * @returns {BOOLEAN} <b>TRUE</b> if <i>plsn</i> is equal to CLFS_LSN_NULL; otherwise,  <b>FALSE</b>.
+     * @see https://learn.microsoft.com/windows/win32/api/clfs/nf-clfs-clfslsnnull
      */
     static ClfsLsnNull(plsn) {
         result := DllCall("CLFS.SYS\ClfsLsnNull", "ptr", plsn, "char")
@@ -19040,11 +19117,12 @@ class SystemServices {
     }
 
     /**
-     * 
-     * @param {Pointer<UNICODE_STRING>} String1 
-     * @param {Pointer<UNICODE_STRING>} String2 
-     * @param {BOOLEAN} CaseInSensitive 
-     * @returns {BOOLEAN} 
+     * Compares two Unicode strings to determine whether one string is a prefix of the other.
+     * @param {Pointer<UNICODE_STRING>} String1 Pointer to the first string, which might be a prefix of the buffered Unicode string at *String2*.
+     * @param {Pointer<UNICODE_STRING>} String2 Pointer to the second string.
+     * @param {BOOLEAN} CaseInSensitive If **TRUE**, case should be ignored when doing the comparison.
+     * @returns {BOOLEAN} **TRUE** if *String1* is a prefix of *String2*.
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/rtlprefixunicodestring
      */
     static RtlPrefixUnicodeString(String1, String2, CaseInSensitive) {
         result := DllCall("ntdll.dll\RtlPrefixUnicodeString", "ptr", String1, "ptr", String2, "char", CaseInSensitive, "char")
@@ -19155,8 +19233,33 @@ class SystemServices {
     }
 
     /**
+     * Retrieves a bit mask that identifies the product suites available on the system. If this function is called in an application that runs in the context of a server silo, the suite mask for the server silo is retrieved instead.
+     * @remarks
+     * You should not rely upon only the 0x00000001 flag to determine whether Small Business Server has been installed on the system, as both this flag and the 0x00000020 flag are set when this product suite is installed. If you upgrade this installation to Windows Server, Standard Edition, the 0x00000020 flag will be cleared however, the 0x00000001 flag will remain set. In this case, this indicates that Small Business Server was once installed on this system. If this installation is further upgraded to Windows Server, Enterprise Edition, the 0x00000001 flag will remain set.
+     * @returns {Integer} This function has no parameters.
      * 
-     * @returns {Integer} 
+     * 
+     * A bit mask that identifies the product suites available on the system. The bit mask can include the following values.
+     * 
+     * 
+     * 
+     * | Return value                                                                          | Description                                                                                                                                                                                                                                             |
+     * |---------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+     * | <dl> <dt>0x00000001</dt> </dl> | Microsoft Small Business Server was once installed on the system, but may have been upgraded to another version of Windows. Refer to the Remarks section for more information about this bit flag.<br/>                                           |
+     * | <dl> <dt>0x00000002</dt> </dl> | Windows 10 Enterprise, Windows 8.1 Enterprise, Windows Server 2008 Enterprise, Windows Server 2003, Enterprise Edition, or Windows 2000 Advanced Server is installed. Refer to the Remarks section for more information about this bit flag.<br/> |
+     * | <dl> <dt>0x00000004</dt> </dl> | Microsoft BackOffice components are installed.<br/>                                                                                                                                                                                               |
+     * | <dl> <dt>0x00000008</dt> </dl> | Communications Server 2003, Communications Server 2005, Communications Server 2007, or Communications Server 2007 R2 is installed.<br/>                                                                                                           |
+     * | <dl> <dt>0x00000010</dt> </dl> | Terminal Services is installed. This value is always set.<br/> If **TerminalServer** is set but **SingleUserTS** is not set, the system is running in application server mode.<br/>                                                         |
+     * | <dl> <dt>0x00000020</dt> </dl> | Microsoft Small Business Server is installed with the restrictive client license in force. Refer to the Remarks section for more information about this bit flag.<br/>                                                                            |
+     * | <dl> <dt>0x00000040</dt> </dl> | Windows XP Embedded is installed.<br/>                                                                                                                                                                                                            |
+     * | <dl> <dt>0x00000080</dt> </dl> | Windows Server 2008 Datacenter, Windows Server 2003, Datacenter Edition, or Windows 2000 Datacenter Server is installed.<br/>                                                                                                                     |
+     * | <dl> <dt>0x00000100</dt> </dl> | Remote Desktop is supported, but only one interactive session is supported. This value is set unless the system is running in application server mode.<br/>                                                                                       |
+     * | <dl> <dt>0x00000200</dt> </dl> | Windows Vista Home Premium, Windows Vista Home Basic, or Windows XP Home Edition is installed.<br/>                                                                                                                                               |
+     * | <dl> <dt>0x00000400</dt> </dl> | Windows Server 2003, Web Edition is installed.<br/>                                                                                                                                                                                               |
+     * | <dl> <dt>0x00002000</dt> </dl> | Windows Storage Server 2003 R2 or Windows Storage Server 2003 is installed.<br/>                                                                                                                                                                  |
+     * | <dl> <dt>0x00004000</dt> </dl> | Windows Server 2003, Compute Cluster Edition is installed.<br/>                                                                                                                                                                                   |
+     * | <dl> <dt>0x00008000</dt> </dl> | Windows Home Server is installed.<br/>                                                                                                                                                                                                            |
+     * @see https://learn.microsoft.com/windows/win32/SysInfo/rtlgetsuitemask
      */
     static RtlGetSuiteMask() {
         result := DllCall("ntdll.dll\RtlGetSuiteMask", "uint")

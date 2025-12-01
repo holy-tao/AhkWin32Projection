@@ -3,7 +3,7 @@
 
 /**
  * Defines flag values that provide additional information about the property bag.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmpropertybagflags
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmpropertybagflags
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

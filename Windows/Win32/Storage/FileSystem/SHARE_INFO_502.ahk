@@ -4,7 +4,7 @@
 
 /**
  * Contains information about the shared resource, including name of the resource, type and permissions, number of connections, and other pertinent information.
- * @see https://docs.microsoft.com/windows/win32/api//lmshare/ns-lmshare-share_info_502
+ * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-share_info_502
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

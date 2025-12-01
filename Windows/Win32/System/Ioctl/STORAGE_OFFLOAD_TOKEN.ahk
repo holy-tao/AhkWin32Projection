@@ -3,7 +3,7 @@
 
 /**
  * The token used to represent a portion of a file used in by offload read and write operations.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_offload_token
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_offload_token
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

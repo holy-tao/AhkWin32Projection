@@ -6,7 +6,6 @@
 /**
  * Use this structure to specify or modify the attributes of a window type.
  * @remarks
- * 
  * Window types can be defined by an author in a project (.hhp) file, or they can be defined programmatically using the HTML Help API.
  * 
  * When a <b>HH_WINTYPE</b> structure is passed to <b>HtmlHelp()</b> using the <b>HH_SET_WIN_TYPE</b> command, the HTML Help API makes a private copy of the contents of the structure. The help developer is therefore responsible for freeing memory used by the <b>HH_WINTYPE</b> structure or character arrays within it. The help developer can free memory after calling <b>HH_SET_WIN_TYPE</b>.
@@ -20,9 +19,7 @@
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/hh-get-win-type-command">HH_GET_WIN_TYPE</a>
  * </li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//htmlhelp/ns-htmlhelp-hh_wintype
+ * @see https://learn.microsoft.com/windows/win32/api/htmlhelp/ns-htmlhelp-hh_wintype
  * @namespace Windows.Win32.Data.HtmlHelp
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The RPC_NOTIFICATIONS enumeration specifies the notifications a server can receive from RPC.
- * @see https://docs.microsoft.com/windows/win32/api//rpcasync/ne-rpcasync-rpc_notifications
+ * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ne-rpcasync-rpc_notifications
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */

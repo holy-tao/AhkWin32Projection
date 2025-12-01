@@ -3,7 +3,7 @@
 
 /**
  * Specifies the values used by the IFileDialogEvents::OnShareViolation method to indicate an application's response to a sharing violation that occurs when a file is opened or saved.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-fde_shareviolation_response
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-fde_shareviolation_response
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

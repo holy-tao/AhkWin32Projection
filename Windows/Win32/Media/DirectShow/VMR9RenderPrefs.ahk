@@ -3,7 +3,7 @@
 
 /**
  * The VMR9RenderPrefs enumeration type specifies basic rendering preferences for the VMR-9. It is used with the IVMRFilterConfig9::GetRenderingPrefs and IVMRFilterConfig9::SetRenderingPrefs methods.
- * @see https://docs.microsoft.com/windows/win32/api//vmr9/ne-vmr9-vmr9renderprefs
+ * @see https://learn.microsoft.com/windows/win32/api/vmr9/ne-vmr9-vmr9renderprefs
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

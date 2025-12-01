@@ -3,7 +3,7 @@
 
 /**
  * Which resources are supported for a given format and given device (see ID3D10Device::CheckFormatSupport).
- * @see https://docs.microsoft.com/windows/win32/api//d3d10/ne-d3d10-d3d10_format_support
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_format_support
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

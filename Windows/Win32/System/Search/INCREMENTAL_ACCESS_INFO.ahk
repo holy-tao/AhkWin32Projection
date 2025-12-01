@@ -4,7 +4,7 @@
 
 /**
  * Contains access information used by an incremental crawl, such as the last access date and modification time.
- * @see https://docs.microsoft.com/windows/win32/api//searchapi/ns-searchapi-incremental_access_info
+ * @see https://learn.microsoft.com/windows/win32/api/searchapi/ns-searchapi-incremental_access_info
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

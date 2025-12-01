@@ -4,16 +4,13 @@
 /**
  * Determines how the performance counter data is graphed, for example, as a line graph or a histogram.
  * @remarks
- * 
  * The following enumeration values were introduced in Windows Vista.
  * 
  * <ul>
  * <li><b>sysmonChartArea</b></li>
  * <li><b>sysmonChartStackedArea</b></li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//isysmon/ne-isysmon-displaytypeconstants
+ * @see https://learn.microsoft.com/windows/win32/api/isysmon/ne-isysmon-displaytypeconstants
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

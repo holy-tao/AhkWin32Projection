@@ -3,7 +3,7 @@
 
 /**
  * Defines how the Task Scheduler service creates, updates, or disables the task.
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/ne-taskschd-task_creation
+ * @see https://learn.microsoft.com/windows/win32/api/taskschd/ne-taskschd-task_creation
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */

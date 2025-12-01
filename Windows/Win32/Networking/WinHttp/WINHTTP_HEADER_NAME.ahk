@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Represents an HTTP request header name.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_header_name
  * @namespace Windows.Win32.Networking.WinHttp
@@ -14,6 +16,9 @@ class WINHTTP_HEADER_NAME extends Win32Struct
     static packingSize => 8
 
     /**
+     * Type: IN **[PCWSTR](/windows/win32/winprog/windows-data-types)**
+     * 
+     * A wide string containing a name.
      * @type {PWSTR}
      */
     pwszName {
@@ -22,6 +27,9 @@ class WINHTTP_HEADER_NAME extends Win32Struct
     }
 
     /**
+     * Type: IN **[PCSTR](/windows/win32/winprog/windows-data-types)**
+     * 
+     * A narrow string containing a name.
      * @type {PSTR}
      */
     pszName {

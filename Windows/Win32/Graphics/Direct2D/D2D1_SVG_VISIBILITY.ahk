@@ -3,7 +3,7 @@
 
 /**
  * Specifies a value for the SVG visibility property.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/ne-d2d1svg-d2d1_svg_visibility
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/ne-d2d1svg-d2d1_svg_visibility
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

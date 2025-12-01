@@ -9,11 +9,9 @@
 /**
  * Contains information specific to an NM_CUSTOMDRAW (list view) notification code sent by a list-view control.
  * @remarks
- * 
  * <div class="alert"><b>Note</b>  Comctl32.dll version 6 is not redistributable but it is included in Windows or later. To use Comctl32.dll version 6, specify it in a manifest. For more information on manifests, see <a href="https://docs.microsoft.com/windows/desktop/Controls/cookbook-overview">Enabling Visual Styles</a>.</div>
  * <div> </div>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmlvcustomdraw
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmlvcustomdraw
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

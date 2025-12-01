@@ -6,7 +6,7 @@
 
 /**
  * Contains the requested size of a rich edit control. A rich edit control sends this structure to its parent window as part of an EN_REQUESTRESIZE notification code.
- * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-reqresize
+ * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-reqresize
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

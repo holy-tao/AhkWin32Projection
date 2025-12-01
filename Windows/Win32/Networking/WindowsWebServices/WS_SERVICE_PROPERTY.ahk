@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Specifies a service specific setting.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_service_property
+ * Specifies a service specific setting. (WS_SERVICE_PROPERTY)
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_service_property
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

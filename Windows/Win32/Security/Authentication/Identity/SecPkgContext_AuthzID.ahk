@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains information about the AuthzID of the security context.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_authzid
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -14,6 +16,7 @@ class SecPkgContext_AuthzID extends Win32Struct
     static packingSize => 8
 
     /**
+     * The length of **AuthzID**, in bytes.
      * @type {Integer}
      */
     AuthzIDLength {
@@ -22,6 +25,7 @@ class SecPkgContext_AuthzID extends Win32Struct
     }
 
     /**
+     * The AuthzID.
      * @type {PSTR}
      */
     AuthzID {

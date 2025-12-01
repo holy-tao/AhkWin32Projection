@@ -3,7 +3,7 @@
 
 /**
  * Indicates whether Data Deduplication should perform an unoptimized or optimized restore.
- * @see https://docs.microsoft.com/windows/win32/api//ddpbackup/ne-ddpbackup-dedup_backup_support_param_type
+ * @see https://learn.microsoft.com/windows/win32/api/ddpbackup/ne-ddpbackup-dedup_backup_support_param_type
  * @namespace Windows.Win32.Storage.DataDeduplication
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Determines the source of the performance counter data.
- * @see https://docs.microsoft.com/windows/win32/api//isysmon/ne-isysmon-datasourcetypeconstants
+ * @see https://learn.microsoft.com/windows/win32/api/isysmon/ne-isysmon-datasourcetypeconstants
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

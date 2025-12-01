@@ -5,11 +5,8 @@
 /**
  * Describes an adapter (or video card) that uses Microsoft DirectX Graphics Infrastructure (DXGI) 1.6.
  * @remarks
- * 
  * The <b>DXGI_ADAPTER_DESC3</b> structure provides a DXGI 1.6 description of an adapter.  This structure is initialized by using the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_6/nf-dxgi1_6-idxgiadapter4-getdesc3">IDXGIAdapter4::GetDesc3</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi1_6/ns-dxgi1_6-dxgi_adapter_desc3
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/ns-dxgi1_6-dxgi_adapter_desc3
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

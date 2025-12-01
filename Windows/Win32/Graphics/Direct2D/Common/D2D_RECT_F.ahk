@@ -3,7 +3,7 @@
 
 /**
  * Represents a rectangle defined by the coordinates of the upper-left corner (left, top) and the coordinates of the lower-right corner (right, bottom).
- * @see https://docs.microsoft.com/windows/win32/api//dcommon/ns-dcommon-d2d_rect_f
+ * @see https://learn.microsoft.com/windows/win32/api/dcommon/ns-dcommon-d2d_rect_f
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */

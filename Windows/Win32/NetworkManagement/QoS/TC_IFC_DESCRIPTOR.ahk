@@ -6,7 +6,7 @@
 
 /**
  * The TC_IFC_DESCRIPTOR structure is an interface identifier used to enumerate interfaces.
- * @see https://docs.microsoft.com/windows/win32/api//traffic/ns-traffic-tc_ifc_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api/traffic/ns-traffic-tc_ifc_descriptor
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

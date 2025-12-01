@@ -4,7 +4,7 @@
 
 /**
  * Identifies one or more page-ranges to be printed and, optionally, identifies only the even or odd pages as part of a pageset.
- * @see https://docs.microsoft.com/windows/win32/api//docobj/ns-docobj-pageset
+ * @see https://learn.microsoft.com/windows/win32/api/docobj/ns-docobj-pageset
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

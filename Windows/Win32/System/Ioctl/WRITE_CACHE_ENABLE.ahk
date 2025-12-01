@@ -4,11 +4,8 @@
 /**
  * Indicates whether the write cache is enabled or disabled.
  * @remarks
- * 
  * The [IOCTL_STORAGE_QUERY_PROPERTY](ni-winioctl-ioctl_storage_query_property.md) control code reports a **WRITE_CACHE_ENABLE** value in the [STORAGE_WRITE_CACHE_PROPERTY structure](ns-winioctl-storage_write_cache_property.md).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ne-winioctl-write_cache_enable
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-write_cache_enable
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

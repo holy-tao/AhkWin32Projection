@@ -3,7 +3,7 @@
 
 /**
  * Specifies the cross-slide behavior thresholds.
- * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/ne-interactioncontext-cross_slide_threshold
+ * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ne-interactioncontext-cross_slide_threshold
  * @namespace Windows.Win32.UI.InteractionContext
  * @version v4.0.30319
  */

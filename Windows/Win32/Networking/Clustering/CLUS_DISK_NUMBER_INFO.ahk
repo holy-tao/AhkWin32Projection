@@ -3,7 +3,7 @@
 
 /**
  * Represents information about the disk number of a physical disk.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clus_disk_number_info
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_disk_number_info
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

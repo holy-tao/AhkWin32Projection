@@ -4,7 +4,7 @@
 
 /**
  * The PDH_RAW_COUNTER structure returns the data as it was collected from the counter provider. No translation, formatting, or other interpretation is performed on the data.
- * @see https://docs.microsoft.com/windows/win32/api//pdh/ns-pdh-pdh_raw_counter
+ * @see https://learn.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_raw_counter
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

@@ -3,7 +3,9 @@
 #Include .\APOInitBaseStruct.ahk
 
 /**
- * 
+ * Provides APO initialization parameters, extending APOInitSystemEffects2 to add the ability to specify a service provider for logging.
+ * @remarks
+ * For more information on the Windows 11 APIs for the Audio Processing Objects (APOs) that can ship with audio drivers, see [Windows 11 APIs for Audio Processing Objects](/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects).
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ns-audioengineextensionapo-apoinitsystemeffects3
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
@@ -15,6 +17,7 @@ class APOInitSystemEffects3 extends Win32Struct
     static packingSize => 8
 
     /**
+     * An [APOInitBaseStruct](../audioenginebaseapo/ns-audioenginebaseapo-apoinitbasestruct) structure.
      * @type {APOInitBaseStruct}
      */
     APOInit{
@@ -26,6 +29,7 @@ class APOInitSystemEffects3 extends Win32Struct
     }
 
     /**
+     * A pointer to an [IPropertyStore](../propsys/nn-propsys-ipropertystore.md) object.
      * @type {IPropertyStore}
      */
     pAPOEndpointProperties {
@@ -34,6 +38,7 @@ class APOInitSystemEffects3 extends Win32Struct
     }
 
     /**
+     * An [IServiceProvider](../servprov/nn-servprov-iserviceprovider.md) interface.
      * @type {IServiceProvider}
      */
     pServiceProvider {
@@ -42,6 +47,7 @@ class APOInitSystemEffects3 extends Win32Struct
     }
 
     /**
+     * A pointer to an [IMMDeviceCollection](../mmdeviceapi/nn-mmdeviceapi-immdevicecollection.md) object. The last item in the *pDeviceCollection* is always the [IMMDevice](../mmdeviceapi/nn-mmdeviceapi-immdevice.md) representing the audio endpoint.
      * @type {IMMDeviceCollection}
      */
     pDeviceCollection {
@@ -50,6 +56,7 @@ class APOInitSystemEffects3 extends Win32Struct
     }
 
     /**
+     * Specifies the **MMDevice** that implements the DeviceTopology that includes the software connector for which the APO is initializing. The **MMDevice** is contained in *pDeviceCollection*.
      * @type {Integer}
      */
     nSoftwareIoDeviceInCollection {
@@ -58,6 +65,7 @@ class APOInitSystemEffects3 extends Win32Struct
     }
 
     /**
+     * Specifies the index of a **Software_IO** connector in the [DeviceTopology](../devicetopology/nn-devicetopology-idevicetopology.md).
      * @type {Integer}
      */
     nSoftwareIoConnectorIndex {
@@ -66,6 +74,7 @@ class APOInitSystemEffects3 extends Win32Struct
     }
 
     /**
+     * Specifies the processing mode for the audio graph.
      * @type {Pointer<Guid>}
      */
     AudioProcessingMode {
@@ -74,6 +83,7 @@ class APOInitSystemEffects3 extends Win32Struct
     }
 
     /**
+     * Indicates whether the audio system is initializing the APO for effects discovery only.
      * @type {BOOL}
      */
     InitializeForDiscoveryOnly {

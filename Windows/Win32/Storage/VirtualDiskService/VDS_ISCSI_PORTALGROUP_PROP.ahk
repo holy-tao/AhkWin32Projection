@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Defines the properties of an iSCSI portal group.
- * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_iscsi_portalgroup_prop
+ * The VDS_ISCSI_PORTALGROUP_PROP structure (vdshwprv.h) defines the properties of an iSCSI portal group.
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_iscsi_portalgroup_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

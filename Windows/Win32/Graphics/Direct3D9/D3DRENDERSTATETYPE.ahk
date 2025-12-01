@@ -2,7 +2,30 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Render states define set-up states for all kinds of vertex and pixel processing.
+ * @remarks
+ * | Render states        |   Texture sampler                 |
+ * |----------------------|--------------------|
+ * | ps\_1\_1 to ps\_1\_3 | 4 texture samplers |
  * 
+ * 
+ * 
+ *  
+ * 
+ * Direct3D defines the D3DRENDERSTATE\_WRAPBIAS constant as a convenience for applications to enable or disable texture wrapping, based on the zero-based integer of a texture coordinate set (rather than explicitly using one of the D3DRS\_WRAP n state values). Add the D3DRENDERSTATE\_WRAPBIAS value to the zero-based index of a texture coordinate set to calculate the D3DRS\_WRAP n value that corresponds to that index, as shown in the following example.
+ * 
+ * 
+ * ```
+ * // Enable U/V wrapping for textures that use the texture 
+ * // coordinate set at the index within the dwIndex variable
+ *     
+ * HRESULT hr = pd3dDevice->SetRenderState(
+ * dwIndex + D3DRENDERSTATE_WRAPBIAS,  
+ * D3DWRAPCOORD_0 | D3DWRAPCOORD_1);
+ *      
+ * // If dwIndex is 3, the value that results from 
+ * // the addition equals D3DRS_WRAP3 (131)
+ * ```
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3drenderstatetype
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319

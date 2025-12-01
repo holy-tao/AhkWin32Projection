@@ -5,7 +5,7 @@
 
 /**
  * Contains information about an error that occurred during an EAPHost operation.
- * @see https://docs.microsoft.com/windows/win32/api//eaptypes/ns-eaptypes-eap_error
+ * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_error
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

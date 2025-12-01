@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_CLASS_INFO_ARRAY_V6 structure contains a list of information regarding a user class or a vendor class.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_class_info_array_v6
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_class_info_array_v6
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

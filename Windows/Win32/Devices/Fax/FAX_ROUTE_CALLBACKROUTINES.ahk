@@ -4,15 +4,12 @@
 /**
  * The FAX_ROUTE_CALLBACKROUTINES structure contains pointers to callback functions the fax service provides.
  * @remarks
- * 
  * The fax routing extension DLL must store the pointers to these callback functions in a global variable for later use.
  * 
  * If the <b>SizeOfStruct</b> member is greater than sizeof(FAX_ROUTE_CALLBACKROUTINES), this indicates that the <b>FAX_ROUTE_CALLBACKROUTINES</b> structure has been updated by Microsoft, and your application is using an earlier version. To maintain backward compatibility, changes will be appended to the original prototype of the <b>FAX_ROUTE_CALLBACKROUTINES</b> structure. For example, new members for additional callback functions will be added sequentially after the <b>FaxRouteModifyRoutingData</b> member.
  * 
  * For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-routing-extension-registration">Fax Routing Extension Registration</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-file-lists">Fax File Lists</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxroute/ns-faxroute-fax_route_callbackroutines
+ * @see https://learn.microsoft.com/windows/win32/api/faxroute/ns-faxroute-fax_route_callbackroutines
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */

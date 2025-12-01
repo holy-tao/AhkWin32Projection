@@ -9,11 +9,8 @@
 /**
  * Uses the HTTP_REQUEST structure to return data associated with a specific request.
  * @remarks
- * 
  * The unprocessed URL contained in the <b>pRawUrl</b> member is for tracking and statistical purposes only. For other purposes, use the processed, canonical URL contained in the <b>CookedUrl</b> member.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_request_v1
+ * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_request_v1
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

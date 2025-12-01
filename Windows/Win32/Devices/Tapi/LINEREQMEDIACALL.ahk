@@ -4,7 +4,7 @@
 
 /**
  * Describes a request initiated by a call to the lineGetRequest function. This data structure is obsolete and should not be used.
- * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-linereqmediacall
+ * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linereqmediacall
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  * @charset ANSI

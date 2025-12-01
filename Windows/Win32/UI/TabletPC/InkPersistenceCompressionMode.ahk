@@ -3,7 +3,7 @@
 
 /**
  * Defines values for the compression modes that are used to save the InkDisp object to a serialized format.
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkpersistencecompressionmode
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkpersistencecompressionmode
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

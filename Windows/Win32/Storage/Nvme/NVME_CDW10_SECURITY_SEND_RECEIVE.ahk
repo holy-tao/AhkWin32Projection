@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains parameters that are used in the Admin commands Security Send and Security Receive.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw10_security_send_receive
  * @namespace Windows.Win32.Storage.Nvme
@@ -50,6 +52,7 @@ class NVME_CDW10_SECURITY_SEND_RECEIVE extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     AsUlong {

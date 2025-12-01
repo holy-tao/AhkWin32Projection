@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_POL_EXP structure defines a DHCP server policy expression.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_pol_expr
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_pol_expr
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

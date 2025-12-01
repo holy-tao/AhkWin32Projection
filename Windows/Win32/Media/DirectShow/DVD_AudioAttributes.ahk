@@ -3,7 +3,7 @@
 
 /**
  * The DVD_AudioAttributes structure is used in IDvdInfo2::GetAudioAttributes to receive the various audio attributes of the disc.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-dvd_audioattributes
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_audioattributes
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

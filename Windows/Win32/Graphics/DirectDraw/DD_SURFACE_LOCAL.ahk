@@ -6,7 +6,7 @@
 
 /**
  * The DD_SURFACE_LOCAL structure contains surface-related data that is unique to an individual surface object.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_surface_local
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_surface_local
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

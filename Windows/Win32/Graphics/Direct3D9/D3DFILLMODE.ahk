@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * Defines constants describing the fill mode.
+ * @remarks
+ * The values in this enumerated type are used by the D3DRS\_FILLMODE render state.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dfillmode
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319

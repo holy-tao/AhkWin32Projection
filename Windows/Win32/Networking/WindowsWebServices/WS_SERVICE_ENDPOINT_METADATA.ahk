@@ -3,7 +3,7 @@
 
 /**
  * Represents the port element for the endpoint. The port element is generated for the service element as specified by serviceName and serviceNs for WS_SERVICE_PROPERTY_METADATA property on the WS_SERVICE_HOST.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_service_endpoint_metadata
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_service_endpoint_metadata
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
- * Determines the parameter type to be freed.
- * @see https://docs.microsoft.com/windows/win32/api//callobj/ne-callobj-callframe_null
+ * Determines the parameter type to be freed. (CALLFRAME_NULL)
+ * @see https://learn.microsoft.com/windows/win32/api/callobj/ne-callobj-callframe_null
  * @namespace Windows.Win32.System.Com.CallObj
  * @version v4.0.30319
  */

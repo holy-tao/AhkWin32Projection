@@ -3,7 +3,7 @@
 
 /**
  * Specifies the data type of the values in a tensor. DirectML operators may not support all data types; see the documentation for each specific operator to find which data types it supports.
- * @see https://docs.microsoft.com/windows/win32/api//directml/ne-directml-dml_tensor_data_type
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_tensor_data_type
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

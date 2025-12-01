@@ -4,7 +4,7 @@
 
 /**
  * The DD_SURFACE_MORE structure contains additional local data for each individual DirectDrawSurface object.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_surface_more
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_surface_more
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

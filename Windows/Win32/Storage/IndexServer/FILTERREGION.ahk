@@ -4,11 +4,8 @@
 /**
  * Describes the position and extent of a specified portion of text within an object.
  * @remarks
- * 
  * The <b>cwcExtent</b> member might specify a number of characters (starting from a position the <b>cwcStart</b> member specifies) that extends beyond the end of the chunk. In that case, the region should be continued into the next chunk, which should have the same attribute as the current region.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//filter/ns-filter-filterregion
+ * @see https://learn.microsoft.com/windows/win32/api/filter/ns-filter-filterregion
  * @namespace Windows.Win32.Storage.IndexServer
  * @version v4.0.30319
  */

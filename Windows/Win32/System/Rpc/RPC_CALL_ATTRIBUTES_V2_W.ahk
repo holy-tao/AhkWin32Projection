@@ -3,9 +3,8 @@
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
- * The RPC_CALL_ATTRIBUTES_V2 structure provides parameters to the RpcServerInqCallAttributes function. Version 2 specifies support for local addresses and client process IDs.
+ * The RPC_CALL_ATTRIBUTES_V2 structure provides parameters to the RpcServerInqCallAttributes function. Version 2 specifies support for local addresses and client process IDs. (Unicode)
  * @remarks
- * 
  * The 
  * <b>RPC_CALL_ATTRIBUTES</b> structure uses a versioning scheme to enable the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/nf-rpcasync-rpcserverinqcallattributesa">RpcServerInqCallAttributes</a> function to incorporate new capabilities without having to introduce new functions with suffix identifiers. For example, a second version of the 
@@ -16,9 +15,7 @@
  * <b>RPC_CALL_ATTRIBUTES</b> structure (currently either <b>RPC_CALL_ATTRIBUTES_V1</b> or <b>RPC_CALL_ATTRIBUTES_V2</b>) being used by the calling application. This identification enables the RPC run time to provide backward compatibility for applications not using the most current version of the structure.
  * 
  *  Until the process terminates, <b>ClientPID</b> uniquely identifies that process on the client. When the process terminates, the process ID specified by <b>ClientPID</b> can be used by new processes.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//rpcasync/ns-rpcasync-rpc_call_attributes_v2_w
+ * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ns-rpcasync-rpc_call_attributes_v2_w
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  * @charset Unicode
@@ -39,7 +36,7 @@ class RPC_CALL_ATTRIBUTES_V2_W extends Win32Struct
     }
 
     /**
-     * Bitmasked flags that indicate which members of this structure should be populated by the call to  <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/nf-rpcasync-rpcserverinqcallattributesa">RpcServerInqCallAttributes</a>to which this structure was passed.
+     * Bitmasked flags that indicate which members of this structure should be populated by the call to  <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/nf-rpcasync-rpcserverinqcallattributesa">RpcServerInqCallAttributes</a> to which this structure was passed.
      * 
      * <table>
      * <tr>

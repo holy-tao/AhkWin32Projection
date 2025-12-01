@@ -3,7 +3,7 @@
 
 /**
  * Specifies the status of a DRM handshake between a tuner and the user's computer.
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/ne-bdaiface-bda_drmpairingerror
+ * @see https://learn.microsoft.com/windows/win32/api/bdaiface/ne-bdaiface-bda_drmpairingerror
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

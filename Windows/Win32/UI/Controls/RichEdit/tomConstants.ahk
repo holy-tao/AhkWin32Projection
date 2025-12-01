@@ -3,7 +3,7 @@
 
 /**
  * Defines values that are used with the Text Object Model (TOM) API.
- * @see https://docs.microsoft.com/windows/win32/api//tom/ne-tom-tomconstants
+ * @see https://learn.microsoft.com/windows/win32/api/tom/ne-tom-tomconstants
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
@@ -3062,7 +3062,7 @@ class tomConstants extends Win32Enum{
     static tomMathDocSbSpOpUnchanged => 128
 
     /**
-     * Style mask for the <b>tomMathDocDiffUpright</b>, <b>tomMathDocDiffItalic</b>, <b>tomMathDocDiffOpenItalic </b>options.
+     * Style mask for the <b>tomMathDocDiffUpright</b>, <b>tomMathDocDiffItalic</b>, <b>tomMathDocDiffOpenItalic </b> options.
      * @type {Integer (Int32)}
      */
     static tomMathDocDiffMask => 768

@@ -3,7 +3,7 @@
 
 /**
  * Defines constants that specify DXCore adapter preferences to be used as list-sorting criteria.
- * @see https://docs.microsoft.com/windows/win32/api//dxcore_interface/ne-dxcore_interface-dxcoreadapterpreference
+ * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcoreadapterpreference
  * @namespace Windows.Win32.Graphics.DXCore
  * @version v4.0.30319
  */

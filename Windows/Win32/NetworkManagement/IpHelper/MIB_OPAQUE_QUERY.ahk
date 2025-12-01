@@ -3,7 +3,7 @@
 
 /**
  * Contains information for a MIB opaque query.
- * @see https://docs.microsoft.com/windows/win32/api//iprtrmib/ns-iprtrmib-mib_opaque_query
+ * @see https://learn.microsoft.com/windows/win32/api/iprtrmib/ns-iprtrmib-mib_opaque_query
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

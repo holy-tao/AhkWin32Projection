@@ -6,7 +6,7 @@
 
 /**
  * Contains the response from retrieving a ticket.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_retrieve_tkt_response
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_retrieve_tkt_response
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

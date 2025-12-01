@@ -4,7 +4,7 @@
 #Include .\CLUSPROP_VALUE.ahk
 
 /**
- * 
+ * Describes a numeric value identifying the physical drive of a disk.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_dword
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
@@ -27,6 +27,7 @@ class CLUSPROP_DWORD extends Win32Struct
     }
 
     /**
+     * Numeric value identifying the physical drive of the disk. Valid values begin at zero.
      * @type {Integer}
      */
     dw {

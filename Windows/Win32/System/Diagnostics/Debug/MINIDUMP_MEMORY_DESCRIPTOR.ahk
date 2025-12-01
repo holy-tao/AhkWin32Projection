@@ -3,9 +3,8 @@
 #Include .\MINIDUMP_LOCATION_DESCRIPTOR.ahk
 
 /**
- * Describes a range of memory.
+ * Describes a range of memory. (MINIDUMP_MEMORY_DESCRIPTOR)
  * @remarks
- * 
  * <b>MINIDUMP_MEMORY_DESCRIPTOR64</b> is used for full-memory minidumps where all of the raw memory is sequential at the end of the minidump. There is no need for individual relative virtual addresses (RVAs), because the RVA is the base RVA plus the sum of the preceding data blocks. The <b>MINIDUMP_MEMORY_DESCRIPTOR64</b> structure is defined as follows. 
  * 
  * 
@@ -16,9 +15,7 @@
  *     ULONG64 DataSize;
  * } MINIDUMP_MEMORY_DESCRIPTOR64, *PMINIDUMP_MEMORY_DESCRIPTOR64;
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ns-minidumpapiset-minidump_memory_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_memory_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

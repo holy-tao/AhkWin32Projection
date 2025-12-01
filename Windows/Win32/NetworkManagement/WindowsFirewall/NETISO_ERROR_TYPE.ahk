@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Specifies the type of error related to a network isolation operation.
- * @see https://docs.microsoft.com/windows/win32/api//networkisolation/ne-networkisolation-netiso_error_type
+ * The NETISO_ERROR_TYPE enumeration specifies the type of error related to a network isolation operation.
+ * @see https://learn.microsoft.com/windows/win32/api/netfw/ne-netfw-netiso_error_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */

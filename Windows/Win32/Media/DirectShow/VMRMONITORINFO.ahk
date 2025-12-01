@@ -6,7 +6,7 @@
 
 /**
  * The VMRMONITORINFO structure is used in the IVMRMonitorConfig::GetAvailableMonitors method to set and retrieve information about monitors on the system (VMR-7 only).
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-vmrmonitorinfo
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-vmrmonitorinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

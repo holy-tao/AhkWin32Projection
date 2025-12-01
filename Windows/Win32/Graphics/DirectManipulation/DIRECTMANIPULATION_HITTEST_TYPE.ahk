@@ -3,7 +3,7 @@
 
 /**
  * Defines how hit testing is handled by Direct Manipulation when using a dedicated hit-test thread registered through RegisterHitTestTarget.
- * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/ne-directmanipulation-directmanipulation_hittest_type
+ * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/ne-directmanipulation-directmanipulation_hittest_type
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */

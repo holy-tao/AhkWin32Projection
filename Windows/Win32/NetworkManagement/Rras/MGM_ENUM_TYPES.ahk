@@ -3,7 +3,7 @@
 
 /**
  * The MGM_ENUM_TYPES enumeration lists the types of group enumerations that the multicast group manager uses. This structure is used by the MgmGroupEnumerationStart function.
- * @see https://docs.microsoft.com/windows/win32/api//mgm/ne-mgm-mgm_enum_types
+ * @see https://learn.microsoft.com/windows/win32/api/mgm/ne-mgm-mgm_enum_types
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

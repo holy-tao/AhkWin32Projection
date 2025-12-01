@@ -5,7 +5,7 @@
 
 /**
  * Contains processor power policy settings that apply while the system is running on AC power or battery power.
- * @see https://docs.microsoft.com/windows/win32/api//powrprof/ns-powrprof-machine_processor_power_policy
+ * @see https://learn.microsoft.com/windows/win32/api/powrprof/ns-powrprof-machine_processor_power_policy
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

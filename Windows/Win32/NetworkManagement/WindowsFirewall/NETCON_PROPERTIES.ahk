@@ -3,7 +3,7 @@
 
 /**
  * The NETCON_PROPERTIES structure stores values that describe the properties of a network connection.
- * @see https://docs.microsoft.com/windows/win32/api//netcon/ns-netcon-netcon_properties
+ * @see https://learn.microsoft.com/windows/win32/api/netcon/ns-netcon-netcon_properties
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */

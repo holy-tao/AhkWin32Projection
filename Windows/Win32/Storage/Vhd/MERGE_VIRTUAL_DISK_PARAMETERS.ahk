@@ -4,13 +4,10 @@
 /**
  * Contains virtual hard disk (VHD) merge request parameters.
  * @remarks
- * 
  * The depth of a merge request specified by the <b>MergeDepth</b> member is the number of  
  *     parent VHD image files in the differencing chain to be merged.  For more information, see 
  *     <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-mergevirtualdisk">MergeVirtualDisk</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ns-virtdisk-merge_virtual_disk_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-merge_virtual_disk_parameters
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */

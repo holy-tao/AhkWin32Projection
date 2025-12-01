@@ -4,7 +4,7 @@
 
 /**
  * The PNRPCLOUDINFO structure is pointed to by the lpBlob member of the WSAQUERYSET structure.
- * @see https://docs.microsoft.com/windows/win32/api//pnrpns/ns-pnrpns-pnrpcloudinfo
+ * @see https://learn.microsoft.com/windows/win32/api/pnrpns/ns-pnrpns-pnrpcloudinfo
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

@@ -8,7 +8,6 @@
 /**
  * Contains video format information that applies to both compressed and uncompressed formats.This structure is used in the MFVIDEOFORMAT structure.
  * @remarks
- * 
  * Developers are encouraged to use media type attributes instead of using the <b>MFVideoInfo</b> structure. The following table lists the attributes that correspond to the members of this structure.
  * 
  * <table>
@@ -99,9 +98,7 @@
  * <td>See <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfvideoflags">MFVideoFlags</a>.</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ns-mfobjects-mfvideoinfo
+ * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfvideoinfo
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

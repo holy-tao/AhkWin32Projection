@@ -3,7 +3,7 @@
 
 /**
  * Defines the set of shadow copy protection faults.
- * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/ne-vsmgmt-vss_protection_fault
+ * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/ne-vsmgmt-vss_protection_fault
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Defines the identifiers that identify the configuration properties of a channel.
- * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_channel_config_property_id
+ * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_channel_config_property_id
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */

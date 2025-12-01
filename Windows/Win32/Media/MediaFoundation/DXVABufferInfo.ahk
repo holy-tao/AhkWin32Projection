@@ -3,7 +3,7 @@
 
 /**
  * Specifies a buffer for the IDirect3DDXVADevice9::Execute method.
- * @see https://docs.microsoft.com/windows/win32/api//dxva9typ/ns-dxva9typ-dxvabufferinfo
+ * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ns-dxva9typ-dxvabufferinfo
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

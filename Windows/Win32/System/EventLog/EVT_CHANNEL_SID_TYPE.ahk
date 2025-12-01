@@ -3,7 +3,7 @@
 
 /**
  * Defines the values that determine whether the event includes the security identifier (SID) of the principal that logged the event.
- * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_channel_sid_type
+ * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_channel_sid_type
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */

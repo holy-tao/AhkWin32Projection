@@ -4,7 +4,6 @@
 /**
  * Defines flag values that provide additional information about a classification property.
  * @remarks
- * 
  * The <b>FsrmPropertyFlags_SetByClassifier</b> flag is set in the following cases:
  * 
  * <ul>
@@ -15,9 +14,7 @@
  *       <b>FsrmExecutionOption_ReEvaluate_ConsiderExistingValue</b> and the aggregation policy set 
  *       the value specified by the rule.</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmpropertyflags
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmpropertyflags
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

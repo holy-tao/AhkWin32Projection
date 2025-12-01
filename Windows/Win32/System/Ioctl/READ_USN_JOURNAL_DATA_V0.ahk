@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains information defining a set of update sequence number (USN) change journal records to return to the calling process.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-read_usn_journal_data_v0
+ * Contains information defining a set of update sequence number (USN) change journal records to return to the calling process. (READ_USN_JOURNAL_DATA_V0)
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-read_usn_journal_data_v0
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

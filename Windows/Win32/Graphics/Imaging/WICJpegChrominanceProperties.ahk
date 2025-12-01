@@ -3,7 +3,7 @@
 
 /**
  * Specifies the JPEG chrominance table property.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicjpegchrominanceproperties
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicjpegchrominanceproperties
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

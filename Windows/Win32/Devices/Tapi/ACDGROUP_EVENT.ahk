@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The ACDGROUP_EVENT enum describes ACD group events. The ITACDGroupEvent::get_Event method returns a member of this enum to indicate the type of ACD group event that occurred.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/ne-tapi3cc-acdgroup_event
+ * The ACDGROUP_EVENT enumeration (tapi3cc.h) describes ACD group events.
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/ne-tapi3cc-acdgroup_event
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The StatusCode enum contains status codes for IPv6 operations.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpv6csdk/ne-dhcpv6csdk-statuscode
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/ne-dhcpv6csdk-statuscode
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

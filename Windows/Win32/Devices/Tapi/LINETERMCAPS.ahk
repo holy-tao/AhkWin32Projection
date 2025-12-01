@@ -4,11 +4,8 @@
 /**
  * The LINETERMCAPS structure describes the capabilities of a line's terminal device. The LINEDEVCAPS structure can contain an array of LINETERMCAPS structures.
  * @remarks
- * 
  * This structure may not be extended.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-linetermcaps
+ * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linetermcaps
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

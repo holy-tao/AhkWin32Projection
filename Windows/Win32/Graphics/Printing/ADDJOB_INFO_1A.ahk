@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The ADDJOB\_INFO\_1 structure identifies a print job as well as the directory and file in which an application can store that job.
  * @see https://learn.microsoft.com/windows/win32/printdocs/addjob-info-1
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
@@ -15,6 +15,7 @@ class ADDJOB_INFO_1A extends Win32Struct
     static packingSize => 8
 
     /**
+     * Pointer to a null-terminated string that contains the path and file name that the application can use to store the print job.
      * @type {PSTR}
      */
     Path {
@@ -23,6 +24,7 @@ class ADDJOB_INFO_1A extends Win32Struct
     }
 
     /**
+     * A handle to the print job.
      * @type {Integer}
      */
     JobId {

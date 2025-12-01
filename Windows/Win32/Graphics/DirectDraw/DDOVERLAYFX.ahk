@@ -5,10 +5,8 @@
 /**
  * The DDOVERLAYFX structure passes overlay information to the IDirectDrawSurface7::UpdateOverlay method.
  * @remarks
- * 
  * The unions in this structure have been updated to work with compilers that do not support nameless unions. If your compiler does not support nameless unions, define the NONAMELESSUNION token before including the Ddraw.h header file.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ddraw/ns-ddraw-ddoverlayfx
+ * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddoverlayfx
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Contains pointers to your custom storage adapter functions.
- * @see https://docs.microsoft.com/windows/win32/api//winbio_adapter/ns-winbio_adapter-winbio_storage_interface
+ * @see https://learn.microsoft.com/windows/win32/api/winbio_adapter/ns-winbio_adapter-winbio_storage_interface
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

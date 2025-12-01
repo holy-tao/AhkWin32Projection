@@ -3,7 +3,7 @@
 
 /**
  * The MGM_IF_ENTRY structure describes a router interface.
- * @see https://docs.microsoft.com/windows/win32/api//mgm/ns-mgm-mgm_if_entry
+ * @see https://learn.microsoft.com/windows/win32/api/mgm/ns-mgm-mgm_if_entry
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

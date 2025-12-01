@@ -3,7 +3,7 @@
 #Include ..\..\..\..\Win32Handle.ahk
 
 /**
- * 
+ * Is used as a handle to a CryptoAPI cryptographic service provider (CSP) or CNG CSP.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/hcryptprov-or-ncrypt-key-handle
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319

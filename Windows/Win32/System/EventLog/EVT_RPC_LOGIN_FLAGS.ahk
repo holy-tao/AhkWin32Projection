@@ -3,7 +3,7 @@
 
 /**
  * Defines the types of authentication that you can use to authenticate the user when connecting to a remote computer.
- * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_rpc_login_flags
+ * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_rpc_login_flags
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */

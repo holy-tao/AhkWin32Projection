@@ -3,7 +3,7 @@
 
 /**
  * The NETCON_CHARACTERISTIC_FLAGS enumeration type specifies possible characteristics for a network connection.
- * @see https://docs.microsoft.com/windows/win32/api//netcon/ne-netcon-netcon_characteristic_flags
+ * @see https://learn.microsoft.com/windows/win32/api/netcon/ne-netcon-netcon_characteristic_flags
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */

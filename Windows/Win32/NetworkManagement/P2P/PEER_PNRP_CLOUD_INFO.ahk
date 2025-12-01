@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a Peer Name Resolution Protocol (PNRP) cloud.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_pnrp_cloud_info
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_pnrp_cloud_info
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

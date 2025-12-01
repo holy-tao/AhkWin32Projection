@@ -12,11 +12,11 @@ class HostComputeNetwork {
 
 ;@region Methods
     /**
-     * 
-     * @param {PWSTR} Query 
-     * @param {Pointer<PWSTR>} Networks 
-     * @param {Pointer<PWSTR>} ErrorRecord 
-     * @returns {HRESULT} 
+     * HcnEnumerateNetworks
+     * @param {PWSTR} Query Optional JSON document of [HostComputeQuery](./../HNS_Schema.md#HostComputeQuery).
+     * @param {Pointer<PWSTR>} Networks A list of IDs for each Network.
+     * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnEnumerateNetworks
      */
     static HcnEnumerateNetworks(Query, Networks, ErrorRecord) {
@@ -34,12 +34,12 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} Id 
-     * @param {PWSTR} Settings 
-     * @param {Pointer<Pointer<Void>>} Network 
-     * @param {Pointer<PWSTR>} ErrorRecord 
-     * @returns {HRESULT} 
+     * HcnCreateNetwork
+     * @param {Pointer<Guid>} Id Id for the new network.
+     * @param {PWSTR} Settings JSON document specifying the settings of the [HostComputeNetwork](./../HNS_Schema.md#HostComputeNetwork).
+     * @param {Pointer<Pointer<Void>>} Network Network for the new network.
+     * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnCreateNetwork
      */
     static HcnCreateNetwork(Id, Settings, Network, ErrorRecord) {
@@ -57,11 +57,11 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} Id 
-     * @param {Pointer<Pointer<Void>>} Network 
-     * @param {Pointer<PWSTR>} ErrorRecord 
-     * @returns {HRESULT} 
+     * HcnOpenNetwork
+     * @param {Pointer<Guid>} Id Id of the network.
+     * @param {Pointer<Pointer<Void>>} Network Receives a handle to the network. It is the responsibility of the caller to release the handle using [HcnCloseNetwork](./HcnCloseNetwork.md) once it is no longer in use.
+     * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnOpenNetwork
      */
     static HcnOpenNetwork(Id, Network, ErrorRecord) {
@@ -77,10 +77,10 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} Network 
-     * @param {PWSTR} Settings 
-     * @returns {PWSTR} 
+     * HcnModifyNetwork
+     * @param {Pointer<Void>} Network Network for the new network.
+     * @param {PWSTR} Settings JSON document specifying the settings of the [HostComputeNetwork](./../HNS_Schema.md#HostComputeNetwork).
+     * @returns {PWSTR} Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnModifyNetwork
      */
     static HcnModifyNetwork(Network, Settings) {
@@ -97,12 +97,12 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} Network 
-     * @param {PWSTR} Query 
-     * @param {Pointer<PWSTR>} Properties 
-     * @param {Pointer<PWSTR>} ErrorRecord 
-     * @returns {HRESULT} 
+     * HcnQueryNetworkProperties
+     * @param {Pointer<Void>} Network Handle to an network [`HCN_NETWORK`](./HCN_NETWORK.md)
+     * @param {PWSTR} Query Optional JSON document of [HostComputeQuery](./../HNS_Schema.md#HostComputeQuery).
+     * @param {Pointer<PWSTR>} Properties The properties in the form of a JSON document of [HostComputeNetwork](./../HNS_Schema.md#HostComputeNetwork).
+     * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnQueryNetworkProperties
      */
     static HcnQueryNetworkProperties(Network, Query, Properties, ErrorRecord) {
@@ -121,9 +121,9 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} Id 
-     * @returns {PWSTR} 
+     * HcnDeleteNetwork
+     * @param {Pointer<Guid>} Id Id of the network to delete.
+     * @returns {PWSTR} Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnDeleteNetwork
      */
     static HcnDeleteNetwork(Id) {
@@ -136,9 +136,9 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
+     * HcnCloseNetwork
      * @param {Pointer<Void>} Network 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnCloseNetwork
      */
     static HcnCloseNetwork(Network) {
@@ -153,11 +153,11 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {PWSTR} Query 
-     * @param {Pointer<PWSTR>} Namespaces 
-     * @param {Pointer<PWSTR>} ErrorRecord 
-     * @returns {HRESULT} 
+     * HcnEnumerateNamespaces
+     * @param {PWSTR} Query Optional JSON document of [HostComputeQuery](./../HNS_Schema.md#HostComputeQuery).
+     * @param {Pointer<PWSTR>} Namespaces A list of IDs for each Namespace.
+     * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnEnumerateNamespaces
      */
     static HcnEnumerateNamespaces(Query, Namespaces, ErrorRecord) {
@@ -175,12 +175,12 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} Id 
-     * @param {PWSTR} Settings 
-     * @param {Pointer<Pointer<Void>>} Namespace 
-     * @param {Pointer<PWSTR>} ErrorRecord 
-     * @returns {HRESULT} 
+     * HcnCreateNamespace
+     * @param {Pointer<Guid>} Id Id for the new namespace.
+     * @param {PWSTR} Settings JSON document specifying the settings of the [namespace](./../HNS_Schema.md#HostComputeNamespace).
+     * @param {Pointer<Pointer<Void>>} Namespace Receives a handle to the newly created namespace. It is the responsibility of the caller to release the handle using [HcnCloseNamespace](./HcnCloseNamespace.md) once it is no longer in use.
+     * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnCreateNamespace
      */
     static HcnCreateNamespace(Id, Settings, Namespace, ErrorRecord) {
@@ -198,11 +198,11 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} Id 
-     * @param {Pointer<Pointer<Void>>} Namespace 
-     * @param {Pointer<PWSTR>} ErrorRecord 
-     * @returns {HRESULT} 
+     * HcnOpenNamespace
+     * @param {Pointer<Guid>} Id Id of the namespace.
+     * @param {Pointer<Pointer<Void>>} Namespace Receives a handle to the namespace. It is the responsibility of the caller to release the handle using [HcnCloseNamespace](./HcnCloseNamespace.md) once it is no longer in use.
+     * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnOpenNamespace
      */
     static HcnOpenNamespace(Id, Namespace, ErrorRecord) {
@@ -218,10 +218,10 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
+     * HcnModifyNamespace
      * @param {Pointer<Void>} Namespace 
-     * @param {PWSTR} Settings 
-     * @returns {PWSTR} 
+     * @param {PWSTR} Settings JSON document specifying the settings of the [namespace](./../HNS_Schema.md#HostComputeNamespace).
+     * @returns {PWSTR} Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnModifyNamespace
      */
     static HcnModifyNamespace(Namespace, Settings) {
@@ -238,12 +238,12 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} Namespace 
-     * @param {PWSTR} Query 
-     * @param {Pointer<PWSTR>} Properties 
-     * @param {Pointer<PWSTR>} ErrorRecord 
-     * @returns {HRESULT} 
+     * HcnQueryNamespaceProperties
+     * @param {Pointer<Void>} Namespace Handle to an namespace [`HCN_NAMESPACE`](./HCN_NAMESPACE.md)
+     * @param {PWSTR} Query Optional JSON document of [HostComputeQuery](./../HNS_Schema.md#HostComputeQuery).
+     * @param {Pointer<PWSTR>} Properties The properties in the form of a JSON document of [HostComputeNamespace](./../HNS_Schema.md#HostComputeNamespace).
+     * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnQueryNamespaceProperties
      */
     static HcnQueryNamespaceProperties(Namespace, Query, Properties, ErrorRecord) {
@@ -262,9 +262,9 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} Id 
-     * @returns {PWSTR} 
+     * HcnDeleteNamespace
+     * @param {Pointer<Guid>} Id Id of the namespace to delete.
+     * @returns {PWSTR} Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnDeleteNamespace
      */
     static HcnDeleteNamespace(Id) {
@@ -277,9 +277,9 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} Namespace 
-     * @returns {HRESULT} 
+     * HcnCloseNamespace
+     * @param {Pointer<Void>} Namespace Handle to a namespace [`HCN_NAMESPACE`](./HCN_NAMESPACE.md)
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnCloseNamespace
      */
     static HcnCloseNamespace(Namespace) {
@@ -294,11 +294,11 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {PWSTR} Query 
-     * @param {Pointer<PWSTR>} Endpoints 
-     * @param {Pointer<PWSTR>} ErrorRecord 
-     * @returns {HRESULT} 
+     * HcnEnumerateEndpoints
+     * @param {PWSTR} Query Optional JSON document of [HostComputeQuery](./../HNS_Schema.md#HostComputeQuery).
+     * @param {Pointer<PWSTR>} Endpoints A list of IDs for each Endpoint.
+     * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnEnumerateEndpoints
      */
     static HcnEnumerateEndpoints(Query, Endpoints, ErrorRecord) {
@@ -316,13 +316,13 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} Network 
-     * @param {Pointer<Guid>} Id 
-     * @param {PWSTR} Settings 
-     * @param {Pointer<Pointer<Void>>} Endpoint 
-     * @param {Pointer<PWSTR>} ErrorRecord 
-     * @returns {HRESULT} 
+     * HcnCreateEndpoint
+     * @param {Pointer<Void>} Network Network for the new endpoint.
+     * @param {Pointer<Guid>} Id Id for the new endpoint.
+     * @param {PWSTR} Settings JSON document specifying the settings of the [endpoint](./../HNS_Schema.md#HostComputeEndpoint).
+     * @param {Pointer<Pointer<Void>>} Endpoint Receives a handle to the newly created endpoint. It is the responsibility of the caller to release the handle using [HcnCloseEndpoint](./HcnCloseEndpoint.md) once it is no longer in use.
+     * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnCreateEndpoint
      */
     static HcnCreateEndpoint(Network, Id, Settings, Endpoint, ErrorRecord) {
@@ -341,11 +341,11 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} Id 
-     * @param {Pointer<Pointer<Void>>} Endpoint 
-     * @param {Pointer<PWSTR>} ErrorRecord 
-     * @returns {HRESULT} 
+     * HcnOpenEndpoint
+     * @param {Pointer<Guid>} Id Id of the endpoint.
+     * @param {Pointer<Pointer<Void>>} Endpoint Receives a handle to the endpoint. It is the responsibility of the caller to release the handle using [HcnCloseEndpoint](./HcnCloseEndpoint.md) once it is no longer in use.
+     * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnOpenEndpoint
      */
     static HcnOpenEndpoint(Id, Endpoint, ErrorRecord) {
@@ -361,10 +361,10 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} Endpoint 
-     * @param {PWSTR} Settings 
-     * @returns {PWSTR} 
+     * HcnModifyEndpoint
+     * @param {Pointer<Void>} Endpoint The [HCN\_ENDPOINT](./HCN_ENDPOINT.md) to modify.
+     * @param {PWSTR} Settings JSON document specifying the settings of the [endpoint](./../HNS_Schema.md#HostComputeEndpoint).
+     * @returns {PWSTR} Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnModifyEndpoint
      */
     static HcnModifyEndpoint(Endpoint, Settings) {
@@ -381,12 +381,12 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} Endpoint 
-     * @param {PWSTR} Query 
-     * @param {Pointer<PWSTR>} Properties 
-     * @param {Pointer<PWSTR>} ErrorRecord 
-     * @returns {HRESULT} 
+     * HcnQueryEndpointProperties
+     * @param {Pointer<Void>} Endpoint Handle to an endpoint [`HCN_ENDPOINT`](./HCN_ENDPOINT.md)
+     * @param {PWSTR} Query Optional JSON document of [HostComputeQuery](./../HNS_Schema.md#HostComputeQuery).
+     * @param {Pointer<PWSTR>} Properties The properties in the form of a JSON document of [HostComputeEndpoint](./../HNS_Schema.md#HostComputeEndpoint).
+     * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnQueryEndpointProperties
      */
     static HcnQueryEndpointProperties(Endpoint, Query, Properties, ErrorRecord) {
@@ -405,9 +405,9 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} Id 
-     * @returns {PWSTR} 
+     * HcnDeleteEndpoint
+     * @param {Pointer<Guid>} Id Id of the endpoint to delete.
+     * @returns {PWSTR} Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnDeleteEndpoint
      */
     static HcnDeleteEndpoint(Id) {
@@ -420,9 +420,9 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} Endpoint 
-     * @returns {HRESULT} 
+     * HcnCloseEndpoint
+     * @param {Pointer<Void>} Endpoint Handle to an endpoint [`HCN_ENDPOINT`](./HCN_ENDPOINT.md)
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnCloseEndpoint
      */
     static HcnCloseEndpoint(Endpoint) {
@@ -437,11 +437,11 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {PWSTR} Query 
-     * @param {Pointer<PWSTR>} LoadBalancer 
-     * @param {Pointer<PWSTR>} ErrorRecord 
-     * @returns {HRESULT} 
+     * HcnEnumerateLoadBalancers
+     * @param {PWSTR} Query Optional JSON document of [HostComputeQuery](./../HNS_Schema.md#HostComputeQuery).
+     * @param {Pointer<PWSTR>} LoadBalancer A list of IDs for each Load Bbalancer.
+     * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnEnumerateLoadBalancers
      */
     static HcnEnumerateLoadBalancers(Query, LoadBalancer, ErrorRecord) {
@@ -459,12 +459,12 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} Id 
-     * @param {PWSTR} Settings 
-     * @param {Pointer<Pointer<Void>>} LoadBalancer 
-     * @param {Pointer<PWSTR>} ErrorRecord 
-     * @returns {HRESULT} 
+     * HcnCreateLoadBalancer
+     * @param {Pointer<Guid>} Id Id for the new load balancer.
+     * @param {PWSTR} Settings JSON document specifying the settings of the [load balancer](./../HNS_Schema.md#HostComputeLoadBalancer).
+     * @param {Pointer<Pointer<Void>>} LoadBalancer Receives a handle to the newly created load balancer. It is the responsibility of the caller to release the handle using [HcnCloseLoadBalancer](./HcnCloseLoadBalancer.md) once it is no longer in use.
+     * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnCreateLoadBalancer
      */
     static HcnCreateLoadBalancer(Id, Settings, LoadBalancer, ErrorRecord) {
@@ -482,11 +482,11 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} Id 
-     * @param {Pointer<Pointer<Void>>} LoadBalancer 
-     * @param {Pointer<PWSTR>} ErrorRecord 
-     * @returns {HRESULT} 
+     * HcnOpenLoadBalancer
+     * @param {Pointer<Guid>} Id Id of the load balancer.
+     * @param {Pointer<Pointer<Void>>} LoadBalancer Receives a handle to the load balancer. It is the responsibility of the caller to release the handle using [HcnCloseLoadBalancer](./HcnCloseLoadBalancer.md) once it is no longer in use.
+     * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnOpenLoadBalancer
      */
     static HcnOpenLoadBalancer(Id, LoadBalancer, ErrorRecord) {
@@ -502,10 +502,10 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} LoadBalancer 
-     * @param {PWSTR} Settings 
-     * @returns {PWSTR} 
+     * HcnModifyLoadBalancer
+     * @param {Pointer<Void>} LoadBalancer The [HCN\_LOADBALANCER](./HCN_LOADBALANCER.md) to modify.
+     * @param {PWSTR} Settings JSON document specifying the settings of the [load balancer](./../HNS_Schema.md#HostComputeLoadBalancer).
+     * @returns {PWSTR} Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnModifyLoadBalancer
      */
     static HcnModifyLoadBalancer(LoadBalancer, Settings) {
@@ -522,12 +522,12 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} LoadBalancer 
-     * @param {PWSTR} Query 
-     * @param {Pointer<PWSTR>} Properties 
-     * @param {Pointer<PWSTR>} ErrorRecord 
-     * @returns {HRESULT} 
+     * HcnQueryLoadBalancerProperties
+     * @param {Pointer<Void>} LoadBalancer Handle to an load balancer [`HCN_LOADBALANCER`](./HCN_LOADBALANCER.md)
+     * @param {PWSTR} Query Optional JSON document of [HostComputeQuery](./../HNS_Schema.md#HostComputeLoadBalancer).
+     * @param {Pointer<PWSTR>} Properties The properties in the form of a JSON document of [HostComputeLoadBalancer](./../HNS_Schema.md#HostComputeLoadBalancer).
+     * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnQueryLoadBalancerProperties
      */
     static HcnQueryLoadBalancerProperties(LoadBalancer, Query, Properties, ErrorRecord) {
@@ -546,9 +546,9 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} Id 
-     * @returns {PWSTR} 
+     * HcnDeleteLoadBalancer
+     * @param {Pointer<Guid>} Id Id of the load balancer to delete.
+     * @returns {PWSTR} Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnDeleteLoadBalancer
      */
     static HcnDeleteLoadBalancer(Id) {
@@ -561,9 +561,9 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} LoadBalancer 
-     * @returns {HRESULT} 
+     * HcnCloseLoadBalancer
+     * @param {Pointer<Void>} LoadBalancer Handle to a LoadBalancer [`HCN_LOADBALANCER`](./HCN_LOADBALANCER.md)
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnCloseLoadBalancer
      */
     static HcnCloseLoadBalancer(LoadBalancer) {
@@ -578,10 +578,10 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<HCN_NOTIFICATION_CALLBACK>} Callback 
-     * @param {Pointer<Void>} Context 
-     * @returns {Pointer<Void>} 
+     * HcnRegisterServiceCallback
+     * @param {Pointer<HCN_NOTIFICATION_CALLBACK>} Callback The [HCN_NOTIFICATION_CALLBACK](./HCN_NOTIFICATION_CALLBACK.md) for the callback.
+     * @param {Pointer<Void>} Context Context that is provided on the callbacks.
+     * @returns {Pointer<Void>} Receives a [HCN_CALLBACK](./HCN_CALLBACK.md). It is the responsibility of the caller to release the handle using [HcnUnregisterServiceCallback](./HcnUnregisterServiceCallback.md) once it is no longer in use.
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnRegisterServiceCallback
      */
     static HcnRegisterServiceCallback(Callback, Context) {
@@ -596,9 +596,9 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} CallbackHandle 
-     * @returns {HRESULT} 
+     * HcnUnregisterServiceCallback
+     * @param {Pointer<Void>} CallbackHandle The [HCN_CALLBACK](./HCN_CALLBACK.md) for the callback.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnUnregisterServiceCallback
      */
     static HcnUnregisterServiceCallback(CallbackHandle) {
@@ -613,11 +613,11 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} GuestNetworkService 
-     * @param {Pointer<HCN_NOTIFICATION_CALLBACK>} Callback 
-     * @param {Pointer<Void>} Context 
-     * @returns {Pointer<Void>} 
+     * HcnRegisterGuestNetworkServiceCallback
+     * @param {Pointer<Void>} GuestNetworkService The [HCN_GUESTNETWORKSERVICE](./HCN_GUESTNETWORKSERVICE.md) for the callback.
+     * @param {Pointer<HCN_NOTIFICATION_CALLBACK>} Callback The [HCN_NOTIFICATION_CALLBACK](./HCN_NOTIFICATION_CALLBACK.md) for the callback.
+     * @param {Pointer<Void>} Context Context that is provided on the callbacks.
+     * @returns {Pointer<Void>} Receives a [HCN_CALLBACK](./HCN_CALLBACK.md). It is the responsibility of the caller to release the handle using [HcnUnregisterGuestNetworkServiceCallback](./HcnUnregisterGuestNetworkServiceCallback.md) once it is no longer in use.
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnRegisterGuestNetworkServiceCallback
      */
     static HcnRegisterGuestNetworkServiceCallback(GuestNetworkService, Callback, Context) {
@@ -633,9 +633,9 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} CallbackHandle 
-     * @returns {HRESULT} 
+     * HcnUnregisterGuestNetworkServiceCallback
+     * @param {Pointer<Void>} CallbackHandle The [HCN_CALLBACK](./HCN_CALLBACK.md) for the callback.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnUnregisterGuestNetworkServiceCallback
      */
     static HcnUnregisterGuestNetworkServiceCallback(CallbackHandle) {
@@ -650,12 +650,12 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} Id 
-     * @param {PWSTR} Settings 
-     * @param {Pointer<Pointer<Void>>} GuestNetworkService 
-     * @param {Pointer<PWSTR>} ErrorRecord 
-     * @returns {HRESULT} 
+     * HcnCreateGuestNetworkService
+     * @param {Pointer<Guid>} Id Id for the new guest network service.
+     * @param {PWSTR} Settings JSON document specifying the settings of the [guest network service](./../HNS_Schema.md#GuestNetworkService).
+     * @param {Pointer<Pointer<Void>>} GuestNetworkService Receives a handle to the newly created guest network service. It is the responsibility of the caller to release the handle using [HcnCloseGuestNetworkService](./HcnCloseGuestNetworkService.md) once it is no longer in use.
+     * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnCreateGuestNetworkService
      */
     static HcnCreateGuestNetworkService(Id, Settings, GuestNetworkService, ErrorRecord) {
@@ -673,9 +673,9 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} GuestNetworkService 
-     * @returns {HRESULT} 
+     * HcnCloseGuestNetworkService
+     * @param {Pointer<Void>} GuestNetworkService Handle to a guest network service [`HCN_GUESTNETWORKSERVICE`](./HCN_GUESTNETWORKSERVICE.md)
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnCloseGuestNetworkService
      */
     static HcnCloseGuestNetworkService(GuestNetworkService) {
@@ -690,10 +690,10 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} GuestNetworkService 
-     * @param {PWSTR} Settings 
-     * @returns {PWSTR} 
+     * HcnModifyGuestNetworkService
+     * @param {Pointer<Void>} GuestNetworkService The [HCN\_GUESTNETWORKSERVICE](./HCN_GUESTNETWORKSERVICE.md) to modify.
+     * @param {PWSTR} Settings JSON document specifying the settings of the [guest network service](./../HNS_Schema.md#GuestNetworkService).
+     * @returns {PWSTR} Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnModifyGuestNetworkService
      */
     static HcnModifyGuestNetworkService(GuestNetworkService, Settings) {
@@ -710,9 +710,9 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} Id 
-     * @returns {PWSTR} 
+     * HcnDeleteGuestNetworkService
+     * @param {Pointer<Guid>} Id Id of the guest network service to delete.
+     * @returns {PWSTR} Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnDeleteGuestNetworkService
      */
     static HcnDeleteGuestNetworkService(Id) {
@@ -725,13 +725,13 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} GuestNetworkService 
-     * @param {Integer} Protocol 
-     * @param {Integer} Access 
-     * @param {Integer} Port 
-     * @param {Pointer<HANDLE>} PortReservationHandle 
-     * @returns {HRESULT} 
+     * HcnReserveGuestNetworkServicePort
+     * @param {Pointer<Void>} GuestNetworkService The [HCN_GUESTNETWORKSERVICE](./HCN_GUESTNETWORKSERVICE.md) for the reservation.
+     * @param {Integer} Protocol The [HCN_PORT_PROTOCOL](./HCN_PORT_PROTOCOL.md) for the reservation.
+     * @param {Integer} Access The [HCN_PORT_ACCESS](./HCN_PORT_ACCESS.md) for the reservation.
+     * @param {Integer} Port The port for the reservation.
+     * @param {Pointer<HANDLE>} PortReservationHandle Receives a handle. It is the responsibility of the caller to release the handle using [HcnReleaseGuestNetworkServicePortReservationHandle](./HcnReleaseGuestNetworkServicePortReservationHandle.md) once it is no longer in use.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnReserveGuestNetworkServicePort
      */
     static HcnReserveGuestNetworkServicePort(GuestNetworkService, Protocol, Access, Port, PortReservationHandle) {
@@ -746,12 +746,12 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} GuestNetworkService 
-     * @param {Integer} PortCount 
-     * @param {Pointer<HCN_PORT_RANGE_RESERVATION>} PortRangeReservation 
-     * @param {Pointer<HANDLE>} PortReservationHandle 
-     * @returns {HRESULT} 
+     * HcnReserveGuestNetworkServicePortRange
+     * @param {Pointer<Void>} GuestNetworkService The [HCN\_GUESTNETWORKSERVICE](./HCN_GUESTNETWORKSERVICE.md) for the reservation.
+     * @param {Integer} PortCount The number of ports to reserve.
+     * @param {Pointer<HCN_PORT_RANGE_RESERVATION>} PortRangeReservation The list of [HCN_PORT_RANGE_RESERVATION](./HCN_PORT_RANGE_RESERVATION.md) for the reservation.
+     * @param {Pointer<HANDLE>} PortReservationHandle Receives a handle. It is the responsibility of the caller to release the handle using [HcnReleaseGuestNetworkServicePortReservationHandle](./HcnReleaseGuestNetworkServicePortReservationHandle.md) once it is no longer in use.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnReserveGuestNetworkServicePortRange
      */
     static HcnReserveGuestNetworkServicePortRange(GuestNetworkService, PortCount, PortRangeReservation, PortReservationHandle) {
@@ -766,9 +766,9 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {HANDLE} PortReservationHandle 
-     * @returns {HRESULT} 
+     * HcnReleaseGuestNetworkServicePortReservationHandle
+     * @param {HANDLE} PortReservationHandle The handle to the reservations to release.
+     * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnReleaseGuestNetworkServicePortReservationHandle
      */
     static HcnReleaseGuestNetworkServicePortReservationHandle(PortReservationHandle) {
@@ -783,9 +783,9 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer} PortEntries 
-     * @returns {Integer} 
+     * HcnEnumerateGuestNetworkPortReservations
+     * @param {Pointer} PortEntries Recieves the list of [port entries](./HCN_PORT_RANGE_ENTRY.md).
+     * @returns {Integer} Recieves the count of reserved port entries.
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnEnumerateGuestNetworkPortReservations
      */
     static HcnEnumerateGuestNetworkPortReservations(PortEntries) {
@@ -798,8 +798,8 @@ class HostComputeNetwork {
     }
 
     /**
-     * 
-     * @param {Pointer<HCN_PORT_RANGE_ENTRY>} PortEntries 
+     * HcnFreeGuestNetworkPortReservations
+     * @param {Pointer<HCN_PORT_RANGE_ENTRY>} PortEntries The list of [`HCN_PORT_RANGE_ENTRY`](./HCN_PORT_RANGE_ENTRY.md) instances to free.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnFreeGuestNetworkPortReservations
      */

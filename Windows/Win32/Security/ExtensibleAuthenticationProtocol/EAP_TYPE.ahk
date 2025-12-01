@@ -3,7 +3,7 @@
 
 /**
  * Contains type and vendor identification information for an EAP method.
- * @see https://docs.microsoft.com/windows/win32/api//eaptypes/ns-eaptypes-eap_type
+ * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_type
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

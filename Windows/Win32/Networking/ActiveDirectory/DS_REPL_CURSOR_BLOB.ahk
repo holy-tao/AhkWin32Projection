@@ -4,7 +4,7 @@
 
 /**
  * The DS_REPL_CURSOR_BLOB structure contains inbound replication state data with respect to all replicas of a given naming context.
- * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ns-ntdsapi-ds_repl_cursor_blob
+ * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_cursor_blob
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

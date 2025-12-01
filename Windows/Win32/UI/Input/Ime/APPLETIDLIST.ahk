@@ -3,7 +3,7 @@
 
 /**
  * Specifies an IImePadApplet IID list.
- * @see https://docs.microsoft.com/windows/win32/api//imepad/ns-imepad-appletidlist
+ * @see https://learn.microsoft.com/windows/win32/api/imepad/ns-imepad-appletidlist
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */

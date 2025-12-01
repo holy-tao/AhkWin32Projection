@@ -3,7 +3,7 @@
 
 /**
  * The PEERDIST_STATUS_INFO structure contains information about the current status and capabilities of the BranchCache service on the local computer.
- * @see https://docs.microsoft.com/windows/win32/api//peerdist/ns-peerdist-peerdist_status_info
+ * @see https://learn.microsoft.com/windows/win32/api/peerdist/ns-peerdist-peerdist_status_info
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

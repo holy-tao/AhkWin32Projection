@@ -6,8 +6,7 @@
  * Describes the width, height, format, and color space of a picture buffer.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_video_sample
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_sample
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

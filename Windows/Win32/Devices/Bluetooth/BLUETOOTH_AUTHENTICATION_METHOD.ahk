@@ -3,7 +3,7 @@
 
 /**
  * BLUETOOTH_AUTHENTICATION_METHOD enumeration defines the supported authentication types during device pairing.
- * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/ne-bluetoothapis-bluetooth_authentication_method
+ * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ne-bluetoothapis-bluetooth_authentication_method
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

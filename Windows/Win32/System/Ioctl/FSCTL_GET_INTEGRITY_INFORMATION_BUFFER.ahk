@@ -3,7 +3,7 @@
 
 /**
  * Contains the integrity information for a file or directory.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-fsctl_get_integrity_information_buffer
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-fsctl_get_integrity_information_buffer
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

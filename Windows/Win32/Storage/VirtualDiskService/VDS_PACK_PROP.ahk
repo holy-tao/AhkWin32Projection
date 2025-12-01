@@ -4,11 +4,8 @@
 /**
  * Defines the properties of a pack object.
  * @remarks
- * 
- * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdspack-getproperties">IVdsPack::GetProperties</a>method returns this structure to report the property details of a pack object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_pack_prop
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdspack-getproperties">IVdsPack::GetProperties</a> method returns this structure to report the property details of a pack object.
+ * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_pack_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

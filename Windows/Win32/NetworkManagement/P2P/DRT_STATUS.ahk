@@ -3,7 +3,7 @@
 
 /**
  * The DRT_STATUS enumeration defines the status of a local DRT instance.
- * @see https://docs.microsoft.com/windows/win32/api//drt/ne-drt-drt_status
+ * @see https://learn.microsoft.com/windows/win32/api/drt/ne-drt-drt_status
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

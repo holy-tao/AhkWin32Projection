@@ -4,12 +4,9 @@
 /**
  * Contains information that describes an update sequence number (USN) change journal.
  * @remarks
- * 
  * For more information, see 
  *     <a href="https://docs.microsoft.com/windows/desktop/FileIO/creating-modifying-and-deleting-a-change-journal">Creating, Modifying, and Deleting a Change Journal</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-create_usn_journal_data
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-create_usn_journal_data
  * @namespace Windows.Wdk.Storage.FileSystem
  * @version v4.0.30319
  */

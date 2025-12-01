@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Types of magnification or minification sampler filters.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_filter_type
+ * Types of magnification or minification sampler filters. (D3D11_FILTER_TYPE)
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_filter_type
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

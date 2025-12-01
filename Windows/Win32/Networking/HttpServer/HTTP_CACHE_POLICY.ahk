@@ -3,7 +3,7 @@
 
 /**
  * Used to define a cache policy associated with a cached response fragment.
- * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_cache_policy
+ * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_cache_policy
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

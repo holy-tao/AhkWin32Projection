@@ -4,7 +4,6 @@
 /**
  * The REGFILTERPINS structure contains pin information for registering a filter.
  * @remarks
- * 
  * This structure is used in the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ifiltermapper2">IFilterMapper2</a> interface for filter registration. If you use this structure, set the <b>dwVersion</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-regfilter2">REGFILTER2</a> structure to 1. If you need to register a medium or pin category for the pin, use the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-regfilterpins2">REGFILTERPINS2</a> structure instead. In that case, set the <b>REGFILTER2</b> structure's <b>dwVersion</b> member to 2.
  * 
  * The equivalent <b>AMOVIESETUP_PIN</b> type is used in class factory templates (<a href="https://docs.microsoft.com/windows/desktop/DirectShow/cfactorytemplate">CFactoryTemplate</a>).
@@ -12,9 +11,7 @@
  * The <b>strName</b>, <b>clsConnectsToFilter</b>, and <b>strConnectsToPin</b> members are obsolete. Their values are not added to the registry.
  * 
  * For more information, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/how-to-register-directshow-filters">How to Register DirectShow Filters</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-regfilterpins
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-regfilterpins
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

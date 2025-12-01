@@ -3,7 +3,7 @@
 
 /**
  * The TAPI_CUSTOMTONE structure contains the parameters that define a custom tone.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ns-tapi3if-tapi_customtone
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ns-tapi3if-tapi_customtone
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

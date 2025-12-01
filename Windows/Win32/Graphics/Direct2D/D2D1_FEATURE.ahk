@@ -3,7 +3,7 @@
 
 /**
  * Defines capabilities of the underlying Direct3D device which may be queried using ID2D1EffectContext::CheckFeatureSupport.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/ne-d2d1effectauthor-d2d1_feature
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_feature
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

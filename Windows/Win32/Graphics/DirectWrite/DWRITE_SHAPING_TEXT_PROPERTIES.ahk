@@ -3,7 +3,7 @@
 
 /**
  * Shaping output properties for an output glyph.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/ns-dwrite-dwrite_shaping_text_properties
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_shaping_text_properties
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -29,7 +29,7 @@ class DWRITE_SHAPING_TEXT_PROPERTIES extends Win32Struct
     /**
      * Type: <b>UINT16</b>
      * 
-     * Indicates that the glyph is shaped alone.
+     * Indicates that the character is shaped independently from the others (usually set for the space character).
      * @type {Integer}
      */
     isShapedAlone {
@@ -38,7 +38,7 @@ class DWRITE_SHAPING_TEXT_PROPERTIES extends Win32Struct
     }
 
     /**
-     * 
+     * Reserved for use by shaping engine.
      * @type {Integer}
      */
     reserved1 {
@@ -47,7 +47,7 @@ class DWRITE_SHAPING_TEXT_PROPERTIES extends Win32Struct
     }
 
     /**
-     * 
+     * Glyph shaping can be safely cut after this point without affecting shaping before or after it. Otherwise, splitting a call to [GetGlyphs](/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-getglyphs) would cause a reflow of glyph advances and shapes.
      * @type {Integer}
      */
     canBreakShapingAfter {
@@ -56,6 +56,8 @@ class DWRITE_SHAPING_TEXT_PROPERTIES extends Win32Struct
     }
 
     /**
+     * Reserved for use by the shaping engine.
+     * 
      * Type: <b>UINT16</b>
      * 
      * Reserved for future use.

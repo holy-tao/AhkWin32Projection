@@ -3,7 +3,7 @@
 
 /**
  * Specifies which members in the PUBAPPINFO structure are valid. These flags are bitmasks set in the dwMask member and passed to IPublishedApp::GetPublishedAppInfo.
- * @see https://docs.microsoft.com/windows/win32/api//shappmgr/ne-shappmgr-pubappinfoflags
+ * @see https://learn.microsoft.com/windows/win32/api/shappmgr/ne-shappmgr-pubappinfoflags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

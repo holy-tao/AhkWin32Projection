@@ -3,7 +3,7 @@
 
 /**
  * WSMAN_FILTER is reserved for future use.
- * @see https://docs.microsoft.com/windows/win32/api//wsman/ns-wsman-wsman_filter
+ * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_filter
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */

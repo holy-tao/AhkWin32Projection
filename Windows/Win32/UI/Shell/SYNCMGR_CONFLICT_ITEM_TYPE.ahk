@@ -3,7 +3,7 @@
 
 /**
  * Describes conflict item type.
- * @see https://docs.microsoft.com/windows/win32/api//syncmgr/ne-syncmgr-syncmgr_conflict_item_type
+ * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ne-syncmgr-syncmgr_conflict_item_type
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

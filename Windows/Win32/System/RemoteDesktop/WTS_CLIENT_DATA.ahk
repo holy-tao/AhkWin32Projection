@@ -6,7 +6,7 @@
 
 /**
  * Contains information about the client connection.
- * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ns-wtsdefs-wts_client_data
+ * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_client_data
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Contains a list of authentication and cipher algorithm pairs.
- * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-wlan_auth_cipher_pair_list
+ * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_auth_cipher_pair_list
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

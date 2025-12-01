@@ -4,14 +4,11 @@
 /**
  * Defines the set of valid types for a volume plex.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_volume_plex_prop">VDS_VOLUME_PLEX_PROP</a> structure includes a <b>VDS_VOLUME_PLEX_TYPE</b> value as a member to indicate the existing plex type.
  * 
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_VOLUME_PLEX_TYPE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_VOLUME_PLEX_TYPE</b> enumeration constant.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_volume_plex_type
+ * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_volume_plex_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

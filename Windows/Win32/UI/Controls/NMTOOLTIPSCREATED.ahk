@@ -5,7 +5,7 @@
 
 /**
  * Contains information used with NM_TOOLTIPSCREATED notification codes.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmtooltipscreated
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtooltipscreated
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

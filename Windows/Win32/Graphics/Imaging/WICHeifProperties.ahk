@@ -3,7 +3,7 @@
 
 /**
  * Specifies the properties of a High Efficiency Image Format (HEIF) image.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicheifproperties
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicheifproperties
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

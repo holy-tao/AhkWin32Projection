@@ -7,11 +7,8 @@
 /**
  * An SP_NEWDEVICEWIZARD_DATA structure is used by installers to extend the operation of the hardware installation wizard by adding custom pages. It is used with DIF_NEWDEVICEWIZARD_XXX installation requests.
  * @remarks
- * 
  * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_newdevicewizard_data">SP_ADDPROPERTYPAGE_DATA</a> is an alias for this structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//setupapi/ns-setupapi-sp_newdevicewizard_data
+ * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_newdevicewizard_data
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

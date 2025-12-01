@@ -3,7 +3,7 @@
 
 /**
  * The SECPKG_DLL_FUNCTIONS structure contains pointers to the LSA functions that a security package can call while executing in-process with a client/server application.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ns-ntsecpkg-secpkg_dll_functions
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_dll_functions
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

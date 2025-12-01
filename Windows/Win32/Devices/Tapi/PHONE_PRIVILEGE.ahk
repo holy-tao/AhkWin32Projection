@@ -3,7 +3,7 @@
 
 /**
  * The PHONE_PRIVILEGE enum indicates the application's privilege status with respect to the current phone device.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-phone_privilege
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-phone_privilege
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

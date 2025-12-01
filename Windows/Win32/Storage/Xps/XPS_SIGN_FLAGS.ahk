@@ -3,7 +3,7 @@
 
 /**
  * Specifies whether markup compatibility detection must be run before signing.
- * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/ne-xpsdigitalsignature-xps_sign_flags
+ * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/ne-xpsdigitalsignature-xps_sign_flags
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

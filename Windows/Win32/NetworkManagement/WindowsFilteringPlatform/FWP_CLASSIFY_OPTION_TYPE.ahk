@@ -3,7 +3,7 @@
 
 /**
  * The FWP_CLASSIFY_OPTION_TYPE enumerated type is used by callouts and shims during run-time classification.FWP_CLASSIFY_OPTION_TYPE specifies timeout options for unicast, multicast, and loose source mapping states and enables blocking or permission of state creation on outbound multicast and broadcast traffic.
- * @see https://docs.microsoft.com/windows/win32/api//fwptypes/ne-fwptypes-fwp_classify_option_type
+ * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ne-fwptypes-fwp_classify_option_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

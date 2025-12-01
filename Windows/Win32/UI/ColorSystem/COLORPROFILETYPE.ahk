@@ -4,13 +4,10 @@
 /**
  * Specifies the type of color profile.
  * @remarks
- * 
  * The PCOLORPROFILETYPE and LPCOLORPROFILETYPE data types are defined as pointers to this enumeration:
  * 
  * `typedef COLORPROFILETYPE *PCOLORPROFILETYPE, *LPCOLORPROFILETYPE;`
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//icm/ne-icm-colorprofiletype
+ * @see https://learn.microsoft.com/windows/win32/api/icm/ne-icm-colorprofiletype
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  */

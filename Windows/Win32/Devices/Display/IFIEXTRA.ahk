@@ -4,11 +4,8 @@
 /**
  * The IFIEXTRA structure defines additional information for a given typeface that GDI can use.
  * @remarks
- * 
  * When used, this structure lies below the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-ifimetrics">IFIMETRICS</a> structure in memory.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-ifiextra
+ * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-ifiextra
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

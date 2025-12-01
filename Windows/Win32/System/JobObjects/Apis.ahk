@@ -14,6 +14,11 @@ class JobObjects {
 ;@region Methods
     /**
      * Determines whether the process is running in the specified job.
+     * @remarks
+     * An application cannot obtain a handle to the job object in which it is running unless it has the name of the job object. However, an application can call the <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-queryinformationjobobject">QueryInformationJobObject</a> function with NULL to obtain information about the job object.
+     * 
+     * To compile an application that uses this function, define _WIN32_WINNT as 0x0501 or later. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {HANDLE} ProcessHandle A handle to the process to be tested. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The handle must have the PROCESS_QUERY_INFORMATION access right.
@@ -24,8 +29,8 @@ class JobObjects {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//jobapi/nf-jobapi-isprocessinjob
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/jobapi/nf-jobapi-isprocessinjob
      * @since windows5.1.2600
      */
     static IsProcessInJob(ProcessHandle, JobHandle, Result) {
@@ -45,7 +50,22 @@ class JobObjects {
     }
 
     /**
-     * Creates or opens a job object.
+     * Creates or opens a job object. (CreateJobObjectW)
+     * @remarks
+     * When a job is created, its accounting information is initialized to zero, all limits are inactive, and there are no associated processes. To assign a process to  a job object, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-assignprocesstojobobject">AssignProcessToJobObject</a> function. To set limits for a job, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-setinformationjobobject">SetInformationJobObject</a> function. To query accounting information, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-queryinformationjobobject">QueryInformationJobObject</a> function.
+     * 
+     * All processes associated with a job must run in the same session. A job is associated with the session of the first process to be assigned to the job.
+     * 
+     * <b>Windows Server 2003 and Windows XP:  </b>A job is associated with the session of the  process that created it.
+     * 
+     * To close a job object handle, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function. The job is destroyed when its last handle has been closed and all associated processes have exited. However, if the job has the <b>JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE</b> flag specified, closing the last job object handle terminates all associated processes and then destroys the job object itself.
+     * 
+     * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0500 or later. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpJobAttributes A pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that specifies the security descriptor for the job object and determines whether child processes can inherit the returned handle. If <i>lpJobAttributes</i> is <b>NULL</b>, the job object gets a default security descriptor and the handle cannot be inherited. The ACLs in the default security descriptor for a job object come from the primary or impersonation token of the creator.
      * @param {PWSTR} lpName The name of the job. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case-sensitive. 
@@ -63,10 +83,10 @@ class JobObjects {
      * <b>Terminal Services:  </b>The name can have a "Global\\" or "Local\\" prefix to explicitly create the object in the global or session namespace. The remainder of the name can contain any character except the backslash character (\\). For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/TermServ/kernel-object-namespaces">Kernel Object Namespaces</a>.
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the job object. The handle has the <b>JOB_OBJECT_ALL_ACCESS</b> access right. If the object existed before the function call, the function returns a handle to the existing job object and 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_ALREADY_EXISTS</b>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_ALREADY_EXISTS</b>.
      * 
-     * If the function fails, the return value is NULL. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//jobapi2/nf-jobapi2-createjobobjectw
+     * If the function fails, the return value is NULL. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-createjobobjectw
      * @since windows5.1.2600
      */
     static CreateJobObjectW(lpJobAttributes, lpName) {
@@ -87,7 +107,7 @@ class JobObjects {
      * Frees memory that a function related to job objects allocated. Functions related to job objects that allocate memory include QueryIoRateControlInformationJobObject.
      * @param {Pointer<Void>} Buffer_R 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//jobapi2/nf-jobapi2-freememoryjobobject
+     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-freememoryjobobject
      * @since windows10.0.10240
      */
     static FreeMemoryJobObject(Buffer_R) {
@@ -97,7 +117,13 @@ class JobObjects {
     }
 
     /**
-     * Opens an existing job object.
+     * Opens an existing job object. (OpenJobObjectW)
+     * @remarks
+     * To associate a process with a job, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-assignprocesstojobobject">AssignProcessToJobObject</a> function.
+     * 
+     * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0500 or later. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Integer} dwDesiredAccess The access to the job object. This parameter can be one or more of the 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/job-object-security-and-access-rights">job object access rights</a>. This access right is checked against any security descriptor for the object.
      * @param {BOOL} bInheritHandle If this value is TRUE, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
@@ -110,8 +136,8 @@ class JobObjects {
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the job. The handle provides the requested access to the job.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//jobapi2/nf-jobapi2-openjobobjectw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-openjobobjectw
      * @since windows5.1.2600
      */
     static OpenJobObjectW(dwDesiredAccess, bInheritHandle, lpName) {
@@ -130,6 +156,34 @@ class JobObjects {
 
     /**
      * Assigns a process to an existing job object.
+     * @remarks
+     * After you associate a process with a job object using 
+     * <b>AssignProcessToJobObject</b>, the process is subject to the limits set for the job. To set limits for a job, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-setinformationjobobject">SetInformationJobObject</a> function.
+     * 
+     * If the job has a user-mode time limit, and the time limit has been exhausted, 
+     * <b>AssignProcessToJobObject</b> fails and the specified process is terminated. If the time limit would be exceeded by associating the process, 
+     * <b>AssignProcessToJobObject</b> still succeeds. However, the time limit violation will be reported. If the job has an active process limit, and the limit would be exceeded by associating this process, 
+     * <b>AssignProcessToJobObject</b> fails, and the specified process is terminated.
+     * 
+     * Memory operations performed by a process associated with a job that has a memory limit are subject to the memory limit. Memory operations performed by the process before it was associated with the job are not examined by 
+     * <b>AssignProcessToJobObject</b>.
+     * 
+     * If the process is already running and the job has security limitations, 
+     * <b>AssignProcessToJobObject</b> may fail. For example, if the primary token of the process contains the local administrators group, but the job object has the security limitation JOB_OBJECT_SECURITY_NO_ADMIN, the function fails. If the job has the security limitation JOB_OBJECT_SECURITY_ONLY_TOKEN, the process must be created suspended. To create a suspended process, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a> function with the CREATE_SUSPENDED flag.
+     * 
+     * A process can be associated with more than one job in a hierarchy of nested jobs. For priority class, affinity, commit charge, per-process execution time limit, scheduling class limit, and working set minimum and maximum, the process inherits an effective limit which is the most restrictive limit of all the jobs in its parent job chain. For other resource limits, the process inherits limits from its immediate job in the hierarchy. Accounting information is added to the  immediate job and aggregated in each parent job in the job chain. By default, all child processes are associated with the immediate job and every job in the parent job chain. To create a child process that is not part of the same job chain, call the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a> function with the CREATE_BREAKAWAY_FROM_JOB flag. The child process breaks away from every job in the job chain unless a job in the chain does not allow breakaway. In this case, the child process does not break away from that job or any job above it in the job chain. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/nested-jobs">Nested Jobs</a>. 
+     * 
+     * <b>Windows 7, Windows Server 2008 R2, Windows XP with SP3, Windows Server 2008, Windows Vista and Windows Server 2003:  </b>A process can be associated only with a single job. A process inherits limits from the job it is associated with and adds its accounting information to the job. If a process is associated with a job, all child processes it creates are associated with that job by default. To create a child process that is not part of the same job, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a> function with the CREATE_BREAKAWAY_FROM_JOB flag. A process can be associated with more than one job starting in Windows 8 and Windows Server 2012.
+     * 
+     * <b>Windows 7, Windows Server 2008 R2, Windows Server 2008 and Windows Vista:  </b>If the process is being monitored by the Program Compatibility Assistant (PCA), it is placed into a compatibility job. Therefore, the process must be created using CREATE_BREAKAWAY_FROM_JOB before it can be placed in another job. Alternatively, you can embed an application manifest that specifies a User Account Control (UAC) level in your application and PCA will not add the process to the compatibility job. For more information, see <a href="https://docs.microsoft.com/previous-versions/dotnet/articles/bb530410(v=msdn.10)">Application Development Requirements for User Account Control Compatibility</a>.
+     * 
+     * If the job or any of its parent jobs in the job chain is terminating when <b>AssignProcessToJob</b> is called, the function fails.
+     * 
+     * To compile an application that uses this function, define _WIN32_WINNT as 0x0500 or later. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {HANDLE} hJob A handle to the job object to which the process will be associated. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createjobobjecta">CreateJobObject</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openjobobjecta">OpenJobObject</a> function returns this handle. The handle must have the JOB_OBJECT_ASSIGN_PROCESS access right. For more information, see 
@@ -145,8 +199,8 @@ class JobObjects {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//jobapi2/nf-jobapi2-assignprocesstojobobject
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-assignprocesstojobobject
      * @since windows5.1.2600
      */
     static AssignProcessToJobObject(hJob, hProcess) {
@@ -165,6 +219,14 @@ class JobObjects {
 
     /**
      * Terminates all processes currently associated with the job.
+     * @remarks
+     * It is not possible for any of the processes associated with the job to postpone or handle the termination. It is as if 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-terminateprocess">TerminateProcess</a> were called for each process associated with the job.
+     * 
+     * Terminating a nested job additionally terminates all child job objects. Resources used by the terminated jobs are charged up the parent job chain in the hierarchy.
+     * 
+     * To compile an application that uses this function, define _WIN32_WINNT as 0x0500 or later. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {HANDLE} hJob A handle to the job whose processes will be terminated. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createjobobjecta">CreateJobObject</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openjobobjecta">OpenJobObject</a> function returns this handle. This handle must have the JOB_OBJECT_TERMINATE access right. For more information, see 
@@ -178,8 +240,8 @@ class JobObjects {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//jobapi2/nf-jobapi2-terminatejobobject
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-terminatejobobject
      * @since windows5.1.2600
      */
     static TerminateJobObject(hJob, uExitCode) {
@@ -197,6 +259,24 @@ class JobObjects {
 
     /**
      * Sets limits for a job object.
+     * @remarks
+     * Use the <b>SetInformationJobObject</b> 
+     *     function to set several limits in a single call. To establish the limits one at a time or change a 
+     *     subset of the limits, call the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-queryinformationjobobject">QueryInformationJobObject</a> function to obtain 
+     *     the current limits, modify these limits, and then call 
+     *     <b>SetInformationJobObject</b>.
+     * 
+     * You must set security limits individually for each process associated with a job object, rather than setting 
+     *     them for the job object itself. For information, see 
+     *     <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
+     * 
+     * <b>Windows Server 2003 and Windows XP:  </b>Use the <b>SetInformationJobObject</b> 
+     *       function to set security limits for the job object.
+     * 
+     * To compile an application that uses this function, define _WIN32_WINNT as 0x0500 or later. For more 
+     *     information, see 
+     *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {HANDLE} hJob A handle to the job whose limits are being set. The 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createjobobjecta">CreateJobObject</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openjobobjecta">OpenJobObject</a> function returns this handle. The handle 
@@ -208,8 +288,8 @@ class JobObjects {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//jobapi2/nf-jobapi2-setinformationjobobject
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-setinformationjobobject
      * @since windows5.1.2600
      */
     static SetInformationJobObject(hJob, JobObjectInformationClass, lpJobObjectInformation, cbJobObjectInformationLength) {
@@ -227,13 +307,16 @@ class JobObjects {
 
     /**
      * Sets I/O limits on a job object.
+     * @remarks
+     * <div class="alert"><b>Important</b>  Starting with Windows 10, version 1607, this function is no longer supported.</div>
+     * <div> </div>
      * @param {HANDLE} hJob A handle to the job on which to set I/O limits. Get this handle from the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createjobobjecta">CreateJobObject</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openjobobjecta">OpenJobObject</a> function. The handle must have the <b>JOB_OBJECT_SET_ATTRIBUTES</b> access right. For more information about access rights, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/job-object-security-and-access-rights">Job Object Security and Access Rights</a>.
      * @param {Pointer<JOBOBJECT_IO_RATE_CONTROL_INFORMATION>} IoRateControlInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/ns-jobapi2-jobobject_io_rate_control_information">JOBOBJECT_IO_RATE_CONTROL_INFORMATION</a> structure that specifies the I/O limits to set for the job.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//jobapi2/nf-jobapi2-setioratecontrolinformationjobobject
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-setioratecontrolinformationjobobject
      * @since windows10.0.10240
      */
     static SetIoRateControlInformationJobObject(hJob, IoRateControlInfo) {
@@ -251,6 +334,13 @@ class JobObjects {
 
     /**
      * Retrieves limit and job state information from the job object.
+     * @remarks
+     * Use 
+     * <b>QueryInformationJobObject</b> to obtain the current limits and modify them. Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-setinformationjobobject">SetInformationJobObject</a> function to set new limits.
+     * 
+     * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0500 or later. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {HANDLE} hJob A handle to the job whose information is being queried. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createjobobjecta">CreateJobObject</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openjobobjecta">OpenJobObject</a> function returns this handle. The handle must have the <b>JOB_OBJECT_QUERY</b> access right. For more information, see 
@@ -267,8 +357,8 @@ class JobObjects {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//jobapi2/nf-jobapi2-queryinformationjobobject
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-queryinformationjobobject
      * @since windows5.1.2600
      */
     static QueryInformationJobObject(hJob, JobObjectInformationClass, lpJobObjectInformation, cbJobObjectInformationLength, lpReturnLength) {
@@ -288,6 +378,9 @@ class JobObjects {
 
     /**
      * Gets information about the control of the I/O rate for a job object.
+     * @remarks
+     * <div class="alert"><b>Important</b>  Starting with Windows 10, version 1607, this function is no longer supported.</div>
+     * <div> </div>
      * @param {HANDLE} hJob A handle to the job to query for information. Get this handle from the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createjobobjecta">CreateJobObject</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openjobobjecta">OpenJobObject</a> function. The handle must have the <b>JOB_OBJECT_QUERY</b> access right. For more information about access rights, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/job-object-security-and-access-rights">Job Object Security and Access Rights</a>.
      * 
      * If this value is NULL and the process that calls <b>QueryIoRateControlInformationJobObject</b> is associated with a job, the function uses job that is associated with the process. If the job is nested within another job, the function uses the immediate job for the process.
@@ -297,8 +390,8 @@ class JobObjects {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//jobapi2/nf-jobapi2-queryioratecontrolinformationjobobject
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-queryioratecontrolinformationjobobject
      * @since windows10.0.10240
      */
     static QueryIoRateControlInformationJobObject(hJob, VolumeName, InfoBlocks, InfoBlockCount) {
@@ -320,6 +413,12 @@ class JobObjects {
 
     /**
      * Grants or denies access to a handle to a User object to a job that has a user-interface restriction.
+     * @remarks
+     * The 
+     * <b>UserHandleGrantAccess</b> function can be called only from a process not associated with the job specified by the <i>hJob</i> parameter. The User handle must not be owned by a process or thread associated with the job.
+     * 
+     * To create user-interface restrictions, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-setinformationjobobject">SetInformationJobObject</a> function with the JobObjectBasicUIRestrictions job information class.
      * @param {HANDLE} hUserHandle A handle to the User object.
      * @param {HANDLE} hJob A handle to the job to be granted access to the User handle. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createjobobjecta">CreateJobObject</a> or 
@@ -328,8 +427,8 @@ class JobObjects {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-userhandlegrantaccess
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-userhandlegrantaccess
      * @since windows5.1.2600
      */
     static UserHandleGrantAccess(hUserHandle, hJob, bGrant) {
@@ -347,7 +446,22 @@ class JobObjects {
     }
 
     /**
-     * Creates or opens a job object.
+     * Creates or opens a job object. (CreateJobObjectA)
+     * @remarks
+     * When a job is created, its accounting information is initialized to zero, all limits are inactive, and there are no associated processes. To assign a process to  a job object, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-assignprocesstojobobject">AssignProcessToJobObject</a> function. To set limits for a job, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-setinformationjobobject">SetInformationJobObject</a> function. To query accounting information, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-queryinformationjobobject">QueryInformationJobObject</a> function.
+     * 
+     * All processes associated with a job must run in the same session. A job is associated with the session of the first process to be assigned to the job.
+     * 
+     * <b>Windows Server 2003 and Windows XP:  </b>A job is associated with the session of the  process that created it.
+     * 
+     * To close a job object handle, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function. The job is destroyed when its last handle has been closed and all associated processes have exited. However, if the job has the <b>JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE</b> flag specified, closing the last job object handle terminates all associated processes and then destroys the job object itself.
+     * 
+     * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0500 or later. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpJobAttributes A pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that specifies the security descriptor for the job object and determines whether child processes can inherit the returned handle. If <i>lpJobAttributes</i> is <b>NULL</b>, the job object gets a default security descriptor and the handle cannot be inherited. The ACLs in the default security descriptor for a job object come from the primary or impersonation token of the creator.
      * @param {PSTR} lpName The name of the job. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case-sensitive. 
@@ -365,10 +479,10 @@ class JobObjects {
      * <b>Terminal Services:  </b>The name can have a "Global\" or "Local\" prefix to explicitly create the object in the global or session namespace. The remainder of the name can contain any character except the backslash character (\\). For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/TermServ/kernel-object-namespaces">Kernel Object Namespaces</a>.
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the job object. The handle has the <b>JOB_OBJECT_ALL_ACCESS</b> access right. If the object existed before the function call, the function returns a handle to the existing job object and 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_ALREADY_EXISTS</b>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_ALREADY_EXISTS</b>.
      * 
-     * If the function fails, the return value is NULL. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-createjobobjecta
+     * If the function fails, the return value is NULL. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createjobobjecta
      * @since windows5.1.2600
      */
     static CreateJobObjectA(lpJobAttributes, lpName) {
@@ -386,7 +500,13 @@ class JobObjects {
     }
 
     /**
-     * Opens an existing job object.
+     * Opens an existing job object. (OpenJobObjectA)
+     * @remarks
+     * To associate a process with a job, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-assignprocesstojobobject">AssignProcessToJobObject</a> function.
+     * 
+     * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0500 or later. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Integer} dwDesiredAccess The access to the job object. This parameter can be one or more of the 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/job-object-security-and-access-rights">job object access rights</a>. This access right is checked against any security descriptor for the object.
      * @param {BOOL} bInheritHandle If this value is TRUE, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
@@ -399,8 +519,8 @@ class JobObjects {
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the job. The handle provides the requested access to the job.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-openjobobjecta
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-openjobobjecta
      * @since windows5.1.2600
      */
     static OpenJobObjectA(dwDesiredAccess, bInheritHandle, lpName) {

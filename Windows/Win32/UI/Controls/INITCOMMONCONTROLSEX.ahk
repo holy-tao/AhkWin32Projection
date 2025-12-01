@@ -3,7 +3,7 @@
 
 /**
  * Carries information used to load common control classes from the dynamic-link library (DLL). This structure is used with the InitCommonControlsEx function.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-initcommoncontrolsex
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-initcommoncontrolsex
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

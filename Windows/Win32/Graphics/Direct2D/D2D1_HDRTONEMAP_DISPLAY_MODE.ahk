@@ -3,7 +3,7 @@
 
 /**
  * Defines constants that specify a value for the D2D1_HDRTONEMAP_PROP_DISPLAY_MODE property of the HDR Tone Map effect.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effects_2/ne-d2d1effects_2-d2d1_hdrtonemap_display_mode
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effects_2/ne-d2d1effects_2-d2d1_hdrtonemap_display_mode
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

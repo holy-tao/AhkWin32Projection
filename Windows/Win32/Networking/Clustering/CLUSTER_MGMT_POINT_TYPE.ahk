@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Specifies the type of the management point for the cluster.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_mgmt_point_type
+ * The CLUSTER_MGMT_POINT_TYPE enumeration (msclus.h) specifies the type of the management point for the cluster.
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_mgmt_point_type
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a drive's GUID partition table (GPT) partitions.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-drive_layout_information_gpt
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-drive_layout_information_gpt
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

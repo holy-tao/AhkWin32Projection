@@ -3,7 +3,7 @@
 
 /**
  * Defines a set of flags that you can assign to a cookie in the HTTP cookie jar by calling the SetCookie method or query from the HTTP cookie jar by calling the GetCookie method.
- * @see https://docs.microsoft.com/windows/win32/api//msxml6/ne-msxml6-xhr_cookie_flag
+ * @see https://learn.microsoft.com/windows/win32/api/msxml6/ne-msxml6-xhr_cookie_flag
  * @namespace Windows.Win32.Data.Xml.MsXml
  * @version v4.0.30319
  */

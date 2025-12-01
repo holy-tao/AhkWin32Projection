@@ -3,7 +3,7 @@
 
 /**
  * Specifies whether a swatch has normal or monochrome mode.
- * @see https://docs.microsoft.com/windows/win32/api//uiribbon/ne-uiribbon-ui_swatchcolormode
+ * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ne-uiribbon-ui_swatchcolormode
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */

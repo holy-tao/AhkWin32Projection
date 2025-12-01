@@ -4,11 +4,8 @@
 /**
  * Represents a date-and-time value.
  * @remarks
- * 
  * This structure is a packed date-and-time value that can store years between 1601 and 67136 and times that are accurate to the millisecond.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/ns-winsync-sync_time
+ * @see https://learn.microsoft.com/windows/win32/api/winsync/ns-winsync-sync_time
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */

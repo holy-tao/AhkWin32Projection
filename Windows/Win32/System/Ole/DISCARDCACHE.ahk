@@ -3,7 +3,7 @@
 
 /**
  * Specifies what to do with caches that are to be discarded from memory if their dirty bit has been set.
- * @see https://docs.microsoft.com/windows/win32/api//oleidl/ne-oleidl-discardcache
+ * @see https://learn.microsoft.com/windows/win32/api/oleidl/ne-oleidl-discardcache
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

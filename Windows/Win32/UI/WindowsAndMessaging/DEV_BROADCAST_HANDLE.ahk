@@ -5,7 +5,7 @@
 
 /**
  * Contains information about a file system handle.
- * @see https://docs.microsoft.com/windows/win32/api//dbt/ns-dbt-dev_broadcast_handle
+ * @see https://learn.microsoft.com/windows/win32/api/dbt/ns-dbt-dev_broadcast_handle
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

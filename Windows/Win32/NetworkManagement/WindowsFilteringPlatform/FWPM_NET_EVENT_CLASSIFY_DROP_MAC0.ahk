@@ -5,7 +5,7 @@
 
 /**
  * Contains information that describes a MAC layer drop failure.
- * @see https://docs.microsoft.com/windows/win32/api//fwpmtypes/ns-fwpmtypes-fwpm_net_event_classify_drop_mac0
+ * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_classify_drop_mac0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
@@ -103,7 +103,7 @@ class FWPM_NET_EVENT_CLASSIFY_DROP_MAC0 extends Win32Struct
     }
 
     /**
-     * The LUID identifying the filter where the failure occured.
+     * The LUID identifying the filter where the failure occurred.
      * @type {Integer}
      */
     filterId {

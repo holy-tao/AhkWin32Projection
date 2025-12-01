@@ -4,7 +4,6 @@
 /**
  * Contains information about a custom property.
  * @remarks
- * 
  * A custom property must have one of the following data types specified by the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-uiautomationtype">UIAutomationType</a> enumeration. No other data types are supported for custom properties. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-custompropertieseventscontrolpatterns">Custom Properties, Events, and Control Patterns</a>.
  * 
  * 
@@ -16,9 +15,7 @@
  * <li><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-uiautomationtype">UIAutomationType_Point</a></li>
  * <li><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-uiautomationtype">UIAutomationType_String</a></li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ns-uiautomationcore-uiautomationpropertyinfo
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ns-uiautomationcore-uiautomationpropertyinfo
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

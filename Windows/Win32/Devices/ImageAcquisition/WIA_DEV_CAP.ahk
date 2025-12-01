@@ -4,7 +4,7 @@
 
 /**
  * Applications use the WIA_DEV_CAP structure to enumerate device capabilities. A device capability is defined by an event or command that the device supports. For more information, see IEnumWIA_DEV_CAPS.
- * @see https://docs.microsoft.com/windows/win32/api//wia_xp/ns-wia_xp-wia_dev_cap
+ * @see https://learn.microsoft.com/windows/win32/api/wia_xp/ns-wia_xp-wia_dev_cap
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */

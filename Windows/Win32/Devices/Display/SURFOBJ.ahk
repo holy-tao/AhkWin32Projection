@@ -9,7 +9,6 @@
 /**
  * The SURFOBJ structure is the user object for a surface. A device driver usually calls methods on a surface object only when the surface object represents a GDI bitmap or a device-managed surface.
  * @remarks
- * 
  * When information about a particular surface is required by a driver, the driver must access the SURFOBJ. This structure allows quick access to the properties of the surface.
  * 
  * When a SURFOBJ structure represents a GDI bitmap, the driver must be able to determine the format of the bitmap and locate the bitmap bits.
@@ -17,8 +16,7 @@
  * When a SURFOBJ structure represents a device surface, the driver must be able to locate the device handle for the surface.
  * 
  * For more information about supporting JPEG and PNG compressed images, see <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-devinfo">DEVINFO</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-surfobj
+ * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-surfobj
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

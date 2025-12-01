@@ -4,11 +4,8 @@
 /**
  * Defines the coordinate system for a collection of snap points.
  * @remarks
- * 
  * If <b>DIRECTMANIPULATION_COORDINATE_ORIGIN</b> and <b>DIRECTMANIPULATION_COORDINATE_MIRRORED</b> are both specified, the snap points are interpreted as specified from the bottom and right boundaries of the content (the size of the content - the size of the viewport). This is intended for RTL reading scenarios where content is normally specified and rendered from right-to-left or bottom-to-top.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/ne-directmanipulation-directmanipulation_snappoint_coordinate
+ * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/ne-directmanipulation-directmanipulation_snappoint_coordinate
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Indicates the type of credential used in a client context. The SECPKG_CRED_CLASS enumeration is used in the SecPkgContext_CredInfo structure.
- * @see https://docs.microsoft.com/windows/win32/api//sspi/ne-sspi-secpkg_cred_class
+ * @see https://learn.microsoft.com/windows/win32/api/sspi/ne-sspi-secpkg_cred_class
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

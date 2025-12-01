@@ -4,12 +4,10 @@
 /**
  * The DIOBJECTCALIBRATION structure describes the information contained in the &quot;Calibration&quot; value of the registry key for each axis on a device.
  * @remarks
- * 
  * If the "Calibration" value is absent, then the calibration information is taken from the joystick [JOYREGHWVALUES](../mmddk/ns-mmddk-joyreghwvalues.md) configuration structure.
  * 
  * Only HID joysticks have a "Calibration" value.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dinputd/ns-dinputd-diobjectcalibration
+ * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-diobjectcalibration
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319
  */

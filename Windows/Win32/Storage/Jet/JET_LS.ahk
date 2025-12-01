@@ -3,7 +3,7 @@
 #Include ..\..\..\..\Win32Handle.ahk
 
 /**
- * 
+ * Learn more about: JET_LS
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-ls
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319

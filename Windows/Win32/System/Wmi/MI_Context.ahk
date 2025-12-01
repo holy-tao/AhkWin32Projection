@@ -3,7 +3,7 @@
 
 /**
  * Holds context for the operation that the provider needs to carry out.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_context
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_context
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

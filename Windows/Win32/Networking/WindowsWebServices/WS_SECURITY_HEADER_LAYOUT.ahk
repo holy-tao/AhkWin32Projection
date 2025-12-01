@@ -3,7 +3,7 @@
 
 /**
  * The layout rules applied to the elements of the WS-Security security header. This setting is relevant to message security bindings and mixed-mode security bindings.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_security_header_layout
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_header_layout
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

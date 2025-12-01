@@ -3,7 +3,7 @@
 
 /**
  * Contains the address, format, and length, in bytes, of a debugging string.
- * @see https://docs.microsoft.com/windows/win32/api//minwinbase/ns-minwinbase-output_debug_string_info
+ * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-output_debug_string_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

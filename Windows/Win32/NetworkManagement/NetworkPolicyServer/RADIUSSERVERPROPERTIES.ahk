@@ -3,7 +3,7 @@
 
 /**
  * The values of the RADIUSSERVERPROPERTIES enumeration type enumerate the properties of the RADIUS server, that is the SDO computer.
- * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-radiusserverproperties
+ * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-radiusserverproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

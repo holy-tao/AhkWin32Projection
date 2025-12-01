@@ -4,11 +4,8 @@
 /**
  * Describes the connection state of an item in the Offline Files cache.
  * @remarks
- * 
  * Transparently cached data is accessible only when the client is connected to the server.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/ne-cscobj-offlinefiles_connect_state
+ * @see https://learn.microsoft.com/windows/win32/api/cscobj/ne-cscobj-offlinefiles_connect_state
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */

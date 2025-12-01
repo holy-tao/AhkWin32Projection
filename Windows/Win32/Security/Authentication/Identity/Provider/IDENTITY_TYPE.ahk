@@ -3,7 +3,7 @@
 
 /**
  * The different possible values for MS_ATTRIBUTE_IDENTITY_TYPE.
- * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-identity_type
+ * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-identity_type
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
  * @version v4.0.30319
  */

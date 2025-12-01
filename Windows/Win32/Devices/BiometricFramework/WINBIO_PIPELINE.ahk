@@ -5,11 +5,8 @@
 /**
  * Contains shared context information used by the sensor, engine, and storage adapter components in a single biometric unit.
  * @remarks
- * 
  * Each biometric unit has its own unique <b>WINBIO_PIPELINE</b> structure to maintain the current processing state of operations performed by the biometric unit. The Windows Biometric Framework automatically passes the address of the pipeline structure to each adapter in the component stack. Adapters use this pipeline pointer to access their own private context data and to call functions in lower levels of the component stack.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winbio_adapter/ns-winbio_adapter-winbio_pipeline
+ * @see https://learn.microsoft.com/windows/win32/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

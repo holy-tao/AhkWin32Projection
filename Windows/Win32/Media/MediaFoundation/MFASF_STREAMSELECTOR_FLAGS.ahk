@@ -3,7 +3,7 @@
 
 /**
  * Defines the ASF stream selector options.
- * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/ne-wmcontainer-mfasf_streamselector_flags
+ * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/ne-wmcontainer-mfasf_streamselector_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

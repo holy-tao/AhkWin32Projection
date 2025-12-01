@@ -3,7 +3,7 @@
 
 /**
  * Used to contain information about a key data BLOB.
- * @see https://docs.microsoft.com/windows/win32/api//bcrypt/ns-bcrypt-bcrypt_key_data_blob_header
+ * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_key_data_blob_header
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

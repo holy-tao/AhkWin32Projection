@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * Stores the SRTP master key identifier.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_srtp_master_key_identifier
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -14,6 +16,7 @@ class SEC_SRTP_MASTER_KEY_IDENTIFIER extends Win32Struct
     static packingSize => 1
 
     /**
+     * The size (in bytes) of the SRTP master key identifier.
      * @type {Integer}
      */
     MasterKeyIdentifierSize {
@@ -22,6 +25,7 @@ class SEC_SRTP_MASTER_KEY_IDENTIFIER extends Win32Struct
     }
 
     /**
+     * The SRTP master key identifier.
      * @type {Array<Byte>}
      */
     MasterKeyIdentifier{

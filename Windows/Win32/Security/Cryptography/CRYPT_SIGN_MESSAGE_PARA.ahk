@@ -6,11 +6,8 @@
 /**
  * The CRYPT_SIGN_MESSAGE_PARA structure contains information for signing messages using a specified signing certificate context.
  * @remarks
- * 
  * The <b>HashEncryptionAlgorithm</b> and <b>pvHashEncryptionAuxInfo</b> members can only be used if CRYPT_SIGN_MESSAGE_PARA_HAS_CMS_FIELDS is defined.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_sign_message_para
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_sign_message_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

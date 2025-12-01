@@ -3,7 +3,7 @@
 
 /**
  * States for the Quick Mode (QM) negotiation exchanges that are part of the Authenticated Internet Protocol (AuthIP) and Internet Key Exchange (IKE) protocols.
- * @see https://docs.microsoft.com/windows/win32/api//iketypes/ne-iketypes-ikeext_qm_sa_state
+ * @see https://learn.microsoft.com/windows/win32/api/iketypes/ne-iketypes-ikeext_qm_sa_state
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

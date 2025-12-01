@@ -4,12 +4,10 @@
 /**
  * Indicates which status icon should be displayed.
  * @remarks
- * 
  * <b>CREDENTIAL_PROVIDER_STATUS_ICON</b> is not used starting in Windows 10.
  * 
  * As part of <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-reportresult">ReportResult</a>, a credential provider may specify a status icon to display. It is important to not that only Logon UI calls <b>ReportResult</b>, Credential UI does not.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/ne-credentialprovider-credential_provider_status_icon
+ * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_status_icon
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

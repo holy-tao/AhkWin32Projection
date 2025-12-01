@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Describes a volume.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dvolume-desc
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
@@ -14,6 +14,10 @@ class D3DVOLUME_DESC extends Win32Struct
     static packingSize => 4
 
     /**
+     * Type: **[D3DFORMAT](d3dformat.md)**
+     * 
+     * 
+     * Member of the [D3DFORMAT](d3dformat.md) enumerated type, describing the surface format of the volume.
      * @type {Integer}
      */
     Format {
@@ -22,6 +26,10 @@ class D3DVOLUME_DESC extends Win32Struct
     }
 
     /**
+     * Type: **[**D3DRESOURCETYPE**](./d3dresourcetype.md)**
+     * 
+     * 
+     * Member of the [**D3DRESOURCETYPE**](./d3dresourcetype.md) enumerated type, identifying this resource as a volume.
      * @type {Integer}
      */
     Type {
@@ -30,6 +38,10 @@ class D3DVOLUME_DESC extends Win32Struct
     }
 
     /**
+     * Type: **[**DWORD**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Currently not used. Always returned as 0.
      * @type {Integer}
      */
     Usage {
@@ -38,6 +50,10 @@ class D3DVOLUME_DESC extends Win32Struct
     }
 
     /**
+     * Type: **[**D3DPOOL**](./d3dpool.md)**
+     * 
+     * 
+     * Member of the [**D3DPOOL**](./d3dpool.md) enumerated type, specifying the class of memory allocated for this volume.
      * @type {Integer}
      */
     Pool {
@@ -46,6 +62,10 @@ class D3DVOLUME_DESC extends Win32Struct
     }
 
     /**
+     * Type: **[**UINT**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Width of the volume, in pixels.
      * @type {Integer}
      */
     Width {
@@ -54,6 +74,10 @@ class D3DVOLUME_DESC extends Win32Struct
     }
 
     /**
+     * Type: **[**UINT**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Height of the volume, in pixels.
      * @type {Integer}
      */
     Height {
@@ -62,6 +86,10 @@ class D3DVOLUME_DESC extends Win32Struct
     }
 
     /**
+     * Type: **[**UINT**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Depth of the volume, in pixels.
      * @type {Integer}
      */
     Depth {

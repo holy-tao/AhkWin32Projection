@@ -3,7 +3,7 @@
 
 /**
  * Specifies a service contract on an endpoint.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_service_contract
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_service_contract
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

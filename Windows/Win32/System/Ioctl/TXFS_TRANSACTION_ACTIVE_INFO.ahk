@@ -3,7 +3,7 @@
 
 /**
  * Contains the flag that indicates whether transactions were active or not when a snapshot was taken.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-txfs_transaction_active_info
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_transaction_active_info
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * The WMDM\_STORAGE\_ENUM\_MODE enumeration type defines how the content on the storage is to be enumerated. This enumeration is used by IWMDMStorage3 SetEnumPreference.
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-storage-enum-mode
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319

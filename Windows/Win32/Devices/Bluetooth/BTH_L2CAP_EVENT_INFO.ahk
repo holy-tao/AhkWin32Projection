@@ -4,11 +4,8 @@
 /**
  * Contains data about events associated with an L2CAP channel.
  * @remarks
- * 
  * Notifications for a destroyed channel are only to be sent for channels that have been successfully established.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bthdef/ns-bthdef-bth_l2cap_event_info
+ * @see https://learn.microsoft.com/windows/win32/api/bthdef/ns-bthdef-bth_l2cap_event_info
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

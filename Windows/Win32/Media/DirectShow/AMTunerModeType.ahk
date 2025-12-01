@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Specifies the frequency of a TV tuner (cable or antenna).
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-amtunermodetype
+ * Specifies the frequency of a TV tuner (cable or antenna). (AMTunerModeType)
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-amtunermodetype
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains description properties of the sequence variable.
- * @see https://docs.microsoft.com/windows/win32/api//winml/ns-winml-winml_sequence_variable_desc
+ * @see https://learn.microsoft.com/windows/win32/api/winml/ns-winml-winml_sequence_variable_desc
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  * @version v4.0.30319
  */

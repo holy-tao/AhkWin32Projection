@@ -3,7 +3,7 @@
 
 /**
  * Describes the severity of the current phase of the cluster setup process.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ne-clusapi-cluster_setup_phase_severity
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ne-clusapi-cluster_setup_phase_severity
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

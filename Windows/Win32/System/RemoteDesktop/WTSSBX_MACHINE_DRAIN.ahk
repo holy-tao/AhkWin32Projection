@@ -3,7 +3,7 @@
 
 /**
  * Contains values that indicate the drain state of a Remote Desktop Session Host (RD Session Host) server.
- * @see https://docs.microsoft.com/windows/win32/api//tssbx/ne-tssbx-wtssbx_machine_drain
+ * @see https://learn.microsoft.com/windows/win32/api/tssbx/ne-tssbx-wtssbx_machine_drain
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

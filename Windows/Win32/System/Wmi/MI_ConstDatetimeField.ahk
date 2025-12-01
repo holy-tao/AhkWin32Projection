@@ -5,8 +5,8 @@
 #Include .\MI_Datetime.ahk
 
 /**
- * Represents a property inside an MI_Instance structure.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_constdatetimefield
+ * Represents a property inside an MI_Instance structure. (MI_ConstDatetimeField)
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_constdatetimefield
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

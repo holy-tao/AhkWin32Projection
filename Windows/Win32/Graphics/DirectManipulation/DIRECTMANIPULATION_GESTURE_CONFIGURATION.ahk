@@ -4,14 +4,11 @@
 /**
  * Defines the gestures that can be passed to SetManualGesture.
  * @remarks
- * 
  * By default, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/directmanipulation/direct-manipulation-portal">Direct Manipulation</a> always reassigns tap and press-and-hold gestures to the application. 
  * 
  * 
  * Use <b>DIRECTMANIPULATION_GESTURE_PINCH_ZOOM</b> to zoom instead of scale.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/ne-directmanipulation-directmanipulation_gesture_configuration
+ * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/ne-directmanipulation-directmanipulation_gesture_configuration
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */

@@ -2,16 +2,13 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Defines the set of valid subsystem maintenance operations.
+ * The VDS_MAINTENANCE_OPERATION enumeration (vdshwprv.h) defines the set of valid subsystem maintenance operations.
  * @remarks
- * 
  * The  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsmaintenance-startmaintenance">IVdsMaintenance::StartMaintenance</a>, <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsmaintenance-stopmaintenance">IVdsMaintenance::StopMaintenance</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsmaintenance-pulsemaintenance">IVdsMaintenance::PulseMaintenance</a> methods pass a <b>VDS_MAINTENANCE_OPERATION</b> value as an argument to specify operation details.
  * 
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_MAINTENANCE_OPERATION</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_MAINTENANCE_OPERATION</b> enumeration constant.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_maintenance_operation
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_maintenance_operation
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

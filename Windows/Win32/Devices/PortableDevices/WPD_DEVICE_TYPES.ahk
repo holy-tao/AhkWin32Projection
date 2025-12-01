@@ -2,7 +2,12 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * The WPD\_DEVICE\_TYPES enumeration type describes the different Windows Portable Device (WPD) types commonly used to determine the basic classification and visual appearance of a portable device.
+ * @remarks
+ * **WPD\_DEVICE\_TYPES** are read using the [**IPortableDeviceManager**](/windows/desktop/api/PortableDeviceApi/nn-portabledeviceapi-iportabledevicemanager) interface. WPD applications may use these values to determine the generic visual appearance of the device. That is, a camera picture is displayed for camera-like devices, a mobile phone picture is displayed for phone-like devices, and so on.
  * 
+ * > [!Note]  
+ * > WPD applications must use the capabilities of the portable device to determine functionally, not the **WPD\_DEVICE\_TYPES** value.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-device-types
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319

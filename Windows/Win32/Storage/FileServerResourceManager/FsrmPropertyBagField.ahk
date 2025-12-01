@@ -3,7 +3,7 @@
 
 /**
  * Describes the type of property bag.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmpropertybagfield
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmpropertybagfield
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

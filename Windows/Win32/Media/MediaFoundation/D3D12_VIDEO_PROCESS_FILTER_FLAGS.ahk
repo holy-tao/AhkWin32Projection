@@ -4,11 +4,8 @@
 /**
  * Specifies support for the image filters defined by the D3D12_VIDEO_PROCESS_FILTER enumeration.
  * @remarks
- * 
  * See [D3D12\_VIDEO\_PROCESS\_INPUT\_STREAM\_DESC](ns-d3d12video-d3d12_video_process_input_stream_desc.md) for information on applying a particular filter.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ne-d3d12video-d3d12_video_process_filter_flags
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_process_filter_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

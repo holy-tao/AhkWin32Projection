@@ -3,7 +3,7 @@
 
 /**
  * Contains the version of the MODIFY_VHDSET_PARAMETERS structure to use in calls to virtual disk functions.
- * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ne-virtdisk-modify_vhdset_version
+ * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-modify_vhdset_version
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The NET_IF_CONNECTION_TYPE enumeration type specifies the NDIS network interface connection type.
- * @see https://docs.microsoft.com/windows/win32/api//ifdef/ne-ifdef-net_if_connection_type
+ * @see https://learn.microsoft.com/windows/win32/api/ifdef/ne-ifdef-net_if_connection_type
  * @namespace Windows.Win32.NetworkManagement.Ndis
  * @version v4.0.30319
  */

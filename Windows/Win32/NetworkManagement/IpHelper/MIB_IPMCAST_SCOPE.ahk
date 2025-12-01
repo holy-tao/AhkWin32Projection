@@ -4,11 +4,8 @@
 /**
  * Contains a multicast scope name and the associated IPv4 multicast group address and mask that define the scope.
  * @remarks
- * 
  * Note that the <i>Iprtrmib.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Iprtrmib.h</i> header files should never be used directly.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iprtrmib/ns-iprtrmib-mib_ipmcast_scope
+ * @see https://learn.microsoft.com/windows/win32/api/iprtrmib/ns-iprtrmib-mib_ipmcast_scope
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

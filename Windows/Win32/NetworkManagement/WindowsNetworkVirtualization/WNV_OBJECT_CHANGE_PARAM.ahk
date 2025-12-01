@@ -12,11 +12,8 @@
 /**
  * Specifies the parameters of an event that causes the Windows Network Virtualization (WNV) driver to generate a WnvObjectChangeType type of notification.
  * @remarks
- * 
  * There is currently only one type of object defined and tracked in this structure: <b>WnvProviderAddressType</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wnvapi/ns-wnvapi-wnv_object_change_param
+ * @see https://learn.microsoft.com/windows/win32/api/wnvapi/ns-wnvapi-wnv_object_change_param
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
  * @version v4.0.30319
  */

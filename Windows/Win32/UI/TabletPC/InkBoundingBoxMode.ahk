@@ -3,7 +3,7 @@
 
 /**
  * Specifies which characteristics of a stroke, such as drawing attributes, are used to calculate the bounding box of the ink.The bounding box is the smallest rectangle that includes all points in the InkDisp object.
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkboundingboxmode
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkboundingboxmode
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

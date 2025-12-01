@@ -3,7 +3,7 @@
 
 /**
  * Defines an IPv4 address.
- * @see https://docs.microsoft.com/windows/win32/api//naptypes/ns-naptypes-ipv4address
+ * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-ipv4address
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319
  */

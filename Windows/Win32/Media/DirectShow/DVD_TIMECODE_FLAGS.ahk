@@ -3,7 +3,7 @@
 
 /**
  * Indicates the frame rate at which a DVD has been authored to play.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-dvd_timecode_flags
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_timecode_flags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The WINHTTP_CURRENT_USER_IE_PROXY_CONFIG structure contains the Internet Explorer proxy configuration information.
- * @see https://docs.microsoft.com/windows/win32/api//winhttp/ns-winhttp-winhttp_current_user_ie_proxy_config
+ * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_current_user_ie_proxy_config
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */

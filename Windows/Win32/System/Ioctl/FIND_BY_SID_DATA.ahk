@@ -5,7 +5,7 @@
 
 /**
  * Contains data for the FSCTL_FIND_FILES_BY_SID control code.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-find_by_sid_data
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-find_by_sid_data
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

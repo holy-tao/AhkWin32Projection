@@ -3,7 +3,7 @@
 
 /**
  * Contains the proxy information for a DNS server's name resolution policy table.
- * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_proxy_information
+ * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_proxy_information
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

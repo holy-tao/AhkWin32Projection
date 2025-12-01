@@ -3,7 +3,7 @@
 
 /**
  * Contains values that specify the current state of the window for purposes of user interaction.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-windowinteractionstate
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-windowinteractionstate
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

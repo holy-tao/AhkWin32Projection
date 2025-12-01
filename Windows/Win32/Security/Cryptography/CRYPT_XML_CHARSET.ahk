@@ -3,7 +3,7 @@
 
 /**
  * Used to specify the character set used in the XML.
- * @see https://docs.microsoft.com/windows/win32/api//cryptxml/ne-cryptxml-crypt_xml_charset
+ * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ne-cryptxml-crypt_xml_charset
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

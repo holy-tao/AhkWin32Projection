@@ -3,7 +3,7 @@
 
 /**
  * The DWORD_DWORD structure defines a 64-bit integer value.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dword_dword
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dword_dword
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

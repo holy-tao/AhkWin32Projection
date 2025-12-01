@@ -10455,6 +10455,82 @@ class NetManagement {
 ;@region Methods
     /**
      * The NetUserAdd function adds a user account and assigns a password and privilege level.
+     * @remarks
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management user functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsuser">IADsUser</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscomputer">IADsComputer</a>.
+     * 
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits only Domain Admins and Account Operators to call this function. On a member server or workstation, only Administrators and Power Users can call this function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the user container is used to perform the access check for this function. The caller must be able to create child objects of the user class.
+     * 
+     * Server users must use a system in which the server creates a system account for the new user. The creation of this account is controlled by several parameters in the server's LanMan.ini file.
+     * 
+     * If the newly added user already exists as a system user, the <b>usri1_home_dir</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-user_info_1">USER_INFO_1</a> structure is ignored.
+     * 
+     * When you call the 
+     * <b>NetUserAdd</b> function and specify information level 1, the call initializes the additional members in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-user_info_2">USER_INFO_2</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-user_info_3">USER_INFO_3</a>, and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-user_info_4">USER_INFO_4</a> structures to their default values. You can change the default values by making subsequent calls to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> function. The default values supplied are listed following. (The prefix usriX indicates that the member can begin with multiple prefixes, for example, usri2_ or usri4_.)
+     * 
+     * <table>
+     * <tr>
+     * <th>Member</th>
+     * <th>Default Value</th>
+     * </tr>
+     * <tr>
+     * <td>usriX_auth_flags</td>
+     * <td>None (0)</td>
+     * </tr>
+     * <tr>
+     * <td>usriX_full_name</td>
+     * <td>None (null string)</td>
+     * </tr>
+     * <tr>
+     * <td>usriX_usr_comment</td>
+     * <td>None (null string)</td>
+     * </tr>
+     * <tr>
+     * <td>usriX_parms</td>
+     * <td>None (null string)</td>
+     * </tr>
+     * <tr>
+     * <td>usriX_workstations</td>
+     * <td>All (null string)</td>
+     * </tr>
+     * <tr>
+     * <td>usriX_acct_expires</td>
+     * <td>Never (TIMEQ_FOREVER)</td>
+     * </tr>
+     * <tr>
+     * <td>usriX_max_storage</td>
+     * <td>Unlimited (USER_MAXSTORAGE_UNLIMITED)</td>
+     * </tr>
+     * <tr>
+     * <td>usriX_logon_hours</td>
+     * <td>Logon allowed at any time (each element 0xFF; all bits set to 1)</td>
+     * </tr>
+     * <tr>
+     * <td>usriX_logon_server</td>
+     * <td>Any domain controller (\\*)</td>
+     * </tr>
+     * <tr>
+     * <td>usriX_country_code</td>
+     * <td>0</td>
+     * </tr>
+     * <tr>
+     * <td>usriX_code_page</td>
+     * <td>0</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. 
      * 
      * 
@@ -10542,7 +10618,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netuseradd
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netuseradd
      * @since windows5.0
      */
     static NetUserAdd(servername, level, buf, parm_err) {
@@ -10557,6 +10633,36 @@ class NetManagement {
 
     /**
      * The NetUserEnum function retrieves information about all user accounts on a server.
+     * @remarks
+     * The
+     * 				<b>NetUserEnum</b> function retrieves information about all user accounts on a specified remote server or the local computer.
+     * 
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netquerydisplayinformation">NetQueryDisplayInformation</a> function can be used to quickly enumerate user, computer, or global group account information for display in user interfaces .
+     * 
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management user functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsuser">IADsUser</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscomputer">IADsComputer</a>.
+     * 
+     * If you call the <b>NetUserEnum</b> function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits all authenticated users and members of the "<a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/allowing-anonymous-access">Pre-Windows 2000 compatible access</a>" group to view the information. If you call this function on a member server or workstation, all authenticated users can view the information. For  information about anonymous access and restricting anonymous access on these platforms, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The <b>NetUserEnum</b> function only returns information to which the caller has Read access. The caller must have List Contents access to the Domain object, and  Enumerate Entire SAM Domain access on the SAM Server object  located in the System container. 
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaenumeratetrusteddomains">LsaEnumerateTrustedDomains</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaenumeratetrusteddomainsex">LsaEnumerateTrustedDomainsEx</a> function can be used to retrieve the names and SIDs of domains trusted by a Local Security Authority (LSA) policy object.
+     * 
+     * The 
+     * <b>NetUserEnum</b> function does not return all system users. It returns only those users who have been added with a call to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> function. There is no guarantee that the list of users will be returned in sorted order.
+     * 
+     * If you call 
+     * the <b>NetUserEnum</b> function and specify information level 1, 2, or 3,  for the <i>level</i> parameter, the password member of each structure retrieved is set to <b>NULL</b> to maintain password security.  
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
+     * 
+     * The <b>NetUserEnum</b> function does not support a <i>level</i> parameter of 4 and the <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-user_info_4">USER_INFO_4</a> structure. The <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetinfo">NetUserGetInfo</a> 
+     * 		function supports a <i>level</i> parameter of 4 and the <b>USER_INFO_4</b> structure.
      * @param {PWSTR} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Integer} filter A value that specifies the user account types to be included in the enumeration. A value of zero indicates that all normal user, trust data, and machine account data should be included.
@@ -10641,7 +10747,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netuserenum
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netuserenum
      * @since windows5.0
      */
     static NetUserEnum(servername, level, filter, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
@@ -10658,6 +10764,20 @@ class NetManagement {
 
     /**
      * The NetUserGetInfo function retrieves information about a particular user account on a server.
+     * @remarks
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management user functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsuser">IADsUser</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscomputer">IADsComputer</a>.
+     * 
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits all authenticated users and members of the "<a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/allowing-anonymous-access">Pre-Windows 2000 compatible access</a>" group to view the information. If you call this function on a member server or workstation, all authenticated users can view the information. For  information about anonymous access and restricting anonymous access on these platforms, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the User object is used to perform the access check for this function.
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
+     * 
+     * If the information level specified in the <i>level</i> parameter is set to 24, the <i>servername</i> parameter specified must resolve to the local computer. If the <i>servername</i> resolves to a remote computer or to a domain controller, the <b>NetUserGetInfo</b>  function will fail.
      * @param {PWSTR} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} username A pointer to a constant string that specifies the name of the user account for which to return information. For more information, see the following Remarks section.
      * @param {Integer} level 
@@ -10730,7 +10850,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netusergetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netusergetinfo
      * @since windows5.1.2600
      */
     static NetUserGetInfo(servername, username, level, bufptr) {
@@ -10745,6 +10865,196 @@ class NetManagement {
 
     /**
      * The NetUserSetInfo function sets the parameters of a user account.
+     * @remarks
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management user functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsuser">IADsUser</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscomputer">IADsComputer</a>.
+     * 
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits only Domain Admins and Account Operators to call this function. On a member server or workstation, only Administrators and Power Users can call this function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the User object is used to perform the access check for this function.
+     * 
+     * Only users or applications having administrative privileges can call the 
+     * <b>NetUserSetInfo</b> function to change a user's password. When an administrator calls 
+     * <b>NetUserSetInfo</b>, the only restriction applied is that the new password length must be consistent with system modals. A user or application that knows a user's current password can call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuserchangepassword">NetUserChangePassword</a> function to change the password. For more information about calling functions that require administrator privileges, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
+     * 
+     * Members of the Administrators local group can set any modifiable user account elements. All users can set the <b>usri2_country_code</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-user_info_2">USER_INFO_2</a> structure (and the <b>usri1024_country_code</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-user_info_1024">USER_INFO_1024</a> structure) for their own accounts.
+     * 
+     * A member of the Account Operator's local group cannot set details for an Administrators class account, give an existing account Administrator privilege, or change the operator privilege of any account. If you attempt to change the privilege level or disable the last account with Administrator privilege in the security database, (the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory), the 
+     * <b>NetUserSetInfo</b> function fails and returns NERR_LastAdmin.
+     * 
+     * To set the following user account control flags, the following <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privileges">privileges</a> and <a href="https://docs.microsoft.com/windows/desktop/AD/control-access-rights">control access rights</a> are required.
+     * 
+     * <table>
+     * <tr>
+     * <th>Account control flag</th>
+     * <th>Privilege or right required</th>
+     * </tr>
+     * <tr>
+     * <td>UF_TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION</td>
+     * <td>SeEnableDelegationPrivilege privilege, which is granted to Administrators by default. </td>
+     * </tr>
+     * <tr>
+     * <td>UF_TRUSTED_FOR_DELEGATION</td>
+     * <td>SeEnableDelegationPrivilege.</td>
+     * </tr>
+     * <tr>
+     * <td>UF_PASSWD_NOTREQD</td>
+     * <td>"Update password not required" control access right on the Domain object, which is granted to authenticated users by default.</td>
+     * </tr>
+     * <tr>
+     * <td>UF_DONT_EXPIRE_PASSWD</td>
+     * <td>"Unexpire password" control access right on the Domain object, which is granted to authenticated users by default.</td>
+     * </tr>
+     * <tr>
+     * <td>UF_ENCRYPTED_TEXT_PASSWORD_ALLOWED</td>
+     * <td>"Enable per user reversibly encrypted password" control access right on the Domain object, which is granted to authenticated users by default.</td>
+     * </tr>
+     * <tr>
+     * <td>UF_SERVER_TRUST_ACCOUNT</td>
+     * <td>"Add/remove replica in domain" control access right on the Domain object, which is granted to Administrators by default.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * For a list of privilege constants, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/authorization-constants">Authorization  Constants</a>.
+     * 
+     * The correct way to specify the new name for an account is to call 
+     * <b>NetUserSetInfo</b> with 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-user_info_0">USER_INFO_0</a> and to specify the new value using the <b>usri0_name</b> member. If you call 
+     * <b>NetUserSetInfo</b> with other information levels and specify a value using a <b>usriX_name</b> member, the value is ignored.
+     * 
+     * Note that calls to 
+     * <b>NetUserSetInfo</b> can change the home directory only for user accounts that the network server creates.
+     * 
+     * If the 
+     * <b>NetUserSetInfo</b> function returns ERROR_INVALID_PARAMETER, you can use the <i>parm_err</i> parameter to indicate the first member of the user information structure that is invalid. (A user information structure begins with USER_INFO_ and its format is specified by the <i>level</i> parameter.) The following table lists the values that can be returned in the <i>parm_err</i> parameter and the corresponding structure member that is in error. (The prefix usri*_ indicates that the member can begin with multiple prefixes, for example, usri10_ or usri1003_.)
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Member</th>
+     * </tr>
+     * <tr>
+     * <td>USER_NAME_PARMNUM</td>
+     * <td>usri*_name</td>
+     * </tr>
+     * <tr>
+     * <td>USER_PASSWORD_PARMNUM</td>
+     * <td>usri*_password</td>
+     * </tr>
+     * <tr>
+     * <td>USER_PASSWORD_AGE_PARMNUM</td>
+     * <td>usri*_password_age</td>
+     * </tr>
+     * <tr>
+     * <td>USER_PRIV_PARMNUM</td>
+     * <td>usri*_priv</td>
+     * </tr>
+     * <tr>
+     * <td>USER_HOME_DIR_PARMNUM</td>
+     * <td>usri*_home_dir</td>
+     * </tr>
+     * <tr>
+     * <td>USER_COMMENT_PARMNUM</td>
+     * <td>usri*_comment</td>
+     * </tr>
+     * <tr>
+     * <td>USER_FLAGS_PARMNUM</td>
+     * <td>usri*_flags</td>
+     * </tr>
+     * <tr>
+     * <td>USER_SCRIPT_PATH_PARMNUM</td>
+     * <td>usri*_script_path</td>
+     * </tr>
+     * <tr>
+     * <td>USER_AUTH_FLAGS_PARMNUM</td>
+     * <td>usri*_auth_flags</td>
+     * </tr>
+     * <tr>
+     * <td>USER_FULL_NAME_PARMNUM</td>
+     * <td>usri*_full_name</td>
+     * </tr>
+     * <tr>
+     * <td>USER_USR_COMMENT_PARMNUM</td>
+     * <td>usri*_usr_comment</td>
+     * </tr>
+     * <tr>
+     * <td>USER_PARMS_PARMNUM</td>
+     * <td>usri*_parms</td>
+     * </tr>
+     * <tr>
+     * <td>USER_WORKSTATIONS_PARMNUM</td>
+     * <td>usri*_workstations</td>
+     * </tr>
+     * <tr>
+     * <td>USER_LAST_LOGON_PARMNUM</td>
+     * <td>usri*_last_logon</td>
+     * </tr>
+     * <tr>
+     * <td>USER_LAST_LOGOFF_PARMNUM</td>
+     * <td>usri*_last_logoff</td>
+     * </tr>
+     * <tr>
+     * <td>USER_ACCT_EXPIRES_PARMNUM</td>
+     * <td>usri*_acct_expires</td>
+     * </tr>
+     * <tr>
+     * <td>USER_MAX_STORAGE_PARMNUM</td>
+     * <td>usri*_max_storage</td>
+     * </tr>
+     * <tr>
+     * <td>USER_UNITS_PER_WEEK_PARMNUM</td>
+     * <td>usri*_units_per_week</td>
+     * </tr>
+     * <tr>
+     * <td>USER_LOGON_HOURS_PARMNUM</td>
+     * <td>usri*_logon_hours</td>
+     * </tr>
+     * <tr>
+     * <td>USER_PAD_PW_COUNT_PARMNUM</td>
+     * <td>usri*_bad_pw_count</td>
+     * </tr>
+     * <tr>
+     * <td>USER_NUM_LOGONS_PARMNUM</td>
+     * <td>usri*_num_logons</td>
+     * </tr>
+     * <tr>
+     * <td>USER_LOGON_SERVER_PARMNUM</td>
+     * <td>usri*_logon_server</td>
+     * </tr>
+     * <tr>
+     * <td>USER_COUNTRY_CODE_PARMNUM</td>
+     * <td>usri*_country_code</td>
+     * </tr>
+     * <tr>
+     * <td>USER_CODE_PAGE_PARMNUM</td>
+     * <td>usri*_code_page</td>
+     * </tr>
+     * <tr>
+     * <td>USER_PRIMARY_GROUP_PARMNUM</td>
+     * <td>usri*_primary_group_id</td>
+     * </tr>
+     * <tr>
+     * <td>USER_PROFILE_PARMNUM</td>
+     * <td>usri*_profile</td>
+     * </tr>
+     * <tr>
+     * <td>USER_HOME_DIR_DRIVE_PARMNUM</td>
+     * <td>usri*_home_dir_drive</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
+     * 
+     * The 
+     * <b>NetUserSetInfo</b> function does not control how the password parameters are secured when sent over the network to a remote server to change a user password. Any encryption of these parameters is handled by the Remote Procedure Call (RPC) mechanism supported by the network redirector that provides the network transport. Encryption is also controlled  by the security mechanisms supported by the local computer and the security mechanisms supported by remote network server specified in the <i>servername</i>   parameter. For more details on security when the Microsoft network redirector is used and the remote network server is running Microsoft Windows, see the protocol documentation for <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-rpce/290c38b1-92fe-4229-91e6-4fc376610c15">MS-RPCE</a> and <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-samr/4df07fab-1bbc-452f-8e92-7853a3c7e380">MS-SAMR</a>.
      * @param {PWSTR} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} username A pointer to a constant string that specifies the name of the user account for which to set information. For more information, see the following Remarks section.
      * @param {Integer} level 
@@ -10860,7 +11170,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netusersetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netusersetinfo
      * @since windows5.0
      */
     static NetUserSetInfo(servername, username, level, buf, parm_err) {
@@ -10876,6 +11186,21 @@ class NetManagement {
 
     /**
      * The NetUserDel function deletes a user account from a server.
+     * @remarks
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management user functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsuser">IADsUser</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscomputer">IADsComputer</a>.
+     * 
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits only Domain Admins and Account Operators to call this function. On a member server or workstation, only Administrators and Power Users can call this function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the User object is used to perform the access check for this function.
+     * 
+     * An account cannot be deleted while a user or application is accessing a server resource. If the user was added to the system with a call to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> function, deleting the user also deletes the user's system account.
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} username Pointer to a constant string that specifies the name of the user account to delete. For more information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
@@ -10932,7 +11257,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netuserdel
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netuserdel
      * @since windows5.0
      */
     static NetUserDel(servername, username) {
@@ -10945,6 +11270,21 @@ class NetManagement {
 
     /**
      * The NetUserGetGroups function retrieves a list of global groups to which a specified user belongs.
+     * @remarks
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management user functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsuser">IADsUser</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscomputer">IADsComputer</a>.
+     * 
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits all authenticated users and members of the "<a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/allowing-anonymous-access">Pre-Windows 2000 compatible access</a>" group to view the information. If you call this function on a member server or workstation, all authenticated users can view the information. For  information about anonymous access and restricting anonymous access on these platforms, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the User object is used to perform the access check for this function.
+     * 
+     * To retrieve a list of the local groups to which a user belongs, you can call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetlocalgroups">NetUserGetLocalGroups</a> function. Network groups are separate and distinct from Windows NT system groups.
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
      * @param {PWSTR} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} username A pointer to a constant string that specifies the name of the user to search for in each group account. For more information, see the following Remarks section.
      * @param {Integer} level 
@@ -11053,7 +11393,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netusergetgroups
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netusergetgroups
      * @since windows5.0
      */
     static NetUserGetGroups(servername, username, level, bufptr, prefmaxlen, entriesread, totalentries) {
@@ -11070,6 +11410,21 @@ class NetManagement {
 
     /**
      * The NetUserSetGroups function sets global group memberships for a specified user account.
+     * @remarks
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management user functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsuser">IADsUser</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscomputer">IADsComputer</a>.
+     * 
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits only Domain Admins and Account Operators to call this function. On a member server or workstation, only Administrators and Power Users can call this function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the User object is used to perform the access check for this function.
+     * 
+     * To grant a user membership in one existing global group, you can call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgroupadduser">NetGroupAddUser</a> function.
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
      * @param {PWSTR} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} username A pointer to a constant string that specifies the name of the user for which to set global group memberships. For more information, see the Remarks section.
      * @param {Integer} level 
@@ -11158,7 +11513,7 @@ class NetManagement {
      * </dl>
      * </td>
      * <td width="60%">
-     * The group group name specified by the <b>grui0_name</b> in the <a href="/windows/desktop/api/lmaccess/ns-lmaccess-group_users_info_0">GROUP_USERS_INFO_0</a> structure or <b>grui1_name</b> member in the <a href="/windows/desktop/api/lmaccess/ns-lmaccess-group_users_info_1">GROUP_USERS_INFO_1</a> structure pointed to by the <i>buf</i> parameter does not exist.
+     * The group group name specified by the <b>grui0_name</b> in the <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-group_users_info_0">GROUP_USERS_INFO_0</a> structure or <b>grui1_name</b> member in the <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-group_users_info_1">GROUP_USERS_INFO_1</a> structure pointed to by the <i>buf</i> parameter does not exist.
      * 
      * </td>
      * </tr>
@@ -11185,7 +11540,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netusersetgroups
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netusersetgroups
      * @since windows5.0
      */
     static NetUserSetGroups(servername, username, level, buf, num_entries) {
@@ -11200,6 +11555,21 @@ class NetManagement {
 
     /**
      * The NetUserGetLocalGroups function retrieves a list of local groups to which a specified user belongs.
+     * @remarks
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management user functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsuser">IADsUser</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscomputer">IADsComputer</a>.
+     * 
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits all authenticated users and members of the "<a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/allowing-anonymous-access">Pre-Windows 2000 compatible access</a>" group to view the information. If you call this function on a member server or workstation, all authenticated users can view the information. For  information about anonymous access and restricting anonymous access on these platforms, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the Domain object is used to perform the access check for this function. The caller must have  Read Property permission on the Domain object.
+     * 
+     * To retrieve a list of global groups to which a specified user belongs, you can call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetgroups">NetUserGetGroups</a> function.
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
      * @param {PWSTR} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} username A pointer to a constant string that specifies the name of the user for which to return local group membership information. If the string is of the form <i>DomainName</i>&#92;<i>UserName</i> the user name is expected to be found on that domain. If the string is of the form <i>UserName</i>, the user name is expected to be found on the server specified by the <i>servername</i> parameter. For more information, see the Remarks section.
      * @param {Integer} level The information level of the data. This parameter can be the following value. 
@@ -11329,7 +11699,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netusergetlocalgroups
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netusergetlocalgroups
      * @since windows5.0
      */
     static NetUserGetLocalGroups(servername, username, level, flags, bufptr, prefmaxlen, entriesread, totalentries) {
@@ -11346,6 +11716,20 @@ class NetManagement {
 
     /**
      * The NetUserModalsGet function retrieves global information for all users and global groups in the security database, which is the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory.
+     * @remarks
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management user modal functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsdomain">IADsDomain</a>.
+     * 
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits all authenticated users and members of the "<a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/allowing-anonymous-access">Pre-Windows 2000 compatible access</a>" group to view the information. If you call this function on a member server or workstation, all authenticated users can view the information. For  information about anonymous access and restricting anonymous access on these platforms, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the Domain object is used to perform the access check for this function.
+     * 
+     * To retrieve the 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-identifiers">security identifier</a> (SID) of the domain to which the computer belongs, call the 
+     * <b>NetUserModalsGet</b> function specifying a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-user_modals_info_2">USER_MODALS_INFO_2</a> structure and <b>NULL</b> in the <i>servername</i> parameter. If the computer isn't a member of a domain, the function returns a <b>NULL</b> pointer.
      * @param {PWSTR} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. For more information, see the following Remarks section.
      * @param {Integer} level 
      * @param {Pointer<Pointer<Integer>>} bufptr A pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. 
@@ -11429,7 +11813,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netusermodalsget
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netusermodalsget
      * @since windows5.0
      */
     static NetUserModalsGet(servername, level, bufptr) {
@@ -11443,6 +11827,73 @@ class NetManagement {
 
     /**
      * The NetUserModalsSet function sets global information for all users and global groups in the security database, which is the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory.
+     * @remarks
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management user modal functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsdomain">IADsDomain</a>.
+     * 
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits only Domain Admins and Account Operators to call this function. On a member server or workstation, only Administrators and Power Users can call this function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the Domain object is used to perform the access check for this function. Typically, callers must have write access to the entire object for calls to this function to succeed.
+     * 
+     * If the 
+     * <b>NetUserModalsSet</b> function returns ERROR_INVALID_PARAMETER, you can use the <i>parm_err</i> parameter to indicate the first member of the information structure that is invalid. (The information structure begins with USER_MODALS_INFO_ and its format is specified by the <i>level</i> parameter.) The following table lists the values that can be returned in the <i>parm_err</i> parameter and the corresponding structure member that is in error. (The prefix usrmod*_ indicates that the member can begin with multiple prefixes, for example, usrmod2_ or usrmod1002_.)
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Member</th>
+     * </tr>
+     * <tr>
+     * <td>MODALS_MIN_PASSWD_LEN_PARMNUM</td>
+     * <td>usrmod*_min_passwd_len</td>
+     * </tr>
+     * <tr>
+     * <td>MODALS_MAX_PASSWD_AGE_PARMNUM</td>
+     * <td>usrmod*_max_passwd_age</td>
+     * </tr>
+     * <tr>
+     * <td>MODALS_MIN_PASSWD_AGE_PARMNUM</td>
+     * <td>usrmod*_min_passwd_age</td>
+     * </tr>
+     * <tr>
+     * <td>MODALS_FORCE_LOGOFF_PARMNUM</td>
+     * <td>usrmod*_force_logoff</td>
+     * </tr>
+     * <tr>
+     * <td>MODALS_PASSWD_HIST_LEN_PARMNUM</td>
+     * <td>usrmod*_password_hist_len</td>
+     * </tr>
+     * <tr>
+     * <td>MODALS_ROLE_PARMNUM</td>
+     * <td>usrmod*_role</td>
+     * </tr>
+     * <tr>
+     * <td>MODALS_PRIMARY_PARMNUM</td>
+     * <td>usrmod*_primary</td>
+     * </tr>
+     * <tr>
+     * <td>MODALS_DOMAIN_NAME_PARMNUM</td>
+     * <td>usrmod*_domain_name</td>
+     * </tr>
+     * <tr>
+     * <td>MODALS_DOMAIN_ID_PARMNUM</td>
+     * <td>usrmod*_domain_id</td>
+     * </tr>
+     * <tr>
+     * <td>MODALS_LOCKOUT_DURATION_PARMNUM</td>
+     * <td>usrmod*_lockout_duration</td>
+     * </tr>
+     * <tr>
+     * <td>MODALS_LOCKOUT_OBSERVATION_WINDOW_PARMNUM</td>
+     * <td>usrmod*_lockout_observation_window</td>
+     * </tr>
+     * <tr>
+     * <td>MODALS_LOCKOUT_THRESHOLD_PARMNUM</td>
+     * <td>usrmod*_lockout_threshold</td>
+     * </tr>
+     * </table>
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Integer>} buf Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
@@ -11502,7 +11953,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netusermodalsset
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netusermodalsset
      * @since windows5.0
      */
     static NetUserModalsSet(servername, level, buf, parm_err) {
@@ -11517,6 +11968,36 @@ class NetManagement {
 
     /**
      * The NetUserChangePassword function changes a user's password for a specified network server or domain.
+     * @remarks
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same result you can achieve by calling the network management user functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsuser">IADsUser</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscomputer">IADsComputer</a>.
+     * 
+     * If an application calls the <b>NetUserChangePassword</b> function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits only Domain Admins and Account Operators to call this function. On a member server or workstation, only Administrators and Power Users can call this function. A user can change his or her own password. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the User object is used to perform the access check for this function. In addition, the caller must have the "Change password" <a href="https://docs.microsoft.com/windows/desktop/AD/control-access-rights">control access right</a> on the User object. This right is granted to Anonymous Logon and Everyone by default. 
+     * 
+     * Note that for the function to succeed, the <i>oldpassword</i> parameter must match the password as it currently exists.
+     * 
+     * In some cases, the process that calls the 
+     * <b>NetUserChangePassword</b> function must also have the SE_CHANGE_NOTIFY_NAME privilege enabled; otherwise, 
+     * <b>NetUserChangePassword</b> fails and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_ACCESS_DENIED. This privilege is not required for the 
+     * <a href="https://docs.microsoft.com/windows/desktop/Services/localsystem-account">LocalSystem account</a> or for accounts that are members of the administrators group. By default, SE_CHANGE_NOTIFY_NAME is enabled for all users, but some administrators may disable the privilege for everyone. For more information about account privileges, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privileges">Privileges</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/authorization-constants">Authorization Constants</a>.
+     * 
+     * See 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/forcing-a-user-to-change-the-logon-password">Forcing a User to Change the Logon Password</a> for a code sample that demonstrates how to force a user to change the logon password on the next logon using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetinfo">NetUserGetInfo</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> functions.
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
+     * 
+     * The 
+     * <b>NetUserChangePassword</b> function does not control how the <i>oldpassword</i> and <i>newpassword</i> parameters are secured when sent over the network to a remote server. Any encryption of these parameters is handled by the Remote Procedure Call (RPC) mechanism supported by the network redirector that provides the network transport. Encryption is also controlled  by the security mechanisms supported by the local computer and the security mechanisms supported by remote network server or domain specified in the <i>domainname</i>   parameter. For more details on security when the Microsoft network redirector is used and the remote network server is running Microsoft Windows, see the protocol documentation for <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-rpce/290c38b1-92fe-4229-91e6-4fc376610c15">MS-RPCE</a>, <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-samr/4df07fab-1bbc-452f-8e92-7853a3c7e380">MS-SAMR</a>, <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-spng/f377a379-c24f-4a0f-a3eb-0d835389e28a">MS-SPNG</a>, and <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-nlmp/b38c36ed-2804-4868-a9ff-8dd3182128e4">MS-NLMP</a>.
      * @param {PWSTR} domainname A pointer to a constant string that specifies the DNS or NetBIOS name of a remote server or domain on which the function is to execute. If this parameter is <b>NULL</b>, the logon domain of the caller is used.
      * @param {PWSTR} username A pointer to a constant string that specifies a user name. The 
      * <b>NetUserChangePassword</b> function changes the password for the specified user.
@@ -11600,7 +12081,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netuserchangepassword
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netuserchangepassword
      * @since windows5.0
      */
     static NetUserChangePassword(domainname, username, oldpassword, newpassword) {
@@ -11621,6 +12102,17 @@ class NetManagement {
 
     /**
      * The NetGroupAdd function creates a global group in the security database, which is the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory.
+     * @remarks
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management group functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
+     * 
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits only Domain Admins and Account Operators to call this function. On a member server or workstation, only Administrators and Power Users can call this function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the user container is used to perform the access check for this function. The caller must be able to create child objects of the group class. Typically, callers must also have write access to the entire object for calls to this function to succeed.
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Integer>} buf Pointer to a buffer that contains the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
@@ -11703,7 +12195,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netgroupadd
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgroupadd
      * @since windows5.0
      */
     static NetGroupAdd(servername, level, buf, parm_err) {
@@ -11718,6 +12210,17 @@ class NetManagement {
 
     /**
      * The NetGroupAddUser function gives an existing user account membership in an existing global group in the security database, which is the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory.
+     * @remarks
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits only Domain Admins and Account Operators to call this function. On a member server or workstation, only Administrators and Power Users can call this function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the Group object is used to perform the access check for this function.
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
+     * 
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management group functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} GroupName Pointer to a constant string that specifies the name of the global group in which the user is to be given membership. For more information, see the following Remarks section.
      * @param {PWSTR} username Pointer to a constant string that specifies the name of the user to be given membership in the global group. For more information, see the following Remarks section.
@@ -11797,7 +12300,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netgroupadduser
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgroupadduser
      * @since windows5.0
      */
     static NetGroupAddUser(servername, GroupName, username) {
@@ -11811,6 +12314,21 @@ class NetManagement {
 
     /**
      * The NetGroupEnum function retrieves information about each global group in the security database, which is the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory.
+     * @remarks
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management group functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
+     * 
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits all authenticated users and members of the "<a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/allowing-anonymous-access">Pre-Windows 2000 compatible access</a>" group to view the information. If you call this function on a member server or workstation, all authenticated users can view the information. For  information about anonymous access and restricting anonymous access on these platforms, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The function only returns information to which the caller has Read access. The caller must have List Contents access to the Domain object, and  Enumerate Entire SAM Domain access on the SAM Server object  located in the System container. 
+     * 
+     * To determine the exact total number of groups, you must enumerate the entire tree, which can be a costly operation. To enumerate the entire tree, use the <i>resume_handle</i> parameter to continue the enumeration for consecutive calls, and use the <i>entriesread</i> parameter to accumulate the total number of groups. If your application is communicating with a domain controller, you should consider using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-ldap-provider">ADSI LDAP Provider</a> to retrieve this type of data more efficiently. The ADSI LDAP Provider implements a set of ADSI objects that support various ADSI interfaces. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-system-providers">ADSI Service Providers</a>.
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the buffer to receive the global group information structure. The format of this data depends on the value of the <i>level</i> parameter. 
@@ -11869,7 +12387,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netgroupenum
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgroupenum
      * @since windows5.0
      */
     static NetGroupEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
@@ -11886,6 +12404,17 @@ class NetManagement {
 
     /**
      * The NetGroupGetInfo function retrieves information about a particular global group in the security database, which is the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory.
+     * @remarks
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management group functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
+     * 
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits all authenticated users and members of the "<a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/allowing-anonymous-access">Pre-Windows 2000 compatible access</a>" group to view the information. If you call this function on a member server or workstation, all authenticated users can view the information. For  information about anonymous access and restricting anonymous access on these platforms, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the Group object is used to perform the access check for this function.
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} groupname Pointer to a constant string that specifies the name of the global group for which to retrieve information. For more information, see the following Remarks section.
      * @param {Integer} level 
@@ -11936,7 +12465,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netgroupgetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgroupgetinfo
      * @since windows5.0
      */
     static NetGroupGetInfo(servername, groupname, level, bufptr) {
@@ -11951,6 +12480,45 @@ class NetManagement {
 
     /**
      * The NetGroupSetInfo function sets the parameters of a global group in the security database, which is the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory.
+     * @remarks
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management group functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
+     * 
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits only Domain Admins and Account Operators to call this function. On a member server or workstation, only Administrators and Power Users can call this function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the Group object is used to perform the access check for this function. Typically, callers must have write access to the entire object for calls to this function to succeed.
+     * 
+     * The correct way to set the new name of a global group is to call the 
+     * <b>NetGroupSetInfo</b> function, using a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-group_info_0">GROUP_INFO_0</a> structure. Specify the new value in the <b>grpi0_name</b> member. If you use a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-group_info_1">GROUP_INFO_1</a> structure and specify the value in the <b>grpi1_name</b> member, the new name value is ignored.
+     * 
+     * If the 
+     * <b>NetGroupSetInfo</b> function returns ERROR_INVALID_PARAMETER, you can use the <i>parm_err</i> parameter to indicate the first member of the group information structure that is invalid. (A group information structure begins with GROUP_INFO_ and its format is specified by the <i>level</i> parameter.) The following table lists the values that can be returned in the <i>parm_err</i> parameter and the corresponding structure member that is in error. (The prefix grpi*_ indicates that the member can begin with multiple prefixes, for example, grpi1_ or grpi2_.)
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Member</th>
+     * </tr>
+     * <tr>
+     * <td>GROUP_NAME_PARMNUM</td>
+     * <td>grpi*_name</td>
+     * </tr>
+     * <tr>
+     * <td>GROUP_COMMENT_PARMNUM</td>
+     * <td>grpi*_comment</td>
+     * </tr>
+     * <tr>
+     * <td>GROUP_ATTRIBUTES_PARMNUM</td>
+     * <td>grpi*_attributes</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} groupname Pointer to a constant string that specifies the name of the global group for which to set information. For more information, see the following Remarks section.
      * @param {Integer} level 
@@ -12033,7 +12601,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netgroupsetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgroupsetinfo
      * @since windows5.0
      */
     static NetGroupSetInfo(servername, groupname, level, buf, parm_err) {
@@ -12049,6 +12617,17 @@ class NetManagement {
 
     /**
      * The NetGroupDel function deletes a global group from the security database, which is the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory.
+     * @remarks
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits only Domain Admins and Account Operators to call this function. On a member server or workstation, only Administrators and Power Users can call this function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the Group object is used to perform the access check for this function.
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
+     * 
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management group functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} groupname Pointer to a constant string that specifies the name of the global group account to delete. For more information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
@@ -12116,7 +12695,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netgroupdel
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgroupdel
      * @since windows5.0
      */
     static NetGroupDel(servername, groupname) {
@@ -12129,6 +12708,17 @@ class NetManagement {
 
     /**
      * The NetGroupDelUser function removes a user from a particular global group in the security database, which is the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory.
+     * @remarks
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits only Domain Admins and Account Operators to call this function. On a member server or workstation, only Administrators and Power Users can call this function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the Group object is used to perform the access check for this function.
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
+     * 
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management group functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} GroupName Pointer to a constant string that specifies the name of the global group from which the user's membership should be removed. For more information, see the following Remarks section.
      * @param {PWSTR} Username Pointer to a constant string that specifies the name of the user to remove from the global group. For more information, see the following Remarks section.
@@ -12219,7 +12809,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netgroupdeluser
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgroupdeluser
      * @since windows5.0
      */
     static NetGroupDelUser(servername, GroupName, Username) {
@@ -12233,6 +12823,22 @@ class NetManagement {
 
     /**
      * The NetGroupGetUsers function retrieves a list of the members in a particular global group in the security database, which is the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory.
+     * @remarks
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits all authenticated users and members of the "<a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/allowing-anonymous-access">Pre-Windows 2000 compatible access</a>" group to view the information. If you call this function on a member server or workstation, all authenticated users can view the information. For  information about anonymous access and restricting anonymous access on these platforms, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the Group object is used to perform the access check for this function.
+     * 
+     * To grant one user membership in an existing global group, you can call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgroupadduser">NetGroupAddUser</a> function. To remove a user from a global group, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgroupdeluser">NetGroupDelUser</a> function. For information about replacing the membership of a global group, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgroupsetusers">NetGroupSetUsers</a>.
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
+     * 
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management group functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
      * @param {PWSTR} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} groupname A pointer to a constant string that specifies the name of the global group whose members are to be listed. For more information, see the following Remarks section.
      * @param {Integer} level 
@@ -12331,7 +12937,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netgroupgetusers
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgroupgetusers
      * @since windows5.0
      */
     static NetGroupGetUsers(servername, groupname, level, bufptr, prefmaxlen, entriesread, totalentries, ResumeHandle) {
@@ -12349,6 +12955,33 @@ class NetManagement {
 
     /**
      * The NetGroupSetUsers function sets the membership for the specified global group.
+     * @remarks
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits only Domain Admins and Account Operators to call this function. On a member server or workstation, only Administrators and Power Users can call this function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the Group object is used to perform the access check for this function.
+     * 
+     * You can replace the global group membership with an entirely new list of members by calling the 
+     * <b>NetGroupSetUsers</b> function. The typical sequence of steps to perform this follows.
+     * 
+     * <p class="proch"><b>To replace the global group membership</b>
+     * 
+     * <ol>
+     * <li>Call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgroupgetusers">NetGroupGetUsers</a> function to retrieve the current membership list.</li>
+     * <li>Modify the returned membership list to reflect the new membership.</li>
+     * <li>Call the 
+     * <b>NetGroupSetUsers</b> function to replace the old membership list with the new membership list.</li>
+     * </ol>
+     * To grant one user membership in an existing global group, you can call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgroupadduser">NetGroupAddUser</a> function. To remove a user from a global group, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgroupdeluser">NetGroupDelUser</a> function.
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
+     * 
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management group functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
      * @param {PWSTR} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} groupname A pointer to a constant string that specifies the name of the global group of interest. For more information, see the Remarks section.
      * @param {Integer} level 
@@ -12475,7 +13108,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netgroupsetusers
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgroupsetusers
      * @since windows5.0
      */
     static NetGroupSetUsers(servername, groupname, level, buf, totalentries) {
@@ -12490,6 +13123,47 @@ class NetManagement {
 
     /**
      * The NetLocalGroupAdd function creates a local group in the security database, which is the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory.
+     * @remarks
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits only Domain Admins and Account Operators to call this function. On a member server or workstation, only Administrators and Power Users can call this function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the user container is used to perform the access check for this function. The caller must be able to create child objects of the group class.
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
+     * 
+     * If the 
+     * <b>NetLocalGroupAdd</b> function returns <b>ERROR_INVALID_PARAMETER</b> and a <b>NULL</b> pointer was not passed in <i>parm_err</i> parameter, on return the <i>parm_err</i> parameter indicates the first member of the local group information structure that is invalid. The format of the local group information structure is specified in the <i>level</i> parameter. A pointer to the local group information structure is passed in <i>buf</i> parameter. The following table lists the values that can be returned in the <i>parm_err</i> parameter and the corresponding structure member that is in error. 
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Member</th>
+     * </tr>
+     * <tr>
+     * <td>LOCALGROUP_NAME_PARMNUM</td>
+     * <td>
+     * If the <i>level</i> parameter was 0, the <b>lgrpi0_name</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-localgroup_info_0">LOCALGROUP_INFO_0</a> 
+     * 		 structure was invalid.
+     * 
+     * If the <i>level</i> parameter was 1, the <b>lgrpi1_name</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-localgroup_info_1">LOCALGROUP_INFO_1</a> 
+     * 		 structure was invalid.  
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>LOCALGROUP_COMMENT_PARMNUM</td>
+     * <td>
+     * If the <i>level</i> parameter was 1, the <b>lgrpi1_comment</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-localgroup_info_1">LOCALGROUP_INFO_1</a> 
+     * 		 structure was invalid.  
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * When making requests to a domain controller and Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same results as the network management local group functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
      * @param {PWSTR} servername A pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Integer>} buf A pointer to a buffer that contains the local group information structure. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
@@ -12595,7 +13269,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netlocalgroupadd
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupadd
      * @since windows5.0
      */
     static NetLocalGroupAdd(servername, level, buf, parm_err) {
@@ -12614,7 +13288,7 @@ class NetManagement {
      * @param {PWSTR} groupname TBD
      * @param {PSID} membersid TBD
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netlocalgroupaddmember
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupaddmember
      */
     static NetLocalGroupAddMember(servername, groupname, membersid) {
         servername := servername is String ? StrPtr(servername) : servername
@@ -12626,6 +13300,21 @@ class NetManagement {
 
     /**
      * The NetLocalGroupEnum function returns information about each local group account on the specified server.
+     * @remarks
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits all authenticated users and members of the "<a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/allowing-anonymous-access">Pre-Windows 2000 compatible access</a>" group to view the information. If you call this function on a member server or workstation, all authenticated users can view the information. For  information about anonymous access and restricting anonymous access on these platforms, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The function only returns information to which the caller has Read access. The caller must have List Contents access to the Domain object, and  Enumerate Entire SAM Domain access on the SAM Server object  located in the System container. 
+     * 
+     * To determine the exact total number of local groups, you must enumerate the entire tree, which can be a costly operation. To enumerate the entire tree, use the <i>resumehandle</i> parameter to continue the enumeration for consecutive calls, and use the <i>entriesread</i> parameter to accumulate the total number of local groups. If your application is communicating with a domain controller, you should consider using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-ldap-provider">ADSI LDAP Provider</a> to retrieve this type of data more efficiently. The ADSI LDAP Provider implements a set of ADSI objects that support various ADSI interfaces. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-system-providers">ADSI Service Providers</a>.
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
+     * 
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management local group functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the address of the buffer that receives the information structure. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
@@ -12690,7 +13379,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netlocalgroupenum
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupenum
      * @since windows5.0
      */
     static NetLocalGroupEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
@@ -12707,6 +13396,17 @@ class NetManagement {
 
     /**
      * The NetLocalGroupGetInfo function retrieves information about a particular local group account on a server.
+     * @remarks
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits all authenticated users and members of the "<a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/allowing-anonymous-access">Pre-Windows 2000 compatible access</a>" group to view the information. If you call this function on a member server or workstation, all authenticated users can view the information. For  information about anonymous access and restricting anonymous access on these platforms, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the LocalGroup object is used to perform the access check for this function.
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
+     * 
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management local group functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} groupname Pointer to a constant string that specifies the name of the local group account for which the information will be retrieved. For more information, see the following Remarks section.
      * @param {Integer} level Specifies the information level of the data. This parameter can be the following value. 
@@ -12777,7 +13477,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netlocalgroupgetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupgetinfo
      * @since windows5.0
      */
     static NetLocalGroupGetInfo(servername, groupname, level, bufptr) {
@@ -12792,6 +13492,42 @@ class NetManagement {
 
     /**
      * The NetLocalGroupSetInfo function changes the name of an existing local group. The function also associates a comment with a local group.
+     * @remarks
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits only Domain Admins and Account Operators to call this function. On a member server or workstation, only Administrators and Power Users can call this function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the LocalGroup object is used to perform the access check for this function. Typically, callers must have write access to the entire object for calls to this function to succeed.
+     * 
+     * To specify the new name of an existing local group, call 
+     * <b>NetLocalGroupSetInfo</b> with 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-localgroup_info_0">LOCALGROUP_INFO_0</a> and specify a value using the <b>lgrpi0_name</b> member. If you call the 
+     * <b>NetLocalGroupSetInfo</b> function with 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-localgroup_info_1">LOCALGROUP_INFO_1</a> and specify a new value using the <b>lgrpi1_name</b> member, that value will be ignored.
+     * 
+     * If the 
+     * <b>NetLocalGroupSetInfo</b> function returns ERROR_INVALID_PARAMETER, you can use the <i>parm_err</i> parameter to indicate the first member of the local group information structure that is invalid. (A local group information structure begins with LOCALGROUP_INFO_ and its format is specified by the <i>level</i> parameter.) The following table lists the values that can be returned in the <i>parm_err</i> parameter and the corresponding structure member that is in error. (The prefix lgrpi*_ indicates that the member can begin with multiple prefixes, for example, lgrpi0_ or lgrpi1_.)
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Member</th>
+     * </tr>
+     * <tr>
+     * <td>LOCALGROUP_NAME_PARMNUM</td>
+     * <td>lgrpi*_name</td>
+     * </tr>
+     * <tr>
+     * <td>LOCALGROUP_COMMENT_PARMNUM</td>
+     * <td>lgrpi*_comment</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
+     * 
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management local group functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} groupname Pointer to a constant string that specifies the name of the local group account to modify. For more information, see the following Remarks section.
      * @param {Integer} level 
@@ -12863,7 +13599,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netlocalgroupsetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupsetinfo
      * @since windows5.0
      */
     static NetLocalGroupSetInfo(servername, groupname, level, buf, parm_err) {
@@ -12879,6 +13615,17 @@ class NetManagement {
 
     /**
      * The NetLocalGroupDel function deletes a local group account and all its members from the security database, which is the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory.
+     * @remarks
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits only Domain Admins and Account Operators to call this function. On a member server or workstation, only Administrators and Power Users can call this function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the LocalGroup object is used to perform the access check for this function.
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
+     * 
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management local group functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} groupname Pointer to a constant string that specifies the name of the local group account to delete. For more information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
@@ -12946,7 +13693,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netlocalgroupdel
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupdel
      * @since windows5.0
      */
     static NetLocalGroupDel(servername, groupname) {
@@ -12963,7 +13710,7 @@ class NetManagement {
      * @param {PWSTR} groupname TBD
      * @param {PSID} membersid TBD
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netlocalgroupdelmember
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupdelmember
      */
     static NetLocalGroupDelMember(servername, groupname, membersid) {
         servername := servername is String ? StrPtr(servername) : servername
@@ -12975,6 +13722,19 @@ class NetManagement {
 
     /**
      * The NetLocalGroupGetMembers function retrieves a list of the members of a particular local group in the security database, which is the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory.
+     * @remarks
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits all authenticated users and members of the "<a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/allowing-anonymous-access">Pre-Windows 2000 compatible access</a>" group to view the information. If you call this function on a member server or workstation, all authenticated users can view the information. For  information about anonymous access and restricting anonymous access on these platforms, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the LocalGroup object is used to perform the access check for this function. 
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
+     * 
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management local group functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
+     * 
+     * If this function returns <b>ERROR_MORE_DATA</b>, then it must be repeatedly called until <b>ERROR_SUCCESS</b> or <b>NERR_success</b> is returned.  Failure to do so can result in an RPC connection leak.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} localgroupname Pointer to a constant string that specifies the name of the local group whose members are to be listed. For more information, see the following Remarks section.
      * @param {Integer} level 
@@ -13040,7 +13800,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netlocalgroupgetmembers
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupgetmembers
      * @since windows5.0
      */
     static NetLocalGroupGetMembers(servername, localgroupname, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
@@ -13058,6 +13818,33 @@ class NetManagement {
 
     /**
      * The NetLocalGroupSetMembers function sets the membership for the specified local group.
+     * @remarks
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits only Domain Admins and Account Operators to call this function. On a member server or workstation, only Administrators and Power Users can call this function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the LocalGroup object is used to perform the access check for this function.
+     * 
+     * You can replace the local group membership with an entirely new list of members by calling the 
+     * <b>NetLocalGroupSetMembers</b> function. The typical sequence of steps to perform this follows.
+     * 
+     * <p class="proch"><b>To replace the local group membership</b>
+     * 
+     * <ol>
+     * <li>Call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netlocalgroupgetmembers">NetLocalGroupGetMembers</a> function to retrieve the current membership list.</li>
+     * <li>Modify the returned membership list to reflect the new membership.</li>
+     * <li>Call the 
+     * <b>NetLocalGroupSetMembers</b> function to replace the old membership list with the new membership list.</li>
+     * </ol>
+     * To add one or more existing user accounts or global group accounts to an existing local group, you can call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netlocalgroupaddmembers">NetLocalGroupAddMembers</a> function. To remove one or more members from an existing local group, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netlocalgroupdelmembers">NetLocalGroupDelMembers</a> function.
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
+     * 
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management local group functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} groupname Pointer to a constant string that specifies the name of the local group in which the specified users or global groups should be granted membership. For more information, see the following Remarks section.
      * @param {Integer} level 
@@ -13118,7 +13905,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netlocalgroupsetmembers
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupsetmembers
      * @since windows5.0
      */
     static NetLocalGroupSetMembers(servername, groupname, level, buf, totalentries) {
@@ -13133,6 +13920,17 @@ class NetManagement {
 
     /**
      * The NetLocalGroupAddMembers function adds membership of one or more existing user accounts or global group accounts to an existing local group.
+     * @remarks
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits only Domain Admins and Account Operators to call this function. On a member server or workstation, only Administrators and Power Users can call this function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the LocalGroup object is used to perform the access check for this function.
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
+     * 
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management local group functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} groupname Pointer to a constant string that specifies the name of the local group to which the specified users or global groups will be added. For more information, see the following Remarks section.
      * @param {Integer} level 
@@ -13204,7 +14002,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netlocalgroupaddmembers
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupaddmembers
      * @since windows5.0
      */
     static NetLocalGroupAddMembers(servername, groupname, level, buf, totalentries) {
@@ -13219,6 +14017,17 @@ class NetManagement {
 
     /**
      * The NetLocalGroupDelMembers function removes one or more members from an existing local group. Local group members can be users or global groups.
+     * @remarks
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits only Domain Admins and Account Operators to call this function. On a member server or workstation, only Administrators and Power Users can call this function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the LocalGroup object is used to perform the access check for this function.
+     * 
+     * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
+     * 
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management local group functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} groupname Pointer to a constant string that specifies the name of the local group from which the specified users or global groups will be removed. For more information, see the following Remarks section.
      * @param {Integer} level 
@@ -13279,7 +14088,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netlocalgroupdelmembers
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupdelmembers
      * @since windows5.0
      */
     static NetLocalGroupDelMembers(servername, groupname, level, buf, totalentries) {
@@ -13294,6 +14103,32 @@ class NetManagement {
 
     /**
      * The NetQueryDisplayInformation function returns user account, computer, or group account information. Call this function to quickly enumerate account information for display in user interfaces.
+     * @remarks
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits all authenticated users and members of the "<a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/allowing-anonymous-access">Pre-Windows 2000 compatible access</a>" group to view the information. If you call this function on a member server or workstation, all authenticated users can view the information. For  information about anonymous access and restricting anonymous access on these platforms, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The <b>NetQueryDisplayInformation</b> function only returns information to which the caller has Read access. The caller must have List Contents access to the Domain object, and  Enumerate Entire SAM Domain access on the SAM Server object  located in the System container.
+     * 
+     * The 
+     * <b>NetQueryDisplayInformation</b> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgetdisplayinformationindex">NetGetDisplayInformationIndex</a> functions provide an efficient mechanism for enumerating user and group accounts. When possible, use these functions instead of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuserenum">NetUserEnum</a> function or the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgroupenum">NetGroupEnum</a> function.
+     * 
+     * To enumerate trusting domains or member computer accounts, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuserenum">NetUserEnum</a>, specifying the appropriate filter value to obtain the account information you require. To enumerate trusted domains, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaenumeratetrusteddomains">LsaEnumerateTrustedDomains</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaenumeratetrusteddomainsex">LsaEnumerateTrustedDomainsEx</a> function.
+     * 
+     * The number of entries returned by this function depends on the security descriptor located on the root domain object. The API will return  either the first 100 entries or the entire set of entries in the domain, depending on the access privileges of the user. The ACE used to control this behavior is "SAM-Enumerate-Entire-Domain", and is granted to Authenticated Users by default. Administrators can modify this setting to allow users to enumerate the entire domain.
+     * 
+     * Each call to 
+     * <b>NetQueryDisplayInformation</b> returns a maximum of 100 objects. Calling the 
+     * <b>NetQueryDisplayInformation</b> function to enumerate domain account information can be costly in terms of performance. If you are programming for Active Directory, you may be able to use methods on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-idirectorysearch">IDirectorySearch</a> interface to make paged queries against the domain. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectorysearch-setsearchpreference">IDirectorySearch::SetSearchPreference</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectorysearch-executesearch">IDirectorySearch::ExecuteSearch</a>. To enumerate trusted domains, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaenumeratetrusteddomainsex">LsaEnumerateTrustedDomainsEx</a> function.
      * @param {PWSTR} ServerName Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} Level 
      * @param {Integer} Index Specifies the index of the first entry for which to retrieve information. Specify zero to retrieve account information beginning with the first display information entry. For more information, see the following Remarks section.
@@ -13350,7 +14185,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netquerydisplayinformation
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netquerydisplayinformation
      * @since windows5.0
      */
     static NetQueryDisplayInformation(ServerName, Level, Index, EntriesRequested, PreferredMaximumLength, ReturnedEntryCount, SortedBuffer) {
@@ -13365,6 +14200,12 @@ class NetManagement {
 
     /**
      * The NetGetDisplayInformationIndex function returns the index of the first display information entry whose name begins with a specified string or whose name alphabetically follows the string.
+     * @remarks
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits all authenticated users and members of the "<a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/allowing-anonymous-access">Pre-Windows 2000 compatible access</a>" group to view the information. If you call this function on a member server or workstation, all authenticated users can view the information. For  information about anonymous access and restricting anonymous access on these platforms, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The function only returns information to which the caller has Read access. The caller must have List Contents access to the Domain object, and  Enumerate Entire SAM Domain access on the SAM Server object  located in the System container.
      * @param {PWSTR} ServerName Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} Level 
      * @param {PWSTR} Prefix Pointer to a string that specifies the prefix for which to search.
@@ -13423,7 +14264,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netgetdisplayinformationindex
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgetdisplayinformationindex
      * @since windows5.0
      */
     static NetGetDisplayInformationIndex(ServerName, Level, Prefix, Index) {
@@ -13437,7 +14278,9 @@ class NetManagement {
     }
 
     /**
-     * Not supported.
+     * Not supported. (NetAccessAdd)
+     * @remarks
+     * This function requires User level security to be enabled.
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level Specifies the information level of the data. This parameter can be the following value.
      * 
@@ -13463,8 +14306,8 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
-     *        <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netaccessadd
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netaccessadd
      * @since windows5.0
      */
     static NetAccessAdd(servername, level, buf, parm_err) {
@@ -13478,7 +14321,9 @@ class NetManagement {
     }
 
     /**
-     * Not supported.
+     * Not supported. (NetAccessEnum)
+     * @remarks
+     * This function requires Admin privilege to successfully execute on a computer that has local security enabled.
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} BasePath Pointer to a string that contains a base pathname for the resource. A <b>NULL</b> pointer or <b>NULL</b> string means no base path is to be used. The path can be specified as a universal naming convention (UNC) pathname.
      * @param {Integer} Recursive Specifies a flag that enables or disables recursive searching.
@@ -13497,8 +14342,8 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netaccessenum
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netaccessenum
      * @since windows5.0
      */
     static NetAccessEnum(servername, BasePath, Recursive, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
@@ -13515,7 +14360,9 @@ class NetManagement {
     }
 
     /**
-     * Not supported.
+     * Not supported. (NetAccessGetInfo)
+     * @remarks
+     * This function requires Admin privilege to successfully execute on a computer that has local security enabled.
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} resource 
      * @param {Integer} level Pointer to the buffer that receives the access information structure. The format of this data depends on the value of the <i>sLevel</i> parameter.
@@ -13523,8 +14370,8 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netaccessgetinfo
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netaccessgetinfo
      * @since windows5.0
      */
     static NetAccessGetInfo(servername, resource, level, bufptr) {
@@ -13538,7 +14385,9 @@ class NetManagement {
     }
 
     /**
-     * Not supported.
+     * Not supported. (NetAccessSetInfo)
+     * @remarks
+     * This function requires Admin privilege to successfully execute on a computer that has local security enabled.
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} resource Pointer to a string that contains the name of the network resource to modify.
      * @param {Integer} level Specifies the information level of the data. This parameter can be the following value.
@@ -13565,8 +14414,8 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netaccesssetinfo
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netaccesssetinfo
      * @since windows5.0
      */
     static NetAccessSetInfo(servername, resource, level, buf, parm_err) {
@@ -13581,14 +14430,16 @@ class NetManagement {
     }
 
     /**
-     * Not supported.
+     * Not supported. (NetAccessDel)
+     * @remarks
+     * This function requires Admin privilege to successfully execute on a computer that has local security enabled.
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} resource Pointer to a string that contains the name of the network resource for which to remove the access control list.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netaccessdel
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netaccessdel
      * @since windows5.0
      */
     static NetAccessDel(servername, resource) {
@@ -13600,7 +14451,9 @@ class NetManagement {
     }
 
     /**
-     * Not supported.
+     * Not supported. (NetAccessGetUserPerms)
+     * @remarks
+     * This function requires Admin privilege to successfully execute on a computer that has local security enabled. When users request their own access permissions, no special privilege is required.
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} UGname Pointer to a string that specifies the name of the user or group to query.
      * @param {PWSTR} resource Pointer to a string that contains the name of the network resource to query.
@@ -13608,8 +14461,8 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netaccessgetuserperms
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netaccessgetuserperms
      * @since windows5.0
      */
     static NetAccessGetUserPerms(servername, UGname, resource, Perms) {
@@ -13625,6 +14478,35 @@ class NetManagement {
 
     /**
      * The NetValidatePasswordPolicy function allows an application to check password compliance against an application-provided account database and verify that passwords meet the complexity, aging, minimum length, and history reuse requirements of a password policy.
+     * @remarks
+     * The <b>NetValidatePasswordPolicy</b> function is designed to allow applications to validate passwords for users that are in an account database provided by the application. This function can also be used to verify that passwords meet the complexity, aging, minimum length, and history reuse requirements of a password policy. This function also provides the means for an application to implement an account-lockout mechanism.
+     * 
+     * The <b>NetValidatePasswordPolicy</b> function does not validate passwords in Active Directory accounts and cannot be used for this purpose.
+     * The only policy that this function checks a password against in Active Directory accounts is the password complexity (the password strength). 
+     * 
+     * A typical scenario for the use of the <b>NetValidatePasswordPolicy</b> function would be enforcing the choice of strong passwords by users for web applications and applications that allow password-protected documents. Another use of this function could be checking password complexity in a situation in which a password is attached to a functional operation rather than to a user account; for example, passwords that are used with Secure Multipurpose Internet Mail Extensions (S/MIME) certificate-based public keys.
+     * 
+     * If the <b>NetValidatePasswordPolicy</b> function is called on a domain controller that is running Active Directory, access is allowed or denied based on the ACL for the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/securable-objects">securable object</a>. The default ACL permits all authenticated users and members of the "<a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/allowing-anonymous-access">Pre-Windows 2000 compatible access</a>" group to view the information. If you call this function on a member server or workstation, all authenticated users can view the information. For  information about anonymous access and restricting anonymous access on these platforms, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * The security descriptor of the Domain object is used to perform the access check for the <b>NetValidatePasswordPolicy</b> function. 
+     * 
+     * To call <b>NetValidatePasswordPolicy</b> in a security context that is not the default, first call the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a> function, specifying LOGON32_LOGON_NEW_CREDENTIALS in the <i>dwLogonType</i> parameter, and then call <b>NetValidatePasswordPolicy</b> under impersonation. For more information about impersonation, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/client-impersonation">Client Impersonation</a>.
+     * 
+     * If the return code of the <b>NetValidatePasswordPolicy</b> function is <b>Nerr_Success</b> then the function
+     *         allocates a buffer pointed to by the <i>OutputArg</i> parameter that contains a <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-net_validate_output_arg">NET_VALIDATE_OUTPUT_ARG</a> structure with the results of
+     *         the operation. The application must examine <b>ValidationStatus</b> member in the <b>NET_VALIDATE_OUTPUT_ARG</b> structure to
+     *         determine the results of the password policy validation check.  For more information, see <b>NET_VALIDATE_OUTPUT_ARG</b>.
+     * 
+     * Note that it is the application's responsibility to save all the data in the <b>ChangedPersistedFields</b> member of the <b>NET_VALIDATE_OUTPUT_ARG</b> structure as well as any User object information. The next time the application calls <b>NetValidatePasswordPolicy</b> on the same instance of the User object, the application must provide the required fields from the persistent information.
+     * 
+     * When you call <b>NetValidatePasswordPolicy</b> and specify <a href="https://docs.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-net_validate_password_change_input_arg">NET_VALIDATE_PASSWORD_CHANGE_INPUT_ARG</a> or <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-net_validate_password_reset_input_arg">NET_VALIDATE_PASSWORD_RESET_INPUT_ARG</a> in <i>InputArg</i> parameter, the call also validates the password by passing it through the password filter DLL that the computer is configured to use. For more information about password filters, see <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/using-password-filters">Using Password Filters</a>.
+     * 
+     * If the return value from the <b>NetValidatePasswordPolicy</b> function is nonzero then <i>OutputArg</i> parameter  is set to <b>NULL</b> and password policy
+     *         could not be examined.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netvalidatepasswordpolicyfree">NetValidatePasswordPolicyFree</a> function should be called after calling  <b>NetValidatePasswordPolicy</b> to free the memory allocated for the <i>OutputArg</i> parameter that is returned by the call to the <b>NetValidatePasswordPolicy</b> function.
      * @param {PWSTR} ServerName A pointer to a constant Unicode string specifying the name of the remote server on which the function is to execute. This string must
      *         begin with \\ followed by the remote server name. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Pointer<Void>} Qualifier Reserved for future use. This parameter must be <b>NULL</b>.
@@ -13686,10 +14568,10 @@ class NetManagement {
      * </table>
      * @param {Pointer<Void>} InputArg A pointer to a structure that depends on the type of password validation to perform. The type of structure depends on the value of the <i>ValidationType</i> parameter. For more information, see the description of the <i>ValidationType</i> parameter.
      * @param {Pointer<Pointer<Void>>} OutputArg If the <b>NetValidatePasswordPolicy</b> function succeeds (the return value is <b>Nerr_Success</b>), then the function
-     *         allocates an buffer that contains the results of
+     *         allocates a buffer that contains the results of
      *         the operation. The <i>OutputArg</i> parameter contains a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-net_validate_output_arg">NET_VALIDATE_OUTPUT_ARG</a> structure. The application must examine <b>ValidationStatus</b> member in the <b>NET_VALIDATE_OUTPUT_ARG</b> structure pointed to by the <i>OutputArg</i> parameter to
      *         determine the results of the password policy validation check.   The <b>NET_VALIDATE_OUTPUT_ARG</b> structure contains a <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-net_validate_persisted_fields">NET_VALIDATE_PERSISTED_FIELDS</a> structure with changes to persistent password-related information, and the results of the password validation. The application must
-     *         plan to persist all persisted the fields in the <b>NET_VALIDATE_PERSISTED_FIELDS</b> structure aside from the <b>ValidationStatus</b>member as information along with the user object information and provide the required fields from
+     *         plan to persist all persisted the fields in the <b>NET_VALIDATE_PERSISTED_FIELDS</b> structure aside from the <b>ValidationStatus</b> member as information along with the user object information and provide the required fields from
      *         the persisted information when calling this function in the future on the same user object.
      * 
      * If the <b>NetValidatePasswordPolicy</b> function fails (the return value is nonzero),  then <i>OutputArg</i> parameter is set to a <b>NULL</b> pointer and password policy
@@ -13699,7 +14581,7 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, and the password is authenticated, changed, or reset, the return value is NERR_Success and the function allocates an <i>OutputArg</i> parameter.
      * 
      * If the function fails, the <i>OutputArg</i> parameter is <b>NULL</b> and the return value is a system error code that can be one of the following error codes. For a list of all possible error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
      * 
      * <table>
      * <tr>
@@ -13729,7 +14611,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netvalidatepasswordpolicy
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netvalidatepasswordpolicy
      * @since windowsserver2003
      */
     static NetValidatePasswordPolicy(ServerName, Qualifier, ValidationType, InputArg, OutputArg) {
@@ -13745,11 +14627,13 @@ class NetManagement {
 
     /**
      * The NetValidatePasswordPolicyFree function frees the memory that the NetValidatePasswordPolicy function allocates for the OutputArg parameter, which is a NET_VALIDATE_OUTPUT_ARG structure.
+     * @remarks
+     * No special group membership is required to successfully execute this function.
      * @param {Pointer<Pointer<Void>>} OutputArg Pointer to the memory allocated for the <i>OutputArg</i> parameter by a call to the <b>NetValidatePasswordPolicy</b> function.
      * @returns {Integer} If the function frees the memory, or if there is no memory to free from a previous call to <b>NetValidatePasswordPolicy</b>, the return value is NERR_Success.
      * 
-     * If the function fails, the return value is a system error code. For a list of error codes, see <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netvalidatepasswordpolicyfree
+     * If the function fails, the return value is a system error code. For a list of error codes, see <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netvalidatepasswordpolicyfree
      * @since windowsserver2003
      */
     static NetValidatePasswordPolicyFree(OutputArg) {
@@ -13761,6 +14645,9 @@ class NetManagement {
 
     /**
      * The NetGetDCName function returns the name of the primary domain controller (PDC). It does not return the name of the backup domain controller (BDC) for the specified domain. Also, you cannot remote this function to a non-PDC server.
+     * @remarks
+     * No special group membership is required to successfully execute the 
+     * <b>NetGetDCName</b> function.
      * @param {PWSTR} ServerName 
      * @param {PWSTR} DomainName 
      * @param {Pointer<Pointer<Integer>>} Buffer_R 
@@ -13818,7 +14705,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netgetdcname
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgetdcname
      * @since windows5.0
      */
     static NetGetDCName(ServerName, DomainName, Buffer_R) {
@@ -13833,6 +14720,15 @@ class NetManagement {
 
     /**
      * The NetGetAnyDCName function returns the name of any domain controller (DC) for a domain that is directly trusted by the specified server.
+     * @remarks
+     * No special group membership is required to successfully execute the 
+     * <b>NetGetAnyDCName</b> function.
+     * 
+     * If <i>servername</i> specifies a stand-alone workstation or a stand-alone server, no <i>domainname</i> is valid.
+     * 
+     * If <i>servername</i> specifies a workstation that is a member of a domain, or a server that is a member of a domain, the <i>domainname</i> must be in the same domain as <i>servername</i>.
+     * 
+     * If <i>servername</i> specifies a domain controller, the <i>domainname</i> must be one of the domains trusted by the domain for which the server is a controller. The domain controller that this call finds has been operational at least once during this call.
      * @param {PWSTR} ServerName 
      * @param {PWSTR} DomainName 
      * @param {Pointer<Pointer<Integer>>} Buffer_R 
@@ -13901,7 +14797,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netgetanydcname
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgetanydcname
      * @since windows5.0
      */
     static NetGetAnyDCName(ServerName, DomainName, Buffer_R) {
@@ -13916,6 +14812,8 @@ class NetManagement {
 
     /**
      * Controls various aspects of the Netlogon service.
+     * @remarks
+     * This function can be used to request that a BDC ensure that its copy of the SAM database is brought up-to-date. It can also be used to determine if a BDC currently has a secure channel open to the PDC.
      * @param {PWSTR} ServerName The name of the remote server.
      * @param {Integer} FunctionCode The operation to be performed. This value  can be one of the following.
      * 
@@ -14038,7 +14936,7 @@ class NetManagement {
      * @param {Integer} QueryLevel Indicates what information should be returned from the Netlogon service. This value can be any of the following structures.
      * @param {Pointer<Integer>} Data Carries input data that depends on the value specified in the <i>FunctionCode</i> parameter. The NETLOGON_CONTROL_REDISCOVER and NETLOGON_CONTROL_TC_QUERY function codes specify the trusted domain name (the data type is <b>LPWSTR *</b>).
      * @param {Pointer<Pointer<Integer>>} Buffer_R 
-     * @returns {Integer} The method returns 0x00000000 (<b>NERR_Success</b>) on success; otherwise, it returns a nonzero error code defined in Lmerr.h or Winerror.h. NET_API_STATUS error codes begin with the value 0x00000834. For more information about network management error codes, see <a href="/windows/desktop/NetMgmt/network-management-error-codes">Network_Management_Error_Codes</a>. The following table describes possible return values.
+     * @returns {Integer} The method returns 0x00000000 (<b>NERR_Success</b>) on success; otherwise, it returns a nonzero error code defined in Lmerr.h or Winerror.h. NET_API_STATUS error codes begin with the value 0x00000834. For more information about network management error codes, see <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-error-codes">Network_Management_Error_Codes</a>. The following table describes possible return values.
      * 
      * <table>
      * <tr>
@@ -14191,7 +15089,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-i_netlogoncontrol2
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-i_netlogoncontrol2
      */
     static I_NetLogonControl2(ServerName, FunctionCode, QueryLevel, Data, Buffer_R) {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
@@ -14230,7 +15128,7 @@ class NetManagement {
      * @returns {NTSTATUS} If the function succeeds, it returns <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netaddserviceaccount
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netaddserviceaccount
      * @since windows6.1
      */
     static NetAddServiceAccount(ServerName, AccountName, Password, Flags) {
@@ -14268,7 +15166,7 @@ class NetManagement {
      * @returns {NTSTATUS} If the function succeeds, it returns <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netremoveserviceaccount
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netremoveserviceaccount
      * @since windows6.1
      */
     static NetRemoveServiceAccount(ServerName, AccountName, Flags) {
@@ -14290,7 +15188,7 @@ class NetManagement {
      * @returns {NTSTATUS} If the function succeeds, it returns <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netenumerateserviceaccounts
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netenumerateserviceaccounts
      * @since windows6.1
      */
     static NetEnumerateServiceAccounts(ServerName, Flags, AccountsCount, Accounts) {
@@ -14311,7 +15209,7 @@ class NetManagement {
      * @returns {NTSTATUS} If the function succeeds, it returns <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netisserviceaccount
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netisserviceaccount
      * @since windows6.1
      */
     static NetIsServiceAccount(ServerName, AccountName, IsService) {
@@ -14370,7 +15268,7 @@ class NetManagement {
      * @returns {NTSTATUS} If the function succeeds, it returns <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//lmaccess/nf-lmaccess-netqueryserviceaccount
+     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netqueryserviceaccount
      * @since windows6.1
      */
     static NetQueryServiceAccount(ServerName, AccountName, InfoLevel, Buffer_R) {
@@ -14385,6 +15283,12 @@ class NetManagement {
 
     /**
      * The NetAlertRaise function notifies all registered clients when a particular event occurs.
+     * @remarks
+     * No special group membership is required to successfully execute the 
+     * <b>NetAlertRaise</b> function.
+     * 
+     * The alerter service must be running on the client computer when you call the 
+     * <b>NetAlertRaise</b> function, or the function fails with ERROR_FILE_NOT_FOUND.
      * @param {PWSTR} AlertType A pointer to a constant string that specifies the alert class (type of alert) to raise. This parameter can be one of the following predefined values, or a user-defined alert class for network applications. The event name for an alert can be any text string. 
      * 
      * 
@@ -14450,7 +15354,7 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code and a can be one of the following error codes. For a list of all possible error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
      * 
      * <table>
      * <tr>
@@ -14464,7 +15368,7 @@ class NetManagement {
      * </dl>
      * </td>
      * <td width="60%">
-     * A parameter is incorrect. This error is returned if the <i>AlertEventName</i>  parameter is <b>NULL</b> or an empty string, the <i>Buffer</i>  parameter is <b>NULL</b>, or the <i>BufferSize</i>  parameter is less than the size of the <a href="/windows/desktop/api/lmalert/ns-lmalert-std_alert">STD_ALERT</a> structure plus the fixed size for the additional message data structure. 
+     * A parameter is incorrect. This error is returned if the <i>AlertEventName</i>  parameter is <b>NULL</b> or an empty string, the <i>Buffer</i>  parameter is <b>NULL</b>, or the <i>BufferSize</i>  parameter is less than the size of the <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/ns-lmalert-std_alert">STD_ALERT</a> structure plus the fixed size for the additional message data structure. 
      * 
      * </td>
      * </tr>
@@ -14480,7 +15384,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmalert/nf-lmalert-netalertraise
+     * @see https://learn.microsoft.com/windows/win32/api/lmalert/nf-lmalert-netalertraise
      * @since windows5.0
      */
     static NetAlertRaise(AlertType, Buffer_R, BufferSize) {
@@ -14494,6 +15398,12 @@ class NetManagement {
 
     /**
      * The NetAlertRaiseEx function notifies all registered clients when a particular event occurs. You can call this extended function to simplify the sending of an alert message because NetAlertRaiseEx does not require that you specify a STD_ALERT structure.
+     * @remarks
+     * No special group membership is required to successfully execute the 
+     * <b>NetAlertRaiseEx</b> function.
+     * 
+     * The alerter service must be running on the client computer when you call the 
+     * <b>NetAlertRaiseEx</b> function, or the function fails with ERROR_FILE_NOT_FOUND.
      * @param {PWSTR} AlertType A pointer to a constant string that specifies the alert class (type of alert) to raise. This parameter can be one of the following predefined values, or a user-defined alert class for network applications. (The event name for an alert can be any text string.) 
      * 
      * 
@@ -14570,7 +15480,7 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code and a can be one of the following error codes. For a list of all possible error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
      * 
      * <table>
      * <tr>
@@ -14584,7 +15494,7 @@ class NetManagement {
      * </dl>
      * </td>
      * <td width="60%">
-     * A parameter is incorrect. This error is returned if the <i>AlertEventName</i>  parameter is <b>NULL</b> or an empty string, the <i>ServiceName</i>  parameter is <b>NULL</b> or an empty string, the <i>VariableInfo</i>  parameter is <b>NULL</b>, or the <i>VariableInfoSize</i>  parameter is greater than 512 minus the size of the <a href="/windows/desktop/api/lmalert/ns-lmalert-std_alert">STD_ALERT</a> structure. 
+     * A parameter is incorrect. This error is returned if the <i>AlertEventName</i>  parameter is <b>NULL</b> or an empty string, the <i>ServiceName</i>  parameter is <b>NULL</b> or an empty string, the <i>VariableInfo</i>  parameter is <b>NULL</b>, or the <i>VariableInfoSize</i>  parameter is greater than 512 minus the size of the <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/ns-lmalert-std_alert">STD_ALERT</a> structure. 
      * 
      * </td>
      * </tr>
@@ -14600,7 +15510,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmalert/nf-lmalert-netalertraiseex
+     * @see https://learn.microsoft.com/windows/win32/api/lmalert/nf-lmalert-netalertraiseex
      * @since windows5.0
      */
     static NetAlertRaiseEx(AlertType, VariableInfo, VariableInfoSize, ServiceName) {
@@ -14615,6 +15525,12 @@ class NetManagement {
 
     /**
      * The NetMessageNameAdd function registers a message alias in the message name table. The function requires that the messenger service be started.
+     * @remarks
+     * Only members of the Administrators local group can successfully execute the 
+     * <b>NetMessageNameAdd</b> function on a remote server.
+     * 
+     * The forward action flag is no longer a parameter to the LAN Manager 2.<i>x</i><b>NetMessageNameAdd</b> function because message forwarding is no longer supported. If the 
+     * <b>NetMessageNameAdd</b> function detects that a forwarded version of <i>msgname</i> exists on the network, the function will fail with error NERR_Already_Exists.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} msgname Pointer to a constant string that specifies the message alias to add. The string cannot be more than 15 characters long.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
@@ -14705,7 +15621,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmmsg/nf-lmmsg-netmessagenameadd
+     * @see https://learn.microsoft.com/windows/win32/api/lmmsg/nf-lmmsg-netmessagenameadd
      * @since windows5.0
      */
     static NetMessageNameAdd(servername, msgname) {
@@ -14718,6 +15634,12 @@ class NetManagement {
 
     /**
      * The NetMessageNameEnum function lists the message aliases that receive messages on a specified computer. The function requires that the messenger service be started.
+     * @remarks
+     * Only members of the Administrators local group can successfully execute the 
+     * <b>NetMessageNameEnum</b> function on a remote server.
+     * 
+     * To retrieve information about a particular message alias in the message name table, you can call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmmsg/nf-lmmsg-netmessagenamegetinfo">NetMessageNameGetInfo</a> function.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
@@ -14816,7 +15738,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmmsg/nf-lmmsg-netmessagenameenum
+     * @see https://learn.microsoft.com/windows/win32/api/lmmsg/nf-lmmsg-netmessagenameenum
      * @since windows5.0
      */
     static NetMessageNameEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
@@ -14833,6 +15755,12 @@ class NetManagement {
 
     /**
      * The NetMessageNameGetInfo function retrieves information about a particular message alias in the message name table. The function requires that the messenger service be started.
+     * @remarks
+     * Only members of the Administrators local group can successfully execute the 
+     * <b>NetMessageNameGetInfo</b> function on a remote server.
+     * 
+     * To list all the message aliases in a message name table, you can call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmmsg/nf-lmmsg-netmessagenameenum">NetMessageNameEnum</a> function.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} msgname Pointer to a constant string that specifies the message alias for which to return information.
      * @param {Integer} level 
@@ -14917,7 +15845,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmmsg/nf-lmmsg-netmessagenamegetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/lmmsg/nf-lmmsg-netmessagenamegetinfo
      * @since windows5.0
      */
     static NetMessageNameGetInfo(servername, msgname, level, bufptr) {
@@ -14932,6 +15860,9 @@ class NetManagement {
 
     /**
      * The NetMessageNameDel function deletes a message alias in the message name table. The function requires that the messenger service be started.
+     * @remarks
+     * Only members of the Administrators local group can successfully execute the 
+     * <b>NetMessageNameDel</b> function on a remote server.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} msgname Pointer to a constant string that specifies the message alias to delete. The string cannot be more than 15 characters long.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
@@ -15022,7 +15953,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmmsg/nf-lmmsg-netmessagenamedel
+     * @see https://learn.microsoft.com/windows/win32/api/lmmsg/nf-lmmsg-netmessagenamedel
      * @since windows5.0
      */
     static NetMessageNameDel(servername, msgname) {
@@ -15035,6 +15966,10 @@ class NetManagement {
 
     /**
      * The NetMessageBufferSend function sends a buffer of information to a registered message alias.
+     * @remarks
+     * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the securable object. The default ACL permits only Domain Admins and Account Operators to call this function. On a member server or workstation, only Administrators and Server Operators can call this function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs and ACEs, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
      * @param {PWSTR} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} msgname Pointer to a constant string that specifies the message alias to which the message buffer should be sent.
      * @param {PWSTR} fromname Pointer to a constant string specifying who the message is from. If this parameter is <b>NULL</b>, the message is sent from the local computer name.
@@ -15107,7 +16042,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmmsg/nf-lmmsg-netmessagebuffersend
+     * @see https://learn.microsoft.com/windows/win32/api/lmmsg/nf-lmmsg-netmessagebuffersend
      * @since windows5.0
      */
     static NetMessageBufferSend(servername, msgname, fromname, buf, buflen) {
@@ -15123,6 +16058,9 @@ class NetManagement {
 
     /**
      * The NetRemoteTOD function returns the time of day information from a specified server.
+     * @remarks
+     * No special group membership is required to successfully execute the 
+     * <b>NetRemoteTOD</b> function.
      * @param {PWSTR} UncServerName Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Pointer<Pointer<Integer>>} BufferPtr Pointer to the address that receives the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmremutl/ns-lmremutl-time_of_day_info">TIME_OF_DAY_INFO</a> information structure. This buffer is allocated by the system and must be freed using the 
@@ -15130,8 +16068,8 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//lmremutl/nf-lmremutl-netremotetod
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/lmremutl/nf-lmremutl-netremotetod
      * @since windows5.0
      */
     static NetRemoteTOD(UncServerName, BufferPtr) {
@@ -15145,6 +16083,9 @@ class NetManagement {
 
     /**
      * The NetRemoteComputerSupports function queries the redirector to retrieve the optional features the remote system supports.
+     * @remarks
+     * No special group membership is required to successfully execute the 
+     * <b>NetRemoteComputerSupports</b> function.
      * @param {PWSTR} UncServerName Pointer to a constant string that specifies the name of the remote server to query. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} OptionsWanted 
      * @param {Pointer<Integer>} OptionsSupported Pointer to a value that receives a set of bit flags. The flags indicate which features specified by the <i>OptionsWanted</i> parameter are implemented on the computer specified by the <i>UncServerName</i> parameter. (All other bits are set to zero.) 
@@ -15186,7 +16127,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmremutl/nf-lmremutl-netremotecomputersupports
+     * @see https://learn.microsoft.com/windows/win32/api/lmremutl/nf-lmremutl-netremotecomputersupports
      * @since windows5.0
      */
     static NetRemoteComputerSupports(UncServerName, OptionsWanted, OptionsSupported) {
@@ -15458,6 +16399,30 @@ class NetManagement {
 
     /**
      * The NetServerEnum function lists all servers of the specified type that are visible in a domain.
+     * @remarks
+     * The
+     * 				<b>NetServerEnum</b> function is used to list all servers of the specified type that are visible in a domain. For example, an application can call 
+     * <b>NetServerEnum</b> to list all domain controllers only or all servers that run instances of SQL server only.
+     * 
+     * An application combine the bit masks for various server types in the <i>servertype</i> parameter to list several types. For example, a value of SV_TYPE_WORKSTATION | SVTYPE_SERVER (0x00000003) combines the bit masks for SV_TYPE_WORKSTATION (0x00000001) and SV_TYPE_SERVER (0x00000002).
+     * 
+     * If you require more information for a specific server, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetenumresourcea">WNetEnumResource</a> function.
+     * 
+     * No special group membership is required to successfully execute the 
+     * <b>NetServerEnum</b> function.
+     * 
+     * If you specify the value SV_TYPE_LOCAL_LIST_ONLY, the 
+     * <b>NetServerEnum</b> function returns the list of servers that the browser maintains internally. This has meaning only on the master browser (or on a computer that has been the master browser in the past). The master browser is the computer that currently has rights to determine which computers can be servers or workstations on the network.
+     * 
+     * If there are no servers found that match the types specified in the <i>servertype</i> parameter, the 
+     * <b>NetServerEnum</b> function returns the <i>bufptr</i> parameter as <b>NULL</b> and DWORD values pointed to by the <i>entriesread</i> and <i>totalentries</i> parameters are set to zero.
+     * 
+     * The 
+     * <b>NetServerEnum</b> function depends on the browser service being installed and running. If no browser servers are found, then <b>NetServerEnum</b> fails with ERROR_NO_BROWSER_SERVERS_FOUND.
+     * 
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same function you can achieve by calling the network management server functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscomputer">IADsComputer</a>.
      * @param {PWSTR} servername Reserved; must be <b>NULL</b>.
      * @param {Integer} level 
      * @param {Pointer<Pointer<Integer>>} bufptr A pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
@@ -15591,7 +16556,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmserver/nf-lmserver-netserverenum
+     * @see https://learn.microsoft.com/windows/win32/api/lmserver/nf-lmserver-netserverenum
      * @since windows5.0
      */
     static NetServerEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, servertype, domain, resume_handle) {
@@ -15609,6 +16574,12 @@ class NetManagement {
 
     /**
      * The NetServerGetInfo function retrieves current configuration information for the specified server.
+     * @remarks
+     * Only the Administrators or Server Operators local group, or those with Print or Server Operator group membership, can successfully execute the 
+     * <b>NetServerGetInfo</b> function at level 102. No special group membership is required for level 100 or level 101 calls.
+     * 
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management server functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscomputer">IADsComputer</a>.
      * @param {PWSTR} servername Pointer to a string that specifies the name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. 
@@ -15688,7 +16659,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmserver/nf-lmserver-netservergetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/lmserver/nf-lmserver-netservergetinfo
      * @since windows5.0
      */
     static NetServerGetInfo(servername, level, bufptr) {
@@ -15702,6 +16673,194 @@ class NetManagement {
 
     /**
      * The NetServerSetInfo function sets a server's operating parameters; it can set them individually or collectively. The information is stored in a way that allows it to remain in effect after the system has been reinitialized.
+     * @remarks
+     * Only members of the Administrators or Server Operators local group can successfully execute the 
+     * <b>NetServerSetInfo</b> function.
+     * 
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management server functions. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscomputer">IADsComputer</a>.
+     * 
+     * If the 
+     * <b>NetServerSetInfo</b> function returns ERROR_INVALID_PARAMETER, you can use the <i>ParmError</i> parameter to indicate the first member of the server information structure that is invalid. (A server information structure begins with SERVER_INFO_ and its format is specified by the <i>level</i> parameter.) The following table lists the values that can be returned in the <i>ParmError</i> parameter and the corresponding structure member that is in error. (The prefix sv*_ indicates that the member can begin with multiple prefixes, for example, sv101_ or sv402_.)
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Member</th>
+     * </tr>
+     * <tr>
+     * <td>SV_PLATFORM_ID_PARMNUM</td>
+     * <td>sv*_platform_id</td>
+     * </tr>
+     * <tr>
+     * <td>SV_NAME_PARMNUM</td>
+     * <td>sv*_name</td>
+     * </tr>
+     * <tr>
+     * <td>SV_VERSION_MAJOR_PARMNUM</td>
+     * <td>sv*_version_major</td>
+     * </tr>
+     * <tr>
+     * <td>SV_VERSION_MINOR_PARMNUM</td>
+     * <td>sv*_version_minor</td>
+     * </tr>
+     * <tr>
+     * <td>SV_TYPE_PARMNUM</td>
+     * <td>sv*_type</td>
+     * </tr>
+     * <tr>
+     * <td>SV_COMMENT_PARMNUM</td>
+     * <td>sv*_comment</td>
+     * </tr>
+     * <tr>
+     * <td>SV_USERS_PARMNUM</td>
+     * <td>sv*_users</td>
+     * </tr>
+     * <tr>
+     * <td>SV_DISC_PARMNUM</td>
+     * <td>sv*_disc</td>
+     * </tr>
+     * <tr>
+     * <td>SV_HIDDEN_PARMNUM</td>
+     * <td>sv*_hidden</td>
+     * </tr>
+     * <tr>
+     * <td>SV_ANNOUNCE_PARMNUM</td>
+     * <td>sv*_announce</td>
+     * </tr>
+     * <tr>
+     * <td>SV_ANNDELTA_PARMNUM</td>
+     * <td>sv*_anndelta</td>
+     * </tr>
+     * <tr>
+     * <td>SV_USERPATH_PARMNUM</td>
+     * <td>sv*_userpath</td>
+     * </tr>
+     * <tr>
+     * <td>SV_ULIST_MTIME_PARMNUM</td>
+     * <td>sv*_ulist_mtime</td>
+     * </tr>
+     * <tr>
+     * <td>SV_GLIST_MTIME_PARMNUM</td>
+     * <td>sv*_glist_mtime</td>
+     * </tr>
+     * <tr>
+     * <td>SV_ALIST_MTIME_PARMNUM</td>
+     * <td>sv*_alist_mtime</td>
+     * </tr>
+     * <tr>
+     * <td>SV_ALERTS_PARMNUM</td>
+     * <td>sv*_alerts</td>
+     * </tr>
+     * <tr>
+     * <td>SV_SECURITY_PARMNUM</td>
+     * <td>sv*_security</td>
+     * </tr>
+     * <tr>
+     * <td>SV_NUMADMIN_PARMNUM</td>
+     * <td>sv*_numadmin</td>
+     * </tr>
+     * <tr>
+     * <td>SV_LANMASK_PARMNUM</td>
+     * <td>sv*_lanmask</td>
+     * </tr>
+     * <tr>
+     * <td>SV_GUESTACC_PARMNUM</td>
+     * <td>sv*_guestacc</td>
+     * </tr>
+     * <tr>
+     * <td>SV_CHDEVQ_PARMNUM</td>
+     * <td>sv*_chdevq</td>
+     * </tr>
+     * <tr>
+     * <td>SV_CHDEVJOBS_PARMNUM</td>
+     * <td>sv*_chdevjobs</td>
+     * </tr>
+     * <tr>
+     * <td>SV_CONNECTIONS_PARMNUM</td>
+     * <td>sv*_connections</td>
+     * </tr>
+     * <tr>
+     * <td>SV_SHARES_PARMNUM</td>
+     * <td>sv*_shares</td>
+     * </tr>
+     * <tr>
+     * <td>SV_OPENFILES_PARMNUM</td>
+     * <td>sv*_openfiles</td>
+     * </tr>
+     * <tr>
+     * <td>SV_SESSOPENS_PARMNUM</td>
+     * <td>sv*_sessopens</td>
+     * </tr>
+     * <tr>
+     * <td>SV_SESSVCS_PARMNUM</td>
+     * <td>sv*_sessvcs</td>
+     * </tr>
+     * <tr>
+     * <td>SV_SESSREQS_PARMNUM</td>
+     * <td>sv*_sessreqs</td>
+     * </tr>
+     * <tr>
+     * <td>SV_OPENSEARCH_PARMNUM</td>
+     * <td>sv*_opensearch</td>
+     * </tr>
+     * <tr>
+     * <td>SV_ACTIVELOCKS_PARMNUM</td>
+     * <td>sv*_activelocks</td>
+     * </tr>
+     * <tr>
+     * <td>SV_NUMREQBUF_PARMNUM</td>
+     * <td>sv*_numreqbuf</td>
+     * </tr>
+     * <tr>
+     * <td>SV_SIZREQBUF_PARMNUM</td>
+     * <td>sv*_sizreqbuf</td>
+     * </tr>
+     * <tr>
+     * <td>SV_NUMBIGBUF_PARMNUM</td>
+     * <td>sv*_numbigbuf</td>
+     * </tr>
+     * <tr>
+     * <td>SV_NUMFILETASKS_PARMNUM</td>
+     * <td>sv*_numfiletasks</td>
+     * </tr>
+     * <tr>
+     * <td>SV_ALERTSCHED_PARMNUM</td>
+     * <td>sv*_alertsched</td>
+     * </tr>
+     * <tr>
+     * <td>SV_ERRORALERT_PARMNUM</td>
+     * <td>sv*_erroralert</td>
+     * </tr>
+     * <tr>
+     * <td>SV_LOGONALERT_PARMNUM</td>
+     * <td>sv*_logonalert</td>
+     * </tr>
+     * <tr>
+     * <td>SV_ACCESSALERT_PARMNUM</td>
+     * <td>sv*_accessalert</td>
+     * </tr>
+     * <tr>
+     * <td>SV_DISKALERT_PARMNUM</td>
+     * <td>sv*_diskalert</td>
+     * </tr>
+     * <tr>
+     * <td>SV_NETIOALERT_PARMNUM</td>
+     * <td>sv*_netioalert</td>
+     * </tr>
+     * <tr>
+     * <td>SV_MAXAUDITSZ_PARMNUM</td>
+     * <td>sv*_maxauditsz</td>
+     * </tr>
+     * <tr>
+     * <td>SV_SRVHEURISTICS_PARMNUM</td>
+     * <td>sv*_srvheuristics</td>
+     * </tr>
+     * <tr>
+     * <td>SV_TIMESOURCE_PARMNUM</td>
+     * <td>sv*_timesource</td>
+     * </tr>
+     * </table>
      * @param {PWSTR} servername Pointer to a string that specifies the name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Integer>} buf Pointer to a buffer that receives the server information. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
@@ -15761,7 +16920,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmserver/nf-lmserver-netserversetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/lmserver/nf-lmserver-netserversetinfo
      * @since windows5.0
      */
     static NetServerSetInfo(servername, level, buf, ParmError) {
@@ -15776,6 +16935,12 @@ class NetManagement {
 
     /**
      * The NetServerDiskEnum function retrieves a list of disk drives on a server. The function returns an array of three-character strings (a drive letter, a colon, and a terminating null character).
+     * @remarks
+     * Only members of the Administrators or Server Operators local group can successfully execute the 
+     * <b>NetServerDiskEnum</b> function on a remote computer.
+     * 
+     * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same results you can achieve by calling the network management server functions. For more information, see 
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscomputer">IADsComputer</a> interface reference.
      * @param {PWSTR} servername A pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level The level of information required. A value of zero is the only valid level.
      * @param {Pointer<Pointer<Integer>>} bufptr A pointer to the buffer that receives the data. The data is an array of three-character strings (a drive letter, a colon, and a terminating null character). This buffer is allocated by the system and must be freed using the 
@@ -15854,7 +17019,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmserver/nf-lmserver-netserverdiskenum
+     * @see https://learn.microsoft.com/windows/win32/api/lmserver/nf-lmserver-netserverdiskenum
      * @since windows5.0
      */
     static NetServerDiskEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
@@ -15871,6 +17036,20 @@ class NetManagement {
 
     /**
      * The NetServerComputerNameAdd function enumerates the transports on which the specified server is active, and binds the emulated server name to each of the transports.
+     * @remarks
+     * Only members of the Administrators or Server Operators local group can successfully execute the 
+     * <b>NetServerComputerNameAdd</b> function.
+     * 
+     * The server specified by the <i>ServerName</i> parameter continues to support all names it was supporting, and additionally begins to support new names supplied by successful calls to the 
+     * <b>NetServerComputerNameAdd</b> function.
+     * 
+     * Name emulation that results from a call to 
+     * <b>NetServerComputerNameAdd</b> ceases when the server reboots or restarts. To discontinue name emulation set by a previous call to 
+     * <b>NetServerComputerNameAdd</b> without restarting or rebooting, you can call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/nf-lmserver-netservercomputernamedel">NetServerComputerNameDel</a> function.
+     * 
+     * The 
+     * <b>NetServerComputerNameAdd</b> function is typically used when a system administrator replaces a server, but wants to keep the conversion transparent to users.
      * @param {PWSTR} ServerName Pointer to a string that specifies the name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} EmulatedDomainName Pointer to a string that contains the domain name the specified server should use when announcing its presence using the <i>EmulatedServerName</i>. This parameter is optional.
      * @param {PWSTR} EmulatedServerName Pointer to a null-terminated character string that contains the emulated name the server should begin supporting in addition to the name specified by the <i>ServerName</i> parameter.
@@ -15940,7 +17119,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmserver/nf-lmserver-netservercomputernameadd
+     * @see https://learn.microsoft.com/windows/win32/api/lmserver/nf-lmserver-netservercomputernameadd
      * @since windows5.0
      */
     static NetServerComputerNameAdd(ServerName, EmulatedDomainName, EmulatedServerName) {
@@ -15954,6 +17133,9 @@ class NetManagement {
 
     /**
      * The NetServerComputerNameDel function causes the specified server to cease supporting the emulated server name set by a previous call to the NetServerComputerNameAdd function. The function does this by unbinding network transports from the emulated name.
+     * @remarks
+     * Only members of the Administrators or Server Operators local group can successfully execute the 
+     * <b>NetServerComputerNameDel</b> function.
      * @param {PWSTR} ServerName Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} EmulatedServerName Pointer to a null-terminated character string that contains the emulated name the server should stop supporting. The server continues to support all other server names it was supporting.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
@@ -16010,7 +17192,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmserver/nf-lmserver-netservercomputernamedel
+     * @see https://learn.microsoft.com/windows/win32/api/lmserver/nf-lmserver-netservercomputernamedel
      * @since windows5.0
      */
     static NetServerComputerNameDel(ServerName, EmulatedServerName) {
@@ -16023,6 +17205,12 @@ class NetManagement {
 
     /**
      * The NetServerTransportAdd function binds the server to the transport protocol.
+     * @remarks
+     * Only members of the Administrators or Server Operators local group can successfully execute the 
+     * <b>NetServerTransportAdd</b> function.
+     * 
+     * If you add a transport protocol to a server using a call to the 
+     * <b>NetServerTransportAdd</b> function, the connection will not remain after the server reboots or restarts.
      * @param {PWSTR} servername A pointer to a string that specifies the name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level Specifies the information level of the data. This parameter can be the following value. 
      * 
@@ -16111,7 +17299,7 @@ class NetManagement {
      * <td width="60%">
      * A parameter is invalid. 
      * 
-     * This error is returned if the <b>svti0_transportname</b> or <b>svti0_transportaddress</b> member in the <a href="/windows/desktop/api/lmserver/ns-lmserver-server_transport_info_0">SERVER_TRANSPORT_INFO_0</a> structure pointed to by the <i>bufptr</i> parameter is <b>NULL</b>. This error is also returned if the <b>svti0_transportaddresslength</b> member in the <b>SERVER_TRANSPORT_INFO_0</b> structure pointed to by the <i>bufptr</i> parameter is zero or larger than MAX_PATH (defined in the Windef.h header file). 
+     * This error is returned if the <b>svti0_transportname</b> or <b>svti0_transportaddress</b> member in the <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/ns-lmserver-server_transport_info_0">SERVER_TRANSPORT_INFO_0</a> structure pointed to by the <i>bufptr</i> parameter is <b>NULL</b>. This error is also returned if the <b>svti0_transportaddresslength</b> member in the <b>SERVER_TRANSPORT_INFO_0</b> structure pointed to by the <i>bufptr</i> parameter is zero or larger than MAX_PATH (defined in the Windef.h header file). 
      * 
      * This error is also returned for other invalid parameters.
      * 
@@ -16129,7 +17317,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmserver/nf-lmserver-netservertransportadd
+     * @see https://learn.microsoft.com/windows/win32/api/lmserver/nf-lmserver-netservertransportadd
      * @since windows5.0
      */
     static NetServerTransportAdd(servername, level, bufptr) {
@@ -16143,6 +17331,28 @@ class NetManagement {
 
     /**
      * The NetServerTransportAddEx function binds the specified server to the transport protocol.
+     * @remarks
+     * Only members of the Administrators or Server Operators local group can successfully execute the 
+     * <b>NetServerTransportAddEx</b> function.
+     * 
+     * If you add a transport protocol to a server using a call to the 
+     * <b>NetServerTransportAddEx</b> function, the connection will not remain after the server reboots or restarts.
+     * 
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/nf-lmserver-netservercomputernameadd">NetServerComputerNameAdd</a> function is a utility function. It combines the features of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/nf-lmserver-netservertransportenum">NetServerTransportEnum</a> function and the 
+     * <b>NetServerTransportAddEx</b> function, allowing you to specify an emulated server name.
+     * 
+     * On Windows Server 2008  and Windows Vista with Service Pack 1 (SP1), every name registered with the Windows remote file server (SRV) is designated as either a scoped name or a non-scoped name.  Every share that is added to the system will then either be attached to all of the non-scoped names, or to a single scoped name.  Applications that wish to use the scoping features are responsible for both registering the new name as a scoped endpoint and then creating the shares with an appropriate scope. In this way, legacy uses of the Network Management and Network Share Management functions are not affected in any way since they continue to register shares and names as non-scoped names.  
+     * 
+     * A scoped endpoint is created by calling the <b>NetServerTransportAddEx</b> function with the <i>level</i> parameter set to 2 and the <i>bufptr</i> parameter pointed to a <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/ns-lmserver-server_transport_info_2">SERVER_TRANSPORT_INFO_2</a> structure with the <b>SVTI2_SCOPED_NAME</b> bit value set in <b>svti2_flags</b> member. A scoped endpoint is also created by calling the <b>NetServerTransportAddEx</b> function with the <i>level</i> parameter set to 3 and the <i>bufptr</i> parameter pointed to a <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/ns-lmserver-server_transport_info_3">SERVER_TRANSPORT_INFO_3</a> structure with the <b>SVTI2_SCOPED_NAME</b> bit value set in <b>svti3_flags</b> member. 
+     * 
+     * When the <b>SVTI2_SCOPED_NAME</b> bit value is set for a transport, then shares can be added with a corresponding server name (the <b>shi503_servername</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/ns-lmshare-share_info_503">SHARE_INFO_503</a> structure) in a scoped fashion using the <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netshareadd">NetShareAdd</a> function.  If there is no transport registered with the <b>SVTI2_SCOPED_NAME</b> bit value and the name provided in <b>shi503_servername</b> member, then the share add in a scoped fashion will not succeed.
+     * 
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netshareadd">NetShareAdd</a> function is used to add a scoped share on a remote server specified in the <i>servername</i> parameter. The remote server specified in the <b>shi503_servername</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/ns-lmshare-share_info_503">SHARE_INFO_503</a> passed in the <i>bufptr</i> parameter must have been bound to a transport protocol using the <b>NetServerTransportAddEx</b> function as a scoped endpoint. The <b>SVTI2_SCOPED_NAME</b> flag must have been specified in the <b>shi503_servername</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/ns-lmserver-server_transport_info_2">SERVER_TRANSPORT_INFO_2</a> or <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/ns-lmserver-server_transport_info_3">SERVER_TRANSPORT_INFO_3</a> structure for the transport protocol.  The <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharedelex">NetShareDelEx</a> function is used to delete a scoped share.  The <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharegetinfo">NetShareGetInfo</a> and <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharesetinfo">NetShareSetInfo</a> functions are to used to get and set information on a scoped share.  
+     * 
+     * Scoped endpoints are generally used by the cluster namespace.
      * @param {PWSTR} servername A pointer to a string that specifies the name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Integer>} bufptr A pointer to the buffer that contains the data. The format of this data depends on the value of the <i>level</i> parameter. 
@@ -16211,9 +17421,9 @@ class NetManagement {
      * <td width="60%">
      * A parameter is invalid. 
      * 
-     * This error is returned if the transport name or transport address member in the <a href="/windows/desktop/api/lmserver/ns-lmserver-server_transport_info_0">SERVER_TRANSPORT_INFO_0</a>, <a href="/windows/desktop/api/lmserver/ns-lmserver-server_transport_info_1">SERVER_TRANSPORT_INFO_1</a>, 
-     * <a href="/windows/desktop/api/lmserver/ns-lmserver-server_transport_info_2">SERVER_TRANSPORT_INFO_2</a>, or 
-     * <a href="/windows/desktop/api/lmserver/ns-lmserver-server_transport_info_3">SERVER_TRANSPORT_INFO_3</a> structure pointed to by the <i>bufptr</i> parameter is <b>NULL</b>. This error is also returned if the transport address length member in the <b>SERVER_TRANSPORT_INFO_0</b>, <b>SERVER_TRANSPORT_INFO_1</b>, 
+     * This error is returned if the transport name or transport address member in the <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/ns-lmserver-server_transport_info_0">SERVER_TRANSPORT_INFO_0</a>, <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/ns-lmserver-server_transport_info_1">SERVER_TRANSPORT_INFO_1</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/ns-lmserver-server_transport_info_2">SERVER_TRANSPORT_INFO_2</a>, or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/ns-lmserver-server_transport_info_3">SERVER_TRANSPORT_INFO_3</a> structure pointed to by the <i>bufptr</i> parameter is <b>NULL</b>. This error is also returned if the transport address length member in the <b>SERVER_TRANSPORT_INFO_0</b>, <b>SERVER_TRANSPORT_INFO_1</b>, 
      * <b>SERVER_TRANSPORT_INFO_2</b>, or 
      * <b>SERVER_TRANSPORT_INFO_3</b> structure pointed to by the <i>bufptr</i> parameter is zero or larger than MAX_PATH (defined in the <i>Windef.h</i> header file). This error is also returned if the flags member of the <b>SERVER_TRANSPORT_INFO_2</b>, or 
      * <b>SERVER_TRANSPORT_INFO_3</b> structure pointed to by the <i>bufptr</i> parameter contains an illegal value.
@@ -16234,7 +17444,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmserver/nf-lmserver-netservertransportaddex
+     * @see https://learn.microsoft.com/windows/win32/api/lmserver/nf-lmserver-netservertransportaddex
      * @since windows5.0
      */
     static NetServerTransportAddEx(servername, level, bufptr) {
@@ -16248,6 +17458,9 @@ class NetManagement {
 
     /**
      * The NetServerTransportDel function unbinds (or disconnects) the transport protocol from the server. Effectively, the server can no longer communicate with clients using the specified transport protocol (such as TCP or XNS).
+     * @remarks
+     * Only members of the Administrators or Server Operators local group can successfully execute the 
+     * <b>NetServerTransportDel</b> function.
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Integer>} bufptr Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
@@ -16317,7 +17530,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmserver/nf-lmserver-netservertransportdel
+     * @see https://learn.microsoft.com/windows/win32/api/lmserver/nf-lmserver-netservertransportdel
      * @since windows5.0
      */
     static NetServerTransportDel(servername, level, bufptr) {
@@ -16331,6 +17544,8 @@ class NetManagement {
 
     /**
      * The NetServerTransportEnum function supplies information about transport protocols that are managed by the server.
+     * @remarks
+     * Only Authenticated Users can successfully call this function.<b>Windows XP/2000:  </b>No special group membership is required to successfully execute this function.
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
@@ -16395,7 +17610,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmserver/nf-lmserver-netservertransportenum
+     * @see https://learn.microsoft.com/windows/win32/api/lmserver/nf-lmserver-netservertransportenum
      * @since windows5.0
      */
     static NetServerTransportEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
@@ -16412,13 +17627,13 @@ class NetManagement {
 
     /**
      * The NetServiceControl function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the service functions.
-     * @param {PWSTR} servername TBD
-     * @param {PWSTR} service TBD
-     * @param {Integer} opcode TBD
-     * @param {Integer} arg TBD
-     * @param {Pointer<Pointer<Integer>>} bufptr TBD
+     * @param {PWSTR} servername 
+     * @param {PWSTR} service 
+     * @param {Integer} opcode 
+     * @param {Integer} arg 
+     * @param {Pointer<Pointer<Integer>>} bufptr 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//lmsvc/nf-lmsvc-netservicecontrol
+     * @see https://learn.microsoft.com/windows/win32/NetMgmt/netservicecontrol
      */
     static NetServiceControl(servername, service, opcode, arg, bufptr) {
         servername := servername is String ? StrPtr(servername) : servername
@@ -16432,15 +17647,15 @@ class NetManagement {
 
     /**
      * The NetServiceEnum function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the service functions.
-     * @param {PWSTR} servername TBD
-     * @param {Integer} level TBD
-     * @param {Pointer<Pointer<Integer>>} bufptr TBD
-     * @param {Integer} prefmaxlen TBD
-     * @param {Pointer<Integer>} entriesread TBD
-     * @param {Pointer<Integer>} totalentries TBD
-     * @param {Pointer<Integer>} resume_handle TBD
+     * @param {PWSTR} servername 
+     * @param {Integer} level 
+     * @param {Pointer<Pointer<Integer>>} bufptr 
+     * @param {Integer} prefmaxlen 
+     * @param {Pointer<Integer>} entriesread 
+     * @param {Pointer<Integer>} totalentries 
+     * @param {Pointer<Integer>} resume_handle 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//lmsvc/nf-lmsvc-netserviceenum
+     * @see https://learn.microsoft.com/windows/win32/NetMgmt/netserviceenum
      */
     static NetServiceEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
         servername := servername is String ? StrPtr(servername) : servername
@@ -16456,12 +17671,12 @@ class NetManagement {
 
     /**
      * The NetServiceGetInfo function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the service functions.
-     * @param {PWSTR} servername TBD
-     * @param {PWSTR} service TBD
-     * @param {Integer} level TBD
-     * @param {Pointer<Pointer<Integer>>} bufptr TBD
+     * @param {PWSTR} servername 
+     * @param {PWSTR} service 
+     * @param {Integer} level 
+     * @param {Pointer<Pointer<Integer>>} bufptr 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//lmsvc/nf-lmsvc-netservicegetinfo
+     * @see https://learn.microsoft.com/windows/win32/NetMgmt/netservicegetinfo
      */
     static NetServiceGetInfo(servername, service, level, bufptr) {
         servername := servername is String ? StrPtr(servername) : servername
@@ -16475,13 +17690,13 @@ class NetManagement {
 
     /**
      * The NetServiceInstall function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the service functions.
-     * @param {PWSTR} servername TBD
-     * @param {PWSTR} service TBD
-     * @param {Integer} argc TBD
-     * @param {Pointer<PWSTR>} argv TBD
-     * @param {Pointer<Pointer<Integer>>} bufptr TBD
+     * @param {PWSTR} servername 
+     * @param {PWSTR} service 
+     * @param {Integer} argc 
+     * @param {Pointer<PWSTR>} argv 
+     * @param {Pointer<Pointer<Integer>>} bufptr 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//lmsvc/nf-lmsvc-netserviceinstall
+     * @see https://learn.microsoft.com/windows/win32/NetMgmt/netserviceinstall
      */
     static NetServiceInstall(servername, service, argc, argv, bufptr) {
         servername := servername is String ? StrPtr(servername) : servername
@@ -16496,6 +17711,56 @@ class NetManagement {
 
     /**
      * The NetUseAdd function establishes a connection between the local computer and a remote server.
+     * @remarks
+     * You can also use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetaddconnection2a">WNetAddConnection2</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetaddconnection3a">WNetAddConnection3</a> functions to redirect a local device to a network resource.
+     * 
+     * No special group membership is required to call the 
+     * <b>NetUseAdd</b> function. This function cannot be executed on a remote server except in cases of downlevel compatibility.
+     * 
+     * This function applies only to the Server Message Block (LAN Manager Workstation) client. The <b>NetUseAdd</b> function does not support Distributed File System (DFS) shares. To add a share using a different network provider (WebDAV or a DFS share, for example), use the <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetaddconnection2a">WNetAddConnection2</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetaddconnection3a">WNetAddConnection3</a> function.
+     * 
+     * 
+     * If the 
+     * <b>NetUseAdd</b> function returns ERROR_INVALID_PARAMETER, you can use the <i>ParmError</i> parameter to indicate the first member of the information structure that is invalid. (The information structure begins with USE_INFO_ and its format is specified by the <i>Level</i> parameter.) The following table lists the values that can be returned in the <i>ParmError</i> parameter and the corresponding structure member that is in error. (The prefix ui<i>*</i>_ indicates that the member can begin with multiple prefixes, for example, ui1_ or ui2_.)
+     * 
+     * <table>
+     * <tr>
+     * <th>Constant</th>
+     * <th>Value</th>
+     * <th>Member</th>
+     * </tr>
+     * <tr>
+     * <td>USE_LOCAL_PARMNUM</td>
+     * <td>1</td>
+     * <td>ui<i>*</i>_local</td>
+     * </tr>
+     * <tr>
+     * <td>USE_REMOTE_PARMNUM</td>
+     * <td>2</td>
+     * <td>ui<i>*</i>_remote</td>
+     * </tr>
+     * <tr>
+     * <td>USE_PASSWORD_PARMNUM</td>
+     * <td>3</td>
+     * <td>ui<i>*</i>_password</td>
+     * </tr>
+     * <tr>
+     * <td>USE_ASGTYPE_PARMNUM</td>
+     * <td>4</td>
+     * <td>ui<i>*</i>_asg_type</td>
+     * </tr>
+     * <tr>
+     * <td>USE_USERNAME_PARMNUM</td>
+     * <td>5</td>
+     * <td>ui<i>*</i>_username</td>
+     * </tr>
+     * <tr>
+     * <td>USE_DOMAINNAME_PARMNUM</td>
+     * <td>6</td>
+     * <td>ui<i>*</i>_domainname</td>
+     * </tr>
+     * </table>
      * @param {Pointer<Integer>} servername The UNC name of the computer on which to execute this function. If this parameter is <b>NULL</b>, then the local computer is used. If the <i>UncServerName</i> parameter specified is a remote computer, then the remote computer must support remote RPC calls using the legacy Remote Access Protocol mechanism. 
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
@@ -16506,8 +17771,8 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//lmuse/nf-lmuse-netuseadd
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/lmuse/nf-lmuse-netuseadd
      * @since windows5.0
      */
     static NetUseAdd(servername, LevelFlags, buf, parm_err) {
@@ -16521,6 +17786,12 @@ class NetManagement {
 
     /**
      * The NetUseDel function ends a connection to a shared resource.
+     * @remarks
+     * The <b>NetUseDel</b> function applies only to the Server Message Block (LAN Manager Workstation) client. The <b>NetUseDel</b> function does not support Distributed File System (DFS) shares or other network file systems. To terminate a connection to a share using a different network provider (WebDAV or a DFS share, for example), use the <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetcancelconnection2a">WNetCancelConnection2</a> function.
+     * 
+     * 
+     * No special group membership is required to call the 
+     * <b>NetUseDel</b> function. This function cannot be executed on a remote server except in cases of downlevel compatibility.
      * @param {PWSTR} UncServerName The UNC name of the computer on which to execute this function. If this is parameter is <b>NULL</b>, then the local computer is used. 
      * 
      * If the <i>UncServerName</i> parameter specified is a remote computer, then the remote computer must support remote RPC calls using the legacy Remote Access Protocol mechanism. 
@@ -16533,8 +17804,8 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//lmuse/nf-lmuse-netusedel
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/lmuse/nf-lmuse-netusedel
      * @since windows5.0
      */
     static NetUseDel(UncServerName, UseName, ForceLevelFlags) {
@@ -16547,6 +17818,14 @@ class NetManagement {
 
     /**
      * The NetUseEnum function lists all current connections between the local computer and resources on remote servers.
+     * @remarks
+     * No special group membership is required to call the 
+     * <b>NetUseEnum</b> function. This function cannot be executed on a remote server except in cases of downlevel compatibility using the legacy Remote Access Protocol.
+     * 
+     * To retrieve information about one network connection, you can call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmuse/nf-lmuse-netusegetinfo">NetUseGetInfo</a> function.
+     * 
+     * This function applies only to the Server Message Block (LAN Manager Workstation) client. The <b>NetUseEnum</b> function does not support Distributed File System (DFS) shares. To enumerate shares using a different network provider (WebDAV or a DFS share, for example), use the <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetopenenuma">WNetOpenEnum</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetenumresourcea">WNetEnumResource</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetcloseenum">WNetCloseEnum</a> functions.
      * @param {PWSTR} UncServerName The UNC name of the computer on which to execute this function. If this is parameter is <b>NULL</b>, then the local computer is used. If the <i>UncServerName</i> parameter specified is a remote computer, then the remote computer must support remote RPC calls using the legacy Remote Access Protocol mechanism.  
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
@@ -16562,7 +17841,7 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
      * 
      * <table>
      * <tr>
@@ -16610,12 +17889,12 @@ class NetManagement {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmuse/nf-lmuse-netuseenum
+     * @see https://learn.microsoft.com/windows/win32/api/lmuse/nf-lmuse-netuseenum
      * @since windows5.0
      */
     static NetUseEnum(UncServerName, LevelFlags, BufPtr, PreferedMaximumSize, EntriesRead, TotalEntries, ResumeHandle) {
@@ -16632,6 +17911,14 @@ class NetManagement {
 
     /**
      * The NetUseGetInfo function retrieves information about a connection to a shared resource.
+     * @remarks
+     * No special group membership is required to call the 
+     * <b>NetUseGetInfo</b> function. This function cannot be executed on a remote server except in cases of downlevel compatibility.
+     * 
+     * To list all current connections between the local computer and resources on remote servers, you can call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmuse/nf-lmuse-netuseenum">NetUseEnum</a> function.
+     * 
+     * This function applies only to the Server Message Block (LAN Manager Workstation) client. The <b>NetUseGetInfo</b> function does not support Distributed File System (DFS) shares. To retrieve information for a share using a different network provider (WebDAV or a DFS share, for example), use the <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetconnectiona">WNetGetConnection</a> function.
      * @param {PWSTR} UncServerName The UNC name of computer on which to execute this function. If this is parameter is <b>NULL</b>, then the local computer is used. If the <i>UncServerName</i> parameter specified is a remote computer, then the remote computer must support remote RPC calls using the legacy Remote Access Protocol mechanism. 
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
@@ -16646,8 +17933,8 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//lmuse/nf-lmuse-netusegetinfo
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/lmuse/nf-lmuse-netusegetinfo
      * @since windows5.0
      */
     static NetUseGetInfo(UncServerName, UseName, LevelFlags, bufptr) {
@@ -16662,6 +17949,16 @@ class NetManagement {
 
     /**
      * The NetWkstaGetInfo function returns information about the configuration of a workstation.
+     * @remarks
+     * <b>Windows Server 2003 and Windows XP:  </b> If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the ACL for the securable object. To enable anonymous access, the user Anonymous must be a member of the "Pre-Windows 2000 compatible access" group. This is because anonymous tokens do not include the Everyone group SID by default. If you call this function on a member server or workstation, all authenticated users can view the information. Anonymous access is also permitted if the EveryoneIncludesAnonymous policy setting allows anonymous access. Anonymous access is always permitted for level 100. If you call this function at level 101, authenticated users can view the information. Members of the Administrators, and the Server, System and Print Operator local groups can view information at levels 102 and 502. For more information about restricting anonymous access, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * <b>Windows 2000:  </b>If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the securable object. The default ACL permits all authenticated users and members of the "
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/allowing-anonymous-access">Pre-Windows 2000 compatible access</a>" group to view the information. By default, the "Pre-Windows 2000 compatible access" group includes Everyone as a member. This enables anonymous access to the information if the system allows anonymous access. If you call this function on a member server or workstation, all authenticated users can view the information. Anonymous access is also permitted if the RestrictAnonymous policy setting allows anonymous access.
+     * 
+     * To compile an application that uses this function, define the _WIN32_WINNT macro as 0x0400 or later. For more information,see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
@@ -16700,7 +17997,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmwksta/nf-lmwksta-netwkstagetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/lmwksta/nf-lmwksta-netwkstagetinfo
      * @since windows5.0
      */
     static NetWkstaGetInfo(servername, level, bufptr) {
@@ -16714,6 +18011,149 @@ class NetManagement {
 
     /**
      * The NetWkstaSetInfo function configures a workstation with information that remains in effect after the system has been reinitialized.
+     * @remarks
+     * Only members of the Administrators group can successfully execute the 
+     * <b>NetWkstaSetInfo</b> function on a remote server.
+     * 
+     * The
+     * 				<b>NetWkstaSetInfo</b> function calls the workstation service on the local system or a remote system. Only a limited number of members of the <a href="https://docs.microsoft.com/windows/desktop/api/lmwksta/ns-lmwksta-wksta_info_502">WKSTA_INFO_502</a> structure can actually be changed using the <b>NetWkstaSetInfo</b> function. No errors are returned if a member is set that is ignored by the workstation service. The workstation service is primarily configured using settings in the registry. 
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/lmwksta/nf-lmwksta-netwkstausersetinfo">NetWkstaUserSetInfo</a> function can be used instead of the <b>NetWkstaSetInfo</b> function to set configuration information on the local system. The <b>NetWkstaUserSetInfo</b> function calls the Local Security Authority (LSA). 
+     * 
+     * If the 
+     * <b>NetWkstaSetInfo</b> function returns ERROR_INVALID_PARAMETER, you can use the <i>parm_err</i> parameter to indicate the first member of the workstation information structure that is invalid. (A workstation information structure begins with WKSTA_INFO_ and its format is specified by the <i>level</i> parameter.) The following table lists the values that can be returned in the <i>parm_err</i> parameter and the corresponding structure member that is in error. (The prefix wki*_ indicates that the member can begin with multiple prefixes, for example, wki100_ or wki402_.)
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Member</th>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_PLATFORM_ID_PARMNUM</td>
+     * <td>wki*_platform_id</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_COMPUTERNAME_PARMNUM</td>
+     * <td>wki*_computername</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_LANGROUP_PARMNUM</td>
+     * <td>wki*_langroup</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_VER_MAJOR_PARMNUM</td>
+     * <td>wki*_ver_major</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_VER_MINOR_PARMNUM</td>
+     * <td>wki*_ver_minor</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_LOGGED_ON_USERS_PARMNUM</td>
+     * <td>wki*_logged_on_users</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_LANROOT_PARMNUM</td>
+     * <td>wki*_lanroot</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_LOGON_DOMAIN_PARMNUM</td>
+     * <td>wki*_logon_domain</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_LOGON_SERVER_PARMNUM</td>
+     * <td>wki*_logon_server</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_CHARWAIT_PARMNUM</td>
+     * <td>wki*_char_wait</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_CHARTIME_PARMNUM</td>
+     * <td>wki*_collection_time</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_CHARCOUNT_PARMNUM</td>
+     * <td>wki*_maximum_collection_count</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_KEEPCONN_PARMNUM</td>
+     * <td>wki*_keep_conn</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_KEEPSEARCH_PARMNUM</td>
+     * <td>wki*_keep_search</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_MAXCMDS_PARMNUM</td>
+     * <td>wki*_max_cmds</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_NUMWORKBUF_PARMNUM</td>
+     * <td>wki*_num_work_buf</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_MAXWRKCACHE_PARMNUM</td>
+     * <td>wki*_max_wrk_cache</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_SESSTIMEOUT_PARMNUM</td>
+     * <td>wki*_sess_timeout</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_SIZERROR_PARMNUM</td>
+     * <td>wki*_siz_error</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_NUMALERTS_PARMNUM</td>
+     * <td>wki*_num_alerts</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_NUMSERVICES_PARMNUM</td>
+     * <td>wki*_num_services</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_ERRLOGSZ_PARMNUM</td>
+     * <td>wki*_errlog_sz</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_PRINTBUFTIME_PARMNUM</td>
+     * <td>wki*_print_buf_time</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_NUMCHARBUF_PARMNU</td>
+     * <td>wki*_num_char_buf</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_SIZCHARBUF_PARMNUM</td>
+     * <td>wki*_siz_char_buf</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_WRKHEURISTICS_PARMNUM</td>
+     * <td>wki*_wrk_heuristics</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_MAILSLOTS_PARMNUM</td>
+     * <td>wki*_mailslots</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_MAXTHREADS_PARMNUM</td>
+     * <td>wki*_max_threads</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_SIZWORKBUF_PARMNUM</td>
+     * <td>wki*_siz_work_buf</td>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_NUMDGRAMBUF_PARMNUM</td>
+     * <td>wki*_num_dgram_buf</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * The workstation service parameter settings are stored in the registry, not in the LanMan.ini file used previously by LAN Manager. The 
+     * <b>NetWkstaSetInfo</b> function does not change the values in the LanMan.ini file. When the workstation service is stopped and restarted, workstation parameters are reset to the default values specified in the registry (unless they are overwritten by command-line parameters). Values set by previous calls to 
+     * <b>NetWkstaSetInfo</b> can be overwritten when workstation parameters are reset.
      * @param {PWSTR} servername A pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Integer>} buffer_R 
@@ -16750,7 +18190,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmwksta/nf-lmwksta-netwkstasetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/lmwksta/nf-lmwksta-netwkstasetinfo
      * @since windows5.0
      */
     static NetWkstaSetInfo(servername, level, buffer_R, parm_err) {
@@ -16765,6 +18205,9 @@ class NetManagement {
 
     /**
      * The NetWkstaUserGetInfo function returns information about the currently logged-on user. This function must be called in the context of the logged-on user.
+     * @remarks
+     * The 
+     * <b>NetWkstaUserGetInfo</b> function only works locally.
      * @param {PWSTR} reserved This parameter must be set to <b>NULL</b>.
      * @param {Integer} level 
      * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>bufptr</i> parameter. This buffer is allocated by the system and must be freed using the 
@@ -16814,7 +18257,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmwksta/nf-lmwksta-netwkstausergetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/lmwksta/nf-lmwksta-netwkstausergetinfo
      * @since windows5.0
      */
     static NetWkstaUserGetInfo(reserved, level, bufptr) {
@@ -16828,6 +18271,27 @@ class NetManagement {
 
     /**
      * The NetWkstaUserSetInfo function sets the user-specific information about the configuration elements for a workstation.
+     * @remarks
+     * The 
+     * <b>NetWkstaUserSetInfo</b> function only works locally. Administrator group membership is required.
+     * 
+     * Domain names in the <b>wkui1101_oth_domains</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmwksta/ns-lmwksta-wksta_user_info_1101">WKSTA_USER_INFO_1101</a> structure are separated by spaces. An empty list is valid. A <b>NULL</b> pointer means to leave the member unmodified. The <b>wkui1101_oth_domains</b> member cannot be set with MS-DOS. When setting this element, 
+     * <b>NetWkstaUserSetInfo</b> rejects the request if the name list was invalid or if a name could not be added to one or more of the network adapters managed by the system.
+     * 
+     * If the 
+     * <b>NetWkstaUserSetInfo</b> function returns ERROR_INVALID_PARAMETER, you can use the <i>parm_err</i> parameter to indicate the member of the workstation user information structure that is invalid. (A workstation user information structure begins with WKSTA_USER_INFO_ and its format is specified by the <i>level</i> parameter.) The following table lists the value that can be returned in the <i>parm_err</i> parameter and the corresponding structure member that is in error. (The prefix wkui*_ indicates that the member can begin with multiple prefixes, for example, wkui0_ or wkui1_.)
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Member</th>
+     * </tr>
+     * <tr>
+     * <td>WKSTA_OTH_DOMAINS_PARMNUM</td>
+     * <td>wkui*_oth_domains</td>
+     * </tr>
+     * </table>
      * @param {PWSTR} reserved This parameter must be set to zero.
      * @param {Integer} level 
      * @param {Pointer<Integer>} buf Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
@@ -16865,7 +18329,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmwksta/nf-lmwksta-netwkstausersetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/lmwksta/nf-lmwksta-netwkstausersetinfo
      * @since windows5.0
      */
     static NetWkstaUserSetInfo(reserved, level, buf, parm_err) {
@@ -16880,6 +18344,20 @@ class NetManagement {
 
     /**
      * The NetWkstaUserEnum function lists information about all users currently logged on to the workstation. This list includes interactive, service and batch logons.
+     * @remarks
+     * Note that since the 
+     * <b>NetWkstaUserEnum</b> function lists entries for service and batch logons, as well as for interactive logons, the function can return entries for users who have logged off a workstation. This can occur, for example, when a user calls a service that impersonates the user. In this instance, 
+     * <b>NetWkstaUserEnum</b> returns an entry for the user until the service stops impersonating the user.
+     * 
+     * <b>Windows Server 2003 and Windows XP:  </b>If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the ACL for the securable object. To enable anonymous access, the user Anonymous must be a member of the "Pre-Windows 2000 compatible access" group. This is because anonymous tokens do not include the Everyone group SID by default. If you call this function on a member server or workstation, all authenticated users can view the information. Anonymous access is also permitted if the RestrictAnonymous policy setting permits anonymous access. If the RestrictAnonymous policy setting does not permit anonymous access, only an administrator can successfully execute the function. Members of the Administrators, and the Server, System and Print Operator local groups can also view information. For more information about restricting anonymous access, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs, ACEs, and access tokens, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
+     * 
+     * <b>Windows 2000:  </b>If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the securable object. The default ACL permits all authenticated users and members of the "
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/allowing-anonymous-access">Pre-Windows 2000 compatible access</a>" group to view the information. By default, the "Pre-Windows 2000 compatible access" group includes Everyone as a member. This enables anonymous access to the information if the system allows anonymous access. If you call this function on a member server or workstation, all authenticated users can view the information. Anonymous access is also permitted if the RestrictAnonymous policy setting allows anonymous access.
+     * 
+     * To compile an application that uses this function, define the _WIN32_WINNT macro as 0x0400 or later. For more information,see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Pointer<Integer>>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
@@ -16933,7 +18411,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmwksta/nf-lmwksta-netwkstauserenum
+     * @see https://learn.microsoft.com/windows/win32/api/lmwksta/nf-lmwksta-netwkstauserenum
      * @since windows5.0
      */
     static NetWkstaUserEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
@@ -16949,7 +18427,29 @@ class NetManagement {
     }
 
     /**
-     * Not supported.
+     * Not supported. (NetWkstaTransportAdd)
+     * @remarks
+     * Only members of the Administrators local group can successfully execute the 
+     * <b>NetWkstaTransportAdd</b> function.
+     * 
+     * If the 
+     * <b>NetWkstaTransportAdd</b> function returns ERROR_INVALID_PARAMETER, you can use the <i>parm_err</i> parameter to indicate the member of the 
+     * <b>WKSTA_TRANSPORT_INFO_0</b> structure that is invalid. The following table lists the values that can be returned in the <i>parm_err</i> parameter and the corresponding structure member that is in error.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Member</th>
+     * </tr>
+     * <tr>
+     * <td>TRANSPORT_QUALITYOFSERVICE_PARMNUM</td>
+     * <td><b>wkti0_quality_of_service</b></td>
+     * </tr>
+     * <tr>
+     * <td>TRANSPORT_NAME_PARMNUM</td>
+     * <td><b>wkti0_transport_name</b></td>
+     * </tr>
+     * </table>
      * @param {Pointer<Integer>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. 
      * 
      * 
@@ -17021,7 +18521,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmwksta/nf-lmwksta-netwkstatransportadd
+     * @see https://learn.microsoft.com/windows/win32/api/lmwksta/nf-lmwksta-netwkstatransportadd
      */
     static NetWkstaTransportAdd(servername, level, buf, parm_err) {
         servernameMarshal := servername is VarRef ? "char*" : "ptr"
@@ -17033,7 +18533,10 @@ class NetManagement {
     }
 
     /**
-     * Not supported.
+     * Not supported. (NetWkstaTransportDel)
+     * @remarks
+     * Only members of the Administrators local group can successfully execute the 
+     * <b>NetWkstaTransportDel</b> function.
      * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. 
      * 
      * 
@@ -17083,7 +18586,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmwksta/nf-lmwksta-netwkstatransportdel
+     * @see https://learn.microsoft.com/windows/win32/api/lmwksta/nf-lmwksta-netwkstatransportdel
      */
     static NetWkstaTransportDel(servername, transportname, ucond) {
         servername := servername is String ? StrPtr(servername) : servername
@@ -17095,6 +18598,9 @@ class NetManagement {
 
     /**
      * The NetWkstaTransportEnum function supplies information about transport protocols that are managed by the redirector, which is the software on the client computer that generates file requests to the server computer.
+     * @remarks
+     * No special group membership is required to successfully execute the 
+     * <b>NetWkstaTransportEnum</b> function.
      * @param {Pointer<Integer>} servername A pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level The level of information requested for the data. This parameter can be the following value. 
      * 
@@ -17199,7 +18705,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmwksta/nf-lmwksta-netwkstatransportenum
+     * @see https://learn.microsoft.com/windows/win32/api/lmwksta/nf-lmwksta-netwkstatransportenum
      * @since windows5.0
      */
     static NetWkstaTransportEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
@@ -17215,13 +18721,19 @@ class NetManagement {
 
     /**
      * The NetApiBufferAllocate function allocates memory from the heap. Use this function only when compatibility with the NetApiBufferFree function is required. Otherwise, use the memory management functions.
+     * @remarks
+     * No special group membership is required to successfully execute the ApiBuffer functions.
+     * 
+     * For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
      * @param {Integer} ByteCount Number of bytes to be allocated.
      * @param {Pointer<Pointer<Void>>} Buffer_R 
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//lmapibuf/nf-lmapibuf-netapibufferallocate
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/lmapibuf/nf-lmapibuf-netapibufferallocate
      * @since windows5.0
      */
     static NetApiBufferAllocate(ByteCount, Buffer_R) {
@@ -17233,12 +18745,32 @@ class NetManagement {
 
     /**
      * The NetApiBufferFree function frees the memory that the NetApiBufferAllocate function allocates. Applications should also call NetApiBufferFree to free the memory that other network management functions use internally to return information.
+     * @remarks
+     * The
+     * 				<b>NetApiBufferFree</b> function is used to free memory used by network management functions. This function is used in two cases:
+     * 
+     * 
+     * <ul>
+     * <li> To free memory explicitly allocated by calls in an application to the <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferallocate">NetApiBufferAllocate</a> function when the memory is no longer needed.</li>
+     * <li>To free memory allocated internally by calls in an application to remotable network management functions that return information to the caller. The RPC run-time library internally allocates the buffer containing the return information. </li>
+     * </ul>
+     * 
+     * 
+     * Many network management functions retrieve information and return this information as a buffer that may contain a complex structure, an array of structures, or an array of nested structures. These functions use the RPC run-time library to internally allocate the buffer containing the return information, whether the call is to a local computer or a remote server. For example, the <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/nf-lmserver-netserverenum">NetServerEnum</a> function retrieves a lists of servers and returns this information as an array of  structures pointed to by the <i>bufptr</i> parameter. When the function is successful, memory is allocated internally by the  <b>NetServerEnum</b> function to store the array of structures returned in the <i>bufptr</i> parameter to the application. When this array of structures is no longer needed,  the <b>NetApiBufferFree</b> function should be called by the application with the <i>Buffer</i> parameter set to the <i>bufptr</i> parameter returned by  <b>NetServerEnum</b> to free this internal memory used. In these cases, the <b>NetApiBufferFree</b> function frees all of the internal memory allocated for the buffer including memory for nested structures, pointers to strings, and other data.
+     * 
+     * No special group membership is required to successfully execute the <b>NetApiBufferFree</b> function or any of the other <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/apibuffer-functions">ApiBuffer functions</a>.
+     * 
+     * For a code sample that demonstrates how to use of the <b>NetApiBufferFree</b> function to free memory explicitly allocated by an application, see 
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferallocate">NetApiBufferAllocate</a> function.
+     * 
+     * For a code sample that demonstrates how to use of the <b>NetApiBufferFree</b> function to free memory internally allocated by a network management function to return information, see 
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/nf-lmserver-netserverenum">NetServerEnum</a> function.
      * @param {Pointer<Void>} Buffer_R 
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//lmapibuf/nf-lmapibuf-netapibufferfree
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/lmapibuf/nf-lmapibuf-netapibufferfree
      * @since windows5.0
      */
     static NetApiBufferFree(Buffer_R) {
@@ -17250,6 +18782,12 @@ class NetManagement {
 
     /**
      * The NetApiBufferReallocate function changes the size of a buffer allocated by a previous call to the NetApiBufferAllocate function.
+     * @remarks
+     * No special group membership is required to successfully execute the ApiBuffer functions.
+     * 
+     * For a code sample that demonstrates how to use the network management 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/apibuffer-functions">ApiBuffer functions</a>, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferallocate">NetApiBufferAllocate</a>.
      * @param {Pointer<Void>} OldBuffer Pointer to the buffer returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferallocate">NetApiBufferAllocate</a> function.
      * @param {Integer} NewByteCount Specifies the new size of the buffer, in bytes.
@@ -17257,8 +18795,8 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//lmapibuf/nf-lmapibuf-netapibufferreallocate
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/lmapibuf/nf-lmapibuf-netapibufferreallocate
      * @since windows5.0
      */
     static NetApiBufferReallocate(OldBuffer, NewByteCount, NewBuffer) {
@@ -17271,13 +18809,19 @@ class NetManagement {
 
     /**
      * The NetApiBufferSize function returns the size, in bytes, of a buffer allocated by a call to the NetApiBufferAllocate function.
+     * @remarks
+     * No special group membership is required to successfully execute the ApiBuffer functions.
+     * 
+     * For a code sample that demonstrates how to use the network management 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/apibuffer-functions">ApiBuffer functions</a>, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferallocate">NetApiBufferAllocate</a>.
      * @param {Pointer<Void>} Buffer_R 
      * @param {Pointer<Integer>} ByteCount Receives the size of the buffer, in bytes.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//lmapibuf/nf-lmapibuf-netapibuffersize
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/lmapibuf/nf-lmapibuf-netapibuffersize
      * @since windows5.0
      */
     static NetApiBufferSize(Buffer_R, ByteCount) {
@@ -17294,7 +18838,7 @@ class NetManagement {
      * @param {PWSTR} BackupFile TBD
      * @param {Pointer<Integer>} Reserved TBD
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//lmerrlog/nf-lmerrlog-neterrorlogclear
+     * @see https://learn.microsoft.com/windows/win32/api/lmerrlog/nf-lmerrlog-neterrorlogclear
      */
     static NetErrorLogClear(UncServerName, BackupFile, Reserved) {
         UncServerName := UncServerName is String ? StrPtr(UncServerName) : UncServerName
@@ -17320,7 +18864,7 @@ class NetManagement {
      * @param {Pointer<Integer>} BytesRead TBD
      * @param {Pointer<Integer>} TotalAvailable TBD
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//lmerrlog/nf-lmerrlog-neterrorlogread
+     * @see https://learn.microsoft.com/windows/win32/api/lmerrlog/nf-lmerrlog-neterrorlogread
      */
     static NetErrorLogRead(UncServerName, Reserved1, ErrorLogHandle, Offset, Reserved2, Reserved3, OffsetFlag, BufPtr, PrefMaxSize, BytesRead, TotalAvailable) {
         UncServerName := UncServerName is String ? StrPtr(UncServerName) : UncServerName
@@ -17346,7 +18890,7 @@ class NetManagement {
      * @param {Integer} StrCount TBD
      * @param {Pointer<Integer>} Reserved2 TBD
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//lmerrlog/nf-lmerrlog-neterrorlogwrite
+     * @see https://learn.microsoft.com/windows/win32/api/lmerrlog/nf-lmerrlog-neterrorlogwrite
      */
     static NetErrorLogWrite(Reserved1, Code, Component, Buffer_R, NumBytes, MsgBuf, StrCount, Reserved2) {
         Component := Component is String ? StrPtr(Component) : Component
@@ -17367,7 +18911,7 @@ class NetManagement {
      * @param {PWSTR} parameter TBD
      * @param {Pointer<Pointer<Integer>>} bufptr TBD
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//lmconfig/nf-lmconfig-netconfigget
+     * @see https://learn.microsoft.com/windows/win32/api/lmconfig/nf-lmconfig-netconfigget
      */
     static NetConfigGet(server, component, parameter, bufptr) {
         server := server is String ? StrPtr(server) : server
@@ -17386,7 +18930,7 @@ class NetManagement {
      * @param {PWSTR} component TBD
      * @param {Pointer<Pointer<Integer>>} bufptr TBD
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//lmconfig/nf-lmconfig-netconfiggetall
+     * @see https://learn.microsoft.com/windows/win32/api/lmconfig/nf-lmconfig-netconfiggetall
      */
     static NetConfigGetAll(server, component, bufptr) {
         server := server is String ? StrPtr(server) : server
@@ -17408,7 +18952,7 @@ class NetManagement {
      * @param {Pointer<Integer>} buf TBD
      * @param {Integer} reserved3 TBD
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//lmconfig/nf-lmconfig-netconfigset
+     * @see https://learn.microsoft.com/windows/win32/api/lmconfig/nf-lmconfig-netconfigset
      */
     static NetConfigSet(server, reserved1, component, level, reserved2, buf, reserved3) {
         server := server is String ? StrPtr(server) : server
@@ -17423,11 +18967,11 @@ class NetManagement {
 
     /**
      * The NetAuditClear function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use event logging.
-     * @param {PWSTR} server TBD
-     * @param {PWSTR} backupfile TBD
-     * @param {PWSTR} service TBD
+     * @param {PWSTR} server 
+     * @param {PWSTR} backupfile 
+     * @param {PWSTR} service 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//lmaudit/nf-lmaudit-netauditclear
+     * @see https://learn.microsoft.com/windows/win32/NetMgmt/netauditclear
      */
     static NetAuditClear(server, backupfile, service) {
         server := server is String ? StrPtr(server) : server
@@ -17440,19 +18984,19 @@ class NetManagement {
 
     /**
      * The NetAuditRead function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use event logging.
-     * @param {PWSTR} server TBD
-     * @param {PWSTR} service TBD
-     * @param {Pointer<HLOG>} auditloghandle TBD
-     * @param {Integer} offset TBD
-     * @param {Pointer<Integer>} reserved1 TBD
-     * @param {Integer} reserved2 TBD
-     * @param {Integer} offsetflag TBD
-     * @param {Pointer<Pointer<Integer>>} bufptr TBD
-     * @param {Integer} prefmaxlen TBD
-     * @param {Pointer<Integer>} bytesread TBD
-     * @param {Pointer<Integer>} totalavailable TBD
+     * @param {PWSTR} server 
+     * @param {PWSTR} service 
+     * @param {Pointer<HLOG>} auditloghandle 
+     * @param {Integer} offset 
+     * @param {Pointer<Integer>} reserved1 
+     * @param {Integer} reserved2 
+     * @param {Integer} offsetflag 
+     * @param {Pointer<Pointer<Integer>>} bufptr 
+     * @param {Integer} prefmaxlen 
+     * @param {Pointer<Integer>} bytesread 
+     * @param {Pointer<Integer>} totalavailable 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//lmaudit/nf-lmaudit-netauditread
+     * @see https://learn.microsoft.com/windows/win32/NetMgmt/netauditread
      */
     static NetAuditRead(server, service, auditloghandle, offset, reserved1, reserved2, offsetflag, bufptr, prefmaxlen, bytesread, totalavailable) {
         server := server is String ? StrPtr(server) : server
@@ -17469,13 +19013,13 @@ class NetManagement {
 
     /**
      * The NetAuditWrite function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use event logging.
-     * @param {Integer} type TBD
-     * @param {Pointer<Integer>} buf TBD
-     * @param {Integer} numbytes TBD
-     * @param {PWSTR} service TBD
-     * @param {Pointer<Integer>} reserved TBD
+     * @param {Integer} type 
+     * @param {Pointer<Integer>} buf 
+     * @param {Integer} numbytes 
+     * @param {PWSTR} service 
+     * @param {Pointer<Integer>} reserved 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//lmaudit/nf-lmaudit-netauditwrite
+     * @see https://learn.microsoft.com/windows/win32/NetMgmt/netauditwrite
      */
     static NetAuditWrite(type, buf, numbytes, service, reserved) {
         service := service is String ? StrPtr(service) : service
@@ -17489,6 +19033,24 @@ class NetManagement {
 
     /**
      * The NetJoinDomain function joins a computer to a workgroup or domain.
+     * @remarks
+     * Joining (and unjoining) a computer to a domain or workgroup can be performed only by a member of the Administrators local group on the target computer. Note that the domain administrator can set additional requirements for joining the domain using delegation and assignment of privileges.
+     * 
+     * If you call the 
+     * <b>NetJoinDomain</b> function remotely, you must supply credentials because you cannot delegate credentials under these circumstances.
+     * 
+     * Different processes, or different threads of the same process, should not call the 
+     * <b>NetJoinDomain</b> function at the same time. This situation can leave the computer in an inconsistent state.
+     * 
+     * If you encounter a problem during a join operation, you should not delete a computer account and immediately follow the deletion with another join attempt. This can lead to replication-related problems that are difficult to investigate. When you delete a computer account, wait until the change has replicated to all domain controllers before attempting another join operation.
+     * 
+     * A system reboot is required after calling the <b>NetJoinDomain</b> function for the operation to complete.
+     * 
+     * <b>Windows Server 2003 and Windows XP:  </b>When a call to the 
+     * <b>NetJoinDomain</b> function precedes a call to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netrenamemachineindomain">NetRenameMachineInDomain</a> function, you should defer the update of the SPN and DnsHostName properties on the computer object until the rename operation. This is because the join operation can fail in certain situations. An example of such a situation is when the SPN that is derived from the current computer name is not valid in the new domain that the computer is joining, but the SPN derived from the new name that the computer will have after the rename operation is valid in the new domain. In this situation, the call to 
+     * <b>NetJoinDomain</b> fails unless you defer the update of the two properties until the rename operation by specifying the NETSETUP_DEFER_SPN_SET flag in the <i>fJoinOptions</i> parameter when you call 
+     * <b>NetJoinDomain</b>.
      * @param {PWSTR} lpServer A pointer to a constant string that specifies the DNS or NetBIOS name of the computer on which to execute the domain join operation. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} lpDomain A pointer to a constant null-terminated character string that specifies the name of the domain or workgroup to join. 
      * 
@@ -17508,7 +19070,7 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes or one of the 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -17615,7 +19177,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmjoin/nf-lmjoin-netjoindomain
+     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netjoindomain
      * @since windows5.0
      */
     static NetJoinDomain(lpServer, lpDomain, lpMachineAccountOU, lpAccount, lpPassword, fJoinOptions) {
@@ -17631,6 +19193,14 @@ class NetManagement {
 
     /**
      * The NetUnjoinDomain function unjoins a computer from a workgroup or a domain.
+     * @remarks
+     * Unjoining (and joining) a computer to a domain or workgroup can be performed only by a member of the Administrators local group on the target computer. If you call the 
+     * <b>NetUnjoinDomain</b> function remotely, you must supply credentials because you cannot delegate credentials under these circumstances.
+     * 
+     * Different processes, or different threads of the same process, should not call the 
+     * <b>NetUnjoinDomain</b> function at the same time. This situation can leave the computer in an inconsistent state.
+     * 
+     * A system reboot is required after calling the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netrenamemachineindomain">NetRenameMachineInDomain</a> function for the operation to complete.
      * @param {PWSTR} lpServer A pointer to a constant string that specifies the DNS or NetBIOS name of the computer on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} lpAccount A pointer to a constant string that specifies the account name to use when connecting to the domain controller. The string must specify either a domain NetBIOS name and user account (for example, <i>REDMOND\user</i>) or the user principal name (UPN) of the user in the form of an Internet-style login name (for example, "someone@example.com"). If this parameter is <b>NULL</b>, the caller's context is used.
      * @param {PWSTR} lpPassword If the <i>lpAccount</i> parameter specifies an account name, this parameter must point to the password to use when connecting to the domain controller. Otherwise, this parameter must be <b>NULL</b>.
@@ -17638,7 +19208,7 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes or one of the 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -17679,7 +19249,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmjoin/nf-lmjoin-netunjoindomain
+     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netunjoindomain
      * @since windows5.0
      */
     static NetUnjoinDomain(lpServer, lpAccount, lpPassword, fUnjoinOptions) {
@@ -17693,6 +19263,16 @@ class NetManagement {
 
     /**
      * The NetRenameMachineInDomain function changes the name of a computer in a domain.
+     * @remarks
+     * Renaming a domain computer can be performed only by a user that is a member of the Administrators local group on the target computer and that also is a member of the Administrators group on the domain or has the Account Operator privilege on the domain. If you call the 
+     * <b>NetRenameMachineInDomain</b> function remotely, you must supply credentials because you cannot delegate credentials under these circumstances.
+     * 
+     * Different processes, or different threads of the same process, should not call the 
+     * <b>NetRenameMachineInDomain</b> function at the same time. This situation can leave the computer in an inconsistent state.
+     * 
+     * The <b>NERR_SetupNotJoined</b> and  <b>NERR_SetupDomainController</b> return values are defined in the Lmerr.h header file. This header file is automatically included by the Lm.h header file and should not be included directly.
+     * 
+     * A system reboot is required after calling the <b>NetRenameMachineInDomain</b> function for the operation to complete.
      * @param {PWSTR} lpServer A pointer to a constant string that specifies the DNS or NetBIOS name of the computer on which to call the function. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} lpNewMachineName A pointer to a constant string that specifies the new name of the computer. If specified, the local computer name is changed as well. If this parameter is <b>NULL</b>, the function assumes you have already called the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-setcomputernameexa">SetComputerNameEx</a> function.
@@ -17702,7 +19282,7 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes or one of the 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -17754,7 +19334,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmjoin/nf-lmjoin-netrenamemachineindomain
+     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netrenamemachineindomain
      * @since windows5.0
      */
     static NetRenameMachineInDomain(lpServer, lpNewMachineName, lpAccount, lpPassword, fRenameOptions) {
@@ -17769,6 +19349,24 @@ class NetManagement {
 
     /**
      * The NetValidateName function verifies that a name is valid for name type specified(computer name, workgroup name, domain name, or DNS computer name).
+     * @remarks
+     * The
+     * 				<b>NetValidateName</b> function validates a name based on the nametype specified. 
+     * 
+     * If the <i>NameType</i> parameter is <b>NetSetupMachine</b>, the name passed  in the <i>lpName</i> parameter must be syntactically correct as a NetBIOS name and the name must not currently be in use on the network.
+     * 
+     * If the <i>NameType</i> parameter is <b>NetSetupWorkgroup</b>, the name passed  in the <i>lpName</i> parameter must be syntactically correct as a NetBIOS name, the name must not currently be in use on the network as a unique name, and the name must be different from the computer name.
+     * 
+     * If the <i>NameType</i> parameter is <b>NetSetupDomain</b>, the name passed  in the <i>lpName</i> parameter must be syntactically correct as a NetBIOS or DNS name and the name must currently be registered as a domain name.
+     * 
+     * If the <i>NameType</i> parameter is <b>NetSetupNonExistentDomain</b>, the name passed  in the <i>lpName</i> parameter must be syntactically correct as a NetBIOS or DNS name and the name must currently not be registered as a domain name.
+     * 
+     * If the <i>NameType</i> parameter is <b>NetSetupDnsMachine</b>, the name passed  in the <i>lpName</i> parameter must be syntactically correct as a DNS name.
+     * 
+     * NetBIOS names are limited to maximum length of 16 characters.
+     * 
+     * No special group membership is required to successfully execute the 
+     * <b>NetValidateName</b> function.
      * @param {PWSTR} lpServer A pointer to a constant string that specifies the DNS or NetBIOS name of the computer on which to call the function. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} lpName A pointer to a constant string that specifies the name to validate. Depending on the value specified in the <i>NameType</i> parameter, the <i>lpName</i>  parameter can point to a computer name, workgroup name, domain name, or DNS computer name.
      * @param {PWSTR} lpAccount If the <i>lpName</i> parameter is a domain name, this parameter points to an account name to use when connecting to the domain controller. The string must specify either a domain NetBIOS name and user account (for example, "REDMOND\user") or the user principal name (UPN) of the user in the form of an Internet-style login name (for example, "someone@example.com"). If this parameter is <b>NULL</b>, the caller's context is used.
@@ -17988,7 +19586,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmjoin/nf-lmjoin-netvalidatename
+     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netvalidatename
      * @since windows5.0
      */
     static NetValidateName(lpServer, lpName, lpAccount, lpPassword, NameType) {
@@ -18003,6 +19601,12 @@ class NetManagement {
 
     /**
      * The NetGetJoinableOUs function retrieves a list of organizational units (OUs) in which a computer account can be created.
+     * @remarks
+     * No special group membership is required to successfully execute the 
+     * <b>NetGetJoinableOUs</b> function.
+     * 
+     * For more information about organizational units, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/AD/managing-users">Managing Users</a> in the Active Directory documentation.
      * @param {PWSTR} lpServer Pointer to a constant string that specifies the DNS or NetBIOS name of the computer on which to call the function. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} lpDomain Pointer to a constant string that specifies the name of the domain for which to retrieve the list of OUs that can be joined.
      * @param {PWSTR} lpAccount Pointer to a constant string that specifies the account name to use when connecting to the domain controller. The string must specify either a domain NetBIOS name and user account (for example, "REDMOND\user") or the user principal name (UPN) of the user in the form of an Internet-style login name (for example, "someone@example.com"). If this parameter is <b>NULL</b>, the caller's context is used.
@@ -18015,7 +19619,7 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes or one of the 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -18045,7 +19649,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmjoin/nf-lmjoin-netgetjoinableous
+     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netgetjoinableous
      * @since windows5.0
      */
     static NetGetJoinableOUs(lpServer, lpDomain, lpAccount, lpPassword, OUCount, OUs) {
@@ -18063,6 +19667,12 @@ class NetManagement {
 
     /**
      * Adds an alternate name for the specified computer.
+     * @remarks
+     * The <b>NetAddAlternateComputerName</b> function is supported on Windows XP and later.  
+     * 
+     * The <b>NetAddAlternateComputerName</b> function is used to set secondary network names for computers. The primary name is the name used for authentication and maps to the machine account name.
+     * 
+     * The <b>NetAddAlternateComputerName</b> function requires that the caller is a member of the Administrators local group on the target computer.
      * @param {PWSTR} Server A pointer to a constant string that specifies the name of the computer on which to execute this function. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} AlternateName A pointer to a constant string that specifies the alternate name to add. This name must be in the form of a fully qualified DNS name.
      * @param {PWSTR} DomainAccount A pointer to a constant string that specifies the domain account to use for accessing the
@@ -18079,7 +19689,7 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes or one of the 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -18175,7 +19785,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmjoin/nf-lmjoin-netaddalternatecomputername
+     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netaddalternatecomputername
      * @since windows5.1.2600
      */
     static NetAddAlternateComputerName(Server, AlternateName, DomainAccount, DomainAccountPassword, Reserved) {
@@ -18190,6 +19800,12 @@ class NetManagement {
 
     /**
      * Removes an alternate name for the specified computer.
+     * @remarks
+     * The <b>NetRemoveAlternateComputerName</b> function is supported on Windows XP and later.  
+     * 
+     * The <b>NetRemoveAlternateComputerName</b> function is used to remove secondary computer names configured for the target computer.
+     * 
+     * The <b>NetRemoveAlternateComputerName</b> function requires that the caller is a member of the Administrators local group on the target computer.
      * @param {PWSTR} Server A pointer to a constant string that specifies the name of the computer on which to execute this function. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} AlternateName A pointer to a constant string that specifies the alternate name to remove. This name must be in the form of a fully qualified DNS name.
      * @param {PWSTR} DomainAccount A pointer to a constant string that specifies the domain account to use for accessing the
@@ -18206,7 +19822,7 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes or one of the 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -18302,7 +19918,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmjoin/nf-lmjoin-netremovealternatecomputername
+     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netremovealternatecomputername
      * @since windows5.1.2600
      */
     static NetRemoveAlternateComputerName(Server, AlternateName, DomainAccount, DomainAccountPassword, Reserved) {
@@ -18317,6 +19933,12 @@ class NetManagement {
 
     /**
      * Sets the primary computer name for the specified computer.
+     * @remarks
+     * The <b>NetSetPrimaryComputerName</b> function is supported on Windows XP and later.  
+     * 
+     * The <b>NetSetPrimaryComputerName</b> function is used as part of computer rename operations. The specified name will be removed from the alternate name list configured for the target computer and configured as the primary name. The computer account name will be changed to match the primary name. The previous primary computer name is moved to the alternate computer name list configured for the computer.
+     * 
+     * The <b>NetSetPrimaryComputerName</b> function requires that the caller is a member of the Administrators local group on the target computer.
      * @param {PWSTR} Server A pointer to a constant string that specifies the name of the computer on which to execute this function. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {PWSTR} PrimaryName A pointer to a constant string that specifies the primary name to set. This name must be in the form of a fully qualified DNS name.
      * @param {PWSTR} DomainAccount A pointer to a constant string that specifies the domain account to use for accessing the
@@ -18333,7 +19955,7 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes or one of the 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -18429,7 +20051,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmjoin/nf-lmjoin-netsetprimarycomputername
+     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netsetprimarycomputername
      * @since windows5.1.2600
      */
     static NetSetPrimaryComputerName(Server, PrimaryName, DomainAccount, DomainAccountPassword, Reserved) {
@@ -18444,6 +20066,12 @@ class NetManagement {
 
     /**
      * Enumerates names for the specified computer.
+     * @remarks
+     * The <b>NetEnumerateComputerNames</b> function is supported on Windows Vista and later.  
+     * 
+     * The <b>NetEnumerateComputerNames</b> function is used to request the names a computer currently has configured. 
+     * 
+     * The <b>NetEnumerateComputerNames</b> function requires that the caller is a member of the Administrators local group on the target computer.
      * @param {PWSTR} Server A pointer to a constant string that specifies the name of the computer on which to execute this function. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} NameType 
      * @param {Integer} Reserved Reserved for future use.   This parameter should be <b>NULL</b>.
@@ -18456,7 +20084,7 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes or one of the 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -18541,7 +20169,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmjoin/nf-lmjoin-netenumeratecomputernames
+     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netenumeratecomputernames
      * @since windows5.1.2600
      */
     static NetEnumerateComputerNames(Server, NameType, Reserved, EntryCount, ComputerNames) {
@@ -18556,6 +20184,36 @@ class NetManagement {
 
     /**
      * Provisions a computer account for later use in an offline domain join operation.
+     * @remarks
+     * The <b>NetProvisionComputerAccount</b> function is supported on Windows 7 and Windows Server 2008 R2 for offline join operations.  On Windows 8 or Windows Server 2008 R2, it is recommended that the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netcreateprovisioningpackage">NetCreateProvisioningPackage</a> function be used instead of the <b>NetProvisionComputerAccount</b> function.
+     * 
+     * The <b>NetProvisionComputerAccount</b> function is used to provision a computer account for later use in an offline domain join operation using the  <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netrequestofflinedomainjoin">NetRequestOfflineDomainJoin</a> function. The offline domain join scenario uses these functions as follows: <ul>
+     * <li><b>NetProvisionComputerAccount</b>  is a provisioning function that is first called to perform the network operations necessary to create and configure the computer object in Active Directory. The output from the <b>NetProvisionComputerAccount</b> is an opaque binary blob of serialized metadata used for the next step. </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netrequestofflinedomainjoin">NetRequestOfflineDomainJoin</a>, an image initialization function,   is then called to inject the output from the <b>NetProvisionComputerAccount</b> provisioning function into a Windows operating system image to be used during installation.  </li>
+     * </ul>Changes to Windows initialization code will detect this saved state and affect the local only portion of domain join. 
+     * 
+     * The <b>NetProvisionComputerAccount</b> function will create or reuse the machine account in the domain, collect all necessary metadata and return it in an opaque versioned binary blob or as text for embedding in an unattended setup answer file. The opaque binary blob can be consumed by the offline domain join request operation supplying all the necessary input to complete the domain join during first boot without any network operations (local state updates only). 
+     * 
+     * <b>Security Note:  </b>The blob returned by the <b>NetProvisionComputerAccount</b> function contains very sensitive data. It should be treated just as securely as a plaintext password. The blob contains the machine account password and other information about the domain, including the domain name, the name of a domain controller, and the security ID (SID) of the domain. If the blob is being transported physically or over the network, care must be taken to transport it securely. The design makes no provisions for securing this data.  This problem exists today with unattended setup answer files which can carry a number of secrets including domain user passwords. The caller must secure the blob and the unattended setup files. Solutions to this problem are varied. As an example, a pre-exchanged key could be used to encrypt a session between the consumer and provisioning entity enabling a secure transfer of the opaque blob.
+     * 
+     * 
+     * The opaque blob returned in the  <i>pProvisionBinData</i> parameter by the <b>NetProvisionComputerAccount</b> function is versioned to allow interoperability and serviceability scenarios between different versions of Windows (joining client, provisioning machine, and domain controller). The offline join scenario currently does not limit the lifetime of the blob returned by the <b>NetProvisionComputerAccount</b> function.   
+     * 
+     * For offline domain joins, the access check performed depends on the configuration of the domain. Computer account creation is enabled using three methods:<ul>
+     * <li>Domain administrators have rights to create computer accounts.</li>
+     * <li>The SD on a container can delegate the rights to create computer accounts.</li>
+     * <li>By default, authenticated users may create computer accounts by privilege. Authenticated users are limited to creating  a limited number of accounts that is specified as a quota on the domain (the default value is 10). For more information, see the <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-ada2/6ba13b0c-1620-478c-b2ae-eca041f2e1c4">ms-DS-MachineAccountQuota</a> attribute in the Active Directory schema.</li>
+     * </ul>
+     * 
+     * 
+     * The <b>NetProvisionComputerAccount</b> function works only with a writable domain controller and does not function against a read-only domain controller.  Once provisioning is done against a writable domain controller and the account is replicated to a read-only domain controller, then the other portions of offline domain join operation do not require access to a domain controller.
+     * 
+     * If the <b>NetProvisionComputerAccount</b> function is successful, the pointer in the <i>pProvisionBinData</i> or <i>pProvisionTextData</i> parameter (depending on which was parameter was not <b>NULL</b>) is returned with the serialized data for use in an offline join operation or as text in an unattended setup file.  
+     * 
+     * For more information on offline domain join operations, see the <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/dd392267(v=ws.10)">Offline Domain Join Step-by-Step Guide</a>.
+     * 
+     * Joining (and unjoining) a computer to a domain using <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netjoindomain">NetJoinDomain</a> and <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netunjoindomain">NetUnjoinDomain</a> can be performed only by a member of the Administrators local group on the target computer. Note that the domain administrator can set additional requirements for joining the domain using delegation and assignment of privileges.
      * @param {PWSTR} lpDomain A pointer to a <b>NULL</b>-terminated character string that specifies the name of the domain where the computer account is created.
      * @param {PWSTR} lpMachineName A pointer to a <b>NULL</b>-terminated character string that specifies the short name of the machine from which the computer account attribute sAMAccountName is derived by appending a '$'. This parameter must contain a valid DNS or NetBIOS machine name.
      * @param {PWSTR} lpMachineAccountOU An optional pointer to a <b>NULL</b>-terminated character string that contains the RFC 1779 format name of the organizational unit (OU) where the computer account will be created. If you specify this parameter, the string must contain a full path, for example, OU=testOU,DC=domain,DC=Domain,DC=com. Otherwise, this parameter must be <b>NULL</b>.
@@ -18575,7 +20233,7 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes or one of the 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -18704,7 +20362,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmjoin/nf-lmjoin-netprovisioncomputeraccount
+     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netprovisioncomputeraccount
      * @since windows6.1
      */
     static NetProvisionComputerAccount(lpDomain, lpMachineName, lpMachineAccountOU, lpDcName, dwOptions, pProvisionBinData, pdwProvisionBinDataSize, pProvisionTextData) {
@@ -18722,7 +20380,24 @@ class NetManagement {
     }
 
     /**
-     * Executes locally on a machine to modify a Windows operating system image mounted on a volume.
+     * Executes locally on a machine to modify a Windows operating system image mounted on a volume. (NetRequestOfflineDomainJoin)
+     * @remarks
+     * The <b>NetRequestOfflineDomainJoin</b> function is supported on Windows 7 for offline domain join operations.  
+     * 
+     * The 
+     * 				<b>NetRequestOfflineDomainJoin</b> function is used locally on a machine to modify a Windows operating system image mounted on a volume. The registry is loaded for the image and provisioning blob data is written where it can be retrieved during the completion phase of an offline domain join operation. The offline domain join scenario uses these functions as follows:<ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netprovisioncomputeraccount">NetProvisionComputerAccount</a>  is a provisioning function that is first called to perform the network operations necessary to create and configure the computer object in Active Directory. The output from the <b>NetProvisionComputerAccount</b> is an opaque binary blob of serialized metadata used for the next step.</li>
+     * <li><b>NetRequestOfflineDomainJoin</b> , an image initialization function,   is then called to inject the output from the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netprovisioncomputeraccount">NetProvisionComputerAccount</a> provisioning function into a Windows operating system image to be used during installation.  Changes to Windows initialization code will detect this saved state and affect the local only portion of domain join. </li>
+     * </ul>
+     * 
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netprovisioncomputeraccount">NetProvisionComputerAccount</a> function will create or reuse the machine account in the domain, collect all necessary metadata and return it in an opaque versioned binary blob or as text for embedding in an unattended setup answer file. The opaque binary blob can be consumed by the offline domain join request operation supplying all the necessary input to complete the domain join during first boot without any network operations (local state updates only). Note that the blob contains machine account password material essentially in the clear. The design makes no provisions for securing this data.  This problem exists today with unattended setup answer files which can carry a number of secrets including domain user passwords. The caller must secure the blob and the unattended setup files. Solutions to this problem are varied. As an example, a pre-exchanged key could be used to encrypt a session between the consumer and provisioning entity enabling a secure transfer of the opaque blob .
+     * 
+     * 
+     * The opaque blob returned in the  <i>pProvisionBinData</i> parameter by the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netprovisioncomputeraccount">NetProvisionComputerAccount</a> function is versioned to allow interoperability and serviceability scenarios between different versions of Windows (joining client, provisioning machine, and domain controller). The offline join scenario currently does not limit the lifetime of the blob returned by the <b>NetProvisionComputerAccount</b> function.   
+     * 
+     * For more information on offline domain join operations, see the <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/dd392267(v=ws.10)">Offline Domain Join Step-by-Step Guide</a>.
      * @param {Pointer} pProvisionBinData A pointer to a buffer required to initialize the registry of a Windows operating system image to process the final local state change during the completion phase of the offline domain join operation. 
      * 
      * The opaque binary blob of serialized metadata passed in the <i>pProvisionBinData</i> parameter is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netprovisioncomputeraccount">NetProvisionComputerAccount</a> function.
@@ -18737,7 +20412,7 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes or one of the 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -18800,7 +20475,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmjoin/nf-lmjoin-netrequestofflinedomainjoin
+     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netrequestofflinedomainjoin
      * @since windows6.1
      */
     static NetRequestOfflineDomainJoin(pProvisionBinData, cbProvisionBinDataSize, dwOptions, lpWindowsPath) {
@@ -18812,6 +20487,50 @@ class NetManagement {
 
     /**
      * Creates a provisioning package that provisions a computer account for later use in an offline domain join operation. The package may also contain information about certificates and policies to add to the machine during provisioning.
+     * @remarks
+     * The <b>NetCreateProvisioningPackage</b> function is supported on Windows 8 and  Windows Server 2012 for offline join operations.  For Windows 7, use the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netprovisioncomputeraccount">NetProvisionComputerAccount</a> function.
+     * 
+     * The <b>NetCreateProvisioningPackage</b> function is used to provision a computer account for later use in an offline domain join operation using the  <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netrequestprovisioningpackageinstall">NetRequestProvisioningPackageInstall</a> function.
+     * 
+     * The offline domain join scenario uses two functions: <ul>
+     * <li><b>NetCreateProvisioningPackage</b>  is a provisioning function that is first called to perform the network operations necessary to create and configure the computer object in Active Directory. The output from the <b>NetCreateProvisioningPackage</b> is a package used for the next step. </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netrequestprovisioningpackageinstall">NetRequestProvisioningPackageInstall</a>, an image initialization function,   is called to inject the output from the <b>NetCreateProvisioningPackage</b> provisioning function into a Windows operating system image for use during pre-installation and post-installation. </li>
+     * </ul>Changes to Windows initialization code will detect this saved state and affect the local-only portion of domain join.
+     * 
+     * When the <i>pPackageBinData</i> and <i>pdwPackageBinDataSize</i> out pointers are used, set the <i>pPackageTextData</i> out pointer to NULL. When <i>pPackageTextData</i> is used, set the <i>pPackageBinData</i> and <i>pdwPackageBinDataSize</i> out pointers to NULL.
+     * 
+     * The <i>pProvisioningParams</i> parameter specifies data to include in the provisioning package. The package includes information relevant to the domain join, and it can also include information about policies and certificates to install on the machine. The provisioning package can be used in four ways:<ul>
+     * <li>Domain join</li>
+     * <li>Domain join and installation of certificates</li>
+     * <li>Domain join and installation of policies</li>
+     * <li>Domain join and installation of certificates and policies</li>
+     * </ul>
+     * 
+     * 
+     * The <b>NetCreateProvisioningPackage</b> function creates or reuses the machine account in the domain, collects all necessary metadata and returns it in a package. The package can be consumed by the offline domain join request operation supplying all the necessary input to complete the domain join during first boot without any network operations (local state updates only). 
+     * 
+     * <b>Security Note:  </b>The package returned by the <b>NetCreateProvisioningPackage</b> function contains very sensitive data. It should be treated just as securely as a plaintext password. The package contains the machine account password and other information about the domain, including the domain name, the name of a domain controller, and the security ID (SID) of the domain. If the package is being transported physically or over the network, care must be taken to transport it securely. The design makes no provisions for securing this data.  This problem exists today with unattended setup answer files which can carry a number of secrets including domain user passwords. The caller must secure the package. Solutions to this problem are varied. As an example, a pre-exchanged key could be used to encrypt a session between the consumer and provisioning entity enabling a secure transfer of the package.
+     * 
+     * 
+     * The package returned in the  <i>pPackageBinData</i> parameter by the <b>NetCreateProvisioningPackage</b> function is versioned to allow interoperability and serviceability scenarios between different versions of Windows (such as joining a client, provisioning a machine, and using a domain controller). A package created on Windows 8 or Windows Server 2012 can be used Windows 7 or Windows Server 2008 R2, however only domain join information will take effect (certificates and policies are not supported). The offline join scenario currently does not limit the lifetime of the package returned by the <b>NetCreateProvisioningPackage</b> function.
+     * 
+     * For offline domain joins, the access check performed depends on the configuration of the domain. Computer account creation is enabled using three methods:<ul>
+     * <li>Domain administrators have rights to create computer accounts.</li>
+     * <li>The SD on a container can delegate the rights to create computer accounts.</li>
+     * <li>By default, authenticated users may create computer accounts by privilege. Authenticated users are limited to creating  a limited number of accounts that is specified as a quota on the domain (the default value is 10). For more information, see the <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-ada2/6ba13b0c-1620-478c-b2ae-eca041f2e1c4">ms-DS-MachineAccountQuota</a> attribute in the Active Directory schema.</li>
+     * </ul>
+     * 
+     * 
+     * The <b>NetCreateProvisioningPackage</b> function works only with a writable domain controller and does not function against a read-only domain controller.  Once provisioning is done against a writable domain controller and the account is replicated to a read-only domain controller,  the other portions of the offline domain join operation do not require access to a domain controller.
+     * 
+     * If the <b>NetCreateProvisioningPackage</b> function is successful, the pointer in the <i>pPackageBinData</i> or <i>pPackageTextData</i> parameter (depending on which  parameter was not <b>NULL</b>) is returned with the serialized data for use in an offline join operation or as text in an unattended setup file.  
+     * 
+     * All phases of the provisioning process append to a  <i>NetSetup.log</i> file on the local computer. The provisioning process can include up to three different computers: the computer where the provisioning package is created,  the computer that requests the installation of the package,  and the computer where the  package is installed. There will be <i>NetSetup.log</i> file information stored on all three computers according to  the operation performed. Reviewing the contents of these files is the most common means of troubleshooting online and offline provisioning errors. Provisioning operations undertaken by admins are logged to the <i>NetSetup.log</i> file in the <i>%WINDIR%\Debug</i>. Provisioning operations performed by non-admins are logged to the <i>NetSetup.log</i> file  in the <i>%USERPROFILE%\Debug</i> folder.
+     * 
+     * For more information on offline domain join operations, see the <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/dd392267(v=ws.10)">Offline Domain Join Step-by-Step Guide</a>.
+     * 
+     * Joining (and unjoining) a computer to a domain using <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netjoindomain">NetJoinDomain</a> and <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netunjoindomain">NetUnjoinDomain</a> is performed only by a member of the Administrators local group on the target computer. Note that the domain administrator can set additional requirements for joining the domain using delegation and assignment of privileges.
      * @param {Pointer<NETSETUP_PROVISIONING_PARAMS>} pProvisioningParams A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/ns-lmjoin-netsetup_provisioning_params">NETSETUP_PROVISIONING_PARAMS</a> structure that contains information about the provisioning package.
      * 
      * The following values are defined for the members of this structure:
@@ -18969,7 +20688,7 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes or one of the 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -18994,7 +20713,7 @@ class NetManagement {
      * </dl>
      * </td>
      * <td width="60%">
-     * This operation is only allowed for the Primary Domain Controller of the domain. This error is returned if a domain controller name was specified in the <b>lpDcName </b> of the <a href="/windows/desktop/api/lmjoin/ns-lmjoin-netsetup_provisioning_params">NETSETUP_PROVISIONING_PARAMS</a> struct pointed to by the <i>pProvisioningParams</i> parameter, but the computer specified could not be validated as a domain controller for the target domain specified in the <b>lpDomain</b> of the <b>NETSETUP_PROVISIONING_PARAMS</b>.
+     * This operation is only allowed for the Primary Domain Controller of the domain. This error is returned if a domain controller name was specified in the <b>lpDcName </b> of the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/ns-lmjoin-netsetup_provisioning_params">NETSETUP_PROVISIONING_PARAMS</a> struct pointed to by the <i>pProvisioningParams</i> parameter, but the computer specified could not be validated as a domain controller for the target domain specified in the <b>lpDomain</b> of the <b>NETSETUP_PROVISIONING_PARAMS</b>.
      * 
      * </td>
      * </tr>
@@ -19005,7 +20724,7 @@ class NetManagement {
      * </dl>
      * </td>
      * <td width="60%">
-     * A parameter is incorrect. This error is also returned if both the <i>pProvisioningParams</i> parameter is  <b>NULL</b>. This error is also returned if the <b>lpDomain</b> or <b>lpMachineName</b> member of the <a href="/windows/desktop/api/lmjoin/ns-lmjoin-netsetup_provisioning_params">NETSETUP_PROVISIONING_PARAMS</a> struct pointed to by the <i>pProvisioningParams</i> parameter is <b>NULL</b>. 
+     * A parameter is incorrect. This error is also returned if both the <i>pProvisioningParams</i> parameter is  <b>NULL</b>. This error is also returned if the <b>lpDomain</b> or <b>lpMachineName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/ns-lmjoin-netsetup_provisioning_params">NETSETUP_PROVISIONING_PARAMS</a> struct pointed to by the <i>pProvisioningParams</i> parameter is <b>NULL</b>. 
      * 
      * </td>
      * </tr>
@@ -19027,7 +20746,7 @@ class NetManagement {
      * </dl>
      * </td>
      * <td width="60%">
-     * The request is not supported. This error is returned if the <b>lpMachineAccountOU</b> member was specified in the <a href="/windows/desktop/api/lmjoin/ns-lmjoin-netsetup_provisioning_params">NETSETUP_PROVISIONING_PARAMS</a> struct pointed to by the <i>pProvisioningParams</i> parameter and the domain controller is running on an earlier versions of Windows that does not support this parameter.
+     * The request is not supported. This error is returned if the <b>lpMachineAccountOU</b> member was specified in the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/ns-lmjoin-netsetup_provisioning_params">NETSETUP_PROVISIONING_PARAMS</a> struct pointed to by the <i>pProvisioningParams</i> parameter and the domain controller is running on an earlier versions of Windows that does not support this parameter.
      * 
      * </td>
      * </tr>
@@ -19060,7 +20779,7 @@ class NetManagement {
      * </dl>
      * </td>
      * <td width="60%">
-     * The account already exists in the domain and the <b>NETSETUP_PROVISION_REUSE_ACCOUNT</b> bit was not specified in the <b>dwProvisionOptions</b> member of the <a href="/windows/desktop/api/lmjoin/ns-lmjoin-netsetup_provisioning_params">NETSETUP_PROVISIONING_PARAMS</a> struct pointed to by the <i>pProvisioningParams</i> parameter.
+     * The account already exists in the domain and the <b>NETSETUP_PROVISION_REUSE_ACCOUNT</b> bit was not specified in the <b>dwProvisionOptions</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/ns-lmjoin-netsetup_provisioning_params">NETSETUP_PROVISIONING_PARAMS</a> struct pointed to by the <i>pProvisioningParams</i> parameter.
      * 
      * </td>
      * </tr>
@@ -19098,7 +20817,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmjoin/nf-lmjoin-netcreateprovisioningpackage
+     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netcreateprovisioningpackage
      * @since windows8.0
      */
     static NetCreateProvisioningPackage(pProvisioningParams, ppPackageBinData, pdwPackageBinDataSize, ppPackageTextData) {
@@ -19111,7 +20830,24 @@ class NetManagement {
     }
 
     /**
-     * Executes locally on a machine to modify a Windows operating system image mounted on a volume.
+     * Executes locally on a machine to modify a Windows operating system image mounted on a volume. (NetRequestProvisioningPackageInstall)
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netrequestofflinedomainjoin">NetRequestProvisioningPackageInstall</a> function is supported on Windows 8 for offline domain join operations.  For  Windows 7, use <b>NetRequestOfflineDomainJoin</b>.
+     * 
+     * The offline domain join scenario uses two functions: <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netcreateprovisioningpackage">NetCreateProvisioningPackage</a>  is a provisioning function that is first called to perform the network operations necessary to create and configure the computer object in Active Directory. The output from the <b>NetCreateProvisioningPackage</b> is a package used for the next step. </li>
+     * <li><b>NetRequestProvisioningPackageInstall</b>, an image initialization function,   is called to inject the output from the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netcreateprovisioningpackage">NetCreateProvisioningPackage</a> provisioning function into a Windows operating system image for use during installation. </li>
+     * </ul>Changes to Windows initialization code will detect this saved state and affect the local-only portion of domain join and install any certificate and  policy information that may have been present in the package.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netcreateprovisioningpackage">NetCreateProvisioningPackage</a> function will create or reuse the machine account in the domain, collect all necessary metadata and return it in a package. The package can be consumed by the offline domain join request operation supplying all the necessary input to complete the domain join during first boot without any network operations (local state updates only). 
+     * 
+     * <b>Security Note:  </b>The package created by the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netcreateprovisioningpackage">NetCreateProvisioningPackage</a> function contains very sensitive data. It should be treated just as securely as a plaintext password. The package contains the machine account password and other information about the domain, including the domain name, the name of a domain controller, and the security ID (SID) of the domain. If the package is being transported physically or over the network, care must be taken to transport it securely. The design makes no provisions for securing this data.  This problem exists today with unattended setup answer files which can carry a number of secrets including domain user passwords. The caller must secure the package. Solutions to this problem are varied. As an example, a pre-exchanged key could be used to encrypt a session between the consumer and provisioning entity enabling a secure transfer of the package.
+     * 
+     * 
+     * The package returned in the  <i>pPackageBinData</i> parameter by the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netcreateprovisioningpackage">NetCreateProvisioningPackage</a> function is versioned to allow interoperability and serviceability scenarios between different versions of Windows (such as joining a client, provisioning a machine, and using a domain controller). The offline join scenario currently does not limit the lifetime of the package returned by the <b>NetCreateProvisioningPackage</b> function.
+     * 
+     * All phases of the provisioning process append to a  <i>NetSetup.log</i> file on the local computer. The provisioning process can include up to three different computers: the computer where the provisioning package is created,  the computer that requests the installation of the package,  and the computer where the  package is installed. There will be <i>NetSetup.log</i> file information stored on all three computers according to  the operation performed. Reviewing the contents of these files is the most common means of troubleshooting online and offline provisioning errors. Provisioning operations undertaken by admins are logged to the <i>NetSetup.log</i> file in the <i>%WINDIR%\Debug</i>. Provisioning operations performed by non-admins are logged to the <i>NetSetup.log</i> file  in the <i>%USERPROFILE%\Debug</i> folder.
      * @param {Pointer} pPackageBinData A pointer to a buffer required to initialize the registry of a Windows operating system image to process the final local state change during the completion phase of the offline domain join operation. 
      * 
      * The opaque binary blob of serialized metadata passed in the <i>pPackageBinData</i> parameter is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netprovisioncomputeraccount">NetCreateProvisioningPackage</a> function.
@@ -19125,7 +20861,7 @@ class NetManagement {
      *                      be a UNC path on a remote server.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
-     * If the function fails, the return value can be one of the following <a href="/windows/desktop/NetMgmt/network-management-error-codes">Network Management error codes</a>.
+     * If the function fails, the return value can be one of the following <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-error-codes">Network Management error codes</a>.
      * 
      * <table>
      * <tr>
@@ -19254,7 +20990,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmjoin/nf-lmjoin-netrequestprovisioningpackageinstall
+     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netrequestprovisioningpackageinstall
      * @since windows8.0
      */
     static NetRequestProvisioningPackageInstall(pPackageBinData, dwPackageBinDataSize, dwProvisionOptions, lpWindowsPath) {
@@ -19289,7 +21025,7 @@ class NetManagement {
      * @returns {Pointer<DSREG_JOIN_INFO>} The join information for the tenant that the <i>pcszTenantId</i> parameter specifies. If this parameter is NULL,  the device is not joined to Azure AD and the current user added no Azure AD work accounts. You must call
      *                      the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netfreeaadjoininformation">NetFreeAadJoinInformation</a> function to free the memory allocated for
      *                      this structure.
-     * @see https://docs.microsoft.com/windows/win32/api//lmjoin/nf-lmjoin-netgetaadjoininformation
+     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netgetaadjoininformation
      * @since windows10.0.10240
      */
     static NetGetAadJoinInformation(pcszTenantId) {
@@ -19307,7 +21043,7 @@ class NetManagement {
      * Frees the memory allocated for the specified DSREG_JOIN_INFO structure, which contains join information for a tenant and which you retrieved by calling the NetGetAadJoinInformation function.
      * @param {Pointer<DSREG_JOIN_INFO>} pJoinInfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/ns-lmjoin-dsreg_join_info">DSREG_JOIN_INFO</a> structure for which you want to free the memory.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//lmjoin/nf-lmjoin-netfreeaadjoininformation
+     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netfreeaadjoininformation
      * @since windows10.0.10240
      */
     static NetFreeAadJoinInformation(pJoinInfo) {
@@ -19316,6 +21052,9 @@ class NetManagement {
 
     /**
      * The NetGetJoinInformation function retrieves join status information for the specified computer.
+     * @remarks
+     * No special group membership is required to successfully execute the 
+     * <b>NetGetJoinInformation</b> function.
      * @param {PWSTR} lpServer Pointer to a constant string that specifies the DNS or NetBIOS name of the computer on which to call the function. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Pointer<PWSTR>} lpNameBuffer Pointer to the buffer that receives the NetBIOS name of the domain or workgroup to which the computer is joined. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
@@ -19325,7 +21064,7 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be the following error code or one of the 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -19344,7 +21083,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//lmjoin/nf-lmjoin-netgetjoininformation
+     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netgetjoininformation
      * @since windows5.0
      */
     static NetGetJoinInformation(lpServer, lpNameBuffer, BufferType) {
@@ -19359,11 +21098,16 @@ class NetManagement {
 
     /**
      * The GetNetScheduleAccountInformation function retrieves the AT Service account name.
+     * @remarks
+     * To successfully call the <b>GetNetScheduleAccountInformation</b> function,  the caller should have read access to the task folder  which is usually %windir%\tasks or as defined in the following registry setting:
+     * 
+     * <b>HKLM\SOFTWARE\Microsoft\SchedulingAgent\TasksFolder\
+     * </b>
      * @param {PWSTR} pwszServerName A NULL-terminated wide character string for the name of the computer whose account information is being retrieved.
      * @param {Integer} ccAccount The number of characters, including the NULL terminator, allocated for <i>wszAccount</i>. The maximum allowed length for this value is the maximum domain name length plus the maximum user name length plus 2, expressed as DNLEN + UNLEN + 2. (The last two characters are the "\" character and the NULL terminator.)
      * @param {PWSTR} wszAccount An array of wide characters, including the NULL terminator, that receives the account information.
      * @returns {HRESULT} The return value is an HRESULT. A value of S_OK indicates the function succeeded, and the account information is  returned in <i>wszAccount</i>. A value of S_FALSE  indicates the function succeeded, and the account is the Local System account (no information will be returned in <i>wszAccount</i>). Any other return values indicate an error condition.
-     * @see https://docs.microsoft.com/windows/win32/api//atacct/nf-atacct-getnetscheduleaccountinformation
+     * @see https://learn.microsoft.com/windows/win32/api/atacct/nf-atacct-getnetscheduleaccountinformation
      * @since windows6.0.6000
      */
     static GetNetScheduleAccountInformation(pwszServerName, ccAccount, wszAccount) {
@@ -19380,6 +21124,8 @@ class NetManagement {
 
     /**
      * The SetNetScheduleAccountInformation function sets the AT Service account name and password. The AT Service account name and password are used as the credentials for scheduled jobs created with NetScheduleJobAdd.
+     * @remarks
+     * The <b>SetNetScheduleAccountInformation</b> impersonates the caller. Only members of the local Administrators group on the computer where the schedule account information is being set can successfully execute this function. Note that <b>NULL</b> passwords are not allowed.
      * @param {PWSTR} pwszServerName A NULL-terminated wide character string for the name of the computer whose account information is being set.
      * @param {PWSTR} pwszAccount A pointer to a NULL-terminated wide character string for the account. To specify the local system account, set this parameter to <b>NULL</b>.
      * @param {PWSTR} pwszPassword A pointer to a NULL-terminated wide character string for the password. For information about securing password information, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
@@ -19429,7 +21175,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//atacct/nf-atacct-setnetscheduleaccountinformation
+     * @see https://learn.microsoft.com/windows/win32/api/atacct/nf-atacct-setnetscheduleaccountinformation
      * @since windows6.0.6000
      */
     static SetNetScheduleAccountInformation(pwszServerName, pwszAccount, pwszPassword) {
@@ -19447,14 +21193,81 @@ class NetManagement {
 
     /**
      * The NetScheduleJobAdd function submits a job to run at a specified future time and date. This function requires that the schedule service be started on the computer to which the job is submitted.
+     * @remarks
+     * Normally only members of the local Administrators group on the computer where the schedule job is being added can successfully execute this function. If the server name passed in the string pointed to by the <i>Servername</i> parameter is a remote server, then only members of the local Administrators group on the  remote server can successfully execute this function. 
+     * 
+     * If the following registry value has the least significant bit set (for example, 0x00000001), then users belonging to the Server Operators group can also successfully execute this function.
+     * 
+     * 
+     * <b>HKLM\System\CurrentControlSet\Control\Lsa\SubmitControl</b>
+     * 
+     * The following are examples of how to schedule jobs using different properties supported by the 
+     * <b>NetScheduleJobAdd</b> function.
+     * 
+     * To schedule a job that executes once:
+     * 
+     * <ul>
+     * <li>Set the <b>DaysOfMonth</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure to zero.</li>
+     * <li>Set the <b>DaysOfWeek</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure to zero.</li>
+     * <li>Set the <b>JobTime</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure to the time the job should execute.</li>
+     * </ul>
+     * The job executes at the time specified by the <b>JobTime</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure pointed to by the <i>Buffer</i> parameter. After the job executes, it is deleted.
+     * 
+     * To schedule and delete a job that executes multiple times:
+     * 
+     * <ul>
+     * <li>Set the appropriate bits in the  <b>DaysOfMonth</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure or </li>
+     * <li>Set the appropriate bits in the  <b>DaysOfWeek</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure. </li>
+     * <li>Set the <b>JobTime</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure to the time the job should execute.</li>
+     * </ul>
+     * <div class="alert"><b>Note</b>  You do not need to set both the  <b>DaysOfMonth</b> and the  <b>DaysOfWeek</b> members of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure.</div>
+     * <div> </div>
+     * The job executes at the time specified by the <b>JobTime</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure pointed to by the <i>Buffer</i> parameter, once for each day set in the  <b>DaysOfMonth</b> or <b>DaysOfWeek</b> members of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure. After each job executes, the corresponding bit is cleared. When the last bit is cleared, the job is deleted.
+     * 
+     * To schedule a job that executes periodically:
+     * 
+     * <ul>
+     * <li>Set the appropriate bits in the <b>DaysOfMonth</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure or</li>
+     * <li>Set the appropriate bits in the <b>DaysOfWeek</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure. </li>
+     * <li>Set the <b>JobTime</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure to the time the job should execute.</li>
+     * <li>Set the job submission flag JOB_RUN_PERIODICALLY in the <b>Flags</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure.</li>
+     * </ul>
+     * <div class="alert"><b>Note</b>  You do not need to set both the  <b>DaysOfMonth</b> and the  <b>DaysOfWeek</b> members of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure.</div>
+     * <div> </div>
+     * The job will execute periodically, at the time specified by the <b>JobTime</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure pointed to by the <i>Buffer</i> parameter, on each day set in the <b>DaysOfMonth</b> or <b>DaysOfWeek</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure. The job will not be deleted as a result of the repeated executions. The only way to delete the job is by an explicit call to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/nf-lmat-netschedulejobdel">NetScheduleJobDel</a> function.
+     * 
+     * See 
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure for a description of the <b>DaysOfWeek</b>, <b>DaysOfMonth</b>, and  job property bitmasks.
+     * 
+     * On Windows 2000, the earlier AT service and the Task Scheduler were combined. The Task Scheduler service was only accurate to the minute.  Therefore, the <b>NetScheduleJobAdd</b> function only uses hours and minutes specified in the <b>JobTime</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure when a job is scheduled to run. 
+     * 
+     * Starting with   Windows Vista, the precision for the Task Scheduler was increased to the second. Therefore, the <b>NetScheduleJobAdd</b> function uses only the hours, minutes, and seconds specified in the <b>JobTime</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure when a job is scheduled to run.
      * @param {PWSTR} Servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Pointer<Integer>} Buffer_R 
      * @param {Pointer<Integer>} JobId A pointer that receives a job identifier for the newly submitted job. This entry is valid only if the function returns successfully.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//lmat/nf-lmat-netschedulejobadd
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/lmat/nf-lmat-netschedulejobadd
      * @since windows5.0
      */
     static NetScheduleJobAdd(Servername, Buffer_R, JobId) {
@@ -19469,14 +21282,30 @@ class NetManagement {
 
     /**
      * The NetScheduleJobDel function deletes a range of jobs queued to run at a computer. This function requires that the schedule service be started at the computer to which the job deletion request is being sent.
+     * @remarks
+     * Normally only members of the local Administrators group on the computer where the schedule job is being deleted can successfully execute this function. If the server name passed in the string pointed to by the <i>Servername</i> parameter is a remote server, then only members of the local Administrators group on the  server can successfully execute this function. 
+     * 
+     * If the following registry value has the least significant bit set (for example, 0x00000001), then users belonging to the Server Operators group can also successfully execute this function.
+     * 
+     * 
+     * <b>HKLM\System\CurrentControlSet\Control\Lsa\SubmitControl</b>
+     * 
+     * Call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/nf-lmat-netschedulejobenum">NetScheduleJobEnum</a> function to retrieve the job identifier for one or more scheduled jobs.
+     * 
+     * The 
+     * <b>NetScheduleJobDel</b> function deletes all jobs whose job identifiers are in the range <i>MinJobId</i> through <i>MaxJobId</i>.
+     * 
+     * To delete all scheduled jobs at the server, you can call 
+     * <b>NetScheduleJobDel</b> specifying <i>MinJobId</i> equal to 0 and <i>MaxJobId</i> equal to – 1. To delete one job, specify the job's identifier for both the <i>MinJobId</i> parameter and the <i>MaxJobId</i> parameter.
      * @param {PWSTR} Servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} MinJobId The minimum job identifier. Jobs with a job identifier smaller than <i>MinJobId</i> will not be deleted.
      * @param {Integer} MaxJobId The  maximum job identifier. Jobs with a job identifier larger than <i>MaxJobId</i> will not be deleted.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//lmat/nf-lmat-netschedulejobdel
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/lmat/nf-lmat-netschedulejobdel
      * @since windows5.0
      */
     static NetScheduleJobDel(Servername, MinJobId, MaxJobId) {
@@ -19488,6 +21317,17 @@ class NetManagement {
 
     /**
      * The NetScheduleJobEnum function lists the jobs queued on a specified computer. This function requires that the schedule service be started.
+     * @remarks
+     * Normally only members of the local Administrators group on the computer where the schedule job is being enumerated can successfully execute this function. If the server name passed in the string pointed to by the <i>Servername</i> parameter is a remote server, then only members of the local Administrators group on the  server can successfully execute this function. 
+     * 
+     * If the following registry value has the least significant bit set (for example, 0x00000001), then users belonging to the Server Operators group can also successfully execute this function.
+     * 
+     * 
+     * <b>HKLM\System\CurrentControlSet\Control\Lsa\SubmitControl</b>
+     * 
+     * Each entry returned contains an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_enum">AT_ENUM</a> structure. The value of the <b>JobId</b> member can be used when calling functions that require a job identifier parameter, such as the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/nf-lmat-netschedulejobdel">NetScheduleJobDel</a> function.
      * @param {PWSTR} Servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Pointer<Pointer<Integer>>} PointerToBuffer A pointer to the buffer that receives the data. The return information is an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_enum">AT_ENUM</a> structures. The buffer is allocated by the system and must be freed using a single call to the 
@@ -19501,8 +21341,8 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//lmat/nf-lmat-netschedulejobenum
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/lmat/nf-lmat-netschedulejobenum
      * @since windows5.0
      */
     static NetScheduleJobEnum(Servername, PointerToBuffer, PrefferedMaximumLength, EntriesRead, TotalEntries, ResumeHandle) {
@@ -19519,6 +21359,13 @@ class NetManagement {
 
     /**
      * The NetScheduleJobGetInfo function retrieves information about a particular job queued on a specified computer. This function requires that the schedule service be started.
+     * @remarks
+     * Normally only members of the local Administrators group on the computer where the schedule job is being enumerated can successfully execute this function. If the server name passed in the string pointed to by the <i>Servername</i> parameter is a remote server, then only members of the local Administrators group on the  server can successfully execute this function. 
+     * 
+     * If the following registry value has the least significant bit set (for example, 0x00000001), then users belonging to the Server Operators group can also successfully execute this function.
+     * 
+     * 
+     * <b>HKLM\System\CurrentControlSet\Control\Lsa\SubmitControl</b>
      * @param {PWSTR} Servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} JobId A value that indicates the identifier of the job for which to retrieve information.
      * @param {Pointer<Pointer<Integer>>} PointerToBuffer A pointer to the buffer that receives the 
@@ -19529,8 +21376,8 @@ class NetManagement {
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
-     * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//lmat/nf-lmat-netschedulejobgetinfo
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/lmat/nf-lmat-netschedulejobgetinfo
      * @since windows5.0
      */
     static NetScheduleJobGetInfo(Servername, JobId, PointerToBuffer) {

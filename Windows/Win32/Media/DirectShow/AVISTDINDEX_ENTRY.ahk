@@ -4,13 +4,10 @@
 /**
  * Contains one index entry for an AVI 2.0 standard index.
  * @remarks
- * 
  * For more information, see the <i>OpenDML AVI File Format Extensions</i>, published by the OpenDML AVI M-JPEG File Format Subcommittee. (This resource may not be available in some languages 
  * 
  * and countries.)
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//aviriff/ns-aviriff-avistdindex_entry
+ * @see https://learn.microsoft.com/windows/win32/api/aviriff/ns-aviriff-avistdindex_entry
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

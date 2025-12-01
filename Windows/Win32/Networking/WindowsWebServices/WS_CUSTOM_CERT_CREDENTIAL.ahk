@@ -4,7 +4,7 @@
 
 /**
  * The type for specifying a certificate credential that is to be supplied by a callback to the application.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_custom_cert_credential
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_custom_cert_credential
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

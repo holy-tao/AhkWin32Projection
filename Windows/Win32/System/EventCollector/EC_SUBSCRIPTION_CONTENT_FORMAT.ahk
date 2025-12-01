@@ -3,7 +3,7 @@
 
 /**
  * Specifies how events will be rendered on the computer that sends the events before the events are sent to the event collector computer.
- * @see https://docs.microsoft.com/windows/win32/api//evcoll/ne-evcoll-ec_subscription_content_format
+ * @see https://learn.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_subscription_content_format
  * @namespace Windows.Win32.System.EventCollector
  * @version v4.0.30319
  */

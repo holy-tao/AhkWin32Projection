@@ -3,7 +3,7 @@
 
 /**
  * The HTTP_REQUEST_AUTH_TYPE enumeration defines the authentication types supported by the HTTP Server API.This enumeration is used in the HTTP_REQUEST_AUTH_INFO structure.
- * @see https://docs.microsoft.com/windows/win32/api//http/ne-http-http_request_auth_type
+ * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_request_auth_type
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

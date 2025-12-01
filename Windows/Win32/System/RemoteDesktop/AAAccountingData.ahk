@@ -4,7 +4,7 @@
 
 /**
  * This structure contains information about a connection event.
- * @see https://docs.microsoft.com/windows/win32/api//tsgpolicyengine/ns-tsgpolicyengine-aaaccountingdata
+ * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/ns-tsgpolicyengine-aaaccountingdata
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

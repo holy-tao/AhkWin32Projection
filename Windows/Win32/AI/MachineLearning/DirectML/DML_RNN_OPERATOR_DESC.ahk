@@ -3,7 +3,7 @@
 
 /**
  * Performs a one-layer simple recurrent neural network (RNN) function on the input. This function is often referred to as the Input Gate. This operator performs this function multiple times in a loop, dictated by the sequence length dimension and the *SequenceLengthsTensor*.
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_rnn_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_rnn_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
@@ -115,7 +115,7 @@ class DML_RNN_OPERATOR_DESC extends Win32Struct
     /**
      * Type: \_Field\_size\_(ActivationDescCount) **const [DML_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_operator_desc)\***
      * 
-     * An array of [DML_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_operator_desc) containing the descriptions of the activation operators, f(). The number of activation functions is equal to the number of directions. For forwards and backwards directions there is expected to be 1 activation fuction. For Bidirectional there are expected to be 2.
+     * An array of [DML_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_operator_desc) containing the descriptions of the activation operators, f(). The number of activation functions is equal to the number of directions. For forwards and backwards directions there is expected to be 1 activation function. For Bidirectional there are expected to be 2.
      * @type {Pointer<DML_OPERATOR_DESC>}
      */
     ActivationDescs {

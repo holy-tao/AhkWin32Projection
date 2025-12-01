@@ -3,7 +3,7 @@
 
 /**
  * Used by the WintrustAddDefaultForUsage function to register callback information about a provider's default usage.
- * @see https://docs.microsoft.com/windows/win32/api//wintrust/ns-wintrust-crypt_provider_regdefusage
+ * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_provider_regdefusage
  * @namespace Windows.Win32.Security.WinTrust
  * @version v4.0.30319
  */

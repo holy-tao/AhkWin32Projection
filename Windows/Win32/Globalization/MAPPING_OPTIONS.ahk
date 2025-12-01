@@ -4,7 +4,6 @@
 /**
  * Contains options for text recognition. The values stored in this structure affect the behavior and results of MappingRecognizeText.
  * @remarks
- * 
  * The application does not have to fill in all members of this structure, as services treat <b>NULL</b> members as default values. All unused members must be set to 0.
  * 
  * <div class="alert"><b>Warning</b>  The data passed in this structure to <a href="https://docs.microsoft.com/windows/desktop/api/elscore/nf-elscore-mappingrecognizetext">MappingRecognizeText</a>, as well as data referred to by the <i>pszText</i> argument in that call, 
@@ -17,9 +16,7 @@
  * 
  * call to <b>MappingRecognizeText</b>.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//elscore/ns-elscore-mapping_options
+ * @see https://learn.microsoft.com/windows/win32/api/elscore/ns-elscore-mapping_options
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

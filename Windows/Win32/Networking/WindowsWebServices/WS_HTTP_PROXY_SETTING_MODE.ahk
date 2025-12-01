@@ -3,7 +3,7 @@
 
 /**
  * Proxy setting indicates HTTP proxy setting for the channel with binding WS_HTTP_CHANNEL_BINDING. This is specified as part of WS_CHANNEL_PROPERTY_HTTP_PROXY_SETTING_MODE channel property.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_http_proxy_setting_mode
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_http_proxy_setting_mode
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

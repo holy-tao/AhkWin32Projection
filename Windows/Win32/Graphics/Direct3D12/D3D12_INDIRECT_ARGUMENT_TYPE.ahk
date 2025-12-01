@@ -4,11 +4,8 @@
 /**
  * Specifies the type of the indirect parameter.
  * @remarks
- * 
  * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_indirect_argument_desc">D3D12_INDIRECT_ARGUMENT_DESC</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_indirect_argument_type
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_indirect_argument_type
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

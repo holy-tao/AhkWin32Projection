@@ -4,12 +4,9 @@
 /**
  * Specifies what to clear from the depth stencil view.
  * @remarks
- * 
  * This enum is used by <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-cleardepthstencilview">ID3D12GraphicsCommandList::ClearDepthStencilView</a>.
  *           The flags can be combined to clear all.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_clear_flags
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_clear_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies the product activation information.
- * @see https://docs.microsoft.com/windows/win32/api//slpublic/ns-slpublic-sl_activation_info_header
+ * @see https://learn.microsoft.com/windows/win32/api/slpublic/ns-slpublic-sl_activation_info_header
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

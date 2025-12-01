@@ -5,7 +5,7 @@
 
 /**
  * The type for specifying a certificate credential using the certificate's subject name, store location and store name. The specified credential is loaded when the containing channel or listener is opened.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_subject_name_cert_credential
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_subject_name_cert_credential
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

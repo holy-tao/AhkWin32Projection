@@ -3,7 +3,7 @@
 
 /**
  * Indicates the orientation of an HRTF directivity object.
- * @see https://docs.microsoft.com/windows/win32/api//hrtfapoapi/ns-hrtfapoapi-hrtforientation
+ * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/ns-hrtfapoapi-hrtforientation
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319
  */

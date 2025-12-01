@@ -3,7 +3,7 @@
 
 /**
  * The WSAVERSION structure provides version comparison in Windows Sockets.
- * @see https://docs.microsoft.com/windows/win32/api//winsock2/ns-winsock2-wsaversion
+ * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaversion
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

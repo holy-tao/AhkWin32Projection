@@ -4,7 +4,7 @@
 
 /**
  * The SmartCardApplication structure identifies a smart card application.
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface_enums/ns-bdaiface_enums-smartcardapplication
+ * @see https://learn.microsoft.com/windows/win32/api/bdaiface_enums/ns-bdaiface_enums-smartcardapplication
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

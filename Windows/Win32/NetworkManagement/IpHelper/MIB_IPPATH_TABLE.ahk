@@ -12,7 +12,6 @@
 /**
  * Contains a table of IP path entries.
  * @remarks
- * 
  * The <b>MIB_IPPATH_TABLE</b> structure is defined on Windows Vista and later. 
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getippathtable">GetIpPathTable</a> function enumerates the IP path entries on a local system and returns this information in a <b>MIB_IPPATH_TABLE</b> structure. 
@@ -24,9 +23,7 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getippathentry">GetIpPathEntry</a> function retrieves a single IP path entry and returns this information in a <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ippath_row">MIB_IPPATH_ROW</a> structure.
  * 
  * The <b>MIB_IPPATH_TABLE</b> structure may contain padding for alignment between the <b>NumEntries</b> member and the first <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ippath_row">MIB_IPPATH_ROW</a> array entry in the <b>Table</b> member. Padding for alignment may also be present between the <b>MIB_IPPATH_ROW</b> array entries in the <b>Table</b> member. Any access to a <b>MIB_IPPATH_ROW</b> array entry should assume  padding may exist.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//netioapi/ns-netioapi-mib_ippath_table
+ * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ippath_table
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

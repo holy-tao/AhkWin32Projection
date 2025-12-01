@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_POL_LOGIC_OPER enumeration defines how to group the constituent conditions and sub-expressions of an expression in a DHCP server policy.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ne-dhcpsapi-dhcp_pol_logic_oper
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_pol_logic_oper
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

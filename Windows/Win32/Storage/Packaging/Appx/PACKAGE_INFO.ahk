@@ -6,11 +6,8 @@
 /**
  * Represents package identification information that includes the package identifier, full name, and install location.
  * @remarks
- * 
  * For info about string size limits, see <a href="https://docs.microsoft.com/windows/desktop/appxpkg/identity-constants">Identity constants</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//appmodel/ns-appmodel-package_info
+ * @see https://learn.microsoft.com/windows/win32/api/appmodel/ns-appmodel-package_info
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

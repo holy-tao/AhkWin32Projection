@@ -3,7 +3,7 @@
 
 /**
  * Represents a disk extent.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-disk_extent
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_extent
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

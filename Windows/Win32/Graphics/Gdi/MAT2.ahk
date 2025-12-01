@@ -5,11 +5,8 @@
 /**
  * The MAT2 structure contains the values for a transformation matrix used by the GetGlyphOutline function.
  * @remarks
- * 
  * The identity matrix produces a transformation in which the transformed graphical object is identical to the source object. In the identity matrix, the value of <b>eM11</b> is 1, the value of <b>eM12</b> is zero, the value of <b>eM21</b> is zero, and the value of <b>eM22</b> is 1.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-mat2
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-mat2
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The MPEG_BCS_DEMUX structure identifies the filter graph that is providing the MPEG-2 data stream.
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ns-mpeg2structs-mpeg_bcs_demux
+ * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-mpeg_bcs_demux
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

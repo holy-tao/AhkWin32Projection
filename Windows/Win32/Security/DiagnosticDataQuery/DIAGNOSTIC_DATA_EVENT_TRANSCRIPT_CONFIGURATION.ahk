@@ -4,11 +4,8 @@
 /**
  * Event transcript configuration details such as maximum storage size and hours of data history.
  * @remarks
- * 
  * For more details on how configurations work, see [**Diagnostic Data Viewer overview**](/windows/privacy/diagnostic-data-viewer-overview)
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_data_event_transcript_configuration
+ * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_data_event_transcript_configuration
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
  * @version v4.0.30319
  */

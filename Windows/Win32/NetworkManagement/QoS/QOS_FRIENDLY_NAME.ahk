@@ -5,12 +5,9 @@
 /**
  * The QOS_FRIENDLY_NAME traffic control object associates a friendly name with flow.
  * @remarks
- * 
  * Programmers are encouraged to use the 
  * <b>QOS_FRIENDLY_NAME</b> traffic control object to associate flows with their applications. This approach enables management applications to identify and associate enumerated flows with corresponding applications.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//qosobjs/ns-qosobjs-qos_friendly_name
+ * @see https://learn.microsoft.com/windows/win32/api/qosobjs/ns-qosobjs-qos_friendly_name
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

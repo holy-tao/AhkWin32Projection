@@ -4,7 +4,6 @@
 /**
  * Represents a string that optionally has dictionary information associated with it. The xml APIs use WS_XML_STRINGs to identify prefixes, localNames and namespaces.
  * @remarks
- * 
  * The string is represented as UTF-8 encoded bytes, not WCHARs.  It is not required to be zero terminated.
  *       
  * 
@@ -13,8 +12,7 @@
  *       
  * 
  * The dictionary information is used by the binary encoding to write a more compact xml document.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_xml_string
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_string
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

@@ -5,8 +5,7 @@
  * Indicates a specific class of process information.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/ne-processthreadsapi-process_information_class
+ * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ne-processthreadsapi-process_information_class
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */
@@ -67,6 +66,7 @@ class PROCESS_INFORMATION_CLASS extends Win32Enum{
     static ProcessLeapSecondInfo => 8
 
     /**
+     * The process is represented by a [PROCESS_MACHINE_INFORMATION](ns-processthreadsapi-process_machine_information.md) structure.
      * @type {Integer (Int32)}
      */
     static ProcessMachineTypeInfo => 9

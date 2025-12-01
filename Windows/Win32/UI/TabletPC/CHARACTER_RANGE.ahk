@@ -3,7 +3,7 @@
 
 /**
  * Specifies a range of Unicode points (characters).
- * @see https://docs.microsoft.com/windows/win32/api//rectypes/ns-rectypes-character_range
+ * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-character_range
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

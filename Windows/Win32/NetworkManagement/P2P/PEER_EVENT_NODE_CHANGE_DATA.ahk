@@ -3,7 +3,7 @@
 
 /**
  * The PEER_EVENT_NODE_CHANGE_DATA structure contains a pointer to the data if a PEER_GRAPH_EVENT_NODE_CHANGE event is triggered.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_event_node_change_data
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_event_node_change_data
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

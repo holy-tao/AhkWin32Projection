@@ -3,7 +3,7 @@
 
 /**
  * Indicates the range of the read operation to perform and the plex from which to read.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-plex_read_data_request
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-plex_read_data_request
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -4,10 +4,8 @@
 /**
  * Defines the types of logic that is used to determine whether Automatic Updates will automatically download an update once it is determined to be applicable for the computer.
  * @remarks
- * 
  * If Automatic Updates is disabled, or if Automatic Updates is enabled but set to “Check for updates but let me choose whether to download or install them,” updates will never be automatically downloaded, regardless of the value of an update’s <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdate5-get_autodownload">IUpdate5::AutoDownload</a> property. In earlier versions of the WUA in which <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdate5">IUpdate5</a> is not available, all updates are processed by using the standard logic.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/ne-wuapi-autodownloadmode
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-autodownloadmode
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */

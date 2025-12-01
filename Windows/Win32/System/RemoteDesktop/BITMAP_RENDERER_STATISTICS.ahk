@@ -3,7 +3,7 @@
 
 /**
  * Contains statistics for the RemoteFX media redirection bitmap renderer.
- * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/ns-tsvirtualchannels-bitmap_renderer_statistics
+ * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/ns-tsvirtualchannels-bitmap_renderer_statistics
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

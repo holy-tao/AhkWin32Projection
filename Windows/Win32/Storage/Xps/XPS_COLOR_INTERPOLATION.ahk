@@ -3,7 +3,7 @@
 
 /**
  * Describes the gamma function used for color interpolation.
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/ne-xpsobjectmodel-xps_color_interpolation
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_interpolation
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

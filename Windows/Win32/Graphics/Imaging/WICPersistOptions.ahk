@@ -3,7 +3,7 @@
 
 /**
  * Specifies Windows Imaging Component (WIC) options that are used when initializing a component with a stream.
- * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/ne-wincodecsdk-wicpersistoptions
+ * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/ne-wincodecsdk-wicpersistoptions
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

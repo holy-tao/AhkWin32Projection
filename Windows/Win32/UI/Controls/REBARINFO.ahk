@@ -4,7 +4,7 @@
 
 /**
  * Contains information that describes rebar control characteristics.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-rebarinfo
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-rebarinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

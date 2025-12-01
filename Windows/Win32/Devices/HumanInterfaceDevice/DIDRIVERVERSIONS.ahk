@@ -3,7 +3,7 @@
 
 /**
  * The DIDRIVERVERSIONS structure is used by the DirectInput effect driver to report version information back to DirectInput.
- * @see https://docs.microsoft.com/windows/win32/api//dinputd/ns-dinputd-didriverversions
+ * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-didriverversions
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319
  */

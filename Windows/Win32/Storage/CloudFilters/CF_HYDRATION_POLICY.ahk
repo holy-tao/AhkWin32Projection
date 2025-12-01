@@ -3,7 +3,9 @@
 
 /**
  * Specifies the primary hydration policy and its modifier.
- * @see https://docs.microsoft.com/windows/win32/api//cfapi/ns-cfapi-cf_hydration_policy
+ * @remarks
+ * The hydration policy allows a sync provider to control how placeholder files should be hydrated by the platform. It consists of a primary policy and a set of policy modifiers.
+ * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_hydration_policy
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

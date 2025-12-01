@@ -5,7 +5,7 @@
 
 /**
  * Identifies the algorithm used to generate an RSA PKCS
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_mask_gen_algorithm
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_mask_gen_algorithm
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

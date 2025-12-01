@@ -4,11 +4,8 @@
 /**
  * Specifies the protection level for Analog Copy Protection (ACP).
  * @remarks
- * 
  * This enumeration is numerically equivalent to the <b>COPP_ACP_Protection_Level</b> enumeration used in Certified Output Protection Protocol. The OPM_ACP_OFF flag corresponds to COPP_ACP_Level0.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//opmapi/ne-opmapi-opm_acp_protection_level
+ * @see https://learn.microsoft.com/windows/win32/api/opmapi/ne-opmapi-opm_acp_protection_level
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

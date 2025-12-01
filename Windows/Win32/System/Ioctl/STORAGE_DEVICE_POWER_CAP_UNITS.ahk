@@ -3,7 +3,7 @@
 
 /**
  * The units of the maximum power threshold.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ne-winioctl-storage_device_power_cap_units
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-storage_device_power_cap_units
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

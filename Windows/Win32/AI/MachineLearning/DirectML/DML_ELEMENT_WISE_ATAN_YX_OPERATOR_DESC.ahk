@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * Computes the 2-argument arctangent for each element of *ATensor* and *BTensor*, where *ATensor* is the *Y-axis* and *BTensor* is the *X-axis*, placing the result into the corresponding element of *OutputTensor*.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_atan_yx_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
@@ -14,6 +16,9 @@ class DML_ELEMENT_WISE_ATAN_YX_OPERATOR_DESC extends Win32Struct
     static packingSize => 8
 
     /**
+     * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
+     * 
+     * The input tensor to read the Y-axis values from.
      * @type {Pointer<DML_TENSOR_DESC>}
      */
     ATensor {
@@ -22,6 +27,9 @@ class DML_ELEMENT_WISE_ATAN_YX_OPERATOR_DESC extends Win32Struct
     }
 
     /**
+     * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
+     * 
+     * The input tensor to read the X-axis values from.
      * @type {Pointer<DML_TENSOR_DESC>}
      */
     BTensor {
@@ -30,6 +38,9 @@ class DML_ELEMENT_WISE_ATAN_YX_OPERATOR_DESC extends Win32Struct
     }
 
     /**
+     * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
+     * 
+     * The output tensor to write the results to.
      * @type {Pointer<DML_TENSOR_DESC>}
      */
     OutputTensor {

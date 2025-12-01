@@ -3,7 +3,7 @@
 
 /**
  * The BTH_LE_UUID structure contains information about a Bluetooth Low Energy (LE) Universally Unique Identifier (UUID).
- * @see https://docs.microsoft.com/windows/win32/api//bthledef/ns-bthledef-bth_le_uuid
+ * @see https://learn.microsoft.com/windows/win32/api/bthledef/ns-bthledef-bth_le_uuid
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

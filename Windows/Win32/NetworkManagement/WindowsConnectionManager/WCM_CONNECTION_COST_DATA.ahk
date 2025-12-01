@@ -3,7 +3,7 @@
 
 /**
  * Specifies information about a connection cost.
- * @see https://docs.microsoft.com/windows/win32/api//wcmapi/ns-wcmapi-wcm_connection_cost_data
+ * @see https://learn.microsoft.com/windows/win32/api/wcmapi/ns-wcmapi-wcm_connection_cost_data
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
  * @version v4.0.30319
  */

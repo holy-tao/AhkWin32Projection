@@ -3,7 +3,7 @@
 
 /**
  * Defines constants that specify where the effective value of a property was set.
- * @see https://docs.microsoft.com/windows/win32/api//xamlom/ne-xamlom-basevaluesource
+ * @see https://learn.microsoft.com/windows/win32/api/xamlom/ne-xamlom-basevaluesource
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  * @version v4.0.30319
  */

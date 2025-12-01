@@ -2,13 +2,10 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Specifies the alpha fill mode for video processing.
+ * Specifies the alpha fill mode for video processing. (D3D12_VIDEO_PROCESS_ALPHA_FILL_MODE)
  * @remarks
- * 
  * **D3D12_VIDEO_PROCESS_ALPHA_FILL_MODE_OPAQUE** must be always supported.  The background, destination, and source stream modes are only supported when the driver reports [D3D12_VIDEO_PROCESS_FEATURE_FLAG_ALPHA_FILL](ne-d3d12video-d3d12_video_process_feature_flags.md).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ne-d3d12video-d3d12_video_process_alpha_fill_mode
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_process_alpha_fill_mode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

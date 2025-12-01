@@ -3,7 +3,7 @@
 
 /**
  * The SERVER_INFO_1516 structure specifies whether the server is a reliable time source.
- * @see https://docs.microsoft.com/windows/win32/api//lmserver/ns-lmserver-server_info_1516
+ * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_1516
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

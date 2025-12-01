@@ -5,7 +5,6 @@
 /**
  * Specifies the method for I/O completion to be used with a RIONotify function for sending or receiving network data with the Winsock registered I/O extensions.
  * @remarks
- * 
  * The <b>RIO_NOTIFICATION_COMPLETION</b> structure is used to specify the behavior of the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_rionotify">RIONotify</a> function used with the Winsock registered I/O extensions. 
  * 
  * The <b>RIO_NOTIFICATION_COMPLETION</b> structure is passed to the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_riocreatecompletionqueue">RIOCreateCompletionQueue</a> function when a  <a href="https://docs.microsoft.com/windows/desktop/WinSock/riocqueue">RIO_CQ</a> is created. If an application does not call the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_rionotify">RIONotify</a> function for a completion queue, the completion queue can be created without a <b>RIO_NOTIFICATION_COMPLETION</b> object.
@@ -17,9 +16,7 @@
  * 
  * 
  * An application using thread pools can use thread pool wait objects to get <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_rionotify">RIONotify</a> completions via its thread pool.  In that case, the call to the <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-setthreadpoolwait">SetThreadpoolWait</a> function should immediately follow the call to <b>RIONotify</b>.  If the <b>SetThreadpoolWait</b> function is called before <b>RIONotify</b> and the application relies on <b>RIONotify</b> to clear the event object, this may result in spurious executions of the wait object callback.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mswsock/ns-mswsock-rio_notification_completion
+ * @see https://learn.microsoft.com/windows/win32/api/mswsock/ns-mswsock-rio_notification_completion
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

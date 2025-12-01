@@ -3,7 +3,7 @@
 
 /**
  * Defines the matrix that represents a transform on a message consumer.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-input_transform
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-input_transform
  * @namespace Windows.Win32.UI.Input.Pointer
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Used to specify and set applet configuration in IImePad.
- * @see https://docs.microsoft.com/windows/win32/api//imepad/ns-imepad-imeappletcfg
+ * @see https://learn.microsoft.com/windows/win32/api/imepad/ns-imepad-imeappletcfg
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */

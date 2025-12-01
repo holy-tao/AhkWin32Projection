@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * TBD
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options13
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -14,6 +16,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS13 extends Win32Struct
     static packingSize => 4
 
     /**
+     * Type: \_Out\_ **[BOOL](/windows/win32/winprog/windows-data-types)**
      * @type {BOOL}
      */
     UnrestrictedBufferTextureCopyPitchSupported {
@@ -22,6 +25,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS13 extends Win32Struct
     }
 
     /**
+     * Type: \_Out\_ **[BOOL](/windows/win32/winprog/windows-data-types)**
      * @type {BOOL}
      */
     UnrestrictedVertexElementAlignmentSupported {
@@ -30,6 +34,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS13 extends Win32Struct
     }
 
     /**
+     * Type: \_Out\_ **[BOOL](/windows/win32/winprog/windows-data-types)**
      * @type {BOOL}
      */
     InvertedViewportHeightFlipsYSupported {
@@ -38,6 +43,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS13 extends Win32Struct
     }
 
     /**
+     * Type: \_Out\_ **[BOOL](/windows/win32/winprog/windows-data-types)**
      * @type {BOOL}
      */
     InvertedViewportDepthFlipsZSupported {
@@ -46,6 +52,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS13 extends Win32Struct
     }
 
     /**
+     * Type: \_Out\_ **[BOOL](/windows/win32/winprog/windows-data-types)**
      * @type {BOOL}
      */
     TextureCopyBetweenDimensionsSupported {
@@ -54,6 +61,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS13 extends Win32Struct
     }
 
     /**
+     * Type: \_Out\_ **[BOOL](/windows/win32/winprog/windows-data-types)**
      * @type {BOOL}
      */
     AlphaBlendFactorSupported {

@@ -3,7 +3,7 @@
 
 /**
  * Defines constants that specify a direction for the DirectML convolution operator (as described by the DML_CONVOLUTION_OPERATOR_DESC structure).
- * @see https://docs.microsoft.com/windows/win32/api//directml/ne-directml-dml_convolution_direction
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_convolution_direction
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

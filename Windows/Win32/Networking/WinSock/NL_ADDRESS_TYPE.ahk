@@ -3,7 +3,7 @@
 
 /**
  * The NL_ADDRESS_TYPE enumeration type specifies the IP address type of the network layer.
- * @see https://docs.microsoft.com/windows/win32/api//nldef/ne-nldef-nl_address_type
+ * @see https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_address_type
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Defines the values that specify the type of time stamp to use when logging events channel.
- * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_channel_clock_type
+ * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_channel_clock_type
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */

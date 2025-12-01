@@ -4,7 +4,7 @@
 
 /**
  * The AVIPALCHANGE structure defines a palette change in an AVI file.
- * @see https://docs.microsoft.com/windows/win32/api//avifmt/ns-avifmt-avipalchange
+ * @see https://learn.microsoft.com/windows/win32/api/avifmt/ns-avifmt-avipalchange
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

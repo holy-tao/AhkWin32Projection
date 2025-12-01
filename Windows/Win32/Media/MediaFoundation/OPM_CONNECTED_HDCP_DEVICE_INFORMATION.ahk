@@ -6,11 +6,8 @@
 /**
  * Contains the result from an OPM_GET_CONNECTED_HDCP_DEVICE_INFORMATION query.
  * @remarks
- * 
  * The layout of this structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/dxva9typ/ns-dxva9typ-dxva_coppstatushdcpkeydata">DXVA_COPPStatusHDCPKeyData</a> structure used in Certified Output Protection Protocol (COPP).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//opmapi/ns-opmapi-opm_connected_hdcp_device_information
+ * @see https://learn.microsoft.com/windows/win32/api/opmapi/ns-opmapi-opm_connected_hdcp_device_information
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

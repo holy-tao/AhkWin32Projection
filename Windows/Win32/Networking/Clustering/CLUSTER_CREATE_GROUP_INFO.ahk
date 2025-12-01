@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Allows the caller to provide additional properties when creating a new group.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ns-msclus-cluster_create_group_info
+ * The CLUSTER_CREATE_GROUP_INFO structure allows the caller to provide additional properties when creating a new group.
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ns-msclus-cluster_create_group_info
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

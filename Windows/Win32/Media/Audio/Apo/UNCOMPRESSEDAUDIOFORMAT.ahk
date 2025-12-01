@@ -4,11 +4,8 @@
 /**
  * The UNCOMPRESSEDAUDIOFORMAT structure specifies the frame rate, channel mask, and other attributes of the uncompressed audio data format.
  * @remarks
- * 
  * This structure provides access to the parameters that describe an uncompressed PCM audio format.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//audiomediatype/ns-audiomediatype-uncompressedaudioformat
+ * @see https://learn.microsoft.com/windows/win32/api/audiomediatype/ns-audiomediatype-uncompressedaudioformat
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
  */

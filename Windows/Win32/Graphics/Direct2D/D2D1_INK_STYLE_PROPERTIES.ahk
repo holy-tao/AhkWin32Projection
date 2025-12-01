@@ -4,7 +4,7 @@
 
 /**
  * Defines the general pen tip shape and the transform used in an ID2D1InkStyle object.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/ns-d2d1_3-d2d1_ink_style_properties
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/ns-d2d1_3-d2d1_ink_style_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Defines values that indicate the type of a notification event, and a hint to the listener about the processing of the event.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-notificationkind
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-notificationkind
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

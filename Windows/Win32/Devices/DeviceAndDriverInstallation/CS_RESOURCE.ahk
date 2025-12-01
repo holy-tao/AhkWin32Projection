@@ -4,7 +4,7 @@
 
 /**
  * The CS_RESOURCE structure is used for specifying a resource list that describes device class-specific resource usage for a device instance. For more information about resource lists, see Hardware Resources.
- * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/ns-cfgmgr32-cs_resource
+ * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-cs_resource
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

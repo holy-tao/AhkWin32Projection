@@ -4,7 +4,7 @@
 
 /**
  * Represents a single statement in a sequence of one or more statements for inclusion in a Qualified Certificate (QC) statements extension.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_qc_statement
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_qc_statement
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

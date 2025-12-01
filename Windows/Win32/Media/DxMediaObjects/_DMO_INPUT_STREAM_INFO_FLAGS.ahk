@@ -3,7 +3,7 @@
 
 /**
  * The DMO_INPUT_STREAM_INFO_FLAGS enumeration defines flags that describe an input stream.
- * @see https://docs.microsoft.com/windows/win32/api//mediaobj/ne-mediaobj-_dmo_input_stream_info_flags
+ * @see https://learn.microsoft.com/windows/win32/api/mediaobj/ne-mediaobj-_dmo_input_stream_info_flags
  * @namespace Windows.Win32.Media.DxMediaObjects
  * @version v4.0.30319
  */

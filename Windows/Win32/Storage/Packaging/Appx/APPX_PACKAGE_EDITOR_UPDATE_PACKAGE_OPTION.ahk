@@ -3,7 +3,7 @@
 
 /**
  * Options to use when updating an app package.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/ne-appxpackaging-appx_package_editor_update_package_option
+ * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ne-appxpackaging-appx_package_editor_update_package_option
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

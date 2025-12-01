@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The WSANSCLASSINFO structure provides individual parameter information for a specific Windows Sockets namespace.
+ * The WSANSCLASSINFO structure provides individual parameter information for a specific Windows Sockets namespace. (ANSI)
  * @remarks
- * 
  * The <b>WSANSCLASSINFO</b> structure is defined differently depending on whether ANSI or UNICODE is used. The above syntax block applies to ANSI; for UNICODE, the datatype for <b>lpszName</b> is <b>LPWSTR</b>.
  * 
  * 
@@ -13,9 +12,7 @@
  * 
  * > [!NOTE]
  * > The winsock2.h header defines WSANSCLASSINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsock2/ns-winsock2-wsansclassinfoa
+ * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsansclassinfoa
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  * @charset ANSI

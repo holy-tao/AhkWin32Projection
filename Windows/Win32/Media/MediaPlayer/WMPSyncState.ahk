@@ -4,11 +4,8 @@
 /**
  * The WMPSyncState enumeration type defines the possible operational states of Windows Media Player as it synchronizes digital media to a device. To use this enumeration you must create a remoted instance of the Windows Media Player 10 or later control.
  * @remarks
- * 
  * Windows Media Player 10 Mobile: This enumeration is not supported.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmp/ne-wmp-wmpsyncstate
+ * @see https://learn.microsoft.com/windows/win32/api/wmp/ne-wmp-wmpsyncstate
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */

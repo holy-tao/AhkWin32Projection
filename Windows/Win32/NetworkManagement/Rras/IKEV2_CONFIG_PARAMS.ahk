@@ -5,7 +5,7 @@
 
 /**
  * Used to get or set parameters for Internet Key Exchange version 2 (IKEv2) devices (RFC 4306).
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-ikev2_config_params
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ikev2_config_params
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * The DISPLAYCONFIG_ADAPTER_NAME structure contains information about the display adapter.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-displayconfig_adapter_name
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_adapter_name
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

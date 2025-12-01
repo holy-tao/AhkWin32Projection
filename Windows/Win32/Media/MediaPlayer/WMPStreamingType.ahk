@@ -3,7 +3,7 @@
 
 /**
  * Note  This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The WMPStreamingType enumeration specifies the type of streaming media.
- * @see https://docs.microsoft.com/windows/win32/api//contentpartner/ne-contentpartner-wmpstreamingtype
+ * @see https://learn.microsoft.com/windows/win32/api/contentpartner/ne-contentpartner-wmpstreamingtype
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */

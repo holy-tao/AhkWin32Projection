@@ -5,7 +5,7 @@
 
 /**
  * The DS_REPL_OBJ_META_DATA_2 structure contains an array of DS_REPL_ATTR_META_DATA_2 structures, which in turn contain replication state data for the attributes (past and present) for a given object, as returned by the DsReplicaGetInfo2 function.
- * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ns-ntdsapi-ds_repl_obj_meta_data_2
+ * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_obj_meta_data_2
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

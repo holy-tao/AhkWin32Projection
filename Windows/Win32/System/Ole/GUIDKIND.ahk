@@ -3,7 +3,7 @@
 
 /**
  * Flags used to specify the kind of information requested from an object in the IProvideClassInfo2.
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/ne-ocidl-guidkind
+ * @see https://learn.microsoft.com/windows/win32/api/ocidl/ne-ocidl-guidkind
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

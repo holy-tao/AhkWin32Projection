@@ -13,6 +13,12 @@ class PasswordManagement {
 ;@region Methods
     /**
      * Changes the password of a user account.
+     * @remarks
+     * The value specified by <i>LmNewOwfPassword</i> must always contain a valid OWF. If the new password is greater than 128-bits long, and therefore cannot be represented by a LAN Manager (LM) password, then <i>LmNewOwfPassword</i> should be the LM OWF of a <b>NULL</b> password.
+     * 
+     * This function allows users to change their own passwords only if they have the access: <a href="https://docs.microsoft.com/windows/win32/adschema/r-user-change-password">USER_CHANGE_PASSWORD</a>.
+     * 
+     * This function fails with <b>STATUS_PASSWORD_RESTRICTION</b> if the attempt to change the password conflicts with an administrative password restriction.
      * @param {PWSTR} ServerName A pointer to a null-terminated Unicode string that specifies the Universal Naming Convention (UNC) name of the server on which to operate. If this parameter is <b>NULL</b>, the function operates on the local computer.
      * @param {PWSTR} UserName A pointer to a null-terminated Unicode string that specifies the name of the user whose password is being changed.
      * @param {BOOLEAN} LmOldPresent A <b>BOOLEAN</b> that specifies whether the password designated by <i>LmOldOwfPassword</i> is valid. <i>LmOldPresent</i> is <b>FALSE</b> if the <i>LmOldOwfPassword</i> password is greater than 128-bits in length, and therefore cannot be represented by a Lan Manager (LM) one-way function (OWF) password. Otherwise, it is <b>TRUE</b>.
@@ -97,7 +103,7 @@ class PasswordManagement {
      * </dl>
      * </td>
      * <td width="60%">
-     * The domain controlelr is not in an enabled state. The domain controller must be enabled for this operation.
+     * The domain controller is not in an enabled state. The domain controller must be enabled for this operation.
      * 
      * </td>
      * </tr>
@@ -126,7 +132,7 @@ class PasswordManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mschapp/nf-mschapp-mschapsrvchangepassword
+     * @see https://learn.microsoft.com/windows/win32/api/mschapp/nf-mschapp-mschapsrvchangepassword
      * @since windows5.1.2600
      */
     static MSChapSrvChangePassword(ServerName, UserName, LmOldPresent, LmOldOwfPassword, LmNewOwfPassword, NtOldOwfPassword, NtNewOwfPassword) {
@@ -139,6 +145,10 @@ class PasswordManagement {
 
     /**
      * The MSChapSrvChangePassword2 function changes the password of a user account while supporting mutual encryption.
+     * @remarks
+     * This function allows users to change their own passwords only if they have the access: <a href="https://docs.microsoft.com/windows/win32/adschema/r-user-change-password">USER_CHANGE_PASSWORD</a>.
+     * 
+     * This function fails with <b>STATUS_PASSWORD_RESTRICTION</b> if the attempt to change the password conflicts with an administrative password restriction.
      * @param {PWSTR} ServerName A pointer to a null-terminated Unicode string that specifies the Universal Naming Convention (UNC) name of the server on which to operate. If this parameter is <b>NULL</b>, the function operates on the local computer.
      * @param {PWSTR} UserName A pointer to a null-terminated Unicode string that specifies the name of the user whose password is being changed.
      * @param {Pointer<SAMPR_ENCRYPTED_USER_PASSWORD>} NewPasswordEncryptedWithOldNt A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mschapp/ns-mschapp-sampr_encrypted_user_password">SAMPR_ENCRYPTED_USER_PASSWORD</a> structure that contains the new clear text password encrypted using the current NT one-way function (OWF) password hash as the encryption key.
@@ -246,7 +256,7 @@ class PasswordManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mschapp/nf-mschapp-mschapsrvchangepassword2
+     * @see https://learn.microsoft.com/windows/win32/api/mschapp/nf-mschapp-mschapsrvchangepassword2
      * @since windows5.1.2600
      */
     static MSChapSrvChangePassword2(ServerName, UserName, NewPasswordEncryptedWithOldNt, OldNtOwfPasswordEncryptedWithNewNt, LmPresent, NewPasswordEncryptedWithOldLm, OldLmOwfPasswordEncryptedWithNewLmOrNt) {

@@ -5,7 +5,7 @@
 
 /**
  * Contains information on a tree-view item change. This structure is sent with the TVN_ITEMCHANGED and TVN_ITEMCHANGING notifications.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmtvitemchange
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtvitemchange
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

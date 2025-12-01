@@ -3,7 +3,7 @@
 
 /**
  * The type of the endpoint IDentity, used as a selector for subtypes of WS_ENDPOINT_IDENTITY.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_endpoint_identity_type
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_endpoint_identity_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

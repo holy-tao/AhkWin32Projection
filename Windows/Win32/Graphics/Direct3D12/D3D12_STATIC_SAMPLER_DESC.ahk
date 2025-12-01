@@ -4,11 +4,8 @@
 /**
  * Describes a static sampler.
  * @remarks
- * 
  * Use this structure with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_signature_desc">D3D12_ROOT_SIGNATURE_DESC</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_static_sampler_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_static_sampler_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -114,7 +111,11 @@ class D3D12_STATIC_SAMPLER_DESC extends Win32Struct
      * The <i>ShaderRegister</i> and <i>RegisterSpace</i> parameters correspond to the binding syntax of HLSL.  For example, in HLSL:
      *             
      * 
-     * <pre class="syntax" xml:space="preserve"><c>Texture2D&lt;float4&gt; a : register(t2, space3);</c></pre>
+     * 
+     * ``` syntax
+     * Texture2D&lt;float4&gt; a : register(t2, space3);
+     * ```
+     * 
      * This corresponds to a  <i>ShaderRegister</i> of 2 (indicating the type is SRV), and <i>RegisterSpace</i> is 3.
      *             
      * 

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Defines a video encoder picture resolution.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_resolution_desc
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -14,6 +16,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC extends Win32Struct
     static packingSize => 4
 
     /**
+     * The resolution width, in pixels.
      * @type {Integer}
      */
     Width {
@@ -22,6 +25,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC extends Win32Struct
     }
 
     /**
+     * The resolution height, in pixels.
      * @type {Integer}
      */
     Height {

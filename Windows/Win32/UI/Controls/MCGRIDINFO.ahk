@@ -5,7 +5,7 @@
 
 /**
  * Contains information about part of a calendar control.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-mcgridinfo
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-mcgridinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

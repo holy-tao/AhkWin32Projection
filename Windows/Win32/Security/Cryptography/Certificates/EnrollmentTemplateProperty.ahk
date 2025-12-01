@@ -3,7 +3,7 @@
 
 /**
  * Contains property values for a given template.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-enrollmenttemplateproperty
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-enrollmenttemplateproperty
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

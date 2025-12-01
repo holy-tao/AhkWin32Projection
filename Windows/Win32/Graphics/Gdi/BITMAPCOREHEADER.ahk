@@ -4,7 +4,6 @@
 /**
  * The BITMAPCOREHEADER structure contains information about the dimensions and color format of a DIB.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapcoreinfo">BITMAPCOREINFO</a> structure combines the <b>BITMAPCOREHEADER</b> structure and a color table to provide a complete definition of the dimensions and colors of a DIB. For more information about specifying a DIB, see <b>BITMAPCOREINFO</b>.
  * 
  * An application should use the information stored in the <b>bcSize</b> member to locate the color table in a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapcoreinfo">BITMAPCOREINFO</a> structure, using a method such as the following:
@@ -16,9 +15,7 @@
  *         (WORD) (pBitmapCoreInfo -> bcSize)) 
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-bitmapcoreheader
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapcoreheader
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

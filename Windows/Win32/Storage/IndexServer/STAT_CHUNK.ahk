@@ -6,7 +6,6 @@
 /**
  * Describes the characteristics of a chunk.
  * @remarks
- * 
  * The final three members (<b>idChunkSource</b>, <b>cwcStartSource</b>, and <b>cwcLenSource</b>) are used to describe the source of a derived chunk; that is, one that can be mapped back to a section of text. For example, the heading of a chapter can be both a text-type property and an internal value-type property ? a heading. The value-type property "heading" would be a derived chunk. If the text of the current value-type chunk (from an internal value-type property) is derived from some text-type chunk, then it must be emitted more than once.
  * 
  * The following segment is an example of how this might happen in a book.
@@ -88,9 +87,7 @@
  *  
  * 
  * Information provided by <b>idChunkSource</b>, <b>cwcStartSource</b>, and <b>cwcLenSource</b> is useful for a search engine that highlights hits. If the query is done for an internal value-type property, the search engine will highlight the original text from which the text of the internal value-type property has been derived. For instance, in a C++ code filter, the browser, when searching for MyFunction in internal value-type property "function definitions," will highlight the function header in the file.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//filter/ns-filter-stat_chunk
+ * @see https://learn.microsoft.com/windows/win32/api/filter/ns-filter-stat_chunk
  * @namespace Windows.Win32.Storage.IndexServer
  * @version v4.0.30319
  */

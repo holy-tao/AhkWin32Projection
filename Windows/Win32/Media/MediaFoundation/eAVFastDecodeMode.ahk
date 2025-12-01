@@ -3,7 +3,7 @@
 
 /**
  * Specifies the video decoding speed. This enumeration is used with the AVDecVideoFastDecodeMode property.
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavfastdecodemode
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavfastdecodemode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains parameters for the Format NVM command that is used to low level format the NVM media.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw10_format_nvm
  * @namespace Windows.Win32.Storage.Nvme
@@ -78,6 +80,7 @@ class NVME_CDW10_FORMAT_NVM extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     AsUlong {

@@ -3,7 +3,7 @@
 
 /**
  * The QOS object QOS_OBJECT_HDR is attached to each QOS object. It specifies the object type and its length.
- * @see https://docs.microsoft.com/windows/win32/api//qos/ns-qos-qos_object_hdr
+ * @see https://learn.microsoft.com/windows/win32/api/qos/ns-qos-qos_object_hdr
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

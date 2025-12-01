@@ -3,7 +3,7 @@
 
 /**
  * Contains values that indicate the session mode of a Remote Desktop Session Host (RD Session Host) server.
- * @see https://docs.microsoft.com/windows/win32/api//tssbx/ne-tssbx-wtssbx_machine_session_mode
+ * @see https://learn.microsoft.com/windows/win32/api/tssbx/ne-tssbx-wtssbx_machine_session_mode
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

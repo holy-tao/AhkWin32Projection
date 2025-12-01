@@ -3,7 +3,7 @@
 
 /**
  * Specifies which formats are supported in the font, either at a font-wide level or per glyph.
- * @see https://docs.microsoft.com/windows/win32/api//dcommon/ne-dcommon-dwrite_glyph_image_formats
+ * @see https://learn.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_glyph_image_formats
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

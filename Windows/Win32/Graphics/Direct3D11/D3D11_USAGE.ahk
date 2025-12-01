@@ -4,7 +4,6 @@
 /**
  * Identifies expected resource use during rendering. The usage directly reflects whether a resource is accessible by the CPU and/or the graphics processing unit (GPU).
  * @remarks
- * 
  * An application identifies the way a resource is intended to be used (its usage) in a resource description. There are several structures for creating resources including: <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_texture1d_desc">D3D11_TEXTURE1D_DESC</a>, <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_texture2d_desc">D3D11_TEXTURE2D_DESC</a>, <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_texture3d_desc">D3D11_TEXTURE3D_DESC</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_buffer_desc">D3D11_BUFFER_DESC</a>.
  * 
  * <table>
@@ -111,9 +110,7 @@
  * <li>2 - If bound as an input and an output using different views, each view must use different subresources.</li>
  * <li>3 - The resource can only be created with a single subresource. The resource cannot be a texture array. The resource cannot be a mipmap chain.</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_usage
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_usage
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

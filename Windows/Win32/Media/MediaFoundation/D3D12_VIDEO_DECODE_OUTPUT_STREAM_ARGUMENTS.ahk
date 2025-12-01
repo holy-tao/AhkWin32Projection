@@ -3,11 +3,10 @@
 #Include .\D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS.ahk
 
 /**
- * Specifies the parameters for the output stream for a video decode operation.
+ * Specifies the parameters for the output stream for a video decode operation. (D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS)
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_video_decode_output_stream_arguments
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_decode_output_stream_arguments
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

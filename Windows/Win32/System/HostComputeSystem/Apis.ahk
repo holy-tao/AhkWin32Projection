@@ -15,10 +15,12 @@ class HostComputeSystem {
 
 ;@region Methods
     /**
+     * HcsEnumerateComputeSystems
+     * @param {PWSTR} query Optional JSON document of [SystemQuery](./../SchemaReference.md#SystemQuery) specifying a query for specific compute systems.
+     * @param {HCS_OPERATION} operation The handle to the operation that tracks the enumerate operation.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * 
-     * @param {PWSTR} query 
-     * @param {HCS_OPERATION} operation 
-     * @returns {HRESULT} 
+     * If the return value is `S_OK`, it means the operation started successfully. Callers are expected to get the operation's result using [`HcsWaitForOperationResult`](./HcsWaitForOperationResult.md) or [`HcsGetOperationResult`](./HcsGetOperationResult.md)
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsEnumerateComputeSystems
      */
     static HcsEnumerateComputeSystems(query, operation) {
@@ -54,10 +56,12 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} context 
-     * @param {Pointer<HCS_OPERATION_COMPLETION>} callback 
-     * @returns {HCS_OPERATION} 
+     * HcsCreateOperation
+     * @remarks
+     * Refer to the async model sample code for details on how to use HCS operations.
+     * @param {Pointer<Void>} context Optional pointer to a context that is passed to the callback.
+     * @param {Pointer<HCS_OPERATION_COMPLETION>} callback Optional pointer to an [`HCS_OPERATION_COMPLETION`](./HCS_OPERATION_COMPLETION.md) callback to be invoked when the operation completes.
+     * @returns {HCS_OPERATION} Returns the `HCS_OPERATION` handle to the newly created operation on success, `NULL` if resources required for the operation couldn't be allocated. It is the responsibility of the caller to release the operation using [`HcsCloseOperation`](./HcsCloseOperation.md) once it is no longer used.
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCreateOperation
      */
     static HcsCreateOperation(context, callback) {
@@ -84,8 +88,8 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {HCS_OPERATION} operation 
+     * HcsCloseOperation
+     * @param {HCS_OPERATION} operation Handle to an operation.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCloseOperation
      */
@@ -96,9 +100,9 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {HCS_OPERATION} operation 
-     * @returns {Pointer<Void>} 
+     * HcsGetOperationContext
+     * @param {HCS_OPERATION} operation The handle to an operation.
+     * @returns {Pointer<Void>} Returns the context pointer stored in the operation as a `void*` type.
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetOperationContext
      */
     static HcsGetOperationContext(operation) {
@@ -109,10 +113,10 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {HCS_OPERATION} operation 
-     * @param {Pointer<Void>} context 
-     * @returns {HRESULT} 
+     * HcsSetOperationContext
+     * @param {HCS_OPERATION} operation The handle to an active operation.
+     * @param {Pointer<Void>} context Optional pointer to a context that is passed to the callback.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetOperationContext
      */
     static HcsSetOperationContext(operation, context) {
@@ -129,9 +133,9 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {HCS_OPERATION} operation 
-     * @returns {HCS_SYSTEM} 
+     * HcsGetComputeSystemFromOperation
+     * @param {HCS_OPERATION} operation The handle to an active operation.
+     * @returns {HCS_SYSTEM} Returns the `HCS_SYSTEM` handle to the compute system used by active operation, returns `NULL` if the operation is not active.
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetComputeSystemFromOperation
      */
     static HcsGetComputeSystemFromOperation(operation) {
@@ -143,9 +147,9 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {HCS_OPERATION} operation 
-     * @returns {HCS_PROCESS} 
+     * HcsGetProcessFromOperation
+     * @param {HCS_OPERATION} operation The handle to an active operation.
+     * @returns {HCS_PROCESS} If the function succeeds, the return value is `HCS_PROCESS`.
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetProcessFromOperation
      */
     static HcsGetProcessFromOperation(operation) {
@@ -157,9 +161,9 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {HCS_OPERATION} operation 
-     * @returns {Integer} 
+     * HcsGetOperationType
+     * @param {HCS_OPERATION} operation The handle to an active operation.
+     * @returns {Integer} If the function succeeds, the return value is [HCS_OPERATION_TYPE](./HCS_OPERATION_TYPE.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetOperationType
      */
     static HcsGetOperationType(operation) {
@@ -170,9 +174,11 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsGetOperationId
+     * @param {HCS_OPERATION} operation The handle to an active operation.
+     * @returns {Integer} If the function succeeds, the return value is the operation's Id.
      * 
-     * @param {HCS_OPERATION} operation 
-     * @returns {Integer} 
+     * If the operation is invalid, the return value is `HCS_INVALID_OPERATION_ID`.
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetOperationId
      */
     static HcsGetOperationId(operation) {
@@ -183,9 +189,15 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsGetOperationResult
+     * @param {HCS_OPERATION} operation The handle to an active operation.
+     * @returns {PWSTR} If the operation finished, regardless of success or failure, receives the result document of the operation. The returned result document's JSON document is dependent on the HCS function that was being tracked by this operation. Not all functions that are tracked with operations return a result document. Refer to the remarks on the documentation for the HCS functions that use hcs operations for asynchronous tracking.
      * 
-     * @param {HCS_OPERATION} operation 
-     * @returns {PWSTR} 
+     * 
+     * On failure, it can optionally receive an error JSON document represented by a [ResultError](./../SchemaReference.md#ResultError); it's not guaranteed to be always returned and depends on the function call the operation was tracking.
+     * 
+     * 
+     * The caller is responsible for releasing the returned string using [`LocalFree`](/windows/win32/api/winbase/nf-winbase-localfree).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetOperationResult
      */
     static HcsGetOperationResult(operation) {
@@ -200,10 +212,16 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsGetOperationResultAndProcessInfo
+     * @param {HCS_OPERATION} operation The handle to an active operation.
+     * @param {Pointer<HCS_PROCESS_INFORMATION>} processInformation If the return value is `S_OK` and this parameter has been provided a valid pointer by the caller, it returns the [HCS_PROCESS_INFORMATION](./HCS_PROCESS_INFORMATION.md) associated to the HCS process created with [`HcsCreateProcess`](./HcsCreateProcess.md).
+     * @returns {PWSTR} If the operation finished, regardless of success or failure, receives the result document of the operation. The returned result document's JSON document is dependent on the HCS function that was being tracked by this operation. Not all functions that are tracked with operations return a result document. Refer to the remarks on the documentation for the HCS functions that use hcs operations for asynchronous tracking.
      * 
-     * @param {HCS_OPERATION} operation 
-     * @param {Pointer<HCS_PROCESS_INFORMATION>} processInformation 
-     * @returns {PWSTR} 
+     * 
+     * On failure, it can optionally receive an error JSON document represented by a [ResultError](./../SchemaReference.md#ResultError); it's not guaranteed to be always returned and depends on the function call the operation was tracking.
+     * 
+     * 
+     * The caller is responsible for releasing the returned string using [`LocalFree`](/windows/win32/api/winbase/nf-winbase-localfree).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetOperationResultAndProcessInfo
      */
     static HcsGetOperationResultAndProcessInfo(operation, processInformation) {
@@ -239,9 +257,11 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsGetProcessorCompatibilityFromSavedState
+     * @param {PWSTR} RuntimeFileName The path to the vmrs file.
+     * @returns {PWSTR} JSON document of the processor compatibilities as [VmProcessorRequirements](./../SchemaReference.md#VmProcessorRequirements).
      * 
-     * @param {PWSTR} RuntimeFileName 
-     * @returns {PWSTR} 
+     * The caller is responsible for releasing the returned string using [`LocalFree`](/windows/win32/api/winbase/nf-winbase-localfree).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetProcessorCompatibilityFromSavedState
      */
     static HcsGetProcessorCompatibilityFromSavedState(RuntimeFileName) {
@@ -256,10 +276,16 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsWaitForOperationResult
+     * @param {HCS_OPERATION} operation The handle to an active operation.
+     * @param {Integer} timeoutMs Time to wait in milliseconds for the operation to complete.
+     * @returns {PWSTR} If the operation finished, regardless of success or failure, receives the result document of the operation. The returned result document's JSON document is dependent on the HCS function that was being tracked by this operation. Not all functions that are tracked with operations return a result document. Refer to the remarks on the documentation for the HCS functions that use hcs operations for asynchronous tracking.
      * 
-     * @param {HCS_OPERATION} operation 
-     * @param {Integer} timeoutMs 
-     * @returns {PWSTR} 
+     * 
+     * On failure, it can optionally receive an error JSON document represented by a [ResultError](./../SchemaReference.md#ResultError); it's not guaranteed to be always returned and depends on the function call the operation was tracking.
+     * 
+     * 
+     * The caller is responsible for releasing the returned string using [`LocalFree`](/windows/win32/api/winbase/nf-winbase-localfree).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsWaitForOperationResult
      */
     static HcsWaitForOperationResult(operation, timeoutMs) {
@@ -274,11 +300,17 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsWaitForOperationResultAndProcessInfo
+     * @param {HCS_OPERATION} operation The handle to an active operation.
+     * @param {Integer} timeoutMs Time to wait in milliseconds for the operation to complete.
+     * @param {Pointer<HCS_PROCESS_INFORMATION>} processInformation If the return value is `S_OK` and this parameter has been provided a valid pointer by the caller, it returns the [HCS_PROCESS_INFORMATION](./HCS_PROCESS_INFORMATION.md) associated to the HCS process created with [`HcsCreateProcess`](./HcsCreateProcess.md).
+     * @returns {PWSTR} If the operation finished, regardless of success or failure, receives the result document of the operation. The returned result document's JSON document is dependent on the HCS function that was being tracked by this operation. Not all functions that are tracked with operations return a result document. Refer to the remarks on the documentation for the HCS functions that use hcs operations for asynchronous tracking.
      * 
-     * @param {HCS_OPERATION} operation 
-     * @param {Integer} timeoutMs 
-     * @param {Pointer<HCS_PROCESS_INFORMATION>} processInformation 
-     * @returns {PWSTR} 
+     * 
+     * On failure, it can optionally receive an error JSON document represented by a [ResultError](./../SchemaReference.md#ResultError); it's not guaranteed to be always returned and depends on the function call the operation was tracking.
+     * 
+     * 
+     * The caller is responsible for releasing the returned string using [`LocalFree`](/windows/win32/api/winbase/nf-winbase-localfree).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsWaitForOperationResultAndProcessInfo
      */
     static HcsWaitForOperationResultAndProcessInfo(operation, timeoutMs, processInformation) {
@@ -293,11 +325,11 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {HCS_OPERATION} operation 
-     * @param {Pointer<Void>} context 
-     * @param {Pointer<HCS_OPERATION_COMPLETION>} callback 
-     * @returns {HRESULT} 
+     * HcsSetOperationCallback
+     * @param {HCS_OPERATION} operation The handle to an active operation.
+     * @param {Pointer<Void>} context Optional pointer to a context that is passed to the callback.
+     * @param {Pointer<HCS_OPERATION_COMPLETION>} callback The target [`HCS_OPERATION_COMPLETION`](./HCS_OPERATION_COMPLETION.md) callback that is invoked on completion of an operation.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetOperationCallback
      */
     static HcsSetOperationCallback(operation, context, callback) {
@@ -314,9 +346,11 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {HCS_OPERATION} operation 
-     * @returns {HRESULT} 
+     * HcsCancelOperation
+     * @remarks
+     * This function is not currently implemented and will always return an `E_NOTIMPL` HRESULT value.
+     * @param {HCS_OPERATION} operation The handle to an active operation.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCancelOperation
      */
     static HcsCancelOperation(operation) {
@@ -349,13 +383,15 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsCreateComputeSystem
+     * @param {PWSTR} id Unique Id identifying the compute system.
+     * @param {PWSTR} configuration JSON document specifying the settings of the [compute system](./../SchemaReference.md#ComputeSystem). The compute system document is expected to have a `Container`, `VirtualMachine` or `HostedSystem` property set since they are mutually exclusive.
+     * @param {HCS_OPERATION} operation The handle to the operation that tracks the create operation.
+     * @param {Pointer<SECURITY_DESCRIPTOR>} securityDescriptor Reserved for future use, must be `NULL`.
+     * @param {Pointer<HCS_SYSTEM>} computeSystem Receives a handle to the newly created compute system. It is the responsibility of the caller to release the handle using [HcsCloseComputeSystem](./HcsCloseComputeSystem.md) once it is no longer in use.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * 
-     * @param {PWSTR} id 
-     * @param {PWSTR} configuration 
-     * @param {HCS_OPERATION} operation 
-     * @param {Pointer<SECURITY_DESCRIPTOR>} securityDescriptor 
-     * @param {Pointer<HCS_SYSTEM>} computeSystem 
-     * @returns {HRESULT} 
+     * If the return value is `S_OK`, it means the operation started successfully. Callers are expected to get the operation's result using [`HcsWaitForOperationResult`](./HcsWaitForOperationResult.md) or [`HcsGetOperationResult`](./HcsGetOperationResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/reference/HcsCreateComputeSystem
      */
     static HcsCreateComputeSystem(id, configuration, operation, securityDescriptor, computeSystem) {
@@ -398,11 +434,11 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {PWSTR} id 
-     * @param {Integer} requestedAccess 
-     * @param {Pointer<HCS_SYSTEM>} computeSystem 
-     * @returns {HRESULT} 
+     * HcsOpenComputeSystem
+     * @param {PWSTR} id Unique Id identifying the compute system.
+     * @param {Integer} requestedAccess Reserved for future use, must be `GENERIC_ALL`.
+     * @param {Pointer<HCS_SYSTEM>} computeSystem Receives a handle to the compute system. It is the responsibility of the caller to release the handle using [HcsCloseComputeSystem](./HcsCloseComputeSystem.md) once it is no longer in use.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/reference/HcsOpenComputeSystem
      */
     static HcsOpenComputeSystem(id, requestedAccess, computeSystem) {
@@ -437,8 +473,8 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {HCS_SYSTEM} computeSystem 
+     * HcsCloseComputeSystem
+     * @param {HCS_SYSTEM} computeSystem The handle to the compute system.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCloseComputeSystem
      */
@@ -449,11 +485,13 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsStartComputeSystem
+     * @param {HCS_SYSTEM} computeSystem The handle to the compute system to start.
+     * @param {HCS_OPERATION} operation The handle to the operation that tracks the start operation.
+     * @param {PWSTR} options Reserved for future use. Must be `NULL`.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * 
-     * @param {HCS_SYSTEM} computeSystem 
-     * @param {HCS_OPERATION} operation 
-     * @param {PWSTR} options 
-     * @returns {HRESULT} 
+     * If the return value is `S_OK`, it means the operation started successfully. Callers are expected to get the operation's result using [`HcsWaitForOperationResult`](./HcsWaitForOperationResult.md) or [`HcsGetOperationResult`](./HcsGetOperationResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsStartComputeSystem
      */
     static HcsStartComputeSystem(computeSystem, operation, options) {
@@ -470,11 +508,13 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsShutDownComputeSystem
+     * @param {HCS_SYSTEM} computeSystem The handle to the compute system to shut down.
+     * @param {HCS_OPERATION} operation The handle to the operation that tracks the shutdown operation.
+     * @param {PWSTR} options Reserved for future use. Must be `NULL`.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * 
-     * @param {HCS_SYSTEM} computeSystem 
-     * @param {HCS_OPERATION} operation 
-     * @param {PWSTR} options 
-     * @returns {HRESULT} 
+     * If the return value is `S_OK`, it means the operation started successfully. Callers are expected to get the operation's result using [`HcsWaitForOperationResult`](./HcsWaitForOperationResult.md) or [`HcsGetOperationResult`](./HcsGetOperationResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsShutDownComputeSystem
      */
     static HcsShutDownComputeSystem(computeSystem, operation, options) {
@@ -491,11 +531,13 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsTerminateComputeSystem
+     * @param {HCS_SYSTEM} computeSystem The handle to the compute system to terminate.
+     * @param {HCS_OPERATION} operation The handle to the operation that tracks the terminate operation.
+     * @param {PWSTR} options Reserved for future use. Must be `NULL`.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * 
-     * @param {HCS_SYSTEM} computeSystem 
-     * @param {HCS_OPERATION} operation 
-     * @param {PWSTR} options 
-     * @returns {HRESULT} 
+     * If the return value is `S_OK`, it means the operation started successfully. Callers are expected to get the operation's result using [`HcsWaitForOperationResult`](./HcsWaitForOperationResult.md) or [`HcsGetOperationResult`](./HcsGetOperationResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsTerminateComputeSystem
      */
     static HcsTerminateComputeSystem(computeSystem, operation, options) {
@@ -512,11 +554,13 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsCrashComputeSystem
+     * @param {HCS_SYSTEM} computeSystem The handle to the compute system to crash.
+     * @param {HCS_OPERATION} operation The handle to the operation that tracks the crash system operation.
+     * @param {PWSTR} options Optional JSON document [CrashOptions](./../SchemaReference.md#CrashOptions) specifying terminate options.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * 
-     * @param {HCS_SYSTEM} computeSystem 
-     * @param {HCS_OPERATION} operation 
-     * @param {PWSTR} options 
-     * @returns {HRESULT} 
+     * If the return value is `S_OK`, it means the operation started successfully. Callers are expected to get the operation's result using [`HcsWaitForOperationResult`](./HcsWaitForOperationResult.md) or [`HcsGetOperationResult`](./HcsGetOperationResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCrashComputeSystem
      */
     static HcsCrashComputeSystem(computeSystem, operation, options) {
@@ -533,11 +577,13 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsPauseComputeSystem
+     * @param {HCS_SYSTEM} computeSystem The handle to the compute system to pause.
+     * @param {HCS_OPERATION} operation The handle to the operation that tracks the pause operation.
+     * @param {PWSTR} options Optional JSON document of [PauseOptions](./../SchemaReference.md#PauseOptions) specifying pause options.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md), refer to hcs operation async model.
      * 
-     * @param {HCS_SYSTEM} computeSystem 
-     * @param {HCS_OPERATION} operation 
-     * @param {PWSTR} options 
-     * @returns {HRESULT} 
+     * If the return value is `S_OK`, it means the operation started successfully. Callers are expected to get the operation's result using [`HcsWaitForOperationResult`](./HcsWaitForOperationResult.md) or [`HcsGetOperationResult`](./HcsGetOperationResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsPauseComputeSystem
      */
     static HcsPauseComputeSystem(computeSystem, operation, options) {
@@ -554,11 +600,13 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsResumeComputeSystem
+     * @param {HCS_SYSTEM} computeSystem The handle to the compute system to resume.
+     * @param {HCS_OPERATION} operation The handle to the operation that tracks the resume operation.
+     * @param {PWSTR} options Reserved for future use. Must be `NULL`.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * 
-     * @param {HCS_SYSTEM} computeSystem 
-     * @param {HCS_OPERATION} operation 
-     * @param {PWSTR} options 
-     * @returns {HRESULT} 
+     * If the return value is `S_OK`, it means the operation started successfully. Callers are expected to get the operation's result using [`HcsWaitForOperationResult`](./HcsWaitForOperationResult.md) or [`HcsGetOperationResult`](./HcsGetOperationResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsResumeComputeSystem
      */
     static HcsResumeComputeSystem(computeSystem, operation, options) {
@@ -575,11 +623,13 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsSaveComputeSystem
+     * @param {HCS_SYSTEM} computeSystem The handle to the compute system to save.
+     * @param {HCS_OPERATION} operation The handle to the operation that tracks the save operation.
+     * @param {PWSTR} options Optional JSON document of [SaveOptions](./../SchemaReference.md#SaveOptions) specifying save options.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * 
-     * @param {HCS_SYSTEM} computeSystem 
-     * @param {HCS_OPERATION} operation 
-     * @param {PWSTR} options 
-     * @returns {HRESULT} 
+     * If the return value is `S_OK`, it means the operation started successfully. Callers are expected to get the operation's result using [`HcsWaitForOperationResult`](./HcsWaitForOperationResult.md) or [`HcsGetOperationResult`](./HcsGetOperationResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSaveComputeSystem
      */
     static HcsSaveComputeSystem(computeSystem, operation, options) {
@@ -596,11 +646,13 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsGetComputeSystemProperties
+     * @param {HCS_SYSTEM} computeSystem The handle to the compute system to query.
+     * @param {HCS_OPERATION} operation The handle to the operation that tracks the query operation.
+     * @param {PWSTR} propertyQuery Optional JSON document of [System_PropertyQuery](./../SchemaReference.md#System_PropertyQuery) specifying the properties to query.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * 
-     * @param {HCS_SYSTEM} computeSystem 
-     * @param {HCS_OPERATION} operation 
-     * @param {PWSTR} propertyQuery 
-     * @returns {HRESULT} 
+     * If the return value is `S_OK`, it means the operation started successfully. Callers are expected to get the operation's result using [`HcsWaitForOperationResult`](./HcsWaitForOperationResult.md) or [`HcsGetOperationResult`](./HcsGetOperationResult.md)
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetComputeSystemProperties
      */
     static HcsGetComputeSystemProperties(computeSystem, operation, propertyQuery) {
@@ -617,12 +669,35 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsModifyComputeSystem
+     * @remarks
+     * The [ModifySettingRequest](./../SchemaReference.md#ModifySettingRequest) JSON document has a property called `"Settings"` of type `Any`. In JSON, `Any` means an arbitrary object with no restrictions. Refer to the following table to know what JSON type HCS expects for each `"ResourcePath"`.
      * 
-     * @param {HCS_SYSTEM} computeSystem 
-     * @param {HCS_OPERATION} operation 
-     * @param {PWSTR} configuration 
-     * @param {HANDLE} identity 
-     * @returns {HRESULT} 
+     * |`"ResourcePath"`|`"Settings"` Type|Valid `"RequestType"` in [ModifyRequestType](./../SchemaReference.md#ModifyRequestType)|
+     * |---|---|---|
+     * |L"VirtualMachine/ComputeTopology/Processor/CpuGroup"|[CpuGroup](./../SchemaReference.md#CpuGroup)|No Limit|
+     * |L"VirtualMachine/ComputeTopology/Processor/IdledProcessors"|[IdleProcessorsRequest](./../SchemaReference.md#CpuGroup)|Only "Update"|
+     * |L"VirtualMachine/ComputeTopology/Processor/CpuFrequencyPowerCap"|ULONG|No Limit|
+     * |L"VirtualMachine/Devices/FlexibleIov/`<Identifier>`"<br>`Identifier` is expected as uniq name to represent the flexible IOV device|[FlexibleIoDevice](./../SchemaReference.md#FlexibleIoDevice)|Only "Add"|
+     * |L"VirtualMachine/ComputeTopology/Gpu"|[GpuConfiguration](./../SchemaReference.md#GpuConfiguration)|Only "Update"|
+     * |L"VirtualMachine/Devices/MappedPipes/`<Identifier>`"<br>`Identifier` is expected as uniq name to represent the host named pipe to be mapped|`Settings` should be empty|"Add" or "Remove"|
+     * |L"VirtualMachine/ComputeTopology/Memory/SizeInMB"|UINT64, meaning new memory size in MB|No Limit|
+     * |L"VirtualMachine/Devices/NetworkAdapters/`<Identifier`>"<br>`Identifier` is expected as uniq name to represent the network adapter|[NetworkAdapter](./../SchemaReference.md#CpuGroup)|No Limit|
+     * |L"VirtualMachine/Devices/Plan9/Shares"|[Plan9Share](./../SchemaReference.md#Plan9Share)|No Limit|
+     * |L"VirtualMachine/Devices/Scsi/`<Identifier>`/Attachments/`<UnsignedInt>`"<br>`Identifier` is expected as uniq name to represent the scsi device; `UnsignedInt` is expected as the unsigned int value to represent the lun of the disk|[Attachment](./../SchemaReference.md#Attachment)|No Limit<br>`Settings` is ignored when type is "Remove"|
+     * |L"VirtualMachine/Devices/ComPorts/`<UnsignedInt>`"<br>`UnsignedInt` is expected to represent the serial ID which is not larger than 1|[comPort](./../SchemaReference.md#ComPort)|No Limit(check c_SerialResourceRegex???)|
+     * |L"VirtualMachine/Devices/SharedMemory/Regions"|[SharedMemoryRegion](./../SchemaReference.md#SharedMemoryRegion)|No Limit|
+     * |L"VirtualMachine/Devices/VirtualPMem/Devices/`<UnsignedInt>`"<br>`UnsignedInt` is expected to represent the number identifier of the VPMEM device|[VirtualPMemDevice](./../SchemaReference.md#VirtualPMemDevice)|"Add" or "Remove"<br>`Settings` is ignored when type is "Remove"|
+     * |L"VirtualMachine/Devices/VirtualPMem/Devices/`<UnsignedInt>`/Mappings/`<UnsignedInt>`"<br>First `UnsignedInt` is expected to represent the number identifier of the VPMEM device; Second `UnsignedInt` is expected to represent the offset indicating which Mapping to modify|[VirtualPMemMapping](./../SchemaReference.md#VirtualPMemMapping)|"Add" or "Remove"<br>`Settings` is ignored when type is "Remove"|
+     * |L"VirtualMachine/Devices/VirtualSmb/Shares"|[VirtualSmbShare](./../SchemaReference.md#VirtualSmbShare)|No Limit|
+     * |L"VirtualMachine/Devices/VirtualPci/" + c_Identifier|[VirtualPciDevice](./../SchemaReference.md#VirtualSmbShare)|"Add" or "Remove"<br>`Settings` is ignored when type is "Remove"|
+     * @param {HCS_SYSTEM} computeSystem Handle the compute system to modify.
+     * @param {HCS_OPERATION} operation Handle to the operation that tracks the modify operation.
+     * @param {PWSTR} configuration JSON document of [ModifySettingRequest](./../SchemaReference.md#ModifySettingRequest) specifying the settings to modify.
+     * @param {HANDLE} identity Optional handle to an access token that is used when applying the settings.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
+     * 
+     * If the return value is `S_OK`, it means the operation started successfully. Callers are expected to get the operation's result using [`HcsWaitForOperationResult`](./HcsWaitForOperationResult.md) or [`HcsGetOperationResult`](./HcsGetOperationResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsModifyComputeSystem
      */
     static HcsModifyComputeSystem(computeSystem, operation, configuration, identity) {
@@ -640,10 +715,12 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsWaitForComputeSystemExit
+     * @param {HCS_SYSTEM} computeSystem The handle to the compute system to exit.
+     * @param {Integer} timeoutMs Time to wait in milliseconds for the compute system to exit.
+     * @returns {PWSTR} JSON document of [SystemExitStatus](./../SchemaReference.md#SystemExitStatus).
      * 
-     * @param {HCS_SYSTEM} computeSystem 
-     * @param {Integer} timeoutMs 
-     * @returns {PWSTR} 
+     * The caller is responsible for releasing the returned string using [`LocalFree`](/windows/win32/api/winbase/nf-winbase-localfree).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsWaitForComputeSystemExit
      */
     static HcsWaitForComputeSystemExit(computeSystem, timeoutMs) {
@@ -658,12 +735,12 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {HCS_SYSTEM} computeSystem 
-     * @param {Integer} callbackOptions 
-     * @param {Pointer<Void>} context 
-     * @param {Pointer<HCS_EVENT_CALLBACK>} callback 
-     * @returns {HRESULT} 
+     * HcsSetComputeSystemCallback
+     * @param {HCS_SYSTEM} computeSystem The handle to the compute system.
+     * @param {Integer} callbackOptions The option for callback, using one from [HCS_EVENT_OPTIONS](./HCS_EVENT_OPTIONS.md).
+     * @param {Pointer<Void>} context Optional pointer to a context that is passed to the callback.
+     * @param {Pointer<HCS_EVENT_CALLBACK>} callback The target [`HCS_EVENT_CALLBACK`](./HCS_EVENT_CALLBACK.md) for compute system events.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetComputeSystemCallback
      */
     static HcsSetComputeSystemCallback(computeSystem, callbackOptions, context, callback) {
@@ -760,13 +837,17 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsCreateProcess
+     * @remarks
+     * It is recommended for callers to use [`HcsWaitForOperationResultAndProcessInfo`](./HcsWaitForOperationResultAndProcessInfo.md) or [`HcsGetOperationResultAndProcessInfo`](./HcsGetOperationResultAndProcessInfo.md) function calls to ensure you can get a reference to the process information. This is important when the process has created standard Input/Output/Error handles. You can still get this through a call to [`HcsGetProcessInfo`](./HcsGetProcessInfo.md).
+     * @param {HCS_SYSTEM} computeSystem The handle to the compute system in which to start the process.
+     * @param {PWSTR} processParameters JSON document of [ProcessParameters](./../SchemaReference.md#ProcessParameters) specifying the command line and environment for the process.
+     * @param {HCS_OPERATION} operation Handle to the operation that tracks the process creation operation.
+     * @param {Pointer<SECURITY_DESCRIPTOR>} securityDescriptor Reserved for future use, must be `NULL`.
+     * @param {Pointer<HCS_PROCESS>} process Receives the `HCS_PROCESS` handle to the newly created process.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * 
-     * @param {HCS_SYSTEM} computeSystem 
-     * @param {PWSTR} processParameters 
-     * @param {HCS_OPERATION} operation 
-     * @param {Pointer<SECURITY_DESCRIPTOR>} securityDescriptor 
-     * @param {Pointer<HCS_PROCESS>} process 
-     * @returns {HRESULT} 
+     * If the return value is `S_OK`, it means the operation started successfully. Callers are expected to get the operation's result using [`HcsWaitForOperationResultAndProcessInfo`](./HcsWaitForOperationResultAndProcessInfo.md) or [`HcsGetOperationResultAndProcessInfo`](./HcsGetOperationResultAndProcessInfo.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCreateProcess
      */
     static HcsCreateProcess(computeSystem, processParameters, operation, securityDescriptor, process) {
@@ -783,12 +864,12 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {HCS_SYSTEM} computeSystem 
-     * @param {Integer} processId 
-     * @param {Integer} requestedAccess 
-     * @param {Pointer<HCS_PROCESS>} process 
-     * @returns {HRESULT} 
+     * HcsOpenProcess
+     * @param {HCS_SYSTEM} computeSystem The handle to the compute system in which to start the process.
+     * @param {Integer} processId Specifies the Id of the process to open.
+     * @param {Integer} requestedAccess Specifies the required access to the compute system.
+     * @param {Pointer<HCS_PROCESS>} process Receives the handle to the process.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsOpenProcess
      */
     static HcsOpenProcess(computeSystem, processId, requestedAccess, process) {
@@ -803,8 +884,8 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {HCS_PROCESS} process 
+     * HcsCloseProcess
+     * @param {HCS_PROCESS} process Process handle to close.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCloseProcess
      */
@@ -815,11 +896,13 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsTerminateProcess
+     * @param {HCS_PROCESS} process The handle to the process to terminate.
+     * @param {HCS_OPERATION} operation The handle to the operation tracking the terminate operation.
+     * @param {PWSTR} options Reserved for future use. Must be `NULL`.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * 
-     * @param {HCS_PROCESS} process 
-     * @param {HCS_OPERATION} operation 
-     * @param {PWSTR} options 
-     * @returns {HRESULT} 
+     * If the return value is `S_OK`, it means the operation started successfully. Callers are expected to get the operation's result using [`HcsWaitForOperationResultAndProcessInfo`](./HcsWaitForOperationResultAndProcessInfo.md) or [`HcsGetOperationResultAndProcessInfo`](./HcsGetOperationResultAndProcessInfo.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsTerminateProcess
      */
     static HcsTerminateProcess(process, operation, options) {
@@ -836,11 +919,13 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsSignalProcess
+     * @param {HCS_PROCESS} process The handle to the process to send the signal to.
+     * @param {HCS_OPERATION} operation The handle to the operation that tracks the signal.
+     * @param {PWSTR} options Optional JSON document of [SignalProcessOptions](./../SchemaReference.md#SignalProcessOptions) specifying the detailed signal.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * 
-     * @param {HCS_PROCESS} process 
-     * @param {HCS_OPERATION} operation 
-     * @param {PWSTR} options 
-     * @returns {HRESULT} 
+     * If the return value is `S_OK`, it means the operation started successfully. Callers are expected to get the operation's result using [`HcsWaitForOperationResultAndProcessInfo`](./HcsWaitForOperationResultAndProcessInfo.md) or [`HcsGetOperationResultAndProcessInfo`](./HcsGetOperationResultAndProcessInfo.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSignalProcess
      */
     static HcsSignalProcess(process, operation, options) {
@@ -857,10 +942,12 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsGetProcessInfo
+     * @param {HCS_PROCESS} process The handle to the process to query.
+     * @param {HCS_OPERATION} operation The handle to the operation that tracks the process.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * 
-     * @param {HCS_PROCESS} process 
-     * @param {HCS_OPERATION} operation 
-     * @returns {HRESULT} 
+     * If the return value is `S_OK`, it means the operation started successfully. Callers are expected to get the operation's result using [`HcsWaitForOperationResultAndProcessInfo`](./HcsWaitForOperationResultAndProcessInfo.md) or [`HcsGetOperationResultAndProcessInfo`](./HcsGetOperationResultAndProcessInfo.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetProcessInfo
      */
     static HcsGetProcessInfo(process, operation) {
@@ -876,11 +963,13 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsGetProcessProperties
+     * @param {HCS_PROCESS} process The handle to the process to query.
+     * @param {HCS_OPERATION} operation The handle to the operation that tracks the process.
+     * @param {PWSTR} propertyQuery Optional JSON document of [ProcessStatus](./../SchemaReference.md#ProcessStatus) specifying the properties to query.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * 
-     * @param {HCS_PROCESS} process 
-     * @param {HCS_OPERATION} operation 
-     * @param {PWSTR} propertyQuery 
-     * @returns {HRESULT} 
+     * If the return value is `S_OK`, it means the operation started successfully. Callers are expected to get the operation's result using [`HcsWaitForOperationResultAndProcessInfo`](./HcsWaitForOperationResultAndProcessInfo.md) or [`HcsGetOperationResultAndProcessInfo`](./HcsGetOperationResultAndProcessInfo.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetProcessProperties
      */
     static HcsGetProcessProperties(process, operation, propertyQuery) {
@@ -897,11 +986,13 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsModifyProcess
+     * @param {HCS_PROCESS} process Handle to the process to modify.
+     * @param {HCS_OPERATION} operation Handle to the operation that tracks the process.
+     * @param {PWSTR} settings JSON document of [ProcessModifyRequest](./../SchemaReference.md#ProcessModifyRequest) specifying the settings of process to modify.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * 
-     * @param {HCS_PROCESS} process 
-     * @param {HCS_OPERATION} operation 
-     * @param {PWSTR} settings 
-     * @returns {HRESULT} 
+     * If the return value is `S_OK`, it means the operation started successfully. Callers are expected to get the operation's result using [`HcsWaitForOperationResultAndProcessInfo`](./HcsWaitForOperationResultAndProcessInfo.md) or [`HcsGetOperationResultAndProcessInfo`](./HcsGetOperationResultAndProcessInfo.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsModifyProcess
      */
     static HcsModifyProcess(process, operation, settings) {
@@ -918,12 +1009,12 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {HCS_PROCESS} process 
-     * @param {Integer} callbackOptions 
-     * @param {Pointer<Void>} context 
-     * @param {Pointer<HCS_EVENT_CALLBACK>} callback 
-     * @returns {HRESULT} 
+     * HcsSetProcessCallback
+     * @param {HCS_PROCESS} process The handle to the process for that the callback is registered.
+     * @param {Integer} callbackOptions The option for callback, using [HCS_EVENT_OPTIONS](./HCS_EVENT_OPTIONS.md).
+     * @param {Pointer<Void>} context Optional pointer to a context that is passed to the callback.
+     * @param {Pointer<HCS_EVENT_CALLBACK>} callback Callback function that is invoked for events on the process.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetProcessCallback
      */
     static HcsSetProcessCallback(process, callbackOptions, context, callback) {
@@ -940,10 +1031,12 @@ class HostComputeSystem {
     }
 
     /**
-     * 
+     * HcsWaitForProcessExit
      * @param {HCS_PROCESS} computeSystem 
-     * @param {Integer} timeoutMs 
-     * @returns {PWSTR} 
+     * @param {Integer} timeoutMs Time to wait in milliseconds for the process to exit.
+     * @returns {PWSTR} JSON document of [ProcessStatus](./../SchemaReference.md#ProcessStatus).
+     * 
+     * The caller is responsible for releasing the returned string using [`LocalFree`](/windows/win32/api/winbase/nf-winbase-localfree).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsWaitForProcessExit
      */
     static HcsWaitForProcessExit(computeSystem, timeoutMs) {
@@ -958,9 +1051,21 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsGetServiceProperties
+     * @remarks
+     * On success, the result as [ServiceProperties](./../SchemaReference.md#ServiceProperties) JSON document is an array of `"Properties"` of type `Any`. In JSON, `Any` means an arbitrary object with no restrictions. Refer to the following table to know what JSON type HCS expects for each [GetPropertyType](./../SchemaReference.md#GetPropertyType).
      * 
-     * @param {PWSTR} propertyQuery 
-     * @returns {PWSTR} 
+     * |`GetPropertyType`|Property type for `result`|
+     * |---|---|
+     * |`"Basic"`|[BasicInformation](./../SchemaReference.md#BasicInformation)|
+     * |`"CpuGroup"`|[CpuGroupConfigurations](./../SchemaReference.md#CpuGroupConfigurations)|
+     * |`"ProcessorTopology"`|[processorTopology](./../SchemaReference.md#ProcessorTopology)|
+     * |`"ContainerCredentialGuard"`|[ContainerCredentialGuardSystemInfo](./../SchemaReference.md#ContainerCredentialGuardSystemInfo)|
+     * |`"QoSCapabilities"`|[QoSCapabilities](./../SchemaReference.md#QoSCapabilities)|
+     * @param {PWSTR} propertyQuery Optional JSON document of [Service_PropertyQuery](./../SchemaReference.md#Service_PropertyQuery) specifying the properties to query.
+     * @returns {PWSTR} On success, receives a JSON document of [ServiceProperties](./../SchemaReference.md#ServiceProperties) with the requested properties.
+     * 
+     * On failure, it can optionally receive an error JSON document represented by a [ResultError](./../SchemaReference.md#ResultError).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetServiceProperties
      */
     static HcsGetServiceProperties(propertyQuery) {
@@ -975,9 +1080,16 @@ class HostComputeSystem {
     }
 
     /**
+     * HcsModifyServiceSettings
+     * @remarks
+     * The [ModificationRequest](./../SchemaReference.md#ModificationRequest) JSON document has a property called `"Settings"` of type `Any`. In JSON, `Any` means an arbitrary object with no restrictions. Refer to the following table to know what JSON type HCS expects for each [ModifyPropertyType](./../SchemaReference.md#ModifyPropertyType).
      * 
-     * @param {PWSTR} settings 
-     * @returns {PWSTR} 
+     * |`ModifyPropertyType`|`"Setting"` JSON Type|
+     * |---|---|
+     * |`"CpuGroup"`|[HostProcessorModificationRequest](./../SchemaReference.md#HostProcessorModificationRequest)|
+     * |`"ContainerCredentialGuard"`|[ContainerCredentialGuardOperationRequest](./../SchemaReference.md#ContainerCredentialGuardOperationRequest)|
+     * @param {PWSTR} settings JSON document of [ModificationRequest](./../SchemaReference.md#ModificationRequest) specifying the settings to modify.
+     * @returns {PWSTR} On failure, it can optionally receive an error JSON document represented by a [ResultError](./../SchemaReference.md#ResultError); it's not guaranteed to be always returned and depends on the property type that is being modified.
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsModifyServiceSettings
      */
     static HcsModifyServiceSettings(settings) {
@@ -992,9 +1104,9 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {PWSTR} settings 
-     * @returns {HRESULT} 
+     * HcsSubmitWerReport
+     * @param {PWSTR} settings JSON document of [CrashReport](./../SchemaReference.md#CrashReport) with the bugcheck information.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSubmitWerReport
      */
     static HcsSubmitWerReport(settings) {
@@ -1009,7 +1121,7 @@ class HostComputeSystem {
     }
 
     /**
-     * 
+     * HcsCreateEmptyGuestStateFile
      * @param {PWSTR} guestStateFilePath 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCreateEmptyGuestStateFile
@@ -1042,10 +1154,10 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {PWSTR} vmId 
-     * @param {PWSTR} filePath 
-     * @returns {HRESULT} 
+     * HcsGrantVmAccess
+     * @param {PWSTR} vmId Unique Id of the VM's compute system.
+     * @param {PWSTR} filePath Path to the file for which to update the ACL.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGrantVmAccess
      */
     static HcsGrantVmAccess(vmId, filePath) {
@@ -1061,10 +1173,10 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {PWSTR} vmId 
-     * @param {PWSTR} filePath 
-     * @returns {HRESULT} 
+     * HcsRevokeVmAccess
+     * @param {PWSTR} vmId Unique Id of the VM's compute system.
+     * @param {PWSTR} filePath Path to teh file for which to update the ACL.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsRevokeVmAccess
      */
     static HcsRevokeVmAccess(vmId, filePath) {
@@ -1080,9 +1192,9 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {PWSTR} filePath 
-     * @returns {HRESULT} 
+     * HcsGrantVmGroupAccess
+     * @param {PWSTR} filePath Path to the file for which to update the ACL.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGrantVmGroupAccess
      */
     static HcsGrantVmGroupAccess(filePath) {
@@ -1097,9 +1209,9 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {PWSTR} filePath 
-     * @returns {HRESULT} 
+     * HcsRevokeVmGroupAccess
+     * @param {PWSTR} filePath Path to teh file for which to update the ACL.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsRevokeVmGroupAccess
      */
     static HcsRevokeVmGroupAccess(filePath) {
@@ -1114,11 +1226,11 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {PWSTR} layerPath 
-     * @param {PWSTR} sourceFolderPath 
-     * @param {PWSTR} layerData 
-     * @returns {HRESULT} 
+     * HcsImportLayer
+     * @param {PWSTR} layerPath Destination path for the container layer.
+     * @param {PWSTR} sourceFolderPath Source path that contains the downloaded layer files.
+     * @param {PWSTR} layerData JSON document of [layerData](./../SchemaReference.md#LayerData) providing the locations of the antecedent layers that are used by the imported layer.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsImportLayer
      */
     static HcsImportLayer(layerPath, sourceFolderPath, layerData) {
@@ -1135,12 +1247,12 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {PWSTR} layerPath 
-     * @param {PWSTR} exportFolderPath 
-     * @param {PWSTR} layerData 
-     * @param {PWSTR} options 
-     * @returns {HRESULT} 
+     * HcsExportLayer
+     * @param {PWSTR} layerPath Path of the layer to export.
+     * @param {PWSTR} exportFolderPath Destination folder for the exported layer.
+     * @param {PWSTR} layerData JSON document of [layerData](./../SchemaReference.md#LayerData) providing the locations of the antecedent layers that are used by the exported layer.
+     * @param {PWSTR} options JSON document of [ExportLayerOptions](./../SchemaReference.md#ExportLayerOptions) describing the layer to export.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsExportLayer
      */
     static HcsExportLayer(layerPath, exportFolderPath, layerData, options) {
@@ -1158,12 +1270,12 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {PWSTR} writableLayerMountPath 
-     * @param {PWSTR} writableLayerFolderPath 
-     * @param {PWSTR} exportFolderPath 
-     * @param {PWSTR} layerData 
-     * @returns {HRESULT} 
+     * HcsExportLegacyWritableLayer
+     * @param {PWSTR} writableLayerMountPath Path of the writable layer to export.
+     * @param {PWSTR} writableLayerFolderPath Folder of the writable layer to export.
+     * @param {PWSTR} exportFolderPath Destination folder for the exported layer.
+     * @param {PWSTR} layerData JSON document of [layerData](./../SchemaReference.md#LayerData) providing the locations of the antecedent layers that are used by the exported layer.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsExportLegacyWritableLayer
      */
     static HcsExportLegacyWritableLayer(writableLayerMountPath, writableLayerFolderPath, exportFolderPath, layerData) {
@@ -1181,9 +1293,12 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {PWSTR} layerPath 
-     * @returns {HRESULT} 
+     * HcsDestroyLayer
+     * @remarks
+     * **Be careful when using this API, it deletes directories using high privilege rights.**
+     * This function deletes a layer from the host.
+     * @param {PWSTR} layerPath Path of the layer to delete.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsDestroyLayer
      */
     static HcsDestroyLayer(layerPath) {
@@ -1198,11 +1313,11 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {PWSTR} layerPath 
-     * @param {HANDLE} vhdHandle 
-     * @param {PWSTR} options 
-     * @returns {HRESULT} 
+     * HcsSetupBaseOSLayer
+     * @param {PWSTR} layerPath Path to the root of the base OS layer.
+     * @param {HANDLE} vhdHandle The handle to a VHD.
+     * @param {PWSTR} options Optional JSON document  of [OsLayerOptions](./../SchemaReference.md#OsLayerOptions) describing options for setting up the layer.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetupBaseOSLayer
      */
     static HcsSetupBaseOSLayer(layerPath, vhdHandle, options) {
@@ -1219,11 +1334,11 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {PWSTR} writableLayerPath 
-     * @param {PWSTR} layerData 
-     * @param {PWSTR} options 
-     * @returns {HRESULT} 
+     * HcsInitializeWritableLayer
+     * @param {PWSTR} writableLayerPath Full path to the root directory of the writable layer.
+     * @param {PWSTR} layerData JSON document providing the locations of the antecedent layers that are used by teh writable layer.
+     * @param {PWSTR} options Reserved for future use. Must be `NULL`.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsInitializeWritableLayer
      */
     static HcsInitializeWritableLayer(writableLayerPath, layerData, options) {
@@ -1240,12 +1355,12 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {PWSTR} writableLayerMountPath 
-     * @param {PWSTR} writableLayerFolderPath 
-     * @param {PWSTR} layerData 
-     * @param {PWSTR} options 
-     * @returns {HRESULT} 
+     * HcsInitializeLegacyWritableLayer
+     * @param {PWSTR} writableLayerMountPath Full path to the root directory of the writable layer.
+     * @param {PWSTR} writableLayerFolderPath The legacy hive folder with the writable layer.
+     * @param {PWSTR} layerData JSON document of [layerData](./../SchemaReference.md#LayerData) providing the locations of the antecedent layers that are used by teh writable layer.
+     * @param {PWSTR} options Optional JSON document specifying the options for how to initialize the sandbox (e.g. which filesystem paths should be pre-expanded in the sandbox).
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsInitializeLegacyWritableLayer
      */
     static HcsInitializeLegacyWritableLayer(writableLayerMountPath, writableLayerFolderPath, layerData, options) {
@@ -1263,10 +1378,10 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {PWSTR} layerPath 
-     * @param {PWSTR} layerData 
-     * @returns {HRESULT} 
+     * HcsAttachLayerStorageFilter
+     * @param {PWSTR} layerPath Full path to the root directory of the layer.
+     * @param {PWSTR} layerData JSON document of [layerData](./../SchemaReference.md#LayerData) providing the locations of the antecedent layers that are used by the layer.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsAttachLayerStorageFilter
      */
     static HcsAttachLayerStorageFilter(layerPath, layerData) {
@@ -1282,9 +1397,9 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {PWSTR} layerPath 
-     * @returns {HRESULT} 
+     * HcsDetachLayerStorageFilter
+     * @param {PWSTR} layerPath Path to the root directory of the layer.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsDetachLayerStorageFilter
      */
     static HcsDetachLayerStorageFilter(layerPath) {
@@ -1299,9 +1414,9 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {HANDLE} vhdHandle 
-     * @returns {HRESULT} 
+     * HcsFormatWritableLayerVhd
+     * @param {HANDLE} vhdHandle The handle to an unmounted virtual hard disk.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsFormatWritableLayerVhd
      */
     static HcsFormatWritableLayerVhd(vhdHandle) {
@@ -1316,9 +1431,9 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {HANDLE} vhdHandle 
-     * @returns {PWSTR} 
+     * HcsGetLayerVhdMountPath
+     * @param {HANDLE} vhdHandle The handle to a mounted virtual hard disk on the host.
+     * @returns {PWSTR} Receives the volume path for the layer. It is the caller's responsibility to release the returned string buffer using [`LocalFree`](/windows/win32/api/winbase/nf-winbase-localfree).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetLayerVhdMountPath
      */
     static HcsGetLayerVhdMountPath(vhdHandle) {
@@ -1333,11 +1448,11 @@ class HostComputeSystem {
     }
 
     /**
-     * 
-     * @param {PWSTR} layerPath 
+     * HcsSetupBaseOSVolume
+     * @param {PWSTR} layerPath Path to the root of the base OS layer.
      * @param {PWSTR} volumePath 
-     * @param {PWSTR} options 
-     * @returns {HRESULT} 
+     * @param {PWSTR} options Optional JSON document  of [OsLayerOptions](./../SchemaReference.md#OsLayerOptions) describing options for setting up the layer.
+     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetupBaseOSVolume
      */
     static HcsSetupBaseOSVolume(layerPath, volumePath, options) {

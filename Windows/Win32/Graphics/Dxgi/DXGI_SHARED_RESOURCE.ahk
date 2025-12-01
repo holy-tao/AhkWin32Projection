@@ -5,11 +5,8 @@
 /**
  * Represents a handle to a shared resource.
  * @remarks
- * 
  * To create a shared surface, pass a shared-resource handle into the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgidevice-createsurface">IDXGIDevice::CreateSurface</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi/ns-dxgi-dxgi_shared_resource
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi/ns-dxgi-dxgi_shared_resource
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

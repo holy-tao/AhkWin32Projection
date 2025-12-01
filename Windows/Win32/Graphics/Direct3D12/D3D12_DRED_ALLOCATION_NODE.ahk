@@ -3,7 +3,7 @@
 
 /**
  * Describes, as a node in a linked list, data about an allocation tracked by Device Removed Extended Data (DRED).
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_dred_allocation_node
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_dred_allocation_node
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

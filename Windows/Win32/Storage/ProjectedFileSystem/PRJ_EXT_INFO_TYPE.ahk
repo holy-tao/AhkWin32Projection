@@ -5,8 +5,7 @@
  * Specifies extended information types
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/ne-projectedfslib-prj_ext_info_type
+ * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ne-projectedfslib-prj_ext_info_type
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  * @version v4.0.30319
  */

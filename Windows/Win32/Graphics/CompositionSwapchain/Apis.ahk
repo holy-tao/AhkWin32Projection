@@ -12,10 +12,16 @@ class CompositionSwapchain {
 
 ;@region Methods
     /**
+     * Creates a presentation factory.
+     * @param {IUnknown} d3dDevice Type: **[IUnknown](/windows/win32/api/unknwn/nn-unknwn-iunknown)\***
      * 
-     * @param {IUnknown} d3dDevice 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * The D3D device the presentation factory is bound to.
+     * @param {Pointer<Guid>} riid Type: **REFIID**
+     * 
+     * A reference to the interface identifier (IID) of the presentation factory.
+     * @returns {Pointer<Void>} Type: **[void](/windows/desktop/winprog/windows-data-types)\*\***
+     * 
+     * The address of a pointer to an interface with the IID specified in the *riid* parameter.
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-createpresentationfactory
      */
     static CreatePresentationFactory(d3dDevice, riid) {

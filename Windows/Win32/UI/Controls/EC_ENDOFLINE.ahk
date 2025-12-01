@@ -3,7 +3,7 @@
 
 /**
  * Indicates the end of line character used by an edit control.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ne-commctrl-ec_endofline
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ne-commctrl-ec_endofline
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

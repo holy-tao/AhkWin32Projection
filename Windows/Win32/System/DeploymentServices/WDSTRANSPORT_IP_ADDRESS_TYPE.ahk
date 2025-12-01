@@ -3,7 +3,7 @@
 
 /**
  * Indicates the type of IP address.
- * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/ne-wdstptmgmt-wdstransport_ip_address_type
+ * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_ip_address_type
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

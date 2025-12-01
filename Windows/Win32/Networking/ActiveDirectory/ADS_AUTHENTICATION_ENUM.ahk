@@ -4,7 +4,6 @@
 /**
  * Specifies authentication options used in ADSI for binding to directory service objects.
  * @remarks
- * 
  * The <b>ADS_SECURE_AUTHENTICATION</b> flag can be used in combination with other flags such 
  *     as <b>ADS_READONLY_SERVER</b>, <b>ADS_PROMPT_CREDENTIALS</b>, 
  *     <b>ADS_FAST_BIND</b>, and so on.
@@ -20,10 +19,7 @@
  *     constants as defined above. Use the numerical constants instead to set the appropriate flags in your VBScript 
  *     applications. To use the symbolic constants as a good programming practice, write explicit declarations of such 
  *     constants, as done here, in your Visual Basic Scripting edition application.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/ne-iads-ads_authentication_enum
+ * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_authentication_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

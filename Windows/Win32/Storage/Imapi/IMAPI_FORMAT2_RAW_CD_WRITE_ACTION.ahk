@@ -3,7 +3,7 @@
 
 /**
  * Defines values that indicate the current state of the write operation when using the IDiscFormat2RawCDEventArgs interface.
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/ne-imapi2-imapi_format2_raw_cd_write_action
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_format2_raw_cd_write_action
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */

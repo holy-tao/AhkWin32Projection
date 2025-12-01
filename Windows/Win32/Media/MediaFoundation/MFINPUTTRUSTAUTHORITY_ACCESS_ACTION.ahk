@@ -3,7 +3,7 @@
 
 /**
  * Describes an action requested by an output trust authority (OTA). The request is sent to an input trust authority (ITA).
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ns-mfidl-mfinputtrustauthority_access_action
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mfinputtrustauthority_access_action
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

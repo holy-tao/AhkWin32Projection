@@ -3,7 +3,7 @@
 
 /**
  * Used by the GUID_ACDC_POWER_SOURCE power event to indicate the current power source.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-system_power_condition
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-system_power_condition
  * @namespace Windows.Wdk.System.SystemServices
  * @version v4.0.30319
  */

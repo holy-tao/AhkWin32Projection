@@ -3,7 +3,7 @@
 
 /**
  * The DWRITE_PANOSE_CONTRAST enumeration contains values that specify the ratio between thickest and thinnest point of the stroke for a letter such as uppercase 'O'.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/ne-dwrite_1-dwrite_panose_contrast
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_panose_contrast
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The NULL-terminated Unicode string of the adapter serial number for the StorageAdapterSerialNumberProperty as defined in STORAGE_PROPERTY_ID.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_adapter_serial_number
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
@@ -14,7 +12,6 @@ class STORAGE_ADAPTER_SERIAL_NUMBER extends Win32Struct
     static packingSize => 4
 
     /**
-     * The version of this structure. The Size serves as the version.
      * @type {Integer}
      */
     Version {
@@ -23,7 +20,6 @@ class STORAGE_ADAPTER_SERIAL_NUMBER extends Win32Struct
     }
 
     /**
-     * The size of this structure.
      * @type {Integer}
      */
     Size {
@@ -32,7 +28,6 @@ class STORAGE_ADAPTER_SERIAL_NUMBER extends Win32Struct
     }
 
     /**
-     * The serial number.
      * @type {String}
      */
     SerialNumber {

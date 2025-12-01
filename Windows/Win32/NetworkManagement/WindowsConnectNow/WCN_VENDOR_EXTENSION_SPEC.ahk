@@ -3,7 +3,7 @@
 
 /**
  * WCN_VENDOR_EXTENSION_SPEC structure contains data that defines a vendor extension.
- * @see https://docs.microsoft.com/windows/win32/api//wcndevice/ns-wcndevice-wcn_vendor_extension_spec
+ * @see https://learn.microsoft.com/windows/win32/api/wcndevice/ns-wcndevice-wcn_vendor_extension_spec
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
  * @version v4.0.30319
  */

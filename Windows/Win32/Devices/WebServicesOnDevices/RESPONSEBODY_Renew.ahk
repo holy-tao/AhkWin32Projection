@@ -3,7 +3,7 @@
 
 /**
  * Represents a WS-Eventing Renew response message.
- * @see https://docs.microsoft.com/windows/win32/api//wsdtypes/ns-wsdtypes-responsebody_renew
+ * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-responsebody_renew
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

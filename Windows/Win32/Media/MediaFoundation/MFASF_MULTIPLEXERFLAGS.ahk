@@ -3,7 +3,7 @@
 
 /**
  * Defines the ASF multiplexer options.
- * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/ne-wmcontainer-mfasf_multiplexerflags
+ * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/ne-wmcontainer-mfasf_multiplexerflags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

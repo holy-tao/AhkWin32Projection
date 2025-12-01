@@ -3,7 +3,7 @@
 
 /**
  * The STREAM_SEEK enumeration values specify the origin from which to calculate the new seek-pointer location.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/ne-objidl-stream_seek
+ * @see https://learn.microsoft.com/windows/win32/api/objidl/ne-objidl-stream_seek
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

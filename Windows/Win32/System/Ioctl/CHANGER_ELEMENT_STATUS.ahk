@@ -3,8 +3,8 @@
 #Include .\CHANGER_ELEMENT.ahk
 
 /**
- * Represents the status of the specified element.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-changer_element_status
+ * Represents the status of the specified element. (CHANGER_ELEMENT_STATUS)
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_element_status
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Defines constants that specify a matrix transform to be applied to a DirectML tensor.
- * @see https://docs.microsoft.com/windows/win32/api//directml/ne-directml-dml_matrix_transform
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_matrix_transform
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

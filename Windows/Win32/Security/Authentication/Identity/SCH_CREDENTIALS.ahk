@@ -3,13 +3,10 @@
 #Include ..\..\Cryptography\HCERTSTORE.ahk
 
 /**
- * Contains the data for an Schannel credential.
+ * Contains the data for an Schannel credential. (SCH_CREDENTIALS)
  * @remarks
- * 
  * To use the SCH_CREDENTIALS structure, define SCHANNEL_USE_BLACKLISTS along with UNICODE_STRING and PUNICODE_STRING. Alternatively, include Ntdef.h, SubAuth.h or Winternl.h.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//schannel/ns-schannel-sch_credentials
+ * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-sch_credentials
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
@@ -148,9 +145,9 @@ class SCH_CREDENTIALS extends Win32Struct
     }
 
     /**
-     * Array of pointers to the TLS_PARAMETERS structures that indicate TLS parameter restrictions, if any. If no restrictions are specified, the system defaults are used. It is recommended that applications rely on the system defaults.
+     * Array of pointers to the [TLS_PARAMETERS](/windows/win32/api/schannel/ns-schannel-tls_parameters) structures that indicate TLS parameter restrictions, if any. If no restrictions are specified, the system defaults are used. It is recommended that applications rely on the system defaults.
      * 
-     * It is an error to include more than one TLS_PARAMETERS structure with cAlpnIds == 0 and rgstrAlpnIds == NULL.
+     * It is an error to include more than one [TLS_PARAMETERS](/windows/win32/api/schannel/ns-schannel-tls_parameters) structure with cAlpnIds == 0 and rgstrAlpnIds == NULL.
      * @type {Pointer<TLS_PARAMETERS>}
      */
     pTlsParameters {

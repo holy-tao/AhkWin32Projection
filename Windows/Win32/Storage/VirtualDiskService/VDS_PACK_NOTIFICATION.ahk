@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Defines the details of pack events.
+ * The VDS_PACK_NOTIFICATION structure (vdshwprv.h) defines the details of pack events.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_notification">VDS_NOTIFICATION</a> structure includes this 
  *     structure as a member.
  * 
@@ -14,9 +13,7 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-advise">IVdsService::Advise</a> method.
  * 
  * To get the pack object, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-getobject">IVdsService::GetObject</a> method. You can then use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdspack-getproperties">IVdsPack::GetProperties</a> method to get the pack properties.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_pack_notification
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_pack_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

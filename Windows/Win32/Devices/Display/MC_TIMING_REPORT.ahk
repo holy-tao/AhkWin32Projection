@@ -3,7 +3,7 @@
 
 /**
  * Contains information from a monitor's timing report.
- * @see https://docs.microsoft.com/windows/win32/api//lowlevelmonitorconfigurationapi/ns-lowlevelmonitorconfigurationapi-mc_timing_report
+ * @see https://learn.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/ns-lowlevelmonitorconfigurationapi-mc_timing_report
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

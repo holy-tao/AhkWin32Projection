@@ -4,9 +4,8 @@
 #Include ..\..\..\Foundation\HINSTANCE.ahk
 
 /**
- * Contains information that the GetOpenFileName and GetSaveFileName functions use to initialize an Open or Save As dialog box. After the user closes the dialog box, the system returns information about the user's selection in this structure.
+ * Contains information that the GetOpenFileName and GetSaveFileName functions use to initialize an Open or Save As dialog box. After the user closes the dialog box, the system returns information about the user's selection in this structure. (Unicode)
  * @remarks
- * 
  * For compatibility reasons, the Places Bar is hidden if <b>Flags</b> is set to <b>OFN_ENABLEHOOK</b> and <b>lStructSize</b> is <b>OPENFILENAME_SIZE_VERSION_400</b>.
  * 
  * 
@@ -15,9 +14,7 @@
  * 
  * > [!NOTE]
  * > The commdlg.h header defines OPENFILENAME as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//commdlg/ns-commdlg-openfilenamew
+ * @see https://learn.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilenamew
  * @namespace Windows.Win32.UI.Controls.Dialogs
  * @version v4.0.30319
  * @charset Unicode

@@ -3,7 +3,7 @@
 
 /**
  * The CMSG_RC4_AUX_INFO structure contains the bit length of the key for RC4 encryption algorithms. The pvEncryptionAuxInfo member in CMSG_ENVELOPED_ENCODE_INFO can be set to point to an instance of this structure.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmsg_rc4_aux_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_rc4_aux_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

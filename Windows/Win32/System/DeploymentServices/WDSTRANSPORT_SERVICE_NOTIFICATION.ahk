@@ -3,7 +3,7 @@
 
 /**
  * Specifies what action needs to be taken when notifying WDS transport services, such as rereading their settings following a configuration change.
- * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/ne-wdstptmgmt-wdstransport_service_notification
+ * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_service_notification
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

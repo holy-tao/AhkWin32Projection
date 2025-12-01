@@ -5,13 +5,10 @@
 /**
  * Represents a unique ID URI.
  * @remarks
- * 
  * This structure represents a URI that is used as a unique ID.
  *                 It has native support for GUID-based URI's, but can also
  *                 accommodate other unique-id URI's as a string.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_unique_id
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_unique_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

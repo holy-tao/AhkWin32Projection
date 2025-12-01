@@ -4,7 +4,6 @@
 /**
  * Contains the time-out parameters for a communications device.
  * @remarks
- * 
  * If an application sets <b>ReadIntervalTimeout</b> and 
  *     <b>ReadTotalTimeoutMultiplier</b> to <b>MAXDWORD</b> and sets 
  *     <b>ReadTotalTimeoutConstant</b> to a value greater than zero and less than 
@@ -20,9 +19,7 @@
  * <li>If no bytes arrive within the time specified by <b>ReadTotalTimeoutConstant</b>, 
  *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-readfile">ReadFile</a> times out.</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-commtimeouts
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-commtimeouts
  * @namespace Windows.Win32.Devices.Communication
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Represents app memory usage at a single point in time. This structure is used by the PROCESS_INFORMATION_CLASS class.
- * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/ns-processthreadsapi-app_memory_information
+ * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-app_memory_information
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

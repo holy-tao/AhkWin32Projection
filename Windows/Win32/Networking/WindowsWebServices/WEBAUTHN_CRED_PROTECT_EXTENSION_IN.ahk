@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains the credential protect extension information.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_cred_protect_extension_in
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -14,6 +16,7 @@ class WEBAUTHN_CRED_PROTECT_EXTENSION_IN extends Win32Struct
     static packingSize => 4
 
     /**
+     * One of the **WEBAUTHN_USER_VERIFICATION** values.
      * @type {Integer}
      */
     dwCredProtect {
@@ -22,6 +25,7 @@ class WEBAUTHN_CRED_PROTECT_EXTENSION_IN extends Win32Struct
     }
 
     /**
+     * Set the this to **TRUE** to require authenticator support for the **credProtect** extension.
      * @type {BOOL}
      */
     bRequireCredProtect {

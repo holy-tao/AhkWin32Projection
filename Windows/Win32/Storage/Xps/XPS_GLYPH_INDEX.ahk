@@ -3,7 +3,7 @@
 
 /**
  * Describes the placement and location of a glyph.
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/ns-xpsobjectmodel-xps_glyph_index
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_glyph_index
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

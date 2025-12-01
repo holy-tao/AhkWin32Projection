@@ -5,7 +5,7 @@
 
 /**
  * Contains a list of 802.11 wireless networks.
- * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-dot11_network_list
+ * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-dot11_network_list
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

@@ -4,10 +4,8 @@
 /**
  * Defines the type of user.
  * @remarks
- * 
  * The AutomaticUpdatesUserType is used in conjunction with the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iautomaticupdatessettings2-checkpermission">IAutomaticUpdatesSettings2::CheckPermission</a> method.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/ne-wuapi-automaticupdatesusertype
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-automaticupdatesusertype
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */

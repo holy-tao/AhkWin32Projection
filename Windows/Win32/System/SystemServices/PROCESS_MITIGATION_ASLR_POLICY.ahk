@@ -3,7 +3,7 @@
 
 /**
  * Contains process mitigation policy settings for Address Space Randomization Layout (ASLR).
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-process_mitigation_aslr_policy
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-process_mitigation_aslr_policy
  * @namespace Windows.Win32.System.SystemServices
  * @version v4.0.30319
  */

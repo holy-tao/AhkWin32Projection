@@ -5,7 +5,6 @@
 /**
  * Used to indicate that the reader should surface the bytes of the document as base64 encoded characters.
  * @remarks
- * 
  * This encoding can be useful when it is desirable to read an arbitrary, perhaps, non-xml document
  *         while still using the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-reader">WS_XML_READER</a> abstraction.  In this encoding, the bytes comprising
  *         the document are presented as base64 encoded characters at the root of a xml document.  In order to
@@ -19,8 +18,7 @@
  *         encoding. Using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadchars">WsReadChars</a>, for example, will cause the bytes to physically get 
  *         converted to their corresponding base64 characters.  In general reading the document using
  *         anything other than <b>WsReadBytes</b> will incur the base64 conversion.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_xml_reader_raw_encoding
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_reader_raw_encoding
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * Defines a cipher algorithm for data encryption and decryption.
  * @see https://learn.microsoft.com/windows/win32/NativeWiFi/dot11-cipher-algorithm
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319

@@ -3,7 +3,7 @@
 
 /**
  * This enum is used to specify whether a header is expected to appear more than once in a message.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_repeating_header_option
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_repeating_header_option
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

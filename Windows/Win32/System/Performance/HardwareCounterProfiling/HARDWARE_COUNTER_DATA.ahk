@@ -4,11 +4,8 @@
 /**
  * Contains the hardware counter value.
  * @remarks
- * 
  * This structure is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-performance_data">PERFORMANCE_DATA</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-hardware_counter_data
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-hardware_counter_data
  * @namespace Windows.Win32.System.Performance.HardwareCounterProfiling
  * @version v4.0.30319
  */

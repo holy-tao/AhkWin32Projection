@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Defines a world-wide name (WWN). This structure corresponds to the HBA_WWN structure defined by the ANSI HBA API.
- * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_wwn
+ * The VDS_WWN structure (vdshwprv.h) defines a world-wide name (WWN). This structure corresponds to the HBA_WWN structure defined by the ANSI HBA API.
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_wwn
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

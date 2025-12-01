@@ -4,7 +4,7 @@
 
 /**
  * Provides information about the functions of a provider.
- * @see https://docs.microsoft.com/windows/win32/api//wintrust/ns-wintrust-crypt_register_actionid
+ * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_register_actionid
  * @namespace Windows.Win32.Security.WinTrust
  * @version v4.0.30319
  */

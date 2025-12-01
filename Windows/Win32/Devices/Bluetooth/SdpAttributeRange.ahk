@@ -3,7 +3,7 @@
 
 /**
  * The SdpAttributeRange structure is used in a Bluetooth query to constrain the set of attributes to return in the query.
- * @see https://docs.microsoft.com/windows/win32/api//bthsdpdef/ns-bthsdpdef-sdpattributerange
+ * @see https://learn.microsoft.com/windows/win32/api/bthsdpdef/ns-bthsdpdef-sdpattributerange
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

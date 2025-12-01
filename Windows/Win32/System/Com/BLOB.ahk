@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The BLOB structure, derived from Binary Large Object, contains information about a block of data.
+ * The BLOB structure (nspapi.h), which is derived from Binary Large Object, contains information about a block of data.
  * @remarks
- * 
  * The structure name 
  * <b>BLOB</b> comes from the acronym BLOB, which stands for Binary Large Object.
  * 
@@ -13,9 +12,7 @@
  * <div class="alert"><b>Note</b>  Windows Sockets defines a similar 
  * <b>BLOB</b> structure in Wtypes.h. Using both header files in the same source code file creates redefinition–compile time errors.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsock2/ns-winsock2-blob
+ * @see https://learn.microsoft.com/windows/win32/api/nspapi/ns-nspapi-blob
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The CRYPT_KEY_PROV_INFO structure contains information about a key container within a cryptographic service provider (CSP).
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_key_prov_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_key_prov_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

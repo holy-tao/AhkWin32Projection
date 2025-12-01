@@ -5,7 +5,7 @@
 
 /**
  * The OSUpdateAssessment structure defines how up-to-date the OS on a targeted device is.
- * @see https://docs.microsoft.com/windows/win32/api//waasapitypes/ns-waasapitypes-osupdateassessment
+ * @see https://learn.microsoft.com/windows/win32/api/waasapitypes/ns-waasapitypes-osupdateassessment
  * @namespace Windows.Win32.System.UpdateAssessment
  * @version v4.0.30319
  */

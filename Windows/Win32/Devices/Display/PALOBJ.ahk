@@ -4,11 +4,8 @@
 /**
  * The PALOBJ structure is a user object that represents an indexed color palette.
  * @remarks
- * 
  * This structure is used in conjunction with the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-palobj_cgetcolors">PALOBJ_cGetColors</a> service routine.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-palobj
+ * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-palobj
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

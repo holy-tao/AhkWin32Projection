@@ -3,7 +3,7 @@
 
 /**
  * The DD_DESTROYVPORTDATA structure contains the information necessary for the driver to clean up.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_destroyvportdata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_destroyvportdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

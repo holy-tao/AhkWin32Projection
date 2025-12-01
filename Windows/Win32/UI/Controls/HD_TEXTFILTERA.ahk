@@ -2,13 +2,11 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains information about header control text filters.
+ * Contains information about header control text filters. (ANSI)
  * @remarks
- * 
  * > [!NOTE]
  * > The commctrl.h header defines HD_TEXTFILTER as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-hd_textfiltera
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-hd_textfiltera
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  * @charset ANSI

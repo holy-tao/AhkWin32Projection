@@ -4,15 +4,12 @@
 /**
  * Defines constants that specify a four-character identifier for a font axis.
  * @remarks
- * 
  * You can use the **DWRITE_MAKE_FONT_AXIS_TAG(a,b,c,d)** macro to create your own custom identifiers. Here's an example.
  * 
  * ```cpp
  * DWRITE_MAKE_FONT_AXIS_TAG('c', 's', 't', 'm');
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/ne-dwrite_3-dwrite_font_axis_tag
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_font_axis_tag
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

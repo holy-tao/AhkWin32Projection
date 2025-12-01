@@ -3,7 +3,7 @@
 
 /**
  * Specifies the interaction modes that can be chosen by the user for the Tablet PC Input Panel.
- * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/ne-peninputpanel-interactionmode
+ * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-interactionmode
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

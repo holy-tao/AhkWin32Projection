@@ -3,7 +3,7 @@
 
 /**
  * The DXAPI_INTERFACE structure contains the interface callback functions that a video miniport driver implements to support Kernel-Mode Video Transport.
- * @see https://docs.microsoft.com/windows/win32/api//dxmini/ns-dxmini-dxapi_interface
+ * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-dxapi_interface
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

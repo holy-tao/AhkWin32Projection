@@ -3,7 +3,7 @@
 
 /**
  * Determines the version information of the TraceLogging session.
- * @see https://docs.microsoft.com/windows/win32/api//evntrace/ns-evntrace-trace_version_info
+ * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-trace_version_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
@@ -14,7 +14,7 @@ class TRACE_VERSION_INFO extends Win32Struct
     static packingSize => 4
 
     /**
-     * TraceLogging version information.
+     * The version of the trace processing API on the current system.
      * @type {Integer}
      */
     EtwTraceProcessingVersion {

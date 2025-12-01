@@ -4,12 +4,9 @@
 /**
  * Contains text recognition results for a recognized text subrange. An array of structures of this type is retrieved by an Extended Linguistic Services (ELS) service in a MAPPING_PROPERTY_BAG structure.
  * @remarks
- * 
  * <div class="alert"><b>Note</b>  The application should not alter any of the members of this data structure.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//elscore/ns-elscore-mapping_data_range
+ * @see https://learn.microsoft.com/windows/win32/api/elscore/ns-elscore-mapping_data_range
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

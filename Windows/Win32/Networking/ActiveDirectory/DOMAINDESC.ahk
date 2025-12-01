@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Contains data about an element in a domain tree obtained with the IDsBrowseDomainTree::GetDomains method.
+ * @remarks
+ * For more information about how to access and use the information in this structure, see <a href="https://docs.microsoft.com/windows/desktop/AD/domain-browser">Domain Browser</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dsclient/ns-dsclient-domaindesc
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
@@ -14,6 +16,7 @@ class DOMAINDESC extends Win32Struct
     static packingSize => 8
 
     /**
+     * Pointer to a Unicode string that contains the domain name.
      * @type {PWSTR}
      */
     pszName {
@@ -22,6 +25,7 @@ class DOMAINDESC extends Win32Struct
     }
 
     /**
+     * Pointer to a Unicode string that contains the path of the domain. Reserved.
      * @type {PWSTR}
      */
     pszPath {
@@ -30,6 +34,7 @@ class DOMAINDESC extends Win32Struct
     }
 
     /**
+     * Pointer to a Unicode string that contains the fully qualified name of the domain in the form "DC=myDom, DC=Fabrikam, DC=com". This member is  blank if the <b>DBDTF_RETURNFQDN</b> flag is not set in the <i>dwFlags</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/nf-dsclient-idsbrowsedomaintree-getdomains">IDsBrowseDomainTree::GetDomains</a>.
      * @type {PWSTR}
      */
     pszNCName {
@@ -38,6 +43,7 @@ class DOMAINDESC extends Win32Struct
     }
 
     /**
+     * Pointer to a Unicode string that contains the name of the parent domain. This member is <b>NULL</b> if the domain has no parent.
      * @type {PWSTR}
      */
     pszTrustParent {
@@ -46,6 +52,7 @@ class DOMAINDESC extends Win32Struct
     }
 
     /**
+     * Pointer to a Unicode string that contains the object class name of the domain.
      * @type {PWSTR}
      */
     pszObjectClass {
@@ -54,6 +61,7 @@ class DOMAINDESC extends Win32Struct
     }
 
     /**
+     * Contains a set of flags that specify the attributes of the trust. For more information, and a list of possible values, see the <i>Flags</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsenumeratedomaintrustsa">DsEnumerateDomainTrusts</a>.
      * @type {Integer}
      */
     ulFlags {
@@ -62,6 +70,7 @@ class DOMAINDESC extends Win32Struct
     }
 
     /**
+     * Contains a nonzero value if the domain is a down-level domain or zero otherwise.
      * @type {BOOL}
      */
     fDownLevel {
@@ -70,6 +79,7 @@ class DOMAINDESC extends Win32Struct
     }
 
     /**
+     * Contains a pointer to a <b>DOMAINDESC</b> structure that represents the first child of the domain. Obtain subsequent children by accessing the <b>pdNextSibling</b> member of the child structure. This member is <b>NULL</b> if the domain has no children.
      * @type {Pointer<DOMAINDESC>}
      */
     pdChildList {
@@ -78,6 +88,7 @@ class DOMAINDESC extends Win32Struct
     }
 
     /**
+     * Contains a pointer to a <b>DOMAINDESC</b> structure that represents the next sibling of the domain. Obtain subsequent siblings by accessing the <b>pdNextSibling</b> member of the sibling structure. This member is <b>NULL</b> if the domain has no siblings.
      * @type {Pointer<DOMAINDESC>}
      */
     pdNextSibling {

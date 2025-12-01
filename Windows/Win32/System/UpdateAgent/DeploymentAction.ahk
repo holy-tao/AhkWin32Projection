@@ -3,7 +3,7 @@
 
 /**
  * Defines the action for which an update is explicitly deployed.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/ne-wuapi-deploymentaction
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-deploymentaction
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -34,6 +34,7 @@ class DeploymentAction extends Win32Enum{
     static daDetection => 3
 
     /**
+     * The update may be installed on the computer and/or for the specified user.
      * @type {Integer (Int32)}
      */
     static daOptionalInstallation => 4

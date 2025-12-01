@@ -3,7 +3,7 @@
 
 /**
  * Indicates which user operation (UOP) commands are currently allowed by the DVD.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-valid_uop_flag
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-valid_uop_flag
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

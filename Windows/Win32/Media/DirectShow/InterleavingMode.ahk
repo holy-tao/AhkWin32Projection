@@ -3,7 +3,7 @@
 
 /**
  * Specifies how video frames and audio samples will be written to disk.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-interleavingmode
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-interleavingmode
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

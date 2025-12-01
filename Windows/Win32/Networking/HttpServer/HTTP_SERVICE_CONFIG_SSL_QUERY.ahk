@@ -4,7 +4,7 @@
 
 /**
  * Used to specify a particular record to query in the SSL configuration store.
- * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_service_config_ssl_query
+ * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_ssl_query
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

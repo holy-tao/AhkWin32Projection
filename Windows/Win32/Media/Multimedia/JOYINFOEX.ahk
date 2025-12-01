@@ -4,7 +4,6 @@
 /**
  * The JOYINFOEX structure contains extended information about the joystick position, point-of-view position, and button state.
  * @remarks
- * 
  * The value of the <b>dwSize</b> member is also used to identify the version number for the structure when it's passed to the <a href="https://docs.microsoft.com/previous-versions/dd757108(v=vs.85)">joyGetPosEx</a> function.
  * 
  * Most devices with a point-of-view control have only five positions. When the JOY_RETURNPOV flag is set, these positions are reported by using the following constants:
@@ -40,9 +39,7 @@
  *  
  * 
  * The default joystick driver currently supports these five discrete directions. If an application can accept only the defined point-of-view values, it must use the JOY_RETURNPOV flag. If an application can accept other degree readings, it should use the JOY_RETURNPOVCTS flag to obtain continuous data if it is available. The JOY_RETURNPOVCTS flag also supports the JOY_POV constants used with the JOY_RETURNPOV flag.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//joystickapi/ns-joystickapi-joyinfoex
+ * @see https://learn.microsoft.com/windows/win32/api/joystickapi/ns-joystickapi-joyinfoex
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

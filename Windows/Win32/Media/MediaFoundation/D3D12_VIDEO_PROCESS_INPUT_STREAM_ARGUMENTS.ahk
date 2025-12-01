@@ -11,8 +11,7 @@
  * Specifies input stream arguments for an input stream passed to ID3D12VideoCommandList::ProcessFrames.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_video_process_input_stream_arguments
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_process_input_stream_arguments
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -56,7 +55,7 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS extends Win32Struct
     }
 
     /**
-     * A [D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE](ns-d3d12video-d3d12_video_process_input_stream_rate.md) structure specifying the framerate and input and output indicies for framerate conversion and deinterlacing.
+     * A [D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE](ns-d3d12video-d3d12_video_process_input_stream_rate.md) structure specifying the framerate and input and output indices for framerate conversion and deinterlacing.
      * @type {D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE}
      */
     RateInfo{

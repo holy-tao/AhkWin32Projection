@@ -3,7 +3,7 @@
 
 /**
  * Describes the nature of an SCEP certificate enrollment failure.
- * @see https://docs.microsoft.com/windows/win32/api//certpol/ne-certpol-x509scepfailinfo
+ * @see https://learn.microsoft.com/windows/win32/api/certpol/ne-certpol-x509scepfailinfo
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

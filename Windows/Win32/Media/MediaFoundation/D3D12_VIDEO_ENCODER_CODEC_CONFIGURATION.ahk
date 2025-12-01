@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Represents a codec configuration structure for video encoding.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_codec_configuration
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -14,6 +16,7 @@ class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION extends Win32Struct
     static packingSize => 8
 
     /**
+     * The data size of the provided codec configuration structure.
      * @type {Integer}
      */
     DataSize {

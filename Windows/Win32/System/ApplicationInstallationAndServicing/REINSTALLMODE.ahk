@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * The REINSTALLMODE property is a string that contains letters specifying the type of reinstall to perform.
  * @see https://learn.microsoft.com/windows/win32/Msi/reinstallmode
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319

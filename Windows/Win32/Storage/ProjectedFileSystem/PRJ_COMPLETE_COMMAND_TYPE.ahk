@@ -3,7 +3,7 @@
 
 /**
  * Specifies command types.
- * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/ne-projectedfslib-prj_complete_command_type
+ * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ne-projectedfslib-prj_complete_command_type
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Describes the encoding method that is used by the serialization object to produce the package.
- * @see https://docs.microsoft.com/windows/win32/api//msopc/ne-msopc-opc_write_flags
+ * @see https://learn.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_write_flags
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */

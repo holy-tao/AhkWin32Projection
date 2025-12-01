@@ -3,7 +3,7 @@
 
 /**
  * Defines options for placing the cluster.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ne-clusapi-placement_options
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ne-clusapi-placement_options
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

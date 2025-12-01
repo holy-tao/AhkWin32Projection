@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Describes how a video stream is interlaced.
- * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ne-dxvahd-dxvahd_frame_format
+ * Describes how a video stream is interlaced. (DXVAHD_FRAME_FORMAT)
+ * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ne-dxvahd-dxvahd_frame_format
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

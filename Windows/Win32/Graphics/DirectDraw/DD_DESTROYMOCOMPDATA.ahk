@@ -3,7 +3,7 @@
 
 /**
  * The DD_DESTROYMOCOMPDATA structure contains the information required to finish performing motion compensation.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_destroymocompdata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_destroymocompdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Contains information that an application can use while processing the WM_NCCALCSIZE message to calculate the size, position, and valid contents of the client area of a window.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-nccalcsize_params
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-nccalcsize_params
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

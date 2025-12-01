@@ -3,7 +3,7 @@
 
 /**
  * The NETCON_TYPE type enumerates the various kinds of network connections.
- * @see https://docs.microsoft.com/windows/win32/api//netcon/ne-netcon-netcon_type
+ * @see https://learn.microsoft.com/windows/win32/api/netcon/ne-netcon-netcon_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */

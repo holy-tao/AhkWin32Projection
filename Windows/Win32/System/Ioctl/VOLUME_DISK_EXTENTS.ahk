@@ -4,7 +4,7 @@
 
 /**
  * Represents a physical location on a disk.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-volume_disk_extents
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-volume_disk_extents
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

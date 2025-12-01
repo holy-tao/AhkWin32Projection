@@ -3,7 +3,7 @@
 
 /**
  * Allows applications to configure a process to terminate if an allocation fails to commit memory. This structure is used by the PROCESS_INFORMATION_CLASS class.
- * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/ns-processthreadsapi-process_memory_exhaustion_info
+ * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-process_memory_exhaustion_info
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

@@ -4,11 +4,8 @@
 /**
  * The MMC_TASK_DISPLAY_SYMBOL structure is introduced in MMC 1.1.
  * @remarks
- * 
  * Allocate the <i>szFontFamilyName</i>, <i>szURLtoEOT</i>, and <i>szSymbolString</i> strings used in the structure with the COM API function <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> (or the equivalent) and MMC will release them.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mmc/ns-mmc-mmc_task_display_symbol
+ * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_task_display_symbol
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

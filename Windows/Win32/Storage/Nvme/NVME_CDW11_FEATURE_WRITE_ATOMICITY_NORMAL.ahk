@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains parameters for the Write Atomicity Normal Feature that controls the operation of the Atomic Write Unit Normal (**AWUN**) and Namespace Atomic Write Unit Normal (**NAWUN**) parameters that define the controller’s support for atomic operations.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw11_feature_write_atomicity_normal
  * @namespace Windows.Win32.Storage.Nvme
@@ -41,6 +43,7 @@ class NVME_CDW11_FEATURE_WRITE_ATOMICITY_NORMAL extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     AsUlong {

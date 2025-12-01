@@ -3,7 +3,7 @@
 
 /**
  * This topic applies to Windows XP or later.
- * @see https://docs.microsoft.com/windows/win32/api//segment/ne-segment-sourcesizelist
+ * @see https://learn.microsoft.com/windows/win32/api/segment/ne-segment-sourcesizelist
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

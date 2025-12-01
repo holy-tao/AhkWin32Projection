@@ -4,7 +4,6 @@
 /**
  * Specifies the possible values of the NotificationCode parameter for received notifications on the wireless Hosted Network.
  * @remarks
- * 
  * The <b>WLAN_HOSTED_NETWORK_NOTIFICATION_CODE</b> enumerated type is an extension to native wireless APIs added to support the wireless Hosted Network on Windows 7 and  on Windows Server 2008 R2 with the Wireless LAN Service installed.  
  * 
  * The <b>WLAN_HOSTED_NETWORK_NOTIFICATION_CODE</b> specifies the possible values for the NotificationCode parameter for received notifications  when the NotificationSource parameter is WLAN_NOTIFICATION_SOURCE_HNWK on the wireless Hosted Network. 
@@ -58,9 +57,7 @@
  * </td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ne-wlanapi-wlan_hosted_network_notification_code
+ * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_hosted_network_notification_code
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

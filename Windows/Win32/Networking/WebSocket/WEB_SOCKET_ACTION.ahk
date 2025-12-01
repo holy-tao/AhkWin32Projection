@@ -3,7 +3,7 @@
 
 /**
  * Specifies actions to be taken by WebSocket applications.
- * @see https://docs.microsoft.com/windows/win32/api//websocket/ne-websocket-web_socket_action
+ * @see https://learn.microsoft.com/windows/win32/api/websocket/ne-websocket-web_socket_action
  * @namespace Windows.Win32.Networking.WebSocket
  * @version v4.0.30319
  */

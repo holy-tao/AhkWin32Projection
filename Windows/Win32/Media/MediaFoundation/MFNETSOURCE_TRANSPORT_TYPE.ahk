@@ -3,7 +3,7 @@
 
 /**
  * Describes the type of transport used in streaming or downloading data (TCP or UDP).
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mfnetsource_transport_type
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfnetsource_transport_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

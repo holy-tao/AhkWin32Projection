@@ -3,7 +3,7 @@
 
 /**
  * Describes the type of an object that is derived from IXpsOMShareable.
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/ne-xpsobjectmodel-xps_object_type
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_object_type
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

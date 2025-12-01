@@ -5,7 +5,7 @@
 
 /**
  * Describes the exact timestamp capabilities that a network adapter supports.
- * @see https://docs.microsoft.com/windows/win32/api//iphlpapi/ns-iphlpapi-interface_timestamp_capabilities
+ * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/ns-iphlpapi-interface_timestamp_capabilities
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

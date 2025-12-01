@@ -6,7 +6,7 @@
 
 /**
  * BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS structure contains specific configuration information about the Bluetooth device responding to an authentication request.
- * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/ns-bluetoothapis-bluetooth_authentication_callback_params
+ * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_authentication_callback_params
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

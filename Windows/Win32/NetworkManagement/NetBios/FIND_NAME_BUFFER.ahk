@@ -3,7 +3,7 @@
 
 /**
  * The FIND_NAME_BUFFER structure contains information about a local network session.
- * @see https://docs.microsoft.com/windows/win32/api//nb30/ns-nb30-find_name_buffer
+ * @see https://learn.microsoft.com/windows/win32/api/nb30/ns-nb30-find_name_buffer
  * @namespace Windows.Win32.NetworkManagement.NetBios
  * @version v4.0.30319
  */

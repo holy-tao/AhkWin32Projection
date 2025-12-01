@@ -4,11 +4,8 @@
 /**
  * The BITMAPFILEHEADER structure contains information about the type, size, and layout of a file that contains a DIB.
  * @remarks
- * 
  * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapcoreinfo">BITMAPCOREINFO</a> structure immediately follows the <b>BITMAPFILEHEADER</b> structure in the DIB file. For more information, see <a href="https://docs.microsoft.com/windows/desktop/gdi/bitmap-storage">Bitmap Storage</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-bitmapfileheader
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapfileheader
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

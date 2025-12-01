@@ -3,13 +3,10 @@
 #Include .\D3D11_INFO_QUEUE_FILTER_DESC.ahk
 
 /**
- * Debug message filter; contains a lists of message types to allow or deny.
+ * Debug message filter; contains a lists of message types to allow or deny. (D3D11_INFO_QUEUE_FILTER)
  * @remarks
- * 
  * For use with an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/nn-d3d11sdklayers-id3d11infoqueue">ID3D11InfoQueue Interface</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/ns-d3d11sdklayers-d3d11_info_queue_filter
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/ns-d3d11sdklayers-d3d11_info_queue_filter
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

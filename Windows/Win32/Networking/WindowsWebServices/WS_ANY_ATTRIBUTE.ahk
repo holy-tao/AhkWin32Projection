@@ -5,10 +5,8 @@
 /**
  * This type is used to store an attribute that has not been directly mapped to a field.
  * @remarks
- * 
  * This structure is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_any_attributes">WS_ANY_ATTRIBUTES</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_any_attribute
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_any_attribute
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

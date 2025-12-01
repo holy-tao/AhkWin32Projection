@@ -8,7 +8,7 @@
 
 /**
  * The VMEMHEAP structure contains information about the heap.
- * @see https://docs.microsoft.com/windows/win32/api//dmemmgr/ns-dmemmgr-vmemheap
+ * @see https://learn.microsoft.com/windows/win32/api/dmemmgr/ns-dmemmgr-vmemheap
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

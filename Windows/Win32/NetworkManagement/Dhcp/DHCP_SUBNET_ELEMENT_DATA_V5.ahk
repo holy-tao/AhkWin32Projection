@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_SUBNET_ELEMENT_DATA_V5 structure defines an element that describes a feature or restriction of a subnet.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_data_v5
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_data_v5
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

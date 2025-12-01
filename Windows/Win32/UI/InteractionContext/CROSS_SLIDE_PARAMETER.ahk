@@ -3,7 +3,7 @@
 
 /**
  * Defines the cross-slide threshold and its distance threshold.
- * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/ns-interactioncontext-cross_slide_parameter
+ * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ns-interactioncontext-cross_slide_parameter
  * @namespace Windows.Win32.UI.InteractionContext
  * @version v4.0.30319
  */

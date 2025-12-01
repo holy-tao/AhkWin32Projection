@@ -3,7 +3,7 @@
 
 /**
  * SCSI_LUN_LIST structure is used to construct a list of logical unit numbers (LUNs) associated with target devices.
- * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/ns-iscsidsc-scsi_lun_list
+ * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/ns-iscsidsc-scsi_lun_list
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @version v4.0.30319
  */

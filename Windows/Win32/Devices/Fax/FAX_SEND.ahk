@@ -4,13 +4,10 @@
 /**
  * The FAX_SEND structure contains information about an outbound fax document.
  * @remarks
- * 
  * The FSP can reformat the <b>CallerName</b> and <b>CallerNumber</b> members. The FSP can then transmit the reformatted data to the remote sending device as the called subscriber identifier (CSI) to comply with the recommendation of the standards body of the International Telecommunication Union (ITU) from Study Group 8 (SG8). For more information, see the <b>RoutingInfo</b> and <b>CSI</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/faxdev/ns-faxdev-fax_dev_status">FAX_DEV_STATUS</a> structure.
  * 
  * The FSP can also use the reformatted data to add a brand to the fax transmission.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxdev/ns-faxdev-fax_send
+ * @see https://learn.microsoft.com/windows/win32/api/faxdev/ns-faxdev-fax_send
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */

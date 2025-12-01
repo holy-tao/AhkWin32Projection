@@ -4,7 +4,7 @@
 
 /**
  * The PEER_INVITATION_INFO structure defines information about an invitation to join a peer group.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_invitation_info
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_invitation_info
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

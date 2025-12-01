@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * Stores a list of application protocols.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_application_protocol_list
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -14,6 +16,7 @@ class SEC_APPLICATION_PROTOCOL_LIST extends Win32Struct
     static packingSize => 4
 
     /**
+     * The protocol negotiation extension type to use with this list of protocols.
      * @type {Integer}
      */
     ProtoNegoExt {
@@ -22,6 +25,7 @@ class SEC_APPLICATION_PROTOCOL_LIST extends Win32Struct
     }
 
     /**
+     * The size (in bytes) of the protocol list.
      * @type {Integer}
      */
     ProtocolListSize {
@@ -30,6 +34,7 @@ class SEC_APPLICATION_PROTOCOL_LIST extends Win32Struct
     }
 
     /**
+     * A list of 8-bit length-prefixed application protocol IDs, most preferred first.
      * @type {Array<Byte>}
      */
     ProtocolList{

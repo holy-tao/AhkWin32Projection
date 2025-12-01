@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Specifies kernel behavior options for I/O ring submission queue entries.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/ioringapi/ne-ioringapi-ioring_sqe_flags
  * @namespace Windows.Win32.Storage.FileSystem
@@ -10,6 +12,7 @@
 class IORING_SQE_FLAGS extends Win32BitflagEnum{
 
     /**
+     * None.
      * @type {Integer (Int32)}
      */
     static IOSQE_FLAGS_NONE => 0

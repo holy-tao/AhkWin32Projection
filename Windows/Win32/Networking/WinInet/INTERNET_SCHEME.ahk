@@ -4,12 +4,9 @@
 /**
  * Defines the flags used with the nScheme member of the URL_COMPONENTS structure.
  * @remarks
- * 
  * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wininet/ne-wininet-internet_scheme
+ * @see https://learn.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
  */

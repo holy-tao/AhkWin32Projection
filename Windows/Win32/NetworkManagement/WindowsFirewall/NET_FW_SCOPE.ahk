@@ -3,7 +3,7 @@
 
 /**
  * Specifies the scope of addresses from which a port can listen.
- * @see https://docs.microsoft.com/windows/win32/api//icftypes/ne-icftypes-net_fw_scope
+ * @see https://learn.microsoft.com/windows/win32/api/icftypes/ne-icftypes-net_fw_scope
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */

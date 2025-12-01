@@ -4,7 +4,7 @@
 
 /**
  * Contains information about an object identifier (OID).
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_oid_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_oid_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

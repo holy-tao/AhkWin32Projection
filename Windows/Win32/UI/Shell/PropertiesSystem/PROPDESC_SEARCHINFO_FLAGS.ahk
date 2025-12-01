@@ -4,13 +4,10 @@
 /**
  * Determines whether and how a property is indexed by Windows Search.
  * @remarks
- * 
  * For third parties, the PDSIF_ALWAYSINCLUDE flag can be referred to in user-specified query strings, even though its value may not be retrievable from the index in query results. The meaning of the PDSIF_ALWAYSINCLUDE flag to the indexer when a third party sets the flag through a custom schema definition is that it enables users to refer to this property in query strings even though its value is not stored in the index.
  * 
  * Property mnemonics refers to a shortened name for a property.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//propsys/ne-propsys-propdesc_searchinfo_flags
+ * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-propdesc_searchinfo_flags
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */

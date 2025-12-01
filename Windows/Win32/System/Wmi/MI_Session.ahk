@@ -3,7 +3,7 @@
 
 /**
  * An object that is associated with a destination and has a set of credentials and options associated with it. .
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_session
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_session
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

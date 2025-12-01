@@ -4,14 +4,11 @@
 /**
  * Contains basic limit information for a job object.
  * @remarks
- * 
  * Processes can still empty their working sets using the 
- * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setprocessworkingsetsize">SetProcessWorkingSetSize</a> function with (<b>SIZE_T</b>)-1, even when <b>JOB_OBJECT_LIMIT_WORKINGSET</b> is used. However, you cannot use <b>SetProcessWorkingSetSize</b> change the minimum or maximum working set size of a process in a job object.
+ * <a href="https://docs.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-setprocessworkingsetsize">SetProcessWorkingSetSize</a> function with (<b>SIZE_T</b>)-1, even when <b>JOB_OBJECT_LIMIT_WORKINGSET</b> is used. However, you cannot use <b>SetProcessWorkingSetSize</b> change the minimum or maximum working set size of a process in a job object.
  * 
  * The system increments the active process count when you attempt to associate a process with a job. If the limit is exceeded, the system decrements the active process count only when the process terminates and all handles to the process are closed. Therefore, if you have an open handle to a process that has been terminated in such a manner, you cannot associate any new processes until the handle is closed and the active process count is below the limit.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-jobobject_basic_limit_information
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_basic_limit_information
  * @namespace Windows.Win32.System.JobObjects
  * @version v4.0.30319
  */

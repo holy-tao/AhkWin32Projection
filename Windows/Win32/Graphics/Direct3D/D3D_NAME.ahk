@@ -4,11 +4,8 @@
 /**
  * Values that identify shader parameters that use system-value semantics.
  * @remarks
- * 
  * The <b>D3D_NAME</b> values identify shader parameters that have <a href="https://docs.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_signature_parameter_desc">predefined system-value</a> semantics. These values are used in a shader-signature description. For more information about shader-signature description, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/ns-d3d11shader-d3d11_signature_parameter_desc">D3D11_SIGNATURE_PARAMETER_DESC</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3dcommon/ne-d3dcommon-d3d_name
+ * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_name
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */

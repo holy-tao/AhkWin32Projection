@@ -4,7 +4,7 @@
 
 /**
  * Used by the CertSelectionGetSerializedBlob function to serialize the certificates contained in a store or an array of certificate chains. The returned serialized BLOB can be passed to the CredUIPromptForWindowsCredentials function.
- * @see https://docs.microsoft.com/windows/win32/api//cryptuiapi/ns-cryptuiapi-cert_selectui_input
+ * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cert_selectui_input
  * @namespace Windows.Win32.Security.Cryptography.UI
  * @version v4.0.30319
  */

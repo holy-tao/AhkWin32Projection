@@ -3,7 +3,7 @@
 
 /**
  * Describes how a render target behaves when it presents its content. This enumeration allows a bitwise combination of its member values.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/ne-d2d1-d2d1_present_options
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_present_options
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

@@ -5,11 +5,8 @@
 /**
  * The MCI_DGV_RECORD_PARMS structure contains parameters for the MCI_RECORD command for digital-video devices.
  * @remarks
- * 
  * When assigning data to the members of this structure, set the corresponding flags in the <i>fdwCommand</i> parameter of the <a href="https://docs.microsoft.com/previous-versions/dd757160(v=vs.85)">mciSendCommand</a> function to validate the members.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//digitalv/ns-digitalv-mci_dgv_record_parms
+ * @see https://learn.microsoft.com/windows/win32/api/digitalv/ns-digitalv-mci_dgv_record_parms
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

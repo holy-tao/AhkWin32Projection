@@ -3,7 +3,7 @@
 
 /**
  * Contains the input injection details.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-input_injection_value
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-input_injection_value
  * @namespace Windows.Win32.UI.Input.Pointer
  * @version v4.0.30319
  */

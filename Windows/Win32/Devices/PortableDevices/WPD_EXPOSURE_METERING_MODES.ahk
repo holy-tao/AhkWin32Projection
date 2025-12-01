@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * The WPD\_EXPOSURE\_METERING\_MODES enumeration type describes the metering mode to use when estimating exposure for still image capture by a device.
+ * @remarks
+ * Indicates the metering mode of the device. This enumeration is used by the [WPD\_STILL\_IMAGE\_EXPOSURE\_METERING\_MODE](still-image-properties.md) property.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-exposure-metering-modes
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319

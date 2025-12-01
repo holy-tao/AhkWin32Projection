@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Enumerates groupset control codes used by the ClusterGroupSetControl function.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-clusctl_groupset_codes
+ * The CLUSCTL_GROUPSET_CODES enumeration (msclus.h) enumerates groupset control codes used by the ClusterGroupSetControl function.
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusctl_groupset_codes
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

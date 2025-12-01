@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Reserved for system use.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_miniport_descriptor
+ * Reserved for system use. (STORAGE_MINIPORT_DESCRIPTOR)
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_miniport_descriptor
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

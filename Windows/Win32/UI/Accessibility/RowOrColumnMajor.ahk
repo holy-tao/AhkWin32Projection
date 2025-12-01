@@ -3,7 +3,7 @@
 
 /**
  * Contains values that specify whether data in a table should be read primarily by row or by column.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-roworcolumnmajor
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-roworcolumnmajor
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

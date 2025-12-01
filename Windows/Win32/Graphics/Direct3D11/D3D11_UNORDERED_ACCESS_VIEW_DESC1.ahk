@@ -8,13 +8,10 @@
 #Include .\D3D11_TEX3D_UAV.ahk
 
 /**
- * Describes the subresources from a resource that are accessible using an unordered-access view.
+ * Describes the subresources from a resource that are accessible using an unordered-access view. (D3D11_UNORDERED_ACCESS_VIEW_DESC1)
  * @remarks
- * 
  * An unordered-access-view description is passed into <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_3/nf-d3d11_3-id3d11device3-createunorderedaccessview1">ID3D11Device3::CreateUnorderedAccessView1</a> to create a view.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11_3/ns-d3d11_3-d3d11_unordered_access_view_desc1
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/ns-d3d11_3-d3d11_unordered_access_view_desc1
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains data to be passed to another application by the WM_COPYDATA message.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-copydatastruct
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-copydatastruct
  * @namespace Windows.Win32.System.DataExchange
  * @version v4.0.30319
  */

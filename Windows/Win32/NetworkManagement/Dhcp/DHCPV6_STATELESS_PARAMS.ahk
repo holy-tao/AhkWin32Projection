@@ -3,7 +3,7 @@
 
 /**
  * The DHCPV6_STATELESS_PARAMS structure defines the DHCPv6 stateless client inventory configuration settings at server and scope level.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcpv6_stateless_params
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcpv6_stateless_params
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

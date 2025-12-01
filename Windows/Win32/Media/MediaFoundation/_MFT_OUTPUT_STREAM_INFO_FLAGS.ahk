@@ -4,7 +4,6 @@
 /**
  * Describes an output stream on a Media Foundation transform (MFT).
  * @remarks
- * 
  * Before the client sets the media types on the MFT, the only flag guaranteed to be accurate is the MFT_OUTPUT_STREAM_OPTIONAL flag. For all other flags, the client should first set the media type on every non-optional stream.
  * 
  * The MFT_OUTPUT_STREAM_DISCARDABLE and MFT_OUTPUT_STREAM_LAZY_READ flags define different behaviors for how the MFT can discard output data.
@@ -20,9 +19,7 @@
  * </li>
  * </ul>
  * If neither of these flags is set, the MFT never discards output data.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mftransform/ne-mftransform-_mft_output_stream_info_flags
+ * @see https://learn.microsoft.com/windows/win32/api/mftransform/ne-mftransform-_mft_output_stream_info_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

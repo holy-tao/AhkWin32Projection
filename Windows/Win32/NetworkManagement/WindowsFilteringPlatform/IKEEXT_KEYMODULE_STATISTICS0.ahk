@@ -3,8 +3,8 @@
 #Include .\IKEEXT_IP_VERSION_SPECIFIC_KEYMODULE_STATISTICS0.ahk
 
 /**
- * Contains various statistics specific to the keying module.
- * @see https://docs.microsoft.com/windows/win32/api//iketypes/ns-iketypes-ikeext_keymodule_statistics0
+ * Contains various statistics specific to the keying module. (IKEEXT_KEYMODULE_STATISTICS0)
+ * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_keymodule_statistics0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Defines the additional information required to parse an event.
- * @see https://docs.microsoft.com/windows/win32/api//tdh/ns-tdh-tdh_context
+ * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-tdh_context
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

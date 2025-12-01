@@ -4,11 +4,8 @@
 /**
  * The PPP_EAP_INFO structure provides information to the Connection Manager about the authentication protocol, including pointers to functions located in the EAP DLL.
  * @remarks
- * 
  * A given EAP DLL may implement more than one authentication protocol. Use the <b>dwEapTypeId</b> member to specify for which protocol to retrieve information.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//raseapif/ns-raseapif-ppp_eap_info
+ * @see https://learn.microsoft.com/windows/win32/api/raseapif/ns-raseapif-ppp_eap_info
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

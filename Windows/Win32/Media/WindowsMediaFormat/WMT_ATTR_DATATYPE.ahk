@@ -3,7 +3,7 @@
 
 /**
  * The WMT_ATTR_DATATYPE enumeration defines the data type for a variably typed property.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ne-wmsdkidl-wmt_attr_datatype
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

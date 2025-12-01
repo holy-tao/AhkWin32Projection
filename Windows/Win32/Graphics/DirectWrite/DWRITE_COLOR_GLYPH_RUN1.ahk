@@ -6,7 +6,7 @@
 
 /**
  * Represents a color glyph run. The IDWriteFactory4::TranslateColorGlyphRun method returns an ordered collection of color glyph runs of varying types depending on what the font supports.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/ns-dwrite_3-dwrite_color_glyph_run1
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_color_glyph_run1
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

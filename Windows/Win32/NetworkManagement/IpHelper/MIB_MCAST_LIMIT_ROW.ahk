@@ -3,7 +3,7 @@
 
 /**
  * The MIB_MCAST_LIMIT_ROW structure contains the configurable limit information from a corresponding MIB_IPMCAST_IF_ENTRY structure.
- * @see https://docs.microsoft.com/windows/win32/api//iprtrmib/ns-iprtrmib-mib_mcast_limit_row
+ * @see https://learn.microsoft.com/windows/win32/api/iprtrmib/ns-iprtrmib-mib_mcast_limit_row
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

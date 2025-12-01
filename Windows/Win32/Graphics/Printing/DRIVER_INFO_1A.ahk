@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The DRIVER\_INFO\_1 structure identifies a printer driver.
  * @see https://learn.microsoft.com/windows/win32/printdocs/driver-info-1
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
@@ -15,6 +15,7 @@ class DRIVER_INFO_1A extends Win32Struct
     static packingSize => 8
 
     /**
+     * Pointer to a null-terminated string that specifies the name of a printer driver.
      * @type {PSTR}
      */
     pName {

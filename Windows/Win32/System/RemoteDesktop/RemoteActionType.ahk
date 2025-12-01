@@ -3,7 +3,7 @@
 
 /**
  * The action to send to the remote session.
- * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/ne-rdpappcontainerclient-remoteactiontype
+ * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/ne-rdpappcontainerclient-remoteactiontype
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

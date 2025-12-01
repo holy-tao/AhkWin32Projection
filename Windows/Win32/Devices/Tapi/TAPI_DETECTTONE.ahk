@@ -3,7 +3,7 @@
 
 /**
  * The TAPI_DETECTTONE structure describes a tone to be monitored. This is used as an entry in an array.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ns-tapi3if-tapi_detecttone
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ns-tapi3if-tapi_detecttone
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

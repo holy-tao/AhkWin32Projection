@@ -7,7 +7,6 @@
 /**
  * The WinSNMP smiVALUE structure describes the value associated with a variable name in a variable binding entry.
  * @remarks
- * 
  * A WinSNMP application must check the <b>syntax</b> member of an 
  * <b>smiVALUE</b> structure to correctly dereference the <b>value</b> member. The <b>value</b> member can contain a simple scalar value or a non-scalar value like an 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> or an 
@@ -22,9 +21,7 @@
  * 
  * Because the WinSNMP application allocates memory for input descriptors with variable lengths, it must free that memory. For more information, see 
  * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsnmp/ns-winsnmp-smivalue
+ * @see https://learn.microsoft.com/windows/win32/api/winsnmp/ns-winsnmp-smivalue
  * @namespace Windows.Win32.NetworkManagement.Snmp
  * @version v4.0.30319
  */

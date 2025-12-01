@@ -3,7 +3,7 @@
 
 /**
  * Flags to acknowledge the dehydration of a placeholder file or directory.
- * @see https://docs.microsoft.com/windows/win32/api//cfapi/ne-cfapi-cf_operation_ack_dehydrate_flags
+ * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_operation_ack_dehydrate_flags
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

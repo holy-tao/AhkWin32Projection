@@ -3,7 +3,7 @@
 
 /**
  * Defines values that are used with the GetFileAttributesEx and GetFileAttributesTransacted functions to specify the information level of the returned data.
- * @see https://docs.microsoft.com/windows/win32/api//minwinbase/ne-minwinbase-get_fileex_info_levels
+ * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ne-minwinbase-get_fileex_info_levels
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Identifies the properties used to specify security binding settings. Security binding settings are present in security bindingsthat are used, in turn, in a security description.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_security_binding_property_id
+ * Identifies the properties used to specify security binding settings. Security binding settings are present in security bindings that are used, in turn, in a security description.
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_binding_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -144,7 +144,7 @@ class WS_SECURITY_BINDING_PROPERTY_ID extends Win32Enum{
     static WS_SECURITY_BINDING_PROPERTY_HTTP_HEADER_AUTH_TARGET => 7
 
     /**
-     * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_string">WS_STRING</a> s used as the realm with the basic HTTP header
+     * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_string">WS_STRING</a> is used as the realm with the basic HTTP header
      * authentication scheme.
      *                 
      * 

@@ -3,7 +3,7 @@
 
 /**
  * The DRAWTEXTPARAMS structure contains extended formatting options for the DrawTextEx function.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-drawtextparams
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-drawtextparams
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

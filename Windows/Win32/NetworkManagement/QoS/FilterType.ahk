@@ -3,7 +3,7 @@
 
 /**
  * The FilterType enumeration specifies the type of filter used for an RSVP FILTERSPEC.
- * @see https://docs.microsoft.com/windows/win32/api//qossp/ne-qossp-filtertype
+ * @see https://learn.microsoft.com/windows/win32/api/qossp/ne-qossp-filtertype
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

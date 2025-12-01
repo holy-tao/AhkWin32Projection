@@ -4,7 +4,6 @@
 /**
  * Defines values that determine whether ink, gestures, or ink and gestures are recognized as the user writes.
  * @remarks
- * 
  * If a user attempts a right-click and moves the pen when in InkOnly or InkAndGesture mode, ink flows from the pen tip. When handling the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-stroke">Stroke</a> event, you should erase the ink that flowed as a result of the pen movement.
  * 
  * When the <b>InkCollectionMode</b> is set to GestureOnly (set through the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_collectionmode">CollectionMode</a> property), the timeout between when a user adds a gesture and when the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-gesture">Gesture</a> event occurs is a fixed value that cannot be altered programmatically. Gesture recognition is faster in InkAndGesture mode. To prevent the collection of ink while in InkAndGesture mode, you can:
@@ -73,9 +72,7 @@
  * </li>
  * </ul>
  * Unwanted behavior might occur when the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_collectionmode">CollectionMode</a> property is set to InkAndGesture and the interest of an object or control in a known gesture is set (by calling the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-setgesturestatus">SetGestureStatus</a> method). If a user draws ink that resembles a gesture that is in the recognizer's list of recognition alternates, the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-gesture">Gesture</a> event fires and ink disappears, even if the gesture is not the top alternate. To prevent the ink from disappearing and cancel collection of the gesture, set <i>Cancel</i> to <b>TRUE</b> if the event is one to which you do not want the recognizer to respond.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkcollectionmode
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkcollectionmode
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Enumerates cluster control codes used by the ClusterControl function.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-clusctl_cluster_codes
+ * The CLUSCTL_CLUSTER_CODES enumeration (msclus.h) enumerates cluster control codes used by the ClusterControl function.
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusctl_cluster_codes
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

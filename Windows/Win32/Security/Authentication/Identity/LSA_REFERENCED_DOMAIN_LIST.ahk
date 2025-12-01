@@ -3,7 +3,7 @@
 
 /**
  * The LSA_REFERENCED_DOMAIN_LIST structure contains information about the domains referenced in a lookup operation.
- * @see https://docs.microsoft.com/windows/win32/api//lsalookup/ns-lsalookup-lsa_referenced_domain_list
+ * @see https://learn.microsoft.com/windows/win32/api/lsalookup/ns-lsalookup-lsa_referenced_domain_list
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

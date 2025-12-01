@@ -3,7 +3,7 @@
 
 /**
  * Used in cases where a non-authenticated system access is needed.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ns-ntsecpkg-lsa_token_information_null
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-lsa_token_information_null
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

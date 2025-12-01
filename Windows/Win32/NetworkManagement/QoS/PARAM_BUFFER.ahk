@@ -3,7 +3,7 @@
 
 /**
  * The PARAM_BUFFER structure describes the format of the parameter buffer that can be included in the CONTROL_SERVICE structure.
- * @see https://docs.microsoft.com/windows/win32/api//qossp/ns-qossp-param_buffer
+ * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-param_buffer
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

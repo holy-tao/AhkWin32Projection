@@ -3,7 +3,7 @@
 
 /**
  * Specifies the format of the buffer. Used by BeginBufferedAnimation and BeginBufferedPaint.
- * @see https://docs.microsoft.com/windows/win32/api//uxtheme/ne-uxtheme-bp_bufferformat
+ * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ne-uxtheme-bp_bufferformat
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

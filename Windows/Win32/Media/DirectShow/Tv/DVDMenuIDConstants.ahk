@@ -4,11 +4,8 @@
 /**
  * The DVDMenuID constants define menu type ID numbers used to display specific menus.
  * @remarks
- * 
  * All the titles in a title set share the same Subpicture, Audio, Angle, and Chapter menus.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/ne-segment-dvdmenuidconstants
+ * @see https://learn.microsoft.com/windows/win32/api/segment/ne-segment-dvdmenuidconstants
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

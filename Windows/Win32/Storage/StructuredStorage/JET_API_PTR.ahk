@@ -3,7 +3,7 @@
 #Include ..\..\..\..\Win32Handle.ahk
 
 /**
- * 
+ * Learn more about: JET_API_PTR
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-api-ptr
  * @namespace Windows.Win32.Storage.StructuredStorage
  * @version v4.0.30319

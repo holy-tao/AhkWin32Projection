@@ -3,7 +3,7 @@
 
 /**
  * Defines values that describe the state of the similarity traits table, similarity file ID table, or both.
- * @see https://docs.microsoft.com/windows/win32/api//msrdc/ne-msrdc-rdccreatedtables
+ * @see https://learn.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdccreatedtables
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */

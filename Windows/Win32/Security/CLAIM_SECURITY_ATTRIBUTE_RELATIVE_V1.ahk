@@ -3,7 +3,7 @@
 
 /**
  * Defines a resource attribute that is defined in continuous memory for persistence within a serialized security descriptor.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-claim_security_attribute_relative_v1
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-claim_security_attribute_relative_v1
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

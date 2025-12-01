@@ -5,7 +5,7 @@
 
 /**
  * A client application passes the NET_VALIDATE_AUTHENTICATION_INPUT_ARG structure to the NetValidatePasswordPolicy function when the application requests an authentication validation.
- * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-net_validate_authentication_input_arg
+ * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-net_validate_authentication_input_arg
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

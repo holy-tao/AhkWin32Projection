@@ -3,7 +3,7 @@
 
 /**
  * Specifies how the effective opacity value of a visual is applied to that visual’s content and children.
- * @see https://docs.microsoft.com/windows/win32/api//dcomptypes/ne-dcomptypes-dcomposition_opacity_mode
+ * @see https://learn.microsoft.com/windows/win32/api/dcomptypes/ne-dcomptypes-dcomposition_opacity_mode
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */

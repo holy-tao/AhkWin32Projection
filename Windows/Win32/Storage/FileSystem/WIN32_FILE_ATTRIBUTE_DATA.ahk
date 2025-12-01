@@ -5,15 +5,12 @@
 /**
  * Contains attribute information for a file or directory.
  * @remarks
- * 
  * Not all file systems can record creation and last access time, and not all file systems record them in the 
  *     same manner. For example, on the FAT file system, create time has a resolution of 10 milliseconds, write time has 
  *     a resolution of 2 seconds, and access time has a resolution of 1 day. On the NTFS file 
  *     system, access time has a resolution of 1 hour. For more information, see 
  *     <a href="https://docs.microsoft.com/windows/desktop/SysInfo/file-times">File Times</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fileapi/ns-fileapi-win32_file_attribute_data
+ * @see https://learn.microsoft.com/windows/win32/api/fileapi/ns-fileapi-win32_file_attribute_data
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

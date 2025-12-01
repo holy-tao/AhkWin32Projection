@@ -3,7 +3,7 @@
 
 /**
  * Indicates the unit of measurement of a property.
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-tabletpropertymetricunit
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-tabletpropertymetricunit
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

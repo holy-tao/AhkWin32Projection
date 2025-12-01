@@ -4,7 +4,7 @@
 
 /**
  * This structure contains eight primary colors in Jab coordinates.
- * @see https://docs.microsoft.com/windows/win32/api//wcsplugin/ns-wcsplugin-primaryjabcolors
+ * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/ns-wcsplugin-primaryjabcolors
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  */

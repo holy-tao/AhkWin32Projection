@@ -3,7 +3,7 @@
 
 /**
  * The ID of the input message source.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ne-winuser-input_message_origin_id
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ne-winuser-input_message_origin_id
  * @namespace Windows.Win32.UI.Input
  * @version v4.0.30319
  */

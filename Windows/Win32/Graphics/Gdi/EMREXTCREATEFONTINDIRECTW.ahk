@@ -7,7 +7,7 @@
 
 /**
  * The EMREXTCREATEFONTINDIRECTW structure contains members for the CreateFontIndirect enhanced metafile record.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrextcreatefontindirectw
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrextcreatefontindirectw
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

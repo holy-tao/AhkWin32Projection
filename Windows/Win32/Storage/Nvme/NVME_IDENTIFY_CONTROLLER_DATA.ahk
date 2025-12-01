@@ -3,7 +3,9 @@
 #Include .\NVME_POWER_STATE_DESC.ahk
 
 /**
- * 
+ * Contains values that indicate controller capabilities, features, command set attributes, and power state descriptors.
+ * @remarks
+ * The values of the **VID**, **SN**, and **MN** fields may be combined to form a globally unique value that identifies the NVM subsystem.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_identify_controller_data
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
@@ -1534,6 +1536,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Contains the company vendor identifier that is assigned by the [Peripheral Component Interconnect - Special Interest Group (PCI-SIG)](https://pcisig.com/).
      * @type {Integer}
      */
     VID {
@@ -1542,6 +1545,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Contains the company vendor identifier that is assigned by the PCI-SIG for the subsystem.
      * @type {Integer}
      */
     SSVID {
@@ -1550,6 +1554,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Contains the serial number for the NVM subsystem that is assigned by the vendor as an ASCII string.
      * @type {Array<Byte>}
      */
     SN{
@@ -1561,6 +1566,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Contains the model number for the NVM subsystem that is assigned by the vendor as an ASCII string.
      * @type {Array<Byte>}
      */
     MN{
@@ -1572,6 +1578,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Contains the currently active firmware revision for the NVM subsystem.
+     * 
+     * This is the same firmware revision information in the [NVME_FIRMWARE_SLOT_INFO_LOG](ns-nvme-nvme_firmware_slot_info_log.md) that can be retrieved with the Get Log Page command.
      * @type {Array<Byte>}
      */
     FR{
@@ -1583,6 +1592,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Contains the recommended Arbitration Burst size.
      * @type {Integer}
      */
     RAB {
@@ -1591,6 +1601,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Contains the Organization Unique Identifier (OUI) for the controller vendor.
+     * 
+     * The OUI is a valid IEEE/RAC assigned identifier that can be registered at http://standards.ieee.org/develop/regauth/oui/public.html.
      * @type {Array<Byte>}
      */
     IEEE{
@@ -1602,6 +1615,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * A Controller Multi-Path I/O and Namespace Sharing Capabilities (CMIC) structure that specifies the multi-path I/O and namespace sharing capabilities of the controller and NVM subsystem.
      * @type {_CMIC}
      */
     CMIC{
@@ -1613,6 +1627,13 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the maximum data transfer size between the host and the controller.
+     * 
+     * The host should not submit a command that exceeds this transfer size. If a command is submitted that exceeds the transfer size, the command is aborted with a status of [NVME_STATUS_INVALID_FIELD_IN_COMMAND](ne-nvme-nvme_status_generic_command_codes.md#field-nvme-status-invalid-field-in-command).
+     * 
+     * The value of this field is in units of the minimum memory page size specified in the **MPSMIN** field of the [Controller Capabilities](ns-nvme-nvme_controller_capabilities.md) structure, and is reported as a power of two (2^n). A value of `0h` indicates no restrictions on transfer size. The restriction includes metadata if it is interleaved with the logical block data.
+     * 
+     * If SGL Bit Bucket descriptors are supported, their lengths are included in determining if a command exceeds the Maximum Data Transfer Size for destination data buffers. Their length in a source data buffer is not included for a Maximum Data Transfer Size calculation.
      * @type {Integer}
      */
     MDTS {
@@ -1621,6 +1642,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Contains the NVM subsystem unique controller identifier associated with the controller.
      * @type {Integer}
      */
     CNTLID {
@@ -1629,6 +1651,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Contains the value reported in the Version register, defined in the **VS** field of the [NVME_CONTROLLER_REGISTERS](../nvme/ns-nvme-nvme_controller_registers.md) structure.
+     * 
+     * Implementations that are compliant with NVMe specification version 1.2 or later, will report a non-zero value in this field.
      * @type {Integer}
      */
     VER {
@@ -1637,6 +1662,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the typical latency in microseconds when resuming from Runtime D3 (RTD3).
+     * 
+     * Implementations that are compliant with NVMe specification version 1.2 or later, will report a non-zero value in this field.
      * @type {Integer}
      */
     RTD3R {
@@ -1645,6 +1673,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the typical latency in microseconds to enter Runtime D3 (RTD3).
+     * 
+     * Implementations that are compliant with NVMe specification version 1.2 or later, will report a non-zero value in this field.
      * @type {Integer}
      */
     RTD3E {
@@ -1653,6 +1684,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * An Optional Asynchronous Events Supported (OAES) structure containing fields that indicate whether optional asynchronous events are supported by the controller.
+     * 
+     * A controller should not send optional asynchronous events before they are enabled by host software.
      * @type {_OAES}
      */
     OAES{
@@ -1664,6 +1698,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * A Controller Attributes (CTRATT) structure containing controller attribute information.
      * @type {_CTRATT}
      */
     CTRATT{
@@ -1686,6 +1721,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Bits 10:31 of the **OAES** structure are reserved.
      * @type {Array<Byte>}
      */
     Reserved0{
@@ -1740,6 +1776,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Bits 0:7 of the **OAES** structure are reserved.
      * @type {Array<Byte>}
      */
     Reserved1{
@@ -1751,6 +1788,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Reserved for NVMe Management.
      * @type {Array<Byte>}
      */
     ReservedForManagement{
@@ -1786,6 +1824,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * An Optional Admin Command Support (OACS) structure containing fields that indicate the optional [Admin Commands](ne-nvme-nvme_admin_commands.md) supported by the controller.
      * @type {_OACS}
      */
     OACS{
@@ -1797,6 +1836,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the maximum number of concurrently outstanding [Abort](ns-nvme-nvme_cdw10_abort.md) commands supported by the controller.
+     * 
+     * This is a 0’s based value. Implementations should support a minimum of four outstanding Abort commands simultaneously.
      * @type {Integer}
      */
     ACL {
@@ -1805,6 +1847,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the maximum number of concurrently outstanding [Asynchronous Event Request](ne-nvme-nvme_async_event_types.md) commands supported by the controller.
+     * 
+     * This is a 0’s based value. Implementations should support a minimum of four outstanding Asynchronous Event Request commands simultaneously.
      * @type {Integer}
      */
     AERL {
@@ -1813,6 +1858,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * A Firmware Updates (FRMW) structure containing fields that indicate capabilities regarding firmware updates.
      * @type {_FRMW}
      */
     FRMW{
@@ -1824,6 +1870,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * A Log Page Attributes (LPA) structure containing fields that indicate optional attributes for log pages that are accessed by using the [Get Log Page](ns-nvme-nvme_cdw10_get_log_page.md) command.
      * @type {_LPA}
      */
     LPA{
@@ -1835,6 +1882,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the number of Error Information log entries that are stored by the controller. This field is a 0’s based value.
      * @type {Integer}
      */
     ELPE {
@@ -1843,6 +1891,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the number of NVM Express power states supported by the controller. This is a 0’s based value.
+     * 
+     * Power states are numbered sequentially starting at power state 0. A controller must support at least one power state (for example, power state 0), and may support up to 31 additional power states, for a total of 32.
      * @type {Integer}
      */
     NPSS {
@@ -1851,6 +1902,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * An Admin Vendor Specific Command Configuration (AVSCC) structure containing fields that indicate the configuration settings for Admin Vendor Specific command handling.
      * @type {_AVSCC}
      */
     AVSCC{
@@ -1862,6 +1914,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * An Autonomous Power State Transition Attributes (APSTA) structure containing fields that indicate the attributes of the [autonomous power state transition feature](ns-nvme-nvme_cdw11_feature_auto_power_state_transition.md).
      * @type {_APSTA}
      */
     APSTA{
@@ -1873,6 +1926,11 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the minimum Composite Temperature field value (reported in the [SMART / Health Information](ns-nvme-nvme_health_info_log.md) log that indicates an overheating condition during which controller operation continues.
+     * 
+     * Immediate remediation is recommended (for example, additional cooling or workload reduction). The platform should strive to maintain a composite temperature below this value.
+     * 
+     * A value of `0h` in this field indicates that no warning temperature threshold value is reported by the controller. Implementations compliant to NVMe Spec version 1.2 or later should report a non-zero value in this field. It is recommended that implementations report a value of `0157h` in this field.
      * @type {Integer}
      */
     WCTEMP {
@@ -1881,6 +1939,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the minimum Composite Temperature field value (reported in the [SMART / Health Information](ns-nvme-nvme_health_info_log.md log) that indicates a critical overheating condition. For example, a condition that may prevent continued normal operation, possibility of data loss, automatic device shutdown, extreme performance throttling, or permanent damage.
+     * 
+     * A value of `0h` in this field indicates that no critical temperature threshold value is reported by the controller. Implementations compliant to NVMe Spec version 1.2 or later should report a non-zero value in this field.
      * @type {Integer}
      */
     CCTEMP {
@@ -1889,6 +1950,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the maximum time the controller temporarily stops processing commands to activate the firmware image.
+     * 
+     * This field is valid if the controller supports firmware activation without a reset. The **MFTA** value is specified in 100 millisecond units. A value of `0h` indicates that the maximum time is undefined.
      * @type {Integer}
      */
     MTFA {
@@ -1897,6 +1961,11 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the preferred size that the host should allocate for the [Host Memory Buffer](ns-nvme-nvme_cdw11_feature_host_memory_buffer.md) feature in 4KB units.
+     * 
+     * This value must be larger than or equal to the Host Memory Buffer Minimum Size (**HMMIN**).
+     * 
+     * If this field is non-zero, then the Host Memory Buffer feature is supported. When this value is cleared to `0h`, the Host Memory Buffer feature is not supported.
      * @type {Integer}
      */
     HMPRE {
@@ -1905,6 +1974,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the minimum size that the host should allocate for the Host Memory Buffer feature in 4KB units. 
+     * 
+     * When this value is cleared to `0`, the host is requested to allocate any amount of host memory possible up to the **HMPRE** value.
      * @type {Integer}
      */
     HMMIN {
@@ -1913,6 +1985,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the total NVM capacity, in bytes, of the NVM subsystem.
+     * 
+     * This field is supported if the Namespace Management and Namespace Attachment commands are supported.
      * @type {Array<Byte>}
      */
     TNVMCAP{
@@ -1924,6 +1999,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the unallocated NVM capacity, in bytes, of the NVM subsystem. 
+     * 
+     * This field is supported if the Namespace Management and Namespace Attachment commands are supported.
      * @type {Array<Byte>}
      */
     UNVMCAP{
@@ -1935,6 +2013,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * A Replay Protected Memory Block Support (RPMBS) structure containing fields that indicate whether the controller supports one or more Replay Protected Memory Blocks (RPMBs) and the associated capabilities.
      * @type {_RPMBS}
      */
     RPMBS{
@@ -1946,6 +2025,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the Extended Device Self-test Time (EDSTT).
      * @type {Integer}
      */
     EDSTT {
@@ -1954,6 +2034,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the Device Self-test Options (DSTO).
      * @type {Integer}
      */
     DSTO {
@@ -1962,6 +2043,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the Firmware Update Granularity (FWUG).
      * @type {Integer}
      */
     FWUG {
@@ -1970,6 +2052,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the Keep Alive Support (KAS).
      * @type {Integer}
      */
     KAS {
@@ -1978,6 +2061,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * A Host Controlled Thermal Management Attributes (HCTMA) structure.
      * @type {_HCTMA}
      */
     HCTMA{
@@ -1989,6 +2073,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Minimum Thermal Management Temperature (MNTMT)
      * @type {Integer}
      */
     MNTMT {
@@ -1997,6 +2082,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Maximum Thermal Management Temperature (MXTMT)
      * @type {Integer}
      */
     MXTMT {
@@ -2005,6 +2091,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Sanitize Capabilities (SANICAP)
      * @type {_SANICAP}
      */
     SANICAP{
@@ -2032,6 +2119,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * NVM Set Identifier Maximum
      * @type {Integer}
      */
     NSETIDMAX {
@@ -2099,6 +2187,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * 
      * @type {Array<Byte>}
      */
     Reserved2{
@@ -2129,6 +2218,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * A reserved field.
      * @type {Integer}
      */
     Reserved3 {
@@ -2145,6 +2235,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * A reserved field.
      * @type {Array<Byte>}
      */
     Reserved4{
@@ -2156,6 +2247,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * A Submission Queue Entry Size (SQES) structure containing fields that indicate the required and maximum Submission Queue entry size when using the NVM Command Set.
      * @type {_SQES}
      */
     SQES{
@@ -2167,6 +2259,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * A Completion Queue Entry Size (CQES) structure containing fields that indicate the required and maximum Completion Queue entry size when using the NVM Command Set.
      * @type {_CQES}
      */
     CQES{
@@ -2186,6 +2279,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the number of valid namespaces present for the controller.
      * @type {Integer}
      */
     NN {
@@ -2194,6 +2288,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * An Optional NVM Command Support (ONCS) structure containing fields that indicate the optional [NVM commands](ne-nvme-nvme_nvm_commands.md) and features supported by the controller.
      * @type {_ONCS}
      */
     ONCS{
@@ -2205,6 +2300,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * A Fused Operation Support (FUSES) structure containing fields that indicate the fused operations that the controller supports.
      * @type {_FUSES}
      */
     FUSES{
@@ -2216,6 +2312,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * A Format NVM Attributes (FNA) structure containing fields that indicate attributes for the [Format NVM](ns-nvme-nvme_cdw10_format_nvm.md) command.
      * @type {_FNA}
      */
     FNA{
@@ -2227,6 +2324,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * A Volatile Write Cache (VWC) structure containing fields that indicate attributes related to the presence of a volatile write cache in the implementation.
      * @type {_VWC}
      */
     VWC{
@@ -2238,6 +2336,15 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the size of the write operation guaranteed to be written atomically to the NVM across all namespaces with any supported namespace format during normal operation.  This field is specified in logical blocks and is a 0’s based value.
+     * 
+     * If a specific namespace guarantees a larger size than is reported in this field, then this namespace specific size is reported in the **NAWUN** field of the [Identify Namespace](../nvme/ns-nvme-nvme_identify_namespace_data.md) data structure.
+     * 
+     * If a write command is submitted with size less than or equal to the **AWUN** value, the host is guaranteed that the write command is atomic to the NVM with respect to other read or write commands. If a write command is submitted with size greater than the **AWUN** value, then there is no guarantee of command atomicity.
+     * 
+     * The **AWUN** value does not have any applicability to write errors caused by power failure. For more information, see the Atomic Write Unit Power Fail (**AWUPF**) field.
+     * 
+     * A value of `FFFFh` indicates all commands are atomic as this is the largest command size. Implementations should support a minimum of 128KB, appropriately scaled based on the Logical Block Access (LBA) size.
      * @type {Integer}
      */
     AWUN {
@@ -2246,6 +2353,13 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the size of the write operation guaranteed to be written atomically to the NVM across all namespaces with any supported namespace format during a power fail or error condition. This field is specified in logical blocks and is a 0’s based value. 
+     * 
+     * If a specific namespace guarantees a larger size than is reported in this field, then this namespace specific size is reported in the **NAWUPF** field in the [Identify Namespace](../nvme/ns-nvme-nvme_identify_namespace_data.md) data structure. The **AWUPF** value must be less than or equal to the **AWUN** value.
+     * 
+     * If a write command is submitted with size less than or equal to the **AWUPF** value, the host is guaranteed that the write is atomic to the NVM with respect to other read or write commands. If a write command is submitted that is greater than this size, there is no guarantee of command atomicity. If the write size is less than or equal to the **AWUPF** value and the write command fails, then subsequent read commands for the associated logical blocks will return data from the previous successful write command.
+     * 
+     * If a write command is submitted with size greater than the **AWUPF** value, then there is no guarantee of data returned on subsequent reads of the associated logical blocks.
      * @type {Integer}
      */
     AWUPF {
@@ -2254,6 +2368,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * A NVM Vendor Specific Command Configuration (NVSCC) structure containing fields that indicate the configuration settings for NVM Vendor Specific command handling.
      * @type {_NVSCC}
      */
     NVSCC{
@@ -2276,6 +2391,13 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Indicates the size of the write operation guaranteed to be written atomically to the NVM across all namespaces with any supported namespace format for a Compare and Write fused operation.
+     * 
+     * If a specific namespace guarantees a larger size than is reported in this field, then this namespace specific size is reported in the **NACWU** field in the [Identify Namespace](../nvme/ns-nvme-nvme_identify_namespace_data.md) data structure.
+     * 
+     * This field will be supported if the Compare and Write fused command is supported. This field is specified in logical blocks and is a 0’s based value. If a Compare and Write is submitted that requests a transfer size larger than this value, the controller may fail the command with a status of [NVME_STATUS_INVALID_FIELD_IN_COMMAND](ne-nvme-nvme_status_generic_command_codes.md).
+     * 
+     * If Compare and Write is not a supported fused command, the value of this field will be `0h`.
      * @type {Integer}
      */
     ACWU {
@@ -2292,6 +2414,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * A SGL Support (SGLS) structure containing fields that specify whether Scatter Gather Lists (SGL) are supported for the NVM Command Set and the supported SGL types.
      * @type {_SGLS}
      */
     SGLS{
@@ -2330,6 +2453,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Bytes 704:2047 are reserved for I/O Command Set Attributes.
      * @type {Array<Byte>}
      */
     Reserved6{
@@ -2436,6 +2560,9 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Contains an array of 32 Power State Descriptors. Each member of the array is a 32 bit field that indicates the characteristics of a Power State Descriptor. The format of this field is defined in the [NVME_POWER_STATE_DESC](ns-nvme-nvme_power_state_desc.md) structure.
+     * 
+     * The zero-based position of a structure in the array corresponds to the name of the Power State Descriptor, such that Power State 0 Descriptor (PSD0) is in position 0, Power State 1 Descriptor (PSD1) is in position 1, and so on, up to Power State 31 Descriptor (PSD31) in position 31.
      * @type {Array<NVME_POWER_STATE_DESC>}
      */
     PDS{
@@ -2447,6 +2574,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
+     * Bytes 3072:4095 are allocated for vendor specific usage.
      * @type {Array<Byte>}
      */
     VS{

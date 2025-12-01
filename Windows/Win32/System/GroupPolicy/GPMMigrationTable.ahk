@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The IGPMMigrationTable interface provides an interface to a migration table.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmmigrationtable
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319

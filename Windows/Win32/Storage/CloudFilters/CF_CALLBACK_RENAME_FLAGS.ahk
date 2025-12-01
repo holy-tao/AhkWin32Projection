@@ -3,7 +3,7 @@
 
 /**
  * Call back flags to inform the sync provider that a placeholder under one of its sync roots is about to be renamed or moved.
- * @see https://docs.microsoft.com/windows/win32/api//cfapi/ne-cfapi-cf_callback_rename_flags
+ * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_callback_rename_flags
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

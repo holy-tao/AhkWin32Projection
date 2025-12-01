@@ -3,7 +3,7 @@
 
 /**
  * This structure is used to pass information for an alternate platform to SetupQueryInfOriginalFileInformation.
- * @see https://docs.microsoft.com/windows/win32/api//setupapi/ns-setupapi-sp_altplatform_info_v1
+ * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_altplatform_info_v1
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

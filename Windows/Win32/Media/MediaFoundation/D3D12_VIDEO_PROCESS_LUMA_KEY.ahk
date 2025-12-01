@@ -4,7 +4,6 @@
 /**
  * Specifies the settings used for luma keying.
  * @remarks
- * 
  * The values of *Lower* and *Upper* give the lower and upper bounds of the luma key, using a nominal range of [0...1]. Given a format with n bits per channel, these values are converted to luma values as follows:
  * 
  * `val = f * ((1 << n)-1)`
@@ -14,9 +13,7 @@
  * `BYTE Y = BYTE(max(min(1.0, Upper), 0.0) * 255.0)`
  * 
  * Note that the value is clamped to the range [0...1] before multiplying by 255.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_video_process_luma_key
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_process_luma_key
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

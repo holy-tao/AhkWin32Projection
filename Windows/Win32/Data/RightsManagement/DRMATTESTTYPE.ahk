@@ -3,7 +3,7 @@
 
 /**
  * The DRMATTESTTYPE enumeration specifies what kind of signature to create for a data blob.
- * @see https://docs.microsoft.com/windows/win32/api//msdrmdefs/ne-msdrmdefs-drmattesttype
+ * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ne-msdrmdefs-drmattesttype
  * @namespace Windows.Win32.Data.RightsManagement
  * @version v4.0.30319
  */

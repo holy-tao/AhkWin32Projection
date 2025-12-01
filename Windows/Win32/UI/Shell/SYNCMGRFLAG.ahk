@@ -3,7 +3,7 @@
 
 /**
  * The SYNCMGRFLAG enumeration values are used in the ISyncMgrSynchronize::Initialize method to indicate how the synchronization event was initiated.
- * @see https://docs.microsoft.com/windows/win32/api//mobsync/ne-mobsync-syncmgrflag
+ * @see https://learn.microsoft.com/windows/win32/api/mobsync/ne-mobsync-syncmgrflag
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

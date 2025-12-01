@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a media sharing device.
- * @see https://docs.microsoft.com/windows/win32/api//mfsharingengine/ns-mfsharingengine-device_info
+ * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/ns-mfsharingengine-device_info
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -27,7 +27,7 @@ class DEVICE_INFO extends Win32Struct
     }
 
     /**
-     * A string that uniquely identifes the device.
+     * A string that uniquely identifies the device.
      * @type {BSTR}
      */
     pUniqueDeviceName{

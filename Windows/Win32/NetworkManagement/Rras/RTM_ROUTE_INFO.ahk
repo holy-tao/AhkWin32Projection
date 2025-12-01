@@ -5,7 +5,7 @@
 
 /**
  * The RTM_ROUTE_INFO structure is used to exchange route information with the routing table manager. Do not change the read-only information.
- * @see https://docs.microsoft.com/windows/win32/api//rtmv2/ns-rtmv2-rtm_route_info
+ * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_route_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

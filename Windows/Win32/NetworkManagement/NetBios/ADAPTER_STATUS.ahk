@@ -3,7 +3,7 @@
 
 /**
  * The ADAPTER_STATUS structure contains information about a network adapter.
- * @see https://docs.microsoft.com/windows/win32/api//nb30/ns-nb30-adapter_status
+ * @see https://learn.microsoft.com/windows/win32/api/nb30/ns-nb30-adapter_status
  * @namespace Windows.Win32.NetworkManagement.NetBios
  * @version v4.0.30319
  */

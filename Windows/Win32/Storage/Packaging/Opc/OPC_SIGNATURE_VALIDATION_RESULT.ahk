@@ -3,7 +3,7 @@
 
 /**
  * Indicates the status of the signature.
- * @see https://docs.microsoft.com/windows/win32/api//msopc/ne-msopc-opc_signature_validation_result
+ * @see https://learn.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_signature_validation_result
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */

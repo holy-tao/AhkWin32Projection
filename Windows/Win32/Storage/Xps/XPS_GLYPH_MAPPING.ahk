@@ -3,7 +3,7 @@
 
 /**
  * Describes a glyph-to-index mapping.
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/ns-xpsobjectmodel-xps_glyph_mapping
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_glyph_mapping
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

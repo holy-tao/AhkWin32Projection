@@ -3,7 +3,7 @@
 
 /**
  * Used by ISearchCatalogManager::GetCatalogStatus to determine the current state of the catalog.
- * @see https://docs.microsoft.com/windows/win32/api//searchapi/ne-searchapi-catalogstatus
+ * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-catalogstatus
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

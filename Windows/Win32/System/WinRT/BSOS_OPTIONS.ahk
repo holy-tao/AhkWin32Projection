@@ -3,7 +3,7 @@
 
 /**
  * Specifies the behavior of a RandomAccessStream that encapsulates a Component Object Model (COM) IStream.
- * @see https://docs.microsoft.com/windows/win32/api//shcore/ne-shcore-bsos_options
+ * @see https://learn.microsoft.com/windows/win32/api/shcore/ne-shcore-bsos_options
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a Bluetooth radio.
- * @see https://docs.microsoft.com/windows/win32/api//bluetoothapis/ns-bluetoothapis-bluetooth_radio_info
+ * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_radio_info
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

@@ -180,7 +180,7 @@ class NetShell {
      * @param {Pointer<TOKEN_VALUE>} pEnumTable An array of token:value pairs.
      * @param {Pointer<Integer>} pdwValue Upon success, the <i>pdwValue</i> parameter is filled with the value associated with the token in the <i>pEnumTable</i> array.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//netsh/nf-netsh-matchenumtag
+     * @see https://learn.microsoft.com/windows/win32/api/netsh/nf-netsh-matchenumtag
      * @since windows5.1.2600
      */
     static MatchEnumTag(hModule, pwcArg, dwNumArg, pEnumTable, pdwValue) {
@@ -195,10 +195,18 @@ class NetShell {
 
     /**
      * Determines whether a user-entered string matches a specific string.
+     * @remarks
+     * The 
+     * <b>MatchToken</b> function is generally used by command functions. For arguments with an enumerated set of possible values, use the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nf-netsh-matchenumtag">MatchEnumTag</a> function instead.
+     * 
+     * One example of using 
+     * <b>MatchToken</b> is a command function that has an argument whose value can be an integer or the string "default". That command function might use 
+     * <b>MatchToken</b> to test whether the value matches the string "default" before interpreting it as an integer.
      * @param {PWSTR} pwszUserToken A string entered by the user.
      * @param {PWSTR} pwszCmdToken A string against which to check for a match.
      * @returns {BOOL} Returns <b>TRUE</b> if there is a match, <b>FALSE</b> if not.
-     * @see https://docs.microsoft.com/windows/win32/api//netsh/nf-netsh-matchtoken
+     * @see https://learn.microsoft.com/windows/win32/api/netsh/nf-netsh-matchtoken
      * @since windows5.1.2600
      */
     static MatchToken(pwszUserToken, pwszCmdToken) {
@@ -211,6 +219,10 @@ class NetShell {
 
     /**
      * Parses an argument string and verifies that all required tags are present.
+     * @remarks
+     * The 
+     * <b>PreprocessCommand</b> function is typically called by command functions. This function parses all arguments, matching arguments with tags, and leaves the type (tag index) of each argument in the <i>pdwTagType</i> array, where <i>pdwTagType</i>[0] corresponds to the type of <i>ppwcArguments</i>[<i>dwCurrentIndex</i>]. The 
+     * <b>PreprocessCommand</b> function also ensures that tags required to be present are present.
      * @param {HANDLE} hModule Reserved. Set to null.
      * @param {Pointer<PWSTR>} ppwcArguments The arguments passed to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nc-netsh-fn_handle_cmd">FN_HANDLE_CMD</a> (the command function) as its <i>ppwcArguments</i> parameter.
@@ -298,7 +310,7 @@ class NetShell {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//netsh/nf-netsh-preprocesscommand
+     * @see https://learn.microsoft.com/windows/win32/api/netsh/nf-netsh-preprocesscommand
      * @since windows5.1.2600
      */
     static PreprocessCommand(hModule, ppwcArguments, dwCurrentIndex, dwArgCount, pttTags, dwTagCount, dwMinArgs, dwMaxArgs, pdwTagType) {
@@ -316,7 +328,7 @@ class NetShell {
      * @param {HANDLE} hModule A handle to the module from which the string should be loaded, or null for system error messages.
      * @param {Integer} dwErrId The identifier of the message to print.
      * @returns {Integer} Returns the number of characters printed. Returns zero upon failure.
-     * @see https://docs.microsoft.com/windows/win32/api//netsh/nf-netsh-printerror
+     * @see https://learn.microsoft.com/windows/win32/api/netsh/nf-netsh-printerror
      * @since windows5.1.2600
      */
     static PrintError(hModule, dwErrId) {
@@ -328,10 +340,12 @@ class NetShell {
 
     /**
      * Displays localized output to the NetShell console.
+     * @remarks
+     * Use this function when the format string, identified by the <i>dwMsgId</i> parameter, must be localized.
      * @param {HANDLE} hModule A handle to the module from which the string should be loaded.
      * @param {Integer} dwMsgId The identifier  of the message to print.
      * @returns {Integer} Returns the number of characters printed. Returns zero upon failure.
-     * @see https://docs.microsoft.com/windows/win32/api//netsh/nf-netsh-printmessagefrommodule
+     * @see https://learn.microsoft.com/windows/win32/api/netsh/nf-netsh-printmessagefrommodule
      * @since windows5.1.2600
      */
     static PrintMessageFromModule(hModule, dwMsgId) {
@@ -343,9 +357,12 @@ class NetShell {
 
     /**
      * Displays output to the NetShell console.
+     * @remarks
+     * Use the 
+     * <b>PrintMessage</b> function when the message to be output is not required to be localized.
      * @param {PWSTR} pwszFormat A string to be output to the NetShell console.
      * @returns {Integer} Returns the number of characters printed. Returns zero upon failure.
-     * @see https://docs.microsoft.com/windows/win32/api//netsh/nf-netsh-printmessage
+     * @see https://learn.microsoft.com/windows/win32/api/netsh/nf-netsh-printmessage
      * @since windows5.1.2600
      */
     static PrintMessage(pwszFormat) {
@@ -358,15 +375,12 @@ class NetShell {
     /**
      * Registers a helper context with NetShell.
      * @remarks
-     * 
      * For top-level helpers, the 
      * <b>RegisterContext</b> parameter passed during the course of its initialization function is a pointer to the 
      * <b>RegisterContext</b> function. The pointer should be cast to type <b>NS_REGISTER_CONTEXT</b> before use.
-     * 
-     * 
      * @param {Pointer<NS_CONTEXT_ATTRIBUTES>} pChildContext Attributes of the context to register.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//netsh/nf-netsh-registercontext
+     * @see https://learn.microsoft.com/windows/win32/api/netsh/nf-netsh-registercontext
      * @since windows5.1.2600
      */
     static RegisterContext(pChildContext) {
@@ -379,7 +393,7 @@ class NetShell {
      * @param {Pointer<Guid>} pguidParentContext A pointer to GUID of another helper under which the helper should be installed. If null, the helper is installed as a top-level helper.
      * @param {Pointer<NS_HELPER_ATTRIBUTES>} pfnRegisterSubContext Attributes of the helper.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//netsh/nf-netsh-registerhelper
+     * @see https://learn.microsoft.com/windows/win32/api/netsh/nf-netsh-registerhelper
      * @since windows5.1.2600
      */
     static RegisterHelper(pguidParentContext, pfnRegisterSubContext) {

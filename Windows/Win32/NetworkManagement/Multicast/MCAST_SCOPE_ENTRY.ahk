@@ -6,7 +6,7 @@
 
 /**
  * The MCAST_SCOPE_ENTRY structure provides a complete set of information about a given multicast scope.
- * @see https://docs.microsoft.com/windows/win32/api//madcapcl/ns-madcapcl-mcast_scope_entry
+ * @see https://learn.microsoft.com/windows/win32/api/madcapcl/ns-madcapcl-mcast_scope_entry
  * @namespace Windows.Win32.NetworkManagement.Multicast
  * @version v4.0.30319
  */

@@ -3,8 +3,8 @@
 #Include .\MI_Sint32A.ahk
 
 /**
- * Represents a property inside an MI_Instance structure.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_sint32afield
+ * Represents a property inside an MI_Instance structure. (MI_Sint32AField)
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_sint32afield
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

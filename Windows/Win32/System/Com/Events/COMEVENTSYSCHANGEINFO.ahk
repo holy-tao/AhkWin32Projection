@@ -4,7 +4,7 @@
 
 /**
  * Represents a system event structure, which contains the partition and application ID from which an event originated.
- * @see https://docs.microsoft.com/windows/win32/api//eventsys/ns-eventsys-comeventsyschangeinfo
+ * @see https://learn.microsoft.com/windows/win32/api/eventsys/ns-eventsys-comeventsyschangeinfo
  * @namespace Windows.Win32.System.Com.Events
  * @version v4.0.30319
  */

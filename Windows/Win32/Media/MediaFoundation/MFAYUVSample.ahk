@@ -3,7 +3,7 @@
 
 /**
  * Describes a 4:4:4:4 Y'Cb'Cr' sample.
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ns-mfobjects-mfayuvsample
+ * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfayuvsample
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Describes an application that is to be registered with the Restart Manager.
- * @see https://docs.microsoft.com/windows/win32/api//restartmanager/ns-restartmanager-rm_process_info
+ * @see https://learn.microsoft.com/windows/win32/api/restartmanager/ns-restartmanager-rm_process_info
  * @namespace Windows.Win32.System.RestartManager
  * @version v4.0.30319
  */

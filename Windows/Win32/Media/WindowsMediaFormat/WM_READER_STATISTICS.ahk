@@ -4,11 +4,8 @@
 /**
  * The WM_READER_STATISTICS structure describes the performance of a reading operation.
  * @remarks
- * 
  * You must set the <b>cbSize</b> member manually before using this structure. It should always be set to sizeof(<b>WM_READER_STATISTICS</b>).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ns-wmsdkidl-wm_reader_statistics
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wm_reader_statistics
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

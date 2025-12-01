@@ -3,7 +3,7 @@
 
 /**
  * Defines the default access permissions to apply to the channel.
- * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_channel_isolation_type
+ * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_channel_isolation_type
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * Stores the DTLS MTU.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_dtls_mtu
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -14,6 +16,7 @@ class SEC_DTLS_MTU extends Win32Struct
     static packingSize => 2
 
     /**
+     * The path MTU for the connection.
      * @type {Integer}
      */
     PathMTU {

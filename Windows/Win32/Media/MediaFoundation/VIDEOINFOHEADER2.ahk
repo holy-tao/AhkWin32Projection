@@ -6,7 +6,6 @@
 /**
  * The VIDEOINFOHEADER2 structure describes the bitmap and color information for a video image, including interlace, copy protection, and pixel aspect ratio information.
  * @remarks
- * 
  * The picture aspect ratio is given by <b>dwPictAspectRatioX</b> and <b>dwPictAspectRatioY</b>. These specify the intended shape of the video image when it is displayed. The pixel aspect ratio is calculated from the <b>rcSource</b> rectangle and the picture aspect ratio.
  * 
  * The <b>dwInterlaceFlags</b> field indicates whether the video is interlaced, and if so, the format of the fields within the media samples. The following table shows the valid interlace modes for the Overlay Mixer and Video Mixing Renderer filters.
@@ -60,7 +59,7 @@
  * </table>
  *  
  * 
- * If the video is interlaced, the media samples may carry flags that describe the contents of the sample (such as field 1 or field 2), along with the rendering requirements. These are specified by setting the <b>dwTypeSpecificFlags</b> member of each media sample's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ns-strmif-am_sample2_properties">AM_SAMPLE2_PROPERTIES</a> structure. The following table shows the valid media sample flags for each of the display modes listed in the previous table. To set these flags, call <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-imediasample2-setproperties">IMediaSample2::SetProperties</a> on the media sample.
+ * If the video is interlaced, the media samples may carry flags that describe the contents of the sample (such as field 1 or field 2), along with the rendering requirements. These are specified by setting the <b>dwTypeSpecificFlags</b> member of each media sample's <a href="https://docs.microsoft.com/windows/win32/api/strmif/ns-strmif-am_sample2_properties">AM_SAMPLE2_PROPERTIES</a> structure. The following table shows the valid media sample flags for each of the display modes listed in the previous table. To set these flags, call <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-imediasample2-setproperties">IMediaSample2::SetProperties</a> on the media sample.
  * 
  * <table>
  * <tr>
@@ -184,9 +183,7 @@
  * 
  * 
  * Ignore the <b>SampleFormat</b> member of the <b>DXVA_ExtendedFormat</b> structure, because it corresponds to the lower 8 bits of <b>dwControlFlags</b>, which are reserved for the AMCONTROL_xxx flags. The <b>DXVA_ExtendedFormat</b> structure is documented in the Windows DDK documentation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dvdmedia/ns-dvdmedia-videoinfoheader2
+ * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-videoinfoheader2
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

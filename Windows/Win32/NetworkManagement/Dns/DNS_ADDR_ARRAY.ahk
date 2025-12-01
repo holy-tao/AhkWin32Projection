@@ -4,7 +4,7 @@
 
 /**
  * Stores an array of IPv4 or IPv6 addresses.
- * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_addr_array
+ * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_addr_array
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

@@ -4,7 +4,6 @@
 /**
  * Describes multi-sampling parameters for a resource.
  * @remarks
- * 
  * This structure is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ns-dxgi1_2-dxgi_swap_chain_desc1">DXGI_SWAP_CHAIN_DESC1</a> structure.
  * 
  * The default sampler mode, with no anti-aliasing, has a count of 1 and a quality level of 0.
@@ -25,9 +24,7 @@
  * </td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgicommon/ns-dxgicommon-dxgi_sample_desc
+ * @see https://learn.microsoft.com/windows/win32/api/dxgicommon/ns-dxgicommon-dxgi_sample_desc
  * @namespace Windows.Win32.Graphics.Dxgi.Common
  * @version v4.0.30319
  */

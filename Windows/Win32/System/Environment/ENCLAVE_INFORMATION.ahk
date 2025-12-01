@@ -4,7 +4,7 @@
 
 /**
  * Contains information about the currently executing enclave.
- * @see https://docs.microsoft.com/windows/win32/api//ntenclv/ns-ntenclv-enclave_information
+ * @see https://learn.microsoft.com/windows/win32/api/ntenclv/ns-ntenclv-enclave_information
  * @namespace Windows.Win32.System.Environment
  * @version v4.0.30319
  */

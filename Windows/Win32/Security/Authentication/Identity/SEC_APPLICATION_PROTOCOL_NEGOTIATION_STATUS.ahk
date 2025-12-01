@@ -3,7 +3,7 @@
 
 /**
  * Describes the status of the SEC application protocol negotiation.
- * @see https://docs.microsoft.com/windows/win32/api//sspi/ne-sspi-sec_application_protocol_negotiation_status
+ * @see https://learn.microsoft.com/windows/win32/api/sspi/ne-sspi-sec_application_protocol_negotiation_status
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

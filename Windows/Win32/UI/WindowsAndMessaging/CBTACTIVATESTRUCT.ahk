@@ -4,7 +4,7 @@
 
 /**
  * Contains information passed to a WH_CBT hook procedure, CBTProc, before a window is activated.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-cbtactivatestruct
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-cbtactivatestruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

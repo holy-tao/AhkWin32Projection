@@ -3,7 +3,7 @@
 
 /**
  * Indicates the protocol stack to use for the channel.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_channel_binding
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_channel_binding
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

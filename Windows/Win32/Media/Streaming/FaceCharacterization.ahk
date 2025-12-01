@@ -4,15 +4,13 @@
 /**
  * The FaceCharacterization structure describes the blob format for the MF_CAPTURE_METADATA_FACEROICHARACTERIZATIONS attribute.
  * @remarks
- * 
  * The <b>MF_CAPTURE_METADATA_FACEROICHARACTERIZATIONS</b> attribute contains the blink and facial expression state for the face ROIs identified in <b>MF_CAPTURE_METADATA_FACEROIS</b>.  For a  device that does not support blink or facial expression detection, this attribute should be omitted.
  * 
  * The facial expressions that can be detected are defined as follows:
  * 
  * 
  * ```
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-facecharacterization
+ * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-facecharacterization
  * @namespace Windows.Win32.Media.Streaming
  * @version v4.0.30319
  */

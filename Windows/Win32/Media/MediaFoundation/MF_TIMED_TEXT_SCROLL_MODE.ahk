@@ -3,7 +3,7 @@
 
 /**
  * Specifies how text appears when the parent element is scrolled.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/ne-mfmediaengine-mf_timed_text_scroll_mode
+ * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_scroll_mode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

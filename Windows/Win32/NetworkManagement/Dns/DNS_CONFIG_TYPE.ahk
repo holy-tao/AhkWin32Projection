@@ -3,7 +3,7 @@
 
 /**
  * The DNS_CONFIG_TYPE enumeration provides DNS configuration type information.
- * @see https://docs.microsoft.com/windows/win32/api//windns/ne-windns-dns_config_type
+ * @see https://learn.microsoft.com/windows/win32/api/windns/ne-windns-dns_config_type
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

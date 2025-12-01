@@ -3,7 +3,7 @@
 
 /**
  * Describes a Virtual Control Panel (VCP) code type.
- * @see https://docs.microsoft.com/windows/win32/api//lowlevelmonitorconfigurationapi/ne-lowlevelmonitorconfigurationapi-mc_vcp_code_type
+ * @see https://learn.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/ne-lowlevelmonitorconfigurationapi-mc_vcp_code_type
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

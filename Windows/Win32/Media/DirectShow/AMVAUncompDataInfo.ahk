@@ -4,7 +4,7 @@
 
 /**
  * The AMVAUncompDataInfo structure specifies the dimensions and pixel format of the uncompressed surfaces for DirectX Video Acceleration (DXVA) video decoding.
- * @see https://docs.microsoft.com/windows/win32/api//amva/ns-amva-amvauncompdatainfo
+ * @see https://learn.microsoft.com/windows/win32/api/amva/ns-amva-amvauncompdatainfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

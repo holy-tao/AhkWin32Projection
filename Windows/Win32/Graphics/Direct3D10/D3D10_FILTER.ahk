@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Filtering options during texture sampling.
+ * Filtering options during texture sampling. (D3D10_FILTER)
  * @remarks
- * 
  * During texture sampling, one or more texels are read and combined (this is calling filtering) to produce a single value. Point sampling reads a single texel while linear sampling reads two texels (endpoints) and linearly interpolates a third value between the endpoints.
  * 
  * HLSL texture-sampling functions also support comparison filtering during texture sampling. Comparison filtering compares each sampled texel against a comparison value. The boolean result is blended the same way that normal texture filtering is blended.
@@ -28,9 +27,7 @@
  *  
  * 
  * Comparison filters only work with textures that have the following <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">formats</a>: R32_FLOAT_X8X24_TYPELESS, R32_FLOAT, R24_UNORM_X8_TYPELESS, R16_UNORM.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10/ne-d3d10-d3d10_filter
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_filter
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

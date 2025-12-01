@@ -4,14 +4,11 @@
 /**
  * Specifies the quality level for a pipeline component.
  * @remarks
- * 
  * Each successive quality level decreases the amount of processing that is needed, while also reducing the resulting quality of the audio or video. The specific algorithm used to reduce quality depends on the component. Mode 1 is the least aggressive mode, and mode 5 is the most aggressive. A component is not required to implement all five levels. Also, the same quality level might not be comparable between two different components.
  *       
  * 
  * Video decoders can often reduce quality by leaving out certain post-processing steps. The enhanced video renderer (EVR) can sometimes reduce quality by switching to a different deinterlacing mode.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mf_quality_level
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_quality_level
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

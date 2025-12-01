@@ -4,7 +4,6 @@
 /**
  * Represents an audio data buffer, used with IXAudio2SourceVoice::SubmitSourceBuffer.
  * @remarks
- * 
  * XAudio2 audio data is interleaved, data from each channel is adjacent for a particular sample number. For example if there was a 4 channel wave playing into an XAudio2 source voice, the audio data would be a sample of channel 0, a sample of channel 1, a sample of channel 2, a sample of channel 3, and then the next sample of channels 0, 1, 2, 3, etc.
  * 
  * 
@@ -19,9 +18,7 @@
  * 
  * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xaudio2/ns-xaudio2-xaudio2_buffer
+ * @see https://learn.microsoft.com/windows/win32/api/xaudio2/ns-xaudio2-xaudio2_buffer
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319
  */

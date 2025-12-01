@@ -3,7 +3,7 @@
 
 /**
  * Contains FIPS version information.
- * @see https://docs.microsoft.com/windows/win32/api//bcrypt/ne-bcrypt-dsafipsversion_enum
+ * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ne-bcrypt-dsafipsversion_enum
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The DDKERNELCAPS structure notifies the client what support, if any, exists in the miniport driver for the kernel-mode video transport.
- * @see https://docs.microsoft.com/windows/win32/api//ddkernel/ns-ddkernel-ddkernelcaps
+ * @see https://learn.microsoft.com/windows/win32/api/ddkernel/ns-ddkernel-ddkernelcaps
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Identifies an area on a virtual hard disk (VHD) that has changed as tracked by resilient change tracking (RCT).
- * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ns-virtdisk-query_changes_virtual_disk_range
+ * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-query_changes_virtual_disk_range
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */

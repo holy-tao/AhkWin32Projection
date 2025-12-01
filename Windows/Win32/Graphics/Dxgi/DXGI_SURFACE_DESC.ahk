@@ -5,11 +5,8 @@
 /**
  * Describes a surface.
  * @remarks
- * 
  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgisurface-getdesc">GetDesc</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgidevice-createsurface">CreateSurface</a> methods.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi/ns-dxgi-dxgi_surface_desc
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi/ns-dxgi-dxgi_surface_desc
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

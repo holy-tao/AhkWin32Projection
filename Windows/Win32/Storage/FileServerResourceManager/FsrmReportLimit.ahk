@@ -4,13 +4,10 @@
 /**
  * Defines the limit used to limit the files included in a report.
  * @remarks
- * 
  * You specify the  value for the limit in the <i>limitValue</i> parameter when calling the 
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-setreportsizelimit">IFsrmReportManager::SetReportSizeLimit</a> 
  *     method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmreportlimit
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmreportlimit
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

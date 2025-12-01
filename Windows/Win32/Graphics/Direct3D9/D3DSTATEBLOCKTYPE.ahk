@@ -2,7 +2,19 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Predefined sets of pipeline state used by state blocks (see State Blocks Save and Restore State (Direct3D 9)).
+ * @remarks
+ * As the following diagram shows, vertex and pixel state are both subsets of device state.
  * 
+ * ![diagram of device state, with vertex state and pixel state as subsets](images/statesets.png)
+ * 
+ * There are only a few states that are considered both vertex and pixel state. These states are:
+ * 
+ * -   Render state: D3DRS\_FOGDENSITY
+ * -   Render state: D3DRS\_FOGSTART
+ * -   Render state: D3DRS\_FOGEND
+ * -   Texture state: D3DTSS\_TEXCOORDINDEX
+ * -   Texture state: D3DTSS\_TEXTURETRANSFORMFLAGS
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dstateblocktype
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319

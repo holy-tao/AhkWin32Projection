@@ -3,7 +3,7 @@
 
 /**
  * Contains information used in CertVerifyCertificateChainPolicy to establish policy criteria for the verification of certificate chains.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_chain_policy_para
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_chain_policy_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

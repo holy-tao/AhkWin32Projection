@@ -3,7 +3,7 @@
 
 /**
  * Specifies whether an AAC decoder uses standard MPEG-2/MPEG-4 stereo downmix equations.
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavdecaacdownmixmode
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavdecaacdownmixmode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

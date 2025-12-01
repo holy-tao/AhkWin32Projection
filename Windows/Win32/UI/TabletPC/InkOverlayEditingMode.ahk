@@ -3,7 +3,7 @@
 
 /**
  * Specifies the behavior mode of the InkOverlay object and the InkPicture control.
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkoverlayeditingmode
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkoverlayeditingmode
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

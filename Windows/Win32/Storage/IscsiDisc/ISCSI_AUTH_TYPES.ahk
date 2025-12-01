@@ -3,7 +3,7 @@
 
 /**
  * ISCSI_AUTH_TYPES enumeration indicates the type of authentication method utilized.
- * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/ne-iscsidsc-iscsi_auth_types
+ * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/ne-iscsidsc-iscsi_auth_types
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @version v4.0.30319
  */

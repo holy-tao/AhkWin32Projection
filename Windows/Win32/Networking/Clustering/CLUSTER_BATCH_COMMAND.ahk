@@ -4,14 +4,11 @@
 /**
  * Represents the order in which current batch command data is sent to the ClusterRegBatchReadCommand function.
  * @remarks
- * 
  * The <b>wzName</b> and <b>lpData</b> pointers are valid until the batch 
  *      notification is closed via the 
  *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregbatchclosenotification">ClusterRegBatchCloseNotification</a> 
  *      function.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-cluster_batch_command
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-cluster_batch_command
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

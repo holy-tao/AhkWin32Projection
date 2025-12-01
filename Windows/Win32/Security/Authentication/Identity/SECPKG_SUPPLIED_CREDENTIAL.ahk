@@ -5,7 +5,7 @@
 
 /**
  * Specifies the supplied credentials.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ns-ntsecpkg-secpkg_supplied_credential
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_supplied_credential
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

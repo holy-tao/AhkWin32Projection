@@ -3,7 +3,7 @@
 
 /**
  * Specifies the sampling or filtering mode to use when scaling an image.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicbitmapinterpolationmode
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicbitmapinterpolationmode
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

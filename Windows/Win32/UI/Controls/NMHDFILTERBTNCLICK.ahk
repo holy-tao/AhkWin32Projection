@@ -6,7 +6,7 @@
 
 /**
  * Specifies or receives the attributes of a filter button click.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmhdfilterbtnclick
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmhdfilterbtnclick
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

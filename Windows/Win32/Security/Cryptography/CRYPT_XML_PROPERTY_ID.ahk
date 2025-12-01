@@ -4,11 +4,9 @@
 /**
  * Specifies the type and usage of the XML property.
  * @remarks
- * 
  * If a property value is defined as a pointer to data, then the pointer must be valid 
  *   for the entire period of the signature operation.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//cryptxml/ne-cryptxml-crypt_xml_property_id
+ * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ne-cryptxml-crypt_xml_property_id
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

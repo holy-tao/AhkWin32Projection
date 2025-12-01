@@ -12,12 +12,12 @@ class Variant {
 
 ;@region Methods
     /**
-     * Calculates the wire size of the VARIANT object, and gets its handle and data.
+     * Calculates the wire size of the VARIANT object, and gets its handle and data. (VARIANT_UserSize)
      * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<VARIANT>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-variant_usersize
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-variant_usersize
      */
     static VARIANT_UserSize(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -27,7 +27,7 @@ class Variant {
     }
 
     /**
-     * Marshals a VARIANT object into the RPC buffer.
+     * Marshals a VARIANT object into the RPC buffer. (VARIANT_UserMarshal)
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<VARIANT>} param2 
@@ -90,7 +90,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-variant_usermarshal
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-variant_usermarshal
      */
     static VARIANT_UserMarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -101,7 +101,7 @@ class Variant {
     }
 
     /**
-     * Unmarshals a VARIANT object from the RPC buffer.
+     * Unmarshals a VARIANT object from the RPC buffer. (VARIANT_UserUnmarshal)
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<VARIANT>} param2 
@@ -173,7 +173,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-variant_userunmarshal
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-variant_userunmarshal
      */
     static VARIANT_UserUnmarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -184,11 +184,11 @@ class Variant {
     }
 
     /**
-     * Frees resources on the server side when called by RPC stub files.
+     * Frees resources on the server side when called by RPC stub files. (VARIANT_UserFree)
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<VARIANT>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-variant_userfree
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-variant_userfree
      */
     static VARIANT_UserFree(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -197,12 +197,12 @@ class Variant {
     }
 
     /**
-     * Calculates the wire size of the VARIANT object, and gets its handle and data.
+     * Calculates the wire size of the VARIANT object, and gets its handle and data. (VARIANT_UserSize64)
      * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<VARIANT>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-variant_usersize64
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-variant_usersize64
      * @since windows5.1.2600
      */
     static VARIANT_UserSize64(param0, param1, param2) {
@@ -213,7 +213,7 @@ class Variant {
     }
 
     /**
-     * Marshals a VARIANT object into the RPC buffer.
+     * Marshals a VARIANT object into the RPC buffer. (VARIANT_UserMarshal64)
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<VARIANT>} param2 
@@ -276,7 +276,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-variant_usermarshal64
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-variant_usermarshal64
      * @since windows5.1.2600
      */
     static VARIANT_UserMarshal64(param0, param1, param2) {
@@ -288,7 +288,7 @@ class Variant {
     }
 
     /**
-     * Unmarshals a VARIANT object from the RPC buffer.
+     * Unmarshals a VARIANT object from the RPC buffer. (VARIANT_UserUnmarshal64)
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<VARIANT>} param2 
@@ -360,7 +360,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-variant_userunmarshal64
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-variant_userunmarshal64
      * @since windows5.1.2600
      */
     static VARIANT_UserUnmarshal64(param0, param1, param2) {
@@ -372,11 +372,11 @@ class Variant {
     }
 
     /**
-     * Frees resources on the server side when called by RPC stub files.
+     * Frees resources on the server side when called by RPC stub files. (VARIANT_UserFree64)
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<VARIANT>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-variant_userfree64
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-variant_userfree64
      * @since windows5.1.2600
      */
     static VARIANT_UserFree64(param0, param1) {
@@ -387,11 +387,57 @@ class Variant {
 
     /**
      * Converts the MS-DOS representation of time to the date and time representation stored in a variant.
+     * @remarks
+     * MS-DOS records file dates and times as packed 16-bit values. An MS-DOS date has the following format.
+     * 
+     * <table>
+     * <tr>
+     * <th>Bits</th>
+     * <th>Contents</th>
+     * </tr>
+     * <tr>
+     * <td>0–4</td>
+     * <td>Day of the month (1–31).</td>
+     * </tr>
+     * <tr>
+     * <td>5–8</td>
+     * <td>Month (1 = January, 2 = February, and so on).</td>
+     * </tr>
+     * <tr>
+     * <td>9–15</td>
+     * <td>Year offset from 1980 (add 1980 to get the actual year).</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * An MS-DOS time has the following format.
+     * 
+     * <table>
+     * <tr>
+     * <th>Bits</th>
+     * <th>Contents</th>
+     * </tr>
+     * <tr>
+     * <td>0–4</td>
+     * <td>Second divided by 2.</td>
+     * </tr>
+     * <tr>
+     * <td>5–10</td>
+     * <td>Minute (0–59).</td>
+     * </tr>
+     * <tr>
+     * <td>11–15</td>
+     * <td>Hour (0– 23 on a 24-hour clock).</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * The <b>DosDateTimeToVariantTime</b> function will accept invalid dates and try to fix them when resolving to a VARIANT time. For example, an invalid date such as 2/29/2001 will resolve to 3/1/2001. Only days are fixed, so invalid month values result in an error being returned. Days are checked to be between 1 and 31. Negative days and days greater than 31 results in an error. A day less than 31 but greater than the maximum day in that month has the day promoted to the appropriate day of the next month. A day equal to zero resolves as the last day of the previous month. For example, an invalid date such as 2/0/2001 will resolve to 1/31/2001.
      * @param {Integer} wDosDate The MS-DOS date to convert. The valid range of MS-DOS dates is January 1, 1980, to December 31, 2099, inclusive.
      * @param {Integer} wDosTime The MS-DOS time to convert.
      * @param {Pointer<Float>} pvtime The converted time.
      * @returns {Integer} The function returns TRUE on success and FALSE otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-dosdatetimetovarianttime
+     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-dosdatetimetovarianttime
      */
     static DosDateTimeToVariantTime(wDosDate, wDosTime, pvtime) {
         pvtimeMarshal := pvtime is VarRef ? "double*" : "ptr"
@@ -402,11 +448,17 @@ class Variant {
 
     /**
      * Converts the variant representation of a date and time to MS-DOS date and time values.
+     * @remarks
+     * A variant time is stored as an 8-byte real value (<b>double</b>), representing a date between January 1, 100 and December 31, 9999, inclusive. The value 2.0 represents January 1, 1900; 3.0 represents January 2, 1900, and so on. Adding 1 to the value increments the date by a day. The fractional part of the value represents the time of day. Therefore, 2.5 represents noon on January 1, 1900; 3.25 represents 6:00 A.M. on January 2, 1900, and so on. Negative numbers represent the dates prior to December 30, 1899.
+     * 
+     * For a description of the MS-DOS date and time formats, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-dosdatetimetovarianttime">DosDateTimeToVariantTime</a>.
+     * 
+     * The <b>VariantTimeToDosDateTime</b> function will accept invalid dates and try to fix them when resolving to a VARIANT time. For example, an invalid date such as 2/29/2001 will resolve to 3/1/2001. Only days are fixed, so invalid month values result in an error being returned. Days are checked to be between 1 and 31. Negative days and days greater than 31 results in an error. A day less than 31 but greater than the maximum day in that month has the day promoted to the appropriate day of the next month. A day equal to zero resolves as the last day of the previous month. For example, an invalid dates such as 2/0/2001 will resolve to 1/31/2001.
      * @param {Float} vtime The variant time to convert.
      * @param {Pointer<Integer>} pwDosDate Receives the converted MS-DOS date.
      * @param {Pointer<Integer>} pwDosTime Receives the converted MS-DOS time
      * @returns {Integer} The function returns TRUE on success and FALSE otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varianttimetodosdatetime
+     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varianttimetodosdatetime
      */
     static VariantTimeToDosDateTime(vtime, pwDosDate, pwDosTime) {
         pwDosDateMarshal := pwDosDate is VarRef ? "ushort*" : "ptr"
@@ -418,10 +470,39 @@ class Variant {
 
     /**
      * Converts a system time to a variant representation.
+     * @remarks
+     * A variant time is stored as an 8-byte real value (<b>double</b>), representing a date between January 1, 100 and December 31, 9999, inclusive. The value 2.0 represents January 1, 1900; 3.0 represents January 2, 1900, and so on. Adding 1 to the value increments the date by a day. The fractional part of the value represents the time of day. Therefore, 2.5 represents noon on January 1, 1900; 3.25 represents 6:00 A.M. on January 2, 1900, and so on. Negative numbers represent dates prior to December 30, 1899.
+     * 
+     * The variant time resolves to one second. Any milliseconds in the input date are ignored. 
+     * 
+     * > [!NOTE]
+     * > When working with variant time, be mindful of the additional day added in leap years, which might produce unexpected results if unhandled. For more information, see [leap year readiness](https://techcommunity.microsoft.com/t5/azure-developer-community-blog/it-s-2020-is-your-code-ready-for-leap-day/ba-p/1157279).
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure is useful for the following reasons:  
+     * 
+     * <ul>
+     * <li>
+     * It spans all time/date periods. MS-DOS date/time is limited to representing only those dates between 1/1/1980 and 12/31/2107. 
+     * 
+     * </li>
+     * <li>
+     * The date/time elements are all easily accessible without needing to do any bit decoding.
+     * 
+     * </li>
+     * <li>
+     * The National Data Support data and time formatting functions <a href="https://docs.microsoft.com/windows/desktop/api/datetimeapi/nf-datetimeapi-getdateformata">GetDateFormat</a> and <a href="https://docs.microsoft.com/windows/desktop/api/datetimeapi/nf-datetimeapi-gettimeformata">GetTimeFormat</a> take an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">LPSYSTEMTIME</a> value as input.
+     * 
+     * </li>
+     * <li>
+     * It is the default time/date data format supported by Windows.
+     * 
+     * </li>
+     * </ul>
+     * The <b>SystemTimeToVariantTime</b> function will accept invalid dates and try to fix them when resolving to a VARIANT time. For example, an invalid date such as 2/29/2001 will resolve to 3/1/2001. Only days are fixed, so invalid month values result in an error being returned. Days are checked to be between 1 and 31. Negative days and days greater than 31 results in an error. A day less than 31 but greater than the maximum day in that month has the day promoted to the appropriate day of the next month. A day equal to zero resolves as the last day of the previous month. For example, an invalid dates such as 2/0/2001 will resolve to 1/31/2001.
      * @param {Pointer<SYSTEMTIME>} lpSystemTime The system time.
      * @param {Pointer<Float>} pvtime The variant time.
      * @returns {Integer} The function returns TRUE on success and FALSE otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-systemtimetovarianttime
+     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-systemtimetovarianttime
      */
     static SystemTimeToVariantTime(lpSystemTime, pvtime) {
         pvtimeMarshal := pvtime is VarRef ? "double*" : "ptr"
@@ -432,10 +513,34 @@ class Variant {
 
     /**
      * Converts the variant representation of time to system time values.
+     * @remarks
+     * A variant time is stored as an 8-byte real value (<b>double</b>), representing a date between January 1, 100 and December 31, 9999, inclusive. The value 2.0 represents January 1, 1900; 3.0 represents January 2, 1900, and so on. Adding 1 to the value increments the date by a day. The fractional part of the value represents the time of day. Therefore, 2.5 represents noon on January 1, 1900; 3.25 represents 6:00 A.M. on January 2, 1900, and so on. Negative numbers represent the dates prior to December 30, 1899.
+     * 
+     * Using the SYSTEMTIME structure is useful because:  
+     * 
+     * <ul>
+     * <li>
+     * It spans all time/date periods. MS-DOS date/time is limited to representing only those dates between 1/1/1980 and 12/31/2107. 
+     * 
+     * </li>
+     * <li>
+     * The date/time elements are all easily accessible without needing to do any bit decoding.
+     * 
+     * </li>
+     * <li>
+     * The National Language Support data and time formatting functions <b>GetDateFormat</b> and <b>GetTimeFormat</b> take a SYSTEMTIME value as input.
+     * 
+     * </li>
+     * <li>
+     * It is the default Win32 time and date data format supported by Windows NT and Windows 95.
+     * 
+     * </li>
+     * </ul>
+     * The <b>VariantTimeToSystemTime</b> function will accept invalid dates and try to fix them when resolving to a VARIANT time. For example, an invalid date such as 2/29/2001 will resolve to 3/1/2001. Only days are fixed, so invalid month values result in an error being returned. Days are checked to be between 1 and 31. Negative days and days greater than 31 results in an error. A day less than 31 but greater than the maximum day in that month has the day promoted to the appropriate day of the next month. A day equal to zero resolves as the last day of the previous month. For example, an invalid dates such as 2/0/2001 will resolve to 1/31/2001.
      * @param {Float} vtime The variant time to convert.
      * @param {Pointer<SYSTEMTIME>} lpSystemTime Receives the system time.
      * @returns {Integer} The function returns TRUE on success and FALSE otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varianttimetosystemtime
+     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varianttimetosystemtime
      */
     static VariantTimeToSystemTime(vtime, lpSystemTime) {
         result := DllCall("OLEAUT32.dll\VariantTimeToSystemTime", "double", vtime, "ptr", lpSystemTime, "int")
@@ -445,14 +550,10 @@ class Variant {
     /**
      * Initializes a variant.
      * @remarks
-     * 
      * The <b>VariantInit</b> function initializes the VARIANTARG by setting the <b>vt</b> field to VT_EMPTY. Unlike <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-variantclear">VariantClear</a>, this function does not interpret the current contents of the VARIANTARG. Use <b>VariantInit</b> to initialize new local variables of type VARIANTARG (or VARIANT).
-     * 
-     * 
-     * 
      * @param {Pointer<VARIANT>} pvarg The variant to initialize.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-variantinit
+     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantinit
      */
     static VariantInit(pvarg) {
         DllCall("OLEAUT32.dll\VariantInit", "ptr", pvarg)
@@ -460,6 +561,18 @@ class Variant {
 
     /**
      * Clears a variant.
+     * @remarks
+     * Use this function to clear variables of type VARIANTARG (or VARIANT) before the memory containing the VARIANTARG is freed (as when a local variable goes out of scope). 
+     * 
+     * The function clears a VARIANTARG by setting the vt field to VT_EMPTY. The current contents of the VARIANTARG are released first. If the vtfield is VT_BSTR, the string is freed. If the vtfield is VT_DISPATCH, the object is released. If the vt field has the VT_ARRAY bit set, the array is freed.
+     * 
+     * If the variant to be cleared is a COM object that is passed by reference, the vtfield of the pvargparameter is VT_DISPATCH | VT_BYREF or VT_UNKNOWN | VT_BYREF.  In this case, <b>VariantClear</b> does not release the object. Because the variant being cleared is a pointer to a reference to an object, <b>VariantClear</b> has no way to determine if it is necessary to release the object. It is therefore the responsibility of the caller to release the object or not, as appropriate. 
+     * 
+     * In certain cases, it may be preferable to clear a variant in code without calling <b>VariantClear</b>. For example, you can change the type of a VT_I4 variant to another type without calling this function. Safearrays of BSTR will have <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> called on each element not <b>VariantClear</b>. However, you must call <b>VariantClear</b> if a VT_type is received but cannot be handled. Safearrays of variant will also have <b>VariantClear</b> called on each member. Using <b>VariantClear</b> in these cases ensures that code will continue to work if Automation adds new variant types in the future.
+     * 
+     * Do not use <b>VariantClear</b> on uninitialized variants; use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-variantinit">VariantInit</a> to initialize a new VARIANTARG or VARIANT.
+     * 
+     * Variants containing arrays with outstanding references cannot be cleared.  Attempts to do so will return an HRESULT containing DISP_E_ARRAYISLOCKED.
      * @param {Pointer<VARIANT>} pvarg The variant to clear.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -515,7 +628,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-variantclear
+     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantclear
      */
     static VariantClear(pvarg) {
         result := DllCall("OLEAUT32.dll\VariantClear", "ptr", pvarg, "int")
@@ -528,6 +641,15 @@ class Variant {
 
     /**
      * Frees the destination variant and makes a copy of the source variant.
+     * @remarks
+     * First, free any memory that is owned by pvargDest, such as <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-variantclear">VariantClear</a> (pvargDest must point to a valid initialized variant, and not simply to an uninitialized memory location). Then pvargDest receives an exact copy of the contents of pvargSrc. 
+     * 
+     * If pvargSrc is a VT_BSTR, a copy of the string is made. If pvargSrcis a VT_ARRAY, the entire array is copied. If pvargSrc is a VT_DISPATCH or VT_UNKNOWN, <b>AddRef</b> is called to increment the object's reference count.
+     * 
+     * If the variant to be copied is a COM object that is passed by reference, the vtfield of the pvargSrcparameter is VT_DISPATCH | VT_BYREF or VT_UNKNOWN | VT_BYREF.  In this case, <b>VariantCopy</b> does not increment the reference count on the referenced object. Because the variant being copied is a pointer to a reference to an object, <b>VariantCopy</b> has no way to determine if it is necessary to increment the reference count of the object. It is therefore the responsibility of the caller to call <b>IUnknown::AddRef</b> on the object or not, as appropriate. 
+     * 
+     * <div class="alert"><b>Note</b>  The <b>VariantCopy</b> method is not threadsafe.</div>
+     * <div> </div>
      * @param {Pointer<VARIANT>} pvargDest The destination variant.
      * @param {Pointer<VARIANT>} pvargSrc The source variant.
      * @returns {HRESULT} This function can return one of these values.
@@ -596,7 +718,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-variantcopy
+     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantcopy
      */
     static VariantCopy(pvargDest, pvargSrc) {
         result := DllCall("OLEAUT32.dll\VariantCopy", "ptr", pvargDest, "ptr", pvargSrc, "int")
@@ -609,6 +731,14 @@ class Variant {
 
     /**
      * Frees the destination variant and makes a copy of the source variant, performing the necessary indirection if the source is specified to be VT_BYREF.
+     * @remarks
+     * This function is useful when a copy of a variant is needed, and to guarantee that it is not VT_BYREF, such as when handling arguments in an implementation of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-idispatch-invoke">IDispatch::Invoke</a>.
+     * 
+     * For example, if the source is a (VT_BYREF | VT_I2), the destination will be a BYVAL | VT_I2. The same is true for all legal VT_BYREF combinations, including VT_VARIANT.
+     * 
+     * If pvargSrc is (VT_BYREF | VT_VARIANT), and the contained variant is VT_BYREF, the contained variant is also dereferenced.
+     * 
+     * This function frees any existing contents of pvarDest.
      * @param {Pointer<VARIANT>} pvarDest The destination variant.
      * @param {Pointer<VARIANT>} pvargSrc The source variant.
      * @returns {HRESULT} This function can return one of these values.
@@ -677,7 +807,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-variantcopyind
+     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantcopyind
      */
     static VariantCopyInd(pvarDest, pvargSrc) {
         result := DllCall("OLEAUT32.dll\VariantCopyInd", "ptr", pvarDest, "ptr", pvargSrc, "int")
@@ -690,6 +820,15 @@ class Variant {
 
     /**
      * Converts a variant from one type to another.
+     * @remarks
+     * The <b>VariantChangeType</b> function handles coercions between the fundamental types (including numeric-to-string and string-to-numeric coercions). The <i>pvarSrc</i> argument is changed during the conversion process. For example, if the source variant is of type VT_BOOL and the destination is of type VT_UINT, the <i>pvarSrc</i> argument is first converted to VT_I2 and then the conversion proceeds. A variant that has VT_BYREF set is coerced to a value by obtaining the referenced value. An object is coerced to a value by invoking the object's <b>Value</b> property (DISPID_VALUE). 
+     * 
+     * Typically, the implementer of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-idispatch-invoke">IDispatch::Invoke</a> determines which member is being accessed, and then calls <b>VariantChangeType</b> to get the value of one or more arguments. For example, if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> call specifies a <b>SetTitle</b> member that takes one string argument, the implementer would call <b>VariantChangeType</b> to attempt to coerce the argument to VT_BSTR. If <b>VariantChangeType</b> does not return an error, the argument could then be obtained directly from the <b>bstrVal</b> field of the VARIANTARG. If <b>VariantChangeType</b> returns DISP_E_TYPEMISMATCH, the implementer would set *<i>puArgErr</i> to 0 (indicating the argument in error) and return DISP_E_TYPEMISMATCH from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-idispatch-invoke">Invoke</a>.
+     * 
+     * Arrays of one type cannot be converted to arrays of another type with this function.
+     * 
+     * <div class="alert"><b>Note</b>  The type of a VARIANTARG should not be changed in the <i>rgvarg</i> array in place.</div>
+     * <div> </div>
      * @param {Pointer<VARIANT>} pvargDest The destination variant. If this is the same as <i>pvarSrc</i>, the variant will be converted in place.
      * @param {Pointer<VARIANT>} pvarSrc The variant to convert.
      * @param {Integer} wFlags Flags.
@@ -821,7 +960,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-variantchangetype
+     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantchangetype
      */
     static VariantChangeType(pvargDest, pvarSrc, wFlags, vt) {
         result := DllCall("OLEAUT32.dll\VariantChangeType", "ptr", pvargDest, "ptr", pvarSrc, "ushort", wFlags, "ushort", vt, "int")
@@ -834,6 +973,17 @@ class Variant {
 
     /**
      * Converts a variant from one type to another, using an LCID.
+     * @remarks
+     * The <b>VariantChangeTypeEx</b> function handles coercions between the fundamental types (including numeric-to-string and string-to-numeric coercions). A variant that has VT_BYREF set is coerced to a value by obtaining the referenced value. An object is coerced to a value by invoking the object's <b>Value</b> property (DISPID_VALUE).
+     * 
+     * Typically, the implementer of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-idispatch-invoke">IDispatch::Invoke</a> determines which member is being accessed, and then calls <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-variantchangetype">VariantChangeType</a> to get the value of one or more arguments. For example, if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> call specifies a SetTitle member that takes one string argument, the implementer would call <b>VariantChangeTypeEx</b> to attempt to coerce the argument to VT_BSTR. 
+     * 
+     * If <b>VariantChangeTypeEx</b> does not return an error, the argument could then be obtained directly from the <b>bstrVal</b> field of the VARIANTARG. If <b>VariantChangeTypeEx</b> returns DISP_E_TYPEMISMATCH, the implementer would set *puArgErr to 0 (indicating the argument in error) and return DISP_E_TYPEMISMATCH from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-idispatch-invoke">IDispatch::Invoke</a>.
+     * 
+     * Arrays of one type cannot be converted to arrays of another type with this function.
+     * 
+     * <div class="alert"><b>Note</b>  The type of a VARIANTARG should not be changed in the rgvarg array in place.</div>
+     * <div> </div>
      * @param {Pointer<VARIANT>} pvargDest The destination variant. If this is the same as <i>pvarSrc</i>, the variant will be converted in place.
      * @param {Pointer<VARIANT>} pvarSrc The variant to convert.
      * @param {Integer} lcid The locale identifier. The LCID is useful when the type of the source or destination VARIANTARG is VT_BSTR, VT_DISPATCH, or VT_DATE.
@@ -966,7 +1116,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-variantchangetypeex
+     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantchangetypeex
      */
     static VariantChangeTypeEx(pvargDest, pvarSrc, lcid, wFlags, vt) {
         result := DllCall("OLEAUT32.dll\VariantChangeTypeEx", "ptr", pvargDest, "ptr", pvarSrc, "uint", lcid, "ushort", wFlags, "ushort", vt, "int")
@@ -978,7 +1128,9 @@ class Variant {
     }
 
     /**
-     * Initializes a VARIANT structure based on a string resource imbedded in an executable file.
+     * Initializes a VARIANT structure based on a string resource embedded in an executable file.
+     * @remarks
+     * Creates a VT_BSTR variant. If the resource does not exist, this function initializes the VARIANT as VT_EMPTY and returns a failure code.
      * @param {HINSTANCE} hinst Type: <b>HINSTANCE</b>
      * 
      * Handle to an instance of the module whose executable file contains the string resource.
@@ -990,8 +1142,8 @@ class Variant {
      * When this function returns, contains the initialized <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-initvariantfromresource
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromresource
      * @since windows5.1.2600
      */
     static InitVariantFromResource(hinst, id, pvar) {
@@ -1007,6 +1159,8 @@ class Variant {
 
     /**
      * Initializes a VARIANT structure with the contents of a buffer.
+     * @remarks
+     * Creates a VT_ARRAY | VT_UI1 variant..
      * @param {Pointer} pv Type: <b>const VOID*</b>
      * 
      * Pointer to the source buffer.
@@ -1018,8 +1172,8 @@ class Variant {
      * When this function returns, contains the initialized <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-initvariantfrombuffer
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfrombuffer
      * @since windows5.1.2600
      */
     static InitVariantFromBuffer(pv, cb, pvar) {
@@ -1033,6 +1187,8 @@ class Variant {
 
     /**
      * Initializes a VARIANT structure based on a GUID. The structure is initialized as a VT_BSTR type.
+     * @remarks
+     * Creates a VT_BSTR variant, formatting the GUID in a form similar to <c>{c200e360-38c5-11ce-ae62-08002b2b79ef}</c>.
      * @param {Pointer<Guid>} guid Type: <b>REFGUID</b>
      * 
      * Reference to the source <b>GUID</b>.
@@ -1041,8 +1197,8 @@ class Variant {
      * When this function returns, contains the initialized <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-initvariantfromguidasstring
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromguidasstring
      * @since windows5.1.2600
      */
     static InitVariantFromGUIDAsString(guid, pvar) {
@@ -1056,6 +1212,8 @@ class Variant {
 
     /**
      * Initializes a VARIANT structure with the contents of a FILETIME structure.
+     * @remarks
+     * Creates a VT_DATE variant.
      * @param {Pointer<FILETIME>} pft Type: <b>const FILETIME*</b>
      * 
      * Pointer to date and time information stored in a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure.
@@ -1064,8 +1222,8 @@ class Variant {
      * When this function returns, contains the initialized <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-initvariantfromfiletime
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromfiletime
      * @since windows5.1.2600
      */
     static InitVariantFromFileTime(pft, pvar) {
@@ -1079,6 +1237,8 @@ class Variant {
 
     /**
      * Initializes a VARIANT structure with an array of FILETIME structures.
+     * @remarks
+     * Creates a VT_ARRAY | VT_DATE variant.
      * @param {Pointer<FILETIME>} prgft Type: <b>const FILETIME*</b>
      * 
      * Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structures.
@@ -1090,8 +1250,8 @@ class Variant {
      * When this function returns, contains the initialized <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-initvariantfromfiletimearray
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromfiletimearray
      * @since windows5.1.2600
      */
     static InitVariantFromFileTimeArray(prgft, cElems, pvar) {
@@ -1105,6 +1265,34 @@ class Variant {
 
     /**
      * Initializes a VARIANT structure with a value stored in another VARIANT structure.
+     * @remarks
+     * This helper function works for <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structures of the following types:
+     *                 
+     *                 
+     * 
+     * <ul>
+     * <li>VT_BSTR</li>
+     * <li>VT_BOOL</li>
+     * <li>VT_I2</li>
+     * <li>VT_I4</li>
+     * <li>VT_I8</li>
+     * <li>VT_U12</li>
+     * <li>VT_U14</li>
+     * <li>VT_U18</li>
+     * <li>VT_DATE</li>
+     * <li>VT_ARRAY | (any one of VT_BSTR, VT_BOOL, VT_I2, VT_I4, VT_I8, VT_U12, VT_U14, VT_U18, VT_DATE)</li>
+     * </ul>
+     * Additional types may be supported in the future.
+     * 
+     * This function extracts a single value from the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure and uses that value to initialize the output <b>VARIANT</b> structure. The calling application must use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-variantclear">VariantClear</a> to free the <b>VARIANT</b> referred to by <i>pvar</i> when it is no longer needed.
+     * 
+     * If the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> is an array, <i>iElem</i> must be less than the number of elements in the array.
+     * 
+     * If the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> has a single value, <i>iElem</i> must be 0.
+     * 
+     * If the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> is empty, this function always returns an error code.
+     * 
+     * You can use <a href="https://docs.microsoft.com/windows/desktop/api/propvarutil/nf-propvarutil-variantgetelementcount">VariantGetElementCount</a> to obtain the number of elements in the array or array.
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
@@ -1116,8 +1304,8 @@ class Variant {
      * When this function returns, contains the initialized <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-initvariantfromvariantarrayelem
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromvariantarrayelem
      * @since windows5.1.2600
      */
     static InitVariantFromVariantArrayElem(varIn, iElem, pvar) {
@@ -1131,6 +1319,8 @@ class Variant {
 
     /**
      * Initializes a VARIANT structure from an array of Boolean values.
+     * @remarks
+     * Creates a VT_ARRAY | VT_BOOL variant.
      * @param {Pointer<BOOL>} prgf Type: <b>const BOOL*</b>
      * 
      * Pointer to source array of Boolean values.
@@ -1142,8 +1332,8 @@ class Variant {
      * When this function returns, contains the initialized <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-initvariantfrombooleanarray
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfrombooleanarray
      * @since windows5.1.2600
      */
     static InitVariantFromBooleanArray(prgf, cElems, pvar) {
@@ -1159,6 +1349,8 @@ class Variant {
 
     /**
      * Initializes a VARIANT structure with an array of 16-bit integer values.
+     * @remarks
+     * Creates a VT_ARRAY | VT_I2 variant.
      * @param {Pointer<Integer>} prgn Type: <b>const SHORT*</b>
      * 
      * Pointer to the source array of <b>SHORT</b> values.
@@ -1170,8 +1362,8 @@ class Variant {
      * When this function returns, contains the initialized <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-initvariantfromint16array
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromint16array
      * @since windows5.1.2600
      */
     static InitVariantFromInt16Array(prgn, cElems, pvar) {
@@ -1187,6 +1379,8 @@ class Variant {
 
     /**
      * Initializes a VARIANT structure with an array of unsigned 16-bit integer values.
+     * @remarks
+     * Creates a VT_ARRAY | VT_UI2 variant.
      * @param {Pointer<Integer>} prgn Type: <b>const USHORT*</b>
      * 
      * Pointer to the source array of <b>USHORT</b> values.
@@ -1198,8 +1392,8 @@ class Variant {
      * When this function returns, contains the initialized <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-initvariantfromuint16array
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromuint16array
      * @since windows5.1.2600
      */
     static InitVariantFromUInt16Array(prgn, cElems, pvar) {
@@ -1215,6 +1409,8 @@ class Variant {
 
     /**
      * Initializes a VARIANT structure with an array of 32-bit integer values.
+     * @remarks
+     * Creates a VT_ARRAY | VT_I4 variant.
      * @param {Pointer<Integer>} prgn Type: <b>const LONG*</b>
      * 
      * Pointer to the source array of <b>LONG</b> values.
@@ -1226,8 +1422,8 @@ class Variant {
      * When this function returns, contains the initialized <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-initvariantfromint32array
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromint32array
      * @since windows5.1.2600
      */
     static InitVariantFromInt32Array(prgn, cElems, pvar) {
@@ -1243,6 +1439,8 @@ class Variant {
 
     /**
      * Initializes a VARIANT structure with an array of unsigned 32-bit integer values.
+     * @remarks
+     * Creates a VT_ARRAY | VT_UI4 variant.
      * @param {Pointer<Integer>} prgn Type: <b>const ULONG*</b>
      * 
      * Pointer to the source array of <b>ULONG</b> values.
@@ -1254,8 +1452,8 @@ class Variant {
      * When this function returns, contains the initialized <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-initvariantfromuint32array
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromuint32array
      * @since windows5.1.2600
      */
     static InitVariantFromUInt32Array(prgn, cElems, pvar) {
@@ -1271,6 +1469,8 @@ class Variant {
 
     /**
      * Initializes a VARIANT structure with an array of 64-bit integer values.
+     * @remarks
+     * Creates a VT_ARRAY | VT_I8 variant.
      * @param {Pointer<Integer>} prgn Type: <b>const LONGLONG*</b>
      * 
      * Pointer to the source array of <b>LONGLONG</b> values.
@@ -1284,8 +1484,8 @@ class Variant {
      * When this function returns, contains the initialized <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-initvariantfromint64array
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromint64array
      * @since windows5.1.2600
      */
     static InitVariantFromInt64Array(prgn, cElems, pvar) {
@@ -1301,6 +1501,8 @@ class Variant {
 
     /**
      * Initializes a VARIANT structure with an array of unsigned 64-bit integer values.
+     * @remarks
+     * Creates a VT_ARRAY | VT_UI8 variant.
      * @param {Pointer<Integer>} prgn Type: <b>const ULONGLONG*</b>
      * 
      * Pointer to the source array of <b>ULONGLONG</b> values.
@@ -1312,8 +1514,8 @@ class Variant {
      * When this function returns, contains the initialized <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-initvariantfromuint64array
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromuint64array
      * @since windows5.1.2600
      */
     static InitVariantFromUInt64Array(prgn, cElems, pvar) {
@@ -1329,6 +1531,8 @@ class Variant {
 
     /**
      * Initializes a VARIANT structure with an array of values of type DOUBLE.
+     * @remarks
+     * Creates a VT_ARRAY | VT_R8 variant.
      * @param {Pointer<Float>} prgn Type: <b>const DOUBLE*</b>
      * 
      * Pointer to the source array of DOUBLE values.
@@ -1340,8 +1544,8 @@ class Variant {
      * When this function returns, contains the initialized <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-initvariantfromdoublearray
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromdoublearray
      * @since windows5.1.2600
      */
     static InitVariantFromDoubleArray(prgn, cElems, pvar) {
@@ -1357,6 +1561,8 @@ class Variant {
 
     /**
      * Initializes a VARIANT structure with an array of strings.
+     * @remarks
+     * Creates a VT_ARRAY | VT_BSTR variant.
      * @param {Pointer<PWSTR>} prgsz Type: <b>PCWSTR*</b>
      * 
      * Pointer to an array of strings.
@@ -1368,8 +1574,8 @@ class Variant {
      * When this function returns, contains the initialized <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-initvariantfromstringarray
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromstringarray
      * @since windows5.1.2600
      */
     static InitVariantFromStringArray(prgsz, cElems, pvar) {
@@ -1385,6 +1591,14 @@ class Variant {
 
     /**
      * Extracts a BOOL value from a VARIANT structure. If no value exists, then the specified default value is returned.
+     * @remarks
+     * This helper function is used when the calling application expects a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> to hold a <b>BOOL</b> value and wants to use a default value if it does not.
+     * 
+     * If the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> is of type VT_BOOL, this helper extracts the <b>BOOL</b> value.
+     * 
+     * If the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> is not of type VT_BOOL, the function attempts to convert the value in the <b>VARIANT</b> into a <b>BOOL</b>.
+     * 
+     * If the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> is of type VT_EMPTY or a conversion is not possible, then <a href="https://docs.microsoft.com/windows/desktop/api/propvarutil/nf-propvarutil-varianttobooleanwithdefault">VariantToBooleanWithDefault</a> returns the default value provided by <i>fDefault</i>. See <a href="https://docs.microsoft.com/windows/desktop/api/propvarutil/nf-propvarutil-propvariantchangetype">PropVariantChangeType</a> for a list of possible conversions.
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
@@ -1394,7 +1608,7 @@ class Variant {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns the extracted <b>BOOL</b> value; otherwise, the default value specified in <i>fDefault</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttobooleanwithdefault
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttobooleanwithdefault
      * @since windows5.1.2600
      */
     static VariantToBooleanWithDefault(varIn, fDefault) {
@@ -1413,7 +1627,7 @@ class Variant {
      * @returns {Integer} Type: <b>SHORT</b>
      * 
      * Returns the extracted <b>Int16</b> value, or default.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttoint16withdefault
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint16withdefault
      * @since windows5.1.2600
      */
     static VariantToInt16WithDefault(varIn, iDefault) {
@@ -1432,7 +1646,7 @@ class Variant {
      * @returns {Integer} Type: <b>USHORT</b>
      * 
      * Returns extracted unsigned <b>Int16</b> value, or default.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttouint16withdefault
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint16withdefault
      * @since windows5.1.2600
      */
     static VariantToUInt16WithDefault(varIn, uiDefault) {
@@ -1451,7 +1665,7 @@ class Variant {
      * @returns {Integer} Type: <b>LONG</b>
      * 
      * Returns the extracted Int32 value, or default.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttoint32withdefault
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint32withdefault
      * @since windows5.1.2600
      */
     static VariantToInt32WithDefault(varIn, lDefault) {
@@ -1470,7 +1684,7 @@ class Variant {
      * @returns {Integer} Type: <b>ULONG</b>
      * 
      * Returns extracted unsigned <b>Int32</b> value, or default.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttouint32withdefault
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint32withdefault
      * @since windows5.1.2600
      */
     static VariantToUInt32WithDefault(varIn, ulDefault) {
@@ -1489,7 +1703,7 @@ class Variant {
      * @returns {Integer} Type: <b>LONGLONG</b>
      * 
      * Returns extracted <b>Int64</b> value, or default.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttoint64withdefault
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint64withdefault
      * @since windows5.1.2600
      */
     static VariantToInt64WithDefault(varIn, llDefault) {
@@ -1508,7 +1722,7 @@ class Variant {
      * @returns {Integer} Type: <b>ULONGLONG</b>
      * 
      * Returns the extracted unsigned <b>Int64</b> value, or a default.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttouint64withdefault
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint64withdefault
      * @since windows5.1.2600
      */
     static VariantToUInt64WithDefault(varIn, ullDefault) {
@@ -1518,6 +1732,14 @@ class Variant {
 
     /**
      * Extracts a DOUBLE value from a VARIANT structure. If no value exists, then the specified default value is returned.
+     * @remarks
+     * This helper function is used when the calling application expects a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> to hold a <b>DOUBLE</b> value and wants to use a default value if it does not.
+     * 
+     * If the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> is of type VT_R8, this helper extracts the <b>DOUBLE</b> value.
+     * 
+     * If the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> is not of type VT_R8, the function attempts to convert the value in the <b>VARIANT</b> into a <b>DOUBLE</b>.
+     * 
+     * If the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> is of type VT_EMPTY or a conversion is not possible, then <a href="https://docs.microsoft.com/windows/desktop/api/propvarutil/nf-propvarutil-varianttodoublewithdefault">VariantToDoubleWithDefault</a> returns the default value provided by <i>dblDefault</i>. See <a href="https://docs.microsoft.com/windows/desktop/api/propvarutil/nf-propvarutil-propvariantchangetype">PropVariantChangeType</a> for a list of possible conversions.
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
@@ -1527,7 +1749,7 @@ class Variant {
      * @returns {Float} Type: <b>DOUBLE</b>
      * 
      * Returns the extracted <b>double</b> value; otherwise, the default value specified in <i>dblDefault</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttodoublewithdefault
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttodoublewithdefault
      * @since windows5.1.2600
      */
     static VariantToDoubleWithDefault(varIn, dblDefault) {
@@ -1546,7 +1768,7 @@ class Variant {
      * @returns {PWSTR} Type: <b>PCWSTR</b>
      * 
      * Returns the extracted string value, or default.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttostringwithdefault
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttostringwithdefault
      * @since windows5.1.2600
      */
     static VariantToStringWithDefault(varIn, pszDefault) {
@@ -1558,13 +1780,19 @@ class Variant {
 
     /**
      * Extracts the value of a Boolean property from a VARIANT structure. If no value can be extracted, then a default value is assigned.
+     * @remarks
+     * This helper function is used when the calling application expects a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> to hold a Boolean value. For instance, an application that obtains values from a Shell folder can use this function to safely extract the value from one of the folder's Boolean properties.
+     * 
+     * If the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> is of type VT_BOOL, this function extracts the <b>BOOL</b> value.
+     * 
+     * If the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> is not of type VT_BOOL, this function attempts to convert the value in the <b>VARIANT</b> structure into a <b>BOOL</b>. If a conversion is not possible, <a href="https://docs.microsoft.com/windows/desktop/api/propvarutil/nf-propvarutil-varianttoboolean">VariantToBoolean</a> returns a failure code and sets <i>pfRet</i> to <b>FALSE</b>. See <a href="https://docs.microsoft.com/windows/desktop/api/propvarutil/nf-propvarutil-propvariantchangetype">PropVariantChangeType</a> for a list of possible conversions. Of note, VT_EMPTY is successfully converted to <b>FALSE</b>.
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * When this function returns, contains the extracted value if one exists; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttoboolean
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoboolean
      * @since windows5.1.2600
      */
     static VariantToBoolean(varIn) {
@@ -1584,7 +1812,7 @@ class Variant {
      * @returns {Integer} Type: <b>SHORT*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttoint16
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint16
      * @since windows5.1.2600
      */
     static VariantToInt16(varIn) {
@@ -1604,7 +1832,7 @@ class Variant {
      * @returns {Integer} Type: <b>USHORT*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttouint16
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint16
      * @since windows5.1.2600
      */
     static VariantToUInt16(varIn) {
@@ -1624,7 +1852,7 @@ class Variant {
      * @returns {Integer} Type: <b>LONG*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttoint32
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint32
      * @since windows5.1.2600
      */
     static VariantToInt32(varIn) {
@@ -1644,7 +1872,7 @@ class Variant {
      * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttouint32
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint32
      * @since windows5.1.2600
      */
     static VariantToUInt32(varIn) {
@@ -1664,7 +1892,7 @@ class Variant {
      * @returns {Integer} Type: <b>LONGLONG*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttoint64
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint64
      * @since windows5.1.2600
      */
     static VariantToInt64(varIn) {
@@ -1684,7 +1912,7 @@ class Variant {
      * @returns {Integer} Type: <b>ULONGLONG*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttouint64
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint64
      * @since windows5.1.2600
      */
     static VariantToUInt64(varIn) {
@@ -1698,13 +1926,19 @@ class Variant {
 
     /**
      * Extracts a DOUBLE value from a VARIANT structure. If no value can be extracted, then a default value is assigned.
+     * @remarks
+     * This helper function is used when the calling application expects a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> to hold a <b>DOUBLE</b> value. For instance, an application that obtains values from a Shell folder can use this function to safely extract the value from one of the folder's properties whose value is stored as a <b>DOUBLE</b>.
+     * 
+     * If the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> is of type VT_R8, this function extracts the <b>DOUBLE</b> value.
+     * 
+     * If the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> is not of type VT_R8, the function attempts to convert the value stored in the <b>VARIANT</b> structure into a <b>DOUBLE</b>. If a conversion is not possible, <a href="https://docs.microsoft.com/windows/desktop/api/propvarutil/nf-propvarutil-varianttodouble">VariantToDouble</a> returns a failure code and sets <i>pdblRet</i> to <c>0.0</c>. See <a href="https://docs.microsoft.com/windows/desktop/api/propvarutil/nf-propvarutil-propvariantchangetype">PropVariantChangeType</a> for a list of possible conversions. Of note, VT_EMPTY is successfully converted to 0.0.
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {Float} Type: <b>DOUBLE*</b>
      * 
      * When this function returns, contains the extracted value if one exists; otherwise, 0.0.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttodouble
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttodouble
      * @since windows5.1.2600
      */
     static VariantToDouble(varIn) {
@@ -1718,6 +1952,14 @@ class Variant {
 
     /**
      * Extracts the contents of a buffer stored in a VARIANT structure of type VT_ARRRAY | VT_UI1.
+     * @remarks
+     * This function is used when the calling application expects a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> to hold a buffer value. The calling application should check that the value has the expected length before it calls this function.
+     * 
+     * If the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> has type VT_ARRAY | VT_UI1, this function extracts the first <i>cb</i> bytes from the structure and places them in the buffer pointed to by <i>pv</i>.
+     * 
+     * If the stored value has fewer than <i>cb</i> bytes, then <a href="https://docs.microsoft.com/windows/desktop/api/propvarutil/nf-propvarutil-varianttobuffer">VariantToBuffer</a> fails and the buffer is not modified.
+     * 
+     * If the value has more than <i>cb</i> bytes, then <a href="https://docs.microsoft.com/windows/desktop/api/propvarutil/nf-propvarutil-varianttobuffer">VariantToBuffer</a> succeeds and truncates the value.
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
@@ -1754,7 +1996,7 @@ class Variant {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> was not of type VT_ARRRAY | VT_UI1.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> was not of type VT_ARRRAY | VT_UI1.
      * 
      * </td>
      * </tr>
@@ -1765,12 +2007,12 @@ class Variant {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> buffer value had fewer than <i>cb</i> bytes.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> buffer value had fewer than <i>cb</i> bytes.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttobuffer
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttobuffer
      * @since windows5.1.2600
      */
     static VariantToBuffer(varIn, pv, cb) {
@@ -1792,8 +2034,8 @@ class Variant {
      * Pointer to the extracted property value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttoguid
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoguid
      * @since windows5.1.2600
      */
     static VariantToGUID(varIn, pguid) {
@@ -1818,8 +2060,8 @@ class Variant {
      * Specifies string length, in characters.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttostring
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttostring
      * @since windows5.1.2600
      */
     static VariantToString(varIn, pszBuf, cchBuf) {
@@ -1841,7 +2083,7 @@ class Variant {
      * @returns {PWSTR} Type: <b>PWSTR</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, empty.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttostringalloc
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttostringalloc
      * @since windows5.1.2600
      */
     static VariantToStringAlloc(varIn) {
@@ -1855,6 +2097,14 @@ class Variant {
 
     /**
      * Extracts a date and time value in Microsoft MS-DOS format from a VARIANT structure.
+     * @remarks
+     * This helper function is used when the calling application expects a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> to hold a datetime value.
+     * 
+     * If the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> is of type <b>VT_DATE</b>, this function extracts the datetime value.
+     * 
+     * If the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> is not of type <b>VT_DATE</b>, the function attempts to convert the value in the <b>VARIANT</b> structure into the right format. If a conversion is not possible, <a href="https://docs.microsoft.com/windows/desktop/api/propvarutil/nf-propvarutil-varianttodosdatetime">VariantToDosDateTime</a> returns a failure code. See <a href="https://docs.microsoft.com/windows/desktop/api/propvarutil/nf-propvarutil-propvariantchangetype">PropVariantChangeType</a> for a list of possible conversions.
+     * 
+     * See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-dosdatetimetovarianttime">DosDateTimeToVariantTime</a> for more information about the formats of <i>pwDate</i>, <i>pwTime</i>, and the source datetime value.
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
@@ -1866,8 +2116,8 @@ class Variant {
      * When this function returns, contains the extracted contains the extracted <b>WORD</b> that represents a MS-DOS time.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttodosdatetime
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttodosdatetime
      * @since windows5.1.2600
      */
     static VariantToDosDateTime(varIn, pwDate, pwTime) {
@@ -1884,6 +2134,8 @@ class Variant {
 
     /**
      * Extracts a FILETIME structure from a variant structure.
+     * @remarks
+     * <i>stfOut</i> flags override any property description flags.
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
@@ -1895,8 +2147,8 @@ class Variant {
      * Pointer to the extracted <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttofiletime
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttofiletime
      * @since windows5.1.2600
      */
     static VariantToFileTime(varIn, stfOut, pftOut) {
@@ -1916,7 +2168,7 @@ class Variant {
      * @returns {Integer} Type: <b>ULONG</b>
      * 
      * Returns the element count for values of type VT_ARRAY; otherwise, returns 1.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-variantgetelementcount
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantgetelementcount
      * @since windows5.1.2600
      */
     static VariantGetElementCount(varIn) {
@@ -1926,6 +2178,10 @@ class Variant {
 
     /**
      * Extracts an array of Boolean values from a VARIANT structure.
+     * @remarks
+     * This helper function is used when the calling application expects a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> to hold an array that consists of a fixed number of Boolean values.
+     * 
+     * If the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> is of type VT_ARRAY | VT_BOOL, this function extracts up to <i>crgn</i> <b>BOOL</b> values and places them into the buffer pointed to by <i>prgf</i>. If the <b>VARIANT</b> contains more elements than will fit into the <i>prgf</i> buffer, this function returns an error and sets *<i>pcElem</i> to 0.
      * @param {Pointer<VARIANT>} var Type: <b>REFVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
@@ -1954,7 +2210,7 @@ class Variant {
      * </dl>
      * </td>
      * <td width="60%">
-     * The source <a href="/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> contained more than <i>crgn</i> values.
+     * The source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> contained more than <i>crgn</i> values.
      * 
      * </td>
      * </tr>
@@ -1965,12 +2221,12 @@ class Variant {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> was not of the appropriate type.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> was not of the appropriate type.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttobooleanarray
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttobooleanarray
      * @since windows5.1.2600
      */
     static VariantToBooleanArray(var, prgf, crgn, pcElem) {
@@ -2001,8 +2257,8 @@ class Variant {
      * Pointer to the count of <b>Int16</b> elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttoint16array
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint16array
      * @since windows5.1.2600
      */
     static VariantToInt16Array(var, prgn, crgn, pcElem) {
@@ -2033,8 +2289,8 @@ class Variant {
      * Pointer to the count of unsigned <b>Int16</b> elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttouint16array
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint16array
      * @since windows5.1.2600
      */
     static VariantToUInt16Array(var, prgn, crgn, pcElem) {
@@ -2065,8 +2321,8 @@ class Variant {
      * Pointer to the count of <b>Int32</b> elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttoint32array
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint32array
      * @since windows5.1.2600
      */
     static VariantToInt32Array(var, prgn, crgn, pcElem) {
@@ -2097,8 +2353,8 @@ class Variant {
      * Pointer to the count of unsigned <b>Int32</b> elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttouint32array
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint32array
      * @since windows5.1.2600
      */
     static VariantToUInt32Array(var, prgn, crgn, pcElem) {
@@ -2129,8 +2385,8 @@ class Variant {
      * Pointer to the count of Int64 elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttoint64array
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint64array
      * @since windows5.1.2600
      */
     static VariantToInt64Array(var, prgn, crgn, pcElem) {
@@ -2161,8 +2417,8 @@ class Variant {
      * Pointer to the count of unsigned <b>Int64</b> elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttouint64array
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint64array
      * @since windows5.1.2600
      */
     static VariantToUInt64Array(var, prgn, crgn, pcElem) {
@@ -2179,6 +2435,12 @@ class Variant {
 
     /**
      * Extracts an array of DOUBLE values from a VARIANT structure.
+     * @remarks
+     * This helper function is used when the calling application expects a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> to hold an array that consists of a fixed number of <b>DOUBLE</b> values.
+     * 
+     * If the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> has type VT_ARRAY | VT_DOUBLE, this function extracts up to <i>crgn</i> <b>DOUBLE</b> values and places them into the buffer pointed to by <i>prgn</i>.
+     * 
+     * If the <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> contains more elements than will fit into the <i>prgn</i> buffer, this function returns an error and sets *<i>pcElem</i> to 0.
      * @param {Pointer<VARIANT>} var Type: <b>REFVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
@@ -2207,7 +2469,7 @@ class Variant {
      * </dl>
      * </td>
      * <td width="60%">
-     * The source <a href="/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> contained more than <i>crgn</i> values.
+     * The source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> contained more than <i>crgn</i> values.
      * 
      * </td>
      * </tr>
@@ -2218,12 +2480,12 @@ class Variant {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> was not of the appropriate type.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> was not of the appropriate type.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttodoublearray
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttodoublearray
      * @since windows5.1.2600
      */
     static VariantToDoubleArray(var, prgn, crgn, pcElem) {
@@ -2254,8 +2516,8 @@ class Variant {
      * Pointer to the count of string elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttostringarray
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttostringarray
      * @since windows5.1.2600
      */
     static VariantToStringArray(var, prgsz, crgsz, pcElem) {
@@ -2272,6 +2534,10 @@ class Variant {
 
     /**
      * Allocates an array of BOOL values then extracts data from a VARIANT structure into that array.
+     * @remarks
+     * This helper function is used when the calling application expects a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> to hold an array of <b>BOOL</b> values.
+     * 
+     * If the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> is of type VT_ARRAY | VT_BOOL, this function extracts an array of <b>BOOL</b> values into a newly allocated array. The calling application is responsible for using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> to release the array pointed to by <i>pprgf</i> when it is no longer needed.
      * @param {Pointer<VARIANT>} var Type: <b>REFVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
@@ -2283,8 +2549,8 @@ class Variant {
      * When this function returns, contains a pointer to the count of elements extracted from the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttobooleanarrayalloc
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttobooleanarrayalloc
      * @since windows5.1.2600
      */
     static VariantToBooleanArrayAlloc(var, pprgf, pcElem) {
@@ -2312,8 +2578,8 @@ class Variant {
      * Pointer to the count of <b>Int16</b> elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttoint16arrayalloc
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint16arrayalloc
      * @since windows5.1.2600
      */
     static VariantToInt16ArrayAlloc(var, pprgn, pcElem) {
@@ -2341,8 +2607,8 @@ class Variant {
      * Pointer to the count of unsigned <b>Int16</b> elements extracted from the source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttouint16arrayalloc
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint16arrayalloc
      * @since windows5.1.2600
      */
     static VariantToUInt16ArrayAlloc(var, pprgn, pcElem) {
@@ -2370,8 +2636,8 @@ class Variant {
      * Pointer to the count of <b>Int32</b> elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttoint32arrayalloc
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint32arrayalloc
      * @since windows5.1.2600
      */
     static VariantToInt32ArrayAlloc(var, pprgn, pcElem) {
@@ -2399,8 +2665,8 @@ class Variant {
      * Pointer to the count of unsigned <b>Int32</b> elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttouint32arrayalloc
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint32arrayalloc
      * @since windows5.1.2600
      */
     static VariantToUInt32ArrayAlloc(var, pprgn, pcElem) {
@@ -2428,8 +2694,8 @@ class Variant {
      * Pointer to the count of <b>Int64</b> elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttoint64arrayalloc
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint64arrayalloc
      * @since windows5.1.2600
      */
     static VariantToInt64ArrayAlloc(var, pprgn, pcElem) {
@@ -2457,8 +2723,8 @@ class Variant {
      * Pointer to the count of unsigned <b>Int64</b> elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttouint64arrayalloc
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint64arrayalloc
      * @since windows5.1.2600
      */
     static VariantToUInt64ArrayAlloc(var, pprgn, pcElem) {
@@ -2475,6 +2741,10 @@ class Variant {
 
     /**
      * Allocates an array of DOUBLE values then extracts data from a VARIANT structure into that array.
+     * @remarks
+     * This helper function is used when the calling application expects a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> to hold an array of <b>DOUBLE</b> values.
+     * 
+     * If the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> is of type VT_ARRAY | VT_R8, this function extracts an array of <b>DOUBLE</b> values into a newly allocated array. The calling application is responsible for using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> to release the array pointed to by <i>pprgn</i> when it is no longer needed.
      * @param {Pointer<VARIANT>} var Type: <b>REFVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
@@ -2486,8 +2756,8 @@ class Variant {
      * When this function returns, contains a pointer to the count of elements extracted from the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttodoublearrayalloc
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttodoublearrayalloc
      * @since windows5.1.2600
      */
     static VariantToDoubleArrayAlloc(var, pprgn, pcElem) {
@@ -2515,8 +2785,8 @@ class Variant {
      * Pointer to the count of string elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-varianttostringarrayalloc
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttostringarrayalloc
      * @since windows5.1.2600
      */
     static VariantToStringArrayAlloc(var, pprgsz, pcElem) {
@@ -2542,7 +2812,7 @@ class Variant {
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * Pointer to the extracted element value.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-variantgetbooleanelem
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantgetbooleanelem
      * @since windows5.1.2600
      */
     static VariantGetBooleanElem(var, iElem) {
@@ -2565,7 +2835,7 @@ class Variant {
      * @returns {Integer} Type: <b>SHORT*</b>
      * 
      * Pointer to the extracted element value.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-variantgetint16elem
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantgetint16elem
      * @since windows5.1.2600
      */
     static VariantGetInt16Elem(var, iElem) {
@@ -2588,7 +2858,7 @@ class Variant {
      * @returns {Integer} Type: <b>USHORT*</b>
      * 
      * Pointer to the extracted element value.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-variantgetuint16elem
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantgetuint16elem
      * @since windows5.1.2600
      */
     static VariantGetUInt16Elem(var, iElem) {
@@ -2611,7 +2881,7 @@ class Variant {
      * @returns {Integer} Type: <b>LONG*</b>
      * 
      * Pointer to the extracted element value.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-variantgetint32elem
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantgetint32elem
      * @since windows5.1.2600
      */
     static VariantGetInt32Elem(var, iElem) {
@@ -2634,7 +2904,7 @@ class Variant {
      * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * Pointer to the extracted element value.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-variantgetuint32elem
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantgetuint32elem
      * @since windows5.1.2600
      */
     static VariantGetUInt32Elem(var, iElem) {
@@ -2657,7 +2927,7 @@ class Variant {
      * @returns {Integer} Type: <b>LONGLONG*</b>
      * 
      * Pointer to the extracted element value.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-variantgetint64elem
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantgetint64elem
      * @since windows5.1.2600
      */
     static VariantGetInt64Elem(var, iElem) {
@@ -2680,7 +2950,7 @@ class Variant {
      * @returns {Integer} Type: <b>ULONGLONG*</b>
      * 
      * Pointer to the extracted element value.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-variantgetuint64elem
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantgetuint64elem
      * @since windows5.1.2600
      */
     static VariantGetUInt64Elem(var, iElem) {
@@ -2703,7 +2973,7 @@ class Variant {
      * @returns {Float} Type: <b>DOUBLE*</b>
      * 
      * Pointer to the extracted element value.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-variantgetdoubleelem
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantgetdoubleelem
      * @since windows5.1.2600
      */
     static VariantGetDoubleElem(var, iElem) {
@@ -2726,7 +2996,7 @@ class Variant {
      * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * The address of a pointer to the extracted element value.
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-variantgetstringelem
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantgetstringelem
      * @since windows5.1.2600
      */
     static VariantGetStringElem(var, iElem) {
@@ -2740,6 +3010,8 @@ class Variant {
 
     /**
      * Frees the memory and references used by an array of VARIANT structures stored in an array.
+     * @remarks
+     * This function releases the memory and references held by each structure in the array before it sets the structures to zero.
      * @param {Pointer<VARIANT>} pvars Type: <b>VARIANT*</b>
      * 
      * Array of <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structures to free.
@@ -2747,7 +3019,7 @@ class Variant {
      * 
      * The number of elements in the array specified by <i>pvars</i>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-clearvariantarray
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-clearvariantarray
      * @since windows5.1.2600
      */
     static ClearVariantArray(pvars, cvars) {
@@ -2756,6 +3028,10 @@ class Variant {
 
     /**
      * Compares two variant structures, based on default comparison rules.
+     * @remarks
+     * <div class="alert"><b>Note</b>  This function does not support the comparison of different VARIANT types. If the types named in <i>var1</i> and <i>var2</i> are different, the results are undefined and should be ignored. Calling applications should ensure that they are comparing two of the same type before they call this function. The <a href="https://docs.microsoft.com/windows/desktop/api/propvarutil/nf-propvarutil-propvariantchangetype">PropVariantChangeType</a> function can be used to convert the two structures to the same type.</div>
+     * <div> </div>
+     * By default, VT_NULL / VT_EMPTY / 0-element vectors are considered to be less than any other vartype.
      * @param {Pointer<VARIANT>} var1 Type: <b>REFVARIANT</b>
      * 
      * Reference to a first variant structure.
@@ -2769,7 +3045,7 @@ class Variant {
      * <li>Returns 0 if <i>var1</i> equals <i>var2</i></li>
      * <li>Returns -1 if <i>var1</i> is less than <i>var2</i></li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-variantcompare
+     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantcompare
      * @since windows5.1.2600
      */
     static VariantCompare(var1, var2) {

@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * An opaque type used to reference a security context object.
+ * @remarks
+ * This object is not thread safe. For more information, see [thread safety](thread-safety.md).
  * @see https://learn.microsoft.com/windows/win32/wsw/ws-security-context
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319

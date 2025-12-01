@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The IGPMStatusMessage interface contains property methods that retrieve various properties of status messages related to GPO operations.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmstatusmessage
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319

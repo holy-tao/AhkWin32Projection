@@ -3,7 +3,7 @@
 
 /**
  * Supports the CRYPTUI_VIEWCERTIFICATE_STRUCT structure.
- * @see https://docs.microsoft.com/windows/win32/api//cryptuiapi/ns-cryptuiapi-cryptui_initdialog_struct
+ * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_initdialog_struct
  * @namespace Windows.Win32.Security.Cryptography.UI
  * @version v4.0.30319
  */

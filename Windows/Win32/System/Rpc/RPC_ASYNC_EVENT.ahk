@@ -3,7 +3,7 @@
 
 /**
  * The RPC_ASYNC_EVENT enumerated type describes the asynchronous notification events that an RPC application can receive.
- * @see https://docs.microsoft.com/windows/win32/api//rpcasync/ne-rpcasync-rpc_async_event
+ * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ne-rpcasync-rpc_async_event
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */

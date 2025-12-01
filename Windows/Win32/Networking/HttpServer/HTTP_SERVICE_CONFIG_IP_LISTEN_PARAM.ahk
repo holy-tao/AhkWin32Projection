@@ -3,7 +3,7 @@
 
 /**
  * Used to specify an IP address to be added to or deleted from the list of IP addresses to which the HTTP service binds.
- * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_service_config_ip_listen_param
+ * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_ip_listen_param
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

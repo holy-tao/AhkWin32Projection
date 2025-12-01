@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The RPC_CALL_ATTRIBUTES_V1 structure provides parameters to the RpcServerInqCallAttributes function. Implemented in ANSI and UNICODE versions for Windows XP and Windows Server 2003 operating systems.
+ * The RPC_CALL_ATTRIBUTES_V1 structure provides parameters to the RpcServerInqCallAttributes function. Implemented in ANSI and UNICODE versions for Windows XP and Windows Server 2003 operating systems. (ANSI)
  * @remarks
- * 
  * The 
  * <b>RPC_CALL_ATTRIBUTES</b> structure uses a versioning scheme to enable the 
  * <b>RpcServerInqCallAttributes</b> function to incorporate new capabilities without having to introduce new functions with suffix identifiers. For example, a second version of the 
@@ -32,10 +31,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/nf-rpcasync-rpcserverinqcallattributesa">RpcServerInqCallAttributes</a> function is called again.</li>
  * </ul>
  * The second method offers the best performance in most cases, since the caller does not need to perform a memory allocation.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//rpcasync/ns-rpcasync-rpc_call_attributes_v1_a
+ * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ns-rpcasync-rpc_call_attributes_v1_a
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  * @charset ANSI

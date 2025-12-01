@@ -3,7 +3,7 @@
 
 /**
  * A four dimensional vector, used to represent a rotation.
- * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-mf_quaternion
+ * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mf_quaternion
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

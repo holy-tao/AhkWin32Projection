@@ -3,7 +3,7 @@
 
 /**
  * Specifies how the layer contents should be prepared.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/ne-d2d1_1-d2d1_layer_options1
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ne-d2d1_1-d2d1_layer_options1
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

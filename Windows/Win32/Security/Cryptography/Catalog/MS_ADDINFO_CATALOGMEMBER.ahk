@@ -3,7 +3,7 @@
 
 /**
  * Provides additional information for catalog member subject types.
- * @see https://docs.microsoft.com/windows/win32/api//mssip/ns-mssip-ms_addinfo_catalogmember
+ * @see https://learn.microsoft.com/windows/win32/api/mssip/ns-mssip-ms_addinfo_catalogmember
  * @namespace Windows.Win32.Security.Cryptography.Catalog
  * @version v4.0.30319
  */

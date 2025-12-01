@@ -3,7 +3,7 @@
 
 /**
  * Contains the action information returned by an EAP peer method.
- * @see https://docs.microsoft.com/windows/win32/api//eapauthenticatoractiondefine/ns-eapauthenticatoractiondefine-eappeermethodoutput
+ * @see https://learn.microsoft.com/windows/win32/api/eapauthenticatoractiondefine/ns-eapauthenticatoractiondefine-eappeermethodoutput
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

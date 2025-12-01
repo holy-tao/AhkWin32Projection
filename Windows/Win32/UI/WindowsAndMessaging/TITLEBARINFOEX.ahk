@@ -4,7 +4,7 @@
 
 /**
  * Expands on the information described in the TITLEBARINFO structure by including the coordinates of each element of the title bar.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-titlebarinfoex
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-titlebarinfoex
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

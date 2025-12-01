@@ -3,7 +3,7 @@
 
 /**
  * Specifies the fully qualified binary name.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-claim_security_attribute_fqbn_value
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-claim_security_attribute_fqbn_value
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

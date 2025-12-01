@@ -4,7 +4,7 @@
 
 /**
  * The TF_DISPLAYATTRIBUTE structure contains display attribute data for rendering text.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/ns-msctf-tf_displayattribute
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/ns-msctf-tf_displayattribute
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

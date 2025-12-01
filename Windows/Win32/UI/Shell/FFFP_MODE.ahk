@@ -3,7 +3,7 @@
 
 /**
  * Describes match criteria. Used by methods of the IKnownFolderManager interface.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-fffp_mode
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-fffp_mode
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

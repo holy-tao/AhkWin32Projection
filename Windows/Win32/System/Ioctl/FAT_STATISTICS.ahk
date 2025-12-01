@@ -3,7 +3,7 @@
 
 /**
  * Contains statistical information from the FAT file system.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-fat_statistics
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-fat_statistics
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

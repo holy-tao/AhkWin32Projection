@@ -3,7 +3,7 @@
 
 /**
  * The CCAB structure contains cabinet information.
- * @see https://docs.microsoft.com/windows/win32/api//fci/ns-fci-ccab
+ * @see https://learn.microsoft.com/windows/win32/api/fci/ns-fci-ccab
  * @namespace Windows.Win32.Storage.Cabinets
  * @version v4.0.30319
  */
@@ -32,6 +32,7 @@ class CCAB extends Win32Struct
     }
 
     /**
+     * The size, in bytes, of the CFHeader reserve area. Possible value range is 0-60,000.
      * @type {Integer}
      */
     cbReserveCFHeader {

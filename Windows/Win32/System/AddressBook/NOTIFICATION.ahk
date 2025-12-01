@@ -26,7 +26,27 @@
 #Include .\STATUS_OBJECT_NOTIFICATION.ahk
 
 /**
+ * NOTIFICATION contains information about an event that has occurred and the data that has been affected by the event.
+ * @remarks
+ * One or more **NOTIFICATION** structures are passed as input parameters with every call to a registered advise sink's [IMAPIAdviseSink::OnNotify](imapiadvisesink-onnotify.md) method. The **NOTIFICATION** structures contain information about the particular events that have occurred and describe the affected objects. 
+ *   
+ * Before clients or service providers receiving a notification can use the structure to process the event, they must check the event type as indicated in the **ulEventType** member. For example, the code sample that is shown here checks for the arrival of a new message and upon detecting an event of this kind, prints out the message class of the message. 
+ *   
+ * ```cpp
+ * if (pNotif -> ulEventType == fnevNewMail)
+ * {
+ * printf("%s\n", pNotif -> newmail.lpszMessageClass)
+ * }
  * 
+ * ```
+ * 
+ * For more information about notification, see the topics described in the following table.
+ *   
+ * |**Topic**|**Description**|
+ * |:-----|:-----|
+ * |[Event Notification in MAPI](event-notification-in-mapi.md) <br/> |General overview of notification and notification events. |
+ * |[Handling Notifications](handling-notifications.md) <br/> |Discussion of how clients should handle notifications. |
+ * |[Supporting Event Notification](supporting-event-notification.md) <br/> |Discussion of how service providers can use the [IMAPISupport](imapisupportiunknown.md) method to generate notifications. |
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/notification
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
@@ -110,6 +130,7 @@ class NOTIFICATION extends Win32Struct
     }
 
     /**
+     * > Type of notification event that occurred. The value of the **ulEventType** member corresponds to the structure that is included in the **info** union. The **ulEventType** member can be set to one of the following values:
      * @type {Integer}
      */
     ulEventType {
@@ -126,6 +147,7 @@ class NOTIFICATION extends Win32Struct
     }
 
     /**
+     * > Union of notification structures describing the affected data for a particular type of event. The structure included in the **info** member depends on the value of the **ulEventType** member.
      * @type {_info_e__Union}
      */
     info{

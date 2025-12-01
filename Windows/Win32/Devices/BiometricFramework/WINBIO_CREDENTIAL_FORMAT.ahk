@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * Defines flags that can be used to specify the end-user credential format.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-credential-format
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319

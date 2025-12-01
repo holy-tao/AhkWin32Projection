@@ -3,7 +3,7 @@
 
 /**
  * Indicates whether the token from the most recent call to the InitializeSecurityContext function is the last token from the client.
- * @see https://docs.microsoft.com/windows/win32/api//sspi/ne-sspi-secpkg_attr_lct_status
+ * @see https://learn.microsoft.com/windows/win32/api/sspi/ne-sspi-secpkg_attr_lct_status
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

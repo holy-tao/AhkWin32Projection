@@ -3,7 +3,7 @@
 
 /**
  * Specifies NLS function capabilities.
- * @see https://docs.microsoft.com/windows/win32/api//winnls/ne-winnls-sysnls_function
+ * @see https://learn.microsoft.com/windows/win32/api/winnls/ne-winnls-sysnls_function
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

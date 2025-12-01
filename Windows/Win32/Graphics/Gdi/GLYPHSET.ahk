@@ -4,7 +4,7 @@
 
 /**
  * The GLYPHSET structure contains information about a range of Unicode code points.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-glyphset
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-glyphset
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

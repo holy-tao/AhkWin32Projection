@@ -3,7 +3,7 @@
 
 /**
  * Identifiers for the properties of the Color matrix effect.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effects/ne-d2d1effects-d2d1_colormatrix_prop
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_colormatrix_prop
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

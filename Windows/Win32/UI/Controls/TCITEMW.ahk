@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Specifies or receives the attributes of a tab item. It is used with the TCM_INSERTITEM, TCM_GETITEM, and TCM_SETITEM messages. This structure supersedes the TC_ITEM structure.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-tcitemw
+ * Specifies or receives the attributes of a tab item. It is used with the TCM_INSERTITEM, TCM_GETITEM, and TCM_SETITEM messages. This structure supersedes the TC_ITEM structure. (Unicode)
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tcitemw
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  * @charset Unicode

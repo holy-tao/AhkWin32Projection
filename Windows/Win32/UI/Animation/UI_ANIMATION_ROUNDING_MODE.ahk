@@ -3,7 +3,7 @@
 
 /**
  * Defines the rounding modes to be used when the value of an animation variable is converted from a floating-point type to an integer type.
- * @see https://docs.microsoft.com/windows/win32/api//uianimation/ne-uianimation-ui_animation_rounding_mode
+ * @see https://learn.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_rounding_mode
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319
  */

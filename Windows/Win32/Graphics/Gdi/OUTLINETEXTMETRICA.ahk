@@ -6,9 +6,8 @@
 #Include ..\..\Foundation\POINT.ahk
 
 /**
- * The OUTLINETEXTMETRIC structure contains metrics describing a TrueType font.
+ * The OUTLINETEXTMETRIC structure contains metrics describing a TrueType font. (ANSI)
  * @remarks
- * 
  * The sizes returned in <b>OUTLINETEXTMETRIC</b> are specified in logical units; that is, they depend on the current mapping mode of the specified display context.
  * 
  * Note, <b>OUTLINETEXTMETRIC</b> is defined using the current pack setting. To avoid problems, make sure that the application is built using the platform default packing. For example, 32-bit Windows uses a default of 8-byte packing. For more information, see the MSDN topic "C-Compiler Packing Issues".
@@ -19,9 +18,7 @@
  * 
  * > [!NOTE]
  * > The wingdi.h header defines OUTLINETEXTMETRIC as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-outlinetextmetrica
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-outlinetextmetrica
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  * @charset ANSI

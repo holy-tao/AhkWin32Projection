@@ -3,7 +3,7 @@
 
 /**
  * Contains virtual disk attach request flags.
- * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ne-virtdisk-attach_virtual_disk_flag
+ * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-attach_virtual_disk_flag
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */

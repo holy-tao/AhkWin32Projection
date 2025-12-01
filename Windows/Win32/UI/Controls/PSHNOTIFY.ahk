@@ -5,7 +5,7 @@
 
 /**
  * Contains information for the property sheet notification messages.
- * @see https://docs.microsoft.com/windows/win32/api//prsht/ns-prsht-pshnotify
+ * @see https://learn.microsoft.com/windows/win32/api/prsht/ns-prsht-pshnotify
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Stores data about Bluetooth devices within communication range.
- * @see https://docs.microsoft.com/windows/win32/api//bthdef/ns-bthdef-bth_radio_in_range
+ * @see https://learn.microsoft.com/windows/win32/api/bthdef/ns-bthdef-bth_radio_in_range
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 #Include .\WINBIO_IDENTITY.ahk
 
 /**
- * 
+ * Specify the types of service provider event notifications to monitor.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-event-constants
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319

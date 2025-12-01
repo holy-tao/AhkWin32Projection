@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of comparison to perform in the IOfflineFilesItemFilter::GetTimeFilter method.
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/ne-cscobj-offlinefiles_compare
+ * @see https://learn.microsoft.com/windows/win32/api/cscobj/ne-cscobj-offlinefiles_compare
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */

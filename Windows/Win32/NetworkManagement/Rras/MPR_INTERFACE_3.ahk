@@ -4,9 +4,8 @@
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
 
 /**
- * Contains data for a router demand-dial interface.
+ * Contains data for a router demand-dial interface. (MPR_INTERFACE_3)
  * @remarks
- * 
  * The 
  * <b>MPR_INTERFACE_3</b> structure has a number of members that are similar to members of the 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure. 
@@ -22,9 +21,7 @@
  * <li><b>dwFramingProtocol</b></li>
  * </ul>
  * <b>64-bit Windows:  </b>Does not support the IPX protocol.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-mpr_interface_3
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_interface_3
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

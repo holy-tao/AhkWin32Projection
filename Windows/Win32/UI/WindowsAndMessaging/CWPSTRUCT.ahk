@@ -4,7 +4,7 @@
 
 /**
  * Defines the message parameters passed to a WH_CALLWNDPROC hook procedure, CallWndProc.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-cwpstruct
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-cwpstruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

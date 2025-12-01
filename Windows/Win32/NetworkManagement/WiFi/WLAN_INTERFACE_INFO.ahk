@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a wireless LAN interface.
- * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-wlan_interface_info
+ * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_interface_info
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

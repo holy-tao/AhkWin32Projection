@@ -4,11 +4,8 @@
 /**
  * Note  This API is deprecated. New applications should not use it. Defines the direction of data flow for the stream.
  * @remarks
- * 
  * Transform streams are read/write where the sample is updated in place.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mmstream/ne-mmstream-stream_type
+ * @see https://learn.microsoft.com/windows/win32/api/mmstream/ne-mmstream-stream_type
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

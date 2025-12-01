@@ -5,7 +5,7 @@
 
 /**
  * The EMRCREATEBRUSHINDIRECT structure contains members for the CreateBrushIndirect enhanced metafile record.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrcreatebrushindirect
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrcreatebrushindirect
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Defines flags that control how the DVD Navigator Filter filter handles command synchronization.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-dvd_cmd_flags
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_cmd_flags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

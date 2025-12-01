@@ -3,7 +3,7 @@
 
 /**
  * Used with the DsRoleGetPrimaryDomainInformation function to contain domain upgrade status data.
- * @see https://docs.microsoft.com/windows/win32/api//dsrole/ns-dsrole-dsrole_upgrade_status_info
+ * @see https://learn.microsoft.com/windows/win32/api/dsrole/ns-dsrole-dsrole_upgrade_status_info
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

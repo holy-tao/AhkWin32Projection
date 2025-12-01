@@ -3,7 +3,7 @@
 
 /**
  * Specifies how to compare the attributes on two objects.
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ne-mfobjects-mf_attributes_match_type
+ * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mf_attributes_match_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

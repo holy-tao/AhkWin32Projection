@@ -3,7 +3,7 @@
 
 /**
  * The CALLINFO_STRING enum is used by ITCallInfo methods that set and get call information involving the use of strings.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-callinfo_string
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-callinfo_string
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

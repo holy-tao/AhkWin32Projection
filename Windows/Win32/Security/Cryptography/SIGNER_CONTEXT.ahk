@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Contains a signed BLOB.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-context
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
@@ -14,6 +14,7 @@ class SIGNER_CONTEXT extends Win32Struct
     static packingSize => 8
 
     /**
+     * The size, in bytes, of the structure.
      * @type {Integer}
      */
     cbSize {
@@ -22,6 +23,7 @@ class SIGNER_CONTEXT extends Win32Struct
     }
 
     /**
+     * The size, in bytes, of the **pbBlob** member.
      * @type {Integer}
      */
     cbBlob {
@@ -30,6 +32,7 @@ class SIGNER_CONTEXT extends Win32Struct
     }
 
     /**
+     * A pointer to the signed BLOB.
      * @type {Pointer<Integer>}
      */
     pbBlob {

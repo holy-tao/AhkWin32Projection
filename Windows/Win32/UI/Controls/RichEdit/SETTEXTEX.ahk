@@ -3,7 +3,7 @@
 
 /**
  * Specifies which code page (if any) to use in setting text, whether the text replaces all the text in the control or just the selection, and whether the undo state is to be preserved. This structure is used with the EM_SETTEXTEX message.
- * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-settextex
+ * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-settextex
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

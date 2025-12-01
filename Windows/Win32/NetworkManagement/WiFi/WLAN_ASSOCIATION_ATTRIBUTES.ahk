@@ -4,7 +4,7 @@
 
 /**
  * Contains association attributes for a connection.
- * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-wlan_association_attributes
+ * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_association_attributes
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

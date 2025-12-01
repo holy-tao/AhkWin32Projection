@@ -3,7 +3,7 @@
 
 /**
  * Used by a requester to specify how a resynchronization operation is to be performed.
- * @see https://docs.microsoft.com/windows/win32/api//vss/ne-vss-vss_recovery_options
+ * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_recovery_options
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

@@ -29,6 +29,26 @@ class Printing {
 ;@region Methods
     /**
      * Starts printing an XPS document stream to a printer.
+     * @remarks
+     * <b>StartXpsPrintJob</b> is an asynchronous function, which can return before the print spooler creates or starts a print job.
+     * 
+     * The interfaces that are returned in <i>xpsPrintJob</i>, <i>documentStream</i>, and <i>printTicketStream</i> must not be used until <b>StartXpsPrintJob</b> has returned successfully.
+     * 
+     *   After the caller starts sending data, it should monitor the progress events that are signaled to the event that is passed in <i>progressEvent</i>. When the event is signaled, the caller must  call <a href="https://docs.microsoft.com/windows/desktop/api/xpsprint/nf-xpsprint-ixpsprintjob-getjobstatus">IXpsPrintJob::GetJobStatus</a> to get the current status of the print job.
+     * 
+     * When the print job finishes, whether successfully or not, the event that is passed in <i>completionEvent</i> is signaled once and only once. To prevent data loss, the caller should monitor this event and the thread or the application of the caller should not be terminated until the event  has been signaled.
+     * 
+     * Job states are neither stored nor queued by the print spooler. Because job processing does not wait for the status to be read after events are signaled,  the caller might miss some state changes, depending on the delay between the time the application received the change notification and the time it called <a href="https://docs.microsoft.com/windows/desktop/api/xpsprint/nf-xpsprint-ixpsprintjob-getjobstatus">IXpsPrintJob::GetJobStatus</a>. To receive subsequent notifications, the application must reset the progress event after it has received the notification.
+     * 
+     * If a call to <b>StartXpsPrintJob</b> fails,  the job status will be updated, the  completion and progress events will be signaled, and an error code will be returned. To get the status of the failed print job, call <a href="https://docs.microsoft.com/windows/desktop/api/xpsprint/nf-xpsprint-ixpsprintjob-getjobstatus">IXpsPrintJob::GetJobStatus</a>.
+     * 
+     * <b>StartXpsPrintJob</b> calls <b>DuplicateHandle</b> on <i>completionEvent</i> and <i>progressEvent</i> to ensure that they remain valid for the lifetime of the job.  Because the print spooler is using a duplicate handle for the events,  it is possible for the caller to close these handles at any point without affecting job execution.  The recommended procedure, however,  is for the caller to close these handles only after the <i>completionEvent</i> event has been signaled and observed by the caller.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/xpsprint/nn-xpsprint-ixpsprintjobstream">IXpsPrintJobStream</a> interfaces that are returned in <i>documentStream</i>  and <i>printTicketStream</i> are write-only streams that do not permit seeking but that can be closed. The caller writes the  XPS document and print ticket content into these streams, and then calls <a href="https://docs.microsoft.com/windows/desktop/api/xpsprint/nf-xpsprint-ixpsprintjobstream-close">Close</a> after all data has been written.  Calls to the streams' <b>Write</b>   method    are thread-safe; however, if such calls  are made from different threads, they are not guaranteed to be committed to the stream in the expected order.
+     * 
+     * <div class="alert"><b>Note</b>   When printing to a file, the application is responsible for providing the value that will be passed in the <i>outputFileName</i> parameter for print-to-file operations.  To print to a printer which uses a  driver that outputs to the FILE: port, the caller must retrieve the file name from the user by displaying the common file dialog.
+     * </div>
+     * <div> </div>
      * @param {PWSTR} printerName The name of the printer with which this job will be associated.
      * @param {PWSTR} jobName A user-specified  job name to be associated with this job.  If the job does not require a  separate, user-specified name, this parameter can be set to <b>NULL</b>.
      * @param {PWSTR} outputFileName The  file name of the file or port into which the output of this job is to be redirected.  Setting this value will cause the output of the print job to be directed to the specified file or port. To send the print job to the printer that is specified by <i>printerName</i>, this parameter must be set to <b>NULL</b>.
@@ -187,13 +207,13 @@ class Printing {
      * </dl>
      * </td>
      * <td width="60%">
-     * Not enough memory to create a new <a href="/windows/desktop/api/xpsprint/nn-xpsprint-ixpsprintjob">IXpsPrintJob</a> object.
+     * Not enough memory to create a new <a href="https://docs.microsoft.com/windows/desktop/api/xpsprint/nn-xpsprint-ixpsprintjob">IXpsPrintJob</a> object.
      * 
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsprint/nf-xpsprint-startxpsprintjob
+     * @see https://learn.microsoft.com/windows/win32/api/xpsprint/nf-xpsprint-startxpsprintjob
      * @since windows6.1
      */
     static StartXpsPrintJob(printerName, jobName, outputFileName, progressEvent, completionEvent, printablePagesOn, printablePagesOnCount, xpsPrintJob, documentStream, printTicketStream) {
@@ -215,6 +235,24 @@ class Printing {
 
     /**
      * Creates a print job for sending XPS document content to a printer.
+     * @remarks
+     * <b>StartXpsPrintJob1</b> is an asynchronous function, and therefore it can return before the print spooler creates or starts a print job.
+     * 
+     * Do not use the interfaces that are returned in <i>xpsPrintJob</i> and <i>xpsOMPackageTarget</i> until <b>StartXpsPrintJob1</b> has returned successfully.
+     * 
+     *   After the caller starts sending data, it is a good programming practice to monitor the progress events that are signaled to the event that is passed in <i>progressEvent</i>. When the event is signaled, the caller must  call <a href="https://docs.microsoft.com/windows/desktop/api/xpsprint/nf-xpsprint-ixpsprintjob-getjobstatus">IXpsPrintJob::GetJobStatus</a> to get the current status of the print job.
+     * 
+     * When the print job finishes, whether successfully or not, the event that is passed in <i>completionEvent</i> is signaled only once. To prevent data loss, it is a good programming practice for the caller to monitor the completion event and ensure that neither the thread nor the application that created the print job are terminated until the completion event  has been signaled.
+     * 
+     * Job states are neither stored nor queued by the print spooler. Because job processing does not wait for the status to be read after events are signaled,  the caller might miss some state changes, depending on the delay between the time the application received the change notification and the time it called <a href="https://docs.microsoft.com/windows/desktop/api/xpsprint/nf-xpsprint-ixpsprintjob-getjobstatus">IXpsPrintJob::GetJobStatus</a>. To receive subsequent notifications, the application must reset the progress event after it has received the notification.
+     * 
+     * If a call to <b>StartXpsPrintJob1</b> fails,  the print spooler updates the job status, signals the  completion and progress events, and returns an error code. To get the status of the failed print job, call <a href="https://docs.microsoft.com/windows/desktop/api/xpsprint/nf-xpsprint-ixpsprintjob-getjobstatus">IXpsPrintJob::GetJobStatus</a>.
+     * 
+     * <b>StartXpsPrintJob1</b> calls <b>DuplicateHandle</b> on <i>completionEvent</i> and <i>progressEvent</i> to ensure that they remain valid for the lifetime of the job.  Because the print spooler is using a duplicate handle for the events,   the caller can close these handles at any point without affecting job execution.  However,  we recommend for the caller to close these handles only after the <i>completionEvent</i> event has been signaled and the caller observed it.
+     * 
+     * <div class="alert"><b>Note</b>   When your application prints to a file, the application is responsible for providing the value to pass in the <i>outputFileName</i> parameter for print-to-file operations.  To print to a printer that uses a  driver that outputs to the FILE: port, the caller must retrieve the file name from the user by displaying the common file dialog box.
+     * </div>
+     * <div> </div>
      * @param {PWSTR} printerName The name of the printer with which this job will be associated.
      * @param {PWSTR} jobName A user-specified  job name to be associated with this job.  You can set this parameter to <b>NULL</b> if the job does not require a  separate, user-specified name.
      * @param {PWSTR} outputFileName The  file name of the file or port into which the output of this job is to be redirected.  Setting this value will cause the output of the print job to be directed to the specified file or port. To send the print job to the printer that is specified by <i>printerName</i>, you must set this parameter to <b>NULL</b>.
@@ -279,13 +317,13 @@ class Printing {
      * </dl>
      * </td>
      * <td width="60%">
-     * Not enough memory to create a new <a href="/windows/desktop/api/xpsprint/nn-xpsprint-ixpsprintjob">IXpsPrintJob</a> object.
+     * Not enough memory to create a new <a href="https://docs.microsoft.com/windows/desktop/api/xpsprint/nn-xpsprint-ixpsprintjob">IXpsPrintJob</a> object.
      * 
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsprint/nf-xpsprint-startxpsprintjob1
+     * @see https://learn.microsoft.com/windows/win32/api/xpsprint/nf-xpsprint-startxpsprintjob1
      * @since windows6.1
      */
     static StartXpsPrintJob1(printerName, jobName, outputFileName, progressEvent, completionEvent, xpsPrintJob, printContentReceiver) {

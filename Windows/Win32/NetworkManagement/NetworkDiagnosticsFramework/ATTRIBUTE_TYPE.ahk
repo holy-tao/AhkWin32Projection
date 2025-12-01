@@ -3,7 +3,7 @@
 
 /**
  * The ATTRIBUTE_TYPE enumeration defines possible values for a helper attribute.
- * @see https://docs.microsoft.com/windows/win32/api//ndattrib/ne-ndattrib-attribute_type
+ * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ne-ndattrib-attribute_type
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */

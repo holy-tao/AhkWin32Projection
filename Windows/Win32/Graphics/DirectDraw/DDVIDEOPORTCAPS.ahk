@@ -4,11 +4,8 @@
 /**
  * The DDVIDEOPORTCAPS structure describes the capabilities and alignment restrictions of a hardware video port.
  * @remarks
- * 
  * The driver reports the capabilities described by the DDVIDEOPORTCAPS structure when its <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_getdriverinfo">DdGetDriverInfo</a> function is called with the GUID_VideoPortCaps GUID.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dvp/ns-dvp-ddvideoportcaps
+ * @see https://learn.microsoft.com/windows/win32/api/dvp/ns-dvp-ddvideoportcaps
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

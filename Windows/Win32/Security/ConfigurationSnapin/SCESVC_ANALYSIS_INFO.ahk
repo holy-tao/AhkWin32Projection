@@ -3,7 +3,7 @@
 
 /**
  * Contains the analysis information.
- * @see https://docs.microsoft.com/windows/win32/api//scesvc/ns-scesvc-scesvc_analysis_info
+ * @see https://learn.microsoft.com/windows/win32/api/scesvc/ns-scesvc-scesvc_analysis_info
  * @namespace Windows.Win32.Security.ConfigurationSnapin
  * @version v4.0.30319
  */

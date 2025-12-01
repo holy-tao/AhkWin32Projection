@@ -3,7 +3,7 @@
 
 /**
  * Option flags for transformed image sources.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/ne-d2d1_3-d2d1_transformed_image_source_options
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/ne-d2d1_3-d2d1_transformed_image_source_options
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

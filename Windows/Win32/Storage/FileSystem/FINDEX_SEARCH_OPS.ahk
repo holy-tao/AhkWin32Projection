@@ -3,7 +3,7 @@
 
 /**
  * Defines values that are used with the FindFirstFileEx function to specify the type of filtering to perform.
- * @see https://docs.microsoft.com/windows/win32/api//minwinbase/ne-minwinbase-findex_search_ops
+ * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ne-minwinbase-findex_search_ops
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

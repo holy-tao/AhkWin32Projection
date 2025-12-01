@@ -3,7 +3,7 @@
 
 /**
  * Contains a reference to the function table MI_FilterFT.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_filter
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_filter
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

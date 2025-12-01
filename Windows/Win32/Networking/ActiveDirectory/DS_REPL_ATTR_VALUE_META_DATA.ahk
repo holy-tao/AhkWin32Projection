@@ -5,7 +5,7 @@
 
 /**
  * The DS_REPL_ATTR_VALUE_META_DATA structure is used with the DsReplicaGetInfo2 function to provide metadata for a collection of attribute values.
- * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ns-ntdsapi-ds_repl_attr_value_meta_data
+ * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_attr_value_meta_data
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Represents the parameters of a changer.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-get_changer_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-get_changer_parameters
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

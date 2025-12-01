@@ -3,7 +3,7 @@
 
 /**
  * The NLM_Connectivity enumeration is a set of flags that provide notification whenever connectivity related parameters have changed.
- * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/ne-netlistmgr-nlm_connectivity
+ * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ne-netlistmgr-nlm_connectivity
  * @namespace Windows.Win32.Networking.NetworkListManager
  * @version v4.0.30319
  */

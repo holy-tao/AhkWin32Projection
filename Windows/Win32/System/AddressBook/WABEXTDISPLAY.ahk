@@ -3,7 +3,7 @@
 
 /**
  * Do not use. Used by the Windows Address Book (WAB) to initialize user's IContextMenu Interface and IShellPropSheetExt Interface implementations.
- * @see https://docs.microsoft.com/windows/win32/api//wabapi/ns-wabapi-wabextdisplay
+ * @see https://learn.microsoft.com/windows/win32/api/wabapi/ns-wabapi-wabextdisplay
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */
@@ -66,7 +66,7 @@ class WABEXTDISPLAY extends Win32Struct
     /**
      * Type: <b>BOOL</b>
      * 
-     * Variable of type <b>BOOL</b> that specifies the read-only property on certain kinds of objects, such as the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference">VCARD_NAME</a> attribute, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> search results, and <a href="https://docs.microsoft.com/">one-off</a> MailUser. This member is relevant only for <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellpropsheetext">IShellPropSheetExt Interface</a>. If this flag is set to true, one's property sheet must set all its controls to a read-only or disabled mode, typically in response to the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message. Setting  controls to a read-only state makes the user experience more consistent.
+     * Variable of type <b>BOOL</b> that specifies the read-only property on certain kinds of objects, such as the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference">VCARD_NAME</a> attribute, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> search results, and one-off MailUser. This member is relevant only for <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellpropsheetext">IShellPropSheetExt Interface</a>. If this flag is set to true, one's property sheet must set all its controls to a read-only or disabled mode, typically in response to the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message. Setting  controls to a read-only state makes the user experience more consistent.
      * @type {BOOL}
      */
     fReadOnly {

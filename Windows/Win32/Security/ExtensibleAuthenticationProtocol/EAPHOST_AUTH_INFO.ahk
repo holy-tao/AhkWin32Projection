@@ -3,7 +3,7 @@
 
 /**
  * Describes current authentication information throughout different stages of the EAP authentication process.
- * @see https://docs.microsoft.com/windows/win32/api//eaphostpeertypes/ns-eaphostpeertypes-eaphost_auth_info
+ * @see https://learn.microsoft.com/windows/win32/api/eaphostpeertypes/ns-eaphostpeertypes-eaphost_auth_info
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

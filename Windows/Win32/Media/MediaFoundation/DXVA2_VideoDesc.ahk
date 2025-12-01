@@ -6,14 +6,10 @@
 /**
  * Describes a video stream for a DXVA decoder device or video processor device.
  * @remarks
- * 
  * The <b>InputSampleFreq</b> member gives the frame rate of the decoded video stream, as received by the video renderer. The <b>OutputFrameFreq</b> member gives the frame rate of the video that is displayed after deinterlacing. If the input video is interlaced and the samples contain interleaved fields, the output frame rate is twice the input frame rate. If the input video is progressive or contains single fields, the output frame rate is the same as the input frame rate.
  * 
  * Decoders should set the values of <b>InputSampleFreq</b> and <b>OutputFrameFreq</b> if the frame rate is known. Otherwise, set these members to 0/0 to indicate an unknown frame rate.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxva2api/ns-dxva2api-dxva2_videodesc
+ * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_videodesc
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

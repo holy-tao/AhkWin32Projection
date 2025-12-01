@@ -3,7 +3,7 @@
 
 /**
  * The USER_MODALS_INFO_1001 structure contains the minimum length for passwords in the security database, which is the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory.
- * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-user_modals_info_1001
+ * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_modals_info_1001
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

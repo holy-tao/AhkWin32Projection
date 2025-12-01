@@ -4,11 +4,8 @@
 /**
  * The RSVP_POLICY structure stores one or more undefined policy elements.
  * @remarks
- * 
  * RSVP transports the data contained in an <b>RSVP_POLICY</b> structure on behalf of the Policy Control component.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//qossp/ns-qossp-rsvp_policy
+ * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-rsvp_policy
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

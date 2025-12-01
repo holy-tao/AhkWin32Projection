@@ -3,7 +3,7 @@
 
 /**
  * Performs a logical left shift of each element of *ATensor* by a number of bits given by the corresponding element of *BTensor*, placing the result into the corresponding element of *OutputTensor*.
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_element_wise_bit_shift_left_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_bit_shift_left_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

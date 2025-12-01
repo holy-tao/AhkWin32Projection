@@ -4,15 +4,11 @@
 /**
  * Describes the format and type of a data value. It is used as the Syntax member of the CLUSPROP_VALUE structure.
  * @remarks
- * 
  * To parse data that is returned from a 
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code function</a>, use the 
  *      <b>wFormat</b> member of this structure if the <b>wType</b> member 
  *      defines a type that the application cannot understand.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clusprop_syntax
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_syntax
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

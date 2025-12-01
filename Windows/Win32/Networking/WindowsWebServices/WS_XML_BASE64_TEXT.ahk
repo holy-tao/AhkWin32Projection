@@ -4,7 +4,7 @@
 
 /**
  * Represents base64 encoded data.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_xml_base64_text
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_base64_text
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

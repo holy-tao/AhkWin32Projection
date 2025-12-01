@@ -4,15 +4,12 @@
 /**
  * The RDITEMHDR structure is introduced in MMC 1.2.
  * @remarks
- * 
  * If the snap-in implements the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-iresultdatacompareex">IResultDataCompareEx</a> interface, MMC allocates an 
  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-rdcompare">RDCOMPARE</a> structure and two 
  * <b>RDITEMHDR</b> structures and then calls the snap-ins 
  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iresultdatacompareex-compare">IResultDataCompareEx::Compare</a> method. After the method returns, MMC releases the three structures it allocated.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mmc/ns-mmc-rditemhdr
+ * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-rditemhdr
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

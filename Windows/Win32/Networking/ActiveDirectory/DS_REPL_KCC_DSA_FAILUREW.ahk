@@ -4,7 +4,7 @@
 
 /**
  * The DS_REPL_KCC_DSA_FAILURE structure contains replication state data about a specific inbound replication partner, as returned by the DsReplicaGetInfo and DsReplicaGetInfo2 function.
- * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ns-ntdsapi-ds_repl_kcc_dsa_failurew
+ * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_kcc_dsa_failurew
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

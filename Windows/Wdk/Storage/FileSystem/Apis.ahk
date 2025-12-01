@@ -3293,11 +3293,40 @@ class FileSystem {
 
 ;@region Methods
     /**
+     * User-mode API - Marks any outstanding I/O operations for the specified file handle. The function only cancels I/O operations in the current process, regardless of which thread created the I/O operation.
+     * @remarks
+     * The **NTCancelIoFileEx** function allows you to cancel requests in threads other than the calling thread. The [**NtCancelIoFile**](nt-cancel-io-file.md) function only cancels requests in the same thread that called the **NtCancelIoFile** function. **NtCancelIoFileEx** cancels only outstanding I/O on the handle, it does not change the state of the handle; this means that you cannot rely on the state of the handle because you cannot know whether the operation was completed successfully or canceled.
      * 
+     * If there are any pending I/O operations in progress for the specified file handle, the **NtCancelIoFileEx** function marks them for cancellation. Most types of operations can be canceled immediately; other operations can continue toward completion before they are actually canceled and the caller is notified. The **NtCancelIoFileEx** function does not wait for all canceled operations to complete.
+     * 
+     * If the file handle is associated with a completion port, an I/O completion packet is not queued to the port if a synchronous operation is successfully canceled. For asynchronous operations still pending, the cancel operation will queue an I/O completion packet.
+     * 
+     * The operation being canceled is completed with one of three statuses; you must check the completion status to determine the completion state. The three statuses are:
+     * 
+     * -   The operation completed normally. This can occur even if the operation was canceled, because the cancel request might not have been submitted in time to cancel the operation.
+     * -   The operation was canceled. The [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror) function returns **ERROR\_OPERATION\_ABORTED**.
+     * -   The operation failed with another error. The [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror) function returns the relevant error code.
+     * 
+     * In Windows 8 and Windows Server 2012, this function is supported by the following technologies.
+     * 
+     * 
+     * 
+     * | Technology                                           | Supported      |
+     * |------------------------------------------------------|----------------|
+     * | Server Message Block (SMB) 3.0 protocol<br/>   | Yes<br/> |
+     * | SMB 3.0 Transparent Failover (TFO)<br/>        | Yes<br/> |
+     * | SMB 3.0 with Scale-out File Shares (SO)<br/>   | Yes<br/> |
+     * | Cluster Shared Volume File System (CsvFS)<br/> | Yes<br/> |
+     * | Resilient File System (ReFS)<br/>              | Yes<br/> |
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoRequestToCancel 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @returns {NTSTATUS} 
+     * @returns {NTSTATUS} If the function succeeds, the return value is nonzero. The cancel operation for all pending I/O operations issued by the calling process for the specified file handle was successfully requested. The application must not free or reuse the [**OVERLAPPED**](/windows/desktop/api/minwinbase/ns-minwinbase-overlapped) structure associated with the canceled I/O operations until they have completed. The thread can use the [**GetOverlappedResult**](/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult) function to determine when the I/O operations themselves have been completed.
+     * 
+     * If the function fails, the return value is 0 (zero). To get extended error information, call the [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror) function.
+     * 
+     * If this function cannot find a request to cancel, the return value is 0 (zero), and [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror) returns **ERROR\_NOT\_FOUND**.
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/nt-cancel-io-file-ex
      */
     static NtCancelIoFileEx(FileHandle, IoRequestToCancel, IoStatusBlock) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
@@ -3494,11 +3523,35 @@ class FileSystem {
     }
 
     /**
+     * Opens an existing directory object.
+     * @remarks
+     * This function has no associated import library or header file; you must call it using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) and [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) functions.
+     * @param {Pointer<HANDLE>} DirectoryHandle A handle to the newly opened directory object.
+     * @param {Integer} DesiredAccess An [**ACCESS\_MASK**](../secauthz/access-mask.md) that specifies the requested access to the directory object. This parameter can be one or more of the following values.
      * 
-     * @param {Pointer<HANDLE>} DirectoryHandle 
-     * @param {Integer} DesiredAccess 
-     * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
-     * @returns {NTSTATUS} 
+     * 
+     * 
+     * | Value                                                                                                                                                                                                                                                                      | Meaning                                                                     |
+     * |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+     * | <span id="DIRECTORY_QUERY"></span><span id="directory_query"></span><dl> <dt>**DIRECTORY\_QUERY**</dt> <dt>0x0001</dt> </dl>                                            | Query access to the directory object.<br/>                            |
+     * | <span id="DIRECTORY_TRAVERSE"></span><span id="directory_traverse"></span><dl> <dt>**DIRECTORY\_TRAVERSE**</dt> <dt>0x0002</dt> </dl>                                   | Name-lookup access to the directory object.<br/>                      |
+     * | <span id="DIRECTORY_CREATE_OBJECT"></span><span id="directory_create_object"></span><dl> <dt>**DIRECTORY\_CREATE\_OBJECT**</dt> <dt>0x0004</dt> </dl>                   | Name-creation access to the directory object.<br/>                    |
+     * | <span id="DIRECTORY_CREATE_SUBDIRECTORY"></span><span id="directory_create_subdirectory"></span><dl> <dt>**DIRECTORY\_CREATE\_SUBDIRECTORY**</dt> <dt>0x0008</dt> </dl> | Subdirectory-creation access to the directory object.<br/>            |
+     * | <span id="DIRECTORY_ALL_ACCESS"></span><span id="directory_all_access"></span><dl> <dt>**DIRECTORY\_ALL\_ACCESS**</dt> <dt>STANDARD\_RIGHTS\_REQUIRED \| 0xF</dt> </dl> | All of the preceding rights plus **STANDARD\_RIGHTS\_REQUIRED**.<br/> |
+     * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes The attributes for the directory object. To initialize the **OBJECT\_ATTRIBUTES** structure, use the **InitializeObjectAttributes** macro. For more information, see the documentation for these items in the documentation for the WDK.
+     * @returns {NTSTATUS} The function returns STATUS\_SUCCESS or an error status. The possible status codes include the following.
+     * 
+     * 
+     * 
+     * | Return code                                                                                                       | Description                                                                                                                                                                                                                                                                                               |
+     * |-------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+     * | <dl> <dt>**STATUS\_INSUFFICIENT\_RESOURCES**</dt> </dl>    | A temporary buffer required by this function could not be allocated.<br/>                                                                                                                                                                                                                           |
+     * | <dl> <dt>**STATUS\_INVALID\_PARAMETER**</dt> </dl>         | The specified ObjectAttributes parameter was a **NULL** pointer, not a valid pointer to an **OBJECT\_ATTRIBUTES** structure, or some of the members specified in the **OBJECT\_ATTRIBUTES** structure were not valid.<br/>                                                                          |
+     * | <dl> <dt>**STATUS\_OBJECT\_NAME\_INVALID**</dt> </dl>      | The *ObjectAttributes* parameter contained an **ObjectName** member in the **OBJECT\_ATTRIBUTES** structure that was not valid because an empty string was found after the **OBJECT\_NAME\_PATH\_SEPARATOR** character.<br/>                                                                        |
+     * | <dl> <dt>**STATUS\_OBJECT\_NAME\_NOT\_FOUND**</dt> </dl>   | The *ObjectAttributes* parameter contained an **ObjectName** member in the **OBJECT\_ATTRIBUTES** structure that could not be found.<br/>                                                                                                                                                           |
+     * | <dl> <dt>**STATUS\_OBJECT\_PATH\_NOT\_FOUND**</dt> </dl>   | The *ObjectAttributes* parameter contained an **ObjectName** member in the **OBJECT\_ATTRIBUTES** structure with an object path that could not be found. <br/>                                                                                                                                      |
+     * | <dl> <dt>**STATUS\_OBJECT\_PATH\_SYNTAX\_BAD** </dt> </dl> | The *ObjectAttributes* parameter did not contain a **RootDirectory** member, but the **ObjectName** member in the **OBJECT\_ATTRIBUTES** structure was an empty string or did not contain an **OBJECT\_NAME\_PATH\_SEPARATOR** character. This indicates incorrect syntax for the object path.<br/> |
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/ntopendirectoryobject
      */
     static NtOpenDirectoryObject(DirectoryHandle, DesiredAccess, ObjectAttributes) {
         result := DllCall("ntdll.dll\NtOpenDirectoryObject", "ptr", DirectoryHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int")
@@ -3892,11 +3945,14 @@ class FileSystem {
     }
 
     /**
-     * 
-     * @param {Pointer<HANDLE>} LinkHandle 
-     * @param {Integer} DesiredAccess 
-     * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
-     * @returns {NTSTATUS} 
+     * Opens an existing symbolic link.
+     * @remarks
+     * This function has no associated import library or header file; you must call it using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) and [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) functions.
+     * @param {Pointer<HANDLE>} LinkHandle A handle to the newly opened symbolic link object.
+     * @param {Integer} DesiredAccess An [**ACCESS\_MASK**](../secauthz/access-mask.md) that specifies the requested access to the directory object. It is typical to use GENERIC\_READ so the handle can be passed to the [**NtQueryDirectoryObject**](ntquerydirectoryobject.md) function.
+     * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes The attributes for the directory object. To initialize the **OBJECT\_ATTRIBUTES** structure, use the **InitializeObjectAttributes** macro. If the caller is not running in a system thread context, it must specify the **OBJ\_KERNEL\_HANDLE** flag when initializing the structure. For more information, see the documentation for these items in the documentation for the WDK.
+     * @returns {NTSTATUS} The function returns **STATUS\_SUCCESS** or an error status.
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/ntopensymboliclinkobject
      */
     static NtOpenSymbolicLinkObject(LinkHandle, DesiredAccess, ObjectAttributes) {
         result := DllCall("ntdll.dll\NtOpenSymbolicLinkObject", "ptr", LinkHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "int")
@@ -3904,11 +3960,14 @@ class FileSystem {
     }
 
     /**
-     * 
-     * @param {HANDLE} LinkHandle 
-     * @param {Pointer<UNICODE_STRING>} LinkTarget 
-     * @param {Pointer<Integer>} ReturnedLength 
-     * @returns {NTSTATUS} 
+     * Retrieves the target of a symbolic link.
+     * @remarks
+     * This function has no associated import library or header file; you must call it using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) and [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) functions.
+     * @param {HANDLE} LinkHandle A handle to the symbolic link object.
+     * @param {Pointer<UNICODE_STRING>} LinkTarget A pointer to an initialized Unicode string that receives the target of the symbolic link. The **MaximumLength** and **Buffer** members must be set if the call fails.
+     * @param {Pointer<Integer>} ReturnedLength A pointer to a variable that receives the length of the Unicode string returned in the *LinkTarget* parameter. If the function returns **STATUS\_BUFFER\_TOO\_SMALL**, this variable receives the required buffer size.
+     * @returns {NTSTATUS} The function returns **STATUS\_SUCCESS** or an error status.
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/ntquerysymboliclinkobject
      */
     static NtQuerySymbolicLinkObject(LinkHandle, LinkTarget, ReturnedLength) {
         LinkHandle := LinkHandle is Win32Handle ? NumGet(LinkHandle, "ptr") : LinkHandle
@@ -3920,15 +3979,27 @@ class FileSystem {
     }
 
     /**
+     * Retrieves information about the specified directory object.
+     * @remarks
+     * The following is the definition of the **OBJECT\_DIRECTORY\_INFORMATION** structure.
      * 
-     * @param {HANDLE} DirectoryHandle 
+     * ``` syntax
+     * typedef struct _OBJECT_DIRECTORY_INFORMATION {
+     *     UNICODE_STRING Name;
+     *     UNICODE_STRING TypeName;
+     * } OBJECT_DIRECTORY_INFORMATION, *POBJECT_DIRECTORY_INFORMATION;
+     * ```
+     * 
+     * This function has no associated import library or header file; you must call it using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) and [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) functions.
+     * @param {HANDLE} DirectoryHandle A handle to the directory object.
      * @param {Pointer<Void>} Buffer_R 
-     * @param {Integer} Length 
-     * @param {BOOLEAN} ReturnSingleEntry 
-     * @param {BOOLEAN} RestartScan 
-     * @param {Pointer<Integer>} Context 
-     * @param {Pointer<Integer>} ReturnLength 
-     * @returns {NTSTATUS} 
+     * @param {Integer} Length The size of the user-supplied output buffer, in bytes.
+     * @param {BOOLEAN} ReturnSingleEntry Indicates whether the function should return only a single entry.
+     * @param {BOOLEAN} RestartScan Indicates whether to restart the scan or continue the enumeration using the information passed in the *Context* parameter.
+     * @param {Pointer<Integer>} Context The enumeration context.
+     * @param {Pointer<Integer>} ReturnLength A pointer to a variable that receives the length of the directory information returned in the output buffer, in bytes.
+     * @returns {NTSTATUS} The function returns **STATUS\_SUCCESS** or an error status.
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/ntquerydirectoryobject
      */
     static NtQueryDirectoryObject(DirectoryHandle, Buffer_R, Length, ReturnSingleEntry, RestartScan, Context, ReturnLength) {
         DirectoryHandle := DirectoryHandle is Win32Handle ? NumGet(DirectoryHandle, "ptr") : DirectoryHandle
@@ -4655,11 +4726,21 @@ class FileSystem {
     }
 
     /**
+     * Frees a memory block that was allocated from a heap by RtlAllocateHeap.
+     * @param {Pointer<Void>} HeapHandle A handle for the heap whose memory block is to be freed. This parameter is a handle returned by [**RtlCreateHeap**](/windows-hardware/drivers/ddi/ntifs/nf-ntifs-rtlcreateheap).
+     * @param {Integer} Flags A set of flags that controls aspects of freeing a memory block. Specifying the following value overrides the corresponding value that was specified in the *Flags* parameter when the heap was created by [**RtlCreateHeap**](/windows-hardware/drivers/ddi/ntifs/nf-ntifs-rtlcreateheap).
      * 
-     * @param {Pointer<Void>} HeapHandle 
-     * @param {Integer} Flags 
+     * 
+     * 
+     * | Flag                           | Meaning                                                                                   |
+     * |--------------------------------|-------------------------------------------------------------------------------------------|
+     * | HEAP\_NO\_SERIALIZE<br/> | Mutual exclusion will not be used when **RtlFreeHeap** is accessing the heap. <br/> |
      * @param {Pointer<Void>} BaseAddress 
-     * @returns {Integer} 
+     * @returns {Integer} Returns **TRUE** if the block was freed successfully; **FALSE** otherwise.
+     * 
+     * > [!Note]  
+     * > Starting with Windows 8 the return value is typed as **LOGICAL**, which has a different size than **BOOLEAN**.
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/rtlfreeheap
      */
     static RtlFreeHeap(HeapHandle, Flags, BaseAddress) {
         HeapHandleMarshal := HeapHandle is VarRef ? "ptr" : "ptr"
@@ -6117,6 +6198,160 @@ class FileSystem {
 
     /**
      * Creates a new file or directory, or opens an existing file, device, directory, or volume.
+     * @remarks
+     * The handle, given by <b>NtCreateFile</b>, can be used by 
+     *     subsequent calls to manipulate data within the file or the file object's state or attributes.
+     * 
+     * There are two alternate ways to specify the name of the file to be created or opened with 
+     *      <b>NtCreateFile</b>:
+     * 
+     * <ul>
+     * <li>As a fully qualified pathname, supplied in the <b>ObjectName</b> member of the input 
+     *       <i>ObjectAttributes</i></li>
+     * <li>As a pathname relative to the directory file represented by the handle in the 
+     *       <b>RootDirectory</b> member of the input <i>ObjectAttributes</i></li>
+     * </ul>
+     * Certain <i>DesiredAccess</i> flags and combinations of flags have the following effects:
+     * 
+     * <ul>
+     * <li>For a caller to synchronize an I/O completion by waiting on the returned 
+     *       <i>FileHandle</i>, the <b>SYNCHRONIZE</b> flag must be set.</li>
+     * <li>Passing a zero to <i>DesiredFlags</i> is not valid.</li>
+     * <li>If only the <b>FILE_APPEND_DATA</b> and <b>SYNCHRONIZE</b> flags are 
+     *       set, the caller can write only to the end of the file, and any offset information on writes to the file is 
+     *       ignored. However, the file is automatically  extended as necessary for this type of write operation.</li>
+     * <li>Setting the <b>FILE_WRITE_DATA</b> flag for a file also allows writes beyond the end of 
+     *       the file to occur. The file is automatically extended for this type of write, as well.</li>
+     * <li>If only the <b>FILE_EXECUTE</b> and <b>SYNCHRONIZE</b> flags are set, 
+     *       the caller cannot directly read or write any data in the file using the returned 
+     *       <i>FileHandle</i>, that is, all operations on the file occur through the system pager in 
+     *       response to instruction and data accesses. </li>
+     * </ul>
+     * The <i>ShareAccess</i> parameter determines whether separate threads can access the same file, 
+     *     possibly simultaneously. Provided that both file openers have the privilege to access a file in the specified 
+     *     manner, the file can be successfully opened and shared. If the original caller of 
+     *     <b>NtCreateFile</b> does not specify 
+     *     <b>FILE_SHARE_READ</b>, <b>FILE_SHARE_WRITE</b>, or 
+     *     <b>FILE_SHARE_DELETE</b>, no other open operations can be performed on the file; that is, the 
+     *     original caller is given exclusive access to the file.
+     * 
+     * For a shared file to be successfully opened, the requested <i>DesiredAccess</i> parameter to 
+     *      the file must be compatible with both the <i>DesiredAccess</i> and 
+     *      <i>ShareAccess</i> specifications of all preceding opens that have not yet been released with 
+     *      <b>NtClose</b>. That is, the <i>DesiredAccess</i> parameter 
+     *      specified to <b>NtCreateFile</b> for a given file must not 
+     *      conflict with the accesses that other openers of the file have disallowed.
+     * 
+     * The <i>CreateDisposition</i> value <b>FILE_SUPERSEDE</b> requires that 
+     *      the caller have <b>DELETE</b> access to an existing file object. If so, a successful call to 
+     *      <b>NtCreateFile</b> with 
+     *      <b>FILE_SUPERSEDE</b> on an existing file effectively deletes that file, and then re-creates 
+     *      it. This implies that, if the file has already been opened by another thread, it opened the file by specifying a 
+     *      <i>ShareAccess</i> parameter with the <b>FILE_SHARE_DELETE</b> flag set. 
+     *      Note that this type of disposition is consistent with the POSIX style of overwriting files. The 
+     *      <i>CreateDisposition</i> values <b>FILE_OVERWRITE_IF</b> and 
+     *      <b>FILE_SUPERSEDE</b> are similar. If <b>ZwCreateFile</b> is called 
+     *      with an existing file and either of these <i>CreateDisposition</i> values, the file is 
+     *      replaced.
+     * 
+     * Overwriting a file is semantically equivalent to a supersede operation, except for the following:
+     * 
+     * <ul>
+     * <li>The caller must have write access to the file, rather than delete access. This implies that, if the file 
+     *       has already been opened by another thread, it opened the file with the 
+     *       <b>FILE_SHARE_WRITE</b> flag set in the input <i>ShareAccess</i> 
+     *       parameter.</li>
+     * <li>The specified file attributes are logically ORed with those already on the file. This implies that, if the 
+     *       file has already been opened by another thread, a subsequent caller of 
+     *       <b>NtCreateFile</b> cannot disable existing 
+     *       <i>FileAttributes</i> flags but can enable additional flags for the same file. Note that this 
+     *       style of overwriting files is consistent with MS-DOS, Windows 3.1, and  OS/2 operating systems.</li>
+     * </ul>
+     * The <i>CreateOptions</i> <b>FILE_DIRECTORY_FILE</b> value specifies that the file to be created or opened is a 
+     *      directory file. When a directory file is created, the file system creates an appropriate structure on the disk to 
+     *      represent an empty directory for that particular file system's on-disk structure. If this option was specified 
+     *      and the given file to be opened is not a directory file, or if the caller specified an inconsistent 
+     *      <i>CreateOptions</i> or <i>CreateDisposition</i> value, the call to 
+     *      <b>NtCreateFile</b> fails.
+     * 
+     * The <i>CreateOptions</i> <b>FILE_NO_INTERMEDIATE_BUFFERING</b> flag prevents the file system from performing any 
+     *      intermediate buffering on behalf of the caller. Specifying this value places certain restrictions on the caller's 
+     *      parameters to other <b>Nt<i>XXX</i>File</b> routines, including the 
+     *      following:
+     * 
+     * <ul>
+     * <li>Any optional <i>ByteOffset</i> passed to  the 
+     *       <b>NtReadFile</b> or <b>NtWriteFile</b> function must be an 
+     *       integral of the sector size.</li>
+     * <li>The <i>Length</i> passed to <b>NtReadFile</b> or 
+     *       <b>NtWriteFile</b>, must be an integral of the sector size. Note that specifying a 
+     *       read operation to a buffer whose length is exactly the sector size might result in a lesser number of 
+     *       significant bytes being transferred to that buffer if the end of the file was reached during the transfer.</li>
+     * <li>Buffers must be adjusted in accordance with the alignment requirement of the underlying device. This 
+     *       information can be obtained by calling <b>NtCreateFile</b> 
+     *       to get a handle for the file object that represents the physical device, and then calling 
+     *       <b>NtQueryInformationFile</b> with that handle. For a list of the system 
+     *        <b>FILE_</b><i>XXX</i><b>_ALIGNMENT</b> values, see 
+     *        the Windows SDK documentation.</li>
+     * <li>Calls to <b>NtSetInformationFile</b> with the 
+     *       <i>FileInformationClass</i> parameter set to 
+     *       <b>FilePositionInformation</b> must specify an offset that is an integral of the 
+     *       sector size.</li>
+     * </ul>
+     * The <i>CreateOptions</i> <b>FILE_SYNCHRONOUS_IO_ALERT</b> and <b>FILE_SYNCHRONOUS_IO_NONALERT</b> flags, 
+     *      which are mutually exclusive as their names suggest, specify that all I/O operations on the file are to be 
+     *      synchronous as long as they occur through the file object referred to by the returned 
+     *      <i>FileHandle</i>. All I/O on such a file is serialized across all threads using the returned 
+     *      handle. With either of these <i>CreateOptions</i>, the <i>DesiredAccess</i> <b>SYNCHRONIZE</b> flag must be set so that the I/O Manager  uses the 
+     *      file object as a synchronization object. With either of these <i>CreateOptions</i> set, the 
+     *      I/O Manager maintains the "file position context" for the file object, an internal, current file position offset. 
+     *      This offset can be used in calls to <b>NtReadFile</b> and 
+     *      <b>NtWriteFile</b>. Its position also can be queried or set with 
+     *      <b>NtQueryInformationFile</b> and 
+     *      <b>NtSetInformationFile</b>.
+     * 
+     * If the <i>CreateOptions</i> parameter specifies the <b>FILE_OPEN_REPARSE_POINT</b> flag and <b>NtCreateFile</b> opens a file with a reparse point, normal reparse processing does not occur and <b>NtCreateFile</b> attempts to directly open the reparse point file. If the <b>FILE_OPEN_REPARSE_POINT</b> flag is not specified, normal reparse point processing occurs for the file. In either case, if the open operation was successful, <b>NtCreateFile</b> returns <b>STATUS_SUCCESS</b>; otherwise, an error code. The <b>NtCreateFile</b> function never returns <b>STATUS_REPARSE</b>.
+     * 
+     * The <i>CreateOptions</i> parameter's <b>FILE_OPEN_REQUIRING_OPLOCK</b> flag eliminates the time between when you open the file and request an oplock that could potentially allow a third party to open the file, which would cause a sharing violation. An application can use the <b>FILE_OPEN_REQUIRING_OPLOCK</b> flag with <b>NtCreateFile</b> and then request any oplock. This ensures that an oplock owner will be notified of any subsequent open request that causes a sharing violation. 
+     * 
+     * In Windows 7, if other handles exist on the file when an application uses this flag, the create operation will fail with <b>STATUS_OPLOCK_NOT_GRANTED</b>. This restriction no longer exists starting with Windows 8.
+     * 
+     * If this create operation would break an oplock that already exists on the file, then setting the <b>FILE_OPEN_REQUIRING_OPLOCK</b> flag will cause the create operation to fail with <b>STATUS_CANNOT_BREAK_OPLOCK</b>. The existing oplock will not be broken by this create operation.
+     * 
+     * An application that uses this flag must request an oplock after this call succeeds, or all subsequent attempts to open the file will be blocked without the benefit of normal oplock processing. Similarly, if this call succeeds but the subsequent oplock request fails, an application that uses this flag must close its handle after it detects that the oplock request has failed.
+     * 
+     * <div class="alert"><b>Note</b>  The <b>FILE_OPEN_REQUIRING_OPLOCK</b> flag is available in Windows 7, Windows Server 2008 R2 and later operating systems for the following file systems: NTFS, FAT, and exFAT.
+     * </div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * The <i>CreateOptions</i> parameter's <b>FILE_RESERVE_OPFILTER</b> flag allows an application to request a Level 1, Batch, or Filter oplock to prevent other applications from getting share violations. However, in practical terms, the <b>FILE_RESERVE_OPFILTER</b> is useful only for filter oplocks. To use it, you must complete the following steps:
+     * 
+     * 
+     * 
+     * <ol>
+     * <li>Issue a create request with <i>CreateOptions</i> of <b>FILE_RESERVE_OPFILTER</b>, <i>DesiredAccess</i> of exactly <b>FILE_READ_ATTRIBUTES</b>, and <i>ShareAccess</i> of exactly <c>(FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE)</c>. Possible failures are as follows:<ul>
+     * <li>If there are already open handles, the create request fails with <b>STATUS_OPLOCK_NOT_GRANTED</b>, and the next requested oplock also fails. </li>
+     * <li>If you open with more access than <b>FILE_READ_ATTRIBUTES</b>  or less sharing than <c>(FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE)</c>, the request  fails with <b>STATUS_OPLOCK_NOT_GRANTED</b>.</li>
+     * </ul>
+     * </li>
+     * <li>If the create request succeeds, request an oplock.</li>
+     * <li>Open another handle to the file to do I/O.</li>
+     * </ol>Step three makes this practical only for filter oplocks. The handle opened in step three can have a <i>DesiredAccess</i> that contains a maximum of <c>(FILE_READ_ATTRIBUTES | FILE_WRITE_ATTRIBUTES | FILE_READ_DATA | FILE_READ_EA | FILE_EXECUTE | SYNCHRONIZE | READ_CONTROL)</code> and still not break a filter oplock. However, any <i>DesiredAccess</i> greater than <code>(FILE_READ_ATTRIBUTES | FILE_WRITE_ATTRIBUTES | SYNCHRONIZE)</c> will break a Level 1 or Batch oplock and make the <b>FILE_RESERVE_OPFILTER</b> flag useless for those oplock types.
+     * 
+     * 
+     * 
+     * NTFS is the only Microsoft file system that implements <b>FILE_RESERVE_OPFILTER</b>.
+     * 
+     * For more information on oplocks, see <a href="https://msdn.microsoft.com/library/dd445267.aspx">Oplock Semantics</a>.
+     * 
+     * Note that the WDK header file NtDef.h is necessary for many constant definitions 
+     *     as well as the <b>InitializeObjectAttributes</b> macro. The associated import library, 
+     *     NtDll.lib is available in the WDK. To obtain the WDK, see <a href="https://docs.microsoft.com/windows-hardware/drivers/download-the-wdk">Download kits for Windows hardware development</a>. You can also use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to 
+     *     NtDll.dll.
      * @param {Pointer<HANDLE>} FileHandle A pointer to a variable that receives the file handle if the call is successful.
      * @param {Integer} DesiredAccess The <b>ACCESS_MASK</b> value that expresses the type of access that the caller 
      *       requires to the file or directory. The set of system-defined <i>DesiredAccess</i> flags 
@@ -6661,7 +6896,7 @@ class FileSystem {
      *       <b>STATUS_SUCCESS</b> or an appropriate error status. If it returns an error status, the 
      *       caller can find more information about the cause of the failure by checking the 
      *       <i>IoStatusBlock</i>. To simplify this check, an application can use the <b>NT_SUCCESS</b>, <b>NT_ERROR</b>, and <b>NT_WARNING</b> macros.
-     * @see https://docs.microsoft.com/windows/win32/api//winternl/nf-winternl-ntcreatefile
+     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntcreatefile
      */
     static NtCreateFile(FileHandle, DesiredAccess, ObjectAttributes, IoStatusBlock, AllocationSize, FileAttributes, ShareAccess, CreateDisposition, CreateOptions, EaBuffer, EaLength) {
         AllocationSizeMarshal := AllocationSize is VarRef ? "int64*" : "ptr"
@@ -6672,6 +6907,28 @@ class FileSystem {
 
     /**
      * Opens an existing file, device, directory, or volume, and returns a handle for the file object.
+     * @remarks
+     * Before using this function, please read 
+     *     <a href="https://docs.microsoft.com/windows/desktop/DevNotes/calling-internal-apis">Calling Internal APIs</a>.
+     * 
+     * Driver routines that run in a process context other than that of the system process must set the 
+     *      <b>OBJ_KERNEL_HANDLE</b> attribute for the <i>ObjectAttributes</i> 
+     *      parameter of <b>ZwOpenFile</b>. This restricts the use of the handle returned by 
+     *      <b>ZwOpenFile</b> to processes running only in kernel mode. Otherwise, the handle can 
+     *      be accessed by the process in whose context the driver is running. Drivers can call 
+     *      <b>InitializeObjectAttributes</b> to set the 
+     *      <b>OBJ_KERNEL_HANDLE</b> attribute as follows.
+     * 
+     * <c>InitializeObjectAttributes(&amp;ObjectAddributes, NULL, OBJ_KERNEL_HANDLE, NULL, NULL);</c>
+     * 
+     * Callers of <b>ZwCreateFile</b> must be running at IRQL = PASSIVE_LEVEL.
+     * 
+     * Note that the WDK header file Ntdef.h is necessary for many constant definitions 
+     *     as well as the <b>InitializeObjectAttributes</b> macro. The associated import library, 
+     *     Ntdll.lib is available in the WDK. You can also use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to 
+     *     Ntdll.dll.
      * @param {Pointer<HANDLE>} FileHandle A pointer to a handle for the opened file. The driver must close the handle with 
      *       <b>ZwClose</b> once the handle is no longer in use.
      * @param {Integer} DesiredAccess The <b>ACCESS_MASK</b> value that expresses the types of file access desired by the 
@@ -6681,7 +6938,7 @@ class FileSystem {
      *       <b>InitializeObjectAttributes</b>. If the caller is not running in the system process 
      *       context, it must set the <b>OBJ_KERNEL_HANDLE</b> attribute for 
      *       <i>ObjectAttributes</i>. For more information about specifying object attributes, see 
-     *       <b>ZwCreateFile</b> in the WDK.
+     *       the <i>CreateOptions</i> parameter of <b>ZwCreateFile</b> in the WDK.
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock A pointer to a structure that contains information about the requested operation and the final completion 
      *       status.
      * @param {Integer} ShareAccess The type of share access for the file. For more information, see 
@@ -6692,7 +6949,7 @@ class FileSystem {
      *        <b>STATUS_SUCCESS</b> or an appropriate error status. If it returns an error status, the 
      *        caller can find additional information about the cause of the failure by checking the 
      *        <i>IoStatusBlock</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//winternl/nf-winternl-ntopenfile
+     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntopenfile
      */
     static NtOpenFile(FileHandle, DesiredAccess, ObjectAttributes, IoStatusBlock, ShareAccess, OpenOptions) {
         result := DllCall("ntdll.dll\NtOpenFile", "ptr", FileHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", IoStatusBlock, "uint", ShareAccess, "uint", OpenOptions, "int")
@@ -6730,17 +6987,58 @@ class FileSystem {
     }
 
     /**
+     * Reads data from an open file.
+     * @remarks
+     * Callers of **NtReadFile** must have already called [**NtCreateFile**](/windows/desktop/api/Winternl/nf-winternl-ntcreatefile) with the FILE\_READ\_DATA or GENERIC\_READ value set in the *DesiredAccess* parameter.
      * 
-     * @param {HANDLE} FileHandle 
-     * @param {HANDLE} Event 
-     * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
-     * @param {Pointer<Void>} ApcContext 
-     * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
+     * If the preceding call to [**NtCreateFile**](/windows/desktop/api/Winternl/nf-winternl-ntcreatefile) set the FILE\_NO\_INTERMEDIATE\_BUFFERING flag in the *CreateOptions* parameter to **NtCreateFile**, the *Length* and *ByteOffset* parameters to **NtReadFile** must be multiples of the sector size. For more information, see **NtCreateFile**.
+     * 
+     * **NtReadFile** begins reading from the given *ByteOffset* or the current file position into the given *Buffer*. It terminates the read operation under one of the following conditions:
+     * 
+     * -   The buffer is full because the number of bytes specified by the *Length* parameter has been read. Therefore, no more data can be placed into the buffer without an overflow.
+     * 
+     * -   The end of file is reached during the read operation, so there is no more data in the file to be transferred into the buffer.
+     * 
+     * If the caller opened the file with the SYNCHRONIZE flag set in *DesiredAccess*, the calling thread can synchronize to the completion of the read operation by waiting on the file handle, *FileHandle*. The handle is signaled each time that an I/O operation that was issued on the handle completes. However, the caller must not wait on a handle that was opened for synchronous file access (FILE\_SYNCHRONOUS\_IO\_NONALERT or FILE\_SYNCHRONOUS\_IO\_ALERT). In this case, **NtReadFile** waits on behalf of the caller and does not return until the read operation is complete. The caller can safely wait on the file handle only if all three of the following conditions are met:
+     * 
+     * -   The handle was opened for asynchronous access (that is, neither FILE\_SYNCHRONOUS\_IO\_*XXX* flag was specified).
+     * 
+     * -   The handle is being used for only one I/O operation at a time.
+     * 
+     * -   **NtReadFile** returned STATUS\_PENDING.
+     * 
+     * A driver should call **NtReadFile** in the context of the system process if any of the following conditions exist:
+     * 
+     * -   The driver created the file handle that it passes to **NtReadFile**.
+     * 
+     * -   **NtReadFile** will notify the driver of I/O completion by means of an event that the driver created.
+     * 
+     * -   **NtReadFile** will notify the driver of I/O completion by means of an APC callback routine that the driver passes to **NtReadFile**.
+     * 
+     * File and event handles are valid only in the process context where the handles are created. Therefore, to avoid security holes, the driver should create any file or event handle that it passes to **NtReadFile** in the context of the system process rather than the context of the process that the driver is in.
+     * 
+     * Likewise, **NtReadFile** should be called in the context of the system process if it notifies the driver of I/O completion by means of an APC, because APCs are always fired in the context of the thread that issues the I/O request. If the driver calls **NtReadFile** in the context of a process other than the system one, the APC could be delayed indefinitely, or it might not fire at all.
+     * 
+     * For more information about working with files, see [Using Files in a Driver](/windows-hardware/drivers/kernel/using-files-in-a-driver).
+     * 
+     * Callers of **NtReadFile** must be running at IRQL = PASSIVE\_LEVEL and [with special kernel APCs enabled](/windows-hardware/drivers/kernel/disabling-apcs).
+     * @param {HANDLE} FileHandle Handle to the file object. This handle is created by a successful call to [**NtCreateFile**](/windows/desktop/api/Winternl/nf-winternl-ntcreatefile) or [**NtOpenFile**](/windows/desktop/api/Winternl/nf-winternl-ntopenfile).
+     * @param {HANDLE} Event Optionally, a handle to an event object to set to the signaled state after the read operation completes. Device and intermediate drivers should set this parameter to **NULL**.
+     * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine This parameter is reserved. Device and intermediate drivers should set this pointer to **NULL**.
+     * @param {Pointer<Void>} ApcContext This parameter is reserved. Device and intermediate drivers should set this pointer to **NULL**.
+     * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock Pointer to an [**IO\_STATUS\_BLOCK**](/windows-hardware/drivers/ddi/wdm/ns-wdm-_io_status_block) structure that receives the final completion status and information about the requested read operation. The **Information** member receives the number of bytes actually read from the file.
      * @param {Pointer} Buffer_R 
-     * @param {Integer} Length 
-     * @param {Pointer<Integer>} ByteOffset 
-     * @param {Pointer<Integer>} Key 
-     * @returns {NTSTATUS} 
+     * @param {Integer} Length The size, in bytes, of the buffer pointed to by *Buffer*.
+     * @param {Pointer<Integer>} ByteOffset Pointer to a variable that specifies the starting byte offset in the file where the read operation will begin. If an attempt is made to read beyond the end of the file, **NtReadFile** returns an error.
+     * 
+     * If the call to [**NtCreateFile**](/windows/desktop/api/Winternl/nf-winternl-ntcreatefile) set either of the *CreateOptions* flags FILE\_SYNCHRONOUS\_IO\_ALERT or FILE\_SYNCHRONOUS\_IO\_NONALERT, the I/O Manager maintains the current file position. If so, the caller of **NtReadFile** can specify that the current file position offset be used instead of an explicit *ByteOffset* value. This specification can be made by using one of the following methods:
+     * 
+     * -   Specify a pointer to a **LARGE\_INTEGER** value with the **HighPart** member set to -1 and the **LowPart** member set to the system-defined value FILE\_USE\_FILE\_POINTER\_POSITION.
+     * 
+     * -   Pass a **NULL** pointer for *ByteOffset*.
+     * @param {Pointer<Integer>} Key Device and intermediate drivers should set this pointer to **NULL**.
+     * @returns {NTSTATUS} **NtReadFile** returns either STATUS\_SUCCESS or the appropriate NTSTATUS error code.
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/ntreadfile
      */
     static NtReadFile(FileHandle, Event, ApcRoutine, ApcContext, IoStatusBlock, Buffer_R, Length, ByteOffset, Key) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
@@ -12320,8 +12618,12 @@ class FileSystem {
 
     /**
      * Creates an instance of SspiAsyncContext which is used to track the async call.
+     * @remarks
+     * When done, the caller must free the async context with [SspiFreeAsyncContext](nf-sspi-sspifreeasynccontext.md)
+     * 
+     * While the instance's lifetime is the single async operation, it can be reused by calling [SspiReinitAsyncContext](nf-sspi-sspireinitasynccontext.md) after the operation has completed.
      * @returns {Pointer<SspiAsyncContext>} Returns the initialized SspiAsyncContext.
-     * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-sspicreateasynccontext
+     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-sspicreateasynccontext
      */
     static SspiCreateAsyncContext() {
         result := DllCall("ksecdd.sys\SspiCreateAsyncContext", "ptr")
@@ -12331,13 +12633,10 @@ class FileSystem {
     /**
      * Frees up a context created in the call to the SspiCreateAsyncContext function.
      * @remarks
-     * 
      * For all operations that require notification of completion, SspiFreeAsyncContext must not be called until the async operation is complete and the callback has been invoked. Calling [SspiGetAsyncCallStatus](nf-sspi-sspigetasynccallstatus.md) will return status != SEC_I_ASYNC_CALL_PENDING to indicate the async operation has not completed.
-     * 
-     * 
      * @param {Pointer<SspiAsyncContext>} Handle The async call context to free.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-sspifreeasynccontext
+     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-sspifreeasynccontext
      */
     static SspiFreeAsyncContext(Handle) {
         HandleMarshal := Handle is VarRef ? "ptr*" : "ptr"
@@ -12347,9 +12646,11 @@ class FileSystem {
 
     /**
      * Marks an async context for reuse.
+     * @remarks
+     * Only the context state is altered. Client notification info, such as callback, is left alone.
      * @param {Pointer<SspiAsyncContext>} Handle The async context handle.
      * @returns {NTSTATUS} If the context is invalid or currently in use, an error will be returned.
-     * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-sspireinitasynccontext
+     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-sspireinitasynccontext
      */
     static SspiReinitAsyncContext(Handle) {
         HandleMarshal := Handle is VarRef ? "ptr*" : "ptr"
@@ -12360,11 +12661,16 @@ class FileSystem {
 
     /**
      * Registers a callback that is notified on async call completion.
+     * @remarks
+     * The *Callback* and *CallbackData* parameters can be set to **null** in order to specify that the caller is not interested in the result of the operation. 
+     * 
+     * > [!NOTE]
+     * > Setting the callback to null is only supported for [SspiDeleteSecurityContextAsync](nf-sspi-sspideletesecuritycontextasync.md)
      * @param {Pointer<SspiAsyncContext>} Context The async call context.
      * @param {Pointer<SspiAsyncNotifyCallback>} Callback The SspiAsyncNotifyCallback that will be notified on call completion.
      * @param {Pointer<Void>} CallbackData An opaque pointer that is passed to [SspiAsyncNotifyCallback](nc-sspi-sspiasyncnotifycallback.md).
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-sspisetasyncnotifycallback
+     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-sspisetasyncnotifycallback
      */
     static SspiSetAsyncNotifyCallback(Context, Callback, CallbackData) {
         ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
@@ -12384,7 +12690,7 @@ class FileSystem {
      * @returns {HRESULT} When complete, returns the status of the async request. If the function succeeded, SspiGetAsyncCallStatus will return **SEC_E_OK**. Otherwise, refer to the respective API called to see return error codes and their respective descriptions.
      * 
      * Until the call is completed, status is **SEC_I_ASYNC_CALL_PENDING**.
-     * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-sspigetasynccallstatus
+     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-sspigetasynccallstatus
      */
     static SspiGetAsyncCallStatus(Handle) {
         HandleMarshal := Handle is VarRef ? "ptr*" : "ptr"
@@ -12398,7 +12704,23 @@ class FileSystem {
     }
 
     /**
-     * Asynchronously acquires a handle to preexisting credentials of a security principal.
+     * Asynchronously acquires a handle to preexisting credentials of a security principal. (Unicode)
+     * @remarks
+     * The **SspiAcquireCredentialsHandleAsyncW** function returns a handle to the credentials of a principal, such as a user or client, as used by a specific [security package](/windows/desktop/SecGloss/s-gly). The function can return the handle to either preexisting credentials or newly created credentials and return it. This handle can be used in subsequent calls to the 
+     * [SspiAcceptSecurityContextAsync](nf-sspi-sspiacceptsecuritycontextasync.md) and 
+     * [SspiInitializeSecurityContextAsync](nf-sspi-sspiinitializesecuritycontextasynca.md) functions.
+     * 
+     * In general, **SspiAcquireCredentialsHandleAsyncW** does not provide  the credentials of other users logged on to the same computer. However, a caller with SE_TCB_NAME  [privilege](/windows/desktop/SecGloss/p-gly) can obtain the [credentials](/windows/desktop/SecGloss/c-gly) of an existing logon session by specifying the [logon identifier](/windows/desktop/SecGloss/l-gly) (LUID) of that session. Typically, this is used by kernel-mode modules that must act on behalf of a logged-on user.
+     * 
+     * A package might call the function in *pGetKeyFn* provided by the RPC run-time transport. If the transport does not support the notion of callback to retrieve credentials, this parameter must be **NULL**.
+     * 
+     * For kernel mode callers, the following differences must be noted:
+     * 
+     * - The two string parameters must be [Unicode](/windows/desktop/SecGloss/u-gly) strings.
+     * - The buffer values must be allocated in process virtual memory, not from the pool.
+     * 
+     * When you have finished using the returned credentials, free the memory used by the credentials by calling the 
+     * [SspiFreeCredentialsHandleAsync](nf-sspi-sspifreecredentialshandleasync.md) function.
      * @param {Pointer<SspiAsyncContext>} AsyncContext The async call context.
      * @param {Pointer<UNICODE_STRING>} pszPrincipal A pointer to a null-terminated string that specifies the name of the principal whose credentials the handle will reference asynchronously.
      * 
@@ -12419,7 +12741,7 @@ class FileSystem {
      * 
      * If the handle was acquired, SspiGetAsyncCallStatus returns **SEC_E_OK**. Otherwise, it may return *SEC_I_ASYNC_CALL_PENDING* if the call is still in progress, or any of the following fatal error codes in the table below.
      * 
-     * |<div style="width:40%">Return code</div>|<div style="width:60%">Description</div>|
+     * |<div>Return code</div>|<div>Description</div>|
      * |---|---|
      * | **SEC_E_INSUFFICIENT_MEMORY** | There is insufficient memory available to complete the requested action. |
      * | **SEC_E_INTERNAL_ERROR** | An error occurred that did not map to an SSPI error code. |
@@ -12427,7 +12749,7 @@ class FileSystem {
      * | **SEC_E_NOT_OWNER** | The caller of the function does not have the necessary credentials. |
      * | **SEC_E_SECPKG_NOT_FOUND** | The requested security package does not exist.|
      * | **SEC_E_UNKNOWN_CREDENTIALS** | The credentials supplied to the package were not recognized. |
-     * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-sspiacquirecredentialshandleasyncw
+     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-sspiacquirecredentialshandleasyncw
      */
     static SspiAcquireCredentialsHandleAsyncW(AsyncContext, pszPrincipal, pszPackage, fCredentialUse, pvLogonId, pAuthData, pGetKeyFn, pvGetKeyArgument, phCredential, ptsExpiry) {
         AsyncContextMarshal := AsyncContext is VarRef ? "ptr*" : "ptr"
@@ -12445,7 +12767,23 @@ class FileSystem {
     }
 
     /**
-     * Asynchronously acquires a handle to preexisting credentials of a security principal.
+     * Asynchronously acquires a handle to preexisting credentials of a security principal. (ANSI)
+     * @remarks
+     * The **SspiAcquireCredentialsHandleAsyncA** function returns a handle to the credentials of a principal, such as a user or client, as used by a specific [security package](/windows/desktop/SecGloss/s-gly). The function can return the handle to either preexisting credentials or newly created credentials and return it. This handle can be used in subsequent calls to the 
+     * [SspiAcceptSecurityContextAsync](nf-sspi-sspiacceptsecuritycontextasync.md) and 
+     * [SspiInitializeSecurityContextAsync](nf-sspi-sspiinitializesecuritycontextasynca.md) functions.
+     * 
+     * In general, **SspiAcquireCredentialsHandleAsyncA** does not provide  the credentials of other users logged on to the same computer. However, a caller with SE_TCB_NAME  [privilege](/windows/desktop/SecGloss/p-gly) can obtain the [credentials](/windows/desktop/SecGloss/c-gly) of an existing logon session by specifying the [logon identifier](/windows/desktop/SecGloss/l-gly) (LUID) of that session. Typically, this is used by kernel-mode modules that must act on behalf of a logged-on user.
+     * 
+     * A package might call the function in *pGetKeyFn* provided by the RPC run-time transport. If the transport does not support the notion of callback to retrieve credentials, this parameter must be **NULL**.
+     * 
+     * For kernel mode callers, the following differences must be noted:
+     * 
+     * - The two string parameters must be [Unicode](/windows/desktop/SecGloss/u-gly) strings.
+     * - The buffer values must be allocated in process virtual memory, not from the pool.
+     * 
+     * When you have finished using the returned credentials, free the memory used by the credentials by calling the 
+     * [SspiFreeCredentialsHandleAsync](nf-sspi-sspifreecredentialshandleasync.md) function.
      * @param {Pointer<SspiAsyncContext>} AsyncContext The async call context.
      * @param {PSTR} pszPrincipal A pointer to a null-terminated string that specifies the name of the principal whose credentials the handle will reference asynchronously.
      * @param {PSTR} pszPackage A pointer to a null-terminated string that specifies the name of the [security package](/windows/desktop/SecGloss/s-gly) with which these credentials will be used. 
@@ -12462,7 +12800,7 @@ class FileSystem {
      * 
      * If the handle was acquired, SspiGetAsyncCallStatus returns **SEC_E_OK**. Otherwise, it may return *SEC_I_ASYNC_CALL_PENDING* if the call is still in progress, or any of the following fatal error codes in the table below.
      * 
-     * |<div style="width:40%">Return code</div>|<div style="width:60%">Description</div>|
+     * |<div>Return code</div>|<div>Description</div>|
      * |---|---|
      * | **SEC_E_INSUFFICIENT_MEMORY** | There is insufficient memory available to complete the requested action. |
      * | **SEC_E_INTERNAL_ERROR** | An error occurred that did not map to an SSPI error code. |
@@ -12470,7 +12808,7 @@ class FileSystem {
      * | **SEC_E_NOT_OWNER** | The caller of the function does not have the necessary credentials. |
      * | **SEC_E_SECPKG_NOT_FOUND** | The requested security package does not exist.|
      * | **SEC_E_UNKNOWN_CREDENTIALS** | The credentials supplied to the package were not recognized. |
-     * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-sspiacquirecredentialshandleasynca
+     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-sspiacquirecredentialshandleasynca
      */
     static SspiAcquireCredentialsHandleAsyncA(AsyncContext, pszPrincipal, pszPackage, fCredentialUse, pvLogonId, pAuthData, pGetKeyFn, pvGetKeyArgument, phCredential, ptsExpiry) {
         pszPrincipal := pszPrincipal is String ? StrPtr(pszPrincipal) : pszPrincipal
@@ -12491,7 +12829,9 @@ class FileSystem {
     }
 
     /**
-     * Initializes an async security context.
+     * Initializes an async security context. (Unicode)
+     * @remarks
+     * See [InitializeSecurityContext](/windows/win32/secauthn/initializesecuritycontext--general#remarks) for complete remarks.
      * @param {Pointer<SspiAsyncContext>} AsyncContext The async call context.
      * @param {Pointer<SecHandle>} phCredential A handle to the credentials returned by 
      * [AcquireCredentialsHandle](nf-sspi-sspiacquirecredentialshandleasynca.md). This handle is used to build the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a>.
@@ -12519,7 +12859,7 @@ class FileSystem {
      * 
      * If the security context received from the server was accepted, SspiGetAsyncCallStatus returns **SEC_E_OK** or one of the SSPI codes in the table below. Otherwise, it may return **SEC_I_ASYNC_CALL_PENDING** if the call is still in progress, or any of the following fatal error codes in the second table below.
      * 
-     * |<div style="width:40%">Return code</div>|<div style="width:60%">Description</div>|
+     * |<div>Return code</div>|<div>Description</div>|
      * |---|---|
      * |**SEC_I_COMPLETE_AND_CONTINUE**<br>0x00090314L| The client must call [CompleteAuthToken](/windows/desktop/api/sspi/nf-sspi-completeauthtoken) and pass the output token to the server. The client then waits for a returned token and passes it, in another call, to SspiInitializeSecurityContextAsyncA. |
      * |**SEC_I_COMPLETE_NEEDED**<br>0x00090313L |  The client must finish building the message from the server before calling [CompleteAuthToken](/windows/desktop/api/sspi/nf-sspi-completeauthtoken).|
@@ -12527,7 +12867,7 @@ class FileSystem {
      * | **SEC_I_INCOMPLETE_CREDENTIALS** | Use with Schannel. The server has requested client authentication, and the supplied credentials either do not include a certificate or the certificate was not issued by a certification authority that is trusted by the server. |
      * |**SEC_E_INCOMPLETE_MESSAGE**<br>0x80090318L |  Data for the whole message was not read from the wire. When this value is returned, the pInput buffer contains a SecBuffer structure with a BufferType member of SECBUFFER_MISSING. The cbBuffer member of SecBuffer contains a value that indicates the number of additional bytes that the function must read from the client before this function succeeds. While this number is not always accurate, using it can help improve performance by avoiding multiple calls to this function.|
      * |**SEC_E_OK**<br>0x00000000L| The security context received from the client was accepted. If the function generated an output token, the token must be sent to the server.|
-     * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-sspiinitializesecuritycontextasyncw
+     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-sspiinitializesecuritycontextasyncw
      */
     static SspiInitializeSecurityContextAsyncW(AsyncContext, phCredential, phContext, pszTargetName, fContextReq, Reserved1, TargetDataRep, pInput, Reserved2, phNewContext, pOutput, pfContextAttr, ptsExpiry) {
         AsyncContextMarshal := AsyncContext is VarRef ? "ptr*" : "ptr"
@@ -12543,7 +12883,9 @@ class FileSystem {
     }
 
     /**
-     * Initializes an async security context.
+     * Initializes an async security context. (ANSI)
+     * @remarks
+     * See [InitializeSecurityContext](/windows/win32/secauthn/initializesecuritycontext--general#remarks) for complete remarks.
      * @param {Pointer<SspiAsyncContext>} AsyncContext The async call context.
      * @param {Pointer<SecHandle>} phCredential A handle to the credentials returned by 
      * [AcquireCredentialsHandle](nf-sspi-sspiacquirecredentialshandleasynca.md). This handle is used to build the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a>.
@@ -12571,7 +12913,7 @@ class FileSystem {
      * 
      * If the security context received from the server was accepted, SspiGetAsyncCallStatus returns **SEC_E_OK** or one of the SSPI codes in the table below. Otherwise, it may return **SEC_I_ASYNC_CALL_PENDING** if the call is still in progress, or any of the following fatal error codes in the second table below.
      * 
-     * |<div style="width:40%">Return code</div>|<div style="width:60%">Description</div>|
+     * |<div>Return code</div>|<div>Description</div>|
      * |---|---|
      * |**SEC_I_COMPLETE_AND_CONTINUE**<br>0x00090314L| The client must call [CompleteAuthToken](/windows/desktop/api/sspi/nf-sspi-completeauthtoken) and pass the output token to the server. The client then waits for a returned token and passes it, in another call, to SspiInitializeSecurityContextAsyncA. |
      * |**SEC_I_COMPLETE_NEEDED**<br>0x00090313L |  The client must finish building the message from the server before calling [CompleteAuthToken](/windows/desktop/api/sspi/nf-sspi-completeauthtoken).|
@@ -12579,7 +12921,7 @@ class FileSystem {
      * | **SEC_I_INCOMPLETE_CREDENTIALS** | Use with Schannel. The server has requested client authentication, and the supplied credentials either do not include a certificate or the certificate was not issued by a certification authority that is trusted by the server. |
      * |**SEC_E_INCOMPLETE_MESSAGE**<br>0x80090318L |  Data for the whole message was not read from the wire. When this value is returned, the pInput buffer contains a SecBuffer structure with a BufferType member of SECBUFFER_MISSING. The cbBuffer member of SecBuffer contains a value that indicates the number of additional bytes that the function must read from the client before this function succeeds. While this number is not always accurate, using it can help improve performance by avoiding multiple calls to this function.|
      * |**SEC_E_OK**<br>0x00000000L| The security context received from the client was accepted. If the function generated an output token, the token must be sent to the server.|
-     * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-sspiinitializesecuritycontextasynca
+     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-sspiinitializesecuritycontextasynca
      */
     static SspiInitializeSecurityContextAsyncA(AsyncContext, phCredential, phContext, pszTargetName, fContextReq, Reserved1, TargetDataRep, pInput, Reserved2, phNewContext, pOutput, pfContextAttr, ptsExpiry) {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
@@ -12598,6 +12940,13 @@ class FileSystem {
 
     /**
      * Lets the server component of a transport application asynchronously establish a security context between the server and a remote client.
+     * @remarks
+     * The **SspiAcceptSecurityContextAsync** function is the server counterpart to the 
+     * [SspiInitializeSecurityContextAsync](nf-sspi-sspiinitializesecuritycontextasynca.md) function.
+     * 
+     * The caller is responsible for determining whether the final context attributes are sufficient. For example, if confidentiality (encryption) was requested but could not be established, some applications may choose to shut down the connection immediately. If the security context cannot be established, the server must free the partially created context by calling the [SspiDeleteSecurityContextAsync](nf-sspi-sspideletesecuritycontextasync.md) function.
+     * 
+     * See [AcceptSecurityContext](/windows/win32/secauthn/acceptsecuritycontext--schannel#remarks) for additional remarks.
      * @param {Pointer<SspiAsyncContext>} AsyncContext The async call context.
      * @param {Pointer<SecHandle>} phCredential A handle to the server credentials. To retrieve this handle, the server calls the 
      * [SspiAcquireCredentialsHandleAsync](nf-sspi-sspiacquirecredentialshandleasynca.md) function with either the SECPKG_CRED_INBOUND or SECPKG_CRED_BOTH flag set.
@@ -12626,13 +12975,13 @@ class FileSystem {
      * 
      * If the security context received from the client was accepted, SspiGetAsyncCallStatus returns **SEC_E_OK** or one of the SSPI codes in the table below. Otherwise, it may return **SEC_I_ASYNC_CALL_PENDING** if the call is still in progress, or any of the following fatal error codes in the second table below.
      * 
-     * |<div style="width:40%">Return code</div>|<div style="width:60%">Description</div>|
+     * |<div>Return code</div>|<div>Description</div>|
      * |---|---|
      * |**SEC_E_INCOMPLETE_MESSAGE**<br>0x80090318L | The function succeeded. The data in the input buffer is incomplete. The application must read additional data from the client and call SspiAcceptSecurityContextAsync again.|
      * |**SEC_I_COMPLETE_AND_CONTINUE**<br>0x00090314L|The function succeeded. The server must call [CompleteAuthToken](/windows/desktop/api/sspi/nf-sspi-completeauthtoken) and pass the output token to the client. The server must then wait for a return token from the client before making another call to SspiAcceptSecurityContextAsync.|
      * |**SEC_I_COMPLETE_NEEDED**<br>0x00090313L | The function succeeded. The server must finish building the message from the client before calling [CompleteAuthToken](/windows/desktop/api/sspi/nf-sspi-completeauthtoken).|
      * |**SEC_I_CONTINUE_NEEDED**<br>0x00090312L|The function succeeded. The server must send the output token to the client and wait for a returned token. The returned token should be passed in *pInput* for another call to SspiAcceptSecurityContextAsync.|
-     * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-sspiacceptsecuritycontextasync
+     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-sspiacceptsecuritycontextasync
      */
     static SspiAcceptSecurityContextAsync(AsyncContext, phCredential, phContext, pInput, fContextReq, TargetDataRep, phNewContext, pOutput, pfContextAttr, ptsExpiry) {
         AsyncContextMarshal := AsyncContext is VarRef ? "ptr*" : "ptr"
@@ -12654,7 +13003,7 @@ class FileSystem {
      * @returns {HRESULT} Returns **SEC_E_OK** if the async request to free the credential handle was successfully queued for execution. Otherwise, it returns the error generated attempting to queue it. To retrieve the status of the operation, use [SspiGetAsyncCallStatus](nf-sspi-sspigetasynccallstatus.md).
      * 
      * SspiGetAsyncCallStatus returns **SEC_E_OK** on completion. Otherwise, it may return **SEC_I_ASYNC_CALL_PENDING** if the call is still in progress.
-     * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-sspifreecredentialshandleasync
+     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-sspifreecredentialshandleasync
      */
     static SspiFreeCredentialsHandleAsync(AsyncContext, phCredential) {
         AsyncContextMarshal := AsyncContext is VarRef ? "ptr*" : "ptr"
@@ -12669,16 +13018,22 @@ class FileSystem {
 
     /**
      * Deletes the local data structures associated with the specified security context initiated by a previous call to the SspiInitializeSecurityContextAsync function or the SspiAcceptSecurityContextAsync function.
+     * @remarks
+     * On async call completion, callers can choose to opt out of receiving a notification by avoiding setting a callback for a new SspiAsyncContext or by removing the callback using [SspiSetAsyncNotifyCallback](nf-sspi-sspisetasyncnotifycallback.md) with a null parameter. If opting out, the caller should free the context with [SspiFreeAsyncContext](nf-sspi-sspifreeasynccontext.md) immediately after calling SspiDeleteSecurityContextAsync, unless the context is intended for reuse.
+     * 
+     * The **SspiDeleteSecurityContextAsync** function terminates a security context and frees associated resources.
+     * 
+     * The caller must call this function for a security context when that security context is no longer needed. This is true if the security context is partial, incomplete, rejected, or failed. After the security context is successfully deleted, further use of that security context is not permitted and the handle is no longer valid.
      * @param {Pointer<SspiAsyncContext>} AsyncContext The async call context.
      * @param {Pointer<SecHandle>} phContext Handle of the security context to delete.
      * @returns {HRESULT} Returns **SEC_E_OK** if the async request to delete the security context was successfully queued for execution. Otherwise, it returns the error generated attempting to queue it. To retrieve the status of the operation, use [SspiGetAsyncCallStatus](nf-sspi-sspigetasynccallstatus.md).
      * 
      * SspiGetAsyncCallStatus returns **SEC_E_OK** on completion. Otherwise, it may return **SEC_I_ASYNC_CALL_PENDING** if the call is still in progress, or one of the error codes below.
      * 
-     * |<div style="width:40%">Return code</div>|<div style="width:60%">Description</div>|
+     * |<div>Return code</div>|<div>Description</div>|
      * |---|---|
      * |**SEC_E_INVALID_HANDLE**|The handle passed to the function is not valid.|
-     * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-sspideletesecuritycontextasync
+     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-sspideletesecuritycontextasync
      */
     static SspiDeleteSecurityContextAsync(AsyncContext, phContext) {
         AsyncContextMarshal := AsyncContext is VarRef ? "ptr*" : "ptr"
@@ -12692,7 +13047,10 @@ class FileSystem {
     }
 
     /**
-     * Completes an authentication token.
+     * Completes an authentication token. (CompleteAuthToken)
+     * @remarks
+     * The client of a transport application calls the <b>CompleteAuthToken</b> function to allow the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security package</a> to update a checksum or similar operation after all the protocol headers have been updated by the transport application. The client calls this function only if the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-initializesecuritycontexta">InitializeSecurityContext (Digest)</a> call returned SEC_I_COMPLETE_NEEDED or SEC_I_COMPLETE_AND_CONTINUE.
      * @param {Pointer<SecHandle>} phContext A handle of the context that needs to be completed.
      * @param {Pointer<SecBufferDesc>} pToken A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secbufferdesc">SecBufferDesc</a> structure that contains the buffer descriptor for the entire message.
@@ -12762,7 +13120,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-completeauthtoken
+     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-completeauthtoken
      */
     static CompleteAuthToken(phContext, pToken) {
         result := DllCall("SECUR32.dll\CompleteAuthToken", "ptr", phContext, "ptr", pToken, "int")
@@ -12775,9 +13133,11 @@ class FileSystem {
 
     /**
      * Obtains the access token for a client security context and uses it directly.
+     * @remarks
+     * This function is called by a server application to control impersonation outside the SSPI layer, such as when launching a child process. The handle returned must be closed with <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> when the handle is no longer needed.
      * @param {Pointer<SecHandle>} phContext Handle of the context to query.
      * @returns {Pointer<Void>} Returned handle to the access token.
-     * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-querysecuritycontexttoken
+     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-querysecuritycontexttoken
      */
     static QuerySecurityContextToken(phContext) {
         result := DllCall("SECUR32.dll\QuerySecurityContextToken", "ptr", phContext, "ptr*", &Token := 0, "int")
@@ -12790,6 +13150,10 @@ class FileSystem {
 
     /**
      * Provides a way to apply a control token to a security context.
+     * @remarks
+     * The <b>ApplyControlToken</b> function can modify the context based on this token. Among the tokens that this function can add to the client context are <a href="https://docs.microsoft.com/windows/desktop/api/schannel/ns-schannel-schannel_alert_token">SCHANNEL_ALERT_TOKEN</a> and <a href="https://docs.microsoft.com/windows/desktop/api/schannel/ns-schannel-schannel_session_token">SCHANNEL_SESSION_TOKEN</a>.
+     * 
+     * This function can be used to shut down the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a> that underlies an existing Schannel connection. For information about how to do this, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/shutting-down-an-schannel-connection">Shutting Down an Schannel Connection</a>.
      * @param {Pointer<SecHandle>} phContext A handle to the context to which the token is applied.
      * 
      * For information about the way the Schannel SSP notifies the remote party of the shutdown, see the Remarks section of <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-decryptmessage">DecryptMessage (Schannel)</a>. For additional information on the use of this function, see 
@@ -12818,7 +13182,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-applycontroltoken
+     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-applycontroltoken
      */
     static ApplyControlToken(phContext, pInput) {
         result := DllCall("SECUR32.dll\ApplyControlToken", "ptr", phContext, "ptr", pInput, "int")
@@ -12830,7 +13194,10 @@ class FileSystem {
     }
 
     /**
-     * Enables a transport application to set attributes of a security context for a security package. This function is supported only by the Schannel security package.
+     * Enables a transport application to set attributes of a security context for a security package. This function is supported only by the Schannel security package. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The sspi.h header defines SetContextAttributes as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<SecHandle>} phContext A handle to the security context to be set.
      * @param {Integer} ulAttribute 
      * @param {Pointer} pBuffer A pointer to a structure that contains  values to set  the attributes to. The type of structure pointed to depends on the value specified in the <i>ulAttribute</i> parameter.
@@ -12856,7 +13223,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-setcontextattributesw
+     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-setcontextattributesw
      */
     static SetContextAttributesW(phContext, ulAttribute, pBuffer, cbBuffer) {
         result := DllCall("SECUR32.dll\SetContextAttributesW", "ptr", phContext, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "int")
@@ -12869,6 +13236,12 @@ class FileSystem {
 
     /**
      * Generates a cryptographic checksum of the message, and also includes sequencing information to prevent message loss or insertion.
+     * @remarks
+     * The <b>MakeSignature</b> function generates a signature that is based on the message and the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">session key</a> for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">context</a>.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-verifysignature">VerifySignature</a> function verifies the messages signed by the <b>MakeSignature</b> function.
+     * 
+     * If the transport application created the security context to support sequence detection and the caller provides a sequence number, the function includes this information in the signature. This protects against reply, insertion, and suppression of messages. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security package</a> incorporates the sequence number passed down from the transport application.
      * @param {Pointer<SecHandle>} phContext A handle to the security context to use to sign the message.
      * @param {Integer} fQOP <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">Package</a>-specific flags that indicate the quality of protection. A security package can use this parameter to enable the selection of cryptographic algorithms.
      * 
@@ -13008,8 +13381,8 @@ class FileSystem {
      * </td>
      * <td width="60%">
      * The remote party requires a new handshake sequence or the application has just initiated a shutdown. Return to the negotiation loop and call 
-     * <a href="/windows/desktop/api/sspi/nf-sspi-acceptsecuritycontext">AcceptSecurityContext (General)</a> or 
-     * <a href="/windows/desktop/api/sspi/nf-sspi-initializesecuritycontexta">InitializeSecurityContext (General)</a> again. An empty input buffer is passed in the first call.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-acceptsecuritycontext">AcceptSecurityContext (General)</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-initializesecuritycontexta">InitializeSecurityContext (General)</a> again. An empty input buffer is passed in the first call.
      * 
      * </td>
      * </tr>
@@ -13042,7 +13415,7 @@ class FileSystem {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/SecGloss/n-gly">nonce</a> count is out of sequence.
+     * The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/n-gly">nonce</a> count is out of sequence.
      * 
      * </td>
      * </tr>
@@ -13053,7 +13426,7 @@ class FileSystem {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/SecGloss/s-gly">security context</a> (<i>phContext</i>) must be revalidated.
+     * The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a> (<i>phContext</i>) must be revalidated.
      * 
      * </td>
      * </tr>
@@ -13075,12 +13448,12 @@ class FileSystem {
      * </dl>
      * </td>
      * <td width="60%">
-     * The quality of protection negotiated between the client and server did not include <a href="/windows/desktop/SecGloss/i-gly">integrity</a> checking.
+     * The quality of protection negotiated between the client and server did not include <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">integrity</a> checking.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-makesignature
+     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-makesignature
      */
     static MakeSignature(phContext, fQOP, pMessage, MessageSeqNo) {
         result := DllCall("SECUR32.dll\MakeSignature", "ptr", phContext, "uint", fQOP, "ptr", pMessage, "uint", MessageSeqNo, "int")
@@ -13093,6 +13466,11 @@ class FileSystem {
 
     /**
      * Verifies that a message signed by using the MakeSignature function was received in the correct sequence and has not been modified.
+     * @remarks
+     * <div class="alert"><b>Warning</b>  <p class="note">The <b>VerifySignature</b> function will fail if the message was signed using the <a href="https://docs.microsoft.com/uwp/api/windows.security.cryptography.core.asymmetricalgorithmnames.rsasignpsssha512">RsaSignPssSha512</a> algorithm on a different version of Windows. For example, a message that was signed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-makesignature">MakeSignature</a> function on Windows 8 will cause the <b>VerifySignature</b> function on Windows 8.1 to fail.
+     * 
+     * </div>
+     * <div> </div>
      * @param {Pointer<SecHandle>} phContext A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a> to use for the message.
      * @param {Pointer<SecBufferDesc>} pMessage Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secbufferdesc">SecBufferDesc</a> structure that references a set of 
@@ -13101,7 +13479,7 @@ class FileSystem {
      * @returns {Integer} Pointer to a <b>ULONG</b> variable that receives package-specific flags that indicate the quality of protection.
      * 
      * Some security packages ignore this parameter.
-     * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-verifysignature
+     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-verifysignature
      */
     static VerifySignature(phContext, pMessage, MessageSeqNo) {
         result := DllCall("SECUR32.dll\VerifySignature", "ptr", phContext, "ptr", pMessage, "uint", MessageSeqNo, "uint*", &pfQOP := 0, "int")
@@ -13121,7 +13499,7 @@ class FileSystem {
      * @returns {Pointer<Void>} A pointer to receive the handle of the context's token.
      * 
      * When you have finished using the user token, release the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-exportsecuritycontext
+     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-exportsecuritycontext
      */
     static ExportSecurityContext(phContext, fFlags, pPackedContext) {
         result := DllCall("SECUR32.dll\ExportSecurityContext", "ptr", phContext, "uint", fFlags, "ptr", pPackedContext, "ptr*", &pToken := 0, "int")

@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the IP address of a network resource.
- * @see https://docs.microsoft.com/windows/win32/api//tssbx/ns-tssbx-wtssbx_ip_address
+ * @see https://learn.microsoft.com/windows/win32/api/tssbx/ns-tssbx-wtssbx_ip_address
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

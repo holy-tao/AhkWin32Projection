@@ -6,7 +6,7 @@
 
 /**
  * Contains information used with custom text notification.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmcustomtext
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmcustomtext
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

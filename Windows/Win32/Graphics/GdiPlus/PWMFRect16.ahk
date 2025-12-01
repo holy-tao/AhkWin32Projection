@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The PWMFRect16 structure defines a rectangle that bounds a placeable metafile. The rectangle defines the size and position of the metafile.
- * @see https://docs.microsoft.com/windows/win32/api//gdiplusmetaheader/ns-gdiplusmetaheader-pwmfrect16
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
@@ -14,9 +12,6 @@ class PWMFRect16 extends Win32Struct
     static packingSize => 2
 
     /**
-     * Type: <b>INT16</b>
-     * 
-     * Left coordinate of the rectangle that bounds the metafile.
      * @type {Integer}
      */
     Left {
@@ -25,9 +20,6 @@ class PWMFRect16 extends Win32Struct
     }
 
     /**
-     * Type: <b>INT16</b>
-     * 
-     * Top coordinate of the rectangle that bounds the metafile.
      * @type {Integer}
      */
     Top {
@@ -36,9 +28,6 @@ class PWMFRect16 extends Win32Struct
     }
 
     /**
-     * Type: <b>INT16</b>
-     * 
-     * Right coordinate of the rectangle that bounds the metafile.
      * @type {Integer}
      */
     Right {
@@ -47,9 +36,6 @@ class PWMFRect16 extends Win32Struct
     }
 
     /**
-     * Type: <b>INT16</b>
-     * 
-     * Bottom coordinate of the rectangle that bounds the metafile.
      * @type {Integer}
      */
     Bottom {

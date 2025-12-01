@@ -4,7 +4,6 @@
 /**
  * Identifies an object.
  * @remarks
- * 
  * In a C++ application, this structure will have a default constructor that initializes the members to the following values.
  * 
  * 
@@ -33,9 +32,7 @@
  * wszID = wszIDin
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msdrmdefs/ns-msdrmdefs-drmid
+ * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ns-msdrmdefs-drmid
  * @namespace Windows.Win32.Data.RightsManagement
  * @version v4.0.30319
  */

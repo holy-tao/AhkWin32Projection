@@ -4,7 +4,7 @@
 
 /**
  * Contains information for a specific link-layer filter.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_filter_record
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_filter_record
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

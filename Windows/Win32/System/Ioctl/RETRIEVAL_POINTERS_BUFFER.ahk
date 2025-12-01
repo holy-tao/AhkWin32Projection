@@ -3,7 +3,7 @@
 
 /**
  * Contains the output for the FSCTL_GET_RETRIEVAL_POINTERS control code.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-retrieval_pointers_buffer
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-retrieval_pointers_buffer
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

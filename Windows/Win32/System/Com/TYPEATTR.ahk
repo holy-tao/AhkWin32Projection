@@ -5,7 +5,7 @@
 
 /**
  * Contains attributes of a type.
- * @see https://docs.microsoft.com/windows/win32/api//oaidl/ns-oaidl-typeattr
+ * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-typeattr
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

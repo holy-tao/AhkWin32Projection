@@ -3,7 +3,7 @@
 
 /**
  * The IconIdentifier enumeration is introduced in MMC 1.2.
- * @see https://docs.microsoft.com/windows/win32/api//mmc/ne-mmc-iconidentifier
+ * @see https://learn.microsoft.com/windows/win32/api/mmc/ne-mmc-iconidentifier
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

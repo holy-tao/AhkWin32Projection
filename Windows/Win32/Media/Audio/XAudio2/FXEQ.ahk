@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * Defines values for use with the FXEQ\_PARAMETERS structure.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/xaudio2/fxeq-constants
  * @namespace Windows.Win32.Media.Audio.XAudio2

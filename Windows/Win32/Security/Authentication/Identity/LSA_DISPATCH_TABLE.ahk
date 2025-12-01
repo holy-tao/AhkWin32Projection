@@ -3,7 +3,7 @@
 
 /**
  * Contains pointers to the Local Security Authority (LSA) functions that Windows authentication packages can call.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ns-ntsecpkg-lsa_dispatch_table
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-lsa_dispatch_table
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

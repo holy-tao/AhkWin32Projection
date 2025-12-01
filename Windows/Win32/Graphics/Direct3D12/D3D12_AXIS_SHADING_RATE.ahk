@@ -5,8 +5,7 @@
  * Defines constants that specify the shading rate (for variable-rate shading, or VRS) along a horizontal or vertical axis.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_axis_shading_rate
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_axis_shading_rate
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

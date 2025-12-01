@@ -3,7 +3,7 @@
 
 /**
  * Defines the set of possible EAP credentials that can be passed to the EapPeerGetConfigBlobAndUserBlob function.
- * @see https://docs.microsoft.com/windows/win32/api//eaptypes/ne-eaptypes-eapcredentialtype
+ * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ne-eaptypes-eapcredentialtype
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

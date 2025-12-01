@@ -4,10 +4,11 @@
 /**
  * Specifies a mapping for a class ID.
  * @remarks
- * 
  * The TYSPEC enumeration and uCLSSPEC union provide mappings to a class ID. Note that TYSPEC_CLSID is the only supported value.
  * 
- * <pre class="syntax" xml:space="preserve"><code>    typedef union switch(DWORD tyspec)
+ * 
+ * ``` syntax
+ *     typedef union switch(DWORD tyspec)
  *         {
  *         case TYSPEC_CLSID:
  *             CLSID   clsid;
@@ -29,10 +30,9 @@
  *             GUID     ObjectId;
  *             GUID     PolicyId;
  *             } ByObjectId;
- *     } uCLSSPEC;</code></pre>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wtypes/ne-wtypes-tyspec
+ *     } uCLSSPEC;
+ * ```
+ * @see https://learn.microsoft.com/windows/win32/api/wtypes/ne-wtypes-tyspec
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

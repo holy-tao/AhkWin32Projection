@@ -3,7 +3,7 @@
 
 /**
  * Specifies the application extension metadata properties for a Graphics Interchange Format (GIF) image.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicgifapplicationextensionproperties
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicgifapplicationextensionproperties
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

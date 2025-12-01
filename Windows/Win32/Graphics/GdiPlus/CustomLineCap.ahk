@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The CustomLineCap class encapsulates a custom line cap.
- * @see https://docs.microsoft.com/windows/win32/api//gdiplusheaders/nl-gdiplusheaders-customlinecap
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

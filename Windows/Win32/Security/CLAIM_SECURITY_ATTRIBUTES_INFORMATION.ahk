@@ -3,7 +3,7 @@
 
 /**
  * Defines the security attributes for the claim.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-claim_security_attributes_information
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-claim_security_attributes_information
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

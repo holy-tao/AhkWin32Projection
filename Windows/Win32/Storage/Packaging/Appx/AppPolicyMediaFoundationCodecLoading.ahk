@@ -3,7 +3,7 @@
 
 /**
  * The AppPolicyMediaFoundationCodecLoading enumeration indicates whether a process’s policy allows it to load non-Windows (third-party) plugins.
- * @see https://docs.microsoft.com/windows/win32/api//appmodel/ne-appmodel-apppolicymediafoundationcodecloading
+ * @see https://learn.microsoft.com/windows/win32/api/appmodel/ne-appmodel-apppolicymediafoundationcodecloading
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

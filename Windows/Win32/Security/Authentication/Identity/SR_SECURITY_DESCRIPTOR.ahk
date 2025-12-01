@@ -3,7 +3,7 @@
 
 /**
  * The SR_SECURITY_DESCRIPTOR structure contains information about the security privileges of the user.
- * @see https://docs.microsoft.com/windows/win32/api//subauth/ns-subauth-sr_security_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api/subauth/ns-subauth-sr_security_descriptor
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

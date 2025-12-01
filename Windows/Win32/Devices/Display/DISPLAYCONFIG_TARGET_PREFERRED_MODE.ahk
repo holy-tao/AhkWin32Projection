@@ -9,7 +9,7 @@
 
 /**
  * The DISPLAYCONFIG_TARGET_PREFERRED_MODE structure contains information about the preferred mode of a display.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-displayconfig_target_preferred_mode
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_target_preferred_mode
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

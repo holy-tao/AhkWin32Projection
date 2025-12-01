@@ -4,16 +4,13 @@
 /**
  * Defines the set of valid flags for a pack object.
  * @remarks
- * 
  * Pack flags apply to packs managed by the dynamic provider only. The provider sets these flags on offline packs to report the reason for the offline status.
  * 
  * This enumeration provides the values for the <i>ulFlags</i> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_pack_prop">VDS_PACK_PROP</a> structure.
  * 
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_PACK_FLAG</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_PACK_FLAG</b> enumeration constant.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_pack_flag
+ * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_pack_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

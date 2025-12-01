@@ -3,7 +3,7 @@
 
 /**
  * Defines the options for how to apply the rule to the file.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmexecutionoption
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmexecutionoption
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

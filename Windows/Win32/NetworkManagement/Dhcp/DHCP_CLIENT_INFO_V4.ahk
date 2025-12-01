@@ -6,7 +6,7 @@
 
 /**
  * Defines a client information record used by the DHCP server, extending the definition provided in DHCP_CLIENT_INFO by including client type information.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_client_info_v4
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_v4
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

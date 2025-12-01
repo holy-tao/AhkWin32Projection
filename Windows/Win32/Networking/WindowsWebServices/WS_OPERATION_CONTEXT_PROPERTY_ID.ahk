@@ -3,7 +3,7 @@
 
 /**
  * The properties available on the Context. Not all properties may be available at a given point on a context. All context properties are available through WsGetOperationContextProperty.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_operation_context_property_id
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_operation_context_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

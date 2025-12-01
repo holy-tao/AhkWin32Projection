@@ -3,7 +3,7 @@
 
 /**
  * Contains values for the BulletStyle text attribute.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-bulletstyle
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-bulletstyle
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

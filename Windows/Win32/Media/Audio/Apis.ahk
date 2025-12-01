@@ -2511,11 +2511,13 @@ class Audio {
 ;@region Methods
     /**
      * Registers with OLE the instance of an IMessageFilter interface, which is to be used for handling concurrency issues on the current thread.
+     * @remarks
+     * To revoke the registered message filter, pass the previous message filter (possibly <b>NULL</b>) as the <i>lpMessageFilter</i> parameter to <b>CoRegisterMessageFilter</b>.
      * @param {IMessageFilter} lpMessageFilter A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imessagefilter">IMessageFilter</a> interface on the message filter. This message filter should be registered on the current thread, replacing the previous message filter (if any). This parameter can be <b>NULL</b>, indicating that no message filter should be registered on the current thread.
      * 
      * Note that this function calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the interface pointer to the message filter.
      * @returns {IMessageFilter} Address of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imessagefilter">IMessageFilter</a>* pointer variable that receives the interface pointer to the previously registered message filter. If there was no previously registered message filter for the current thread, the value of *<i>lplpMessageFilter</i> is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//objbase/nf-objbase-coregistermessagefilter
+     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-coregistermessagefilter
      * @since windows5.0
      */
     static CoRegisterMessageFilter(lpMessageFilter) {
@@ -2586,7 +2588,7 @@ class Audio {
     /**
      * The waveOutGetNumDevs function retrieves the number of waveform-audio output devices present in the system.
      * @returns {Integer} Returns the number of devices. A return value of zero means that no devices are present or that an error occurred.
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveoutgetnumdevs
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutgetnumdevs
      * @since windows5.0
      */
     static waveOutGetNumDevs() {
@@ -2620,6 +2622,14 @@ class Audio {
 
     /**
      * The waveOutGetVolume function retrieves the current volume level of the specified waveform-audio output device.
+     * @remarks
+     * If a device identifier is used, then the result of the <b>waveOutGetVolume</b> call and the information returned in <i>pdwVolume</i> applies to all instances of the device. If a device handle is used, then the result and information returned applies only to the instance of the device referenced by the device handle.
+     * 
+     * Not all devices support volume changes. To determine whether the device supports volume control, use the WAVECAPS_VOLUME flag to test the <b>dwSupport</b> member of the <b>WAVEOUTCAPS</b> structure (filled by the <b>waveOutGetDevCaps</b> function).
+     * 
+     * To determine whether the device supports left- and right-channel volume control, use the WAVECAPS_LRVOLUME flag to test the <b>dwSupport</b> member of the <b>WAVEOUTCAPS</b> structure (filled by <b>waveOutGetDevCaps</b>).
+     * 
+     * Volume settings are interpreted logarithmically. This means the perceived increase in volume is the same when increasing the volume level from 0x5000 to 0x6000 as it is from 0x4000 to 0x5000.
      * @param {HWAVEOUT} hwo Handle to an open waveform-audio output device. This parameter can also be a device identifier.
      * @param {Pointer<Integer>} pdwVolume Pointer to a variable to be filled with the current volume setting. The low-order word of this location contains the left-channel volume setting, and the high-order word contains the right-channel setting. A value of 0xFFFF represents full volume, and a value of 0x0000 is silence.
      * 
@@ -2678,7 +2688,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveoutgetvolume
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutgetvolume
      * @since windows5.0
      */
     static waveOutGetVolume(hwo, pdwVolume) {
@@ -2692,6 +2702,14 @@ class Audio {
 
     /**
      * The waveOutSetVolume function sets the volume level of the specified waveform-audio output device.
+     * @remarks
+     * If a device identifier is used, then the result of the <b>waveOutSetVolume</b> call applies to all instances of the device. If a device handle is used, then the result applies only to the instance of the device referenced by the device handle.
+     * 
+     * Not all devices support volume changes. To determine whether the device supports volume control, use the WAVECAPS_VOLUME flag to test the <b>dwSupport</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd743855(v=vs.85)">WAVEOUTCAPS</a> structure (filled by the <a href="https://docs.microsoft.com/previous-versions/dd743857(v=vs.85)">waveOutGetDevCaps</a> function). To determine whether the device supports volume control on both the left and right channels, use the WAVECAPS_LRVOLUME flag.
+     * 
+     * Most devices do not support the full 16 bits of volume-level control and will not use the least-significant bits of the requested volume setting. For example, if a device supports 4 bits of volume control, the values 0x4000, 0x4FFF, and 0x43BE will all be truncated to 0x4000. The <b>waveOutGetVolume</b> function returns the full 16-bit setting set with <b>waveOutSetVolume</b>.
+     * 
+     * Volume settings are interpreted logarithmically. This means the perceived increase in volume is the same when increasing the volume level from 0x5000 to 0x6000 as it is from 0x4000 to 0x5000.
      * @param {HWAVEOUT} hwo Handle to an open waveform-audio output device. This parameter can also be a device identifier.
      * @param {Integer} dwVolume New volume setting. The low-order word contains the left-channel volume setting, and the high-order word contains the right-channel setting. A value of 0xFFFF represents full volume, and a value of 0x0000 is silence.
      * 
@@ -2748,7 +2766,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveoutsetvolume
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutsetvolume
      * @since windows5.0
      */
     static waveOutSetVolume(hwo, dwVolume) {
@@ -2788,6 +2806,49 @@ class Audio {
 
     /**
      * The waveOutOpen function opens the given waveform-audio output device for playback.
+     * @remarks
+     * Use the <a href="https://docs.microsoft.com/previous-versions/dd743860(v=vs.85)">waveOutGetNumDevs</a> function to determine the number of waveform-audio output devices present in the system. If the value specified by the <i>uDeviceID</i> parameter is a device identifier, it can vary from zero to one less than the number of devices present. The <b>WAVE_MAPPER</b> constant can also be used as a device identifier.
+     *       
+     * 
+     * The structure pointed to by <i>pwfx</i> can be extended to include type-specific information for certain data formats. For example, for PCM data, an extra <b>UINT</b> is added to specify the number of bits per sample. Use the <a href="https://docs.microsoft.com/previous-versions/dd743663(v=vs.85)">PCMWAVEFORMAT</a> structure in this case. For all other waveform-audio formats, use the <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure to specify the length of the additional data.
+     * 
+     * If you choose to have a window or thread receive callback information, the following messages are sent to the window procedure function to indicate the progress of waveform-audio output: <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mm-wom-open">MM_WOM_OPEN</a>, <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mm-wom-close">MM_WOM_CLOSE</a>, and <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mm-wom-done">MM_WOM_DONE</a>.
+     *       
+     * 
+     * <h3><a id="Callback_Mechanism"></a><a id="callback_mechanism"></a><a id="CALLBACK_MECHANISM"></a>Callback Mechanism</h3>
+     * The <i>dwCallback</i> and <i>fdwOpen</i> parameters specify how the application is notified about  the progress of waveform-audio output.
+     * 
+     * If <i>fdwOpen</i> contains the <b>CALLBACK_FUNCTION</b> flag, <i>dwCallback</i> is a pointer to a callback function. For the function signature, see <a href="https://docs.microsoft.com/previous-versions/dd743869(v=vs.85)">waveOutProc</a>. The <i>uMsg</i> parameter of the callback indicates the progress of the audio output:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/Multimedia/wom-open">WOM_OPEN</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/Multimedia/wom-close">WOM_CLOSE</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/Multimedia/wom-done">WOM_DONE</a>
+     * </li>
+     * </ul>
+     * If <i>fdwOpen</i> contains the <b>CALLBACK_WINDOW</b> flag, <i>dwCallback</i> is a handle to a window.The window receives the following messages, indicating the progress:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mm-wom-open">MM_WOM_OPEN</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mm-wom-close">MM_WOM_CLOSE</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mm-wom-done">MM_WOM_DONE</a>
+     * </li>
+     * </ul>
+     *  If <i>fdwOpen</i> contains the <b>CALLBACK_THREAD</b> flag, <i>dwCallback</i> is a thread identifier. The thread receives the messages listed previously for <b>CALLBACK_WINDOW</b>.
+     * 
+     * If <i>fdwOpen</i> contains the <b>CALLBACK_EVENT</b> flag, <i>dwCallback</i> is a handle to an event. The event is signaled whenever the state of the waveform buffer changes. The application can use <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-waitforsingleobject">WaitForSingleObject</a> or <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-waitformultipleobjects">WaitForMultipleObjects</a> to wait for the event. When the event is signaled, you can get the current state of the waveform buffer by checking the <b>dwFlags</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure. (See <a href="https://docs.microsoft.com/previous-versions/dd743868(v=vs.85)">waveOutPrepareHeader</a>.)
+     * 
+     * If <i>fdwOpen</i> contains the <b>CALLBACK_NULL</b> flag, <i>dwCallback</i> must be <b>NULL</b>. In that case, no callback mechanism is used.
      * @param {Pointer<HWAVEOUT>} phwo Pointer to a buffer that receives a handle identifying the open waveform-audio output device. Use the handle to identify the device when calling other waveform-audio output functions. This parameter might be <b>NULL</b> if the <b>WAVE_FORMAT_QUERY</b> flag is specified for <i>fdwOpen</i>.
      * @param {Integer} uDeviceID Identifier of the waveform-audio output device to open. It can be either a device identifier or a handle of an open waveform-audio input device. You can also use the following flag instead of a device identifier:
      * 
@@ -2942,12 +3003,12 @@ class Audio {
      * </dl>
      * </td>
      * <td width="60%">
-     * The device is synchronous but <a href="/previous-versions/dd743866(v=vs.85)">waveOutOpen</a> was called without using the <b>WAVE_ALLOWSYNC</b> flag.
+     * The device is synchronous but <a href="https://docs.microsoft.com/previous-versions/dd743866(v=vs.85)">waveOutOpen</a> was called without using the <b>WAVE_ALLOWSYNC</b> flag.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveoutopen
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutopen
      * @since windows5.0
      */
     static waveOutOpen(phwo, uDeviceID, pwfx, dwCallback, dwInstance, fdwOpen) {
@@ -2957,6 +3018,8 @@ class Audio {
 
     /**
      * The waveOutClose function closes the given waveform-audio output device.
+     * @remarks
+     * The close operation fails if the device is still playing a waveform-audio buffer that was previously sent by calling <b>waveOutWrite</b>. Before calling <b>waveOutClose</b>, the application must wait for all buffers to finish playing or call the <b>waveOutReset</b> function to terminate playback.
      * @param {HWAVEOUT} hwo Handle to the waveform-audio output device. If the function succeeds, the handle is no longer valid after this call.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -3010,7 +3073,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveoutclose
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutclose
      * @since windows5.0
      */
     static waveOutClose(hwo) {
@@ -3022,6 +3085,14 @@ class Audio {
 
     /**
      * The waveOutPrepareHeader function prepares a waveform-audio data block for playback.
+     * @remarks
+     * Set the <b>lpData</b>, <b>dwBufferLength</b>, and <b>dwFlags</b> members of the <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure before calling this function. Set the <b>dwFlags</b> member to zero.
+     * 
+     * The <b>dwFlags</b>, <b>dwBufferLength</b>, and <b>dwLoops</b> members of the <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure can change between calls to this function and the <a href="https://docs.microsoft.com/previous-versions/dd743876(v=vs.85)">waveOutWrite</a> function. If you change the size specified by <b>dwBufferLength</b> before the call to <b>waveOutWrite</b>, the new value must be less than the prepared value.
+     * 
+     * If the method succeeds, the <b>WHDR_PREPARED</b> flag is set in the <b>dwFlags</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure.
+     * 
+     * Preparing a header that has already been prepared has no effect, and the function returns zero.
      * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @param {Pointer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure that identifies the data block to be prepared.
      * @param {Integer} cbwh Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure.
@@ -3066,7 +3137,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveoutprepareheader
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutprepareheader
      * @since windows5.0
      */
     static waveOutPrepareHeader(hwo, pwh, cbwh) {
@@ -3078,6 +3149,10 @@ class Audio {
 
     /**
      * The waveOutUnprepareHeader function cleans up the preparation performed by the waveOutPrepareHeader function. This function must be called after the device driver is finished with a data block. You must call this function before freeing the buffer.
+     * @remarks
+     * This function complements <b>waveOutPrepareHeader</b>. You must call this function before freeing the buffer. After passing a buffer to the device driver with the <b>waveOutWrite</b> function, you must wait until the driver is finished with the buffer before calling <b>waveOutUnprepareHeader</b>.
+     * 
+     * Unpreparing a buffer that has not been prepared has no effect, and the function returns zero.
      * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @param {Pointer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure identifying the data block to be cleaned up.
      * @param {Integer} cbwh Size, in bytes, of the <b>WAVEHDR</b> structure.
@@ -3133,7 +3208,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveoutunprepareheader
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutunprepareheader
      * @since windows5.0
      */
     static waveOutUnprepareHeader(hwo, pwh, cbwh) {
@@ -3145,6 +3220,10 @@ class Audio {
 
     /**
      * The waveOutWrite function sends a data block to the given waveform-audio output device.
+     * @remarks
+     * When the buffer is finished, the WHDR_DONE bit is set in the <b>dwFlags</b> member of the <b>WAVEHDR</b> structure.
+     * 
+     * The buffer must be prepared with the <b>waveOutPrepareHeader</b> function before it is passed to <b>waveOutWrite</b>. Unless the device is paused by calling the <b>waveOutPause</b> function, playback begins when the first data block is sent to the device.
      * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @param {Pointer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure containing information about the data block.
      * @param {Integer} cbwh Size, in bytes, of the <b>WAVEHDR</b> structure.
@@ -3200,7 +3279,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveoutwrite
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutwrite
      * @since windows5.0
      */
     static waveOutWrite(hwo, pwh, cbwh) {
@@ -3212,6 +3291,8 @@ class Audio {
 
     /**
      * The waveOutPause function pauses playback on the given waveform-audio output device. The current position is saved. Use the waveOutRestart function to resume playback from the current position.
+     * @remarks
+     * Calling this function when the output is already paused has no effect, and the function returns zero.
      * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -3265,7 +3346,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveoutpause
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutpause
      * @since windows5.0
      */
     static waveOutPause(hwo) {
@@ -3277,6 +3358,8 @@ class Audio {
 
     /**
      * The waveOutRestart function resumes playback on a paused waveform-audio output device.
+     * @remarks
+     * Calling this function when the output is not paused has no effect, and the function returns zero.
      * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -3330,7 +3413,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveoutrestart
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutrestart
      * @since windows5.0
      */
     static waveOutRestart(hwo) {
@@ -3342,6 +3425,8 @@ class Audio {
 
     /**
      * The waveOutReset function stops playback on the given waveform-audio output device and resets the current position to zero. All pending playback buffers are marked as done (WHDR_DONE) and returned to the application.
+     * @remarks
+     * After this function returns, the application can send new playback buffers to the device by calling <a href="https://docs.microsoft.com/previous-versions/dd743876(v=vs.85)">waveOutWrite</a>, or close the device by calling <a href="https://docs.microsoft.com/previous-versions/dd743856(v=vs.85)">waveOutClose</a>.
      * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -3395,7 +3480,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveoutreset
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutreset
      * @since windows5.0
      */
     static waveOutReset(hwo) {
@@ -3407,6 +3492,10 @@ class Audio {
 
     /**
      * The waveOutBreakLoop function breaks a loop on the given waveform-audio output device and allows playback to continue with the next block in the driver list.
+     * @remarks
+     * The blocks making up the loop are played to the end before the loop is terminated.
+     * 
+     * Calling this function when nothing is playing or looping has no effect, and the function returns zero.
      * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -3449,7 +3538,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveoutbreakloop
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutbreakloop
      * @since windows5.0
      */
     static waveOutBreakLoop(hwo) {
@@ -3461,6 +3550,10 @@ class Audio {
 
     /**
      * The waveOutGetPosition function retrieves the current playback position of the given waveform-audio output device.
+     * @remarks
+     * Before calling this function, set the <b>wType</b> member of the <b>MMTIME</b> structure to indicate the time format you want. After calling this function, check <b>wType</b> to determine whether the time format is supported. If the format is not supported, <b>wType</b> will specify an alternative format.
+     * 
+     * The position is set to zero when the device is opened or reset.
      * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @param {Pointer} pmmt Pointer to an <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
      * @param {Integer} cbmmt Size, in bytes, of the <b>MMTIME</b> structure.
@@ -3505,7 +3598,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveoutgetposition
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutgetposition
      * @since windows5.0
      */
     static waveOutGetPosition(hwo, pmmt, cbmmt) {
@@ -3517,6 +3610,8 @@ class Audio {
 
     /**
      * The waveOutGetPitch function retrieves the current pitch setting for the specified waveform-audio output device.
+     * @remarks
+     * Changing the pitch does not change the playback rate, sample rate, or playback time. Not all devices support pitch changes. To determine whether the device supports pitch control, use the WAVECAPS_PITCH flag to test the <b>dwSupport</b> member of the <b>WAVEOUTCAPS</b> structure (filled by the <b>waveOutGetDevCaps</b> function).
      * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @param {Pointer<Integer>} pdwPitch Pointer to a variable to be filled with the current pitch multiplier setting. The pitch multiplier indicates the current change in pitch from the original authored setting. The pitch multiplier must be a positive value.
      * 
@@ -3573,7 +3668,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveoutgetpitch
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutgetpitch
      * @since windows5.0
      */
     static waveOutGetPitch(hwo, pdwPitch) {
@@ -3587,6 +3682,8 @@ class Audio {
 
     /**
      * The waveOutSetPitch function sets the pitch for the specified waveform-audio output device.
+     * @remarks
+     * Changing the pitch does not change the playback rate or the sample rate, nor does it change the playback time. Not all devices support pitch changes. To determine whether the device supports pitch control, use the WAVECAPS_PITCH flag to test the <b>dwSupport</b> member of the <b>WAVEOUTCAPS</b> structure (filled by the <b>waveOutGetDevCaps</b> function).
      * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @param {Integer} dwPitch New pitch multiplier setting. This setting indicates the current change in pitch from the original authored setting. The pitch multiplier must be a positive value.
      * 
@@ -3643,7 +3740,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveoutsetpitch
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutsetpitch
      * @since windows5.0
      */
     static waveOutSetPitch(hwo, dwPitch) {
@@ -3655,6 +3752,8 @@ class Audio {
 
     /**
      * The waveOutGetPlaybackRate function retrieves the current playback rate for the specified waveform-audio output device.
+     * @remarks
+     * Changing the playback rate does not change the sample rate but does change the playback time. Not all devices support playback rate changes. To determine whether a device supports playback rate changes, use the WAVECAPS_PLAYBACKRATE flag to test the <b>dwSupport</b> member of the <b>WAVEOUTCAPS</b> structure (filled by the <b>waveOutGetDevCaps</b> function).
      * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @param {Pointer<Integer>} pdwRate Pointer to a variable to be filled with the current playback rate. The playback rate setting is a multiplier indicating the current change in playback rate from the original authored setting. The playback rate multiplier must be a positive value.
      * 
@@ -3711,7 +3810,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveoutgetplaybackrate
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutgetplaybackrate
      * @since windows5.0
      */
     static waveOutGetPlaybackRate(hwo, pdwRate) {
@@ -3725,6 +3824,8 @@ class Audio {
 
     /**
      * The waveOutSetPlaybackRate function sets the playback rate for the specified waveform-audio output device.
+     * @remarks
+     * Changing the playback rate does not change the sample rate but does change the playback time. Not all devices support playback rate changes. To determine whether a device supports playback rate changes, use the WAVECAPS_PLAYBACKRATE flag to test the <b>dwSupport</b> member of the <b>WAVEOUTCAPS</b> structure (filled by the <b>waveOutGetDevCaps</b> function).
      * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @param {Integer} dwRate New playback rate setting. This setting is a multiplier indicating the current change in playback rate from the original authored setting. The playback rate multiplier must be a positive value.
      * 
@@ -3781,7 +3882,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveoutsetplaybackrate
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutsetplaybackrate
      * @since windows5.0
      */
     static waveOutSetPlaybackRate(hwo, dwRate) {
@@ -3836,7 +3937,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveoutgetid
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutgetid
      * @since windows5.0
      */
     static waveOutGetID(hwo, puDeviceID) {
@@ -3850,12 +3951,98 @@ class Audio {
 
     /**
      * The waveOutMessage function sends messages to the waveform-audio output device drivers.
+     * @remarks
+     * The <c>DRV_QUERYDEVICEINTERFACE</c> message queries for the device-interface name of a <b>waveIn</b>, <b>waveOut</b>, <b>midiIn</b>, <b>midiOut</b>, or <b>mixer</b> device.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACE</c>, <i>dwParam1</i> is a pointer to a caller-allocated buffer into which the function writes a null-terminated Unicode string containing the device-interface name. If the device has no device interface, the string length is zero.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACE</c>, <i>dwParam2</i> specifies the buffer size in bytes. This is an input parameter to the function. The caller should specify a size that is greater than or equal to the buffer size retrieved by the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536364(v=vs.85)">DRV_QUERYDEVICEINTERFACESIZE</a> message.
+     * 
+     * The DRV_QUERYDEVICEINTERFACE message is supported in Windows Me, and Windows 2000 and later. This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>, <b>waveOutMessage</b>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, and <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> functions. The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * The following two message constants are used together for the purpose of obtaining device interface names:
+     * 
+     * <ul>
+     * <li>
+     * DRV_QUERYDEVICEINTERFACESIZE
+     * 
+     * </li>
+     * <li>
+     * DRV_QUERYDEVICEINTERFACE
+     * 
+     * </li>
+     * </ul>
+     * The first message obtains the size in bytes of the buffer needed to hold the string containing the device interface name. The second message retrieves the name string in a buffer of the required size.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/obtaining-a-device-interface-name">Obtaining a Device Interface Name</a>.
+     * 
+     * The <c>DRV_QUERYDEVICEINTERFACESIZE</c> message queries for the size of the buffer required to hold the device-interface name.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACESIZE</c>, <i>dwParam1</i> is a pointer to buffer size. This parameter points to a ULONG variable into which the function writes the required buffer size in bytes. The size includes storage space for the name string's terminating null. The size is zero if the device ID identifies a device that has no device interface.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACESIZE</c>, <i>dwParam2</i> is unused. Set this parameter to zero.
+     * 
+     * This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>, <b>waveOutMessage</b>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, and <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> functions. The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * The buffer size retrieved by this message is expressed as a byte count. It specifies the size of the buffer needed to hold the null-terminated Unicode string that contains the device-interface name. The caller allocates a buffer of the specified size and uses the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536363(v=vs.85)">DRV_QUERYDEVICEINTERFACE</a> message to retrieve the device-interface name string.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/obtaining-a-device-interface-name">Obtaining a Device Interface Name</a>.
+     * 
+     * The <c>DRV_QUERYDEVNODE</c> message queries for the <a href="https://docs.microsoft.com/windows-hardware/drivers/">devnode</a> number assigned to the device by the Plug and Play manager.
+     * 
+     * For <c>DRV_QUERYDEVNODE</c>, <i>dwParam1</i> is a pointer to a caller-allocated DWORD variable into which the function writes the devnode number. If no devnode is assigned to the device, the function sets this variable to zero.
+     * 
+     * For <c>DRV_QUERYDEVNODE</c>, <i>dwParam2</i> is unused. Set this parameter to zero.
+     * 
+     * In Windows 2000 and later, the message always returns MMSYSERR_NOTSUPPORTED. This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>, <b>waveOutMessage</b>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, and <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> functions.  The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * The <c>DRV_QUERYMAPPABLE</c> message queries for whether the specified device can be used by a mapper.
+     * 
+     * For <c>DRV_QUERYMAPPABLE</c>, <i>dwParam1</i> is unused. Set this parameter to zero.
+     * 
+     * For <c>DRV_QUERYMAPPABLE</c>, <i>dwParam2</i> is unused. Set this parameter to zero.
+     * 
+     * This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>, <b>waveOutMessage</b>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> and <a href="https://docs.microsoft.com/previous-versions/dd756716(v=vs.85)">auxOutMessage</a> functions. The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * When an application program opens a mapper instead of a specific audio device, the system inserts a mapper between the application and the available devices. The mapper selects an appropriate device by mapping the application's requirements to one of the available devices. For more information about mappers, see the Microsoft Windows SDK documentation.
+     * 
+     * The <c>DRVM_MAPPER_CONSOLEVOICECOM_GET</c> message retrieves the device ID of the preferred voice-communications device.
+     * 
+     * For <c>DRVM_MAPPER_CONSOLEVOICECOM_GET</c>, <i>dwParam1</i> is a pointer to device ID. This parameter points to a DWORD variable into which the function writes the device ID of the current preferred voice-communications device. The function writes the value (-1) if no device is available that qualifies as a preferred voice-communications device.
+     * 
+     * For <c>DRVM_MAPPER_CONSOLEVOICECOM_GET</c>, <i>dwParam2</i> is a pointer to status flags. This parameter points to a DWORD variable into which the function writes the device-status flags. Only one flag bit is currently defined: DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY. 
+     * 
+     * This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a> and <b>waveOutMessage</b> functions. When a caller calls these two functions with the DRVM_MAPPER_CONSOLEVOICECOM_GET message, the caller must specify the device ID as WAVE_MAPPER, and then cast this value to the appropriate handle type. For the <b>waveInMessage</b>, <b>waveOutMessage</b>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, or <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> functions, the caller must cast the device ID to a handle of type HWAVEIN, HWAVEOUT, HMIDIIN, HMIDIOUT, or HMIXER, respectively. Note that if the caller supplies a valid handle instead of a device ID for this parameter, the function fails and returns error code MMSYSERR_NOSUPPORT.
+     * 
+     * The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * This message provides a way to determine which device is preferred specifically for voice communications, in contrast to the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536362(v=vs.85)">DRVM_MAPPER_PREFERRED_GET</a> message, which determines which device is preferred for all other audio functions.
+     * 
+     * For example, the preferred <b>waveOut</b> device for voice communications might be the earpiece in a headset, but the preferred <b>waveOut</b> device for all other audio functions might be a set of stereo speakers.
+     * 
+     * When the DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY flag bit is set in the DWORD location pointed to by <i>dwParam2</i>, the <b>waveIn</b> and <b>waveOut</b> APIs use only the current preferred voice-communications device and do not search for other available devices if the preferred device is unavailable. The flag that is output by either the <b>waveInMessage</b> or <b>waveOutMessage</b> call applies to the preferred voice-communications device for both the <b>waveIn</b> and <b>waveOut</b> APIs, regardless of whether the call is made to <b>waveInMessage</b> or <b>waveOutMessage</b>. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/preferred-voice-communications-device-id">Preferred Voice-Communications Device ID</a>.
+     * 
+     * The <c>DRVM_MAPPER_PREFERRED_GET</c> message retrieves the device ID of the preferred audio device.
+     * 
+     * For <c>DRVM_MAPPER_PREFERRED_GET</c>, <i>dwParam1</i> is a pointer to device ID. This parameter points to a DWORD variable into which the function writes the device ID of the current preferred device. The function writes the value (-1) if no device is available that qualifies as a preferred device.
+     * 
+     * For <c>DRVM_MAPPER_PREFERRED_GET</c>, <i>dwParam2</i> is a pointer to status flags. This parameter points to a DWORD variable into which the function writes the device-status flags. Only one flag bit is currently defined (for <b>waveInMessage</b> and <b>waveOutMessage</b> calls only): DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY. 
+     * 
+     * This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>,  <b>waveOutMessage</b> and  <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a> functions. When the caller calls these functions with the DRVM_MAPPER_PREFERRED_GET message, the caller must first specify the device ID as WAVE_MAPPER (for <b>waveInMessage</b> or <b>waveOutMessage</b>) or MIDI_MAPPER (for <b>midiOutMessage</b>), and then cast this value to the appropriate handle type. For the <b>waveInMessage</b>, <b>waveOutMessage</b>, or <b>midiOutMessage</b> functions, the caller must cast the device ID to a handle type HWAVEIN, HWAVEOUT or HMIDIOUT, respectively. Note that if the caller supplies a valid handle instead of a device ID for this parameter, the function fails and returns error code MMSYSERR_NOSUPPORT.
+     * 
+     * The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * This message provides a way to determine which device is preferred for audio functions in general, in contrast to the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536361(v=vs.85)">DRVM_MAPPER_CONSOLEVOICECOM_GET</a> message, which determines which device is preferred specifically for voice communications.
+     * 
+     * When the DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY flag bit is set in the DWORD location pointed to by <i>dwParam2</i>, the <b>waveIn</b> and <b>waveOut</b> APIs use only the current preferred device and do not search for other available devices if the preferred device is unavailable. Note that the <b>midiOutMessage</b> function does not output this flag--the <b>midiOut</b> API always uses only the preferred device. The flag that is output by either the <b>waveInMessage</b> or <b>waveOutMessage</b> call applies to the preferred device for both the <b>waveIn</b> and <b>waveOut</b> APIs, regardless of whether the call is made to <b>waveInMessage</b> or <b>waveOutMessage</b>.
+     * 
+     * The <i>xxx</i>Message functions accept this value in place of a valid device handle in order to allow an application to determine the default device ID without first having to open a device. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/accessing-the-preferred-device-id">Accessing the Preferred Device ID</a>.
      * @param {HWAVEOUT} hwo Identifier of the waveform device that receives the message. You must cast the device ID to the <b>HWAVEOUT</b> handle type. If you supply a handle instead of a device ID, the function fails and returns the MMSYSERR_NOSUPPORT error code.
      * @param {Integer} uMsg Message to send.
      * @param {Pointer} dw1 Message parameter.
      * @param {Pointer} dw2 Message parameter.
      * @returns {Integer} Returns the value returned from the driver.
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveoutmessage
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutmessage
      * @since windows5.0
      */
     static waveOutMessage(hwo, uMsg, dw1, dw2) {
@@ -3868,7 +4055,7 @@ class Audio {
     /**
      * The waveInGetNumDevs function returns the number of waveform-audio input devices present in the system.
      * @returns {Integer} Returns the number of devices. A return value of zero means that no devices are present or that an error occurred.
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveingetnumdevs
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveingetnumdevs
      * @since windows5.0
      */
     static waveInGetNumDevs() {
@@ -3930,6 +4117,14 @@ class Audio {
 
     /**
      * The waveInOpen function opens the given waveform-audio input device for recording.
+     * @remarks
+     * Use the <a href="https://docs.microsoft.com/previous-versions/dd743844(v=vs.85)">waveInGetNumDevs</a> function to determine the number of waveform-audio input devices present on the system. The device identifier specified by <i>uDeviceID</i> varies from zero to one less than the number of devices present. The WAVE_MAPPER constant can also be used as a device identifier.
+     *       
+     * 
+     * If you choose to have a window or thread receive callback information, the following messages are sent to the window procedure or thread to indicate the progress of waveform-audio input: <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mm-wim-open">MM_WIM_OPEN</a>, <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mm-wim-close">MM_WIM_CLOSE</a>, and <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mm-wim-data">MM_WIM_DATA</a>.
+     *       
+     * 
+     * If you choose to have a function receive callback information, the following messages are sent to the function to indicate the progress of waveform-audio input: <a href="https://docs.microsoft.com/windows/desktop/Multimedia/wim-open">WIM_OPEN</a>, <a href="https://docs.microsoft.com/windows/desktop/Multimedia/wim-close">WIM_CLOSE</a>, and <a href="https://docs.microsoft.com/windows/desktop/Multimedia/wim-data">WIM_DATA</a>.
      * @param {Pointer<HWAVEIN>} phwi Pointer to a buffer that receives a handle identifying the open waveform-audio input device. Use this handle to identify the device when calling other waveform-audio input functions. This parameter can be <b>NULL</b> if <b>WAVE_FORMAT_QUERY</b> is specified for <i>fdwOpen</i>.
      * @param {Integer} uDeviceID Identifier of the waveform-audio input device to open. It can be either a device identifier or a handle of an open waveform-audio input device. You can use the following flag instead of a device identifier.
      * 
@@ -4066,7 +4261,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveinopen
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveinopen
      * @since windows5.0
      */
     static waveInOpen(phwi, uDeviceID, pwfx, dwCallback, dwInstance, fdwOpen) {
@@ -4076,6 +4271,8 @@ class Audio {
 
     /**
      * The waveInClose function closes the given waveform-audio input device.
+     * @remarks
+     * If there are input buffers that have been sent with the <b>waveInAddBuffer</b> function and that haven't been returned to the application, the close operation will fail. Call the <b>waveInReset</b> function to mark all pending buffers as done.
      * @param {HWAVEIN} hwi Handle to the waveform-audio input device. If the function succeeds, the handle is no longer valid after this call.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -4129,7 +4326,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveinclose
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveinclose
      * @since windows5.0
      */
     static waveInClose(hwi) {
@@ -4141,6 +4338,8 @@ class Audio {
 
     /**
      * The waveInPrepareHeader function prepares a buffer for waveform-audio input.
+     * @remarks
+     * The <b>lpData</b>, <b>dwBufferLength</b>, and <b>dwFlags</b> members of the <b>WAVEHDR</b> structure must be set before calling this function (<b>dwFlags</b> must be zero).
      * @param {HWAVEIN} hwi Handle to the waveform-audio input device.
      * @param {Pointer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure that identifies the buffer to be prepared.
      * @param {Integer} cbwh Size, in bytes, of the <b>WAVEHDR</b> structure.
@@ -4185,7 +4384,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveinprepareheader
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveinprepareheader
      * @since windows5.0
      */
     static waveInPrepareHeader(hwi, pwh, cbwh) {
@@ -4197,6 +4396,10 @@ class Audio {
 
     /**
      * The waveInUnprepareHeader function cleans up the preparation performed by the waveInPrepareHeader function.
+     * @remarks
+     * This function complements the <b>waveInPrepareHeader</b> function.
+     * 
+     * You must call this function before freeing the buffer. After passing a buffer to the device driver with the <b>waveInAddBuffer</b> function, you must wait until the driver is finished with the buffer before calling <b>waveInUnprepareHeader</b>. Unpreparing a buffer that has not been prepared has no effect, and the function returns zero.
      * @param {HWAVEIN} hwi Handle to the waveform-audio input device.
      * @param {Pointer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure identifying the buffer to be cleaned up.
      * @param {Integer} cbwh Size, in bytes, of the <b>WAVEHDR</b> structure.
@@ -4252,7 +4455,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveinunprepareheader
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveinunprepareheader
      * @since windows5.0
      */
     static waveInUnprepareHeader(hwi, pwh, cbwh) {
@@ -4264,6 +4467,10 @@ class Audio {
 
     /**
      * The waveInAddBuffer function sends an input buffer to the given waveform-audio input device. When the buffer is filled, the application is notified.
+     * @remarks
+     * When the buffer is filled, the WHDR_DONE bit is set in the <b>dwFlags</b> member of the <b>WAVEHDR</b> structure.
+     * 
+     * The buffer must be prepared with the <b>waveInPrepareHeader</b> function before it is passed to this function.
      * @param {HWAVEIN} hwi Handle to the waveform-audio input device.
      * @param {Pointer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure that identifies the buffer.
      * @param {Integer} cbwh Size, in bytes, of the <b>WAVEHDR</b> structure.
@@ -4319,7 +4526,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveinaddbuffer
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveinaddbuffer
      * @since windows5.0
      */
     static waveInAddBuffer(hwi, pwh, cbwh) {
@@ -4331,6 +4538,10 @@ class Audio {
 
     /**
      * The waveInStart function starts input on the given waveform-audio input device.
+     * @remarks
+     * Buffers are returned to the application when full or when the <b>waveInReset</b> function is called (the <b>dwBytesRecorded</b> member in the header will contain the length of data). If there are no buffers in the queue, the data is thrown away without notifying the application, and input continues.
+     * 
+     * Calling this function when input is already started has no effect, and the function returns zero.
      * @param {HWAVEIN} hwi Handle to the waveform-audio input device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -4373,7 +4584,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveinstart
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveinstart
      * @since windows5.0
      */
     static waveInStart(hwi) {
@@ -4385,6 +4596,10 @@ class Audio {
 
     /**
      * The waveInStop function stops waveform-audio input.
+     * @remarks
+     * If there are any buffers in the queue, the current buffer will be marked as done (the <b>dwBytesRecorded</b> member in the header will contain the length of data), but any empty buffers in the queue will remain there.
+     * 
+     * Calling this function when input is not started has no effect, and the function returns zero.
      * @param {HWAVEIN} hwi Handle to the waveform-audio input device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -4427,7 +4642,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveinstop
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveinstop
      * @since windows5.0
      */
     static waveInStop(hwi) {
@@ -4481,7 +4696,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveinreset
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveinreset
      * @since windows5.0
      */
     static waveInReset(hwi) {
@@ -4493,6 +4708,10 @@ class Audio {
 
     /**
      * waveInGetPosition is no longer supported for use as of Windows Vista.
+     * @remarks
+     * Before calling this function, set the <b>wType</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure to indicate the time format you want. After calling this function, check <b>wType</b> to determine whether the desired time format is supported. If the format is not supported, the member will specify an alternative format.
+     * 
+     * The position is set to zero when the device is opened or reset.
      * @param {HWAVEIN} hwi Handle to the waveform-audio input device.
      * @param {Pointer} pmmt Pointer to an <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
      * @param {Integer} cbmmt Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
@@ -4538,7 +4757,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveingetposition
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveingetposition
      * @since windows5.0
      */
     static waveInGetPosition(hwi, pmmt, cbmmt) {
@@ -4593,7 +4812,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveingetid
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveingetid
      * @since windows5.0
      */
     static waveInGetID(hwi, puDeviceID) {
@@ -4607,12 +4826,98 @@ class Audio {
 
     /**
      * The waveInMessage function sends messages to the waveform-audio input device drivers.
+     * @remarks
+     * The <c>DRV_QUERYDEVICEINTERFACE</c> message queries for the device-interface name of a <b>waveIn</b>, <b>waveOut</b>, <b>midiIn</b>, <b>midiOut</b>, or <b>mixer</b> device.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACE</c>, <i>dwParam1</i> is a pointer to a caller-allocated buffer into which the function writes a null-terminated Unicode string containing the device-interface name. If the device has no device interface, the string length is zero.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACE</c>, <i>dwParam2</i> specifies the buffer size in bytes. This is an input parameter to the function. The caller should specify a size that is greater than or equal to the buffer size retrieved by the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536364(v=vs.85)">DRV_QUERYDEVICEINTERFACESIZE</a> message.
+     * 
+     * The DRV_QUERYDEVICEINTERFACE message is supported in Windows Me, and Windows 2000 and later. This message is valid only for the <b>waveInMessage</b>, <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, and <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> functions. The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * The following two message constants are used together for the purpose of obtaining device interface names:
+     * 
+     * <ul>
+     * <li>
+     * DRV_QUERYDEVICEINTERFACESIZE
+     * 
+     * </li>
+     * <li>
+     * DRV_QUERYDEVICEINTERFACE
+     * 
+     * </li>
+     * </ul>
+     * The first message obtains the size in bytes of the buffer needed to hold the string containing the device interface name. The second message retrieves the name string in a buffer of the required size.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/obtaining-a-device-interface-name">Obtaining a Device Interface Name</a>.
+     * 
+     * The <c>DRV_QUERYDEVICEINTERFACESIZE</c> message queries for the size of the buffer required to hold the device-interface name.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACESIZE</c>, <i>dwParam1</i> is a pointer to buffer size. This parameter points to a ULONG variable into which the function writes the required buffer size in bytes. The size includes storage space for the name string's terminating null. The size is zero if the device ID identifies a device that has no device interface.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACESIZE</c>, <i>dwParam2</i> is unused. Set this parameter to zero.
+     * 
+     * This message is valid only for the <b>waveInMessage</b>, <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, and <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> functions. The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * The buffer size retrieved by this message is expressed as a byte count. It specifies the size of the buffer needed to hold the null-terminated Unicode string that contains the device-interface name. The caller allocates a buffer of the specified size and uses the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536363(v=vs.85)">DRV_QUERYDEVICEINTERFACE</a> message to retrieve the device-interface name string.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/obtaining-a-device-interface-name">Obtaining a Device Interface Name</a>.
+     * 
+     * The <c>DRV_QUERYDEVNODE</c> message queries for the <a href="https://docs.microsoft.com/windows-hardware/drivers/">devnode</a> number assigned to the device by the Plug and Play manager.
+     * 
+     * For <c>DRV_QUERYDEVNODE</c>, <i>dwParam1</i> is a pointer to a caller-allocated DWORD variable into which the function writes the devnode number. If no devnode is assigned to the device, the function sets this variable to zero.
+     * 
+     * For <c>DRV_QUERYDEVNODE</c>, <i>dwParam2</i> is unused. Set this parameter to zero.
+     * 
+     * In Windows 2000 and later, the message always returns MMSYSERR_NOTSUPPORTED. This message is valid only for the <b>waveInMessage</b>, <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, and <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> functions.  The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * The <c>DRV_QUERYMAPPABLE</c> message queries for whether the specified device can be used by a mapper.
+     * 
+     * For <c>DRV_QUERYMAPPABLE</c>, <i>dwParam1</i> is unused. Set this parameter to zero.
+     * 
+     * For <c>DRV_QUERYMAPPABLE</c>, <i>dwParam2</i> is unused. Set this parameter to zero.
+     * 
+     * This message is valid only for the <b>waveInMessage</b>, <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> and <a href="https://docs.microsoft.com/previous-versions/dd756716(v=vs.85)">auxOutMessage</a> functions. The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * When an application program opens a mapper instead of a specific audio device, the system inserts a mapper between the application and the available devices. The mapper selects an appropriate device by mapping the application's requirements to one of the available devices. For more information about mappers, see the Microsoft Windows SDK documentation.
+     * 
+     * The <c>DRVM_MAPPER_CONSOLEVOICECOM_GET</c> message retrieves the device ID of the preferred voice-communications device.
+     * 
+     * For <c>DRVM_MAPPER_CONSOLEVOICECOM_GET</c>, <i>dwParam1</i> is a pointer to device ID. This parameter points to a DWORD variable into which the function writes the device ID of the current preferred voice-communications device. The function writes the value (-1) if no device is available that qualifies as a preferred voice-communications device.
+     * 
+     * For <c>DRVM_MAPPER_CONSOLEVOICECOM_GET</c>, <i>dwParam2</i> is a pointer to status flags. This parameter points to a DWORD variable into which the function writes the device-status flags. Only one flag bit is currently defined: DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY. 
+     * 
+     * This message is valid only for the <b>waveInMessage</b> and <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a> functions. When a caller calls these two functions with the DRVM_MAPPER_CONSOLEVOICECOM_GET message, the caller must specify the device ID as WAVE_MAPPER, and then cast this value to the appropriate handle type. For the <b>waveInMessage</b>, <b>waveOutMessage</b>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, or <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> functions, the caller must cast the device ID to a handle of type HWAVEIN, HWAVEOUT, HMIDIIN, HMIDIOUT, or HMIXER, respectively. Note that if the caller supplies a valid handle instead of a device ID for this parameter, the function fails and returns error code MMSYSERR_NOSUPPORT.
+     * 
+     * The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * This message provides a way to determine which device is preferred specifically for voice communications, in contrast to the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536362(v=vs.85)">DRVM_MAPPER_PREFERRED_GET</a> message, which determines which device is preferred for all other audio functions.
+     * 
+     * For example, the preferred <b>waveOut</b> device for voice communications might be the earpiece in a headset, but the preferred <b>waveOut</b> device for all other audio functions might be a set of stereo speakers.
+     * 
+     * When the DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY flag bit is set in the DWORD location pointed to by <i>dwParam2</i>, the <b>waveIn</b> and <b>waveOut</b> APIs use only the current preferred voice-communications device and do not search for other available devices if the preferred device is unavailable. The flag that is output by either the <b>waveInMessage</b> or <b>waveOutMessage</b> call applies to the preferred voice-communications device for both the <b>waveIn</b> and <b>waveOut</b> APIs, regardless of whether the call is made to <b>waveInMessage</b> or <b>waveOutMessage</b>. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/preferred-voice-communications-device-id">Preferred Voice-Communications Device ID</a>.
+     * 
+     * The <c>DRVM_MAPPER_PREFERRED_GET</c> message retrieves the device ID of the preferred audio device.
+     * 
+     * For <c>DRVM_MAPPER_PREFERRED_GET</c>, <i>dwParam1</i> is a pointer to device ID. This parameter points to a DWORD variable into which the function writes the device ID of the current preferred device. The function writes the value (-1) if no device is available that qualifies as a preferred device.
+     * 
+     * For <c>DRVM_MAPPER_PREFERRED_GET</c>, <i>dwParam2</i> is a pointer to status flags. This parameter points to a DWORD variable into which the function writes the device-status flags. Only one flag bit is currently defined (for <b>waveInMessage</b> and <b>waveOutMessage</b> calls only): DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY. 
+     * 
+     * This message is valid only for the <b>waveInMessage</b>,  <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a> and  <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a> functions. When the caller calls these functions with the DRVM_MAPPER_PREFERRED_GET message, the caller must first specify the device ID as WAVE_MAPPER (for <b>waveInMessage</b> or <b>waveOutMessage</b>) or MIDI_MAPPER (for <b>midiOutMessage</b>), and then cast this value to the appropriate handle type. For the <b>waveInMessage</b>, <b>waveOutMessage</b>, or <b>midiOutMessage</b> functions, the caller must cast the device ID to a handle type HWAVEIN, HWAVEOUT or HMIDIOUT, respectively. Note that if the caller supplies a valid handle instead of a device ID for this parameter, the function fails and returns error code MMSYSERR_NOSUPPORT.
+     * 
+     * The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * This message provides a way to determine which device is preferred for audio functions in general, in contrast to the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536361(v=vs.85)">DRVM_MAPPER_CONSOLEVOICECOM_GET</a> message, which determines which device is preferred specifically for voice communications.
+     * 
+     * When the DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY flag bit is set in the DWORD location pointed to by <i>dwParam2</i>, the <b>waveIn</b> and <b>waveOut</b> APIs use only the current preferred device and do not search for other available devices if the preferred device is unavailable. Note that the <b>midiOutMessage</b> function does not output this flag--the <b>midiOut</b> API always uses only the preferred device. The flag that is output by either the <b>waveInMessage</b> or <b>waveOutMessage</b> call applies to the preferred device for both the <b>waveIn</b> and <b>waveOut</b> APIs, regardless of whether the call is made to <b>waveInMessage</b> or <b>waveOutMessage</b>.
+     * 
+     * The <i>xxx</i>Message functions accept this value in place of a valid device handle in order to allow an application to determine the default device ID without first having to open a device. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/accessing-the-preferred-device-id">Accessing the Preferred Device ID</a>.
      * @param {HWAVEIN} hwi Identifier of the waveform device that receives the message. You must cast the device ID to the <b>HWAVEIN</b> handle type. If you supply a handle instead of a device ID, the function fails and returns the MMSYSERR_NOSUPPORT error code.
      * @param {Integer} uMsg Message to send.
      * @param {Pointer} dw1 Message parameter.
      * @param {Pointer} dw2 Message parameter.
      * @returns {Integer} Returns the value returned from the driver.
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-waveinmessage
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveinmessage
      * @since windows5.0
      */
     static waveInMessage(hwi, uMsg, dw1, dw2) {
@@ -4625,7 +4930,7 @@ class Audio {
     /**
      * The midiOutGetNumDevs function retrieves the number of MIDI output devices present in the system.
      * @returns {Integer} Returns the number of MIDI output devices. A return value of zero means that there are no devices (not that there is no error).
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midioutgetnumdevs
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutgetnumdevs
      * @since windows5.0
      */
     static midiOutGetNumDevs() {
@@ -4711,7 +5016,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midistreamopen
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreamopen
      * @since windows5.0
      */
     static midiStreamOpen(phms, puDeviceID, cMidi, dwCallback, dwInstance, fdwOpen) {
@@ -4743,7 +5048,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midistreamclose
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreamclose
      * @since windows5.0
      */
     static midiStreamClose(hms) {
@@ -4755,6 +5060,8 @@ class Audio {
 
     /**
      * The midiStreamProperty function sets or retrieves properties of a MIDI data stream associated with a MIDI output device.
+     * @remarks
+     * These properties are the default properties defined by the system. Driver writers can implement and document their own properties.
      * @param {HMIDISTRM} hms Handle to the MIDI device that the property is associated with.
      * @param {Pointer<Integer>} lppropdata Pointer to the property data.
      * @param {Integer} dwProperty Flags that specify the action to perform and identify the appropriate property of the MIDI data stream. The <b>midiStreamProperty</b> function requires setting two flags in each use. One flag (either MIDIPROP_GET or MIDIPROP_SET) specifies an action, and the other identifies a specific property to examine or edit.
@@ -4813,7 +5120,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midistreamproperty
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreamproperty
      * @since windows5.0
      */
     static midiStreamProperty(hms, lppropdata, dwProperty) {
@@ -4827,6 +5134,10 @@ class Audio {
 
     /**
      * The midiStreamPosition function retrieves the current position in a MIDI stream.
+     * @remarks
+     * Before calling <b>midiStreamPosition</b>, set the <b>wType</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure to indicate the time format you desire. After calling <b>midiStreamPosition</b>, check the <b>wType</b> member to determine if the desired time format is supported. If the desired format is not supported, <b>wType</b> will specify an alternative format.
+     * 
+     * The position is set to zero when the device is opened or reset.
      * @param {HMIDISTRM} hms Handle to a MIDI stream. This handle must have been returned by a call to the <a href="https://docs.microsoft.com/previous-versions/dd798486(v=vs.85)">midiStreamOpen</a> function. This handle identifies the output device.
      * @param {Pointer} lpmmt Pointer to an <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
      * @param {Integer} cbmmt Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
@@ -4860,7 +5171,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midistreamposition
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreamposition
      * @since windows5.0
      */
     static midiStreamPosition(hms, lpmmt, cbmmt) {
@@ -4872,6 +5183,14 @@ class Audio {
 
     /**
      * The midiStreamOut function plays or queues a stream (buffer) of MIDI data to a MIDI output device.
+     * @remarks
+     * Before the buffer is passed to <a href="https://docs.microsoft.com/previous-versions/dd798486(v=vs.85)">midiStreamOpen</a>, it must be prepared by using the <a href="https://docs.microsoft.com/previous-versions/dd798477(v=vs.85)">midiOutPrepareHeader</a> function.
+     * 
+     * Because the <a href="https://docs.microsoft.com/previous-versions/dd798486(v=vs.85)">midiStreamOpen</a> function opens the output device in paused mode, you must call the <a href="https://docs.microsoft.com/previous-versions/dd798491(v=vs.85)">midiStreamRestart</a> function before you can use <b>midiStreamOut</b> to start the playback.
+     * 
+     * For the current implementation of this function, the buffer must be smaller than 64K.
+     * 
+     * The buffer pointed to by the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure contains one or more MIDI events, each of which is defined by a <a href="https://docs.microsoft.com/previous-versions/dd798448(v=vs.85)">MIDIEVENT</a> structure.
      * @param {HMIDISTRM} hms Handle to a MIDI stream. This handle must have been returned by a call to the <a href="https://docs.microsoft.com/previous-versions/dd798486(v=vs.85)">midiStreamOpen</a> function. This handle identifies the output device.
      * @param {Pointer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure that identifies the MIDI buffer.
      * @param {Integer} cbmh Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure.
@@ -4900,7 +5219,7 @@ class Audio {
      * </dl>
      * </td>
      * <td width="60%">
-     * The output buffer pointed to by <i>lpMidiHdr</i> is still playing or is queued from a previous call to <a href="/previous-versions/dd798487(v=vs.85)">midiStreamOut</a>.
+     * The output buffer pointed to by <i>lpMidiHdr</i> is still playing or is queued from a previous call to <a href="https://docs.microsoft.com/previous-versions/dd798487(v=vs.85)">midiStreamOut</a>.
      * 
      * </td>
      * </tr>
@@ -4938,7 +5257,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midistreamout
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreamout
      * @since windows5.0
      */
     static midiStreamOut(hms, pmh, cbmh) {
@@ -4950,6 +5269,10 @@ class Audio {
 
     /**
      * The midiStreamPause function pauses playback of a specified MIDI stream.
+     * @remarks
+     * The current playback position is saved when playback is paused. To resume playback from the current position, use the <a href="https://docs.microsoft.com/previous-versions/dd798491(v=vs.85)">midiStreamRestart</a> function.
+     * 
+     * Calling this function when the output is already paused has no effect, and the function returns MMSYSERR_NOERROR.
      * @param {HMIDISTRM} hms Handle to a MIDI stream. This handle must have been returned by a call to the <a href="https://docs.microsoft.com/previous-versions/dd798448(v=vs.85)">MIDIEVENT</a> function. This handle identifies the output device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -4970,7 +5293,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midistreampause
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreampause
      * @since windows5.0
      */
     static midiStreamPause(hms) {
@@ -4982,6 +5305,8 @@ class Audio {
 
     /**
      * The midiStreamRestart function restarts a paused MIDI stream.
+     * @remarks
+     * Calling this function when the output is not paused has no effect, and the function returns MMSYSERR_NOERROR.
      * @param {HMIDISTRM} hms Handle to a MIDI stream. This handle must have been returned by a call to the <a href="https://docs.microsoft.com/previous-versions/dd798486(v=vs.85)">midiStreamOpen</a> function. This handle identifies the output device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -5002,7 +5327,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midistreamrestart
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreamrestart
      * @since windows5.0
      */
     static midiStreamRestart(hms) {
@@ -5014,6 +5339,10 @@ class Audio {
 
     /**
      * The midiStreamStop function turns off all notes on all MIDI channels for the specified MIDI output device.
+     * @remarks
+     * When you call this function, any pending system-exclusive or stream output buffers are returned to the callback mechanism and the MHDR_DONE bit is set in the <b>dwFlags</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure.
+     * 
+     * While the <a href="https://docs.microsoft.com/previous-versions/dd798479(v=vs.85)">midiOutReset</a> function turns off all notes, <b>midiStreamStop</b> turns off only those notes that have been turned on by a MIDI note-on message.
      * @param {HMIDISTRM} hms Handle to a MIDI stream. This handle must have been returned by a call to the <a href="https://docs.microsoft.com/previous-versions/dd798486(v=vs.85)">midiStreamOpen</a> function. This handle identifies the output device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -5034,7 +5363,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midistreamstop
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreamstop
      * @since windows5.0
      */
     static midiStreamStop(hms) {
@@ -5046,6 +5375,10 @@ class Audio {
 
     /**
      * The midiConnect function connects a MIDI input device to a MIDI thru or output device, or connects a MIDI thru device to a MIDI output device.
+     * @remarks
+     * After calling this function, the MIDI input device receives event data in an MIM_DATA message whenever a message with the same event data is sent to the output device driver.
+     * 
+     * A thru driver is a special form of MIDI output driver. The system will allow only one MIDI output device to be connected to a MIDI input device, but multiple MIDI output devices can be connected to a MIDI thru device. Whenever the given MIDI input device receives event data in an MIM_DATA message, a message with the same event data is sent to the given output device driver (or through the thru driver to the output drivers).
      * @param {HMIDI} hmi Handle to a MIDI input device or a MIDI thru device. (For thru devices, this handle must have been returned by a call to the <a href="https://docs.microsoft.com/previous-versions/dd798476(v=vs.85)">midiOutOpen</a> function.)
      * @param {HMIDIOUT} hmo Handle to the MIDI output or thru device.
      * @param {Pointer<Void>} pReserved Reserved; must be <b>NULL</b>.
@@ -5079,7 +5412,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midiconnect
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiconnect
      * @since windows5.0
      */
     static midiConnect(hmi, hmo, pReserved) {
@@ -5094,6 +5427,8 @@ class Audio {
 
     /**
      * The midiDisconnect function disconnects a MIDI input device from a MIDI thru or output device, or disconnects a MIDI thru device from a MIDI output device.
+     * @remarks
+     * MIDI input, output, and thru devices can be connected by using the <b>midiConnect</b> function. Thereafter, whenever the MIDI input device receives event data in an MIM_DATA message, a message with the same event data is sent to the output device driver (or through the thru driver to the output drivers).
      * @param {HMIDI} hmi Handle to a MIDI input device or a MIDI thru device.
      * @param {HMIDIOUT} hmo Handle to the MIDI output device to be disconnected.
      * @param {Pointer<Void>} pReserved Reserved; must be <b>NULL</b>.
@@ -5116,7 +5451,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-mididisconnect
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mididisconnect
      * @since windows5.0
      */
     static midiDisconnect(hmi, hmo, pReserved) {
@@ -5130,7 +5465,16 @@ class Audio {
     }
 
     /**
-     * The midiOutGetDevCaps function queries a specified MIDI output device to determine its capabilities.
+     * The midiOutGetDevCaps function queries a specified MIDI output device to determine its capabilities. (midiOutGetDevCapsA)
+     * @remarks
+     * To determine the number of MIDI output devices present in the system, use the <a href="https://docs.microsoft.com/previous-versions/dd798472(v=vs.85)">midiOutGetNumDevs</a> function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The mmeapi.h header defines midiOutGetDevCaps as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer} uDeviceID Identifier of the MIDI output device. The device identifier specified by this parameter varies from zero to one less than the number of devices present. The MIDI_MAPPER constant is also a valid device identifier.
      * 
      * This parameter can also be a properly cast device handle.
@@ -5188,7 +5532,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midioutgetdevcapsa
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutgetdevcapsa
      * @since windows5.0
      */
     static midiOutGetDevCapsA(uDeviceID, pmoc, cbmoc) {
@@ -5197,7 +5541,16 @@ class Audio {
     }
 
     /**
-     * The midiOutGetDevCaps function queries a specified MIDI output device to determine its capabilities.
+     * The midiOutGetDevCapsW (Unicode) function (mmeapi.h) queries a specified MIDI output device to determine its capabilities.
+     * @remarks
+     * To determine the number of MIDI output devices present in the system, use the <a href="https://docs.microsoft.com/previous-versions/dd798472(v=vs.85)">midiOutGetNumDevs</a> function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The mmeapi.h header defines midiOutGetDevCaps as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer} uDeviceID Identifier of the MIDI output device. The device identifier specified by this parameter varies from zero to one less than the number of devices present. The MIDI_MAPPER constant is also a valid device identifier.
      * 
      * This parameter can also be a properly cast device handle.
@@ -5255,7 +5608,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midioutgetdevcapsw
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutgetdevcapsw
      * @since windows5.0
      */
     static midiOutGetDevCapsW(uDeviceID, pmoc, cbmoc) {
@@ -5265,6 +5618,12 @@ class Audio {
 
     /**
      * The midiOutGetVolume function retrieves the current volume setting of a MIDI output device.
+     * @remarks
+     * If a device identifier is used, then the result of the <b>midiOutGetVolume</b> call and the information returned in <i>lpdwVolume</i> applies to all instances of the device. If a device handle is used, then the result and information returned applies only to the instance of the device referenced by the device handle.
+     * 
+     * Not all devices support volume control. You can determine whether a device supports volume control by querying the device by using the <a href="https://docs.microsoft.com/previous-versions/dd798469(v=vs.85)">midiOutGetDevCaps</a> function and specifying the MIDICAPS_VOLUME flag.
+     * 
+     * You can also determine whether the device supports volume control on both the left and right channels by querying the device by using the <a href="https://docs.microsoft.com/previous-versions/dd798469(v=vs.85)">midiOutGetDevCaps</a> function and specifying the MIDICAPS_LRVOLUME flag.
      * @param {HMIDIOUT} hmo Handle to an open MIDI output device. This parameter can also contain the handle of a MIDI stream, as long as it is cast to <b>HMIDIOUT</b>. This parameter can also be a device identifier.
      * @param {Pointer<Integer>} pdwVolume Pointer to the location to contain the current volume setting. The low-order word of this location contains the left-channel volume setting, and the high-order word contains the right-channel setting. A value of 0xFFFF represents full volume, and a value of 0x0000 is silence.
      * 
@@ -5323,7 +5682,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midioutgetvolume
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutgetvolume
      * @since windows5.0
      */
     static midiOutGetVolume(hmo, pdwVolume) {
@@ -5337,6 +5696,16 @@ class Audio {
 
     /**
      * The midiOutSetVolume function sets the volume of a MIDI output device.
+     * @remarks
+     * If a device identifier is used, then the result of the <b>midiOutSetVolume</b> call applies to all instances of the device. If a device handle is used, then the result applies only to the instance of the device referenced by the device handle.
+     * 
+     * Not all devices support volume changes. You can determine whether a device supports it by querying the device using the <a href="https://docs.microsoft.com/previous-versions/dd798469(v=vs.85)">midiOutGetDevCaps</a> function and the MIDICAPS_VOLUME flag.
+     * 
+     * You can also determine whether the device supports volume control on both the left and right channels by querying the device using the <a href="https://docs.microsoft.com/previous-versions/dd798469(v=vs.85)">midiOutGetDevCaps</a> function and the MIDICAPS_LRVOLUME flag.
+     * 
+     * Devices that do not support a full 16 bits of volume-level control use the high-order bits of the requested volume setting. For example, a device that supports 4 bits of volume control produces the same volume setting for the following volume-level values: 0x4000, 0x43be, and 0x4fff. The <a href="https://docs.microsoft.com/previous-versions/dd798473(v=vs.85)">midiOutGetVolume</a> function returns the full 16-bit value, as set by <b>midiOutSetVolume</b>, irrespective of the device's capabilities.
+     * 
+     * Volume settings are interpreted logarithmically. This means that the perceived increase in volume is the same when increasing the volume level from 0x5000 to 0x6000 as it is from 0x4000 to 0x5000.
      * @param {HMIDIOUT} hmo Handle to an open MIDI output device. This parameter can also contain the handle of a MIDI stream, as long as it is cast to <b>HMIDIOUT</b>. This parameter can also be a device identifier.
      * @param {Integer} dwVolume New volume setting. The low-order word contains the left-channel volume setting, and the high-order word contains the right-channel setting. A value of 0xFFFF represents full volume, and a value of 0x0000 is silence.
      * 
@@ -5382,7 +5751,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midioutsetvolume
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutsetvolume
      * @since windows5.0
      */
     static midiOutSetVolume(hmo, dwVolume) {
@@ -5393,7 +5762,16 @@ class Audio {
     }
 
     /**
-     * The midiOutGetErrorText function retrieves a textual description for an error identified by the specified error code.
+     * The midiOutGetErrorText function retrieves a textual description for an error identified by the specified error code. (midiOutGetErrorTextA)
+     * @remarks
+     * If the textual error description is longer than the specified buffer, the description is truncated. The returned error string is always null-terminated. If <i>cchText</i> is zero, nothing is copied, and the function returns MMSYSERR_NOERROR. All error descriptions are less than MAXERRORLENGTH characters long.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The mmeapi.h header defines midiOutGetErrorText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} mmrError Error code.
      * @param {PSTR} pszText Pointer to a buffer to be filled with the textual error description.
      * @param {Integer} cchText Length, in characters, of the buffer pointed to by <i>lpText</i>.
@@ -5427,7 +5805,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midioutgeterrortexta
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutgeterrortexta
      * @since windows5.0
      */
     static midiOutGetErrorTextA(mmrError, pszText, cchText) {
@@ -5438,7 +5816,16 @@ class Audio {
     }
 
     /**
-     * The midiOutGetErrorText function retrieves a textual description for an error identified by the specified error code.
+     * The midiOutGetErrorTextW (Unicode) function (mmeapi.h) retrieves a textual description for an error identified by the specified error code.
+     * @remarks
+     * If the textual error description is longer than the specified buffer, the description is truncated. The returned error string is always null-terminated. If <i>cchText</i> is zero, nothing is copied, and the function returns MMSYSERR_NOERROR. All error descriptions are less than MAXERRORLENGTH characters long.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The mmeapi.h header defines midiOutGetErrorText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} mmrError Error code.
      * @param {PWSTR} pszText Pointer to a buffer to be filled with the textual error description.
      * @param {Integer} cchText Length, in characters, of the buffer pointed to by <i>lpText</i>.
@@ -5472,7 +5859,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midioutgeterrortextw
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutgeterrortextw
      * @since windows5.0
      */
     static midiOutGetErrorTextW(mmrError, pszText, cchText) {
@@ -5484,6 +5871,12 @@ class Audio {
 
     /**
      * The midiOutOpen function opens a MIDI output device for playback.
+     * @remarks
+     * To determine the number of MIDI output devices present in the system, use the <a href="https://docs.microsoft.com/previous-versions/dd798472(v=vs.85)">midiOutGetNumDevs</a> function. The device identifier specified by <i>wDeviceID</i> varies from zero to one less than the number of devices present. MIDI_MAPPER can also be used as the device identifier.
+     * 
+     * If a window or thread is chosen to receive callback information, the following messages are sent to the window procedure or thread to indicate the progress of MIDI output: <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mm-mom-open">MM_MOM_OPEN</a>, <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mm-mom-close">MM_MOM_CLOSE</a>, and <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mm-mom-done">MM_MOM_DONE</a>.
+     * 
+     * If a function is chosen to receive callback information, the following messages are sent to the function to indicate the progress of MIDI output: <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mom-open">MOM_OPEN</a>, <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mom-close">MOM_CLOSE</a>, and <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mom-done">MOM_DONE</a>.
      * @param {Pointer<HMIDIOUT>} phmo Pointer to an <b>HMIDIOUT</b> handle. This location is filled with a handle identifying the opened MIDI output device. The handle is used to identify the device in calls to other MIDI output functions.
      * @param {Integer} uDeviceID Identifier of the MIDI output device that is to be opened.
      * @param {Pointer} dwCallback Pointer to a callback function, an event handle, a thread identifier, or a handle of a window or thread called during MIDI playback to process messages related to the progress of the playback. If no callback is desired, specify <b>NULL</b> for this parameter. For more information on the callback function, see <a href="https://docs.microsoft.com/previous-versions/dd798478(v=vs.85)">MidiOutProc</a>.
@@ -5581,7 +5974,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midioutopen
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutopen
      * @since windows5.0
      */
     static midiOutOpen(phmo, uDeviceID, dwCallback, dwInstance, fdwOpen) {
@@ -5591,6 +5984,8 @@ class Audio {
 
     /**
      * The midiOutClose function closes the specified MIDI output device.
+     * @remarks
+     * If there are output buffers that have been sent by using the <a href="https://docs.microsoft.com/previous-versions/dd798474(v=vs.85)">midiOutLongMsg</a> function and have not been returned to the application, the close operation will fail. To mark all pending buffers as being done, use the <a href="https://docs.microsoft.com/previous-versions/dd798479(v=vs.85)">midiOutReset</a> function.
      * @param {HMIDIOUT} hmo Handle to the MIDI output device. If the function is successful, the handle is no longer valid after the call to this function.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -5633,7 +6028,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midioutclose
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutclose
      * @since windows5.0
      */
     static midiOutClose(hmo) {
@@ -5645,6 +6040,15 @@ class Audio {
 
     /**
      * The midiOutPrepareHeader function prepares a MIDI system-exclusive or stream buffer for output.
+     * @remarks
+     * Before you pass a MIDI data block to a device driver, you must prepare the buffer by passing it to the <b>midiOutPrepareHeader</b> function. After the header has been prepared, do not modify the buffer. After the driver is done using the buffer, call the <a href="https://docs.microsoft.com/previous-versions/dd798482(v=vs.85)">midiOutUnprepareHeader</a> function.
+     * 
+     * The application can re-use the same buffer, or allocate multiple buffers and  call <b>midiOutPrepareHeader</b> for each buffer. If you re-use the same buffer, it is not necessary to prepare the buffer each time. You can call  <b>midiOutPrepareHeader</b> once at the beginning and then call <a href="https://docs.microsoft.com/previous-versions/dd798482(v=vs.85)">midiOutUnprepareHeader</a> once at the end.
+     * 
+     * A stream buffer cannot be larger than 64K.
+     *       
+     * 
+     * Preparing a header that has already been prepared has no effect, and the function returns MMSYSERR_NOERROR.
      * @param {HMIDIOUT} hmo Handle to the MIDI output device. To get the device handle, call <a href="https://docs.microsoft.com/previous-versions/dd798476(v=vs.85)">midiOutOpen</a>. This parameter can also be the handle of a MIDI stream cast to a <b>HMIDIOUT</b> type.
      * @param {Pointer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure that identifies the buffer to be prepared.
      *           
@@ -5692,7 +6096,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midioutprepareheader
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutprepareheader
      * @since windows5.0
      */
     static midiOutPrepareHeader(hmo, pmh, cbmh) {
@@ -5704,6 +6108,10 @@ class Audio {
 
     /**
      * The midiOutUnprepareHeader function cleans up the preparation performed by the midiOutPrepareHeader function.
+     * @remarks
+     * This function is complementary to the <a href="https://docs.microsoft.com/previous-versions/dd798477(v=vs.85)">midiOutPrepareHeader</a> function. You must call <b>midiOutUnprepareHeader</b> before freeing the buffer. After passing a buffer to the device driver with the <a href="https://docs.microsoft.com/previous-versions/dd798474(v=vs.85)">midiOutLongMsg</a> function, you must wait until the device driver is finished with the buffer before calling <b>midiOutUnprepareHeader</b>.
+     * 
+     * Unpreparing a buffer that has not been prepared has no effect, and the function returns MMSYSERR_NOERROR.
      * @param {HMIDIOUT} hmo Handle to the MIDI output device. This parameter can also be the handle of a MIDI stream cast to <b>HMIDIOUT</b>.
      * @param {Pointer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure identifying the buffer to be cleaned up.
      * @param {Integer} cbmh Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure.
@@ -5748,7 +6156,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midioutunprepareheader
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutunprepareheader
      * @since windows5.0
      */
     static midiOutUnprepareHeader(hmo, pmh, cbmh) {
@@ -5760,6 +6168,10 @@ class Audio {
 
     /**
      * The midiOutShortMsg function sends a short MIDI message to the specified MIDI output device.
+     * @remarks
+     * This function is used to send any MIDI message except for system-exclusive or stream messages.
+     * 
+     * This function might not return until the message has been sent to the output device. You can send short messages while streams are playing on the same device (although you cannot use a running status in this case).
      * @param {HMIDIOUT} hmo Handle to the MIDI output device. This parameter can also be the handle of a MIDI stream cast to <b>HMIDIOUT</b>.
      * @param {Integer} dwMsg MIDI message. The message is packed into a <b>DWORD</b> value with the first byte of the message in the low-order byte. The message is packed into this parameter as follows.
      * 
@@ -5868,7 +6280,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midioutshortmsg
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutshortmsg
      * @since windows5.0
      */
     static midiOutShortMsg(hmo, dwMsg) {
@@ -5880,6 +6292,8 @@ class Audio {
 
     /**
      * The midiOutLongMsg function sends a system-exclusive MIDI message to the specified MIDI output device.
+     * @remarks
+     * Before the buffer is passed to <b>midiOutLongMsg</b>, it must be prepared by using the <a href="https://docs.microsoft.com/previous-versions/dd798477(v=vs.85)">midiOutPrepareHeader</a> function. The MIDI output device driver determines whether the data is sent synchronously or asynchronously.
      * @param {HMIDIOUT} hmo Handle to the MIDI output device. This parameter can also be the handle of a MIDI stream cast to <b>HMIDIOUT</b>.
      * @param {Pointer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure that identifies the MIDI buffer.
      * @param {Integer} cbmh Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure.
@@ -5935,7 +6349,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midioutlongmsg
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutlongmsg
      * @since windows5.0
      */
     static midiOutLongMsg(hmo, pmh, cbmh) {
@@ -5947,6 +6361,12 @@ class Audio {
 
     /**
      * The midiOutReset function turns off all notes on all MIDI channels for the specified MIDI output device.
+     * @remarks
+     * Any pending system-exclusive or stream output buffers are returned to the callback function and the MHDR_DONE flag is set in the <b>dwFlags</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure.
+     * 
+     * Terminating a system-exclusive message without sending an EOX (end-of-exclusive) byte might cause problems for the receiving device. The <b>midiOutReset</b> function does not send an EOX byte when it terminates a system-exclusive message - applications are responsible for doing this.
+     * 
+     * To turn off all notes, a note-off message for each note in each channel is sent. In addition, the sustain controller is turned off for each channel.
      * @param {HMIDIOUT} hmo Handle to the MIDI output device. This parameter can also be the handle of a MIDI stream cast to <b>HMIDIOUT</b>.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -5967,7 +6387,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midioutreset
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutreset
      * @since windows5.0
      */
     static midiOutReset(hmo) {
@@ -5979,6 +6399,12 @@ class Audio {
 
     /**
      * The midiOutCachePatches function requests that an internal MIDI synthesizer device preload and cache a specified set of patches.
+     * @remarks
+     * Some synthesizers are not capable of keeping all patches loaded simultaneously and must load data from disk when they receive MIDI program change messages. Caching patches ensures that the specified patches are immediately available.
+     * 
+     * Each element of the <a href="https://docs.microsoft.com/windows/desktop/Multimedia/patcharray">PATCHARRAY</a> array represents one of the 128 patches and has bits set for each of the 16 MIDI channels that use the particular patch. The least-significant bit represents physical channel 0, and the most-significant bit represents physical channel 15 (0x0F). For example, if patch 0 is used by physical channels 0 and 8, element 0 would be set to 0x0101.
+     * 
+     * This function applies only to internal MIDI synthesizer devices. Not all internal synthesizers support patch caching. To see if a device supports patch caching, use the MIDICAPS_CACHE flag to test the <b>dwSupport</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd798467(v=vs.85)">MIDIOUTCAPS</a> structure filled by the <a href="https://docs.microsoft.com/previous-versions/dd798469(v=vs.85)">midiOutGetDevCaps</a> function.
      * @param {HMIDIOUT} hmo Handle to the opened MIDI output device. This device must be an internal MIDI synthesizer. This parameter can also be the handle of a MIDI stream, cast to <b>HMIDIOUT</b>.
      * @param {Integer} uBank Bank of patches that should be used. This parameter should be set to zero to cache the default patch bank.
      * @param {Pointer<Integer>} pwpa Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Multimedia/patcharray">PATCHARRAY</a> array indicating the patches to be cached or uncached.
@@ -6071,7 +6497,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midioutcachepatches
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutcachepatches
      * @since windows5.0
      */
     static midiOutCachePatches(hmo, uBank, pwpa, fuCache) {
@@ -6085,6 +6511,12 @@ class Audio {
 
     /**
      * The midiOutCacheDrumPatches function requests that an internal MIDI synthesizer device preload and cache a specified set of key-based percussion patches.
+     * @remarks
+     * Some synthesizers are not capable of keeping all percussion patches loaded simultaneously. Caching patches ensures that the specified patches are available.
+     * 
+     * Each element of the <a href="https://docs.microsoft.com/windows/desktop/Multimedia/keyarray">KEYARRAY</a> array represents one of the 128 key-based percussion patches and has bits set for each of the 16 MIDI channels that use the particular patch. The least-significant bit represents physical channel 0, and the most-significant bit represents physical channel 15. For example, if the patch on key number 60 is used by physical channels 9 and 15, element 60 would be set to 0x8200.
+     * 
+     * This function applies only to internal MIDI synthesizer devices. Not all internal synthesizers support patch caching. To see if a device supports patch caching, use the MIDICAPS_CACHE flag to test the <b>dwSupport</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd798467(v=vs.85)">MIDIOUTCAPS</a> structure filled by the <a href="https://docs.microsoft.com/previous-versions/dd798469(v=vs.85)">midiOutGetDevCaps</a> function.
      * @param {HMIDIOUT} hmo Handle to the opened MIDI output device. This device should be an internal MIDI synthesizer. This parameter can also be the handle of a MIDI stream, cast to <b>HMIDIOUT</b>.
      * @param {Integer} uPatch Drum patch number that should be used. This parameter should be set to zero to cache the default drum patch.
      * @param {Pointer<Integer>} pwkya Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Multimedia/keyarray">KEYARRAY</a> array indicating the key numbers of the specified percussion patches to be cached or uncached.
@@ -6177,7 +6609,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midioutcachedrumpatches
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutcachedrumpatches
      * @since windows5.0
      */
     static midiOutCacheDrumPatches(hmo, uPatch, pwkya, fuCache) {
@@ -6234,7 +6666,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midioutgetid
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutgetid
      * @since windows5.0
      */
     static midiOutGetID(hmo, puDeviceID) {
@@ -6248,12 +6680,98 @@ class Audio {
 
     /**
      * The midiOutMessage function sends a message to the MIDI device drivers. This function is used only for driver-specific messages that are not supported by the MIDI API.
+     * @remarks
+     * The <c>DRV_QUERYDEVICEINTERFACE</c> message queries for the device-interface name of a <b>waveIn</b>, <b>waveOut</b>, <b>midiIn</b>, <b>midiOut</b>, or <b>mixer</b> device.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACE</c>, <i>dwParam1</i> is a pointer to a caller-allocated buffer into which the function writes a null-terminated Unicode string containing the device-interface name. If the device has no device interface, the string length is zero.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACE</c>, <i>dwParam2</i> specifies the buffer size in bytes. This is an input parameter to the function. The caller should specify a size that is greater than or equal to the buffer size retrieved by the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536364(v=vs.85)">DRV_QUERYDEVICEINTERFACESIZE</a> message.
+     * 
+     * The DRV_QUERYDEVICEINTERFACE message is supported in Windows Me, and Windows 2000 and later. This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <b>midiOutMessage</b>, and <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> functions. The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * The following two message constants are used together for the purpose of obtaining device interface names:
+     * 
+     * <ul>
+     * <li>
+     * DRV_QUERYDEVICEINTERFACESIZE
+     * 
+     * </li>
+     * <li>
+     * DRV_QUERYDEVICEINTERFACE
+     * 
+     * </li>
+     * </ul>
+     * The first message obtains the size in bytes of the buffer needed to hold the string containing the device interface name. The second message retrieves the name string in a buffer of the required size.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/obtaining-a-device-interface-name">Obtaining a Device Interface Name</a>.
+     * 
+     * The <c>DRV_QUERYDEVICEINTERFACESIZE</c> message queries for the size of the buffer required to hold the device-interface name.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACESIZE</c>, <i>dwParam1</i> is a pointer to buffer size. This parameter points to a ULONG variable into which the function writes the required buffer size in bytes. The size includes storage space for the name string's terminating null. The size is zero if the device ID identifies a device that has no device interface.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACESIZE</c>, <i>dwParam2</i> is unused. Set this parameter to zero.
+     * 
+     * This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <b>midiOutMessage</b>, and <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> functions. The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * The buffer size retrieved by this message is expressed as a byte count. It specifies the size of the buffer needed to hold the null-terminated Unicode string that contains the device-interface name. The caller allocates a buffer of the specified size and uses the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536363(v=vs.85)">DRV_QUERYDEVICEINTERFACE</a> message to retrieve the device-interface name string.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/obtaining-a-device-interface-name">Obtaining a Device Interface Name</a>.
+     * 
+     * The <c>DRV_QUERYDEVNODE</c> message queries for the <a href="https://docs.microsoft.com/windows-hardware/drivers/">devnode</a> number assigned to the device by the Plug and Play manager.
+     * 
+     * For <c>DRV_QUERYDEVNODE</c>, <i>dwParam1</i> is a pointer to a caller-allocated DWORD variable into which the function writes the devnode number. If no devnode is assigned to the device, the function sets this variable to zero.
+     * 
+     * For <c>DRV_QUERYDEVNODE</c>, <i>dwParam2</i> is unused. Set this parameter to zero.
+     * 
+     * In Windows 2000 and later, the message always returns MMSYSERR_NOTSUPPORTED. This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <b>midiOutMessage</b>, and <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> functions.  The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * The <c>DRV_QUERYMAPPABLE</c> message queries for whether the specified device can be used by a mapper.
+     * 
+     * For <c>DRV_QUERYMAPPABLE</c>, <i>dwParam1</i> is unused. Set this parameter to zero.
+     * 
+     * For <c>DRV_QUERYMAPPABLE</c>, <i>dwParam2</i> is unused. Set this parameter to zero.
+     * 
+     * This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <b>midiOutMessage</b>, <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> and <a href="https://docs.microsoft.com/previous-versions/dd756716(v=vs.85)">auxOutMessage</a> functions. The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * When an application program opens a mapper instead of a specific audio device, the system inserts a mapper between the application and the available devices. The mapper selects an appropriate device by mapping the application's requirements to one of the available devices. For more information about mappers, see the Microsoft Windows SDK documentation.
+     * 
+     * The <c>DRVM_MAPPER_CONSOLEVOICECOM_GET</c> message retrieves the device ID of the preferred voice-communications device.
+     * 
+     * For <c>DRVM_MAPPER_CONSOLEVOICECOM_GET</c>, <i>dwParam1</i> is a pointer to device ID. This parameter points to a DWORD variable into which the function writes the device ID of the current preferred voice-communications device. The function writes the value (-1) if no device is available that qualifies as a preferred voice-communications device.
+     * 
+     * For <c>DRVM_MAPPER_CONSOLEVOICECOM_GET</c>, <i>dwParam2</i> is a pointer to status flags. This parameter points to a DWORD variable into which the function writes the device-status flags. Only one flag bit is currently defined: DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY. 
+     * 
+     * This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a> and <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a> functions. When a caller calls these two functions with the DRVM_MAPPER_CONSOLEVOICECOM_GET message, the caller must specify the device ID as WAVE_MAPPER, and then cast this value to the appropriate handle type. For the <b>waveInMessage</b>, <b>waveOutMessage</b>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <b>midiOutMessage</b>, or <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> functions, the caller must cast the device ID to a handle of type HWAVEIN, HWAVEOUT, HMIDIIN, HMIDIOUT, or HMIXER, respectively. Note that if the caller supplies a valid handle instead of a device ID for this parameter, the function fails and returns error code MMSYSERR_NOSUPPORT.
+     * 
+     * The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * This message provides a way to determine which device is preferred specifically for voice communications, in contrast to the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536362(v=vs.85)">DRVM_MAPPER_PREFERRED_GET</a> message, which determines which device is preferred for all other audio functions.
+     * 
+     * For example, the preferred <b>waveOut</b> device for voice communications might be the earpiece in a headset, but the preferred <b>waveOut</b> device for all other audio functions might be a set of stereo speakers.
+     * 
+     * When the DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY flag bit is set in the DWORD location pointed to by <i>dwParam2</i>, the <b>waveIn</b> and <b>waveOut</b> APIs use only the current preferred voice-communications device and do not search for other available devices if the preferred device is unavailable. The flag that is output by either the <b>waveInMessage</b> or <b>waveOutMessage</b> call applies to the preferred voice-communications device for both the <b>waveIn</b> and <b>waveOut</b> APIs, regardless of whether the call is made to <b>waveInMessage</b> or <b>waveOutMessage</b>. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/preferred-voice-communications-device-id">Preferred Voice-Communications Device ID</a>.
+     * 
+     * The <c>DRVM_MAPPER_PREFERRED_GET</c> message retrieves the device ID of the preferred audio device.
+     * 
+     * For <c>DRVM_MAPPER_PREFERRED_GET</c>, <i>dwParam1</i> is a pointer to device ID. This parameter points to a DWORD variable into which the function writes the device ID of the current preferred device. The function writes the value (-1) if no device is available that qualifies as a preferred device.
+     * 
+     * For <c>DRVM_MAPPER_PREFERRED_GET</c>, <i>dwParam2</i> is a pointer to status flags. This parameter points to a DWORD variable into which the function writes the device-status flags. Only one flag bit is currently defined (for <b>waveInMessage</b> and <b>waveOutMessage</b> calls only): DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY. 
+     * 
+     * This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>,  <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a> and  <b>midiOutMessage</b> functions. When the caller calls these functions with the DRVM_MAPPER_PREFERRED_GET message, the caller must first specify the device ID as WAVE_MAPPER (for <b>waveInMessage</b> or <b>waveOutMessage</b>) or MIDI_MAPPER (for <b>midiOutMessage</b>), and then cast this value to the appropriate handle type. For the <b>waveInMessage</b>, <b>waveOutMessage</b>, or <b>midiOutMessage</b> functions, the caller must cast the device ID to a handle type HWAVEIN, HWAVEOUT or HMIDIOUT, respectively. Note that if the caller supplies a valid handle instead of a device ID for this parameter, the function fails and returns error code MMSYSERR_NOSUPPORT.
+     * 
+     * The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * This message provides a way to determine which device is preferred for audio functions in general, in contrast to the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536361(v=vs.85)">DRVM_MAPPER_CONSOLEVOICECOM_GET</a> message, which determines which device is preferred specifically for voice communications.
+     * 
+     * When the DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY flag bit is set in the DWORD location pointed to by <i>dwParam2</i>, the <b>waveIn</b> and <b>waveOut</b> APIs use only the current preferred device and do not search for other available devices if the preferred device is unavailable. Note that the <b>midiOutMessage</b> function does not output this flag--the <b>midiOut</b> API always uses only the preferred device. The flag that is output by either the <b>waveInMessage</b> or <b>waveOutMessage</b> call applies to the preferred device for both the <b>waveIn</b> and <b>waveOut</b> APIs, regardless of whether the call is made to <b>waveInMessage</b> or <b>waveOutMessage</b>.
+     * 
+     * The <i>xxx</i>Message functions accept this value in place of a valid device handle in order to allow an application to determine the default device ID without first having to open a device. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/accessing-the-preferred-device-id">Accessing the Preferred Device ID</a>.
      * @param {HMIDIOUT} hmo Identifier of the MIDI device that receives the message. You must cast the device ID to the <b>HMIDIOUT</b> handle type. If you supply a handle instead of a device ID, the function fails and returns the MMSYSERR_NOSUPPORT error code.
      * @param {Integer} uMsg Message to send.
      * @param {Pointer} dw1 Message parameter.
      * @param {Pointer} dw2 Message parameter.
      * @returns {Integer} Returns the value returned by the audio device driver.
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midioutmessage
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutmessage
      * @since windows5.0
      */
     static midiOutMessage(hmo, uMsg, dw1, dw2) {
@@ -6266,7 +6784,7 @@ class Audio {
     /**
      * The midiInGetNumDevs function retrieves the number of MIDI input devices in the system.
      * @returns {Integer} Returns the number of MIDI input devices present in the system. A return value of zero means that there are no devices (not that there is no error).
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midiingetnumdevs
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiingetnumdevs
      * @since windows5.0
      */
     static midiInGetNumDevs() {
@@ -6275,7 +6793,16 @@ class Audio {
     }
 
     /**
-     * The midiInGetDevCaps function determines the capabilities of a specified MIDI input device.
+     * The midiInGetDevCaps function determines the capabilities of a specified MIDI input device. (midiInGetDevCapsA)
+     * @remarks
+     * To determine the number of MIDI input devices present on the system, use the <a href="https://docs.microsoft.com/previous-versions/dd798456(v=vs.85)">midiInGetNumDevs</a> function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The mmeapi.h header defines midiInGetDevCaps as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer} uDeviceID Identifier of the MIDI input device. The device identifier varies from zero to one less than the number of devices present. This parameter can also be a properly cast device handle.
      * @param {Pointer} pmic Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798451(v=vs.85)">MIDIINCAPS</a> structure that is filled with information about the capabilities of the device.
      * @param {Integer} cbmic Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd798451(v=vs.85)">MIDIINCAPS</a> structure. Only <i>cbMidiInCaps</i> bytes (or less) of information is copied to the location pointed to by <i>lpMidiInCaps</i>. If <i>cbMidiInCaps</i> is zero, nothing is copied, and the function returns MMSYSERR_NOERROR.
@@ -6331,7 +6858,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midiingetdevcapsa
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiingetdevcapsa
      * @since windows5.0
      */
     static midiInGetDevCapsA(uDeviceID, pmic, cbmic) {
@@ -6340,7 +6867,16 @@ class Audio {
     }
 
     /**
-     * The midiInGetDevCaps function determines the capabilities of a specified MIDI input device.
+     * The midiInGetDevCapsW (Unicode) function (mmeapi.h) determines the capabilities of a specified MIDI input device.
+     * @remarks
+     * To determine the number of MIDI input devices present on the system, use the <a href="https://docs.microsoft.com/previous-versions/dd798456(v=vs.85)">midiInGetNumDevs</a> function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The mmeapi.h header defines midiInGetDevCaps as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer} uDeviceID Identifier of the MIDI input device. The device identifier varies from zero to one less than the number of devices present. This parameter can also be a properly cast device handle.
      * @param {Pointer} pmic Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798451(v=vs.85)">MIDIINCAPS</a> structure that is filled with information about the capabilities of the device.
      * @param {Integer} cbmic Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd798451(v=vs.85)">MIDIINCAPS</a> structure. Only <i>cbMidiInCaps</i> bytes (or less) of information is copied to the location pointed to by <i>lpMidiInCaps</i>. If <i>cbMidiInCaps</i> is zero, nothing is copied, and the function returns MMSYSERR_NOERROR.
@@ -6396,7 +6932,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midiingetdevcapsw
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiingetdevcapsw
      * @since windows5.0
      */
     static midiInGetDevCapsW(uDeviceID, pmic, cbmic) {
@@ -6405,7 +6941,16 @@ class Audio {
     }
 
     /**
-     * The midiInGetErrorText function retrieves a textual description for an error identified by the specified error code.
+     * The midiInGetErrorText function retrieves a textual description for an error identified by the specified error code. (midiInGetErrorTextA)
+     * @remarks
+     * If the textual error description is longer than the specified buffer, the description is truncated. The returned error string is always null-terminated. If <i>cchText</i> is zero, nothing is copied, and the function returns zero. All error descriptions are less than MAXERRORLENGTH characters long.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The mmeapi.h header defines midiInGetErrorText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} mmrError Error code.
      * @param {PSTR} pszText Pointer to the buffer to be filled with the textual error description.
      * @param {Integer} cchText Length, in characters, of the buffer pointed to by <i>lpText</i>.
@@ -6450,7 +6995,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midiingeterrortexta
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiingeterrortexta
      * @since windows5.0
      */
     static midiInGetErrorTextA(mmrError, pszText, cchText) {
@@ -6461,7 +7006,16 @@ class Audio {
     }
 
     /**
-     * The midiInGetErrorText function retrieves a textual description for an error identified by the specified error code.
+     * The midiInGetErrorTextW (Unicode) function (mmeapi.h) retrieves a textual description for an error identified by the specified error code.
+     * @remarks
+     * If the textual error description is longer than the specified buffer, the description is truncated. The returned error string is always null-terminated. If <i>cchText</i> is zero, nothing is copied, and the function returns zero. All error descriptions are less than MAXERRORLENGTH characters long.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The mmeapi.h header defines midiInGetErrorText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} mmrError Error code.
      * @param {PWSTR} pszText Pointer to the buffer to be filled with the textual error description.
      * @param {Integer} cchText Length, in characters, of the buffer pointed to by <i>lpText</i>.
@@ -6506,7 +7060,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midiingeterrortextw
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiingeterrortextw
      * @since windows5.0
      */
     static midiInGetErrorTextW(mmrError, pszText, cchText) {
@@ -6518,6 +7072,12 @@ class Audio {
 
     /**
      * The midiInOpen function opens a specified MIDI input device.
+     * @remarks
+     * To determine the number of MIDI input devices present in the system, use the <a href="https://docs.microsoft.com/previous-versions/dd798456(v=vs.85)">midiInGetNumDevs</a> function. The device identifier specified by <i>wDeviceID</i> varies from zero to one less than the number of devices present.
+     * 
+     * If a window or thread is chosen to receive callback information, the following messages are sent to the window procedure or thread to indicate the progress of MIDI input: <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mm-mim-open">MM_MIM_OPEN</a>, <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mm-mim-close">MM_MIM_CLOSE</a>, <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mm-mim-data">MM_MIM_DATA</a>, <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mm-mim-longdata">MM_MIM_LONGDATA</a>, <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mm-mim-error">MM_MIM_ERROR</a>, <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mm-mim-longerror">MM_MIM_LONGERROR</a>, and <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mm-mim-moredata">MM_MIM_MOREDATA</a>.
+     * 
+     * If a function is chosen to receive callback information, the following messages are sent to the function to indicate the progress of MIDI input: <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mim-open">MIM_OPEN</a>, <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mim-close">MIM_CLOSE</a>, <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mim-data">MIM_DATA</a>, <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mim-longdata">MIM_LONGDATA</a>, <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mim-error">MIM_ERROR</a>, <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mim-longerror">MIM_LONGERROR</a>, and <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mim-moredata">MIM_MOREDATA</a>.
      * @param {Pointer<HMIDIIN>} phmi Pointer to an <b>HMIDIIN</b> handle. This location is filled with a handle identifying the opened MIDI input device. The handle is used to identify the device in calls to other MIDI input functions.
      * @param {Integer} uDeviceID Identifier of the MIDI input device to be opened.
      * @param {Pointer} dwCallback Pointer to a callback function, a thread identifier, or a handle of a window called with information about incoming MIDI messages. For more information on the callback function, see <a href="https://docs.microsoft.com/previous-versions/dd798460(v=vs.85)">MidiInProc</a>.
@@ -6618,7 +7178,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midiinopen
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinopen
      * @since windows5.0
      */
     static midiInOpen(phmi, uDeviceID, dwCallback, dwInstance, fdwOpen) {
@@ -6628,6 +7188,8 @@ class Audio {
 
     /**
      * The midiInClose function closes the specified MIDI input device.
+     * @remarks
+     * If there are input buffers that have been sent by using the <a href="https://docs.microsoft.com/previous-versions/dd798450(v=vs.85)">midiInAddBuffer</a> function and have not been returned to the application, the close operation will fail. To return all pending buffers through the callback function, use the <a href="https://docs.microsoft.com/previous-versions/dd798461(v=vs.85)">midiInReset</a> function.
      * @param {HMIDIIN} hmi Handle to the MIDI input device. If the function is successful, the handle is no longer valid after the call to this function.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -6670,7 +7232,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midiinclose
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinclose
      * @since windows5.0
      */
     static midiInClose(hmi) {
@@ -6682,6 +7244,12 @@ class Audio {
 
     /**
      * The midiInPrepareHeader function prepares a buffer for MIDI input.
+     * @remarks
+     * Before you pass a MIDI data block to a device driver, you must prepare the buffer by passing it to the <b>midiInPrepareHeader</b> function. After the header has been prepared, do not modify the buffer. After the driver is done using the buffer, call the <a href="https://docs.microsoft.com/previous-versions/dd798464(v=vs.85)">midiInUnprepareHeader</a> function.
+     * 
+     * The application can re-use the same buffer, or allocate multiple buffers and  call <b>midiInPrepareHeader</b> for each buffer. If you re-use the same buffer, it is not necessary to prepare the buffer each time. You can call  <b>midiInPrepareHeader</b> once at the beginning and then call <a href="https://docs.microsoft.com/previous-versions/dd798464(v=vs.85)">midiInUnprepareHeader</a> once at the end.
+     * 
+     * Preparing a header that has already been prepared has no effect, and the function returns zero.
      * @param {HMIDIIN} hmi Handle to the MIDI input device.
      *           To get the device handle, call <a href="https://docs.microsoft.com/previous-versions/dd798458(v=vs.85)">midiInOpen</a>.
      * @param {Pointer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure that identifies the buffer to be prepared.
@@ -6730,7 +7298,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midiinprepareheader
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinprepareheader
      * @since windows5.0
      */
     static midiInPrepareHeader(hmi, pmh, cbmh) {
@@ -6742,6 +7310,8 @@ class Audio {
 
     /**
      * The midiInUnprepareHeader function cleans up the preparation performed by the midiInPrepareHeader function.
+     * @remarks
+     * This function is complementary to <a href="https://docs.microsoft.com/previous-versions/dd798459(v=vs.85)">midiInPrepareHeader</a>. You must use this function before freeing the buffer. After passing a buffer to the device driver by using the <a href="https://docs.microsoft.com/previous-versions/dd798450(v=vs.85)">midiInAddBuffer</a> function, you must wait until the driver is finished with the buffer before using <b>midiInUnprepareHeader</b>. Unpreparing a buffer that has not been prepared has no effect, and the function returns MMSYSERR_NOERROR.
      * @param {HMIDIIN} hmi Handle to the MIDI input device.
      * @param {Pointer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure identifying the buffer to be cleaned up.
      * @param {Integer} cbmh Size of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure.
@@ -6786,7 +7356,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midiinunprepareheader
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinunprepareheader
      * @since windows5.0
      */
     static midiInUnprepareHeader(hmi, pmh, cbmh) {
@@ -6798,6 +7368,10 @@ class Audio {
 
     /**
      * The midiInAddBuffer function sends an input buffer to a specified opened MIDI input device. This function is used for system-exclusive messages.
+     * @remarks
+     * When the buffer is filled, it is sent back to the application.
+     * 
+     * The buffer must be prepared by using the <a href="https://docs.microsoft.com/previous-versions/dd798459(v=vs.85)">midiInPrepareHeader</a> function before it is passed to the <b>midiInAddBuffer</b> function.
      * @param {HMIDIIN} hmi Handle to the MIDI input device.
      * @param {Pointer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure that identifies the buffer.
      * @param {Integer} cbmh Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure.
@@ -6864,7 +7438,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midiinaddbuffer
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinaddbuffer
      * @since windows5.0
      */
     static midiInAddBuffer(hmi, pmh, cbmh) {
@@ -6876,6 +7450,12 @@ class Audio {
 
     /**
      * The midiInStart function starts MIDI input on the specified MIDI input device.
+     * @remarks
+     * This function resets the time stamp to zero; time stamp values for subsequently received messages are relative to the time that this function was called.
+     * 
+     * All messages except system-exclusive messages are sent directly to the client when they are received. System-exclusive messages are placed in the buffers supplied by the <a href="https://docs.microsoft.com/previous-versions/dd798450(v=vs.85)">midiInAddBuffer</a> function. If there are no buffers in the queue, the system-exclusive data is thrown away without notification to the client and input continues. Buffers are returned to the client when they are full, when a complete system-exclusive message has been received, or when the <a href="https://docs.microsoft.com/previous-versions/dd798461(v=vs.85)">midiInReset</a> function is used. The <b>dwBytesRecorded</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure will contain the actual length of data received.
+     * 
+     * Calling this function when input is already started has no effect, and the function returns zero.
      * @param {HMIDIIN} hmi Handle to the MIDI input device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following
      * 
@@ -6896,7 +7476,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midiinstart
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinstart
      * @since windows5.0
      */
     static midiInStart(hmi) {
@@ -6908,6 +7488,10 @@ class Audio {
 
     /**
      * The midiInStop function stops MIDI input on the specified MIDI input device.
+     * @remarks
+     * If there are any system-exclusive messages or stream buffers in the queue, the current buffer is marked as done (the <b>dwBytesRecorded</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure will contain the actual length of data), but any empty buffers in the queue remain there and are not marked as done.
+     * 
+     * Calling this function when input is not started has no effect, and the function returns zero.
      * @param {HMIDIIN} hmi Handle to the MIDI input device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -6928,7 +7512,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midiinstop
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinstop
      * @since windows5.0
      */
     static midiInStop(hmi) {
@@ -6940,6 +7524,8 @@ class Audio {
 
     /**
      * The midiInReset function stops input on a given MIDI input device.
+     * @remarks
+     * This function returns all pending input buffers to the callback function and sets the MHDR_DONE flag in the <b>dwFlags</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure.
      * @param {HMIDIIN} hmi Handle to the MIDI input device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -6960,7 +7546,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midiinreset
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinreset
      * @since windows5.0
      */
     static midiInReset(hmi) {
@@ -7015,7 +7601,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midiingetid
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiingetid
      * @since windows5.0
      */
     static midiInGetID(hmi, puDeviceID) {
@@ -7029,12 +7615,100 @@ class Audio {
 
     /**
      * The midiInMessage function sends a message to the MIDI device driver.
+     * @remarks
+     * This function is used only for driver-specific messages that are not supported by the MIDI API.
+     * 
+     * The <c>DRV_QUERYDEVICEINTERFACE</c> message queries for the device-interface name of a <b>waveIn</b>, <b>waveOut</b>, <b>midiIn</b>, <b>midiOut</b>, or <b>mixer</b> device.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACE</c>, <i>dwParam1</i> is a pointer to a caller-allocated buffer into which the function writes a null-terminated Unicode string containing the device-interface name. If the device has no device interface, the string length is zero.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACE</c>, <i>dwParam2</i> specifies the buffer size in bytes. This is an input parameter to the function. The caller should specify a size that is greater than or equal to the buffer size retrieved by the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536364(v=vs.85)">DRV_QUERYDEVICEINTERFACESIZE</a> message.
+     * 
+     * The DRV_QUERYDEVICEINTERFACE message is supported in Windows Me, and Windows 2000 and later. This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a>, <b>midiInMessage</b>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, and <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> functions. The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * The following two message constants are used together for the purpose of obtaining device interface names:
+     * 
+     * <ul>
+     * <li>
+     * DRV_QUERYDEVICEINTERFACESIZE
+     * 
+     * </li>
+     * <li>
+     * DRV_QUERYDEVICEINTERFACE
+     * 
+     * </li>
+     * </ul>
+     * The first message obtains the size in bytes of the buffer needed to hold the string containing the device interface name. The second message retrieves the name string in a buffer of the required size.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/obtaining-a-device-interface-name">Obtaining a Device Interface Name</a>.
+     * 
+     * The <c>DRV_QUERYDEVICEINTERFACESIZE</c> message queries for the size of the buffer required to hold the device-interface name.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACESIZE</c>, <i>dwParam1</i> is a pointer to buffer size. This parameter points to a ULONG variable into which the function writes the required buffer size in bytes. The size includes storage space for the name string's terminating null. The size is zero if the device ID identifies a device that has no device interface.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACESIZE</c>, <i>dwParam2</i> is unused. Set this parameter to zero.
+     * 
+     * This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a>, <b>midiInMessage</b>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, and <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> functions. The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * The buffer size retrieved by this message is expressed as a byte count. It specifies the size of the buffer needed to hold the null-terminated Unicode string that contains the device-interface name. The caller allocates a buffer of the specified size and uses the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536363(v=vs.85)">DRV_QUERYDEVICEINTERFACE</a> message to retrieve the device-interface name string.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/obtaining-a-device-interface-name">Obtaining a Device Interface Name</a>.
+     * 
+     * The <c>DRV_QUERYDEVNODE</c> message queries for the <a href="https://docs.microsoft.com/windows-hardware/drivers/">devnode</a> number assigned to the device by the Plug and Play manager.
+     * 
+     * For <c>DRV_QUERYDEVNODE</c>, <i>dwParam1</i> is a pointer to a caller-allocated DWORD variable into which the function writes the devnode number. If no devnode is assigned to the device, the function sets this variable to zero.
+     * 
+     * For <c>DRV_QUERYDEVNODE</c>, <i>dwParam2</i> is unused. Set this parameter to zero.
+     * 
+     * In Windows 2000 and later, the message always returns MMSYSERR_NOTSUPPORTED. This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a>, <b>midiInMessage</b>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, and <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> functions.  The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * The <c>DRV_QUERYMAPPABLE</c> message queries for whether the specified device can be used by a mapper.
+     * 
+     * For <c>DRV_QUERYMAPPABLE</c>, <i>dwParam1</i> is unused. Set this parameter to zero.
+     * 
+     * For <c>DRV_QUERYMAPPABLE</c>, <i>dwParam2</i> is unused. Set this parameter to zero.
+     * 
+     * This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a>, <b>midiInMessage</b>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> and <a href="https://docs.microsoft.com/previous-versions/dd756716(v=vs.85)">auxOutMessage</a> functions. The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * When an application program opens a mapper instead of a specific audio device, the system inserts a mapper between the application and the available devices. The mapper selects an appropriate device by mapping the application's requirements to one of the available devices. For more information about mappers, see the Microsoft Windows SDK documentation.
+     * 
+     * The <c>DRVM_MAPPER_CONSOLEVOICECOM_GET</c> message retrieves the device ID of the preferred voice-communications device.
+     * 
+     * For <c>DRVM_MAPPER_CONSOLEVOICECOM_GET</c>, <i>dwParam1</i> is a pointer to device ID. This parameter points to a DWORD variable into which the function writes the device ID of the current preferred voice-communications device. The function writes the value (-1) if no device is available that qualifies as a preferred voice-communications device.
+     * 
+     * For <c>DRVM_MAPPER_CONSOLEVOICECOM_GET</c>, <i>dwParam2</i> is a pointer to status flags. This parameter points to a DWORD variable into which the function writes the device-status flags. Only one flag bit is currently defined: DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY. 
+     * 
+     * This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a> and <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a> functions. When a caller calls these two functions with the DRVM_MAPPER_CONSOLEVOICECOM_GET message, the caller must specify the device ID as WAVE_MAPPER, and then cast this value to the appropriate handle type. For the <b>waveInMessage</b>, <b>waveOutMessage</b>, <b>midiInMessage</b>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, or <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> functions, the caller must cast the device ID to a handle of type HWAVEIN, HWAVEOUT, HMIDIIN, HMIDIOUT, or HMIXER, respectively. Note that if the caller supplies a valid handle instead of a device ID for this parameter, the function fails and returns error code MMSYSERR_NOSUPPORT.
+     * 
+     * The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * This message provides a way to determine which device is preferred specifically for voice communications, in contrast to the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536362(v=vs.85)">DRVM_MAPPER_PREFERRED_GET</a> message, which determines which device is preferred for all other audio functions.
+     * 
+     * For example, the preferred <b>waveOut</b> device for voice communications might be the earpiece in a headset, but the preferred <b>waveOut</b> device for all other audio functions might be a set of stereo speakers.
+     * 
+     * When the DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY flag bit is set in the DWORD location pointed to by <i>dwParam2</i>, the <b>waveIn</b> and <b>waveOut</b> APIs use only the current preferred voice-communications device and do not search for other available devices if the preferred device is unavailable. The flag that is output by either the <b>waveInMessage</b> or <b>waveOutMessage</b> call applies to the preferred voice-communications device for both the <b>waveIn</b> and <b>waveOut</b> APIs, regardless of whether the call is made to <b>waveInMessage</b> or <b>waveOutMessage</b>. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/preferred-voice-communications-device-id">Preferred Voice-Communications Device ID</a>.
+     * 
+     * The <c>DRVM_MAPPER_PREFERRED_GET</c> message retrieves the device ID of the preferred audio device.
+     * 
+     * For <c>DRVM_MAPPER_PREFERRED_GET</c>, <i>dwParam1</i> is a pointer to device ID. This parameter points to a DWORD variable into which the function writes the device ID of the current preferred device. The function writes the value (-1) if no device is available that qualifies as a preferred device.
+     * 
+     * For <c>DRVM_MAPPER_PREFERRED_GET</c>, <i>dwParam2</i> is a pointer to status flags. This parameter points to a DWORD variable into which the function writes the device-status flags. Only one flag bit is currently defined (for <b>waveInMessage</b> and <b>waveOutMessage</b> calls only): DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY. 
+     * 
+     * This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>,  <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a> and  <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a> functions. When the caller calls these functions with the DRVM_MAPPER_PREFERRED_GET message, the caller must first specify the device ID as WAVE_MAPPER (for <b>waveInMessage</b> or <b>waveOutMessage</b>) or MIDI_MAPPER (for <b>midiOutMessage</b>), and then cast this value to the appropriate handle type. For the <b>waveInMessage</b>, <b>waveOutMessage</b>, or <b>midiOutMessage</b> functions, the caller must cast the device ID to a handle type HWAVEIN, HWAVEOUT or HMIDIOUT, respectively. Note that if the caller supplies a valid handle instead of a device ID for this parameter, the function fails and returns error code MMSYSERR_NOSUPPORT.
+     * 
+     * The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * This message provides a way to determine which device is preferred for audio functions in general, in contrast to the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536361(v=vs.85)">DRVM_MAPPER_CONSOLEVOICECOM_GET</a> message, which determines which device is preferred specifically for voice communications.
+     * 
+     * When the DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY flag bit is set in the DWORD location pointed to by <i>dwParam2</i>, the <b>waveIn</b> and <b>waveOut</b> APIs use only the current preferred device and do not search for other available devices if the preferred device is unavailable. Note that the <b>midiOutMessage</b> function does not output this flag--the <b>midiOut</b> API always uses only the preferred device. The flag that is output by either the <b>waveInMessage</b> or <b>waveOutMessage</b> call applies to the preferred device for both the <b>waveIn</b> and <b>waveOut</b> APIs, regardless of whether the call is made to <b>waveInMessage</b> or <b>waveOutMessage</b>.
+     * 
+     * The <i>xxx</i>Message functions accept this value in place of a valid device handle in order to allow an application to determine the default device ID without first having to open a device. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/accessing-the-preferred-device-id">Accessing the Preferred Device ID</a>.
      * @param {HMIDIIN} hmi Identifier of the MIDI device that receives the message. You must cast the device ID to the <b>HMIDIIN</b> handle type. If you supply a handle instead of a device ID, the function fails and returns the MMSYSERR_NOSUPPORT error code.
      * @param {Integer} uMsg Message to send.
      * @param {Pointer} dw1 Message parameter.
      * @param {Pointer} dw2 Message parameter.
      * @returns {Integer} Returns the value returned by the audio device driver.
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-midiinmessage
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinmessage
      * @since windows5.0
      */
     static midiInMessage(hmi, uMsg, dw1, dw2) {
@@ -7047,7 +7721,7 @@ class Audio {
     /**
      * The auxGetNumDevs function retrieves the number of auxiliary output devices present in the system.
      * @returns {Integer} Returns the number of device. A return value of zero means that no devices are present or that an error occurred.
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-auxgetnumdevs
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-auxgetnumdevs
      * @since windows5.0
      */
     static auxGetNumDevs() {
@@ -7056,7 +7730,16 @@ class Audio {
     }
 
     /**
-     * The auxGetDevCaps function retrieves the capabilities of a given auxiliary output device.
+     * The auxGetDevCaps function retrieves the capabilities of a given auxiliary output device. (auxGetDevCapsA)
+     * @remarks
+     * The device identifier in <i>uDeviceID</i> varies from zero to one less than the number of devices present. AUX_MAPPER may also be used. Use the <a href="https://docs.microsoft.com/previous-versions/dd756713(v=vs.85)">auxGetNumDevs</a> function to determine the number of auxiliary output devices present in the system.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The mmeapi.h header defines auxGetDevCaps as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer} uDeviceID Identifier of the auxiliary output device to be queried. Specify a valid device identifier (see the following comments section), or use the following constant:
      * 
      * <table>
@@ -7092,7 +7775,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-auxgetdevcapsa
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-auxgetdevcapsa
      * @since windows5.0
      */
     static auxGetDevCapsA(uDeviceID, pac, cbac) {
@@ -7101,7 +7784,16 @@ class Audio {
     }
 
     /**
-     * The auxGetDevCaps function retrieves the capabilities of a given auxiliary output device.
+     * The auxGetDevCapsW (Unicode) function (mmeapi.h) retrieves the capabilities of a given auxiliary output device.
+     * @remarks
+     * The device identifier in <i>uDeviceID</i> varies from zero to one less than the number of devices present. AUX_MAPPER may also be used. Use the <a href="https://docs.microsoft.com/previous-versions/dd756713(v=vs.85)">auxGetNumDevs</a> function to determine the number of auxiliary output devices present in the system.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The mmeapi.h header defines auxGetDevCaps as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer} uDeviceID Identifier of the auxiliary output device to be queried. Specify a valid device identifier (see the following comments section), or use the following constant:
      * 
      * <table>
@@ -7137,7 +7829,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-auxgetdevcapsw
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-auxgetdevcapsw
      * @since windows5.0
      */
     static auxGetDevCapsW(uDeviceID, pac, cbac) {
@@ -7147,6 +7839,14 @@ class Audio {
 
     /**
      * The auxSetVolume function sets the volume of the specified auxiliary output device.
+     * @remarks
+     * Not all devices support volume control. To determine whether the device supports volume control, use the AUXCAPS_VOLUME flag to test the <b>dwSupport</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd756711(v=vs.85)">AUXCAPS</a> structure (filled by the <a href="https://docs.microsoft.com/previous-versions/dd756712(v=vs.85)">auxGetDevCaps</a> function).
+     * 
+     * To determine whether the device supports volume control on both the left and right channels, use the AUXCAPS_LRVOLUME flag to test the <b>dwSupport</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd756711(v=vs.85)">AUXCAPS</a> structure (filled by <a href="https://docs.microsoft.com/previous-versions/dd756712(v=vs.85)">auxGetDevCaps</a>).
+     * 
+     * Most devices do not support the full 16 bits of volume-level control and will use only the high-order bits of the requested volume setting. For example, for a device that supports 4 bits of volume control, requested volume level values of 0x4000, 0x4FFF, and 0x43BE will produce the same physical volume setting, 0x4000. The <a href="https://docs.microsoft.com/previous-versions/dd756714(v=vs.85)">auxGetVolume</a> function will return the full 16-bit setting set with <b>auxSetVolume</b>.
+     * 
+     * Volume settings are interpreted logarithmically. This means the perceived volume increase is the same when increasing the volume level from 0x5000 to 0x6000 as it is from 0x4000 to 0x5000.
      * @param {Integer} uDeviceID Identifier of the auxiliary output device to be queried. Device identifiers are determined implicitly from the number of devices present in the system. Device identifier values range from zero to one less than the number of devices present. Use the <a href="https://docs.microsoft.com/previous-versions/dd756713(v=vs.85)">auxGetNumDevs</a> function to determine the number of auxiliary devices in the system.
      * @param {Integer} dwVolume Specifies the new volume setting. The low-order word specifies the left-channel volume setting, and the high-order word specifies the right-channel setting. A value of 0xFFFF represents full volume, and a value of 0x0000 is silence.
      * 
@@ -7170,7 +7870,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-auxsetvolume
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-auxsetvolume
      * @since windows5.0
      */
     static auxSetVolume(uDeviceID, dwVolume) {
@@ -7180,6 +7880,10 @@ class Audio {
 
     /**
      * The auxGetVolume function retrieves the current volume setting of the specified auxiliary output device.
+     * @remarks
+     * Not all devices support volume control. To determine whether a device supports volume control, use the AUXCAPS_VOLUME flag to test the <b>dwSupport</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd756711(v=vs.85)">AUXCAPS</a> structure (filled by the <a href="https://docs.microsoft.com/previous-versions/dd756712(v=vs.85)">auxGetDevCaps</a> function).
+     * 
+     * To determine whether a device supports volume control on both the left and right channels, use the AUXCAPS_LRVOLUME flag to test the <b>dwSupport</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd756711(v=vs.85)">AUXCAPS</a> structure (filled by <a href="https://docs.microsoft.com/previous-versions/dd756712(v=vs.85)">auxGetDevCaps</a>).
      * @param {Integer} uDeviceID Identifier of the auxiliary output device to be queried.
      * @param {Pointer<Integer>} pdwVolume Pointer to a variable to be filled with the current volume setting. The low-order word of this location contains the left channel volume setting, and the high-order word contains the right channel setting. A value of 0xFFFF represents full volume, and a value of 0x0000 is silence.
      * 
@@ -7205,7 +7909,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-auxgetvolume
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-auxgetvolume
      * @since windows5.0
      */
     static auxGetVolume(uDeviceID, pdwVolume) {
@@ -7217,12 +7921,98 @@ class Audio {
 
     /**
      * The auxOutMessage function sends a message to the given auxiliary output device. This function also performs error checking on the device identifier passed as part of the message.
+     * @remarks
+     * The <c>DRV_QUERYDEVICEINTERFACE</c> message queries for the device-interface name of a <b>waveIn</b>, <b>waveOut</b>, <b>midiIn</b>, <b>midiOut</b>, or <b>mixer</b> device.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACE</c>, <i>dwParam1</i> is a pointer to a caller-allocated buffer into which the function writes a null-terminated Unicode string containing the device-interface name. If the device has no device interface, the string length is zero.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACE</c>, <i>dwParam2</i> specifies the buffer size in bytes. This is an input parameter to the function. The caller should specify a size that is greater than or equal to the buffer size retrieved by the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536364(v=vs.85)">DRV_QUERYDEVICEINTERFACESIZE</a> message.
+     * 
+     * The DRV_QUERYDEVICEINTERFACE message is supported in Windows Me, and Windows 2000 and later. This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, and <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> functions. The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * The following two message constants are used together for the purpose of obtaining device interface names:
+     * 
+     * <ul>
+     * <li>
+     * DRV_QUERYDEVICEINTERFACESIZE
+     * 
+     * </li>
+     * <li>
+     * DRV_QUERYDEVICEINTERFACE
+     * 
+     * </li>
+     * </ul>
+     * The first message obtains the size in bytes of the buffer needed to hold the string containing the device interface name. The second message retrieves the name string in a buffer of the required size.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/obtaining-a-device-interface-name">Obtaining a Device Interface Name</a>.
+     * 
+     * The <c>DRV_QUERYDEVICEINTERFACESIZE</c> message queries for the size of the buffer required to hold the device-interface name.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACESIZE</c>, <i>dwParam1</i> is a pointer to buffer size. This parameter points to a ULONG variable into which the function writes the required buffer size in bytes. The size includes storage space for the name string's terminating null. The size is zero if the device ID identifies a device that has no device interface.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACESIZE</c>, <i>dwParam2</i> is unused. Set this parameter to zero.
+     * 
+     * This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, and <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> functions. The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * The buffer size retrieved by this message is expressed as a byte count. It specifies the size of the buffer needed to hold the null-terminated Unicode string that contains the device-interface name. The caller allocates a buffer of the specified size and uses the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536363(v=vs.85)">DRV_QUERYDEVICEINTERFACE</a> message to retrieve the device-interface name string.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/obtaining-a-device-interface-name">Obtaining a Device Interface Name</a>.
+     * 
+     * The <c>DRV_QUERYDEVNODE</c> message queries for the <a href="https://docs.microsoft.com/windows-hardware/drivers/">devnode</a> number assigned to the device by the Plug and Play manager.
+     * 
+     * For <c>DRV_QUERYDEVNODE</c>, <i>dwParam1</i> is a pointer to a caller-allocated DWORD variable into which the function writes the devnode number. If no devnode is assigned to the device, the function sets this variable to zero.
+     * 
+     * For <c>DRV_QUERYDEVNODE</c>, <i>dwParam2</i> is unused. Set this parameter to zero.
+     * 
+     * In Windows 2000 and later, the message always returns MMSYSERR_NOTSUPPORTED. This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, and <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> functions.  The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * The <c>DRV_QUERYMAPPABLE</c> message queries for whether the specified device can be used by a mapper.
+     * 
+     * For <c>DRV_QUERYMAPPABLE</c>, <i>dwParam1</i> is unused. Set this parameter to zero.
+     * 
+     * For <c>DRV_QUERYMAPPABLE</c>, <i>dwParam2</i> is unused. Set this parameter to zero.
+     * 
+     * This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> and <b>auxOutMessage</b> functions. The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * When an application program opens a mapper instead of a specific audio device, the system inserts a mapper between the application and the available devices. The mapper selects an appropriate device by mapping the application's requirements to one of the available devices. For more information about mappers, see the Microsoft Windows SDK documentation.
+     * 
+     * The <c>DRVM_MAPPER_CONSOLEVOICECOM_GET</c> message retrieves the device ID of the preferred voice-communications device.
+     * 
+     * For <c>DRVM_MAPPER_CONSOLEVOICECOM_GET</c>, <i>dwParam1</i> is a pointer to device ID. This parameter points to a DWORD variable into which the function writes the device ID of the current preferred voice-communications device. The function writes the value (-1) if no device is available that qualifies as a preferred voice-communications device.
+     * 
+     * For <c>DRVM_MAPPER_CONSOLEVOICECOM_GET</c>, <i>dwParam2</i> is a pointer to status flags. This parameter points to a DWORD variable into which the function writes the device-status flags. Only one flag bit is currently defined: DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY. 
+     * 
+     * This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a> and <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a> functions. When a caller calls these two functions with the DRVM_MAPPER_CONSOLEVOICECOM_GET message, the caller must specify the device ID as WAVE_MAPPER, and then cast this value to the appropriate handle type. For the <b>waveInMessage</b>, <b>waveOutMessage</b>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, or <a href="https://docs.microsoft.com/previous-versions/dd757307(v=vs.85)">mixerMessage</a> functions, the caller must cast the device ID to a handle of type HWAVEIN, HWAVEOUT, HMIDIIN, HMIDIOUT, or HMIXER, respectively. Note that if the caller supplies a valid handle instead of a device ID for this parameter, the function fails and returns error code MMSYSERR_NOSUPPORT.
+     * 
+     * The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * This message provides a way to determine which device is preferred specifically for voice communications, in contrast to the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536362(v=vs.85)">DRVM_MAPPER_PREFERRED_GET</a> message, which determines which device is preferred for all other audio functions.
+     * 
+     * For example, the preferred <b>waveOut</b> device for voice communications might be the earpiece in a headset, but the preferred <b>waveOut</b> device for all other audio functions might be a set of stereo speakers.
+     * 
+     * When the DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY flag bit is set in the DWORD location pointed to by <i>dwParam2</i>, the <b>waveIn</b> and <b>waveOut</b> APIs use only the current preferred voice-communications device and do not search for other available devices if the preferred device is unavailable. The flag that is output by either the <b>waveInMessage</b> or <b>waveOutMessage</b> call applies to the preferred voice-communications device for both the <b>waveIn</b> and <b>waveOut</b> APIs, regardless of whether the call is made to <b>waveInMessage</b> or <b>waveOutMessage</b>. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/preferred-voice-communications-device-id">Preferred Voice-Communications Device ID</a>.
+     * 
+     * The <c>DRVM_MAPPER_PREFERRED_GET</c> message retrieves the device ID of the preferred audio device.
+     * 
+     * For <c>DRVM_MAPPER_PREFERRED_GET</c>, <i>dwParam1</i> is a pointer to device ID. This parameter points to a DWORD variable into which the function writes the device ID of the current preferred device. The function writes the value (-1) if no device is available that qualifies as a preferred device.
+     * 
+     * For <c>DRVM_MAPPER_PREFERRED_GET</c>, <i>dwParam2</i> is a pointer to status flags. This parameter points to a DWORD variable into which the function writes the device-status flags. Only one flag bit is currently defined (for <b>waveInMessage</b> and <b>waveOutMessage</b> calls only): DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY. 
+     * 
+     * This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>,  <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a> and  <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a> functions. When the caller calls these functions with the DRVM_MAPPER_PREFERRED_GET message, the caller must first specify the device ID as WAVE_MAPPER (for <b>waveInMessage</b> or <b>waveOutMessage</b>) or MIDI_MAPPER (for <b>midiOutMessage</b>), and then cast this value to the appropriate handle type. For the <b>waveInMessage</b>, <b>waveOutMessage</b>, or <b>midiOutMessage</b> functions, the caller must cast the device ID to a handle type HWAVEIN, HWAVEOUT or HMIDIOUT, respectively. Note that if the caller supplies a valid handle instead of a device ID for this parameter, the function fails and returns error code MMSYSERR_NOSUPPORT.
+     * 
+     * The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * This message provides a way to determine which device is preferred for audio functions in general, in contrast to the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536361(v=vs.85)">DRVM_MAPPER_CONSOLEVOICECOM_GET</a> message, which determines which device is preferred specifically for voice communications.
+     * 
+     * When the DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY flag bit is set in the DWORD location pointed to by <i>dwParam2</i>, the <b>waveIn</b> and <b>waveOut</b> APIs use only the current preferred device and do not search for other available devices if the preferred device is unavailable. Note that the <b>midiOutMessage</b> function does not output this flag--the <b>midiOut</b> API always uses only the preferred device. The flag that is output by either the <b>waveInMessage</b> or <b>waveOutMessage</b> call applies to the preferred device for both the <b>waveIn</b> and <b>waveOut</b> APIs, regardless of whether the call is made to <b>waveInMessage</b> or <b>waveOutMessage</b>.
+     * 
+     * The <i>xxx</i>Message functions accept this value in place of a valid device handle in order to allow an application to determine the default device ID without first having to open a device. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/accessing-the-preferred-device-id">Accessing the Preferred Device ID</a>.
      * @param {Integer} uDeviceID Identifier of the auxiliary output device to receive the message.
      * @param {Integer} uMsg Message to send.
      * @param {Pointer} dw1 Message parameter.
      * @param {Pointer} dw2 Message parameter.
      * @returns {Integer} Returns the message return value.
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-auxoutmessage
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-auxoutmessage
      * @since windows5.0
      */
     static auxOutMessage(uDeviceID, uMsg, dw1, dw2) {
@@ -7233,7 +8023,7 @@ class Audio {
     /**
      * The mixerGetNumDevs function retrieves the number of mixer devices present in the system.
      * @returns {Integer} Returns the number of mixer devices or zero if no mixer devices are available.
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-mixergetnumdevs
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixergetnumdevs
      * @since windows5.0
      */
     static mixerGetNumDevs() {
@@ -7242,7 +8032,20 @@ class Audio {
     }
 
     /**
-     * The mixerGetDevCaps function queries a specified mixer device to determine its capabilities.
+     * The mixerGetDevCaps function queries a specified mixer device to determine its capabilities. (mixerGetDevCapsA)
+     * @remarks
+     * Use the <a href="https://docs.microsoft.com/previous-versions/dd757304(v=vs.85)">mixerGetNumDevs</a> function to determine the number of mixer devices present in the system. The device identifier specified by <i>uMxId</i> varies from zero to one less than the number of mixer devices present.
+     * 
+     * Only the number of bytes (or less) of information specified in <i>cbmxcaps</i> is copied to the location pointed to by <i>pmxcaps</i>. If <i>cbmxcaps</i> is zero, nothing is copied, and the function returns successfully.
+     * 
+     * This function also accepts a mixer device handle returned by the <a href="https://docs.microsoft.com/previous-versions/dd757308(v=vs.85)">mixerOpen</a> function as the <i>uMxId</i> parameter. The application should cast the <b>HMIXER</b> handle to a <b>UINT</b>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The mmeapi.h header defines mixerGetDevCaps as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer} uMxId Identifier or handle of an open mixer device.
      * @param {Pointer} pmxcaps Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercapsa">MIXERCAPS</a> structure that receives information about the capabilities of the device.
      * @param {Integer} cbmxcaps Size, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercapsa">MIXERCAPS</a> structure.
@@ -7287,7 +8090,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-mixergetdevcapsa
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixergetdevcapsa
      * @since windows5.0
      */
     static mixerGetDevCapsA(uMxId, pmxcaps, cbmxcaps) {
@@ -7296,7 +8099,20 @@ class Audio {
     }
 
     /**
-     * The mixerGetDevCaps function queries a specified mixer device to determine its capabilities.
+     * The mixerGetDevCapsW (Unicode) function (mmeapi.h) queries a specified mixer device to determine its capabilities.
+     * @remarks
+     * Use the <a href="https://docs.microsoft.com/previous-versions/dd757304(v=vs.85)">mixerGetNumDevs</a> function to determine the number of mixer devices present in the system. The device identifier specified by <i>uMxId</i> varies from zero to one less than the number of mixer devices present.
+     * 
+     * Only the number of bytes (or less) of information specified in <i>cbmxcaps</i> is copied to the location pointed to by <i>pmxcaps</i>. If <i>cbmxcaps</i> is zero, nothing is copied, and the function returns successfully.
+     * 
+     * This function also accepts a mixer device handle returned by the <a href="https://docs.microsoft.com/previous-versions/dd757308(v=vs.85)">mixerOpen</a> function as the <i>uMxId</i> parameter. The application should cast the <b>HMIXER</b> handle to a <b>UINT</b>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The mmeapi.h header defines mixerGetDevCaps as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer} uMxId Identifier or handle of an open mixer device.
      * @param {Pointer} pmxcaps Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercapsa">MIXERCAPS</a> structure that receives information about the capabilities of the device.
      * @param {Integer} cbmxcaps Size, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercapsa">MIXERCAPS</a> structure.
@@ -7341,7 +8157,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-mixergetdevcapsw
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixergetdevcapsw
      * @since windows5.0
      */
     static mixerGetDevCapsW(uMxId, pmxcaps, cbmxcaps) {
@@ -7351,6 +8167,14 @@ class Audio {
 
     /**
      * The mixerOpen function opens a specified mixer device and ensures that the device will not be removed until the application closes the handle.
+     * @remarks
+     * Use the <a href="https://docs.microsoft.com/previous-versions/dd757304(v=vs.85)">mixerGetNumDevs</a> function to determine the number of audio mixer devices present in the system. The device identifier specified by <i>uMxId</i> varies from zero to one less than the number of devices present.
+     * 
+     * If a window is chosen to receive callback information, the <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mm-mixm-line-change">MM_MIXM_LINE_CHANGE</a> and <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mm-mixm-control-change">MM_MIXM_CONTROL_CHANGE</a> messages are sent to the window procedure function to indicate when an audio line or control state changes. For both messages, the <i>wParam</i> parameter is the handle of the mixer device. The <i>lParam</i> parameter is the line identifier for <b>MM_MIXM_LINE_CHANGE</b> or the control identifier for <b>MM_MIXM_CONTROL_CHANGE</b> that changed state.
+     * 
+     * To query for audio mixer support or a media device, use the <a href="https://docs.microsoft.com/previous-versions/dd757301(v=vs.85)">mixerGetID</a> function.
+     * 
+     * On 64-bit systems, this function may not work as expected in situations where you pass a 64-bit <b>LPHWAVEOUT</b> pointer in the <i>uMxId</i> parameter, because the <i>uMxId</i> parameter is truncated to 32 bits.
      * @param {Pointer<HMIXER>} phmx Pointer to a variable that will receive a handle identifying the opened mixer device. Use this handle to identify the device when calling other audio mixer functions. This parameter cannot be <b>NULL</b>.
      * @param {Integer} uMxId Identifier of the mixer device to open. Use a valid device identifier or any <b>HMIXEROBJ</b> (see the <a href="https://docs.microsoft.com/previous-versions/dd757301(v=vs.85)">mixerGetID</a> function for a description of mixer object handles). A "mapper" for audio mixer devices does not currently exist, so a mixer device identifier of -1 is not valid.
      * @param {Pointer} dwCallback Handle to a window called when the state of an audio line and/or control associated with the device being opened is changed. Specify <b>NULL</b> for this parameter if no callback mechanism is to be used.
@@ -7498,7 +8322,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-mixeropen
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixeropen
      * @since windows5.0
      */
     static mixerOpen(phmx, uMxId, dwCallback, dwInstance, fdwOpen) {
@@ -7528,7 +8352,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-mixerclose
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixerclose
      * @since windows5.0
      */
     static mixerClose(hmx) {
@@ -7540,6 +8364,94 @@ class Audio {
 
     /**
      * The mixerMessage function sends a custom mixer driver message directly to a mixer driver.
+     * @remarks
+     * User-defined messages must be sent only to a mixer driver that supports the messages. The application should verify that the mixer driver is the driver that supports the message by retrieving the mixer capabilities and checking the <b>wMid</b>, <b>wPid</b>, <b>vDriverVersion</b>, and <b>szPname</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercapsa">MIXERCAPS</a> structure.
+     * 
+     * The <c>DRV_QUERYDEVICEINTERFACE</c> message queries for the device-interface name of a <b>waveIn</b>, <b>waveOut</b>, <b>midiIn</b>, <b>midiOut</b>, or <b>mixer</b> device.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACE</c>, <i>dwParam1</i> is a pointer to a caller-allocated buffer into which the function writes a null-terminated Unicode string containing the device-interface name. If the device has no device interface, the string length is zero.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACE</c>, <i>dwParam2</i> specifies the buffer size in bytes. This is an input parameter to the function. The caller should specify a size that is greater than or equal to the buffer size retrieved by the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536364(v=vs.85)">DRV_QUERYDEVICEINTERFACESIZE</a> message.
+     * 
+     * The DRV_QUERYDEVICEINTERFACE message is supported in Windows Me, and Windows 2000 and later. This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, and <b>mixerMessage</b> functions. The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * The following two message constants are used together for the purpose of obtaining device interface names:
+     * 
+     * <ul>
+     * <li>
+     * DRV_QUERYDEVICEINTERFACESIZE
+     * 
+     * </li>
+     * <li>
+     * DRV_QUERYDEVICEINTERFACE
+     * 
+     * </li>
+     * </ul>
+     * The first message obtains the size in bytes of the buffer needed to hold the string containing the device interface name. The second message retrieves the name string in a buffer of the required size.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/obtaining-a-device-interface-name">Obtaining a Device Interface Name</a>.
+     * 
+     * The <c>DRV_QUERYDEVICEINTERFACESIZE</c> message queries for the size of the buffer required to hold the device-interface name.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACESIZE</c>, <i>dwParam1</i> is a pointer to buffer size. This parameter points to a ULONG variable into which the function writes the required buffer size in bytes. The size includes storage space for the name string's terminating null. The size is zero if the device ID identifies a device that has no device interface.
+     * 
+     * For <c>DRV_QUERYDEVICEINTERFACESIZE</c>, <i>dwParam2</i> is unused. Set this parameter to zero.
+     * 
+     * This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, and <b>mixerMessage</b> functions. The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * The buffer size retrieved by this message is expressed as a byte count. It specifies the size of the buffer needed to hold the null-terminated Unicode string that contains the device-interface name. The caller allocates a buffer of the specified size and uses the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536363(v=vs.85)">DRV_QUERYDEVICEINTERFACE</a> message to retrieve the device-interface name string.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/obtaining-a-device-interface-name">Obtaining a Device Interface Name</a>.
+     * 
+     * The <c>DRV_QUERYDEVNODE</c> message queries for the <a href="https://docs.microsoft.com/windows-hardware/drivers/">devnode</a> number assigned to the device by the Plug and Play manager.
+     * 
+     * For <c>DRV_QUERYDEVNODE</c>, <i>dwParam1</i> is a pointer to a caller-allocated DWORD variable into which the function writes the devnode number. If no devnode is assigned to the device, the function sets this variable to zero.
+     * 
+     * For <c>DRV_QUERYDEVNODE</c>, <i>dwParam2</i> is unused. Set this parameter to zero.
+     * 
+     * In Windows 2000 and later, the message always returns MMSYSERR_NOTSUPPORTED. This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, and <b>mixerMessage</b> functions.  The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * The <c>DRV_QUERYMAPPABLE</c> message queries for whether the specified device can be used by a mapper.
+     * 
+     * For <c>DRV_QUERYMAPPABLE</c>, <i>dwParam1</i> is unused. Set this parameter to zero.
+     * 
+     * For <c>DRV_QUERYMAPPABLE</c>, <i>dwParam2</i> is unused. Set this parameter to zero.
+     * 
+     * This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, <b>mixerMessage</b> and <a href="https://docs.microsoft.com/previous-versions/dd756716(v=vs.85)">auxOutMessage</a> functions. The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * When an application program opens a mapper instead of a specific audio device, the system inserts a mapper between the application and the available devices. The mapper selects an appropriate device by mapping the application's requirements to one of the available devices. For more information about mappers, see the Microsoft Windows SDK documentation.
+     * 
+     * The <c>DRVM_MAPPER_CONSOLEVOICECOM_GET</c> message retrieves the device ID of the preferred voice-communications device.
+     * 
+     * For <c>DRVM_MAPPER_CONSOLEVOICECOM_GET</c>, <i>dwParam1</i> is a pointer to device ID. This parameter points to a DWORD variable into which the function writes the device ID of the current preferred voice-communications device. The function writes the value (-1) if no device is available that qualifies as a preferred voice-communications device.
+     * 
+     * For <c>DRVM_MAPPER_CONSOLEVOICECOM_GET</c>, <i>dwParam2</i> is a pointer to status flags. This parameter points to a DWORD variable into which the function writes the device-status flags. Only one flag bit is currently defined: DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY. 
+     * 
+     * This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a> and <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a> functions. When a caller calls these two functions with the DRVM_MAPPER_CONSOLEVOICECOM_GET message, the caller must specify the device ID as WAVE_MAPPER, and then cast this value to the appropriate handle type. For the <b>waveInMessage</b>, <b>waveOutMessage</b>, <a href="https://docs.microsoft.com/previous-versions/dd798457(v=vs.85)">midiInMessage</a>, <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a>, or <b>mixerMessage</b> functions, the caller must cast the device ID to a handle of type HWAVEIN, HWAVEOUT, HMIDIIN, HMIDIOUT, or HMIXER, respectively. Note that if the caller supplies a valid handle instead of a device ID for this parameter, the function fails and returns error code MMSYSERR_NOSUPPORT.
+     * 
+     * The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * This message provides a way to determine which device is preferred specifically for voice communications, in contrast to the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536362(v=vs.85)">DRVM_MAPPER_PREFERRED_GET</a> message, which determines which device is preferred for all other audio functions.
+     * 
+     * For example, the preferred <b>waveOut</b> device for voice communications might be the earpiece in a headset, but the preferred <b>waveOut</b> device for all other audio functions might be a set of stereo speakers.
+     * 
+     * When the DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY flag bit is set in the DWORD location pointed to by <i>dwParam2</i>, the <b>waveIn</b> and <b>waveOut</b> APIs use only the current preferred voice-communications device and do not search for other available devices if the preferred device is unavailable. The flag that is output by either the <b>waveInMessage</b> or <b>waveOutMessage</b> call applies to the preferred voice-communications device for both the <b>waveIn</b> and <b>waveOut</b> APIs, regardless of whether the call is made to <b>waveInMessage</b> or <b>waveOutMessage</b>. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/preferred-voice-communications-device-id">Preferred Voice-Communications Device ID</a>.
+     * 
+     * The <c>DRVM_MAPPER_PREFERRED_GET</c> message retrieves the device ID of the preferred audio device.
+     * 
+     * For <c>DRVM_MAPPER_PREFERRED_GET</c>, <i>dwParam1</i> is a pointer to device ID. This parameter points to a DWORD variable into which the function writes the device ID of the current preferred device. The function writes the value (-1) if no device is available that qualifies as a preferred device.
+     * 
+     * For <c>DRVM_MAPPER_PREFERRED_GET</c>, <i>dwParam2</i> is a pointer to status flags. This parameter points to a DWORD variable into which the function writes the device-status flags. Only one flag bit is currently defined (for <b>waveInMessage</b> and <b>waveOutMessage</b> calls only): DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY. 
+     * 
+     * This message is valid only for the <a href="https://docs.microsoft.com/previous-versions/dd743846(v=vs.85)">waveInMessage</a>,  <a href="https://docs.microsoft.com/previous-versions/dd743865(v=vs.85)">waveOutMessage</a> and  <a href="https://docs.microsoft.com/previous-versions/dd798475(v=vs.85)">midiOutMessage</a> functions. When the caller calls these functions with the DRVM_MAPPER_PREFERRED_GET message, the caller must first specify the device ID as WAVE_MAPPER (for <b>waveInMessage</b> or <b>waveOutMessage</b>) or MIDI_MAPPER (for <b>midiOutMessage</b>), and then cast this value to the appropriate handle type. For the <b>waveInMessage</b>, <b>waveOutMessage</b>, or <b>midiOutMessage</b> functions, the caller must cast the device ID to a handle type HWAVEIN, HWAVEOUT or HMIDIOUT, respectively. Note that if the caller supplies a valid handle instead of a device ID for this parameter, the function fails and returns error code MMSYSERR_NOSUPPORT.
+     * 
+     * The system intercepts this message and returns the appropriate value without sending the message to the device driver. For general information about system-intercepted <b>xxxMessage</b> functions, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/system-intercepted-device-messages">System-Intercepted Device Messages</a>.
+     * 
+     * This message provides a way to determine which device is preferred for audio functions in general, in contrast to the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff536361(v=vs.85)">DRVM_MAPPER_CONSOLEVOICECOM_GET</a> message, which determines which device is preferred specifically for voice communications.
+     * 
+     * When the DRVM_MAPPER_PREFERRED_FLAGS_PREFERREDONLY flag bit is set in the DWORD location pointed to by <i>dwParam2</i>, the <b>waveIn</b> and <b>waveOut</b> APIs use only the current preferred device and do not search for other available devices if the preferred device is unavailable. Note that the <b>midiOutMessage</b> function does not output this flag--the <b>midiOut</b> API always uses only the preferred device. The flag that is output by either the <b>waveInMessage</b> or <b>waveOutMessage</b> call applies to the preferred device for both the <b>waveIn</b> and <b>waveOut</b> APIs, regardless of whether the call is made to <b>waveInMessage</b> or <b>waveOutMessage</b>.
+     * 
+     * The <i>xxx</i>Message functions accept this value in place of a valid device handle in order to allow an application to determine the default device ID without first having to open a device. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/accessing-the-preferred-device-id">Accessing the Preferred Device ID</a>.
      * @param {HMIXER} hmx Identifier of the mixer that receives the message. You must cast the device ID to the <b>HMIXER</b> handle type. If you supply a handle instead of a device ID, the function fails and returns the MMSYSERR_NOSUPPORT error code.
      * @param {Integer} uMsg Custom mixer driver message to send to the mixer driver. This message must be above or equal to the MXDM_USER constant.
      * @param {Pointer} dwParam1 Parameter associated with the message being sent.
@@ -7596,7 +8508,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-mixermessage
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixermessage
      * @since windows5.0
      */
     static mixerMessage(hmx, uMsg, dwParam1, dwParam2) {
@@ -7607,7 +8519,10 @@ class Audio {
     }
 
     /**
-     * The mixerGetLineInfo function retrieves information about a specific line of a mixer device.
+     * The mixerGetLineInfo function retrieves information about a specific line of a mixer device. (mixerGetLineInfoA)
+     * @remarks
+     * > [!NOTE]
+     * > The mmeapi.h header defines mixerGetLineInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HMIXEROBJ} hmxobj Handle to the mixer device object that controls the specific audio line.
      * @param {Pointer<MIXERLINEA>} pmxl Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixerlinea">MIXERLINE</a> structure. This structure is filled with information about the audio line for the mixer device. The <b>cbStruct</b> member must always be initialized to be the size, in bytes, of the <b>MIXERLINE</b> structure.
      * @param {Integer} fdwInfo Flags for retrieving information about an audio line. The following values are defined.
@@ -7765,7 +8680,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-mixergetlineinfoa
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixergetlineinfoa
      * @since windows5.0
      */
     static mixerGetLineInfoA(hmxobj, pmxl, fdwInfo) {
@@ -7776,7 +8691,10 @@ class Audio {
     }
 
     /**
-     * The mixerGetLineInfo function retrieves information about a specific line of a mixer device.
+     * The mixerGetLineInfoW (Unicode) function retrieves information about a specific line of a mixer device. (mixerGetLineInfoW)
+     * @remarks
+     * > [!NOTE]
+     * > The mmeapi.h header defines mixerGetLineInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HMIXEROBJ} hmxobj Handle to the mixer device object that controls the specific audio line.
      * @param {Pointer<MIXERLINEW>} pmxl Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixerlinea">MIXERLINE</a> structure. This structure is filled with information about the audio line for the mixer device. The <b>cbStruct</b> member must always be initialized to be the size, in bytes, of the <b>MIXERLINE</b> structure.
      * @param {Integer} fdwInfo Flags for retrieving information about an audio line. The following values are defined.
@@ -7934,7 +8852,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-mixergetlineinfow
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixergetlineinfow
      * @since windows5.0
      */
     static mixerGetLineInfoW(hmxobj, pmxl, fdwInfo) {
@@ -8065,7 +8983,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-mixergetid
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixergetid
      * @since windows5.0
      */
     static mixerGetID(hmxobj, puMxId, fdwId) {
@@ -8078,7 +8996,10 @@ class Audio {
     }
 
     /**
-     * The mixerGetLineControls function retrieves one or more controls associated with an audio line.
+     * The mixerGetLineControls function retrieves one or more controls associated with an audio line. (mixerGetLineControlsA)
+     * @remarks
+     * > [!NOTE]
+     * > The mmeapi.h header defines mixerGetLineControls as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HMIXEROBJ} hmxobj Handle to the mixer device object that is being queried.
      * @param {Pointer<MIXERLINECONTROLSA>} pmxlc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixerlinecontrolsa">MIXERLINECONTROLS</a> structure. This structure is used to reference one or more <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercontrola">MIXERCONTROL</a> structures to be filled with information about the controls associated with an audio line. The <b>cbStruct</b> member of the <b>MIXERLINECONTROLS</b> structure must always be initialized to be the size, in bytes, of the <b>MIXERLINECONTROLS</b> structure.
      * @param {Integer} fdwControls Flags for retrieving information about one or more controls associated with an audio line. The following values are defined.
@@ -8234,7 +9155,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-mixergetlinecontrolsa
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixergetlinecontrolsa
      * @since windows5.0
      */
     static mixerGetLineControlsA(hmxobj, pmxlc, fdwControls) {
@@ -8245,7 +9166,10 @@ class Audio {
     }
 
     /**
-     * The mixerGetLineControls function retrieves one or more controls associated with an audio line.
+     * The mixerGetLineControlsW (Unicode) function retrieves one or more controls associated with an audio line. (mixerGetLineControlsW)
+     * @remarks
+     * > [!NOTE]
+     * > The mmeapi.h header defines mixerGetLineControls as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HMIXEROBJ} hmxobj Handle to the mixer device object that is being queried.
      * @param {Pointer<MIXERLINECONTROLSW>} pmxlc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixerlinecontrolsa">MIXERLINECONTROLS</a> structure. This structure is used to reference one or more <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercontrola">MIXERCONTROL</a> structures to be filled with information about the controls associated with an audio line. The <b>cbStruct</b> member of the <b>MIXERLINECONTROLS</b> structure must always be initialized to be the size, in bytes, of the <b>MIXERLINECONTROLS</b> structure.
      * @param {Integer} fdwControls Flags for retrieving information about one or more controls associated with an audio line. The following values are defined.
@@ -8401,7 +9325,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-mixergetlinecontrolsw
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixergetlinecontrolsw
      * @since windows5.0
      */
     static mixerGetLineControlsW(hmxobj, pmxlc, fdwControls) {
@@ -8412,7 +9336,16 @@ class Audio {
     }
 
     /**
-     * The mixerGetControlDetails function retrieves details about a single control associated with an audio line.
+     * The mixerGetControlDetails function retrieves details about a single control associated with an audio line. (mixerGetControlDetailsA)
+     * @remarks
+     * All members of the <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercontroldetails_listtexta">MIXERCONTROLDETAILS</a> structure must be initialized before calling this function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The mmeapi.h header defines mixerGetControlDetails as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HMIXEROBJ} hmxobj Handle to the mixer device object being queried.
      * @param {Pointer<MIXERCONTROLDETAILS>} pmxcd Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercontroldetails_listtexta">MIXERCONTROLDETAILS</a> structure, which is filled with state information about the control.
      * @param {Integer} fdwDetails Flags for retrieving control details. The following values are defined.
@@ -8551,7 +9484,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-mixergetcontroldetailsa
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixergetcontroldetailsa
      * @since windows5.0
      */
     static mixerGetControlDetailsA(hmxobj, pmxcd, fdwDetails) {
@@ -8562,7 +9495,16 @@ class Audio {
     }
 
     /**
-     * The mixerGetControlDetails function retrieves details about a single control associated with an audio line.
+     * The mixerGetControlDetailsW (Unicode) function (mmeapi.h) retrieves details about a single control associated with an audio line.
+     * @remarks
+     * All members of the <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercontroldetails_listtexta">MIXERCONTROLDETAILS</a> structure must be initialized before calling this function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The mmeapi.h header defines mixerGetControlDetails as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HMIXEROBJ} hmxobj Handle to the mixer device object being queried.
      * @param {Pointer<MIXERCONTROLDETAILS>} pmxcd Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercontroldetails_listtexta">MIXERCONTROLDETAILS</a> structure, which is filled with state information about the control.
      * @param {Integer} fdwDetails Flags for retrieving control details. The following values are defined.
@@ -8701,7 +9643,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-mixergetcontroldetailsw
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixergetcontroldetailsw
      * @since windows5.0
      */
     static mixerGetControlDetailsW(hmxobj, pmxcd, fdwDetails) {
@@ -8713,6 +9655,10 @@ class Audio {
 
     /**
      * The mixerSetControlDetails function sets properties of a single control associated with an audio line.
+     * @remarks
+     * All members of the <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercontroldetails_listtexta">MIXERCONTROLDETAILS</a> structure must be initialized before calling <b>mixerSetControlDetails</b>.
+     * 
+     * If an application needs to retrieve only the current state of a custom mixer control and not display a dialog box, then <a href="https://docs.microsoft.com/previous-versions/dd757299(v=vs.85)">mixerGetControlDetails</a> can be used with the MIXER_GETCONTROLDETAILSF_VALUE flag.
      * @param {HMIXEROBJ} hmxobj Handle to the mixer device object for which properties are being set.
      * @param {Pointer<MIXERCONTROLDETAILS>} pmxcd Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercontroldetails_listtexta">MIXERCONTROLDETAILS</a> structure. This structure is used to reference control detail structures that contain the desired state for the control.
      * @param {Integer} fdwDetails Flags for setting properties for a control. The following values are defined.
@@ -8851,7 +9797,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmeapi/nf-mmeapi-mixersetcontroldetails
+     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixersetcontroldetails
      * @since windows5.0
      */
     static mixerSetControlDetails(hmxobj, pmxcd, fdwDetails) {
@@ -8863,18 +9809,40 @@ class Audio {
 
     /**
      * Enables Windows Store apps to access preexisting Component Object Model (COM) interfaces in the WASAPI family.
+     * @remarks
+     * This function enables Windows Store apps to  activate certain <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/wasapi">WASAPI</a> COM interfaces after using Windows Runtime APIs in the <b>Windows.Devices</b> and <a href="https://docs.microsoft.com/uwp/api/windows.media.devices">Windows.Media.Devices</a> namespaces to select an audio device.  
+     * 
+     * For many implementations, an application must call this function from the main UI thread to activate a COM interface in the <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/wasapi">WASAPI</a> family so that the system can show a dialog to the user. The application passes an <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nn-mmdeviceapi-iactivateaudiointerfacecompletionhandler">IActivateAudioInterfaceCompletionHandler</a> callback COM interface through <i>completionHandler</i>. Windows calls a method in the application’s <b>IActivateAudioInterfaceCompletionHandler</b> interface from a worker thread in the COM Multi-threaded Apartment (MTA) when the activation results are available. The application can then call a method in the <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nn-mmdeviceapi-iactivateaudiointerfaceasyncoperation">IActivateAudioInterfaceAsyncOperation</a> interface  to retrieve the result code and the requested <b>WASAPI</b> interface. There are some activations that are explicitly safe and therefore don't require that this function be called from the main UI thread. These explicitly safe activations include:
+     * 
+     * <ul>
+     * <li>Calling <b>ActivateAudioInterfaceAsync</b> with a <i>deviceInterfacePath</i> that specifies an audio render device and an <i>riid</i> that specifies the <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nn-audioclient-iaudioclient">IAudioClient</a> interface.</li>
+     * <li>Calling <b>ActivateAudioInterfaceAsync</b> with a <i>deviceInterfacePath</i> that specifies an audio render device and an <i>riid</i> that specifies the <a href="https://docs.microsoft.com/windows/desktop/api/endpointvolume/nn-endpointvolume-iaudioendpointvolume">IAudioEndpointVolume</a> interface.</li>
+     * <li>Calling <b>ActivateAudioInterfaceAsync</b> from a session 0 service. For more information, see <a href="https://docs.microsoft.com/windows/desktop/services/services">Services</a>.</li>
+     * </ul>
+     * Windows holds a reference to the application's <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nn-mmdeviceapi-iactivateaudiointerfacecompletionhandler">IActivateAudioInterfaceCompletionHandler</a> interface until the operation is complete and the application releases the <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nn-mmdeviceapi-iactivateaudiointerfaceasyncoperation">IActivateAudioInterfaceAsyncOperation</a> interface. 
+     * 
+     * <div class="alert"><b>Important</b>  <p class="note">Applications must not free the object implementing the <b>IActivateAudioInterfaceCompletionHandler</b> until the completion handler callback has executed. 
+     * 
+     * </div>
+     * <div> </div>
+     * Depending on which <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/wasapi">WASAPI</a> interface is activated, this function may display a consent prompt the first time it is called. For example, when the application calls this function to activate <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nn-audioclient-iaudioclient">IAudioClient</a> to access a microphone, the purpose of the consent prompt is to get the user's permission for the app to access the microphone. For more information about the consent prompt, see <a href="https://docs.microsoft.com/windows/uwp/security/index">Guidelines for devices that access personal data</a>.
+     * 
+     * 
+     * <b>ActivateAudioInterfaceAsync</b> must be called on the main UI thread so that the consent prompt can be shown. If the consent prompt can’t be shown, the user can’t grant device access to the app.
+     * 
+     * On versions of Windows previous to Windows 10, <b>ActivateAudioInterfaceAsync</b> must be called on a thread in a COM Single-Threaded Apartment (STA), when opening a device for audio capture. The <i>completionHandler</i> that is passed into <b>ActivateAudioInterfaceAsync</b> needs to implement <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iagileobject">IAgileObject</a> to ensure that there is no deadlock when the <i>completionHandler</i> is called from the MTA. Otherwise, an <b>E_ILLEGAL_METHOD_CALL</b> will occur.
      * @param {PWSTR} deviceInterfacePath A device interface ID for an audio device. This is normally retrieved from a <a href="https://docs.microsoft.com/uwp/api/windows.devices.enumeration.deviceinformation">DeviceInformation</a> object or one of the methods of the <a href="https://docs.microsoft.com/uwp/api/windows.media.devices.mediadevice">MediaDevice</a> class. 
      * 
      * The GUIDs <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/devinterface-xxx-guids">DEVINTERFACE_AUDIO_CAPTURE</a>  and <b>DEVINTERFACE_AUDIO_RENDER</b>  represent the default audio capture and render device respectively. Call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-stringfromiid">StringFromIID</a> to convert either of these GUIDs to an <b>LPCWSTR</b> to use for this argument.
      * 
-     * Specify **AUDIOCLIENT_ACTIVATION_TYPE_PROCESS_LOOPBACK** to activate the audio interface for process loopback capture.
+     * Specify **AUDIOCLIENT_ACTIVATION_TYPE_PROCESS_LOOPBACK** to activate the audio interface for process loopback capture. For sample code that demonstrates the process loopback capture scenario, see the [Application Loopback API Capture Sample](https://docs.microsoft.com/en-us/samples/microsoft/windows-classic-samples/applicationloopbackaudio-sample/).
      * @param {Pointer<Guid>} riid The IID of a COM interface in the <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/wasapi">WASAPI</a> family, such as <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nn-audioclient-iaudioclient">IAudioClient</a>.
      * @param {Pointer<PROPVARIANT>} activationParams Interface-specific activation parameters. For more information, see the <i>pActivationParams</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-immdevice-activate">IMMDevice::Activate</a>.
      * 
      * Starting with TBD, you can specify [AUDIOCLIENT_ACTIVATION_PARAMS](/windows/desktop/api/audioclientactivationparams/ns-audioclientactivationparams-audioclient_activation_params) to activate the interface to include or exclude audio streams associated with a specified process ID.
      * @param {IActivateAudioInterfaceCompletionHandler} completionHandler An interface implemented by the caller that is called by Windows when the result of the activation procedure is available.
      * @returns {IActivateAudioInterfaceAsyncOperation} Returns an <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nn-mmdeviceapi-iactivateaudiointerfaceasyncoperation">IActivateAudioInterfaceAsyncOperation</a> interface that represents the asynchronous operation of activating the requested <b>WASAPI</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mmdeviceapi/nf-mmdeviceapi-activateaudiointerfaceasync
+     * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-activateaudiointerfaceasync
      * @since windows8.0
      */
     static ActivateAudioInterfaceAsync(deviceInterfacePath, riid, activationParams, completionHandler) {
@@ -9008,8 +9976,26 @@ class Audio {
 
     /**
      * The acmGetVersion function returns the version number of the ACM.
+     * @remarks
+     * Win32 applications must verify that the ACM version is at least 0x03320000 (version 3.50) or greater before attempting to use any other ACM functions. The build number (CCCC) is always zero for the retail (non-debug) version of the ACM.
+     * 
+     * To display the ACM version for a user, an application should use the following format (note that the values should be printed as unsigned decimals):
+     * 
+     * 
+     * ```cpp
+     * 
+     * { 
+     *     DWORD   dw; 
+     *     TCHAR   ach[10]; 
+     *  
+     *     dw = acmGetVersion(); 
+     *     _stprintf_s(ach, TEXT("%u.%.02u"), 
+     *         HIWORD(dw) >> 8, HIWORD(dw) & 0x00FF); 
+     * } 
+     * 
+     * ```
      * @returns {Integer} The version number is returned as a hexadecimal number of the form 0xAABBCCCC, where AA is the major version number, BB is the minor version number, and CCCC is the build number.
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmgetversion
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmgetversion
      * @since windows5.0
      */
     static acmGetVersion() {
@@ -9151,7 +10137,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmmetrics
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmmetrics
      * @since windows5.0
      */
     static acmMetrics(hao, uMetric, pMetric) {
@@ -9165,6 +10151,8 @@ class Audio {
 
     /**
      * The acmDriverEnum function enumerates the available ACM drivers, continuing until there are no more drivers or the callback function returns FALSE.
+     * @remarks
+     * The <b>acmDriverEnum</b> function will return MMSYSERR_NOERROR (zero) if no ACM drivers are installed. Moreover, the callback function will not be called.
      * @param {Pointer<ACMDRIVERENUMCB>} fnCallback Procedure instance address of the application-defined callback function.
      * @param {Pointer} dwInstance A 64-bit (DWORD_PTR) or 32-bit (DWORD) application-defined value that is passed to the callback function along with ACM driver information.
      * @param {Integer} fdwEnum Flags for enumerating ACM drivers. The following values are defined.
@@ -9215,7 +10203,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmdriverenum
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriverenum
      * @since windows5.0
      */
     static acmDriverEnum(fnCallback, dwInstance, fdwEnum) {
@@ -9269,7 +10257,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmdriverid
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriverid
      * @since windows5.0
      */
     static acmDriverID(hao, phadid, fdwDriverID) {
@@ -9280,7 +10268,10 @@ class Audio {
     }
 
     /**
-     * The acmDriverAdd function adds a driver to the list of available ACM drivers.
+     * The acmDriverAdd function adds a driver to the list of available ACM drivers. (acmDriverAddA)
+     * @remarks
+     * > [!NOTE]
+     * > The msacm.h header defines acmDriverAdd as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<HACMDRIVERID>} phadid Pointer to the buffer that receives a handle identifying the installed driver. This handle is used to identify the driver in calls to other ACM functions.
      * @param {HINSTANCE} hinstModule Handle to the instance of the module whose executable or dynamic-link library (DLL) contains the driver entry function.
      * @param {LPARAM} lParam Driver function address or a notification window handle, depending on the <i>fdwAdd</i> flags.
@@ -9356,7 +10347,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmdriveradda
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriveradda
      * @since windows5.0
      */
     static acmDriverAddA(phadid, hinstModule, lParam, dwPriority, fdwAdd) {
@@ -9367,7 +10358,10 @@ class Audio {
     }
 
     /**
-     * The acmDriverAdd function adds a driver to the list of available ACM drivers.
+     * The acmDriverAddW (Unicode) function (msacm.h) adds a driver to the list of available ACM drivers. (acmDriverAddW)
+     * @remarks
+     * > [!NOTE]
+     * > The msacm.h header defines acmDriverAdd as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<HACMDRIVERID>} phadid Pointer to the buffer that receives a handle identifying the installed driver. This handle is used to identify the driver in calls to other ACM functions.
      * @param {HINSTANCE} hinstModule Handle to the instance of the module whose executable or dynamic-link library (DLL) contains the driver entry function.
      * @param {LPARAM} lParam Driver function address or a notification window handle, depending on the <i>fdwAdd</i> flags.
@@ -9443,7 +10437,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmdriveraddw
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriveraddw
      * @since windows5.0
      */
     static acmDriverAddW(phadid, hinstModule, lParam, dwPriority, fdwAdd) {
@@ -9498,7 +10492,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmdriverremove
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriverremove
      * @since windows5.0
      */
     static acmDriverRemove(hadid, fdwRemove) {
@@ -9576,7 +10570,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmdriveropen
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriveropen
      * @since windows5.0
      */
     static acmDriverOpen(phad, hadid, fdwOpen) {
@@ -9631,7 +10625,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmdriverclose
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriverclose
      * @since windows5.0
      */
     static acmDriverClose(had, fdwClose) {
@@ -9643,6 +10637,12 @@ class Audio {
 
     /**
      * The acmDriverMessage function sends a user-defined message to a given ACM driver instance.
+     * @remarks
+     * To display a custom About dialog box from an ACM driver, an application must send the ACMDM_DRIVER_ABOUT message to the driver. The <i>lParam1</i> parameter should be the handle of the owner window for the custom About dialog box, and <i>lParam2</i> must be set to zero. If the driver does not support a custom About dialog box, MMSYSERR_NOTSUPPORTED will be returned and it is the application's responsibility to display its own dialog box. For example, the Control Panel Sound Mapper option will display a default About dialog box based on the <b>ACMDRIVERDETAILS</b> structure when an ACM driver returns MMSYSERR_NOTSUPPORTED. An application can query a driver for custom About dialog box support without the dialog box being displayed by setting <i>lParam1</i> to –1L. If the driver supports a custom About dialog box, MMSYSERR_NOERROR will be returned. Otherwise, the return value is MMSYSERR_NOTSUPPORTED.
+     * 
+     * User-defined messages must be sent only to an ACM driver that specifically supports the messages. The caller should verify that the ACM driver is the correct driver by retrieving the driver details and checking the <b>wMid</b>, <b>wPid</b>, and <b>vdwDriver</b> members of the <b>ACMDRIVERDETAILS</b> structure.
+     * 
+     * Never send user-defined messages to an unknown ACM driver.
      * @param {HACMDRIVER} had Handle to the ACM driver instance to which the message will be sent.
      * @param {Integer} uMsg Message that the ACM driver must process. This message must be in the ACMDM_USER message range (above or equal to ACMDM_USER and less than ACMDM_RESERVED_LOW). The exceptions to this restriction are the ACMDM_DRIVER_ABOUT, <a href="https://docs.microsoft.com/windows/desktop/Multimedia/drv-queryconfigure">DRV_QUERYCONFIGURE</a>, and <a href="https://docs.microsoft.com/windows/desktop/Multimedia/drv-configure">DRV_CONFIGURE</a> messages.
      * @param {LPARAM} lParam1 Message parameter.
@@ -9688,7 +10688,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmdrivermessage
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdrivermessage
      * @since windows5.0
      */
     static acmDriverMessage(had, uMsg, lParam1, lParam2) {
@@ -9700,6 +10700,16 @@ class Audio {
 
     /**
      * The acmDriverPriority function modifies the priority and state of an ACM driver.
+     * @remarks
+     * All driver identifiers can be enabled and disabled, including global, local and notification driver identifiers.
+     * 
+     * If more than one global driver identifier needs to be enabled, disabled or shifted in priority, an application should defer change notification broadcasts by using the ACM_DRIVERPRIORITYF_BEGIN flag. A single change notification will be broadcast when the ACM_DRIVERPRIORITYF_END flag is specified.
+     * 
+     * An application can use the function with the <b>acmMetrics</b> ACM_METRIC_DRIVER_PRIORITY metric index to retrieve the current priority of a global driver. Drivers are always enumerated from highest to lowest priority by the <b>acmDriverEnum</b> function.
+     * 
+     * All enabled driver identifiers will receive change notifications. An application can register a notification message by using the <b>acmDriverAdd</b> function in conjunction with the ACM_DRIVERADDF_NOTIFYHWND flag. Changes to nonglobal driver identifiers will not be broadcast.
+     * 
+     * Priorities are simply used for the search order when an application does not specify a driver. Boosting the priority of a driver will have no effect on the performance of a driver.
      * @param {HACMDRIVERID} hadid Handle to the driver identifier of an installed ACM driver. If the ACM_DRIVERPRIORITYF_BEGIN and ACM_DRIVERPRIORITYF_END flags are specified, this parameter must be <b>NULL</b>.
      * @param {Integer} dwPriority New priority for a global ACM driver identifier. A zero value specifies that the priority of the driver identifier should remain unchanged. A value of 1 specifies that the driver should be placed as the highest search priority driver. A value of –1 specifies that the driver should be placed as the lowest search priority driver. Priorities are used only for global drivers.
      * @param {Integer} fdwPriority Flags for setting priorities of ACM drivers. The following values are defined.
@@ -9791,7 +10801,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmdriverpriority
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriverpriority
      * @since windows5.0
      */
     static acmDriverPriority(hadid, dwPriority, fdwPriority) {
@@ -9802,7 +10812,10 @@ class Audio {
     }
 
     /**
-     * The acmDriverDetails function queries a specified ACM driver to determine its capabilities.
+     * The acmDriverDetails function queries a specified ACM driver to determine its capabilities. (acmDriverDetailsA)
+     * @remarks
+     * > [!NOTE]
+     * > The msacm.h header defines ACMDRIVERDETAILS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HACMDRIVERID} hadid Handle to the driver identifier of an installed ACM driver. Disabled drivers can be queried for details.
      * @param {Pointer<ACMDRIVERDETAILSA>} padd Pointer to an [ACMDRIVERDETAILS](./nf-msacm-acmdriverdetails.md) structure that will receive the driver details. The <b>cbStruct</b> member must be initialized to the size, in bytes, of the structure.
      * @param {Integer} fdwDetails Reserved; must be zero.
@@ -9847,7 +10860,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmdriverdetailsa
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriverdetailsa
      * @since windows5.0
      */
     static acmDriverDetailsA(hadid, padd, fdwDetails) {
@@ -9858,7 +10871,10 @@ class Audio {
     }
 
     /**
-     * The acmDriverDetails function queries a specified ACM driver to determine its capabilities.
+     * The acmDriverDetails (Unicode) function queries a specified ACM driver to determine its capabilities. (acmDriverDetailsW)
+     * @remarks
+     * > [!NOTE]
+     * > The msacm.h header defines ACMDRIVERDETAILS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HACMDRIVERID} hadid Handle to the driver identifier of an installed ACM driver. Disabled drivers can be queried for details.
      * @param {Pointer<ACMDRIVERDETAILSW>} padd Pointer to an [ACMDRIVERDETAILS](./nf-msacm-acmdriverdetails.md) structure that will receive the driver details. The <b>cbStruct</b> member must be initialized to the size, in bytes, of the structure.
      * @param {Integer} fdwDetails Reserved; must be zero.
@@ -9903,7 +10919,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmdriverdetailsw
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriverdetailsw
      * @since windows5.0
      */
     static acmDriverDetailsW(hadid, padd, fdwDetails) {
@@ -9914,7 +10930,10 @@ class Audio {
     }
 
     /**
-     * The acmFormatTagDetails function queries the ACM for details on a specific waveform-audio format tag.
+     * The acmFormatTagDetails function queries the ACM for details on a specific waveform-audio format tag. (acmFormatTagDetailsA)
+     * @remarks
+     * > [!NOTE]
+     * > The msacm.h header defines ACMFORMATTAGDETAILS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio format tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver. An application must specify a valid handle or driver identifier when using the ACM_FORMATTAGDETAILSF_INDEX query type. Driver identifiers for disabled drivers are not allowed.
      * @param {Pointer<ACMFORMATTAGDETAILSA>} paftd Pointer to the [ACMFORMATTAGDETAILS](./nf-msacm-acmformattagdetails.md) structure that is to receive the format tag details.
      * @param {Integer} fdwDetails Flags for getting the details. The following values are defined.
@@ -9991,7 +11010,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmformattagdetailsa
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformattagdetailsa
      * @since windows5.0
      */
     static acmFormatTagDetailsA(had, paftd, fdwDetails) {
@@ -10002,7 +11021,10 @@ class Audio {
     }
 
     /**
-     * The acmFormatTagDetails function queries the ACM for details on a specific waveform-audio format tag.
+     * The acmFormatTagDetails (Unicode) function queries the ACM for details on a specific waveform-audio format tag. (acmFormatTagDetailsW)
+     * @remarks
+     * > [!NOTE]
+     * > The msacm.h header defines ACMFORMATTAGDETAILS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio format tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver. An application must specify a valid handle or driver identifier when using the ACM_FORMATTAGDETAILSF_INDEX query type. Driver identifiers for disabled drivers are not allowed.
      * @param {Pointer<ACMFORMATTAGDETAILSW>} paftd Pointer to the [ACMFORMATTAGDETAILS](./nf-msacm-acmformattagdetails.md) structure that is to receive the format tag details.
      * @param {Integer} fdwDetails Flags for getting the details. The following values are defined.
@@ -10079,7 +11101,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmformattagdetailsw
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformattagdetailsw
      * @since windows5.0
      */
     static acmFormatTagDetailsW(had, paftd, fdwDetails) {
@@ -10090,7 +11112,16 @@ class Audio {
     }
 
     /**
-     * The acmFormatTagEnum function enumerates waveform-audio format tags available from an ACM driver. This function continues enumerating until there are no more suitable format tags or the callback function returns FALSE.
+     * The acmFormatTagEnum function enumerates waveform-audio format tags available from an ACM driver. This function continues enumerating until there are no more suitable format tags or the callback function returns FALSE. (acmFormatTagEnumA)
+     * @remarks
+     * This function will return MMSYSERR_NOERROR (zero) if no suitable ACM drivers are installed. Moreover, the callback function will not be called.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The msacm.h header defines acmFormatTagEnum as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio format tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<ACMFORMATTAGDETAILSA>} paftd Pointer to the [ACMFORMATTAGDETAILS](./nf-msacm-acmformattagdetails.md) structure that is to receive the format tag details passed to the function specified in <i>fnCallback</i>. This structure must have the <b>cbStruct</b> member of the <b>ACMFORMATTAGDETAILS</b> structure initialized.
      * @param {Pointer<ACMFORMATTAGENUMCBA>} fnCallback Procedure instance address of the application-defined callback function.
@@ -10137,7 +11168,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmformattagenuma
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformattagenuma
      * @since windows5.0
      */
     static acmFormatTagEnumA(had, paftd, fnCallback, dwInstance, fdwEnum) {
@@ -10148,7 +11179,16 @@ class Audio {
     }
 
     /**
-     * The acmFormatTagEnum function enumerates waveform-audio format tags available from an ACM driver. This function continues enumerating until there are no more suitable format tags or the callback function returns FALSE.
+     * The acmFormatTagEnum (Unicode) function enumerates waveform-audio format tags available from an ACM driver. This function continues enumerating until there are no more suitable format tags or the callback function returns FALSE. (acmFormatTagEnumW)
+     * @remarks
+     * This function will return MMSYSERR_NOERROR (zero) if no suitable ACM drivers are installed. Moreover, the callback function will not be called.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The msacm.h header defines acmFormatTagEnum as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio format tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<ACMFORMATTAGDETAILSW>} paftd Pointer to the [ACMFORMATTAGDETAILS](./nf-msacm-acmformattagdetails.md) structure that is to receive the format tag details passed to the function specified in <i>fnCallback</i>. This structure must have the <b>cbStruct</b> member of the <b>ACMFORMATTAGDETAILS</b> structure initialized.
      * @param {Pointer<ACMFORMATTAGENUMCBW>} fnCallback Procedure instance address of the application-defined callback function.
@@ -10195,7 +11235,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmformattagenumw
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformattagenumw
      * @since windows5.0
      */
     static acmFormatTagEnumW(had, paftd, fnCallback, dwInstance, fdwEnum) {
@@ -10206,7 +11246,10 @@ class Audio {
     }
 
     /**
-     * The acmFormatDetails function queries the ACM for format details for a specific waveform-audio format tag.
+     * The acmFormatDetails function queries the ACM for format details for a specific waveform-audio format tag. (acmFormatDetailsA)
+     * @remarks
+     * > [!NOTE]
+     * > The msacm.h header defines ACMFORMATDETAILS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio format details for a format tag. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<ACMFORMATDETAILSA>} pafd Pointer to an [ACMFORMATDETAILS](./nf-msacm-acmformatdetails.md) structure to contain the format details for the given format tag.
      * @param {Integer} fdwDetails Flags for getting the waveform-audio format tag details. The following values are defined.
@@ -10279,7 +11322,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmformatdetailsa
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformatdetailsa
      * @since windows5.0
      */
     static acmFormatDetailsA(had, pafd, fdwDetails) {
@@ -10290,7 +11333,10 @@ class Audio {
     }
 
     /**
-     * The acmFormatDetails function queries the ACM for format details for a specific waveform-audio format tag.
+     * The acmFormatDetails (Unicode) function queries the ACM for format details for a specific waveform-audio format tag. (acmFormatDetailsW)
+     * @remarks
+     * > [!NOTE]
+     * > The msacm.h header defines ACMFORMATDETAILS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio format details for a format tag. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<tACMFORMATDETAILSW>} pafd Pointer to an [ACMFORMATDETAILS](./nf-msacm-acmformatdetails.md) structure to contain the format details for the given format tag.
      * @param {Integer} fdwDetails Flags for getting the waveform-audio format tag details. The following values are defined.
@@ -10363,7 +11409,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmformatdetailsw
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformatdetailsw
      * @since windows5.0
      */
     static acmFormatDetailsW(had, pafd, fdwDetails) {
@@ -10374,7 +11420,9 @@ class Audio {
     }
 
     /**
-     * The acmFormatEnum function enumerates waveform-audio formats available for a given format tag from an ACM driver. This function continues enumerating until there are no more suitable formats for the format tag or the callback function returns FALSE.
+     * The acmFormatEnum function enumerates waveform-audio formats available for a given format tag from an ACM driver. This function continues enumerating until there are no more suitable formats for the format tag or the callback function returns FALSE. (acmFormatEnumA)
+     * @remarks
+     * This function will return MMSYSERR_NOERROR (zero) if no suitable ACM drivers are installed. Moreover, the callback function will not be called.
      * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio format details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<ACMFORMATDETAILSA>} pafd Pointer to an [ACMFORMATDETAILS](./nf-msacm-acmformatdetails.md) structure to contain the format details passed to the <b>fnCallback</b> function. This structure must have the <b>cbStruct</b>, <b>pwfx</b>, and <b>cbwfx</b> members of the <b>ACMFORMATDETAILS</b> structure initialized. The <b>dwFormatTag</b> member must also be initialized to either WAVE_FORMAT_UNKNOWN or a valid format tag.
      * 
@@ -10487,7 +11535,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmformatenuma
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformatenuma
      * @since windows5.0
      */
     static acmFormatEnumA(had, pafd, fnCallback, dwInstance, fdwEnum) {
@@ -10498,7 +11546,9 @@ class Audio {
     }
 
     /**
-     * The acmFormatEnum function enumerates waveform-audio formats available for a given format tag from an ACM driver. This function continues enumerating until there are no more suitable formats for the format tag or the callback function returns FALSE.
+     * The acmFormatEnum (Unicode) function enumerates waveform-audio formats available for a given format tag from an ACM driver. This function continues enumerating until there are no more suitable formats for the format tag or the callback function returns FALSE. (acmFormatEnumW)
+     * @remarks
+     * This function will return MMSYSERR_NOERROR (zero) if no suitable ACM drivers are installed. Moreover, the callback function will not be called.
      * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio format details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<tACMFORMATDETAILSW>} pafd Pointer to an [ACMFORMATDETAILS](./nf-msacm-acmformatdetails.md) structure to contain the format details passed to the <b>fnCallback</b> function. This structure must have the <b>cbStruct</b>, <b>pwfx</b>, and <b>cbwfx</b> members of the <b>ACMFORMATDETAILS</b> structure initialized. The <b>dwFormatTag</b> member must also be initialized to either WAVE_FORMAT_UNKNOWN or a valid format tag.
      * 
@@ -10611,7 +11661,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmformatenumw
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformatenumw
      * @since windows5.0
      */
     static acmFormatEnumW(had, pafd, fnCallback, dwInstance, fdwEnum) {
@@ -10694,7 +11744,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmformatsuggest
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformatsuggest
      * @since windows5.0
      */
     static acmFormatSuggest(had, pwfxSrc, pwfxDst, cbwfxDst, fdwSuggest) {
@@ -10705,7 +11755,10 @@ class Audio {
     }
 
     /**
-     * The acmFormatChoose function creates an ACM-defined dialog box that enables the user to select a waveform-audio format.
+     * The acmFormatChoose function creates an ACM-defined dialog box that enables the user to select a waveform-audio format. (acmFormatChooseA)
+     * @remarks
+     * > [!NOTE]
+     * > The msacm.h header defines ACMFORMATCHOOSE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<ACMFORMATCHOOSEA>} pafmtc Pointer to an [ACMFORMATCHOOSE](./nf-msacm-acmformatchoose.md) structure that contains information used to initialize the dialog box. When this function returns, this structure contains information about the user's format selection.
      * 
      * The <b>pwfx</b> member of this structure must contain a valid pointer to a memory location that will contain the returned format header structure. Moreover, the <b>cbwfx</b> member must be filled in with the size, in bytes, of this memory buffer.
@@ -10783,7 +11836,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmformatchoosea
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformatchoosea
      * @since windows5.0
      */
     static acmFormatChooseA(pafmtc) {
@@ -10792,7 +11845,10 @@ class Audio {
     }
 
     /**
-     * The acmFormatChoose function creates an ACM-defined dialog box that enables the user to select a waveform-audio format.
+     * The acmFormatChoose (Unicode) function creates an ACM-defined dialog box that enables the user to select a waveform-audio format. (acmFormatChooseW)
+     * @remarks
+     * > [!NOTE]
+     * > The msacm.h header defines ACMFORMATCHOOSE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<ACMFORMATCHOOSEW>} pafmtc Pointer to an [ACMFORMATCHOOSE](./nf-msacm-acmformatchoose.md) structure that contains information used to initialize the dialog box. When this function returns, this structure contains information about the user's format selection.
      * 
      * The <b>pwfx</b> member of this structure must contain a valid pointer to a memory location that will contain the returned format header structure. Moreover, the <b>cbwfx</b> member must be filled in with the size, in bytes, of this memory buffer.
@@ -10870,7 +11926,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmformatchoosew
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformatchoosew
      * @since windows5.0
      */
     static acmFormatChooseW(pafmtc) {
@@ -10879,7 +11935,10 @@ class Audio {
     }
 
     /**
-     * The acmFilterTagDetails function queries the ACM for details about a specific waveform-audio filter tag.
+     * The acmFilterTagDetails function queries the ACM for details about a specific waveform-audio filter tag. (acmFilterTagDetailsA)
+     * @remarks
+     * > [!NOTE]
+     * > The msacm.h header defines ACMFILTERTAGDETAILS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio filter tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver. An application must specify a valid <b>HACMDRIVER</b> or <b>HACMDRIVERID</b> identifier when using the ACM_FILTERTAGDETAILSF_INDEX query type. Driver identifiers for disabled drivers are not allowed.
      * @param {Pointer<ACMFILTERTAGDETAILSA>} paftd Pointer to the [ACMFILTERTAGDETAILS](./nf-msacm-acmfiltertagdetails.md) structure that is to receive the filter tag details.
      * @param {Integer} fdwDetails Flags for getting the details. The following values are defined.
@@ -10956,7 +12015,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmfiltertagdetailsa
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmfiltertagdetailsa
      * @since windows5.0
      */
     static acmFilterTagDetailsA(had, paftd, fdwDetails) {
@@ -10967,7 +12026,10 @@ class Audio {
     }
 
     /**
-     * The acmFilterTagDetails function queries the ACM for details about a specific waveform-audio filter tag.
+     * The acmFilterTagDetails (Unicode) function queries the ACM for details about a specific waveform-audio filter tag. (acmFilterTagDetailsW)
+     * @remarks
+     * > [!NOTE]
+     * > The msacm.h header defines ACMFILTERTAGDETAILS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio filter tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver. An application must specify a valid <b>HACMDRIVER</b> or <b>HACMDRIVERID</b> identifier when using the ACM_FILTERTAGDETAILSF_INDEX query type. Driver identifiers for disabled drivers are not allowed.
      * @param {Pointer<ACMFILTERTAGDETAILSW>} paftd Pointer to the [ACMFILTERTAGDETAILS](./nf-msacm-acmfiltertagdetails.md) structure that is to receive the filter tag details.
      * @param {Integer} fdwDetails Flags for getting the details. The following values are defined.
@@ -11044,7 +12106,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmfiltertagdetailsw
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmfiltertagdetailsw
      * @since windows5.0
      */
     static acmFilterTagDetailsW(had, paftd, fdwDetails) {
@@ -11055,7 +12117,16 @@ class Audio {
     }
 
     /**
-     * The acmFilterTagEnum function enumerates waveform-audio filter tags available from an ACM driver. This function continues enumerating until there are no more suitable filter tags or the callback function returns FALSE.
+     * The acmFilterTagEnum function enumerates waveform-audio filter tags available from an ACM driver. This function continues enumerating until there are no more suitable filter tags or the callback function returns FALSE. (acmFilterTagEnumA)
+     * @remarks
+     * This function will return MMSYSERR_NOERROR (zero) if no suitable ACM drivers are installed. Moreover, the callback function will not be called.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The msacm.h header defines acmFilterTagEnum as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio filter tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<ACMFILTERTAGDETAILSA>} paftd Pointer to the [ACMFILTERTAGDETAILS](./nf-msacm-acmfiltertagdetails.md) structure that contains the filter tag details when it is passed to the <b>fnCallback</b> function. When your application calls <b>acmFilterTagEnum</b>, the <b>cbStruct</b> member of this structure must be initialized.
      * @param {Pointer<ACMFILTERTAGENUMCBA>} fnCallback Procedure instance address of the application-defined callback function.
@@ -11102,7 +12173,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmfiltertagenuma
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmfiltertagenuma
      * @since windows5.0
      */
     static acmFilterTagEnumA(had, paftd, fnCallback, dwInstance, fdwEnum) {
@@ -11113,7 +12184,16 @@ class Audio {
     }
 
     /**
-     * The acmFilterTagEnum function enumerates waveform-audio filter tags available from an ACM driver. This function continues enumerating until there are no more suitable filter tags or the callback function returns FALSE.
+     * The acmFilterTagEnum (Unicode) function enumerates waveform-audio filter tags available from an ACM driver. This function continues enumerating until there are no more suitable filter tags or the callback function returns FALSE. (acmFilterTagEnumW)
+     * @remarks
+     * This function will return MMSYSERR_NOERROR (zero) if no suitable ACM drivers are installed. Moreover, the callback function will not be called.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The msacm.h header defines acmFilterTagEnum as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio filter tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<ACMFILTERTAGDETAILSW>} paftd Pointer to the [ACMFILTERTAGDETAILS](./nf-msacm-acmfiltertagdetails.md) structure that contains the filter tag details when it is passed to the <b>fnCallback</b> function. When your application calls <b>acmFilterTagEnum</b>, the <b>cbStruct</b> member of this structure must be initialized.
      * @param {Pointer<ACMFILTERTAGENUMCBW>} fnCallback Procedure instance address of the application-defined callback function.
@@ -11160,7 +12240,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmfiltertagenumw
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmfiltertagenumw
      * @since windows5.0
      */
     static acmFilterTagEnumW(had, paftd, fnCallback, dwInstance, fdwEnum) {
@@ -11171,7 +12251,10 @@ class Audio {
     }
 
     /**
-     * The acmFilterDetails function queries the ACM for details about a filter with a specific waveform-audio filter tag.
+     * The acmFilterDetails function queries the ACM for details about a filter with a specific waveform-audio filter tag. (acmFilterDetailsA)
+     * @remarks
+     * > [!NOTE]
+     * > The msacm.h header defines ACMFILTERDETAILS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio filter details for a filter tag. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<ACMFILTERDETAILSA>} pafd Pointer to the [ACMFILTERDETAILS](./nf-msacm-acmfilterdetails.md) structure that is to receive the filter details for the given filter tag.
      * @param {Integer} fdwDetails Flags for getting the details. The following values are defined.
@@ -11244,7 +12327,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmfilterdetailsa
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmfilterdetailsa
      * @since windows5.0
      */
     static acmFilterDetailsA(had, pafd, fdwDetails) {
@@ -11255,7 +12338,10 @@ class Audio {
     }
 
     /**
-     * The acmFilterDetails function queries the ACM for details about a filter with a specific waveform-audio filter tag.
+     * The acmFilterDetails (Unicode) function queries the ACM for details about a filter with a specific waveform-audio filter tag. (acmFilterDetailsW)
+     * @remarks
+     * > [!NOTE]
+     * > The msacm.h header defines ACMFILTERDETAILS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio filter details for a filter tag. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<ACMFILTERDETAILSW>} pafd Pointer to the [ACMFILTERDETAILS](./nf-msacm-acmfilterdetails.md) structure that is to receive the filter details for the given filter tag.
      * @param {Integer} fdwDetails Flags for getting the details. The following values are defined.
@@ -11328,7 +12414,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmfilterdetailsw
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmfilterdetailsw
      * @since windows5.0
      */
     static acmFilterDetailsW(had, pafd, fdwDetails) {
@@ -11339,7 +12425,18 @@ class Audio {
     }
 
     /**
-     * The acmFilterEnum function enumerates waveform-audio filters available for a given filter tag from an ACM driver. This function continues enumerating until there are no more suitable filters for the filter tag or the callback function returns FALSE.
+     * The acmFilterEnum function enumerates waveform-audio filters available for a given filter tag from an ACM driver. This function continues enumerating until there are no more suitable filters for the filter tag or the callback function returns FALSE. (acmFilterEnumA)
+     * @remarks
+     * The <b>acmFilterEnum</b> function will return MMSYSERR_NOERROR (zero) if no suitable ACM drivers are installed. Moreover, the callback function will not be called.
+     * 
+     * The following functions should not be called from within the callback function: <b>acmDriverAdd</b>, <b>acmDriverRemove</b>, and <b>acmDriverPriority</b>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The msacm.h header defines acmFilterEnum as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio filter details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<ACMFILTERDETAILSA>} pafd Pointer to the [ACMFILTERDETAILS](./nf-msacm-acmfilterdetails.md) structure that contains the filter details when it is passed to the function specified by <i>fnCallback</i>. When your application calls <b>acmFilterEnum</b>, the <b>cbStruct</b>, <b>pwfltr</b>, and <b>cbwfltr</b> members of this structure must be initialized. The <b>dwFilterTag</b> member must also be initialized to either WAVE_FILTER_UNKNOWN or a valid filter tag.
      * @param {Pointer<ACMFILTERENUMCBA>} fnCallback Procedure-instance address of the application-defined callback function.
@@ -11410,7 +12507,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmfilterenuma
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmfilterenuma
      * @since windows5.0
      */
     static acmFilterEnumA(had, pafd, fnCallback, dwInstance, fdwEnum) {
@@ -11421,7 +12518,18 @@ class Audio {
     }
 
     /**
-     * The acmFilterEnum function enumerates waveform-audio filters available for a given filter tag from an ACM driver. This function continues enumerating until there are no more suitable filters for the filter tag or the callback function returns FALSE.
+     * The acmFilterEnum (Unicode) function enumerates waveform-audio filters available for a given filter tag from an ACM driver. This function continues enumerating until there are no more suitable filters for the filter tag or the callback function returns FALSE. (acmFilterEnumW)
+     * @remarks
+     * The <b>acmFilterEnum</b> function will return MMSYSERR_NOERROR (zero) if no suitable ACM drivers are installed. Moreover, the callback function will not be called.
+     * 
+     * The following functions should not be called from within the callback function: <b>acmDriverAdd</b>, <b>acmDriverRemove</b>, and <b>acmDriverPriority</b>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The msacm.h header defines acmFilterEnum as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio filter details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<ACMFILTERDETAILSW>} pafd Pointer to the [ACMFILTERDETAILS](./nf-msacm-acmfilterdetails.md) structure that contains the filter details when it is passed to the function specified by <i>fnCallback</i>. When your application calls <b>acmFilterEnum</b>, the <b>cbStruct</b>, <b>pwfltr</b>, and <b>cbwfltr</b> members of this structure must be initialized. The <b>dwFilterTag</b> member must also be initialized to either WAVE_FILTER_UNKNOWN or a valid filter tag.
      * @param {Pointer<ACMFILTERENUMCBW>} fnCallback Procedure-instance address of the application-defined callback function.
@@ -11492,7 +12600,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmfilterenumw
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmfilterenumw
      * @since windows5.0
      */
     static acmFilterEnumW(had, pafd, fnCallback, dwInstance, fdwEnum) {
@@ -11503,7 +12611,10 @@ class Audio {
     }
 
     /**
-     * The acmFilterChoose function creates an ACM-defined dialog box that enables the user to select a waveform-audio filter.
+     * The acmFilterChoose function creates an ACM-defined dialog box that enables the user to select a waveform-audio filter. (acmFilterChooseA)
+     * @remarks
+     * > [!NOTE]
+     * > The msacm.h header defines ACMFILTERCHOOSE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<ACMFILTERCHOOSEA>} pafltrc Pointer to an [ACMFILTERCHOOSE](./nf-msacm-acmfilterchoose.md) structure that contains information used to initialize the dialog box. When <b>acmFilterChoose</b> returns, this structure contains information about the user's filter selection.
      * 
      * The <b>pwfltr</b> member of this structure must contain a valid pointer to a memory location that will contain the returned filter header structure. The <b>cbwfltr</b> member must be filled in with the size, in bytes, of this memory buffer.
@@ -11581,7 +12692,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmfilterchoosea
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmfilterchoosea
      * @since windows5.0
      */
     static acmFilterChooseA(pafltrc) {
@@ -11590,7 +12701,10 @@ class Audio {
     }
 
     /**
-     * The acmFilterChoose function creates an ACM-defined dialog box that enables the user to select a waveform-audio filter.
+     * The acmFilterChoose (Unicode) function creates an ACM-defined dialog box that enables the user to select a waveform-audio filter. (acmFilterChooseW)
+     * @remarks
+     * > [!NOTE]
+     * > The msacm.h header defines ACMFILTERCHOOSE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<ACMFILTERCHOOSEW>} pafltrc Pointer to an [ACMFILTERCHOOSE](./nf-msacm-acmfilterchoose.md) structure that contains information used to initialize the dialog box. When <b>acmFilterChoose</b> returns, this structure contains information about the user's filter selection.
      * 
      * The <b>pwfltr</b> member of this structure must contain a valid pointer to a memory location that will contain the returned filter header structure. The <b>cbwfltr</b> member must be filled in with the size, in bytes, of this memory buffer.
@@ -11668,7 +12782,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmfilterchoosew
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmfilterchoosew
      * @since windows5.0
      */
     static acmFilterChooseW(pafltrc) {
@@ -11678,6 +12792,14 @@ class Audio {
 
     /**
      * The acmStreamOpen function opens an ACM conversion stream. Conversion streams are used to convert data from one specified audio format to another.
+     * @remarks
+     * If an ACM driver cannot perform real-time conversions and the ACM_STREAMOPENF_NONREALTIME flag is not specified for the <i>fdwOpen</i> parameter, the open operation will fail returning an ACMERR_NOTPOSSIBLE error code. An application can use the ACM_STREAMOPENF_QUERY flag to determine if real-time conversions are supported for input.
+     * 
+     * If an application uses a window to receive callback information, the MM_ACM_OPEN, MM_ACM_CLOSE, and MM_ACM_DONE messages are sent to the window procedure function to indicate the progress of the conversion stream. In this case, the [ACMSTREAMHEADER](./ns-msacm-acmstreamheader.md) structure for MM_ACM_DONE, but it is not used for MM_ACM_OPEN and MM_ACM_CLOSE.
+     * 
+     * If an application uses a function to receive callback information, the MM_ACM_OPEN, MM_ACM_CLOSE, and MM_ACM_DONE messages are sent to the function to indicate the progress of waveform-audio output. The callback function must reside in a dynamic-link library (DLL).
+     * 
+     * If an application uses an event for callback notification, the event is signaled to indicate the progress of the conversion stream. The event will be signaled when a stream is opened, after each buffer is converted, and when the stream is closed.
      * @param {Pointer<HACMSTREAM>} phas Pointer to a handle that will receive the new stream handle that can be used to perform conversions. This handle is used to identify the stream in calls to other ACM stream conversion functions. If the ACM_STREAMOPENF_QUERY flag is specified, this parameter should be <b>NULL</b>.
      * @param {HACMDRIVER} had Handle to an ACM driver. If this handle is specified, it identifies a specific driver to be used for a conversion stream. If this parameter is <b>NULL</b>, all suitable installed ACM drivers are queried until a match is found.
      * @param {Pointer<WAVEFORMATEX>} pwfxSrc Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure that identifies the desired source format for the conversion.
@@ -11782,7 +12904,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmstreamopen
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmstreamopen
      * @since windows5.0
      */
     static acmStreamOpen(phas, had, pwfxSrc, pwfxDst, pwfltr, dwCallback, dwInstance, fdwOpen) {
@@ -11837,7 +12959,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmstreamclose
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmstreamclose
      * @since windows5.0
      */
     static acmStreamClose(has, fdwClose) {
@@ -11849,6 +12971,10 @@ class Audio {
 
     /**
      * The acmStreamSize function returns a recommended size for a source or destination buffer on an ACM stream.
+     * @remarks
+     * An application can use this function to determine suggested buffer sizes for either source or destination buffers. The buffer sizes returned might be only an estimation of the actual sizes required for conversion. Because actual conversion sizes cannot always be determined without performing the conversion, the sizes returned will usually be overestimated.
+     * 
+     * In the event of an error, the location pointed to by <i>pdwOutputBytes</i> will receive zero. This assumes that the pointer specified by <i>pdwOutputBytes</i> is valid.
      * @param {HACMSTREAM} has Handle to the conversion stream.
      * @param {Integer} cbInput Size, in bytes, of the source or destination buffer. The <i>fdwSize</i> flags specify what the input parameter defines. This parameter must be nonzero.
      * @param {Pointer<Integer>} pdwOutputBytes Pointer to a variable that contains the size, in bytes, of the source or destination buffer. The <i>fdwSize</i> flags specify what the output parameter defines. If the <b>acmStreamSize</b> function succeeds, this location will always be filled with a nonzero value.
@@ -11922,7 +13048,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmstreamsize
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmstreamsize
      * @since windows5.0
      */
     static acmStreamSize(has, cbInput, pdwOutputBytes, fdwSize) {
@@ -11936,6 +13062,8 @@ class Audio {
 
     /**
      * The acmStreamReset function stops conversions for a given ACM stream. All pending buffers are marked as done and returned to the application.
+     * @remarks
+     * Resetting an ACM conversion stream is necessary only for asynchronous conversion streams. Resetting a synchronous conversion stream will succeed, but no action will be taken.
      * @param {HACMSTREAM} has Handle to the conversion stream.
      * @param {Integer} fdwReset Reserved; must be zero.
      * @returns {Integer} Returns zero if successful or an error otherwise. Possible error values include the following.
@@ -11968,7 +13096,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmstreamreset
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmstreamreset
      * @since windows5.0
      */
     static acmStreamReset(has, fdwReset) {
@@ -11985,7 +13113,7 @@ class Audio {
      * @param {LPARAM} lParam1 Message parameter.
      * @param {LPARAM} lParam2 Message parameter.
      * @returns {Integer} Returns the value returned by the ACM device driver.
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmstreammessage
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmstreammessage
      * @since windows5.0
      */
     static acmStreamMessage(has, uMsg, lParam1, lParam2) {
@@ -11997,6 +13125,10 @@ class Audio {
 
     /**
      * The acmStreamConvert function requests the ACM to perform a conversion on the specified conversion stream. A conversion may be synchronous or asynchronous, depending on how the stream was opened.
+     * @remarks
+     * You must use the <a href="https://docs.microsoft.com/windows/desktop/api/msacm/nf-msacm-acmstreamprepareheader">acmStreamPrepareHeader</a> function to prepare the source and destination buffers before they are passed to <b>acmStreamConvert</b>.
+     * 
+     * If an asynchronous conversion request is successfully queued by the ACM or driver and the conversion is later determined to be impossible, the [ACMSTREAMHEADER](./ns-msacm-acmstreamheader.md) structure is posted back to the application's callback function with the <b>cbDstLengthUsed</b> member set to zero.
      * @param {HACMSTREAM} has Handle to the open conversion stream.
      * @param {Pointer<ACMSTREAMHEADER>} pash Pointer to a stream header that describes source and destination buffers for a conversion. This header must have been prepared previously by using the <a href="https://docs.microsoft.com/windows/desktop/api/msacm/nf-msacm-acmstreamprepareheader">acmStreamPrepareHeader</a> function.
      * @param {Integer} fdwConvert Flags for doing the conversion. The following values are defined.
@@ -12046,7 +13178,7 @@ class Audio {
      * </dl>
      * </td>
      * <td width="60%">
-     * The stream header specified in <i>pash</i> is currently not prepared by the <a href="/windows/desktop/api/msacm/nf-msacm-acmstreamprepareheader">acmStreamPrepareHeader</a> function.
+     * The stream header specified in <i>pash</i> is currently not prepared by the <a href="https://docs.microsoft.com/windows/desktop/api/msacm/nf-msacm-acmstreamprepareheader">acmStreamPrepareHeader</a> function.
      * 
      * </td>
      * </tr>
@@ -12084,7 +13216,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmstreamconvert
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmstreamconvert
      * @since windows5.0
      */
     static acmStreamConvert(has, pash, fdwConvert) {
@@ -12096,6 +13228,8 @@ class Audio {
 
     /**
      * The acmStreamPrepareHeader function prepares an ACMSTREAMHEADER structure for an ACM stream conversion.
+     * @remarks
+     * Preparing a stream header that has already been prepared has no effect, and the function returns zero. Nevertheless, you should ensure your application does not prepare a stream header multiple times.
      * @param {HACMSTREAM} has Handle to the conversion steam.
      * @param {Pointer<ACMSTREAMHEADER>} pash Pointer to an [ACMSTREAMHEADER](./ns-msacm-acmstreamheader.md) structure that identifies the source and destination buffers to be prepared.
      * @param {Integer} fdwPrepare Reserved; must be zero.
@@ -12151,7 +13285,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmstreamprepareheader
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmstreamprepareheader
      * @since windows5.0
      */
     static acmStreamPrepareHeader(has, pash, fdwPrepare) {
@@ -12163,6 +13297,10 @@ class Audio {
 
     /**
      * The acmStreamUnprepareHeader function cleans up the preparation performed by the acmStreamPrepareHeader function for an ACM stream.
+     * @remarks
+     * Unpreparing a stream header that has already been unprepared is an error. An application must specify the source and destination buffer lengths (<b>cbSrcLength</b> and <b>cbDstLength</b>, respectively) that were used during a call to the corresponding <a href="https://docs.microsoft.com/windows/desktop/api/msacm/nf-msacm-acmstreamprepareheader">acmStreamPrepareHeader</a>. Failing to reset these member values will cause <b>acmStreamUnprepareHeader</b> to fail with an MMSYSERR_INVALPARAM error.
+     * 
+     * The ACM can recover from some errors. The ACM will return a nonzero error, yet the stream header will be properly unprepared. To determine whether the stream header was actually unprepared, an application can examine the ACMSTREAMHEADER_STATUSF_PREPARED flag. If <b>acmStreamUnprepareHeader</b> returns success, the header will always be unprepared.
      * @param {HACMSTREAM} has Handle to the conversion steam.
      * @param {Pointer<ACMSTREAMHEADER>} pash Pointer to an [ACMSTREAMHEADER](./ns-msacm-acmstreamheader.md) structure that identifies the source and destination buffers to be unprepared.
      * @param {Integer} fdwUnprepare Reserved; must be zero.
@@ -12191,7 +13329,7 @@ class Audio {
      * </dl>
      * </td>
      * <td width="60%">
-     * The stream header specified in <i>pash</i> is currently not prepared by the <a href="/windows/desktop/api/msacm/nf-msacm-acmstreamprepareheader">acmStreamPrepareHeader</a> function.
+     * The stream header specified in <i>pash</i> is currently not prepared by the <a href="https://docs.microsoft.com/windows/desktop/api/msacm/nf-msacm-acmstreamprepareheader">acmStreamPrepareHeader</a> function.
      * 
      * </td>
      * </tr>
@@ -12229,7 +13367,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmstreamunprepareheader
+     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmstreamunprepareheader
      * @since windows5.0
      */
     static acmStreamUnprepareHeader(has, pash, fdwUnprepare) {

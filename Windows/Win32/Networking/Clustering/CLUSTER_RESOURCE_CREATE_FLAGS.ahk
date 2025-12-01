@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Determines which resource monitor a given resource will be assigned to.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_resource_create_flags
+ * The CLUSTER_RESOURCE_CREATE_FLAGS enumeration (msclus.h) determines which resource monitor a given resource will be assigned to.
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_resource_create_flags
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

@@ -8,7 +8,7 @@
 
 /**
  * Username/password security template information to be filled in by application. Associated with WS_HTTP_SSL_USERNAME_BINDING_TEMPLATE_TYPE.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_http_ssl_username_binding_template
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_http_ssl_username_binding_template
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

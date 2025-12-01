@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Represents a security handle.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sechandle
  * @namespace Windows.Win32.Security.Credentials
@@ -14,6 +16,7 @@ class SecHandle extends Win32Struct
     static packingSize => 8
 
     /**
+     * The lower 32 bits of the handle.
      * @type {Pointer}
      */
     dwLower {
@@ -22,6 +25,7 @@ class SecHandle extends Win32Struct
     }
 
     /**
+     * The upper 32 bits of the handle.
      * @type {Pointer}
      */
     dwUpper {

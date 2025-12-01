@@ -3,7 +3,7 @@
 
 /**
  * Contains the default owner security identifier (SID) that will be applied to newly created objects.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-token_owner
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_owner
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

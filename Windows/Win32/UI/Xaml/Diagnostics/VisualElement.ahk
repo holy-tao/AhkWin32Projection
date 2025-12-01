@@ -5,7 +5,7 @@
 
 /**
  * Represents a XAML element in the Live Visual Tree in Microsoft Visual Studio.
- * @see https://docs.microsoft.com/windows/win32/api//xamlom/ns-xamlom-visualelement
+ * @see https://learn.microsoft.com/windows/win32/api/xamlom/ns-xamlom-visualelement
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  * @version v4.0.30319
  */

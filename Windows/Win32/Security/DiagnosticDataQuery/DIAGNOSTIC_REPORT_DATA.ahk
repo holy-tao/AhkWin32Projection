@@ -7,12 +7,9 @@
 /**
  * This resource contains information about a diagnostic report.
  * @remarks
- * 
  * For general questions about Windows Error Reporting, see the [**WER APIS**](/windows/win32/api/_wer/).
  * For report keys, see the [**WER APIs**](/windows/win32/api/werapi/nf-werapi-werstoregetnextreportkey).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_report_data
+ * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_report_data
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
  * @version v4.0.30319
  */
@@ -23,7 +20,7 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
     static packingSize => 8
 
     /**
-     * Type: **[DIAGNOSTIC_DATA_REPORT_SIGNATURE](/windows/win32/api/diagnosticdataquery/ns-diagnosticdataquerytypes-diagnostic_report_signature)**
+     * Type: **[DIAGNOSTIC_DATA_REPORT_SIGNATURE](/windows/win32/api/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_report_data)**
      * The signature for this report.
      * @type {DIAGNOSTIC_REPORT_SIGNATURE}
      */

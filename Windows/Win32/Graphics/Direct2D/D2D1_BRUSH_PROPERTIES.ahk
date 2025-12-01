@@ -5,14 +5,11 @@
 /**
  * Describes the opacity and transformation of a brush.
  * @remarks
- * 
  * This structure is used when creating a brush. For convenience, Direct2D provides the <a href="https://docs.microsoft.com/windows/win32/api/d2d1helper/nf-d2d1helper-brushproperties">D2D1::BrushProperties</a> function for creating <b>D2D1_BRUSH_PROPERTIES</b> structures.
  * 
  * 
  * After creating a brush, you can change its opacity or transform by calling the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1brush-setopacity">SetOpacity</a> or <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1brush-settransform(constd2d1_matrix_3x2_f_)">SetTransform</a> methods.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/ns-d2d1-d2d1_brush_properties
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_brush_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

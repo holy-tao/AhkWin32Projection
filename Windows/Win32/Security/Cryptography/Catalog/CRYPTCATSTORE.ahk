@@ -4,7 +4,7 @@
 
 /**
  * Represents a catalog file.
- * @see https://docs.microsoft.com/windows/win32/api//mscat/ns-mscat-cryptcatstore
+ * @see https://learn.microsoft.com/windows/win32/api/mscat/ns-mscat-cryptcatstore
  * @namespace Windows.Win32.Security.Cryptography.Catalog
  * @version v4.0.30319
  */

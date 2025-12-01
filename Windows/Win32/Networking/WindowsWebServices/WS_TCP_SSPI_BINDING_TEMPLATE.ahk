@@ -7,7 +7,7 @@
 
 /**
  * HTTP header authentication security template information to be filled in by application. Associated with WS_TCP_SSPI_BINDING_TEMPLATE_TYPE.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_tcp_sspi_binding_template
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_tcp_sspi_binding_template
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

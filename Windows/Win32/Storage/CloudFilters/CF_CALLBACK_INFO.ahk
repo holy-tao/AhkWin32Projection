@@ -5,23 +5,14 @@
 /**
  * Contains common callback information.
  * @remarks
- * 
  * A file name is considered normalized if all of the following are true:
  * 
- * <ul>
- * <li>It contains the full directory path for the file, including the volume name, unless the user opened the file by file ID but does not have traverse privilege for the entire path. (For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/fltkernel/nf-fltkernel-fltgetfilenameinformation">FltGetFileNameInformation</a>.)
- * </li>
- * <li>The volume name is the volume's non-persistent device object name (for example, "\Device\HarddiskVolume1").
- * </li>
- * <li>All short names are expanded to the equivalent long names.
- * </li>
- * <li>Any trailing ":$DATA" or "::$DATA" strings are removed from the stream name.
- * </li>
- * <li>	All mount points are resolved.
- * </li>
- * </ul>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//cfapi/ns-cfapi-cf_callback_info
+ * - It contains the full directory path for the file, including the volume name, unless the user opened the file by file ID but does not have traverse privilege for the entire path. (For more information, see [FltGetFileNameInformation](/windows-hardware/drivers/ddi/content/fltkernel/nf-fltkernel-fltgetfilenameinformation).)
+ * - The volume name is the volume's non-persistent device object name (for example, "\Device\HarddiskVolume1").
+ * - All short names are expanded to the equivalent long names.
+ * - Any trailing ":$DATA" or "::$DATA" strings are removed from the stream name.
+ * - All mount points are resolved.
+ * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_callback_info
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
@@ -32,7 +23,7 @@ class CF_CALLBACK_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * The size of the structure.
+     * The size of **CF_CALLBACK_INFO**.
      * @type {Integer}
      */
     StructSize {
@@ -41,7 +32,7 @@ class CF_CALLBACK_INFO extends Win32Struct
     }
 
     /**
-     * An opaque handle created by <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfconnectsyncroot">CfConnectSyncRoot</a> for a sync root managed by the sync provider.
+     * An opaque handle created by [CfConnectSyncRoot](nf-cfapi-cfconnectsyncroot.md) for a sync root managed by the sync provider. *ConnectionKey* is returned as a convenience so the sync provider doesn't need to manually track it.
      * @type {CF_CONNECTION_KEY}
      */
     ConnectionKey{
@@ -53,7 +44,7 @@ class CF_CALLBACK_INFO extends Win32Struct
     }
 
     /**
-     * points to an opaque blob that the sync provider provides at the sync root connect time.
+     * Points to an opaque blob that the sync provider provides at the sync root connect time. *CallbackContext* is returned as a convenience so the sync provider doesn't need to manually track it.
      * @type {Pointer<Void>}
      */
     CallbackContext {
@@ -71,7 +62,7 @@ class CF_CALLBACK_INFO extends Win32Struct
     }
 
     /**
-     * DOS drive letter of the volume in the form of “X:” where X is the drive letter.
+     * DOS drive letter of the volume in the form of "X:" where **X** is the drive letter.
      * @type {PWSTR}
      */
     VolumeDosName {
@@ -89,7 +80,7 @@ class CF_CALLBACK_INFO extends Win32Struct
     }
 
     /**
-     * A 64 bit file system maintained volume-wide unique ID of the sync root under which the placeholder file/directory to be serviced resides.
+     * A 64 bit file system maintained, volume-wide unique ID of the sync root under which the placeholder file or directory to be serviced resides.
      * @type {Integer}
      */
     SyncRootFileId {
@@ -98,7 +89,7 @@ class CF_CALLBACK_INFO extends Win32Struct
     }
 
     /**
-     * Points to the opaque blob provided by the  sync provider at the sync root registration time.
+     * Points to the opaque blob provided by the sync provider at the sync root registration time.
      * @type {Pointer<Void>}
      */
     SyncRootIdentity {
@@ -107,7 +98,7 @@ class CF_CALLBACK_INFO extends Win32Struct
     }
 
     /**
-     * The length, in bytes, of the <b>SyncRootIdentity</b>.
+     * The length, in bytes, of the *SyncRootIdentity*.
      * @type {Integer}
      */
     SyncRootIdentityLength {
@@ -116,7 +107,7 @@ class CF_CALLBACK_INFO extends Win32Struct
     }
 
     /**
-     * A 64 bit file system maintained, volume-wide unique ID of the placeholder file/directory to be serviced.
+     * A 64 bit file system maintained, volume-wide unique ID of the placeholder file or directory to be serviced.
      * @type {Integer}
      */
     FileId {
@@ -125,7 +116,7 @@ class CF_CALLBACK_INFO extends Win32Struct
     }
 
     /**
-     * The logical size of the placeholder file to be serviced. It is always 0 if the subject of the callback is a directory.
+     * The logical size of the placeholder file to be serviced. It is always `0` if the subject of the callback is a directory.
      * @type {Integer}
      */
     FileSize {
@@ -143,7 +134,7 @@ class CF_CALLBACK_INFO extends Win32Struct
     }
 
     /**
-     * The length, in bytes, of <b>FileIdentity</b>.
+     * The length, in bytes, of *FileIdentity*.
      * @type {Integer}
      */
     FileIdentityLength {
@@ -152,7 +143,7 @@ class CF_CALLBACK_INFO extends Win32Struct
     }
 
     /**
-     * The absolute path of the placeholder file/directory to be serviced on the volume identified by VolumeGuidName/VolumeDosName. It starts from the root directory of the volume. See the Remarks section for more details.
+     * The absolute path of the placeholder file or directory to be serviced on the volume identified by VolumeGuidName/VolumeDosName. It starts from the root directory of the volume. See the [Remarks](#-remarks) section for more details.
      * @type {PWSTR}
      */
     NormalizedPath {
@@ -161,7 +152,7 @@ class CF_CALLBACK_INFO extends Win32Struct
     }
 
     /**
-     * An opaque handle to the placeholder file/directory to be serviced. The sync provider must pass it back to the <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfexecute">CfExecute</a> call in order to perform the desired operation on the file/directory.
+     * An opaque handle to the placeholder file/directory to be serviced. The sync provider must pass it back to the [CfExecute](nf-cfapi-cfexecute.md) call in order to perform the desired operation on the file/directory.
      * @type {Integer}
      */
     TransferKey {
@@ -170,7 +161,7 @@ class CF_CALLBACK_INFO extends Win32Struct
     }
 
     /**
-     * A numeric scale given to the sync provider to describe the relative priority of one fetch compared to another fetch, in order to provide the most responsive experience to the user.  The values range from 0 (lowest possible priority) to 15 (highest possible priority).
+     * A numeric scale given to the sync provider to describe the relative priority of one fetch compared to another fetch, in order to provide the most responsive experience to the user. The values range from `0` (lowest possible priority) to `15` (highest possible priority), but otherwise the values have no specific meaning. The filter may adjust how it chooses priority hints according to conditions. The sync provider is free to use the hint however it chooses.
      * @type {Integer}
      */
     PriorityHint {
@@ -188,7 +179,7 @@ class CF_CALLBACK_INFO extends Win32Struct
     }
 
     /**
-     * Points to a structure that contains the information about the user process that triggers this callback.
+     * Points to a [CF_PROCESS_INFO](ns-cfapi-cf_process_info.md) structure that contains the information about the user process that triggers this callback. It is present only if the sync provider specifies **CF_CONNECT_FLAG_REQUIRE_PROCESS_INFO** at the sync root connect time.
      * @type {Pointer<CF_PROCESS_INFO>}
      */
     ProcessInfo {
@@ -197,7 +188,7 @@ class CF_CALLBACK_INFO extends Win32Struct
     }
 
     /**
-     * 
+     * An opaque id that uniquely identifies a cloud file operation on a particular cloud file as indicated by *TransferKey*. Sync providers don’t need to interpret this field. The only requirement on a sync provider is to transfer it as-is to [CF_OPERATION_INFO](ns-cfapi-cf_operation_info.md).
      * @type {Integer}
      */
     RequestKey {

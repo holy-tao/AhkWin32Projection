@@ -3,7 +3,7 @@
 
 /**
  * Contains the name of an HTML Help file and a topic in that file. Used with the SFVM_GETHELPTOPIC notification. This structure requires Unicode strings.
- * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-sfvm_helptopic_data
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-sfvm_helptopic_data
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

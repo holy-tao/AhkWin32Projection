@@ -6,7 +6,7 @@
 
 /**
  * The EMRFRAMERGN structure contains members for the FrameRgn enhanced metafile record.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrframergn
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrframergn
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

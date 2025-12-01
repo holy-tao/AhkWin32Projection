@@ -5,8 +5,7 @@
  * Describes the input structure used by the [SIO_TIMESTAMPING](/windows/win32/winsock/winsock-ioctls#sio_timestamping) IOCTL to configure timestamp reception for a datagram socket.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mstcpip/ns-mstcpip-timestamping_config
+ * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-timestamping_config
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

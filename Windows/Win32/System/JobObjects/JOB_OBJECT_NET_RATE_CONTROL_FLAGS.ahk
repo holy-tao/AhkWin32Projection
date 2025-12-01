@@ -3,7 +3,7 @@
 
 /**
  * Specifies types of scheduling policies for network rate control.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-job_object_net_rate_control_flags
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-job_object_net_rate_control_flags
  * @namespace Windows.Win32.System.JobObjects
  * @version v4.0.30319
  */

@@ -10,7 +10,7 @@
 
 /**
  * Contains information about the pointer input type.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-pointer_type_info
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-pointer_type_info
  * @namespace Windows.Win32.UI.Input.Pointer
  * @version v4.0.30319
  */

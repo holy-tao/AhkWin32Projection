@@ -3,7 +3,7 @@
 
 /**
  * The RADIUS_CODE enumeration type enumerates the possible RADIUS packet codes.
- * @see https://docs.microsoft.com/windows/win32/api//authif/ne-authif-radius_code
+ * @see https://learn.microsoft.com/windows/win32/api/authif/ne-authif-radius_code
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

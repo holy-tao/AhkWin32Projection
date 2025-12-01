@@ -3,7 +3,7 @@
 
 /**
  * Defines the different error states of the Media Source Extension.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/ne-mfmediaengine-mf_mse_error
+ * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_mse_error
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

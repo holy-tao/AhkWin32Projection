@@ -2,11 +2,10 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Defines constants that specify render/compute GPU operations.
+ * Defines constants that specify render/compute GPU operations. (D3D12_AUTO_BREADCRUMB_OP)
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_auto_breadcrumb_op
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_auto_breadcrumb_op
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

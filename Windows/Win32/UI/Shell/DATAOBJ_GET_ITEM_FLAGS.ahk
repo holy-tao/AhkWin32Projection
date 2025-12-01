@@ -3,7 +3,7 @@
 
 /**
  * Values used by the SHGetItemFromDataObject function to specify options concerning the processing of the source object.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-dataobj_get_item_flags
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-dataobj_get_item_flags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

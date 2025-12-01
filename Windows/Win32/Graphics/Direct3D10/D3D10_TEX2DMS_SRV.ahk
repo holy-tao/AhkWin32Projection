@@ -4,11 +4,8 @@
 /**
  * Specifies the subresource(s) from a multisampled 2D texture to use in a shader-resource view.
  * @remarks
- * 
  * Since a multisampled 2D texture contains a single subresource, there is actually nothing to specify in <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_tex2dms_rtv">D3D10_TEX2DMS_RTV</a>. Consequently, <b>UnusedField_NothingToDefine</b> is included so that this structure will compile in C.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10/ns-d3d10-d3d10_tex2dms_srv
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_tex2dms_srv
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

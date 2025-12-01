@@ -3,7 +3,7 @@
 
 /**
  * Defines the parent event of this event.
- * @see https://docs.microsoft.com/windows/win32/api//evntcons/ns-evntcons-event_extended_item_related_activityid
+ * @see https://learn.microsoft.com/windows/win32/api/evntcons/ns-evntcons-event_extended_item_related_activityid
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

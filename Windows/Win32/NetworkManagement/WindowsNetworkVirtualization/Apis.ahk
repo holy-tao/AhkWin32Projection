@@ -24,10 +24,12 @@ class WindowsNetworkVirtualization {
 ;@region Methods
     /**
      * Provides a handle to the Windows Network Virtualization (WNV) driver object to be used to request and receive WNV notifications.
+     * @remarks
+     * This handle is used for multiple invocations of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wnvapi/nf-wnvapi-wnvrequestnotification">WnvRequestNotification</a> function. When you have finished using the handle, close it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function.
      * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * If the function succeeds, it returns the handle to the WNV driver object. If the function fails, it returns <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wnvapi/nf-wnvapi-wnvopen
+     * @see https://learn.microsoft.com/windows/win32/api/wnvapi/nf-wnvapi-wnvopen
      * @since windowsserver2012
      */
     static WnvOpen() {
@@ -38,6 +40,10 @@ class WindowsNetworkVirtualization {
 
     /**
      * Requests notification from the Windows Network Virtualization (WNV) driver whenever a certain type of event occurs.
+     * @remarks
+     * This function can be called synchronously or asynchronously.
+     * 
+     * Three notification types are defined in the <a href="https://docs.microsoft.com/windows/desktop/api/wnvapi/ns-wnvapi-wnv_notification_param">WNV_NOTIFICATION_PARAM</a> structure. Each call to this function can request only one type of notification. To receive multiple notification types, the process must make one call for each notification on the same handle. The WNV driver returns at least one notification of the type specified in each call when the notification events occur.
      * @param {HANDLE} WnvHandle Type: <b>HANDLE</b>
      * 
      * An object handle that is returned from a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wnvapi/nf-wnvapi-wnvopen">WnvOpen</a> function.
@@ -68,19 +74,19 @@ class WindowsNetworkVirtualization {
      * </dl>
      * </td>
      * <td width="60%">
-     * There is a problem with the <i>NotificationParam</i> parameter, in the <a href="/windows/desktop/api/wnvapi/ns-wnvapi-wnv_notification_param">WNV_NOTIFICATION_PARAM</a> structure's <b>Header</b> field:
+     * There is a problem with the <i>NotificationParam</i> parameter, in the <a href="https://docs.microsoft.com/windows/desktop/api/wnvapi/ns-wnvapi-wnv_notification_param">WNV_NOTIFICATION_PARAM</a> structure's <b>Header</b> field:
      * 
      * <ul>
-     * <li>The major and minor version values of the <a href="/windows/desktop/api/wnvapi/ns-wnvapi-wnv_object_header">WNV_OBJECT_HEADER</a>   structure are incorrect</li>
-     * <li>The size specified in the <a href="/windows/desktop/api/wnvapi/ns-wnvapi-wnv_object_header">WNV_OBJECT_HEADER</a>   structure is smaller than at least one notification structure of these types:<ul>
+     * <li>The major and minor version values of the <a href="https://docs.microsoft.com/windows/desktop/api/wnvapi/ns-wnvapi-wnv_object_header">WNV_OBJECT_HEADER</a>   structure are incorrect</li>
+     * <li>The size specified in the <a href="https://docs.microsoft.com/windows/desktop/api/wnvapi/ns-wnvapi-wnv_object_header">WNV_OBJECT_HEADER</a>   structure is smaller than at least one notification structure of these types:<ul>
      * <li>
-     * <a href="/windows/desktop/api/wnvapi/ns-wnvapi-wnv_object_change_param">WNV_OBJECT_CHANGE_PARAM</a>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wnvapi/ns-wnvapi-wnv_object_change_param">WNV_OBJECT_CHANGE_PARAM</a>
      * </li>
      * <li>
-     * <a href="/windows/desktop/api/wnvapi/ns-wnvapi-wnv_policy_mismatch_param">WNV_POLICY_MISMATCH_PARAM</a>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wnvapi/ns-wnvapi-wnv_policy_mismatch_param">WNV_POLICY_MISMATCH_PARAM</a>
      * </li>
      * <li>
-     * <a href="/windows/desktop/api/wnvapi/ns-wnvapi-wnv_redirect_param">WNV_REDIRECT_PARAM</a>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wnvapi/ns-wnvapi-wnv_redirect_param">WNV_REDIRECT_PARAM</a>
      * </li>
      * </ul>
      * </li>
@@ -88,7 +94,7 @@ class WindowsNetworkVirtualization {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wnvapi/nf-wnvapi-wnvrequestnotification
+     * @see https://learn.microsoft.com/windows/win32/api/wnvapi/nf-wnvapi-wnvrequestnotification
      * @since windowsserver2012
      */
     static WnvRequestNotification(WnvHandle, NotificationParam, Overlapped, BytesTransferred) {

@@ -3,9 +3,8 @@
 #Include .\FAX_TIME.ahk
 
 /**
- * The FAX_CONFIGURATION structure contains information about the global configuration settings of a fax server.
+ * The FAX_CONFIGURATION structure contains information about the global configuration settings of a fax server. (ANSI)
  * @remarks
- * 
  * The fax client application passes the <b>FAX_CONFIGURATION</b> structure in a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxsetconfigurationa">FaxSetConfiguration</a> function to change the global configuration settings for the fax server of interest. If the application calls the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxgetconfigurationa">FaxGetConfiguration</a> function, it returns the current settings in a <b>FAX_CONFIGURATION</b> structure. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-server-configuration-management">Fax Server Configuration Management</a>.
  * 
  * 
@@ -14,9 +13,7 @@
  * 
  * > [!NOTE]
  * > The winfax.h header defines FAX_CONFIGURATION as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winfax/ns-winfax-fax_configurationa
+ * @see https://learn.microsoft.com/windows/win32/api/winfax/ns-winfax-fax_configurationa
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  * @charset ANSI

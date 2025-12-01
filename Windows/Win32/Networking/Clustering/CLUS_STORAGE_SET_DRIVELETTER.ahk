@@ -3,7 +3,7 @@
 
 /**
  * Supplies drive letter information for a disk partition associated with a storage class resource.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clus_storage_set_driveletter
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_storage_set_driveletter
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

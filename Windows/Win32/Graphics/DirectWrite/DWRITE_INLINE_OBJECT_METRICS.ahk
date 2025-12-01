@@ -3,7 +3,7 @@
 
 /**
  * Contains properties describing the geometric measurement of an application-defined inline object.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/ns-dwrite-dwrite_inline_object_metrics
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_inline_object_metrics
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * The EMRSETARCDIRECTION structure contains members for the SetArcDirection enhanced metafile record.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrsetarcdirection
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrsetarcdirection
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

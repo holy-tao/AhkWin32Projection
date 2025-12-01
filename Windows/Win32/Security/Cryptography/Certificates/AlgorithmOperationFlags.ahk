@@ -3,7 +3,7 @@
 
 /**
  * Specifies the operations that an algorithm can perform.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-algorithmoperationflags
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-algorithmoperationflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

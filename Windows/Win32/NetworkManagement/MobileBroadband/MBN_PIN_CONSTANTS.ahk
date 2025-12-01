@@ -3,7 +3,7 @@
 
 /**
  * The MBN_PIN_CONSTANTS enumerated type defines constant values used by the MBN_PIN_INFO structure.
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ne-mbnapi-mbn_pin_constants
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_pin_constants
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

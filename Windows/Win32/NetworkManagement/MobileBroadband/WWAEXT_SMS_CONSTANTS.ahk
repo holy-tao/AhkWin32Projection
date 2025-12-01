@@ -3,7 +3,7 @@
 
 /**
  * The MBN_SMS_CONSTANTS enumerated type contains SMS constant values.
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ne-mbnapi-wwaext_sms_constants
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-wwaext_sms_constants
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

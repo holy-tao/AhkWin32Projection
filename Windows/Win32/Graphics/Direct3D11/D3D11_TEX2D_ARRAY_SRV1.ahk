@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes the subresources from an array of 2D textures to use in a shader-resource view.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11_3/ns-d3d11_3-d3d11_tex2d_array_srv1
+ * Describes the subresources from an array of 2D textures to use in a shader-resource view. (D3D11_TEX2D_ARRAY_SRV1)
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/ns-d3d11_3-d3d11_tex2d_array_srv1
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

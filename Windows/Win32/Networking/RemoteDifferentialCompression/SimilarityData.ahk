@@ -3,7 +3,7 @@
 
 /**
  * Contains the similarity data for a file.
- * @see https://docs.microsoft.com/windows/win32/api//msrdc/ns-msrdc-similaritydata
+ * @see https://learn.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similaritydata
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */

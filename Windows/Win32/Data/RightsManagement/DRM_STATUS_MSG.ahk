@@ -4,11 +4,8 @@
 /**
  * Used by the custom callback function to specify why the callback function is being called.
  * @remarks
- * 
  * The callback function can use this message, together with the <i>hr</i> parameter, to determine the status of a request to a server.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msdrmdefs/ne-msdrmdefs-drm_status_msg
+ * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ne-msdrmdefs-drm_status_msg
  * @namespace Windows.Win32.Data.RightsManagement
  * @version v4.0.30319
  */

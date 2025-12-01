@@ -7,7 +7,7 @@
 
 /**
  * Specifies subscription information for a network connection.
- * @see https://docs.microsoft.com/windows/win32/api//wcmapi/ns-wcmapi-wcm_dataplan_status
+ * @see https://learn.microsoft.com/windows/win32/api/wcmapi/ns-wcmapi-wcm_dataplan_status
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
  * @version v4.0.30319
  */

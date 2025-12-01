@@ -3,7 +3,7 @@
 
 /**
  * The keys for the bag of properties for the creation of XML security tokens. This enumeration is used within the WS_XML_SECURITY_TOKEN_PROPERTY structure, which is used as parameter for WsCreateXmlSecurityToken.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_xml_security_token_property_id
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_security_token_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

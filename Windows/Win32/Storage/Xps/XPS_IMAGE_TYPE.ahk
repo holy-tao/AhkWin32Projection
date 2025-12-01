@@ -3,7 +3,7 @@
 
 /**
  * Describes the image type.
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/ne-xpsobjectmodel-xps_image_type
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_image_type
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

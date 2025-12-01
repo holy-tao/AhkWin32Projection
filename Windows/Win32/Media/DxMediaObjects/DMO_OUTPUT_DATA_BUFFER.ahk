@@ -3,7 +3,7 @@
 
 /**
  * The DMO_OUTPUT_DATA_BUFFER structure describes an output buffer used by a Microsoft DirectX Media Object (DMO).
- * @see https://docs.microsoft.com/windows/win32/api//mediaobj/ns-mediaobj-dmo_output_data_buffer
+ * @see https://learn.microsoft.com/windows/win32/api/mediaobj/ns-mediaobj-dmo_output_data_buffer
  * @namespace Windows.Win32.Media.DxMediaObjects
  * @version v4.0.30319
  */

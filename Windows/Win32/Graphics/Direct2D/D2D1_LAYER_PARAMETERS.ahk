@@ -4,8 +4,8 @@
 #Include Common\D2D_MATRIX_3X2_F.ahk
 
 /**
- * Contains the content bounds, mask information, opacity settings, and other options for a layer resource.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/ns-d2d1-d2d1_layer_parameters
+ * Contains the content bounds, mask information, opacity settings, and other options for a layer resource. (D2D1_LAYER_PARAMETERS)
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_layer_parameters
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -18,7 +18,7 @@ class D2D1_LAYER_PARAMETERS extends Win32Struct
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-rect-f">D2D1_RECT_F</a></b>
      * 
-     * The content bounds of the layer. Content outside these bounds is not guaranteed to render.
+     * The content bounds of the layer. Content won't render outside these bounds.
      * @type {D2D_RECT_F}
      */
     contentBounds{

@@ -3,7 +3,7 @@
 
 /**
  * Represents a RelatesTo SOAP envelope header block, as specified by the WS-Addressing specification.
- * @see https://docs.microsoft.com/windows/win32/api//wsdtypes/ns-wsdtypes-wsd_header_relatesto
+ * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_header_relatesto
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

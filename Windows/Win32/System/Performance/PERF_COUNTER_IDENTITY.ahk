@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Defines the counter that is sent to a provider's callback when the consumer adds or removes a counter from the query.
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_counter_identity
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
@@ -14,6 +14,7 @@ class PERF_COUNTER_IDENTITY extends Win32Struct
     static packingSize => 8
 
     /**
+     * GUID that uniquely identifies the counter set that this counter belongs to.
      * @type {Pointer<Guid>}
      */
     CounterSetGuid {
@@ -22,6 +23,7 @@ class PERF_COUNTER_IDENTITY extends Win32Struct
     }
 
     /**
+     * Size, in bytes, of this structure and the computer name and instance name that are appended to this structure in memory.
      * @type {Integer}
      */
     BufferSize {
@@ -30,6 +32,9 @@ class PERF_COUNTER_IDENTITY extends Win32Struct
     }
 
     /**
+     * Unique identifier of the counter in the counter set. 
+     * 
+     * This member is set to <b>PERF_WILDCARD_COUNTER</b> if the consumer wants to add or remove all counters in the counter set.
      * @type {Integer}
      */
     CounterId {
@@ -38,6 +43,9 @@ class PERF_COUNTER_IDENTITY extends Win32Struct
     }
 
     /**
+     * Identifier of the counter set instance to which the counter belongs. 
+     * 
+     * Ignore this value if the instance name at <b>NameOffset</b> is PERF_WILDCARD_INSTANCE.
      * @type {Integer}
      */
     InstanceId {
@@ -46,6 +54,7 @@ class PERF_COUNTER_IDENTITY extends Win32Struct
     }
 
     /**
+     * Offset to the null-terminated Unicode computer name that follows this structure in memory.
      * @type {Integer}
      */
     MachineOffset {
@@ -54,6 +63,7 @@ class PERF_COUNTER_IDENTITY extends Win32Struct
     }
 
     /**
+     * Offset to the null-terminated Unicode instance name that follows this structure in memory.
      * @type {Integer}
      */
     NameOffset {
@@ -62,6 +72,7 @@ class PERF_COUNTER_IDENTITY extends Win32Struct
     }
 
     /**
+     * Reserved.
      * @type {Integer}
      */
     Reserved {

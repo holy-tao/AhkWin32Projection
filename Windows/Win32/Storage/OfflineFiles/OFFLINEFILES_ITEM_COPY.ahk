@@ -3,7 +3,7 @@
 
 /**
  * Specifies whether the local, remote, or original copy of an item is being queried.
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/ne-cscobj-offlinefiles_item_copy
+ * @see https://learn.microsoft.com/windows/win32/api/cscobj/ne-cscobj-offlinefiles_item_copy
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Various statistics common to IKE, Authip, and IKEv2.
- * @see https://docs.microsoft.com/windows/win32/api//iketypes/ns-iketypes-ikeext_common_statistics1
+ * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_common_statistics1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Define the depth of enumeration or query, which determines how many objects are returned by a call.
- * @see https://docs.microsoft.com/windows/win32/api//wbemdisp/ne-wbemdisp-wbemqueryflagenum
+ * @see https://learn.microsoft.com/windows/win32/api/wbemdisp/ne-wbemdisp-wbemqueryflagenum
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

@@ -5,11 +5,8 @@
 /**
  * Contains information for merging menu items into Windows Explorer menus.
  * @remarks
- * 
  * See <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-icontextmenu-querycontextmenu">IContextMenu::QueryContextMenu</a> as this structure performs the same role as the parameters of that method. Note, however, that the information provided by the return value of that method is not a parallel to the information provided by the return value of an operation involving <b>QCMINFO</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-qcminfo
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-qcminfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

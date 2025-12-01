@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Defines the extended data that ETW collects as part of the event data.
- * @see https://docs.microsoft.com/windows/win32/api//evntcons/ns-evntcons-event_header_extended_data_item
+ * The EVENT_HEADER_EXTENDED_DATA_ITEM structure (evntcons.h) defines the extended data that ETW collects as part of the event data.
+ * @see https://learn.microsoft.com/windows/win32/api/evntcons/ns-evntcons-event_header_extended_data_item
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
@@ -116,9 +116,9 @@ class EVENT_HEADER_EXTENDED_DATA_ITEM extends Win32Struct
      * </dl>
      * </td>
      * <td width="60%">
-     * The <b>DataPtr</b> member points to an EVENT_EXTENDED_ITEM_EVENT_KEY structure that contains a unique event identifier which is a 64-bit scalar. 
+     * The <b>DataPtr</b> member points to an EVENT_EXTENDED_ITEM_EVENT_KEY structure containing a unique event identifier that is a 64-bit scalar.
      * 
-     * The <b>EnableProperty</b>EVENT_ENABLE_PROPERTY_EVENT_KEY needs to be passed in for the <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletrace">EnableTrace</a> call for a given provider to enable this feature.
+     * The <b>EnableProperty</b> EVENT_ENABLE_PROPERTY_EVENT_KEY needs to be passed in for the <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletrace">EnableTrace</a> call for a given provider to enable this feature.
      * 
      * </td>
      * </tr>
@@ -130,7 +130,7 @@ class EVENT_HEADER_EXTENDED_DATA_ITEM extends Win32Struct
      * <td width="60%">
      * The <b>DataPtr</b> member points to an EVENT_EXTENDED_ITEM_PROCESS_START_KEY structure that contains a unique process identifier (unique across the boot session). This identifier is a 64-bit scalar. 
      * 
-     * The <b>EnableProperty</b>EVENT_ENABLE_PROPERTY_PROCESS_START_KEY needs to be passed in for the <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletrace">EnableTrace</a> call for a given provider to enable this feature. 
+     * The <b>EnableProperty</b> EVENT_ENABLE_PROPERTY_PROCESS_START_KEY needs to be passed in for the <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletrace">EnableTrace</a> call for a given provider to enable this feature. 
      * 
      * </td>
      * </tr>

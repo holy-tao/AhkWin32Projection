@@ -4,7 +4,7 @@
 
 /**
  * Fills a tensor with the given constant *Value*.
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_fill_value_constant_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_fill_value_constant_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

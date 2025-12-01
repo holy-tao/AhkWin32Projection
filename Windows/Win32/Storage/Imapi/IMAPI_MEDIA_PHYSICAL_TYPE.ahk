@@ -4,11 +4,8 @@
 /**
  * Defines values for the currently known media types supported by IMAPI.
  * @remarks
- * 
  * The values in the range 0x00000000..0x0000FFFF inclusive are reserved for extension by Microsoft. If third parties wish to report a media type not in this list using this enumeration (for example, if implementing <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2data-get_currentphysicalmediatype">IDiscFormat2Data::get_CurrentPhysicalMediaType</a> to support a non-listed format) they should define values only in the range 0x00010000..0xFFFFFFFF for these media types.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/ne-imapi2-imapi_media_physical_type
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_media_physical_type
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Used to get and set the device configuration for Layer 2 Tunneling Protocool (L2TP) on a RAS Server.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-l2tp_config_params0
+ * Used to get and set the device configuration for Layer 2 Tunneling Protocol (L2TP) on a RAS Server. (L2TP_CONFIG_PARAMS0)
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-l2tp_config_params0
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */
@@ -50,7 +50,7 @@ class L2TP_CONFIG_PARAMS0 extends Win32Struct
      * </dl>
      * </td>
      * <td width="60%">
-     * Windows Server 2008 Datacenterand Windows Server 2008 Enterprise
+     * Windows Server 2008 Datacenter and Windows Server 2008 Enterprise
      * 
      * </td>
      * </tr>

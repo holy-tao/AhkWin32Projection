@@ -3,7 +3,7 @@
 
 /**
  * Represents the name of a cluster shared volume (CSV).
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clus_csv_volume_name
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_csv_volume_name
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

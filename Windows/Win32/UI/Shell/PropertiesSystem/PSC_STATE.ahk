@@ -3,7 +3,7 @@
 
 /**
  * Specifies the state of a property. They are set manually by the code that is hosting the in-memory property store cache.
- * @see https://docs.microsoft.com/windows/win32/api//propsys/ne-propsys-psc_state
+ * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-psc_state
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */

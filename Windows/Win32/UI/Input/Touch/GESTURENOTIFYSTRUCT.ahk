@@ -5,7 +5,7 @@
 
 /**
  * When transmitted with WM_GESTURENOTIFY messages, passes information about a gesture.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-gesturenotifystruct
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-gesturenotifystruct
  * @namespace Windows.Win32.UI.Input.Touch
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the capabilities of a modem.
- * @see https://docs.microsoft.com/windows/win32/api//mcx/ns-mcx-modemdevcaps
+ * @see https://learn.microsoft.com/windows/win32/api/mcx/ns-mcx-modemdevcaps
  * @namespace Windows.Win32.Devices.Communication
  * @version v4.0.30319
  */

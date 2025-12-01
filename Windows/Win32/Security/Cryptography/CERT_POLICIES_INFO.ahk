@@ -3,7 +3,7 @@
 
 /**
  * The CERT_POLICIES_INFO structure contains an array of CERT_POLICY_INFO.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_policies_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_policies_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -4,11 +4,8 @@
 /**
  * Values that identify the type of resource to be viewed as a shader resource.
  * @remarks
- * 
  * A <b>D3D_SRV_DIMENSION</b>-typed value is specified in the <b>ViewDimension</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_shader_input_bind_desc">D3D11_SHADER_RESOURCE_VIEW_DESC</a> structure or the  <b>Dimension</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/ns-d3d11shader-d3d11_shader_input_bind_desc">D3D11_SHADER_INPUT_BIND_DESC</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3dcommon/ne-d3dcommon-d3d_srv_dimension
+ * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_srv_dimension
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Indicates information about contacting someone by using an instant messaging application.
- * @see https://docs.microsoft.com/windows/win32/api//wpcevent/ne-wpcevent-wpc_args_imcontactevent
+ * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_args_imcontactevent
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */

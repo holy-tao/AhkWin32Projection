@@ -4,7 +4,7 @@
 
 /**
  * Serves as the key by which a given Secure Sockets Layer (SSL) Server Name Indication (SNI) certificate record is identified in the SSL SNI store.
- * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_service_config_ssl_sni_key
+ * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_ssl_sni_key
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

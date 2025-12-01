@@ -3,7 +3,7 @@
 
 /**
  * The PHONE_HOOK_SWITCH_STATE enum provides indicators of the phone hookswitch status.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-phone_hook_switch_state
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-phone_hook_switch_state
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

@@ -4,11 +4,8 @@
 /**
  * Specifies the kind error that occurred with a timed text track.
  * @remarks
- * 
  * This enumeration is used to return error information  from the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-geterrorcode">IMFTimedTextTrack::GetErrorCode</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/ne-mfmediaengine-mf_timed_text_error_code
+ * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_error_code
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The DWRITE_PANOSE_SERIF_STYLE enumeration contains values that specify the appearance of the serif text.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/ne-dwrite_1-dwrite_panose_serif_style
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_panose_serif_style
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

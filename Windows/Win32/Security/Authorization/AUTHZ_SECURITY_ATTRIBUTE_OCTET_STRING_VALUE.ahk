@@ -3,7 +3,7 @@
 
 /**
  * Specifies an octet string value for a security attribute.
- * @see https://docs.microsoft.com/windows/win32/api//authz/ns-authz-authz_security_attribute_octet_string_value
+ * @see https://learn.microsoft.com/windows/win32/api/authz/ns-authz-authz_security_attribute_octet_string_value
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */

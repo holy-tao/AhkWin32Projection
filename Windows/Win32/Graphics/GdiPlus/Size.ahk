@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The Size class encapsulates a Width and Height dimension in a 2-D coordinate system.
- * @see https://docs.microsoft.com/windows/win32/api//gdiplustypes/nl-gdiplustypes-size
+ * Represents an ordered pair of floating-point numbers that specify a height and width.
+ * @see https://learn.microsoft.com/windows/win32/api/windows.foundation/ns-windows-foundation-size
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
@@ -14,6 +14,7 @@ class Size extends Win32Struct
     static packingSize => 4
 
     /**
+     * 
      * @type {Integer}
      */
     Width {
@@ -22,6 +23,7 @@ class Size extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     Height {

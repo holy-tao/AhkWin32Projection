@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * .
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-package_execution_state
+ * . (PACKAGE_EXECUTION_STATE)
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-package_execution_state
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

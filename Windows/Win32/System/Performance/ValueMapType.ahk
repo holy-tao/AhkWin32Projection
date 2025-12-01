@@ -3,7 +3,7 @@
 
 /**
  * Defines the type of the value.
- * @see https://docs.microsoft.com/windows/win32/api//pla/ne-pla-valuemaptype
+ * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-valuemaptype
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

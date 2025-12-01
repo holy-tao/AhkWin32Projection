@@ -3,7 +3,7 @@
 
 /**
  * The MSG_INFO_1 structure specifies a message alias. This structure exists only for compatibility. Message forwarding is not supported.
- * @see https://docs.microsoft.com/windows/win32/api//lmmsg/ns-lmmsg-msg_info_1
+ * @see https://learn.microsoft.com/windows/win32/api/lmmsg/ns-lmmsg-msg_info_1
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

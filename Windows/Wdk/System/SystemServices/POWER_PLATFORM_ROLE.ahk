@@ -3,7 +3,7 @@
 
 /**
  * Indicates the OEM's preferred power management profile.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-power_platform_role
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-power_platform_role
  * @namespace Windows.Wdk.System.SystemServices
  * @version v4.0.30319
  */

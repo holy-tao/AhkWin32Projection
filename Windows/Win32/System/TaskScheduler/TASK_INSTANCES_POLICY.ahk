@@ -3,7 +3,7 @@
 
 /**
  * Defines how the Task Scheduler handles existing instances of the task when it starts a new instance of the task.
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/ne-taskschd-task_instances_policy
+ * @see https://learn.microsoft.com/windows/win32/api/taskschd/ne-taskschd-task_instances_policy
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */

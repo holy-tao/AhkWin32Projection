@@ -3,7 +3,7 @@
 
 /**
  * Contains the position and size of a rectangle, in screen coordinates.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ns-uiautomationcore-uiarect
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ns-uiautomationcore-uiarect
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

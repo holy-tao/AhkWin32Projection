@@ -3,7 +3,7 @@
 
 /**
  * Contains additional arguments used by DFM_INVOKECOMMANDEX.
- * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-dfmics
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-dfmics
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

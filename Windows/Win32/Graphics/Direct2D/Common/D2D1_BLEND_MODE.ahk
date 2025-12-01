@@ -3,7 +3,7 @@
 
 /**
  * The blend mode used for the Blend effect.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effects/ne-d2d1effects-d2d1_blend_mode
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_blend_mode
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */
@@ -12,7 +12,7 @@ class D2D1_BLEND_MODE extends Win32Enum{
     /**
      * Basic blend formula for alpha only. 
      * 
-     * <img alt="Mathematical formula for a mutiply effect." src="./images/blend_mode_multiply_1.png"/>
+     * <img alt="Mathematical formula for a multiply effect." src="./images/blend_mode_multiply_1.png"/>
      * @type {Integer (Int32)}
      */
     static D2D1_BLEND_MODE_MULTIPLY => 0
@@ -73,7 +73,7 @@ class D2D1_BLEND_MODE extends Win32Enum{
     /**
      * Basic blend formula for alpha only. 
      * 
-     * <img alt="Mathematical formla for a darken color effect." src="./images/blend_mode_darkencolor_1.png"/>
+     * <img alt="Mathematical formula for a darken color effect." src="./images/blend_mode_darkencolor_1.png"/>
      * @type {Integer (Int32)}
      */
     static D2D1_BLEND_MODE_DARKER_COLOR => 7
@@ -181,7 +181,7 @@ class D2D1_BLEND_MODE extends Win32Enum{
     /**
      * Basic blend formula for alpha only. 
      * 
-     * <img alt="Mathematical formula for a sturation blend effect." src="./images/blend_mode_saturation_1.png"/>
+     * <img alt="Mathematical formula for a saturation blend effect." src="./images/blend_mode_saturation_1.png"/>
      * @type {Integer (Int32)}
      */
     static D2D1_BLEND_MODE_SATURATION => 21

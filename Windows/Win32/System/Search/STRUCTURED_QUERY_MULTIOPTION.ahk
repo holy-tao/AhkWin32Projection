@@ -3,7 +3,7 @@
 
 /**
  * A set of flags used by IQueryParser::SetMultiOption to indicate individual options.
- * @see https://docs.microsoft.com/windows/win32/api//structuredquery/ne-structuredquery-structured_query_multioption
+ * @see https://learn.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-structured_query_multioption
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -28,7 +28,7 @@ class STRUCTURED_QUERY_MULTIOPTION extends Win32Enum{
     static SQMO_GENERATOR_FOR_TYPE => 2
 
     /**
-     * Windows 7, and later. To indicate that a node with property P should map to one or more other properties, call <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nf-structuredquery-iqueryparser-setmultioption">IQueryParser::SetMultiOption</a> with SQMO_MAP_PROPERTY as <i>option</i>, P as <i>pszOptionKey</i>, and for <i>pOptionValue</i> provide a <b>VT_VECTOR</b> or <b>VT_LPWSTR</b>, where each string is a property name. During resolustion, this map is added to those of the loaded schema. Calling <b>IQueryParser::SetMultiOption</b> with <i>pOptionValue</i> as <b>VT_NULL</b> removes the mapping.
+     * Windows 7, and later. To indicate that a node with property P should map to one or more other properties, call <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nf-structuredquery-iqueryparser-setmultioption">IQueryParser::SetMultiOption</a> with SQMO_MAP_PROPERTY as <i>option</i>, P as <i>pszOptionKey</i>, and for <i>pOptionValue</i> provide a <b>VT_VECTOR</b> or <b>VT_LPWSTR</b>, where each string is a property name. During resolution, this map is added to those of the loaded schema. Calling <b>IQueryParser::SetMultiOption</b> with <i>pOptionValue</i> as <b>VT_NULL</b> removes the mapping.
      * @type {Integer (Int32)}
      */
     static SQMO_MAP_PROPERTY => 3

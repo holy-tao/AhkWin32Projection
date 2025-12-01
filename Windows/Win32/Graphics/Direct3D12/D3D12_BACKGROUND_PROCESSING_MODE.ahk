@@ -5,8 +5,7 @@
  * Defines constants that specify a level of dynamic optimization to apply to GPU work that's subsequently submitted.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_background_processing_mode
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_background_processing_mode
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

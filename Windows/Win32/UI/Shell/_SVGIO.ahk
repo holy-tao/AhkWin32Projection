@@ -4,15 +4,13 @@
 /**
  * Used with the IFolderView::Items, IFolderView::ItemCount, and IShellView::GetItemObject methods to restrict or control the items in their collections.
  * @remarks
- * 
  * The <b>SVGIO</b> type used to refer to members of the <b>_SVGIO</b> enumeration is defined in Shobjidl.h as shown here.
  * 
  * 
  * ```
  * typedef int SVGIO;
  * ```
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-_svgio
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_svgio
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The MSP_EVENT_INFO structure defines the type of event returned by the GetEvent method.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3/ns-tapi3-msp_event_info
+ * The MSP_EVENT_INFO (msp.h) structure defines the type of event returned by the GetEvent method.
+ * @see https://learn.microsoft.com/windows/win32/api/msp/ns-msp-msp_event_info
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Contains information about an EN_ENDCOMPOSITION notification code from a rich edit control.
- * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-endcompositionnotify
+ * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-endcompositionnotify
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

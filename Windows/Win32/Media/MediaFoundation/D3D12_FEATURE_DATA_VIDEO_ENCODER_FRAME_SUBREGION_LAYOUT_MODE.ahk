@@ -4,6 +4,8 @@
 #Include .\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk
 
 /**
+ * Retrieves a value indicating if the specified frame subregion layout mode is supported for the specified code, profile, and level.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_frame_subregion_layout_mode
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -16,6 +18,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE extends Win32
     static packingSize => 8
 
     /**
+     * In multi-adapter operation, this indicates which physical adapter of the device this operation applies to.
      * @type {Integer}
      */
     NodeIndex {
@@ -24,6 +27,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE extends Win32
     }
 
     /**
+     * A member of the [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) enumeration specifying the codec for which frame subregion layout mode support is being queried.
      * @type {Integer}
      */
     Codec {
@@ -32,6 +36,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE extends Win32
     }
 
     /**
+     * A [D3D12_VIDEO_ENCODER_PROFILE_DESC](ns-d3d12video-d3d12_video_encoder_profile_desc.md) structure specifying the profile for which frame subregion layout mode support is being queried.
      * @type {D3D12_VIDEO_ENCODER_PROFILE_DESC}
      */
     Profile{
@@ -43,6 +48,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE extends Win32
     }
 
     /**
+     * A [D3D12_VIDEO_ENCODER_LEVEL_SETTING](ns-d3d12video-d3d12_video_encoder_level_setting.md) structure specifying the level for which frame subregion layout mode support is being queried.
      * @type {D3D12_VIDEO_ENCODER_LEVEL_SETTING}
      */
     Level{
@@ -54,6 +60,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE extends Win32
     }
 
     /**
+     * A member of the [D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE](ne-d3d12video-d3d12_video_encoder_frame_subregion_layout_mode.md) enumeration specifying the frame subregion layout mode for which support is being queried.
      * @type {Integer}
      */
     SubregionMode {
@@ -62,6 +69,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE extends Win32
     }
 
     /**
+     * Receives a boolean value indicating if the specified frame subregion layout mode is supported for the specified codec.
      * @type {BOOL}
      */
     IsSupported {

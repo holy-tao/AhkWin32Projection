@@ -3,7 +3,7 @@
 
 /**
  * An enumeration used to specify how to handle HTTP cookies.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_cookie_mode
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_cookie_mode
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -18,7 +18,7 @@ class WS_COOKIE_MODE extends Win32Enum{
      *                     the cookie value in subsequent requests).
      *                 
      * 
-     * An application can use the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_http_header_mapping">WS_HTTP_HEADER_MAPPING</a>feature to handle cookies manually, if desired.
+     * An application can use the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_http_header_mapping">WS_HTTP_HEADER_MAPPING</a> feature to handle cookies manually, if desired.
      * @type {Integer (Int32)}
      */
     static WS_MANUAL_COOKIE_MODE => 1

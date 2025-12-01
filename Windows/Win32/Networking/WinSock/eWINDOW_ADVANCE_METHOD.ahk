@@ -3,7 +3,7 @@
 
 /**
  * The eWINDOW_ADVANCE_METHOD enumeration specifies the window advance mode used for Reliable Multicast.
- * @see https://docs.microsoft.com/windows/win32/api//wsrm/ne-wsrm-ewindow_advance_method
+ * @see https://learn.microsoft.com/windows/win32/api/wsrm/ne-wsrm-ewindow_advance_method
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

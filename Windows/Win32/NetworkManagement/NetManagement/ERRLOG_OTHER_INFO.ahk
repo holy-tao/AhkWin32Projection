@@ -4,11 +4,8 @@
 /**
  * The ERRLOG_OTHER_INFO structure contains error log information. The NetAlertRaise and NetAlertRaiseEx functions use the ERRLOG_OTHER_INFO structure to specify information when adding a new entry to the error log.
  * @remarks
- * 
  * The calling application must allocate and free the memory for all structures and variable-length data in an alert message buffer.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//lmalert/ns-lmalert-errlog_other_info
+ * @see https://learn.microsoft.com/windows/win32/api/lmalert/ns-lmalert-errlog_other_info
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

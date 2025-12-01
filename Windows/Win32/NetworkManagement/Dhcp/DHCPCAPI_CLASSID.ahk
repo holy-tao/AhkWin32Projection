@@ -3,7 +3,7 @@
 
 /**
  * The DHCPCAPI_CLASSID structure defines a client Class ID.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpcsdk/ns-dhcpcsdk-dhcpcapi_classid
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpcsdk/ns-dhcpcsdk-dhcpcapi_classid
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

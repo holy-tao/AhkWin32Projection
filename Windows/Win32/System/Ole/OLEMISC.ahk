@@ -3,7 +3,7 @@
 
 /**
  * Describes miscellaneous characteristics of an object or class of objects.
- * @see https://docs.microsoft.com/windows/win32/api//oleidl/ne-oleidl-olemisc
+ * @see https://learn.microsoft.com/windows/win32/api/oleidl/ne-oleidl-olemisc
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -64,7 +64,7 @@ class OLEMISC extends Win32Enum{
     static OLEMISC_ACTIVATEWHENVISIBLE => 256
 
     /**
-     * This object does not pay any attention to target devices. Its presention data will be the same in all cases.
+     * This object does not pay any attention to target devices. Its presentation data will be the same in all cases.
      * @type {Integer (Int32)}
      */
     static OLEMISC_RENDERINGISDEVICEINDEPENDENT => 512

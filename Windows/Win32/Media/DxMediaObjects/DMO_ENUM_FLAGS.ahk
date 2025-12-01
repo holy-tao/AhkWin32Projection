@@ -4,11 +4,8 @@
 /**
  * The DMO_ENUM_FLAGS enumeration defines flags that specify search criteria when enumerating Microsoft DirectX Media Objects (DMOs).
  * @remarks
- * 
  * A software key enables the developer of a DMO to control who uses the DMO. If a DMO has a software key, applications must unlock the DMO to use it. The method for unlocking the DMO depends on the implementation. Consult the documentation for the particular DMO.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dmoreg/ne-dmoreg-dmo_enum_flags
+ * @see https://learn.microsoft.com/windows/win32/api/dmoreg/ne-dmoreg-dmo_enum_flags
  * @namespace Windows.Win32.Media.DxMediaObjects
  * @version v4.0.30319
  */

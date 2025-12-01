@@ -3,7 +3,7 @@
 
 /**
  * Specifies authentication data for both Schannel and Negotiate security packages.
- * @see https://docs.microsoft.com/windows/win32/api//credssp/ns-credssp-credssp_cred
+ * @see https://learn.microsoft.com/windows/win32/api/credssp/ns-credssp-credssp_cred
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319
  */

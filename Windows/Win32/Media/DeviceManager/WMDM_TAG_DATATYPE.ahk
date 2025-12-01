@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * The WMDM\_TAG\_DATATYPE enumeration type defines a data type.
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-tag-datatype
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319

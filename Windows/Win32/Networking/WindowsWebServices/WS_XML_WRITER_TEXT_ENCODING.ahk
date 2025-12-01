@@ -4,7 +4,7 @@
 
 /**
  * Indicates that the reader should emit bytes as textual xml.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_xml_writer_text_encoding
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_text_encoding
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The TCP_RESERVE_PORT_RANGE structure specifies a TCP port range to reserve.
- * @see https://docs.microsoft.com/windows/win32/api//ipexport/ns-ipexport-tcp_reserve_port_range
+ * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-tcp_reserve_port_range
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

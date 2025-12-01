@@ -3,7 +3,7 @@
 
 /**
  * The VMR9DeinterlaceCaps structure describes the capabilities of a deinterlacing mode.
- * @see https://docs.microsoft.com/windows/win32/api//vmr9/ns-vmr9-vmr9deinterlacecaps
+ * @see https://learn.microsoft.com/windows/win32/api/vmr9/ns-vmr9-vmr9deinterlacecaps
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

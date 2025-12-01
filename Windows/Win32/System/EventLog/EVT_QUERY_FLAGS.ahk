@@ -4,13 +4,10 @@
 /**
  * Defines the values that specify how to return the query results and whether you are query against a channel or log file.
  * @remarks
- * 
  * The EvtQueryChannelPath and EvtQueryFilePath flags are mutually exclusive. The EvtQueryForwardDirection and EvtQueryReverseDirection flags are also mutually exclusive.
  * 
  * You can retrieve events only in a forward direction from Debug and Analytic channels and from .evt and .etl log files.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_query_flags
+ * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_query_flags
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */

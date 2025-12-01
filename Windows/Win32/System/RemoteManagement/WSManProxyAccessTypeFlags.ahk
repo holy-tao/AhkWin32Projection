@@ -3,7 +3,7 @@
 
 /**
  * Defines the proxy access type flags.
- * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/ne-wsmandisp-wsmanproxyaccesstypeflags
+ * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/ne-wsmandisp-wsmanproxyaccesstypeflags
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */

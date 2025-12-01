@@ -6,7 +6,7 @@
 
 /**
  * Contains information about an FT (fault tolerant) set. It is used as an entry in a value list and consists of a CLUSPROP_VALUE and a CLUS_FTSET_INFO structure.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clusprop_ftset_info
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_ftset_info
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

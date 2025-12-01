@@ -3,7 +3,7 @@
 
 /**
  * The DISPLAYCONFIG_TARGET_DEVICE_NAME_FLAGS structure contains information about a target device.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-displayconfig_target_device_name_flags
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_target_device_name_flags
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

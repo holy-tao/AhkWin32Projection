@@ -4,10 +4,9 @@
 /**
  * An SP_DRVINSTALL_PARAMS structure contains driver installation parameters associated with a particular driver information element.
  * @remarks
+ * Starting with Windows 7, an installer or co-installer can set the DNF_REQUESTADDITIONALSOFTWARE flag to indicate that the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/difx-guidelines">driver package</a> requires additional software that may or not be installed in the computer.
  * 
- * Starting with Windows 7, an installer or co-installer can set the DNF_REQUESTADDITIONALSOFTWARE flag to indicate that the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/difxapi/driverpackagepreinstall">driver package</a> requires additional software that may or not be installed in the computer.
- * 
- * After the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/difxapi/driverpackagepreinstall">driver package</a> for the device is installed, the Plug and Play (PnP) manager performs the following steps if the installer sets the DNF_REQUESTADDITIONALSOFTWARE flag:
+ * After the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/difx-guidelines">driver package</a> for the device is installed, the Plug and Play (PnP) manager performs the following steps if the installer sets the DNF_REQUESTADDITIONALSOFTWARE flag:
  * 
  * <ol>
  * <li>
@@ -25,11 +24,8 @@
  * 
  * </li>
  * </ol>
- * <div class="alert"><b>Note</b>  The installer does not have to set the DNF_REQUESTADDITIONALSOFTWARE flag if the INF file for the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/difxapi/driverpackagepreinstall">driver package</a> has set the <b>RequestAdditionalSoftware </b>flag in the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/inf-controlflags-section">INF ControlFlags Section</a>.</div>
- * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//setupapi/ns-setupapi-sp_drvinstall_params
+ * <div class="alert"><b>Note</b>  The installer does not have to set the DNF_REQUESTADDITIONALSOFTWARE flag if the INF file for the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/difxapi/driverpackagepreinstall">driver package</a> has set the <b>RequestAdditionalSoftware </b> flag in the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/inf-controlflags-section">INF ControlFlags Section</a>.</div>
+ * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_drvinstall_params
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

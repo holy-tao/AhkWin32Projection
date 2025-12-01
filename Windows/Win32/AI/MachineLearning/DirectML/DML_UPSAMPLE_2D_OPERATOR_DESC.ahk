@@ -4,7 +4,7 @@
 
 /**
  * Upsamples the input image, writing the result into the output tensor. The order of the dimensions should be NCHW (BatchSize, ChannelCount, Height, Width) or NCDHW (BatchSize, ChannelCount, Depth, Height, Width), but strides can be used if the data is stored in a different format.
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_upsample_2d_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_upsample_2d_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

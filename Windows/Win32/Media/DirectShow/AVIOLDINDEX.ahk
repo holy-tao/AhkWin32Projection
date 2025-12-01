@@ -4,11 +4,8 @@
 /**
  * The AVIOLDINDEX structure describes an AVI 1.0 index ('idx1' format). New AVI files should use an AVI 2.0 index ('indx' format).
  * @remarks
- * 
  * This structure consists of the initial RIFF chunk (the <b>fcc</b> and <b>cb</b> members) followed by one index entry for each data chunk in the 'movi' list.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//aviriff/ns-aviriff-avioldindex
+ * @see https://learn.microsoft.com/windows/win32/api/aviriff/ns-aviriff-avioldindex
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

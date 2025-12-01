@@ -4,11 +4,8 @@
 /**
  * Specifies the thread affinity for a new DispatcherQueueController.
  * @remarks
- * 
  * Introduced in Windows 10, version 1709.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dispatcherqueue/ne-dispatcherqueue-dispatcherqueue_thread_type
+ * @see https://learn.microsoft.com/windows/win32/api/dispatcherqueue/ne-dispatcherqueue-dispatcherqueue_thread_type
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */

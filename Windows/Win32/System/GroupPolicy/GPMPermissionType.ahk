@@ -3,7 +3,7 @@
 
 /**
  * The categories, permissions included in the categories, and the object to which they can be applied.
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/ne-gpmgmt-gpmpermissiontype
+ * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/ne-gpmgmt-gpmpermissiontype
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */

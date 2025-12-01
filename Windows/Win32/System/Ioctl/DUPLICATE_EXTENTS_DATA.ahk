@@ -4,7 +4,7 @@
 
 /**
  * Contains parameters for the FSCTL_DUPLICATE_EXTENTS control code that performs the Block Cloning operation.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-duplicate_extents_data
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-duplicate_extents_data
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

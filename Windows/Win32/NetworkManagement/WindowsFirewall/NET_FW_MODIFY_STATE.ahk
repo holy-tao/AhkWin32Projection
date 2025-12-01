@@ -3,7 +3,7 @@
 
 /**
  * Specifies the effect of modifications to the current policy.
- * @see https://docs.microsoft.com/windows/win32/api//icftypes/ne-icftypes-net_fw_modify_state
+ * @see https://learn.microsoft.com/windows/win32/api/icftypes/ne-icftypes-net_fw_modify_state
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */

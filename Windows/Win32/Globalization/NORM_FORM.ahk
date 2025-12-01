@@ -4,11 +4,8 @@
 /**
  * Specifies the supported normalization forms.
  * @remarks
- * 
  * For more information about the normalization forms, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-unicode-normalization-to-represent-strings">Using Unicode Normalization to Represent Strings</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winnls/ne-winnls-norm_form
+ * @see https://learn.microsoft.com/windows/win32/api/winnls/ne-winnls-norm_form
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

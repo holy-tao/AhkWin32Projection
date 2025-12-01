@@ -5,7 +5,7 @@
 
 /**
  * The Adapters structure contains a list of graphics adapters.
- * @see https://docs.microsoft.com/windows/win32/api//cloneviewhelper/ns-cloneviewhelper-adapters
+ * @see https://learn.microsoft.com/windows/win32/api/cloneviewhelper/ns-cloneviewhelper-adapters
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

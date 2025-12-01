@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the local address on which a call was made.
- * @see https://docs.microsoft.com/windows/win32/api//rpcasync/ns-rpcasync-rpc_call_local_address_v1
+ * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ns-rpcasync-rpc_call_local_address_v1
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */

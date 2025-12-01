@@ -10808,14 +10808,26 @@ class Controls {
 
 ;@region Methods
     /**
-     * Creates a new page for a property sheet.
+     * Creates a new page for a property sheet. (ANSI)
+     * @remarks
+     * <div class="alert"><b>Note</b>  Before common controls version 7.0, this function did not support visual styles.</div>
+     * <div> </div>
+     * An application uses the <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nf-prsht-propertysheeta">PropertySheet</a> function to create a property sheet that includes the new page. If you are not using the Aero wizard style (<a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetheadera_v2">PSH_AEROWIZARD</a>), the application can use the <a href="https://docs.microsoft.com/windows/desktop/Controls/psm-addpage">PSM_ADDPAGE</a> message to add the new page to an existing property sheet.
+     * 
+     * Windows 95: The system can support a maximum of 16,364 window handles.
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The prsht.h header defines CreatePropertySheetPage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<PROPSHEETPAGEA>} constPropSheetPagePointer Type: <b>LPCPROPSHEETPAGE</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetpagea_v2">PROPSHEETPAGE</a> structure that defines a page to be included in a property sheet.
      * @returns {HPROPSHEETPAGE} Type: <b>HPROPSHEETPAGE</b>
      * 
      * Returns the handle to the new property page if successful, or <b>NULL</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//prsht/nf-prsht-createpropertysheetpagea
+     * @see https://learn.microsoft.com/windows/win32/api/prsht/nf-prsht-createpropertysheetpagea
      * @since windows6.0.6000
      */
     static CreatePropertySheetPageA(constPropSheetPagePointer) {
@@ -10825,14 +10837,26 @@ class Controls {
     }
 
     /**
-     * Creates a new page for a property sheet.
+     * Creates a new page for a property sheet. (Unicode)
+     * @remarks
+     * <div class="alert"><b>Note</b>  Before common controls version 7.0, this function did not support visual styles.</div>
+     * <div> </div>
+     * An application uses the <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nf-prsht-propertysheeta">PropertySheet</a> function to create a property sheet that includes the new page. If you are not using the Aero wizard style (<a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetheadera_v2">PSH_AEROWIZARD</a>), the application can use the <a href="https://docs.microsoft.com/windows/desktop/Controls/psm-addpage">PSM_ADDPAGE</a> message to add the new page to an existing property sheet.
+     * 
+     * Windows 95: The system can support a maximum of 16,364 window handles.
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The prsht.h header defines CreatePropertySheetPage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<PROPSHEETPAGEW>} constPropSheetPagePointer Type: <b>LPCPROPSHEETPAGE</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetpagea_v2">PROPSHEETPAGE</a> structure that defines a page to be included in a property sheet.
      * @returns {HPROPSHEETPAGE} Type: <b>HPROPSHEETPAGE</b>
      * 
      * Returns the handle to the new property page if successful, or <b>NULL</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//prsht/nf-prsht-createpropertysheetpagew
+     * @see https://learn.microsoft.com/windows/win32/api/prsht/nf-prsht-createpropertysheetpagew
      * @since windows6.0.6000
      */
     static CreatePropertySheetPageW(constPropSheetPagePointer) {
@@ -10844,10 +10868,10 @@ class Controls {
     /**
      * Destroys a property sheet page. An application must call this function for pages that have not been passed to the PropertySheet function.
      * @param {HPROPSHEETPAGE} param0 
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//prsht/nf-prsht-destroypropertysheetpage
+     * @see https://learn.microsoft.com/windows/win32/api/prsht/nf-prsht-destroypropertysheetpage
      * @since windows6.0.6000
      */
     static DestroyPropertySheetPage(param0) {
@@ -10858,9 +10882,28 @@ class Controls {
     }
 
     /**
-     * Creates a property sheet and adds the pages defined in the specified property sheet header structure.
+     * Creates a property sheet and adds the pages defined in the specified property sheet header structure. (ANSI)
+     * @remarks
+     * To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * 
+     * If you attempt to add more than 99 pages to a property sheet, this function will fail, but with no indication of the cause of the error: <b>PropertySheet</b> returns a value of -1, but <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns 0.
+     * 
+     * <div class="alert"><b>Note</b>  The following remarks refer only to wizards that do not use the Aero wizard style (<a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetheadera_v2">PSH_AEROWIZARD</a>) or non-wizard property sheets.</div>
+     * <div> </div>
+     * By default, the <b>PropertySheet</b> function creates a modal dialog box. If the <b>dwFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetheadera_v2">PROPSHEETHEADER</a> structure specifies the PSH_MODELESS flag, <b>PropertySheet</b> creates a modeless dialog box and returns immediately after it is created. In this case, the <b>PropertySheet</b> return value is the window handle to the modeless dialog box.
+     * 
+     * For a modeless property sheet, your message loop should use <a href="https://docs.microsoft.com/windows/desktop/Controls/psm-isdialogmessage">PSM_ISDIALOGMESSAGE</a> to pass messages to the property sheet dialog box. Your message loop should use <a href="https://docs.microsoft.com/windows/desktop/Controls/psm-getcurrentpagehwnd">PSM_GETCURRENTPAGEHWND</a> to determine when to destroy the dialog box. When the user clicks the <b>OK</b> or <b>Cancel</b> button, <b>PSM_GETCURRENTPAGEHWND</b> returns <b>NULL</b>. You can then use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroywindow">DestroyWindow</a> function to destroy the dialog box.
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 5.80.</a> The <b>PropertySheet</b> return value carries different information for modal and modeless property sheets. In some cases, modeless property sheets might need the information they would have received from <b>PropertySheet</b> if they had been modal. In particular, they may need to know whether ID_PSREBOOTSYSTEM or ID_PSRESTARTWINDOWS would have been returned. A modeless property sheet can retrieve the value that a modal property sheet would have received from <b>PropertySheet</b> by waiting until <a href="https://docs.microsoft.com/windows/desktop/Controls/psm-getcurrentpagehwnd">PSM_GETCURRENTPAGEHWND</a> returns <b>NULL</b> and then sending a <a href="https://docs.microsoft.com/windows/desktop/Controls/psm-getresult">PSM_GETRESULT</a> message.
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The prsht.h header defines PropertySheet as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<PROPSHEETHEADERA_V2>} param0 
-     * @returns {Pointer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">INT_PTR</a></b>
+     * @returns {Pointer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT_PTR</a></b>
      * 
      * For modal property sheets, the return value is as follows:
      *                 
@@ -10898,7 +10941,7 @@ class Controls {
      * </dl>
      * </td>
      * <td width="60%">
-     * A page sent the <a href="/windows/desktop/Controls/psm-rebootsystem">PSM_REBOOTSYSTEM</a> message to the property sheet. The computer must be restarted for the user's changes to take effect.
+     * A page sent the <a href="https://docs.microsoft.com/windows/desktop/Controls/psm-rebootsystem">PSM_REBOOTSYSTEM</a> message to the property sheet. The computer must be restarted for the user's changes to take effect.
      * 
      * </td>
      * </tr>
@@ -10909,12 +10952,12 @@ class Controls {
      * </dl>
      * </td>
      * <td width="60%">
-     * A page sent the <a href="/windows/desktop/Controls/psm-restartwindows">PSM_RESTARTWINDOWS</a> message to the property sheet. Windows must be restarted for the user's changes to take effect.
+     * A page sent the <a href="https://docs.microsoft.com/windows/desktop/Controls/psm-restartwindows">PSM_RESTARTWINDOWS</a> message to the property sheet. Windows must be restarted for the user's changes to take effect.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//prsht/nf-prsht-propertysheeta
+     * @see https://learn.microsoft.com/windows/win32/api/prsht/nf-prsht-propertysheeta
      * @since windows6.0.6000
      */
     static PropertySheetA(param0) {
@@ -10929,9 +10972,28 @@ class Controls {
     }
 
     /**
-     * Creates a property sheet and adds the pages defined in the specified property sheet header structure.
+     * Creates a property sheet and adds the pages defined in the specified property sheet header structure. (Unicode)
+     * @remarks
+     * To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * 
+     * If you attempt to add more than 99 pages to a property sheet, this function will fail, but with no indication of the cause of the error: <b>PropertySheet</b> returns a value of -1, but <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns 0.
+     * 
+     * <div class="alert"><b>Note</b>  The following remarks refer only to wizards that do not use the Aero wizard style (<a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetheadera_v2">PSH_AEROWIZARD</a>) or non-wizard property sheets.</div>
+     * <div> </div>
+     * By default, the <b>PropertySheet</b> function creates a modal dialog box. If the <b>dwFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetheadera_v2">PROPSHEETHEADER</a> structure specifies the PSH_MODELESS flag, <b>PropertySheet</b> creates a modeless dialog box and returns immediately after it is created. In this case, the <b>PropertySheet</b> return value is the window handle to the modeless dialog box.
+     * 
+     * For a modeless property sheet, your message loop should use <a href="https://docs.microsoft.com/windows/desktop/Controls/psm-isdialogmessage">PSM_ISDIALOGMESSAGE</a> to pass messages to the property sheet dialog box. Your message loop should use <a href="https://docs.microsoft.com/windows/desktop/Controls/psm-getcurrentpagehwnd">PSM_GETCURRENTPAGEHWND</a> to determine when to destroy the dialog box. When the user clicks the <b>OK</b> or <b>Cancel</b> button, <b>PSM_GETCURRENTPAGEHWND</b> returns <b>NULL</b>. You can then use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroywindow">DestroyWindow</a> function to destroy the dialog box.
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 5.80.</a> The <b>PropertySheet</b> return value carries different information for modal and modeless property sheets. In some cases, modeless property sheets might need the information they would have received from <b>PropertySheet</b> if they had been modal. In particular, they may need to know whether ID_PSREBOOTSYSTEM or ID_PSRESTARTWINDOWS would have been returned. A modeless property sheet can retrieve the value that a modal property sheet would have received from <b>PropertySheet</b> by waiting until <a href="https://docs.microsoft.com/windows/desktop/Controls/psm-getcurrentpagehwnd">PSM_GETCURRENTPAGEHWND</a> returns <b>NULL</b> and then sending a <a href="https://docs.microsoft.com/windows/desktop/Controls/psm-getresult">PSM_GETRESULT</a> message.
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The prsht.h header defines PropertySheet as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<PROPSHEETHEADERW_V2>} param0 
-     * @returns {Pointer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">INT_PTR</a></b>
+     * @returns {Pointer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT_PTR</a></b>
      * 
      * For modal property sheets, the return value is as follows:
      *                 
@@ -10969,7 +11031,7 @@ class Controls {
      * </dl>
      * </td>
      * <td width="60%">
-     * A page sent the <a href="/windows/desktop/Controls/psm-rebootsystem">PSM_REBOOTSYSTEM</a> message to the property sheet. The computer must be restarted for the user's changes to take effect.
+     * A page sent the <a href="https://docs.microsoft.com/windows/desktop/Controls/psm-rebootsystem">PSM_REBOOTSYSTEM</a> message to the property sheet. The computer must be restarted for the user's changes to take effect.
      * 
      * </td>
      * </tr>
@@ -10980,12 +11042,12 @@ class Controls {
      * </dl>
      * </td>
      * <td width="60%">
-     * A page sent the <a href="/windows/desktop/Controls/psm-restartwindows">PSM_RESTARTWINDOWS</a> message to the property sheet. Windows must be restarted for the user's changes to take effect.
+     * A page sent the <a href="https://docs.microsoft.com/windows/desktop/Controls/psm-restartwindows">PSM_RESTARTWINDOWS</a> message to the property sheet. Windows must be restarted for the user's changes to take effect.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//prsht/nf-prsht-propertysheetw
+     * @see https://learn.microsoft.com/windows/win32/api/prsht/nf-prsht-propertysheetw
      * @since windows6.0.6000
      */
     static PropertySheetW(param0) {
@@ -11002,13 +11064,11 @@ class Controls {
     /**
      * Registers and initializes certain common control window classes. This function is obsolete. New applications should use the InitCommonControlsEx function.
      * @remarks
-     * 
      * Under Comctl32.dll version 5.x, only Windows 95 classes (ICC_WIN95_CLASSES) can be registered through <b>InitCommonControls</b>. Programs which require additional common control classes must use the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-initcommoncontrolsex">InitCommonControlsEx</a> function.
      * 
      * Under Comctl32.dll version 6.0 and later, <b>InitCommonControls</b> does nothing. Applications must explicitly register all common controls through <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-initcommoncontrolsex">InitCommonControlsEx</a>.
-     * 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-initcommoncontrols
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-initcommoncontrols
      * @since windows6.0.6000
      */
     static InitCommonControls() {
@@ -11017,13 +11077,15 @@ class Controls {
 
     /**
      * Ensures that the common control DLL (Comctl32.dll) is loaded, and registers specific common control classes from the DLL. An application must call this function before creating a common control.
+     * @remarks
+     * The effect of each call to <b>InitCommonControlsEx</b> is cumulative. For example, if <b>InitCommonControlsEx</b> is called with the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-initcommoncontrolsex">ICC_UPDOWN_CLASS</a> flag, then is later called with the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-initcommoncontrolsex">ICC_HOTKEY_CLASS</a> flag, the result is that both the up-down and hot key common control classes are registered and available to the application.
      * @param {Pointer<INITCOMMONCONTROLSEX>} picce Type: <b>const LPINITCOMMONCONTROLSEX</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-initcommoncontrolsex">INITCOMMONCONTROLSEX</a> structure that contains information specifying which control classes will be registered.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-initcommoncontrolsex
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-initcommoncontrolsex
      * @since windows6.0.6000
      */
     static InitCommonControlsEx(picce) {
@@ -11033,6 +11095,11 @@ class Controls {
 
     /**
      * Creates a new image list.
+     * @remarks
+     * When you finish using the image list, destroy it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-imagelist_destroy">ImageList_Destroy</a> function.  
+     * 
+     * <div class="alert"><b>Note</b>  Comctl32.dll version 6 is not redistributable but it is included in Windows or later. To use Comctl32.dll version 6, specify it in a manifest. For more information on manifests, see <a href="https://docs.microsoft.com/windows/desktop/Controls/cookbook-overview">Enabling Visual Styles</a>.</div>
+     * <div> </div>
      * @param {Integer} cx Type: <b>int</b>
      * 
      * The width, in pixels, of each image.
@@ -11051,7 +11118,7 @@ class Controls {
      * @returns {HIMAGELIST} Type: <b>HIMAGELIST</b>
      * 
      * Returns the handle to the image list if successful, or <b>NULL</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_create
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_create
      * @since windows6.0.6000
      */
     static ImageList_Create(cx, cy, flags, cInitial, cGrow) {
@@ -11065,10 +11132,10 @@ class Controls {
      * @param {HIMAGELIST} himl Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list to destroy.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_destroy
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_destroy
      * @since windows6.0.6000
      */
     static ImageList_Destroy(himl) {
@@ -11086,7 +11153,7 @@ class Controls {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of images.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_getimagecount
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_getimagecount
      * @since windows6.0.6000
      */
     static ImageList_GetImageCount(himl) {
@@ -11097,17 +11164,21 @@ class Controls {
     }
 
     /**
-     * Resizes an existing image list.
+     * Resizes an existing image list. (ImageList_SetImageCount)
+     * @remarks
+     * If an application expands an image list with this function, it must add new images by using the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-imagelist_replace">ImageList_Replace</a> function. If your application does not add valid images at the new indexes, draw operations that use the new indexes will be unpredictable. 
+     * 
+     * If you decrease the size of an image list by using this function, the truncated images are freed.
      * @param {HIMAGELIST} himl Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list that will be resized.
      * @param {Integer} uNewCount Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * A value specifying the new size of the image list.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_setimagecount
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_setimagecount
      * @since windows6.0.6000
      */
     static ImageList_SetImageCount(himl, uNewCount) {
@@ -11118,7 +11189,11 @@ class Controls {
     }
 
     /**
-     * Adds an image or images to an image list.
+     * Adds an image or images to an image list. (ImageList_Add)
+     * @remarks
+     * The <b>ImageList_Add</b> function copies the bitmap to an internal data structure. Be sure to use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete 
+     * 				<i>hbmImage</i> and 
+     * 				<i>hbmMask</i> after the function returns.
      * @param {HIMAGELIST} himl Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list.
@@ -11131,7 +11206,7 @@ class Controls {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the first new image if successful, or -1 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_add
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_add
      * @since windows6.0.6000
      */
     static ImageList_Add(himl, hbmImage, hbmMask) {
@@ -11144,7 +11219,10 @@ class Controls {
     }
 
     /**
-     * Replaces an image with an icon or cursor.
+     * Replaces an image with an icon or cursor. (ImageList_ReplaceIcon)
+     * @remarks
+     * Because the system does not save 
+     * 				<i>hicon</i>, you can destroy it after the function returns if the icon or cursor was created by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createicon">CreateIcon</a> function. You do not need to destroy <i>hicon</i> if it was loaded by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadicona">LoadIcon</a> function; the system automatically frees an icon resource when it is no longer needed.
      * @param {HIMAGELIST} himl Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list.
@@ -11158,7 +11236,7 @@ class Controls {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the image if successful, or -1 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_replaceicon
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_replaceicon
      * @since windows6.0.6000
      */
     static ImageList_ReplaceIcon(himl, i, hicon) {
@@ -11177,10 +11255,10 @@ class Controls {
      * @param {COLORREF} clrBk Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * The background color to set. This parameter can be the CLR_NONE value; in that case, images are drawn transparently using the mask.
-     * @returns {COLORREF} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
+     * @returns {COLORREF} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Returns the previous background color if successful, or CLR_NONE otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_setbkcolor
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_setbkcolor
      * @since windows6.0.6000
      */
     static ImageList_SetBkColor(himl, clrBk) {
@@ -11195,10 +11273,10 @@ class Controls {
      * @param {HIMAGELIST} himl Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list.
-     * @returns {COLORREF} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
+     * @returns {COLORREF} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * The return value is the background color.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_getbkcolor
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_getbkcolor
      * @since windows6.0.6000
      */
     static ImageList_GetBkColor(himl) {
@@ -11210,6 +11288,10 @@ class Controls {
 
     /**
      * Adds a specified image to the list of images to be used as overlay masks. An image list can have up to four overlay masks in version 4.70 and earlier and up to 15 in version 4.71. The function assigns an overlay mask index to the specified image.
+     * @remarks
+     * An overlay mask is an image drawn transparently over another image. To draw an overlay mask over an image, call the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-imagelist_draw">ImageList_Draw</a> or <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-imagelist_drawex">ImageList_DrawEx</a> function. The <i>fStyle</i> parameter of these functions can use the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-indextooverlaymask">INDEXTOOVERLAYMASK</a> macro to specify an overlay mask index. 
+     * 
+     * A call to this method fails and returns E_INVALIDARG unless the image list is created using a mask.
      * @param {HIMAGELIST} himl Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list.
@@ -11219,10 +11301,10 @@ class Controls {
      * @param {Integer} iOverlay Type: <b>int</b>
      * 
      * The one-based index of the overlay mask.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_setoverlayimage
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_setoverlayimage
      * @since windows6.0.6000
      */
     static ImageList_SetOverlayImage(himl, iImage, iOverlay) {
@@ -11233,7 +11315,9 @@ class Controls {
     }
 
     /**
-     * Draws an image list item in the specified device context.
+     * Draws an image list item in the specified device context. (ImageList_Draw)
+     * @remarks
+     * An overlay image is drawn transparently over the primary image specified in the <i>i</i> parameter. To specify an overlay image in the <i>fStyle</i> parameter, use the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-indextooverlaymask">INDEXTOOVERLAYMASK</a> macro to shift the one-based index of the overlay image. Use the OR operator to logically combine the return value of the macro with the drawing style flags specified in the <i>fStyle</i> parameter. You must first specify this image as an overlay image by using the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-imagelist_setoverlayimage">ImageList_SetOverlayImage</a> function.
      * @param {HIMAGELIST} himl Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list.
@@ -11250,10 +11334,10 @@ class Controls {
      * 
      * The y-coordinate at which to draw within the specified device context.
      * @param {Integer} fStyle Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_draw
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_draw
      * @since windows6.0.6000
      */
     static ImageList_Draw(himl, i, hdcDst, x, y, fStyle) {
@@ -11265,7 +11349,9 @@ class Controls {
     }
 
     /**
-     * Replaces an image in an image list with a new image.
+     * Replaces an image in an image list with a new image. (ImageList_Replace)
+     * @remarks
+     * The <b>ImageList_Replace</b> function copies the bitmap to an internal data structure. Be sure to use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete <i>hbmImage</i> and <i>hbmMask</i> after the function returns.
      * @param {HIMAGELIST} himl Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list.
@@ -11278,10 +11364,10 @@ class Controls {
      * @param {HBITMAP} hbmMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBITMAP</a></b>
      * 
      * A handle to the bitmap that contains the mask. If no mask is used with the image list, this parameter is ignored.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_replace
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_replace
      * @since windows6.0.6000
      */
     static ImageList_Replace(himl, i, hbmImage, hbmMask) {
@@ -11294,7 +11380,9 @@ class Controls {
     }
 
     /**
-     * Adds an image or images to an image list, generating a mask from the specified bitmap.
+     * Adds an image or images to an image list, generating a mask from the specified bitmap. (ImageList_AddMasked)
+     * @remarks
+     * The <b>ImageList_AddMasked</b> function copies the bitmap to an internal data structure. Bitmaps with color depth greater than 8bpp are not supported. Be sure to use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete <i>hbmImage</i> after the function returns.
      * @param {HIMAGELIST} himl Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list.
@@ -11307,7 +11395,7 @@ class Controls {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the first new image if successful, or -1 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_addmasked
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_addmasked
      * @since windows6.0.6000
      */
     static ImageList_AddMasked(himl, hbmImage, crMask) {
@@ -11320,6 +11408,8 @@ class Controls {
 
     /**
      * Draws an image list item in the specified device context. The function uses the specified drawing style and blends the image with the specified color.
+     * @remarks
+     * An overlay image is drawn transparently over the primary image specified in the <i>i</i> parameter. To specify an overlay image in the <i>fStyle</i> parameter, use the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-indextooverlaymask">INDEXTOOVERLAYMASK</a> macro to shift the one-based index of the overlay image. Use the OR operator to logically combine the return value of the macro with the drawing style flags specified in the <i>fStyle</i> parameter. You must first specify this image as an overlay image by using the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-imagelist_setoverlayimage">ImageList_SetOverlayImage</a> function.
      * @param {HIMAGELIST} himl Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list
@@ -11347,10 +11437,10 @@ class Controls {
      * @param {COLORREF} rgbBk Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * @param {COLORREF} rgbFg Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * @param {Integer} fStyle Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_drawex
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_drawex
      * @since windows6.0.6000
      */
     static ImageList_DrawEx(himl, i, hdcDst, x, y, dx, dy, rgbBk, rgbFg, fStyle) {
@@ -11366,10 +11456,10 @@ class Controls {
      * @param {Pointer<IMAGELISTDRAWPARAMS>} pimldp Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/ns-commoncontrols-imagelistdrawparams">IMAGELISTDRAWPARAMS</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/ns-commoncontrols-imagelistdrawparams">IMAGELISTDRAWPARAMS</a> structure that contains information about the draw operation.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, and zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_drawindirect
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_drawindirect
      * @since windows6.0.6000
      */
     static ImageList_DrawIndirect(pimldp) {
@@ -11378,17 +11468,19 @@ class Controls {
     }
 
     /**
-     * Removes an image from an image list.
+     * Removes an image from an image list. (ImageList_Remove)
+     * @remarks
+     * When an image is removed, the indexes of the remaining images are adjusted so that the image indexes always range from zero to one less than the number of images in the image list. For example, if you remove the image at index 0, then image 1 becomes image 0, image 2 becomes image 1, and so on.
      * @param {HIMAGELIST} himl Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list.
      * @param {Integer} i Type: <b>int</b>
      * 
      * The index of the image to remove. If this parameter is -1, the function removes all images.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_remove
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_remove
      * @since windows6.0.6000
      */
     static ImageList_Remove(himl, i) {
@@ -11400,6 +11492,8 @@ class Controls {
 
     /**
      * Creates an icon from an image and mask in an image list.
+     * @remarks
+     * It is the responsibility of the calling application to destroy the icon returned from this function using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroyicon">DestroyIcon</a> function.
      * @param {HIMAGELIST} himl Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list.
@@ -11409,10 +11503,10 @@ class Controls {
      * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * A combination of flags that specify the drawing style. For a list of values, see the description of the <i>fStyle</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-imagelist_draw">ImageList_Draw</a> function.
-     * @returns {HICON} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HICON</a></b>
+     * @returns {HICON} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HICON</a></b>
      * 
      * Returns the handle to the icon if successful, or <b>NULL</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_geticon
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_geticon
      * @since windows6.0.6000
      */
     static ImageList_GetIcon(himl, i, flags) {
@@ -11424,7 +11518,16 @@ class Controls {
     }
 
     /**
-     * Creates an image list from the specified bitmap.
+     * Creates an image list from the specified bitmap. (ANSI)
+     * @remarks
+     * LR_LOADTRANSPARENT does not load the image transparently. It creates an opaque image list that only appears transparent because all the background pixels have been changed to COLOR_WINDOW. If the images are drawn over a background that is not the color COLOR_WINDOW, the image does not draw properly. Also, LR_LOADTRANSPARENT and LR_LOADMAP3DCOLORS use the system colors that were in effect at the time that <b>ImageList_LoadImage</b> was called. If the system colors subsequently change, the application must reload the image to remap the colors.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The commctrl.h header defines ImageList_LoadImage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HINSTANCE} hi Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
      * 
      * A handle to the instance that contains the resource. This parameter can be <b>NULL</b> if you are loading an image from a file or loading an OEM resource.
@@ -11502,7 +11605,7 @@ class Controls {
      * @returns {HIMAGELIST} Type: <b>HIMAGELIST</b>
      * 
      * Returns the handle to the image list if successful, or <b>NULL</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_loadimagea
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_loadimagea
      * @since windows6.0.6000
      */
     static ImageList_LoadImageA(hi, lpbmp, cx, cGrow, crMask, uType, uFlags) {
@@ -11515,7 +11618,16 @@ class Controls {
     }
 
     /**
-     * Creates an image list from the specified bitmap.
+     * Creates an image list from the specified bitmap. (Unicode)
+     * @remarks
+     * LR_LOADTRANSPARENT does not load the image transparently. It creates an opaque image list that only appears transparent because all the background pixels have been changed to COLOR_WINDOW. If the images are drawn over a background that is not the color COLOR_WINDOW, the image does not draw properly. Also, LR_LOADTRANSPARENT and LR_LOADMAP3DCOLORS use the system colors that were in effect at the time that <b>ImageList_LoadImage</b> was called. If the system colors subsequently change, the application must reload the image to remap the colors.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The commctrl.h header defines ImageList_LoadImage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HINSTANCE} hi Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
      * 
      * A handle to the instance that contains the resource. This parameter can be <b>NULL</b> if you are loading an image from a file or loading an OEM resource.
@@ -11593,7 +11705,7 @@ class Controls {
      * @returns {HIMAGELIST} Type: <b>HIMAGELIST</b>
      * 
      * Returns the handle to the image list if successful, or <b>NULL</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_loadimagew
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_loadimagew
      * @since windows6.0.6000
      */
     static ImageList_LoadImageW(hi, lpbmp, cx, cGrow, crMask, uType, uFlags) {
@@ -11620,10 +11732,10 @@ class Controls {
      * 
      * The zero-based index of the image to be used as the source of the copy operation.
      * @param {Integer} uFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_copy
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_copy
      * @since windows6.0.6000
      */
     static ImageList_Copy(himlDst, iDst, himlSrc, iSrc, uFlags) {
@@ -11635,7 +11747,9 @@ class Controls {
     }
 
     /**
-     * Begins dragging an image.
+     * Begins dragging an image. (ImageList_BeginDrag)
+     * @remarks
+     * This function creates a temporary image list that is used for dragging. In response to subsequent <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-mousemove">WM_MOUSEMOVE</a> messages, you can move the drag image by using the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-imagelist_dragmove">ImageList_DragMove</a> function. To end the drag operation, you can use the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-imagelist_enddrag">ImageList_EndDrag</a> function.
      * @param {HIMAGELIST} himlTrack Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list.
@@ -11648,10 +11762,10 @@ class Controls {
      * @param {Integer} dyHotspot Type: <b>int</b>
      * 
      * The y-coordinate of the location of the drag position relative to the upper-left corner of the image.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_begindrag
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_begindrag
      * @since windows6.0.6000
      */
     static ImageList_BeginDrag(himlTrack, iTrack, dxHotspot, dyHotspot) {
@@ -11662,13 +11776,11 @@ class Controls {
     }
 
     /**
-     * Ends a drag operation.
+     * Ends a drag operation. (ImageList_EndDrag)
      * @remarks
-     * 
      * The temporary image list is destroyed when the <b>ImageList_EndDrag</b> function is called. To begin a drag operation, use the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-imagelist_begindrag">ImageList_BeginDrag</a> function.
-     * 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_enddrag
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_enddrag
      * @since windows6.0.6000
      */
     static ImageList_EndDrag() {
@@ -11677,6 +11789,8 @@ class Controls {
 
     /**
      * Displays the drag image at the specified position within the window.
+     * @remarks
+     * To begin a drag operation, use the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-imagelist_begindrag">ImageList_BeginDrag</a> function.
      * @param {HWND} hwndLock Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the window that owns the drag image.
@@ -11686,10 +11800,10 @@ class Controls {
      * @param {Integer} y Type: <b>int</b>
      * 
      * The y-coordinate at which to display the drag image. The coordinate is relative to the upper-left corner of the window, not the client area.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_dragenter
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_dragenter
      * @since windows6.0.6000
      */
     static ImageList_DragEnter(hwndLock, x, y) {
@@ -11704,10 +11818,10 @@ class Controls {
      * @param {HWND} hwndLock Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the window that owns the drag image.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_dragleave
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_dragleave
      * @since windows6.0.6000
      */
     static ImageList_DragLeave(hwndLock) {
@@ -11718,17 +11832,19 @@ class Controls {
     }
 
     /**
-     * Moves the image that is being dragged during a drag-and-drop operation. This function is typically called in response to a WM_MOUSEMOVE message.
+     * Moves the image that is being dragged during a drag-and-drop operation. This function is typically called in response to a WM_MOUSEMOVE message. (ImageList_DragMove)
+     * @remarks
+     * To begin a drag operation, use the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-imagelist_begindrag">ImageList_BeginDrag</a> function.
      * @param {Integer} x Type: <b>int</b>
      * 
      * The x-coordinate at which to display the drag image. The coordinate is relative to the upper-left corner of the window, not the client area.
      * @param {Integer} y Type: <b>int</b>
      * 
      * The y-coordinate at which to display the drag image. The coordinate is relative to the upper-left corner of the window, not the client area.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_dragmove
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_dragmove
      * @since windows6.0.6000
      */
     static ImageList_DragMove(x, y) {
@@ -11750,10 +11866,10 @@ class Controls {
      * @param {Integer} dyHotspot Type: <b>int</b>
      * 
      * The y-position of the hot spot within the new image.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_setdragcursorimage
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_setdragcursorimage
      * @since windows6.0.6000
      */
     static ImageList_SetDragCursorImage(himlDrag, iDrag, dxHotspot, dyHotspot) {
@@ -11764,14 +11880,14 @@ class Controls {
     }
 
     /**
-     * Shows or hides the image being dragged.
+     * Shows or hides the image being dragged. (ImageList_DragShowNolock)
      * @param {BOOL} fShow Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * A value specifying whether to show or hide the image being dragged. Specify <b>TRUE</b> to show the image or <b>FALSE</b> to hide the image.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_dragshownolock
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_dragshownolock
      * @since windows6.0.6000
      */
     static ImageList_DragShowNolock(fShow) {
@@ -11781,16 +11897,18 @@ class Controls {
 
     /**
      * Retrieves the temporary image list that is used for the drag image. The function also retrieves the current drag position and the offset of the drag image relative to the drag position.
-     * @param {Pointer<POINT>} ppt Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>*</b>
+     * @remarks
+     * The temporary image list is destroyed when the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-imagelist_enddrag">ImageList_EndDrag</a> function is called. To begin a drag operation, use the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-imagelist_begindrag">ImageList_BeginDrag</a> function.
+     * @param {Pointer<POINT>} ppt Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a>*</b>
      * 
-     * A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that receives the current drag position. Can be <b>NULL</b>.
-     * @param {Pointer<POINT>} pptHotspot Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>*</b>
+     * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that receives the current drag position. Can be <b>NULL</b>.
+     * @param {Pointer<POINT>} pptHotspot Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a>*</b>
      * 
      * A pointer to a <b>POINT</b> structure that receives the offset of the drag image relative to the drag position. Can be <b>NULL</b>.
      * @returns {HIMAGELIST} Type: <b>HIMAGELIST</b>
      * 
      * Returns the handle to the image list if successful, or <b>NULL</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_getdragimage
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_getdragimage
      * @since windows6.0.6000
      */
     static ImageList_GetDragImage(ppt, pptHotspot) {
@@ -11807,7 +11925,7 @@ class Controls {
      * @returns {HIMAGELIST} Type: <b>HIMAGELIST</b>
      * 
      * Returns the handle to the image list if successful, or <b>NULL</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_read
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_read
      * @since windows6.0.6000
      */
     static ImageList_Read(pstm) {
@@ -11817,17 +11935,17 @@ class Controls {
     }
 
     /**
-     * Writes an image list to a stream.
+     * Writes an image list to a stream. (ImageList_Write)
      * @param {HIMAGELIST} himl Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list.
      * @param {IStream} pstm Type: <b>LPSTREAM</b>
      * 
      * A pointer to the stream.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_write
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_write
      * @since windows6.0.6000
      */
     static ImageList_Write(himl, pstm) {
@@ -11839,6 +11957,8 @@ class Controls {
 
     /**
      * Reads an image list from a stream, and returns an IImageList interface to the image list.
+     * @remarks
+     * To use <b>ImageList_ReadEx</b>, the application must specify Comctl32.dll version 6 in the manifest. For more information on manifests, see <a href="https://docs.microsoft.com/windows/desktop/Controls/cookbook-overview">Enabling Visual Styles</a>.
      * @param {Integer} dwFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * A flag that specifies how the stream is read.
@@ -11882,7 +12002,7 @@ class Controls {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * The address of a pointer to the interface for the image list if successful, <b>NULL</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_readex
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_readex
      * @since windows6.0.6000
      */
     static ImageList_ReadEx(dwFlags, pstm, riid) {
@@ -11895,7 +12015,12 @@ class Controls {
     }
 
     /**
-     * Writes an image list to a stream.
+     * Writes an image list to a stream. (ImageList_WriteEx)
+     * @remarks
+     * You should not create an image list that is written with the ILP_DOWNLEVEL flag with <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-imagelist_create">ILC_COLOR32</a>.  
+     * 	
+     * 
+     * To use <b>ImageList_WriteEx</b>, the application must specify Comctl32.dll version 6 in the manifest. For more information on manifests, see <a href="https://docs.microsoft.com/windows/desktop/Controls/cookbook-overview">Enabling Visual Styles</a>.
      * @param {HIMAGELIST} himl Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list.
@@ -11936,10 +12061,10 @@ class Controls {
      * @param {IStream} pstm Type: <b>LPSTREAM</b>
      * 
      * The address of the stream.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_writeex
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_writeex
      * @since windows6.0.6000
      */
     static ImageList_WriteEx(himl, dwFlags, pstm) {
@@ -11964,10 +12089,10 @@ class Controls {
      * @param {Pointer<Integer>} cy Type: <b>int*</b>
      * 
      * A pointer to an integer variable that receives the height, in pixels, of each image.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_geticonsize
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_geticonsize
      * @since windows6.0.6000
      */
     static ImageList_GetIconSize(himl, cx, cy) {
@@ -11981,7 +12106,7 @@ class Controls {
     }
 
     /**
-     * Sets the dimensions of images in an image list and removes all images from the list.
+     * Sets the dimensions of images in an image list and removes all images from the list. (ImageList_SetIconSize)
      * @param {HIMAGELIST} himl Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list.
@@ -11991,10 +12116,10 @@ class Controls {
      * @param {Integer} cy Type: <b>int</b>
      * 
      * The height, in pixels, of the images in the image list. All images in an image list have the same dimensions.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_seticonsize
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_seticonsize
      * @since windows6.0.6000
      */
     static ImageList_SetIconSize(himl, cx, cy) {
@@ -12006,6 +12131,8 @@ class Controls {
 
     /**
      * Retrieves information about an image.
+     * @remarks
+     * An application should not call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> to destroy the bitmaps retrieved by <b>ImageList_GetImageInfo</b>. The system destroys the bitmaps when the application calls the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-imagelist_destroy">ImageList_Destroy</a> function.
      * @param {HIMAGELIST} himl Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list.
@@ -12015,10 +12142,10 @@ class Controls {
      * @param {Pointer<IMAGEINFO>} pImageInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/ns-commoncontrols-imageinfo">IMAGEINFO</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/ns-commoncontrols-imageinfo">IMAGEINFO</a> structure that receives information about the image. The information in this structure can be used to directly manipulate the bitmaps for the image.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_getimageinfo
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_getimageinfo
      * @since windows6.0.6000
      */
     static ImageList_GetImageInfo(himl, i, pImageInfo) {
@@ -12030,6 +12157,8 @@ class Controls {
 
     /**
      * Creates a new image by combining two existing images. The function also creates a new image list in which to store the image.
+     * @remarks
+     * The new image consists of the second existing image drawn transparently over the first. The mask for the new image is the result of performing a logical OR operation on the masks of the two existing images.
      * @param {HIMAGELIST} himl1 Type: <b>HIMAGELIST</b>
      * 
      * A handle to the first image list.
@@ -12051,7 +12180,7 @@ class Controls {
      * @returns {HIMAGELIST} Type: <b>HIMAGELIST</b>
      * 
      * Returns the handle to the new image list if successful, or <b>NULL</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_merge
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_merge
      * @since windows6.0.6000
      */
     static ImageList_Merge(himl1, i1, himl2, i2, dx, dy) {
@@ -12071,7 +12200,7 @@ class Controls {
      * @returns {HIMAGELIST} Type: <b>HIMAGELIST</b>
      * 
      * Returns the handle to the new duplicate image list if successful, or <b>NULL</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_duplicate
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-imagelist_duplicate
      * @since windows6.0.6000
      */
     static ImageList_Duplicate(himl) {
@@ -12093,7 +12222,7 @@ class Controls {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the address of the interface pointer requested in <i>riid</i>. If the object does not support the interface specified in <i>riid</i>, <i>ppv</i> is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-himagelist_queryinterface
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-himagelist_queryinterface
      * @since windows6.0.6000
      */
     static HIMAGELIST_QueryInterface(himl, riid) {
@@ -12109,6 +12238,8 @@ class Controls {
 
     /**
      * Creates a toolbar window and adds the specified buttons to the toolbar.
+     * @remarks
+     * Windows 95: The system can support a maximum of 16,364 window handles.
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to the parent window for the toolbar.
@@ -12151,10 +12282,10 @@ class Controls {
      * @param {Integer} uStructSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Size of a <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-tbbutton">TBBUTTON</a> structure.
-     * @returns {HWND} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @returns {HWND} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
-     * Returns the window handle to the toolbar if successful, or <b>NULL</b> otherwise. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-createtoolbarex
+     * Returns the window handle to the toolbar if successful, or <b>NULL</b> otherwise. To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-createtoolbarex
      * @since windows6.0.6000
      */
     static CreateToolbarEx(hwnd, ws, wID, nBitmaps, hBMInst, wBMID, lpButtons, iNumButtons, dxButton, dyButton, dxBitmap, dyBitmap, uStructSize) {
@@ -12174,6 +12305,10 @@ class Controls {
 
     /**
      * Creates a bitmap for use in a toolbar.
+     * @remarks
+     * The function creates a new bitmap using the bitmap data and colors specified by the bitmap resource and the color mapping information. 
+     * 
+     * This function is fully supported only for images with color maps; that is, images with 256 or fewer colors.
      * @param {HINSTANCE} hInstance Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
      * 
      * Handle to the module instance with the executable file that contains the bitmap resource.
@@ -12207,10 +12342,10 @@ class Controls {
      * 
      * Number of color maps pointed to by 
      * 					<i>lpColorMap</i>.
-     * @returns {HBITMAP} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HBITMAP</a></b>
+     * @returns {HBITMAP} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBITMAP</a></b>
      * 
-     * Returns the handle to the bitmap if successful, or <b>NULL</b> otherwise. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-createmappedbitmap
+     * Returns the handle to the bitmap if successful, or <b>NULL</b> otherwise. To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-createmappedbitmap
      * @since windows6.0.6000
      */
     static CreateMappedBitmap(hInstance, idBitmap, wFlags, lpColorMap, iNumMaps) {
@@ -12228,9 +12363,8 @@ class Controls {
     }
 
     /**
-     * The DrawStatusText function draws the specified text in the style of a status window with borders.
+     * The DrawStatusText function draws the specified text in the style of a status window with borders. (ANSI)
      * @remarks
-     * 
      * Normal windows display text left-to-right (LTR). Windows can be <i>mirrored</i> to display languages such as Hebrew or Arabic that read right-to-left (RTL). Normally, the <i>pszText</i> string will be displayed in the same direction as the text in its parent window. If SBT_RTLREADING is set, the <i>pszText</i> string will read in the opposite direction from the text in the parent window.
      * 
      * 
@@ -12238,7 +12372,6 @@ class Controls {
      * 
      * > [!NOTE]
      * > The commctrl.h header defines DrawStatusText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * 
      * @param {HDC} hDC Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * Handle to the display context for the window.
@@ -12290,7 +12423,7 @@ class Controls {
      * </tr>
      * </table>
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-drawstatustexta
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-drawstatustexta
      * @since windows6.0.6000
      */
     static DrawStatusTextA(hDC, lprc, pszText, uFlags) {
@@ -12301,9 +12434,8 @@ class Controls {
     }
 
     /**
-     * The DrawStatusText function draws the specified text in the style of a status window with borders.
+     * The DrawStatusText function draws the specified text in the style of a status window with borders. (Unicode)
      * @remarks
-     * 
      * Normal windows display text left-to-right (LTR). Windows can be <i>mirrored</i> to display languages such as Hebrew or Arabic that read right-to-left (RTL). Normally, the <i>pszText</i> string will be displayed in the same direction as the text in its parent window. If SBT_RTLREADING is set, the <i>pszText</i> string will read in the opposite direction from the text in the parent window.
      * 
      * 
@@ -12311,7 +12443,6 @@ class Controls {
      * 
      * > [!NOTE]
      * > The commctrl.h header defines DrawStatusText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * 
      * @param {HDC} hDC Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * Handle to the display context for the window.
@@ -12363,7 +12494,7 @@ class Controls {
      * </tr>
      * </table>
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-drawstatustextw
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-drawstatustextw
      * @since windows6.0.6000
      */
     static DrawStatusTextW(hDC, lprc, pszText, uFlags) {
@@ -12374,7 +12505,15 @@ class Controls {
     }
 
     /**
-     * Creates a status window, which is typically used to display the status of an application.
+     * Creates a status window, which is typically used to display the status of an application. (ANSI)
+     * @remarks
+     * The <b>CreateStatusWindow</b> function calls the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a> function to create the window. It passes the parameters to  without modification and sets the position, width, and height parameters to <b>CreateWindow</b> default values. 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The commctrl.h header defines CreateStatusWindow as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} style Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
      * Window styles for the status window. This parameter must include the <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">WS_CHILD</a> style and should also include the <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">WS_VISIBLE</a> style.
@@ -12387,10 +12526,10 @@ class Controls {
      * @param {Integer} wID Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Control identifier for the status window. The window procedure uses this value to identify messages it sends to the parent window.
-     * @returns {HWND} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @returns {HWND} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
-     * Returns the handle to the status window if successful, or <b>NULL</b> otherwise. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-createstatuswindowa
+     * Returns the handle to the status window if successful, or <b>NULL</b> otherwise. To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-createstatuswindowa
      * @since windows6.0.6000
      */
     static CreateStatusWindowA(style, lpszText, hwndParent, wID) {
@@ -12409,7 +12548,15 @@ class Controls {
     }
 
     /**
-     * Creates a status window, which is typically used to display the status of an application.
+     * Creates a status window, which is typically used to display the status of an application. (Unicode)
+     * @remarks
+     * The <b>CreateStatusWindow</b> function calls the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a> function to create the window. It passes the parameters to  without modification and sets the position, width, and height parameters to <b>CreateWindow</b> default values. 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The commctrl.h header defines CreateStatusWindow as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} style Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
      * Window styles for the status window. This parameter must include the <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">WS_CHILD</a> style and should also include the <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">WS_VISIBLE</a> style.
@@ -12422,10 +12569,10 @@ class Controls {
      * @param {Integer} wID Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Control identifier for the status window. The window procedure uses this value to identify messages it sends to the parent window.
-     * @returns {HWND} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @returns {HWND} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
-     * Returns the handle to the status window if successful, or <b>NULL</b> otherwise. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-createstatuswindoww
+     * Returns the handle to the status window if successful, or <b>NULL</b> otherwise. To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-createstatuswindoww
      * @since windows6.0.6000
      */
     static CreateStatusWindowW(style, lpszText, hwndParent, wID) {
@@ -12446,9 +12593,7 @@ class Controls {
     /**
      * Processes WM_MENUSELECT and WM_COMMAND messages and displays Help text about the current menu in the specified status window.
      * @remarks
-     * 
      * The <b>MenuHelp</b> function is a helper function. Helper functions are available as a convenience to programming. They combine into one call a sequence of frequently used calls. You use <b>MenuHelp</b> to send <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-menuselect">WM_MENUSELECT</a> and <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> messages.
-     * 
      * @param {Integer} uMsg Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Message being processed. This can be either <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-menuselect">WM_MENUSELECT</a> or <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a>.
@@ -12473,7 +12618,7 @@ class Controls {
      * 
      * Pointer to an array of values that contains pairs of string resource identifiers and menu handles. The function searches the array for the handle to the selected menu and, if found, uses the corresponding resource identifier to load the appropriate Help string.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-menuhelp
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-menuhelp
      * @since windows6.0.6000
      */
     static MenuHelp(uMsg, wParam, lParam, hMainMenu, hInst, hwndStatus, lpwIDs) {
@@ -12497,10 +12642,10 @@ class Controls {
      * @param {Pointer<Integer>} lpInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPINT</a></b>
      * 
      * A pointer to an array that contains pairs of values. The second value in the first pair must be the handle to the application's main menu. Each subsequent pair consists of a menu item identifier and a control window identifier. The function searches the array for a value that matches <i>uFlags</i> and, if the value is found, checks or unchecks the menu item and shows or hides the corresponding control.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-showhidemenuctl
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-showhidemenuctl
      * @since windows6.0.6000
      */
     static ShowHideMenuCtl(hWnd, uFlags, lpInfo) {
@@ -12515,10 +12660,7 @@ class Controls {
     /**
      * Calculates the dimensions of a rectangle in the client area that contains all the specified controls.
      * @remarks
-     * 
      * If a window in the <i>lprc</i> array is visible, or will be visible when its parent becomes visible, its rectangle is subtracted from the effective client rectangle.
-     * 
-     * 
      * @param {HWND} hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the window that has the client area to check.
@@ -12529,7 +12671,7 @@ class Controls {
      * 
      * A pointer to a null-terminated array of integers that identify controls in the client area. Each control requires a pair of consecutive elements. The first element of the pair must be nonzero and the second element of the pair must be the control identifier. The first pair represents the menu and is ignored. The last element must be zero to identify the end of the array.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-geteffectiveclientrect
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-geteffectiveclientrect
      * @since windows6.0.6000
      */
     static GetEffectiveClientRect(hWnd, lprc, lpInfo) {
@@ -12545,10 +12687,10 @@ class Controls {
      * @param {HWND} hLB Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the single-selection list box.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-makedraglist
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-makedraglist
      * @since windows6.0.6000
      */
     static MakeDragList(hLB) {
@@ -12570,7 +12712,7 @@ class Controls {
      * 
      * The identifier of the icon item to be drawn.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-drawinsert
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-drawinsert
      * @since windows6.0.6000
      */
     static DrawInsert(handParent, hLB, nItem) {
@@ -12582,19 +12724,24 @@ class Controls {
 
     /**
      * Retrieves the index of the item at the specified point in a list box.
+     * @remarks
+     * The <b>LBItemFromPt</b> function only scrolls the list box if a minimum amount of time has passed since it last did so. Timing prevents the list box from scrolling too quickly if the function is called repeatedly in rapid succession—for example, when <a href="https://docs.microsoft.com/windows/desktop/Controls/dl-dragging">DL_DRAGGING</a> notification codes or <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-mousemove">WM_MOUSEMOVE</a> messages are processed. 
+     * 
+     * If the specified point is outside the client area of the list box and 
+     * 				<i>bAutoScroll</i> is <b>TRUE</b>, the function scrolls the list box instead of returning an item identifier.
      * @param {HWND} hLB Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the list box to check.
-     * @param {POINT} pt Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * @param {POINT} pt Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
-     * A <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that contains the screen coordinates to check.
+     * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that contains the screen coordinates to check.
      * @param {BOOL} bAutoScroll Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * A scroll flag. If this parameter is <b>TRUE</b> and the point is directly above or below the list box, the function scrolls the list box by one line and returns -1. Otherwise, the function does not scroll the list box.
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the item identifier if the point is over a list item, or -1 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-lbitemfrompt
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-lbitemfrompt
      * @since windows6.0.6000
      */
     static LBItemFromPt(hLB, pt, bAutoScroll) {
@@ -12642,10 +12789,10 @@ class Controls {
      * @param {Integer} nPos Type: <b>int</b>
      * 
      * Position of the control.
-     * @returns {HWND} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @returns {HWND} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * If the function succeeds, the return value is the window handle to the up-down control. If the function fails, the return value is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-createupdowncontrol
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-createupdowncontrol
      * @since windows6.0.6000
      */
     static CreateUpDownControl(dwStyle, x, y, cx, cy, hParent, nID, hInst, hBuddy, nUpper, nLower, nPos) {
@@ -12660,6 +12807,41 @@ class Controls {
 
     /**
      * The TaskDialogIndirect function creates, displays, and operates a task dialog.
+     * @remarks
+     * When you use a task dialog box to indicate that the system is low on memory, the strings pointed to by the various string and icon members in the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-taskdialogconfig">TASKDIALOGCONFIG</a> structure should not be taken from a resource file since an attempt to load the resource may fail.
+     * 
+     *  If you create a task dialog while a dialog box is present, use a handle to the dialog box as the <i>hWndParent</i> parameter. The <i>hWndParent</i> parameter should not identify a child window, such as a control in a dialog box. 
+     * 
+     * The parent window should not be hidden or disabled when this function is called. 
+     * 
+     * 
+     * ```
+     * 
+     * int nButtonPressed                  = 0;
+     * TASKDIALOGCONFIG config             = {0};
+     * const TASKDIALOG_BUTTON buttons[]   = { 
+     *                                         { IDOK, L"Change password" }
+     *                                       };
+     * config.cbSize                       = sizeof(config);
+     * config.hInstance                    = hInst;
+     * config.dwCommonButtons              = TDCBF_CANCEL_BUTTON;
+     * config.pszMainIcon                  = TD_WARNING_ICON;
+     * config.pszMainInstruction           = L"Change Password";
+     * config.pszContent                   = L"Remember your changed password.";
+     * config.pButtons                     = buttons;
+     * config.cButtons                     = ARRAYSIZE(buttons);
+     * 
+     * TaskDialogIndirect(&config, &nButtonPressed, NULL, NULL);
+     * switch (nButtonPressed)
+     * {
+     *     case IDOK:
+     *         break; // the user pressed button 0 (change password).
+     *     case IDCANCEL:
+     *         break; // user canceled the dialog
+     *     default:
+     *         break; // should never happen
+     * }
+     * ```
      * @param {Pointer<TASKDIALOGCONFIG>} pTaskConfig Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-taskdialogconfig">TASKDIALOGCONFIG</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-taskdialogconfig">TASKDIALOGCONFIG</a> structure that contains information used to display the task dialog.
@@ -12672,7 +12854,7 @@ class Controls {
      * 
      * Address of a variable that receives one of the button IDs specified in the <b>pRadioButtons</b> member of the <i>pTaskConfig</i> parameter. If this parameter is <b>NULL</b>, no value is returned.
      * @param {Pointer<BOOL>} pfVerificationFlagChecked Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * This function can return one of these values.
      * 
@@ -12726,7 +12908,7 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-taskdialogindirect
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-taskdialogindirect
      * @since windows6.0.6000
      */
     static TaskDialogIndirect(pTaskConfig, pnButton, pnRadioButton, pfVerificationFlagChecked) {
@@ -12744,6 +12926,38 @@ class Controls {
 
     /**
      * The TaskDialog function creates, displays, and operates a task dialog.
+     * @remarks
+     * When you use a task dialog box to indicate that the system is low on memory, the strings pointed to by the <i>pszMainInstruction</i> and <i>pszWindowTitle</i> parameters should not be taken from a resource file since an attempt to load the resource may fail. 
+     * 
+     *  If you create a task dialog while a dialog box is present, use a handle to the dialog box as the <i>hWndParent</i> parameter. The <i>hWndParent</i> parameter should not identify a child window, such as a control in a dialog box. 
+     * 
+     * Because task dialog boxes use the correct system-defined UI elements, you should use them instead of using message boxes created with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messagebox">MessageBox</a> function. To achieve more functionality, use <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-taskdialogindirect">TaskDialogIndirect</a>.
+     * 
+     * The following example code, to be included as part of a larger program, shows how to create a task dialog and capture input.
+     * 			
+     * 			
+     * 
+     * 
+     * ```
+     * 
+     * int nButtonPressed = 0;
+     * TaskDialog(NULL, hInst, 
+     *     MAKEINTRESOURCE(IDS_APPLICATION_TITLE),
+     *     MAKEINTRESOURCE(IDS_DOSOMETHING), 
+     *     MAKEINTRESOURCE(IDS_SOMECONTENT), 
+     *     TDCBF_OK_BUTTON | TDCBF_CANCEL_BUTTON,
+     *     TD_WARNING_ICON, 
+     *     &nButtonPressed);
+     * 
+     * if (IDOK == nButtonPressed)
+     * {
+     *     // OK button pressed
+     * }
+     * else if (IDCANCEL == nButtonPressed)
+     * {
+     *     // Cancel pressed
+     * }
+     * ```
      * @param {HWND} hwndOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to the owner window of the task dialog to be created. If this parameter is <b>NULL</b>, the task dialog has no owner window.
@@ -12883,7 +13097,7 @@ class Controls {
      * </tr>
      * </table>
      * @returns {Integer} Type: <b>int*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-taskdialog
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-taskdialog
      * @since windows6.0.6000
      */
     static TaskDialog(hwndOwner, hInstance, pszWindowTitle, pszMainInstruction, pszContent, dwCommonButtons, pszIcon) {
@@ -12905,15 +13119,12 @@ class Controls {
     /**
      * Enables an application to specify a language to be used with the common controls that is different from the system language.
      * @remarks
-     * 
      * This function enables an application to override the system language setting, and specify a different language for the common controls. The selected language only applies to the process that <b>InitMUILanguage</b> is called from. See <a href="https://docs.microsoft.com/windows/desktop/Intl/international-support">Internationalization for Windows Applications</a> for further discussion of localization.
-     * 
-     * 
      * @param {Integer} uiLang Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LANGID</a></b>
      * 
      * The  <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">language identifier</a> of the language to be used by the common controls.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-initmuilanguage
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-initmuilanguage
      * @since windows6.0.6000
      */
     static InitMUILanguage(uiLang) {
@@ -12922,11 +13133,13 @@ class Controls {
 
     /**
      * Gets the language currently in use by the common controls for a particular process.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">LANGID</a></b>
+     * @remarks
+     * See <a href="https://docs.microsoft.com/windows/desktop/Intl/international-support">Internationalization for Windows Applications</a> for further discussion of localization.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LANGID</a></b>
      * 
-     * Returns the <a href="/windows/desktop/Intl/language-identifiers">language identifier</a> of the language an application has specified for the common controls by calling <a href="/windows/desktop/api/commctrl/nf-commctrl-initmuilanguage">InitMUILanguage</a>. <b>GetMUILanguage</b> returns the value for the process from which it is called. If 
-     * 						<b>InitMUILanguage</b> has not been called or was not called from the same process, <b>GetMUILanguage</b> returns the language-neutral LANGID, <a href="/windows/desktop/api/winnt/nf-winnt-makelangid">MAKELANGID</a>(LANG_NEUTRAL, SUBLANG_NEUTRAL).
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-getmuilanguage
+     * Returns the <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">language identifier</a> of the language an application has specified for the common controls by calling <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-initmuilanguage">InitMUILanguage</a>. <b>GetMUILanguage</b> returns the value for the process from which it is called. If 
+     * 						<b>InitMUILanguage</b> has not been called or was not called from the same process, <b>GetMUILanguage</b> returns the language-neutral LANGID, <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelangid">MAKELANGID</a>(LANG_NEUTRAL, SUBLANG_NEUTRAL).
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-getmuilanguage
      * @since windows6.0.6000
      */
     static GetMUILanguage() {
@@ -12936,6 +13149,8 @@ class Controls {
 
     /**
      * Creates a dynamic structure array (DSA).
+     * @remarks
+     * Unlike a dynamic pointer array (DPA), a DSA can contain elements of any size. This allows structures to be stored directly in the array.
      * @param {Integer} cbItem Type: <b>int</b>
      * 
      * The size, in bytes, of the item.
@@ -12945,7 +13160,7 @@ class Controls {
      * @returns {HDSA} Type: <b>HDSA</b>
      * 
      * Returns a handle to a DSA if successful, or <b>NULL</b> if the creation fails.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dsa_create
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dsa_create
      * @since windows6.0.6000
      */
     static DSA_Create(cbItem, cItemGrow) {
@@ -12959,10 +13174,10 @@ class Controls {
      * @param {HDSA} hdsa Type: <b>HDSA</b>
      * 
      * A handle to a DSA to destroy.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> on success, <b>FALSE</b> on failure.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dsa_destroy
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dsa_destroy
      * @since windows6.0.6000
      */
     static DSA_Destroy(hdsa) {
@@ -12984,7 +13199,7 @@ class Controls {
      * 
      * A callback data pointer. This pointer is, in turn, passed as a parameter to <i>pfnCB</i>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dsa_destroycallback
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dsa_destroycallback
      * @since windows6.0.6000
      */
     static DSA_DestroyCallback(hdsa, pfnCB, pData) {
@@ -12997,16 +13212,18 @@ class Controls {
 
     /**
      * Deletes an item from a dynamic structure array (DSA).
+     * @remarks
+     * <b>DSA_DeleteItem</b> is not exported by name. To use it, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> and request ordinal 326 from ComCtl32.dll to obtain a function pointer.
      * @param {HDSA} hdsa Type: <b>HDSA</b>
      * 
      * A handle to an existing DSA.
      * @param {Integer} i Type: <b>int</b>
      * 
      * The zero-based index of the item to delete.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if the item was successfully deleted; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dsa_deleteitem
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dsa_deleteitem
      * @since windows6.0.6000
      */
     static DSA_DeleteItem(hdsa, i) {
@@ -13021,10 +13238,10 @@ class Controls {
      * @param {HDSA} hdsa Type: <b>HDSA</b>
      * 
      * A handle to an existing DSA.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if the items were successfully deleted; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dsa_deleteallitems
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dsa_deleteallitems
      * @since windows6.0.6000
      */
     static DSA_DeleteAllItems(hdsa) {
@@ -13046,7 +13263,7 @@ class Controls {
      * 
      * A callback data pointer. <i>pData</i> is passed as a parameter to <i>pfnCB</i>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dsa_enumcallback
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dsa_enumcallback
      * @since windows6.0.6000
      */
     static DSA_EnumCallback(hdsa, pfnCB, pData) {
@@ -13059,6 +13276,8 @@ class Controls {
 
     /**
      * Inserts a new item into a dynamic structure array (DSA). If necessary, the DSA expands to accommodate the new item.
+     * @remarks
+     * The actual data pointed to by <i>pItem</i> is copied into the DSA. Subsequent actions performed on that item do not affect the original copy.
      * @param {HDSA} hdsa Type: <b>HDSA</b>
      * 
      * A handle to the DSA in which to insert the item.
@@ -13070,8 +13289,8 @@ class Controls {
      * A pointer to the item that is to be inserted.
      * @returns {Integer} Type: <b>int</b>
      * 
-     * Returns the index of the new item if the insertion succeeds, or DSA_ERR (<code>-1</code>) if the insertion fails.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dsa_insertitem
+     * Returns the index of the new item if the insertion succeeds, or DSA_ERR (<c>-1</c>) if the insertion fails.
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dsa_insertitem
      * @since windows6.0.6000
      */
     static DSA_InsertItem(hdsa, i, pitem) {
@@ -13085,6 +13304,8 @@ class Controls {
 
     /**
      * Gets a pointer to an element from a dynamic structure array (DSA).
+     * @remarks
+     * Using the element pointer that this function returns, you can modify the data in that element directly. However, be aware that a subsequent insert or destroy operation could cause this pointer value to become invalid or to point to a different element.
      * @param {HDSA} hdsa Type: <b>HDSA</b>
      * 
      * A handle to the DSA containing the element.
@@ -13092,7 +13313,7 @@ class Controls {
      * 
      * The index of the element to be retrieved (zero-based).
      * @returns {Pointer<Void>} Returns a pointer to the specified element or <b>NULL</b> if the call fails.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dsa_getitemptr
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dsa_getitemptr
      * @since windows6.0.6000
      */
     static DSA_GetItemPtr(hdsa, i) {
@@ -13104,6 +13325,10 @@ class Controls {
 
     /**
      * Gets an element from a dynamic structure array (DSA).
+     * @remarks
+     * <b>DSA_GetItem</b> is not exported by name. To use it, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> and request ordinal 322 from ComCtl32.dll to obtain a function pointer.
+     * 
+     * Using the element pointer that this function retrieves, you can modify the data in that element directly. However, be aware that a subsequent insert or destroy operation could cause this pointer value to become invalid or to point to a different element.
      * @param {HDSA} hdsa Type: <b>HDSA</b>
      * 
      * A handle to the DSA containing the element.
@@ -13113,10 +13338,10 @@ class Controls {
      * @param {Pointer<Void>} pitem Type: <b>void*</b>
      * 
      * A pointer to a buffer which is filled with a copy of the specified element of the DSA.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dsa_getitem
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dsa_getitem
      * @since windows6.0.6000
      */
     static DSA_GetItem(hdsa, i, pitem) {
@@ -13130,6 +13355,8 @@ class Controls {
 
     /**
      * Sets the contents of an element in a dynamic structure array (DSA).
+     * @remarks
+     * <b>DSA_SetItem</b> is not exported by name. To use it, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> and request ordinal 325 from ComCtl32.dll to obtain a function pointer.
      * @param {HDSA} hdsa Type: <b>HDSA</b>
      * 
      * A handle to an existing DSA that contains the element.
@@ -13139,10 +13366,10 @@ class Controls {
      * @param {Pointer<Void>} pitem Type: <b>void*</b>
      * 
      * A pointer to the item that will replace the specified item in the array.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dsa_setitem
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dsa_setitem
      * @since windows6.0.6000
      */
     static DSA_SetItem(hdsa, i, pitem) {
@@ -13156,13 +13383,15 @@ class Controls {
 
     /**
      * Duplicates a dynamic structure array (DSA).
+     * @remarks
+     * The clone consists of a copy of the structures stored in the original DSA. Subsequent changes to the original DSA do not affect the clone.
      * @param {HDSA} hdsa Type: <b>HDSA</b>
      * 
      * A handle to an existing DSA.
      * @returns {HDSA} Type: <b>HDSA</b>
      * 
      * Returns a handle to the clone, or <b>NULL</b> if the operation fails.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dsa_clone
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dsa_clone
      * @since windows6.0.6000
      */
     static DSA_Clone(hdsa) {
@@ -13178,10 +13407,10 @@ class Controls {
      * @param {HDSA} hdsa Type: <b>HDSA</b>
      * 
      * A handle to an existing DSA.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">ULONGLONG</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">ULONGLONG</a></b>
      * 
      * Returns the size of the DSA, including the internal bookkeeping information, in bytes. If <i>hdsa</i> is <b>NULL</b>, the function returns zero.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dsa_getsize
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dsa_getsize
      * @since windows6.0.6000
      */
     static DSA_GetSize(hdsa) {
@@ -13202,10 +13431,10 @@ class Controls {
      * @param {LPARAM} lParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * An additional parameter to be passed to <i>pfnCmp</i>.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> on success or <b>FALSE</b> on failure.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dsa_sort
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dsa_sort
      * @since windows6.0.6000
      */
     static DSA_Sort(pdsa, pfnCompare, lParam) {
@@ -13223,7 +13452,7 @@ class Controls {
      * @returns {HDPA} Type: <b>HDPA</b>
      * 
      * Returns a handle to a DPA if successful, or <b>NULL</b> if the call fails.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dpa_create
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_create
      * @since windows6.0.6000
      */
     static DPA_Create(cItemGrow) {
@@ -13234,6 +13463,8 @@ class Controls {
 
     /**
      * Creates a dynamic pointer array (DPA) using a given specified size and heap location.
+     * @remarks
+     * <b>DPA_CreateEx</b> is not exported by name. To use it, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> and request ordinal 340 from ComCtl32.dll to obtain a function pointer.
      * @param {Integer} cpGrow Type: <b>int</b>
      * 
      * The number of elements by which the array should be expanded, if the DPA needs to be enlarged.
@@ -13243,7 +13474,7 @@ class Controls {
      * @returns {HDPA} Type: <b>HDPA</b>
      * 
      * Returns a handle to a DPA if successful, or <b>NULL</b> if the call fails.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dpa_createex
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_createex
      * @since windows6.0.6000
      */
     static DPA_CreateEx(cpGrow, hheap) {
@@ -13256,6 +13487,8 @@ class Controls {
 
     /**
      * Duplicates a dynamic pointer array (DPA).
+     * @remarks
+     * <b>DPA_Clone</b> is not exported by name or declared in a public header file. To use it, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> and request ordinal 331 from ComCtl32.dll to obtain a function pointer.
      * @param {HDPA} hdpa Type: <b>const HDPA</b>
      * 
      * A handle to an existing DPA to copy.
@@ -13269,7 +13502,7 @@ class Controls {
      * @returns {HDPA} Type: <b>HDPA</b>
      * 
      * The handle to the new or altered DPA (<i>hdpaNew</i>) if successful; otherwise, <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dpa_clone
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_clone
      * @since windows6.0.6000
      */
     static DPA_Clone(hdpa, hdpaNew) {
@@ -13286,10 +13519,10 @@ class Controls {
      * @param {HDPA} hdpa Type: <b>HDPA</b>
      * 
      * A handle to a DPA.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> on success, <b>FALSE</b> on failure.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dpa_destroy
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_destroy
      * @since windows6.0.6000
      */
     static DPA_Destroy(hdpa) {
@@ -13311,7 +13544,7 @@ class Controls {
      * 
      * A callback data pointer. <i>pData</i> is passed as a parameter to <i>pfnCB</i>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dpa_destroycallback
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_destroycallback
      * @since windows6.0.6000
      */
     static DPA_DestroyCallback(hdpa, pfnCB, pData) {
@@ -13331,7 +13564,7 @@ class Controls {
      * 
      * An index of item to be removed from DPA.
      * @returns {Pointer<Void>} Returns the removed item or <b>NULL</b>, if the call fails.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dpa_deleteptr
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_deleteptr
      * @since windows6.0.6000
      */
     static DPA_DeletePtr(hdpa, i) {
@@ -13346,10 +13579,10 @@ class Controls {
      * @param {HDPA} hdpa Type: <b>HDPA</b>
      * 
      * Handle to a DPA.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> on success or <b>FALSE</b> on failure.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dpa_deleteallptrs
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_deleteallptrs
      * @since windows6.0.6000
      */
     static DPA_DeleteAllPtrs(hdpa) {
@@ -13371,7 +13604,7 @@ class Controls {
      * 
      * A callback data pointer. <i>pData</i> is passed as a parameter to <i>pfnCB</i>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dpa_enumcallback
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_enumcallback
      * @since windows6.0.6000
      */
     static DPA_EnumCallback(hdpa, pfnCB, pData) {
@@ -13384,16 +13617,18 @@ class Controls {
 
     /**
      * Changes the number of pointers in a dynamic pointer array (DPA).
+     * @remarks
+     * If <i>cp</i> is less than the number of pointers already in the DPA, the DPA is left unchanged. If <i>cp</i> is greater than the number of pointers in the DPA, the added pointers are initialized to <b>NULL</b>.
      * @param {HDPA} pdpa Type: <b>HDPA</b>
      * 
      * A handle to an existing DPA.
      * @param {Integer} cp Type: <b>int</b>
      * 
      * The number of pointers desired in the DPA.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dpa_grow
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_grow
      * @since windows6.0.6000
      */
     static DPA_Grow(pdpa, cp) {
@@ -13404,7 +13639,7 @@ class Controls {
     }
 
     /**
-     * Inserts a new item at a specified position in a dynamic pointer array (DPA). If neccessary, the DPA expands to accommodate the new item.
+     * Inserts a new item at a specified position in a dynamic pointer array (DPA). If necessary, the DPA expands to accommodate the new item.
      * @param {HDPA} hdpa Type: <b>HDPA</b>
      * 
      * A handle to a DPA.
@@ -13416,8 +13651,8 @@ class Controls {
      * A pointer to the item that is to be inserted.
      * @returns {Integer} Type: <b>int</b>
      * 
-     * Returns the index of the new item or <code>-1</code>, if the insertion fails.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dpa_insertptr
+     * Returns the index of the new item or <c>-1</c>, if the insertion fails.
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_insertptr
      * @since windows6.0.6000
      */
     static DPA_InsertPtr(hdpa, i, p) {
@@ -13443,10 +13678,10 @@ class Controls {
      * @param {Pointer<Void>} p Type: <b>void*</b>
      * 
      * A pointer to the value to assign to the specified DPA item.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dpa_setptr
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_setptr
      * @since windows6.0.6000
      */
     static DPA_SetPtr(hdpa, i, p) {
@@ -13467,7 +13702,7 @@ class Controls {
      * 
      * The index of item to be retrieved.
      * @returns {Pointer<Void>} Returns the specified item or <b>NULL</b>, if the call fails.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dpa_getptr
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_getptr
      * @since windows6.0.6000
      */
     static DPA_GetPtr(hdpa, i) {
@@ -13479,6 +13714,8 @@ class Controls {
 
     /**
      * Gets the index of a matching item found in a dynamic pointer array (DPA).
+     * @remarks
+     * <b>DPA_GetPtrIndex</b> is not exported by name. To use it, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> and request ordinal 333 from ComCtl32.dll to obtain a function pointer.
      * @param {HDPA} hdpa Type: <b>HDPA</b>
      * 
      * A handle to an existing DPA.
@@ -13488,7 +13725,7 @@ class Controls {
      * @returns {Integer} Type: <b>int</b>
      * 
      * The index of the item pointed to by <i>pvoid</i>, if found; otherwise, -1.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dpa_getptrindex
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_getptrindex
      * @since windows6.0.6000
      */
     static DPA_GetPtrIndex(hdpa, p) {
@@ -13505,10 +13742,10 @@ class Controls {
      * @param {HDPA} hdpa Type: <b>HDPA</b>
      * 
      * A handle to an existing DPA.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">ULONGLONG</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">ULONGLONG</a></b>
      * 
      * Returns the size of the DPA, including the internal bookkeeping information. If <i>pdpa</i> is <b>NULL</b>, the function returns zero.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dpa_getsize
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_getsize
      * @since windows6.0.6000
      */
     static DPA_GetSize(hdpa) {
@@ -13529,10 +13766,10 @@ class Controls {
      * @param {LPARAM} lParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * An additional parameter to be passed to <i>pfnCmp</i>.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> on success or <b>FALSE</b> on failure.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dpa_sort
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_sort
      * @since windows6.0.6000
      */
     static DPA_Sort(hdpa, pfnCompare, lParam) {
@@ -13544,6 +13781,10 @@ class Controls {
 
     /**
      * Loads the dynamic pointer array (DPA) from a stream by calling the specified callback function to read each element.
+     * @remarks
+     * This function must be called directly from ComCtl32.dll. It is ordinal 9.
+     * 
+     * The callback is responsible for writing the <i>pvInstData</i> data to the stream.
      * @param {Pointer<HDPA>} phdpa Type: <b>HDPA*</b>
      * 
      * A handle to a DPA.
@@ -13556,7 +13797,7 @@ class Controls {
      * @param {Pointer<Void>} pvInstData Type: <b>void*</b>
      * 
      * A pointer to callback data. <i>pvInstData</i> is passed as a parameter to <i>pfn</i>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns one of the following values.
      * 
@@ -13621,7 +13862,7 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dpa_loadstream
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_loadstream
      * @since windows6.0.6000
      */
     static DPA_LoadStream(phdpa, pfn, pstream, pvInstData) {
@@ -13637,6 +13878,10 @@ class Controls {
 
     /**
      * Saves the dynamic pointer array (DPA) to a stream by writing out a header, and then calling the specified callback function to write each element.
+     * @remarks
+     * This function must be called directly from ComCtl32.dll. It is ordinal 10.
+     * 
+     * The callback is responsible for writing the <i>pvInstData</i> data to the stream.
      * @param {HDPA} hdpa Type: <b>HDPA</b>
      * 
      * Receives a handle to a DPA.
@@ -13649,7 +13894,7 @@ class Controls {
      * @param {Pointer<Void>} pvInstData Type: <b>void*</b>
      * 
      * A pointer to callback data. <i>pvInstData</i> is passed as a parameter to <i>pfn</i>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns one of the following values.
      * 
@@ -13692,7 +13937,7 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dpa_savestream
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_savestream
      * @since windows6.0.6000
      */
     static DPA_SaveStream(hdpa, pfn, pstream, pvInstData) {
@@ -13710,6 +13955,8 @@ class Controls {
 
     /**
      * Combines the contents of two dynamic pointer arrays (DPAs).
+     * @remarks
+     * <b>DPA_Merge</b> is not exported by name. To use it, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> and request ordinal 11 from ComCtl32.dll to obtain a function pointer.
      * @param {HDPA} hdpaDest Type: <b>HDPA</b>
      * 
      * A handle to the first DPA. This array can be optionally presorted. When this function returns, contains the handle to the merged array.
@@ -13791,10 +14038,10 @@ class Controls {
      * @param {LPARAM} lParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * Additional parameter used to declare the basis of comparison upon which equality is determined.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dpa_merge
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_merge
      * @since windows6.0.6000
      */
     static DPA_Merge(hdpaDest, hdpaSrc, dwFlags, pfnCompare, pfnMerge, lParam) {
@@ -13864,8 +14111,8 @@ class Controls {
      * </table>
      * @returns {Integer} Type: <b>int</b>
      * 
-     * Returns the index where the item was found in the DPA or <code>-1</code> if the item was not found.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dpa_search
+     * Returns the index where the item was found in the DPA or <c>-1</c> if the item was not found.
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_search
      * @since windows6.0.6000
      */
     static DPA_Search(hdpa, pFind, iStart, pfnCompare, lParam, options) {
@@ -13879,16 +14126,18 @@ class Controls {
 
     /**
      * Sets ppszCurrent to a copy of pszNew and frees the previous value, if necessary.
+     * @remarks
+     * The ANSI version of <b>Str_SetPtrW</b>, <b>Str_SetPtrA</b>, is not exported by name or declared in a public header file. To use it, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> and request ordinal 234 from ComCtl32.dll to obtain a function pointer.
      * @param {Pointer<PWSTR>} ppsz Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a>*</b>
      * 
      * The address of a pointer to the current string. The current string is freed and the pointer is set to a copy of <i>pszNew</i>.
      * @param {PWSTR} psz Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * A pointer to the string to copy into <i>ppszCurrent</i>.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-str_setptrw
+     * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-str_setptrw
      * @since windows6.0.6000
      */
     static Str_SetPtrW(ppsz, psz) {
@@ -13902,13 +14151,16 @@ class Controls {
 
     /**
      * Enables or disables one or both flat scroll bar direction buttons. If flat scroll bars are not initialized for the window, this function calls the standard EnableScrollBar function.
+     * @remarks
+     * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
+     * <div> </div>
      * @param {HWND} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if the scroll bar changes, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-flatsb_enablescrollbar
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_enablescrollbar
      * @since windows6.0.6000
      */
     static FlatSB_EnableScrollBar(param0, param1, param2) {
@@ -13920,13 +14172,16 @@ class Controls {
 
     /**
      * Shows or hides a flat scroll bar. If flat scroll bars are not initialized for the window, this function calls the standard ShowScrollBar function.
+     * @remarks
+     * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
+     * <div> </div>
      * @param {HWND} param0 
      * @param {Integer} code Type: <b>int</b>
      * @param {BOOL} param2 
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-flatsb_showscrollbar
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_showscrollbar
      * @since windows6.0.6000
      */
     static FlatSB_ShowScrollBar(param0, code, param2) {
@@ -13938,14 +14193,17 @@ class Controls {
 
     /**
      * Gets the scroll range for a flat scroll bar. If flat scroll bars are not initialized for the window, this function calls the standard GetScrollRange function.
+     * @remarks
+     * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
+     * <div> </div>
      * @param {HWND} param0 
      * @param {Integer} code Type: <b>int</b>
      * @param {Pointer<Integer>} param2 
      * @param {Pointer<Integer>} param3 
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-flatsb_getscrollrange
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_getscrollrange
      * @since windows6.0.6000
      */
     static FlatSB_GetScrollRange(param0, code, param2, param3) {
@@ -13960,13 +14218,16 @@ class Controls {
 
     /**
      * Gets the information for a flat scroll bar. If flat scroll bars are not initialized for the window, this function calls the standard GetScrollInfo function.
+     * @remarks
+     * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
+     * <div> </div>
      * @param {HWND} param0 
      * @param {Integer} code Type: <b>int</b>
      * @param {Pointer<SCROLLINFO>} param2 
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-flatsb_getscrollinfo
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_getscrollinfo
      * @since windows6.0.6000
      */
     static FlatSB_GetScrollInfo(param0, code, param2) {
@@ -13978,12 +14239,15 @@ class Controls {
 
     /**
      * Gets the thumb position in a flat scroll bar. If flat scroll bars are not initialized for the window, this function calls the standard GetScrollPos function.
+     * @remarks
+     * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
+     * <div> </div>
      * @param {HWND} param0 
      * @param {Integer} code Type: <b>int</b>
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the current thumb position of the specified flat scroll bar.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-flatsb_getscrollpos
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_getscrollpos
      * @since windows6.0.6000
      */
     static FlatSB_GetScrollPos(param0, code) {
@@ -13995,16 +14259,19 @@ class Controls {
 
     /**
      * Gets the properties for a flat scroll bar. This function can also be used to determine if InitializeFlatSB has been called for this window.
+     * @remarks
+     * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
+     * <div> </div>
      * @param {HWND} param0 
      * @param {Integer} propIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The parameter that determines what
      * @param {Pointer<Integer>} param2 
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise. If 
-     * 						<i>index</i> is WSB_PROP_HSTYLE, the return is nonzero if <a href="/windows/desktop/api/commctrl/nf-commctrl-initializeflatsb">InitializeFlatSB</a> has been called for this window, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-flatsb_getscrollprop
+     * 						<i>index</i> is WSB_PROP_HSTYLE, the return is nonzero if <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-initializeflatsb">InitializeFlatSB</a> has been called for this window, or zero otherwise.
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_getscrollprop
      * @since windows6.0.6000
      */
     static FlatSB_GetScrollProp(param0, propIndex, param2) {
@@ -14018,6 +14285,9 @@ class Controls {
 
     /**
      * Sets the current position of the thumb in a flat scroll bar. If flat scroll bars are not initialized for the window, this function calls the standard SetScrollPos function.
+     * @remarks
+     * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
+     * <div> </div>
      * @param {HWND} param0 
      * @param {Integer} code Type: <b>int</b>
      * @param {Integer} pos Type: <b>int</b>
@@ -14029,7 +14299,7 @@ class Controls {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the previous position of the thumb in the specified flat scroll bar.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-flatsb_setscrollpos
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_setscrollpos
      * @since windows6.0.6000
      */
     static FlatSB_SetScrollPos(param0, code, pos, fRedraw) {
@@ -14041,6 +14311,9 @@ class Controls {
 
     /**
      * Sets the information for a flat scroll bar. If flat scroll bars are not initialized for the window, this function calls the standard SetScrollInfo function.
+     * @remarks
+     * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
+     * <div> </div>
      * @param {HWND} param0 
      * @param {Integer} code Type: <b>int</b>
      * @param {Pointer<SCROLLINFO>} psi Type: <b>LPSCROLLINFO</b>
@@ -14052,7 +14325,7 @@ class Controls {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the current scroll position. If the call to <b>FlatSB_SetScrollInfo</b> changes the scroll position, then the previous position is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-flatsb_setscrollinfo
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_setscrollinfo
      * @since windows6.0.6000
      */
     static FlatSB_SetScrollInfo(param0, code, psi, fRedraw) {
@@ -14064,6 +14337,9 @@ class Controls {
 
     /**
      * Sets the scroll range of a flat scroll bar. If flat scroll bars are not initialized for the window, this function calls the standard SetScrollRange function.
+     * @remarks
+     * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
+     * <div> </div>
      * @param {HWND} param0 
      * @param {Integer} code Type: <b>int</b>
      * @param {Integer} min Type: <b>int</b>
@@ -14078,7 +14354,7 @@ class Controls {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-flatsb_setscrollrange
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_setscrollrange
      * @since windows6.0.6000
      */
     static FlatSB_SetScrollRange(param0, code, min, max, fRedraw) {
@@ -14090,6 +14366,9 @@ class Controls {
 
     /**
      * Sets the properties for a flat scroll bar.
+     * @remarks
+     * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
+     * <div> </div>
      * @param {HWND} param0 
      * @param {Integer} index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
@@ -14099,10 +14378,10 @@ class Controls {
      * A new value to set. This parameter depends on the flag passed in 
      * 					<i>index</i>.
      * @param {BOOL} param3 
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-flatsb_setscrollprop
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_setscrollprop
      * @since windows6.0.6000
      */
     static FlatSB_SetScrollProp(param0, index, newValue, param3) {
@@ -14114,11 +14393,16 @@ class Controls {
 
     /**
      * Initializes flat scroll bars for a particular window.
+     * @remarks
+     * This function must be called before any other flat scroll bar functions are called. The window will receive flat scroll bars by default. The scroll bar style can be changed with the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-flatsb_setscrollprop">FlatSB_SetScrollProp</a> function. 
+     * 
+     * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
+     * <div> </div>
      * @param {HWND} param0 
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-initializeflatsb
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-initializeflatsb
      * @since windows6.0.6000
      */
     static InitializeFlatSB(param0) {
@@ -14130,8 +14414,11 @@ class Controls {
 
     /**
      * Uninitializes flat scroll bars for a particular window. The specified window will revert to standard scroll bars.
+     * @remarks
+     * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
+     * <div> </div>
      * @param {HWND} param0 
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns one of the following values. 
      * 
@@ -14174,7 +14461,7 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-uninitializeflatsb
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-uninitializeflatsb
      * @since windows6.0.6000
      */
     static UninitializeFlatSB(param0) {
@@ -14190,6 +14477,31 @@ class Controls {
 
     /**
      * Loads a specified icon resource with a client-specified system metric.
+     * @remarks
+     * <b>LoadIconMetric</b> is similar to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadicona">LoadIcon</a>, but with the capability to specify the icon metric. It is used in place of <b>LoadIcon</b> when the calling application wants to ensure a high quality icon. This is particularly useful in high dots per inch (dpi) situations.
+     * 
+     * Icons are extracted or created as follows.
+     * 
+     *                 
+     * 
+     * <ol>
+     * <li>If an exact size match is found in the resource, that icon is used.</li>
+     * <li>If an exact size match cannot be found and a larger icon is available, a new icon is created by scaling the larger version down to the desired size.</li>
+     * <li>If an exact size match cannot be found and no larger icon is available, a new icon is created by scaling a smaller icon up to the desired size.</li>
+     * </ol>
+     * Comparative calls are shown here for <b>LoadIconMetric</b> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadicona">LoadIcon</a>.
+     * 
+     * 
+     * ``` syntax
+     * NOTIFYICONDATA  nidIconData  = {0};
+     * nidIconData.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON));
+     * 
+     * // Or...
+     * 
+     * HRESULT hr = LoadIconMetric(hInstance, MAKEINTRESOURCE(IDI_ICON), LIM_SMALL, &amp;nidIconData.hIcon);
+     * ```
+     * 
+     * The application is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroyicon">DestroyIcon</a> on the retrieved icon.
      * @param {HINSTANCE} hinst Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
      * 
      * A handle to the module of either a DLL or executable (.exe) file that contains the icon to be loaded. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a>.
@@ -14231,7 +14543,7 @@ class Controls {
      * @param {Pointer<HICON>} phico Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HICON</a>*</b>
      * 
      * When this function returns, contains a pointer to the handle of the loaded icon.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful, otherwise an error, including the following value.
      * 
@@ -14252,7 +14564,7 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-loadiconmetric
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-loadiconmetric
      * @since windows6.0.6000
      */
     static LoadIconMetric(hinst, pszName, lims, phico) {
@@ -14269,6 +14581,10 @@ class Controls {
 
     /**
      * Loads an icon. If the icon is not a standard size, this function scales down a larger image instead of scaling up a smaller image.
+     * @remarks
+     * This function will first search the icon file for an icon having exactly the same size. If a match is not found, then unless both <i>cx</i> and <i>cy</i> match one of the standard icon sizes—16, 32, 48, or 256 pixels— the next largest icon is selected and then scaled down to the desired size. For example, if an icon with an x dimension of 40 pixels is requested by the callign application, the 48-pixel icon is used and scaled down to 40 pixels. In contrast, the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-imagelist_loadimagea">LoadImage</a> function selects the 32-pixel icon and scales it up to 40 pixels.
+     * 
+     * If the function is unable to locate a larger icon, it defaults to the standard behavior of finding the next smallest icon and scaling it up to the desired size.
      * @param {HINSTANCE} hinst Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
      * 
      * A handle to the module of either a DLL or executable (.exe) file that contains the icon to be loaded. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandleexa">GetModuleHandle</a>.
@@ -14403,7 +14719,7 @@ class Controls {
      * @param {Pointer<HICON>} phico Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HICON</a>*</b>
      * 
      * When this function returns, contains a pointer to the handle of the loaded icon.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful, or an error value otherwise, including the following:
      * 
@@ -14424,7 +14740,7 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-loadiconwithscaledown
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-loadiconwithscaledown
      * @since windows6.0.6000
      */
     static LoadIconWithScaleDown(hinst, pszName, cx, cy, phico) {
@@ -14441,6 +14757,8 @@ class Controls {
 
     /**
      * Draws text that has a shadow.
+     * @remarks
+     * To use <b>DrawShadowText</b>, specify Comctl32.dll version 6 in the manifest. For more information on manifests, see <a href="https://docs.microsoft.com/windows/desktop/Controls/cookbook-overview">Enabling Visual Styles</a>.
      * @param {HDC} hdc Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * HDC.
@@ -14471,7 +14789,7 @@ class Controls {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the height of the text in logical units if the function succeeds, otherwise returns zero.
-     * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-drawshadowtext
+     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-drawshadowtext
      * @since windows6.0.6000
      */
     static DrawShadowText(hdc, pszText, cch, prc, dwFlags, crText, crShadow, ixOffset, iyOffset) {
@@ -14484,6 +14802,10 @@ class Controls {
 
     /**
      * Creates a single instance of an imagelist and returns an interface pointer to it.
+     * @remarks
+     * Before calling this function, COM must be initialized by calling <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-coinitialize">CoInitialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializeex">CoInitializeEx</a>.
+     * 
+     * Call <b>ImageList_CoCreateInstance</b> for a customized image list; otherwise, call <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shgetimagelist">SHGetImageList</a> to load the system image list. Call <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shgetfileinfoa">SHGetFileInfo</a> with the <i>uflag</i> parameter set to <b>SHGFI_SYSICONINDEX</b> to retrieve a handle to the system image list.
      * @param {Pointer<Guid>} rclsid Type: <b>REFCLSID</b>
      * 
      * A reference to the CLSID—a GUID that identifies the COM object to be created. This should be <b>CLSID_ImageList</b>.
@@ -14496,7 +14818,7 @@ class Controls {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is normally <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/nn-commoncontrols-iimagelist2">IImageList2</a>, which provides the <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/nf-commoncontrols-iimagelist2-initialize">Initialize</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//commoncontrols/nf-commoncontrols-imagelist_cocreateinstance
+     * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-imagelist_cocreateinstance
      * @since windows6.0.6000
      */
     static ImageList_CoCreateInstance(rclsid, punkOuter, riid) {
@@ -14510,13 +14832,15 @@ class Controls {
 
     /**
      * Notifies the system to send feedback about a target window affected by panning gestures.
+     * @remarks
+     * This function must be called before either the <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-updatepanningfeedback">UpdatePanningFeedback</a> or <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-endpanningfeedback">EndPanningFeedback</a> functions can be called.
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The handle to the target window that will receive feedback.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * TRUE, if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-beginpanningfeedback
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-beginpanningfeedback
      * @since windows6.1
      */
     static BeginPanningFeedback(hwnd) {
@@ -14528,6 +14852,8 @@ class Controls {
 
     /**
      * Updates clients about state of a window resulting from a panning gesture. This function can only be called after a BeginPanningFeedback call.
+     * @remarks
+     * Incremental calls to this function should always pass the sum of the increments and not just the latest increment itself.
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The handle to the target window that will receive feedback. For the method to succeed, this must be the same HWND as provided in <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginpanningfeedback">BeginPanningFeedback</a>.
@@ -14540,10 +14866,10 @@ class Controls {
      * @param {BOOL} fInInertia Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Flag indicating whether the application is handling a WM_GESTURE message with the GF_INERTIA FLAG set.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-updatepanningfeedback
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-updatepanningfeedback
      * @since windows6.1
      */
     static UpdatePanningFeedback(hwnd, lTotalOverpanOffsetX, lTotalOverpanOffsetY, fInInertia) {
@@ -14555,16 +14881,18 @@ class Controls {
 
     /**
      * Terminates any existing animation that was in process or set up by BeginPanningFeedback and UpdatePanningFeedback.
+     * @remarks
+     * This function can only be called after a <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginpanningfeedback">BeginPanningFeedback</a> call.
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The handle to the target window that will receive feedback.
      * @param {BOOL} fAnimateBack Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Flag that indicates whether the displaced window should return to the original position using animation. If <b>FALSE</b>, the method restore the moved window using a direct jump.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-endpanningfeedback
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-endpanningfeedback
      * @since windows6.1
      */
     static EndPanningFeedback(hwnd, fAnimateBack) {
@@ -14584,7 +14912,7 @@ class Controls {
      * @param {Integer} cbSize The byte size of a buffer that is pointed by <i>pvProperty</i>.
      * @returns {Integer} The                                    byte  size of the returned 
      * property.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemeanimationproperty
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemeanimationproperty
      * @since windows8.0
      */
     static GetThemeAnimationProperty(hTheme, iStoryboardId, iTargetId, eProperty, pvProperty, cbSize) {
@@ -14607,7 +14935,7 @@ class Controls {
      * @param {Pointer} pTransform A pointer to a buffer to receive a transform structure.
      * @param {Integer} cbSize The byte size of the buffer pointed by <i>pTransform</i>.
      * @returns {Integer} The                                    byte  size of a transform operation structure.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemeanimationtransform
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemeanimationtransform
      * @since windows8.0
      */
     static GetThemeAnimationTransform(hTheme, iStoryboardId, iTargetId, dwTransformIndex, pTransform, cbSize) {
@@ -14629,7 +14957,7 @@ class Controls {
      * @param {Integer} cbSize The byte size of the buffer pointed by <i>pTimingFunction</i>.
      * @returns {Integer} The byte size of
      * the timing function structure.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemetimingfunction
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemetimingfunction
      * @since windows8.0
      */
     static GetThemeTimingFunction(hTheme, iTimingFunctionId, pTimingFunction, cbSize) {
@@ -14645,6 +14973,11 @@ class Controls {
 
     /**
      * Opens the theme data for a window and its associated class.
+     * @remarks
+     * The <i>pszClassList</i> parameter contains a list, not just a single name, to provide the class an opportunity to get the best match between the class and the current visual style. For example, a button might pass L"OkButton;Button" 
+     * if its ID is ID_OK. If the current visual style has an entry for OkButton, that is used; otherwise no visual style is applied.
+     * 
+     * Class names for the Aero theme are defined in AeroStyle.xml.
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle of the window for which theme data is required.
@@ -14654,7 +14987,7 @@ class Controls {
      * @returns {HTHEME} Type: <b>HTHEME</b>
      * 
      * <b>OpenThemeData</b> tries to match each class, one at a time, to a class data section in the active theme. If a match is found, an associated HTHEME handle is returned. If no match is found <b>NULL</b> is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-openthemedata
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-openthemedata
      * @since windows6.0.6000
      */
     static OpenThemeData(hwnd, pszClassList) {
@@ -14668,6 +15001,10 @@ class Controls {
 
     /**
      * Opens the theme data associated with a window for specified theme classes.
+     * @remarks
+     * The string specified by <i>pszClassIdList</i> will be tokenized using semicolons as a delimiter. The names are matched against class names one token at a time. If no match is found for a particular token, the next token will be matched. If a match is found, the return value of the function will be the theme handle associated with the matched class.
+     * 
+     * Class names for the Aero theme are defined in AeroStyle.xml.
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to a window or control that the theme is to be retrieved from.
@@ -14678,7 +15015,7 @@ class Controls {
      * @returns {HTHEME} Type: <b>HTHEME</b>
      * 
      * If a match is found, a valid handle to a theme is returned. Otherwise, a <b>NULL</b> value will be returned.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-openthemedataex
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-openthemedataex
      * @since windows6.0.6000
      */
     static OpenThemeDataEx(hwnd, pszClassList, dwFlags) {
@@ -14692,13 +15029,15 @@ class Controls {
 
     /**
      * Closes the theme data handle.
+     * @remarks
+     * The <b>CloseThemeData</b> function should be called when a window that has a visual style applied is destroyed. This function should also be called whenever a window receives a <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-themechanged">WM_THEMECHANGED</a> message. This call should be followed by an attempt to create a new theme data handle if a call to the <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-isthemeactive">IsThemeActive</a> function returns <b>TRUE</b>.
      * @param {HTHEME} hTheme Type: <b>HTHEME</b>
      * 
      * Handle to a window's specified theme data. Use <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-openthemedata">OpenThemeData</a> to create an <b>HTHEME</b>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-closethemedata
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-closethemedata
      * @since windows6.0.6000
      */
     static CloseThemeData(hTheme) {
@@ -14714,6 +15053,8 @@ class Controls {
 
     /**
      * Draws the border and fill defined by the visual style for the specified control part.
+     * @remarks
+     * Drawing operations are scaled to fit and not exceed the rectangle specified in <i>pRect</i>. Your application should not draw outside the rectangle specified by <i>pClipRect</i>.
      * @param {HTHEME} hTheme Type: <b>HTHEME</b>
      * 
      * Handle to a window's specified theme data. Use <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-openthemedata">OpenThemeData</a> to create an HTHEME.
@@ -14732,10 +15073,10 @@ class Controls {
      * @param {Pointer<RECT>} pClipRect Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains a clipping rectangle. This parameter may be set to <b>NULL</b>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-drawthemebackground
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-drawthemebackground
      * @since windows6.0.6000
      */
     static DrawThemeBackground(hTheme, hdc, iPartId, iStateId, pRect, pClipRect) {
@@ -14752,6 +15093,8 @@ class Controls {
 
     /**
      * Draws the background image defined by the visual style for the specified control part.
+     * @remarks
+     * Drawing operations are scaled to fit and to not exceed the rectangle specified in <i>pRect</i>.
      * @param {HTHEME} hTheme Type: <b>HTHEME</b>
      * 
      * Handle to a window's specified theme data. Use <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-openthemedata">OpenThemeData</a> to create an HTHEME.
@@ -14770,10 +15113,10 @@ class Controls {
      * @param {Pointer<DTBGOPTS>} pOptions Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ns-uxtheme-dtbgopts">DTBGOPTS</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ns-uxtheme-dtbgopts">DTBGOPTS</a> structure that contains clipping information. This parameter may be set to <b>NULL</b>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-drawthemebackgroundex
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-drawthemebackgroundex
      * @since windows6.0.6000
      */
     static DrawThemeBackgroundEx(hTheme, hdc, iPartId, iStateId, pRect, pOptions) {
@@ -14790,6 +15133,8 @@ class Controls {
 
     /**
      * Draws text using the color and font defined by the visual style.
+     * @remarks
+     * The function always uses the themed font for the specified part and state if one is defined. Otherwise it uses the font currently selected into the device context. To find out if a themed font is defined, you can call <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-getthemefont">GetThemeFont</a> or <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-getthemepropertyorigin">GetThemePropertyOrigin</a> with TMT_FONT as the property identifier.
      * @param {HTHEME} hTheme Type: <b>HTHEME</b>
      * 
      * Handle to a window's theme data. Use <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-openthemedata">OpenThemeData</a> to create an HTHEME.
@@ -14820,10 +15165,10 @@ class Controls {
      * @param {Pointer<RECT>} pRect Type: <b>LPCRECT</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the rectangle, in logical coordinates, in which the text is to be drawn.  It is recommended to use <b>pExtentRect</b> from <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-getthemetextextent">GetThemeTextExtent</a> to retrieve the correct coordinates.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-drawthemetext
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-drawthemetext
      * @since windows6.0.6000
      */
     static DrawThemeText(hTheme, hdc, iPartId, iStateId, pszText, cchText, dwTextFlags, dwTextFlags2, pRect) {
@@ -14841,6 +15186,8 @@ class Controls {
 
     /**
      * Retrieves the size of the content area for the background defined by the visual style.
+     * @remarks
+     * A visual style can define a content area within each background image. This is the area where content such as text and icons can be placed without overwriting background borders.
      * @param {HTHEME} hTheme Type: <b>HTHEME</b>
      * 
      * Handle to a window's specified theme data. Use <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-openthemedata">OpenThemeData</a> to create an HTHEME.
@@ -14859,10 +15206,10 @@ class Controls {
      * @param {Pointer<RECT>} pContentRect Type: <b>LPRECT</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the content area background rectangle, in logical coordinates.  This rectangle is calculated to fit the content area.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemebackgroundcontentrect
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemebackgroundcontentrect
      * @since windows6.0.6000
      */
     static GetThemeBackgroundContentRect(hTheme, hdc, iPartId, iStateId, pBoundingRect, pContentRect) {
@@ -14879,6 +15226,8 @@ class Controls {
 
     /**
      * Calculates the size and location of the background, defined by the visual style, given the content area.
+     * @remarks
+     * A theme can define a content area within each background image. This is the area where content such as text and icons can be placed without overwriting background borders.
      * @param {HTHEME} hTheme Type: <b>HTHEME</b>
      * 
      * Handle to a window's specified theme data. Use <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-openthemedata">OpenThemeData</a> to create an HTHEME.
@@ -14897,10 +15246,10 @@ class Controls {
      * @param {Pointer<RECT>} pExtentRect Type: <b>LPRECT</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the background rectangle, in logical coordinates. This rectangle is based on the <i>pContentRect</i>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemebackgroundextent
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemebackgroundextent
      * @since windows6.0.6000
      */
     static GetThemeBackgroundExtent(hTheme, hdc, iPartId, iStateId, pContentRect, pExtentRect) {
@@ -14917,6 +15266,8 @@ class Controls {
 
     /**
      * Computes the region for a regular or partially transparent background that is bounded by a specified rectangle.
+     * @remarks
+     * The region handle that is returned by this function should be released when it is no longer needed, using <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a>.
      * @param {HTHEME} hTheme Type: <b>HTHEME</b>
      * 
      * Handle to a window's specified theme data. Use <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-openthemedata">OpenThemeData</a> to create an HTHEME.
@@ -14935,10 +15286,10 @@ class Controls {
      * @param {Pointer<HRGN>} pRegion Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRGN</a>*</b>
      * 
      * Pointer to the handle to the computed <a href="https://docs.microsoft.com/windows/desktop/gdi/regions">region</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemebackgroundregion
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemebackgroundregion
      * @since windows6.0.6000
      */
     static GetThemeBackgroundRegion(hTheme, hdc, iPartId, iStateId, pRect, pRegion) {
@@ -14971,13 +15322,13 @@ class Controls {
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the rectangle used for the part drawing destination. This parameter may be set to <b>NULL</b>.
      * @param {Integer} eSize 
-     * @param {Pointer<SIZE>} psz Type: <b><a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a>*</b>
+     * @param {Pointer<SIZE>} psz Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a>*</b>
      * 
-     * Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that receives the dimensions of the specified part.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the dimensions of the specified part.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemepartsize
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemepartsize
      * @since windows6.0.6000
      */
     static GetThemePartSize(hTheme, hdc, iPartId, iStateId, prc, eSize, psz) {
@@ -15011,7 +15362,7 @@ class Controls {
      * Pointer to a string that contains the text to draw.
      * @param {Integer} cchCharCount Type: <b>int</b>
      * 
-     * Value of type<b>int</b> that contains the number of characters to draw. If the parameter is set to -1, all the characters in the string are drawn.
+     * Value of type <b>int</b> that contains the number of characters to draw. If the parameter is set to -1, all the characters in the string are drawn.
      * @param {Integer} dwTextFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * <b>DWORD</b> that contains one or more values that specify the string's formatting. See <a href="https://docs.microsoft.com/windows/desktop/Controls/theme-format-values">Format Values</a> for possible parameter values.
@@ -15021,10 +15372,10 @@ class Controls {
      * @param {Pointer<RECT>} pExtentRect Type: <b>LPRECT</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains, in logical coordinates, the rectangle required to fit the rendered text.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemetextextent
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemetextextent
      * @since windows6.0.6000
      */
     static GetThemeTextExtent(hTheme, hdc, iPartId, iStateId, pszText, cchCharCount, dwTextFlags, pBoundingRect, pExtentRect) {
@@ -15057,10 +15408,10 @@ class Controls {
      * @param {Pointer<TEXTMETRICW>} ptm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-textmetrica">TEXTMETRIC</a>*</b>
      * 
      * Receives the font information.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemetextmetrics
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemetextmetrics
      * @since windows6.0.6000
      */
     static GetThemeTextMetrics(hTheme, hdc, iPartId, iStateId, ptm) {
@@ -15077,6 +15428,8 @@ class Controls {
 
     /**
      * Retrieves a hit test code for a point in the background specified by a visual style.
+     * @remarks
+     * The values in <i>ptTest</i> and <i>pRect</i> should be in the same coordinate system, such as client or screen. If the <i>hrgn</i> parameter is used, it must be specified in the same coordinates as <i>pRect</i> and <i>ptTest</i>.
      * @param {HTHEME} hTheme Type: <b>HTHEME</b>
      * 
      * Handle to a window's specified theme data. Use <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-openthemedata">OpenThemeData</a> to create an HTHEME.
@@ -15098,14 +15451,14 @@ class Controls {
      * @param {HRGN} hrgn Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRGN</a></b>
      * 
      * Handle to a region that can be used to specify the bounds of a hit test area. This parameter may be set to <b>NULL</b>.
-     * @param {POINT} ptTest Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * @param {POINT} ptTest Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * 
-     * <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that contains the coordinates of the point.
+     * <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that contains the coordinates of the point.
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WORD</a>*</b>
      * 
      * <b>WORD</b> that receives the hit test code that indicates whether the point in <i>ptTest</i> is in the background area bounded by <i>pRect</i> or <i>hrgn</i>. See <a href="https://docs.microsoft.com/windows/desktop/Controls/theme-hit-test-retval">Hit Test Return Values</a> for a list of values returned.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-hittestthemebackground
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-hittestthemebackground
      * @since windows6.0.6000
      */
     static HitTestThemeBackground(hTheme, hdc, iPartId, iStateId, dwOptions, pRect, hrgn, ptTest) {
@@ -15240,10 +15593,10 @@ class Controls {
      * @param {Pointer<RECT>} pContentRect Type: <b>LPRECT</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains, in logical coordinates, the rectangle that receives the interior rectangle, if <i>uFlags</i> is set to BF_ADJUST. This parameter may be set to <b>NULL</b>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-drawthemeedge
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-drawthemeedge
      * @since windows6.0.6000
      */
     static DrawThemeEdge(hTheme, hdc, iPartId, iStateId, pDestRect, uEdge, uFlags, pContentRect) {
@@ -15281,10 +15634,10 @@ class Controls {
      * @param {Integer} iImageIndex Type: <b>int</b>
      * 
      * Value of type <b>int</b> that specifies the index of the image to draw.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-drawthemeicon
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-drawthemeicon
      * @since windows6.0.6000
      */
     static DrawThemeIcon(hTheme, hdc, iPartId, iStateId, pRect, himl, iImageIndex) {
@@ -15311,7 +15664,7 @@ class Controls {
      * @param {Integer} iStateId Type: <b>int</b>
      * 
      * Currently unused. The value should be 0.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns one of the following values.
      * 
@@ -15343,7 +15696,7 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-isthemepartdefined
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-isthemepartdefined
      * @since windows6.0.6000
      */
     static IsThemePartDefined(hTheme, iPartId, iStateId) {
@@ -15364,7 +15717,7 @@ class Controls {
      * @param {Integer} iStateId Type: <b>int</b>
      * 
      * Value of type <b>int</b> that specifies the state of the part. See <a href="https://docs.microsoft.com/windows/desktop/Controls/parts-and-states">Parts and States</a>.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns one of the following values.
      * 
@@ -15396,7 +15749,7 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-isthemebackgroundpartiallytransparent
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-isthemebackgroundpartiallytransparent
      * @since windows6.0.6000
      */
     static IsThemeBackgroundPartiallyTransparent(hTheme, iPartId, iStateId) {
@@ -15423,7 +15776,7 @@ class Controls {
      * @returns {COLORREF} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> structure that receives the color value.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemecolor
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemecolor
      * @since windows6.0.6000
      */
     static GetThemeColor(hTheme, iPartId, iStateId, iPropId) {
@@ -15455,7 +15808,7 @@ class Controls {
      * @returns {Integer} Type: <b>int*</b>
      * 
      * Pointer to an <b>int</b> that receives the metric property value.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthememetric
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthememetric
      * @since windows6.0.6000
      */
     static GetThemeMetric(hTheme, hdc, iPartId, iStateId, iPropId) {
@@ -15490,10 +15843,10 @@ class Controls {
      * @param {Integer} cchMaxBuffChars Type: <b>int</b>
      * 
      * Value of type <b>int</b> that specifies the maximum number of characters <i>pszBuff</i> can contain.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemestring
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemestring
      * @since windows6.0.6000
      */
     static GetThemeString(hTheme, iPartId, iStateId, iPropId, pszBuff, cchMaxBuffChars) {
@@ -15523,7 +15876,7 @@ class Controls {
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
      * Pointer to a <b>BOOL</b> that receives the retrieved property value.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemebool
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemebool
      * @since windows6.0.6000
      */
     static GetThemeBool(hTheme, iPartId, iStateId, iPropId) {
@@ -15554,7 +15907,7 @@ class Controls {
      * @returns {Integer} Type: <b>int*</b>
      * 
      * Pointer to an <b>int</b> that receives the retrieved value.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemeint
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemeint
      * @since windows6.0.6000
      */
     static GetThemeInt(hTheme, iPartId, iStateId, iPropId) {
@@ -15585,7 +15938,7 @@ class Controls {
      * @returns {Integer} Type: <b>int*</b>
      * 
      * Pointer to an <b>int</b> that receives the enumerated type value.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemeenumvalue
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemeenumvalue
      * @since windows6.0.6000
      */
     static GetThemeEnumValue(hTheme, iPartId, iStateId, iPropId) {
@@ -15601,6 +15954,8 @@ class Controls {
 
     /**
      * Retrieves the value of a position property.
+     * @remarks
+     * The part in which the position is located determines the possible state values. For example, if the position is in a check box, the state could be checked or unchecked, but in a caption the possible states are active, inactive, or disabled.
      * @param {HTHEME} hTheme Type: <b>HTHEME</b>
      * 
      * Handle to a window's specified theme data. Use <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-openthemedata">OpenThemeData</a> to create an HTHEME.
@@ -15613,13 +15968,13 @@ class Controls {
      * @param {Integer} iPropId Type: <b>int</b>
      * 
      * Value of type <b>int</b> that specifies the property to retrieve. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/Controls/property-typedefs">Property Identifiers</a>.
-     * @param {Pointer<POINT>} pPoint Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>*</b>
+     * @param {Pointer<POINT>} pPoint Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a>*</b>
      * 
-     * Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that receives the position value.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that receives the position value.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemeposition
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemeposition
      * @since windows6.0.6000
      */
     static GetThemePosition(hTheme, iPartId, iStateId, iPropId, pPoint) {
@@ -15635,6 +15990,10 @@ class Controls {
 
     /**
      * Retrieves the value of a font property.
+     * @remarks
+     * The font is scaled in dots per inch (DPI)  for the current logical screen.
+     * 
+     * If the property is not supported for the specified part and state, E_PROP_ID_UNSUPPORTED may be returned.
      * @param {HTHEME} hTheme Type: <b>HTHEME</b>
      * 
      * Handle to a window's specified theme data. Use <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-openthemedata">OpenThemeData</a> to create an HTHEME.
@@ -15653,10 +16012,10 @@ class Controls {
      * @param {Pointer<LOGFONTW>} pFont Type: <b>LOGFONTW*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that receives the font property value.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemefont
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemefont
      * @since windows6.0.6000
      */
     static GetThemeFont(hTheme, hdc, iPartId, iStateId, iPropId, pFont) {
@@ -15688,10 +16047,10 @@ class Controls {
      * @param {Pointer<RECT>} pRect Type: <b>LPRECT</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives a  rectangle.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemerect
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemerect
      * @since windows6.0.6000
      */
     static GetThemeRect(hTheme, iPartId, iStateId, iPropId, pRect) {
@@ -15728,10 +16087,10 @@ class Controls {
      * @param {Pointer<MARGINS>} pMargins Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ns-uxtheme-margins">MARGINS</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ns-uxtheme-margins">MARGINS</a> structure that receives the retrieved value.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthememargins
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthememargins
      * @since windows6.0.6000
      */
     static GetThemeMargins(hTheme, hdc, iPartId, iStateId, iPropId, prc, pMargins) {
@@ -15763,10 +16122,10 @@ class Controls {
      * @param {Pointer<INTLIST>} pIntList Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ns-uxtheme-intlist">INTLIST</a>*</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ns-uxtheme-intlist">INTLIST</a> structure that receives the <b>int</b> data.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful, otherwise an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemeintlist
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemeintlist
      * @since windows6.0.6000
      */
     static GetThemeIntList(hTheme, iPartId, iStateId, iPropId, pIntList) {
@@ -15795,7 +16154,7 @@ class Controls {
      * 
      * Value of type <b>int</b> that specifies the property to retrieve. You may use any of the property values from Vssym32.h. These values are described in the reference pages for the functions that use them. For instance, the <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-getthemeint">GetThemeInt</a> function uses the TMT_BORDERSIZE value. See the <a href="https://docs.microsoft.com/windows/desktop/Controls/uxctl-ref">Visual Styles Reference</a> for a list of functions.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemepropertyorigin
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemepropertyorigin
      * @since windows6.0.6000
      */
     static GetThemePropertyOrigin(hTheme, iPartId, iStateId, iPropId) {
@@ -15811,6 +16170,11 @@ class Controls {
 
     /**
      * Causes a window to use a different set of visual style information than its class normally uses.
+     * @remarks
+     * The theme manager retains the <i>pszSubAppName</i> and the <i>pszSubIdList</i> associations through the lifetime of the window, even if visual styles subsequently change. The window is sent a <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-themechanged">WM_THEMECHANGED</a> message at the end of a <b>SetWindowTheme</b> call, so that the new visual style can be found and applied.
+     * 
+     * 
+     * When <i>pszSubAppName</i> and <i>pszSubIdList</i> are <b>NULL</b>, the theme manager removes the previously applied associations. You can prevent visual styles from being applied to a specified window by specifying an empty string, (L" "), which does not match any section entries.
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to the window whose visual style information is to be changed.
@@ -15820,10 +16184,10 @@ class Controls {
      * @param {PWSTR} pszSubIdList Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * Pointer to a string that contains a semicolon-separated list of CLSID names to use in place of the actual list passed by the window's class. If this parameter is <b>NULL</b>, the ID list from the calling class is used.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-setwindowtheme
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-setwindowtheme
      * @since windows6.0.6000
      */
     static SetWindowTheme(hwnd, pszSubAppName, pszSubIdList) {
@@ -15859,10 +16223,10 @@ class Controls {
      * @param {Integer} cchMaxBuffChars Type: <b>int</b>
      * 
      * Value of type <b>int</b> that receives the maximum number of characters in the file name
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemefilename
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemefilename
      * @since windows6.0.6000
      */
     static GetThemeFilename(hTheme, iPartId, iStateId, iPropId, pszThemeFileName, cchMaxBuffChars) {
@@ -15879,16 +16243,18 @@ class Controls {
 
     /**
      * Retrieves the value of a system color.
+     * @remarks
+     * If the theme data handle is not a <b>NULL</b> handle, this function returns the color from the SysMetrics section of the current visual style. If the theme data handle is <b>NULL</b>, this function returns the color matching the global system color.
      * @param {HTHEME} hTheme Type: <b>HTHEME</b>
      * 
      * Handle to theme data.
      * @param {Integer} iColorId Type: <b>int</b>
      * 
      * Value of type <b>int</b> that specifies the color number. May be one of the values listed in <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsyscolor">GetSysColor</a> for the <i>nIndex</i> parameter.
-     * @returns {COLORREF} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
+     * @returns {COLORREF} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * The value of the specified system color.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemesyscolor
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemesyscolor
      * @since windows6.0.6000
      */
     static GetThemeSysColor(hTheme, iColorId) {
@@ -15900,14 +16266,19 @@ class Controls {
 
     /**
      * Retrieves a system color brush.
+     * @remarks
+     * If the theme data handle is not a <b>NULL</b> handle, <b>GetThemeSysColorBrush</b> returns the brush that matches the specified color from the SysMetrics section of the visual style. If the theme data handle is <b>NULL</b>, the function returns the brush matching the global system color.
+     * 
+     * 
+     * The brush handle that is returned by this function should be released when it is no longer needed using <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a>.
      * @param {HTHEME} hTheme Type: <b>HTHEME</b>
      * 
      * Handle to theme data.
      * @param {Integer} iColorId Type: <b>int</b>
-     * @returns {HBRUSH} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HBRUSH</a></b>
+     * @returns {HBRUSH} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBRUSH</a></b>
      * 
      * Handle to brush data.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemesyscolorbrush
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemesyscolorbrush
      * @since windows6.0.6000
      */
     static GetThemeSysColorBrush(hTheme, iColorId) {
@@ -15920,6 +16291,8 @@ class Controls {
 
     /**
      * Retrieves the Boolean value of a system metric.
+     * @remarks
+     * If the theme data handle is not a <b>NULL</b> handle, this function returns the desired <b>BOOL</b> from the SysMetrics section of the visual style. If the theme data handle is <b>NULL</b>, this function returns the value of the specified system Boolean.
      * @param {HTHEME} hTheme Type: <b>HTHEME</b>
      * 
      * Handle to theme data.
@@ -15943,10 +16316,10 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Value of desired system metric.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemesysbool
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemesysbool
      * @since windows6.0.6000
      */
     static GetThemeSysBool(hTheme, iBoolId) {
@@ -15958,6 +16331,8 @@ class Controls {
 
     /**
      * Retrieves the value of a system size metric from theme data.
+     * @remarks
+     * If <i>hTheme</i> is <b> not </b>  <b>NULL</b>, this function returns the size stored in the current visual style (SysMetrics section of the visual style) scaled to the current screen dpi.  If <i>hTheme</i> is <b>NULL</b>, this function returns the global system metric in pixels that is scaled to the current dpi only if the application is marked as dpi-aware; otherwise, the pixels returned are unscaled.
      * @param {HTHEME} hTheme Type: <b>HTHEME</b>
      * 
      * Handle to theme data.
@@ -16074,7 +16449,7 @@ class Controls {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the size in pixels.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemesyssize
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemesyssize
      * @since windows6.0.6000
      */
     static GetThemeSysSize(hTheme, iSizeId) {
@@ -16086,6 +16461,12 @@ class Controls {
 
     /**
      * Retrieves the LOGFONT of a system font.
+     * @remarks
+     * This function requires vssym32.h and uxtheme.h.
+     * 
+     * If the theme data handle is not a <b>NULL</b> handle, this function returns the desired <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> from the SysMetrics section of the visual style. If the theme data handle is <b>NULL</b>, the function returns the value of the global system metric of the same type.
+     * 
+     * The font is scaled in dots per inch for the current logical screen.
      * @param {HTHEME} hTheme Type: <b>HTHEME</b>
      * 
      * Handle to theme data.
@@ -16093,10 +16474,10 @@ class Controls {
      * @param {Pointer<LOGFONTW>} plf Type: <b>LOGFONTW*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that receives the font information from this function.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemesysfont
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemesysfont
      * @since windows6.0.6000
      */
     static GetThemeSysFont(hTheme, iFontId, plf) {
@@ -16112,6 +16493,8 @@ class Controls {
 
     /**
      * Retrieves the value of a system string.
+     * @remarks
+     * If the theme data handle is not a <b>NULL</b> handle, this function returns the desired string from the SysMetrics section of the visual style. If the theme data handle is <b>NULL</b>, this function returns the value of the global system metric of the same type.
      * @param {HTHEME} hTheme Type: <b>HTHEME</b>
      * 
      * Handle to theme data.
@@ -16122,10 +16505,10 @@ class Controls {
      * @param {Integer} cchMaxStringChars Type: <b>int</b>
      * 
      * Value of type <b>int</b> that specifies the maximum number of characters the string buffer can hold.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemesysstring
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemesysstring
      * @since windows6.0.6000
      */
     static GetThemeSysString(hTheme, iStringId, pszStringBuff, cchMaxStringChars) {
@@ -16168,7 +16551,7 @@ class Controls {
      * @returns {Integer} Type: <b>int*</b>
      * 
      * Pointer to an <b>int</b> that receives the system integer value.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemesysint
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemesysint
      * @since windows6.0.6000
      */
     static GetThemeSysInt(hTheme, iIntId) {
@@ -16184,7 +16567,9 @@ class Controls {
 
     /**
      * Tests if a visual style for the current application is active.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @remarks
+     * Do not call this function during <a href="https://docs.microsoft.com/windows/desktop/Dlls/dllmain">DllMain</a> or global objects constructors. This may cause invalid return values.
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns one of the following values.
      * 
@@ -16200,7 +16585,7 @@ class Controls {
      * </dl>
      * </td>
      * <td width="60%">
-     * A visual style is enabled, and windows with visual styles applied should call <a href="/windows/desktop/api/uxtheme/nf-uxtheme-openthemedata">OpenThemeData</a> to start using theme drawing services.
+     * A visual style is enabled, and windows with visual styles applied should call <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-openthemedata">OpenThemeData</a> to start using theme drawing services.
      * 
      * </td>
      * </tr>
@@ -16211,12 +16596,12 @@ class Controls {
      * </dl>
      * </td>
      * <td width="60%">
-     * A visual style is not enabled, and the window message handler does not need to make another call to <a href="/windows/desktop/api/uxtheme/nf-uxtheme-isthemeactive">IsThemeActive</a> until it receives a WM_THEMECHANGED message.
+     * A visual style is not enabled, and the window message handler does not need to make another call to <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-isthemeactive">IsThemeActive</a> until it receives a WM_THEMECHANGED message.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-isthemeactive
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-isthemeactive
      * @since windows6.0.6000
      */
     static IsThemeActive() {
@@ -16226,7 +16611,14 @@ class Controls {
 
     /**
      * Reports whether the current application's user interface displays using visual styles.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @remarks
+     * Prior to Windows 8, a visual style can be turned off in Control Panel, so that an application can support visual styles but not have a visual style applied at a given time.
+     * 
+     *  In Windows 8, it is not possible to turn off visual styles.
+     * 
+     * 
+     * Do not call this function during <a href="https://docs.microsoft.com/windows/desktop/Dlls/dllmain">DllMain</a> or global objects constructors. This may cause invalid return values.
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns one of the following values.
      * 
@@ -16258,7 +16650,7 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-isappthemed
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-isappthemed
      * @since windows6.0.6000
      */
     static IsAppThemed() {
@@ -16268,13 +16660,15 @@ class Controls {
 
     /**
      * Retrieves a theme handle to a window that has visual styles applied.
+     * @remarks
+     * If a window has a visual style applied, the <b>GetWindowTheme</b> function returns the most recent theme handle from <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-openthemedata">OpenThemeData</a>. If no visual style is applied, <b>GetWindowTheme</b> returns <b>NULL</b>.
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle of the window.
      * @returns {HTHEME} Type: <b>HTHEME</b>
      * 
-     * The most recent theme handle from <a href="/windows/desktop/api/uxtheme/nf-uxtheme-openthemedata">OpenThemeData</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getwindowtheme
+     * The most recent theme handle from <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-openthemedata">OpenThemeData</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getwindowtheme
      * @since windows6.0.6000
      */
     static GetWindowTheme(hwnd) {
@@ -16287,6 +16681,8 @@ class Controls {
 
     /**
      * Enables or disables the visual style of the background of a dialog window.
+     * @remarks
+     * <b>EnableThemeDialogTexture</b> can be used to tailor dialog box compatibility with child windows and controls that may or may not coordinate rendering their client area backgrounds with that of their parent dialog box.
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Window handle of the target dialog box.
@@ -16377,10 +16773,10 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-enablethemedialogtexture
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-enablethemedialogtexture
      * @since windows6.0.6000
      */
     static EnableThemeDialogTexture(hwnd, dwFlags) {
@@ -16399,7 +16795,7 @@ class Controls {
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * <b>HWND</b> value that specifies a dialog window.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns one of the following values.
      * 
@@ -16431,7 +16827,7 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-isthemedialogtextureenabled
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-isthemedialogtextureenabled
      * @since windows6.0.6000
      */
     static IsThemeDialogTextureEnabled(hwnd) {
@@ -16443,7 +16839,11 @@ class Controls {
 
     /**
      * Retrieves the property flags that control how visual styles are applied in the current application.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
+     * @remarks
+     * Individual flags can be extracted from the result by combining the result with the logical AND of the desired flag.
+     * 
+     * Do not call this function during <a href="https://docs.microsoft.com/windows/desktop/Dlls/dllmain">DllMain</a> or global objects constructors. This may cause invalid return values.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * The following return values are bit flags combined with a logical OR operator.
      * 
@@ -16486,7 +16886,7 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemeappproperties
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemeappproperties
      * @since windows6.0.6000
      */
     static GetThemeAppProperties() {
@@ -16497,12 +16897,7 @@ class Controls {
     /**
      * Sets the flags that determine how visual styles are implemented in the calling application.
      * @remarks
-     * 
-     * After you set the flags, send a <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-themechanged">WM_THEMECHANGED</a> message to your application's main window for the changes to take effect. 
-     * 
-     * 
-     * 
-     * 
+     * After you set the flags, send a <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-themechanged">WM_THEMECHANGED</a> message to your application's main window for the changes to take effect.
      * @param {Integer} dwFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * <b>DWORD</b> that specifies one or more of the following bit flags, which can be combined with a logical OR.
@@ -16547,7 +16942,7 @@ class Controls {
      * </tr>
      * </table>
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-setthemeappproperties
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-setthemeappproperties
      * @since windows6.0.6000
      */
     static SetThemeAppProperties(dwFlags) {
@@ -16574,10 +16969,10 @@ class Controls {
      * @param {Integer} cchMaxSizeChars Type: <b>int</b>
      * 
      * Value of type <b>int</b> that contains the maximum number of characters allowed in the size name.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful, otherwise an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getcurrentthemename
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getcurrentthemename
      * @since windows6.0.6000
      */
     static GetCurrentThemeName(pszThemeFileName, cchMaxNameChars, pszColorBuff, cchMaxColorChars, pszSizeBuff, cchMaxSizeChars) {
@@ -16595,6 +16990,8 @@ class Controls {
 
     /**
      * Retrieves the value for a theme property from the documentation section of the specified theme file.
+     * @remarks
+     * If the theme property has been localized in the theme files string table, this function returns the localized version.
      * @param {PWSTR} pszThemeName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * Pointer to a string that contains the name of the theme file that will be opened to query for the property.
@@ -16605,10 +17002,10 @@ class Controls {
      * @param {Integer} cchMaxValChars Type: <b>int</b>
      * 
      * Value of type <b>int</b> that specifies the maximum number of characters that <i>pszValueBuff</i> can contain.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemedocumentationproperty
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemedocumentationproperty
      * @since windows6.0.6000
      */
     static GetThemeDocumentationProperty(pszThemeName, pszPropertyName, pszValueBuff, cchMaxValChars) {
@@ -16635,10 +17032,10 @@ class Controls {
      * @param {Pointer<RECT>} prc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * The area to be drawn. The rectangle is in the child window's coordinates. If this parameter is NULL, the area to be drawn includes the entire area occupied by the child control.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-drawthemeparentbackground
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-drawthemeparentbackground
      * @since windows6.0.6000
      */
     static DrawThemeParentBackground(hwnd, hdc, prc) {
@@ -16656,10 +17053,10 @@ class Controls {
     /**
      * Windows Vista through Windows 7:\_Enables or disables visual styles for the current user in the current and later sessions.Windows 8 and later:\_This function does nothing. Visual styles are always enabled in Windows 8 and later.
      * @param {BOOL} fEnable Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-enabletheming
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-enabletheming
      * @since windows6.0.6000
      */
     static EnableTheming(fEnable) {
@@ -16683,10 +17080,10 @@ class Controls {
      * @param {Pointer<RECT>} prc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * Optional. The area to be drawn, in child coordinates. If this parameter is NULL, the area to be drawn includes the entire area occupied by the child control.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * S_OK if successful; otherwise, S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-drawthemeparentbackgroundex
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-drawthemeparentbackgroundex
      * @since windows6.0.6000
      */
     static DrawThemeParentBackgroundEx(hwnd, hdc, dwFlags, prc) {
@@ -16713,10 +17110,10 @@ class Controls {
      * @param {Integer} cbAttribute Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Specifies the size, in bytes, of the data pointed to by <i>pvAttribute</i>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-setwindowthemeattribute
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-setwindowthemeattribute
      * @since windows6.0.6000
      */
     static SetWindowThemeAttribute(hwnd, eAttribute, pvAttribute, cbAttribute) {
@@ -16732,6 +17129,8 @@ class Controls {
 
     /**
      * Draws text using the color and font defined by the visual style. Extends DrawThemeText by allowing additional text format options.
+     * @remarks
+     * The function always uses the themed font for the specified part and state if one is defined. Otherwise it uses the font currently selected into the device context. To find out if a themed font is defined, you can call <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-getthemefont">GetThemeFont</a> or <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-getthemepropertyorigin">GetThemePropertyOrigin</a> with TMT_FONT as the property identifier.
      * @param {HTHEME} hTheme Type: <b>HTHEME</b>
      * 
      * Handle to a window's specified theme data. Use <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-openthemedata">OpenThemeData</a> to create an HTHEME.
@@ -16759,10 +17158,10 @@ class Controls {
      * @param {Pointer<DTTOPTS>} pOptions Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ns-uxtheme-dttopts">DTTOPTS</a>*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ns-uxtheme-dttopts">DTTOPTS</a> structure that defines additional formatting options that will be applied to the text being drawn.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-drawthemetextex
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-drawthemetextex
      * @since windows6.0.6000
      */
     static DrawThemeTextEx(hTheme, hdc, iPartId, iStateId, pszText, cchText, dwTextFlags, pRect, pOptions) {
@@ -16780,6 +17179,8 @@ class Controls {
 
     /**
      * Retrieves the bitmap associated with a particular theme, part, state, and property.
+     * @remarks
+     * If <i>dwFlags</i> is set to <b>GBF_COPY</b>, release the bitmap stored in <i>phBitmap</i> when no longer needed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a>.
      * @param {HTHEME} hTheme Type: <b>HTHEME</b>
      * 
      * A handle to theme data.
@@ -16796,10 +17197,10 @@ class Controls {
      * @param {Pointer<HBITMAP>} phBitmap Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBITMAP</a>*</b>
      * 
      * A pointer that receives a handle to the requested bitmap.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemebitmap
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemebitmap
      * @since windows6.0.6000
      */
     static GetThemeBitmap(hTheme, iPartId, iStateId, iPropId, dwFlags, phBitmap) {
@@ -16815,6 +17216,11 @@ class Controls {
 
     /**
      * Retrieves a data stream corresponding to a specified theme, starting from a specified part, state, and property.
+     * @remarks
+     * <b>Windows 8:</b> In high contrast mode, the data stream retrieved by this function is not valid after the <i>hTheme</i> theme handle is closed.
+     * 
+     * 
+     * The data stream retrieved by this function is not a copy; do not delete or close the data stream after using it.
      * @param {HTHEME} hTheme Type: <b>HTHEME</b>
      * 
      * Handle to the theme from which the stream will be retrieved.
@@ -16836,10 +17242,10 @@ class Controls {
      * @param {HINSTANCE} hInst Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
      * 
      * If <i>iPropId</i> is TMT_STREAM, this value is <b>NULL</b>. If <i>iPropId</i> is TMT_DISKSTREAM, this value is the HINSTANCE of a loaded styles file.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemestream
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemestream
      * @since windows6.0.6000
      */
     static GetThemeStream(hTheme, iPartId, iStateId, iPropId, ppvStream, pcbStream, hInst) {
@@ -16859,10 +17265,18 @@ class Controls {
 
     /**
      * Initialize buffered painting for the current thread.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @remarks
+     * <b>BufferedPaintInit</b> is called before <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedpaint">BeginBufferedPaint</a> or <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedanimation">BeginBufferedAnimation</a> for each thread that uses these functions.
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-bufferedpaintinit
+     * Each call to <b>BufferedPaintInit</b> should be matched with a call to <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-bufferedpaintuninit">BufferedPaintUnInit</a> when calls to buffered paint APIs are no longer needed. 
+     * 			An application may call this API multiple times, as long as each call to <b>BufferedPaintInit</b> is balanced with a call to <b>BufferedPaintUnInit</b>.
+     * 
+     * 
+     * This function only needs to be called once in the lifetime of a thread. Typically, this function is called before creating the main application window, or during <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-create">WM_CREATE</a>. Call <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-bufferedpaintuninit">BufferedPaintUnInit</a> after destroying the window, or during <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-ncdestroy">WM_NCDESTROY</a>.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-bufferedpaintinit
      * @since windows6.0.6000
      */
     static BufferedPaintInit() {
@@ -16876,10 +17290,10 @@ class Controls {
 
     /**
      * Closes down buffered painting for the current thread. Called once for each call to BufferedPaintInit after calls to BeginBufferedPaint are no longer needed.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-bufferedpaintuninit
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-bufferedpaintuninit
      * @since windows6.0.6000
      */
     static BufferedPaintUnInit() {
@@ -16910,12 +17324,12 @@ class Controls {
      * When this function returns, points to the handle of the new device context.
      * @returns {Pointer} Type: <b>HPAINTBUFFER</b>
      * 
-     * A handle to the buffered paint context. If this function fails, the return value is <b>NULL</b>, and <i>phdc</i> is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * A handle to the buffered paint context. If this function fails, the return value is <b>NULL</b>, and <i>phdc</i> is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
-     * The returned handle is freed when <a href="/windows/desktop/api/uxtheme/nf-uxtheme-endbufferedpaint">EndBufferedPaint</a> is called.
+     * The returned handle is freed when <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-endbufferedpaint">EndBufferedPaint</a> is called.
      * 
-     * An application should call <a href="/windows/desktop/api/uxtheme/nf-uxtheme-bufferedpaintinit">BufferedPaintInit</a> on the calling thread before calling <b>BeginBufferedPaint</b>, and <a href="/windows/desktop/api/uxtheme/nf-uxtheme-bufferedpaintuninit">BufferedPaintUnInit</a> before the thread is terminated.  Failure to call <b>BufferedPaintInit</b> may result in degraded performance due to internal data being initialized and destroyed for each buffered paint operation.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-beginbufferedpaint
+     * An application should call <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-bufferedpaintinit">BufferedPaintInit</a> on the calling thread before calling <b>BeginBufferedPaint</b>, and <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-bufferedpaintuninit">BufferedPaintUnInit</a> before the thread is terminated.  Failure to call <b>BufferedPaintInit</b> may result in degraded performance due to internal data being initialized and destroyed for each buffered paint operation.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-beginbufferedpaint
      * @since windows6.0.6000
      */
     static BeginBufferedPaint(hdcTarget, prcTarget, dwFormat, pPaintParams, phdc) {
@@ -16939,10 +17353,10 @@ class Controls {
      * @param {BOOL} fUpdateTarget Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> to copy the buffer to the target DC.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-endbufferedpaint
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-endbufferedpaint
      * @since windows6.0.6000
      */
     static EndBufferedPaint(hBufferedPaint, fUpdateTarget) {
@@ -16956,16 +17370,18 @@ class Controls {
 
     /**
      * Retrieves the target rectangle specified by BeginBufferedPaint.
+     * @remarks
+     * If this function fails, the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure at <i>prc</i> is set to empty.
      * @param {Pointer} hBufferedPaint Type: <b>HPAINTBUFFER</b>
      * 
      * Handle to the buffered paint context obtained through <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedpaint">BeginBufferedPaint</a>.
      * @param {Pointer<RECT>} prc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * When this function returns, contains the requested rectangle.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getbufferedpainttargetrect
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getbufferedpainttargetrect
      * @since windows6.0.6000
      */
     static GetBufferedPaintTargetRect(hBufferedPaint, prc) {
@@ -16979,13 +17395,15 @@ class Controls {
 
     /**
      * Retrieves the target device context (DC).
+     * @remarks
+     * If successful, this function returns the target DC that was passed by the application to <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedpaint">BeginBufferedPaint</a>.
      * @param {Pointer} hBufferedPaint Type: <b>HPAINTBUFFER</b>
      * 
      * A handle to the buffered paint context obtained through <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedpaint">BeginBufferedPaint</a>.
-     * @returns {HDC} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HDC</a></b>
+     * @returns {HDC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * A handle to the requested DC, or <b>NULL</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getbufferedpainttargetdc
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getbufferedpainttargetdc
      * @since windows6.0.6000
      */
     static GetBufferedPaintTargetDC(hBufferedPaint) {
@@ -16999,10 +17417,10 @@ class Controls {
      * @param {Pointer} hBufferedPaint Type: <b>HPAINTBUFFER</b>
      * 
      * Handle of the buffered paint context, obtained through <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedpaint">BeginBufferedPaint</a>.
-     * @returns {HDC} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HDC</a></b>
+     * @returns {HDC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
-     * Handle of the requested DC. This is the same DC that is returned by <a href="/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedpaint">BeginBufferedPaint</a>. Returns <b>NULL</b> upon failure.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getbufferedpaintdc
+     * Handle of the requested DC. This is the same DC that is returned by <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedpaint">BeginBufferedPaint</a>. Returns <b>NULL</b> upon failure.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getbufferedpaintdc
      * @since windows6.0.6000
      */
     static GetBufferedPaintDC(hBufferedPaint) {
@@ -17013,6 +17431,8 @@ class Controls {
 
     /**
      * Retrieves a pointer to the buffer bitmap if the buffer is a device-independent bitmap (DIB).
+     * @remarks
+     * The number of bits per pixel depends on the pixel format passed to <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedpaint">BeginBufferedPaint</a>.
      * @param {Pointer} hBufferedPaint Type: <b>HPAINTBUFFER</b>
      * 
      * The handle of the buffered paint context, obtained through <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedpaint">BeginBufferedPaint</a>.
@@ -17022,10 +17442,10 @@ class Controls {
      * @param {Pointer<Integer>} pcxRow Type: <b>int*</b>
      * 
      * When this function returns, contains a pointer to the width, in pixels, of the buffer bitmap. This value is not necessarily equal to the buffer width. It may be larger.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful, or an error value otherwise. If an error occurs, <i>ppbBuffer</i>  is set to <b>NULL</b> and <i>pcxRow</i> is set to zero.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getbufferedpaintbits
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getbufferedpaintbits
      * @since windows6.0.6000
      */
     static GetBufferedPaintBits(hBufferedPaint, ppbBuffer, pcxRow) {
@@ -17042,16 +17462,18 @@ class Controls {
 
     /**
      * Clears a specified rectangle in the buffer to ARGB = {0,0,0,0}.
+     * @remarks
+     * This function accesses the buffer bits directly and is therefore faster than calling a GDI function to erase the buffer.
      * @param {Pointer} hBufferedPaint Type: <b>HPAINTBUFFER</b>
      * 
      * The handle of the buffered paint context, obtained through <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedpaint">BeginBufferedPaint</a>.
      * @param {Pointer<RECT>} prc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the rectangle to clear. Set this parameter to <b>NULL</b> to specify the entire buffer.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-bufferedpaintclear
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-bufferedpaintclear
      * @since windows6.0.6000
      */
     static BufferedPaintClear(hBufferedPaint, prc) {
@@ -17065,6 +17487,8 @@ class Controls {
 
     /**
      * Sets the alpha to a specified value in a given rectangle. The alpha controls the amount of transparency applied when blending with the buffer onto the destination target device context (DC).
+     * @remarks
+     * This function sets the alpha value for each pixel in the target rectangle. Passing an alpha value of 255 makes pixels fully opaque. The <b>BufferedPaintMakeOpaque</b> macro, which is  defined in uxtheme.h, sets alpha values to 255.  It is typically used to call GDI to draw into a memory buffer and then to make it opaque in order to draw it on glass.
      * @param {Pointer} hBufferedPaint Type: <b>HPAINTBUFFER</b>
      * 
      * The handle of the buffered paint context, obtained through <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedpaint">BeginBufferedPaint</a>.
@@ -17074,10 +17498,10 @@ class Controls {
      * @param {Integer} alpha Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a></b>
      * 
      * The alpha value to set. The alpha value can range from zero (fully transparent) to 255 (fully opaque).
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-bufferedpaintsetalpha
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-bufferedpaintsetalpha
      * @since windows6.0.6000
      */
     static BufferedPaintSetAlpha(hBufferedPaint, prc, alpha) {
@@ -17094,10 +17518,10 @@ class Controls {
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The handle of the window in which to stop all animations.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-bufferedpaintstopallanimations
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-bufferedpaintstopallanimations
      * @since windows6.0.6000
      */
     static BufferedPaintStopAllAnimations(hwnd) {
@@ -17113,6 +17537,13 @@ class Controls {
 
     /**
      * Begins a buffered animation operation. The animation consists of a cross-fade between the contents of two buffers over a specified period of time.
+     * @remarks
+     * <b>BeginBufferedAnimation</b> will take care of drawing the intermediate frames between those two states by generating multiple <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> messages.
+     * 		
+     * 
+     * <b>BeginBufferedAnimation</b> starts a timer that generates <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> messages on which <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-bufferedpaintrenderanimation">BufferedPaintRenderAnimation</a> should be called.  During these messages, <b>BufferedPaintRenderAnimation</b> will return <b>TRUE</b> when it paints an intermediate frame, to signify that the application has no further painting to do.
+     * 
+     * If the animation duration is zero, then only <i>phdcTo</i> is returned and <i>phdcFrom</i>  is set to <b>NULL</b>.  In this case, the application should paint the final state using <i>phdcTo</i> to get the behavior similar to <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedpaint">BeginBufferedPaint</a>.
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the window in which the animations play.
@@ -17140,7 +17571,7 @@ class Controls {
      * @returns {Pointer} Type: <b>HANIMATIONBUFFER</b>
      * 
      * A handle to the buffered paint animation.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-beginbufferedanimation
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-beginbufferedanimation
      * @since windows6.0.6000
      */
     static BeginBufferedAnimation(hwnd, hdcTarget, prcTarget, dwFormat, pPaintParams, pAnimationParams, phdcFrom, phdcTo) {
@@ -17159,10 +17590,10 @@ class Controls {
      * @param {BOOL} fUpdateTarget Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If <b>TRUE</b>, updates the target DC with the animation.  If <b>FALSE</b>, the animation is not started, the target DC is not updated, and the <i>hbpAnimation</i> parameter is freed.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-endbufferedanimation
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-endbufferedanimation
      * @since windows6.0.6000
      */
     static EndBufferedAnimation(hbpAnimation, fUpdateTarget) {
@@ -17176,16 +17607,67 @@ class Controls {
 
     /**
      * Paints the next frame of a buffered paint animation.
+     * @remarks
+     * If this function returns <b>TRUE</b>, the application should do no further painting. If this function returns <b>FALSE</b>, the application should paint normally.
+     * 
+     * An application calls this function within its <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> handler.  After <b>BufferedPaintRenderAnimation</b> paints an animation frame, an application will typically continue without performing its usual painting operations.  If appropriate, an application may choose to render additional user interface (UI) over the top of the animation. The following code example, to be included as part of a larger body of code, shows how to use the animation painting functions.
+     * 
+     * 
+     * ```cpp
+     *     if (!_fBufferedPaintInit)
+     *     {
+     *         BufferedPaintInit();
+     *         _fBufferedPaintInit = TRUE;
+     *     }
+     * 
+     *     // Determine whether the paint message was generated by a softfade animation.
+     *     if (!BufferedPaintRenderAnimation(hWnd, hdc))
+     *     {
+     *         // Initialize buffered paint parameters.
+     *         BP_ANIMATIONPARAMS animParams = {sizeof(BP_ANIMATIONPARAMS)};
+     *         animParams.style = BPAS_LINEAR; 
+     *         animParams.dwDuration = 0;
+     *         GetThemeTransitionDuration(hTheme, iPartId, iStateIdFrom, 
+     *                 iStateIdTo, TMT_TRANSITIONDURATIONS, &animParams.dwDuration);
+     * 
+     *         HDC hdcFrom, hdcTo;
+     *         HANIMATIONBUFFER hbpAnimation = BeginBufferedAnimation(hWnd, hdc, &rc, 
+     *                 BPBF_COMPATIBLEBITMAP, NULL, &animParams, &hdcFrom, &hdcTo);
+     *         if (hbpAnimation)
+     *         {
+     *             if (hdcFrom)
+     *             {
+     *                 PaintImpl(hdcFrom, iPartId, iStateIdFrom //, ...);
+     *             }
+     *             if (hdcTo)
+     *             {
+     *                 PaintImpl(hdcTo, iPartId, iStateIdTo//, ...);
+     *             }
+     * 
+     *             EndBufferedAnimation(hbpAnimation, TRUE);
+     *         }
+     *         else
+     *         {
+     *             // Default to unbuffered paint
+     *             PaintImpl(hdc, iPartId, iStateIdTo//, ...);
+     *        
+     *         }
+     *     }
+     *     // Else do not paint because the BufferedPaintRenderAnimation function 
+     *     // already did.
+     * }
+     * 
+     * ```
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to the window in which the animations play.
      * @param {HDC} hdcTarget Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * Handle of the target DC on which the buffer is animated.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> if the frame has been painted, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-bufferedpaintrenderanimation
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-bufferedpaintrenderanimation
      * @since windows6.0.6000
      */
     static BufferedPaintRenderAnimation(hwnd, hdcTarget) {
@@ -17198,10 +17680,12 @@ class Controls {
 
     /**
      * Determines whether Desktop Window Manager (DWM) composition effects are available to the theme.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @remarks
+     * Composition effects are provided through the DWM. This function first determines whether DWM is active, then checks whether it has composition effects enabled.
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if composition effects are available; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-iscompositionactive
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-iscompositionactive
      * @since windows6.0.6000
      */
     static IsCompositionActive() {
@@ -17229,7 +17713,7 @@ class Controls {
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
      * 
      * Address of a variable that receives the transition duration, in milliseconds.
-     * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemetransitionduration
+     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemetransitionduration
      * @since windows6.0.6000
      */
     static GetThemeTransitionDuration(hTheme, iPartId, iStateIdFrom, iStateIdTo, iPropId) {
@@ -17245,6 +17729,9 @@ class Controls {
 
     /**
      * Changes the check state of a button control.
+     * @remarks
+     * The <b>CheckDlgButton</b> function sends a 
+     * 				<a href="https://docs.microsoft.com/windows/desktop/Controls/bm-setcheck">BM_SETCHECK</a> message to the specified button control in the specified dialog box.
      * @param {HWND} hDlg Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the dialog box that contains the button.
@@ -17252,12 +17739,12 @@ class Controls {
      * 
      * The identifier of the button to modify.
      * @param {Integer} uCheck Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-checkdlgbutton
+     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-checkdlgbutton
      * @since windows6.0.6000
      */
     static CheckDlgButton(hDlg, nIDButton, uCheck) {
@@ -17275,6 +17762,10 @@ class Controls {
 
     /**
      * Adds a check mark to (checks) a specified radio button in a group and removes a check mark from (clears) all other radio buttons in the group.
+     * @remarks
+     * The <b>CheckRadioButton</b> function sends a <a href="https://docs.microsoft.com/windows/desktop/Controls/bm-setcheck">BM_SETCHECK</a> message to each of the radio buttons in the indicated group.
+     * 
+     * The <i>nIDFirstButton</i> and <i>nIDLastButton</i> parameters specify a range of button identifiers (normally the resource IDs of the buttons).  The position of buttons in the tab order is irrelevant; if a button forms part of a group, but has an ID outside the specified range, it is not affected by this call.
      * @param {HWND} hDlg Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the dialog box that contains the radio button.
@@ -17287,12 +17778,12 @@ class Controls {
      * @param {Integer} nIDCheckButton Type: <b>int</b>
      * 
      * The identifier of the radio button to select.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-checkradiobutton
+     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-checkradiobutton
      * @since windows6.0.6000
      */
     static CheckRadioButton(hDlg, nIDFirstButton, nIDLastButton, nIDCheckButton) {
@@ -17310,15 +17801,17 @@ class Controls {
 
     /**
      * The IsDlgButtonChecked function determines whether a button control is checked or whether a three-state button control is checked, unchecked, or indeterminate.
+     * @remarks
+     * The <b>IsDlgButtonChecked</b> function sends a <a href="https://docs.microsoft.com/windows/desktop/Controls/bm-getcheck">BM_GETCHECK</a> message to the specified button control.
      * @param {HWND} hDlg Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the dialog box that contains the button control.
      * @param {Integer} nIDButton Type: <b>int</b>
      * 
      * The identifier of the button control.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * The return value from a button created with the <a href="/windows/desktop/Controls/button-styles">BS_AUTOCHECKBOX</a>, <a href="/windows/desktop/Controls/button-styles">BS_AUTORADIOBUTTON</a>, <a href="/windows/desktop/Controls/button-styles">BS_AUTO3STATE</a>, <a href="/windows/desktop/Controls/button-styles">BS_CHECKBOX</a>, <a href="/windows/desktop/Controls/button-styles">BS_RADIOBUTTON</a>, or <a href="/windows/desktop/Controls/button-styles">BS_3STATE</a> styles can be one of the values in the following table. If the button has any other style, the return value is zero. 
+     * The return value from a button created with the <a href="https://docs.microsoft.com/windows/desktop/Controls/button-styles">BS_AUTOCHECKBOX</a>, <a href="https://docs.microsoft.com/windows/desktop/Controls/button-styles">BS_AUTORADIOBUTTON</a>, <a href="https://docs.microsoft.com/windows/desktop/Controls/button-styles">BS_AUTO3STATE</a>, <a href="https://docs.microsoft.com/windows/desktop/Controls/button-styles">BS_CHECKBOX</a>, <a href="https://docs.microsoft.com/windows/desktop/Controls/button-styles">BS_RADIOBUTTON</a>, or <a href="https://docs.microsoft.com/windows/desktop/Controls/button-styles">BS_3STATE</a> styles can be one of the values in the following table. If the button has any other style, the return value is zero. 
      * 				
      * 
      * <table>
@@ -17344,7 +17837,7 @@ class Controls {
      * </dl>
      * </td>
      * <td width="60%">
-     * The button is in an indeterminate state (applies only if the button has the <a href="/windows/desktop/Controls/button-styles">BS_3STATE</a> or <a href="/windows/desktop/Controls/button-styles">BS_AUTO3STATE</a> style).
+     * The button is in an indeterminate state (applies only if the button has the <a href="https://docs.microsoft.com/windows/desktop/Controls/button-styles">BS_3STATE</a> or <a href="https://docs.microsoft.com/windows/desktop/Controls/button-styles">BS_AUTO3STATE</a> style).
      * 
      * </td>
      * </tr>
@@ -17360,7 +17853,7 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-isdlgbuttonchecked
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-isdlgbuttonchecked
      * @since windows6.0.6000
      */
     static IsDlgButtonChecked(hDlg, nIDButton) {
@@ -17380,8 +17873,8 @@ class Controls {
      * 
      * For <a href="https://docs.microsoft.com/windows/win32/api/winuser/ne-winuser-tagpointer_input_type">PT_PEN</a> this value must be 1.
      * @param {Integer} mode The contact visualization mode.
-     * @returns {HSYNTHETICPOINTERDEVICE} If the function succeeds, the return value is a handle to the pointer injection device. Otherwise, it returns null. To retrieve extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-createsyntheticpointerdevice
+     * @returns {HSYNTHETICPOINTERDEVICE} If the function succeeds, the return value is a handle to the pointer injection device. Otherwise, it returns null. To retrieve extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createsyntheticpointerdevice
      * @since windows10.0.17763
      */
     static CreateSyntheticPointerDevice(pointerType, maxCount, mode) {
@@ -17398,12 +17891,12 @@ class Controls {
 
     /**
      * Registers a window to process the WM_TOUCHHITTESTING notification.
-     * @param {HWND} hwnd The window that receives the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/inputmsg/wm-touchhittesting">WM_TOUCHHITTESTING</a>  notification.
+     * @param {HWND} hwnd The window that receives the <a href="https://docs.microsoft.com/windows/win32/inputmsg/wm-touchhittesting">WM_TOUCHHITTESTING</a>  notification.
      * @param {Integer} value 
      * @returns {BOOL} If this function succeeds, it returns TRUE.
      *  
-     * Otherwise, it returns FALSE. To retrieve extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-registertouchhittestingwindow
+     * Otherwise, it returns FALSE. To retrieve extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-registertouchhittestingwindow
      * @since windows8.0
      */
     static RegisterTouchHitTestingWindow(hwnd, value) {
@@ -17421,13 +17914,25 @@ class Controls {
 
     /**
      * Returns the score of a rectangle as the probable touch target, compared to all other rectangles that intersect the touch contact area, and an adjusted touch point within the rectangle.
+     * @remarks
+     * For consistency with Windows, frameworks that handle <a href="https://docs.microsoft.com/windows/win32/inputmsg/wm-touchhittesting">WM_TOUCHHITTESTING</a> should use the following principles for targeting:
+     * 
+     * <ul>
+     * <li>Inclusion: If the touch point is within the boundaries of a control, the touch point is not changed. 
+     * </li>
+     * <li>Intersection: Include only controls that intersect the contact geometry. 
+     * </li>
+     * <li>Z-order: If more than one control intersects the contact geometry, and the controls overlap, the control that's highest in the z-order receives priority. 
+     * </li>
+     * <li>Ambiguity: If more than one control intersects the contact geometry, and the controls don't overlap, the control that's closest to the original touch point receives priority. </li>
+     * </ul>
      * @param {Pointer<RECT>} controlBoundingBox The <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that defines the bounding box of the UI element.
      * @param {Pointer<TOUCH_HIT_TESTING_INPUT>} pHitTestingInput The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-touch_hit_testing_input">TOUCH_HIT_TESTING_INPUT</a> structure that holds the data for the touch contact area.
      * @param {Pointer<TOUCH_HIT_TESTING_PROXIMITY_EVALUATION>} pProximityEval The <a href="https://docs.microsoft.com/windows/win32/api/winuser/ns-winuser-touch_hit_testing_proximity_evaluation">TOUCH_HIT_TESTING_PROXIMITY_EVALUATION</a> structure that holds the score and adjusted touch-point data.
      * @returns {BOOL} If this function succeeds, it returns TRUE.
      *  
-     * Otherwise, it returns FALSE. To retrieve extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-evaluateproximitytorect
+     * Otherwise, it returns FALSE. To retrieve extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-evaluateproximitytorect
      * @since windows8.0
      */
     static EvaluateProximityToRect(controlBoundingBox, pHitTestingInput, pProximityEval) {
@@ -17443,6 +17948,18 @@ class Controls {
 
     /**
      * Returns the score of a polygon as the probable touch target (compared to all other polygons that intersect the touch contact area) and an adjusted touch point within the polygon.
+     * @remarks
+     * For consistency with Windows, frameworks that handle <a href="https://docs.microsoft.com/windows/win32/inputmsg/wm-touchhittesting">WM_TOUCHHITTESTING</a> should use the following principles for targeting:
+     * 
+     * <ul>
+     * <li>Inclusion: If the touch point is within the boundaries of a control, the touch point is not changed. 
+     * </li>
+     * <li>Intersection: Include only controls that intersect the contact geometry. 
+     * </li>
+     * <li>Z-order: If more than one control intersects the contact geometry, and the controls overlap, the control that's highest in the z-order receives priority. 
+     * </li>
+     * <li>Ambiguity: If more than one control intersects the contact geometry, and the controls don't overlap, the control that's closest to the original touch point receives priority. </li>
+     * </ul>
      * @param {Integer} numVertices The number of vertices in the polygon. This value must be greater than or equal to 3.
      * 
      * This value indicates the size of the array, as specified by the <i>controlPolygon</i> parameter.
@@ -17453,8 +17970,8 @@ class Controls {
      * @param {Pointer<TOUCH_HIT_TESTING_PROXIMITY_EVALUATION>} pProximityEval The <a href="https://docs.microsoft.com/windows/win32/api/winuser/ns-winuser-touch_hit_testing_proximity_evaluation">TOUCH_HIT_TESTING_PROXIMITY_EVALUATION</a> structure that holds the score and adjusted touch-point data.
      * @returns {BOOL} If this function succeeds, it returns TRUE.
      *  
-     * Otherwise, it returns FALSE. To retrieve extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-evaluateproximitytopolygon
+     * Otherwise, it returns FALSE. To retrieve extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-evaluateproximitytopolygon
      * @since windows8.0
      */
     static EvaluateProximityToPolygon(numVertices, controlPolygon, pHitTestingInput, pProximityEval) {
@@ -17470,10 +17987,12 @@ class Controls {
 
     /**
      * Returns the proximity evaluation score and the adjusted touch-point coordinates as a packed value for the WM_TOUCHHITTESTING callback.
+     * @remarks
+     * Usually, this is the last function that's called in a <a href="https://docs.microsoft.com/windows/win32/inputmsg/wm-touchhittesting">WM_TOUCHHITTESTING</a>  handler.
      * @param {Pointer<TOUCH_HIT_TESTING_INPUT>} pHitTestingInput The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-touch_hit_testing_input">TOUCH_HIT_TESTING_INPUT</a> structure that holds the data for the touch contact area.
      * @param {Pointer<TOUCH_HIT_TESTING_PROXIMITY_EVALUATION>} pProximityEval The <a href="https://docs.microsoft.com/windows/win32/api/winuser/ns-winuser-touch_hit_testing_proximity_evaluation">TOUCH_HIT_TESTING_PROXIMITY_EVALUATION</a> structure that holds the score and adjusted touch-point data that the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-evaluateproximitytopolygon">EvaluateProximityToPolygon</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-evaluateproximitytorect">EvaluateProximityToRect</a> function returns.
-     * @returns {LRESULT} If this function succeeds, it returns the <b>score</b> and <b>adjustedPoint</b> values from <a href="/windows/win32/api/winuser/ns-winuser-touch_hit_testing_proximity_evaluation">TOUCH_HIT_TESTING_PROXIMITY_EVALUATION</a> as an LRESULT. To retrieve extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-packtouchhittestingproximityevaluation
+     * @returns {LRESULT} If this function succeeds, it returns the <b>score</b> and <b>adjustedPoint</b> values from <a href="https://docs.microsoft.com/windows/win32/api/winuser/ns-winuser-touch_hit_testing_proximity_evaluation">TOUCH_HIT_TESTING_PROXIMITY_EVALUATION</a> as an LRESULT. To retrieve extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-packtouchhittestingproximityevaluation
      * @since windows8.0
      */
     static PackTouchHitTestingProximityEvaluation(pHitTestingInput, pProximityEval) {
@@ -17499,7 +18018,7 @@ class Controls {
      * 
      * The <i>config</i> parameter must point to a value of type BOOL.
      * @returns {BOOL} Returns TRUE if the specified feedback setting is configured on the specified window. Otherwise, it returns FALSE (and <i>config</i> won't be modified).
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getwindowfeedbacksetting
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowfeedbacksetting
      * @since windows8.0
      */
     static GetWindowFeedbackSetting(hwnd, feedback, dwFlags, pSize, config) {
@@ -17519,7 +18038,7 @@ class Controls {
      * @param {Integer} size The size, in bytes, of the configuration data. Must be sizeof(BOOL) or 0 if the feedback setting is being reset.
      * @param {Pointer} configuration The configuration data. Must be BOOL or NULL if the feedback setting is being reset.
      * @returns {BOOL} Returns TRUE if successful; otherwise, returns FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setwindowfeedbacksetting
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setwindowfeedbacksetting
      * @since windows8.0
      */
     static SetWindowFeedbackSetting(hwnd, feedback, dwFlags, size, configuration) {
@@ -17531,6 +18050,14 @@ class Controls {
 
     /**
      * The SetScrollPos function sets the position of the scroll box (thumb) in the specified scroll bar and, if requested, redraws the scroll bar to reflect the new position of the scroll box.
+     * @remarks
+     * If the scroll bar is redrawn by a subsequent call to another function, setting the <i>bRedraw</i> parameter to <b>FALSE</b> is useful. 
+     * 
+     * Because the messages that indicate scroll bar position, <a href="https://docs.microsoft.com/windows/desktop/Controls/wm-hscroll">WM_HSCROLL</a> and <a href="https://docs.microsoft.com/windows/desktop/Controls/wm-vscroll">WM_VSCROLL</a>, are limited to 16 bits of position data, applications that rely solely on those messages for position data have a practical maximum value of 65,535 for the <b>SetScrollPos</b> function's <i>nPos</i> parameter. 
+     * 
+     * However, because the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setscrollinfo">SetScrollInfo</a>, <b>SetScrollPos</b>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setscrollrange">SetScrollRange</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getscrollinfo">GetScrollInfo</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getscrollpos">GetScrollPos</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getscrollrange">GetScrollRange</a> functions support 32-bit scroll bar position data, there is a way to circumvent the 16-bit barrier of the <a href="https://docs.microsoft.com/windows/desktop/Controls/wm-hscroll">WM_HSCROLL</a> and <a href="https://docs.microsoft.com/windows/desktop/Controls/wm-vscroll">WM_VSCROLL</a> messages. See <b>GetScrollInfo</b> for a description of the technique. 
+     * 
+     * If the <i>nBar</i> parameter is SB_CTL and the window specified by the <i>hWnd</i> parameter is not a system scroll bar control, the system sends the <a href="https://docs.microsoft.com/windows/desktop/Controls/sbm-setpos">SBM_SETPOS</a> message to the window to set scroll bar information.  This allows <b>SetScrollPos</b> to operate on a custom control that mimics a scroll bar.  If the window does not handle the <b>SBM_SETPOS</b> message, the <b>SetScrollPos</b> function fails.
      * @param {HWND} hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to a scroll bar control or a window with a standard scroll bar, depending on the value of the <i>nBar</i> parameter.
@@ -17547,8 +18074,8 @@ class Controls {
      *                     
      *                     
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setscrollpos
+     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setscrollpos
      * @since windows6.0.6000
      */
     static SetScrollPos(hWnd, nBar, nPos, bRedraw) {
@@ -17566,6 +18093,30 @@ class Controls {
 
     /**
      * The SetScrollRange function sets the minimum and maximum scroll box positions for the specified scroll bar.
+     * @remarks
+     * You can use <b>SetScrollRange</b> to hide the scroll bar by setting 
+     * 				<i>nMinPos</i> and 
+     * 				<i>nMaxPos</i> to the same value. An application should not call the <b>SetScrollRange</b> function to hide a scroll bar while processing a scroll bar message. New applications should use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showscrollbar">ShowScrollBar</a> function to hide the scroll bar. 
+     * 
+     * If the call to <b>SetScrollRange</b> immediately follows a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setscrollpos">SetScrollPos</a> function, the 
+     * 				<i>bRedraw</i> parameter in <b>SetScrollPos</b> must be zero to prevent the scroll bar from being drawn twice. 
+     * 
+     * The default range for a standard scroll bar is 0 through 100. The default range for a scroll bar control is empty (both the 
+     * 				<i>nMinPos</i> and 
+     * 				<i>nMaxPos</i> parameter values are zero). The difference between the values specified by the 
+     * 				<i>nMinPos</i> and 
+     * 				<i>nMaxPos</i> parameters must not be greater than the value of MAXLONG. 
+     * 
+     * Because the messages that indicate scroll bar position, 
+     * 				<a href="https://docs.microsoft.com/windows/desktop/Controls/wm-hscroll">WM_HSCROLL</a> and 
+     * 				<a href="https://docs.microsoft.com/windows/desktop/Controls/wm-vscroll">WM_VSCROLL</a>, are limited to 16 bits of position data, applications that rely solely on those messages for position data have a practical maximum value of 65,535 for the <b>SetScrollRange</b> function's 
+     * 				<i>nMaxPos</i> parameter. 
+     * 
+     * However, because the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setscrollinfo">SetScrollInfo</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setscrollpos">SetScrollPos</a>, <b>SetScrollRange</b>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getscrollinfo">GetScrollInfo</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getscrollpos">GetScrollPos</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getscrollrange">GetScrollRange</a> functions support 32-bit scroll bar position data, there is a way to circumvent the 16-bit barrier of the 
+     * 				<a href="https://docs.microsoft.com/windows/desktop/Controls/wm-hscroll">WM_HSCROLL</a> and 
+     * 				<a href="https://docs.microsoft.com/windows/desktop/Controls/wm-vscroll">WM_VSCROLL</a> messages. See <b>GetScrollInfo</b> for a description of the technique. 
+     * 
+     * If the <i>nBar</i> parameter is SB_CTL and the window specified by the <i>hWnd</i> parameter is not a system scroll bar control, the system sends the <a href="https://docs.microsoft.com/windows/desktop/Controls/sbm-setrange">SBM_SETRANGE</a> message to the window to set scroll bar information.  This allows <b>SetScrollRange</b> to operate on a custom control that mimics a scroll bar.  If the window does not handle the <b>SBM_SETRANGE</b> message, the <b>SetScrollRange</b> function fails.
      * @param {HWND} hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to a scroll bar control or a window with a standard scroll bar, depending on the value of the 
@@ -17580,12 +18131,12 @@ class Controls {
      * @param {BOOL} bRedraw Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Specifies whether the scroll bar should be redrawn to reflect the change. If this parameter is <b>TRUE</b>, the scroll bar is redrawn. If it is <b>FALSE</b>, the scroll bar is not redrawn.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setscrollrange
+     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setscrollrange
      * @since windows6.0.6000
      */
     static SetScrollRange(hWnd, nBar, nMinPos, nMaxPos, bRedraw) {
@@ -17603,6 +18154,8 @@ class Controls {
 
     /**
      * The ShowScrollBar function shows or hides the specified scroll bar.
+     * @remarks
+     * You should not call this function to hide a scroll bar while processing a scroll bar message.
      * @param {HWND} hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to a scroll bar control or a window with a standard scroll bar, depending on the value of the 
@@ -17611,12 +18164,12 @@ class Controls {
      * @param {BOOL} bShow Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Specifies whether the scroll bar is shown or hidden. If this parameter is <b>TRUE</b>, the scroll bar is shown; otherwise, it is hidden.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-showscrollbar
+     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-showscrollbar
      * @since windows6.0.6000
      */
     static ShowScrollBar(hWnd, wBar, bShow) {
@@ -17640,12 +18193,12 @@ class Controls {
      * 					<i>wSBflags</i> parameter.
      * @param {Integer} wSBflags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * @param {Integer} wArrows Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If the arrows are enabled or disabled as specified, the return value is nonzero.
      * 
-     * If the arrows are already in the requested state or an error occurs, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-enablescrollbar
+     * If the arrows are already in the requested state or an error occurs, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enablescrollbar
      * @since windows6.0.6000
      */
     static EnableScrollBar(hWnd, wSBflags, wArrows) {
@@ -17662,7 +18215,21 @@ class Controls {
     }
 
     /**
-     * Replaces the contents of a list box with the names of the subdirectories and files in a specified directory. You can filter the list of names by specifying a set of file attributes. The list can optionally include mapped drives.
+     * Replaces the contents of a list box with the names of the subdirectories and files in a specified directory. You can filter the list of names by specifying a set of file attributes. The list can optionally include mapped drives. (ANSI)
+     * @remarks
+     * If 
+     * 				<i>lpPathSpec</i> specifies a directory, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-dlgdirlistcomboboxa">DlgDirListComboBox</a> changes the current directory to the specified directory before filling the list box. The text of the static control identified by the 
+     * 				<i>nIDStaticPath</i> parameter is set to the name of the new current directory. 
+     * 
+     * <b>DlgDirList</b> sends the 
+     * 				<a href="https://docs.microsoft.com/windows/desktop/Controls/lb-resetcontent">LB_RESETCONTENT</a> and 
+     * 				<a href="https://docs.microsoft.com/windows/desktop/Controls/lb-dir">LB_DIR</a> messages to the list box. 
+     * 
+     * If 
+     * 				<i>uFileType</i> includes the DDL_DIRECTORY flag and 
+     * 				<i>lpPathSpec</i> specifies a first-level directory, such as C:\TEMP, the list box will always include a ".." entry for the root directory. This is true even if the root directory has hidden or system attributes and the DDL_HIDDEN and DDL_SYSTEM flags are not specified. The root directory of an NTFS volume has hidden and system attributes. 
+     * 
+     * The directory listing displays long filenames, if any.
      * @param {HWND} hDlg Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the dialog box that contains the list box.
@@ -17686,7 +18253,7 @@ class Controls {
      * 
      * If the function fails, the return value is zero. For example, if the string specified by 
      * 						<i>lpPathSpec</i> is not a valid path, the function fails. To get extended error information, call .
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-dlgdirlista
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-dlgdirlista
      * @since windows6.0.6000
      */
     static DlgDirListA(hDlg, lpPathSpec, nIDListBox, nIDStaticPath, uFileType) {
@@ -17698,7 +18265,21 @@ class Controls {
     }
 
     /**
-     * Replaces the contents of a list box with the names of the subdirectories and files in a specified directory. You can filter the list of names by specifying a set of file attributes. The list can optionally include mapped drives.
+     * Replaces the contents of a list box with the names of the subdirectories and files in a specified directory. You can filter the list of names by specifying a set of file attributes. The list can optionally include mapped drives. (Unicode)
+     * @remarks
+     * If 
+     * 				<i>lpPathSpec</i> specifies a directory, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-dlgdirlistcomboboxa">DlgDirListComboBox</a> changes the current directory to the specified directory before filling the list box. The text of the static control identified by the 
+     * 				<i>nIDStaticPath</i> parameter is set to the name of the new current directory. 
+     * 
+     * <b>DlgDirList</b> sends the 
+     * 				<a href="https://docs.microsoft.com/windows/desktop/Controls/lb-resetcontent">LB_RESETCONTENT</a> and 
+     * 				<a href="https://docs.microsoft.com/windows/desktop/Controls/lb-dir">LB_DIR</a> messages to the list box. 
+     * 
+     * If 
+     * 				<i>uFileType</i> includes the DDL_DIRECTORY flag and 
+     * 				<i>lpPathSpec</i> specifies a first-level directory, such as C:\TEMP, the list box will always include a ".." entry for the root directory. This is true even if the root directory has hidden or system attributes and the DDL_HIDDEN and DDL_SYSTEM flags are not specified. The root directory of an NTFS volume has hidden and system attributes. 
+     * 
+     * The directory listing displays long filenames, if any.
      * @param {HWND} hDlg Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the dialog box that contains the list box.
@@ -17727,7 +18308,7 @@ class Controls {
      * 
      * If the function fails, the return value is zero. For example, if the string specified by 
      * 						<i>lpPathSpec</i> is not a valid path, the function fails. To get extended error information, call .
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-dlgdirlistw
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-dlgdirlistw
      * @since windows6.0.6000
      */
     static DlgDirListW(hDlg, lpPathSpec, nIDListBox, nIDStaticPath, uFileType) {
@@ -17739,7 +18320,18 @@ class Controls {
     }
 
     /**
-     * Retrieves the current selection from a single-selection list box. It assumes that the list box has been filled by the DlgDirList function and that the selection is a drive letter, filename, or directory name.
+     * Retrieves the current selection from a single-selection list box. It assumes that the list box has been filled by the DlgDirList function and that the selection is a drive letter, filename, or directory name. (ANSI)
+     * @remarks
+     * The <b>DlgDirSelectEx</b> function copies the selection to the buffer pointed to by the 
+     *                 <i>lpString</i> parameter. If the current selection is a directory name or drive letter, <b>DlgDirSelectEx</b> removes the enclosing square brackets (and hyphens, for drive letters), so that the name or letter is ready to be inserted into a new path. If there is no selection, 
+     *                 <i>lpString</i> does not change.
+     * 
+     * If the string is as long or longer than the buffer, the buffer will contain the truncated string with a terminating null character.
+     * 
+     * <b>DlgDirSelectEx</b> sends <a href="https://docs.microsoft.com/windows/desktop/Controls/lb-getcursel">LB_GETCURSEL</a> and <a href="https://docs.microsoft.com/windows/desktop/Controls/lb-gettext">LB_GETTEXT</a> messages to the list box. The function does not allow more than one filename to be returned from a list box. The list box must not be a multiple-selection list box. If it is, this function does not return a zero value and 
+     *                 <i>lpString</i> remains unchanged. 
+     * 
+     * <b>Windows 95 or later</b>: <b>DlgDirSelectExW</b> is supported by the Microsoft Layer for Unicode. To use this, you must add certain files to your application, as outlined in <a href="https://docs.microsoft.com/archive/msdn-magazine/2001/october/mslu-develop-unicode-applications-for-windows-9x-platforms-with-the-microsoft-layer-for-unicode">Microsoft Layer for Unicode on Windows Me/98/95 Systems</a>.
      * @param {HWND} hwndDlg Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the dialog box that contains the list box.
@@ -17754,12 +18346,12 @@ class Controls {
      * @param {Integer} idListBox Type: <b>int</b>
      * 
      * The identifier of a list box in the dialog box.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If the current selection is a directory name, the return value is nonzero.
      * 
-     * If the current selection is not a directory name, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-dlgdirselectexa
+     * If the current selection is not a directory name, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-dlgdirselectexa
      * @since windows6.0.6000
      */
     static DlgDirSelectExA(hwndDlg, lpString, chCount, idListBox) {
@@ -17777,7 +18369,17 @@ class Controls {
     }
 
     /**
-     * Retrieves the current selection from a single-selection list box. It assumes that the list box has been filled by the DlgDirList function and that the selection is a drive letter, filename, or directory name.
+     * Retrieves the current selection from a single-selection list box. It assumes that the list box has been filled by the DlgDirList function and that the selection is a drive letter, filename, or directory name. (Unicode)
+     * @remarks
+     * The <b>DlgDirSelectEx</b> function copies the selection to the buffer pointed to by the 
+     *                 <i>lpString</i> parameter. If the current selection is a directory name or drive letter, <b>DlgDirSelectEx</b> removes the enclosing square brackets (and hyphens, for drive letters), so that the name or letter is ready to be inserted into a new path. If there is no selection, 
+     *                 <i>lpString</i> does not change. 
+     * If the string is as long or longer than the buffer, the buffer will contain the truncated string with a terminating null character.
+     * 
+     * <b>DlgDirSelectEx</b> sends <a href="https://docs.microsoft.com/windows/desktop/Controls/lb-getcursel">LB_GETCURSEL</a> and <a href="https://docs.microsoft.com/windows/desktop/Controls/lb-gettext">LB_GETTEXT</a> messages to the list box. The function does not allow more than one filename to be returned from a list box. The list box must not be a multiple-selection list box. If it is, this function does not return a zero value and 
+     *                 <i>lpString</i> remains unchanged. 
+     * 
+     * <b>Windows 95 or later</b>: <b>DlgDirSelectExW</b> is supported by the Microsoft Layer for Unicode. To use this, you must add certain files to your application, as outlined in <a href="https://docs.microsoft.com/archive/msdn-magazine/2001/october/mslu-develop-unicode-applications-for-windows-9x-platforms-with-the-microsoft-layer-for-unicode">Microsoft Layer for Unicode on Windows Me/98/95 Systems</a>.
      * @param {HWND} hwndDlg Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the dialog box that contains the list box.
@@ -17792,12 +18394,12 @@ class Controls {
      * @param {Integer} idListBox Type: <b>int</b>
      * 
      * The identifier of a list box in the dialog box.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If the current selection is a directory name, the return value is nonzero.
      * 
-     * If the current selection is not a directory name, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-dlgdirselectexw
+     * If the current selection is not a directory name, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-dlgdirselectexw
      * @since windows6.0.6000
      */
     static DlgDirSelectExW(hwndDlg, lpString, chCount, idListBox) {
@@ -17815,7 +18417,27 @@ class Controls {
     }
 
     /**
-     * Replaces the contents of a combo box with the names of the subdirectories and files in a specified directory. You can filter the list of names by specifying a set of file attributes. The list of names can include mapped drive letters.
+     * Replaces the contents of a combo box with the names of the subdirectories and files in a specified directory. You can filter the list of names by specifying a set of file attributes. The list of names can include mapped drive letters. (ANSI)
+     * @remarks
+     * If <i>lpPathSpec</i> specifies a directory, <b>DlgDirListComboBox</b> changes the current directory to the specified directory before filling the combo box. The text of the static control identified by the  <i>nIDStaticPath</i> parameter is set to the name of the new current directory.
+     * 
+     * 
+     * <b>DlgDirListComboBox</b> sends the <a href="https://docs.microsoft.com/windows/desktop/Controls/cb-resetcontent">CB_RESETCONTENT</a> and <a href="https://docs.microsoft.com/windows/desktop/Controls/cb-dir">CB_DIR</a> messages to the combo box. 
+     * 
+     * Microsoft Windows NT 4.0 and later: If <i>uFiletype</i> includes the DDL_DIRECTORY flag and <i>lpPathSpec</i> specifies a first-level directory, such as C:\TEMP, the combo box will always include a ".." entry for the root directory. This is true even if the root directory has hidden or system attributes and the DDL_HIDDEN and DDL_SYSTEM flags are not specified. The root directory of an NTFS volume has hidden and system attributes. 
+     * 
+     * <b>Security Warning:  </b>Using this function incorrectly might compromise the security of your program. Incorrect use of this function includes having <i>lpPathSpec</i> indicate a non-writable buffer, or a buffer without a null-termination. You should review the <a href="https://docs.microsoft.com/windows/desktop/Controls/sec-comctls">Security Considerations: Microsoft Windows Controls</a> before continuing.
+     * 
+     * Microsoft Windows NT 4.0 and later: The list displays long file names, if any.
+     * 
+     * Windows 95 or later: The list displays short file names (the 8.3 form). You can use the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shgetfileinfoa">SHGetFileInfo</a> or <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getfullpathnamea">GetFullPathName</a> functions to get the corresponding long file name.
+     * 
+     * Windows 95 or later: <b>DlgDirListComboBoxW</b> is supported by the Microsoft Layer for Unicode. To use this, you must add certain files to your application, as outlined in <a href="https://docs.microsoft.com/archive/msdn-magazine/2001/october/mslu-develop-unicode-applications-for-windows-9x-platforms-with-the-microsoft-layer-for-unicode">Microsoft Layer for Unicode on Windows Me/98/95 Systems</a>.
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winuser.h header defines DlgDirListComboBox as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hDlg Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the dialog box that contains the combo box.
@@ -17841,8 +18463,8 @@ class Controls {
      *                     
      *                     
      * 
-     * If the function fails, the return value is zero. For example, if the string specified by <i>lpPathSpec</i> is not a valid path, the function fails. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-dlgdirlistcomboboxa
+     * If the function fails, the return value is zero. For example, if the string specified by <i>lpPathSpec</i> is not a valid path, the function fails. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-dlgdirlistcomboboxa
      * @since windows6.0.6000
      */
     static DlgDirListComboBoxA(hDlg, lpPathSpec, nIDComboBox, nIDStaticPath, uFiletype) {
@@ -17860,7 +18482,29 @@ class Controls {
     }
 
     /**
-     * Replaces the contents of a combo box with the names of the subdirectories and files in a specified directory. You can filter the list of names by specifying a set of file attributes. The list of names can include mapped drive letters.
+     * Replaces the contents of a combo box with the names of the subdirectories and files in a specified directory. You can filter the list of names by specifying a set of file attributes. The list of names can include mapped drive letters. (Unicode)
+     * @remarks
+     * If <i>lpPathSpec</i> specifies a directory, <b>DlgDirListComboBox</b> changes the current directory to the specified directory before filling the combo box. The text of the static control identified by the <i>nIDStaticPath</i> parameter is set to the name of the new current directory. 
+     * 
+     * 
+     * <b>DlgDirListComboBox</b> sends the <a href="https://docs.microsoft.com/windows/desktop/Controls/cb-resetcontent">CB_RESETCONTENT</a> and <a href="https://docs.microsoft.com/windows/desktop/Controls/cb-dir">CB_DIR</a> messages to the combo box. 
+     * 
+     * Microsoft Windows NT 4.0 and later: If <i>uFiletype</i> includes the DDL_DIRECTORY flag and <i>lpPathSpec</i> specifies a first-level directory, such as C:\TEMP, the combo box will always include a ".." entry for the root directory. This is true even if the root directory has hidden or system attributes and the DDL_HIDDEN and DDL_SYSTEM flags are not specified. The root directory of an NTFS volume has hidden and system attributes. 
+     * 
+     * <b>Security Warning:  </b>Using this function incorrectly might compromise the security of your program. Incorrect use of this function includes having <i>lpPathSpec</i> indicate a non-writable buffer, or a buffer without a null-termination. You should review the <a href="https://docs.microsoft.com/windows/desktop/Controls/sec-comctls">Security Considerations: Microsoft Windows Controls</a> before continuing.
+     * 
+     * Microsoft Windows NT 4.0 and later: The list displays long file names, if any.
+     * 
+     * Windows 95 or later: The list displays short file names (the 8.3 form). You can use the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shgetfileinfoa">SHGetFileInfo</a> or <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getfullpathnamea">GetFullPathName</a> functions to get the corresponding long file name.
+     * 
+     * 
+     * Windows 95 or later: <b>DlgDirListComboBoxW</b> is supported by the Microsoft Layer for Unicode. To use this, you must add certain files to your application, as outlined in <a href="https://docs.microsoft.com/archive/msdn-magazine/2001/october/mslu-develop-unicode-applications-for-windows-9x-platforms-with-the-microsoft-layer-for-unicode">Microsoft Layer for Unicode on Windows Me/98/95 Systems</a>.
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winuser.h header defines DlgDirListComboBox as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hDlg Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the dialog box that contains the combo box.
@@ -17886,8 +18530,8 @@ class Controls {
      *                     
      *                     
      * 
-     * If the function fails, the return value is zero. For example, if the string specified by <i>lpPathSpec</i> is not a valid path, the function fails. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-dlgdirlistcomboboxw
+     * If the function fails, the return value is zero. For example, if the string specified by <i>lpPathSpec</i> is not a valid path, the function fails. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-dlgdirlistcomboboxw
      * @since windows6.0.6000
      */
     static DlgDirListComboBoxW(hDlg, lpPathSpec, nIDComboBox, nIDStaticPath, uFiletype) {
@@ -17905,7 +18549,26 @@ class Controls {
     }
 
     /**
-     * Retrieves the current selection from a combo box filled by using the DlgDirListComboBox function. The selection is interpreted as a drive letter, a file, or a directory name.
+     * Retrieves the current selection from a combo box filled by using the DlgDirListComboBox function. The selection is interpreted as a drive letter, a file, or a directory name. (ANSI)
+     * @remarks
+     * If the current selection specifies a directory name or drive letter, the <b>DlgDirSelectComboBoxEx</b> function removes the enclosing square brackets (and hyphens for drive letters) so the name or letter is ready to be inserted into a new path or file name. If there is no selection, the contents of the buffer pointed to by <i>lpString</i> do not change.
+     * 
+     * The <b>DlgDirSelectComboBoxEx</b> function does not allow more than one file name to be returned from a combo box. 
+     * 
+     * If the string is as long or longer than the buffer, the buffer contains the truncated string with a terminating null character.
+     * 
+     * <b>DlgDirSelectComboBoxEx</b> sends <a href="https://docs.microsoft.com/windows/desktop/Controls/cb-getcursel">CB_GETCURSEL</a> and <a href="https://docs.microsoft.com/windows/desktop/Controls/cb-getlbtext">CB_GETLBTEXT</a> messages to the combo box. 
+     * 
+     * You can use this function with all three types of combo boxes (<a href="https://docs.microsoft.com/windows/desktop/Controls/combo-box-styles">CBS_SIMPLE</a>, <a href="https://docs.microsoft.com/windows/desktop/Controls/combo-box-styles">CBS_DROPDOWN</a>, and CBS_DROPDOWNLIST). 
+     * 
+     * <b>Security Warning:  </b>Improper use of this function can cause problems for your application. For instance, the <i>nCount</i> parameter should be set properly for both ANSI and Unicode versions. Failure to do so could lead to a buffer overflow. You should review <a href="https://docs.microsoft.com/windows/desktop/Controls/sec-comctls">Security Considerations: Microsoft Windows Controls</a> before continuing.
+     * 
+     * <b>Windows 95 or later</b>: <b>DlgDirSelectComboBoxExW</b> is supported by the Microsoft Layer for Unicode (MSLU). To use this, you must add certain files to your application, as outlined in <a href="https://docs.microsoft.com/archive/msdn-magazine/2001/october/mslu-develop-unicode-applications-for-windows-9x-platforms-with-the-microsoft-layer-for-unicode">Microsoft Layer for Unicode on Windows Me/98/95 Systems</a>.
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winuser.h header defines DlgDirSelectComboBoxEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwndDlg Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the dialog box that contains the combo box.
@@ -17918,14 +18581,14 @@ class Controls {
      * @param {Integer} idComboBox Type: <b>int</b>
      * 
      * The integer identifier of the combo box control in the dialog box.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If the current selection is a directory name, the return value is nonzero.
      *                 
      *                     
      * 
-     * If the current selection is not a directory name, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-dlgdirselectcomboboxexa
+     * If the current selection is not a directory name, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-dlgdirselectcomboboxexa
      * @since windows6.0.6000
      */
     static DlgDirSelectComboBoxExA(hwndDlg, lpString, cchOut, idComboBox) {
@@ -17943,7 +18606,27 @@ class Controls {
     }
 
     /**
-     * Retrieves the current selection from a combo box filled by using the DlgDirListComboBox function. The selection is interpreted as a drive letter, a file, or a directory name.
+     * Retrieves the current selection from a combo box filled by using the DlgDirListComboBox function. The selection is interpreted as a drive letter, a file, or a directory name. (Unicode)
+     * @remarks
+     * If the current selection specifies a directory name or drive letter, the <b>DlgDirSelectComboBoxEx</b> function removes the enclosing square brackets (and hyphens for drive letters) so the name or letter is ready to be inserted into a new path or file name. If there is no selection, the contents of the buffer pointed to by <i>lpString</i> do not change.
+     * 
+     * The <b>DlgDirSelectComboBoxEx</b> function does not allow more than one file name to be returned from a combo box. 
+     * 
+     * If the string is as long or longer than the buffer, the buffer contains the truncated string with a terminating null character.
+     * 
+     * <b>DlgDirSelectComboBoxEx</b> sends <a href="https://docs.microsoft.com/windows/desktop/Controls/cb-getcursel">CB_GETCURSEL</a> and <a href="https://docs.microsoft.com/windows/desktop/Controls/cb-getlbtext">CB_GETLBTEXT</a> messages to the combo box. 
+     * 
+     * You can use this function with all three types of combo boxes (<a href="https://docs.microsoft.com/windows/desktop/Controls/combo-box-styles">CBS_SIMPLE</a>, <a href="https://docs.microsoft.com/windows/desktop/Controls/combo-box-styles">CBS_DROPDOWN</a>, and CBS_DROPDOWNLIST). 
+     * 
+     * <b>Security Warning:  </b>Improper use of this function can cause problems for your application. For instance, the <i>nCount</i> parameter should be set properly for both ANSI and Unicode versions. Failure to do so could lead to a buffer overflow. You should review <a href="https://docs.microsoft.com/windows/desktop/Controls/sec-comctls">Security Considerations: Microsoft Windows Controls</a> before continuing.
+     * 
+     * <b>Windows 95 or later</b>: <b>DlgDirSelectComboBoxExW</b> is supported by the Microsoft Layer for Unicode (MSLU). To use this, you must add certain files to your application, as outlined in <a href="https://docs.microsoft.com/archive/msdn-magazine/2001/october/mslu-develop-unicode-applications-for-windows-9x-platforms-with-the-microsoft-layer-for-unicode">Microsoft Layer for Unicode on Windows Me/98/95 Systems</a>.
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winuser.h header defines DlgDirSelectComboBoxEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwndDlg Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the dialog box that contains the combo box.
@@ -17956,14 +18639,14 @@ class Controls {
      * @param {Integer} idComboBox Type: <b>int</b>
      * 
      * The integer identifier of the combo box control in the dialog box.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If the current selection is a directory name, the return value is nonzero.
      *                 
      *                     
      * 
-     * If the current selection is not a directory name, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-dlgdirselectcomboboxexw
+     * If the current selection is not a directory name, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-dlgdirselectcomboboxexw
      * @since windows6.0.6000
      */
     static DlgDirSelectComboBoxExW(hwndDlg, lpString, cchOut, idComboBox) {
@@ -17982,6 +18665,22 @@ class Controls {
 
     /**
      * The SetScrollInfo function sets the parameters of a scroll bar, including the minimum and maximum scrolling positions, the page size, and the position of the scroll box (thumb). The function also redraws the scroll bar, if requested.
+     * @remarks
+     * The <b>SetScrollInfo</b> function performs range checking on the values specified by the 
+     * 				<b>nPage</b> and 
+     * 				<b>nPos</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-scrollinfo">SCROLLINFO</a> structure. The 
+     * 				<b>nPage</b> member must specify a value from 0 to 
+     * 				<b>nMax</b> - 
+     * 				<b>nMin</b> +1. The 
+     * 				<b>nPos</b> member must specify a value between 
+     * 				<b>nMin</b> and 
+     * 				<b>nMax</b> - 
+     * 				<b>max</b>(
+     * 				<b>nPage</b>– 1, 0). If either value is beyond its range, the function sets it to a value that is just within the range. 
+     * 
+     * If the <i>fnBar</i> parameter is SB_CTL and the window specified by the <i>hwnd</i> parameter is not a system scroll bar control, the system sends the <a href="https://docs.microsoft.com/windows/desktop/Controls/sbm-setscrollinfo">SBM_SETSCROLLINFO</a> message to the window to set scroll bar information (The system can optimize the message to <a href="https://docs.microsoft.com/windows/desktop/Controls/sbm-setpos">SBM_SETPOS</a> or <a href="https://docs.microsoft.com/windows/desktop/Controls/sbm-setrange">SBM_SETRANGE</a> if the request is solely for the position or range).  This allows <b>SetScrollInfo</b> to operate on a custom control that mimics a scroll bar.  If the window does not handle <b>SBM_SETSCROLLINFO</b> (or the optimized <b>SBM_SETPOS</b> message or <b>SBM_SETRANGE</b> message), then the <b>SetScrollInfo</b> function fails.
+     * 
+     * For an example, see <a href="https://docs.microsoft.com/windows/desktop/Controls/using-scroll-bars">Scrolling Text with the WM_PAINT Message</a>.
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to a scroll bar control or a window with a standard scroll bar, depending on the value of the 
@@ -18001,7 +18700,7 @@ class Controls {
      * @returns {Integer} Type: <b>int</b>
      * 
      * The return value is the current position of the scroll box.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setscrollinfo
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setscrollinfo
      * @since windows6.0.6000
      */
     static SetScrollInfo(hwnd, nBar, lpsi, redraw) {
@@ -18013,18 +18712,20 @@ class Controls {
 
     /**
      * Retrieves information about the specified combo box.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/Controls/cb-getcomboboxinfo">CB_GETCOMBOBOXINFO</a> message is equivalent to this function.
      * @param {HWND} hwndCombo Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the combo box.
      * @param {Pointer<COMBOBOXINFO>} pcbi Type: <b>PCOMBOBOXINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-comboboxinfo">COMBOBOXINFO</a> structure that receives the information. You must set <b>COMBOBOXINFO.cbSize</b> before calling this function.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getcomboboxinfo
+     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getcomboboxinfo
      * @since windows6.0.6000
      */
     static GetComboBoxInfo(hwndCombo, pcbi) {
@@ -18045,10 +18746,10 @@ class Controls {
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the list box whose number of items per column is to be retrieved.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * The return value is the number of items per column.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getlistboxinfo
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getlistboxinfo
      * @since windows6.0.6000
      */
     static GetListBoxInfo(hwnd) {
@@ -18060,15 +18761,15 @@ class Controls {
 
     /**
      * Registers a window to process the WM_POINTERDEVICECHANGE, WM_POINTERDEVICEINRANGE, and WM_POINTERDEVICEOUTOFRANGE pointer device notifications.
-     * @param {HWND} window The window that receives <a href="https://docs.microsoft.com/previous-versions/windows/desktop/inputmsg/wm-pointerdevicechange">WM_POINTERDEVICECHANGE</a>,
-     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/inputmsg/wm-pointerdeviceinrange">WM_POINTERDEVICEINRANGE</a>, and
-     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/inputmsg/wm-pointerdeviceoutofrange">WM_POINTERDEVICEOUTOFRANGE</a> notifications.
-     * @param {BOOL} notifyRange If set to TRUE, process the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/inputmsg/wm-pointerdeviceinrange">WM_POINTERDEVICEINRANGE</a> and
-     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/inputmsg/wm-pointerdeviceoutofrange">WM_POINTERDEVICEOUTOFRANGE</a> messages. If set to FALSE, these messages aren't processed.
+     * @param {HWND} window The window that receives <a href="https://docs.microsoft.com/windows/win32/inputmsg/wm-pointerdevicechange">WM_POINTERDEVICECHANGE</a>,
+     * <a href="https://docs.microsoft.com/windows/win32/inputmsg/wm-pointerdeviceinrange">WM_POINTERDEVICEINRANGE</a>, and
+     * <a href="https://docs.microsoft.com/windows/win32/inputmsg/wm-pointerdeviceoutofrange">WM_POINTERDEVICEOUTOFRANGE</a> notifications.
+     * @param {BOOL} notifyRange If set to TRUE, process the <a href="https://docs.microsoft.com/windows/win32/inputmsg/wm-pointerdeviceinrange">WM_POINTERDEVICEINRANGE</a> and
+     * <a href="https://docs.microsoft.com/windows/win32/inputmsg/wm-pointerdeviceoutofrange">WM_POINTERDEVICEOUTOFRANGE</a> messages. If set to FALSE, these messages aren't processed.
      * @returns {BOOL} If this function succeeds, it returns TRUE.
      *  
-     * Otherwise, it returns FALSE. To retrieve extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-registerpointerdevicenotifications
+     * Otherwise, it returns FALSE. To retrieve extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-registerpointerdevicenotifications
      * @since windows8.0
      */
     static RegisterPointerDeviceNotifications(window, notifyRange) {

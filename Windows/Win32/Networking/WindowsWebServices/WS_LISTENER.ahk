@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * An opaque type used to reference a listener.
+ * @remarks
+ * This object is thread safe. For more information, see [thread safety](thread-safety.md).
  * @see https://learn.microsoft.com/windows/win32/wsw/ws-listener
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319

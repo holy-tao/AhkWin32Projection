@@ -3,7 +3,7 @@
 
 /**
  * The DISCONNECT_CODE enum is used by the ITBasicCallControl::Disconnect method.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-disconnect_code
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-disconnect_code
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

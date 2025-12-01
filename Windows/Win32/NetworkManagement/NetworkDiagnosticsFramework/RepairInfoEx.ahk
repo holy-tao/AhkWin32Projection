@@ -6,7 +6,7 @@
 
 /**
  * Contains detailed repair information that can be used to help resolve the root cause of an incident.
- * @see https://docs.microsoft.com/windows/win32/api//ndattrib/ns-ndattrib-repairinfoex
+ * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-repairinfoex
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */

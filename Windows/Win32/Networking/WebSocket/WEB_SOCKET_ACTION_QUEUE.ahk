@@ -3,7 +3,7 @@
 
 /**
  * Specifies the action types returned by WebSocketGetAction.
- * @see https://docs.microsoft.com/windows/win32/api//websocket/ne-websocket-web_socket_action_queue
+ * @see https://learn.microsoft.com/windows/win32/api/websocket/ne-websocket-web_socket_action_queue
  * @namespace Windows.Win32.Networking.WebSocket
  * @version v4.0.30319
  */

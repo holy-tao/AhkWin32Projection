@@ -4,7 +4,6 @@
 /**
  * Represents optional activation parameters for a spatial audio render stream. Pass this structure to ActivateAudioInterfaceAsync when activating an ISpatialAudioClient interface.
  * @remarks
- * 
  * The following example code shows how to initialize this structure.
  * 
  * 
@@ -27,8 +26,7 @@
  * 
  * 
  * To access the <b>ActivateAudioIntefaceAsync</b>, you will need to link to mmdevapi.lib.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//spatialaudioclient/ns-spatialaudioclient-spatialaudioclientactivationparams
+ * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/ns-spatialaudioclient-spatialaudioclientactivationparams
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

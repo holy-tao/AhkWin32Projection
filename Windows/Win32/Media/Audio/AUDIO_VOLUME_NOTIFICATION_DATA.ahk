@@ -4,7 +4,6 @@
 /**
  * The AUDIO_VOLUME_NOTIFICATION_DATA structure describes a change in the volume level or muting state of an audio endpoint device.
  * @remarks
- * 
  * This structure is used by the <b>IAudioEndpointVolumeCallback::OnNotify</b> method.
  * 
  * A client can register to be notified when the volume level or muting state of an endpoint device changes. The following methods can cause such a change:
@@ -37,9 +36,7 @@
  * Each of the methods in the preceding list accepts an input parameter named <i>pguidEventContext</i>, which is a pointer to an event-context GUID. Before sending notifications to clients, the method copies the event-context GUID pointed to by <i>pguidEventContext</i> into the <b>guidEventContext</b> member of the <b>AUDIO_VOLUME_NOTIFICATION_DATA</b> structure that it supplies to clients through their <b>OnNotify</b> methods. If <i>pguidEventContext</i> is <b>NULL</b>, the value of the <b>guidEventContext</b> member is set to GUID_NULL.
  * 
  * In its implementation of the <b>OnNotify</b> method, a client can inspect the event-context GUID from that call to discover whether it or another client is the source of the volume-change event.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//endpointvolume/ns-endpointvolume-audio_volume_notification_data
+ * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/ns-endpointvolume-audio_volume_notification_data
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

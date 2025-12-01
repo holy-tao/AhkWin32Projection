@@ -6,7 +6,7 @@
 
 /**
  * The DIBSECTION structure contains information about a DIB created by calling the CreateDIBSection function.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-dibsection
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-dibsection
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
@@ -29,7 +29,7 @@ class DIBSECTION extends Win32Struct
     }
 
     /**
-     * A <a href="https://docs.microsoft.com/previous-versions/dd183376(v=vs.85)">BITMAPINFOHEADER</a> structure that contains information about the color format of the DIB.
+     * A <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure that contains information about the color format of the DIB.
      * @type {BITMAPINFOHEADER}
      */
     dsBmih{
@@ -41,7 +41,7 @@ class DIBSECTION extends Win32Struct
     }
 
     /**
-     * Specifies three color masks for the DIB. This field is only valid when the <b>BitCount</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd183376(v=vs.85)">BITMAPINFOHEADER</a> structure has a value greater than 8. Each color mask indicates the bits that are used to encode one of the three color channels (red, green, and blue).
+     * Specifies three color masks for the DIB. This field is only valid when the <b>BitCount</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure has a value greater than 8. Each color mask indicates the bits that are used to encode one of the three color channels (red, green, and blue).
      * @type {Array<UInt32>}
      */
     dsBitfields{

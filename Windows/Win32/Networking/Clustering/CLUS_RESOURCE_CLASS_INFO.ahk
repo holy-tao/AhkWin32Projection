@@ -4,7 +4,6 @@
 /**
  * Contains resource class data. It is used as the data member of a CLUSPROP_RESOURCE_CLASS_INFO structure and as the return value of some control code operations.
  * @remarks
- * 
  * A resource class identifies resources of similar capability. A 
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-dlls">resource DLL</a> that defines its own resource class should 
  *      provide a unique identifier for the class that is set to a value greater than 
@@ -19,9 +18,7 @@
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterresourcetypecontrol">ClusterResourceTypeControl</a> when 
  *      <i>dwControlCode</i> is set to 
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-type-get-class-info">CLUSCTL_RESOURCE_TYPE_GET_CLASS_INFO</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clus_resource_class_info
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_resource_class_info
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

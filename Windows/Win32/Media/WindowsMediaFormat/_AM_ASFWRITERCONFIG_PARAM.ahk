@@ -4,14 +4,11 @@
 /**
  * The _AM_ASFWRITERCONFIG_PARAM DirectShow QASF enumeration type defines filter configuration parameters used in the IConfigAsfWriter2::GetParam and SetParam methods.
  * @remarks
- * 
  * In two-pass mode the filter makes two passes through the file. In the first pass, the filter examines each media stream in its entirety to determine the optimal encoding parameters for the file. The actual encoding is performed in the second pass. Therefore, to create an ASF file in two-pass mode, you must run the graph, wait for an <b>EC_PREPROCESS_COMPLETE</b> event, seek to the beginning of the source file, and then run the graph a second time.
  * 
  * <div class="alert"><b>Important</b>  To receive the <b>EC_PREPROCESS_COMPLETE</b> event you must use the DirectShow <b>GetEvent</b> method as demonstrated in the DSCopy sample. The DirectShow <b>WaitForCompletion</b> method will not receive this particular event.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dshowasf/ne-dshowasf-_am_asfwriterconfig_param
+ * @see https://learn.microsoft.com/windows/win32/api/dshowasf/ne-dshowasf-_am_asfwriterconfig_param
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

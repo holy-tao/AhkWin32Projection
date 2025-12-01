@@ -5,7 +5,7 @@
 
 /**
  * Contains information used with character notification messages.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmchar
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmchar
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

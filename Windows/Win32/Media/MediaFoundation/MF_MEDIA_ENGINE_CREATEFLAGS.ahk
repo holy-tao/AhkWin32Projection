@@ -3,7 +3,7 @@
 
 /**
  * Contains flags for the IMFMediaEngineClassFactory::CreateInstance method.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/ne-mfmediaengine-mf_media_engine_createflags
+ * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_createflags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
