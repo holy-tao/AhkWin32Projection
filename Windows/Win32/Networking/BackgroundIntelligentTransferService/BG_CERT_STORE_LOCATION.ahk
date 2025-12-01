@@ -4,11 +4,8 @@
 /**
  * Defines constants that specify the location of the certificate store.
  * @remarks
- * 
  * For more information, see [System store locations](/windows/desktop/SecCrypto/system-store-locations).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bits2_5/ne-bits2_5-bg_cert_store_location
+ * @see https://learn.microsoft.com/windows/win32/api/bits2_5/ne-bits2_5-bg_cert_store_location
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */

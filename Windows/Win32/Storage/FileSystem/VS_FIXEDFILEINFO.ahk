@@ -3,7 +3,7 @@
 
 /**
  * Contains version information for a file. This information is language and code page independent.
- * @see https://docs.microsoft.com/windows/win32/api//verrsrc/ns-verrsrc-vs_fixedfileinfo
+ * @see https://learn.microsoft.com/windows/win32/api/verrsrc/ns-verrsrc-vs_fixedfileinfo
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

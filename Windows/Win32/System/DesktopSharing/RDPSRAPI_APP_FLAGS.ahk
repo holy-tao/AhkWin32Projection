@@ -3,7 +3,7 @@
 
 /**
  * Defines values for the type of application.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/ne-rdpencomapi-rdpsrapi_app_flags
+ * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/ne-rdpencomapi-rdpsrapi_app_flags
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */

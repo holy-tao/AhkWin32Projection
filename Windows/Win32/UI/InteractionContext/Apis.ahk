@@ -13,11 +13,13 @@ class InteractionContext {
 ;@region Methods
     /**
      * Creates and initializes an Interaction Context object.
+     * @remarks
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/nf-interactioncontext-destroyinteractioncontext">DestroyInteractionContext</a> must be called to destroy any interaction context created by <b>CreateInteractionContext</b>.
      * @param {Pointer<HINTERACTIONCONTEXT>} interactionContext Pointer to a handle for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-createinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-createinteractioncontext
      * @since windows8.0
      */
     static CreateInteractionContext(interactionContext) {
@@ -31,11 +33,13 @@ class InteractionContext {
 
     /**
      * Destroys the specified Interaction Context object.
+     * @remarks
+     * <b>DestroyInteractionContext</b> must be called to destroy any interaction context created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/nf-interactioncontext-createinteractioncontext">CreateInteractionContext</a>.
      * @param {HINTERACTIONCONTEXT} interactionContext The handle of the interaction context.
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-destroyinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-destroyinteractioncontext
      * @since windows8.0
      */
     static DestroyInteractionContext(interactionContext) {
@@ -51,13 +55,17 @@ class InteractionContext {
 
     /**
      * Registers a callback to receive interaction events from an Interaction Context object.
+     * @remarks
+     * Each instance of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a> is limited to one output callback. Registering a callback function overwrites any existing callback registration for the Interaction Context.
+     * 
+     * This function is typically called after the creation of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a> or when the Interaction Context is reassigned to another UI element.
      * @param {HINTERACTIONCONTEXT} interactionContext Handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
      * @param {Pointer<INTERACTION_CONTEXT_OUTPUT_CALLBACK>} outputCallback The callback function.
      * @param {Pointer<Void>} clientData A pointer to an object that contains information about the client. The value typically points to the object for which the member function is called (<b>this</b>).
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-registeroutputcallbackinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-registeroutputcallbackinteractioncontext
      * @since windows8.0
      */
     static RegisterOutputCallbackInteractionContext(interactionContext, outputCallback, clientData) {
@@ -95,13 +103,17 @@ class InteractionContext {
 
     /**
      * Configures the Interaction Context object to process the specified manipulations.
+     * @remarks
+     * By default, no configuration flags are set (no interactions are enabled). Each interaction must be explicitly declared.
+     * 
+     * Configuration changes are applied only to new interactions.
      * @param {HINTERACTIONCONTEXT} interactionContext The handle of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
      * @param {Integer} configurationCount The number of interactions being configured.
      * @param {Pointer<INTERACTION_CONTEXT_CONFIGURATION>} configuration The interactions to enable for this <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a> object.
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-setinteractionconfigurationinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-setinteractionconfigurationinteractioncontext
      * @since windows8.0
      */
     static SetInteractionConfigurationInteractionContext(interactionContext, configurationCount, configuration) {
@@ -123,7 +135,7 @@ class InteractionContext {
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-getinteractionconfigurationinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-getinteractionconfigurationinteractioncontext
      * @since windows8.0
      */
     static GetInteractionConfigurationInteractionContext(interactionContext, configurationCount, configuration) {
@@ -145,7 +157,7 @@ class InteractionContext {
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-setpropertyinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-setpropertyinteractioncontext
      * @since windows8.0
      */
     static SetPropertyInteractionContext(interactionContext, contextProperty, value) {
@@ -259,7 +271,7 @@ class InteractionContext {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-getpropertyinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-getpropertyinteractioncontext
      * @since windows8.0
      */
     static GetPropertyInteractionContext(interactionContext, contextProperty) {
@@ -275,6 +287,10 @@ class InteractionContext {
 
     /**
      * Configures the inertia behavior of a manipulation (translation, rotation, scaling) after the contact is lifted.
+     * @remarks
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a> uses the inertia system setting for all manipulations (translation, rotation, scaling). This function overrides the system setting.
+     * 
+     * To restore the system setting, set <i>value</i> to INERTIA_PARAMETER_INVALID_VALUE    FLT_MAX.
      * @param {HINTERACTIONCONTEXT} interactionContext The handle of the interaction context.
      * @param {Integer} inertiaParameter One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-inertia_parameter">INERTIA_PARAMETER</a>.
      * @param {Float} value One of the following:
@@ -288,7 +304,7 @@ class InteractionContext {
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-setinertiaparameterinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-setinertiaparameterinteractioncontext
      * @since windows8.0
      */
     static SetInertiaParameterInteractionContext(interactionContext, inertiaParameter, value) {
@@ -314,7 +330,7 @@ class InteractionContext {
      * <li>For rotation, the relative change in angle of rotation, in radians</li>
      * <li>For scaling, the relative change in size, in HIMETRIC units.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-getinertiaparameterinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-getinertiaparameterinteractioncontext
      * @since windows8.0
      */
     static GetInertiaParameterInteractionContext(interactionContext, inertiaParameter) {
@@ -330,13 +346,15 @@ class InteractionContext {
 
     /**
      * Configures the cross-slide interaction.
+     * @remarks
+     * <b>SetCrossSlideParametersInteractionContext</b> fails if a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ns-interactioncontext-cross_slide_parameter">CROSS_SLIDE_PARAMETER</a> is enabled, but not specified  in the <i>crossSlideParameters</i> parameter.
      * @param {HINTERACTIONCONTEXT} interactionContext The handle of the interaction context.
      * @param {Integer} parameterCount Number of parameters to set.
      * @param {Pointer<CROSS_SLIDE_PARAMETER>} crossSlideParameters The cross-slide threshold and its distance threshold.
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-setcrossslideparametersinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-setcrossslideparametersinteractioncontext
      * @since windows8.0
      */
     static SetCrossSlideParametersInteractionContext(interactionContext, parameterCount, crossSlideParameters) {
@@ -355,7 +373,7 @@ class InteractionContext {
      * @param {HINTERACTIONCONTEXT} interactionContext The handle of the interaction context.
      * @param {Integer} threshold One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-cross_slide_threshold">CROSS_SLIDE_THRESHOLD</a>.
      * @returns {Float} The distance threshold of <i>threshold</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-getcrossslideparameterinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-getcrossslideparameterinteractioncontext
      * @since windows8.0
      */
     static GetCrossSlideParameterInteractionContext(interactionContext, threshold) {
@@ -482,7 +500,7 @@ class InteractionContext {
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-setmousewheelparameterinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-setmousewheelparameterinteractioncontext
      * @since windows8.0
      */
     static SetMouseWheelParameterInteractionContext(interactionContext, parameter, value) {
@@ -501,7 +519,7 @@ class InteractionContext {
      * @param {HINTERACTIONCONTEXT} interactionContext Pointer to a handle for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
      * @param {Integer} parameter One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-mouse_wheel_parameter">MOUSE_WHEEL_PARAMETER</a>.
      * @returns {Float} The value of <i>parameter</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-getmousewheelparameterinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-getmousewheelparameterinteractioncontext
      * @since windows8.0
      */
     static GetMouseWheelParameterInteractionContext(interactionContext, parameter) {
@@ -517,11 +535,15 @@ class InteractionContext {
 
     /**
      * Resets the interaction state, interaction configuration settings, and all parameters to their initial state. Current interactions are cancelled without notifications. Interaction Context must be reconfigured before next use.
+     * @remarks
+     * Useful for managing a pool of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a> objects.
+     * 
+     * Current interactions are cancelled without notifications.
      * @param {HINTERACTIONCONTEXT} interactionContext Pointer to a handle for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-resetinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-resetinteractioncontext
      * @since windows8.0
      */
     static ResetInteractionContext(interactionContext) {
@@ -537,10 +559,12 @@ class InteractionContext {
 
     /**
      * Gets current Interaction Context state and the time when the context will return to idle state.
+     * @remarks
+     * After interaction ends, the interaction context might still be busy reporting inertia, or expecting second tap in a double tap gesture (in general, if multi-stroke gesture is possible). This function allows the caller to find out when it is safe to treat the Interaction Context object as idle. The main purpose of this function is management of pools of interaction contexts.
      * @param {HINTERACTIONCONTEXT} interactionContext Pointer to a handle for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
      * @param {Pointer<POINTER_INFO>} pointerInfo Basic pointer information common to all pointer types.
      * @returns {Integer} One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-interaction_state">INTERACTION_STATE</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-getstateinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-getstateinteractioncontext
      * @since windows8.0
      */
     static GetStateInteractionContext(interactionContext, pointerInfo) {
@@ -556,12 +580,14 @@ class InteractionContext {
 
     /**
      * Include the specified pointer in the set of pointers processed by the Interaction Context object.
+     * @remarks
+     * Turn pointer filtering on by setting INTERACTION_CONTEXT_PROPERTY_FILTER_POINTERS in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/nf-interactioncontext-setpropertyinteractioncontext">SetPropertyInteractionContext</a>.
      * @param {HINTERACTIONCONTEXT} interactionContext Handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a> object.
      * @param {Integer} pointerId ID of the pointer.
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-addpointerinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-addpointerinteractioncontext
      * @since windows8.0
      */
     static AddPointerInteractionContext(interactionContext, pointerId) {
@@ -582,7 +608,7 @@ class InteractionContext {
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-removepointerinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-removepointerinteractioncontext
      * @since windows8.0
      */
     static RemovePointerInteractionContext(interactionContext, pointerId) {
@@ -598,6 +624,18 @@ class InteractionContext {
 
     /**
      * Processes a set of pointer input frames.
+     * @remarks
+     * Output notifications are sent as required.
+     * 
+     * Frames must be processed in reverse chronological order (most recent data first). 
+     * 
+     * Each frame must have the same set  of input pointers.
+     * 
+     * 
+     * Each pointer must originate from a different contact.
+     * 
+     * 
+     * If pointer filtering is set, a sub-frame that includes the specified pointers is extracted from each frame. Pointers are specified through  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/nf-interactioncontext-addpointerinteractioncontext">AddPointerInteractionContext</a> and pointer filtering turned on by setting INTERACTION_CONTEXT_PROPERTY_FILTER_POINTERS in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/nf-interactioncontext-setpropertyinteractioncontext">SetPropertyInteractionContext</a>.
      * @param {HINTERACTIONCONTEXT} interactionContext Pointer to a handle for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
      * @param {Integer} entriesCount Number of frames to process.
      * @param {Integer} pointerCount Number of pointers in each frame.
@@ -605,7 +643,7 @@ class InteractionContext {
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-processpointerframesinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-processpointerframesinteractioncontext
      * @since windows8.0
      */
     static ProcessPointerFramesInteractionContext(interactionContext, entriesCount, pointerCount, pointerInfo) {
@@ -627,7 +665,7 @@ class InteractionContext {
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-bufferpointerpacketsinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-bufferpointerpacketsinteractioncontext
      * @since windows8.0
      */
     static BufferPointerPacketsInteractionContext(interactionContext, entriesCount, pointerInfo) {
@@ -643,11 +681,13 @@ class InteractionContext {
 
     /**
      * Process buffered packets at the end of a pointer input frame.
+     * @remarks
+     * <b>ProcessBufferedPacketsInteractionContext</b> is called at the end of the frame, when the buffer contains all the pointer histories from the frame.
      * @param {HINTERACTIONCONTEXT} interactionContext Pointer to a handle for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-processbufferedpacketsinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-processbufferedpacketsinteractioncontext
      * @since windows8.0
      */
     static ProcessBufferedPacketsInteractionContext(interactionContext) {
@@ -663,11 +703,17 @@ class InteractionContext {
 
     /**
      * Sends timer input to the Interaction Context object for inertia processing.
+     * @remarks
+     * The caller is responsible for creating timer when inertia starts, and for driving inertia input with the timer by calling this function from the timer callback. Recommended timer period is 15 ms.
+     * 
+     * 
+     * 
+     * This function has no effect outside inertia.
      * @param {HINTERACTIONCONTEXT} interactionContext Pointer to a handle for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-processinertiainteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-processinertiainteractioncontext
      * @since windows8.0
      */
     static ProcessInertiaInteractionContext(interactionContext) {
@@ -687,7 +733,7 @@ class InteractionContext {
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-stopinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-stopinteractioncontext
      * @since windows8.0
      */
     static StopInteractionContext(interactionContext) {
@@ -710,7 +756,7 @@ class InteractionContext {
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/nf-interactioncontext-setpivotinteractioncontext
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-setpivotinteractioncontext
      * @since windows8.0
      */
     static SetPivotInteractionContext(interactionContext, x, y, radius) {

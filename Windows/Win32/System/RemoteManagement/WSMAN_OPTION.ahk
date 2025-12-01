@@ -3,7 +3,7 @@
 
 /**
  * Represents a specific option name and value pair.
- * @see https://docs.microsoft.com/windows/win32/api//wsman/ns-wsman-wsman_option
+ * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_option
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */

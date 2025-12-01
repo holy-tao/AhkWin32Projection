@@ -5,7 +5,7 @@
 
 /**
  * Contains information about a Stroke event.
- * @see https://docs.microsoft.com/windows/win32/api//inked/ns-inked-iec_strokeinfo
+ * @see https://learn.microsoft.com/windows/win32/api/inked/ns-inked-iec_strokeinfo
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

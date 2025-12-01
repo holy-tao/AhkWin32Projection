@@ -5,7 +5,6 @@
 /**
  * The SECTION structure represents a short header from an MPEG-2 table section.
  * @remarks
- * 
  * This structure represents an MPEG-2 short header. The section might contain a long header or DSM-CC header, each of which extends the short header:
  * 
  * <ul>
@@ -26,9 +25,7 @@
  * WORD SectionLength = pHeader->SectionLength;
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ns-mpeg2structs-section
+ * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-section
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

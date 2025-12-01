@@ -4,7 +4,7 @@
 
 /**
  * Contains virtual hard disk (VHD) information.
- * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ns-virtdisk-get_virtual_disk_info
+ * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-get_virtual_disk_info
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * Stores the SRTP protection profiles.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_srtp_protection_profiles
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -14,6 +16,7 @@ class SEC_SRTP_PROTECTION_PROFILES extends Win32Struct
     static packingSize => 2
 
     /**
+     * The size (in bytes) of the SRTP protection profiles array.
      * @type {Integer}
      */
     ProfilesSize {
@@ -22,6 +25,7 @@ class SEC_SRTP_PROTECTION_PROFILES extends Win32Struct
     }
 
     /**
+     * An array of SRTP protection profiles.
      * @type {Array<UInt16>}
      */
     ProfilesList{

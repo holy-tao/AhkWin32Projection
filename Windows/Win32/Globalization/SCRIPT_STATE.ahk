@@ -4,11 +4,8 @@
 /**
  * Contains script state information.
  * @remarks
- * 
  * This structure is used to initialize the Unicode algorithm state as an input to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemize">ScriptItemize</a>. It is also used as a component of the analysis retrieved by <b>ScriptItemize</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//usp10/ns-usp10-script_state
+ * @see https://learn.microsoft.com/windows/win32/api/usp10/ns-usp10-script_state
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

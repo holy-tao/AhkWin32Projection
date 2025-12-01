@@ -3,7 +3,7 @@
 
 /**
  * Contains the name of a CNG provider.
- * @see https://docs.microsoft.com/windows/win32/api//bcrypt/ns-bcrypt-bcrypt_provider_name
+ * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_provider_name
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Allow or deny certain types of messages to pass through a filter.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/ns-d3d11sdklayers-d3d11_info_queue_filter_desc
+ * Allow or deny certain types of messages to pass through a filter. (D3D11_INFO_QUEUE_FILTER_DESC)
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/ns-d3d11sdklayers-d3d11_info_queue_filter_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

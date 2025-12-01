@@ -4,11 +4,8 @@
 /**
  * Defines constants that specify a Direct3D 12 feature or feature set to query about.
  * @remarks
- * 
  * Use a constant from  this enumeration in a call to [ID3D12Device::CheckFeatureSupport](./nf-d3d12-id3d12device-checkfeaturesupport.md) to query a driver about support for various Direct3D 12 features. Each value in this enumeration has a corresponding data structure that you must pass (by pointer reference) in the *pFeatureSupportData* parameter of **ID3D12Device::CheckFeatureSupport**.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_feature
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_feature
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -147,12 +144,15 @@ class D3D12_FEATURE extends Win32Enum{
     static D3D12_FEATURE_D3D12_OPTIONS5 => 27
 
     /**
+     * Starting with Windows 11 (Build 10.0.22000.194). The corresponding data structure for this value is [D3D12_FEATURE_DATA_DISPLAYABLE](/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_displayable).
      * @type {Integer (Int32)}
      */
     static D3D12_FEATURE_DISPLAYABLE => 28
 
     /**
-     * Starting with Windows 10, version 1903 (10.0; Build 18362), indicates a query for the level of support for variable-rate shading (VRS), and indicates whether or not background processing is supported. For more info, see <a href="https://docs.microsoft.com/windows/win32/direct3d12/vrs">Variable-rate shading (VRS)</a>, and the <a href="https://microsoft.github.io/DirectX-Specs/d3d/BackgroundProcessing.html">Direct3D 12 background processing spec</a>.
+     * Starting with Windows 10, version 1903 (10.0; Build 18362), indicates a query for the level of support for variable-rate shading (VRS), and indicates whether or not background processing is supported. The corresponding data structure for this value is [D3D12_FEATURE_DATA_D3D12_OPTIONS6](/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options6).
+     * 
+     * For more info, see <a href="https://docs.microsoft.com/windows/win32/direct3d12/vrs">Variable-rate shading (VRS)</a>, and the <a href="https://microsoft.github.io/DirectX-Specs/d3d/BackgroundProcessing.html">Direct3D 12 background processing spec</a>.
      * @type {Integer (Int32)}
      */
     static D3D12_FEATURE_D3D12_OPTIONS6 => 30
@@ -164,36 +164,45 @@ class D3D12_FEATURE extends Win32Enum{
     static D3D12_FEATURE_QUERY_META_COMMAND => 31
 
     /**
+     * Starting with Windows 10, version 2004 (10.0; Build 19041), indicates a query for the level of support for mesh and amplification shaders, and for sampler feedback. The corresponding data structure for this value is [D3D12_FEATURE_DATA_D3D12_OPTIONS7](/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options7).
+     * 
+     * For more info, see the [Mesh shader](https://microsoft.github.io/DirectX-Specs/d3d/MeshShader.html) and [Sampler feedback](https://microsoft.github.io/DirectX-Specs/d3d/SamplerFeedback.html) specs.
      * @type {Integer (Int32)}
      */
     static D3D12_FEATURE_D3D12_OPTIONS7 => 32
 
     /**
+     * Starting with Windows 10, version 2004 (10.0; Build 19041), indicates a query to retrieve the count of protected resource session types. The corresponding data structure for this value is [D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPE_COUNT](/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_protected_resource_session_type_count).
      * @type {Integer (Int32)}
      */
     static D3D12_FEATURE_PROTECTED_RESOURCE_SESSION_TYPE_COUNT => 33
 
     /**
+     * Starting with Windows 10, version 2004 (10.0; Build 19041), indicates a query to retrieve the list of protected resource session types. The corresponding data structure for this value is [D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPES](/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_protected_resource_session_types).
      * @type {Integer (Int32)}
      */
     static D3D12_FEATURE_PROTECTED_RESOURCE_SESSION_TYPES => 34
 
     /**
+     * Starting with Windows 11 (Build 10.0.22000.194), indicates whether or not unaligned block-compressed textures are supported. The corresponding data structure for this value is [D3D12_FEATURE_DATA_D3D12_OPTIONS8](/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options8).
      * @type {Integer (Int32)}
      */
     static D3D12_FEATURE_D3D12_OPTIONS8 => 36
 
     /**
+     * Starting with Windows 11 (Build 10.0.22000.194), indicates whether or not support exists for mesh shaders, values of *SV_RenderTargetArrayIndex* that are 8 or greater, typed resource 64-bit integer atomics, derivative and derivative-dependent texture sample operations, and the level of support for WaveMMA (wave_matrix) operations. The corresponding data structure for this value is [D3D12_FEATURE_DATA_D3D12_OPTIONS9](/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options9).
      * @type {Integer (Int32)}
      */
     static D3D12_FEATURE_D3D12_OPTIONS9 => 37
 
     /**
+     * Starting with Windows 11 (Build 10.0.22000.194), indicates whether or not the SUM combiner can be used, and whether or not *SV_ShadingRate* can be set from a mesh shader. The corresponding data structure for this value is [D3D12_FEATURE_DATA_D3D12_OPTIONS10](/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options10).
      * @type {Integer (Int32)}
      */
     static D3D12_FEATURE_D3D12_OPTIONS10 => 39
 
     /**
+     * Starting with Windows 11 (Build 10.0.22000.194), indicates whether or not 64-bit integer atomics on resources in descriptor heaps are supported. The corresponding data structure for this value is [D3D12_FEATURE_DATA_D3D12_OPTIONS11](/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options11).
      * @type {Integer (Int32)}
      */
     static D3D12_FEATURE_D3D12_OPTIONS11 => 40

@@ -3,7 +3,7 @@
 
 /**
  * Note  This structure is deprecated.  Contains parameters used in the UiaFind function.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/ns-uiautomationcoreapi-uiafindparams
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiafindparams
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

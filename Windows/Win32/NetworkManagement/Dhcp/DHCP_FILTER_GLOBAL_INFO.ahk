@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the enabling and disabling of the allow and deny filter lists.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_filter_global_info
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_filter_global_info
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

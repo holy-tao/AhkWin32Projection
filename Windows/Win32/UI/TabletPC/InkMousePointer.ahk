@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of mouse pointer to appear.
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkmousepointer
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkmousepointer
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

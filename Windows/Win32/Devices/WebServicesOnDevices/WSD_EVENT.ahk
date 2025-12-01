@@ -4,7 +4,7 @@
 
 /**
  * Provides an internal representation of a SOAP message.
- * @see https://docs.microsoft.com/windows/win32/api//wsdtypes/ns-wsdtypes-wsd_event
+ * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_event
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

@@ -4,11 +4,8 @@
 /**
  * Specifies the speaker configuration for the audio channels in the audio bit stream. This enumeration is used with the AVAudioChannelConfig property.
  * @remarks
- * 
  * These values correspond to the flags used for the <b>dwChannelMask</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd390971(v=vs.85)">WAVEFORMATEXTENSIBLE</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavaudiochannelconfig
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavaudiochannelconfig
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies selection criteria that is passed to the CertSelectCertificateChains function.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_select_criteria
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_select_criteria
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

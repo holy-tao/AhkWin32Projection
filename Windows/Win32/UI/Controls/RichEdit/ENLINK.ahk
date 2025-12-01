@@ -6,7 +6,7 @@
 
 /**
  * Contains information about an EN_LINK notification code from a rich edit control.
- * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-enlink
+ * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-enlink
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

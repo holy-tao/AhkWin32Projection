@@ -4,7 +4,6 @@
 /**
  * Describes double data type support in the current graphics driver.
  * @remarks
- * 
  * If the runtime sets <b>DoublePrecisionFloatShaderOps</b> to  <b>TRUE</b>, the hardware and driver support the following <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3d11-graphics-reference-sm5">Shader Model 5</a> instructions:
  * 
  * <ul>
@@ -47,9 +46,7 @@
  * </ul>
  * <div class="alert"><b>Note</b>  If <b>DoublePrecisionFloatShaderOps</b> is <b>TRUE</b>, the hardware and driver do not necessarily support double-precision division.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_feature_data_doubles
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_feature_data_doubles
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

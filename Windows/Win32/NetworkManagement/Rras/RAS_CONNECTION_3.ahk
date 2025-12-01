@@ -11,7 +11,7 @@
 
 /**
  * The RAS_CONNECTION_3 structure contains information for the connection, including the Globally Unique Identifier (GUID) that identifies the connection and the quarantine state of the connection.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-ras_connection_3
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_connection_3
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

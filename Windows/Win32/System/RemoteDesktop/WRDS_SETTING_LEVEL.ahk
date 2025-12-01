@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of structure contained in the WRdsSetting member of the WRDS_SETTINGS structure.
- * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ne-wtsdefs-wrds_setting_level
+ * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ne-wtsdefs-wrds_setting_level
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

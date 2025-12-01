@@ -6,7 +6,7 @@
 
 /**
  * Contains a list of modules.
- * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ns-minidumpapiset-minidump_module_list
+ * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_module_list
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

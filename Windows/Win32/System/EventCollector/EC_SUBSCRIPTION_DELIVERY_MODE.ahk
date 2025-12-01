@@ -3,7 +3,7 @@
 
 /**
  * Defines values that indicate how events are delivered in a subscription.
- * @see https://docs.microsoft.com/windows/win32/api//evcoll/ne-evcoll-ec_subscription_delivery_mode
+ * @see https://learn.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_subscription_delivery_mode
  * @namespace Windows.Win32.System.EventCollector
  * @version v4.0.30319
  */

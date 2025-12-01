@@ -4,11 +4,9 @@
 /**
  * Defines constants that specify whether the element was added to or removed from the live visual tree.
  * @remarks
- * 
  * <b>VisualMutationType</b> is used by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/xamlom/nn-xamlom-ivisualtreeservicecallback">IVisualTreeServiceCallback</a> to indicate to the callback
  * whether the element is entering or leaving the live visual tree.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xamlom/ne-xamlom-visualmutationtype
+ * @see https://learn.microsoft.com/windows/win32/api/xamlom/ne-xamlom-visualmutationtype
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  * @version v4.0.30319
  */

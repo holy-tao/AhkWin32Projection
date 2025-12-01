@@ -4,15 +4,12 @@
 /**
  * Describes object-specific performance information, for example, the number of instances of the object and the number of counters that the object defines.
  * @remarks
- * 
  * Providers use this structure to provide performance data for objects that they support. Consumers use this structure to consume performance data for objects that they queried.
  * 
  *  This structure is followed by a list of 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winperf/ns-winperf-perf_counter_definition">PERF_COUNTER_DEFINITION</a> structures, one for each counter defined for the performance object.
  * 		For details on the layout of the performance data block, see <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/performance-data-format">Performance Data Format</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winperf/ns-winperf-perf_object_type
+ * @see https://learn.microsoft.com/windows/win32/api/winperf/ns-winperf-perf_object_type
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

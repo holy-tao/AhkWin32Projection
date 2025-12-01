@@ -3,7 +3,7 @@
 
 /**
  * Used to specify values that are used by SetSimulatedProfileInfo to override current internet connection profile values in an RDP Child Session to support the simulation of specific metered internet connection conditions.
- * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/ns-netlistmgr-nlm_simulated_profile_info
+ * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ns-netlistmgr-nlm_simulated_profile_info
  * @namespace Windows.Win32.Networking.NetworkListManager
  * @version v4.0.30319
  */

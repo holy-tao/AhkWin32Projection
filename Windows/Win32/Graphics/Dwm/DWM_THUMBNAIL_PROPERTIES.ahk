@@ -4,7 +4,7 @@
 
 /**
  * Specifies Desktop Window Manager (DWM) thumbnail properties. Used by the DwmUpdateThumbnailProperties function.
- * @see https://docs.microsoft.com/windows/win32/api//dwmapi/ns-dwmapi-dwm_thumbnail_properties
+ * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ns-dwmapi-dwm_thumbnail_properties
  * @namespace Windows.Win32.Graphics.Dwm
  * @version v4.0.30319
  */

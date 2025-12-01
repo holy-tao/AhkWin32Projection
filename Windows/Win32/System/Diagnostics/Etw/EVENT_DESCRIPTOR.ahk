@@ -4,7 +4,6 @@
 /**
  * The EVENT_DESCRIPTOR structure contains information (metadata) about an ETW event.
  * @remarks
- * 
  * This structure is used when calling
  * [EventWrite](/windows/desktop/api/evntprov/nf-evntprov-eventwrite) to write the
  * event. You can also use it when calling
@@ -12,7 +11,8 @@
  * determine whether the event should be generated (i.e. to determine whether any
  * event listeners are interested in the event).
  * 
- * > **Note:** Most event providers will not use **EVENT_DESCRIPTOR** directly.
+ * > [!Note]
+ * > Most event providers will not use **EVENT_DESCRIPTOR** directly.
  * > Instead, most event providers are implemented using an ETW framework that
  * > wraps the calls to **EventRegister**, **EventWriteEx**, and
  * > **EventUnregister**. For example, you might
@@ -32,11 +32,10 @@
  * [ProcessTrace](/windows/win32/api/evntrace/nf-evntrace-processtrace) with the
  * [EventRecordCallback](/windows/desktop/ETW/eventrecordcallback) callback.
  * 
- * > **Note:** When processing MOF-based events, the event identity is contained in
+ * > [!Note]
+ * > When processing MOF-based events, the event identity is contained in
  * > the **Opcode** field, not the **Id** field.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//evntprov/ns-evntprov-event_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api/evntprov/ns-evntprov-event_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
@@ -100,6 +99,7 @@ class EVENT_DESCRIPTOR extends Win32Struct
     /**
      * An 8-bit number used to describe an event's severity or importance.
      * 
+     * > [!Important]
      * > Event level is a primary means for filtering events. Always assign a
      * > meaningful (non-zero) level to every event.
      * 
@@ -172,6 +172,7 @@ class EVENT_DESCRIPTOR extends Win32Struct
      * A 64-bit bitmask used to indicate an event's membership in a set of event
      * categories.
      * 
+     * > [!Important]
      * > Event keyword is a primary means for filtering events. Always assign a
      * > meaningful (non-zero) keyword to every event.
      * 
@@ -197,7 +198,8 @@ class EVENT_DESCRIPTOR extends Win32Struct
      * Note that events with a keyword of 0 will normally bypass keyword-based
      * filtering.
      * 
-     * > **Tip:** Starting with Windows 10 version 1507 and later, an event collection
+     * > [!Tip]
+     * > Starting with Windows 10 version 1507 and later, an event collection
      * > session can exclude events that have their keyword set to 0. To do this,
      * > include the `EVENT_ENABLE_PROPERTY_IGNORE_KEYWORD_0` flag in the
      * > `EnableProperty` field of the

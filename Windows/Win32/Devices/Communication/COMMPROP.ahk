@@ -4,7 +4,6 @@
 /**
  * Contains information about a communications driver.
  * @remarks
- * 
  * The contents of the <b>dwProvSpec1</b>, <b>dwProvSpec2</b>, and 
  *     <b>wcProvChar</b> members depend on the provider subtype (specified by the 
  *     <b>dwProvSubType</b> member).
@@ -29,9 +28,7 @@
  * <td>Contains a <a href="https://docs.microsoft.com/windows/desktop/api/mcx/ns-mcx-modemdevcaps">MODEMDEVCAPS</a> structure.</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-commprop
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-commprop
  * @namespace Windows.Win32.Devices.Communication
  * @version v4.0.30319
  */

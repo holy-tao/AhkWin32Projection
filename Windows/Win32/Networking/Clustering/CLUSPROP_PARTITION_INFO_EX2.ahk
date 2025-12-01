@@ -8,7 +8,7 @@
 
 /**
  * A value list entry that contains partition information for a storage class resource. This structure is as a input, and a as a return value for the CLUSCTL_RESOURCE_STORAGE_GET_DISK_INFO_EX2 control code.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clusprop_partition_info_ex2
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_partition_info_ex2
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

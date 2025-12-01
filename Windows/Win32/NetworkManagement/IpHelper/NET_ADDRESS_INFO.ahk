@@ -10,15 +10,12 @@
 /**
  * Contains IP address information returned by the ParseNetworkString function.
  * @remarks
- * 
  * The <b>NET_ADDRESS_INFO</b> structure is defined on Windows Vista and later. 
  * 
  * The <b>NET_ADDRESS_INFO</b> structure is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-parsenetworkstring">ParseNetworkString</a> function. 
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">SOCKADDR_IN</a>,  SOCKADDR_IN6, and  SOCKADDR structures are used in the <b>NET_ADDRESS_INFO</b> structure. The SOCKADDR_IN and SOCKADDR structures are defined in the  <i>Ws2def.h</i> header file which is automatically included by the <i>Winsock2.h</i> header file. The SOCKADDR_IN6 structure is defined in the <i>Ws2ipdef.h</i> header file which is automatically included by the <i>Ws2tcpip.h</i> header file. In order to use the <b>NET_ADDRESS_INFO</b> structure, the <i>Winsock2.h</i> and <i>Ws2tcpip.h</i> header files must be included before the <i>Iphlpapi.h</i> header file.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iphlpapi/ns-iphlpapi-net_address_info
+ * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/ns-iphlpapi-net_address_info
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

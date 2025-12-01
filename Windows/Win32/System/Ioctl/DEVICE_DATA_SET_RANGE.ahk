@@ -3,7 +3,7 @@
 
 /**
  * Provides data set range information for use with the IOCTL_STORAGE_MANAGE_DATA_SET_ATTRIBUTES control code.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-device_data_set_range
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_data_set_range
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

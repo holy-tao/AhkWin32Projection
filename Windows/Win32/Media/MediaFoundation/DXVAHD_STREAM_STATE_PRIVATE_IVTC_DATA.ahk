@@ -4,7 +4,6 @@
 /**
  * Contains inverse telecine (IVTC) statistics from a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device.
  * @remarks
- * 
  * If the DXVA-HD device supports IVTC statistics, it can detect when the input video contains telecined frames. You can use this information to enable IVTC in the device.
  * 
  * To enable IVTC statistics, do the following:
@@ -29,9 +28,7 @@
  * <li>At some point, query the device for the current IVTC statistics.</li>
  * <li>If the device detects telecined frames, use a custom frame rate to perform IVTC. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_custom_rate_data">DXVAHD_CUSTOM_RATE_DATA</a>.</li>
  * </ol>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ns-dxvahd-dxvahd_stream_state_private_ivtc_data
+ * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_state_private_ivtc_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

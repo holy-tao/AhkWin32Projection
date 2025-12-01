@@ -3,8 +3,8 @@
 #Include .\WS_CHANNEL_PROPERTIES.ahk
 
 /**
- * Describes the policy specifying http channel binding.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_tcp_policy_description
+ * Describes the policy specifying http channel binding. (WS_TCP_POLICY_DESCRIPTION)
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_tcp_policy_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

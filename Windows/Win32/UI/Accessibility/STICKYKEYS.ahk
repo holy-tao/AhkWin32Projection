@@ -4,7 +4,6 @@
 /**
  * Contains information about the StickyKeys accessibility feature.
  * @remarks
- * 
  * An application uses a <b>STICKYKEYS</b> structure when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-systemparametersinfoa">SystemParametersInfo</a> function with the <i>uiAction</i> parameter set to <b>SPI_GETSTICKYKEYS</b> or <b>SPI_SETSTICKYKEYS</b>. When using <b>SPI_GETSTICKYKEYS</b>, you must specify the <b>cbSize</b> member of the <b>STICKYKEYS</b> structure; the <b>SystemParametersInfo</b> function fills the remaining members. You must specify all structure members when using the <b>SPI_SETSTICKYKEYS</b> value.
  * 
  * If you call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-systemparametersinfoa">SystemParametersInfo</a> with the <b>SPI_SETSTICKYKEYS</b> value, the following flags are ignored:
@@ -23,9 +22,7 @@
  * <li>SKF_RCTLLOCKED</li>
  * <li>SKF_RSHIFTLOCKED</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-stickykeys
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-stickykeys
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

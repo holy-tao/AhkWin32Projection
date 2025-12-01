@@ -3,7 +3,7 @@
 
 /**
  * The PEER_CONNECTION_STATUS enumeration specifies the status of a peer direct or neighbor connection.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ne-p2p-peer_connection_status
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ne-p2p-peer_connection_status
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

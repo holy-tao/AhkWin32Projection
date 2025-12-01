@@ -4,7 +4,6 @@
 /**
  * Describes the metadata for HDR10, used when video is compressed using High Efficiency Video Coding (HEVC).
  * @remarks
- * 
  * This structure represents the definition of HDR10 metadata used with HEVC, not HDR10 metadata for ST.2086. These are closely related but defined differently.
  * 
  * Example: Mastering display with DCI-P3 color primaries and D65 white point, maximum luminance of 1000 nits and minimum luminance of 0.001 nits; content has maximum luminance of 2000 nits and maximum frame average light level (MaxFALL) of 500 nits.
@@ -27,9 +26,7 @@
  * 
  * 
  * This structure is used in conjunction with the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/nf-dxgi1_5-idxgiswapchain4-sethdrmetadata">SetHDRMetaData</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi1_5/ns-dxgi1_5-dxgi_hdr_metadata_hdr10
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/ns-dxgi1_5-dxgi_hdr_metadata_hdr10
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

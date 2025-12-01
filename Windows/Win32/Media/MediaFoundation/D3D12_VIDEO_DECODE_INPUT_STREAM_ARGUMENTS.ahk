@@ -8,8 +8,7 @@
  * Specifies the parameters for the input stream for a video decode operation.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_video_decode_input_stream_arguments
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_decode_input_stream_arguments
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -109,7 +109,7 @@ class WebServicesOnDevices {
     /**
      * Retrieves a pointer to the IWSDUdpMessageParameters interface.
      * @returns {IWSDUdpMessageParameters} Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdudpmessageparameters">IWSDUdpMessageParameters</a> interface that you use to specify how often WSD repeats the message transmission.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-wsdcreateudpmessageparameters
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-wsdcreateudpmessageparameters
      * @since windows6.0.6000
      */
     static WSDCreateUdpMessageParameters() {
@@ -124,7 +124,7 @@ class WebServicesOnDevices {
     /**
      * Creates an IWSDUdpAddress object.
      * @returns {IWSDUdpAddress} An <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdudpaddress">IWSDUdpAddress</a> interface pointer. This parameter cannot be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-wsdcreateudpaddress
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-wsdcreateudpaddress
      * @since windows6.0.6000
      */
     static WSDCreateUdpAddress() {
@@ -139,7 +139,7 @@ class WebServicesOnDevices {
     /**
      * Creates an IWSDHttpMessageParameters object.
      * @returns {IWSDHttpMessageParameters} Returns a reference to the initialized <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdhttpmessageparameters">IWSDHttpMessageParameters</a> object. Cannot be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-wsdcreatehttpmessageparameters
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-wsdcreatehttpmessageparameters
      * @since windows6.0.6000
      */
     static WSDCreateHttpMessageParameters() {
@@ -154,7 +154,7 @@ class WebServicesOnDevices {
     /**
      * Creates an IWSDHttpAddress object.
      * @returns {IWSDHttpAddress} Returns a reference to the initialized <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdhttpaddress">IWSDHttpAddress</a> object. Cannot be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-wsdcreatehttpaddress
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-wsdcreatehttpaddress
      * @since windows6.0.6000
      */
     static WSDCreateHttpAddress() {
@@ -169,7 +169,7 @@ class WebServicesOnDevices {
     /**
      * Creates an IWSDOutboundAttachment object.
      * @returns {IWSDOutboundAttachment} Returns a reference to the initialized <a href="https://docs.microsoft.com/windows/desktop/api/wsdattachment/nn-wsdattachment-iwsdoutboundattachment">IWSDOutboundAttachment</a> object. Cannot be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdattachment/nf-wsdattachment-wsdcreateoutboundattachment
+     * @see https://learn.microsoft.com/windows/win32/api/wsdattachment/nf-wsdattachment-wsdcreateoutboundattachment
      * @since windows6.0.6000
      */
     static WSDCreateOutboundAttachment() {
@@ -186,7 +186,7 @@ class WebServicesOnDevices {
      * @param {PWSTR} pszNamespace The namespace to match with a built-in namespace.
      * @param {PWSTR} pszName The name to match with a built-in name.
      * @returns {Pointer<WSDXML_NAME>} Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_name">WSDXML_NAME</a> structure that contains the returned built-in name.  The memory usage of <i>ppName</i> is managed elsewhere.  Consequently, the calling application should not attempt to deallocate <i>ppName</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdxml/nf-wsdxml-wsdxmlgetnamefrombuiltinnamespace
+     * @see https://learn.microsoft.com/windows/win32/api/wsdxml/nf-wsdxml-wsdxmlgetnamefrombuiltinnamespace
      * @since windows6.0.6000
      */
     static WSDXMLGetNameFromBuiltinNamespace(pszNamespace, pszName) {
@@ -206,7 +206,7 @@ class WebServicesOnDevices {
      * @returns {IWSDXMLContext} Pointer to a newly allocated 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> object. If the function fails, 
      *       this parameter can be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdxml/nf-wsdxml-wsdxmlcreatecontext
+     * @see https://learn.microsoft.com/windows/win32/api/wsdxml/nf-wsdxml-wsdxmlcreatecontext
      * @since windows6.0.6000
      */
     static WSDXMLCreateContext() {
@@ -224,7 +224,7 @@ class WebServicesOnDevices {
      * 
      * If <b>NULL</b>, a default context representing the built-in message types and namespaces is used.
      * @returns {IWSDiscoveryProvider} Returns a reference to the initialized <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nn-wsddisco-iwsdiscoveryprovider">IWSDiscoveryProvider</a> object. Cannot be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-wsdcreatediscoveryprovider
+     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-wsdcreatediscoveryprovider
      * @since windows6.0.6000
      */
     static WSDCreateDiscoveryProvider(pContext) {
@@ -244,7 +244,7 @@ class WebServicesOnDevices {
      * @param {Pointer<WSD_CONFIG_PARAM>} pConfigParams An array of <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ns-wsdbase-wsd_config_param">WSD_CONFIG_PARAM</a> structures that contain the parameters for creating the object.
      * @param {Integer} dwConfigParamCount The total number of structures passed in <i>pConfigParams</i>.
      * @returns {IWSDiscoveryProvider} Returns a reference to the initialized <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nn-wsddisco-iwsdiscoveryprovider">IWSDiscoveryProvider</a> object. Cannot be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-wsdcreatediscoveryprovider2
+     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-wsdcreatediscoveryprovider2
      * @since windows6.1
      */
     static WSDCreateDiscoveryProvider2(pContext, pConfigParams, dwConfigParamCount) {
@@ -262,7 +262,7 @@ class WebServicesOnDevices {
      * 
      * If <b>NULL</b>, a default context representing the built-in message types and namespaces is used.
      * @returns {IWSDiscoveryPublisher} Returns a reference to the initialized <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nn-wsddisco-iwsdiscoverypublisher">IWSDiscoveryPublisher</a> object. Cannot be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-wsdcreatediscoverypublisher
+     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-wsdcreatediscoverypublisher
      * @since windows6.0.6000
      */
     static WSDCreateDiscoveryPublisher(pContext) {
@@ -282,7 +282,7 @@ class WebServicesOnDevices {
      * @param {Pointer<WSD_CONFIG_PARAM>} pConfigParams An array of <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ns-wsdbase-wsd_config_param">WSD_CONFIG_PARAM</a> structures that contain the parameters for creating the object.
      * @param {Integer} dwConfigParamCount The total number of structures passed in <i>pConfigParams</i>.
      * @returns {IWSDiscoveryPublisher} Returns a reference to the initialized <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nn-wsddisco-iwsdiscoverypublisher">IWSDiscoveryPublisher</a> object. Cannot be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-wsdcreatediscoverypublisher2
+     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-wsdcreatediscoverypublisher2
      * @since windows6.1
      */
     static WSDCreateDiscoveryPublisher2(pContext, pConfigParams, dwConfigParamCount) {
@@ -295,7 +295,13 @@ class WebServicesOnDevices {
     }
 
     /**
-     * Creates a device proxy and returns a pointer to the IWSDDeviceProxy interface.
+     * Creates a device proxy and returns a pointer to the IWSDDeviceProxy interface. (WSDCreateDeviceProxy)
+     * @remarks
+     * The <b>WSDCreateDeviceProxy</b> function calls the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-init">IWSDDeviceProxy::Init</a> method, which initializes an instance of an <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object.
+     * 
+     * This function will also retrieve the device metadata, unless the <i>pszDeviceId</i> parameter begins with the @ character. To retrieve device metadata after the device proxy has been created, call <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-begingetmetadata">IWSDDeviceProxy::BeginGetMetadata</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-endgetmetadata">IWSDDeviceProxy::EndGetMetadata</a> on the returned <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object.
+     * 
+     * For information about troubleshooting <b>WSDCreateDeviceProxy</b> function calls, see <a href="https://docs.microsoft.com/windows/desktop/WsdApi/troubleshooting-wsdapi-applications">Troubleshooting WSDAPI Applications</a>.
      * @param {PWSTR} pszDeviceId The logical or physical address of the device. A logical address is of the form <c>urn:uuid:{guid}</c>. A physical address is a URI prefixed by http or https. If this address is a URI prefixed by https, then the proxy will use the SSL/TLS protocol.
      * 
      * The device address may be prefixed with the @ character. When <i>pszDeviceId</i> begins with @, this function does not retrieve the device metadata when creating the device proxy.
@@ -306,7 +312,7 @@ class WebServicesOnDevices {
      * 
      * If <b>NULL</b>, a default context representing the built-in message types and namespaces is used.
      * @returns {IWSDDeviceProxy} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object that you use to represent a remote WSD device for client applications and middleware.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-wsdcreatedeviceproxy
+     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-wsdcreatedeviceproxy
      * @since windows6.0.6000
      */
     static WSDCreateDeviceProxy(pszDeviceId, pszLocalId, pContext) {
@@ -322,7 +328,15 @@ class WebServicesOnDevices {
     }
 
     /**
-     * Creates a device proxy and returns a pointer to the IWSDDeviceProxy interface.
+     * Creates a device proxy and returns a pointer to the IWSDDeviceProxy interface. (WSDCreateDeviceProxyAdvanced)
+     * @remarks
+     * The <b>WSDCreateDeviceProxyAdvanced</b> function calls the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-init">IWSDDeviceProxy::Init</a> method, which initializes an instance of an <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object.
+     * 
+     * 
+     * 
+     * This function will also retrieve the device metadata, unless the <i>pszDeviceId</i> parameter begins with the @ character. To retrieve device metadata after the device proxy has been created, call <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-begingetmetadata">IWSDDeviceProxy::BeginGetMetadata</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-endgetmetadata">IWSDDeviceProxy::EndGetMetadata</a> on the returned <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object.
+     * 
+     * For information about troubleshooting <b>WSDCreateDeviceProxyAdvanced</b> function calls, see <a href="https://docs.microsoft.com/windows/desktop/WsdApi/troubleshooting-wsdapi-applications">Troubleshooting WSDAPI Applications</a>.
      * @param {PWSTR} pszDeviceId The logical or physical address of the device. A logical address is of the form <c>urn:uuid:{guid}</c>. A physical address is a URI prefixed by http or https. If this address is a URI prefixed by https, then the proxy will use the SSL/TLS protocol. 
      * 
      * If either <i>pszDeviceId</i> or the <i>pszLocalId</i> is an URL prefixed by https, then both URLs must be identical. If this is not the case, <b>WSDCreateDeviceProxyAdvanced</b> will return E_INVALIDARG. 
@@ -336,7 +350,7 @@ class WebServicesOnDevices {
      * 
      * If <b>NULL</b>, a default context representing the built-in message types and namespaces is used.
      * @returns {IWSDDeviceProxy} Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> interface that you use to represent a remote WSD device for client applications and middleware.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-wsdcreatedeviceproxyadvanced
+     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-wsdcreatedeviceproxyadvanced
      * @since windows6.0.6000
      */
     static WSDCreateDeviceProxyAdvanced(pszDeviceId, pDeviceAddress, pszLocalId, pContext) {
@@ -353,6 +367,12 @@ class WebServicesOnDevices {
 
     /**
      * Creates a device proxy that can support signed messages and returns a pointer to the IWSDDeviceProxy interface.
+     * @remarks
+     * The <b>WSDCreateDeviceProxy2</b> function calls the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-init">IWSDDeviceProxy::Init</a> method, which initializes an instance of an <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object.
+     * 
+     * This function will also retrieve the device metadata, unless the <i>pszDeviceId</i> parameter begins with the @ character. To retrieve device metadata after the device proxy has been created, call <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-begingetmetadata">IWSDDeviceProxy::BeginGetMetadata</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-endgetmetadata">IWSDDeviceProxy::EndGetMetadata</a> on the returned <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object.
+     * 
+     * For information about troubleshooting <b>WSDCreateDeviceProxy2</b> function calls, see <a href="https://docs.microsoft.com/windows/desktop/WsdApi/troubleshooting-wsdapi-applications">Troubleshooting WSDAPI Applications</a>.
      * @param {PWSTR} pszDeviceId The logical or physical address of the device. A logical address is of the form <c>urn:uuid:{guid}</c>. A physical address is a URI prefixed by http or https. If this address is a URI prefixed by https, then the proxy will use the SSL/TLS protocol.
      * 
      * The device address may be prefixed with the @ character. When <i>pszDeviceId</i> begins with @, this function does not retrieve the device metadata when creating the device proxy.
@@ -365,7 +385,7 @@ class WebServicesOnDevices {
      * @param {Pointer<WSD_CONFIG_PARAM>} pConfigParams An array of <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ns-wsdbase-wsd_config_param">WSD_CONFIG_PARAM</a> structures that contain the parameters for creating the object.
      * @param {Integer} dwConfigParamCount The total number of structures passed in <i>pConfigParams</i>.
      * @returns {IWSDDeviceProxy} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object that you use to represent a remote WSD device for client applications and middleware.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-wsdcreatedeviceproxy2
+     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-wsdcreatedeviceproxy2
      * @since windows6.1
      */
     static WSDCreateDeviceProxy2(pszDeviceId, pszLocalId, pContext, pConfigParams, dwConfigParamCount) {
@@ -381,7 +401,9 @@ class WebServicesOnDevices {
     }
 
     /**
-     * Creates a device host and returns a pointer to the IWSDDeviceHost interface.
+     * Creates a device host and returns a pointer to the IWSDDeviceHost interface. (WSDCreateDeviceHost)
+     * @remarks
+     * The <b>WSDCreateDeviceHost</b> function calls the <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-init">IWSDDeviceHost::Init</a> method, which initializes an instance of an <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nn-wsdhost-iwsddevicehost">IWSDDeviceHost</a> object.
      * @param {PWSTR} pszLocalId The logical or physical address of the device. A logical address is of the form <c>urn:uuid:{guid}</c>. If <i>pszLocalId</i> is a logical address, the host will announce the logical address and then convert the address to a physical address when it receives Resolve or Probe messages.
      * 
      * 
@@ -414,7 +436,7 @@ class WebServicesOnDevices {
      * 
      * If <b>NULL</b>, a default context representing the built-in message types and namespaces is used.
      * @returns {IWSDDeviceHost} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nn-wsdhost-iwsddevicehost">IWSDDeviceHost</a> object that you use to expose the WSD-specific device semantics associated with a server that responds to incoming requests.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nf-wsdhost-wsdcreatedevicehost
+     * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-wsdcreatedevicehost
      * @since windows6.0.6000
      */
     static WSDCreateDeviceHost(pszLocalId, pContext) {
@@ -429,7 +451,9 @@ class WebServicesOnDevices {
     }
 
     /**
-     * Creates a device host and returns a pointer to the IWSDDeviceHost interface.
+     * Creates a device host and returns a pointer to the IWSDDeviceHost interface. (WSDCreateDeviceHostAdvanced)
+     * @remarks
+     * The <b>WSDCreateDeviceHostAdvanced</b> function calls the <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-init">IWSDDeviceHost::Init</a> method, which initializes an instance of an <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nn-wsdhost-iwsddevicehost">IWSDDeviceHost</a> object.
      * @param {PWSTR} pszLocalId The logical or physical address of the device. A logical address is of the form <c>urn:uuid:{guid}</c>. If <i>pszLocalId</i> is a logical address, the host will announce the logical address and then convert the address to a physical address when it receives Resolve or Probe messages.
      * 
      * If <i>pszLocalId</i> is a physical address (such as  URL prefixed by http or https), the host will use the address as the physical address and will host on that address instead of the default one.
@@ -467,7 +491,7 @@ class WebServicesOnDevices {
      * If <i>pszLocalId</i> contains a logical address, the resulting behavior is a mapping between the logical address and a specific set of physical addresses (instead of a mapping between the logical address and a default physical address).
      * @param {Integer} dwHostAddressCount The number of items in the <i>ppHostAddresses</i> array. If <i>ppHostAddresses</i> is an <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdaddress">IWSDAddress</a> interface, count must be 1.
      * @returns {IWSDDeviceHost} Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nn-wsdhost-iwsddevicehost">IWSDDeviceHost</a> interface that you use to expose the WSD-specific device semantics associated with a server that responds to incoming requests.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nf-wsdhost-wsdcreatedevicehostadvanced
+     * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-wsdcreatedevicehostadvanced
      * @since windows6.0.6000
      */
     static WSDCreateDeviceHostAdvanced(pszLocalId, pContext, ppHostAddresses, dwHostAddressCount) {
@@ -483,6 +507,8 @@ class WebServicesOnDevices {
 
     /**
      * Creates a device host that can support signed messages and returns a pointer to the IWSDDeviceHost interface.
+     * @remarks
+     * The <b>WSDCreateDeviceHost2</b> function calls the <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-init">IWSDDeviceHost::Init</a> method, which initializes an instance of an <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nn-wsdhost-iwsddevicehost">IWSDDeviceHost</a> object.
      * @param {PWSTR} pszLocalId The logical or physical address of the device. A logical address is of the form <c>urn:uuid:{guid}</c>. If <i>pszLocalId</i> is a logical address, the host will announce the logical address and then convert the address to a physical address when it receives Resolve or Probe messages.
      * 
      * If <i>pszLocalId</i> is a physical address (such as  URL prefixed by http or https), the host will use the address as the physical address and will host on that address instead of the default one.
@@ -515,7 +541,7 @@ class WebServicesOnDevices {
      * @param {Pointer<WSD_CONFIG_PARAM>} pConfigParams An array of <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ns-wsdbase-wsd_config_param">WSD_CONFIG_PARAM</a> structures that contain the parameters for creating the object.
      * @param {Integer} dwConfigParamCount The total number of structures passed in <i>pConfigParams</i>.
      * @returns {IWSDDeviceHost} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nn-wsdhost-iwsddevicehost">IWSDDeviceHost</a> object that you use to expose the WSD-specific device semantics associated with a server that responds to incoming requests.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nf-wsdhost-wsdcreatedevicehost2
+     * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-wsdcreatedevicehost2
      * @since windows6.1
      */
     static WSDCreateDeviceHost2(pszLocalId, pContext, pConfigParams, dwConfigParamCount) {
@@ -582,7 +608,7 @@ class WebServicesOnDevices {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdutil/nf-wsdutil-wsdsetconfigurationoption
+     * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsdsetconfigurationoption
      * @since windows6.0.6000
      */
     static WSDSetConfigurationOption(dwOption, pVoid, cbInBuffer) {
@@ -658,7 +684,7 @@ class WebServicesOnDevices {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdutil/nf-wsdutil-wsdgetconfigurationoption
+     * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsdgetconfigurationoption
      * @since windows6.0.6000
      */
     static WSDGetConfigurationOption(dwOption, pVoid, cbOutBuffer) {
@@ -672,10 +698,17 @@ class WebServicesOnDevices {
 
     /**
      * Allocates a linked memory block.
+     * @remarks
+     * The memory 
+     * block allocated by <b>WSDAllocateLinkedMemory</b> is linked to a parent memory block and is freed when 
+     * the parent memory block is freed.
+     * 
+     *  If <i>pParent</i> is <b>NULL</b> the allocated memory block must be explicitly freed by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
      * @param {Pointer<Void>} pParent Pointer to the parent memory block.
      * @param {Pointer} cbSize Size of the memory block to be allocated.
      * @returns {Pointer<Void>} Pointer to the newly allocated memory block.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdutil/nf-wsdutil-wsdallocatelinkedmemory
+     * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsdallocatelinkedmemory
      * @since windows6.0.6000
      */
     static WSDAllocateLinkedMemory(pParent, cbSize) {
@@ -688,12 +721,10 @@ class WebServicesOnDevices {
     /**
      * Frees a memory block previously allocated with WSDAllocateLinkedMemory.
      * @remarks
-     * 
      * All children of the memory block are automatically freed.
-     * 
      * @param {Pointer<Void>} pVoid Pointer to the memory block to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//wsdutil/nf-wsdutil-wsdfreelinkedmemory
+     * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory
      * @since windows6.0.6000
      */
     static WSDFreeLinkedMemory(pVoid) {
@@ -705,14 +736,12 @@ class WebServicesOnDevices {
     /**
      * Attaches a child memory block to a parent memory block.
      * @remarks
-     * 
      * The child memory block is automatically freed when the parent memory
      * block is freed. Both the parent and child memory blocks must have been previously allocated by calls to <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdallocatelinkedmemory">WSDAllocateLinkedMemory</a>.
-     * 
      * @param {Pointer<Void>} pParent Pointer to the parent memory block.
      * @param {Pointer<Void>} pChild Pointer to the child memory block.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//wsdutil/nf-wsdutil-wsdattachlinkedmemory
+     * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsdattachlinkedmemory
      * @since windows6.0.6000
      */
     static WSDAttachLinkedMemory(pParent, pChild) {
@@ -725,12 +754,10 @@ class WebServicesOnDevices {
     /**
      * Detaches a child memory block from its parent memory block.
      * @remarks
-     * 
      * The child memory block must have been previously allocated by a call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdallocatelinkedmemory">WSDAllocateLinkedMemory</a>.
-     * 
      * @param {Pointer<Void>} pVoid Pointer to the memory block to be detached.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//wsdutil/nf-wsdutil-wsddetachlinkedmemory
+     * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsddetachlinkedmemory
      * @since windows6.0.6000
      */
     static WSDDetachLinkedMemory(pVoid) {
@@ -744,7 +771,7 @@ class WebServicesOnDevices {
      * @param {Pointer<WSDXML_NAME>} pElementName Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_name">WSDXML_NAME</a> structure that contains the name of the  created element.
      * @param {PWSTR} pszText The text value of the created element.
      * @returns {Pointer<WSDXML_ELEMENT>} Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> that contains the created element.  <i>ppAny</i> must be freed with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdutil/nf-wsdutil-wsdxmlbuildanyforsingleelement
+     * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsdxmlbuildanyforsingleelement
      * @since windows6.0.6000
      */
     static WSDXMLBuildAnyForSingleElement(pElementName, pszText) {
@@ -764,7 +791,7 @@ class WebServicesOnDevices {
      * @param {PWSTR} pszName The name of the element to retrieve.
      * @param {Pointer<WSDXML_ELEMENT>} pAny Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> structure that contains the <b>any</b> element that is the parent of the element to retrieve.
      * @returns {PWSTR} The text value of the element specified by <i>pszNamespace</i> and <i>pszName</i>.  The memory usage of <i>ppszValue</i> is managed elsewhere.  Consequently, the calling application should not attempt to deallocate <i>ppszValue</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdutil/nf-wsdutil-wsdxmlgetvaluefromany
+     * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsdxmlgetvaluefromany
      * @since windows6.0.6000
      */
     static WSDXMLGetValueFromAny(pszNamespace, pszName, pAny) {
@@ -813,7 +840,7 @@ class WebServicesOnDevices {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdutil/nf-wsdutil-wsdxmladdsibling
+     * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsdxmladdsibling
      * @since windows6.0.6000
      */
     static WSDXMLAddSibling(pFirst, pSecond) {
@@ -859,7 +886,7 @@ class WebServicesOnDevices {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdutil/nf-wsdutil-wsdxmladdchild
+     * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsdxmladdchild
      * @since windows6.0.6000
      */
     static WSDXMLAddChild(pParent, pChild) {
@@ -904,7 +931,7 @@ class WebServicesOnDevices {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdutil/nf-wsdutil-wsdxmlcleanupelement
+     * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsdxmlcleanupelement
      * @since windows6.0.6000
      */
     static WSDXMLCleanupElement(pAny) {
@@ -917,7 +944,17 @@ class WebServicesOnDevices {
     }
 
     /**
-     * Generates a SOAP fault.
+     * Generates a SOAP fault. (WSDGenerateFault)
+     * @remarks
+     * SOAP faults provide a way to communicate error information on failed SOAP messages. Different Web Services protocols extend faults to provide contextual error information, and in some cases, like in WS-Eventing, faults are an expected part of specific message patterns as the client determines whether or not the device supports specific features.
+     * 
+     * The following fault subcodes are not implemented by WSDAPI:<ul>
+     * <li>InvalidMessageInformationHeader</li>
+     * <li>MessageInformationHeaderRequired</li>
+     * <li>UnsupportedExpirationType</li>
+     * <li>InvalidMessage</li>
+     * <li>FilteringNotSupported</li>
+     * </ul>
      * @param {PWSTR} pszCode A SOAP fault code.
      * 
      * 
@@ -933,7 +970,7 @@ class WebServicesOnDevices {
      * @param {PWSTR} pszDetail Contains application-specific error information pertaining to the fault.
      * @param {IWSDXMLContext} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> interface that represents the context in which to generate the fault.
      * @returns {Pointer<WSD_SOAP_FAULT>} A <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_fault">WSD_SOAP_FAULT</a> structure that contains the generated fault.  When the calling application is done with this data, <i>ppFault</i> must be freed with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdutil/nf-wsdutil-wsdgeneratefault
+     * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsdgeneratefault
      * @since windows6.0.6000
      */
     static WSDGenerateFault(pszCode, pszSubCode, pszReason, pszDetail, pContext) {
@@ -951,7 +988,17 @@ class WebServicesOnDevices {
     }
 
     /**
-     * Generates a SOAP fault.
+     * Generates a SOAP fault. (WSDGenerateFaultEx)
+     * @remarks
+     * SOAP faults provide a way to communicate error information on failed SOAP messages. Different Web Services protocols extend faults to provide contextual error information, and in some cases, like in WS-Eventing, faults are an expected part of specific message patterns as the client determines whether or not the device supports specific features.
+     * 
+     * The following fault subcodes are not implemented by WSDAPI:<ul>
+     * <li>InvalidMessageInformationHeader</li>
+     * <li>MessageInformationHeaderRequired</li>
+     * <li>UnsupportedExpirationType</li>
+     * <li>InvalidMessage</li>
+     * <li>FilteringNotSupported</li>
+     * </ul>
      * @param {Pointer<WSDXML_NAME>} pCode A SOAP fault code.
      * 
      * 
@@ -968,7 +1015,7 @@ class WebServicesOnDevices {
      * @param {Pointer<WSD_LOCALIZED_STRING_LIST>} pReasons A <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_localized_string_list">WSD_LOCALIZED_STRING_LIST</a> structure that contains a list of localized reason codes.
      * @param {PWSTR} pszDetail Contains application-specific error information pertaining to the fault.
      * @returns {Pointer<WSD_SOAP_FAULT>} A <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_fault">WSD_SOAP_FAULT</a> structure that contains the generated fault.  <i>ppFault</i> must be freed with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdutil/nf-wsdutil-wsdgeneratefaultex
+     * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsdgeneratefaultex
      * @since windows6.0.6000
      */
     static WSDGenerateFaultEx(pCode, pSubCode, pReasons, pszDetail) {
@@ -984,6 +1031,10 @@ class WebServicesOnDevices {
 
     /**
      * Encodes a URI according to URI encoding rules in RFC2396.
+     * @remarks
+     * <b>WSDUriEncode</b> encodes certain characters in <i>source</i> into an escaped encoding format of %XY, where X and Y are hexadecimal digits corresponding to the single-byte representation of that character.  Wide characters that occupy multiple bytes are first rendered into UTF-8 multi-byte format, and then escaped into encoded characters.
+     * 
+     * <b>WSDUriEncode</b> does not encode single-byte alphanumeric characters.  It does encode percent signs (%) in <i>source</i>.
      * @param {PWSTR} source Contains the URI to be encoded.
      * @param {Integer} cchSource Specifies the length of <i>source</i> in characters.
      * @param {Pointer<PWSTR>} destOut Pointer to a string that contains the encoded URI.  If <i>destOut</i> is not <b>NULL</b>, the calling application should free the allocated string by calling <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
@@ -1040,7 +1091,7 @@ class WebServicesOnDevices {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdutil/nf-wsdutil-wsduriencode
+     * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsduriencode
      * @since windows6.1
      */
     static WSDUriEncode(source, cchSource, destOut, cchDestOut) {
@@ -1059,6 +1110,8 @@ class WebServicesOnDevices {
 
     /**
      * Decodes a URI according to the rules in RFC2396.
+     * @remarks
+     * <b>WSDUriDecode</b> decodes any encoded characters in <i>source</i>.  These characters are identified by a percent sign (%) followed by two hexadecimal digits.  <b>WSDUriDecode</b> decodes single-byte components of multi-byte characters and converts them back to wide character representation in <i>destOut</i>.
      * @param {PWSTR} source Contains the URI to be decoded.
      * @param {Integer} cchSource Specifies the length of <i>source</i> in characters.
      * @param {Pointer<PWSTR>} destOut Pointer to a string that contains the decoded URI.  If <i>destOut</i> is not <b>NULL</b>, the calling application should free the allocated string by calling <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
@@ -1115,7 +1168,7 @@ class WebServicesOnDevices {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdutil/nf-wsdutil-wsduridecode
+     * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsduridecode
      * @since windows6.1
      */
     static WSDUriDecode(source, cchSource, destOut, cchDestOut) {

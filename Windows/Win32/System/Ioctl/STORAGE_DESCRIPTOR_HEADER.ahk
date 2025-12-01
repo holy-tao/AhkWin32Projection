@@ -4,13 +4,10 @@
 /**
  * Used in conjunction with the IOCTL_STORAGE_QUERY_PROPERTY control code to retrieve the properties of a storage device or adapter.
  * @remarks
- * 
  * The data retrieved by 
  *      <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_storage_query_property">IOCTL_STORAGE_QUERY_PROPERTY</a> is reported in 
  *      the buffer immediately following this structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_descriptor_header
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_descriptor_header
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Defines the failure types for cluster resources.
- * @see https://docs.microsoft.com/windows/win32/api//resapi/ne-resapi-failure_type
+ * @see https://learn.microsoft.com/windows/win32/api/resapi/ne-resapi-failure_type
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

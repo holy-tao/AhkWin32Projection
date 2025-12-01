@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of personal desktop resolution being requested.
- * @see https://docs.microsoft.com/windows/win32/api//tspubplugin2com/ne-tspubplugin2com-tspub_plugin_pd_resolution_type
+ * @see https://learn.microsoft.com/windows/win32/api/tspubplugin2com/ne-tspubplugin2com-tspub_plugin_pd_resolution_type
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

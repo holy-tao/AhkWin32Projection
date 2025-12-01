@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * .
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mf_transfer_video_frame_flags
+ * . (MF_TRANSFER_VIDEO_FRAME_FLAGS)
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_transfer_video_frame_flags
  * @namespace Windows.Win32.Media.Streaming
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * The PCCARD_RESOURCE structure is used for specifying either a resource list or a resource requirements list that describes resource usage by a PC Card instance.
- * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/ns-cfgmgr32-pccard_resource
+ * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-pccard_resource
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

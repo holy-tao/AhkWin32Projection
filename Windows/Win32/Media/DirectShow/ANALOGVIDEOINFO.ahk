@@ -5,13 +5,10 @@
 /**
  * The ANALOGVIDEOINFO structure maintains information about the format of the analog video signal.
  * @remarks
- * 
  * Filters using this format usually pass the video signal using a hardware-based connection rather than using memory-based transports.
  * 
  * An example of a definition of an analog video media type connection would be a connection of NTSC video using "M" color encoding. This would use a major media type of MEDIATYPE_AnalogVideo, a subtype of MEDIASUBTYPE_AnalogVideo_NTSC_M, and a format type of FORMAT_AnalogVideo.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//amvideo/ns-amvideo-analogvideoinfo
+ * @see https://learn.microsoft.com/windows/win32/api/amvideo/ns-amvideo-analogvideoinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

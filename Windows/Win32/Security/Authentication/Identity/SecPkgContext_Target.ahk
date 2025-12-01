@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * Holds target information.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_target
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -14,6 +16,7 @@ class SecPkgContext_Target extends Win32Struct
     static packingSize => 8
 
     /**
+     * The length (in bytes) of the target array.
      * @type {Integer}
      */
     TargetLength {
@@ -22,6 +25,7 @@ class SecPkgContext_Target extends Win32Struct
     }
 
     /**
+     * An array containing the target information.
      * @type {PSTR}
      */
     Target {

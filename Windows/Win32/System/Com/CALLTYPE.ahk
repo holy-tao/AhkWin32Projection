@@ -3,7 +3,7 @@
 
 /**
  * Specifies the call types used by IMessageFilter::HandleInComingCall.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/ne-objidl-calltype
+ * @see https://learn.microsoft.com/windows/win32/api/objidl/ne-objidl-calltype
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

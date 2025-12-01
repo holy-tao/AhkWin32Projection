@@ -3,7 +3,7 @@
 #Include .\ShellCommandInfo.ahk
 
 /**
- * 
+ * The UiInfo structure is used to display repair messages to the user.
  * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-uiinfo
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
@@ -15,6 +15,9 @@ class UiInfo extends Win32Struct
     static packingSize => 8
 
     /**
+     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/ndattrib/ne-ndattrib-ui_info_type">UI_INFO_TYPE</a></b>
+     * 
+     * The type of user interface (UI) to use. This can be one of the values shown in the following members.
      * @type {Integer}
      */
     type {

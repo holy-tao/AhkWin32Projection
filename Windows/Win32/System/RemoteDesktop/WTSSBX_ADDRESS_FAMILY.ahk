@@ -3,7 +3,7 @@
 
 /**
  * Contains values that indicate the address family of a network address that is being used for redirection.
- * @see https://docs.microsoft.com/windows/win32/api//tssbx/ne-tssbx-wtssbx_address_family
+ * @see https://learn.microsoft.com/windows/win32/api/tssbx/ne-tssbx-wtssbx_address_family
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

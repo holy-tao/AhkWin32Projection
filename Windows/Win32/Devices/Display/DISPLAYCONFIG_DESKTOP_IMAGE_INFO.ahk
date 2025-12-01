@@ -5,7 +5,7 @@
 
 /**
  * The DISPLAYCONFIG_DESKTOP_IMAGE_INFO structure contains information about the image displayed on the desktop.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-displayconfig_desktop_image_info
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_desktop_image_info
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

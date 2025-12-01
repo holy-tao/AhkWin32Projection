@@ -43,6 +43,55 @@ class WindowsConnectionManager {
 ;@region Methods
     /**
      * Retrieves the value of a specified WCM property.
+     * @remarks
+     * The type of data stored in the <i>ppData</i> parameter will vary, depending on which property is being queried. This table shows the data type of each property.
+     * 
+     * <table>
+     * <tr>
+     * <th>Property name</th>
+     * <th>Data type</th>
+     * </tr>
+     * <tr>
+     * <td>wcm_global_property_domain_policy</td>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ns-wcmapi-wcm_policy_value">WCM_POLICY_VALUE</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>wcm_global_property_minimize_policy</td>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ns-wcmapi-wcm_policy_value">WCM_POLICY_VALUE</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>wcm_global_property_roaming_policy</td>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ns-wcmapi-wcm_policy_value">WCM_POLICY_VALUE</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>wcm_global_property_powermanagement_policy</td>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ns-wcmapi-wcm_policy_value">WCM_POLICY_VALUE</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>wcm_intf_property_connection_cost</td>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ns-wcmapi-wcm_connection_cost_data">WCM_CONNECTION_COST_DATA</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>wcm_intf_property_dataplan_status</td>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ns-wcmapi-wcm_dataplan_status">WCM_DATAPLAN_STATUS</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>wcm_intf_property_hotspot_profile</td>
+     * <td>Contains zero-length output. </td>
+     * </tr>
+     * </table>
      * @param {Pointer<Guid>} pInterface Type: <b>const GUID*</b>
      * 
      * The interface to query. For global properties, this parameter is NULL.
@@ -61,7 +110,7 @@ class WindowsConnectionManager {
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns ERROR_SUCCESS if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmapi/nf-wcmapi-wcmqueryproperty
+     * @see https://learn.microsoft.com/windows/win32/api/wcmapi/nf-wcmapi-wcmqueryproperty
      * @since windows8.0
      */
     static WcmQueryProperty(pInterface, strProfileName, Property, pdwDataSize, ppData) {
@@ -78,6 +127,55 @@ class WindowsConnectionManager {
 
     /**
      * Sets the value of a WCM property.
+     * @remarks
+     * The type of data stored in the <i>pbData</i> parameter will vary, depending on which property is being set. This table shows the data type of each property.
+     * 
+     * <table>
+     * <tr>
+     * <th>Property name</th>
+     * <th>Data type</th>
+     * </tr>
+     * <tr>
+     * <td>wcm_global_property_domain_policy</td>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ns-wcmapi-wcm_policy_value">WCM_POLICY_VALUE</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>wcm_global_property_minimize_policy</td>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ns-wcmapi-wcm_policy_value">WCM_POLICY_VALUE</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>wcm_global_property_roaming_policy</td>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ns-wcmapi-wcm_policy_value">WCM_POLICY_VALUE</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>wcm_global_property_powermanagement_policy</td>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ns-wcmapi-wcm_policy_value">WCM_POLICY_VALUE</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>wcm_intf_property_connection_cost</td>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ns-wcmapi-wcm_connection_cost_data">WCM_CONNECTION_COST_DATA</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>wcm_intf_property_dataplan_status</td>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ns-wcmapi-wcm_dataplan_status">WCM_DATAPLAN_STATUS</a>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>wcm_intf_property_hotspot_profile</td>
+     * <td>Variable-length XML string. See the <a href="https://docs.microsoft.com/uwp/schemas/mobilebroadbandschema/hotspotprofile/schema-root">HotSpotProfile schema</a> for more information.</td>
+     * </tr>
+     * </table>
      * @param {Pointer<Guid>} pInterface Type: <b>const GUID*</b>
      * 
      * The interface to set. For global properties, this parameter is NULL.
@@ -96,7 +194,7 @@ class WindowsConnectionManager {
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns ERROR_SUCCESS if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmapi/nf-wcmapi-wcmsetproperty
+     * @see https://learn.microsoft.com/windows/win32/api/wcmapi/nf-wcmapi-wcmsetproperty
      * @since windows8.0
      */
     static WcmSetProperty(pInterface, strProfileName, Property, dwDataSize, pbData) {
@@ -118,7 +216,7 @@ class WindowsConnectionManager {
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns ERROR_SUCCESS if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmapi/nf-wcmapi-wcmgetprofilelist
+     * @see https://learn.microsoft.com/windows/win32/api/wcmapi/nf-wcmapi-wcmgetprofilelist
      * @since windows8.0
      */
     static WcmGetProfileList(ppProfileList) {
@@ -144,7 +242,7 @@ class WindowsConnectionManager {
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns ERROR_SUCCESS if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmapi/nf-wcmapi-wcmsetprofilelist
+     * @see https://learn.microsoft.com/windows/win32/api/wcmapi/nf-wcmapi-wcmsetprofilelist
      * @since windows8.0
      */
     static WcmSetProfileList(pProfileList, dwPosition, fIgnoreUnknownProfiles) {
@@ -158,7 +256,7 @@ class WindowsConnectionManager {
      * Is used to release memory resources allocated by the WCM functions.
      * @param {Pointer<Void>} pMemory Pointer to the memory to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//wcmapi/nf-wcmapi-wcmfreememory
+     * @see https://learn.microsoft.com/windows/win32/api/wcmapi/nf-wcmapi-wcmfreememory
      * @since windows8.0
      */
     static WcmFreeMemory(pMemory) {
@@ -171,7 +269,7 @@ class WindowsConnectionManager {
      * The OnDemandGetRoutingHint function looks up a destination in the Route Request cache and, if a match is found, return the corresponding Interface ID.
      * @param {PWSTR} destinationHostName An PWSTR describing the target host name for a network communication.
      * @returns {Integer} The interface index of the network adapter to be used for communicating with the target host.
-     * @see https://docs.microsoft.com/windows/win32/api//ondemandconnroutehelper/nf-ondemandconnroutehelper-ondemandgetroutinghint
+     * @see https://learn.microsoft.com/windows/win32/api/ondemandconnroutehelper/nf-ondemandconnroutehelper-ondemandgetroutinghint
      * @since windows8.1
      */
     static OnDemandGetRoutingHint(destinationHostName) {
@@ -187,11 +285,18 @@ class WindowsConnectionManager {
 
     /**
      * The OnDemandRegisterNotification function allows an application to register to be notified when the Route Requests cache is modified.
-     * @param {Pointer<ONDEMAND_NOTIFICATION_CALLBACK>} callback A pointer to a function of type O<b>ONDEMAND_NOTIFICATION_CALLBACK</b> to receive the notifications.
+     * @remarks
+     * The <b>ONDEMAND_NOTIFICATION_CALLBACK</b> function is defined as:
+     * 
+     * 
+     * ``` syntax
+     * typedef void (WINAPI *ONDEMAND_NOTIFICATION_CALLBACK) (PVOID);
+     * ```
+     * @param {Pointer<ONDEMAND_NOTIFICATION_CALLBACK>} callback A pointer to a function of type <b>ONDEMAND_NOTIFICATION_CALLBACK</b> to receive the notifications.
      * @param {Pointer<Void>} callbackContext A pointer to a memory location containing optional context to be passed to the callback.
      * @param {Pointer<HANDLE>} registrationHandle A pointer to a HANDLE to receive a handle to the registration in case of success.
      * @returns {HRESULT} Returns S_OK on success.
-     * @see https://docs.microsoft.com/windows/win32/api//ondemandconnroutehelper/nf-ondemandconnroutehelper-ondemandregisternotification
+     * @see https://learn.microsoft.com/windows/win32/api/ondemandconnroutehelper/nf-ondemandconnroutehelper-ondemandregisternotification
      * @since windows8.1
      */
     static OnDemandRegisterNotification(callback, callbackContext, registrationHandle) {
@@ -206,9 +311,9 @@ class WindowsConnectionManager {
     }
 
     /**
-     * 
-     * @param {HANDLE} registrationHandle 
-     * @returns {HRESULT} 
+     * The OnDemandUnregisterNotification function allows an application to unregister for notifications and clean up resources.
+     * @param {HANDLE} registrationHandle A HANDLE obtained from a successful <a href="https://docs.microsoft.com/windows/desktop/api/ondemandconnroutehelper/nf-ondemandconnroutehelper-ondemandregisternotification">OnDemandRegisterNotification</a>  call.
+     * @returns {HRESULT} Returns S_OK on success.
      * @see https://learn.microsoft.com/windows/win32/api/ondemandconnroutehelper/nf-ondemandconnroutehelper-ondemandunregisternotification
      * @since windows8.1
      */
@@ -249,7 +354,7 @@ class WindowsConnectionManager {
      * @param {Pointer} ConnectionProfileFilterRawData The connection profile filter blog which is a byte cast of wcm_selection_filters.
      * @param {Integer} ConnectionProfileFilterRawDataSize The size of the <i>ConnectionProfileFilterRawData</i> in bytes.
      * @returns {Pointer<NET_INTERFACE_CONTEXT_TABLE>} This is set to the list of <a href="https://docs.microsoft.com/windows/win32/api/ondemandconnroutehelper/ns-ondemandconnroutehelper-net_interface_context">NET_INTERFACE_CONTEXT</a> structures containing the interface indices and configuration names that can be used for the hostname and filter.
-     * @see https://docs.microsoft.com/windows/win32/api//ondemandconnroutehelper/nf-ondemandconnroutehelper-getinterfacecontexttableforhostname
+     * @see https://learn.microsoft.com/windows/win32/api/ondemandconnroutehelper/nf-ondemandconnroutehelper-getinterfacecontexttableforhostname
      * @since windows10.0.10240
      */
     static GetInterfaceContextTableForHostName(HostName, ProxyName, Flags, ConnectionProfileFilterRawData, ConnectionProfileFilterRawDataSize) {
@@ -268,7 +373,7 @@ class WindowsConnectionManager {
      * This function frees the interface context table retrieved using the GetInterfaceContextTableForHostName function.
      * @param {Pointer<NET_INTERFACE_CONTEXT_TABLE>} InterfaceContextTable The interface context table retrieved using the <a href="https://docs.microsoft.com/windows/desktop/api/ondemandconnroutehelper/nf-ondemandconnroutehelper-getinterfacecontexttableforhostname">GetInterfaceContextTableForHostName</a> function.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//ondemandconnroutehelper/nf-ondemandconnroutehelper-freeinterfacecontexttable
+     * @see https://learn.microsoft.com/windows/win32/api/ondemandconnroutehelper/nf-ondemandconnroutehelper-freeinterfacecontexttable
      * @since windows10.0.10240
      */
     static FreeInterfaceContextTable(InterfaceContextTable) {

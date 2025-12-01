@@ -2,10 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains all registration information for a namespace provider.
+ * Contains all registration information for a namespace provider. (WSANAMESPACE_INFOW)
  * @remarks
- * 
- * The <b>WSANAMESPACE_INFO</b> structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaenumnamespaceprovidersa">WSAEnumNameSpaceProviders</a>and <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscenumnamespaceproviders32">WSCEnumNameSpaceProviders32</a> functions to return information on available namespace providers. The <b>WSANAMESPACE_INFO</b>  structure contains the provider-specific information on the namespace entry
+ * The <b>WSANAMESPACE_INFO</b> structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaenumnamespaceprovidersa">WSAEnumNameSpaceProviders</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscenumnamespaceproviders32">WSCEnumNameSpaceProviders32</a> functions to return information on available namespace providers. The <b>WSANAMESPACE_INFO</b>  structure contains the provider-specific information on the namespace entry
  *                      passed to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscinstallnamespace">WSCInstallNameSpace</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscinstallnamespace32">WSCInstallNameSpace32</a> functions when the namespace provider was installed.
  * 
  * When UNICODE or _UNICODE is defined, <b>WSANAMESPACE_INFO</b> is defined to <b>WSANAMESPACE_INFOW</b>, the Unicode version of this data structure and the <b>lpszIdentifier</b> string member is defined to the  <b>LPWSTR</b> data type.
@@ -20,9 +19,7 @@
  * 
  * > [!NOTE]
  * > The winsock2.h header defines WSANAMESPACE_INFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsock2/ns-winsock2-wsanamespace_infow
+ * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsanamespace_infow
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  * @charset Unicode

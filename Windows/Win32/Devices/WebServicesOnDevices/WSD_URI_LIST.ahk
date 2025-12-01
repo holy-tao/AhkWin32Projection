@@ -3,7 +3,7 @@
 
 /**
  * Represents a node in a linked list of URIs.
- * @see https://docs.microsoft.com/windows/win32/api//wsdtypes/ns-wsdtypes-wsd_uri_list
+ * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_uri_list
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

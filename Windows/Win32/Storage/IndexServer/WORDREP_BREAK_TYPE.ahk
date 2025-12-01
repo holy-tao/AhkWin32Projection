@@ -3,7 +3,7 @@
 
 /**
  * Describes the type of break that separates the current word from the previous word.
- * @see https://docs.microsoft.com/windows/win32/api//indexsrv/ne-indexsrv-wordrep_break_type
+ * @see https://learn.microsoft.com/windows/win32/api/indexsrv/ne-indexsrv-wordrep_break_type
  * @namespace Windows.Win32.Storage.IndexServer
  * @version v4.0.30319
  */

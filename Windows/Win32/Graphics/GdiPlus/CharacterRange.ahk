@@ -2,15 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * A CharacterRange object specifies a range of character positions within a string.
- * @remarks
- * 
- * A character range is a range of character positions within a string of text. The area of the display that is occupied by a group of characters that are specified by the character range is the bounding region. A character range is set by 
- * 				<b>StringFormat::SetMeasurableCharacterRanges</b>. The number of ranges that are currently set can be determined by calling 
- * 				<b>StringFormat::GetMeasurableCharacterRangeCount</b>. This number is also the number of regions expected to be obtained by the 
- * 				<b>MeasureCharacterRanges</b> method.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//gdiplustypes/nl-gdiplustypes-characterrange
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

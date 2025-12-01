@@ -8,7 +8,7 @@
 
 /**
  * Contains specific information for the connection that includes:\_the user name, domain, Globally Unique Identifier (GUID) associated with the connection, Network Access Protection (NAP) quarantine state, packet statistics, as well as its Point-to-Point (PPP) and Internet Key Exchange version 2 (IKEv2) related information.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-ras_connection_4
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_connection_4
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

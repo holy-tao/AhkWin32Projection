@@ -7,7 +7,7 @@
 
 /**
  * Contains information about the default value of a parameter.
- * @see https://docs.microsoft.com/windows/win32/api//oaidl/ns-oaidl-paramdescex
+ * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-paramdescex
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

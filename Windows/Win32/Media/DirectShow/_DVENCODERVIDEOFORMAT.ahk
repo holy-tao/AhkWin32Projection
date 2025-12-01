@@ -3,7 +3,7 @@
 
 /**
  * Indicates the video standard (NTSC or PAL) for digital video (DV) encoding.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-_dvencodervideoformat
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-_dvencodervideoformat
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

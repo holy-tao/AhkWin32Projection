@@ -4,11 +4,8 @@
 /**
  * Used with ID3D11On12Device::CreateWrappedResourceto override flags that would be inferred by the resource properties or heap properties, including bind flags, misc flags, and CPU access flags.
  * @remarks
- * 
  * Use this structure with <a href="https://docs.microsoft.com/windows/desktop/api/d3d11on12/nf-d3d11on12-id3d11on12device-createwrappedresource">CreateWrappedResource</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11on12/ns-d3d11on12-d3d11_resource_flags
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11on12/ns-d3d11on12-d3d11_resource_flags
  * @namespace Windows.Win32.Graphics.Direct3D11on12
  * @version v4.0.30319
  */

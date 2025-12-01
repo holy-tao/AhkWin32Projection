@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains parameters for the Volatile Write Cache Feature that controls the volatile write cache, if it is supported and present, on the controller.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw11_feature_volatile_write_cache
  * @namespace Windows.Win32.Storage.Nvme
@@ -41,6 +43,7 @@ class NVME_CDW11_FEATURE_VOLATILE_WRITE_CACHE extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     AsUlong {

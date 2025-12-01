@@ -3,7 +3,7 @@
 
 /**
  * The PEER_NODE_INFO structure contains information that is specific to a particular node in a peer graph.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_node_info
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_node_info
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

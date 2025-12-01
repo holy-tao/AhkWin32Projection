@@ -3,7 +3,7 @@
 
 /**
  * Defines flags for the setting or testing the media type on a Media Foundation transform (MFT).
- * @see https://docs.microsoft.com/windows/win32/api//mftransform/ne-mftransform-_mft_set_type_flags
+ * @see https://learn.microsoft.com/windows/win32/api/mftransform/ne-mftransform-_mft_set_type_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

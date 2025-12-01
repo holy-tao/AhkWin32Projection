@@ -3,7 +3,7 @@
 
 /**
  * Flags to specify whether updates will be allowed given the state of a file or directory on disk.
- * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/ne-projectedfslib-prj_update_types
+ * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ne-projectedfslib-prj_update_types
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  * @version v4.0.30319
  */

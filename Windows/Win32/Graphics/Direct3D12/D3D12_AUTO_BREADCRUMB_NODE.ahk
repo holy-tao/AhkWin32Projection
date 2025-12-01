@@ -3,7 +3,7 @@
 
 /**
  * Represents Device Removed Extended Data (DRED) auto-breadcrumb data as a node in a linked list.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_auto_breadcrumb_node
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_auto_breadcrumb_node
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

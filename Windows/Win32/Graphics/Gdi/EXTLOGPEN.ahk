@@ -3,7 +3,7 @@
 
 /**
  * The EXTLOGPEN structure defines the pen style, width, and brush attributes for an extended pen.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-extlogpen
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-extlogpen
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

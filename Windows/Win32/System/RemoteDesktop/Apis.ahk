@@ -1281,8 +1281,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsstopremotecontrolsession
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsstopremotecontrolsession
      * @since windows6.0.6000
      */
     static WTSStopRemoteControlSession(LogonId) {
@@ -1297,7 +1297,10 @@ class RemoteDesktop {
     }
 
     /**
-     * Starts the remote control of another Remote Desktop Services session. You must call this function from a remote session.
+     * Starts the remote control of another Remote Desktop Services session. You must call this function from a remote session. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSStartRemoteControlSession as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pTargetServerName A pointer to the name of the server where the session that you want remote control of exists.
      * @param {Integer} TargetLogonId The logon ID of the session that you want remote control of.
      * @param {Integer} HotkeyVk The virtual-key code that represents the key to press to stop remote control of the session. The key that is defined in this parameter is used with the  <i>HotkeyModifiers</i> parameter.
@@ -1307,8 +1310,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsstartremotecontrolsessionw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsstartremotecontrolsessionw
      * @since windows6.0.6000
      */
     static WTSStartRemoteControlSessionW(pTargetServerName, TargetLogonId, HotkeyVk, HotkeyModifiers) {
@@ -1325,7 +1328,10 @@ class RemoteDesktop {
     }
 
     /**
-     * Starts the remote control of another Remote Desktop Services session. You must call this function from a remote session.
+     * Starts the remote control of another Remote Desktop Services session. You must call this function from a remote session. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSStartRemoteControlSession as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pTargetServerName A pointer to the name of the server where the session that you want remote control of exists.
      * @param {Integer} TargetLogonId The logon ID of the session that you want remote control of.
      * @param {Integer} HotkeyVk The virtual-key code that represents the key to press to stop remote control of the session. The key that is defined in this parameter is used with the  <i>HotkeyModifiers</i> parameter.
@@ -1335,8 +1341,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsstartremotecontrolsessiona
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsstartremotecontrolsessiona
      * @since windows6.0.6000
      */
     static WTSStartRemoteControlSessionA(pTargetServerName, TargetLogonId, HotkeyVk, HotkeyModifiers) {
@@ -1353,7 +1359,15 @@ class RemoteDesktop {
     }
 
     /**
-     * Connects a Remote Desktop Services session to an existing session on the local computer.
+     * Connects a Remote Desktop Services session to an existing session on the local computer. (ANSI)
+     * @remarks
+     * Either the <i>LogonId</i> or <i>TargetLogonId</i> parameter can be <b>LOGONID_CURRENT</b>, but not both.
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSConnectSession as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} LogonId The logon ID of the session to connect to. The user of that session must have permissions to connect to an existing session. The output of this session will be routed to the session identified by the <i>TargetLogonId</i> parameter.
      * 
      * This can be <b>LOGONID_CURRENT</b> to use the current session.
@@ -1365,8 +1379,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsconnectsessiona
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsconnectsessiona
      * @since windows6.0.6000
      */
     static WTSConnectSessionA(LogonId, TargetLogonId, pPassword, bWait) {
@@ -1383,7 +1397,15 @@ class RemoteDesktop {
     }
 
     /**
-     * Connects a Remote Desktop Services session to an existing session on the local computer.
+     * Connects a Remote Desktop Services session to an existing session on the local computer. (Unicode)
+     * @remarks
+     * Either the <i>LogonId</i> or <i>TargetLogonId</i> parameter can be <b>LOGONID_CURRENT</b>, but not both.
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSConnectSession as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} LogonId The logon ID of the session to connect to. The user of that session must have permissions to connect to an existing session. The output of this session will be routed to the session identified by the <i>TargetLogonId</i> parameter.
      * 
      * This can be <b>LOGONID_CURRENT</b> to use the current session.
@@ -1395,8 +1417,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsconnectsessionw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsconnectsessionw
      * @since windows6.0.6000
      */
     static WTSConnectSessionW(LogonId, TargetLogonId, pPassword, bWait) {
@@ -1413,7 +1435,16 @@ class RemoteDesktop {
     }
 
     /**
-     * Returns a list of all Remote Desktop Session Host (RD Session Host) servers within the specified domain.
+     * Returns a list of all Remote Desktop Session Host (RD Session Host) servers within the specified domain. (Unicode)
+     * @remarks
+     * This function will not work if NetBT is disabled.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSEnumerateServers as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pDomainName Pointer to the name of the domain to be queried. If the value of this parameter is 
      *       <b>NULL</b>, the specified domain is the current domain.
      * @param {Integer} Reserved Reserved. The value of this parameter must be 0.
@@ -1427,8 +1458,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      *  If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsenumerateserversw
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumerateserversw
      * @since windows6.0.6000
      */
     static WTSEnumerateServersW(pDomainName, Reserved, Version, ppServerInfo, pCount) {
@@ -1448,7 +1479,16 @@ class RemoteDesktop {
     }
 
     /**
-     * Returns a list of all Remote Desktop Session Host (RD Session Host) servers within the specified domain.
+     * Returns a list of all Remote Desktop Session Host (RD Session Host) servers within the specified domain. (ANSI)
+     * @remarks
+     * This function will not work if NetBT is disabled.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSEnumerateServers as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pDomainName Pointer to the name of the domain to be queried. If the value of this parameter is 
      *       <b>NULL</b>, the specified domain is the current domain.
      * @param {Integer} Reserved Reserved. The value of this parameter must be 0.
@@ -1462,8 +1502,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      *  If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsenumerateserversa
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumerateserversa
      * @since windows6.0.6000
      */
     static WTSEnumerateServersA(pDomainName, Reserved, Version, ppServerInfo, pCount) {
@@ -1483,12 +1523,24 @@ class RemoteDesktop {
     }
 
     /**
-     * Opens a handle to the specified Remote Desktop Session Host (RD Session Host) server.
+     * Opens a handle to the specified Remote Desktop Session Host (RD Session Host) server. (Unicode)
+     * @remarks
+     * When you have finished using the handle returned by 
+     * <b>WTSOpenServer</b>, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtscloseserver">WTSCloseServer</a> function.
+     * 
+     * You do not need to open a handle for operations performed on the RD Session Host server on which your application is running. Use the constant <b>WTS_CURRENT_SERVER_HANDLE</b> instead.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSOpenServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pServerName Pointer to a null-terminated string specifying the NetBIOS name of the RD Session Host server.
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the specified server.
      * 
      * If the function fails, it returns a handle that is not valid. You can test the validity of the handle by using it in another function call.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsopenserverw
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsopenserverw
      * @since windows6.0.6000
      */
     static WTSOpenServerW(pServerName) {
@@ -1500,12 +1552,24 @@ class RemoteDesktop {
     }
 
     /**
-     * Opens a handle to the specified Remote Desktop Session Host (RD Session Host) server.
+     * Opens a handle to the specified Remote Desktop Session Host (RD Session Host) server. (ANSI)
+     * @remarks
+     * When you have finished using the handle returned by 
+     * <b>WTSOpenServer</b>, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtscloseserver">WTSCloseServer</a> function.
+     * 
+     * You do not need to open a handle for operations performed on the RD Session Host server on which your application is running. Use the constant <b>WTS_CURRENT_SERVER_HANDLE</b> instead.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSOpenServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pServerName Pointer to a null-terminated string specifying the NetBIOS name of the RD Session Host server.
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the specified server.
      * 
      * If the function fails, it returns a handle that is not valid. You can test the validity of the handle by using it in another function call.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsopenservera
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsopenservera
      * @since windows6.0.6000
      */
     static WTSOpenServerA(pServerName) {
@@ -1517,12 +1581,25 @@ class RemoteDesktop {
     }
 
     /**
-     * Opens a handle to the specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server.
+     * Opens a handle to the specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server. (Unicode)
+     * @remarks
+     * If the server specified by the <i>pServerName</i> parameter is an RD Session Host server, the behavior of this function is identical to  that of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function.
+     * 
+     * To work with sessions running on virtual machines on the RD Virtualization Host server on which the calling application is running, specify <b>WTS_CURRENT_SERVER_NAME</b> for the <i>pServerName</i> parameter.
+     * 
+     * When you have finished using the handle returned by this function, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtscloseserver">WTSCloseServer</a> function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSOpenServerEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pServerName A pointer to a null-terminated string that contains the NetBIOS name of the server.
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the specified server.
      * 
      * If the function fails, it returns an invalid handle. You can test the validity of the handle by using it in another function call.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsopenserverexw
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsopenserverexw
      * @since windows6.1
      */
     static WTSOpenServerExW(pServerName) {
@@ -1534,12 +1611,25 @@ class RemoteDesktop {
     }
 
     /**
-     * Opens a handle to the specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server.
+     * Opens a handle to the specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server. (ANSI)
+     * @remarks
+     * If the server specified by the <i>pServerName</i> parameter is an RD Session Host server, the behavior of this function is identical to  that of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function.
+     * 
+     * To work with sessions running on virtual machines on the RD Virtualization Host server on which the calling application is running, specify <b>WTS_CURRENT_SERVER_NAME</b> for the <i>pServerName</i> parameter.
+     * 
+     * When you have finished using the handle returned by this function, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtscloseserver">WTSCloseServer</a> function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSOpenServerEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pServerName A pointer to a null-terminated string that contains the NetBIOS name of the server.
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the specified server.
      * 
      * If the function fails, it returns an invalid handle. You can test the validity of the handle by using it in another function call.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsopenserverexa
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsopenserverexa
      * @since windows6.1
      */
     static WTSOpenServerExA(pServerName) {
@@ -1553,19 +1643,16 @@ class RemoteDesktop {
     /**
      * Closes an open handle to a Remote Desktop Session Host (RD Session Host) server.
      * @remarks
-     * 
      * Call the <b>WTSCloseServer</b> function as part of your program's clean-up routine to 
      *     close all the server handles opened by calls to the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function.
      * 
      * After the handle has been closed, it cannot be used with any other WTS APIs.
-     * 
-     * 
      * @param {HANDLE} hServer A handle to an RD Session Host server opened by a call to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function.
      * 
      * Do not pass <b>WTS_CURRENT_SERVER_HANDLE</b> for this parameter.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtscloseserver
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtscloseserver
      * @since windows6.0.6000
      */
     static WTSCloseServer(hServer) {
@@ -1575,7 +1662,10 @@ class RemoteDesktop {
     }
 
     /**
-     * Retrieves a list of sessions on a Remote Desktop Session Host (RD Session Host) server.
+     * Retrieves a list of sessions on a Remote Desktop Session Host (RD Session Host) server. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSEnumerateSessions as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hServer A handle to the RD Session Host server.
      * 
      * <div class="alert"><b>Note</b>  You can use the 
@@ -1597,8 +1687,8 @@ class RemoteDesktop {
      * @returns {BOOL} Returns zero if this function fails. If this function succeeds, a nonzero value is returned.
      * 
      * To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsenumeratesessionsw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumeratesessionsw
      * @since windows6.0.6000
      */
     static WTSEnumerateSessionsW(hServer, Reserved, Version, ppSessionInfo, pCount) {
@@ -1618,7 +1708,10 @@ class RemoteDesktop {
     }
 
     /**
-     * Retrieves a list of sessions on a Remote Desktop Session Host (RD Session Host) server.
+     * Retrieves a list of sessions on a Remote Desktop Session Host (RD Session Host) server. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSEnumerateSessions as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hServer A handle to the RD Session Host server.
      * 
      * <div class="alert"><b>Note</b>  You can use the 
@@ -1640,8 +1733,8 @@ class RemoteDesktop {
      * @returns {BOOL} Returns zero if this function fails. If this function succeeds, a nonzero value is returned.
      * 
      * To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsenumeratesessionsa
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumeratesessionsa
      * @since windows6.0.6000
      */
     static WTSEnumerateSessionsA(hServer, Reserved, Version, ppSessionInfo, pCount) {
@@ -1661,7 +1754,22 @@ class RemoteDesktop {
     }
 
     /**
-     * Retrieves a list of sessions on a specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server.
+     * Retrieves a list of sessions on a specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server. (Unicode)
+     * @remarks
+     * To obtain information about sessions running on virtual machines on an RD Virtualization Host server, you must obtain the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function. To free the returned buffer, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememoryexa">WTSFreeMemoryEx</a> function and set the <i>WTSClassType</i> parameter to <b>WTSTypeSessionInfoLevel1</b>.
+     * 
+     * To enumerate a session, you need to have the Query Information permission for that session. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/TermServ/terminal-services-permissions">Remote Desktop Services Permissions</a>. To modify permissions on a session, use the Remote Desktop Services Configuration administrative tool.
+     * 
+     * To enumerate sessions running on a virtual machine hosted on an RD Virtualization Host server, you must be a member of the Administrators group on the RD Virtualization Host server.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSEnumerateSessionsEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hServer A handle to the target server. Specify a handle returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function. To enumerate sessions on  the RD Session Host server on which the application is running, specify <b>WTS_CURRENT_SERVER_HANDLE</b>.
      * @param {Pointer<Integer>} pLevel This parameter is reserved. Always set this parameter to one. On output, <b>WTSEnumerateSessionsEx</b> does not change the value of this parameter.
@@ -1673,8 +1781,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsenumeratesessionsexw
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumeratesessionsexw
      * @since windows6.1
      */
     static WTSEnumerateSessionsExW(hServer, pLevel, Filter, ppSessionInfo, pCount) {
@@ -1695,7 +1803,22 @@ class RemoteDesktop {
     }
 
     /**
-     * Retrieves a list of sessions on a specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server.
+     * Retrieves a list of sessions on a specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server. (ANSI)
+     * @remarks
+     * To obtain information about sessions running on virtual machines on an RD Virtualization Host server, you must obtain the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function. To free the returned buffer, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememoryexa">WTSFreeMemoryEx</a> function and set the <i>WTSClassType</i> parameter to <b>WTSTypeSessionInfoLevel1</b>.
+     * 
+     * To enumerate a session, you need to have the Query Information permission for that session. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/TermServ/terminal-services-permissions">Remote Desktop Services Permissions</a>. To modify permissions on a session, use the Remote Desktop Services Configuration administrative tool.
+     * 
+     * To enumerate sessions running on a virtual machine hosted on an RD Virtualization Host server, you must be a member of the Administrators group on the RD Virtualization Host server.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSEnumerateSessionsEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hServer A handle to the target server. Specify a handle returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function. To enumerate sessions on  the RD Session Host server on which the application is running, specify <b>WTS_CURRENT_SERVER_HANDLE</b>.
      * @param {Pointer<Integer>} pLevel This parameter is reserved. Always set this parameter to one. On output, <b>WTSEnumerateSessionsEx</b> does not change the value of this parameter.
@@ -1707,8 +1830,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsenumeratesessionsexa
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumeratesessionsexa
      * @since windows6.1
      */
     static WTSEnumerateSessionsExA(hServer, pLevel, Filter, ppSessionInfo, pCount) {
@@ -1729,7 +1852,17 @@ class RemoteDesktop {
     }
 
     /**
-     * Retrieves information about the active processes on a specified Remote Desktop Session Host (RD Session Host) server.
+     * Retrieves information about the active processes on a specified Remote Desktop Session Host (RD Session Host) server. (Unicode)
+     * @remarks
+     * The caller must be a member of the Administrators group to enumerate processes that are running under a 
+     *     different user's context.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSEnumerateProcesses as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hServer Handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application is 
@@ -1745,8 +1878,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsenumerateprocessesw
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumerateprocessesw
      * @since windows6.0.6000
      */
     static WTSEnumerateProcessesW(hServer, Reserved, Version, ppProcessInfo, pCount) {
@@ -1766,7 +1899,17 @@ class RemoteDesktop {
     }
 
     /**
-     * Retrieves information about the active processes on a specified Remote Desktop Session Host (RD Session Host) server.
+     * Retrieves information about the active processes on a specified Remote Desktop Session Host (RD Session Host) server. (ANSI)
+     * @remarks
+     * The caller must be a member of the Administrators group to enumerate processes that are running under a 
+     *     different user's context.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSEnumerateProcesses as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hServer Handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application is 
@@ -1782,8 +1925,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsenumerateprocessesa
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumerateprocessesa
      * @since windows6.0.6000
      */
     static WTSEnumerateProcessesA(hServer, Reserved, Version, ppProcessInfo, pCount) {
@@ -1811,8 +1954,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsterminateprocess
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsterminateprocess
      * @since windows6.0.6000
      */
     static WTSTerminateProcess(hServer, ProcessId, ExitCode) {
@@ -1829,7 +1972,28 @@ class RemoteDesktop {
     }
 
     /**
-     * Retrieves session information for the specified session on the specified Remote Desktop Session Host (RD Session Host) server.
+     * Retrieves session information for the specified session on the specified Remote Desktop Session Host (RD Session Host) server. (Unicode)
+     * @remarks
+     * To retrieve the session ID for the current session when Remote Desktop Services is running, call 
+     *     <b>WTSQuerySessionInformation</b> and specify 
+     *     <b>WTS_CURRENT_SESSION</b> for the <i>SessionId</i> parameter and 
+     *     <b>WTSSessionId</b> for the <i>WTSInfoClass</i> parameter. The session ID 
+     *     will be returned in the <i>ppBuffer</i> parameter. If Remote Desktop Services is not running, calls 
+     *     to <b>WTSQuerySessionInformation</b> fail. In 
+     *     this situation, you can retrieve the current session ID by calling the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-processidtosessionid">ProcessIdToSessionId</a> function.
+     * 
+     * To determine whether your application is running on the physical console, you must specify 
+     *     <b>WTS_CURRENT_SESSION</b> for the <i>SessionId</i> parameter, and 
+     *     <b>WTSClientProtocolType</b> as the <i>WTSInfoClass</i> parameter. 
+     *     If <i>ppBuffer</i> is "0", the session is attached to the physical console.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSQuerySessionInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application 
@@ -1859,8 +2023,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsquerysessioninformationw
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsquerysessioninformationw
      * @since windows6.0.6000
      */
     static WTSQuerySessionInformationW(hServer, SessionId, WTSInfoClass, ppBuffer, pBytesReturned) {
@@ -1880,7 +2044,28 @@ class RemoteDesktop {
     }
 
     /**
-     * Retrieves session information for the specified session on the specified Remote Desktop Session Host (RD Session Host) server.
+     * Retrieves session information for the specified session on the specified Remote Desktop Session Host (RD Session Host) server. (ANSI)
+     * @remarks
+     * To retrieve the session ID for the current session when Remote Desktop Services is running, call 
+     *     <b>WTSQuerySessionInformation</b> and specify 
+     *     <b>WTS_CURRENT_SESSION</b> for the <i>SessionId</i> parameter and 
+     *     <b>WTSSessionId</b> for the <i>WTSInfoClass</i> parameter. The session ID 
+     *     will be returned in the <i>ppBuffer</i> parameter. If Remote Desktop Services is not running, calls 
+     *     to <b>WTSQuerySessionInformation</b> fail. In 
+     *     this situation, you can retrieve the current session ID by calling the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-processidtosessionid">ProcessIdToSessionId</a> function.
+     * 
+     * To determine whether your application is running on the physical console, you must specify 
+     *     <b>WTS_CURRENT_SESSION</b> for the <i>SessionId</i> parameter, and 
+     *     <b>WTSClientProtocolType</b> as the <i>WTSInfoClass</i> parameter. 
+     *     If <i>ppBuffer</i> is "0", the session is attached to the physical console.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSQuerySessionInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application 
@@ -1910,8 +2095,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsquerysessioninformationa
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsquerysessioninformationa
      * @since windows6.0.6000
      */
     static WTSQuerySessionInformationA(hServer, SessionId, WTSInfoClass, ppBuffer, pBytesReturned) {
@@ -1931,7 +2116,23 @@ class RemoteDesktop {
     }
 
     /**
-     * Retrieves configuration information for the specified user on the specified domain controller or Remote Desktop Session Host (RD Session Host) server.
+     * Retrieves configuration information for the specified user on the specified domain controller or Remote Desktop Session Host (RD Session Host) server. (Unicode)
+     * @remarks
+     * The 
+     * <b>WTSQueryUserConfig</b> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtssetuserconfiga">WTSSetUserConfig</a> functions are passed a server name instead of a handle because user account information often resides on a domain controller. To set user configuration information, use the primary domain controller. You can call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgetdcname">NetGetDCName</a> function to get the name of the primary domain controller. To query user configuration information, you can use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgetanydcname">NetGetAnyDCName</a> function to get the name of a primary or backup domain controller.
+     * 
+     * Any domain controller can set or query user configuration information. Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a> function to retrieve the name of a domain controller.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSQueryUserConfig as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pServerName Pointer to a null-terminated string containing the name of a domain controller or an RD Session Host server. Specify <b>WTS_CURRENT_SERVER_NAME</b> to indicate the RD Session Host server on which your application is running.
      * @param {PWSTR} pUserName Pointer to a null-terminated string containing the user name to query. To retrieve the default user settings for the RD Session Host server, set this parameter to <b>NULL</b>.
      * 
@@ -1945,8 +2146,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsqueryuserconfigw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsqueryuserconfigw
      * @since windows6.0.6000
      */
     static WTSQueryUserConfigW(pServerName, pUserName, WTSConfigClass, ppBuffer, pBytesReturned) {
@@ -1967,7 +2168,23 @@ class RemoteDesktop {
     }
 
     /**
-     * Retrieves configuration information for the specified user on the specified domain controller or Remote Desktop Session Host (RD Session Host) server.
+     * Retrieves configuration information for the specified user on the specified domain controller or Remote Desktop Session Host (RD Session Host) server. (ANSI)
+     * @remarks
+     * The 
+     * <b>WTSQueryUserConfig</b> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtssetuserconfiga">WTSSetUserConfig</a> functions are passed a server name instead of a handle because user account information often resides on a domain controller. To set user configuration information, use the primary domain controller. You can call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgetdcname">NetGetDCName</a> function to get the name of the primary domain controller. To query user configuration information, you can use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgetanydcname">NetGetAnyDCName</a> function to get the name of a primary or backup domain controller.
+     * 
+     * Any domain controller can set or query user configuration information. Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a> function to retrieve the name of a domain controller.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSQueryUserConfig as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pServerName Pointer to a null-terminated string containing the name of a domain controller or an RD Session Host server. Specify <b>WTS_CURRENT_SERVER_NAME</b> to indicate the RD Session Host server on which your application is running.
      * @param {PSTR} pUserName Pointer to a null-terminated string containing the user name to query. To retrieve the default user settings for the RD Session Host server, set this parameter to <b>NULL</b>.
      * 
@@ -1981,8 +2198,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsqueryuserconfiga
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsqueryuserconfiga
      * @since windows6.0.6000
      */
     static WTSQueryUserConfigA(pServerName, pUserName, WTSConfigClass, ppBuffer, pBytesReturned) {
@@ -2003,7 +2220,43 @@ class RemoteDesktop {
     }
 
     /**
-     * Modifies configuration information for the specified user on the specified domain controller or Remote Desktop Session Host (RD Session Host) server.
+     * Modifies configuration information for the specified user on the specified domain controller or Remote Desktop Session Host (RD Session Host) server. (Unicode)
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsqueryuserconfiga">WTSQueryUserConfig</a> and 
+     *     <b>WTSSetUserConfig</b> functions are passed a server 
+     *     name instead of a handle because user account information often resides on a domain controller. To set user 
+     *     configuration information, use the primary domain controller. You can call the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgetdcname">NetGetDCName</a> function to get the name of the primary 
+     *     domain controller. To query user configuration information, you can use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgetanydcname">NetGetAnyDCName</a> function to get the name of a 
+     *     primary or backup domain controller.
+     * 
+     * Any domain controller can set or query user configuration information. Use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a> function to retrieve the name of a domain 
+     *     controller.
+     * 
+     * If the value of the  <i>WTSConfigClass</i> parameter corresponds to an integer value in the 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_config_class">WTS_CONFIG_CLASS</a> enumeration, define the value 
+     *      to be set as a <b>DWORD</b>.  Then cast the value to an <b>LPWSTR</b> 
+     *      in the call to <b>WTSSetUserConfig</b>, as in the 
+     *      following example:
+     * 
+     * 
+     * ```cpp
+     * WTSSetUserConfig( strServer.GetBuffer(0), 
+     *                   m_strName.GetBuffer(0), 
+     *                   WTSUserConfigfAllowLogonTerminalServer, 
+     *                   (LPWSTR) &dwEnable, 
+     *                   sizeof(DWORD));
+     * ```
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSSetUserConfig as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pServerName Pointer to a null-terminated string containing the name of a domain controller or 
      *       RD Session Host server. Specify <b>WTS_CURRENT_SERVER_NAME</b> to indicate the 
      *       RD Session Host server on which your application is running.
@@ -2017,8 +2270,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtssetuserconfigw
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtssetuserconfigw
      * @since windows6.0.6000
      */
     static WTSSetUserConfigW(pServerName, pUserName, WTSConfigClass, pBuffer, DataLength) {
@@ -2036,7 +2289,43 @@ class RemoteDesktop {
     }
 
     /**
-     * Modifies configuration information for the specified user on the specified domain controller or Remote Desktop Session Host (RD Session Host) server.
+     * Modifies configuration information for the specified user on the specified domain controller or Remote Desktop Session Host (RD Session Host) server. (ANSI)
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsqueryuserconfiga">WTSQueryUserConfig</a> and 
+     *     <b>WTSSetUserConfig</b> functions are passed a server 
+     *     name instead of a handle because user account information often resides on a domain controller. To set user 
+     *     configuration information, use the primary domain controller. You can call the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgetdcname">NetGetDCName</a> function to get the name of the primary 
+     *     domain controller. To query user configuration information, you can use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgetanydcname">NetGetAnyDCName</a> function to get the name of a 
+     *     primary or backup domain controller.
+     * 
+     * Any domain controller can set or query user configuration information. Use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a> function to retrieve the name of a domain 
+     *     controller.
+     * 
+     * If the value of the  <i>WTSConfigClass</i> parameter corresponds to an integer value in the 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_config_class">WTS_CONFIG_CLASS</a> enumeration, define the value 
+     *      to be set as a <b>DWORD</b>.  Then cast the value to an <b>LPWSTR</b> 
+     *      in the call to <b>WTSSetUserConfig</b>, as in the 
+     *      following example:
+     * 
+     * 
+     * ```cpp
+     * WTSSetUserConfig( strServer.GetBuffer(0), 
+     *                   m_strName.GetBuffer(0), 
+     *                   WTSUserConfigfAllowLogonTerminalServer, 
+     *                   (LPWSTR) &dwEnable, 
+     *                   sizeof(DWORD));
+     * ```
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSSetUserConfig as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pServerName Pointer to a null-terminated string containing the name of a domain controller or 
      *       RD Session Host server. Specify <b>WTS_CURRENT_SERVER_NAME</b> to indicate the 
      *       RD Session Host server on which your application is running.
@@ -2050,8 +2339,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtssetuserconfiga
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtssetuserconfiga
      * @since windows6.0.6000
      */
     static WTSSetUserConfigA(pServerName, pUserName, WTSConfigClass, pBuffer, DataLength) {
@@ -2069,7 +2358,10 @@ class RemoteDesktop {
     }
 
     /**
-     * Displays a message box on the client desktop of a specified Remote Desktop Services session.
+     * Displays a message box on the client desktop of a specified Remote Desktop Services session. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSSendMessage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *        <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application 
@@ -2107,8 +2399,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtssendmessagew
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtssendmessagew
      * @since windows6.0.6000
      */
     static WTSSendMessageW(hServer, SessionId, pTitle, TitleLength, pMessage, MessageLength, Style, Timeout, pResponse, bWait) {
@@ -2127,7 +2419,10 @@ class RemoteDesktop {
     }
 
     /**
-     * Displays a message box on the client desktop of a specified Remote Desktop Services session.
+     * Displays a message box on the client desktop of a specified Remote Desktop Services session. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSSendMessage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *        <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application 
@@ -2165,8 +2460,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtssendmessagea
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtssendmessagea
      * @since windows6.0.6000
      */
     static WTSSendMessageA(hServer, SessionId, pTitle, TitleLength, pMessage, MessageLength, Style, Timeout, pResponse, bWait) {
@@ -2199,8 +2494,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsdisconnectsession
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsdisconnectsession
      * @since windows6.0.6000
      */
     static WTSDisconnectSession(hServer, SessionId, bWait) {
@@ -2237,8 +2532,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtslogoffsession
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtslogoffsession
      * @since windows6.0.6000
      */
     static WTSLogoffSession(hServer, SessionId, bWait) {
@@ -2256,14 +2551,30 @@ class RemoteDesktop {
 
     /**
      * Shuts down (and optionally restarts) the specified Remote Desktop Session Host (RD Session Host) server.
+     * @remarks
+     * A system shutdown terminates all users and active programs. The following steps occur during shutdown.
+     * 
+     * <ol>
+     * <li>An exit command is issued to all active user applications.</li>
+     * <li>If the application does not exit within a specific interval, the application is terminated.</li>
+     * <li>After all the applications for a user terminate, the user is logged off.</li>
+     * <li>After all users are logged off, an exit command is issued to all system services.</li>
+     * <li>If the system service does not terminate within a specific interval, the service is terminated.</li>
+     * <li>The file system cache is written to disk.</li>
+     * <li>The disks are marked read-only.</li>
+     * <li>The RD Session Host server displays the message "It is now safe to turn off your computer", or the system is restarted if <b>WTS_WSD_REBOOT</b> is specified. (The message is displayed on the console because all client sessions have been terminated.)</li>
+     * </ol>
+     * <div class="alert"><b>Note</b>  Because there can be many users and processes in a large multiple-user configuration, large system configurations may take some time to shut down in an orderly fashion. It is important to allow the system to shut down completely.</div>
+     * <div> </div>
+     * <b>Windows Server 2008 and Windows Vista:  </b>A call to <b>WTSShutdownSystem</b> does not work when Remote Connection Manager (RCM) is disabled. This is the case when the Remote Desktop Services service is stopped.
      * @param {HANDLE} hServer Handle to an RD Session Host server. Specify a handle opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application is running.
      * @param {Integer} ShutdownFlag 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsshutdownsystem
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsshutdownsystem
      * @since windows6.0.6000
      */
     static WTSShutdownSystem(hServer, ShutdownFlag) {
@@ -2291,8 +2602,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtswaitsystemevent
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtswaitsystemevent
      * @since windows6.0.6000
      */
     static WTSWaitSystemEvent(hServer, EventMask, pEventFlags) {
@@ -2312,6 +2623,13 @@ class RemoteDesktop {
 
     /**
      * Opens a handle to the server end of a specified virtual channel.
+     * @remarks
+     * When you have finished using the handle, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelclose">WTSVirtualChannelClose</a> function.
+     * 
+     * For an example that shows how to gain access to a virtual channel file handle that can be used for asynchronous I/O, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelquery">WTSVirtualChannelQuery</a>.
+     * 
+     * If you try to use this function to open the same virtual channel multiple times, it can cause a 10-second delay and disrupt the established channel.
      * @param {Integer} SessionId A Remote Desktop Services session identifier. To indicate the current session, specify <b>WTS_CURRENT_SESSION</b>. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsenumeratesessionsa">WTSEnumerateSessions</a> function to retrieve the identifiers of all sessions on a specified RD Session Host server.
      * 
@@ -2321,8 +2639,8 @@ class RemoteDesktop {
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the specified virtual channel.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsvirtualchannelopen
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen
      * @since windows6.0.6000
      */
     static WTSVirtualChannelOpen(SessionId, pVirtualName) {
@@ -2366,8 +2684,8 @@ class RemoteDesktop {
      *        one of the <b>WTS_CHANNEL_OPTION_DYNAMIC_PRI_<i>XXX</i></b> values in 
      *        combination with the <b>WTS_CHANNEL_OPTION_DYNAMIC</b> value.
      * @returns {HANDLE} <b>NULL</b> on error with 
-     *       <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> set.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsvirtualchannelopenex
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> set.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopenex
      * @since windows6.0.6000
      */
     static WTSVirtualChannelOpenEx(SessionId, pVirtualName, flags) {
@@ -2392,8 +2710,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsvirtualchannelclose
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelclose
      * @since windows6.0.6000
      */
     static WTSVirtualChannelClose(hChannelHandle) {
@@ -2411,6 +2729,12 @@ class RemoteDesktop {
 
     /**
      * Reads data from the server end of a virtual channel.
+     * @remarks
+     * <div class="alert"><b>Note</b>  <b>WTSVirtualChannelRead</b> is not thread safe. 
+     *     To access a virtual channel from multiple threads, or to do asynchronous IO through a virtual channel, use 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelquery">WTSVirtualChannelQuery</a> with 
+     *     <b>WTSVirtualFileHandle</b>.</div>
+     * <div> </div>
      * @param {HANDLE} hChannelHandle Handle to a virtual channel opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
      * @param {Integer} TimeOut Specifies the time-out, in milliseconds. If <i>TimeOut</i> is zero, 
@@ -2424,8 +2748,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsvirtualchannelread
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelread
      * @since windows6.0.6000
      */
     static WTSVirtualChannelRead(hChannelHandle, TimeOut, Buffer_R, BufferSize, pBytesRead) {
@@ -2445,6 +2769,12 @@ class RemoteDesktop {
 
     /**
      * Writes data to the server end of a virtual channel.
+     * @remarks
+     * <div class="alert"><b>Note</b>  <b>WTSVirtualChannelWrite</b> is not thread safe. 
+     *     To access a virtual channel from multiple threads, or to do asynchronous IO through a virtual channel, use 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelquery">WTSVirtualChannelQuery</a> with 
+     *     <b>WTSVirtualFileHandle</b>.</div>
+     * <div> </div>
      * @param {HANDLE} hChannelHandle Handle to a virtual channel opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
      * @param {Pointer} Buffer_R 
@@ -2453,8 +2783,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsvirtualchannelwrite
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelwrite
      * @since windows6.0.6000
      */
     static WTSVirtualChannelWrite(hChannelHandle, Buffer_R, Length, pBytesWritten) {
@@ -2479,8 +2809,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsvirtualchannelpurgeinput
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelpurgeinput
      * @since windows6.0.6000
      */
     static WTSVirtualChannelPurgeInput(hChannelHandle) {
@@ -2503,8 +2833,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsvirtualchannelpurgeoutput
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelpurgeoutput
      * @since windows6.0.6000
      */
     static WTSVirtualChannelPurgeOutput(hChannelHandle) {
@@ -2522,6 +2852,97 @@ class RemoteDesktop {
 
     /**
      * Returns information about a specified virtual channel.
+     * @remarks
+     * The following example shows how to gain access to a virtual channel file handle that can be used for 
+     *     asynchronous I/O. First the code opens a virtual channel by using a call to the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
+     *     Then the code calls the 
+     *     <b>WTSVirtualChannelQuery</b> function, specifying 
+     *     the WTSVirtualFileHandle virtual class type. 
+     *     <b>WTSVirtualChannelQuery</b> returns a file 
+     *     handle that you can use to perform asynchronous (overlapped) read and write operations. Finally, the code frees 
+     *     the memory allocated by 
+     *     <b>WTSVirtualChannelQuery</b> with a call to the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function, and closes the 
+     *     virtual channel with a call to the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelclose">WTSVirtualChannelClose</a> function.
+     * 
+     * Note that you should not explicitly close the file handle obtained by calling 
+     *     <b>WTSVirtualChannelQuery</b>. This is because 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelclose">WTSVirtualChannelClose</a> closes the file handle.
+     * 
+     * 
+     * ```cpp
+     *     PVOID vcFileHandlePtr = NULL;
+     *     DWORD len;
+     *     DWORD result = ERROR_SUCCESS;
+     *     HANDLE vcHandle = NULL;
+     *     HANDLE vcFileHandle = NULL;
+     * 
+     *     //
+     *     //  Open a virtual channel.
+     *     //
+     *     vcHandle = WTSVirtualChannelOpen(
+     *                       WTS_CURRENT_SERVER_HANDLE, // Current TS Server
+     *                       WTS_CURRENT_SESSION,       // Current TS Session
+     *                       (LPSTR) "TSTCHNL"                 // Channel name
+     *                       );
+     * 
+     *     if (vcHandle == NULL) 
+     *     {
+     *         result = GetLastError();
+     *     }
+     * 
+     *     //
+     *     //  Gain access to the underlying file handle for 
+     *     //   asynchronous I/O. 
+     *     //
+     *     if (result == ERROR_SUCCESS) 
+     *     {
+     *         if (!WTSVirtualChannelQuery(
+     *                             vcHandle,
+     *                             WTSVirtualFileHandle,
+     *                             &vcFileHandlePtr,
+     *                             &len
+     *                             )) 
+     *         {
+     *             result = GetLastError();
+     *         }
+     *     }
+     * 
+     *     //
+     *     //  Copy the data and
+     *     //   free the buffer allocated by WTSVirtualChannelQuery.
+     *     //
+     *     if (result == ERROR_SUCCESS) 
+     *     {
+     *         memcpy(&vcFileHandle, vcFileHandlePtr, sizeof(vcFileHandle));
+     *         WTSFreeMemory(vcFileHandlePtr);
+     * 
+     *         //
+     *         //  Use vcFileHandle for overlapped reads and writes here.
+     *         //
+     *         //.
+     *         //.
+     *         //.
+     *     }
+     * 
+     *     //
+     *     //  Call WTSVirtualChannelClose to close the virtual channel. 
+     *     //   Note: do not close the file handle.
+     *     //
+     *     if (vcHandle != NULL) 
+     *     {
+     *         WTSVirtualChannelClose(vcHandle);
+     *         vcFileHandle = NULL;
+     *     }
+     * 
+     * ```
+     * 
+     * 
+     * For more information about overlapped mode, see 
+     *     <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-and-overlapped-input-and-output">Synchronization and Overlapped Input and 
+     *     Output</a>.
      * @param {HANDLE} hChannelHandle Handle to a virtual channel opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
      * @param {Integer} param1 
@@ -2529,14 +2950,14 @@ class RemoteDesktop {
      * @param {Pointer<Integer>} pBytesReturned Pointer to a variable that receives the number of bytes returned in the <i>ppBuffer</i> 
      *       parameter.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value. Call the 
-     *        <a href="/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function with the value returned in 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function with the value returned in 
      *        the <i>ppBuffer</i> parameter to free the temporary memory allocated by 
      *        <b>WTSVirtualChannelQuery</b>.
      *       
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsvirtualchannelquery
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelquery
      * @since windows6.0.6000
      */
     static WTSVirtualChannelQuery(hChannelHandle, param1, ppBuffer, pBytesReturned) {
@@ -2558,14 +2979,11 @@ class RemoteDesktop {
     /**
      * Frees memory allocated by a Remote Desktop Services function.
      * @remarks
-     * 
      * Several Remote Desktop Services functions allocate buffers to return information. Use the 
      * <b>WTSFreeMemory</b> function to free these buffers.
-     * 
-     * 
      * @param {Pointer<Void>} pMemory Pointer to the memory to free.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsfreememory
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsfreememory
      * @since windows6.0.6000
      */
     static WTSFreeMemory(pMemory) {
@@ -2575,14 +2993,32 @@ class RemoteDesktop {
     }
 
     /**
-     * Registers the specified window to receive session change notifications.
+     * Registers the specified window to receive session change notifications. (WTSRegisterSessionNotification)
+     * @remarks
+     * If this function is called before the dependent services of Remote Desktop Services have started, an 
+     *     <b>RPC_S_INVALID_BINDING</b> error code may be returned. When the Global\\TermSrvReadyEvent 
+     *     global event is set, all dependent services  have started and this function can be successfully called.
+     * 
+     * Session change notifications are sent in the form of a 
+     *     <a href="https://docs.microsoft.com/windows/desktop/TermServ/wm-wtssession-change">WM_WTSSESSION_CHANGE</a> message. These 
+     *     notifications are sent only to the windows that have registered for them using this function.
+     * 
+     * When a window no longer requires these notifications, it must call 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsunregistersessionnotification">WTSUnRegisterSessionNotification</a> 
+     *     before being destroyed. For every call to this function, there must be a corresponding call to 
+     *     <b>WTSUnRegisterSessionNotification</b>.
+     * 
+     * If the window handle passed in this function is already registered, the value of the <i>dwFlags</i> parameter is ignored.
+     * 
+     * To receive session change notifications from a service, use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lphandler_function_ex">HandlerEx</a> function.
      * @param {HWND} hWnd Handle of the window to receive session change notifications.
      * @param {Integer} dwFlags Specifies which session notifications are to be received. This parameter can be one of the following 
      *       values.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is 
      *        <b>FALSE</b>. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsregistersessionnotification
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsregistersessionnotification
      * @since windows6.0.6000
      */
     static WTSRegisterSessionNotification(hWnd, dwFlags) {
@@ -2599,11 +3035,15 @@ class RemoteDesktop {
     }
 
     /**
-     * Unregisters the specified window so that it receives no further session change notifications.
+     * Unregisters the specified window so that it receives no further session change notifications. (WTSUnRegisterSessionNotification)
+     * @remarks
+     * This function must be called once for every call to the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsregistersessionnotification">WTSRegisterSessionNotification</a> 
+     *     function.
      * @param {HWND} hWnd Handle of the window to be unregistered from receiving session notifications.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is <b>FALSE</b>. To get extended error 
-     *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsunregistersessionnotification
+     *        information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsunregistersessionnotification
      * @since windows6.0.6000
      */
     static WTSUnRegisterSessionNotification(hWnd) {
@@ -2620,7 +3060,27 @@ class RemoteDesktop {
     }
 
     /**
-     * Registers the specified window to receive session change notifications.
+     * Registers the specified window to receive session change notifications. (WTSRegisterSessionNotificationEx)
+     * @remarks
+     * If this function is called before the dependent services of Remote Desktop Services have started, an 
+     *     <b>RPC_S_INVALID_BINDING</b> error code may be returned. When the 
+     *     "Global\\TermSrvReadyEvent" global event is set, all dependent services  have started and this 
+     *     function can be successfully called.
+     * 
+     * Session change notifications are sent in the form of a 
+     *     <a href="https://docs.microsoft.com/windows/desktop/TermServ/wm-wtssession-change">WM_WTSSESSION_CHANGE</a> message. These 
+     *     notifications are sent only to the windows that have registered for them using this function.
+     * 
+     * When a window no longer requires these notifications, it must call 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsunregistersessionnotificationex">WTSUnRegisterSessionNotificationEx</a> 
+     *     before being destroyed. For every call to this function, there must be a corresponding call to 
+     *     <b>WTSUnRegisterSessionNotificationEx</b>.
+     * 
+     * If the window handle passed in this function is already registered, the value of the 
+     *     <i>dwFlags</i> parameter is ignored.
+     * 
+     * To receive session change notifications from a service, use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lphandler_function_ex">HandlerEx</a> function.
      * @param {HANDLE} hServer Handle of the server returned from 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or 
      *       <b>WTS_CURRENT_SERVER</b>.
@@ -2629,8 +3089,8 @@ class RemoteDesktop {
      *       <b>NOTIFY_FOR_THIS_SESSION</b> if <i>hServer</i> is a remote server.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is 
      *        <b>FALSE</b>. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsregistersessionnotificationex
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsregistersessionnotificationex
      * @since windows6.0.6000
      */
     static WTSRegisterSessionNotificationEx(hServer, hWnd, dwFlags) {
@@ -2648,14 +3108,18 @@ class RemoteDesktop {
     }
 
     /**
-     * Unregisters the specified window so that it receives no further session change notifications.
+     * Unregisters the specified window so that it receives no further session change notifications. (WTSUnRegisterSessionNotificationEx)
+     * @remarks
+     * This function must be called once for every call to the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsregistersessionnotificationex">WTSRegisterSessionNotificationEx</a> 
+     *     function.
      * @param {HANDLE} hServer Handle of the server returned from 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or 
      *       <b>WTS_CURRENT_SERVER</b>.
      * @param {HWND} hWnd Handle of the window to be unregistered from receiving session notifications.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is <b>FALSE</b>. To get extended error 
-     *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsunregistersessionnotificationex
+     *        information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsunregistersessionnotificationex
      * @since windows6.0.6000
      */
     static WTSUnRegisterSessionNotificationEx(hServer, hWnd) {
@@ -2674,6 +3138,15 @@ class RemoteDesktop {
 
     /**
      * Obtains the primary access token of the logged-on user specified by the session ID.
+     * @remarks
+     * For information about primary tokens, see 
+     *     <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">Access Tokens</a>. For more information about 
+     *     account privileges, see 
+     *     <a href="https://docs.microsoft.com/windows/desktop/TermServ/terminal-services-permissions">Remote Desktop Services Permissions</a> 
+     *     and <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/authorization-constants">Authorization Constants</a>.
+     * 
+     * See <a href="https://docs.microsoft.com/windows/desktop/Services/localsystem-account">LocalSystem account</a> for 
+     *     information about the privileges associated with that account.
      * @param {Integer} SessionId A Remote Desktop Services session identifier. Any program running in the context of a service will have a 
      *        session identifier of zero (0). You can use the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsenumeratesessionsa">WTSEnumerateSessions</a> function to retrieve 
@@ -2691,10 +3164,8 @@ class RemoteDesktop {
      *        parameter points to the primary token of the user.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Among other errors, 
-     *        <b>GetLastError</b> can return one of the following 
-     *        errors.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsqueryusertoken
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsqueryusertoken
      * @since windows6.0.6000
      */
     static WTSQueryUserToken(SessionId, phToken) {
@@ -2709,7 +3180,21 @@ class RemoteDesktop {
     }
 
     /**
-     * Frees memory that contains WTS_PROCESS_INFO_EX or WTS_SESSION_INFO_1 structures allocated by a Remote Desktop Services function.
+     * Frees memory that contains WTS_PROCESS_INFO_EX or WTS_SESSION_INFO_1 structures allocated by a Remote Desktop Services function. (Unicode)
+     * @remarks
+     * Several Remote Desktop Services functions allocate buffers to return information. To free buffers that 
+     *     contain <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_info_exa">WTS_PROCESS_INFO_EX</a> or 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_session_info_1a">WTS_SESSION_INFO_1</a> structures, you must call the 
+     *     <b>WTSFreeMemoryEx</b> function. To free other buffers, 
+     *     you can call either the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function or 
+     *     the <b>WTSFreeMemoryEx</b> function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSFreeMemoryEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} WTSTypeClass A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_type_class">WTS_TYPE_CLASS</a> enumeration type 
      *       that specifies the type of structures contained in the buffer referenced by the 
      *       <i>pMemory</i> parameter.
@@ -2718,8 +3203,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsfreememoryexw
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsfreememoryexw
      * @since windows6.1
      */
     static WTSFreeMemoryExW(WTSTypeClass, pMemory, NumberOfEntries) {
@@ -2736,7 +3221,21 @@ class RemoteDesktop {
     }
 
     /**
-     * Frees memory that contains WTS_PROCESS_INFO_EX or WTS_SESSION_INFO_1 structures allocated by a Remote Desktop Services function.
+     * Frees memory that contains WTS_PROCESS_INFO_EX or WTS_SESSION_INFO_1 structures allocated by a Remote Desktop Services function. (ANSI)
+     * @remarks
+     * Several Remote Desktop Services functions allocate buffers to return information. To free buffers that 
+     *     contain <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_info_exa">WTS_PROCESS_INFO_EX</a> or 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_session_info_1a">WTS_SESSION_INFO_1</a> structures, you must call the 
+     *     <b>WTSFreeMemoryEx</b> function. To free other buffers, 
+     *     you can call either the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function or 
+     *     the <b>WTSFreeMemoryEx</b> function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSFreeMemoryEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} WTSTypeClass A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_type_class">WTS_TYPE_CLASS</a> enumeration type 
      *       that specifies the type of structures contained in the buffer referenced by the 
      *       <i>pMemory</i> parameter.
@@ -2745,8 +3244,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsfreememoryexa
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsfreememoryexa
      * @since windows6.1
      */
     static WTSFreeMemoryExA(WTSTypeClass, pMemory, NumberOfEntries) {
@@ -2763,7 +3262,16 @@ class RemoteDesktop {
     }
 
     /**
-     * Retrieves information about the active processes on the specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server.
+     * Retrieves information about the active processes on the specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server. (Unicode)
+     * @remarks
+     * The caller must be a member of the Administrators group to enumerate processes that are running under another user session.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSEnumerateProcessesEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the server on which your application is 
@@ -2780,8 +3288,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsenumerateprocessesexw
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumerateprocessesexw
      * @since windows6.1
      */
     static WTSEnumerateProcessesExW(hServer, pLevel, SessionId, ppProcessInfo, pCount) {
@@ -2802,7 +3310,16 @@ class RemoteDesktop {
     }
 
     /**
-     * Retrieves information about the active processes on the specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server.
+     * Retrieves information about the active processes on the specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server. (ANSI)
+     * @remarks
+     * The caller must be a member of the Administrators group to enumerate processes that are running under another user session.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSEnumerateProcessesEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the server on which your application is 
@@ -2819,8 +3336,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsenumerateprocessesexa
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumerateprocessesexa
      * @since windows6.1
      */
     static WTSEnumerateProcessesExA(hServer, pLevel, SessionId, ppProcessInfo, pCount) {
@@ -2841,7 +3358,23 @@ class RemoteDesktop {
     }
 
     /**
-     * Enumerates all the Remote Desktop Services listeners on a Remote Desktop Session Host (RD Session Host) server.
+     * Enumerates all the Remote Desktop Services listeners on a Remote Desktop Session Host (RD Session Host) server. (Unicode)
+     * @remarks
+     * This function  returns all listeners currently running on the server, including listeners that do not support 
+     *     Remote Desktop Protocol (RDP).
+     * 
+     * If the number of listeners is unknown, you can call this function with <i>pListeners</i> 
+     *     set to <b>NULL</b>. The function will then return, in the <i>pCount</i> 
+     *     parameter, the number of <b>WTSLISTENERNAME</b> variables necessary to receive all the 
+     *     listeners. Allocate the array for <i>pListeners</i> based on this number, and then call the 
+     *     function again, setting <i>pListeners</i> to the newly allocated array and 
+     *     <i>pCount</i> to the number returned by the first call.
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSEnumerateListeners as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
      * @param {Pointer<Pointer<Integer>>} pListeners A pointer to an array of <b>WTSLISTENERNAME</b> variables that receive the names of 
@@ -2854,8 +3387,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsenumeratelistenersw
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumeratelistenersw
      * @since windows6.1
      */
     static WTSEnumerateListenersW(pReserved, Reserved, pListeners, pCount) {
@@ -2876,7 +3409,23 @@ class RemoteDesktop {
     }
 
     /**
-     * Enumerates all the Remote Desktop Services listeners on a Remote Desktop Session Host (RD Session Host) server.
+     * Enumerates all the Remote Desktop Services listeners on a Remote Desktop Session Host (RD Session Host) server. (ANSI)
+     * @remarks
+     * This function  returns all listeners currently running on the server, including listeners that do not support 
+     *     Remote Desktop Protocol (RDP).
+     * 
+     * If the number of listeners is unknown, you can call this function with <i>pListeners</i> 
+     *     set to <b>NULL</b>. The function will then return, in the <i>pCount</i> 
+     *     parameter, the number of <b>WTSLISTENERNAME</b> variables necessary to receive all the 
+     *     listeners. Allocate the array for <i>pListeners</i> based on this number, and then call the 
+     *     function again, setting <i>pListeners</i> to the newly allocated array and 
+     *     <i>pCount</i> to the number returned by the first call.
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSEnumerateListeners as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
      * @param {Pointer<Pointer<Integer>>} pListeners A pointer to an array of <b>WTSLISTENERNAME</b> variables that receive the names of 
@@ -2889,8 +3438,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsenumeratelistenersa
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumeratelistenersa
      * @since windows6.1
      */
     static WTSEnumerateListenersA(pReserved, Reserved, pListeners, pCount) {
@@ -2911,7 +3460,16 @@ class RemoteDesktop {
     }
 
     /**
-     * Retrieves configuration information for a Remote Desktop Services listener.
+     * Retrieves configuration information for a Remote Desktop Services listener. (Unicode)
+     * @remarks
+     * This function does not retrieve the security descriptor for the listener. To retrieve the security descriptor, call the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsgetlistenersecuritya">WTSGetListenerSecurity</a> function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSQueryListenerConfig as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
      * @param {PWSTR} pListenerName A pointer to a null-terminated string that contains the name of the listener to query.
@@ -2919,8 +3477,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsquerylistenerconfigw
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsquerylistenerconfigw
      * @since windows6.1
      */
     static WTSQueryListenerConfigW(pReserved, Reserved, pListenerName, pBuffer) {
@@ -2941,7 +3499,16 @@ class RemoteDesktop {
     }
 
     /**
-     * Retrieves configuration information for a Remote Desktop Services listener.
+     * Retrieves configuration information for a Remote Desktop Services listener. (ANSI)
+     * @remarks
+     * This function does not retrieve the security descriptor for the listener. To retrieve the security descriptor, call the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsgetlistenersecuritya">WTSGetListenerSecurity</a> function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSQueryListenerConfig as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
      * @param {PSTR} pListenerName A pointer to a null-terminated string that contains the name of the listener to query.
@@ -2949,8 +3516,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsquerylistenerconfiga
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsquerylistenerconfiga
      * @since windows6.1
      */
     static WTSQueryListenerConfigA(pReserved, Reserved, pListenerName, pBuffer) {
@@ -2971,7 +3538,20 @@ class RemoteDesktop {
     }
 
     /**
-     * Creates a new Remote Desktop Services listener or configures an existing listener.
+     * Creates a new Remote Desktop Services listener or configures an existing listener. (Unicode)
+     * @remarks
+     * This function creates or configures a listener that uses   <a href="https://docs.microsoft.com/windows/desktop/TermServ/remote-desktop-protocol">Remote Desktop Protocol</a> (RDP). Always set the <b>version</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wtslistenerconfiga">WTSLISTENERCONFIG</a> structure that is pointed to by the <i>pBuffer</i> parameter to one.
+     * 
+     * This function does not create or configure the security descriptor of the listener. When you call this function to create a new listener, the function assigns the default security descriptor to the new listener. To modify the security descriptor, call the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtssetlistenersecuritya">WTSSetListenerSecurity</a> function. For more information about security descriptors, see  <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a>.
+     * 
+     * This function does not validate the settings for the new listener. Be sure that the settings are valid before calling this function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSCreateListener as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
      * @param {PWSTR} pListenerName A pointer to a null-terminated string that contains the name of the listener to create or configure.
@@ -2980,8 +3560,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtscreatelistenerw
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtscreatelistenerw
      * @since windows6.1
      */
     static WTSCreateListenerW(pReserved, Reserved, pListenerName, pBuffer, flag) {
@@ -3002,7 +3582,20 @@ class RemoteDesktop {
     }
 
     /**
-     * Creates a new Remote Desktop Services listener or configures an existing listener.
+     * Creates a new Remote Desktop Services listener or configures an existing listener. (ANSI)
+     * @remarks
+     * This function creates or configures a listener that uses   <a href="https://docs.microsoft.com/windows/desktop/TermServ/remote-desktop-protocol">Remote Desktop Protocol</a> (RDP). Always set the <b>version</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wtslistenerconfiga">WTSLISTENERCONFIG</a> structure that is pointed to by the <i>pBuffer</i> parameter to one.
+     * 
+     * This function does not create or configure the security descriptor of the listener. When you call this function to create a new listener, the function assigns the default security descriptor to the new listener. To modify the security descriptor, call the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtssetlistenersecuritya">WTSSetListenerSecurity</a> function. For more information about security descriptors, see  <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a>.
+     * 
+     * This function does not validate the settings for the new listener. Be sure that the settings are valid before calling this function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSCreateListener as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
      * @param {PSTR} pListenerName A pointer to a null-terminated string that contains the name of the listener to create or configure.
@@ -3011,8 +3604,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtscreatelistenera
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtscreatelistenera
      * @since windows6.1
      */
     static WTSCreateListenerA(pReserved, Reserved, pListenerName, pBuffer, flag) {
@@ -3033,7 +3626,10 @@ class RemoteDesktop {
     }
 
     /**
-     * Configures the security descriptor of a Remote Desktop Services listener.
+     * Configures the security descriptor of a Remote Desktop Services listener. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSSetListenerSecurity as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
      * @param {PWSTR} pListenerName A pointer to a null-terminated string that contains the name of the listener.
@@ -3044,8 +3640,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtssetlistenersecurityw
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtssetlistenersecurityw
      * @since windows6.1
      */
     static WTSSetListenerSecurityW(pReserved, Reserved, pListenerName, SecurityInformation, pSecurityDescriptor) {
@@ -3067,7 +3663,10 @@ class RemoteDesktop {
     }
 
     /**
-     * Configures the security descriptor of a Remote Desktop Services listener.
+     * Configures the security descriptor of a Remote Desktop Services listener. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSSetListenerSecurity as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
      * @param {PSTR} pListenerName A pointer to a null-terminated string that contains the name of the listener.
@@ -3078,8 +3677,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtssetlistenersecuritya
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtssetlistenersecuritya
      * @since windows6.1
      */
     static WTSSetListenerSecurityA(pReserved, Reserved, pListenerName, SecurityInformation, pSecurityDescriptor) {
@@ -3101,7 +3700,16 @@ class RemoteDesktop {
     }
 
     /**
-     * Retrieves the security descriptor of a Remote Desktop Services listener.
+     * Retrieves the security descriptor of a Remote Desktop Services listener. (Unicode)
+     * @remarks
+     * If the number of bytes needed for the buffer that receives the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure is unknown, you can call this method with <i>nLength</i> set to zero. The method will then return, in the <i>lpnLengthNeeded</i> parameter, the number of bytes required for the buffer. Allocate the buffer based on this number, and then call the method again, setting <i>pSecurityDescriptor</i> to the newly allocated buffer and <i>nLength</i> to the number returned by the first call.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSGetListenerSecurity as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
      * @param {PWSTR} pListenerName A pointer to a null-terminated string that contains the name of the listener.
@@ -3114,8 +3722,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsgetlistenersecurityw
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsgetlistenersecurityw
      * @since windows6.1
      */
     static WTSGetListenerSecurityW(pReserved, Reserved, pListenerName, SecurityInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
@@ -3138,7 +3746,16 @@ class RemoteDesktop {
     }
 
     /**
-     * Retrieves the security descriptor of a Remote Desktop Services listener.
+     * Retrieves the security descriptor of a Remote Desktop Services listener. (ANSI)
+     * @remarks
+     * If the number of bytes needed for the buffer that receives the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure is unknown, you can call this method with <i>nLength</i> set to zero. The method will then return, in the <i>lpnLengthNeeded</i> parameter, the number of bytes required for the buffer. Allocate the buffer based on this number, and then call the method again, setting <i>pSecurityDescriptor</i> to the newly allocated buffer and <i>nLength</i> to the number returned by the first call.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wtsapi32.h header defines WTSGetListenerSecurity as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
      * @param {PSTR} pListenerName A pointer to a null-terminated string that contains the name of the listener.
@@ -3151,8 +3768,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsgetlistenersecuritya
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsgetlistenersecuritya
      * @since windows6.1
      */
     static WTSGetListenerSecurityA(pReserved, Reserved, pListenerName, SecurityInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
@@ -3259,9 +3876,11 @@ class RemoteDesktop {
 
     /**
      * Enables or disables Child Sessions.
+     * @remarks
+     * For more information about child sessions, see <a href="https://docs.microsoft.com/windows/desktop/TermServ/child-sessions">Child Sessions</a>.
      * @param {BOOL} bEnable Indicates whether to enable or disable child sessions. Pass <b>TRUE</b> if child sessions are to be enabled or <b>FALSE</b> otherwise.
      * @returns {BOOL} Returns nonzero if the function succeeds or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsenablechildsessions
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenablechildsessions
      * @since windows8.0
      */
     static WTSEnableChildSessions(bEnable) {
@@ -3271,9 +3890,11 @@ class RemoteDesktop {
 
     /**
      * Determines whether child sessions are enabled.
+     * @remarks
+     * For more information about child sessions, see <a href="https://docs.microsoft.com/windows/desktop/TermServ/child-sessions">Child Sessions</a>.
      * @param {Pointer<BOOL>} pbEnabled The address of a <b>BOOL</b> variable that receives a nonzero value if child sessions are enabled or zero otherwise.
      * @returns {BOOL} Returns nonzero if the function succeeds or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsischildsessionsenabled
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsischildsessionsenabled
      * @since windows8.0
      */
     static WTSIsChildSessionsEnabled(pbEnabled) {
@@ -3285,9 +3906,11 @@ class RemoteDesktop {
 
     /**
      * Retrieves the child session identifier, if present.
+     * @remarks
+     * For more information about child sessions, see <a href="https://docs.microsoft.com/windows/desktop/TermServ/child-sessions">Child Sessions</a>.
      * @param {Pointer<Integer>} pSessionId The address of a <b>ULONG</b> variable that receives the child session identifier. This will be (<b>ULONG</b>)–1 if there is no child session for the current session.
      * @returns {BOOL} Returns nonzero if the function succeeds or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsgetchildsessionid
+     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsgetchildsessionid
      * @since windows8.0
      */
     static WTSGetChildSessionId(pSessionId) {
@@ -3322,8 +3945,8 @@ class RemoteDesktop {
      * 
      * The format of this data is dependent upon the value passed in the <i>renderHintType</i> 
      *        parameter.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wtshintapi/nf-wtshintapi-wtssetrenderhint
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wtshintapi/nf-wtshintapi-wtssetrenderhint
      * @since windows8.0
      */
     static WTSSetRenderHint(pRenderHintID, hwndOwner, renderHintType, cbHintDataLength, pHintData) {
@@ -3341,6 +3964,10 @@ class RemoteDesktop {
 
     /**
      * Retrieves the Remote Desktop Services session associated with a specified process.
+     * @remarks
+     * Callers must hold the <b>PROCESS_QUERY_INFORMATION</b> access right for the specified 
+     *     process. For more information, see 
+     *   <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Integer} dwProcessId Specifies a process identifier. Use the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentprocessid">GetCurrentProcessId</a> function to retrieve the 
      *       process identifier for the current process.
@@ -3351,8 +3978,8 @@ class RemoteDesktop {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-processidtosessionid
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-processidtosessionid
      * @since windows6.0.6000
      */
     static ProcessIdToSessionId(dwProcessId, pSessionId) {
@@ -3370,10 +3997,15 @@ class RemoteDesktop {
 
     /**
      * Retrieves the session identifier of the console session.
+     * @remarks
+     * The session identifier returned by this function is the identifier of the current physical console session. To monitor 
+     *     the state of the current physical console session, use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsregistersessionnotification">WTSRegisterSessionNotification</a> 
+     *     function.
      * @returns {Integer} The session identifier of the session that is attached to the physical console. If there is no session attached to the 
      *        physical console, (for example, if the physical console session is in the process of being attached or detached), this function 
      *        returns 0xFFFFFFFF.
-     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-wtsgetactiveconsolesessionid
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-wtsgetactiveconsolesessionid
      * @since windows6.0.6000
      */
     static WTSGetActiveConsoleSessionId() {

@@ -13,8 +13,8 @@
 #Include .\MPRAPI_TUNNEL_CONFIG_PARAMS1.ahk
 
 /**
- * Used to get or set the tunnel configuration information of a RAS server.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-mpr_server_set_config_ex1
+ * Used to get or set the tunnel configuration information of a RAS server. (MPR_SERVER_SET_CONFIG_EX1)
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_server_set_config_ex1
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

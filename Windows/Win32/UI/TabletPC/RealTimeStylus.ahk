@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Implements the IRealTimeStylus COM interface.
  * @see https://learn.microsoft.com/windows/win32/tablet/realtimestylus-class
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319

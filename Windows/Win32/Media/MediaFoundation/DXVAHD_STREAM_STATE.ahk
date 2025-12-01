@@ -3,7 +3,7 @@
 
 /**
  * Specifies state parameters for an input stream to a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) video processor.
- * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ne-dxvahd-dxvahd_stream_state
+ * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ne-dxvahd-dxvahd_stream_state
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

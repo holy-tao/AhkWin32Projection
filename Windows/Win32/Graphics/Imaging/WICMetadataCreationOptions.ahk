@@ -3,7 +3,7 @@
 
 /**
  * Specifies metadata creation options.
- * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/ne-wincodecsdk-wicmetadatacreationoptions
+ * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/ne-wincodecsdk-wicmetadatacreationoptions
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

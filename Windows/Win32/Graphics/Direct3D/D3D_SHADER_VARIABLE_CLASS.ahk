@@ -4,11 +4,8 @@
 /**
  * Values that identify the class of a shader variable.
  * @remarks
- * 
  * The class of a shader variable is not a programming class; the class identifies the variable class such as scalar, vector, object, and so on. <b>D3D_SHADER_VARIABLE_CLASS</b>-typed values are specified in the <b>Class</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/ns-d3d11shader-d3d11_shader_type_desc">D3D11_SHADER_TYPE_DESC</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3dcommon/ne-d3dcommon-d3d_shader_variable_class
+ * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_shader_variable_class
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */

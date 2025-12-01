@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The following GUIDS define the different types of sensor profiles.
  * @see https://learn.microsoft.com/windows/win32/medfound/sensor-profile-guids
  * @namespace Windows.Win32.Devices.Sensors
  * @version v4.0.30319

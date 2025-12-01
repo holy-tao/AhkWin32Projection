@@ -3,7 +3,7 @@
 
 /**
  * Contains quality metrics for acoustic echo cancellation (AEC). This structure is used with the MFPKEY_WMAAECMA_RETRIEVE_TS_STATS property.
- * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/ns-wmcodecdsp-aecqualitymetrics_struct
+ * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/ns-wmcodecdsp-aecqualitymetrics_struct
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

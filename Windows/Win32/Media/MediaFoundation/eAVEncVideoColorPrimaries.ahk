@@ -3,7 +3,7 @@
 
 /**
  * Specifies the color primaries of the video. This enumeration is used with the AVEncVideoInputColorPrimaries and AVEncVideoOutputColorPrimaries properties.
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencvideocolorprimaries
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencvideocolorprimaries
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

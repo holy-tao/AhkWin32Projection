@@ -3,7 +3,7 @@
 
 /**
  * The VMR9AlphaBitmapFlags enumeration type defines the possible values for the dwFlags member of the VMR9AlphaBitmap structure.
- * @see https://docs.microsoft.com/windows/win32/api//vmr9/ne-vmr9-vmr9alphabitmapflags
+ * @see https://learn.microsoft.com/windows/win32/api/vmr9/ne-vmr9-vmr9alphabitmapflags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -40,7 +40,7 @@ class VMR9AlphaBitmapFlags extends Win32Enum{
     static VMR9AlphaBitmap_SrcRect => 16
 
     /**
-     * Indicates that the <b>dwFilterMode</b> member is valid and should be used to overide the VMR filter's default filtering method.
+     * Indicates that the <b>dwFilterMode</b> member is valid and should be used to override the VMR filter's default filtering method.
      * @type {Integer (Int32)}
      */
     static VMR9AlphaBitmap_FilterMode => 32

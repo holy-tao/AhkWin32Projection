@@ -5,7 +5,7 @@
 
 /**
  * Specifies a rectangular area within a video frame.
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ns-mfobjects-mfvideoarea
+ * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfvideoarea
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -40,7 +40,7 @@ class MFVideoArea extends Win32Struct
     }
 
     /**
-     * A <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that contains the width and height of the rectangle.
+     * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that contains the width and height of the rectangle.
      * @type {SIZE}
      */
     Area{

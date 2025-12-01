@@ -4,11 +4,8 @@
 /**
  * Defines the trust state of a DRM license acquisition URL.
  * @remarks
- * 
  * When a <b>WMT_LICENSEURL_SIGNATURE_STATE</b> message is received in the <b>OnStatus</b> callback method, pValue will be set to one of the <b>WMT_DRMLA_TRUST</b> constants, which indicate whether there is any problem with the digital signature applied to the license acquisition URL.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ne-wmsdkidl-wmt_drmla_trust
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_drmla_trust
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Receives the requested file attribute information. Used for any handles.
- * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-file_attribute_tag_info
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_attribute_tag_info
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

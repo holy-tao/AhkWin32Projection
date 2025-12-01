@@ -3,7 +3,7 @@
 
 /**
  * Defines constants that specify a type of graph node. See [DML_GRAPH_NODE_DESC](/windows/win32/api/directml/ns-directml-dml_graph_node_desc) for the usage of this enumeration.
- * @see https://docs.microsoft.com/windows/win32/api//directml/ne-directml-dml_graph_node_type
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_graph_node_type
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

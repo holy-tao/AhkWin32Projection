@@ -4,7 +4,7 @@
 
 /**
  * Contains parameters used to create a font object through the OleCreateFontIndirect function.
- * @see https://docs.microsoft.com/windows/win32/api//olectl/ns-olectl-fontdesc
+ * @see https://learn.microsoft.com/windows/win32/api/olectl/ns-olectl-fontdesc
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

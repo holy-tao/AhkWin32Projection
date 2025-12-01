@@ -4,7 +4,7 @@
 
 /**
  * The MBN_PROVIDER structure represents a network service provider.
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ns-mbnapi-mbn_provider
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ns-mbnapi-mbn_provider
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

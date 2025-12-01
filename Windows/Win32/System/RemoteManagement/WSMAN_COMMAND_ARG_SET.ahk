@@ -3,7 +3,7 @@
 
 /**
  * Represents the set of arguments that are passed in to the command line.
- * @see https://docs.microsoft.com/windows/win32/api//wsman/ns-wsman-wsman_command_arg_set
+ * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_command_arg_set
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The USER_MODALS_INFO_2 structure contains the Security Account Manager (SAM) domain name and identifier.
- * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-user_modals_info_2
+ * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_modals_info_2
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

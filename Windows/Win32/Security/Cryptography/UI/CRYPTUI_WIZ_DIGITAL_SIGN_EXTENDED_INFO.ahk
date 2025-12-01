@@ -4,7 +4,7 @@
 
 /**
  * Used with the CRYPTUI_WIZ_DIGITAL_SIGN_INFO structure to contain extended information about a signature.
- * @see https://docs.microsoft.com/windows/win32/api//cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_extended_info
+ * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_extended_info
  * @namespace Windows.Win32.Security.Cryptography.UI
  * @version v4.0.30319
  */

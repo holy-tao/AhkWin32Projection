@@ -3,7 +3,7 @@
 
 /**
  * Used with the NCRYPT_UI_POLICY_PROPERTY property to contain strong key user interface information for a key.
- * @see https://docs.microsoft.com/windows/win32/api//ncrypt/ns-ncrypt-ncrypt_ui_policy
+ * @see https://learn.microsoft.com/windows/win32/api/ncrypt/ns-ncrypt-ncrypt_ui_policy
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

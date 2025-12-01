@@ -3,7 +3,7 @@
 
 /**
  * Specifies the pixel format, buffer, stride and size of a component plane for a planar pixel format.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ns-wincodec-wicbitmapplane
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicbitmapplane
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -38,7 +38,7 @@ class WICBitmapPlane extends Win32Struct
     /**
      * Type: <b>UINT</b>
      * 
-     * The stride of the buffer ponted to by <i>pbData</i>.  Stride indicates the total number of bytes to go from the beginning of one scanline to the beginning of the next scanline.
+     * The stride of the buffer pointed to by <i>pbData</i>.  Stride indicates the total number of bytes to go from the beginning of one scanline to the beginning of the next scanline.
      * @type {Integer}
      */
     cbStride {

@@ -4,11 +4,8 @@
 /**
  * Contains information used in getting text from a rich edit control. This structure used with the EM_GETTEXTEX message.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/desktop/Controls/em-gettextex">EM_GETTEXTEX</a> message is faster when both <b>lpDefaultChar</b> and <b>lpUsedDefChar</b> are <b>NULL</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-gettextex
+ * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-gettextex
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

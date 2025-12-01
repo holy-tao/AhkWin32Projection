@@ -3,7 +3,7 @@
 
 /**
  * The DRMSECURITYPROVIDERTYPE enumeration specifies the type of secure DRM environment used.
- * @see https://docs.microsoft.com/windows/win32/api//msdrmdefs/ne-msdrmdefs-drmsecurityprovidertype
+ * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ne-msdrmdefs-drmsecurityprovidertype
  * @namespace Windows.Win32.Data.RightsManagement
  * @version v4.0.30319
  */

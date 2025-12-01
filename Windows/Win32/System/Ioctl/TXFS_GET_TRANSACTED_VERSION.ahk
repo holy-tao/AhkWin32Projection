@@ -4,13 +4,10 @@
 /**
  * Contains the information about the base and latest versions of the specified file.
  * @remarks
- * 
  * The base version number remains the same for the lifetime of a handle. The latest version number increases as 
  *     long as a handle is still open to a file and a change is committed.  When the handle is closed, the version number 
  *     is reset to zero.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-txfs_get_transacted_version
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_get_transacted_version
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

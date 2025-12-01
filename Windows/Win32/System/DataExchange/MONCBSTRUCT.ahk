@@ -9,7 +9,7 @@
 
 /**
  * Contains information about the current Dynamic Data Exchange (DDE) transaction. A DDE debugging application can use this structure when monitoring transactions that the system passes to the DDE callback functions of other applications.
- * @see https://docs.microsoft.com/windows/win32/api//ddeml/ns-ddeml-moncbstruct
+ * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-moncbstruct
  * @namespace Windows.Win32.System.DataExchange
  * @version v4.0.30319
  */

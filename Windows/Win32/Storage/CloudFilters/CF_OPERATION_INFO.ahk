@@ -5,10 +5,8 @@
 /**
  * Information about an operation on a placeholder file or folder.
  * @remarks
- * 
- * The platform provides the <b>ConnectionKey</b>, <b>TransferKey</b>, and <b>CorrelationVector</b> to all callback functions registered via <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfconnectsyncroot">CfConnectSyncRoot</a>. Additionally, sync providers can obtain a <b>TransferKey</b> using <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfgettransferkey">CfGetTransferKey</a> and a <b>CorrelationVector</b> using <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfgetcorrelationvector">CfGetCorrelationVector</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//cfapi/ns-cfapi-cf_operation_info
+ * The platform provides the *ConnectionKey*, *TransferKey*, and *CorrelationVector* to all callback functions registered via [CfConnectSyncRoot](nf-cfapi-cfconnectsyncroot.md). Additionally, sync providers can obtain a *TransferKey* using [CfGetTransferKey](nf-cfapi-cfgettransferkey.md) and a *CorrelationVector* using [CfGetCorrelationVector](nf-cfapi-cfgetcorrelationvector.md).
+ * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_operation_info
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
@@ -19,7 +17,7 @@ class CF_OPERATION_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * The size of the structure.
+     * The size of the **CF_OPERATION_INFO** structure.
      * @type {Integer}
      */
     StructSize {
@@ -28,7 +26,7 @@ class CF_OPERATION_INFO extends Win32Struct
     }
 
     /**
-     * The type of operation performed.
+     * The type of operation being performed. See [CF_OPERATION_TYPE](ne-cfapi-cf_operation_type.md) for more information.
      * @type {Integer}
      */
     Type {
@@ -67,12 +65,12 @@ class CF_OPERATION_INFO extends Win32Struct
     }
 
     /**
-     * <b>Note</b>  This member is new for Windows 10, version 1803.
+     * >[!NOTE]
+     * >This member is new for Windows 10, version 1803.
      * 
-     * The current sync status of the platform. 
+     * The current [CF_SYNC_STATUS](ns-cfapi-cf_sync_status.md) of the platform.
      * 
-     * The platform queries this information upon any failed operations on a cloud file placeholder. If a structure is available, the platform will use the information provided to construct a more meaningful and actionable message to the user. 
-     * The platform will keep this information on the file until the last handle on it goes away. If <b>null</b>,  the platform will clear the previously set sync status, if there is one.
+     * The platform queries this information upon any failed operations on a cloud file placeholder. If a structure is available, the platform will use the information provided to construct a more meaningful and actionable message to the user. The platform will keep this information on the file until the last handle on it goes away. If *SyncStatus* is **null**, the platform will clear the previously set sync status, if there is one.
      * @type {Pointer<CF_SYNC_STATUS>}
      */
     SyncStatus {
@@ -81,7 +79,7 @@ class CF_OPERATION_INFO extends Win32Struct
     }
 
     /**
-     * 
+     * An opaque id that uniquely identifies a cloud file operation on a particular cloud file.
      * @type {Integer}
      */
     RequestKey {

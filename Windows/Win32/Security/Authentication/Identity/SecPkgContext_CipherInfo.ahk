@@ -3,7 +3,7 @@
 
 /**
  * Cipher info structure. This is returned by SECPKG_ATTR_CIPHER_INFO ulAttribute from the QueryContextAttributes (Schannel) function.
- * @see https://docs.microsoft.com/windows/win32/api//schannel/ns-schannel-secpkgcontext_cipherinfo
+ * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_cipherinfo
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

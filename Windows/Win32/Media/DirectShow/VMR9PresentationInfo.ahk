@@ -5,7 +5,7 @@
 
 /**
  * The VMR9PresentationInfo structure is used with the VMR-9 in the IVMRImagePresenter9::PresentImage method.
- * @see https://docs.microsoft.com/windows/win32/api//vmr9/ns-vmr9-vmr9presentationinfo
+ * @see https://learn.microsoft.com/windows/win32/api/vmr9/ns-vmr9-vmr9presentationinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -16,7 +16,7 @@ class VMR9PresentationInfo extends Win32Struct
     static packingSize => 8
 
     /**
-     * Contains a bitwise combintation of flags from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ne-vmr9-vmr9presentationflags">VMR9PresentationFlags</a> enumeration type. These flags describe the status of the video sample with respect to its presentation time.
+     * Contains a bitwise combination of flags from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ne-vmr9-vmr9presentationflags">VMR9PresentationFlags</a> enumeration type. These flags describe the status of the video sample with respect to its presentation time.
      * @type {Integer}
      */
     dwFlags {

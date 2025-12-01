@@ -3,7 +3,7 @@
 
 /**
  * Contains the name of the computer that established the session.
- * @see https://docs.microsoft.com/windows/win32/api//lmshare/ns-lmshare-session_info_0
+ * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-session_info_0
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

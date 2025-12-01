@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * This section contains Methods for the InkPicture Control.
  * @see https://learn.microsoft.com/windows/win32/tablet/inkpicture-methods
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319

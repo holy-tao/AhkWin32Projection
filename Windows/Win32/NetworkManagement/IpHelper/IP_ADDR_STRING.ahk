@@ -4,7 +4,7 @@
 
 /**
  * Represents a node in a linked-list of IPv4 addresses.
- * @see https://docs.microsoft.com/windows/win32/api//iptypes/ns-iptypes-ip_addr_string
+ * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_addr_string
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

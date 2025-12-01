@@ -4,18 +4,18 @@
 /**
  * Used to specify the permissions associated with a particular record in the URL namespace reservation store.
  * @remarks
- * 
  * The security descriptor string pointed to by the <b>pStringSecurityDescriptor</b> member has the following elements:
  * 
  * 
  * 
  * An example of a security descriptor string is:
  * 
- * <pre class="syntax" xml:space="preserve"><code>D:(A;;GX;;;S-1-0-0)(A;;GA;;;S-1-5-11)
- * </code></pre>
  * 
+ * ``` syntax
+ * D:(A;;GX;;;S-1-0-0)(A;;GA;;;S-1-5-11)
  * 
- * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_service_config_urlacl_param
+ * ```
+ * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_urlacl_param
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

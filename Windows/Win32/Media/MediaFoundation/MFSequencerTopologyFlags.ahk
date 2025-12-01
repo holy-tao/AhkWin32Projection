@@ -3,7 +3,7 @@
 
 /**
  * Contains flags for adding a topology to the sequencer source, or updating a topology already in the queue.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mfsequencertopologyflags
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsequencertopologyflags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

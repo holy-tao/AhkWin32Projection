@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Represents a video encoder level setting.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_level_setting
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -14,6 +16,7 @@ class D3D12_VIDEO_ENCODER_LEVEL_SETTING extends Win32Struct
     static packingSize => 8
 
     /**
+     * The data size of the provided encoder level setting.
      * @type {Integer}
      */
     DataSize {

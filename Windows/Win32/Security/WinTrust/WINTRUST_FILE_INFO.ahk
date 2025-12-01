@@ -4,7 +4,7 @@
 
 /**
  * The WINTRUST_FILE_INFO structure is used when calling WinVerifyTrust to verify an individual file.
- * @see https://docs.microsoft.com/windows/win32/api//wintrust/ns-wintrust-wintrust_file_info
+ * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-wintrust_file_info
  * @namespace Windows.Win32.Security.WinTrust
  * @version v4.0.30319
  */

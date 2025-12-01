@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The PROTOENT (winsock.h) structure contains the name and protocol numbers that correspond to a given protocol name.
  * @see https://learn.microsoft.com/windows/win32/api/winsock/ns-winsock-protoent
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
@@ -14,6 +14,7 @@ class PROTOENT extends Win32Struct
     static packingSize => 8
 
     /**
+     * Official name of the protocol.
      * @type {PSTR}
      */
     p_name {
@@ -22,6 +23,7 @@ class PROTOENT extends Win32Struct
     }
 
     /**
+     * Null-terminated array of alternate names.
      * @type {Pointer<Pointer<Integer>>}
      */
     p_aliases {
@@ -30,6 +32,7 @@ class PROTOENT extends Win32Struct
     }
 
     /**
+     * Protocol number, in host byte order.
      * @type {Integer}
      */
     p_proto {

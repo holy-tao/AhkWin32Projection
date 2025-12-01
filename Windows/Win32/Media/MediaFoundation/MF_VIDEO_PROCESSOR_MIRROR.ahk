@@ -3,7 +3,7 @@
 
 /**
  * Specifies how to flip a video image.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mf_video_processor_mirror
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_video_processor_mirror
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

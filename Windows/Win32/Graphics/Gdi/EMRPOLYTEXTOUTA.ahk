@@ -7,7 +7,7 @@
 
 /**
  * The EMRPOLYTEXTOUTA and EMRPOLYTEXTOUTW structures contain members for the PolyTextOut enhanced metafile record.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrpolytextouta
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrpolytextouta
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

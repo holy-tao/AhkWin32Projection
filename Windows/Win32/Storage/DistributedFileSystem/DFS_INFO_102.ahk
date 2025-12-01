@@ -3,7 +3,7 @@
 
 /**
  * Contains a time-out value to associate with a Distributed File System (DFS) root or a link in a named DFS root.
- * @see https://docs.microsoft.com/windows/win32/api//lmdfs/ns-lmdfs-dfs_info_102
+ * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_102
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319
  */

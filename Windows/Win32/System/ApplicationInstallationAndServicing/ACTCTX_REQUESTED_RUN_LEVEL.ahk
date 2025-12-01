@@ -3,7 +3,7 @@
 
 /**
  * The ACTCTX_REQUESTED_RUN_LEVEL enumeration describes the requested run level of the activation context.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-actctx_requested_run_level
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-actctx_requested_run_level
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */

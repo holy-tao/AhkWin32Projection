@@ -3,7 +3,7 @@
 
 /**
  * Describes a cross timestamp retrieved from a network adapter.
- * @see https://docs.microsoft.com/windows/win32/api//iphlpapi/ns-iphlpapi-interface_hardware_crosstimestamp
+ * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/ns-iphlpapi-interface_hardware_crosstimestamp
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

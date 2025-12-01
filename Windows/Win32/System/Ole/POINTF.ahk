@@ -3,7 +3,7 @@
 
 /**
  * Contains information that is used to convert between container units, expressed in floating point, and control units, expressed in HIMETRIC.
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/ns-ocidl-pointf
+ * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-pointf
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

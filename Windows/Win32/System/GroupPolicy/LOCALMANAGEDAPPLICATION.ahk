@@ -3,7 +3,7 @@
 
 /**
  * The LOCALMANAGEDAPPLICATION structure describes a managed application installed for a user or a computer. Returned by the GetLocalManagedApplications function.
- * @see https://docs.microsoft.com/windows/win32/api//appmgmt/ns-appmgmt-localmanagedapplication
+ * @see https://learn.microsoft.com/windows/win32/api/appmgmt/ns-appmgmt-localmanagedapplication
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */

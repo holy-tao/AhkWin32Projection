@@ -3,7 +3,7 @@
 
 /**
  * Performs a logical *less than or equal to* on each pair of corresponding elements of the input tensors, placing the result (1 for true, 0 for false) into the corresponding element of *OutputTensor*.
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_element_wise_logical_less_than_or_equal_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_logical_less_than_or_equal_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

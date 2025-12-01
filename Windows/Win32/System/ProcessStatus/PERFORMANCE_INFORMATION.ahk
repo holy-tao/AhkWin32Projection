@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains performance information.
- * @see https://docs.microsoft.com/windows/win32/api//psapi/ns-psapi-performance_information
+ * Contains performance information. (PERFORMANCE_INFORMATION)
+ * @see https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information
  * @namespace Windows.Win32.System.ProcessStatus
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Indicates the status of server call.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/ne-objidl-servercall
+ * @see https://learn.microsoft.com/windows/win32/api/objidl/ne-objidl-servercall
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

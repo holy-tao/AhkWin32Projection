@@ -5,8 +5,7 @@
  * Indicates the level of support for the sharing of resources between different adapters&mdash;for example, multiple GPUs.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_feature_data_cross_node
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_cross_node
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

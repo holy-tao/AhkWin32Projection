@@ -4,13 +4,10 @@
 /**
  * Stores an authentication BLOB that was retrieved by the DavAuthCallback callback function.
  * @remarks
- * 
  * This structure is included as a member in the <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/ns-davclnt-dav_callback_cred">DAV_CALLBACK_CRED</a> structure.
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/nc-davclnt-pfndavauthcallback_freecred">DavFreeCredCallback</a> callback function should free only the buffer that the <b>pBuffer</b> member points to, not the entire structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//davclnt/ns-davclnt-dav_callback_auth_blob
+ * @see https://learn.microsoft.com/windows/win32/api/davclnt/ns-davclnt-dav_callback_auth_blob
  * @namespace Windows.Win32.NetworkManagement.WebDav
  * @version v4.0.30319
  */

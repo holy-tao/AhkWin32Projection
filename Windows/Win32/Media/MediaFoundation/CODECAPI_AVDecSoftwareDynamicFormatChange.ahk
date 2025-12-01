@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Sets whether to use software dynamic format change for internal resizing.
  * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avdecsoftwaredynamicformatchange
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

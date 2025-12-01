@@ -4,11 +4,8 @@
 /**
  * Specifies debug message IDs for setting up an info-queue filter (see D3D12_INFO_QUEUE_FILTER); use these messages to allow or deny message categories to pass through the storage and retrieval filters.
  * @remarks
- * 
  * This enum is used by <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12infoqueue-addmessage">AddMessage</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_id
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_id
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

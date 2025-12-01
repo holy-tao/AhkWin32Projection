@@ -4,7 +4,7 @@
 
 /**
  * Contains the control point and end point for a quadratic Bezier segment.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/ns-d2d1-d2d1_quadratic_bezier_segment
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_quadratic_bezier_segment
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

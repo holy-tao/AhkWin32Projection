@@ -4,11 +4,8 @@
 /**
  * Describes the filtered list of property descriptions that is returned.
  * @remarks
- * 
  * These values are defined in propsys.h and propsys.idl.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//propsys/ne-propsys-propdesc_enumfilter
+ * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-propdesc_enumfilter
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */

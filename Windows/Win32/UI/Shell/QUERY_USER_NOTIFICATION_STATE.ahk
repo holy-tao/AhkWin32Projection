@@ -3,7 +3,7 @@
 
 /**
  * Specifies the state of the machine for the current user in relation to the propriety of sending a notification. Used by SHQueryUserNotificationState.
- * @see https://docs.microsoft.com/windows/win32/api//shellapi/ne-shellapi-query_user_notification_state
+ * @see https://learn.microsoft.com/windows/win32/api/shellapi/ne-shellapi-query_user_notification_state
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

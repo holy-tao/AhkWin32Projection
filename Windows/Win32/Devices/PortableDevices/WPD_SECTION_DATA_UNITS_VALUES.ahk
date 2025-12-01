@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * The WPD\_SECTION\_DATA\_UNITS\_VALUES enumeration indicates the units for a referenced section of data.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-section-data-units-values
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319

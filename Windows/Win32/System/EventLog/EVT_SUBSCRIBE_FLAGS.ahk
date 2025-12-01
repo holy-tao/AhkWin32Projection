@@ -4,11 +4,8 @@
 /**
  * Defines the possible values that specify when to start subscribing to events.
  * @remarks
- * 
  * The EvtSubscribeToFutureEvents, EvtSubscribeStartAtOldestRecord, and EvtSubscribeStartAfterBookmark flags are mutually exclusive.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_subscribe_flags
+ * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_subscribe_flags
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */

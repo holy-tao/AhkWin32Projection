@@ -5,7 +5,7 @@
 
 /**
  * Contains information about a mouse event passed to a WH_MOUSE hook procedure, MouseProc.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-mousehookstruct
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-mousehookstruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */
@@ -16,7 +16,7 @@ class MOUSEHOOKSTRUCT extends Win32Struct
     static packingSize => 8
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * The x- and y-coordinates of the cursor, in screen coordinates.
      * @type {POINT}

@@ -3,7 +3,7 @@
 
 /**
  * Determines the parameter type to be walked.
- * @see https://docs.microsoft.com/windows/win32/api//callobj/ne-callobj-callframe_walk
+ * @see https://learn.microsoft.com/windows/win32/api/callobj/ne-callobj-callframe_walk
  * @namespace Windows.Win32.System.Com.CallObj
  * @version v4.0.30319
  */

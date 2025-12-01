@@ -5,8 +5,7 @@
  * Generates an identity-like matrix with ones (or other explicit value) on the major diagonal, and zeros everywhere else.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_diagonal_matrix_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_diagonal_matrix_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

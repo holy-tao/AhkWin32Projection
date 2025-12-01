@@ -3,7 +3,7 @@
 
 /**
  * Identifies the kind of media stream that failed.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/ne-mfmediaengine-mf_media_engine_streamtype_failed
+ * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_streamtype_failed
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

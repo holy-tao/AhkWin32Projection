@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The WMDMDATETIME structure contains a date and time of day.
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdmdatetime
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
@@ -14,6 +14,7 @@ class WMDMDATETIME extends Win32Struct
     static packingSize => 2
 
     /**
+     * Word containing the four-digit year.
      * @type {Integer}
      */
     wYear {
@@ -22,6 +23,7 @@ class WMDMDATETIME extends Win32Struct
     }
 
     /**
+     * Word containing the month (1-12).
      * @type {Integer}
      */
     wMonth {
@@ -30,6 +32,7 @@ class WMDMDATETIME extends Win32Struct
     }
 
     /**
+     * Word containing the day of the month (1-31).
      * @type {Integer}
      */
     wDay {
@@ -38,6 +41,7 @@ class WMDMDATETIME extends Win32Struct
     }
 
     /**
+     * Word containing the hour (0-23).
      * @type {Integer}
      */
     wHour {
@@ -46,6 +50,7 @@ class WMDMDATETIME extends Win32Struct
     }
 
     /**
+     * Word containing the minute (0-59).
      * @type {Integer}
      */
     wMinute {
@@ -54,6 +59,7 @@ class WMDMDATETIME extends Win32Struct
     }
 
     /**
+     * Word containing the second (0-59).
      * @type {Integer}
      */
     wSecond {

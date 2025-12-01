@@ -3,7 +3,7 @@
 
 /**
  * Represents the endpoint reference used for push delivery of events in a WS-Eventing Subscribe message.
- * @see https://docs.microsoft.com/windows/win32/api//wsdtypes/ns-wsdtypes-wsd_eventing_delivery_mode_push
+ * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_eventing_delivery_mode_push
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

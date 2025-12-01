@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Defines the parameters for repeating a message transimission.
+ * Defines the parameters for repeating a message transmission.
  * @remarks
- * 
  * If <b>ulRepeatMinDelay</b>, <b>ulRepeatMaxDelay</b>, and <b>ulRepeatUpperDelay</b> are all zero, there is no delay in retransmission of the message.
  * 
  * WSD sends the first transmission after waiting <b>ulSendDelay</b>. WSD uses the other members to determine when to repeat the transmission, if necessary. WSD repeats the transmission up to <b>ulRepeat</b> times with increasing delays between transmission. WSD uses the <b>ulRepeatMinDelay</b>, <b>ulRepeatMaxDelay</b>, and <b>ulRepeatUpperDelay</b> members to determine the delay. 
@@ -12,9 +11,7 @@
  * WSD generates a random delay value in the range <b>ulRepeatMinDelay</b> to <b>ulRepeatMaxDelay</b> and waits this amount of time before repeating the transmission. All subsequent repeat attempts then double the current delay value until <b>ulRepeatUpperDelay</b> is reached. For example, if the initial random delay value is 50 and the upper delay value is 250, the second attempt will wait 50 milliseconds, the third attempt will wait 100 milliseconds, the fourth attempt will wait 200 milliseconds, and the remaining attempts will wait 250 milliseconds.
  * 
  * For details on how WSD uses these values to send messages, see Appendix I of the <a href="https://schemas.xmlsoap.org/ws/2004/09/soap-over-udp/">SOAP-over-UDP</a> specification.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wsdbase/ns-wsdbase-wsdudpretransmitparams
+ * @see https://learn.microsoft.com/windows/win32/api/wsdbase/ns-wsdbase-wsdudpretransmitparams
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

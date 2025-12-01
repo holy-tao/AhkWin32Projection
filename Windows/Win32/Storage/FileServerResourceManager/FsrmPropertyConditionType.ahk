@@ -3,7 +3,7 @@
 
 /**
  * Defines the possible comparison operations that can be used to determine whether a property value of a file meets a particular condition.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmpropertyconditiontype
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmpropertyconditiontype
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

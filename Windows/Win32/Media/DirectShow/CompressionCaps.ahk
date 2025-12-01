@@ -3,7 +3,7 @@
 
 /**
  * Indicates video compression capabilities.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-compressioncaps
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-compressioncaps
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

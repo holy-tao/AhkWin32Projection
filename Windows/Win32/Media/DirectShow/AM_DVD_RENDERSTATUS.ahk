@@ -3,7 +3,7 @@
 
 /**
  * The AM_DVD_RENDERSTATUS structure contains codes indicating the status of DVD-Video playback. These codes are used in the IDvdGraphBuilder::RenderDvdVideoVolume method.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-am_dvd_renderstatus
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-am_dvd_renderstatus
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -77,7 +77,7 @@ class AM_DVD_RENDERSTATUS extends Win32Struct
     }
 
     /**
-     * Combination of [AM_DVD_STREAM_FLAGS](/windows/desktop/api/strmif/ne-strmif-am_dvd_stream_flags) flags indicating which streams failed.
+     * Combination of [AM_DVD_STREAM_FLAGS](/windows/win32/api/strmif/ne-strmif-am_dvd_stream_flags) flags indicating which streams failed.
      * @type {Integer}
      */
     dwFailedStreamsFlag {

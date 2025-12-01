@@ -3,7 +3,7 @@
 
 /**
  * Specifies date and time information for transitions between standard time and daylight saving time.
- * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ns-wtsdefs-wts_systemtime
+ * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_systemtime
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

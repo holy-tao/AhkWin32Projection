@@ -3,7 +3,7 @@
 
 /**
  * Represents the hosting of a provider in a client application.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_hostedprovider
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_hostedprovider
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

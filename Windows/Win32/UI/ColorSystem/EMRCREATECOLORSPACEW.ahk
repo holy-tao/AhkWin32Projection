@@ -7,7 +7,7 @@
 
 /**
  * The EMRCREATECOLORSPACEW structure contains members for the CreateColorSpace enhanced metafile record. It differs from EMRCREATECOLORSPACE in that it has a Unicode logical color space and also has an optional array containing raw source profile data.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrcreatecolorspacew
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrcreatecolorspacew
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  * @charset Unicode

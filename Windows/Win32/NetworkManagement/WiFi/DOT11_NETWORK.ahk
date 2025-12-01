@@ -3,8 +3,8 @@
 #Include .\DOT11_SSID.ahk
 
 /**
- * Contains information about an available wireless network.
- * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-dot11_network
+ * Contains information about an available wireless network. (DOT11_NETWORK)
+ * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-dot11_network
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

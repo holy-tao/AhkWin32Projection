@@ -3,7 +3,7 @@
 
 /**
  * Defines the WS-SecureConversation specification version to be used with message security and mixed-mode security.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_secure_conversation_version
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_secure_conversation_version
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

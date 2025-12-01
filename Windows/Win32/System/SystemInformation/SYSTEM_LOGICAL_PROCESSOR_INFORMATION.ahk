@@ -4,7 +4,7 @@
 
 /**
  * Describes the relationship between the specified processor set. This structure is used with the GetLogicalProcessorInformation function.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-system_logical_processor_information
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_logical_processor_information
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The JOYINFO structure contains information about the joystick position and button state.
- * @see https://docs.microsoft.com/windows/win32/api//joystickapi/ns-joystickapi-joyinfo
+ * @see https://learn.microsoft.com/windows/win32/api/joystickapi/ns-joystickapi-joyinfo
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies control information for IQuickActivate::QuickActivate.
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/ns-ocidl-qacontrol
+ * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-qacontrol
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains values that specify common video formats.
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ne-mfobjects-mfstandardvideoformat
+ * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mfstandardvideoformat
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

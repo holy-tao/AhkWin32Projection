@@ -3,7 +3,7 @@
 
 /**
  * Provides metadata for all services hosted by a device.
- * @see https://docs.microsoft.com/windows/win32/api//wsdtypes/ns-wsdtypes-wsd_host_metadata
+ * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_host_metadata
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

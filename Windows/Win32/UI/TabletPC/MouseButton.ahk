@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Specifies which mouse button was pressed.
- * @see https://docs.microsoft.com/windows/win32/api//inked/ne-inked-mousebutton
+ * Specifies which mouse button was pressed. (MouseButton)
+ * @see https://learn.microsoft.com/windows/win32/api/inked/ne-inked-mousebutton
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

@@ -4,7 +4,6 @@
 /**
  * If the PnP manager rejects a request to perform an operation, the PNP_VETO_TYPE enumeration is used to identify the reason for the rejection.
  * @remarks
- * 
  * Text strings are associated with most of the veto types, and a function that receives a veto type value can typically request to also receive the value's associated text string. The following table identifies the text string associated with each value.
  * 
  * <table>
@@ -141,9 +140,7 @@
  * </td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//cfg/ne-cfg-pnp_veto_type
+ * @see https://learn.microsoft.com/windows/win32/api/cfg/ne-cfg-pnp_veto_type
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

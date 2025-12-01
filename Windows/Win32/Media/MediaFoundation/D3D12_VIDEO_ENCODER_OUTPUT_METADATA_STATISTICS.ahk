@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Represents encoding statistics about a ID3D12VideoEncodeCommandList2::EncodeFrame operation.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_output_metadata_statistics
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -14,6 +16,7 @@ class D3D12_VIDEO_ENCODER_OUTPUT_METADATA_STATISTICS extends Win32Struct
     static packingSize => 8
 
     /**
+     * Output field that receives the average QP value used for encoding this frame.
      * @type {Integer}
      */
     AverageQP {
@@ -22,6 +25,7 @@ class D3D12_VIDEO_ENCODER_OUTPUT_METADATA_STATISTICS extends Win32Struct
     }
 
     /**
+     * Output field that receives the number of intra-coded coding units used in this frame.
      * @type {Integer}
      */
     IntraCodingUnitsCount {
@@ -30,6 +34,7 @@ class D3D12_VIDEO_ENCODER_OUTPUT_METADATA_STATISTICS extends Win32Struct
     }
 
     /**
+     * Output field that receives the number of inter-coded coding units used in this frame.
      * @type {Integer}
      */
     InterCodingUnitsCount {
@@ -38,6 +43,7 @@ class D3D12_VIDEO_ENCODER_OUTPUT_METADATA_STATISTICS extends Win32Struct
     }
 
     /**
+     * Output field that receives the number of skip coding units used in this frame.
      * @type {Integer}
      */
     SkipCodingUnitsCount {
@@ -46,6 +52,7 @@ class D3D12_VIDEO_ENCODER_OUTPUT_METADATA_STATISTICS extends Win32Struct
     }
 
     /**
+     * Output field that receives the average motion vector shift in X direction.
      * @type {Integer}
      */
     AverageMotionEstimationXDirection {
@@ -54,6 +61,7 @@ class D3D12_VIDEO_ENCODER_OUTPUT_METADATA_STATISTICS extends Win32Struct
     }
 
     /**
+     * Output field that receives the average motion vector shift in Y direction.
      * @type {Integer}
      */
     AverageMotionEstimationYDirection {

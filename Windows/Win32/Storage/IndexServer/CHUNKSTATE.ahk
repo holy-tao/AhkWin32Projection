@@ -3,7 +3,7 @@
 
 /**
  * Specifies whether the current chunk is a text-type property or a value-type property.
- * @see https://docs.microsoft.com/windows/win32/api//filter/ne-filter-chunkstate
+ * @see https://learn.microsoft.com/windows/win32/api/filter/ne-filter-chunkstate
  * @namespace Windows.Win32.Storage.IndexServer
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Represents a central access policy that contains a set of central access policy entries.
- * @see https://docs.microsoft.com/windows/win32/api//ntlsa/ns-ntlsa-central_access_policy
+ * @see https://learn.microsoft.com/windows/win32/api/ntlsa/ns-ntlsa-central_access_policy
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

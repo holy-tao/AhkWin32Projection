@@ -3,7 +3,7 @@
 
 /**
  * The TAPI_GATHERTERM enum is used to describe the reasons why the TAPI Server terminated the gathering of digits on the call.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-tapi_gatherterm
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-tapi_gatherterm
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

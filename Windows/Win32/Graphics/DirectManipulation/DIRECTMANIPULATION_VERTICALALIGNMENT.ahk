@@ -3,7 +3,7 @@
 
 /**
  * Defines the vertical alignment settings for content within the viewport.
- * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/ne-directmanipulation-directmanipulation_verticalalignment
+ * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/ne-directmanipulation-directmanipulation_verticalalignment
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */

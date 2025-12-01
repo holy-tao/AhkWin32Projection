@@ -3,7 +3,7 @@
 
 /**
  * Defines the target for the HTTP header authentication security binding.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_http_header_auth_target
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_http_header_auth_target
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

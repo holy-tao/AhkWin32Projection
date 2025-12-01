@@ -3,7 +3,7 @@
 
 /**
  * Contains encoding statistics from the Digital Living Network Alliance (DLNA) media sink.
- * @see https://docs.microsoft.com/windows/win32/api//mfmp2dlna/ns-mfmp2dlna-mfmpeg2dlnasinkstats
+ * @see https://learn.microsoft.com/windows/win32/api/mfmp2dlna/ns-mfmp2dlna-mfmpeg2dlnasinkstats
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

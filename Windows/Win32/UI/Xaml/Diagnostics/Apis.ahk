@@ -47,7 +47,7 @@ class Diagnostics {
      * @param {Guid} tapClsid The COM CLSID of the DLL to be injected in the process.
      * @param {PWSTR} wszInitializationData Initialization data for Xaml Diagnostics.
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-initializexamldiagnosticsex
+     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-initializexamldiagnosticsex
      * @since windows10.0.15063
      */
     static InitializeXamlDiagnosticsEx(endPointName, pid, wszDllXamlDiagnostics, wszTAPDllName, tapClsid, wszInitializationData) {

@@ -3,7 +3,7 @@
 
 /**
  * Indicates the content type of a PERF_COUNTER_HEADER block that the PerfQueryCounterData function includes as part of the PERF_DATA_HEADER block that the function produces as output.
- * @see https://docs.microsoft.com/windows/win32/api//perflib/ne-perflib-perfcounterdatatype
+ * @see https://learn.microsoft.com/windows/win32/api/perflib/ne-perflib-perfcounterdatatype
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

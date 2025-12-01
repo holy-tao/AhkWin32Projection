@@ -4,11 +4,8 @@
 /**
  * Defines a set of possible input field types available when querying for user credentials.
  * @remarks
- * 
  * The <b>EAP_CONFIG_INPUT_FIELD_TYPE</b> enumeration can be employed to support Single-Sign-On (SSO).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//eaptypes/ne-eaptypes-eap_config_input_field_type
+ * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ne-eaptypes-eap_config_input_field_type
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

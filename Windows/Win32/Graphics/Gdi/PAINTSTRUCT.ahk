@@ -5,7 +5,7 @@
 
 /**
  * The PAINTSTRUCT structure contains information for an application. This information can be used to paint the client area of a window owned by that application.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-paintstruct
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-paintstruct
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

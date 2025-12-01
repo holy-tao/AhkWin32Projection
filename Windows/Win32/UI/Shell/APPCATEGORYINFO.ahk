@@ -3,7 +3,7 @@
 
 /**
  * Provides application category information to Add/Remove Programs in Control Panel. The APPCATEGORYINFOLIST structure is used create a complete list of categories for an application publisher.
- * @see https://docs.microsoft.com/windows/win32/api//appmgmt/ns-appmgmt-appcategoryinfo
+ * @see https://learn.microsoft.com/windows/win32/api/appmgmt/ns-appmgmt-appcategoryinfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

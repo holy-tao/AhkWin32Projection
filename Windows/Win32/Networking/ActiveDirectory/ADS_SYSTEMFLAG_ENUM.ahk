@@ -4,14 +4,11 @@
 /**
  * The ADS_SYSTEMFLAG_ENUM enumeration defines some of the values that can be assigned to the systemFlags attribute. Some of the values in the enumeration are specific to attributeSchema objects; other values can be set on objects of any class.
  * @remarks
- * 
  * For <b>classSchema</b> and <b>attributeSchema</b> objects, the 0x10 bit of the <b>systemFlags</b> attribute indicates an object that is part of the base schema included with Active Directory. This bit cannot be set on new <b>classSchema</b> and <b>attributeSchema</b> objects. The <b>ADS_SYSTEMFLAG_ENUM</b> enumeration does not include a constant for this bit.
  * 
  * <div class="alert"><b>Note</b>  Because VBScript cannot read data from a type library, VBScript applications do not recognize the symbolic constants as defined above. Use the numeric constants instead to set the appropriate flags in your VBScript applications. To use the symbolic constants as a good programming practice, you should make explicit declarations of such constants, as done here, in your VBScript applications.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/ne-iads-ads_systemflag_enum
+ * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_systemflag_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The MPEG_CONTEXT_TYPE enumeration type identifies the source of an MPEG-2 data stream.
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ne-mpeg2structs-mpeg_context_type
+ * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ne-mpeg2structs-mpeg_context_type
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * The EMRSETWORLDTRANSFORM structure contains members for the SetWorldTransform enhanced metafile record.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrsetworldtransform
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrsetworldtransform
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

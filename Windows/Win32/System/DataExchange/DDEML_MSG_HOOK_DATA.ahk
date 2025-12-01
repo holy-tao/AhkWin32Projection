@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a Dynamic Data Exchange (DDE) message, and provides read access to the data referenced by the message. This structure is intended to be used by a Dynamic Data Exchange Management Library (DDEML) monitoring application.
- * @see https://docs.microsoft.com/windows/win32/api//ddeml/ns-ddeml-ddeml_msg_hook_data
+ * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-ddeml_msg_hook_data
  * @namespace Windows.Win32.System.DataExchange
  * @version v4.0.30319
  */

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains fields that specify the information in a Reservation Notification Log page.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_reservation_notification_log
  * @namespace Windows.Win32.Storage.Nvme
@@ -14,6 +16,9 @@ class NVME_RESERVATION_NOTIFICATION_LOG extends Win32Struct
     static packingSize => 8
 
     /**
+     * A 64-bit incrementing Reservation Notification log page count, indicating a unique identifier for this notification.
+     * 
+     * The count starts at `0h` following a controller reset, is incremented with each unique log entry, and rolls over to zero when the maximum count is reached and a log page is created. A value of `0h` indicates an empty log entry.
      * @type {Integer}
      */
     LogPageCount {
@@ -22,6 +27,7 @@ class NVME_RESERVATION_NOTIFICATION_LOG extends Win32Struct
     }
 
     /**
+     * A [NVME_RESERVATION_NOTIFICATION_TYPES](ne-nvme-nvme_reservation_notification_types.md) value that indicates the Reservation Notification type described by this log page.
      * @type {Integer}
      */
     LogPageType {
@@ -30,6 +36,9 @@ class NVME_RESERVATION_NOTIFICATION_LOG extends Win32Struct
     }
 
     /**
+     * Indicates the number of additional available Reservation Notification log pages (for example, the number of unread log pages not counting this one).
+     * 
+     * If there are more than 255 additional available log pages, a value of `255` is returned. A value of zero indicates that there are no additional available log pages.
      * @type {Integer}
      */
     AvailableLogPageCount {
@@ -38,6 +47,7 @@ class NVME_RESERVATION_NOTIFICATION_LOG extends Win32Struct
     }
 
     /**
+     * A reserved field.
      * @type {Array<Byte>}
      */
     Reserved0{
@@ -49,6 +59,7 @@ class NVME_RESERVATION_NOTIFICATION_LOG extends Win32Struct
     }
 
     /**
+     * Indicates the namespace ID of the namespace associated with the Reservation Notification described by this log page.
      * @type {Integer}
      */
     NameSpaceId {
@@ -57,6 +68,7 @@ class NVME_RESERVATION_NOTIFICATION_LOG extends Win32Struct
     }
 
     /**
+     * A reserved field.
      * @type {Array<Byte>}
      */
     Reserved1{

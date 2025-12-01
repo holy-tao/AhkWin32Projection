@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Specifies heap options for video encoding.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_heap_flags
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -10,6 +12,7 @@
 class D3D12_VIDEO_ENCODER_HEAP_FLAGS extends Win32BitflagEnum{
 
     /**
+     * No flags.
      * @type {Integer (Int32)}
      */
     static D3D12_VIDEO_ENCODER_HEAP_FLAG_NONE => 0

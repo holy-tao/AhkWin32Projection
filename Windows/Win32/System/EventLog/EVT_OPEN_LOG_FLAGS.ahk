@@ -3,7 +3,7 @@
 
 /**
  * Defines the values that specify whether to open a channel or exported log file.
- * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_open_log_flags
+ * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_open_log_flags
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */

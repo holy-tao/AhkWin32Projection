@@ -3,7 +3,7 @@
 
 /**
  * Specifies how the encoder behaves when it detects a new scene. This enumeration is used with the AVEncMPVSceneDetection property.
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencmpvscenedetection
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencmpvscenedetection
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

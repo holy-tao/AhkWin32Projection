@@ -4,7 +4,7 @@
 
 /**
  * The DS_REPL_ATTR_META_DATA_2 structure is used with the DsReplicaGetInfo and DsReplicaGetInfo2 functions to contain replication state data for an object attribute.
- * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ns-ntdsapi-ds_repl_attr_meta_data_2
+ * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_attr_meta_data_2
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

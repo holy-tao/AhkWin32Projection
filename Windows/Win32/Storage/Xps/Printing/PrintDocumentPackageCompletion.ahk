@@ -3,7 +3,7 @@
 
 /**
  * The PrintDocumentPackageCompletion enumeration specifies the status of the print operation.
- * @see https://docs.microsoft.com/windows/win32/api//documenttarget/ne-documenttarget-printdocumentpackagecompletion
+ * @see https://learn.microsoft.com/windows/win32/api/documenttarget/ne-documenttarget-printdocumentpackagecompletion
  * @namespace Windows.Win32.Storage.Xps.Printing
  * @version v4.0.30319
  */

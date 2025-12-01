@@ -3,7 +3,7 @@
 
 /**
  * Contains the hash store data for the certificate that Schannel uses in kernel-mode.
- * @see https://docs.microsoft.com/windows/win32/api//schannel/ns-schannel-schannel_cert_hash_store
+ * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-schannel_cert_hash_store
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

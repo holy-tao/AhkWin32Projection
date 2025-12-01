@@ -3,7 +3,7 @@
 
 /**
  * Contains information about incoming calls.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/ns-objidl-interfaceinfo
+ * @see https://learn.microsoft.com/windows/win32/api/objidl/ns-objidl-interfaceinfo
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

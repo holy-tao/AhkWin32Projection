@@ -3,7 +3,7 @@
 
 /**
  * A support structure used in the MI_PropertySet structure. Use the functions with the name prefix &quot;MI_PropertySet_&quot; to manipulate these structures.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_propertysetft
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_propertysetft
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

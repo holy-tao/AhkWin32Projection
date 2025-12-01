@@ -3,7 +3,7 @@
 
 /**
  * Specifies a video decoder's software deinterlace mode. This enumeration is used with the AVDecVideoSoftwareDeinterlaceMode property.
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavdecvideosoftwaredeinterlacemode
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavdecvideosoftwaredeinterlacemode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -5018,10 +5018,14 @@ class Certificates {
 ;@region Methods
     /**
      * Determines if a Certificate Services server is online; if the Certificate Services server is not online, backup operations will not be successful.
+     * @remarks
+     * Call this function to determine whether a Certificate Services server is online and available for backup operations.
+     * 
+     * This function's name in Certadm.dll is <b>CertSrvIsServerOnlineW</b>. You must use this form of the name when calling <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>. Also, this function is defined as type <b>FNCERTSRVISSERVERONLINEW</b> in the Certbcli.h header file.
      * @param {PWSTR} pwszServerName A pointer to the NetBIOS or DNS machine name of the server to check for online status.
      * @param {Pointer<BOOL>} pfServerOnline A pointer to Boolean value which will be <b>TRUE</b> if the Certificate Services server is online and <b>FALSE</b> if it is not online.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. This function will fail if Certificate Services is not running. If Certificate Services is running and ready to accept requests, this function will return S_OK, and *<i>pfServerOnline</i> will point to a value of <b>TRUE</b>. If Certificate Services is running in suspended (or paused) mode, this function will return S_OK, and *<i>pfServerOnline</i> will point to a value of <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvisserveronlinew
+     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvisserveronlinew
      * @since windowsserver2003
      */
     static CertSrvIsServerOnlineW(pwszServerName, pfServerOnline) {
@@ -5039,13 +5043,17 @@ class Certificates {
 
     /**
      * Retrieves the list of Certificate Services dynamic file names that need to be backed up for the given backup context.
+     * @remarks
+     * Use this function to retrieve a list of the Certificate Services dynamic file names. These files are separate from the Certificate Services database and log files, and they are not backed up by the Certificate Services backup APIs. As a result, some other means must be used to back up the dynamic files. An example of a Certificate Services dynamic file is the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate revocation list</a> (CRL).
+     * 
+     * This function's name in the Certadm.dll is <b>CertSrvBackupGetDynamicFileListW</b>. You must use this form of the name when calling <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>. Also, this function is defined as type <b>FNCERTSRVBACKUPGETDYNAMICFILELISTW</b> in the Certbcli.h header file.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
      * @param {Pointer<PWSTR>} ppwszzFileList A pointer to a <b>WCHAR</b> pointer that will receive the list of null-terminated dynamic file names used by Certificate Services. There is a null character after every file name and an extra null character at the end of the list. The file name will be in the UNC form "&#92;&#92;<i>Server</i>&#92;<i>SharePoint</i>\…<i>Path</i>…&#92;<i>FileName</i>.ext". When you have finished using this allocated memory, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupfree">CertSrvBackupFree</a> function.
      * 
      * Before calling this function, setting *<i>ppwszzFileList</i> to <b>NULL</b> is optional.
      * @param {Pointer<Integer>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzFileList</i>.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvbackupgetdynamicfilelistw
+     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupgetdynamicfilelistw
      * @since windowsserver2003
      */
     static CertSrvBackupGetDynamicFileListW(hbc, ppwszzFileList, pcbSize) {
@@ -5063,12 +5071,22 @@ class Certificates {
 
     /**
      * Used to prepare a Certificate Services server for backup operations.
+     * @remarks
+     * Before a Certificate Services backup can occur, it is necessary to create an <b>HCSBC</b> by means of <b>CertSrvBackupPrepare</b>. The resulting <b>HCSBC</b> is a necessary parameter of Certificate Services backup functions which can be used to list, open, read, and close files, as well as truncate the log files.
+     * 
+     * <div class="alert"><b>Note</b>  When the backup session is completed, it is necessary to call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupend">CertSrvBackupEnd</a> to release the <b>HCSBC</b> which resulted from the call to <b>CertSrvBackupPrepare</b>.</div>
+     * <div> </div>
+     * This function's name in Certadm.dll is <b>CertSrvBackupPrepareW</b>. You must use this form of the name when calling <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>. Also, this function is defined as type <b>FNCERTSRVBACKUPPREPAREW</b> in the Certbcli.h header file.
+     * 
+     * To execute this call, you must have the backup <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">privilege</a>. For details, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/setting-the-backup-and-restore-privileges">Setting the Backup and Restore Privileges</a>.
      * @param {PWSTR} pwszServerName A pointer to the machine name of the server to prepare for online backup. This name can be the NetBIOS name or the DNS name.
      * @param {Integer} grbitJet Value used by the database engine; this value should be set to zero.
      * @param {Integer} dwBackupFlags 
      * @param {Pointer<Pointer<Void>>} phbc A pointer to a Certificate Services backup context handle (<b>HCSBC</b>).
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success, and *<i>phbc</i> will be set to an <b>HCSBC</b> which can be used by other Certificate Services backup APIs.
-     * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvbackuppreparew
+     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackuppreparew
      * @since windowsserver2003
      */
     static CertSrvBackupPrepareW(pwszServerName, grbitJet, dwBackupFlags, phbc) {
@@ -5086,6 +5104,8 @@ class Certificates {
 
     /**
      * Retrieves the list of Certificate Services database file names that need to be backed up for the given backup context.
+     * @remarks
+     * This function's name in the Certadm.dll is <b>CertSrvBackupGetDatabaseNamesW</b>. You must use this form of the name when calling <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>. Also, this function is defined as type <b>FNCERTSRVBACKUPGETDATABASENAMESW</b> in the Certbcli.h header file.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
      * @param {Pointer<PWSTR>} ppwszzAttachmentInformation A pointer to a <b>WCHAR</b> pointer that will receive the list of null-terminated database file names. There is a null character after every file name and an extra null character at the end of the list. The file name will be in the UNC form "## \\\\<i>Server</i>\\<i>SharePoint</i>\…<i>Path</i>…\\<i>FileName</i>.ext". The directory names will have the same form but without the trailing "\\<i>FileName</i>.ext". The text "##" denotes a Certificate Services Backup file type (CSBFT_*) and is stored as a single non-null <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">Unicode</a> character prefixed onto each UNC path. The type tag is defined in Certbcli.h and can be the following value for this function. 
      * 
@@ -5115,7 +5135,7 @@ class Certificates {
      * You must free this allocated memory when done by calling <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupfree">CertSrvBackupFree</a>. Before calling this function, setting *<i>ppwszzAttachmentInformation</i> to <b>NULL</b> is optional.
      * @param {Pointer<Integer>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzAttachmentInformation</i>.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvbackupgetdatabasenamesw
+     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupgetdatabasenamesw
      * @since windowsserver2003
      */
     static CertSrvBackupGetDatabaseNamesW(hbc, ppwszzAttachmentInformation, pcbSize) {
@@ -5133,6 +5153,11 @@ class Certificates {
 
     /**
      * Opens a file for backup.
+     * @remarks
+     * Use this function to open a file for backup purposes. When you have finished using the file, close the file by calling 
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupclose">CertSrvBackupClose</a> function.
+     * 
+     * The name of this  function in Certadm.dll is <b>CertSrvBackupOpenFileW</b>. You must use this form of the name when calling <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>. Also, this function is defined as type <b>FNCERTSRVBACKUPOPENFILEW</b> in  Certbcli.h.
      * @param {Pointer<Void>} hbc A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">Certificate Services</a> backup context.
      * @param {PWSTR} pwszAttachmentName File name to open for backup purposes. This file name would be parsed from a list produced by means of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupgetbackuplogsw">CertSrvBackupGetBackupLogs</a> or 
@@ -5142,8 +5167,8 @@ class Certificates {
      * @param {Pointer<Integer>} pliFileSize A pointer to a <b>LARGE_INTEGER</b> value that represents the number of bytes in the file.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvbackupopenfilew
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupopenfilew
      * @since windowsserver2003
      */
     static CertSrvBackupOpenFileW(hbc, pwszAttachmentName, cbReadHintSize, pliFileSize) {
@@ -5162,12 +5187,16 @@ class Certificates {
 
     /**
      * Reads bytes from a Certificate Services file.
+     * @remarks
+     * After opening the file for backup purposes (using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupopenfilew">CertSrvBackupOpenFile</a>), call <b>CertSrvBackupRead</b> to retrieve the contents of the file, and call an application-specific routine to write the contents to a backup medium. <b>CertSrvBackupRead</b> and the application-specific routine can be placed in a loop until all the bytes of the file are read and backed up. When done reading the file, close it by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupclose">CertSrvBackupClose</a>.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
      * @param {Pointer<Void>} pvBuffer Void pointer to storage which will contain bytes read from the file being backed up.
      * @param {Integer} cbBuffer Size of the storage area referenced by <i>pvBuffer</i>.
      * @param {Pointer<Integer>} pcbRead A pointer to a <b>DWORD</b> value which represents the actual number of bytes read by <b>CertSrvBackupRead</b>. The number of bytes read can be less than the size of the storage area allocated to <i>pvBuffer</i> if the end of the file has been reached.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvbackupread
+     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupread
      * @since windowsserver2003
      */
     static CertSrvBackupRead(hbc, pvBuffer, cbBuffer, pcbRead) {
@@ -5185,9 +5214,11 @@ class Certificates {
 
     /**
      * Closes the file opened by the CertSrvBackupOpenFile function.
+     * @remarks
+     * For every successful call to <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupopenfilew">CertSrvBackupOpenFile</a>, there should be a subsequent call to <b>CertSrvBackupClose</b>. Upon completion of backing up a  file, the file needs to be closed.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvbackupclose
+     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupclose
      * @since windowsserver2003
      */
     static CertSrvBackupClose(hbc) {
@@ -5203,11 +5234,16 @@ class Certificates {
 
     /**
      * Retrieves the list of Certificate Services log file names that need to be backed up for the given backup context.
+     * @remarks
+     * The log files represent database activity (request submissions, certificate revocation, and so on) that has occurred since the last log file truncation. Log file volume increases as database activity occurs. The log files can be decreased in size by performing a backup and then calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackuptruncatelogs">CertSrvBackupTruncateLogs</a>.
+     * 
+     * This function's name in the Certadm.dll is <b>CertSrvBackupGetBackupLogsW</b>. You must use this form of the name when calling <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>. Also, this function is defined as type <b>FNCERTSRVBACKUPGETBACKUPLOGSW</b> in the Certbcli.h header file.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
      * @param {Pointer<PWSTR>} ppwszzBackupLogFiles 
      * @param {Pointer<Integer>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzBackupLogFiles</i>.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvbackupgetbackuplogsw
+     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupgetbackuplogsw
      * @since windowsserver2003
      */
     static CertSrvBackupGetBackupLogsW(hbc, ppwszzBackupLogFiles, pcbSize) {
@@ -5225,9 +5261,22 @@ class Certificates {
 
     /**
      * Eliminates redundant records and reduces the disk storage space used by log files.
+     * @remarks
+     * After securing a backup of the database and log files, the log files can optionally be truncated. Log file volume increases with database activity, and truncating the log files will reduce the redundant records in the log files (thereby decreasing the disk space used to store the log files).
+     * 
+     * The log files are provided for database integrity and efficiency. If a less-than-graceful exit occurs with the Certificate Services application, the next time Certificate Services is started, the database replays the log files to prevent data corruption from being introduced into the database.
+     * 
+     * Depending on the volume of the log files, the log file replay can be a time-consuming process. During this replay, the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> will be unavailable for other activity. Note that if the Certificate Services application is properly halted (such as by stopping the service or by shutting down the operating system properly), the log files are not replayed the next time it is started.
+     * 
+     * <div class="alert"><b>Note</b>  If you call <b>CertSrvBackupTruncateLogs</b> without backing up all files returned from 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupgetdatabasenamesw">CertSrvBackupGetDatabaseNames</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupgetbackuplogsw">CertSrvBackupGetBackupLogs</a>, you will not be able to restore the backup set successfully, resulting in an unusable Certificate Services machine. Therefore, call <b>CertSrvBackupTruncateLogs</b> only when the backup set contains all files returned from 
+     * <b>CertSrvBackupGetDatabaseNames</b> and 
+     * <b>CertSrvBackupGetBackupLogs</b>.</div>
+     * <div> </div>
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvbackuptruncatelogs
+     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackuptruncatelogs
      * @since windowsserver2003
      */
     static CertSrvBackupTruncateLogs(hbc) {
@@ -5243,9 +5292,11 @@ class Certificates {
 
     /**
      * Ends a Certificate Services backup session.
+     * @remarks
+     * Upon completion of a backup session, the session needs to be terminated by means of <b>CertSrvBackupEnd</b>. For every successful call to <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackuppreparew">CertSrvBackupPrepare</a>, there should be a call to <b>CertSrvBackupEnd</b>.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvbackupend
+     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupend
      * @since windowsserver2003
      */
     static CertSrvBackupEnd(hbc) {
@@ -5261,9 +5312,29 @@ class Certificates {
 
     /**
      * Used to free memory allocated from certain Certificate Services Backup APIs.
+     * @remarks
+     * Call this function when finished with memory allocated by using the following functions:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupgetbackuplogsw">CertSrvBackupGetBackupLogs</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupgetdatabasenamesw">CertSrvBackupGetDatabaseNames</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupgetdynamicfilelistw">CertSrvBackupGetDynamicFileList</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvservercontrolw">CertSrvServerControl</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvrestoregetdatabaselocationsw">CertSrvRestoreGetDatabaseLocations</a>
+     * </li>
+     * </ul>
      * @param {Pointer<Void>} pv A pointer to the memory to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvbackupfree
+     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupfree
      * @since windowsserver2003
      */
     static CertSrvBackupFree(pv) {
@@ -5274,11 +5345,15 @@ class Certificates {
 
     /**
      * Used both in backup and restore scenarios and retrieves the list of Certificate Services database location names for all the files being backed up or restored.
+     * @remarks
+     * Certificate Services must be running for this method to succeed.
+     * 
+     * This function's name in Certadm.dll is <b>CertSrvRestoreGetDatabaseLocationsW</b>. You must use this form of the name when calling <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>. Also, this function is defined as type <b>FNCERTSRVRESTOREGETDATABASELOCATIONSW</b> in the Certbcli.h header file.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup or restore context.
      * @param {Pointer<PWSTR>} ppwszzDatabaseLocationList 
      * @param {Pointer<Integer>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzDatabaseLocationList</i>.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvrestoregetdatabaselocationsw
+     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvrestoregetdatabaselocationsw
      * @since windowsserver2003
      */
     static CertSrvRestoreGetDatabaseLocationsW(hbc, ppwszzDatabaseLocationList, pcbSize) {
@@ -5296,6 +5371,15 @@ class Certificates {
 
     /**
      * Prepares a Certificate Services instance for restore operations.
+     * @remarks
+     * Before a Certificate Services restore operation can occur, it is necessary to create an <b>HCSBC</b> by means of <b>CertSrvRestorePrepare</b>. This <b>HCSBC</b> can be used by various Certificate Services restore functions.
+     * 
+     * <div class="alert"><b>Note</b>  When the restore session is completed, it is necessary to call <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvrestoreend">CertSrvRestoreEnd</a> to release the <b>HCSBC</b> which resulted from the call to <b>CertSrvRestorePrepare</b>.</div>
+     * <div> </div>
+     * This function's name in Certadm.dll is <b>CertSrvRestorePrepareW</b>. You must use this form of the name when calling <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>. Also, this function is defined as type <b>FNCERTSRVRESTOREPREPAREW</b> in the Certbcli.h header file.
+     * 
+     * To execute this call, you must have the restore <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">privilege</a>. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/setting-the-backup-and-restore-privileges">Setting the Backup and Restore Privileges</a>.
      * @param {PWSTR} pwszServerName A pointer to the computer name of the server to prepare for restore operations. This name can be the NetBIOS name or the DNS name.
      * @param {Integer} dwRestoreFlags A bitfield that represents the combination of values in the following table.
      * 
@@ -5317,7 +5401,7 @@ class Certificates {
      * </table>
      * @param {Pointer<Pointer<Void>>} phbc A pointer to a Certificate Services backup context handle (<b>HCSBC</b>).
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success, and *<i>phbc</i> is set to an <b>HCSBC</b>, which can be used by other Certificate Services restore APIs.
-     * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvrestorepreparew
+     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvrestorepreparew
      * @since windowsserver2003
      */
     static CertSrvRestorePrepareW(pwszServerName, dwRestoreFlags, phbc) {
@@ -5334,7 +5418,14 @@ class Certificates {
     }
 
     /**
-     * Registers a Certificate Services restore.
+     * Registers a Certificate Services restore. (CertSrvRestoreRegisterW)
+     * @remarks
+     * Use this function to register a restore operation. All subsequent restore operations will be interlocked. The restore target will be prevented from starting (or successfully executing another call to <b>CertSrvRestoreRegister</b>) until 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvrestoreregistercomplete">CertSrvRestoreRegisterComplete</a> is called.
+     * 
+     * When restoring more than one incremental backup, the order in which the incremental backups are registered does not matter. However, the full database backup must be registered before registering the incremental backups.
+     * 
+     * This function requires that the calling account be  a local administrator. If this is not practical, use the <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvrestoreregisterthroughfile">CertSrvRestoreRegisterThroughFile</a> function instead. The <b>CertSrvRestoreRegisterThroughFile</b> function only requires that the calling account have the restore privilege.
      * @param {Pointer<Void>} hbc A handle to the Certificate Services restore context. This handle is obtained by calling 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvrestorepreparew">CertSrvRestorePrepare</a> function.
      * @param {PWSTR} pwszCheckPointFilePath A pointer to a null-terminated Unicode string that contains the restore path for the check point file. Pass <b>NULL</b> for this parameter if it is not needed.
@@ -5348,7 +5439,7 @@ class Certificates {
      * @param {Integer} genLow The lowest log number that was restored in this restore session. Log files are in the form of edbXXXXX.log, where XXXXX is a five hexadecimal digit value. For example, edb00001.log is the first log file created by the internal database. For purposes of this function, a value of one in <i>genLow</i> corresponds to the log file edb00001.log.
      * @param {Integer} genHigh The highest log number that was restored in this restore session.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvrestoreregisterw
+     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvrestoreregisterw
      * @since windowsserver2003
      */
     static CertSrvRestoreRegisterW(hbc, pwszCheckPointFilePath, pwszLogPath, rgrstmap, crstmap, pwszBackupLogPath, genLow, genHigh) {
@@ -5367,7 +5458,9 @@ class Certificates {
     }
 
     /**
-     * Registers a Certificate Services restore.
+     * Registers a Certificate Services restore. (CertSrvRestoreRegisterThroughFile)
+     * @remarks
+     * This function is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvrestoreregisterw">CertSrvRestoreRegister</a> function except that <b>CertSrvRestoreRegister</b> requires the calling account to be a local administrator. The <b>CertSrvRestoreRegisterThroughFile</b> function only requires that the calling account have the restore privilege.
      * @param {Pointer<Void>} hbc A handle to the Certificate Services restore context. This handle is obtained by calling 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvrestorepreparew">CertSrvRestorePrepare</a> function.
      * @param {PWSTR} pwszCheckPointFilePath A pointer to a null-terminated Unicode string that contains the restore path for the check point file. Pass <b>NULL</b> for this parameter if it is not needed.
@@ -5381,7 +5474,7 @@ class Certificates {
      * @param {Integer} genLow The lowest log number that was restored in this restore session. Log files are in the form of edbXXXXX.log, where XXXXX is a five hexadecimal digit value. For example, edb00001.log is the first log file created by the internal database. For purposes of this function, a value of one in <i>genLow</i> corresponds to the log file edb00001.log.
      * @param {Integer} genHigh The highest log number that was restored in this restore session.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvrestoreregisterthroughfile
+     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvrestoreregisterthroughfile
      * @since windowsserver2003
      */
     static CertSrvRestoreRegisterThroughFile(hbc, pwszCheckPointFilePath, pwszLogPath, rgrstmap, crstmap, pwszBackupLogPath, genLow, genHigh) {
@@ -5401,11 +5494,13 @@ class Certificates {
 
     /**
      * Completes a registered Certificate Services restore operation.
+     * @remarks
+     * If a registered restore operation is not completed, Certificate Services will not start.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services restore context. You must set this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvrestoreregisterw">CertSrvRestoreRegister</a> before using it in <b>CertSrvRestoreRegisterComplete</b>.
      * @param {HRESULT} hrRestoreState <b>HRESULT</b> value indicating the success code for the restore operation. Set this value to S_OK if the restore operation was successful.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvrestoreregistercomplete
+     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvrestoreregistercomplete
      * @since windowsserver2003
      */
     static CertSrvRestoreRegisterComplete(hbc, hrRestoreState) {
@@ -5421,9 +5516,13 @@ class Certificates {
 
     /**
      * Ends a Certificate Services restore session.
+     * @remarks
+     * When a restore session is complete, terminate the session by calling <b>CertSrvRestoreEnd</b>. For every successful call to <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvrestorepreparew">CertSrvRestorePrepare</a>, there should be a call to <b>CertSrvRestoreEnd</b>.
+     * 
+     * When a restore is complete, it is important that you make a new full backup of the Certificate Services database. This is necessary to truncate the restored log files and to establish a base backup set for future restores. Backups performed after a restore cannot be mixed with backups (full or incremental) taken before the restore; that is, after a certificate services database is restored and has progressed to a subsequent state, you cannot use the pre-restoration backups to restore the database to that subsequent state.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvrestoreend
+     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvrestoreend
      * @since windowsserver2003
      */
     static CertSrvRestoreEnd(hbc) {
@@ -5439,6 +5538,10 @@ class Certificates {
 
     /**
      * Issues a service control command to programmatically stop Certificate Services.
+     * @remarks
+     * The purpose of this function is to allow a backup or restore application to programmatically stop the Certificate Services application (thereby not requiring the use of the service controller APIs). Stopping Certificate Services in this manner will also work when Certificate Services is running in console mode; the service controller APIs cannot control applications running in console mode.
+     * 
+     * This function's name in Certadm.dll is <b>CertSrvServerControlW</b>. You must use this form of the name when calling <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>. Also, this function is defined as type <b>FNCERTSRVSERVERCONTROLW</b> in the Certbcli.h header file.
      * @param {PWSTR} pwszServerName A pointer to a name or a configuration string of the server to be issued the control command.
      * @param {Integer} dwControlFlags Value representing the control command being issued to the Certificate Services server specified by <i>pwszServerName</i>. The following value is supported for <i>dwControlFlags</i>.
      * 
@@ -5461,7 +5564,7 @@ class Certificates {
      * @param {Pointer<Integer>} pcbOut For future use, this parameter will be the number of bytes allocated to <i>ppbOut</i>. The current implementation does not allocate memory to <i>ppbOut</i>. You can set this value to <b>NULL</b>.
      * @param {Pointer<Pointer<Integer>>} ppbOut For future use, this parameter will be the pointer to pointer to bytes representing the output from the issued command. The current implementation does not allocate memory to <i>ppbOut</i>. You can set this value to <b>NULL</b>.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvservercontrolw
+     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvservercontrolw
      * @since windowsserver2003
      */
     static CertSrvServerControlW(pwszServerName, dwControlFlags, pcbOut, ppbOut) {
@@ -5487,7 +5590,7 @@ class Certificates {
      * @returns {NTSTATUS} If the function succeeds, return STATUS_SUCCESS.
      * 
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
-     * @see https://docs.microsoft.com/windows/win32/api//certpoleng/nf-certpoleng-pstgettrustanchors
+     * @see https://learn.microsoft.com/windows/win32/api/certpoleng/nf-certpoleng-pstgettrustanchors
      * @since windows6.1
      */
     static PstGetTrustAnchors(pTargetName, cCriteria, rgpCriteria, ppTrustedIssuers) {
@@ -5538,7 +5641,7 @@ class Certificates {
      * @returns {NTSTATUS} If the function succeeds, return <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
-     * @see https://docs.microsoft.com/windows/win32/api//certpoleng/nf-certpoleng-pstgetcertificates
+     * @see https://learn.microsoft.com/windows/win32/api/certpoleng/nf-certpoleng-pstgetcertificates
      * @since windows6.1
      */
     static PstGetCertificates(pTargetName, cCriteria, rgpCriteria, bIsClient, pdwCertChainContextCount, ppCertChainContexts) {
@@ -5555,7 +5658,7 @@ class Certificates {
      * @returns {NTSTATUS} If the function succeeds, return <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
-     * @see https://docs.microsoft.com/windows/win32/api//certpoleng/nf-certpoleng-pstacquireprivatekey
+     * @see https://learn.microsoft.com/windows/win32/api/certpoleng/nf-certpoleng-pstacquireprivatekey
      * @since windows6.1
      */
     static PstAcquirePrivateKey(pCert) {
@@ -5574,7 +5677,7 @@ class Certificates {
      * @returns {NTSTATUS} If the function succeeds, return <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
-     * @see https://docs.microsoft.com/windows/win32/api//certpoleng/nf-certpoleng-pstvalidate
+     * @see https://learn.microsoft.com/windows/win32/api/certpoleng/nf-certpoleng-pstvalidate
      * @since windows6.1
      */
     static PstValidate(pTargetName, bIsClient, pRequestedIssuancePolicy, phAdditionalCertStore, pCert, pProvGUID) {
@@ -5590,7 +5693,7 @@ class Certificates {
      * @returns {NTSTATUS} If the function succeeds, return <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
-     * @see https://docs.microsoft.com/windows/win32/api//certpoleng/nf-certpoleng-pstmapcertificate
+     * @see https://learn.microsoft.com/windows/win32/api/certpoleng/nf-certpoleng-pstmapcertificate
      * @since windows6.1
      */
     static PstMapCertificate(pCert, pTokenInformationType, ppTokenInformation) {
@@ -5608,7 +5711,7 @@ class Certificates {
      * @returns {NTSTATUS} If the function succeeds, return <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
-     * @see https://docs.microsoft.com/windows/win32/api//certpoleng/nf-certpoleng-pstgetusernameforcertificate
+     * @see https://learn.microsoft.com/windows/win32/api/certpoleng/nf-certpoleng-pstgetusernameforcertificate
      * @since windows6.1
      */
     static PstGetUserNameForCertificate(pCertContext, UserName) {

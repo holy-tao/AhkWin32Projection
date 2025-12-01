@@ -3,7 +3,9 @@
 #Include .\NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR.ahk
 
 /**
- * 
+ * Contains fields that describe return parameters for the Identify Directive.
+ * @remarks
+ * This data structure is 4KB in size.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_directive_identify_return_parameters
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
@@ -15,6 +17,7 @@ class NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS extends Win32Struct
     static packingSize => 8
 
     /**
+     * A [NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR](ns-nvme-nvme_directive_identify_return_parameters_descriptor.md) structure containing values that indicate which directives are supported.
      * @type {NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR}
      */
     DirectivesSupported{
@@ -26,6 +29,7 @@ class NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS extends Win32Struct
     }
 
     /**
+     * A [NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR](ns-nvme-nvme_directive_identify_return_parameters_descriptor.md) structure containing values that indicate which directives are enabled.
      * @type {NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR}
      */
     DirectivesEnabled{

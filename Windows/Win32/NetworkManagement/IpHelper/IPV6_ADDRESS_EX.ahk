@@ -4,7 +4,6 @@
 /**
  * Stores an IPv6 address.
  * @remarks
- * 
  * The <b>IPV6_ADDRESS_EX</b> structure is a member of the 
  *      <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-icmpv6_echo_reply_lh">ICMPV6_ECHO_REPLY</a> structure that is used by the 
  *      <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmp6parsereplies">Icmp6ParseReplies</a> function. 
@@ -25,9 +24,7 @@
  * 
  * This structure is defined in the Ipexport.h header file which is automatically included in the Iphlpapi.h 
  *      header file. The Ipexport.h header file should never be used directly.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ipexport/ns-ipexport-ipv6_address_ex
+ * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-ipv6_address_ex
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

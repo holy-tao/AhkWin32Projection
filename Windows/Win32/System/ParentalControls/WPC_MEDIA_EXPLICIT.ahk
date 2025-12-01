@@ -3,7 +3,7 @@
 
 /**
  * Indicates information about the explicit rating of the media file.
- * @see https://docs.microsoft.com/windows/win32/api//wpcevent/ne-wpcevent-wpc_media_explicit
+ * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_media_explicit
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * A MapiMessage structure contains information about a message. For Unicode support, use the MapiMessageW structure.
- * @see https://docs.microsoft.com/windows/win32/api//mapi/ns-mapi-mapimessage
+ * @see https://learn.microsoft.com/windows/win32/api/mapi/ns-mapi-mapimessage
  * @namespace Windows.Win32.System.Mapi
  * @version v4.0.30319
  * @charset ANSI

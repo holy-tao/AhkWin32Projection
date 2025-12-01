@@ -4,11 +4,8 @@
 /**
  * The IO_RANGE structure specifies a resource requirements list that describes I/O port usage for a device instance. For more information about resource requirements lists, see Hardware Resources.
  * @remarks
- * 
  * The flags specified for <b>IOR_Alias</b> have the same interpretation as the address decoding flags specified for <b>IOD_DesFlags</b>. (However, the two sets of flags are not equivalent in assigned values and cannot be used interchangeably.) A resource requirements list can be specified using either set of flags, but using decode flags in <b>IOD_DesFlags</b> is recommended. If address decoding flags are specified using <i>both</i><b>IOD_DesFlags</b> and <b>IOR_Alias</b>, contents of the latter overrides the former.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/ns-cfgmgr32-io_range
+ * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-io_range
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

@@ -4,13 +4,10 @@
 /**
  * The MMC_EXT_VIEW_DATA structure is introduced in MMC 2.0.
  * @remarks
- * 
  * For an example of the 
  * <b>MMC_EXT_VIEW_DATA</b> structure used in C++ code, see 
  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iviewextensioncallback-addview">IViewExtensionCallback::AddView</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mmc/ns-mmc-mmc_ext_view_data
+ * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_ext_view_data
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

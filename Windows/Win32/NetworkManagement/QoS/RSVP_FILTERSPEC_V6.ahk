@@ -5,11 +5,8 @@
 /**
  * The RSVP_FILTERSPEC_V6 structure stores information for a FILTERSPEC on an IPv6 address.
  * @remarks
- * 
  * When working with IPv4 addresses, use <a href="https://docs.microsoft.com/windows/desktop/api/qossp/ns-qossp-rsvp_filterspec_v4">RSVP_FILTERSPEC_V4</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//qossp/ns-qossp-rsvp_filterspec_v6
+ * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-rsvp_filterspec_v6
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

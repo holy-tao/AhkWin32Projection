@@ -3,7 +3,7 @@
 
 /**
  * The MBN_PROVIDER_CONSTANTS enumerated type contains values that define the buffer lengths of MBN_PROVIDER members.
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ne-mbnapi-mbn_provider_constants
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_provider_constants
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

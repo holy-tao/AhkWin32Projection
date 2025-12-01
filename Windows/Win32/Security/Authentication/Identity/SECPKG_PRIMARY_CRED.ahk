@@ -6,13 +6,11 @@
 /**
  * The SECPKG_PRIMARY_CRED structure contains the primary credentials. This structure is used by the LsaApLogonUserEx2 and SpAcceptCredentials functions.
  * @remarks
- * 
  * For cached logons, the RPC identifier of the package that performs the logon is identified by shifting the <b>Flags</b> member to the right by using the PRIMARY_CRED_LOGON_PACKAGE_SHIFT constant defined below.
  * 
  * 
  * ```cpp
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ns-ntsecpkg-secpkg_primary_cred
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_primary_cred
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

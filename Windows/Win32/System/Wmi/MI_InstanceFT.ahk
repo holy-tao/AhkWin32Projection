@@ -3,7 +3,7 @@
 
 /**
  * A support structure used in the MI_Instance structure. Use the functions with the name prefix MI_Instance_ to manipulate these structures.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_instanceft
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_instanceft
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -182,7 +182,7 @@ class MI_InstanceFT extends Win32Struct
     }
 
     /**
-     * Gets the <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_class">MI_Class</a>associated with an instance. See 
+     * Gets the <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_class">MI_Class</a> associated with an instance. See 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mi/nf-mi-mi_instance_getclass">MI_Instance_GetClass</a>.
      * @type {Pointer}
      */

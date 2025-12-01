@@ -3,7 +3,7 @@
 
 /**
  * The DD_FREEDRIVERMEMORYDATA structure contains the details of the free request.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_freedrivermemorydata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_freedrivermemorydata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

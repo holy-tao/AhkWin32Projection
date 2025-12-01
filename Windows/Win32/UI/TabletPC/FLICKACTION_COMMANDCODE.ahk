@@ -4,7 +4,6 @@
 /**
  * Defines the possible flick actions that can be assigned to a pen flick.
  * @remarks
- * 
  * In Control Panel, the user can assign commands to pen flicks. Four types of actions with pen flicks include:
  * 
  * <ul>
@@ -13,9 +12,7 @@
  * <li>Any keystroke or keystroke combination such as CONTROL+N.</li>
  * <li>Activating a modifier key such as SHIFT</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tabflicks/ne-tabflicks-flickaction_commandcode
+ * @see https://learn.microsoft.com/windows/win32/api/tabflicks/ne-tabflicks-flickaction_commandcode
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

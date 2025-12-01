@@ -3,6 +3,8 @@
 #Include .\D3D12_BARRIER_SUBRESOURCE_RANGE.ahk
 
 /**
+ * Expresses an access transition for a texture.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_texture_barrier
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -15,6 +17,7 @@ class D3D12_TEXTURE_BARRIER extends Win32Struct
     static packingSize => 8
 
     /**
+     * Synchronization scope of all preceding GPU work that must be completed before executing the barrier.
      * @type {Integer}
      */
     SyncBefore {
@@ -23,6 +26,7 @@ class D3D12_TEXTURE_BARRIER extends Win32Struct
     }
 
     /**
+     * Synchronization scope of all subsequent GPU work that must wait until the barrier execution is finished.
      * @type {Integer}
      */
     SyncAfter {
@@ -31,6 +35,7 @@ class D3D12_TEXTURE_BARRIER extends Win32Struct
     }
 
     /**
+     * Access bits corresponding with resource usage since the preceding barrier or the start of **ExecuteCommandLists** scope.
      * @type {Integer}
      */
     AccessBefore {
@@ -39,6 +44,7 @@ class D3D12_TEXTURE_BARRIER extends Win32Struct
     }
 
     /**
+     * Access bits corresponding with resource usage after the barrier completes.
      * @type {Integer}
      */
     AccessAfter {
@@ -47,6 +53,7 @@ class D3D12_TEXTURE_BARRIER extends Win32Struct
     }
 
     /**
+     * Layout of texture preceding the barrier execution.
      * @type {Integer}
      */
     LayoutBefore {
@@ -55,6 +62,7 @@ class D3D12_TEXTURE_BARRIER extends Win32Struct
     }
 
     /**
+     * Layout of texture upon completion of barrier execution.
      * @type {Integer}
      */
     LayoutAfter {
@@ -63,6 +71,7 @@ class D3D12_TEXTURE_BARRIER extends Win32Struct
     }
 
     /**
+     * Pointer to the buffer resource being using the barrier.
      * @type {ID3D12Resource}
      */
     pResource {
@@ -71,6 +80,7 @@ class D3D12_TEXTURE_BARRIER extends Win32Struct
     }
 
     /**
+     * Range of texture subresources being barriered.
      * @type {D3D12_BARRIER_SUBRESOURCE_RANGE}
      */
     Subresources{
@@ -82,6 +92,7 @@ class D3D12_TEXTURE_BARRIER extends Win32Struct
     }
 
     /**
+     * Optional flags values.
      * @type {Integer}
      */
     Flags {

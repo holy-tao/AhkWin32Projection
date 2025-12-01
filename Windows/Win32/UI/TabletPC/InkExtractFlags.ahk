@@ -4,11 +4,8 @@
 /**
  * Determines how a stroke is removed from an InkDisp object.
  * @remarks
- * 
  * This enumeration is a flag.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkextractflags
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkextractflags
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

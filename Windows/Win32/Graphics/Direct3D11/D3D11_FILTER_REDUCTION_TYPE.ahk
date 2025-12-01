@@ -4,11 +4,8 @@
 /**
  * Specifies the type of sampler filter reduction.
  * @remarks
- * 
  * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_sampler_desc">D3D11_SAMPLER_DESC</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_filter_reduction_type
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_filter_reduction_type
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

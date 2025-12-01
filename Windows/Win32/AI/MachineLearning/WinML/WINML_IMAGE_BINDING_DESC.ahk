@@ -3,7 +3,7 @@
 
 /**
  * Contains properties for the binding of the type image.
- * @see https://docs.microsoft.com/windows/win32/api//winml/ns-winml-winml_image_binding_desc
+ * @see https://learn.microsoft.com/windows/win32/api/winml/ns-winml-winml_image_binding_desc
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  * @version v4.0.30319
  */

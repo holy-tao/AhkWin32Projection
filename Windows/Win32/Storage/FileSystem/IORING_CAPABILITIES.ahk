@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Represents the IORING API capabilities.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/ioringapi/ns-ioringapi-ioring_capabilities
  * @namespace Windows.Win32.Storage.FileSystem
@@ -14,6 +16,7 @@ class IORING_CAPABILITIES extends Win32Struct
     static packingSize => 4
 
     /**
+     * A value from the [IORING_VERSION](../ntioring_x/ne-ntioring_x-ioring_version.md) enumeration specifying the maximum supported IORING API version.
      * @type {Integer}
      */
     MaxVersion {
@@ -22,6 +25,7 @@ class IORING_CAPABILITIES extends Win32Struct
     }
 
     /**
+     * The maximum submission queue size.
      * @type {Integer}
      */
     MaxSubmissionQueueSize {
@@ -30,6 +34,7 @@ class IORING_CAPABILITIES extends Win32Struct
     }
 
     /**
+     * The maximum completion queue size.
      * @type {Integer}
      */
     MaxCompletionQueueSize {
@@ -38,6 +43,7 @@ class IORING_CAPABILITIES extends Win32Struct
     }
 
     /**
+     * A value from the [IORING_FEATURE_FLAGS](../ntioring_x/) enumeration specifying feature flags for the IORING API implementation.
      * @type {Integer}
      */
     FeatureFlags {

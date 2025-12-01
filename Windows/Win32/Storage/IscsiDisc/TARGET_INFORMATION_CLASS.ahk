@@ -3,7 +3,7 @@
 
 /**
  * TARGET_INFORMATION_CLASS enumeration specifies information about the indicated target device that the GetIScsiTargetInformation function retrieves.
- * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/ne-iscsidsc-target_information_class
+ * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/ne-iscsidsc-target_information_class
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @version v4.0.30319
  */

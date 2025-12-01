@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains information about a formatted line of text.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/ns-dwrite-dwrite_line_metrics
+ * Contains information about a formatted line of text. (DWRITE_LINE_METRICS)
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_line_metrics
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

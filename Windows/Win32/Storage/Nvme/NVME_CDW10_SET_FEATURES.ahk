@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * The NVME_CDW10_SET_FEATURES structure contains parameters for the Set Features command that sets the attributes of the specified feature.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw10_set_features
  * @namespace Windows.Win32.Storage.Nvme
@@ -50,6 +52,7 @@ class NVME_CDW10_SET_FEATURES extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     AsUlong {

@@ -3,7 +3,7 @@
 
 /**
  * Allows a caller to control the channel depth of a stage in the rendering pipeline.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/ne-d2d1effectauthor-d2d1_channel_depth
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_channel_depth
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

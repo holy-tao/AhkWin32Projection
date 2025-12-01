@@ -4,16 +4,13 @@
 /**
  * Used by an LDAP function to return results and error data.
  * @remarks
- * 
  * The <b>LDAPMessage</b> structure is an opaque data type returned from a server when you call a search or a traversal function. For example, after performing an asynchronous operation,  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> can be called to get the server <b>LDAPMessage</b> response. Another example is  a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_search_s">ldap_search_s</a>, which also returns an <b>LDAPMessage</b>.
  * 
  * To free the <b>LDAPMessage</b> structure when it is no longer required, call 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>.
  * 
  * There are no client-accessible fields in this structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winldap/ns-winldap-ldapmessage
+ * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmessage
  * @namespace Windows.Win32.Networking.Ldap
  * @version v4.0.30319
  */

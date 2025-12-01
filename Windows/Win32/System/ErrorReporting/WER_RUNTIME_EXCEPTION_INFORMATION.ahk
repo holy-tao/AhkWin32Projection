@@ -7,7 +7,7 @@
 
 /**
  * Contains the exception information that you use to determine whether you want to claim the crash.
- * @see https://docs.microsoft.com/windows/win32/api//werapi/ns-werapi-wer_runtime_exception_information
+ * @see https://learn.microsoft.com/windows/win32/api/werapi/ns-werapi-wer_runtime_exception_information
  * @namespace Windows.Win32.System.ErrorReporting
  * @version v4.0.30319
  */

@@ -4,11 +4,8 @@
 /**
  * Specifies the subresource(s) from an array of 1D textures to use in a render-target view.
  * @remarks
- * 
  * This structure is one member of a render-target-view description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_render_target_view_desc">D3D10_RENDER_TARGET_VIEW_DESC</a>).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10/ns-d3d10-d3d10_tex1d_array_rtv
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_tex1d_array_rtv
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

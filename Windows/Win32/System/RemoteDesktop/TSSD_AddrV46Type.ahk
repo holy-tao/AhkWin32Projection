@@ -3,7 +3,7 @@
 
 /**
  * Indicates the IP address type.
- * @see https://docs.microsoft.com/windows/win32/api//sessdirpublictypes/ne-sessdirpublictypes-tssd_addrv46type
+ * @see https://learn.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-tssd_addrv46type
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

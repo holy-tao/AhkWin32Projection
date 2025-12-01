@@ -3,7 +3,7 @@
 
 /**
  * Specifies attributes of a picture object as returned through the IPicture::get_Attributes method.
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/ne-ocidl-pictureattributes
+ * @see https://learn.microsoft.com/windows/win32/api/ocidl/ne-ocidl-pictureattributes
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

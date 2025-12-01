@@ -3,7 +3,7 @@
 
 /**
  * The WMPPlaylistChangeEventType enumeration type defines the types of changes that can be made to a playlist.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/ne-wmp-wmpplaylistchangeeventtype
+ * @see https://learn.microsoft.com/windows/win32/api/wmp/ne-wmp-wmpplaylistchangeeventtype
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */

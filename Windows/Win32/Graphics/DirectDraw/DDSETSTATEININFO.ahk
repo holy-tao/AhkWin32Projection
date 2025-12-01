@@ -3,7 +3,7 @@
 
 /**
  * The DDSETSTATEININFO structure contains the surface and video port extensions (VPE) object information.
- * @see https://docs.microsoft.com/windows/win32/api//dxmini/ns-dxmini-ddsetstateininfo
+ * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddsetstateininfo
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

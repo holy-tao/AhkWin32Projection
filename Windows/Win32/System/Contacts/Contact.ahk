@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Windows Portable Devices supports the following contact properties.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/contact-properties
  * @namespace Windows.Win32.System.Contacts
  * @version v4.0.30319

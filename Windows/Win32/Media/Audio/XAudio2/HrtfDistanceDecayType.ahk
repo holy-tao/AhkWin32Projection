@@ -3,7 +3,7 @@
 
 /**
  * Indicates a distance-based decay type applied to a sound.
- * @see https://docs.microsoft.com/windows/win32/api//hrtfapoapi/ne-hrtfapoapi-hrtfdistancedecaytype
+ * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/ne-hrtfapoapi-hrtfdistancedecaytype
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319
  */

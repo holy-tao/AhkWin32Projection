@@ -4,7 +4,6 @@
 /**
  * Values used by IThumbnailCache::GetThumbnail to specify options for the extraction and display of the thumbnail image.
  * @remarks
- * 
  * The following combinations are valid.
  * 
  * <table class="clsStd">
@@ -30,9 +29,7 @@
  * <td>WTS_EXTRACTDONOTCACHE</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//thumbcache/ne-thumbcache-wts_flags
+ * @see https://learn.microsoft.com/windows/win32/api/thumbcache/ne-thumbcache-wts_flags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

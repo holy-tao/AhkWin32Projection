@@ -5,7 +5,6 @@
 /**
  * Contains input data for the FSCTL_MOVE_FILE control code.
  * @remarks
- * 
  * To retrieve data to fill in this structure, use the 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-deviceiocontrol">DeviceIoControl</a> function with the 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-fsctl_get_retrieval_pointers">FSCTL_GET_RETRIEVAL_POINTERS</a> control 
@@ -22,9 +21,7 @@
  * The move delta is the number of bytes between the start of the source block and the start of the target block. In other words, a block starting at offset X (on-disk) can be moved to a starting offset Y if the absolute value of X minus Y is an even multiple of 16 KB. So, assuming 4-KB clusters, a move from cluster 3 to cluster 27 will be optimized,  but a move from cluster 18 to cluster 24 will not.  Note that mod(3,4) = 3 = mod(27,4).  Mod 4 is chosen because four clusters at 4 KB each is equivalent to 16 KB.  Therefore, a volume formatted to a 16-KB cluster size will result in all move files being optimized.
  * 
  * For more information about shadow copies, see <a href="https://docs.microsoft.com/windows/desktop/VSS/about-the-volume-shadow-copy-service">Volume Shadow Copy Service</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-move_file_data
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-move_file_data
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies the values used by the IFileDialogEvents::OnOverwrite method to indicate an application's response to an overwrite request during a save operation using the common file dialog.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-fde_overwrite_response
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-fde_overwrite_response
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

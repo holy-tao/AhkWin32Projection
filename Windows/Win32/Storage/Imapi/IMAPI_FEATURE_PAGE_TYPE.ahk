@@ -4,13 +4,10 @@
 /**
  * Defines values for the feature that are supported by the logical unit (CD and DVD device).
  * @remarks
- * 
- * Note that the range of feature type values is 0x0000 to 0xFFFF. This enumeration contains those features defined in the Multmedia Commands - 5 (MMC) specification. For a complete definition of each feature, see Feature Definitions in the latest release of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
+ * Note that the range of feature type values is 0x0000 to 0xFFFF. This enumeration contains those features defined in the Multimedia Commands - 5 (MMC) specification. For a complete definition of each feature, see Feature Definitions in the latest release of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
  * 
  * Other values not defined here may exist. Consumers of this enumeration should not presume this list to be the only set of valid values.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/ne-imapi2-imapi_feature_page_type
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_feature_page_type
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -247,7 +244,7 @@ class IMAPI_FEATURE_PAGE_TYPE extends Win32Enum{
     static IMAPI_FEATURE_PAGE_TYPE_BD_READ => 64
 
     /**
-     * Identifies a drive that is able to write control structures and user data to writeable Blu-ray discs.
+     * Identifies a drive that is able to write control structures and user data to writable Blu-ray discs.
      * @type {Integer (Int32)}
      */
     static IMAPI_FEATURE_PAGE_TYPE_BD_WRITE => 65

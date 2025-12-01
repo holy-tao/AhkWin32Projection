@@ -3,7 +3,7 @@
 
 /**
  * Provides removable media locking data. It is used by the IOCTL_STORAGE_MEDIA_REMOVAL control code.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-prevent_media_removal
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-prevent_media_removal
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

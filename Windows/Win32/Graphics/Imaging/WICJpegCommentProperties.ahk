@@ -3,7 +3,7 @@
 
 /**
  * Specifies the JPEG comment properties.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicjpegcommentproperties
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicjpegcommentproperties
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

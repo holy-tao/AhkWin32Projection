@@ -4,13 +4,10 @@
 /**
  * Describes the stencil operations that can be performed based on the results of stencil test.
  * @remarks
- * 
  * The stencil operation can be set differently based on the outcome of the stencil test by using the <b>StencilFunc</b> member.  This can be done for the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">stencil test</a> portion of depth-stencil testing.
  * 
  * The D3D10_DEPTH_STENCILOP_DESC structure is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_depth_stencil_desc">D3D10_DEPTH_STENCIL_DESC</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10/ns-d3d10-d3d10_depth_stencilop_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_depth_stencilop_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * The DHCP_IP_RESERVATION_INFO structure defines an IPv4 reservation for a DHCPv4 client.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_ip_reservation_info
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_ip_reservation_info
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

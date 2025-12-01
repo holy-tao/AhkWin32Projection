@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * .
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mf_mediasource_status_info
+ * . (MF_MEDIASOURCE_STATUS_INFO)
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_mediasource_status_info
  * @namespace Windows.Win32.Media.Streaming
  * @version v4.0.30319
  */

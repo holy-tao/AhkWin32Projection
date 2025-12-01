@@ -2,14 +2,11 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Defines the set of valid status values for an iSCSI portal.
+ * The VDS_ISCSI_PORTAL_STATUS enumeration (vdshwprv.h) defines the set of valid status values for an iSCSI portal.
  * @remarks
- * 
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_ISCSI_PORTAL_STATUS</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_ISCSI_PORTAL_STATUS</b> enumeration constant.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_iscsi_portal_status
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_iscsi_portal_status
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

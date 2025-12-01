@@ -3,7 +3,7 @@
 
 /**
  * Used with the DRMGetUsagePolicy and DRMSetUsagePolicy functions to specify a type of usage policy.
- * @see https://docs.microsoft.com/windows/win32/api//msdrmdefs/ne-msdrmdefs-drm_usagepolicy_type
+ * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ne-msdrmdefs-drm_usagepolicy_type
  * @namespace Windows.Win32.Data.RightsManagement
  * @version v4.0.30319
  */

@@ -68,6 +68,15 @@ class Time {
 ;@region Methods
     /**
      * Converts a time in Coordinated Universal Time (UTC) to a specified time zone's corresponding local time.
+     * @remarks
+     * The <b>SystemTimeToTzSpecificLocalTime</b> function takes into account whether daylight saving time (DST) is in effect for the local time to which the system time is to be converted.
+     * 
+     * The <b>SystemTimeToTzSpecificLocalTime</b> function may calculate the local time incorrectly under the following conditions:
+     * 
+     * <ul>
+     * <li>The time zone uses a different UTC offset for the old and new years. </li>
+     * <li>The UTC time to be converted and the calculated local time are in different years. </li>
+     * </ul>
      * @param {Pointer<TIME_ZONE_INFORMATION>} lpTimeZoneInformation A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-time_zone_information">TIME_ZONE_INFORMATION</a> structure that specifies the time zone of interest. 
      * 
@@ -80,11 +89,11 @@ class Time {
      * @param {Pointer<SYSTEMTIME>} lpLocalTime A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the local time.
      * @returns {BOOL} If the function succeeds, the return value is nonzero, and the function sets the members of the 
-     * <a href="/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure pointed to by <i>lpLocalTime</i> to the appropriate local time values.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure pointed to by <i>lpLocalTime</i> to the appropriate local time values.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//timezoneapi/nf-timezoneapi-systemtimetotzspecificlocaltime
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-systemtimetotzspecificlocaltime
      * @since windows5.0
      */
     static SystemTimeToTzSpecificLocalTime(lpTimeZoneInformation, lpUniversalTime, lpLocalTime) {
@@ -100,6 +109,8 @@ class Time {
 
     /**
      * Converts a local time to a time in Coordinated Universal Time (UTC).
+     * @remarks
+     * <b>TzSpecificLocalTimeToSystemTime</b> takes into account whether daylight saving time (DST) is in effect for the local time to be converted.
      * @param {Pointer<TIME_ZONE_INFORMATION>} lpTimeZoneInformation A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-time_zone_information">TIME_ZONE_INFORMATION</a> structure that specifies the time zone for the time specified in <i>lpLocalTime</i>.
      * 
@@ -109,11 +120,11 @@ class Time {
      * @param {Pointer<SYSTEMTIME>} lpUniversalTime A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the UTC time.
      * @returns {BOOL} If the function succeeds, the return value is nonzero, and the function sets the members of the 
-     * <a href="/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure pointed to by <i>lpUniversalTime</i> to the appropriate values.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure pointed to by <i>lpUniversalTime</i> to the appropriate values.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//timezoneapi/nf-timezoneapi-tzspecificlocaltimetosystemtime
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-tzspecificlocaltimetosystemtime
      * @since windows5.1.2600
      */
     static TzSpecificLocalTimeToSystemTime(lpTimeZoneInformation, lpLocalTime, lpUniversalTime) {
@@ -138,8 +149,8 @@ class Time {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     *       <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//timezoneapi/nf-timezoneapi-filetimetosystemtime
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-filetimetosystemtime
      * @since windows5.1.2600
      */
     static FileTimeToSystemTime(lpFileTime, lpSystemTime) {
@@ -168,11 +179,11 @@ class Time {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * > [!NOTE]
      * > A False return value can indicate that the passed SYSTEMTIME structure represents an invalid date. Certain situations, such as the additional day added in a leap year, can result in application logic unexpectedly creating an invalid date. For more information on avoiding these issues, see [leap year readiness](https://techcommunity.microsoft.com/t5/azure-developer-community-blog/it-s-2020-is-your-code-ready-for-leap-day/ba-p/1157279).
-     * @see https://docs.microsoft.com/windows/win32/api//timezoneapi/nf-timezoneapi-systemtimetofiletime
+     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-systemtimetofiletime
      * @since windows5.0
      */
     static SystemTimeToFileTime(lpSystemTime, lpFileTime) {
@@ -188,6 +199,14 @@ class Time {
 
     /**
      * Retrieves the current time zone settings. These settings control the translations between Coordinated Universal Time (UTC) and local time.
+     * @remarks
+     * All translations between UTC time and local time are based on the following formula:
+     * 
+     * UTC = local time + bias
+     * 
+     * The bias is the difference, in minutes, between UTC time and local time.
+     * 
+     *  The <b>StandardName</b> and <b>DaylightName</b> members  of the resultant <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-time_zone_information">TIME_ZONE_INFORMATION</a>  structure are localized according to the current user default UI language.
      * @param {Pointer<TIME_ZONE_INFORMATION>} lpTimeZoneInformation A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-time_zone_information">TIME_ZONE_INFORMATION</a> structure to receive the current settings.
      * @returns {Integer} If the function succeeds, it returns one of the following values.
@@ -218,7 +237,7 @@ class Time {
      * </td>
      * <td width="60%">
      * The system is operating in the range covered by the <b>StandardDate</b> member of the 
-     * <a href="/windows/desktop/api/timezoneapi/ns-timezoneapi-time_zone_information">TIME_ZONE_INFORMATION</a> structure. 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-time_zone_information">TIME_ZONE_INFORMATION</a> structure. 
      * 
      * 
      * 
@@ -235,7 +254,7 @@ class Time {
      * </td>
      * <td width="60%">
      * The system is operating in the range covered by the <b>DaylightDate</b> member of the 
-     * <a href="/windows/desktop/api/timezoneapi/ns-timezoneapi-time_zone_information">TIME_ZONE_INFORMATION</a> structure.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-time_zone_information">TIME_ZONE_INFORMATION</a> structure.
      * 
      * </td>
      * </tr>
@@ -243,8 +262,8 @@ class Time {
      *  
      * 
      * If the function fails for other reasons, such as an out of memory error, it returns TIME_ZONE_ID_INVALID. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//timezoneapi/nf-timezoneapi-gettimezoneinformation
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-gettimezoneinformation
      * @since windows5.0
      */
     static GetTimeZoneInformation(lpTimeZoneInformation) {
@@ -260,13 +279,33 @@ class Time {
 
     /**
      * Sets the current time zone settings. These settings control translations from Coordinated Universal Time (UTC) to local time.
+     * @remarks
+     * An application must have the SE_TIME_ZONE_NAME privilege for this function to succeed. This privilege is disabled by default. Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-adjusttokenprivileges">AdjustTokenPrivileges</a> function to enable the privilege before calling 
+     * <b>SetTimeZoneInformation</b>, and then to disable the privilege after the 
+     * <b>SetTimeZoneInformation</b> call. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
+     * 
+     * <b>Windows Server 2003 and Windows XP/2000:  </b>The application must have the SE_SYSTEMTIME_NAME privilege.
+     * 
+     * > [!IMPORTANT]
+     * > Starting with Windows Vista and Windows Server 2008 through all current versions of Windows, call <b><a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/nf-timezoneapi-setdynamictimezoneinformation">SetDynamicTimeZoneInformation</a></b> instead of <b>SetTimeZoneInformation</b> to set system time zone information.  <b>SetDynamicTimeZoneInformation</b> supports the full history of changes to standard time and daylight saving time provided by the dynamic data in the Windows registry.  If an application uses <b>SetTimeZoneInformation</b>, dynamic daylight saving time support is disabled for the the system and the message "Your current time zone is not recognized. Please select a valid time zone." will appear to the user in the Windows time zone settings.
+     * 
+     * To inform Explorer that the time zone has changed, send the 
+     * <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-settingchange">WM_SETTINGCHANGE</a> message.
+     * 
+     * All translations between UTC and local time are based on the following formula:
+     * 
+     * UTC = local time + bias
+     * 
+     * The bias is the difference, in minutes, between UTC and local time.
      * @param {Pointer<TIME_ZONE_INFORMATION>} lpTimeZoneInformation A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-time_zone_information">TIME_ZONE_INFORMATION</a> structure that contains the new settings.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//timezoneapi/nf-timezoneapi-settimezoneinformation
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-settimezoneinformation
      * @since windows5.0
      */
     static SetTimeZoneInformation(lpTimeZoneInformation) {
@@ -282,12 +321,18 @@ class Time {
 
     /**
      * Sets the current time zone and dynamic daylight saving time settings. These settings control translations from Coordinated Universal Time (UTC) to local time.
+     * @remarks
+     * An application must have the SE_TIME_ZONE_NAME privilege for this function to succeed. This privilege is disabled by default. Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-adjusttokenprivileges">AdjustTokenPrivileges</a> function to enable the privilege before calling 
+     * <b>SetDynamicTimeZoneInformation</b>, and then to disable the privilege after the 
+     * <b>SetDynamicTimeZoneInformation</b> call. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
      * @param {Pointer<DYNAMIC_TIME_ZONE_INFORMATION>} lpTimeZoneInformation A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-dynamic_time_zone_information">DYNAMIC_TIME_ZONE_INFORMATION</a> structure.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//timezoneapi/nf-timezoneapi-setdynamictimezoneinformation
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-setdynamictimezoneinformation
      * @since windows6.0.6000
      */
     static SetDynamicTimeZoneInformation(lpTimeZoneInformation) {
@@ -303,6 +348,8 @@ class Time {
 
     /**
      * Retrieves the current time zone and dynamic daylight saving time settings. These settings control the translations between Coordinated Universal Time (UTC) and local time.
+     * @remarks
+     * The <b>StandardName</b> and <b>DaylightName</b> members  of the resultant <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-dynamic_time_zone_information">DYNAMIC_TIME_ZONE_INFORMATION</a>  structure are localized according to the current user default UI language.
      * @param {Pointer<DYNAMIC_TIME_ZONE_INFORMATION>} pTimeZoneInformation A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-dynamic_time_zone_information">DYNAMIC_TIME_ZONE_INFORMATION</a> structure.
      * @returns {Integer} If the function succeeds, it returns one of the following values.
      * 
@@ -332,7 +379,7 @@ class Time {
      * </td>
      * <td width="60%">
      * The system is operating in the range covered by the <b>StandardDate</b> member of the 
-     * <a href="/windows/desktop/api/timezoneapi/ns-timezoneapi-dynamic_time_zone_information">DYNAMIC_TIME_ZONE_INFORMATION</a> structure. 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-dynamic_time_zone_information">DYNAMIC_TIME_ZONE_INFORMATION</a> structure. 
      * 
      * 
      * 
@@ -349,7 +396,7 @@ class Time {
      * </td>
      * <td width="60%">
      * The system is operating in the range covered by the <b>DaylightDate</b> member of the 
-     * <a href="/windows/desktop/api/timezoneapi/ns-timezoneapi-dynamic_time_zone_information">DYNAMIC_TIME_ZONE_INFORMATION</a> structure.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-dynamic_time_zone_information">DYNAMIC_TIME_ZONE_INFORMATION</a> structure.
      * 
      * </td>
      * </tr>
@@ -357,8 +404,8 @@ class Time {
      *  
      * 
      * If the function fails, it returns TIME_ZONE_ID_INVALID. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//timezoneapi/nf-timezoneapi-getdynamictimezoneinformation
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-getdynamictimezoneinformation
      * @since windows6.0.6000
      */
     static GetDynamicTimeZoneInformation(pTimeZoneInformation) {
@@ -374,14 +421,18 @@ class Time {
 
     /**
      * Retrieves the time zone settings for the specified year and time zone. These settings control the translations between Coordinated Universal Time (UTC) and local time.
+     * @remarks
+     * The <i>wYear</i> parameter is assumed to be a local time value. If the local time is close to the transition between the old year and the new year (00:00:00 January 1), passing a UTC year to the <b>GetTimeZoneInformationForYear</b> function can cause the function to return time zone settings for the wrong year. 
+     * 
+     *  The <b>StandardName</b> and <b>DaylightName</b> members  of the resultant <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-time_zone_information">TIME_ZONE_INFORMATION</a>  structure are localized according to the current user default UI language.
      * @param {Integer} wYear The year for which the time zone settings are to be retrieved. The <i>wYear</i> parameter must be a local time value.
      * @param {Pointer<DYNAMIC_TIME_ZONE_INFORMATION>} pdtzi A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-dynamic_time_zone_information">DYNAMIC_TIME_ZONE_INFORMATION</a> structure that specifies the time zone.  To populate this parameter, call <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/nf-timezoneapi-enumdynamictimezoneinformation">EnumDynamicTimeZoneInformation</a> with the index of the time zone you want. If this parameter is <b>NULL</b>, the current time zone is used.
      * @param {Pointer<TIME_ZONE_INFORMATION>} ptzi A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-time_zone_information">TIME_ZONE_INFORMATION</a> structure that receives the time zone settings.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//timezoneapi/nf-timezoneapi-gettimezoneinformationforyear
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-gettimezoneinformationforyear
      * @since windows6.0.6000
      */
     static GetTimeZoneInformationForYear(wYear, pdtzi, ptzi) {
@@ -397,6 +448,25 @@ class Time {
 
     /**
      * Enumerates DYNAMIC_TIME_ZONE_INFORMATION entries stored in the registry.
+     * @remarks
+     * The following example demonstrates looping through the potential timezones until **ERROR_NO_MORE_ITEMS** is returned, indicating that there are no more time zone entries in the registry.
+     * 
+     * ```cpp
+     * std::vector<DYNAMIC_TIME_ZONE_INFORMATION> possibleTimezones;
+     * DYNAMIC_TIME_ZONE_INFORMATION dynamicTimezone = {};
+     * DWORD dwResult = 0;
+     * DWORD i = 0;
+     * 
+     * do
+     * {
+     *     dwResult = EnumDynamicTimeZoneInformation(i++, &dynamicTimezone);
+     *     if (dwResult == ERROR_SUCCESS)
+     *     {
+     *         possibleTimezones.push_back(dynamicTimezone);
+     *     }
+     * }
+     * while (dwResult != ERROR_NO_MORE_ITEMS);
+     * ```
      * @param {Integer} dwIndex Index value that represents the location of a <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-dynamic_time_zone_information">DYNAMIC_TIME_ZONE_INFORMATION</a> entry.
      * @param {Pointer<DYNAMIC_TIME_ZONE_INFORMATION>} lpTimeZoneInformation Specifies settings for  a time zone and dynamic daylight saving time.
      * @returns {Integer} This function returns DWORD. Possible return values include:
@@ -407,7 +477,7 @@ class Time {
      * | ERROR_NO_MORE_ITEMS     | No more data is available for the given index.    |
      * | ERROR_INVALID_PARAMETER | A parameter is invalid.                           |
      * | Any other value         | The operation failed.                             |
-     * @see https://docs.microsoft.com/windows/win32/api//timezoneapi/nf-timezoneapi-enumdynamictimezoneinformation
+     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-enumdynamictimezoneinformation
      * @since windows8.0
      */
     static EnumDynamicTimeZoneInformation(dwIndex, lpTimeZoneInformation) {
@@ -470,7 +540,7 @@ class Time {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//timezoneapi/nf-timezoneapi-getdynamictimezoneinformationeffectiveyears
+     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-getdynamictimezoneinformationeffectiveyears
      * @since windows8.0
      */
     static GetDynamicTimeZoneInformationEffectiveYears(lpTimeZoneInformation, FirstYear, LastYear) {
@@ -489,8 +559,8 @@ class Time {
      * @param {Pointer<SYSTEMTIME>} lpLocalTime A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the local time.
      * @returns {BOOL} If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//timezoneapi/nf-timezoneapi-systemtimetotzspecificlocaltimeex
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-systemtimetotzspecificlocaltimeex
      * @since windows6.1
      */
     static SystemTimeToTzSpecificLocalTimeEx(lpTimeZoneInformation, lpUniversalTime, lpLocalTime) {
@@ -512,8 +582,8 @@ class Time {
      * @param {Pointer<SYSTEMTIME>} lpUniversalTime A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the UTC time.
      * @returns {BOOL} If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//timezoneapi/nf-timezoneapi-tzspecificlocaltimetosystemtimeex
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-tzspecificlocaltimetosystemtimeex
      * @since windows6.1
      */
     static TzSpecificLocalTimeToSystemTimeEx(lpTimeZoneInformation, lpLocalTime, lpUniversalTime) {

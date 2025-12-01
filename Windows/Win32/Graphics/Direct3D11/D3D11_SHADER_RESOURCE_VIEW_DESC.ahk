@@ -13,17 +13,14 @@
 #Include .\D3D11_BUFFEREX_SRV.ahk
 
 /**
- * Describes a shader-resource view.
+ * Describes a shader-resource view. (D3D11_SHADER_RESOURCE_VIEW_DESC)
  * @remarks
- * 
  * A view is a format-specific way to look at the data in a resource. The view determines what data to look at, and how it is cast when read.
  * 
  * When viewing a resource, the resource-view description must specify a typed format, that is compatible with the resource format. So that means that you cannot create a resource-view description using any format with _TYPELESS in the name. You can however view a typeless resource by specifying a typed format for the view. For example, a DXGI_FORMAT_R32G32B32_TYPELESS resource can be viewed with one of these typed formats: DXGI_FORMAT_R32G32B32_FLOAT, DXGI_FORMAT_R32G32B32_UINT, and DXGI_FORMAT_R32G32B32_SINT, since these typed formats are compatible with the typeless resource.
  * 
  * Create a shader-resource-view description by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createshaderresourceview">ID3D11Device::CreateShaderResourceView</a>. To view a shader-resource-view description, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11shaderresourceview-getdesc">ID3D11ShaderResourceView::GetDesc</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_shader_resource_view_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_shader_resource_view_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

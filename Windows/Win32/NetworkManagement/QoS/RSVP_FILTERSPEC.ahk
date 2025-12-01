@@ -10,7 +10,7 @@
 
 /**
  * The RSVP_FILTERSPEC structure provides RSVP FILTERSPEC information.
- * @see https://docs.microsoft.com/windows/win32/api//qossp/ns-qossp-rsvp_filterspec
+ * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-rsvp_filterspec
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

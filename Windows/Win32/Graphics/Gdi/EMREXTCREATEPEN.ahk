@@ -5,7 +5,7 @@
 
 /**
  * The EMREXTCREATEPEN structure contains members for the ExtCreatePen enhanced metafile record. If the record contains a BITMAPINFO structure, it is followed by the bitmap bits that form a packed device-independent bitmap (DIB).
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrextcreatepen
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrextcreatepen
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

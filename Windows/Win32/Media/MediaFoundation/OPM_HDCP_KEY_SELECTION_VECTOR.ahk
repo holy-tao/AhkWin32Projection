@@ -3,7 +3,7 @@
 
 /**
  * Contains the key selection vector (KSV) for a High-Bandwidth Digital Content Protection (HDCP) receiver.
- * @see https://docs.microsoft.com/windows/win32/api//opmapi/ns-opmapi-opm_hdcp_key_selection_vector
+ * @see https://learn.microsoft.com/windows/win32/api/opmapi/ns-opmapi-opm_hdcp_key_selection_vector
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

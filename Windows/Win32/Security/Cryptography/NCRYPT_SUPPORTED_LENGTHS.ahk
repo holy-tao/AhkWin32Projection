@@ -3,7 +3,7 @@
 
 /**
  * Used with the NCRYPT_LENGTHS_PROPERTY property to contain length information for a key.
- * @see https://docs.microsoft.com/windows/win32/api//ncrypt/ns-ncrypt-ncrypt_supported_lengths
+ * @see https://learn.microsoft.com/windows/win32/api/ncrypt/ns-ncrypt-ncrypt_supported_lengths
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

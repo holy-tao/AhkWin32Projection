@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Describes the status of a cluster node.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_node_status
+ * The CLUSTER_NODE_STATUS enumeration (msclus.h) describes the status of a cluster node.
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_node_status
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

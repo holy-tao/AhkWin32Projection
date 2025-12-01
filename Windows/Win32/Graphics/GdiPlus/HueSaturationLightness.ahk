@@ -3,8 +3,6 @@
 #Include .\Effect.ahk
 
 /**
- * The HueSaturationLightness class enables you to change the hue, saturation, and lightness of a bitmap.
- * @see https://docs.microsoft.com/windows/win32/api//gdipluseffects/nl-gdipluseffects-huesaturationlightness
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

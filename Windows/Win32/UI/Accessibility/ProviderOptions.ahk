@@ -3,7 +3,7 @@
 
 /**
  * Contains values that specify the type of UI Automation provider. The IRawElementProviderSimple::ProviderOptions property uses this enumeration.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-provideroptions
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-provideroptions
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

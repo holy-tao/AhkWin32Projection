@@ -4,7 +4,6 @@
 /**
  * The XFORM structure specifies a world-space to page-space transformation.
  * @remarks
- * 
  * The following list describes how the members are used for each operation.
  * 
  * <table>
@@ -44,9 +43,7 @@
  * <td>Vertical Reflection Component</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-xform
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-xform
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

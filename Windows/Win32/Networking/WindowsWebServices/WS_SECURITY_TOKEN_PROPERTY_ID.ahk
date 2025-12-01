@@ -3,7 +3,7 @@
 
 /**
  * Defines the keys for the fields and properties that can be extracted from a security token. Not all properties are valid for all security token types. The function WsGetSecurityTokenProperty uses the values defined here as keys.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_security_token_property_id
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_token_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

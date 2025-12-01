@@ -6,7 +6,7 @@
 
 /**
  * The EMRSTRETCHBLT structure contains members for the StretchBlt enhanced metafile record. Note that graphics device interface (GDI) converts the device-dependent bitmap into a device-independent bitmap (DIB) before storing it in the metafile record.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrstretchblt
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrstretchblt
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

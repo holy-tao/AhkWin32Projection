@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains information about the SoundSentry accessibility feature. When the SoundSentry feature is on, the computer displays a visual indication only when a sound is generated.
+ * Contains information about the SoundSentry accessibility feature. When the SoundSentry feature is on, the computer displays a visual indication only when a sound is generated. (ANSI)
  * @remarks
- * 
  * An application uses a <b>SOUNDSENTRY</b> structure when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-systemparametersinfoa">SystemParametersInfo</a> function with the <i>uiAction</i> parameter set to <b>SPI_GETSOUNDSENTRY</b> or <b>SPI_SETSOUNDSENTRY</b>. When using <b>SPI_GETSOUNDSENTRY</b>, an application must specify the <b>cbSize</b> member of the <b>SOUNDSENTRY</b> structure; the <b>SystemParametersInfo</b> function fills the remaining members. An application must specify the <b>cbSize</b>, <b>dwFlags</b>, and <b>iWindowsEffect</b> members when using the <b>SPI_SETSOUNDSENTRY</b> value.
  * 
  * 
@@ -13,9 +12,7 @@
  * 
  * > [!NOTE]
  * > The winuser.h header defines SOUNDSENTRY as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-soundsentrya
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-soundsentrya
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  * @charset ANSI

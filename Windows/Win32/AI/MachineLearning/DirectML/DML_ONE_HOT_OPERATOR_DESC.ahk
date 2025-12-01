@@ -5,8 +5,7 @@
  * Produces a tensor filled with *one-hot encoded* values. This operator produces an output tensor where, for all sequences in a chosen axis, all but one element in that sequence is set to *OffValue*, and the remaining single element is set to *OnValue*.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_one_hot_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_one_hot_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

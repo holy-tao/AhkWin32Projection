@@ -4,10 +4,8 @@
 /**
  * Constants used by IFileIsInUse::GetUsage to indicate how a file in use is being used.
  * @remarks
- * 
  * The interpretation of "playing" or "editing" is left to the application's implementation of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileisinuse">IFileIsInUse</a>. Generally, "playing" would refer to a media file while "editing" can refer to any file being altered in an application. However, the application itself best knows how to map these terms to its actions.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-file_usage_type
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-file_usage_type
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

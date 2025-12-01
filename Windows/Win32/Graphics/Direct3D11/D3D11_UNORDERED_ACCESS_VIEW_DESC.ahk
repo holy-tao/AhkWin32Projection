@@ -10,11 +10,8 @@
 /**
  * Specifies the subresources from a resource that are accessible using an unordered-access view.
  * @remarks
- * 
  * An unordered-access-view description is passed into <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createunorderedaccessview">ID3D11Device::CreateUnorderedAccessView</a> to create a view.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_unordered_access_view_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_unordered_access_view_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

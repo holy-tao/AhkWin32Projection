@@ -5,7 +5,7 @@
 
 /**
  * Specifies the clipboard format. This structure included with the EN_CLIPFORMAT notification.
- * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-clipboardformat
+ * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-clipboardformat
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

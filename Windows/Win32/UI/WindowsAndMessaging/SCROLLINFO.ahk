@@ -3,7 +3,7 @@
 
 /**
  * The SCROLLINFO structure contains scroll bar parameters to be set by the SetScrollInfo function (or SBM_SETSCROLLINFO message), or retrieved by the GetScrollInfo function (or SBM_GETSCROLLINFO message).
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-scrollinfo
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-scrollinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

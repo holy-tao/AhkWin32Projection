@@ -3,7 +3,7 @@
 
 /**
  * Describes the caching mode used in methods such as IOfflineFilesCache::IsPathCacheable and IOfflineFilesShareInfo::GetShareCachingMode.
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/ne-cscobj-offlinefiles_caching_mode
+ * @see https://learn.microsoft.com/windows/win32/api/cscobj/ne-cscobj-offlinefiles_caching_mode
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */

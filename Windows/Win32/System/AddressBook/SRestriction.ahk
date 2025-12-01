@@ -13,8 +13,12 @@
 #Include .\SCommentRestriction.ahk
 
 /**
- * Do not use. Describes a filter for limiting the view of a table to particular rows.
- * @see https://docs.microsoft.com/windows/win32/api//wabdefs/ns-wabdefs-srestriction
+ * Describes a filter for limiting the view of a table to particular rows for Outlook 2013 and Outlook 2016.
+ * @remarks
+ * Clients use an **SRestriction** structure to limit the number and type of rows in their view of a table and to search for specific messages in a folder. To impose the limitation on a table, clients call either [IMAPITable::Restrict](imapitable-restrict.md) or [IMAPITable::FindRow](imapitable-findrow.md). To impose the limitation on a folder, clients call the folder's [IMAPIContainer::SetSearchCriteria](imapicontainer-setsearchcriteria.md) method. 
+ *   
+ * For information about how to use restrictions with tables, see [About Restrictions](about-restrictions.md).
+ * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/srestriction
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */
@@ -152,9 +156,51 @@ class SRestriction extends Win32Struct
     }
 
     /**
-     * Type: <b>ULONG</b>
-     * 
-     * Variable of type <b>ULONG</b> that specifies the restriction type. The possible values are as follows.
+     * > The restriction type. Possible values are as follows: 
+     *     
+     * RES_AND 
+     *   
+     * > An **AND** restriction, which applies a bitwise **AND** operation to a restriction. 
+     *     
+     * RES_BITMASK 
+     *   
+     * > A bitmask restriction, which applies a bitmask to a property value.
+     *     
+     * RES_COMMENT 
+     *   
+     * > A comment restriction, which associates a comment with a restriction.
+     *     
+     * RES_COMPAREPROPS 
+     *   
+     * > A property comparison restriction, which compares two property values.
+     *     
+     * RES_CONTENT 
+     *   
+     * > A content restriction, which searches a property value for specific content.
+     *     
+     * RES_EXIST 
+     *   
+     * > An exist restriction, which determines whether a property is supported.
+     *     
+     * RES_NOT 
+     *   
+     * > A **NOT** restriction, which applies a logical **NOT** operation to a restriction. 
+     *     
+     * RES_OR 
+     *   
+     * > An **OR** restriction, which applies a logical **OR** operation to a restriction. 
+     *     
+     * RES_PROPERTY 
+     *   
+     * > A property restriction, which determines whether a property value matches a particular value.
+     *     
+     * RES_SIZE 
+     *   
+     * > A size restriction, which determines whether a property value is a particular size.
+     *     
+     * RES_SUBRESTRICTION 
+     *   
+     * > A sub-object restriction, which applies a restriction to a message's attachments or recipients.
      * @type {Integer}
      */
     rt {
@@ -163,7 +209,22 @@ class SRestriction extends Win32Struct
     }
 
     /**
-     * Union of restriction structures describing the filter to be applied. The specific structure included in the <b>res</b> member depends on the value of the <b>rt</b> member. The following list gives the mapping between the structure and the restriction type.
+     * > Union of restriction structures describing the filter to be applied. The specific structure included in the **res** member depends on the value of the **rt** member. The mapping between restriction type and structure is listed in the following table. 
+     *     
+     * |Property |Value |
+     * |:-----|:-----|
+     * |**Restriction type** <br/> |**Restriction structure** <br/> |
+     * |RES_AND  <br/> |[SAndRestriction](sandrestriction.md) <br/> |
+     * |RES_BITMASK  <br/> |[SBitMaskRestriction](sbitmaskrestriction.md) <br/> |
+     * |RES_COMMENT  <br/> |[SCommentRestriction](scommentrestriction.md) <br/> |
+     * |RES_COMPAREPROPS  <br/> |[SComparePropsRestriction](scomparepropsrestriction.md) <br/> |
+     * |RES_CONTENT  <br/> |[SContentRestriction](scontentrestriction.md) <br/> |
+     * |RES_EXIST  <br/> |[SExistRestriction](sexistrestriction.md) <br/> |
+     * |RES_NOT  <br/> |[SNotRestriction](snotrestriction.md) <br/> |
+     * |RES_OR  <br/> |[SOrRestriction](sorrestriction.md) <br/> |
+     * |RES_PROPERTY  <br/> |[SPropertyRestriction](spropertyrestriction.md) <br/> |
+     * |RES_SIZE  <br/> |[SSizeRestriction](ssizerestriction.md) <br/> |
+     * |RES_SUBRESTRICTION  <br/> |[SSubRestriction](ssubrestriction.md) <br/> |
      * @type {_res_e__Union}
      */
     res{

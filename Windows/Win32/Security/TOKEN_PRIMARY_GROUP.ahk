@@ -3,7 +3,7 @@
 
 /**
  * Specifies a group security identifier (SID) for an access token.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-token_primary_group
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_primary_group
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

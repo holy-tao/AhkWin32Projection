@@ -4,7 +4,6 @@
 /**
  * Specifies how the host system uses the data managed by a writer involved in a VSS operation.
  * @remarks
- * 
  * The usage type of the data that a writer manages is specified when it initializes its cooperation with the 
  *     shadow copy mechanism through 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-initialize">CVssWriter::Initialize</a>.
@@ -13,9 +12,7 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getidentity">IVssExamineWriterMetadata::GetIdentity</a>.
  * 
  * Requester applications that are interested in backing up system state should look for writers with the  <b>VSS_UT_BOOTABLESYSTEMSTATE</b> or  <b>VSS_UT_SYSTEMSERVICE</b> usage type.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vswriter/ne-vswriter-vss_usage_type
+ * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_usage_type
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Defines the types of process security identifier (SID) that can be used by tasks.
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/ne-taskschd-task_processtokensid_type
+ * @see https://learn.microsoft.com/windows/win32/api/taskschd/ne-taskschd-task_processtokensid_type
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies the volume shrink operation to perform.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-shrink_volume_information
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-shrink_volume_information
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies the buffering parameters for a network byte stream.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ns-mfidl-mfbytestream_buffering_params
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mfbytestream_buffering_params
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

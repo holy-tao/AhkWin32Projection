@@ -5,8 +5,7 @@
  * Retrieves video extension command support using command-defined input and output structures.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_feature_data_video_extension_command_support
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_extension_command_support
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -17,7 +16,7 @@ class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_SUPPORT extends Win32Struct
     static packingSize => 8
 
     /**
-     * For single GPU operation, set this to zero. If there are multiple GPU nodes, set a bit to identify the node (the device's physical adapter) to which the command queue applies. Each bit in the mask corresponds to a single node. Only 1 bit may be set.
+     * In multi-adapter operation, this indicates which physical adapter of the device this operation applies to.
      * @type {Integer}
      */
     NodeIndex {

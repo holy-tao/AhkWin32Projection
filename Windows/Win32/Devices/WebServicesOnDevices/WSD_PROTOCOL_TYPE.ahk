@@ -3,7 +3,7 @@
 
 /**
  * Identifies the type of protocol supported by a port.
- * @see https://docs.microsoft.com/windows/win32/api//wsdtypes/ne-wsdtypes-wsd_protocol_type
+ * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ne-wsdtypes-wsd_protocol_type
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

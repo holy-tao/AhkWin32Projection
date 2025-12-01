@@ -3,7 +3,7 @@
 
 /**
  * Specifies an array of channel-wide security settings.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_security_properties
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_properties
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

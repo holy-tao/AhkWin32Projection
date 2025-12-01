@@ -5,7 +5,6 @@
 /**
  * Contains an Output Protection Manager (OPM) or Certified Output Protection Manager (COPP) command.
  * @remarks
- * 
  * The layout of this  structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-amcoppcommand">AMCOPPCommand</a> structure used in Certified Output Protection Protocol (COPP).
  *       
  * 
@@ -16,9 +15,7 @@
  * <li>Use the OMAC 1 algorithm to calculate a message authentication code (MAC) for the block of data that appears after the <b>omac</b> member (excluding the <b>omac</b> member).</li>
  * <li>Copy the MAC to the <b>omac</b> member.</li>
  * </ol>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//opmapi/ns-opmapi-opm_configure_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/opmapi/ns-opmapi-opm_configure_parameters
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

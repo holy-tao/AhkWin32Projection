@@ -3,7 +3,7 @@
 
 /**
  * Specifies an array of DHCPV6_BIND_ELEMENT structures that contain DHCPv6 interface bindings.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcpv6_bind_element_array
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcpv6_bind_element_array
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

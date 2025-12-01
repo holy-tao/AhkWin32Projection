@@ -6,7 +6,7 @@
 
 /**
  * Represents an individual block of data either in memory, in a file, or in the HTTP Server API response-fragment cache.
- * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_data_chunk
+ * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_data_chunk
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

@@ -4,13 +4,10 @@
 /**
  * The PHONEEXTENSIONID structure describes an extension identifier.
  * @remarks
- * 
  * These four members together specify a universally unique extension identifier that identifies a phone device class extension. This structure may not be extended.
  * 
  * Extension identifiers are generated using an SDK-provided generation utility.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-phoneextensionid
+ * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-phoneextensionid
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

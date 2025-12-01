@@ -3,7 +3,7 @@
 
 /**
  * Specifies whether to set or get a monitor's red, green, or blue drive.
- * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_drive_type
+ * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_drive_type
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

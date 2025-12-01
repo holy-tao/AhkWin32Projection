@@ -4,7 +4,6 @@
 /**
  * The CameraControlFlags enumeration defines whether a camera setting is controlled manually or automatically.
  * @remarks
- * 
  * In addition, the following flags are defined in Ksmedia.h:
  * 
  * <table>
@@ -34,9 +33,7 @@
  * <td>The camera supports relative controls for this setting. A relative control is divided into a number of steps with no defined units. The absolute size of each step depends on the camera model.</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-cameracontrolflags
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-cameracontrolflags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

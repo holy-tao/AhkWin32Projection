@@ -3,7 +3,7 @@
 
 /**
  * Specifies a structure that contains channel binding information for a security context.
- * @see https://docs.microsoft.com/windows/win32/api//sspi/ns-sspi-secpkgcontext_bindings
+ * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_bindings
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The FAX_PROVIDER_STATUS_ENUM enumeration defines the status values for a fax extension (a fax service provider (FSP) or a fax inbound routing extension).
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/ne-faxcomex-fax_provider_status_enum
+ * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_provider_status_enum
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */

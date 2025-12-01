@@ -4,7 +4,7 @@
 
 /**
  * An SP_PROPCHANGE_PARAMS structure corresponds to a DIF_PROPERTYCHANGE installation request.
- * @see https://docs.microsoft.com/windows/win32/api//setupapi/ns-setupapi-sp_propchange_params
+ * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_propchange_params
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

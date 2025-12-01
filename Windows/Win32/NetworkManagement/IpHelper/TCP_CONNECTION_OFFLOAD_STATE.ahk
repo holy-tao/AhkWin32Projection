@@ -4,13 +4,10 @@
 /**
  * Defines the possible TCP offload states for a TCP connection.
  * @remarks
- * 
  * The <b>TCP_CONNECTION_OFFLOAD_STATE</b> enumeration is defined on Windows Server 2003 and later. 
  * 
  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>TCP_CONNECTION_OFFLOAD_STATE</b> enumeration  is defined in the <i>Tcpmib.h</i> header file not in the <i>Iprtrmib.h</i> header file. Note that the <i>Tcpmib.h</i> header file is automatically included in <i>Iprtrmib.h</i> which is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Tcpmib.h</i> and <i>Iprtrmib.h</i> header files should never be used directly.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tcpmib/ne-tcpmib-tcp_connection_offload_state
+ * @see https://learn.microsoft.com/windows/win32/api/tcpmib/ne-tcpmib-tcp_connection_offload_state
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

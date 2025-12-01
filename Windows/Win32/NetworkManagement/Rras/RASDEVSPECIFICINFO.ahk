@@ -3,7 +3,7 @@
 
 /**
  * Used to send a cookie for server validation and bypass point-to-point (PPP) authentication.
- * @see https://docs.microsoft.com/windows/win32/api//ras/ns-ras-rasdevspecificinfo
+ * @see https://learn.microsoft.com/windows/win32/api/ras/ns-ras-rasdevspecificinfo
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies the Portable Network Graphics (PNG) iTXT chunk metadata properties.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicpngitxtproperties
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicpngitxtproperties
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

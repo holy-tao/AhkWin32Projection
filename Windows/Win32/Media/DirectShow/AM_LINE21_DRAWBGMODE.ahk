@@ -3,7 +3,7 @@
 
 /**
  * Indicates the closed captioning text background mode.
- * @see https://docs.microsoft.com/windows/win32/api//il21dec/ne-il21dec-am_line21_drawbgmode
+ * @see https://learn.microsoft.com/windows/win32/api/il21dec/ne-il21dec-am_line21_drawbgmode
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

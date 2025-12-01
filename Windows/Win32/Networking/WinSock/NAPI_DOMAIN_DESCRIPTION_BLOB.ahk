@@ -4,8 +4,7 @@
 /**
  * Describes a domain handled by a namespace provider for the NS_EMAIL namespace.
  * @remarks
- * 
- * This structure is supported on Windows Vistaand later.
+ * This structure is supported on Windows Vista and later.
  * 
  * The 
  * <b>NAPI_DOMAIN_DESCRIPTION_BLOB</b> structure describes a domain handled by a namespace provider for the NS_EMAIL namespace. A typical domain name represented by the <b>OffsetThisDomainName</b> member in this structure might be msn.com or yahoo.com.
@@ -17,9 +16,7 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscinstallnamespaceex">WSCInstallNameSpaceEx</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscinstallnamespaceex32">WSCInstallNameSpaceEx32</a> functions are used to install a namespace provider for the NS_EMAIL namespace using a <a href="https://docs.microsoft.com/windows/desktop/api/nsemail/ns-nsemail-napi_provider_installation_blob">NAPI_PROVIDER_INSTALLATION_BLOB</a> structure. 
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaenumnamespaceprovidersexa">WSAEnumNameSpaceProvidersEx</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscenumnamespaceprovidersex32">WSCEnumNameSpaceProvidersEx32</a> functions are used to enumerate all namespace providers (including NS_EMAIL namespace providers) and to retrieve the <a href="https://docs.microsoft.com/windows/desktop/api/nsemail/ns-nsemail-napi_provider_installation_blob">NAPI_PROVIDER_INSTALLATION_BLOB</a> structure for  a provider if the provider registered a blob upon installation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//nsemail/ns-nsemail-napi_domain_description_blob
+ * @see https://learn.microsoft.com/windows/win32/api/nsemail/ns-nsemail-napi_domain_description_blob
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

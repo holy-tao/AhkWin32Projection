@@ -3,7 +3,7 @@
 
 /**
  * The BLUETOOTH_GATT_VALUE_CHANGED_EVENT structure describes a changed attribute value.
- * @see https://docs.microsoft.com/windows/win32/api//bthledef/ns-bthledef-bluetooth_gatt_value_changed_event
+ * @see https://learn.microsoft.com/windows/win32/api/bthledef/ns-bthledef-bluetooth_gatt_value_changed_event
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

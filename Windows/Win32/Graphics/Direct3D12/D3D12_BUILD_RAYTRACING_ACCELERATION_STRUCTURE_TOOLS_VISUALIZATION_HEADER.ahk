@@ -4,11 +4,8 @@
 /**
  * Describes the GPU memory layout of an acceleration structure visualization.
  * @remarks
- * 
  * This structure functions like the inverse of the inputs to an acceleration structure build, focused on the instance or geometry details, depending on the acceleration structure type.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_build_raytracing_acceleration_structure_tools_visualization_header
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_build_raytracing_acceleration_structure_tools_visualization_header
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

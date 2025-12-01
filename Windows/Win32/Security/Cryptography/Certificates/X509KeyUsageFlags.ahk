@@ -3,7 +3,7 @@
 
 /**
  * Specifies the purpose of a key contained in a certificate.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-x509keyusageflags
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509keyusageflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

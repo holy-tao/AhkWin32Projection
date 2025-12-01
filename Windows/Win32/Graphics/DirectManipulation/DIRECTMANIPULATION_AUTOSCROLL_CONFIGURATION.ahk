@@ -3,7 +3,7 @@
 
 /**
  * Determines the type and direction of automatic scrolling animation to apply.
- * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/ne-directmanipulation-directmanipulation_autoscroll_configuration
+ * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/ne-directmanipulation-directmanipulation_autoscroll_configuration
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */

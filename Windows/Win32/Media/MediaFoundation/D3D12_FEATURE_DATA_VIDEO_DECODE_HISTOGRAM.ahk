@@ -5,8 +5,7 @@
  * Provides data for calls to ID3D12VideoDevice::CheckFeatureSupport when the feature specified is D3D12_FEATURE_VIDEO_DECODE_HISTOGRAM.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_feature_data_video_decode_histogram
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_decode_histogram
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

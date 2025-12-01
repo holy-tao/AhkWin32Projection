@@ -2,13 +2,10 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Identifies the type of resource being used.
+ * Identifies the type of resource being used. (D3D10_RESOURCE_DIMENSION)
  * @remarks
- * 
  * This enumeration is used in <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10resource-gettype">ID3D10Resource::GetType</a>, and <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3dx10-image-info">D3DX10_IMAGE_INFO</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10/ne-d3d10-d3d10_resource_dimension
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_resource_dimension
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

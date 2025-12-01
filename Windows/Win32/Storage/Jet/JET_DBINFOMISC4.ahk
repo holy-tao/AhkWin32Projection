@@ -7,7 +7,7 @@
 #Include .\JET_BKINFO.ahk
 
 /**
- * 
+ * Learn more about: JET_DBINFOMISC4 Structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-dbinfomisc4-structure
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319

@@ -3,7 +3,7 @@
 
 /**
  * The mode for the Morphology effect.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effects/ne-d2d1effects-d2d1_morphology_mode
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_morphology_mode
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

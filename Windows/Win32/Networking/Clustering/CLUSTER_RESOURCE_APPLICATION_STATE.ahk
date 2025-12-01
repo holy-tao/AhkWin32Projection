@@ -3,7 +3,7 @@
 
 /**
  * Enumerates resource application states.
- * @see https://docs.microsoft.com/windows/win32/api//resapi/ne-resapi-cluster_resource_application_state
+ * @see https://learn.microsoft.com/windows/win32/api/resapi/ne-resapi-cluster_resource_application_state
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

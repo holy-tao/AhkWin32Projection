@@ -3,7 +3,7 @@
 
 /**
  * Represents key exchange output data for hardware content protection.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/ns-d3d11_1-d3d11_key_exchange_hw_protection_output_data
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/ns-d3d11_1-d3d11_key_exchange_hw_protection_output_data
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -23,7 +23,7 @@ class D3D11_KEY_EXCHANGE_HW_PROTECTION_OUTPUT_DATA extends Win32Struct
     }
 
     /**
-     * The maximum size of data that the driver can return in the output buffer. The last byte that it can write to is <b>pbOuput</b>[<b>PrivateDataSize</b> + <b>MaxHWProtectionDataSize</b> – 1].
+     * The maximum size of data that the driver can return in the output buffer. The last byte that it can write to is <b>pbOutput</b>[<b>PrivateDataSize</b> + <b>MaxHWProtectionDataSize</b> – 1].
      * @type {Integer}
      */
     MaxHWProtectionDataSize {

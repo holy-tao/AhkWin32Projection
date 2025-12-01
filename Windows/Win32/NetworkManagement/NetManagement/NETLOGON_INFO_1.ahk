@@ -3,7 +3,7 @@
 
 /**
  * Defines a level-1 control query response from a domain controller.
- * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-netlogon_info_1
+ * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-netlogon_info_1
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * The BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION structure describes one or more characteristics that have changed.
- * @see https://docs.microsoft.com/windows/win32/api//bthledef/ns-bthledef-bluetooth_gatt_value_changed_event_registration
+ * @see https://learn.microsoft.com/windows/win32/api/bthledef/ns-bthledef-bluetooth_gatt_value_changed_event_registration
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

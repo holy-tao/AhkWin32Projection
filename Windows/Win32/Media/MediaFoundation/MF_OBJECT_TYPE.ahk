@@ -3,7 +3,7 @@
 
 /**
  * Defines the object types that are created by the source resolver.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mf_object_type
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_object_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

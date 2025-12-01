@@ -5,11 +5,8 @@
 /**
  * The DDVIDEOPORTINFO structure describes how the driver should transfer video data to a surface (or to surfaces); DDVIDEOPORTINFO is a member of the DD_VIDEOPORT_LOCAL structure.
  * @remarks
- * 
  * All members of this structure are set by the client and the driver should never change them. The client is typically the overlay mixer.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dvp/ns-dvp-ddvideoportinfo
+ * @see https://learn.microsoft.com/windows/win32/api/dvp/ns-dvp-ddvideoportinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

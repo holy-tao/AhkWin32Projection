@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains the SALT values for the HMAC secret.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_hmac_secret_salt_values
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -14,6 +16,7 @@ class WEBAUTHN_HMAC_SECRET_SALT_VALUES extends Win32Struct
     static packingSize => 8
 
     /**
+     * The global HMAC SALT.
      * @type {Pointer<WEBAUTHN_HMAC_SECRET_SALT>}
      */
     pGlobalHmacSalt {
@@ -22,6 +25,7 @@ class WEBAUTHN_HMAC_SECRET_SALT_VALUES extends Win32Struct
     }
 
     /**
+     * The size of **pCredWithHmacSecretSaltList**.
      * @type {Integer}
      */
     cCredWithHmacSecretSaltList {
@@ -30,6 +34,7 @@ class WEBAUTHN_HMAC_SECRET_SALT_VALUES extends Win32Struct
     }
 
     /**
+     * The list of credentials with HMAC secret SALT.
      * @type {Pointer<WEBAUTHN_CRED_WITH_HMAC_SECRET_SALT>}
      */
     pCredWithHmacSecretSaltList {

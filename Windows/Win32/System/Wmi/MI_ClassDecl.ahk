@@ -3,7 +3,7 @@
 
 /**
  * This structure outlines the class declaration. It contains class name and hierarchy, properties, qualifiers, and methods.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_classdecl
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_classdecl
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

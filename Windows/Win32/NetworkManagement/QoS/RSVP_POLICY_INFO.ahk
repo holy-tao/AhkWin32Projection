@@ -5,7 +5,7 @@
 
 /**
  * The RSVP_POLICY_INFO structure stores undefined policy elements retrieved from RSVP.
- * @see https://docs.microsoft.com/windows/win32/api//qossp/ns-qossp-rsvp_policy_info
+ * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-rsvp_policy_info
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

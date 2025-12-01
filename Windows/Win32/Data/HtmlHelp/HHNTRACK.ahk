@@ -5,7 +5,7 @@
 
 /**
  * This structure returns the file name of the current topic and a constant that specifies the user action that is about to occur, such as hiding the Navigation pane by clicking the Hide button on the toolbar.
- * @see https://docs.microsoft.com/windows/win32/api//htmlhelp/ns-htmlhelp-hhntrack
+ * @see https://learn.microsoft.com/windows/win32/api/htmlhelp/ns-htmlhelp-hhntrack
  * @namespace Windows.Win32.Data.HtmlHelp
  * @version v4.0.30319
  */

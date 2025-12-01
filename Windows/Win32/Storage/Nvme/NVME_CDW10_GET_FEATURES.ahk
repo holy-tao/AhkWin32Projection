@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains parameters for the Get Features command that retrieves the attributes of the specified feature.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw10_get_features
  * @namespace Windows.Win32.Storage.Nvme
@@ -50,6 +52,7 @@ class NVME_CDW10_GET_FEATURES extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     AsUlong {

@@ -4,10 +4,8 @@
 /**
  * Holds custom folder settings. This structure is used with the SHGetSetFolderCustomSettings function.
  * @remarks
- * 
  * In Windows XP Service Pack 2 (SP2) and earlier versions, this structure supported both ANSI and Unicode strings. In Windows Vista and later versions, only Unicode strings are supported.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-shfoldercustomsettings
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-shfoldercustomsettings
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

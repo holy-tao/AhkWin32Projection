@@ -3,7 +3,7 @@
 
 /**
  * Indicates the state of a session.
- * @see https://docs.microsoft.com/windows/win32/api//sessdirpublictypes/ne-sessdirpublictypes-tssession_state
+ * @see https://learn.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-tssession_state
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

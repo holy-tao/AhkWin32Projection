@@ -3,7 +3,7 @@
 
 /**
  * Describes a component category.
- * @see https://docs.microsoft.com/windows/win32/api//comcat/ns-comcat-categoryinfo
+ * @see https://learn.microsoft.com/windows/win32/api/comcat/ns-comcat-categoryinfo
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

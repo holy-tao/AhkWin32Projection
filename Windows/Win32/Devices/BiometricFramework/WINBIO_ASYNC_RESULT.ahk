@@ -8,7 +8,6 @@
 /**
  * Contains the results of an asynchronous operation.
  * @remarks
- * 
  * Asynchronous operations are begun by opening a biometric session  or a framework session. Call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a> to open a biometric session. Call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopenframework">WinBioAsyncOpenFramework</a> to open a framework session.
  * 
  * You can use an asynchronous biometric session handle to call any of the following operations asynchronously:<ul>
@@ -138,9 +137,7 @@
  * <li>WINBIO_ANSI_381_POS_LH_FOUR_FINGERS</li>
  * <li>WINBIO_ANSI_381_POS_TWO_THUMBS</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winbio/ns-winbio-winbio_async_result
+ * @see https://learn.microsoft.com/windows/win32/api/winbio/ns-winbio-winbio_async_result
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

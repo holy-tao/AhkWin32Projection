@@ -4,7 +4,7 @@
 
 /**
  * IKE_AUTHENTICATION_INFORMATION structure contains Internet Key Exchange (IKE) authentication information used to establish a secure channel between two key management daemons.
- * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/ns-iscsidsc-ike_authentication_information
+ * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/ns-iscsidsc-ike_authentication_information
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @version v4.0.30319
  */

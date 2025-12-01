@@ -3,7 +3,7 @@
 
 /**
  * Provides user interface (UI) data for a provider. This structure is used by the CRYPT_PROVUI_FUNCS structure.
- * @see https://docs.microsoft.com/windows/win32/api//wintrust/ns-wintrust-crypt_provui_data
+ * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_provui_data
  * @namespace Windows.Win32.Security.WinTrust
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains disk, volume, or partition length information used by the IOCTL_DISK_GET_LENGTH_INFO control code.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-get_length_information
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-get_length_information
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

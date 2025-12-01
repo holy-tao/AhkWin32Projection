@@ -3,7 +3,7 @@
 
 /**
  * Used by SHShowManageLibraryUI to define options for handling a name collision when saving a library.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-librarymanagedialogoptions
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-librarymanagedialogoptions
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

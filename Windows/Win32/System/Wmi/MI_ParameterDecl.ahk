@@ -3,7 +3,7 @@
 
 /**
  * Represents CIM method parameters.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_parameterdecl
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_parameterdecl
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

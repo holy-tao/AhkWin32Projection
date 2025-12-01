@@ -3,7 +3,7 @@
 
 /**
  * The DISPLAYCONFIG_TOPOLOGY_ID enumeration specifies the type of display topology.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ne-wingdi-displayconfig_topology_id
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ne-wingdi-displayconfig_topology_id
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

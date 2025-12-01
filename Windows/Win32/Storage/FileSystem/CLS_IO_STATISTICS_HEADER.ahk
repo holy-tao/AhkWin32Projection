@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Header for information retrieved by the GetLogIoStatistics function, which defines the I/O performance counters of a log.
+ * @remarks
+ * This header is followed by the I/O statistics counters.
  * @see https://learn.microsoft.com/windows/win32/api/clfs/ns-clfs-cls_io_statistics_header
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
@@ -14,6 +16,7 @@ class CLS_IO_STATISTICS_HEADER extends Win32Struct
     static packingSize => 4
 
     /**
+     * The major version of the statistics buffer.
      * @type {Integer}
      */
     ubMajorVersion {
@@ -22,6 +25,7 @@ class CLS_IO_STATISTICS_HEADER extends Win32Struct
     }
 
     /**
+     * The minor version of the statistics buffer.
      * @type {Integer}
      */
     ubMinorVersion {
@@ -30,6 +34,7 @@ class CLS_IO_STATISTICS_HEADER extends Win32Struct
     }
 
     /**
+     * The class of I/O statistics  that is exported. Currently, flush statistics are the only statistics information exported.  These statistics  include the frequency of data and metadata flushes on a dedicated log and the amount of data and metadata flushed. Because  flush statistics are  the  sole statistics class, this member is currently unused but will be used in the future.
      * @type {Integer}
      */
     eStatsClass {
@@ -38,6 +43,7 @@ class CLS_IO_STATISTICS_HEADER extends Win32Struct
     }
 
     /**
+     * The length of the statistics buffer, including the header.
      * @type {Integer}
      */
     cbLength {
@@ -46,6 +52,7 @@ class CLS_IO_STATISTICS_HEADER extends Win32Struct
     }
 
     /**
+     * The offset of statistics counters from the beginning of the packet where the statistics data begins.  This field allows transparent modifications to the header and length without affecting  how the statistics data is accessed.
      * @type {Integer}
      */
     coffData {

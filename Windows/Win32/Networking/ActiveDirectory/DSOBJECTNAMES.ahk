@@ -4,7 +4,7 @@
 
 /**
  * The DSOBJECTNAMES structure is used to contain directory object data for use by an Active Directory property sheet or context menu extension.
- * @see https://docs.microsoft.com/windows/win32/api//dsclient/ns-dsclient-dsobjectnames
+ * @see https://learn.microsoft.com/windows/win32/api/dsclient/ns-dsclient-dsobjectnames
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

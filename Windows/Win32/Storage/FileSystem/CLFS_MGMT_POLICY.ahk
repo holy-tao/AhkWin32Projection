@@ -3,7 +3,7 @@
 
 /**
  * The CLFS_MGMT_POLICY structure specifies a Common Log File System (CLFS) management policy. The PolicyType member specifies the members used for a policy.
- * @see https://docs.microsoft.com/windows/win32/api//clfsmgmt/ns-clfsmgmt-clfs_mgmt_policy
+ * @see https://learn.microsoft.com/windows/win32/api/clfsmgmt/ns-clfsmgmt-clfs_mgmt_policy
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

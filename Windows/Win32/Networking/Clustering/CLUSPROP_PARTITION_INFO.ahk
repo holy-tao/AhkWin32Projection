@@ -6,7 +6,7 @@
 
 /**
  * Contains information relevant to storage class resources.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clusprop_partition_info
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_partition_info
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

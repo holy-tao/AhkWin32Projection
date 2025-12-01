@@ -4,7 +4,7 @@
 
 /**
  * Used to indicate that the reader should interpret the bytes it reads as binary xml.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_xml_reader_binary_encoding
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_reader_binary_encoding
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

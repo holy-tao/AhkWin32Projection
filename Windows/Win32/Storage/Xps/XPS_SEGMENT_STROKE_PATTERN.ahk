@@ -3,7 +3,7 @@
 
 /**
  * Indicates whether all, some, or none of the segments in a figure are stroked.
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/ne-xpsobjectmodel-xps_segment_stroke_pattern
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_segment_stroke_pattern
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

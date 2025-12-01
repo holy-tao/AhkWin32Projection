@@ -3,7 +3,7 @@
 
 /**
  * Identifies the four directional buttons used for DVD menu navigation and other operations.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-dvd_relative_button
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_relative_button
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

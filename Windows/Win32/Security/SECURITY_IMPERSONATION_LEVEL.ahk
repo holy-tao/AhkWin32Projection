@@ -4,11 +4,8 @@
 /**
  * Contains values that specify security impersonation levels. Security impersonation levels govern the degree to which a server process can act on behalf of a client process.
  * @remarks
- * 
  * Impersonation is the ability of a process to take on the security attributes of another process.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-security_impersonation_level
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-security_impersonation_level
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

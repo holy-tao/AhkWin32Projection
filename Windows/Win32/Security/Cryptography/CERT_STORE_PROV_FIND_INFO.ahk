@@ -4,7 +4,6 @@
 /**
  * Used by many of the store provider callback functions.
  * @remarks
- * 
  * The <b>dwFindFlags</b> member is used to modify the criteria of some search types.
  * 
  * The <b>dwFindFlags</b> value of CERT_UNICODE_IS_RDN_ATTRS_FLAG is used only with the CERT_FIND_SUBJECT_ATTR and CERT_FIND_ISSUER_ATTR values for <b>dwFindType</b>. CERT_UNICODE_IS_RDN_ATTRS_FLAG must be set if the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_rdn_attr">CERT_RDN_ATTR</a> structure pointed to by <b>pvFindPara</b> was initialized with Unicode strings. Before any comparison is made, the string to be matched is converted by using X509_UNICODE_NAME to provide for Unicode comparisons.
@@ -50,8 +49,7 @@
  * <td>Used only with CERT_FIND_SUBJECT_ATTR and CERT_FIND_ISSUER-ATTR values of <b>dwFindType</b>. By default, a case-sensitive, exact match is made. If this flag is set, the match is case-insensitive.</td>
  * </tr>
  * </table>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_store_prov_find_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_store_prov_find_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * A support structure used in the MI_ClassDecl and MI_Module structures.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_providerft
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_providerft
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

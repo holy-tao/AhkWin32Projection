@@ -3,7 +3,7 @@
 
 /**
  * The WIAVIDEO_STATE enumeration is used to specify the current state of a video stream.
- * @see https://docs.microsoft.com/windows/win32/api//wiavideo/ne-wiavideo-wiavideo_state
+ * @see https://learn.microsoft.com/windows/win32/api/wiavideo/ne-wiavideo-wiavideo_state
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */

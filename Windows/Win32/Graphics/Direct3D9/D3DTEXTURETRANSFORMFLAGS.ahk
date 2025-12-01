@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * Defines texture coordinate transformation values.
+ * @remarks
+ * Texture coordinates can be transformed using a 4 x 4 matrix before the results are passed to the rasterizer. The texture coordinate transforms are set by calling [**IDirect3DDevice9::SetTextureStageState**](/windows/desktop/api), and by passing in the D3DTSS\_TEXTURETRANSFORMFLAGS texture stage state and one of the values from **D3DTEXTURETRANSFORMFLAGS**. For more information about texture transforms, see [Texture Coordinate Transformations (Direct3D 9)](texture-coordinate-transformations.md).
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dtexturetransformflags
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319

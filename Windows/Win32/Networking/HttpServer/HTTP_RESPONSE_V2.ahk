@@ -7,7 +7,7 @@
 
 /**
  * Extends the HTTP version 1.0 response structure with more information for the response.
- * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_response_v2
+ * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_response_v2
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

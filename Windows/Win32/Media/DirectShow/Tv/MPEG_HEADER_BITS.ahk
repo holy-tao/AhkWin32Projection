@@ -3,7 +3,7 @@
 
 /**
  * The MPEG_HEADER_BITS structure contains the first 16 bits that follow the table_id in a generic MPEG-2 section header.
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2bits/ns-mpeg2bits-mpeg_header_bits
+ * @see https://learn.microsoft.com/windows/win32/api/mpeg2bits/ns-mpeg2bits-mpeg_header_bits
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

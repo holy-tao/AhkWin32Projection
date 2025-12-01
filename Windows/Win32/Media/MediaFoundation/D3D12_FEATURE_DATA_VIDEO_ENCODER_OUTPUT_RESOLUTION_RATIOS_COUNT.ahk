@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * The D3D12_FEATURE_DATA_VIDEO_ENCODER_OUTPUT_RESOLUTION_RATIOS_COUNT structure (d3d12video.h) retrieves the number of supported resolution ratios for the specified codec.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_output_resolution_ratios_count
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -14,6 +16,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_OUTPUT_RESOLUTION_RATIOS_COUNT extends Wi
     static packingSize => 4
 
     /**
+     * In multi-adapter operation, this indicates which physical adapter of the device this operation applies to.
      * @type {Integer}
      */
     NodeIndex {
@@ -22,6 +25,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_OUTPUT_RESOLUTION_RATIOS_COUNT extends Wi
     }
 
     /**
+     * A member of the [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) enumeration specifying the codec for which the number of supported resolution ratios is being queried.
      * @type {Integer}
      */
     Codec {
@@ -30,6 +34,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_OUTPUT_RESOLUTION_RATIOS_COUNT extends Wi
     }
 
     /**
+     * Receives a UINT indicating the number of supported resolution ratios for the specified codec.
      * @type {Integer}
      */
     ResolutionRatiosCount {

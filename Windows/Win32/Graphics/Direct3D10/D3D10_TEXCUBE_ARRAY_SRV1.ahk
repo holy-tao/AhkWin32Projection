@@ -4,13 +4,10 @@
 /**
  * Specifies the subresource(s) from an array of cube textures to use in a shader-resource view.
  * @remarks
- * 
  * This structure is one member of a shader-resource-view description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1/ns-d3d10_1-d3d10_shader_resource_view_desc1">D3D10_SHADER_RESOURCE_VIEW_DESC1</a>).
  * 
  * This structure requires Windows Vista Service Pack 1.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10_1/ns-d3d10_1-d3d10_texcube_array_srv1
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/ns-d3d10_1-d3d10_texcube_array_srv1
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

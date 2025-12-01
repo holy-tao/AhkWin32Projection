@@ -3,7 +3,7 @@
 
 /**
  * The DD_UNLOCKDATA structure contains information necessary to do an unlock as defined by Microsoft DirectDraw parameter structures.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_unlockdata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_unlockdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

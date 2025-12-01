@@ -3,7 +3,7 @@
 
 /**
  * Defines constants that specify DXCore adapter properties.
- * @see https://docs.microsoft.com/windows/win32/api//dxcore_interface/ne-dxcore_interface-dxcoreadapterproperty
+ * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcoreadapterproperty
  * @namespace Windows.Win32.Graphics.DXCore
  * @version v4.0.30319
  */
@@ -12,7 +12,7 @@ class DXCoreAdapterProperty extends Win32Enum{
     /**
      * Specifies the <em>InstanceLuid</em> adapter property, which contains a locally unique identifier representing the adapter. This value remains constant for the lifetime of this adapter. The LUID of an adapter changes on reboot, driver upgrade, or device disablement/enablement.
      * 
-     * The <em>InstanceLuid</em> adapter property has type <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-_luid">LUID</a>.
+     * The <em>InstanceLuid</em> adapter property has type <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-luid">LUID</a>.
      * @type {Integer (UInt32)}
      */
     static InstanceLuid => 0
@@ -118,7 +118,7 @@ class DXCoreAdapterProperty extends Win32Enum{
      * 
      * The <em>IsDetachable</em> adapter property has type <b>bool</b>.
      * 
-     * <b>Note</b>. Even if <a href="https://docs.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-getproperty">IDXCoreAdapter::GetProperty</a> indicates `false` for this property, the adapter still has the ability to be reported as removed, such as in the case of malfunction, or driver update.
+     * <b>Note</b>. Even if <a href="https://docs.microsoft.com/windows/win32/dxcore/dxcore_interface/nf-dxcore_interface-idxcoreadapter-getproperty">IDXCoreAdapter::GetProperty</a> indicates `false` for this property, the adapter still has the ability to be reported as removed, such as in the case of malfunction, or driver update.
      * @type {Integer (UInt32)}
      */
     static IsDetachable => 13

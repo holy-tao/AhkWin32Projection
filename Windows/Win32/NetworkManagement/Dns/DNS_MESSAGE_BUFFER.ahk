@@ -5,15 +5,12 @@
 /**
  * The DNS_MESSAGE_BUFFER structure stores message information for DNS queries.
  * @remarks
- * 
  * The 
  * <b>DNS_MESSAGE_BUFFER</b> is used by the system to store DNS query information, and make that information available through various DNS function calls.
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/windns/nf-windns-dnswritequestiontobuffer_utf8">DnsWriteQuestionToBuffer</a> 
  * 	 method should be used to write a DNS query into a <b>DNS_MESSAGE_BUFFER</b> structure and the <a href="https://docs.microsoft.com/windows/desktop/api/windns/nf-windns-dnsextractrecordsfrommessage_utf8">DnsExtractRecordsFromMessage</a> method should be used to read the DNS RRs from a <b>DNS_MESSAGE_BUFFER</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_message_buffer
+ * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_message_buffer
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

@@ -4,7 +4,6 @@
 /**
  * Defines the properties of a disk object. This structure is identical to the VDS_DISK_PROP structure, except that it also includes the location path and, if the disk is offline, the reason why it is offline.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsdisk3-getproperties2">IVdsDisk3::GetProperties2</a> method returns this structure to report the properties of a <a href="https://docs.microsoft.com/windows/desktop/VDS/disk-object">disk object</a>.
  * 
  * The following table lists the parts of the location path string used in the <b>pwszLocationPath</b> member.
@@ -63,9 +62,7 @@
  * <td>PCIROOT(0)#PCI(1C00)#PCI(0000)#SCSI(P00T01L01)</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_disk_prop2
+ * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_disk_prop2
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

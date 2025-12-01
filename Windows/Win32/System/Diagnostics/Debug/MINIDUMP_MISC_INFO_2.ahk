@@ -3,7 +3,7 @@
 
 /**
  * Represents information in the miscellaneous information stream.
- * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ns-minidumpapiset-minidump_misc_info_2
+ * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_misc_info_2
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

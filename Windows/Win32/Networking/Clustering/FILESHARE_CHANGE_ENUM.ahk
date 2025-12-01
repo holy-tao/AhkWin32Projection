@@ -4,13 +4,11 @@
 /**
  * Contains the possible change events that are used by the FILESHARE_CHANGE structure to describe an entry in a file share event notification list.
  * @remarks
- * 
  * <b>NNLEN</b> is defined by ClusAPI.h as follows.
  * 
- * <pre class="syntax" xml:space="preserve"><c>#define NNLEN       80                  // Net name length (share name)</c></pre>
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ne-clusapi-fileshare_change_enum
+ * ``` syntax
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ne-clusapi-fileshare_change_enum
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

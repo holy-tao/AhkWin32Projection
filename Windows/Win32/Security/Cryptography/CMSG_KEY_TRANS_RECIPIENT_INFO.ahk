@@ -7,7 +7,7 @@
 
 /**
  * The CMSG_KEY_TRANS_RECIPIENT_INFO structure contains information used in key transport algorithms.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmsg_key_trans_recipient_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_key_trans_recipient_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains flags that can be used to refine the search for a cryptographic algorithm.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-algorithmflags
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-algorithmflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Contains virtual hard disk (VHD) storage dependency information for type 1.
- * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ns-virtdisk-storage_dependency_info_type_1
+ * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-storage_dependency_info_type_1
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */

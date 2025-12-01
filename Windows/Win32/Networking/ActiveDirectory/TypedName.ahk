@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The IADsTypedName interface provides methods for an ADSI client to access the Typed Name attribute.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadstypedname
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319

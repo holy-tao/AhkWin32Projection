@@ -4,7 +4,7 @@
 
 /**
  * The TS_SELECTION_ANCHOR structure contains anchor-based text selection data.
- * @see https://docs.microsoft.com/windows/win32/api//textstor/ns-textstor-ts_selection_anchor
+ * @see https://learn.microsoft.com/windows/win32/api/textstor/ns-textstor-ts_selection_anchor
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

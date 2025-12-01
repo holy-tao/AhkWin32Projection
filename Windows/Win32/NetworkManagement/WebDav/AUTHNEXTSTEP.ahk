@@ -4,10 +4,8 @@
 /**
  * Specifies the next action that the WebDAV client should take after a successful call to the DavAuthCallback callback function.
  * @remarks
- * 
  * This enumeration provides the values for the <i>NextStep</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/nc-davclnt-pfndavauthcallback">DavAuthCallback</a> callback function.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//davclnt/ne-davclnt-authnextstep
+ * @see https://learn.microsoft.com/windows/win32/api/davclnt/ne-davclnt-authnextstep
  * @namespace Windows.Win32.NetworkManagement.WebDav
  * @version v4.0.30319
  */

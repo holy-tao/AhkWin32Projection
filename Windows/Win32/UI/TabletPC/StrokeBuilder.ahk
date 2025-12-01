@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Implements the IStrokeBuilder Interface.
  * @see https://learn.microsoft.com/windows/win32/tablet/strokebuilder-class
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319

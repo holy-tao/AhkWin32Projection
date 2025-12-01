@@ -3,7 +3,7 @@
 
 /**
  * Indicates whether an object can support optimized drawing of itself.
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/ne-ocidl-dvaspectinfoflag
+ * @see https://learn.microsoft.com/windows/win32/api/ocidl/ne-ocidl-dvaspectinfoflag
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

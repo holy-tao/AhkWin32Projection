@@ -6,13 +6,10 @@
 /**
  * The NET_VALIDATE_OUTPUT_ARG structure contains information about persistent password-related data that has changed since the user's last logon as well as the result of the function's password validation check.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netvalidatepasswordpolicy">NetValidatePasswordPolicy</a> function outputs the <b>NET_VALIDATE_OUTPUT_ARG</b> structure. 
  * 
  * Note that it is the application's responsibility to save all the data in the <b>ChangedPersistedFields</b> member of the <b>NET_VALIDATE_OUTPUT_ARG</b> structure as well as any User object information. The next time the application calls <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netvalidatepasswordpolicy">NetValidatePasswordPolicy</a> on the same instance of the User object, the application must provide the required fields from the persistent information.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-net_validate_output_arg
+ * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-net_validate_output_arg
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

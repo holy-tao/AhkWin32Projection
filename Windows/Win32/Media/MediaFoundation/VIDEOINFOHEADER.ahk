@@ -6,7 +6,6 @@
 /**
  * The VIDEOINFOHEADER structure describes the bitmap and color information for a video image.
  * @remarks
- * 
  * For information about using the <b>rcSource</b> and <b>rcTarget</b> members, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/source-and-target-rectangles-in-video-renderers">Source and Target Rectangles in Video Renderers</a>.
  * 
  * <h3><a id="Frame_Rates"></a><a id="frame_rates"></a><a id="FRAME_RATES"></a>Frame Rates</h3>
@@ -18,9 +17,7 @@
  * <li>If the old <a href="https://docs.microsoft.com/windows/desktop/DirectShow/video-renderer-filter">Video Renderer</a> filter is rendering, call the <a href="https://docs.microsoft.com/windows/desktop/api/control/nf-control-ibasicvideo-get_avgtimeperframe">IBasicVideo::get_AvgTimePerFrame</a> method.</li>
  * <li>If the Video Mixing Renderer (VMR) is rendering, call <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ipin-connectionmediatype">IPin::ConnectionMediaType</a> on the input pin and examine the format block. The VMR supports multiple input streams, and they are not required to have the same frame rates.</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//amvideo/ns-amvideo-videoinfoheader
+ * @see https://learn.microsoft.com/windows/win32/api/amvideo/ns-amvideo-videoinfoheader
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

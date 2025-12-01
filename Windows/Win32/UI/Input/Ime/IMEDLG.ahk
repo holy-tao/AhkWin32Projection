@@ -4,7 +4,7 @@
 
 /**
  * Used when invoking the Microsoft IME's Dictionary Tool or Word Register Dialog Window from the app.
- * @see https://docs.microsoft.com/windows/win32/api//msime/ns-msime-imedlg
+ * @see https://learn.microsoft.com/windows/win32/api/msime/ns-msime-imedlg
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */

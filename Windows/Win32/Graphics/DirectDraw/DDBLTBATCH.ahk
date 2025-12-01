@@ -3,7 +3,7 @@
 
 /**
  * The DDBLTBATCH structure passes bit block transfer (bitblt) operations to the IDirectDrawSurface7::BltBatch method.
- * @see https://docs.microsoft.com/windows/win32/api//ddraw/ns-ddraw-ddbltbatch
+ * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddbltbatch
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

@@ -4,13 +4,10 @@
 /**
  * Contains information about an output stream on a Media Foundation transform (MFT). To get these values, call IMFTransform::GetOutputStreamInfo.
  * @remarks
- * 
  * Before the media types are set, the only values that should be considered valid is the MFT_OUTPUT_STREAM_OPTIONAL flag in the <b>dwFlags</b> member. This flag indicates that the stream is optional and does not require a media type.
  * 
  * After you set a media type on all of the input and output streams (not including optional streams), all of the values returned by the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-getoutputstreaminfo">GetOutputStreamInfo</a> method are valid. They might change if you set different media types.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mftransform/ns-mftransform-mft_output_stream_info
+ * @see https://learn.microsoft.com/windows/win32/api/mftransform/ns-mftransform-mft_output_stream_info
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

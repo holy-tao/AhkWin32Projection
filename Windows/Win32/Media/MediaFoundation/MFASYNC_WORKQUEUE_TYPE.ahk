@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of work queue for the MFAllocateWorkQueueEx function to create.
- * @see https://docs.microsoft.com/windows/win32/api//mfapi/ne-mfapi-mfasync_workqueue_type
+ * @see https://learn.microsoft.com/windows/win32/api/mfapi/ne-mfapi-mfasync_workqueue_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

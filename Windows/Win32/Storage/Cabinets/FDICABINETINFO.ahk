@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The FDICABINETINFO structure contains details about a particular cabinet file.
  * @see https://learn.microsoft.com/windows/win32/api/fdi/ns-fdi-fdicabinetinfo
  * @namespace Windows.Win32.Storage.Cabinets
  * @version v4.0.30319
@@ -14,6 +14,7 @@ class FDICABINETINFO extends Win32Struct
     static packingSize => 4
 
     /**
+     * The total length of the cabinet file.
      * @type {Integer}
      */
     cbCabinet {
@@ -22,6 +23,7 @@ class FDICABINETINFO extends Win32Struct
     }
 
     /**
+     * The count of the folders in the cabinet.
      * @type {Integer}
      */
     cFolders {
@@ -30,6 +32,7 @@ class FDICABINETINFO extends Win32Struct
     }
 
     /**
+     * The count of the files in the cabinet.
      * @type {Integer}
      */
     cFiles {
@@ -38,6 +41,7 @@ class FDICABINETINFO extends Win32Struct
     }
 
     /**
+     * The identifier of the cabinet set.
      * @type {Integer}
      */
     setID {
@@ -46,6 +50,7 @@ class FDICABINETINFO extends Win32Struct
     }
 
     /**
+     * The cabinet number in set. This index is zero based.
      * @type {Integer}
      */
     iCabinet {
@@ -54,6 +59,7 @@ class FDICABINETINFO extends Win32Struct
     }
 
     /**
+     * If this value is set to <b>TRUE</b>, a reserved area is present in the cabinet.
      * @type {BOOL}
      */
     fReserve {
@@ -62,6 +68,7 @@ class FDICABINETINFO extends Win32Struct
     }
 
     /**
+     * If this value is set to <b>TRUE</b>, the cabinet is linked to a previous cabinet. This is accomplished by having a file continued from the previous cabinet into the current one.
      * @type {BOOL}
      */
     hasprev {
@@ -70,6 +77,7 @@ class FDICABINETINFO extends Win32Struct
     }
 
     /**
+     * If this value is set to <b>TRUE</b>, the current cabinet is linked to the next cabinet by having a file continued from the current cabinet into the next one.
      * @type {BOOL}
      */
     hasnext {

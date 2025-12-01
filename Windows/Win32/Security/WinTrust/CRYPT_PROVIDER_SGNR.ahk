@@ -4,7 +4,7 @@
 
 /**
  * Provides information about a signer or countersigner.
- * @see https://docs.microsoft.com/windows/win32/api//wintrust/ns-wintrust-crypt_provider_sgnr
+ * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_provider_sgnr
  * @namespace Windows.Win32.Security.WinTrust
  * @version v4.0.30319
  */

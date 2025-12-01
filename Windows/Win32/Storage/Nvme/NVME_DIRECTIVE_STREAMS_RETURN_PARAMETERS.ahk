@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains return parameters for the Streams Directive.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_directive_streams_return_parameters
  * @namespace Windows.Win32.Storage.Nvme
@@ -14,6 +16,7 @@ class NVME_DIRECTIVE_STREAMS_RETURN_PARAMETERS extends Win32Struct
     static packingSize => 4
 
     /**
+     * The maximum streams limit.
      * @type {Integer}
      */
     MSL {
@@ -22,6 +25,7 @@ class NVME_DIRECTIVE_STREAMS_RETURN_PARAMETERS extends Win32Struct
     }
 
     /**
+     * The number of available NVM Subsystem streams.
      * @type {Integer}
      */
     NSSA {
@@ -30,6 +34,7 @@ class NVME_DIRECTIVE_STREAMS_RETURN_PARAMETERS extends Win32Struct
     }
 
     /**
+     * The number of NVM Subsystem streams that are open.
      * @type {Integer}
      */
     NSSO {
@@ -38,6 +43,7 @@ class NVME_DIRECTIVE_STREAMS_RETURN_PARAMETERS extends Win32Struct
     }
 
     /**
+     * 
      * @type {Array<Byte>}
      */
     Reserved0{
@@ -49,6 +55,7 @@ class NVME_DIRECTIVE_STREAMS_RETURN_PARAMETERS extends Win32Struct
     }
 
     /**
+     * The stream write size.
      * @type {Integer}
      */
     SWS {
@@ -57,6 +64,7 @@ class NVME_DIRECTIVE_STREAMS_RETURN_PARAMETERS extends Win32Struct
     }
 
     /**
+     * The stream granularity size.
      * @type {Integer}
      */
     SGS {
@@ -65,6 +73,7 @@ class NVME_DIRECTIVE_STREAMS_RETURN_PARAMETERS extends Win32Struct
     }
 
     /**
+     * The number of namespace streams that are allocated.
      * @type {Integer}
      */
     NSA {
@@ -73,6 +82,7 @@ class NVME_DIRECTIVE_STREAMS_RETURN_PARAMETERS extends Win32Struct
     }
 
     /**
+     * The number of namespace streams that are open.
      * @type {Integer}
      */
     NSO {
@@ -81,6 +91,7 @@ class NVME_DIRECTIVE_STREAMS_RETURN_PARAMETERS extends Win32Struct
     }
 
     /**
+     * 
      * @type {Array<Byte>}
      */
     Reserved1{

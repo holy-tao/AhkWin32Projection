@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of application that is described by the RM_PROCESS_INFO structure.
- * @see https://docs.microsoft.com/windows/win32/api//restartmanager/ne-restartmanager-rm_app_type
+ * @see https://learn.microsoft.com/windows/win32/api/restartmanager/ne-restartmanager-rm_app_type
  * @namespace Windows.Win32.System.RestartManager
  * @version v4.0.30319
  */

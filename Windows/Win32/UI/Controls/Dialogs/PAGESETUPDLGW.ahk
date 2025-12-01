@@ -7,9 +7,8 @@
 #Include ..\..\..\Foundation\HINSTANCE.ahk
 
 /**
- * Contains information the PageSetupDlg function uses to initialize the Page Setup dialog box. After the user closes the dialog box, the system returns information about the user-defined page parameters in this structure.
+ * Contains information the PageSetupDlg function uses to initialize the Page Setup dialog box. After the user closes the dialog box, the system returns information about the user-defined page parameters in this structure. (Unicode)
  * @remarks
- * 
  * If the <b>PSD_INHUNDREDTHSOFMILLIMETERS</b> and <b>PSD_INTHOUSANDTHSOFINCHES</b> flags are not specified, the system queries the <b>LOCALE_IMEASURE</b> value of the default user locale to determine the unit of measure (either hundredths of millimeters or thousandths of inches) for the margin widths and paper size. 
  * 
  * If both <b>hDevNames</b> and <b>hDevMode</b> have valid handles and the printer name specified by the 
@@ -21,9 +20,7 @@
  * 
  * > [!NOTE]
  * > The commdlg.h header defines PAGESETUPDLG as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//commdlg/ns-commdlg-pagesetupdlgw
+ * @see https://learn.microsoft.com/windows/win32/api/commdlg/ns-commdlg-pagesetupdlgw
  * @namespace Windows.Win32.UI.Controls.Dialogs
  * @version v4.0.30319
  * @charset Unicode
@@ -98,7 +95,7 @@ class PAGESETUPDLGW extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * The dimensions of the paper selected by the user. The <b>PSD_INTHOUSANDTHSOFINCHES</b> or <b>PSD_INHUNDREDTHSOFMILLIMETERS</b> flag indicates the units of measurement.
      * @type {POINT}

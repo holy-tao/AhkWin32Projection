@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents an array of MI_Real32 types.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_constreal32a
+ * Represents an array of MI_Real32 types. (MI_ConstReal32A)
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_constreal32a
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

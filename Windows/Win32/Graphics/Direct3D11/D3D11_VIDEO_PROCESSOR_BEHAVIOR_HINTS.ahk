@@ -3,7 +3,7 @@
 
 /**
  * Specifies flags that indicate the most efficient methods for performing video processing operations.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/ne-d3d11_1-d3d11_video_processor_behavior_hints
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/ne-d3d11_1-d3d11_video_processor_behavior_hints
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

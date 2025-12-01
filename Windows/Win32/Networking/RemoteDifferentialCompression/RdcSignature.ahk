@@ -3,7 +3,7 @@
 
 /**
  * Contains a single signature and the length of the chunk used to generate it.
- * @see https://docs.microsoft.com/windows/win32/api//msrdc/ns-msrdc-rdcsignature
+ * @see https://learn.microsoft.com/windows/win32/api/msrdc/ns-msrdc-rdcsignature
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */

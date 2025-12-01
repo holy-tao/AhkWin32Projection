@@ -5,8 +5,7 @@
  * Describes the range of supported sizes for a video scaler.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_video_size_range
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_size_range
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The DRIVER\_INFO\_5 structure contains printer driver information.
  * @see https://learn.microsoft.com/windows/win32/printdocs/driver-info-5
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
@@ -15,6 +15,7 @@ class DRIVER_INFO_5A extends Win32Struct
     static packingSize => 8
 
     /**
+     * The operating system version for which the driver was written. The supported value is 3.
      * @type {Integer}
      */
     cVersion {
@@ -23,6 +24,7 @@ class DRIVER_INFO_5A extends Win32Struct
     }
 
     /**
+     * Pointer to a null-terminated string that specifies the name of the driver (for example, QMS 810).
      * @type {PSTR}
      */
     pName {
@@ -31,6 +33,7 @@ class DRIVER_INFO_5A extends Win32Struct
     }
 
     /**
+     * Pointer to a null-terminated string that specifies the environment for which the driver was written (for example, Windows x86, Windows IA64, and Windows x64).
      * @type {PSTR}
      */
     pEnvironment {
@@ -39,6 +42,7 @@ class DRIVER_INFO_5A extends Win32Struct
     }
 
     /**
+     * Pointer to a null-terminated string that specifies a file name or a full path and file name for the file that contains the device driver (for example, C:\\DRIVERS\\Pscript.dll).
      * @type {PSTR}
      */
     pDriverPath {
@@ -47,6 +51,7 @@ class DRIVER_INFO_5A extends Win32Struct
     }
 
     /**
+     * Pointer to a null-terminated string that specifies a file name or a full path and file name for the file that contains driver data (for example, C:\\DRIVERS\\Qms810.ppd).
      * @type {PSTR}
      */
     pDataFile {
@@ -55,6 +60,7 @@ class DRIVER_INFO_5A extends Win32Struct
     }
 
     /**
+     * Pointer to a null-terminated string that specifies a file name or a full path and file name for the device driver's configuration dynamic-link library (for example, C:\\DRIVERS\\Pscrptui.dll).
      * @type {PSTR}
      */
     pConfigFile {
@@ -63,6 +69,7 @@ class DRIVER_INFO_5A extends Win32Struct
     }
 
     /**
+     * Driver attributes, like UMPD/KMPD.
      * @type {Integer}
      */
     dwDriverAttributes {
@@ -71,6 +78,7 @@ class DRIVER_INFO_5A extends Win32Struct
     }
 
     /**
+     * Number of times the configuration file for this driver has been upgraded or downgraded since the last spooler restart.
      * @type {Integer}
      */
     dwConfigVersion {
@@ -79,6 +87,7 @@ class DRIVER_INFO_5A extends Win32Struct
     }
 
     /**
+     * Number of times the driver file for this driver has been upgraded or downgraded since the last spooler restart.
      * @type {Integer}
      */
     dwDriverVersion {

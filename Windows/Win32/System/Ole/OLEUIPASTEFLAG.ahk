@@ -3,7 +3,7 @@
 
 /**
  * Indicates the user options that are available to the user when pasting this format, and within which group or list of choices (Paste, Paste Link, etc.).
- * @see https://docs.microsoft.com/windows/win32/api//oledlg/ne-oledlg-oleuipasteflag
+ * @see https://learn.microsoft.com/windows/win32/api/oledlg/ne-oledlg-oleuipasteflag
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

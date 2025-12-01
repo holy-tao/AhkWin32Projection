@@ -24,8 +24,8 @@ class ProcessSnapshotting {
      * @param {Pointer<HPSS>} SnapshotHandle A handle to the snapshot that this function captures.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> on success.
      * 
-     * All error codes are defined in winerror.h. Use <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a message for an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//processsnapshot/nf-processsnapshot-psscapturesnapshot
+     * All error codes are defined in winerror.h. Use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a message for an error code.
+     * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/nf-processsnapshot-psscapturesnapshot
      * @since windows8.1
      */
     static PssCaptureSnapshot(ProcessHandle, CaptureFlags, ThreadContextFlags, SnapshotHandle) {
@@ -37,6 +37,14 @@ class ProcessSnapshotting {
 
     /**
      * Frees a snapshot.
+     * @remarks
+     * This API can free snapshot handles in the context of either the local or remote processes. If the snapshot was captured in the local process with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psscapturesnapshot">PssCaptureSnapshot</a>, or duplicated into the local process with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-pssduplicatesnapshot">PssDuplicateSnapshot</a>, then specify the result of <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess">GetCurrentProcess</a> as the process handle. If the snapshot is in the context of a remote process (for example, duplicated into the remote process), then specify the handle to that process.
+     * 
+     * The operation does not protect against concurrent access to the same descriptor.
+     * 
+     * For remote process frees, only snapshot handles that were created with<b> PSS_CREATE_USE_VM_ALLOCATIONS</b> or duplicated remotely can be freed by this API.
+     * 
+     * The behavior of this routine on a descriptor that has already been freed is undefined.
      * @param {HANDLE} ProcessHandle A handle to the process that contains the snapshot. The handle must have <b>PROCESS_VM_READ</b>, <b>PROCESS_VM_OPERATION</b>, and <b>PROCESS_DUP_HANDLE</b> rights. If the snapshot was captured from the current process, or duplicated into the current process, then pass in the result of <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess">GetCurrentProcess</a>.
      * @param {HPSS} SnapshotHandle A handle to the snapshot to free.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> on success or one of the following error codes.
@@ -71,8 +79,8 @@ class ProcessSnapshotting {
      * </table>
      *  
      * 
-     * All error codes are defined in winerror.h. Use <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a message for an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//processsnapshot/nf-processsnapshot-pssfreesnapshot
+     * All error codes are defined in winerror.h. Use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a message for an error code.
+     * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/nf-processsnapshot-pssfreesnapshot
      * @since windows8.1
      */
     static PssFreeSnapshot(ProcessHandle, SnapshotHandle) {
@@ -143,8 +151,8 @@ class ProcessSnapshotting {
      * </table>
      *  
      * 
-     * All error codes are defined in winerror.h. Use <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a message for an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//processsnapshot/nf-processsnapshot-pssquerysnapshot
+     * All error codes are defined in winerror.h. Use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a message for an error code.
+     * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/nf-processsnapshot-pssquerysnapshot
      * @since windows8.1
      */
     static PssQuerySnapshot(SnapshotHandle, InformationClass, Buffer_R, BufferLength) {
@@ -156,6 +164,8 @@ class ProcessSnapshotting {
 
     /**
      * Returns information from the current walk position and advanced the walk marker to the next position.
+     * @remarks
+     * For snapshot data types that have a variable number of instances within a snapshot, you use the <b>PssWalkSnapshot</b> function to obtain the instances one after another. You set the <i>InformationClass</i> parameter to specify the type of data.
      * @param {HPSS} SnapshotHandle A handle to the snapshot.
      * @param {Integer} InformationClass The type of information to return. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_walk_information_class">PSS_WALK_INFORMATION_CLASS</a>.
      * @param {HPSSWALK} WalkMarkerHandle A handle to a walk marker. The walk marker indicates the walk position from which data is to be returned. <b>PssWalkSnapshot</b> advances the walk marker to the next walk position in time order before returning to the caller.
@@ -237,8 +247,8 @@ class ProcessSnapshotting {
      * </table>
      *  
      * 
-     * All error codes are defined in winerror.h. Use <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a message for an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//processsnapshot/nf-processsnapshot-psswalksnapshot
+     * All error codes are defined in winerror.h. Use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a message for an error code.
+     * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/nf-processsnapshot-psswalksnapshot
      * @since windows8.1
      */
     static PssWalkSnapshot(SnapshotHandle, InformationClass, WalkMarkerHandle, Buffer_R, BufferLength) {
@@ -279,8 +289,8 @@ class ProcessSnapshotting {
      * </table>
      *  
      * 
-     * All error codes are defined in winerror.h. Use <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a message for an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//processsnapshot/nf-processsnapshot-pssduplicatesnapshot
+     * All error codes are defined in winerror.h. Use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a message for an error code.
+     * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/nf-processsnapshot-pssduplicatesnapshot
      * @since windows8.1
      */
     static PssDuplicateSnapshot(SourceProcessHandle, SnapshotHandle, TargetProcessHandle, TargetSnapshotHandle, Flags) {
@@ -294,6 +304,10 @@ class ProcessSnapshotting {
 
     /**
      * Creates a walk marker.
+     * @remarks
+     * The walk marker maintains the state of a walk, and can be used to reposition or rewind the walk.
+     * 
+     * The <i>Allocator</i> structure that provides the custom functions should remain valid for the lifetime of the walk marker. The custom functions are called from <b>PssWalkMarkerCreate</b>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psswalkmarkerfree">PssWalkMarkerFree</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psswalksnapshot">PssWalkSnapshot</a> using the same thread that calls <b>PssWalkMarkerCreate</b>, <b>PssWalkMarkerFree</b> and <b>PssWalkSnapshot</b>. Therefore the custom functions need not be multi-threaded.
      * @param {Pointer<PSS_ALLOCATOR>} Allocator A structure that provides functions to allocate and free memory.  If you provide the structure, <b>PssWalkMarkerCreate</b> uses the functions to  allocate the internal walk marker structures. Otherwise it uses the default process heap. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ns-processsnapshot-pss_allocator">PSS_ALLOCATOR</a>.
      * @param {Pointer<HPSSWALK>} WalkMarkerHandle A handle to the walk marker that this function creates.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> on success or the following error code.
@@ -317,8 +331,8 @@ class ProcessSnapshotting {
      * </table>
      *  
      * 
-     * All error codes are defined in winerror.h. Use <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a message for an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//processsnapshot/nf-processsnapshot-psswalkmarkercreate
+     * All error codes are defined in winerror.h. Use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a message for an error code.
+     * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/nf-processsnapshot-psswalkmarkercreate
      * @since windows8.1
      */
     static PssWalkMarkerCreate(Allocator, WalkMarkerHandle) {
@@ -328,11 +342,13 @@ class ProcessSnapshotting {
 
     /**
      * Frees a walk marker created by PssWalkMarkerCreate.
+     * @remarks
+     * If <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psswalkmarkercreate">PssWalkMarkerCreate</a> used <b>AllocRoutine</b> of a custom allocator to create the walk marker, <b>PssWalkMarkerFree</b> uses the <b>FreeRoutine</b> of the allocator.
      * @param {HPSSWALK} WalkMarkerHandle A handle to the walk marker.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> on success.
      * 
-     * All error codes are defined in winerror.h. Use <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a message for an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//processsnapshot/nf-processsnapshot-psswalkmarkerfree
+     * All error codes are defined in winerror.h. Use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a message for an error code.
+     * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/nf-processsnapshot-psswalkmarkerfree
      * @since windows8.1
      */
     static PssWalkMarkerFree(WalkMarkerHandle) {
@@ -344,12 +360,14 @@ class ProcessSnapshotting {
 
     /**
      * Returns the current position of a walk marker.
+     * @remarks
+     * The position value compared to the values of other positions is not of any significance. The only valid use of the position is to set the current position using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psswalkmarkersetposition">PssWalkMarkerSetPosition</a> function.
      * @param {HPSSWALK} WalkMarkerHandle A  handle to the walk marker.
      * @param {Pointer<Pointer>} Position The walk marker position that this function returns.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> on success.
      * 
-     * All error codes are defined in winerror.h. Use <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a message for an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//processsnapshot/nf-processsnapshot-psswalkmarkergetposition
+     * All error codes are defined in winerror.h. Use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a message for an error code.
+     * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/nf-processsnapshot-psswalkmarkergetposition
      * @since windows8.1
      */
     static PssWalkMarkerGetPosition(WalkMarkerHandle, Position) {
@@ -367,8 +385,8 @@ class ProcessSnapshotting {
      * @param {Pointer} Position The position to set. This is a position that the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psswalkmarkergetposition">PssWalkMarkerGetPosition</a> function provided.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> on success or one of the following error codes.
      * 
-     * All error codes are defined in winerror.h. Use <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a message for an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//processsnapshot/nf-processsnapshot-psswalkmarkersetposition
+     * All error codes are defined in winerror.h. Use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a message for an error code.
+     * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/nf-processsnapshot-psswalkmarkersetposition
      * @since windows8.1
      */
     static PssWalkMarkerSetPosition(WalkMarkerHandle, Position) {
@@ -383,8 +401,8 @@ class ProcessSnapshotting {
      * @param {HPSSWALK} WalkMarkerHandle A handle to the walk marker.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> on success.
      * 
-     * All error codes are defined in winerror.h. Use <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a message for an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//processsnapshot/nf-processsnapshot-psswalkmarkerseektobeginning
+     * All error codes are defined in winerror.h. Use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a message for an error code.
+     * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/nf-processsnapshot-psswalkmarkerseektobeginning
      * @since windows8.1
      */
     static PssWalkMarkerSeekToBeginning(WalkMarkerHandle) {

@@ -3,7 +3,7 @@
 
 /**
  * Specifies a WebSocket property type.
- * @see https://docs.microsoft.com/windows/win32/api//websocket/ne-websocket-web_socket_property_type
+ * @see https://learn.microsoft.com/windows/win32/api/websocket/ne-websocket-web_socket_property_type
  * @namespace Windows.Win32.Networking.WebSocket
  * @version v4.0.30319
  */

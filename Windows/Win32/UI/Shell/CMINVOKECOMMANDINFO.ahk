@@ -6,10 +6,8 @@
 /**
  * Contains information needed by IContextMenu::InvokeCommand to invoke a shortcut menu command.
  * @remarks
- * 
  * Although the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-icontextmenu-invokecommand">IContextMenu::InvokeCommand</a> declaration specifies a <b>CMINVOKECOMMANDINFO</b> structure for the <i>pici</i> parameter, it can also accept a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-cminvokecommandinfoex">CMINVOKECOMMANDINFOEX</a> structure. If you are implementing this method, you must inspect <b>cbSize</b> to determine which structure has been passed.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ns-shobjidl_core-cminvokecommandinfo
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-cminvokecommandinfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

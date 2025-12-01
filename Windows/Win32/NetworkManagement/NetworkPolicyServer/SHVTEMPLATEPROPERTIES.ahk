@@ -3,7 +3,7 @@
 
 /**
  * The values of the SHVTEMPLATEPROPERTIES enumeration type enumerate the properties of a System Health Validator (SHV) template.
- * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-shvtemplateproperties
+ * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-shvtemplateproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

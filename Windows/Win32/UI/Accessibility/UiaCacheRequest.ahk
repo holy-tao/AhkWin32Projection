@@ -3,7 +3,7 @@
 
 /**
  * Note  This structure is deprecated.  Contains information about a request to cache data about UI Automation elements.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/ns-uiautomationcoreapi-uiacacherequest
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacacherequest
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

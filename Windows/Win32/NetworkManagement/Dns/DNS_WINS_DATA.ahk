@@ -4,13 +4,10 @@
 /**
  * The DNS_WINS_DATA structure represents a DNS Windows Internet Name Service (WINS) record.
  * @remarks
- * 
  * The 
  * <b>DNS_WINS_DATA</b> structure is used in conjunction with the 
  * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure to programmatically manage DNS entries.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_wins_data
+ * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_wins_data
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

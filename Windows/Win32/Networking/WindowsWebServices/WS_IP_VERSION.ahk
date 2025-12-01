@@ -3,7 +3,7 @@
 
 /**
  * Specifies an IP version.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_ip_version
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_ip_version
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

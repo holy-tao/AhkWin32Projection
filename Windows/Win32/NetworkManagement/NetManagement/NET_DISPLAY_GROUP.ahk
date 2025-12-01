@@ -3,7 +3,7 @@
 
 /**
  * The NET_DISPLAY_GROUP structure contains information that an account manager can access to determine information about group accounts.
- * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-net_display_group
+ * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-net_display_group
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

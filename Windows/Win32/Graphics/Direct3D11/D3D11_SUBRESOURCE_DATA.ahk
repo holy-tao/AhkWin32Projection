@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Specifies data for initializing a subresource.
+ * Specifies data for initializing a subresource. (D3D11_SUBRESOURCE_DATA)
  * @remarks
- * 
  * This structure is used in calls to create buffers (<a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createbuffer">ID3D11Device::CreateBuffer</a>) and 
  *       textures (<a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createtexture1d">ID3D11Device::CreateTexture1D</a>, <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createtexture2d">ID3D11Device::CreateTexture2D</a>, 
  *       and <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createtexture3d">ID3D11Device::CreateTexture3D</a>). If the resource you create does not require a system-memory pitch or a system-memory-slice pitch, you can use those members to pass size information, which might help you when you debug a problem with creating a resource.
@@ -20,9 +19,7 @@
  *       the texture could be a subsection of a larger texture.  For example, the <b>D3D11_SUBRESOURCE_DATA</b> structure could represent a 32 by 32 subsection of a 128 by 128 texture.  
  *       The value for <b>SysMemSlicePitch</b> will reflect any padding included in <b>SysMemPitch</b>.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_subresource_data
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_subresource_data
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

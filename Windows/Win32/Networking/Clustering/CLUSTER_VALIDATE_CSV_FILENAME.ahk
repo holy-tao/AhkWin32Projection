@@ -3,7 +3,7 @@
 
 /**
  * Represents a cluster shared volume (CSV) during a validation operation.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-cluster_validate_csv_filename
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-cluster_validate_csv_filename
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

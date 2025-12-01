@@ -3,7 +3,7 @@
 
 /**
  * Specifies the callback function and state for an application that wishes to associate or inspect headers in an input or an output message respectively.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_proxy_message_callback_context
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_proxy_message_callback_context
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

@@ -4,11 +4,8 @@
 /**
  * Contains pointer-based device properties (Human Interface Device (HID) global items that correspond to HID usages).
  * @remarks
- * 
- * Developers can use this function to determine the properties that a device supports beyond the standard ones that are delivered through <a href="https://docs.microsoft.com/previous-versions/windows/desktop/inputmsg/messages-and-notifications">Pointer Input Messages and Notifications</a>. The properties map directly to HID usages.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-pointer_device_property
+ * Developers can use this function to determine the properties that a device supports beyond the standard ones that are delivered through <a href="https://docs.microsoft.com/windows/win32/inputmsg/messages-and-notifications-portal">Pointer Input Messages and Notifications</a>. The properties map directly to HID usages.
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-pointer_device_property
  * @namespace Windows.Win32.UI.Input.Pointer
  * @version v4.0.30319
  */

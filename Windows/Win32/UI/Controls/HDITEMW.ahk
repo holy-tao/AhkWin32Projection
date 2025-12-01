@@ -3,9 +3,8 @@
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
- * Contains information about an item in a header control. This structure supersedes the HD_ITEM structure.
+ * Contains information about an item in a header control. This structure supersedes the HD_ITEM structure. (Unicode)
  * @remarks
- * 
  * <div class="alert"><b>Note</b>  Comctl32.dll version 6 is not redistributable but it is included in Windows. To use Comctl32.dll version 6, specify it in a manifest. For more information on manifests, see <a href="https://docs.microsoft.com/windows/desktop/Controls/cookbook-overview">Enabling Visual Styles</a>.</div>
  * <div> </div>
  * 
@@ -13,8 +12,7 @@
  * 
  * > [!NOTE]
  * > The commctrl.h header defines HDITEM as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-hditemw
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-hditemw
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  * @charset Unicode

@@ -5,7 +5,7 @@
 
 /**
  * Represents the data structure used for the CF_OBJECTDESRIPTOR and CF_LINKSRCDESCRIPTOR file formats.
- * @see https://docs.microsoft.com/windows/win32/api//oleidl/ns-oleidl-objectdescriptor
+ * @see https://learn.microsoft.com/windows/win32/api/oleidl/ns-oleidl-objectdescriptor
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

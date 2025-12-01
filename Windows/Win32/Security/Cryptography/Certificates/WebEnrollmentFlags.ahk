@@ -3,7 +3,7 @@
 
 /**
  * Specifies web enrollment behavior.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-webenrollmentflags
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-webenrollmentflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

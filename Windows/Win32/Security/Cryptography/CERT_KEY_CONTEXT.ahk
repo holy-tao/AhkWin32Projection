@@ -4,7 +4,7 @@
 
 /**
  * Contains data associated with a CERT_KEY_CONTEXT_PROP_ID property.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_key_context
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_key_context
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

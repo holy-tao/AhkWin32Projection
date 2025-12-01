@@ -3,7 +3,7 @@
 
 /**
  * Describes a buffer allocated by a transport application to pass to a security package.
- * @see https://docs.microsoft.com/windows/win32/api//sspi/ns-sspi-secbuffer
+ * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secbuffer
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

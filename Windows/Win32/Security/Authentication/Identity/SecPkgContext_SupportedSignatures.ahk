@@ -3,7 +3,7 @@
 
 /**
  * Specifies the signature algorithms supported by an Schannel connection.
- * @see https://docs.microsoft.com/windows/win32/api//schannel/ns-schannel-secpkgcontext_supportedsignatures
+ * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_supportedsignatures
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies attributes for a user-mode scheduling (UMS) scheduler thread.
- * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-ums_scheduler_startup_info
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-ums_scheduler_startup_info
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

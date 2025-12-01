@@ -3,7 +3,7 @@
 
 /**
  * Represents the stages of a synchronization session.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/ne-winsync-sync_progress_stage
+ * @see https://learn.microsoft.com/windows/win32/api/winsync/ne-winsync-sync_progress_stage
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */

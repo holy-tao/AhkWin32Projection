@@ -3,7 +3,7 @@
 
 /**
  * The TF_PERSISTENT_PROPERTY_HEADER_ACP structure is used to provide property header data.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/ns-msctf-tf_persistent_property_header_acp
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/ns-msctf-tf_persistent_property_header_acp
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains process mitigation policy settings for data execution prevention (DEP).
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-process_mitigation_dep_policy
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-process_mitigation_dep_policy
  * @namespace Windows.Win32.System.SystemServices
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Performs a general matrix multiplication function of the form `Output = FusedActivation(Alpha * TransA(A) x TransB(B) + Beta * C)`, where `x` denotes matrix multiplication, and `*` denotes multiplication with a scalar.
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_gemm_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_gemm_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
@@ -104,7 +104,7 @@ class DML_GEMM_OPERATOR_DESC extends Win32Struct
     /**
      * Type: \_Maybenull\_ **const [DML_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_operator_desc)\***
      * 
-     * An optional fused activation layer to apply after the GEMM.
+     * An optional fused activation layer to apply after the GEMM. For more info, see [Using fused operators for improved performance](/windows/ai/directml/dml-fused-activations).
      * @type {Pointer<DML_OPERATOR_DESC>}
      */
     FusedActivation {

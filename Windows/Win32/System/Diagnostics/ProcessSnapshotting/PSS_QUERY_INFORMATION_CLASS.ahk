@@ -3,7 +3,7 @@
 
 /**
  * Specifies what information PssQuerySnapshot function returns.
- * @see https://docs.microsoft.com/windows/win32/api//processsnapshot/ne-processsnapshot-pss_query_information_class
+ * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/ne-processsnapshot-pss_query_information_class
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
  * @version v4.0.30319
  */

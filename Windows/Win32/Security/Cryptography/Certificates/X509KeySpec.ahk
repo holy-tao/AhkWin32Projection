@@ -3,7 +3,7 @@
 
 /**
  * Specifies the intended use of a key for a legacy cryptographic service provider (CSP).
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-x509keyspec
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509keyspec
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

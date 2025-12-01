@@ -3,7 +3,7 @@
 
 /**
  * The USER_INFO_21 structure contains a one-way encrypted LAN Manager 2.x-compatible password.
- * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-user_info_21
+ * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_21
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

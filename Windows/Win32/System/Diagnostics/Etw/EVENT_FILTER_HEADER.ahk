@@ -4,7 +4,6 @@
 /**
  * Defines the header data that must precede the filter data that is defined in the instrumentation manifest.
  * @remarks
- * 
  * The filter data that you pass to the provider also includes a header. The
  * following shows an example of how you would define a filter that contained three
  * integers:
@@ -19,9 +18,7 @@
  * 
  * MY_FILTER FilterData;
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//evntprov/ns-evntprov-event_filter_header
+ * @see https://learn.microsoft.com/windows/win32/api/evntprov/ns-evntprov-event_filter_header
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

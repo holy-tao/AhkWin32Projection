@@ -3,7 +3,7 @@
 
 /**
  * The CALLHUB_STATE enum is a state indicator returned by the ITCallHub::get_State method.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-callhub_state
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-callhub_state
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
 #Include .\D3DAUTHENTICATEDCHANNEL_PROTECTION_FLAGS.ahk
 
 /**
- * 
+ * Contains input data for a D3DAUTHENTICATEDCONFIGURE\_PROTECTION command.
  * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-configureprotection
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
@@ -18,6 +18,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGUREPROTECTION extends Win32Struct
     static packingSize => 8
 
     /**
+     * A [**D3DAUTHENTICATEDCHANNEL\_CONFIGURE\_INPUT**](d3dauthenticatedchannel-configure-input.md) structure that contains the command GUID and other data.
      * @type {D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT}
      */
     Parameters{
@@ -29,6 +30,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGUREPROTECTION extends Win32Struct
     }
 
     /**
+     * A [**D3DAUTHENTICATEDCHANNEL\_PROTECTION\_FLAGS**](d3dauthenticatedchannel-protection-flags.md) structure that specifies the protection level.
      * @type {D3DAUTHENTICATEDCHANNEL_PROTECTION_FLAGS}
      */
     Protections{

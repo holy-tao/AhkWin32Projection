@@ -4,7 +4,6 @@
 /**
  * Used by a writer at backup time to specify through its Writer Metadata Document the default file restore method.
  * @remarks
- * 
  * A writer sets the restore method in the Writer Metadata Document by calling 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-setrestoremethod">IVssCreateWriterMetadata::SetRestoreMethod</a> 
  *     during backup to specify its desired restore method in its metadata.
@@ -57,9 +56,7 @@
  * For more information on backup and restore file locations under VSS, see 
  *     <a href="https://docs.microsoft.com/windows/desktop/VSS/non-default-backup-and-restore-locations">Non-Default Backup And Restore 
  *     Locations</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vswriter/ne-vswriter-vss_restoremethod_enum
+ * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_restoremethod_enum
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

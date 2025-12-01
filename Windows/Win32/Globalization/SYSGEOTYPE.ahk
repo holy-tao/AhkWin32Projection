@@ -3,7 +3,7 @@
 
 /**
  * Defines the type of geographical location information requested in the GetGeoInfo or GetGeoInfoEx function.
- * @see https://docs.microsoft.com/windows/win32/api//winnls/ne-winnls-sysgeotype
+ * @see https://learn.microsoft.com/windows/win32/api/winnls/ne-winnls-sysgeotype
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

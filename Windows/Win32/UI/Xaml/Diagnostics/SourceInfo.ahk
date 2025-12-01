@@ -4,7 +4,7 @@
 
 /**
  * Represents information about an object’s XAML source document.
- * @see https://docs.microsoft.com/windows/win32/api//xamlom/ns-xamlom-sourceinfo
+ * @see https://learn.microsoft.com/windows/win32/api/xamlom/ns-xamlom-sourceinfo
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  * @version v4.0.30319
  */

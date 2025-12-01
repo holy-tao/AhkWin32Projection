@@ -3,7 +3,7 @@
 
 /**
  * Specifies the render intent of the next CopyPixels call.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicrawrendermode
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicrawrendermode
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

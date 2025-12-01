@@ -3,7 +3,7 @@
 
 /**
  * The property of the search criteria.
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/ne-gpmgmt-gpmsearchproperty
+ * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/ne-gpmgmt-gpmsearchproperty
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */

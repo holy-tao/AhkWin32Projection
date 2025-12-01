@@ -3,14 +3,14 @@
 
 /**
  * Identifiers for properties of the Vignette effect.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effects_2/ne-d2d1effects_2-d2d1_vignette_prop
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effects_2/ne-d2d1effects_2-d2d1_vignette_prop
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
 class D2D1_VIGNETTE_PROP extends Win32Enum{
 
     /**
-     * The D2D1_VIGNETTE_PROP_COLOR property is an RGB tripplet that specifies the color to fade the image's edges to. The default color is black.
+     * The D2D1_VIGNETTE_PROP_COLOR property is an RGB triplet that specifies the color to fade the image's edges to. The default color is black.
      * @type {Integer (Int32)}
      */
     static D2D1_VIGNETTE_PROP_COLOR => 0

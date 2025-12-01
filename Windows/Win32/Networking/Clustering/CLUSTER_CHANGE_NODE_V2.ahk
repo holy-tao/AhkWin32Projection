@@ -2,13 +2,10 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Defines the notifications that are generated for a cluster node.
+ * The CLUSTER_CHANGE_NODE_V2 enumeration (msclus.h) defines the notifications that are generated for a cluster node.
  * @remarks
- * 
  * Protocol version 2.0 servers do not support this enumeration.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_change_node_v2
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_change_node_v2
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

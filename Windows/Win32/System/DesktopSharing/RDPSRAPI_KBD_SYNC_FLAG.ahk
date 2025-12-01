@@ -3,7 +3,7 @@
 
 /**
  * Defines values for the type of keys that control the state of a keyboard, such as the Caps Lock key.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/ne-rdpencomapi-rdpsrapi_kbd_sync_flag
+ * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/ne-rdpencomapi-rdpsrapi_kbd_sync_flag
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */

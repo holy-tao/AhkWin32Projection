@@ -3,7 +3,7 @@
 
 /**
  * Contains the information to request an opportunistic lock (oplock) or to acknowledge an oplock break with the FSCTL_REQUEST_OPLOCK control code.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-request_oplock_input_buffer
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-request_oplock_input_buffer
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

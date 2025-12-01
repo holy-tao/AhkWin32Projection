@@ -3,7 +3,7 @@
 
 /**
  * Specifies the sequence in which text is written on its parent element.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/ne-mfmediaengine-mf_timed_text_writing_mode
+ * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_writing_mode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

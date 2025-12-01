@@ -3,7 +3,7 @@
 
 /**
  * Describes a video sample.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/ns-d3d11_1-d3d11_video_sample_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/ns-d3d11_1-d3d11_video_sample_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

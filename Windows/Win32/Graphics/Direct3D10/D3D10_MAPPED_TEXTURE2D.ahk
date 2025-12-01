@@ -4,7 +4,6 @@
 /**
  * Provides access to subresource data in a 2D texture.
  * @remarks
- * 
  * This structure is used in a call to <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10texture2d-map">Map</a>.
  * 
  * To illustrate the row pitch, assume an uncompressed 2D texture with mipmap levels, as shown in the following illustration.
@@ -56,9 +55,7 @@
  * }
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10/ns-d3d10-d3d10_mapped_texture2d
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_mapped_texture2d
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

@@ -5,9 +5,8 @@
 #Include .\IMAGE_OPTIONAL_HEADER32.ahk
 
 /**
- * Represents the PE header format.
+ * Represents the PE header format. (32 bit)
  * @remarks
- * 
  * The actual structure in WinNT.h is named <b>IMAGE_NT_HEADERS32</b> and <b>IMAGE_NT_HEADERS</b> is defined as <b>IMAGE_NT_HEADERS32</b>. However, if _WIN64 is defined,  then <b>IMAGE_NT_HEADERS</b> is defined as <b>IMAGE_NT_HEADERS64</b>.
  * 
  * 
@@ -18,9 +17,7 @@
  *     IMAGE_OPTIONAL_HEADER64 OptionalHeader;
  * } IMAGE_NT_HEADERS64, *PIMAGE_NT_HEADERS64;
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-image_nt_headers32
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_nt_headers32
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

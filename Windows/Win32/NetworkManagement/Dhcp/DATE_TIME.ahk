@@ -3,7 +3,7 @@
 
 /**
  * The DATE_TIME structure defines a 64-bit integer value that contains a date/time, expressed as the number of ticks (100-nanosecond increments) since 12:00 midnight, January 1, 1 C.E. in the Gregorian calendar.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-date_time
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-date_time
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

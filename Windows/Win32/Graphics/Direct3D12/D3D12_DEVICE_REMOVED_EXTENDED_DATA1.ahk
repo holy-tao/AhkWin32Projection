@@ -5,7 +5,7 @@
 
 /**
  * Represents Device Removed Extended Data (DRED) version 1.1 data.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_device_removed_extended_data1
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_device_removed_extended_data1
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

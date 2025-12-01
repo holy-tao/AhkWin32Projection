@@ -3,7 +3,7 @@
 
 /**
  * ACT_AUTHORIZATION_STATE structure contains data that describes the current authorization state of a Addressable Command Target (ACT).
- * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/ns-ehstorapi-act_authorization_state
+ * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/ns-ehstorapi-act_authorization_state
  * @namespace Windows.Win32.Storage.EnhancedStorage
  * @version v4.0.30319
  */

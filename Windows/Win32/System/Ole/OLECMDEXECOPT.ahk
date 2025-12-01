@@ -3,7 +3,7 @@
 
 /**
  * Specifies command execution options.
- * @see https://docs.microsoft.com/windows/win32/api//docobj/ne-docobj-olecmdexecopt
+ * @see https://learn.microsoft.com/windows/win32/api/docobj/ne-docobj-olecmdexecopt
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

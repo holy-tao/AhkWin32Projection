@@ -3,7 +3,7 @@
 
 /**
  * Used to set and query the role of an LSA server.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-policy_lsa_server_role_info
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-policy_lsa_server_role_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

@@ -3,6 +3,8 @@
 #Include .\DML_SCALAR_UNION.ahk
 
 /**
+ * Performs a clamping (or limiting) operation for each element of *InputTensor*, placing the result into the corresponding element of *OutputTensor*.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_clip1_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
@@ -15,6 +17,9 @@ class DML_ELEMENT_WISE_CLIP1_OPERATOR_DESC extends Win32Struct
     static packingSize => 8
 
     /**
+     * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
+     * 
+     * The input tensor to read from.
      * @type {Pointer<DML_TENSOR_DESC>}
      */
     InputTensor {
@@ -23,6 +28,9 @@ class DML_ELEMENT_WISE_CLIP1_OPERATOR_DESC extends Win32Struct
     }
 
     /**
+     * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
+     * 
+     * The output tensor to write the results to.
      * @type {Pointer<DML_TENSOR_DESC>}
      */
     OutputTensor {
@@ -31,6 +39,9 @@ class DML_ELEMENT_WISE_CLIP1_OPERATOR_DESC extends Win32Struct
     }
 
     /**
+     * Type: \_Maybenull\_ **const [DML_SCALE_BIAS](/windows/win32/api/directml/ns-directml-dml_scale_bias)\***
+     * 
+     * An optional scale and bias to apply to the input. If present, this has the effect of applying the function `g(x) = x * scale + bias` to each *input* element prior to computing this operator.
      * @type {Pointer<DML_SCALE_BIAS>}
      */
     ScaleBias {
@@ -39,6 +50,9 @@ class DML_ELEMENT_WISE_CLIP1_OPERATOR_DESC extends Win32Struct
     }
 
     /**
+     * Type: [**DML_TENSOR_DATA_TYPE**](/windows/win32/api/directml/ne-directml-dml_tensor_data_type)
+     * 
+     * The data type of the *Min* and *Max* members, which must match *OutputTensor.DataType*.
      * @type {Integer}
      */
     MinMaxDataType {
@@ -47,6 +61,9 @@ class DML_ELEMENT_WISE_CLIP1_OPERATOR_DESC extends Win32Struct
     }
 
     /**
+     * Type: [**DML_SCALAR_UNION**](/windows/win32/api/directml/ns-directml-dml_scalar_union)
+     * 
+     * The minimum value, below which the operator replaces the value with *Min*. *MinMaxDataType* determines how to interpret the field.
      * @type {DML_SCALAR_UNION}
      */
     Min{
@@ -58,6 +75,9 @@ class DML_ELEMENT_WISE_CLIP1_OPERATOR_DESC extends Win32Struct
     }
 
     /**
+     * Type: [**DML_SCALAR_UNION**](/windows/win32/api/directml/ns-directml-dml_scalar_union)
+     * 
+     * The maximum value, above which the operator replaces the value with *Max*. *MinMaxDataType* determines how to interpret the field.
      * @type {DML_SCALAR_UNION}
      */
     Max{

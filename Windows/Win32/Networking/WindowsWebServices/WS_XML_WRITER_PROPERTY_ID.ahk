@@ -3,7 +3,7 @@
 
 /**
  * Each xml writer property is identified by an ID and has an associated value.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_xml_writer_property_id
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_writer_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -190,7 +190,7 @@ class WS_XML_WRITER_PROPERTY_ID extends Win32Enum{
      *           writer will not allocate from its internal buffers.
      *         
      * 
-     * This buffer may appear as one of the buffers returned by the property <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_xml_writer_property_id">WS_XML_WRITER_PROPERTY_BUFFERS</a>or <b>WS_XML_WRITER_PROPERTY_BYTES</b>.
+     * This buffer may appear as one of the buffers returned by the property <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_xml_writer_property_id">WS_XML_WRITER_PROPERTY_BUFFERS</a> or <b>WS_XML_WRITER_PROPERTY_BYTES</b>.
      *         
      * 
      * The caller must ensure that the buffer specified is valid for the lifetime of the writer.
@@ -258,11 +258,11 @@ class WS_XML_WRITER_PROPERTY_ID extends Win32Enum{
     static WS_XML_WRITER_PROPERTY_BYTES_TO_CLOSE => 16
 
     /**
-     * A <b>BOOL</b>that controls how <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscopynode">WsCopyNode</a> copies elements with no content.
+     * A <b>BOOL</b> that controls how <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscopynode">WsCopyNode</a> copies elements with no content.
      *             
      * 
-     * When this property is set to <b>FALSE</b>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscopynode">WsCopyNode</a>preserves whether each element is represented
-     *                     as a start/end tag pair, or as an empty element.  When this property is set to <b>TRUE</b>, <b>WsCopyNode</b> wlll 
+     * When this property is set to <b>FALSE</b>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscopynode">WsCopyNode</a> preserves whether each element is represented
+     *                     as a start/end tag pair, or as an empty element.  When this property is set to <b>TRUE</b>, <b>WsCopyNode</b> will 
      *                 convert elements with no content to empty elements.
      *             
      * 
@@ -277,31 +277,42 @@ class WS_XML_WRITER_PROPERTY_ID extends Win32Enum{
      * For an input XML string like:
      *             
      * 
-     * <pre class="syntax" xml:space="preserve"><code>
+     * 
+     * ``` syntax
+     * 
      * &lt;?xml version="1.0" encoding="utf-8"?&gt;
      * &lt;container&gt;
      *  &lt;emptyElement /&gt;
      *  &lt;emptyElementWithEndTag&gt;&lt;/emptyElementWithEndTag&gt;
-     * &lt;/container&gt;</code></pre>
-     * If this property is <b>FALSE</b>,  <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscopynode">WsCopyNode</a>will generate the following xml:
+     * &lt;/container&gt;
+     * ```
+     * 
+     * If this property is <b>FALSE</b>,  <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscopynode">WsCopyNode</a> will generate the following xml:
      *                 
      *                     
      * 
-     * <pre class="syntax" xml:space="preserve"><code>
+     * 
+     * ``` syntax
+     * 
      * &lt;?xml version="1.0" encoding="utf-8"?&gt;
      * &lt;container&gt;
      *  &lt;emptyElement /&gt;
      *  &lt;emptyElementWithEndTag&gt;&lt;/emptyElementWithEndTag&gt;
-     * &lt;/container&gt;</code></pre>
+     * &lt;/container&gt;
+     * ```
+     * 
      * If this property is <b>TRUE</b>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscopynode">WsCopyNode</a> will generate the following xml:
      *             
      * 
-     * <pre class="syntax" xml:space="preserve"><code>
+     * 
+     * ``` syntax
+     * 
      * &lt;?xml version="1.0" encoding="utf-8"?&gt;
      * &lt;container&gt;
      *  &lt;emptyElement /&gt;
      *  &lt;emptyElementWithEndTag /&gt;
-     * &lt;/container&gt;</code></pre>
+     * &lt;/container&gt;
+     * ```
      * @type {Integer (Int32)}
      */
     static WS_XML_WRITER_PROPERTY_COMPRESS_EMPTY_ELEMENTS => 17
@@ -311,7 +322,11 @@ class WS_XML_WRITER_PROPERTY_ID extends Win32Enum{
      * 
      * If set to <b>FALSE</b>, an element that is created by only calls to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wswritestartelement">WsWriteStartElement</a> and <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wswriteendelement">WsWriteEndElement</a> will be emitted as follows:
      * 
-     * <pre class="syntax" xml:space="preserve"><c>&lt;emptyElement /&gt;</c></pre>
+     * 
+     * ``` syntax
+     * &lt;emptyElement /&gt;
+     * ```
+     * 
      * If set to <b>TRUE</b>, that element will be emitted as follows:
      * 
      * 

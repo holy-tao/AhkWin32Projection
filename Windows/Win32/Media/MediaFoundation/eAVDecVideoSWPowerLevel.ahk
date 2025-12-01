@@ -3,7 +3,7 @@
 
 /**
  * Specifies the power-saving level of a video decoder.
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavdecvideoswpowerlevel
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavdecvideoswpowerlevel
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

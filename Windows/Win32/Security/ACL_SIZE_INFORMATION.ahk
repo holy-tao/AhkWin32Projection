@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the size of an ACL structure.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-acl_size_information
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-acl_size_information
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

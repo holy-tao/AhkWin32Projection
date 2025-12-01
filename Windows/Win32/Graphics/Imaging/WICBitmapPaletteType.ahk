@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of palette used for an indexed image format.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicbitmappalettetype
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicbitmappalettetype
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

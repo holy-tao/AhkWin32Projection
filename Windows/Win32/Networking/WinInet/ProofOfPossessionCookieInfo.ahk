@@ -3,6 +3,8 @@
 
 /**
  * 
+ * @remarks
+ * 
  * @see https://learn.microsoft.com/windows/win32/api/proofofpossessioncookieinfo/ns-proofofpossessioncookieinfo-proofofpossessioncookieinfo
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
@@ -14,6 +16,7 @@ class ProofOfPossessionCookieInfo extends Win32Struct
     static packingSize => 8
 
     /**
+     * 
      * @type {PWSTR}
      */
     name {
@@ -22,6 +25,7 @@ class ProofOfPossessionCookieInfo extends Win32Struct
     }
 
     /**
+     * 
      * @type {PWSTR}
      */
     data {
@@ -30,6 +34,7 @@ class ProofOfPossessionCookieInfo extends Win32Struct
     }
 
     /**
+     * For example, **INTERNET_COOKIE_EVALUATE_P3P**, **INTERNET_COOKIE_HTTPONLY**, **INTERNET_COOKIE_THIRD_PARTY**. See [InternetSetCookieExA](/windows/win32/api/wininet/nf-wininet-internetsetcookieexa).
      * @type {Integer}
      */
     flags {
@@ -38,6 +43,7 @@ class ProofOfPossessionCookieInfo extends Win32Struct
     }
 
     /**
+     * 
      * @type {PWSTR}
      */
     p3pHeader {

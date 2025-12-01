@@ -4,7 +4,7 @@
 
 /**
  * Contains a single attribute value. The Value member's CRYPT_OBJID_BLOB is encoded.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_attribute_type_value
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_attribute_type_value
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

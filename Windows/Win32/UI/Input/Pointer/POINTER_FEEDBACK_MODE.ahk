@@ -3,7 +3,7 @@
 
 /**
  * Identifies the visual feedback behaviors available to CreateSyntheticPointerDevice.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ne-winuser-pointer_feedback_mode
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ne-winuser-pointer_feedback_mode
  * @namespace Windows.Win32.UI.Input.Pointer
  * @version v4.0.30319
  */

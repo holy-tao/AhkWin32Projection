@@ -3,7 +3,7 @@
 
 /**
  * Defines the flags of the file handle.
- * @see https://docs.microsoft.com/windows/win32/api//windowsstoragecom/ne-windowsstoragecom-handle_options
+ * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/ne-windowsstoragecom-handle_options
  * @namespace Windows.Win32.System.WinRT.Storage
  * @version v4.0.30319
  */

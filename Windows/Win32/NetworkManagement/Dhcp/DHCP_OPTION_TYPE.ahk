@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_OPTION_TYPE enumeration defines the set of possible DHCP option types.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ne-dhcpsapi-dhcp_option_type
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_option_type
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Client function tables.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_clientft_v1
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_clientft_v1
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

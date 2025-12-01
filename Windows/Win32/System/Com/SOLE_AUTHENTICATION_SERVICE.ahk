@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Identifies an authentication service that a server is willing to use to communicate to a client.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/ns-objidl-sole_authentication_service
+ * The SOLE_AUTHENTICATION_SERVICE (objidlbase.h) structure identifies an authentication service that a server is willing to use to communicate to a client.
+ * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ns-objidlbase-sole_authentication_service
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

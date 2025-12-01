@@ -3,7 +3,7 @@
 
 /**
  * Defines how folders are deleted when one of the disk resource limits is exceeded.
- * @see https://docs.microsoft.com/windows/win32/api//pla/ne-pla-resourcepolicy
+ * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-resourcepolicy
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

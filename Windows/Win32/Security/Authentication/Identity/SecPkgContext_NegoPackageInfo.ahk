@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * Holds information about the negotiated application package.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_negopackageinfo
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -14,6 +16,7 @@ class SecPkgContext_NegoPackageInfo extends Win32Struct
     static packingSize => 4
 
     /**
+     * The mask information for the package.
      * @type {Integer}
      */
     PackageMask {

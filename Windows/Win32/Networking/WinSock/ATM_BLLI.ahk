@@ -4,14 +4,12 @@
 /**
  * The ATM_BLLI structure is used to identify B-LLI information for an associated ATM socket.
  * @remarks
- * 
  * The following are the manifest constants associated with the 
  * <b>ATM_BLLI</b> structure:
  * 
  * 
  * ```cpp
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ws2atm/ns-ws2atm-atm_blli
+ * @see https://learn.microsoft.com/windows/win32/api/ws2atm/ns-ws2atm-atm_blli
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

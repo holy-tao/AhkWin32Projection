@@ -3,7 +3,7 @@
 
 /**
  * The values of the REMEDIATIONSERVERPROPERTIES enumeration type enumerate the properties of a remediation server.
- * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-remediationserverproperties
+ * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-remediationserverproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

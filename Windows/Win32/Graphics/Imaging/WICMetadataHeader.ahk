@@ -3,7 +3,7 @@
 
 /**
  * Represents metadata header.
- * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/ns-wincodecsdk-wicmetadataheader
+ * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/ns-wincodecsdk-wicmetadataheader
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

@@ -4,11 +4,8 @@
 /**
  * The PEER_GROUP_PROPERTY_FLAGS flags are used to specify various peer group membership settings.
  * @remarks
- * 
  * These flags can only be set by the peer group creator.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ne-p2p-peer_group_property_flags
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ne-p2p-peer_group_property_flags
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

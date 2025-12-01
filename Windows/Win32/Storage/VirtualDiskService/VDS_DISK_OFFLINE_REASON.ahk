@@ -3,7 +3,7 @@
 
 /**
  * Defines the set of reasons for a disk to be offline.
- * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_disk_offline_reason
+ * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_disk_offline_reason
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

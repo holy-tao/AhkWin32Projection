@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The WMDMMetadataView structure defines the metadata view. Content is organized based on this definition.
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdmmetadataview
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
@@ -14,6 +14,7 @@ class WMDMMetadataView extends Win32Struct
     static packingSize => 8
 
     /**
+     * Pointer to a wide-character null-terminated string containing the name of the view. This is used as the name of the root node under which this view is presented.
      * @type {PWSTR}
      */
     pwszViewName {
@@ -22,6 +23,7 @@ class WMDMMetadataView extends Win32Struct
     }
 
     /**
+     * Integer containing the depth of the view, which indicates how many nested metadata tags are used for the view.
      * @type {Integer}
      */
     nDepth {
@@ -30,6 +32,7 @@ class WMDMMetadataView extends Win32Struct
     }
 
     /**
+     * Array of metadata tag strings for the nested tags.
      * @type {Pointer<Pointer<Integer>>}
      */
     ppwszTags {

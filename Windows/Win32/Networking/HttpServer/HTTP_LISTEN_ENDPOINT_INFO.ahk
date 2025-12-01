@@ -4,7 +4,7 @@
 
 /**
  * Controls whether IP-based URLs should listen on the specific IP address or on a wildcard.
- * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_listen_endpoint_info
+ * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_listen_endpoint_info
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

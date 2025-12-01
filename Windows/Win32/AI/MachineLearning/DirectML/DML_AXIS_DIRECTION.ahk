@@ -3,7 +3,7 @@
 
 /**
  * Defines constants that specify the direction of an operation along the given axis for the operator (for example, summation, selecting the top-k elements, selecting the minimum element).
- * @see https://docs.microsoft.com/windows/win32/api//directml/ne-directml-dml_axis_direction
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_axis_direction
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

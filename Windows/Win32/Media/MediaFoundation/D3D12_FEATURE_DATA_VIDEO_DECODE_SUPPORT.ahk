@@ -7,8 +7,7 @@
  * Retrieves support information for video decoding.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_feature_data_video_decode_support
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_decode_support
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -97,7 +96,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct
     }
 
     /**
-     * A combination of values from the [D3D12\_VIDEO\_DECODE\_CONFIGURATION\_FLAGS](ne-d3d12video-d3d12_video_decode_configuration_flags.md) eumeration describing the video decode configuration. This value is populated by the call to **ID3D12Device::CheckFeatureSupport**.
+     * A combination of values from the [D3D12\_VIDEO\_DECODE\_CONFIGURATION\_FLAGS](ne-d3d12video-d3d12_video_decode_configuration_flags.md) enumeration describing the video decode configuration. This value is populated by the call to **ID3D12Device::CheckFeatureSupport**.
      * @type {Integer}
      */
     ConfigurationFlags {

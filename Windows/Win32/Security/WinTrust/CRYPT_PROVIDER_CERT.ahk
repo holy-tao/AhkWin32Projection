@@ -3,7 +3,7 @@
 
 /**
  * Provides information about a provider certificate.
- * @see https://docs.microsoft.com/windows/win32/api//wintrust/ns-wintrust-crypt_provider_cert
+ * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_provider_cert
  * @namespace Windows.Win32.Security.WinTrust
  * @version v4.0.30319
  */

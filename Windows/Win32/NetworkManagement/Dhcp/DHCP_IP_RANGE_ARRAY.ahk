@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_IP_RANGE_ARRAY structure defines an array of DHCP IPv4 ranges.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_ip_range_array
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_ip_range_array
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

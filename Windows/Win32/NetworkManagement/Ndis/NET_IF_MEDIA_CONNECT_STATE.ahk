@@ -4,7 +4,6 @@
 /**
  * The NET_IF_MEDIA_CONNECT_STATE enumeration type specifies the NDIS network interface connection state.
  * @remarks
- * 
  * The NDIS_MEDIA_CONNECT_STATE enumeration type, used to describe NDIS interface providers in the
  *     OID_GEN_MEDIA_CONNECT_STATUS_EX OID, is equivalent to this enumeration.
  * 
@@ -12,8 +11,7 @@
  * ```
  * typedef NET_IF_MEDIA_CONNECT_STATE NDIS_MEDIA_CONNECT_STATE, *PNDIS_MEDIA_CONNECT_STATE;
  * ```
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ifdef/ne-ifdef-net_if_media_connect_state
+ * @see https://learn.microsoft.com/windows/win32/api/ifdef/ne-ifdef-net_if_media_connect_state
  * @namespace Windows.Win32.NetworkManagement.Ndis
  * @version v4.0.30319
  */

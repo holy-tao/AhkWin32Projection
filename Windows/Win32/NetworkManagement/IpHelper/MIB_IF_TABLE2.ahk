@@ -6,7 +6,6 @@
 /**
  * Contains a table of logical and physical interface entries.
  * @remarks
- * 
  * The <b>MIB_IF_TABLE2</b> structure is defined in Windows Vista and later. 
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getiftable2">GetIfTable2</a> and <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getiftable2ex">GetIfTable2Ex</a> functions enumerates the logical and physical interfaces on a local system and returns this information in a <b>MIB_IF_TABLE2</b> structure. 
@@ -18,9 +17,7 @@
  * 
  * 
  * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//netioapi/ns-netioapi-mib_if_table2
+ * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_if_table2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

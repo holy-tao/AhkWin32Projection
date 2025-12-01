@@ -3,7 +3,7 @@
 
 /**
  * Contains strings that identify the driver, device, and output port names for a printer.
- * @see https://docs.microsoft.com/windows/win32/api//commdlg/ns-commdlg-devnames
+ * @see https://learn.microsoft.com/windows/win32/api/commdlg/ns-commdlg-devnames
  * @namespace Windows.Win32.UI.Controls.Dialogs
  * @version v4.0.30319
  */

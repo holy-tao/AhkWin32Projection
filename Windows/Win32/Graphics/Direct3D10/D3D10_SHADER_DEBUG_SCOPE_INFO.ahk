@@ -4,11 +4,8 @@
 /**
  * Contains scope data that maps variable names to debug variables.
  * @remarks
- * 
  * The <b>D3D10_SHADER_DEBUG_SCOPE_INFO</b> structure is used with the <a href="https://docs.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_info">D3D10_SHADER_DEBUG_INFO</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_scope_info
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_scope_info
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
@@ -65,7 +62,7 @@ class D3D10_SHADER_DEBUG_SCOPE_INFO extends Win32Struct
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * Offset an array of UINT values with <b>uVariables</b> members contianing the scope variable list.
+     * Offset an array of UINT values with <b>uVariables</b> members containing the scope variable list.
      * @type {Integer}
      */
     VariableData {

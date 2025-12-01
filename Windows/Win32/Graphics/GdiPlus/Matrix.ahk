@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * A Matrix object represents a 3 �3 matrix that, in turn, represents an affine transformation.
- * @see https://docs.microsoft.com/windows/win32/api//gdiplusmatrix/nl-gdiplusmatrix-matrix
+ * A matrix is a special data type that contains between one and sixteen components. Every component of a matrix must be of the same type.
+ * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/dx-graphics-hlsl-matrix
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

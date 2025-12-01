@@ -3,7 +3,7 @@
 
 /**
  * The MBN_RADIO enumerated type indicates whether the device radio is on or off.
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ne-mbnapi-mbn_radio
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_radio
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

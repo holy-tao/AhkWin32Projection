@@ -4,7 +4,7 @@
 
 /**
  * A security binding constraint that corresponds to the WS_HTTP_HEADER_AUTH_SECURITY_BINDING.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_http_header_auth_security_binding_constraint
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_http_header_auth_security_binding_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

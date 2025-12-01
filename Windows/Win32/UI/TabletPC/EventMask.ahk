@@ -3,7 +3,7 @@
 
 /**
  * The events on the ITextInputPanel Interface that you can set attention for.
- * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/ne-peninputpanel-eventmask
+ * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-eventmask
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

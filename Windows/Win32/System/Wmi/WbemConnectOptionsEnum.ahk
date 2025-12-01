@@ -3,7 +3,7 @@
 
 /**
  * Defines a security flag that is used as a parameter in calls to the SWbemLocator.ConnectServer method when a connection to WMI on a remote machine is failing.
- * @see https://docs.microsoft.com/windows/win32/api//wbemdisp/ne-wbemdisp-wbemconnectoptionsenum
+ * @see https://learn.microsoft.com/windows/win32/api/wbemdisp/ne-wbemdisp-wbemconnectoptionsenum
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

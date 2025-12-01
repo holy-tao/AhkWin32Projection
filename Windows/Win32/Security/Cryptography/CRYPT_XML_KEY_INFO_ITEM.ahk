@@ -10,7 +10,7 @@
 
 /**
  * Encapsulates key information data that corresponds to a KeyInfo element. The KeyInfo element enables the recipient to obtain the key needed to validate the signature.
- * @see https://docs.microsoft.com/windows/win32/api//cryptxml/ns-cryptxml-crypt_xml_key_info_item
+ * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_key_info_item
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

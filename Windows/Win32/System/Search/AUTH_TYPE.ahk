@@ -3,7 +3,7 @@
 
 /**
  * Describes authentication types for content access.
- * @see https://docs.microsoft.com/windows/win32/api//searchapi/ne-searchapi-auth_type
+ * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-auth_type
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

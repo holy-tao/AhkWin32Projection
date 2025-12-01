@@ -3,7 +3,7 @@
 
 /**
  * Contains the starting LCN to the FSCTL_GET_VOLUME_BITMAP control code.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-starting_lcn_input_buffer
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-starting_lcn_input_buffer
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

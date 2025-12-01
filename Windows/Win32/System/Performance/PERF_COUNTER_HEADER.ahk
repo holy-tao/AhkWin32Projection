@@ -4,12 +4,9 @@
 /**
  * Contains information about the PERF_COUNTER_HEADER block that contains the structure.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycounterdata">PerfQueryCounterData</a> function returns a <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_data_header">PERF_DATA_HEADER</a> block that
  * contains a sequence of <b>PERF_COUNTER_HEADER</b> blocks.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//perflib/ns-perflib-perf_counter_header
+ * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_counter_header
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

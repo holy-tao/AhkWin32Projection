@@ -3,7 +3,7 @@
 
 /**
  * Contains the value and value type for a parameter used to expand the value resource string.
- * @see https://docs.microsoft.com/windows/win32/api//wsbonline/ns-wsbonline-wsb_ob_status_entry_value_type_pair
+ * @see https://learn.microsoft.com/windows/win32/api/wsbonline/ns-wsbonline-wsb_ob_status_entry_value_type_pair
  * @namespace Windows.Win32.System.ServerBackup
  * @version v4.0.30319
  */

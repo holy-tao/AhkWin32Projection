@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * TBD.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clusterversioninfo_nt4
+ * The CLUSTERVERSIONINFO_NT4 (clusapi.h) structure relates to multiple field types, with more information is to be determined.
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusterversioninfo_nt4
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

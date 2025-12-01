@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains parameters for the Interrupt Vector Configuration Feature that configures settings specific to a particular interrupt vector.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw11_feature_interrupt_vector_config
  * @namespace Windows.Win32.Storage.Nvme
@@ -50,6 +52,7 @@ class NVME_CDW11_FEATURE_INTERRUPT_VECTOR_CONFIG extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     AsUlong {

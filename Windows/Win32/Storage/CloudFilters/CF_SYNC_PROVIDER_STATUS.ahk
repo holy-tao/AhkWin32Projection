@@ -3,7 +3,7 @@
 
 /**
  * Current status of a sync provider.
- * @see https://docs.microsoft.com/windows/win32/api//cfapi/ne-cfapi-cf_sync_provider_status
+ * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_sync_provider_status
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
@@ -64,13 +64,13 @@ class CF_SYNC_PROVIDER_STATUS extends Win32BitflagEnum{
     static CF_PROVIDER_STATUS_CLEAR_FLAGS => 2147483648
 
     /**
-     * 
+     * The sync provider has been terminated.
      * @type {Integer (UInt32)}
      */
     static CF_PROVIDER_STATUS_TERMINATED => 3221225473
 
     /**
-     * 
+     * There was an error with the sync provider.
      * @type {Integer (UInt32)}
      */
     static CF_PROVIDER_STATUS_ERROR => 3221225474

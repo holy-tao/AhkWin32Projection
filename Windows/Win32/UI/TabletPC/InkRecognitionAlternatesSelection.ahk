@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Not implemented.
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkrecognitionalternatesselection
+ * Not implemented. (InkRecognitionAlternatesSelection)
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkrecognitionalternatesselection
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

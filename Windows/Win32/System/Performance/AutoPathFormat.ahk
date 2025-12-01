@@ -4,13 +4,10 @@
 /**
  * Defines how to decorate the file name or subdirectory name.
  * @remarks
- * 
  * Patterns apply to files and subdirectories in the same way.
  * 
  * For details on patterns, see the Remarks section of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_filenameformatpattern">FileNameFormatPattern</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//pla/ne-pla-autopathformat
+ * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-autopathformat
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

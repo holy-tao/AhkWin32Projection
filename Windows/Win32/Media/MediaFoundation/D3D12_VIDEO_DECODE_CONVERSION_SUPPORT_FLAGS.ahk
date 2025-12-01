@@ -4,11 +4,8 @@
 /**
  * Specifies whether a video decode conversion operation is supported.
  * @remarks
- * 
  * This enumeration is used by the [D3D12\_FEATURE\_DATA\_VIDEO\_DECODE\_CONVERSION\_SUPPORT](ns-d3d12video-d3d12_feature_data_video_decode_conversion_support.md) structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ne-d3d12video-d3d12_video_decode_conversion_support_flags
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_decode_conversion_support_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

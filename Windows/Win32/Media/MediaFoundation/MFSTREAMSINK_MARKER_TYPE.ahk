@@ -4,11 +4,8 @@
 /**
  * Defines stream marker information for the IMFStreamSink::PlaceMarker method.
  * @remarks
- * 
  * If the <a href="https://docs.microsoft.com/windows/desktop/medfound/streaming-audio-renderer">Streaming Audio Renderer</a> receives an <b>MFSTREAMSINK_MARKER_TICK</b> marker, it inserts silence to cover the gap in the data.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mfstreamsink_marker_type
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfstreamsink_marker_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

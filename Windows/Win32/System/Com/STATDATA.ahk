@@ -4,7 +4,7 @@
 
 /**
  * Contains information used to specify each advisory connection.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/ns-objidl-statdata
+ * @see https://learn.microsoft.com/windows/win32/api/objidl/ns-objidl-statdata
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

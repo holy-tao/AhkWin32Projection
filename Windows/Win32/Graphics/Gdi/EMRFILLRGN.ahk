@@ -5,7 +5,7 @@
 
 /**
  * The EMRFILLRGN structure contains members for the FillRgn enhanced metafile record.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrfillrgn
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrfillrgn
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

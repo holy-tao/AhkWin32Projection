@@ -3,7 +3,7 @@
 
 /**
  * Specifies additional information to the container about the device context that the object has requested.
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/ne-ocidl-oledcflags
+ * @see https://learn.microsoft.com/windows/win32/api/ocidl/ne-ocidl-oledcflags
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

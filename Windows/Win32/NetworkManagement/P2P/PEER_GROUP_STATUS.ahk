@@ -3,7 +3,7 @@
 
 /**
  * The PEER_GROUP_STATUS flags indicate whether or not the peer group has connections present.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ne-p2p-peer_group_status
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ne-p2p-peer_group_status
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

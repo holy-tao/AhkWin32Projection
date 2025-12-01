@@ -5,7 +5,7 @@
 
 /**
  * Used to pass data between WinVerifyTrust and trust providers.
- * @see https://docs.microsoft.com/windows/win32/api//wintrust/ns-wintrust-crypt_provider_data
+ * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_provider_data
  * @namespace Windows.Win32.Security.WinTrust
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies the image descriptor metadata properties for Graphics Interchange Format (GIF) frames.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicgifimagedescriptorproperties
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicgifimagedescriptorproperties
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

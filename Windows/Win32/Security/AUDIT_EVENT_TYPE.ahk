@@ -3,7 +3,7 @@
 
 /**
  * Defines values that indicate the type of object being audited. The AccessCheckByTypeAndAuditAlarm and AccessCheckByTypeResultListAndAuditAlarm functions use these values.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-audit_event_type
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-audit_event_type
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains script control flags for several Uniscribe functions, for example, ScriptItemize.
- * @see https://docs.microsoft.com/windows/win32/api//usp10/ns-usp10-script_control
+ * @see https://learn.microsoft.com/windows/win32/api/usp10/ns-usp10-script_control
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

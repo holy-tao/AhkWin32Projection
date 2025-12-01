@@ -3,7 +3,7 @@
 
 /**
  * The type of the security binding, used as a selector for subtypes of WS_SECURITY_BINDING.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_security_binding_type
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_binding_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

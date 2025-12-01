@@ -3,7 +3,7 @@
 
 /**
  * Defines constants that specify the ID of the property for the BITS job.
- * @see https://docs.microsoft.com/windows/win32/api//bits5_0/ne-bits5_0-bits_job_property_id
+ * @see https://learn.microsoft.com/windows/win32/api/bits5_0/ne-bits5_0-bits_job_property_id
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */

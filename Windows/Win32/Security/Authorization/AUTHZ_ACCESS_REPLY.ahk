@@ -3,7 +3,7 @@
 
 /**
  * Defines an access check reply.
- * @see https://docs.microsoft.com/windows/win32/api//authz/ns-authz-authz_access_reply
+ * @see https://learn.microsoft.com/windows/win32/api/authz/ns-authz-authz_access_reply
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */

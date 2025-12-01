@@ -4,10 +4,8 @@
 /**
  * Specifies the access permissions assigned to the Users or Public folder. Used in CreateShare and GetSharePermissions.
  * @remarks
- * 
  * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-isharingconfigurationmanager-createshare">ISharingConfigurationManager::CreateShare</a> accepts only <b>SHARE_ROLE_READER</b> and <b>SHARE_ROLE_CO_OWNER</b>. All other values are seen only in the results of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-isharingconfigurationmanager-getsharepermissions">ISharingConfigurationManager::GetSharePermissions</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-share_role
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-share_role
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

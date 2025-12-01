@@ -3,7 +3,7 @@
 
 /**
  * Defines the possible states of an assessment.
- * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/ne-winsatcominterfacei-winsat_assessment_state
+ * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/ne-winsatcominterfacei-winsat_assessment_state
  * @namespace Windows.Win32.System.AssessmentTool
  * @version v4.0.30319
  */

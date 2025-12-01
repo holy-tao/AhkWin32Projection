@@ -3,7 +3,7 @@
 
 /**
  * The SecPkgContext_Sizes structure indicates the sizes of important structures used in the message support functions. The QueryContextAttributes (General) function uses this structure.
- * @see https://docs.microsoft.com/windows/win32/api//sspi/ns-sspi-secpkgcontext_sizes
+ * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_sizes
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

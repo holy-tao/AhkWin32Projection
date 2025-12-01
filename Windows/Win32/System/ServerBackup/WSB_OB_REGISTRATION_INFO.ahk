@@ -3,7 +3,7 @@
 
 /**
  * Contains information to register a cloud backup provider with Windows Server Backup.
- * @see https://docs.microsoft.com/windows/win32/api//wsbonline/ns-wsbonline-wsb_ob_registration_info
+ * @see https://learn.microsoft.com/windows/win32/api/wsbonline/ns-wsbonline-wsb_ob_registration_info
  * @namespace Windows.Win32.System.ServerBackup
  * @version v4.0.30319
  */

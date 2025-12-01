@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes an array of unordered-access 2D texture resources.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11_3/ns-d3d11_3-d3d11_tex2d_array_uav1
+ * Describes an array of unordered-access 2D texture resources. (D3D11_TEX2D_ARRAY_UAV1)
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/ns-d3d11_3-d3d11_tex2d_array_uav1
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

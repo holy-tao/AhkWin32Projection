@@ -3,7 +3,7 @@
 
 /**
  * Used with the IOCTL_STORAGE_QUERY_PROPERTY control code to retrieve the storage adapter descriptor data for a device.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_adapter_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_adapter_descriptor
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

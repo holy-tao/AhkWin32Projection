@@ -4,7 +4,7 @@
 
 /**
  * Contains information used to decrypt an enveloped message for a key transport recipient. This structure is passed to CryptMsgControl if the dwCtrlType parameter is CMSG_CTRL_DECRYPT.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmsg_ctrl_decrypt_para
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_ctrl_decrypt_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -2,13 +2,11 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains information about the lock status of a service control manager database. It is used by the QueryServiceLockStatus function.
+ * Contains information about the lock status of a service control manager database. It is used by the QueryServiceLockStatus function. (ANSI)
  * @remarks
- * 
  * > [!NOTE]
  * > The winsvc.h header defines QUERY_SERVICE_LOCK_STATUS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsvc/ns-winsvc-query_service_lock_statusa
+ * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-query_service_lock_statusa
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  * @charset ANSI

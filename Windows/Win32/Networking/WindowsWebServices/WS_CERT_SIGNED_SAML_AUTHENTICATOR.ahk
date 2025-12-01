@@ -4,7 +4,7 @@
 
 /**
  * The type for specifying a SAML token authenticator based on an array of expected issuer certificates.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_cert_signed_saml_authenticator
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_cert_signed_saml_authenticator
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

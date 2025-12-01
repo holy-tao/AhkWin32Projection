@@ -3,7 +3,7 @@
 
 /**
  * The MPEG_HEADER_VERSION_BITS structure contains the first 8 bits following the TSID in an MPEG-2 PSI section. These bits contain the version number and the current/next indicator.
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2bits/ns-mpeg2bits-mpeg_header_version_bits
+ * @see https://learn.microsoft.com/windows/win32/api/mpeg2bits/ns-mpeg2bits-mpeg_header_version_bits
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

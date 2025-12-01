@@ -3,7 +3,7 @@
 
 /**
  * Contains the version of the virtual disk MIRROR_VIRTUAL_DISK_PARAMETERS structure used by the MirrorVirtualDisk function.
- * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ne-virtdisk-mirror_virtual_disk_version
+ * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-mirror_virtual_disk_version
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */

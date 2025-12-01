@@ -3,7 +3,7 @@
 
 /**
  * Elements of the TfShiftDir enumeration specify which direction a range anchor is moved.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/ne-msctf-tfshiftdir
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/ne-msctf-tfshiftdir
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

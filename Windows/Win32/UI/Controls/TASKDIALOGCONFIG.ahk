@@ -6,7 +6,7 @@
 
 /**
  * The TASKDIALOGCONFIG structure contains information used to display a task dialog. The TaskDialogIndirect function uses this structure.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-taskdialogconfig
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-taskdialogconfig
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains the information required when modifying log parameters and logging mode for a secondary resource manager.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-txfs_modify_rm
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_modify_rm
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * The NOTIFYADD structure contains the details of a network connect operation. It is used by the AddConnectNotify function.
- * @see https://docs.microsoft.com/windows/win32/api//npapi/ns-npapi-notifyadd
+ * @see https://learn.microsoft.com/windows/win32/api/npapi/ns-npapi-notifyadd
  * @namespace Windows.Win32.NetworkManagement.WNet
  * @version v4.0.30319
  */

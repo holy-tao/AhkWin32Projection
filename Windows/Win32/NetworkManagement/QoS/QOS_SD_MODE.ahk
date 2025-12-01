@@ -4,7 +4,7 @@
 
 /**
  * The QOS object QOS_SD_MODE defines the behavior of the traffic control-packet shaper component.
- * @see https://docs.microsoft.com/windows/win32/api//qos/ns-qos-qos_sd_mode
+ * @see https://learn.microsoft.com/windows/win32/api/qos/ns-qos-qos_sd_mode
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

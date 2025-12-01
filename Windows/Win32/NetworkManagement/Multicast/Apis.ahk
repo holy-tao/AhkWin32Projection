@@ -33,6 +33,13 @@ class Multicast {
 ;@region Methods
     /**
      * The McastApiStartup function facilitates MADCAP-version negotiation between requesting clients and the version of MADCAP implemented on the system.
+     * @remarks
+     * Clients can specify which version they want to use in the <i>pVersion</i> parameter. If the system's implementation supports the requested MCAST version, the function call succeeds. If the system's implementation does not support the requested version, the function fails with MCAST_API_CURRENT_VERSION.
+     * 
+     * The client can automatically negotiate the first version of MCAST (MCAST_API_VERSION_1) by setting the <i>pVersion</i> parameter to zero.
+     * 
+     * The 
+     * <b>McastApiStartup</b> function always returns the most recent version of MADCAP available on the system (MCAST_API_CURRENT_VERSION) in <i>pVersion</i>, enabling clients to discover the most recent version implemented on the system.
      * @param {Pointer<Integer>} Version Pointer to the version of multicast (MCAST) that the client wishes to use. 
      * 
      * 
@@ -41,7 +48,7 @@ class Multicast {
      * [out] Pointer to the version of MCAST implemented on the system.
      * @returns {Integer} If the client requests a version of MADCAP that is not supported by the system, the 
      * <b>McastApiStartup</b> function returns ERROR_NOT_SUPPORTED. If resources fail to be allocated for the function call, ERROR_NO_SYSTEM_RESOURCES is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//madcapcl/nf-madcapcl-mcastapistartup
+     * @see https://learn.microsoft.com/windows/win32/api/madcapcl/nf-madcapcl-mcastapistartup
      * @since windows5.0
      */
     static McastApiStartup(Version) {
@@ -54,7 +61,7 @@ class Multicast {
     /**
      * The McastApiCleanup function deallocates resources that are allocated with McastApiStartup. The McastApiCleanup function must only be called after a successful call to McastApiStartup.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//madcapcl/nf-madcapcl-mcastapicleanup
+     * @see https://learn.microsoft.com/windows/win32/api/madcapcl/nf-madcapcl-mcastapicleanup
      * @since windows5.0
      */
     static McastApiCleanup() {
@@ -67,7 +74,7 @@ class Multicast {
      * <a href="https://docs.microsoft.com/windows/desktop/api/madcapcl/ns-madcapcl-mcast_client_uid">MCAST_CLIENT_UID</a> structure into which the unique identifier is stored. The size of the buffer to which <i>pRequestID</i> points must be at least MCAST_CLIENT_ID_LEN in size.
      * @returns {Integer} The 
      * <b>McastGenUID</b> function returns the status of the operation.
-     * @see https://docs.microsoft.com/windows/win32/api//madcapcl/nf-madcapcl-mcastgenuid
+     * @see https://learn.microsoft.com/windows/win32/api/madcapcl/nf-madcapcl-mcastgenuid
      * @since windows5.0
      */
     static McastGenUID(pRequestID) {
@@ -77,6 +84,9 @@ class Multicast {
 
     /**
      * The McastEnumerateScopes function enumerates multicast scopes available on the network.
+     * @remarks
+     * The 
+     * <b>McastEnumerateScopes</b> function queries multicast scopes for each network interface, and the interface on which the scope is retrieved is returned as part of the <i>pScopeList</i> parameter. Therefore, on multihomed computers it is possible that some scopes will get listed multiple times, once for each interface.
      * @param {Integer} AddrFamily Specifies the address family to be used in enumeration, in the form of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/madcapcl/ns-madcapcl-ipng_address">IPNG_ADDRESS</a> structure. Use AF_INET for IPv4 addresses and AF_INET6 for IPv6 addresses.
      * @param {BOOL} ReQuery Enables a caller to query a list again. Set this parameter to <b>TRUE</b> if the list is to be queried more than once. Otherwise, set it to <b>FALSE</b>.
@@ -112,9 +122,9 @@ class Multicast {
      * <b>McastEnumerateScopes</b> function returns ERROR_MORE_DATA, and stores the required buffer size, in bytes, in <i>pScopeLen</i>.
      * 
      * If the 
-     * <a href="/previous-versions/windows/desktop/api/madcapcl/nf-madcapcl-mcastapistartup">McastApiStartup</a> function has not been called (it must be called before any other MADCAP client functions may be called), the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/madcapcl/nf-madcapcl-mcastapistartup">McastApiStartup</a> function has not been called (it must be called before any other MADCAP client functions may be called), the 
      * <b>McastEnumerateScopes</b> function returns ERROR_NOT_READY.
-     * @see https://docs.microsoft.com/windows/win32/api//madcapcl/nf-madcapcl-mcastenumeratescopes
+     * @see https://learn.microsoft.com/windows/win32/api/madcapcl/nf-madcapcl-mcastenumeratescopes
      * @since windows5.0
      */
     static McastEnumerateScopes(AddrFamily, ReQuery, pScopeList, pScopeLen, pScopeCount) {
@@ -127,6 +137,10 @@ class Multicast {
 
     /**
      * The McastRequestAddress function requests one or more multicast addresses from a MADCAP server.
+     * @remarks
+     * Before the 
+     * <b>McastRequestAddress</b> function is called, the scope context must be retrieved by calling the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/madcapcl/nf-madcapcl-mcastenumeratescopes">McastEnumerateScopes</a> function.
      * @param {Integer} AddrFamily Specifies the address family to be used in the request, in the form of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/madcapcl/ns-madcapcl-ipng_address">IPNG_ADDRESS</a> structure. Use AF_INET for IPv4 addresses and AF_INET6 for IPv6 addresses.
      * @param {Pointer<MCAST_CLIENT_UID>} pRequestID Pointer to a unique identifier for the request, in the form of an 
@@ -143,7 +157,7 @@ class Multicast {
      * <b>MCAST_LEASE_RESPONSE</b> structure to hold the requested number of addresses; the caller is also responsible for setting the pointer to that buffer.
      * @returns {Integer} The 
      * <b>McastRequestAddress</b> function returns the status of the operation.
-     * @see https://docs.microsoft.com/windows/win32/api//madcapcl/nf-madcapcl-mcastrequestaddress
+     * @see https://learn.microsoft.com/windows/win32/api/madcapcl/nf-madcapcl-mcastrequestaddress
      * @since windows5.0
      */
     static McastRequestAddress(AddrFamily, pRequestID, pScopeCtx, pAddrRequest, pAddrResponse) {
@@ -162,7 +176,7 @@ class Multicast {
      * <b>MCAST_LEASE_RESPONSE</b> structure to hold the requested number of addresses; the caller is also responsible for setting the pointer to that buffer.
      * @returns {Integer} The 
      * <b>McastRenewAddress</b> function returns the status of the operation.
-     * @see https://docs.microsoft.com/windows/win32/api//madcapcl/nf-madcapcl-mcastrenewaddress
+     * @see https://learn.microsoft.com/windows/win32/api/madcapcl/nf-madcapcl-mcastrenewaddress
      * @since windows5.0
      */
     static McastRenewAddress(AddrFamily, pRequestID, pRenewRequest, pRenewResponse) {
@@ -178,7 +192,7 @@ class Multicast {
      * <a href="https://docs.microsoft.com/windows/desktop/api/madcapcl/ns-madcapcl-mcast_lease_request">MCAST_LEASE_REQUEST</a> structure containing multicast parameters associated with the release request.
      * @returns {Integer} The 
      * <b>McastReleaseAddress</b> function returns the status of the operation.
-     * @see https://docs.microsoft.com/windows/win32/api//madcapcl/nf-madcapcl-mcastreleaseaddress
+     * @see https://learn.microsoft.com/windows/win32/api/madcapcl/nf-madcapcl-mcastreleaseaddress
      * @since windows5.0
      */
     static McastReleaseAddress(AddrFamily, pRequestID, pReleaseRequest) {

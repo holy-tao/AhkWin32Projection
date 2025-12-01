@@ -4,10 +4,8 @@
 /**
  * Contains information about the kind of change that has occurred in an item to be indexed. This structure is used with the ISearchPersistentItemsChangedSink::OnItemsChanged method to pass information to the indexer about what has changed.
  * @remarks
- * 
  * SEARCH_CHANGE_MOVE_RENAME is not supported for use with <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nf-searchapi-isearchpersistentitemschangedsink-onitemschanged">ISearchPersistentItemsChangedSink::OnItemsChanged</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//searchapi/ns-searchapi-search_item_persistent_change
+ * @see https://learn.microsoft.com/windows/win32/api/searchapi/ns-searchapi-search_item_persistent_change
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

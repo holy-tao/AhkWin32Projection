@@ -3,7 +3,7 @@
 
 /**
  * Flags for a raytracing acceleration structure instance. These flags can be used to override D3D12_RAYTRACING_GEOMETRY_FLAGS for individual instances.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_raytracing_instance_flags
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_raytracing_instance_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

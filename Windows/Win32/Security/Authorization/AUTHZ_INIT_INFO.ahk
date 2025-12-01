@@ -3,7 +3,7 @@
 
 /**
  * Defines the initialization information for the resource manager.
- * @see https://docs.microsoft.com/windows/win32/api//authz/ns-authz-authz_init_info
+ * @see https://learn.microsoft.com/windows/win32/api/authz/ns-authz-authz_init_info
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */

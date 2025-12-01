@@ -4,7 +4,7 @@
 
 /**
  * Provides job-related time stamps.
- * @see https://docs.microsoft.com/windows/win32/api//bits/ns-bits-bg_job_times
+ * @see https://learn.microsoft.com/windows/win32/api/bits/ns-bits-bg_job_times
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */

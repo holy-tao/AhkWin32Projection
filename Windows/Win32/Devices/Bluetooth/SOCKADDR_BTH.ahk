@@ -4,13 +4,10 @@
 /**
  * The SOCKADDR_BTH structure is used in conjunction with Bluetooth socket operations, defined by address family AF_BTH.
  * @remarks
- * 
  * When used with the <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-bind">bind</a> function on client applications, the <b>port</b> member must be zero to enable an appropriate local endpoint to be assigned. When used with <b>bind</b> on server applications, the <b>port</b> member must be a valid port number or BT_PORT_ANY; ports automatically assigned using BT_PORT_ANY may be queried subsequently with a call to the <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-getsockname">getsockname</a> function. The valid range for requesting a specific RFCOMM port is 1 through 30.
  * 
  * When using the <a href="https://docs.microsoft.com/windows/desktop/Bluetooth/bluetooth-and-connect">connect</a> function when <b>serviceClassId</b> is not provided, the port should directly specify the remote port number to which a <b>connect</b> operation is requested. Using the <b>port</b> member instead of the <b>serviceClassId</b> member requires the application  to perform its own service (SDP) search before attempting the <b>connect</b> operation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ws2bth/ns-ws2bth-sockaddr_bth
+ * @see https://learn.microsoft.com/windows/win32/api/ws2bth/ns-ws2bth-sockaddr_bth
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

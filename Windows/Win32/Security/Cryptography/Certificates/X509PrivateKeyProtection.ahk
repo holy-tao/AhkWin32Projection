@@ -3,7 +3,7 @@
 
 /**
  * Specifies the level of private key protection supported by a cryptographic provider.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-x509privatekeyprotection
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509privatekeyprotection
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

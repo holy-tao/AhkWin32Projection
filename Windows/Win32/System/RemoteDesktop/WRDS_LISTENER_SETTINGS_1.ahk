@@ -3,7 +3,7 @@
 
 /**
  * Contains listener settings for a remote session.
- * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ns-wtsdefs-wrds_listener_settings_1
+ * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wrds_listener_settings_1
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a heap element.
- * @see https://docs.microsoft.com/windows/win32/api//minwinbase/ns-minwinbase-process_heap_entry
+ * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-process_heap_entry
  * @namespace Windows.Win32.System.Memory
  * @version v4.0.30319
  */

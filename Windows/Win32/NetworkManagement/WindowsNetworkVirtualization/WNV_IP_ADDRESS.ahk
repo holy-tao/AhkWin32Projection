@@ -6,11 +6,8 @@
 /**
  * Defines an IP address object.
  * @remarks
- * 
  * The <b>ADDRESS_FAMILY</b> value is always specified separately in the structures that contain this IP address object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wnvapi/ns-wnvapi-wnv_ip_address
+ * @see https://learn.microsoft.com/windows/win32/api/wnvapi/ns-wnvapi-wnv_ip_address
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
  * @version v4.0.30319
  */

@@ -4,7 +4,6 @@
 /**
  * The ACTIVATION_CONTEXT_DETAILED_INFORMATION structure is used by the QueryActCtxW function.
  * @remarks
- * 
  * If 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-queryactctxw">QueryActCtxW</a> is called with the ActivationContextDetailedInformation option, and the function succeeds, the information in the returned buffer is in the form of the 
  * <b>ACTIVATION_CONTEXT_DETAILED_INFORMATION</b> structure. The following is an example of a structure used to hold detailed information about the activation context and a call from 
@@ -80,8 +79,7 @@
  * 
  * 
  * ```
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-activation_context_detailed_information
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-activation_context_detailed_information
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */

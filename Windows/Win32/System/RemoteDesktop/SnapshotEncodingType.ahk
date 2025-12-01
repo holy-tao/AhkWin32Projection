@@ -3,7 +3,7 @@
 
 /**
  * The type of encoding used for a Remote Desktop Protocol (RDP) app container client snapshot.
- * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/ne-rdpappcontainerclient-snapshotencodingtype
+ * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/ne-rdpappcontainerclient-snapshotencodingtype
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

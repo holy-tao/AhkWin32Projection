@@ -4,7 +4,6 @@
 /**
  * The RADIUS_ATTRIBUTE_ARRAY structure represents an array of attributes.
  * @remarks
- * 
  * The Extension DLL must not modify this structure. Changes to the array of attributes should be made by calling the functions provided as members of this structure.
  * 
  * This structure is used by Extension DLLs that export 
@@ -20,9 +19,7 @@
  * This structure is returned by the functions 
  * <a href="https://docs.microsoft.com/previous-versions/ms688263(v=vs.85)">GetRequest</a> and 
  * <a href="https://docs.microsoft.com/previous-versions/ms688270(v=vs.85)">GetResponse</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//authif/ns-authif-radius_attribute_array
+ * @see https://learn.microsoft.com/windows/win32/api/authif/ns-authif-radius_attribute_array
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

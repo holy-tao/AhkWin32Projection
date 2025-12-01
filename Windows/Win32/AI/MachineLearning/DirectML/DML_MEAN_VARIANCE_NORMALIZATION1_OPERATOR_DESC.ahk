@@ -2,12 +2,10 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Performs a mean variance normalization function on the input tensor. This operator will calculate the mean and variance of the input tensor to perform normalization.
+ * Performs a mean variance normalization function on the input tensor. This operator will calculate the mean and variance of the input tensor to perform normalization. (DML_MEAN_VARIANCE_NORMALIZATION1_OPERATOR_DESC)
  * @remarks
  * **DML_MEAN_VARIANCE_NORMALIZATION1_OPERATOR_DESC** is a superset of functionality of [DML_MEAN_VARIANCE_NORMALIZATION_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_mean_variance_normalization_operator_desc). Here, setting the **Axes** array to `{ 0, 2, 3 }` is the equivalent of setting *CrossChannel* to **FALSE** in **DML_MEAN_VARIANCE_NORMALIZATION_OPERATOR_DESC**; while setting the **Axes** array to `{ 1, 2, 3 }` is equivalent of setting *CrossChannel* to **TRUE**.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_mean_variance_normalization1_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_mean_variance_normalization1_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
@@ -37,7 +35,7 @@ class DML_MEAN_VARIANCE_NORMALIZATION1_OPERATOR_DESC extends Win32Struct
      * 
      * If **DML_FEATURE_LEVEL** is greater than or equal to **DML_FEATURE_LEVEL_4_0**, then any dimension can be set to 1, and be automatically broadcast to match *InputTensor*.
      * 
-     * This tensor is required if the *BiasTensor* is used.
+     * If **DML_FEATURE_LEVEL** is less than **DML_FEATURE_LEVEL_5_2**, then this tensor is required if *BiasTensor* is present. If **DML_FEATURE_LEVEL** is greater than or equal to **DML_FEATURE_LEVEL_5_2**, then this tensor can be null regardless of the value of *BiasTensor*.
      * @type {Pointer<DML_TENSOR_DESC>}
      */
     ScaleTensor {
@@ -54,7 +52,7 @@ class DML_MEAN_VARIANCE_NORMALIZATION1_OPERATOR_DESC extends Win32Struct
      * 
      * If **DML_FEATURE_LEVEL** is greater than or equal to **DML_FEATURE_LEVEL_4_0**, then any dimension can be set to 1, and be automatically broadcast to match *InputTensor*.
      * 
-     * This tensor is required if the *ScaleTensor* is used.
+     * If **DML_FEATURE_LEVEL** is less than **DML_FEATURE_LEVEL_5_2**, then this tensor is required if *ScaleTensor* is present. If **DML_FEATURE_LEVEL** is greater than or equal to **DML_FEATURE_LEVEL_5_2**, then this tensor can be null regardless of the value of *ScaleTensor*.
      * @type {Pointer<DML_TENSOR_DESC>}
      */
     BiasTensor {

@@ -3,7 +3,7 @@
 
 /**
  * The RSAPUBKEY structure contains information specific to the particular public key contained in the key BLOB.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-rsapubkey
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-rsapubkey
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

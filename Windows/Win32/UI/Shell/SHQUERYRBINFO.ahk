@@ -3,7 +3,7 @@
 
 /**
  * Contains the size and item count information retrieved by the SHQueryRecycleBin function.
- * @see https://docs.microsoft.com/windows/win32/api//shellapi/ns-shellapi-shqueryrbinfo
+ * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-shqueryrbinfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

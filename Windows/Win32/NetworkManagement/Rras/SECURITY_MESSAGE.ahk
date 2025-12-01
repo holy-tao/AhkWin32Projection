@@ -3,7 +3,7 @@
 
 /**
  * The SECURITY_MESSAGE structure is used with the RasSecurityDialogComplete function to indicate the results of a RAS security DLL authentication transaction.
- * @see https://docs.microsoft.com/windows/win32/api//rasshost/ns-rasshost-security_message
+ * @see https://learn.microsoft.com/windows/win32/api/rasshost/ns-rasshost-security_message
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

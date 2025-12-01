@@ -5,8 +5,7 @@
  * Defines constants that specify what should be done with the results of earlier workload instrumentation.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_measurements_action
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_measurements_action
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

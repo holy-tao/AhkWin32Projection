@@ -3,7 +3,7 @@
 
 /**
  * This structure encapsulates a signature used in verifying executable files.
- * @see https://docs.microsoft.com/windows/win32/api//wintrust/ns-wintrust-win_certificate
+ * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-win_certificate
  * @namespace Windows.Win32.Security.WinTrust
  * @version v4.0.30319
  */

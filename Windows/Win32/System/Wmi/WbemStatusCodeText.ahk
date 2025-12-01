@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The IWbemStatusCodeText interface extracts text string descriptions of error codes or the name of the subsystem where the error occurred.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemstatuscodetext
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319

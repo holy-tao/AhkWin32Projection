@@ -5,7 +5,7 @@
 
 /**
  * The RGNDATA structure contains a header and an array of rectangles that compose a region. The rectangles are sorted top to bottom, left to right. They do not overlap.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-rgndata
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-rgndata
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

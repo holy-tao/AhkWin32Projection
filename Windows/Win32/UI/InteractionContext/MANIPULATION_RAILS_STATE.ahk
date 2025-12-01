@@ -3,7 +3,7 @@
 
 /**
  * Specifies the rail states for an interaction.
- * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/ne-interactioncontext-manipulation_rails_state
+ * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ne-interactioncontext-manipulation_rails_state
  * @namespace Windows.Win32.UI.InteractionContext
  * @version v4.0.30319
  */

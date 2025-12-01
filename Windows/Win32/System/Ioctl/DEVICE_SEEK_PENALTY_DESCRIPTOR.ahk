@@ -3,7 +3,7 @@
 
 /**
  * Used in conjunction with the IOCTL_STORAGE_QUERY_PROPERTY request to retrieve the seek penalty descriptor data for a device.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-device_seek_penalty_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_seek_penalty_descriptor
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

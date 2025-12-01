@@ -4,11 +4,8 @@
 /**
  * The EMRFORMAT structure contains information that identifies graphics data in an enhanced metafile. A GDICOMMENT_MULTIFORMATS enhanced metafile public comment contains an array of EMRFORMAT structures.
  * @remarks
- * 
  * The reference page for <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gdicomment">GdiComment</a> discusses enhanced metafile public comments in general, and the GDICOMMENT_MULTIFORMATS public comment in particular.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrformat
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrformat
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

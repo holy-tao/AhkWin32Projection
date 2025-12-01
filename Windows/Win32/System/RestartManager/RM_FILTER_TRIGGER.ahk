@@ -3,7 +3,7 @@
 
 /**
  * Describes the restart or shutdown actions for an application or service.
- * @see https://docs.microsoft.com/windows/win32/api//restartmanager/ne-restartmanager-rm_filter_trigger
+ * @see https://learn.microsoft.com/windows/win32/api/restartmanager/ne-restartmanager-rm_filter_trigger
  * @namespace Windows.Win32.System.RestartManager
  * @version v4.0.30319
  */

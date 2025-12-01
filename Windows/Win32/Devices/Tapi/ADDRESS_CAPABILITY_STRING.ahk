@@ -3,7 +3,7 @@
 
 /**
  * The ADDRESS_CAPABILITY_STRING enum is used to check on address capabilities which are described by strings.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-address_capability_string
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-address_capability_string
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

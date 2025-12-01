@@ -3,7 +3,7 @@
 
 /**
  * Defines the level of certainty for a named entity.
- * @see https://docs.microsoft.com/windows/win32/api//structuredquery/ne-structuredquery-named_entity_certainty
+ * @see https://learn.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-named_entity_certainty
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

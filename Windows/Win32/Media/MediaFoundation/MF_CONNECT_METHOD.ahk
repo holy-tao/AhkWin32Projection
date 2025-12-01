@@ -3,7 +3,7 @@
 
 /**
  * Specifies how the topology loader connects a topology node.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mf_connect_method
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_connect_method
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

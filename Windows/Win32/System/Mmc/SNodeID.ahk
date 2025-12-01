@@ -4,15 +4,12 @@
 /**
  * The SNodeID structure is introduced in MMC 1.1, and is replaced by the SNodeID2 structure in MMC 1.2.
  * @remarks
- * 
  * Your snap-in should support the <b>CCF_NODEID</b> clipboard format in its <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-getdata">IDataObject::GetData</a> method if any of its enumerated items has a volatile display name (such as the current computer name) or if any enumerated items should not be restored when the console file is reopened.
  * 
  * For details on using the 
  * <b>SNodeID</b> structure and <b>CCF_NODEID</b> clipboard format, see 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/ccf-nodeid">CCF_NODEID</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mmc/ns-mmc-snodeid
+ * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-snodeid
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

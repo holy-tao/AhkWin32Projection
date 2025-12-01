@@ -3,7 +3,7 @@
 
 /**
  * Defines values that are used to specify system power states.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-system_power_state
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-system_power_state
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

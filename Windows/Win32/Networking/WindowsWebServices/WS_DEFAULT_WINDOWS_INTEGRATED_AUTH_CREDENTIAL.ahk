@@ -4,7 +4,7 @@
 
 /**
  * Type for supplying a Windows Integrated Authentication credential based on the current Windows identity.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_default_windows_integrated_auth_credential
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_default_windows_integrated_auth_credential
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

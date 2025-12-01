@@ -3,7 +3,7 @@
 
 /**
  * Represents the different types of synchronization registration events.
- * @see https://docs.microsoft.com/windows/win32/api//syncregistration/ne-syncregistration-sync_registration_event
+ * @see https://learn.microsoft.com/windows/win32/api/syncregistration/ne-syncregistration-sync_registration_event
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */

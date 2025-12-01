@@ -3,7 +3,7 @@
 
 /**
  * Defines the IP address of a target.
- * @see https://docs.microsoft.com/windows/win32/api//sessdirpublictypes/ns-sessdirpublictypes-tssd_connectionpoint
+ * @see https://learn.microsoft.com/windows/win32/api/sessdirpublictypes/ns-sessdirpublictypes-tssd_connectionpoint
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

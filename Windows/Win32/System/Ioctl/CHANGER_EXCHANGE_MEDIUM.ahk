@@ -4,7 +4,7 @@
 
 /**
  * Contains information the IOCTL_CHANGER_EXCHANGE_MEDIUM control code uses to move a piece of media to a destination, and the piece of media originally in the first destination to a second destination.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-changer_exchange_medium
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_exchange_medium
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

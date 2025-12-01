@@ -4,7 +4,7 @@
 
 /**
  * The SECPKG_PARAMETERS structure contains information about the computer system. This structure is used by the SpInitialize function.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ns-ntsecpkg-secpkg_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_parameters
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

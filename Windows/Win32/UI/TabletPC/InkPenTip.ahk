@@ -3,7 +3,7 @@
 
 /**
  * Specifies the pen-tip shape.
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkpentip
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkpentip
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

@@ -6,11 +6,8 @@
 /**
  * The USBUSER_PASS_THRU_REQUEST structure is used in conjunction with the IOCTL_USB_USER_REQUEST I/O control request to send a vendor-specific command to the host controller miniport driver.
  * @remarks
- * 
  * The <b>USBUSER_PASS_THRU_REQUEST</b> structure is used in conjunction with the USBUSER_PASS_THRU user-mode request. For a description of this request, see <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ni-usbuser-ioctl_usb_user_request">IOCTL_USB_USER_REQUEST</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//usbuser/ns-usbuser-usbuser_pass_thru_request
+ * @see https://learn.microsoft.com/windows/win32/api/usbuser/ns-usbuser-usbuser_pass_thru_request
  * @namespace Windows.Win32.Devices.Usb
  * @version v4.0.30319
  */

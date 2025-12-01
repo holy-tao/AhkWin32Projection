@@ -6,7 +6,7 @@
 
 /**
  * The PEER_ADDRESS structure specifies the information about the IP address.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_address
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_address
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

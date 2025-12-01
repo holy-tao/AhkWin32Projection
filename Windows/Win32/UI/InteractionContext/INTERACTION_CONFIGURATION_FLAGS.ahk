@@ -3,7 +3,7 @@
 
 /**
  * Specifies the interactions to enable when configuring an Interaction Context object.
- * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/ne-interactioncontext-interaction_configuration_flags
+ * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ne-interactioncontext-interaction_configuration_flags
  * @namespace Windows.Win32.UI.InteractionContext
  * @version v4.0.30319
  */

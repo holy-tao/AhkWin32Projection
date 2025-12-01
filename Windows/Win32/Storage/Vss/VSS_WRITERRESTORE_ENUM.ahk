@@ -4,7 +4,6 @@
 /**
  * Indicate to a requester the conditions under which it will handle events generated during a restore operation.
  * @remarks
- * 
  * A writer passes a value of 
  *     <b>VSS_WRITERRESTORE_ENUM</b> to 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-setrestoremethod">IVssCreateWriterMetadata::SetRestoreMethod</a> 
@@ -12,9 +11,7 @@
  * 
  * A requester retrieves information about a writer's participation by calling 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getrestoremethod">IVssExamineWriterMetadata::GetRestoreMethod</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vswriter/ne-vswriter-vss_writerrestore_enum
+ * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_writerrestore_enum
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

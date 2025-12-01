@@ -3,7 +3,7 @@
 
 /**
  * The FT_STATE_EVENT_CAUSE enum indicates the type of file terminal event.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-ft_state_event_cause
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-ft_state_event_cause
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

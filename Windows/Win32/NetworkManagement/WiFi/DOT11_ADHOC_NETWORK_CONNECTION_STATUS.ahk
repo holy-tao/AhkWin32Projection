@@ -3,7 +3,7 @@
 
 /**
  * Specifies the connection state of an ad hoc network.
- * @see https://docs.microsoft.com/windows/win32/api//adhoc/ne-adhoc-dot11_adhoc_network_connection_status
+ * @see https://learn.microsoft.com/windows/win32/api/adhoc/ne-adhoc-dot11_adhoc_network_connection_status
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

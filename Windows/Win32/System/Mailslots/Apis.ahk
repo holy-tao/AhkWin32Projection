@@ -13,7 +13,50 @@ class Mailslots {
 
 ;@region Methods
     /**
-     * Creates a mailslot with the specified name and returns a handle that a mailslot server can use to perform operations on the mailslot.
+     * Creates a mailslot with the specified name and returns a handle that a mailslot server can use to perform operations on the mailslot. (ANSI)
+     * @remarks
+     * The mailslot exists until one of the following conditions is true:
+     * 
+     * <ul>
+     * <li>The last (possibly inherited or duplicated) handle to it is closed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function.</li>
+     * <li>The process owning the last (possibly inherited or duplicated) handle exits.</li>
+     * </ul>
+     * The system uses the second method to destroy mailslots.
+     * 
+     * To write a message to a mailslot, a process uses the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function, specifying the mailslot name by using one of the following formats.
+     * 
+     * <table>
+     * <tr>
+     * <th>Format</th>
+     * <th>Usage</th>
+     * </tr>
+     * <tr>
+     * <td>\\.\mailslot&#92;<i>name</i></td>
+     * <td>Retrieves a client handle to a local mailslot.</td>
+     * </tr>
+     * <tr>
+     * <td>&#92;&#92;<i>computername</i>\mailslot&#92;<i>name</i></td>
+     * <td>Retrieves a client handle to a remote mailslot.</td>
+     * </tr>
+     * <tr>
+     * <td>&#92;&#92;<i>domainname</i>\mailslot&#92;<i>name</i></td>
+     * <td>Retrieves a client handle to all mailslots with the specified name in the specified domain.</td>
+     * </tr>
+     * <tr>
+     * <td>\\*\mailslot&#92;<i>name</i></td>
+     * <td>Retrieves a client handle to all mailslots with the specified name in the system's primary domain.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * If <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> specifies a domain or uses the asterisk format to specify the system's primary domain, the application cannot write more than 424 bytes at a time to the mailslot. If the application attempts to do so, the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-writefile">WriteFile</a> function fails and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_BAD_NETPATH</b>.
+     * 
+     * An application must specify the <b>FILE_SHARE_READ</b> flag when using <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> to retrieve a client handle to a mailslot.
+     * 
+     * If <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> is called to access a non-existent mailslot, the  <b>ERROR_FILE_NOT_FOUND</b> error code will be set.
      * @param {PSTR} lpName The name of the mailslot. This name must have the following form:
      * 
      * \\\\.\mailslot\\[<i>path</i>]<i>name</i>
@@ -58,8 +101,8 @@ class Mailslots {
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the mailslot, for use in server mailslot operations.  The handle returned by this function is asynchronous, or overlapped.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-createmailslota
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createmailslota
      * @since windows5.0
      */
     static CreateMailslotA(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes) {
@@ -77,7 +120,50 @@ class Mailslots {
     }
 
     /**
-     * Creates a mailslot with the specified name and returns a handle that a mailslot server can use to perform operations on the mailslot.
+     * Creates a mailslot with the specified name and returns a handle that a mailslot server can use to perform operations on the mailslot. (Unicode)
+     * @remarks
+     * The mailslot exists until one of the following conditions is true:
+     * 
+     * <ul>
+     * <li>The last (possibly inherited or duplicated) handle to it is closed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function.</li>
+     * <li>The process owning the last (possibly inherited or duplicated) handle exits.</li>
+     * </ul>
+     * The system uses the second method to destroy mailslots.
+     * 
+     * To write a message to a mailslot, a process uses the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function, specifying the mailslot name by using one of the following formats.
+     * 
+     * <table>
+     * <tr>
+     * <th>Format</th>
+     * <th>Usage</th>
+     * </tr>
+     * <tr>
+     * <td>\\.\mailslot&#92;<i>name</i></td>
+     * <td>Retrieves a client handle to a local mailslot.</td>
+     * </tr>
+     * <tr>
+     * <td>&#92;&#92;<i>computername</i>\mailslot&#92;<i>name</i></td>
+     * <td>Retrieves a client handle to a remote mailslot.</td>
+     * </tr>
+     * <tr>
+     * <td>&#92;&#92;<i>domainname</i>\mailslot&#92;<i>name</i></td>
+     * <td>Retrieves a client handle to all mailslots with the specified name in the specified domain.</td>
+     * </tr>
+     * <tr>
+     * <td>\\*\mailslot&#92;<i>name</i></td>
+     * <td>Retrieves a client handle to all mailslots with the specified name in the system's primary domain.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * If <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> specifies a domain or uses the asterisk format to specify the system's primary domain, the application cannot write more than 424 bytes at a time to the mailslot. If the application attempts to do so, the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-writefile">WriteFile</a> function fails and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_BAD_NETPATH</b>.
+     * 
+     * An application must specify the <b>FILE_SHARE_READ</b> flag when using <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> to retrieve a client handle to a mailslot.
+     * 
+     * If <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> is called to access a non-existent mailslot, the  <b>ERROR_FILE_NOT_FOUND</b> error code will be set.
      * @param {PWSTR} lpName The name of the mailslot. This name must have the following form:
      * 
      * \\\\.\mailslot\\[<i>path</i>]<i>name</i>
@@ -122,8 +208,8 @@ class Mailslots {
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the mailslot, for use in server mailslot operations.  The handle returned by this function is asynchronous, or overlapped.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-createmailslotw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createmailslotw
      * @since windows5.0
      */
     static CreateMailslotW(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes) {
@@ -173,8 +259,8 @@ class Mailslots {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-getmailslotinfo
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getmailslotinfo
      * @since windows5.0
      */
     static GetMailslotInfo(hMailslot, lpMaxMessageSize, lpNextSize, lpMessageCount, lpReadTimeout) {
@@ -197,6 +283,9 @@ class Mailslots {
 
     /**
      * Sets the time-out value used by the specified mailslot for a read operation.
+     * @remarks
+     * The initial time-out value used by a mailslot for a read operation is typically set by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createmailslota">CreateMailslot</a> when the mailslot is created.
      * @param {HANDLE} hMailslot A handle to a mailslot. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createmailslota">CreateMailslot</a> function must create this handle.
      * @param {Integer} lReadTimeout The time a read operation can wait for a message to be written to the mailslot before a time-out occurs, in milliseconds. The following values have special meanings.
@@ -235,8 +324,8 @@ class Mailslots {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-setmailslotinfo
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setmailslotinfo
      * @since windows5.0
      */
     static SetMailslotInfo(hMailslot, lReadTimeout) {

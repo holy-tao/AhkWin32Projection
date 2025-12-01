@@ -3,7 +3,7 @@
 
 /**
  * Specifies the intended purpose of a cryptographic algorithm supported by a cryptographic provider.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-algorithmtype
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-algorithmtype
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

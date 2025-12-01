@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Represents a collection of connection groups.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_host_connection_group
  * @namespace Windows.Win32.Networking.WinHttp
@@ -14,6 +16,9 @@ class WINHTTP_HOST_CONNECTION_GROUP extends Win32Struct
     static packingSize => 8
 
     /**
+     * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
+     * 
+     * A string containing the host name.
      * @type {PWSTR}
      */
     pwszHost {
@@ -22,6 +27,9 @@ class WINHTTP_HOST_CONNECTION_GROUP extends Win32Struct
     }
 
     /**
+     * Type: **[ULONG](/windows/win32/winprog/windows-data-types)**
+     * 
+     * The number of elements in *pConnectionGroups*.
      * @type {Integer}
      */
     cConnectionGroups {
@@ -30,6 +38,9 @@ class WINHTTP_HOST_CONNECTION_GROUP extends Win32Struct
     }
 
     /**
+     * Type: **[PWINHTTP_CONNECTION_GROUP](ns-winhttp-winhttp_connection_group.md)**
+     * 
+     * An array of [WINHTTP_CONNECTION_GROUP](ns-winhttp-winhttp_connection_group.md) objects.
      * @type {Pointer<WINHTTP_CONNECTION_GROUP>}
      */
     pConnectionGroups {

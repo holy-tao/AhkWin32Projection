@@ -3,7 +3,7 @@
 
 /**
  * A structure used to represent a discontiguous array of WS_BYTES.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_buffers
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_buffers
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

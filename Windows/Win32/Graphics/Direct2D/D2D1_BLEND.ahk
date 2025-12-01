@@ -4,11 +4,8 @@
 /**
  * Specifies how one of the color sources is to be derived and optionally specifies a preblend operation on the color source.
  * @remarks
- * 
  * This enumeration has the same numeric values as <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_blend">D3D10_BLEND</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/ne-d2d1effectauthor-d2d1_blend
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_blend
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

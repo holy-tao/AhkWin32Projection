@@ -4,7 +4,6 @@
 /**
  * Contains a property used in the lattice.
  * @remarks
- * 
  * Properties can be stored on a column or an element. For example, the recognizer can store ink line break information about an alternate.
  * 
  * There are some predefined property GUIDs defined in the Msinkaut.h header file.
@@ -54,9 +53,7 @@
  * </td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//rectypes/ns-rectypes-reco_lattice_property
+ * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-reco_lattice_property
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

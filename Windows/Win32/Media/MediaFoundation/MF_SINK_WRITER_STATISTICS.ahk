@@ -3,7 +3,7 @@
 
 /**
  * Contains statistics about the performance of the sink writer.
- * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/ns-mfreadwrite-mf_sink_writer_statistics
+ * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/ns-mfreadwrite-mf_sink_writer_statistics
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

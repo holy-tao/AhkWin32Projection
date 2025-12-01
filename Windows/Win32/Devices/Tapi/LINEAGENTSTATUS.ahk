@@ -3,7 +3,7 @@
 
 /**
  * The LINEAGENTSTATUS structure describes the current status of an ACD agent. The lineGetAgentStatus function returns the LINEAGENTSTATUS structure.
- * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-lineagentstatus
+ * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineagentstatus
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

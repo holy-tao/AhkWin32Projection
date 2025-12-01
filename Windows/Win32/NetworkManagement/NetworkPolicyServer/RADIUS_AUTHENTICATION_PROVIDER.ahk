@@ -4,13 +4,10 @@
 /**
  * The RADIUS_AUTHENTICATION_PROVIDER type enumerates the possible authentication providers that NPS can use.
  * @remarks
- * 
  * The <b>ratProvider</b> extended attribute in 
  * <a href="https://docs.microsoft.com/windows/desktop/api/authif/ne-authif-radius_attribute_type">RADIUS_ATTRIBUTE_TYPE</a> uses values from the 
  * <b>RADIUS_AUTHENTICATION_PROVIDER</b> enumeration type.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//authif/ne-authif-radius_authentication_provider
+ * @see https://learn.microsoft.com/windows/win32/api/authif/ne-authif-radius_authentication_provider
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

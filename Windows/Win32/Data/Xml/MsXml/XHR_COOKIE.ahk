@@ -4,7 +4,7 @@
 
 /**
  * Defines a cookie that you can add to the HTTP cookie jar by calling the SetCookie method or retrieve from the HTTP cookie jar by calling the GetCookie method.
- * @see https://docs.microsoft.com/windows/win32/api//msxml6/ns-msxml6-xhr_cookie
+ * @see https://learn.microsoft.com/windows/win32/api/msxml6/ns-msxml6-xhr_cookie
  * @namespace Windows.Win32.Data.Xml.MsXml
  * @version v4.0.30319
  */

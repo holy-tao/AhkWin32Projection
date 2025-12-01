@@ -3,7 +3,7 @@
 
 /**
  * Defines the status of the cache for a media file or entry.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mfnetsource_cache_state
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfnetsource_cache_state
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

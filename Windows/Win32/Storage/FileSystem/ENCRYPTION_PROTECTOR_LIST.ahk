@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Under WIP policy, includes all the identities a file is protected to.
  * @see https://learn.microsoft.com/windows/win32/DevNotes/encryption_protector_list-structure
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319

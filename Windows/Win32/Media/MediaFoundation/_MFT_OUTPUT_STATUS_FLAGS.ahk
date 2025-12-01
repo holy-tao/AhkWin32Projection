@@ -3,7 +3,7 @@
 
 /**
  * Indicates whether a Media Foundation transform (MFT) can produce output data.
- * @see https://docs.microsoft.com/windows/win32/api//mftransform/ne-mftransform-_mft_output_status_flags
+ * @see https://learn.microsoft.com/windows/win32/api/mftransform/ne-mftransform-_mft_output_status_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

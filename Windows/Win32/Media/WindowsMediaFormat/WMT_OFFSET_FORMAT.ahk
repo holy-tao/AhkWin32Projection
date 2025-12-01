@@ -4,11 +4,8 @@
 /**
  * The WMT_OFFSET_FORMAT enumeration type defines the types of offsets used in this SDK.
  * @remarks
- * 
  * <b>WMT_OFFSET_FORMAT</b> is used as an input parameter to <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced3-startatposition">IWMReaderAdvanced3::StartAtPosition</a>. The value passed specifies whether the reader should begin playback at a specified presentation time, frame number, or offset into a playlist.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ne-wmsdkidl-wmt_offset_format
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_offset_format
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

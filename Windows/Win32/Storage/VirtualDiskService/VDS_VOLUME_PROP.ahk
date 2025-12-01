@@ -4,13 +4,10 @@
 /**
  * Defines the properties of a volume object.
  * @remarks
- * 
- * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolume-getproperties">IVdsVolume::GetProperties</a>method returns this structure to report the properties of a <a href="https://docs.microsoft.com/windows/desktop/VDS/volume-object">volume object</a>.
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolume-getproperties">IVdsVolume::GetProperties</a> method returns this structure to report the properties of a <a href="https://docs.microsoft.com/windows/desktop/VDS/volume-object">volume object</a>.
  * 
  * When a volume is offline, the <b>VDS_VF_PERMANENTLY_DISMOUNTED</b> flag is set in the <b>ulFlags</b> member of the <b>VDS_VOLUME_PROP</b> structure, and the <b>VDS_VS_OFFLINE</b> volume status value is also set in the <b>status</b> member of this structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_volume_prop
+ * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_volume_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

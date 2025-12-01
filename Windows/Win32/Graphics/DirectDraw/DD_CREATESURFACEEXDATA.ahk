@@ -3,7 +3,7 @@
 
 /**
  * The DD_CREATESURFACEEXDATA structure contains information required for the driver to create a surface and associate with it a supplied texture handle.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_createsurfaceexdata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_createsurfaceexdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

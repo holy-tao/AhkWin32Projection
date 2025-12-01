@@ -3,7 +3,7 @@
 
 /**
  * Defines the ASF indexer options.
- * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/ne-wmcontainer-mfasf_indexer_flags
+ * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/ne-wmcontainer-mfasf_indexer_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

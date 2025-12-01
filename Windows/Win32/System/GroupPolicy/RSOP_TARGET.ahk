@@ -3,7 +3,7 @@
 
 /**
  * The RSOP_TARGET structure contains computer and user information required by the GenerateGroupPolicy function.
- * @see https://docs.microsoft.com/windows/win32/api//userenv/ns-userenv-rsop_target
+ * @see https://learn.microsoft.com/windows/win32/api/userenv/ns-userenv-rsop_target
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */

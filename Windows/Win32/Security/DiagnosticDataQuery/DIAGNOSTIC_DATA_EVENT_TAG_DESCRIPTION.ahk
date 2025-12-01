@@ -4,11 +4,8 @@
 /**
  * A resource that describes a tag, defined by the tag's name and its description.
  * @remarks
- * 
  * For more details, see our [**privacy statement**](/windows/privacy/windows-diagnostic-data).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_data_event_tag_description
+ * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_data_event_tag_description
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
  * @version v4.0.30319
  */

@@ -3,6 +3,8 @@
 #Include .\FW_DYNAMIC_KEYWORD_ADDRESS0.ahk
 
 /**
+ * Holds the data returned to the client when the **Enumeration** APIs are called.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/netfw/ns-netfw-fw_dynamic_keyword_address_data0
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
@@ -15,6 +17,9 @@ class FW_DYNAMIC_KEYWORD_ADDRESS_DATA0 extends Win32Struct
     static packingSize => 8
 
     /**
+     * Type: **[FW_DYNAMIC_KEYWORD_ADDRESS0](ns-netfw-fw_dynamic_keyword_address0.md)**
+     * 
+     * A dynamic keyword address (the dynamic keyword address object).
      * @type {FW_DYNAMIC_KEYWORD_ADDRESS0}
      */
     dynamicKeywordAddress{
@@ -26,6 +31,9 @@ class FW_DYNAMIC_KEYWORD_ADDRESS_DATA0 extends Win32Struct
     }
 
     /**
+     * Type: **[FW_DYNAMIC_KEYWORD_ADDRESS0](ns-netfw-fw_dynamic_keyword_address0.md)\***
+     * 
+     * A pointer to the next dynamic keyword address object in a linked list.
      * @type {Pointer<FW_DYNAMIC_KEYWORD_ADDRESS_DATA0>}
      */
     next {
@@ -34,6 +42,9 @@ class FW_DYNAMIC_KEYWORD_ADDRESS_DATA0 extends Win32Struct
     }
 
     /**
+     * Type: **[WORD](/windows/win32/api/guiddef/ns-guiddef-guid)**
+     * 
+     * The schema version of the object. This is used by the [**FWFreeDynamicKeywordAddressData0**](/windows/win32/api/netfw/nc-netfw-pfn_fwfreedynamickeywordaddressdata0) API.
      * @type {Integer}
      */
     schemaVersion {
@@ -42,6 +53,9 @@ class FW_DYNAMIC_KEYWORD_ADDRESS_DATA0 extends Win32Struct
     }
 
     /**
+     * Type: **[FW_DYNAMIC_KEYWORD_ORIGIN_TYPE](ne-netfw-fw_dynamic_keyword_origin_type.md)**
+     * 
+     * Indicates the origin of this object. It can be either **FW_DYNAMIC_KEYWORD_ORIGIN_LOCAL**, which represents a locally created object, or **FW_DYNAMIC_KEYWORD_ORIGIN_MDM**, which represents an MDM managed object.
      * @type {Integer}
      */
     originType {

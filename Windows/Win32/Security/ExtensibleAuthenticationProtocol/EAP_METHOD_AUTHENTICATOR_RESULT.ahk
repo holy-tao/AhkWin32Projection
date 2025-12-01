@@ -3,7 +3,7 @@
 
 /**
  * Contains authentication results returned by an EAP authenticator method.
- * @see https://docs.microsoft.com/windows/win32/api//eapauthenticatoractiondefine/ns-eapauthenticatoractiondefine-eap_method_authenticator_result
+ * @see https://learn.microsoft.com/windows/win32/api/eapauthenticatoractiondefine/ns-eapauthenticatoractiondefine-eap_method_authenticator_result
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

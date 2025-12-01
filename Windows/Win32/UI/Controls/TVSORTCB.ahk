@@ -4,18 +4,20 @@
 /**
  * Contains information used to sort child items in a tree-view control. This structure is used with the TVM_SORTCHILDRENCB message. This structure is identical to the TV_SORTCB structure, but it has been renamed to follow current naming conventions.
  * @remarks
- * 
  * The callback function specified by <b>lpfnCompare</b> has the following form:
  * 
  * 
- * <pre class="syntax" xml:space="preserve"><code>
+ * 
+ * ``` syntax
+ * 
  * int CALLBACK CompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort);
- * </code></pre>
+ * 
+ * ```
+ * 
  * The callback function must return a negative value if the first item should precede the second, a positive value if the first item should follow the second, or zero if the two items are equivalent.
  * 
  * The <i>lParam1</i> and <i>lParam2</i> parameters correspond to the lParam member of the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-tvitema">TVITEM</a> structure for the two items being compared. The <i>lParamSort</i> parameter corresponds to the <b>lParam</b> member of this structure.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-tvsortcb
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tvsortcb
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

@@ -4,7 +4,6 @@
 /**
  * The RPC_BINDING_VECTOR structure contains a list of binding handles over which a server application can receive remote procedure calls.
  * @remarks
- * 
  * The binding vector contains a count member (<b>Count</b>), followed by an array of binding-handle (<b>BindingH</b>) elements.
  * 
  * The RPC run-time library creates binding handles when a server application registers protocol sequences. To obtain a binding vector, a server application calls 
@@ -24,9 +23,7 @@
  * </ul>
  * Calling 
  * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingfree">RpcBindingFree</a> allows an application to free all binding handles in the vector.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//rpcdce/ns-rpcdce-rpc_binding_vector
+ * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_binding_vector
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */

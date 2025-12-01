@@ -3,8 +3,8 @@
 #Include .\MI_ConstBooleanA.ahk
 
 /**
- * Represents a property inside an MI_Instance structure.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_constbooleanafield
+ * Represents a property inside an MI_Instance structure. (MI_ConstBooleanAField)
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_constbooleanafield
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The MBN_CONNECTION_MODE enumerated type specifies the mode of connection requested.
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ne-mbnapi-mbn_connection_mode
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_connection_mode
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

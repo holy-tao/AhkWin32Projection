@@ -3,7 +3,7 @@
 
 /**
  * DRT_ADDRESS_FLAGS enumeration.
- * @see https://docs.microsoft.com/windows/win32/api//drt/ne-drt-drt_address_flags
+ * @see https://learn.microsoft.com/windows/win32/api/drt/ne-drt-drt_address_flags
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

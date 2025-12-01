@@ -4,8 +4,8 @@
 #Include .\INET_FIREWALL_AC_BINARIES.ahk
 
 /**
- * Contains information about a change made to an app container.
- * @see https://docs.microsoft.com/windows/win32/api//networkisolation/ns-networkisolation-inet_firewall_ac_change
+ * The INET_FIREWALL_AC_CHANGE structure contains information about a change made to an app container. (INET_FIREWALL_AC_CHANGE)
+ * @see https://learn.microsoft.com/windows/win32/api/netfw/ns-netfw-inet_firewall_ac_change
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */

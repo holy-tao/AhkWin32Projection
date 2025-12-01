@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of Diffie Hellman group used for Internet Key Exchange (IKE) and Authenticated Internet Protocol (AuthIP) key generation.
- * @see https://docs.microsoft.com/windows/win32/api//iketypes/ne-iketypes-ikeext_dh_group
+ * @see https://learn.microsoft.com/windows/win32/api/iketypes/ne-iketypes-ikeext_dh_group
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

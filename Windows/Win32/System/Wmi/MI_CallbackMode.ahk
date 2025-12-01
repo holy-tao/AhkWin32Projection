@@ -3,7 +3,7 @@
 
 /**
  * Defines the callback mode for the CIM extensions for WriteError and PromptUser functions.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ne-mi-mi_callbackmode
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ne-mi-mi_callbackmode
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

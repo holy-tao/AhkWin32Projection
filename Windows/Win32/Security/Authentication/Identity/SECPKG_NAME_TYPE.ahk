@@ -3,7 +3,7 @@
 
 /**
  * The SECPKG_NAME_TYPE enumeration is used to describe the type of name specified for an account.The SECPKG_NAME_TYPE enumeration is used by the GetAuthDataForUser and OpenSamUser functions.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ne-ntsecpkg-secpkg_name_type
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ne-ntsecpkg-secpkg_name_type
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

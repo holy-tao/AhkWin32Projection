@@ -4,7 +4,6 @@
 /**
  * Contains flags that are used to configure how the enhanced video renderer (EVR) performs deinterlacing.
  * @remarks
- * 
  * To set these flags, call the <a href="https://docs.microsoft.com/windows/desktop/api/evr/nf-evr-imfvideomixercontrol2-setmixingprefs">IMFVideoMixerControl2::SetMixingPrefs</a> method.
  * 
  * These flags control some trade-offs between video quality and rendering speed. The constants named "MFVideoMixPrefs_Allow..." enable lower-quality settings, but only when the quality manager requests a drop in quality.  The constants named "MFVideoMixPrefs_Force..." force the EVR to use lower-quality settings regardless of  what the quality manager requests. (For more information about the quality manager, see <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfqualityadvise">IMFQualityAdvise</a>.)
@@ -39,9 +38,7 @@
  * </td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//evr/ne-evr-mfvideomixprefs
+ * @see https://learn.microsoft.com/windows/win32/api/evr/ne-evr-mfvideomixprefs
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

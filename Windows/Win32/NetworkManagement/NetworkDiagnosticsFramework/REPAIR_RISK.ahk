@@ -3,7 +3,7 @@
 
 /**
  * The REPAIR_RISK enumeration specifies whether repair changes are persistent and whether they can be undone.
- * @see https://docs.microsoft.com/windows/win32/api//ndattrib/ne-ndattrib-repair_risk
+ * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ne-ndattrib-repair_risk
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */

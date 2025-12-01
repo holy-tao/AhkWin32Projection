@@ -3,7 +3,7 @@
 
 /**
  * Defines the values for the source stream category.
- * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/ne-mfcaptureengine-mf_capture_engine_stream_category
+ * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/ne-mfcaptureengine-mf_capture_engine_stream_category
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

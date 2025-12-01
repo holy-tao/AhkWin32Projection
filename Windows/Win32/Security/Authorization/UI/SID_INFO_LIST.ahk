@@ -4,7 +4,7 @@
 
 /**
  * Contains a list of SID_INFO structures.
- * @see https://docs.microsoft.com/windows/win32/api//aclui/ns-aclui-sid_info_list
+ * @see https://learn.microsoft.com/windows/win32/api/aclui/ns-aclui-sid_info_list
  * @namespace Windows.Win32.Security.Authorization.UI
  * @version v4.0.30319
  */

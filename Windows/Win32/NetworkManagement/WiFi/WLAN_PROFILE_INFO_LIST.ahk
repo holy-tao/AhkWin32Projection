@@ -4,7 +4,7 @@
 
 /**
  * Contains a list of wireless profile information.
- * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-wlan_profile_info_list
+ * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_profile_info_list
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

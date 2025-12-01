@@ -4,7 +4,6 @@
 /**
  * Pin states of a placeholder file or directory.
  * @remarks
- * 
  * <table>
  * <tr>
  * <th></th>
@@ -79,8 +78,7 @@
  * <td>Excluded</td>
  * </tr>
  * </table>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//cfapi/ne-cfapi-cf_pin_state
+ * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_pin_state
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
@@ -93,7 +91,7 @@ class CF_PIN_STATE extends Win32Enum{
     static CF_PIN_STATE_UNSPECIFIED => 0
 
     /**
-     * The sync provider will be notified to fetch the placeholder’s content asynchronously after the pin request is received by the platform. There is no guarantee that the placeholders to be pinned will be fully available locally after a <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfsetpinstate">CfSetPinState</a> call completes successfully. However, the platform will fail any dehydration request on pinned placeholders.
+     * The sync provider will be notified to fetch the placeholder’s content asynchronously after the pin request is received by the platform. There is no guarantee that the placeholders to be pinned will be fully available locally after a [CfSetPinState](nf-cfapi-cfsetpinstate.md) call completes successfully. However, the platform will fail any dehydration request on pinned placeholders.
      * @type {Integer (Int32)}
      */
     static CF_PIN_STATE_PINNED => 1
@@ -111,7 +109,7 @@ class CF_PIN_STATE extends Win32Enum{
     static CF_PIN_STATE_EXCLUDED => 3
 
     /**
-     * The platform treats it as if the caller performs a move operation on the placeholder and hence re-evaluates the placeholder’s pin state based on its parent’s pin state. See the Remarks section for an inheritance table.
+     * The platform treats it as if the caller performs a move operation on the placeholder and hence re-evaluates the placeholder’s pin state based on its parent’s pin state. See the [Remarks](#-remarks) section for an inheritance table.
      * @type {Integer (Int32)}
      */
     static CF_PIN_STATE_INHERIT => 4

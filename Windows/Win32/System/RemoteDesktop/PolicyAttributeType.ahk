@@ -3,7 +3,7 @@
 
 /**
  * Specifies the redirection settings associated with a connection.
- * @see https://docs.microsoft.com/windows/win32/api//tsgpolicyengine/ne-tsgpolicyengine-policyattributetype
+ * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/ne-tsgpolicyengine-policyattributetype
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

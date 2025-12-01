@@ -4,7 +4,6 @@
 /**
  * Describes the type of NVMe protocol-specific data that's to be queried during an IOCTL_STORAGE_QUERY_PROPERTY request.
  * @remarks
- * 
  * When using [IOCTL_STORAGE_QUERY_PROPERTY](ni-winioctl-ioctl_storage_query_property.md) to retrieve protocol-specific information in the [STORAGE_PROTOCOL_DATA_DESCRIPTOR](ns-winioctl-storage_protocol_data_descriptor.md), configure the [STORAGE_PROPERTY_QUERY](ns-winioctl-storage_property_query.md) structure as follows:
  * * Allocate a buffer that can contains both a [STORAGE_PROPERTY_QUERY](ns-winioctl-storage_property_query.md) and a [STORAGE_PROTOCOL_SPECIFIC_DATA](ns-winioctl-storage_protocol_specific_data.md) structure.
  * * Set the **PropertyID** field to **StorageAdapterProtocolSpecificProperty** or **StorageDeviceProtocolSpecificProperty** for a controller or device/namespace request, respectively.
@@ -17,9 +16,7 @@
  *   * Use **NVMeDataTypeIdentify** to get Identify Controller data or Identify Namespace data.
  *   * Use **NVMeDataTypeLogPage** to get log pages (including SMART/health data).
  *   * Use **NVMeDataTypeFeature** to get features of the NVMe drive.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ne-winioctl-storage_protocol_nvme_data_type
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-storage_protocol_nvme_data_type
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

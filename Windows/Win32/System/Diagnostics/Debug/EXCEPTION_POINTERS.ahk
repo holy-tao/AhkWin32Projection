@@ -3,7 +3,7 @@
 
 /**
  * Contains an exception record with a machine-independent description of an exception and a context record with a machine-dependent description of the processor context at the time of the exception.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-exception_pointers
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-exception_pointers
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */
@@ -25,7 +25,7 @@ class EXCEPTION_POINTERS extends Win32Struct
 
     /**
      * A pointer to a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure that contains a processor-specific description of the state of the processor at the time of the exception.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-context">CONTEXT</a> structure that contains a processor-specific description of the state of the processor at the time of the exception.
      * @type {Pointer<CONTEXT>}
      */
     ContextRecord {

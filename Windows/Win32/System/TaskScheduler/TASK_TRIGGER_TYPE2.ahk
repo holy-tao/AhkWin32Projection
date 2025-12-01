@@ -3,7 +3,7 @@
 
 /**
  * Defines the type of triggers that can be used by tasks.
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/ne-taskschd-task_trigger_type2
+ * @see https://learn.microsoft.com/windows/win32/api/taskschd/ne-taskschd-task_trigger_type2
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */

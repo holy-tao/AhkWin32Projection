@@ -3,7 +3,7 @@
 
 /**
  * Describes flags that are used to create a device context state object (ID3DDeviceContextState) with the ID3D11Device1::CreateDeviceContextState method.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/ne-d3d11_1-d3d11_1_create_device_context_state_flag
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/ne-d3d11_1-d3d11_1_create_device_context_state_flag
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

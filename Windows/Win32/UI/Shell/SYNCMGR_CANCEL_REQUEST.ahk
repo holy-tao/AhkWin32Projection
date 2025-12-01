@@ -3,7 +3,7 @@
 
 /**
  * Describes a request by the user to cancel a synchronization.
- * @see https://docs.microsoft.com/windows/win32/api//syncmgr/ne-syncmgr-syncmgr_cancel_request
+ * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ne-syncmgr-syncmgr_cancel_request
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies how to reconnect filters when dynamically rebuilding the filter graph.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-am_graph_config_reconnect_flags
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-am_graph_config_reconnect_flags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

@@ -4,13 +4,10 @@
 /**
  * Specifies parameters for a Shell data source for which a filter is loaded.
  * @remarks
- * 
  * A filter, also known as a filter handler, is an implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface.
  * 
  * <b>FILTERED_DATA_SOURCES</b> can hold one file content identifier of each type. CLSIDs are always searched first, followed by the  file name extension, then MIME type, and finally the path.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//filtereg/ns-filtereg-filtered_data_sources
+ * @see https://learn.microsoft.com/windows/win32/api/filtereg/ns-filtereg-filtered_data_sources
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Describes whether a reference represented by the IOpcSignatureRelationshipReference interface refers to all or a subset of relationships represented as relationship objects in a relationship set object.
- * @see https://docs.microsoft.com/windows/win32/api//msopc/ne-msopc-opc_relationships_signing_option
+ * @see https://learn.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_relationships_signing_option
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */

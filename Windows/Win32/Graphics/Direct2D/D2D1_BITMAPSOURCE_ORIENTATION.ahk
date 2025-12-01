@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Speficies whether a flip and/or rotation operation should be performed by the Bitmap source effect.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effects/ne-d2d1effects-d2d1_bitmapsource_orientation
+ * Specifies whether a flip and/or rotation operation should be performed by the Bitmap source effect.
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_bitmapsource_orientation
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

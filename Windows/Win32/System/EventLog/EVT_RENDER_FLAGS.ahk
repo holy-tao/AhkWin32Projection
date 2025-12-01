@@ -3,7 +3,7 @@
 
 /**
  * Defines the values that specify what to render.
- * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_render_flags
+ * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_render_flags
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */

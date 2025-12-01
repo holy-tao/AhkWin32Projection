@@ -3,7 +3,7 @@
 
 /**
  * The MBN_MSG_STATUS enumerated type defines the type of message being handled.
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ne-mbnapi-mbn_msg_status
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_msg_status
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

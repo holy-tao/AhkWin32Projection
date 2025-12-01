@@ -3,7 +3,7 @@
 
 /**
  * Defines which set of actions to use when negotiating security tokens using WS-Trust.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_request_security_token_action
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_request_security_token_action
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

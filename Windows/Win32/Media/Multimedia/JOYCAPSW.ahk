@@ -2,13 +2,11 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The JOYCAPS structure contains information about the joystick capabilities.
+ * The JOYCAPSW (Unicode) (joystickapi.h) structure contains information about the joystick capabilities.
  * @remarks
- * 
  * > [!NOTE]
  * > The joystickapi.h header defines JOYCAPS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//joystickapi/ns-joystickapi-joycapsw
+ * @see https://learn.microsoft.com/windows/win32/api/joystickapi/ns-joystickapi-joycapsw
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  * @charset Unicode

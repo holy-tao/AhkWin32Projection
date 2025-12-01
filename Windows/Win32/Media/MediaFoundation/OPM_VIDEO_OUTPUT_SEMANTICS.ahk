@@ -3,7 +3,7 @@
 
 /**
  * Specifies whether the IOPMVideoOutput interface will use Output Protection Manager (OPM) semantics or Certified Output Protection Protocol (COPP) semantics.
- * @see https://docs.microsoft.com/windows/win32/api//opmapi/ne-opmapi-opm_video_output_semantics
+ * @see https://learn.microsoft.com/windows/win32/api/opmapi/ne-opmapi-opm_video_output_semantics
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

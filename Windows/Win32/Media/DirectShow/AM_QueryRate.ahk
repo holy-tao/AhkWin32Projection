@@ -4,11 +4,8 @@
 /**
  * The AM_QueryRate structure is used to query the decoder's maximum full-frame rate for forward and reverse playback.
  * @remarks
- * 
  * Rate is the inverse of speed. For example, if the playback speed is 2x, the rate is 1/2, so the <b>Rate</b> member is set to 5000. Reverse rates are negative.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dvdmedia/ns-dvdmedia-am_queryrate
+ * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-am_queryrate
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

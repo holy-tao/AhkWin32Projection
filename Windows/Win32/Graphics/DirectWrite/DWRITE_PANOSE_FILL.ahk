@@ -3,7 +3,7 @@
 
 /**
  * The DWRITE_PANOSE_FILL enumeration contains values that specify the type of fill and line treatment.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/ne-dwrite_1-dwrite_panose_fill
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_panose_fill
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

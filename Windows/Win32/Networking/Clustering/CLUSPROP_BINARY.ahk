@@ -6,12 +6,9 @@
 /**
  * Describes a binary data value.
  * @remarks
- * 
  * Use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusprop_binary_declare">CLUSPROP_BINARY_DECLARE</a> macro to 
  *      initialize a <b>CLUSPROP_BINARY</b> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clusprop_binary
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_binary
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_OPTION_DATA structure defines a data container for one or more data elements associated with a DHCP option.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_option_data
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_option_data
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

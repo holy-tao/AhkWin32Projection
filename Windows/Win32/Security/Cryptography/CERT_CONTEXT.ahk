@@ -4,7 +4,7 @@
 
 /**
  * Contains both the encoded and decoded representations of a certificate.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_context
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_context
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * This topic applies only to Windows XP Service Pack 1 or later.
- * @see https://docs.microsoft.com/windows/win32/api//sbe/ne-sbe-streambuffer_attr_datatype
+ * @see https://learn.microsoft.com/windows/win32/api/sbe/ne-sbe-streambuffer_attr_datatype
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Used to query or set the value used to generate Posix user and group identifiers.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-trusted_posix_offset_info
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-trusted_posix_offset_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Defines metadata information about the requested field.
- * @see https://docs.microsoft.com/windows/win32/api//tdh/ns-tdh-provider_field_infoarray
+ * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-provider_field_infoarray
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

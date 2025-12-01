@@ -3,7 +3,7 @@
 
 /**
  * Indicates the state of a target.
- * @see https://docs.microsoft.com/windows/win32/api//sessdirpublictypes/ne-sessdirpublictypes-target_state
+ * @see https://learn.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-target_state
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

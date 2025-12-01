@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of information to be retrieved from an existing AuthzClientContext. This enumeration is used by the AuthzGetInformationFromContext function.
- * @see https://docs.microsoft.com/windows/win32/api//authz/ne-authz-authz_context_information_class
+ * @see https://learn.microsoft.com/windows/win32/api/authz/ne-authz-authz_context_information_class
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */

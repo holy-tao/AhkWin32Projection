@@ -4,13 +4,10 @@
 /**
  * Used by MMC with the MMCN_COLUMNS_CHANGED notification to inform the snap-in which columns in a column set are visible.
  * @remarks
- * 
  * The value of rgVisibleCols[0] is always 0 (zero), indicating that the first visible column in the list view is always the zero index-valued column, which must always be the first column and must always be visible. Furthermore, MMC does not allow the user to change the position of the first column.
  * 
  * The order of visible columns may be different than the order of insertion by the snap-in because the user may have rearranged the columns by dragging and dropping their headers.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mmc/ns-mmc-mmc_visible_columns
+ * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_visible_columns
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

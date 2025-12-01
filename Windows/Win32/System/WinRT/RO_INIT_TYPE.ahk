@@ -4,11 +4,8 @@
 /**
  * Determines the concurrency model used for incoming calls to the objects created by this thread.
  * @remarks
- * 
  * Pass the <b>RO_INIT_TYPE</b> enumeration to the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/nf-roapi-roinitialize">RoInitialize</a> function to initialize a thread in the Windows Runtime.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//roapi/ne-roapi-ro_init_type
+ * @see https://learn.microsoft.com/windows/win32/api/roapi/ne-roapi-ro_init_type
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */

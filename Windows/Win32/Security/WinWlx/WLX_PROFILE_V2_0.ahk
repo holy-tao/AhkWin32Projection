@@ -4,14 +4,11 @@
 /**
  * Contains profile information in addition to the information provided by WLX_PROFILE_V1_0.
  * @remarks
- * 
  * This structure is returned to Winlogon by your GINA DLL.
  * 
  * Your GINA DLL may use two structures to provide profile information: <b>WLX_PROFILE_V2_0</b> and 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/ns-winwlx-wlx_profile_v1_0">WLX_PROFILE_V1_0</a>. The information in <b>WLX_PROFILE_V1_0</b> only includes the profile type and path to the profile.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winwlx/ns-winwlx-wlx_profile_v2_0
+ * @see https://learn.microsoft.com/windows/win32/api/winwlx/ns-winwlx-wlx_profile_v2_0
  * @namespace Windows.Win32.Security.WinWlx
  * @version v4.0.30319
  */

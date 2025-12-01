@@ -4,7 +4,7 @@
 
 /**
  * Placeholder file or directory metadata.
- * @see https://docs.microsoft.com/windows/win32/api//cfapi/ns-cfapi-cf_fs_metadata
+ * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_fs_metadata
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
@@ -15,7 +15,7 @@ class CF_FS_METADATA extends Win32Struct
     static packingSize => 8
 
     /**
-     * Basic file information.
+     * Basic file information in a [FILE_BASIC_INFO](/windows/win32/api/winbase/ns-winbase-file_basic_info) structure.
      * @type {FILE_BASIC_INFO}
      */
     BasicInfo{

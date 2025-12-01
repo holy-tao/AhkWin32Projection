@@ -6,7 +6,7 @@
 
 /**
  * Contains information used in handling the RBN_AUTOSIZE notification codes.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmrbautosize
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmrbautosize
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

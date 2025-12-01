@@ -3,7 +3,7 @@
 
 /**
  * The WM_CLIENT_PROPERTIES_EX structure holds extended client information.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ns-wmsdkidl-wm_client_properties_ex
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wm_client_properties_ex
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

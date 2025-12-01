@@ -2,7 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The SP_INF_SIGNER_INFO structure stores information about an INF file's digital signature. (sp_inf_signer_info_v2_a)
+ * @remarks
+ * > [!NOTE]
+ * > The setupapi.h header defines SP_INF_SIGNER_INFO_V2 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_inf_signer_info_v2_a
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
@@ -15,6 +18,7 @@ class SP_INF_SIGNER_INFO_V2_A extends Win32Struct
     static packingSize => 4
 
     /**
+     * Size of this structure, in bytes.
      * @type {Integer}
      */
     cbSize {
@@ -23,6 +27,7 @@ class SP_INF_SIGNER_INFO_V2_A extends Win32Struct
     }
 
     /**
+     * Path to the catalog file, stored in an array of maximum size MAX_PATH characters.
      * @type {String}
      */
     CatalogFile {
@@ -31,6 +36,7 @@ class SP_INF_SIGNER_INFO_V2_A extends Win32Struct
     }
 
     /**
+     * Path to the digital signer of the file, stored in an array of maximum size MAX_PATH characters.
      * @type {String}
      */
     DigitalSigner {
@@ -39,6 +45,7 @@ class SP_INF_SIGNER_INFO_V2_A extends Win32Struct
     }
 
     /**
+     * Version of the digital signer, stored in an array of size MAX_PATH characters.
      * @type {String}
      */
     DigitalSignerVersion {
@@ -47,6 +54,7 @@ class SP_INF_SIGNER_INFO_V2_A extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     SignerScore {

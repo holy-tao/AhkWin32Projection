@@ -3,7 +3,7 @@
 
 /**
  * Contains flags that define the behavior of the MFCreatePMPMediaSession function.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mfpmpsession_creation_flags
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfpmpsession_creation_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -4,7 +4,6 @@
 /**
  * Describes how to interpret the signingTime parameter, which is a record of when a signature was created, of the IOpcDigitalSignature::GetSigningTime method.
  * @remarks
- * 
  * The following table provides descriptions of  placeholder values.
  * 
  * <table>
@@ -126,9 +125,7 @@
  * </td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msopc/ne-msopc-opc_signature_time_format
+ * @see https://learn.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_signature_time_format
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */

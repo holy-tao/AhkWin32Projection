@@ -3,7 +3,7 @@
 
 /**
  * Contains information associated with a media change event.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-class_media_change_context
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-class_media_change_context
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

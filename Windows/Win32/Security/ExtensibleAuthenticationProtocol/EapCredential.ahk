@@ -7,7 +7,7 @@
 
 /**
  * Contains information about the credentials type and the appropriate credentials. This is passed as an input to the EapPeerGetConfigBlobAndUserBlob API.
- * @see https://docs.microsoft.com/windows/win32/api//eaptypes/ns-eaptypes-eapcredential
+ * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eapcredential
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

@@ -9,7 +9,7 @@
 
 /**
  * The PEER_GRAPH_EVENT_DATA structure contains data associated with a peer event.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_graph_event_data
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_graph_event_data
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

@@ -2,13 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes a unordered-access 2D texture resource.
+ * Describes a unordered-access 2D texture resource. (D3D11_TEX2D_UAV)
  * @remarks
- * 
  * This structure is used by a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_unordered_access_view_desc">D3D11_UNORDERED_ACCESS_VIEW_DESC</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_tex2d_uav
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_tex2d_uav
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

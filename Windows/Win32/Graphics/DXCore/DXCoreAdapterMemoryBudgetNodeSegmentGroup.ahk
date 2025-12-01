@@ -3,7 +3,7 @@
 
 /**
  * Describes a memory segment group for an adapter.
- * @see https://docs.microsoft.com/windows/win32/api//dxcore_interface/ns-dxcore_interface-dxcoreadaptermemorybudgetnodesegmentgroup
+ * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/ns-dxcore_interface-dxcoreadaptermemorybudgetnodesegmentgroup
  * @namespace Windows.Win32.Graphics.DXCore
  * @version v4.0.30319
  */

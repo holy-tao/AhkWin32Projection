@@ -3,7 +3,7 @@
 
 /**
  * The ADDRESS_STATE enum is used by the ITAddress::get_State method to check the address state.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-address_state
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-address_state
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

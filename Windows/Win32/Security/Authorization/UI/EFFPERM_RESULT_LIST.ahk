@@ -3,7 +3,7 @@
 
 /**
  * Lists the effective permissions.
- * @see https://docs.microsoft.com/windows/win32/api//aclui/ns-aclui-effperm_result_list
+ * @see https://learn.microsoft.com/windows/win32/api/aclui/ns-aclui-effperm_result_list
  * @namespace Windows.Win32.Security.Authorization.UI
  * @version v4.0.30319
  */

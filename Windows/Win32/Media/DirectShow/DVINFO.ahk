@@ -4,11 +4,8 @@
 /**
  * The DVINFO structure describes the format of a digital video (DV) stream.
  * @remarks
- * 
  * The AAUX and VAUX packs are defined in IEC 61834-4.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-dvinfo
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

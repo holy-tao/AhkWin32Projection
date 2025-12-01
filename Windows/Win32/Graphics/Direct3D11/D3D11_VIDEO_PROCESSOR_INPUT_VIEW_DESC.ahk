@@ -4,7 +4,7 @@
 
 /**
  * Describes a video processor input view.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_video_processor_input_view_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_video_processor_input_view_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

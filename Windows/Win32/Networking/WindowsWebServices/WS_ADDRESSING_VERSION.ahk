@@ -3,7 +3,7 @@
 
 /**
  * Identifies the version of the specification used for the addressing headers.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_addressing_version
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_addressing_version
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -32,7 +32,7 @@ class WS_ADDRESSING_VERSION extends Win32Enum{
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_header_type">WS_ACTION_HEADER</a> and <b>WS_TO_HEADER</b> are
      *                     automatically mapped to/from the transport-specific message locations
-     *                     when messages are sent/received.  Use of other <b>WS_HEADER_TYPE</b>are not supported for this addressing version.
+     *                     when messages are sent/received.  Use of other <b>WS_HEADER_TYPE</b> are not supported for this addressing version.
      *                 
      * 
      * This addressing version is only supported for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_HTTP_CHANNEL_BINDING</a>.

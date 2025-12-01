@@ -9,7 +9,7 @@
 
 /**
  * Contains specific information for the connection that includes:\_the user name, domain, and Globally Unique Identifier (GUID) associated with the connection, its Network Access Protection (NAP) quarantine state, its packet statistics, as well as its Point-to-Point(PPP) and Internet Key Exchange version 2 (IKEv2) related information.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-ras_connection_ex
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_connection_ex
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */
@@ -236,7 +236,7 @@ class RAS_CONNECTION_EX extends Win32Struct
     }
 
     /**
-     * A value that specifies the number of IKEv2 Mobility and Multihoming Protocol (MOBIKE) switches that have occurred on the connection as defined in <a href="https://www.ietf.org/rfc/rfc4555.txt">RFC4555</a>. <b>dwNumSwitchOvers</b>is only valid if <b>dwConnectionFlags</b> is <b>RAS_FLAGS_IKEV2_CONNECTION</b>.
+     * A value that specifies the number of IKEv2 Mobility and Multihoming Protocol (MOBIKE) switches that have occurred on the connection as defined in <a href="https://www.ietf.org/rfc/rfc4555.txt">RFC4555</a>. <b>dwNumSwitchOvers</b> is only valid if <b>dwConnectionFlags</b> is <b>RAS_FLAGS_IKEV2_CONNECTION</b>.
      * @type {Integer}
      */
     dwNumSwitchOvers {

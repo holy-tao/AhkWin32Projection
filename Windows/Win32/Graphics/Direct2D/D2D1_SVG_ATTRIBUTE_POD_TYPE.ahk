@@ -3,7 +3,7 @@
 
 /**
  * Defines the type of SVG POD attribute to set or get.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/ne-d2d1svg-d2d1_svg_attribute_pod_type
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/ne-d2d1svg-d2d1_svg_attribute_pod_type
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

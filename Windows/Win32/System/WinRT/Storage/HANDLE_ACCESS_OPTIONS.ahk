@@ -3,7 +3,7 @@
 
 /**
  * Defines the level of access that a handle has on files.
- * @see https://docs.microsoft.com/windows/win32/api//windowsstoragecom/ne-windowsstoragecom-handle_access_options
+ * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/ne-windowsstoragecom-handle_access_options
  * @namespace Windows.Win32.System.WinRT.Storage
  * @version v4.0.30319
  */

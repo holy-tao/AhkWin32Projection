@@ -5,7 +5,6 @@
 /**
  * Contains a table of inverted network interface stack row entries. This specifies the relationship of the network interfaces on an interface stack in reverse order.
  * @remarks
- * 
  * The <b>MIB_INVERTEDIFSTACK_TABLE</b> structure is defined on Windows Vista and later. 
  * 
  * The relationship between the interfaces in the interface stack is that the interface with index in the <b>HigherLayerInterfaceIndex</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_invertedifstack_row">MIB_INVERTEDIFSTACK_ROW</a> structure is immediately above the interface with index in the <b>LowerLayerInterfaceIndex</b> member of the <b>MIB_INVERTEDIFSTACK_ROW</b> structure.
@@ -19,9 +18,7 @@
  * 
  * 
  * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//netioapi/ns-netioapi-mib_invertedifstack_table
+ * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_invertedifstack_table
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Describes a connection that exists to a given connection point.
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/ns-ocidl-connectdata
+ * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-connectdata
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

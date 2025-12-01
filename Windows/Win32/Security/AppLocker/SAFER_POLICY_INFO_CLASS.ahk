@@ -4,10 +4,8 @@
 /**
  * Defines the ways in which a policy may be queried.
  * @remarks
- * 
  * The <b>SAFER_POLICY_INFO_CLASS</b> enumeration type is used by the <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/nf-winsafer-safergetpolicyinformation">SaferGetPolicyInformation</a> function.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsafer/ne-winsafer-safer_policy_info_class
+ * @see https://learn.microsoft.com/windows/win32/api/winsafer/ne-winsafer-safer_policy_info_class
  * @namespace Windows.Win32.Security.AppLocker
  * @version v4.0.30319
  */

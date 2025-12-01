@@ -4,7 +4,7 @@
 
 /**
  * Contains information about system battery drain policy settings.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-system_power_level
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_power_level
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

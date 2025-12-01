@@ -4,7 +4,6 @@
 /**
  * Values that are used in activation calls to indicate the execution contexts in which an object is to be run.
  * @remarks
- * 
  * Values from the <b>CLSCTX</b> enumeration are used in activation calls (<a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a>, <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstanceex">CoCreateInstanceEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetclassobject">CoGetClassObject</a>, and so on) to indicate the preferred execution contexts (in-process, local, or remote) in which an object is to be run. They are also used in calls to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coregisterclassobject">CoRegisterClassObject</a> to indicate the set of execution contexts in which a class object is to be made available for requests to construct instances (<b>IClassFactory::CreateInstance</b>).
  * 
  * To indicate that more than one context is acceptable, you can combine multiple values with Boolean ORs. The contexts are tried in the order in which they are listed. 
@@ -178,9 +177,7 @@
  * <b>PreferredServerBitness</b>
  * <b>PreferredServerBitness</b>
  * <b>PreferredServerBitness</b>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wtypesbase/ne-wtypesbase-clsctx
+ * @see https://learn.microsoft.com/windows/win32/api/wtypesbase/ne-wtypesbase-clsctx
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

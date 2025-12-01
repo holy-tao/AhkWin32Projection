@@ -3,7 +3,7 @@
 
 /**
  * Specifies a resource binding that is an array of individual buffer bindings.
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_buffer_array_binding
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_buffer_array_binding
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

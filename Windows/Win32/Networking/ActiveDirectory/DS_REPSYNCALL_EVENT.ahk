@@ -3,7 +3,7 @@
 
 /**
  * The DS_REPSYNCALL_EVENT enumeration is used with the DS_REPSYNCALL_UPDATE structure to define which event the DS_REPSYNCALL_UPDATE structure represents.
- * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ne-ntdsapi-ds_repsyncall_event
+ * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ne-ntdsapi-ds_repsyncall_event
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

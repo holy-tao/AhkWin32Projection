@@ -3,7 +3,7 @@
 
 /**
  * Extra parameters for notifications.
- * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/ns-projectedfslib-prj_notification_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ns-projectedfslib-prj_notification_parameters
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  * @version v4.0.30319
  */

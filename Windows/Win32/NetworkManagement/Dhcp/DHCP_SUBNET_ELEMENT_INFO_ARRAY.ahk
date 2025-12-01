@@ -3,7 +3,7 @@
 
 /**
  * Defines an array of subnet element data.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_info_array
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_info_array
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

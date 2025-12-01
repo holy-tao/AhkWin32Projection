@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Reserved for system use.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ne-winioctl-storage_port_code_set
+ * Reserved for system use. (STORAGE_PORT_CODE_SET)
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-storage_port_code_set
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

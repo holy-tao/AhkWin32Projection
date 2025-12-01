@@ -3,7 +3,7 @@
 
 /**
  * Defines values for the type of access granted to the attendee for the channel.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/ne-rdpencomapi-channel_access_enum
+ * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/ne-rdpencomapi-channel_access_enum
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */

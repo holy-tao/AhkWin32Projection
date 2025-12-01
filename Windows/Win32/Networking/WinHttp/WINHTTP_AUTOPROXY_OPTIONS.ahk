@@ -3,7 +3,7 @@
 
 /**
  * The WINHTTP_AUTOPROXY_OPTIONS structure is used to indicate to the WinHttpGetProxyForURL function whether to specify the URL of the Proxy Auto-Configuration (PAC) file or to automatically locate the URL with DHCP or DNS queries to the network.
- * @see https://docs.microsoft.com/windows/win32/api//winhttp/ns-winhttp-winhttp_autoproxy_options
+ * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_autoproxy_options
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */
@@ -29,7 +29,7 @@ class WINHTTP_AUTOPROXY_OPTIONS extends Win32Struct
      * </td>
      * <td width="60%">
      * Enables proxy detection via autoconfig URL.
-     * 
+     * <div> </div><div class="alert"><b>Note</b>  Support for this flag was introduced in Windows 10, version 1703 (10.0; Build 15063).</div><div> </div>
      * </td>
      * </tr>
      * <tr>
@@ -39,7 +39,7 @@ class WINHTTP_AUTOPROXY_OPTIONS extends Win32Struct
      * </td>
      * <td width="60%">
      * Enables proxy detection via connection manager.
-     * 
+     * <div> </div><div class="alert"><b>Note</b>  Support for this flag was introduced in Windows 10, version 1703 (10.0; Build 15063).</div><div> </div>
      * </td>
      * </tr>
      * <td width="40%"><a id="WINHTTP_AUTOPROXY_ALLOW_STATIC"></a><a id="winhttp_autoproxy_allow_static"></a><dl>
@@ -48,7 +48,7 @@ class WINHTTP_AUTOPROXY_OPTIONS extends Win32Struct
      * </td>
      * <td width="60%">
      * Enables proxy detection via static configuration.
-     * 
+     * <div> </div><div class="alert"><b>Note</b>  Support for this flag was introduced in Windows 10, version 1703 (10.0; Build 15063).</div><div> </div>
      * </td>
      * </tr>
      * <tr>

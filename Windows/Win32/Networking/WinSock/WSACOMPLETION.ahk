@@ -6,7 +6,6 @@
 /**
  * Specifies completion notification settings for I/O control calls made to a registered namespace.
  * @remarks
- * 
  * The <b>WSACOMPLETION</b> structure enables callbacks to be provided in any of the following formats, based on the value provided in <b>Type</b>:
  * 
  * <table>
@@ -38,9 +37,7 @@
  *  
  * 
  * For a blocking function, set the <b>WSACOMPLETION</b> structure to null.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsock2/ns-winsock2-wsacompletion
+ * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsacompletion
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

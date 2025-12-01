@@ -4,7 +4,6 @@
 /**
  * Specifies whether the audio is encoded in Dolby Surround. This enumeration is used with the AVDDSurroundMode property.
  * @remarks
- * 
  * If the audio stream is Dolby AC-3, this property reflects the value of the dsurmod field in the bit stream.
  * 
  * <table>
@@ -30,9 +29,7 @@
  *  
  * 
  * If the audio stream is any other format, the value is eAVDDSurroundMode_No.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavddsurroundmode
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavddsurroundmode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

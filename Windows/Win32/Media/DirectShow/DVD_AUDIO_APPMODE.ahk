@@ -3,7 +3,7 @@
 
 /**
  * Indicates the current audio mode as retrieved in a call to IDvdInfo2::GetAudioAttributes.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-dvd_audio_appmode
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_audio_appmode
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

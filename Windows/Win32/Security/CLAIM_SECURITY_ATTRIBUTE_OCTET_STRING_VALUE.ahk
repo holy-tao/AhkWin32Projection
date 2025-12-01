@@ -3,7 +3,7 @@
 
 /**
  * Specifies the OCTET_STRING value type of the claim security attribute.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-claim_security_attribute_octet_string_value
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-claim_security_attribute_octet_string_value
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

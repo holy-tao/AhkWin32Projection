@@ -3,7 +3,7 @@
 
 /**
  * Specifies values for the dwKeyInfoSpec parameter in the CryptXmlSign function.
- * @see https://docs.microsoft.com/windows/win32/api//cryptxml/ne-cryptxml-crypt_xml_keyinfo_spec
+ * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ne-cryptxml-crypt_xml_keyinfo_spec
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

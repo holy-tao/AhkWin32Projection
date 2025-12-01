@@ -7,7 +7,7 @@
 
 /**
  * The DHCP_CLIENT_INFO_V6 structure contains information on DHCPv6 clients.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_client_info_v6
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_v6
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

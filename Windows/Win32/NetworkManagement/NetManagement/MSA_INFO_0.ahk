@@ -3,7 +3,7 @@
 
 /**
  * Specifies information about a managed service account.
- * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-msa_info_0
+ * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-msa_info_0
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

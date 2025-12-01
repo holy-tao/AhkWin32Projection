@@ -3,7 +3,7 @@
 
 /**
  * The DIAGNOSIS_STATUS enumeration describes the result of a hypothesis submitted to a helper class in which the health of a component has been determined.
- * @see https://docs.microsoft.com/windows/win32/api//ndhelper/ne-ndhelper-diagnosis_status
+ * @see https://learn.microsoft.com/windows/win32/api/ndhelper/ne-ndhelper-diagnosis_status
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */

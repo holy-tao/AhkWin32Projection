@@ -3,7 +3,7 @@
 
 /**
  * The DD_GETMOCOMPFORMATSDATA structure contains the uncompressed format information.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_getmocompformatsdata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_getmocompformatsdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

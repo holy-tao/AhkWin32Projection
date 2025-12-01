@@ -4,7 +4,7 @@
 
 /**
  * The security binding subtype for specifying the use of HTTP header authentication against a target service or a HTTP proxy server based on the basic, digest (RFC 2617) and the SPNEGO (RFC4559) protocols.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_http_header_auth_security_binding
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_http_header_auth_security_binding
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

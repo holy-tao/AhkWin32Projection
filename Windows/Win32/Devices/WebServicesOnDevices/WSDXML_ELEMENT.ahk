@@ -5,10 +5,8 @@
 /**
  * Describes an XML element.
  * @remarks
- * 
  * <b>WSDXML_ELEMENT</b> represents an XML element in the DOM tree. The <b>Name</b> member can be used to determine the name and namespace of this element. <b>FirstAttribute</b> points to any attributes, and <b>FirstChild</b> points to anything contained within the element.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wsdxmldom/ns-wsdxmldom-wsdxml_element
+ * @see https://learn.microsoft.com/windows/win32/api/wsdxmldom/ns-wsdxmldom-wsdxml_element
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

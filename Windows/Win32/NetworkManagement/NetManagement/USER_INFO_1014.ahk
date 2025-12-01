@@ -3,7 +3,7 @@
 
 /**
  * The USER_INFO_1014 structure contains the names of workstations from which the user can log on. This information level is valid only when you call the NetUserSetInfo function.
- * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-user_info_1014
+ * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_1014
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

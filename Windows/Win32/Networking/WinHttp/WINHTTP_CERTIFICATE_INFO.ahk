@@ -5,7 +5,6 @@
 /**
  * The WINHTTP_CERTIFICATE_INFO structure contains certificate information returned from the server. This structure is used by the WinHttpQueryOption function.
  * @remarks
- * 
  * The <b>WINHTTP_CERTIFICATE_INFO</b> structure contains information on the certificate returned by the server when the connection uses SSL/TLS. The <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpqueryoption">WinHttpQueryOption</a> function returns the <b>WINHTTP_CERTIFICATE_INFO</b> structure when the <i>dwOption</i> parameter passed to the <b>WinHttpQueryOption</b> function is set to <b>WINHTTP_OPTION_SECURITY_CERTIFICATE_STRUCT</b>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinHttp/option-flags">Option Flags</a>.
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpqueryoption">WinHttpQueryOption</a> function does not set  the <b>lpszProtocolName</b>, <b>lpszSignatureAlgName</b>, and <b>lpszEncryptionAlgName</b> members of the <b>WINHTTP_CERTIFICATE_INFO</b> structure, so these member are always returned as <b>NULL</b>.
@@ -14,9 +13,7 @@
  * 
  * <div class="alert"><b>Note</b>  For Windows XP and Windows 2000, see the <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Run-Time Requirements</a> section of the <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Windows HTTP Services</a> start page.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winhttp/ns-winhttp-winhttp_certificate_info
+ * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_certificate_info
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */

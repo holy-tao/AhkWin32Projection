@@ -5,13 +5,10 @@
 /**
  * The SYSTEM_AUDIT_CALLBACK_ACE structure defines an access control entry for the system access control list that specifies what types of access cause system-level notifications.
  * @remarks
- * 
  * ACE structures must be aligned on <b>DWORD</b> boundaries. All Windows memory-management functions return <b>DWORD</b>-aligned handles to memory.
  * 
  * When a <b>SYSTEM_AUDIT_CALLBACK_ACE</b> structure is created, sufficient memory must be allocated to accommodate the complete SID of the trustee in the <b>SidStart</b> member and the contiguous memory that follows it.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-system_audit_callback_ace
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_audit_callback_ace
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

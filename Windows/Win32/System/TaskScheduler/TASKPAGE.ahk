@@ -3,7 +3,7 @@
 
 /**
  * Defines the type of task page to be retrieved.
- * @see https://docs.microsoft.com/windows/win32/api//mstask/ne-mstask-taskpage
+ * @see https://learn.microsoft.com/windows/win32/api/mstask/ne-mstask-taskpage
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */

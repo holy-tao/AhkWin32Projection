@@ -1662,7 +1662,7 @@ class Dns {
      * </table>
      * @param {Pointer<Integer>} pBufLen The length of the buffer, in bytes. If the buffer provided is not sufficient, an error is returned and <i>pBufferLength</i> contains the minimum necessary buffer size. Ignored on input if <i>Flag</i> is set to <b>TRUE</b>.
      * @returns {Integer} Returns success confirmation upon successful completion. Otherwise, returns the appropriate DNS-specific error code as defined in Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsqueryconfig
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsqueryconfig
      * @since windows5.0
      */
     static DnsQueryConfig(Config, Flag, pwsAdapterName, pReserved, pBuffer, pBufLen) {
@@ -1677,11 +1677,13 @@ class Dns {
 
     /**
      * The DnsRecordCopyEx function creates a copy of a specified resource record (RR). The DnsRecordCopyEx function is also capable of converting the character encoding during the copy operation.
+     * @remarks
+     * The <i>CharSetIn</i> parameter is used only if the character encoding of the source RR is not specified in <i>pRecord</i>.
      * @param {Pointer<DNS_RECORDA>} pRecord A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure that contains the RR to be copied.
      * @param {Integer} CharSetIn A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_charset">DNS_CHARSET</a> value that specifies the character encoding of the source RR.
      * @param {Integer} CharSetOut A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_charset">DNS_CHARSET</a> value that specifies the character encoding required of the destination record.
      * @returns {Pointer<DNS_RECORDA>} Successful execution returns a pointer to the (newly created) destination record. Otherwise, returns null.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsrecordcopyex
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsrecordcopyex
      * @since windows5.0
      */
     static DnsRecordCopyEx(pRecord, CharSetIn, CharSetOut) {
@@ -1691,11 +1693,13 @@ class Dns {
 
     /**
      * The DnsRecordSetCopyEx function creates a copy of a specified resource record set. The DnsRecordSetCopyEx function is also capable of converting the character encoding during the copy operation.
+     * @remarks
+     * The <i>CharSetIn</i> parameter is used only if the character encoding of the source resource record set is not specified in <i>pRecordSet</i>.
      * @param {Pointer<DNS_RECORDA>} pRecordSet A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure that contains the resource record set to be copied.
      * @param {Integer} CharSetIn A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_charset">DNS_CHARSET</a> value that specifies the character encoding of the source resource record set.
      * @param {Integer} CharSetOut A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_charset">DNS_CHARSET</a> value that specifies the character encoding required of the destination record set.
      * @returns {Pointer<DNS_RECORDA>} Successful execution returns a pointer to the newly created destination record set. Otherwise, it returns null.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsrecordsetcopyex
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsrecordsetcopyex
      * @since windows5.0
      */
     static DnsRecordSetCopyEx(pRecordSet, CharSetIn, CharSetOut) {
@@ -1705,10 +1709,13 @@ class Dns {
 
     /**
      * The DnsRecordCompare function compares two DNS resource records (RR).
+     * @remarks
+     * When comparing records, DNS RRs that are stored using different character encoding are treated by the 
+     * <b>DnsRecordCompare</b> function as different, even if the records are otherwise equivalent.
      * @param {Pointer<DNS_RECORDA>} pRecord1 A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure that contains the first DNS RR of the comparison pair.
      * @param {Pointer<DNS_RECORDA>} pRecord2 A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure that contains the second DNS RR of the comparison pair.
      * @returns {BOOL} Returns <b>TRUE</b> if the compared records are equivalent, <b>FALSE</b> if they are not.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsrecordcompare
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsrecordcompare
      * @since windows5.0
      */
     static DnsRecordCompare(pRecord1, pRecord2) {
@@ -1718,12 +1725,16 @@ class Dns {
 
     /**
      * The DnsRecordSetCompare function compares two RR sets.
+     * @remarks
+     * When comparing record sets, DNS resource records that are stored using different character encoding are treated by the 
+     * <b>DnsRecordSetCompare</b> function as equivalent. Contrast this to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/windns/nf-windns-dnsrecordcompare">DnsRecordCompare</a> function, in which equivalent records with different encoding are not returned as equivalent records.
      * @param {Pointer<DNS_RECORDA>} pRR1 A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure that contains the first DNS RR set of the comparison pair.
      * @param {Pointer<DNS_RECORDA>} pRR2 A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure that contains the second DNS resource record set of the comparison pair.
      * @param {Pointer<Pointer<DNS_RECORDA>>} ppDiff1 A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> pointer that contains the list of resource records built as a result of the arithmetic performed on them: <b>pRRSet1</b> minus <b>pRRSet2</b>.
      * @param {Pointer<Pointer<DNS_RECORDA>>} ppDiff2 A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> pointer that contains the list of resource records built as a result of the arithmetic performed on them: <b>pRRSet2</b> minus <b>pRRSet1</b>.
      * @returns {BOOL} Returns <b>TRUE</b> if the compared record sets are equivalent, <b>FALSE</b> if they are not.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsrecordsetcompare
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsrecordsetcompare
      * @since windows5.0
      */
     static DnsRecordSetCompare(pRR1, pRR2, ppDiff1, ppDiff2) {
@@ -1738,7 +1749,7 @@ class Dns {
      * The DnsRecordSetDetach function detaches the first record set from a specified list of DNS records.
      * @param {Pointer<DNS_RECORDA>} pRecordList A pointer, on input, to a <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure that contains the list prior to the detachment of the first DNS record in the list of DNS records.  A pointer, on output to a <b>DNS_RECORD</b> structure that contains the list subsequent to the detachment of the DNS record.
      * @returns {Pointer<DNS_RECORDA>} On return, the <b>DnsRecordSetDetach</b> function points to the detached DNS record set.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsrecordsetdetach
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsrecordsetdetach
      * @since windows5.0
      */
     static DnsRecordSetDetach(pRecordList) {
@@ -1751,7 +1762,7 @@ class Dns {
      * @param {Pointer<Void>} pData A pointer to the DNS data to be freed.
      * @param {Integer} FreeType A value that specifies the type of DNS data in <i>pData</i>. For more information and a list of values, see the <a href="https://docs.microsoft.com/windows/win32/api/windns/ne-windns-dns_free_type">DNS_FREE_TYPE</a> enumeration.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsfree
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsfree
      * @since windows5.1.2600
      */
     static DnsFree(pData, FreeType) {
@@ -1775,7 +1786,19 @@ class Dns {
     }
 
     /**
-     * Is the generic query interface to the DNS namespace, and provides application developers with a DNS query resolution interface.
+     * Is the generic query interface to the DNS namespace, and provides application developers with a DNS query resolution interface. (DnsQuery_A)
+     * @remarks
+     * Applications that call the 
+     * <b>DnsQuery</b> function build a query using a fully qualified DNS name and Resource Record (RR) type, and set query options depending on the type of service desired. When the <b>DNS_QUERY_STANDARD</b> option is set, DNS uses the resolver cache, queries first with UDP, then retries with TCP if the response is truncated, and requests that the server to perform recursive resolution on behalf of the client to resolve the query.
+     * 
+     * Applications must free returned RR sets with the <a href="https://docs.microsoft.com/windows/desktop/api/windns/nf-windns-dnsrecordlistfree">DnsRecordListFree</a> function.
+     * 
+     * <div class="alert"><b>Note</b>  When calling one of the 
+     * <b>DnsQuery</b> function types, be aware that a DNS server may return multiple records in response to a query. A computer that is multihomed, for example, will receive multiple A records for the same IP address. The caller must use as many of the returned records as necessary.</div>
+     * <div> </div>
+     * Consider the following scenario, in which multiple returned records require additional activity on behalf of the application: A <b>DnsQuery_A</b> function call is made for a multihomed computer and the application finds that the address associated with the first A record is not responding. The application should then attempt to use other IP addresses specified in the (additional) A records returned from the <b>DnsQuery_A</b> function call.
+     * 
+     *  If the <i>lpstrName </i> parameter is set to <b>NULL</b>, the <b>DnsQuery</b> function fails with the error <b>INVALID_PARAMETER</b>.
      * @param {PSTR} pszName A pointer to a string that represents the DNS name to query.
      * @param {Integer} wType A value that represents the Resource Record (RR)<a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Record Type</a> that is queried. <b>wType</b> determines the format of data pointed to by <b>ppQueryResultsSet</b>. For example, if the value of <b>wType</b> is <b>DNS_TYPE_A</b>, the format of data pointed to by <b>ppQueryResultsSet</b> is <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_a_data">DNS_A_DATA</a>.
      * @param {Integer} Options A value that contains a bitmap of <a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Query  Options</a> to use in the DNS query. Options can be combined and all options override <b>DNS_QUERY_STANDARD</b>.
@@ -1783,7 +1806,7 @@ class Dns {
      * @param {Pointer<Pointer<DNS_RECORDA>>} ppQueryResults Optional. A pointer to a pointer that points to the list of RRs that comprise the response. For more information, see the Remarks section.
      * @param {Pointer<Pointer<Void>>} pReserved This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @returns {Integer} Returns success confirmation upon successful completion. Otherwise, returns the appropriate DNS-specific error code as defined in Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsquery_a
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsquery_a
      * @since windows5.0
      */
     static DnsQuery_A(pszName, wType, Options, pExtra, ppQueryResults, pReserved) {
@@ -1798,7 +1821,19 @@ class Dns {
     }
 
     /**
-     * Is the generic query interface to the DNS namespace, and provides application developers with a DNS query resolution interface.
+     * Is the generic query interface to the DNS namespace, and provides application developers with a DNS query resolution interface. (DnsQuery_UTF8)
+     * @remarks
+     * Applications that call the 
+     * <b>DnsQuery</b> function build a query using a fully qualified DNS name and Resource Record (RR) type, and set query options depending on the type of service desired. When the <b>DNS_QUERY_STANDARD</b> option is set, DNS uses the resolver cache, queries first with UDP, then retries with TCP if the response is truncated, and requests that the server to perform recursive resolution on behalf of the client to resolve the query.
+     * 
+     * Applications must free returned RR sets with the <a href="https://docs.microsoft.com/windows/desktop/api/windns/nf-windns-dnsrecordlistfree">DnsRecordListFree</a> function.
+     * 
+     * <div class="alert"><b>Note</b>  When calling one of the 
+     * <b>DnsQuery</b> function types, be aware that a DNS server may return multiple records in response to a query. A computer that is multihomed, for example, will receive multiple A records for the same IP address. The caller must use as many of the returned records as necessary.</div>
+     * <div> </div>
+     * Consider the following scenario, in which multiple returned records require additional activity on behalf of the application: A <b>DnsQuery_A</b> function call is made for a multihomed computer and the application finds that the address associated with the first A record is not responding. The application should then attempt to use other IP addresses specified in the (additional) A records returned from the <b>DnsQuery_A</b> function call.
+     * 
+     *  If the <i>lpstrName </i> parameter is set to <b>NULL</b>, the <b>DnsQuery</b> function fails with the error <b>INVALID_PARAMETER</b>.
      * @param {PSTR} pszName A pointer to a string that represents the DNS name to query.
      * @param {Integer} wType A value that represents the Resource Record (RR)<a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Record Type</a> that is queried. <b>wType</b> determines the format of data pointed to by <b>ppQueryResultsSet</b>. For example, if the value of <b>wType</b> is <b>DNS_TYPE_A</b>, the format of data pointed to by <b>ppQueryResultsSet</b> is <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_a_data">DNS_A_DATA</a>.
      * @param {Integer} Options A value that contains a bitmap of <a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Query  Options</a> to use in the DNS query. Options can be combined and all options override <b>DNS_QUERY_STANDARD</b>.
@@ -1806,7 +1841,7 @@ class Dns {
      * @param {Pointer<Pointer<DNS_RECORDA>>} ppQueryResults Optional. A pointer to a pointer that points to the list of RRs that comprise the response. For more information, see the Remarks section.
      * @param {Pointer<Pointer<Void>>} pReserved This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @returns {Integer} Returns success confirmation upon successful completion. Otherwise, returns the appropriate DNS-specific error code as defined in Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsquery_utf8
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsquery_utf8
      * @since windows5.0
      */
     static DnsQuery_UTF8(pszName, wType, Options, pExtra, ppQueryResults, pReserved) {
@@ -1821,7 +1856,19 @@ class Dns {
     }
 
     /**
-     * Is the generic query interface to the DNS namespace, and provides application developers with a DNS query resolution interface.
+     * Is the generic query interface to the DNS namespace, and provides application developers with a DNS query resolution interface. (DnsQuery_W)
+     * @remarks
+     * Applications that call the 
+     * <b>DnsQuery</b> function build a query using a fully qualified DNS name and Resource Record (RR) type, and set query options depending on the type of service desired. When the <b>DNS_QUERY_STANDARD</b> option is set, DNS uses the resolver cache, queries first with UDP, then retries with TCP if the response is truncated, and requests that the server to perform recursive resolution on behalf of the client to resolve the query.
+     * 
+     * Applications must free returned RR sets with the <a href="https://docs.microsoft.com/windows/desktop/api/windns/nf-windns-dnsrecordlistfree">DnsRecordListFree</a> function.
+     * 
+     * <div class="alert"><b>Note</b>  When calling one of the 
+     * <b>DnsQuery</b> function types, be aware that a DNS server may return multiple records in response to a query. A computer that is multihomed, for example, will receive multiple A records for the same IP address. The caller must use as many of the returned records as necessary.</div>
+     * <div> </div>
+     * Consider the following scenario, in which multiple returned records require additional activity on behalf of the application: A <b>DnsQuery_A</b> function call is made for a multihomed computer and the application finds that the address associated with the first A record is not responding. The application should then attempt to use other IP addresses specified in the (additional) A records returned from the <b>DnsQuery_A</b> function call.
+     * 
+     *  If the <i>lpstrName </i> parameter is set to <b>NULL</b>, the <b>DnsQuery</b> function fails with the error <b>INVALID_PARAMETER</b>.
      * @param {PWSTR} pszName A pointer to a string that represents the DNS name to query.
      * @param {Integer} wType A value that represents the Resource Record (RR)<a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Record Type</a> that is queried. <b>wType</b> determines the format of data pointed to by <b>ppQueryResultsSet</b>. For example, if the value of <b>wType</b> is <b>DNS_TYPE_A</b>, the format of data pointed to by <b>ppQueryResultsSet</b> is <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_a_data">DNS_A_DATA</a>.
      * @param {Integer} Options A value that contains a bitmap of <a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Query  Options</a> to use in the DNS query. Options can be combined and all options override <b>DNS_QUERY_STANDARD</b>.
@@ -1829,7 +1876,7 @@ class Dns {
      * @param {Pointer<Pointer<DNS_RECORDA>>} ppQueryResults Optional. A pointer to a pointer that points to the list of RRs that comprise the response. For more information, see the Remarks section.
      * @param {Pointer<Pointer<Void>>} pReserved This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @returns {Integer} Returns success confirmation upon successful completion. Otherwise, returns the appropriate DNS-specific error code as defined in Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsquery_w
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsquery_w
      * @since windows5.0
      */
     static DnsQuery_W(pszName, wType, Options, pExtra, ppQueryResults, pReserved) {
@@ -1844,9 +1891,15 @@ class Dns {
     }
 
     /**
+     * Frees the array of custom servers that was returned from a previous call to [DnsGetApplicationSettings](/windows/win32/api/windns/nf-windns-dnsgetapplicationsettings).
+     * @remarks
+     * To avoid memory leaks, you must call **DnsFreeCustomServers** on the servers returned by [DnsGetApplicationSettings](nf-windns-dnsgetapplicationsettings.md) via its *pSettings* parameter.
+     * @param {Pointer<Integer>} pcServers Type: \_Inout\_ **[DWORD](/windows/win32/winprog/windows-data-types)\***
      * 
-     * @param {Pointer<Integer>} pcServers 
-     * @param {Pointer<Pointer<DNS_CUSTOM_SERVER>>} ppServers 
+     * A pointer to a **DWORD** that contains the number of servers present in the array pointed to by *ppServers*. This will be set to 0 after the function call.
+     * @param {Pointer<Pointer<DNS_CUSTOM_SERVER>>} ppServers Type: \_Inout\_ **[DNS_CUSTOM_SERVER](ns-windns-dns_custom_server)\*\***
+     * 
+     * A pointer to an array of [DNS_CUSTOM_SERVER](ns-windns-dns_custom_server) that contains *pcServers* elements. This will be set to **NULL** after the function call.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsfreecustomservers
      */
@@ -1858,11 +1911,19 @@ class Dns {
     }
 
     /**
+     * Retrieves the per-application DNS settings.
+     * @remarks
+     * To avoid memory leaks, you must call [DnsFreeCustomServers](nf-windns-dnsfreecustomservers.md) on the servers returned by **DnsGetApplicationSettings** via its *pSettings* parameter.
+     * @param {Pointer<Integer>} pcServers Type: \_Out\_ **[DWORD](/windows/win32/winprog/windows-data-types)\***
      * 
-     * @param {Pointer<Integer>} pcServers 
-     * @param {Pointer<Pointer<DNS_CUSTOM_SERVER>>} ppDefaultServers 
-     * @param {Pointer<DNS_APPLICATION_SETTINGS>} pSettings 
-     * @returns {Integer} 
+     * After the function call, this will point to the number of custom DNS servers that the application has configured. If there are no custom servers configured, or if the function fails, then this will be set to 0.
+     * @param {Pointer<Pointer<DNS_CUSTOM_SERVER>>} ppDefaultServers Type: \_Outptr\_result\_buffer\_(*pcServers) **[DNS_CUSTOM_SERVER](ns-windns-dns_custom_server)\*\***
+     * 
+     * After the function call, this will point to the array of DNS custom servers that are configured for the application. If the application has no servers configured, or if the function fails, then this will be set to **NULL**.
+     * @param {Pointer<DNS_APPLICATION_SETTINGS>} pSettings Type: \_Out\_opt\_ **[DNS_APPLICATION_SETTINGS](ns-windns-dns_application_settings.md)\***
+     * 
+     * A pointer to a [DNS_APPLICATION_SETTINGS](ns-windns-dns_application_settings.md) object, populated with the application settings.
+     * @returns {Integer} A **DWORD** containing **ERROR_SUCCESS** on success, or an error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsgetapplicationsettings
      */
     static DnsGetApplicationSettings(pcServers, ppDefaultServers, pSettings) {
@@ -1874,11 +1935,21 @@ class Dns {
     }
 
     /**
+     * Configures per-application DNS settings. This includes the ability to set per-application DNS servers either as fallback to the system configured servers, or exclusively.
+     * @param {Integer} cServers Type: \_In\_ **[DWORD](/windows/win32/winprog/windows-data-types)**
      * 
-     * @param {Integer} cServers 
-     * @param {Pointer<DNS_CUSTOM_SERVER>} pServers 
-     * @param {Pointer<DNS_APPLICATION_SETTINGS>} pSettings 
-     * @returns {Integer} 
+     * The number of custom DNS servers present in the *pServers* parameter.
+     * @param {Pointer<DNS_CUSTOM_SERVER>} pServers Type: \_In\_reads\_(cServers) **[DNS_CUSTOM_SERVER](ns-windns-dns_custom_server)\***
+     * 
+     * An array of [DNS_CUSTOM_SERVER](ns-windns-dns_custom_server) that contains *cServers* elements. If *cServers* is 0, then this must be **NULL**.
+     * @param {Pointer<DNS_APPLICATION_SETTINGS>} pSettings Type: \_In\_opt\_ **[DNS_APPLICATION_SETTINGS](ns-windns-dns_application_settings.md)\***
+     * 
+     * A pointer to a [DNS_APPLICATION_SETTINGS](ns-windns-dns_application_settings.md) object describing additional settings for custom DNS servers.
+     * 
+     * If this is **NULL**, then the custom DNS servers passed to the API will be used as fallback to the system-configured ones.
+     * 
+     * If this points to a [DNS_APPLICATION_SETTINGS](ns-windns-dns_application_settings.md) object that has the **DNS_APP_SETTINGS_EXCLUSIVE_SERVERS** flag set in its *Flags* member, then it means use the custom DNS servers exclusively.
+     * @returns {Integer} A **DWORD** containing **ERROR_SUCCESS** on success, or an error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnssetapplicationsettings
      */
     static DnsSetApplicationSettings(cServers, pServers, pSettings) {
@@ -1888,12 +1959,28 @@ class Dns {
 
     /**
      * The asynchronous generic query interface to the DNS namespace, and provides application developers with a DNS query resolution interface.
-     * @param {Pointer<DNS_QUERY_REQUEST>} pQueryRequest A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windns/ns-windns-dns_query_request">DNS_QUERY_REQUEST</a> structure that contains the query request
-     *                             information.
+     * @remarks
+     * If a call to <b>DnsQueryEx</b> completes synchronously (i.e., the function return value is not <b>DNS_REQUEST_PENDING</b>), the <b>pQueryRecords</b> member of <i>pQueryResults</i> contains a pointer to a list of <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORDS</a> and <b>DnsQueryEx</b> will return either error or success.
+     * 
+     * The following conditions invoke a synchronous call to <b>DnsQueryEx</b> and do not utilize the DNS callback:
+     * 
+     * <ul>
+     * <li>The <a href="https://docs.microsoft.com/windows/desktop/api/windns/nc-windns-dns_query_completion_routine">DNS_QUERY_COMPLETION_ROUTINE</a> callback is omitted from the <b>pQueryCompleteCallback</b> member of <i>pQueryRequest</i>.</li>
+     * <li>A query is for the local machine name and <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_a_data">A</a> or <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_aaaa_data">AAAA</a> type Resource Records (RR).</li>
+     * <li>A call to <b>DnsQueryEx</b> queries an IPv4 or IPv6 address.</li>
+     * <li>A call to <b>DnsQueryEx</b> returns in error.</li>
+     * </ul>
+     * If a call to <b>DnsQueryEx</b> completes asynchronously, the results of the query are returned by the <a href="https://docs.microsoft.com/windows/desktop/api/windns/nc-windns-dns_query_completion_routine">DNS_QUERY_COMPLETION_ROUTINE</a> callback in <i>pQueryRequest</i>, the <b>QueryStatus</b> member of <i>pQueryResults</i> contains <b>DNS_REQUEST_PENDING</b>, and <b>DnsQueryEx</b> returns <b>DNS_REQUEST_PENDING</b>. Applications should track the <i>pQueryResults</i> structure that is passed into <b>DnsQueryEx</b> until the DNS callback succeeds. Applications can cancel an asynchronous query using the <i>pCancelHandle</i> handle returned by <b>DnsQueryEx</b>.
+     * 
+     * <i>pCancelHandle</i> returned from an asynchronous call to <b>DnsQueryEx</b> and <i>pQueryContext</i> is valid until the <a href="https://docs.microsoft.com/windows/desktop/api/windns/nc-windns-dns_query_completion_routine">DNS_QUERY_COMPLETION_ROUTINE</a> DNS callback is invoked.
+     * 
+     * <div class="alert"><b>Note</b>  Applications are notified of asynchronous <b>DnsQueryEx</b> completion through the <a href="https://docs.microsoft.com/windows/desktop/api/windns/nc-windns-dns_query_completion_routine">DNS_QUERY_COMPLETION_ROUTINE</a> callback within the same process context.</div>
+     * <div> </div>
+     * @param {Pointer<DNS_QUERY_REQUEST>} pQueryRequest A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windns/ns-windns-dns_query_request">DNS_QUERY_REQUEST</a> or <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_query_request3">DNS_QUERY_REQUEST3</a> structure that contains the query request information.
      * 
      * <div class="alert"><b>Note</b>  By omitting the <a href="https://docs.microsoft.com/windows/desktop/api/windns/nc-windns-dns_query_completion_routine">DNS_QUERY_COMPLETION_ROUTINE</a> callback from the <b>pQueryCompleteCallback</b> member of this structure, <b>DnsQueryEx</b> is called synchronously.</div>
      * <div> </div>
-     * @param {Pointer<DNS_QUERY_RESULT>} pQueryResults A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windns/ns-windns-dns_query_result">DNS_QUERY_RESULT</a> structure that contains the results of the query. On input, the <b>version</b> member of  <i>pQueryResults</i> must be <b>DNS_QUERY_REQUEST_VERSION1</b> and all other members should be <b>NULL</b>. On output, the remaining members will be filled as part of the query complete. 
+     * @param {Pointer<DNS_QUERY_RESULT>} pQueryResults A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windns/ns-windns-dns_query_result">DNS_QUERY_RESULT</a> structure that contains the results of the query. On input, the <b>version</b> member of  <i>pQueryResults</i> must be <b>DNS_QUERY_RESULTS_VERSION1</b> and all other members should be <b>NULL</b>. On output, the remaining members will be filled as part of the query complete. 
      * 
      * <div class="alert"><b>Note</b>  For asynchronous queries, an application should not free
      *                             this structure until the <a href="https://docs.microsoft.com/windows/desktop/api/windns/nc-windns-dns_query_completion_routine">DNS_QUERY_COMPLETION_ROUTINE</a> callback is invoked. When the query completes, the <a href="https://docs.microsoft.com/windows/desktop/api/windns/ns-windns-dns_query_result">DNS_QUERY_RESULT</a> structure contains a pointer to a list of
@@ -1942,7 +2029,7 @@ class Dns {
      * </dl>
      * </td>
      * <td width="60%">
-     * The call resulted in an <a href="/windows/desktop/DNS/dns-constants">RCODE</a> error.
+     * The call resulted in an <a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">RCODE</a> error.
      * 
      * </td>
      * </tr>
@@ -1969,7 +2056,7 @@ class Dns {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsqueryex
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsqueryex
      * @since windows8.0
      */
     static DnsQueryEx(pQueryRequest, pQueryResults, pCancelHandle) {
@@ -1979,9 +2066,14 @@ class Dns {
 
     /**
      * The DnsCancelQuery function can be used to cancel a pending query to the DNS namespace.
+     * @remarks
+     * <b>DnsCancelQuery</b> does not wait for a query to complete before cancelling. Therefore,
+     *     applications should track pending queries through their <a href="https://docs.microsoft.com/windows/desktop/api/windns/nc-windns-dns_query_completion_routine">DNS_QUERY_COMPLETION_ROUTINE</a> DNS callbacks.
+     * 
+     * <i>pCancelHandle</i> is valid until the <a href="https://docs.microsoft.com/windows/desktop/api/windns/nc-windns-dns_query_completion_routine">DNS_QUERY_COMPLETION_ROUTINE</a> DNS callback is invoked and <b>DnsCancelQuery</b> completes.
      * @param {Pointer<DNS_QUERY_CANCEL>} pCancelHandle A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windns/ns-windns-dns_query_cancel">DNS_QUERY_CANCEL</a> structure used to cancel an asynchronous DNS query. The structure must have been returned in the <i>pCancelHandle</i> parameter of a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/windns/nf-windns-dnsqueryex">DnsQueryEx</a>.
      * @returns {Integer} Returns success confirmation upon successful completion. Otherwise, it returns the appropriate DNS-specific error code as defined in Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnscancelquery
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnscancelquery
      * @since windows8.0
      */
     static DnsCancelQuery(pCancelHandle) {
@@ -2020,12 +2112,12 @@ class Dns {
     }
 
     /**
-     * The DnsAcquireContextHandle function type acquires a context handle to a set of credentials.
+     * The DnsAcquireContextHandle function type acquires a context handle to a set of credentials. (Unicode)
      * @param {Integer} CredentialFlags A flag that indicates the character encoding. Set to <b>TRUE</b> for Unicode, <b>FALSE</b> for ANSI.
      * @param {Pointer<Void>} Credentials A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-sec_winnt_auth_identity_a">SEC_WINNT_AUTH_IDENTITY_W</a> structure or a <b>SEC_WINNT_AUTH_IDENTITY_A</b> structure that contains the name, domain, and password of the account to be used in a secure dynamic update. If <i>CredentialFlags</i> is set to <b>TRUE</b>, <i>Credentials</i> points to a <b>SEC_WINNT_AUTH_IDENTITY_W</b> structure; otherwise, <i>Credentials</i> points to a <b>SEC_WINNT_AUTH_IDENTITY_A</b> structure. If not specified, the credentials of the calling service are used. This parameter is optional.
      * @param {Pointer<HANDLE>} pContext A pointer to a handle pointing to the returned credentials.
      * @returns {Integer} Returns success confirmation upon successful completion. Otherwise, returns the appropriate DNS-specific error code as defined in Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsacquirecontexthandle_w
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsacquirecontexthandle_w
      * @since windows5.0
      */
     static DnsAcquireContextHandle_W(CredentialFlags, Credentials, pContext) {
@@ -2036,12 +2128,12 @@ class Dns {
     }
 
     /**
-     * The DnsAcquireContextHandle function type acquires a context handle to a set of credentials.
+     * The DnsAcquireContextHandle function type acquires a context handle to a set of credentials. (ANSI)
      * @param {Integer} CredentialFlags A flag that indicates the character encoding. Set to <b>TRUE</b> for Unicode, <b>FALSE</b> for ANSI.
      * @param {Pointer<Void>} Credentials A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-sec_winnt_auth_identity_a">SEC_WINNT_AUTH_IDENTITY_W</a> structure or a <b>SEC_WINNT_AUTH_IDENTITY_A</b> structure that contains the name, domain, and password of the account to be used in a secure dynamic update. If <i>CredentialFlags</i> is set to <b>TRUE</b>, <i>Credentials</i> points to a <b>SEC_WINNT_AUTH_IDENTITY_W</b> structure; otherwise, <i>Credentials</i> points to a <b>SEC_WINNT_AUTH_IDENTITY_A</b> structure. If not specified, the credentials of the calling service are used. This parameter is optional.
      * @param {Pointer<HANDLE>} pContext A pointer to a handle pointing to the returned credentials.
      * @returns {Integer} Returns success confirmation upon successful completion. Otherwise, returns the appropriate DNS-specific error code as defined in Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsacquirecontexthandle_a
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsacquirecontexthandle_a
      * @since windows5.0
      */
     static DnsAcquireContextHandle_A(CredentialFlags, Credentials, pContext) {
@@ -2055,7 +2147,7 @@ class Dns {
      * The DnsReleaseContextHandle function releases memory used to store the credentials of a specific account.
      * @param {HANDLE} hContext The credentials handle of a specific account.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsreleasecontexthandle
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsreleasecontexthandle
      * @since windows5.0
      */
     static DnsReleaseContextHandle(hContext) {
@@ -2065,7 +2157,18 @@ class Dns {
     }
 
     /**
-     * Function adds, modifies or removes a Resource Record (RR) set that may have been previously registered with DNS servers.
+     * Function adds, modifies or removes a Resource Record (RR) set that may have been previously registered with DNS servers. (DnsModifyRecordsInSet_W)
+     * @remarks
+     * The 
+     * <b>DnsModifyRecordsInSet</b> function type executes in the following steps.
+     * 
+     * <ol>
+     * <li>Records specified in <i>pDeleteRecords</i> are deleted. If <i>pDeleteRecords</i> is empty or does not contain records that exist in the current set, the <b>DnsModifyRecordsInSet</b> function goes to the next step.</li>
+     * <li>Records specified in <i>pAddRecords</i> are added. If <i>pAddRecords</i> is empty, the operation completes without adding any records.</li>
+     * </ol>
+     * To add a new record, provide no records in <i>pDeleteRecords</i>, and provide the record to be added in <i>pAddRecords</i>.  To modify a record, specify the record being modified in <i>pDeleteRecords</i>, then add the modified version of that record by placing it in <i>pAddRecords</i>. To delete records, specify only records to be deleted.  Multiple records can be added or deleted in a single call to <b>DnsModifyRecordsInSet</b>; however, the value of the <b>pName</b> member in each <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> must be the same or the call will fail. If a record specified in <i>pAddRecords</i> is already present, no change occurs.
+     * 
+     * If no server list is specified, the default name server is queried.
      * @param {Pointer<DNS_RECORDA>} pAddRecords A pointer to the 
      * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure that contains the RRs to be added to the RR set.
      * @param {Pointer<DNS_RECORDA>} pDeleteRecords A pointer to the 
@@ -2075,7 +2178,7 @@ class Dns {
      * @param {Pointer<Void>} pExtraList This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Void>} pReserved This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @returns {Integer} Returns success confirmation upon successful completion. Otherwise, it returns the appropriate DNS-specific error code as defined in Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsmodifyrecordsinset_w
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsmodifyrecordsinset_w
      * @since windows5.0
      */
     static DnsModifyRecordsInSet_W(pAddRecords, pDeleteRecords, Options, hCredentials, pExtraList, pReserved) {
@@ -2089,7 +2192,18 @@ class Dns {
     }
 
     /**
-     * Function adds, modifies or removes a Resource Record (RR) set that may have been previously registered with DNS servers.
+     * Function adds, modifies or removes a Resource Record (RR) set that may have been previously registered with DNS servers. (DnsModifyRecordsInSet_A)
+     * @remarks
+     * The 
+     * <b>DnsModifyRecordsInSet</b> function type executes in the following steps.
+     * 
+     * <ol>
+     * <li>Records specified in <i>pDeleteRecords</i> are deleted. If <i>pDeleteRecords</i> is empty or does not contain records that exist in the current set, the <b>DnsModifyRecordsInSet</b> function goes to the next step.</li>
+     * <li>Records specified in <i>pAddRecords</i> are added. If <i>pAddRecords</i> is empty, the operation completes without adding any records.</li>
+     * </ol>
+     * To add a new record, provide no records in <i>pDeleteRecords</i>, and provide the record to be added in <i>pAddRecords</i>.  To modify a record, specify the record being modified in <i>pDeleteRecords</i>, then add the modified version of that record by placing it in <i>pAddRecords</i>. To delete records, specify only records to be deleted.  Multiple records can be added or deleted in a single call to <b>DnsModifyRecordsInSet</b>; however, the value of the <b>pName</b> member in each <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> must be the same or the call will fail. If a record specified in <i>pAddRecords</i> is already present, no change occurs.
+     * 
+     * If no server list is specified, the default name server is queried.
      * @param {Pointer<DNS_RECORDA>} pAddRecords A pointer to the 
      * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure that contains the RRs to be added to the RR set.
      * @param {Pointer<DNS_RECORDA>} pDeleteRecords A pointer to the 
@@ -2099,7 +2213,7 @@ class Dns {
      * @param {Pointer<Void>} pExtraList This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Void>} pReserved This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @returns {Integer} Returns success confirmation upon successful completion. Otherwise, it returns the appropriate DNS-specific error code as defined in Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsmodifyrecordsinset_a
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsmodifyrecordsinset_a
      * @since windows5.0
      */
     static DnsModifyRecordsInSet_A(pAddRecords, pDeleteRecords, Options, hCredentials, pExtraList, pReserved) {
@@ -2113,7 +2227,18 @@ class Dns {
     }
 
     /**
-     * Function adds, modifies or removes a Resource Record (RR) set that may have been previously registered with DNS servers.
+     * Function adds, modifies or removes a Resource Record (RR) set that may have been previously registered with DNS servers. (DnsModifyRecordsInSet_UTF8)
+     * @remarks
+     * The 
+     * <b>DnsModifyRecordsInSet</b> function type executes in the following steps.
+     * 
+     * <ol>
+     * <li>Records specified in <i>pDeleteRecords</i> are deleted. If <i>pDeleteRecords</i> is empty or does not contain records that exist in the current set, the <b>DnsModifyRecordsInSet</b> function goes to the next step.</li>
+     * <li>Records specified in <i>pAddRecords</i> are added. If <i>pAddRecords</i> is empty, the operation completes without adding any records.</li>
+     * </ol>
+     * To add a new record, provide no records in <i>pDeleteRecords</i>, and provide the record to be added in <i>pAddRecords</i>.  To modify a record, specify the record being modified in <i>pDeleteRecords</i>, then add the modified version of that record by placing it in <i>pAddRecords</i>. To delete records, specify only records to be deleted.  Multiple records can be added or deleted in a single call to <b>DnsModifyRecordsInSet</b>; however, the value of the <b>pName</b> member in each <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> must be the same or the call will fail. If a record specified in <i>pAddRecords</i> is already present, no change occurs.
+     * 
+     * If no server list is specified, the default name server is queried.
      * @param {Pointer<DNS_RECORDA>} pAddRecords A pointer to the 
      * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure that contains the RRs to be added to the RR set.
      * @param {Pointer<DNS_RECORDA>} pDeleteRecords A pointer to the 
@@ -2123,7 +2248,7 @@ class Dns {
      * @param {Pointer<Void>} pExtraList This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Void>} pReserved This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @returns {Integer} Returns success confirmation upon successful completion. Otherwise, it returns the appropriate DNS-specific error code as defined in Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsmodifyrecordsinset_utf8
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsmodifyrecordsinset_utf8
      * @since windows5.0
      */
     static DnsModifyRecordsInSet_UTF8(pAddRecords, pDeleteRecords, Options, hCredentials, pExtraList, pReserved) {
@@ -2137,7 +2262,10 @@ class Dns {
     }
 
     /**
-     * Replaces an existing resource record (RR) set.
+     * Replaces an existing resource record (RR) set. (DnsReplaceRecordSetW)
+     * @remarks
+     * > [!NOTE]
+     * > The windns.h header defines DnsReplaceRecordSet as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<DNS_RECORDA>} pReplaceSet A pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure that contains the RR set that replaces the existing set. The specified RR set is replaced with the contents of <i>pNewSet</i>. To delete a RR set, specify the set in <i>pNewSet</i>, but set <i>RDATA</i> to <b>NULL</b>.
      * @param {Integer} Options A value that contains a bitmap of <a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Update  Options</a>. Options can be combined and all options override <b>DNS_UPDATE_SECURITY_USE_DEFAULT</b>.
@@ -2145,7 +2273,7 @@ class Dns {
      * @param {Pointer<Void>} pExtraInfo This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Void>} pReserved This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @returns {Integer} Returns success confirmation upon successful completion. Otherwise, returns the appropriate DNS-specific error code as defined in Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsreplacerecordsetw
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsreplacerecordsetw
      * @since windows5.0
      */
     static DnsReplaceRecordSetW(pReplaceSet, Options, hContext, pExtraInfo, pReserved) {
@@ -2159,7 +2287,10 @@ class Dns {
     }
 
     /**
-     * Replaces an existing resource record (RR) set.
+     * Replaces an existing resource record (RR) set. (DnsReplaceRecordSetA)
+     * @remarks
+     * > [!NOTE]
+     * > The windns.h header defines DnsReplaceRecordSet as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<DNS_RECORDA>} pReplaceSet A pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure that contains the RR set that replaces the existing set. The specified RR set is replaced with the contents of <i>pNewSet</i>. To delete a RR set, specify the set in <i>pNewSet</i>, but set <i>RDATA</i> to <b>NULL</b>.
      * @param {Integer} Options A value that contains a bitmap of <a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Update  Options</a>. Options can be combined and all options override <b>DNS_UPDATE_SECURITY_USE_DEFAULT</b>.
@@ -2167,7 +2298,7 @@ class Dns {
      * @param {Pointer<Void>} pExtraInfo This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Void>} pReserved This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @returns {Integer} Returns success confirmation upon successful completion. Otherwise, returns the appropriate DNS-specific error code as defined in Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsreplacerecordseta
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsreplacerecordseta
      * @since windows5.0
      */
     static DnsReplaceRecordSetA(pReplaceSet, Options, hContext, pExtraInfo, pReserved) {
@@ -2181,7 +2312,7 @@ class Dns {
     }
 
     /**
-     * Replaces an existing resource record (RR) set.
+     * Replaces an existing resource record (RR) set. (DnsReplaceRecordSetUTF8)
      * @param {Pointer<DNS_RECORDA>} pReplaceSet A pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure that contains the RR set that replaces the existing set. The specified RR set is replaced with the contents of <i>pNewSet</i>. To delete a RR set, specify the set in <i>pNewSet</i>, but set <i>RDATA</i> to <b>NULL</b>.
      * @param {Integer} Options A value that contains a bitmap of <a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Update  Options</a>. Options can be combined and all options override <b>DNS_UPDATE_SECURITY_USE_DEFAULT</b>.
@@ -2189,7 +2320,7 @@ class Dns {
      * @param {Pointer<Void>} pExtraInfo This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Void>} pReserved This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @returns {Integer} Returns success confirmation upon successful completion. Otherwise, returns the appropriate DNS-specific error code as defined in Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsreplacerecordsetutf8
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsreplacerecordsetutf8
      * @since windows5.0
      */
     static DnsReplaceRecordSetUTF8(pReplaceSet, Options, hContext, pExtraInfo, pReserved) {
@@ -2203,12 +2334,63 @@ class Dns {
     }
 
     /**
-     * The DnsValidateName function validates the status of a specified DNS name.
+     * The DnsValidateName function validates the status of a specified DNS name. (DnsValidateName_W)
+     * @remarks
+     * To verify the status of the Computer Host (single label), use the 
+     * <b>DnsValidateName</b> function type with <b>DnsNameHostnameLabel</b> in <i>Format</i>.
+     * 
+     * The 
+     * <b>DnsValidateName</b> function works in a progression when determining whether an error exists with a given DNS name, and returns upon finding its first error. Therefore, a DNS name that has multiple, different errors may be reported as having the first error, and could be corrected and resubmitted, only then to find the second error.
+     * 
+     * The 
+     * <b>DnsValidateName</b> function searches for errors as follows:
+     * 
+     * <ol>
+     * <li>Returns <b>ERROR_INVALID_NAME</b> if the DNS name:
+     * 						<ul>
+     * <li>Is longer than 255 octets.</li>
+     * <li>Contains a label longer than 63 octets.</li>
+     * <li>Contains two or more consecutive dots.</li>
+     * <li>Begins with a dot (.).</li>
+     * <li>Contains a dot (.) if the name is submitted with <i>Format</i> set to DnsNameDomainLabel or DnsNameHostnameLabel.</li>
+     * </ul>
+     * </li>
+     * <li>Next, 
+     * <b>DnsValidateName</b> returns <b>DNS_ERROR_NUMERIC_NAME</b> if the full DNS name consists of only  numeric characters (0-9) or the first label of the DNS name consists of only numeric characters (0-9), unless <i>Format</i> is set to DnsNameDomainLabel or DnsNameDomain.</li>
+     * <li>Then, 
+     * <b>DnsValidateName</b> returns DNS_ERROR_NON_RFC_NAME if the DNS name:
+     * 						<ul>
+     * <li>Contains at least one extended or Unicode character.<b>Note</b>  Windows 8 or later: <b>DnsValidateName_W</b> does not return an error if International Domain Name (IDN) encoding is enabled.
+     * 
+     * </li>
+     * <li>Contains underscore (_), unless the underscore is a first character in a label, in the name, submitted with <i>Format</i> set to DnsNameSrvRecord.</li>
+     * </ul>
+     * </li>
+     * <li>Next, 
+     * <b>DnsValidateName</b> returns <b>DNS_ERROR_INVALID_NAME_CHAR</b> if the DNS name:
+     * 						<ul>
+     * <li>Contains a space.</li>
+     * <li>Contains any of the following invalid characters: { | } ~ [ \ ] ^ ' : ; &lt; = &gt; ? &amp; @ ! " # $ % ^ ` ( ) + / ,</li>
+     * <li>Contains an asterisk (*), unless the asterisk is the first label in the multi-labeled name, submitted with <i>Format</i> set to <b>DnsNameWildcard</b>.</li>
+     * </ul>
+     * </li>
+     * </ol>
+     * <div class="alert"><b>Note</b>  If 
+     * <b>DnsValidateName</b> returns <b>DNS_ERROR_NON_RFC_NAME</b>, the error should be handled as a warning that not all DNS servers will accept the name. When this error is received, note that the DNS Server does accept the submitted name, if appropriately configured (default configuration accepts the name as submitted when <b>DNS_ERROR_NON_RFC_NAME</b> is returned), but other DNS server software may not. Windows DNS servers do handle <b>NON_RFC_NAMES</b>.<p class="note">If 
+     * <b>DnsValidateName</b> returns any of the following errors, <i>pszName</i> should be handled as an invalid host name:
+     * 
+     * <dl>
+     * <dd>DNS_ERROR_NUMERIC_NAME</dd>
+     * <dd>DNS_ERROR_INVALID_NAME_CHAR</dd>
+     * <dd>ERROR_INVALID_NAME</dd>
+     * </dl>
+     * </div>
+     * <div> </div>
      * @param {PWSTR} pszName A pointer to a string that represents the DNS name to be examined.
      * @param {Integer} Format A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_name_format">DNS_NAME_FORMAT</a> value that specifies the format of the name to be examined.
      * @returns {Integer} The 
      * <b>DnsValidateName</b> function has the following possible return values:
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsvalidatename_w
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsvalidatename_w
      * @since windows5.0
      */
     static DnsValidateName_W(pszName, Format) {
@@ -2219,12 +2401,63 @@ class Dns {
     }
 
     /**
-     * The DnsValidateName function validates the status of a specified DNS name.
+     * The DnsValidateName function validates the status of a specified DNS name. (DnsValidateName_A)
+     * @remarks
+     * To verify the status of the Computer Host (single label), use the 
+     * <b>DnsValidateName</b> function type with <b>DnsNameHostnameLabel</b> in <i>Format</i>.
+     * 
+     * The 
+     * <b>DnsValidateName</b> function works in a progression when determining whether an error exists with a given DNS name, and returns upon finding its first error. Therefore, a DNS name that has multiple, different errors may be reported as having the first error, and could be corrected and resubmitted, only then to find the second error.
+     * 
+     * The 
+     * <b>DnsValidateName</b> function searches for errors as follows:
+     * 
+     * <ol>
+     * <li>Returns <b>ERROR_INVALID_NAME</b> if the DNS name:
+     * 						<ul>
+     * <li>Is longer than 255 octets.</li>
+     * <li>Contains a label longer than 63 octets.</li>
+     * <li>Contains two or more consecutive dots.</li>
+     * <li>Begins with a dot (.).</li>
+     * <li>Contains a dot (.) if the name is submitted with <i>Format</i> set to DnsNameDomainLabel or DnsNameHostnameLabel.</li>
+     * </ul>
+     * </li>
+     * <li>Next, 
+     * <b>DnsValidateName</b> returns <b>DNS_ERROR_NUMERIC_NAME</b> if the full DNS name consists of only  numeric characters (0-9) or the first label of the DNS name consists of only numeric characters (0-9), unless <i>Format</i> is set to DnsNameDomainLabel or DnsNameDomain.</li>
+     * <li>Then, 
+     * <b>DnsValidateName</b> returns DNS_ERROR_NON_RFC_NAME if the DNS name:
+     * 						<ul>
+     * <li>Contains at least one extended or Unicode character.<b>Note</b>  Windows 8 or later: <b>DnsValidateName_W</b> does not return an error if International Domain Name (IDN) encoding is enabled.
+     * 
+     * </li>
+     * <li>Contains underscore (_), unless the underscore is a first character in a label, in the name, submitted with <i>Format</i> set to DnsNameSrvRecord.</li>
+     * </ul>
+     * </li>
+     * <li>Next, 
+     * <b>DnsValidateName</b> returns <b>DNS_ERROR_INVALID_NAME_CHAR</b> if the DNS name:
+     * 						<ul>
+     * <li>Contains a space.</li>
+     * <li>Contains any of the following invalid characters: { | } ~ [ \ ] ^ ' : ; &lt; = &gt; ? &amp; @ ! " # $ % ^ ` ( ) + / ,</li>
+     * <li>Contains an asterisk (*), unless the asterisk is the first label in the multi-labeled name, submitted with <i>Format</i> set to <b>DnsNameWildcard</b>.</li>
+     * </ul>
+     * </li>
+     * </ol>
+     * <div class="alert"><b>Note</b>  If 
+     * <b>DnsValidateName</b> returns <b>DNS_ERROR_NON_RFC_NAME</b>, the error should be handled as a warning that not all DNS servers will accept the name. When this error is received, note that the DNS Server does accept the submitted name, if appropriately configured (default configuration accepts the name as submitted when <b>DNS_ERROR_NON_RFC_NAME</b> is returned), but other DNS server software may not. Windows DNS servers do handle <b>NON_RFC_NAMES</b>.<p class="note">If 
+     * <b>DnsValidateName</b> returns any of the following errors, <i>pszName</i> should be handled as an invalid host name:
+     * 
+     * <dl>
+     * <dd>DNS_ERROR_NUMERIC_NAME</dd>
+     * <dd>DNS_ERROR_INVALID_NAME_CHAR</dd>
+     * <dd>ERROR_INVALID_NAME</dd>
+     * </dl>
+     * </div>
+     * <div> </div>
      * @param {PSTR} pszName A pointer to a string that represents the DNS name to be examined.
      * @param {Integer} Format A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_name_format">DNS_NAME_FORMAT</a> value that specifies the format of the name to be examined.
      * @returns {Integer} The 
      * <b>DnsValidateName</b> function has the following possible return values:
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsvalidatename_a
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsvalidatename_a
      * @since windows5.0
      */
     static DnsValidateName_A(pszName, Format) {
@@ -2235,12 +2468,63 @@ class Dns {
     }
 
     /**
-     * The DnsValidateName function validates the status of a specified DNS name.
+     * The DnsValidateName_UTF8 function (windns.h) function validates the status of a specified DNS name.
+     * @remarks
+     * To verify the status of the Computer Host (single label), use the 
+     * <b>DnsValidateName</b> function type with <b>DnsNameHostnameLabel</b> in <i>Format</i>.
+     * 
+     * The 
+     * <b>DnsValidateName</b> function works in a progression when determining whether an error exists with a given DNS name, and returns upon finding its first error. Therefore, a DNS name that has multiple, different errors may be reported as having the first error, and could be corrected and resubmitted, only then to find the second error.
+     * 
+     * The 
+     * <b>DnsValidateName</b> function searches for errors as follows:
+     * 
+     * <ol>
+     * <li>Returns <b>ERROR_INVALID_NAME</b> if the DNS name:
+     * 						<ul>
+     * <li>Is longer than 255 octets.</li>
+     * <li>Contains a label longer than 63 octets.</li>
+     * <li>Contains two or more consecutive dots.</li>
+     * <li>Begins with a dot (.).</li>
+     * <li>Contains a dot (.) if the name is submitted with <i>Format</i> set to DnsNameDomainLabel or DnsNameHostnameLabel.</li>
+     * </ul>
+     * </li>
+     * <li>Next, 
+     * <b>DnsValidateName</b> returns <b>DNS_ERROR_NUMERIC_NAME</b> if the full DNS name consists of only  numeric characters (0-9) or the first label of the DNS name consists of only numeric characters (0-9), unless <i>Format</i> is set to DnsNameDomainLabel or DnsNameDomain.</li>
+     * <li>Then, 
+     * <b>DnsValidateName</b> returns DNS_ERROR_NON_RFC_NAME if the DNS name:
+     * 						<ul>
+     * <li>Contains at least one extended or Unicode character.<b>Note</b>  Windows 8 or later: <b>DnsValidateName_W</b> does not return an error if International Domain Name (IDN) encoding is enabled.
+     * 
+     * </li>
+     * <li>Contains underscore (_), unless the underscore is a first character in a label, in the name, submitted with <i>Format</i> set to DnsNameSrvRecord.</li>
+     * </ul>
+     * </li>
+     * <li>Next, 
+     * <b>DnsValidateName</b> returns <b>DNS_ERROR_INVALID_NAME_CHAR</b> if the DNS name:
+     * 						<ul>
+     * <li>Contains a space.</li>
+     * <li>Contains any of the following invalid characters: { | } ~ [ \ ] ^ ' : ; &lt; = &gt; ? &amp; @ ! " # $ % ^ ` ( ) + / ,</li>
+     * <li>Contains an asterisk (*), unless the asterisk is the first label in the multi-labeled name, submitted with <i>Format</i> set to <b>DnsNameWildcard</b>.</li>
+     * </ul>
+     * </li>
+     * </ol>
+     * <div class="alert"><b>Note</b>  If 
+     * <b>DnsValidateName</b> returns <b>DNS_ERROR_NON_RFC_NAME</b>, the error should be handled as a warning that not all DNS servers will accept the name. When this error is received, note that the DNS Server does accept the submitted name, if appropriately configured (default configuration accepts the name as submitted when <b>DNS_ERROR_NON_RFC_NAME</b> is returned), but other DNS server software may not. Windows DNS servers do handle <b>NON_RFC_NAMES</b>.<p class="note">If 
+     * <b>DnsValidateName</b> returns any of the following errors, <i>pszName</i> should be handled as an invalid host name:
+     * 
+     * <dl>
+     * <dd>DNS_ERROR_NUMERIC_NAME</dd>
+     * <dd>DNS_ERROR_INVALID_NAME_CHAR</dd>
+     * <dd>ERROR_INVALID_NAME</dd>
+     * </dl>
+     * </div>
+     * <div> </div>
      * @param {PSTR} pszName A pointer to a string that represents the DNS name to be examined.
      * @param {Integer} Format A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_name_format">DNS_NAME_FORMAT</a> value that specifies the format of the name to be examined.
      * @returns {Integer} The 
      * <b>DnsValidateName</b> function has the following possible return values:
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsvalidatename_utf8
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsvalidatename_utf8
      * @since windows5.0
      */
     static DnsValidateName_UTF8(pszName, Format) {
@@ -2251,11 +2535,16 @@ class Dns {
     }
 
     /**
-     * The DnsNameCompare function compares two DNS names.
+     * The DnsNameCompare function compares two DNS names. (DnsNameCompare_A)
+     * @remarks
+     * Name comparisons are not case sensitive, and trailing dots are ignored.
+     * 
+     * As with other DNS comparison functions, the 
+     * <b>DnsNameCompare</b> function deems different encoding as an immediate indication of differing values, and as such, the same names with different characters encoding will not be reported identically.
      * @param {PSTR} pName1 A pointer to a string that represents the first DNS name of the comparison pair.
      * @param {PSTR} pName2 A pointer to a string that represents the second DNS name of the comparison pair.
      * @returns {BOOL} Returns <b>TRUE</b> if the compared names are equivalent, <b>FALSE</b> if they are not.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsnamecompare_a
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsnamecompare_a
      * @since windows5.0
      */
     static DnsNameCompare_A(pName1, pName2) {
@@ -2267,11 +2556,16 @@ class Dns {
     }
 
     /**
-     * The DnsNameCompare function compares two DNS names.
+     * The DnsNameCompare function compares two DNS names. (DnsNameCompare_W)
+     * @remarks
+     * Name comparisons are not case sensitive, and trailing dots are ignored.
+     * 
+     * As with other DNS comparison functions, the 
+     * <b>DnsNameCompare</b> function deems different encoding as an immediate indication of differing values, and as such, the same names with different characters encoding will not be reported identically.
      * @param {PWSTR} pName1 A pointer to a string that represents the first DNS name of the comparison pair.
      * @param {PWSTR} pName2 A pointer to a string that represents the second DNS name of the comparison pair.
      * @returns {BOOL} Returns <b>TRUE</b> if the compared names are equivalent, <b>FALSE</b> if they are not.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsnamecompare_w
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsnamecompare_w
      * @since windows5.0
      */
     static DnsNameCompare_W(pName1, pName2) {
@@ -2283,7 +2577,23 @@ class Dns {
     }
 
     /**
-     * The DnsWriteQuestionToBuffer function type creates a DNS query message and stores it in a DNS_MESSAGE_BUFFER structure.
+     * The DnsWriteQuestionToBuffer function type creates a DNS query message and stores it in a DNS_MESSAGE_BUFFER structure. (DnsWriteQuestionToBuffer_W)
+     * @remarks
+     * The following declaration for <b>DnsWriteQuestionToBuffer_UTF8</b> can be found in Windns.h.
+     * 
+     * 
+     * ``` syntax
+     * BOOL
+     * WINAPI
+     * DnsWriteQuestionToBuffer_UTF8(
+     *     __inout     PDNS_MESSAGE_BUFFER pDnsBuffer,
+     *     __inout     PDWORD              pdwBufferSize,
+     *     __in        PCSTR               pszName,
+     *     __in        WORD                wType,
+     *     __in        WORD                Xid,
+     *     __in        BOOL                fRecursionDesired
+     *     );
+     * ```
      * @param {Pointer<DNS_MESSAGE_BUFFER>} pDnsBuffer A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windns/ns-windns-dns_message_buffer">DNS_MESSAGE_BUFFER</a> structure that contains a DNS query message stored in a buffer.
      * @param {Pointer<Integer>} pdwBufferSize The size, in bytes, of the buffer allocated to store <i>pDnsBuffer</i>. If the buffer size is insufficient to contain the message, <b>FALSE</b> is returned and <i>pdwBufferSize</i> contains the minimum required buffer size.
      * @param {PWSTR} pszName A pointer to a string that represents the name of the owner of the record set being queried.
@@ -2291,7 +2601,7 @@ class Dns {
      * @param {Integer} Xid A value that specifies the unique DNS query identifier.
      * @param {BOOL} fRecursionDesired A BOOL that specifies whether recursive name query should be used  by the DNS name server. Set to <b>TRUE</b> to request recursive name query, <b>FALSE</b> to request iterative name query.
      * @returns {BOOL} Returns <b>TRUE</b> upon successful execution, otherwise <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnswritequestiontobuffer_w
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnswritequestiontobuffer_w
      * @since windows5.0
      */
     static DnsWriteQuestionToBuffer_W(pDnsBuffer, pdwBufferSize, pszName, wType, Xid, fRecursionDesired) {
@@ -2304,7 +2614,23 @@ class Dns {
     }
 
     /**
-     * The DnsWriteQuestionToBuffer function type creates a DNS query message and stores it in a DNS_MESSAGE_BUFFER structure.
+     * The DnsWriteQuestionToBuffer function type creates a DNS query message and stores it in a DNS_MESSAGE_BUFFER structure. (DnsWriteQuestionToBuffer_UTF8)
+     * @remarks
+     * The following declaration for <b>DnsWriteQuestionToBuffer_UTF8</b> can be found in Windns.h.
+     * 
+     * 
+     * ``` syntax
+     * BOOL
+     * WINAPI
+     * DnsWriteQuestionToBuffer_UTF8(
+     *     __inout     PDNS_MESSAGE_BUFFER pDnsBuffer,
+     *     __inout     PDWORD              pdwBufferSize,
+     *     __in        PCSTR               pszName,
+     *     __in        WORD                wType,
+     *     __in        WORD                Xid,
+     *     __in        BOOL                fRecursionDesired
+     *     );
+     * ```
      * @param {Pointer<DNS_MESSAGE_BUFFER>} pDnsBuffer A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windns/ns-windns-dns_message_buffer">DNS_MESSAGE_BUFFER</a> structure that contains a DNS query message stored in a buffer.
      * @param {Pointer<Integer>} pdwBufferSize The size, in bytes, of the buffer allocated to store <i>pDnsBuffer</i>. If the buffer size is insufficient to contain the message, <b>FALSE</b> is returned and <i>pdwBufferSize</i> contains the minimum required buffer size.
      * @param {PSTR} pszName A pointer to a string that represents the name of the owner of the record set being queried.
@@ -2312,7 +2638,7 @@ class Dns {
      * @param {Integer} Xid A value that specifies the unique DNS query identifier.
      * @param {BOOL} fRecursionDesired A BOOL that specifies whether recursive name query should be used  by the DNS name server. Set to <b>TRUE</b> to request recursive name query, <b>FALSE</b> to request iterative name query.
      * @returns {BOOL} Returns <b>TRUE</b> upon successful execution, otherwise <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnswritequestiontobuffer_utf8
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnswritequestiontobuffer_utf8
      * @since windows5.0
      */
     static DnsWriteQuestionToBuffer_UTF8(pDnsBuffer, pdwBufferSize, pszName, wType, Xid, fRecursionDesired) {
@@ -2325,14 +2651,30 @@ class Dns {
     }
 
     /**
-     * The DnsExtractRecordsFromMessage function type extracts resource records (RR) from a DNS message, and stores those records in a DNS_RECORD structure.
+     * The DnsExtractRecordsFromMessage function type extracts resource records (RR) from a DNS message, and stores those records in a DNS_RECORD structure. (DnsExtractRecordsFromMessage_W)
+     * @remarks
+     * The <b>DnsExtractRecordsFromMessage</b> function is designed to operate on messages in host byte order. As such, received messages should be converted from network byte order to host byte order before extraction, or before retransmission onto the network. Use the DNS_BYTE_FLIP_HEADER_COUNTS macro to change  byte ordering.
+     * 
+     * The following declaration for <b>DnsExtractRecordsFromMessage_UTF8</b> can be found in Windns.h.
+     * 
+     * 
+     * ``` syntax
+     * DNS_STATUS
+     * WINAPI
+     * DnsExtractRecordsFromMessage_UTF8(
+     *     __in            PDNS_MESSAGE_BUFFER pDnsBuffer,
+     *     __in            WORD                wMessageLength,
+     *     __deref_out     PDNS_RECORD *       ppRecord
+     *     );
+     * 
+     * ```
      * @param {Pointer<DNS_MESSAGE_BUFFER>} pDnsBuffer A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windns/ns-windns-dns_message_buffer">DNS_MESSAGE_BUFFER</a> structure that contains the DNS response message.
      * @param {Integer} wMessageLength The size, in bytes, of the message in 
      * <i>pDnsBuffer</i>.
      * @param {Pointer<Pointer<DNS_RECORDA>>} ppRecord A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure that contains the list of extracted RRs. To free these records, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/windns/nf-windns-dnsrecordlistfree">DnsRecordListFree</a> function.
      * @returns {Integer} Returns success confirmation upon successful completion. Otherwise, returns the appropriate DNS-specific error code as defined in Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsextractrecordsfrommessage_w
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsextractrecordsfrommessage_w
      * @since windows5.0
      */
     static DnsExtractRecordsFromMessage_W(pDnsBuffer, wMessageLength, ppRecord) {
@@ -2343,14 +2685,30 @@ class Dns {
     }
 
     /**
-     * The DnsExtractRecordsFromMessage function type extracts resource records (RR) from a DNS message, and stores those records in a DNS_RECORD structure.
+     * The DnsExtractRecordsFromMessage function type extracts resource records (RR) from a DNS message, and stores those records in a DNS_RECORD structure. (DnsExtractRecordsFromMessage_UTF8)
+     * @remarks
+     * The <b>DnsExtractRecordsFromMessage</b> function is designed to operate on messages in host byte order. As such, received messages should be converted from network byte order to host byte order before extraction, or before retransmission onto the network. Use the DNS_BYTE_FLIP_HEADER_COUNTS macro to change  byte ordering.
+     * 
+     * The following declaration for <b>DnsExtractRecordsFromMessage_UTF8</b> can be found in Windns.h.
+     * 
+     * 
+     * ``` syntax
+     * DNS_STATUS
+     * WINAPI
+     * DnsExtractRecordsFromMessage_UTF8(
+     *     __in            PDNS_MESSAGE_BUFFER pDnsBuffer,
+     *     __in            WORD                wMessageLength,
+     *     __deref_out     PDNS_RECORD *       ppRecord
+     *     );
+     * 
+     * ```
      * @param {Pointer<DNS_MESSAGE_BUFFER>} pDnsBuffer A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windns/ns-windns-dns_message_buffer">DNS_MESSAGE_BUFFER</a> structure that contains the DNS response message.
      * @param {Integer} wMessageLength The size, in bytes, of the message in 
      * <i>pDnsBuffer</i>.
      * @param {Pointer<Pointer<DNS_RECORDA>>} ppRecord A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure that contains the list of extracted RRs. To free these records, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/windns/nf-windns-dnsrecordlistfree">DnsRecordListFree</a> function.
      * @returns {Integer} Returns success confirmation upon successful completion. Otherwise, returns the appropriate DNS-specific error code as defined in Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsextractrecordsfrommessage_utf8
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsextractrecordsfrommessage_utf8
      * @since windows5.0
      */
     static DnsExtractRecordsFromMessage_UTF8(pDnsBuffer, wMessageLength, ppRecord) {
@@ -2369,7 +2727,7 @@ class Dns {
      * @param {Pointer<Void>} completionContext Reserved. Do not use.
      * @returns {Integer} The 
      * <b>DnsGetProxyInformation</b> function returns the appropriate DNS-specific error code as defined in Winerror.h. The following are possible return values:
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsgetproxyinformation
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsgetproxyinformation
      * @since windows6.1
      */
     static DnsGetProxyInformation(hostName, proxyInformation, defaultProxyInformation, completionRoutine, completionContext) {
@@ -2385,7 +2743,7 @@ class Dns {
      * Frees memory allocated for the proxyName member of a DNS_PROXY_INFORMATION structure obtained using the DnsGetProxyInformation function.
      * @param {PWSTR} proxyName A pointer to the <b>proxyName</b> string to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsfreeproxyname
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsfreeproxyname
      * @since windows6.1
      */
     static DnsFreeProxyName(proxyName) {
@@ -2565,10 +2923,12 @@ class Dns {
 
     /**
      * Used to build a [DNS_SERVICE_INSTANCE](../windns/ns-windns-dns_service_instance.md) structure from data that describes it.
+     * @remarks
+     * The **dwInterfaceIndex** field of the returned structure is set to 0.
      * @param {PWSTR} pServiceName A string that represents the name of the service.
      * @param {PWSTR} pHostName A string that represents the name of the host of the service.
      * @param {Pointer<Integer>} pIp4 A pointer to an **IP4_ADDRESS** structure that represents the service-associated IPv4 address.
-     * @param {Pointer<IP6_ADDRESS>} pIp6 A pointer to an [IP6_ADDRESS](/windows/desktop/api/windns/ns-windns-ip6_address_1) structure that represents the service-associated IPv6 address.
+     * @param {Pointer<IP6_ADDRESS>} pIp6 A pointer to an [IP6_ADDRESS](/windows/win32/api/windns/ns-windns-ip6_address) structure that represents the service-associated IPv6 address.
      * @param {Integer} wPort A value that represents the port on which the service is running.
      * @param {Integer} wPriority A value that represents the service priority.
      * @param {Integer} wWeight A value that represents the service weight.
@@ -2576,7 +2936,7 @@ class Dns {
      * @param {Pointer<PWSTR>} keys A pointer to an array of string values that represent the property keys.
      * @param {Pointer<PWSTR>} values A pointer to an array of string values that represent the corresponding property values.
      * @returns {Pointer<DNS_SERVICE_INSTANCE>} A pointer to a newly allocated [DNS_SERVICE_INSTANCE](ns-windns-dns_service_instance.md) structure, built from the passed-in parameters. Your application is responsible for freeing the associated memory by calling [DnsServiceFreeInstance](nf-windns-dnsservicefreeinstance.md).
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsserviceconstructinstance
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsserviceconstructinstance
      * @since windows10.0.10240
      */
     static DnsServiceConstructInstance(pServiceName, pHostName, pIp4, pIp6, wPort, wPriority, wWeight, dwPropertiesCount, keys, values) {
@@ -2595,7 +2955,7 @@ class Dns {
      * Used to copy a [DNS_SERVICE_INSTANCE](../windns/ns-windns-dns_service_instance.md) structure.
      * @param {Pointer<DNS_SERVICE_INSTANCE>} pOrig A pointer to the [DNS_SERVICE_INSTANCE](ns-windns-dns_service_instance.md) structure that is to be copied.
      * @returns {Pointer<DNS_SERVICE_INSTANCE>} A pointer to a newly allocated [DNS_SERVICE_INSTANCE](ns-windns-dns_service_instance.md) structure that's a copy of `pOrig`. Your application is responsible for freeing the associated memory by calling [DnsServiceFreeInstance](nf-windns-dnsservicefreeinstance.md).
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsservicecopyinstance
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsservicecopyinstance
      * @since windows10.0.10240
      */
     static DnsServiceCopyInstance(pOrig) {
@@ -2607,7 +2967,7 @@ class Dns {
      * Used to free the resources associated with a [DNS_SERVICE_INSTANCE](../windns/ns-windns-dns_service_instance.md) structure.
      * @param {Pointer<DNS_SERVICE_INSTANCE>} pInstance A pointer to the [DNS_SERVICE_INSTANCE](ns-windns-dns_service_instance.md) structure that is to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsservicefreeinstance
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsservicefreeinstance
      * @since windows10.0.10240
      */
     static DnsServiceFreeInstance(pInstance) {
@@ -2616,10 +2976,12 @@ class Dns {
 
     /**
      * Used to initiate a DNS-SD discovery for services running on the local network.
+     * @remarks
+     * This function is asynchronous. As services are being discovered, the browse callback will be invoked for each result.
      * @param {Pointer<DNS_SERVICE_BROWSE_REQUEST>} pRequest A pointer to a [DNS_SERVICE_BROWSE_REQUEST](ns-windns-dns_service_browse_request.md) structure that contains the browse request information.
      * @param {Pointer<DNS_SERVICE_CANCEL>} pCancel A pointer to a [DNS_SERVICE_CANCEL](ns-windns-dns_service_cancel.md) structure that can be used to cancel a pending asynchronous browsing operation. This handle must remain valid until the query is canceled.
      * @returns {Integer} If successful, returns **DNS_REQUEST_PENDING**; otherwise, returns the appropriate DNS-specific error code as defined in `Winerror.h`. For extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsservicebrowse
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsservicebrowse
      * @since windows10.0.10240
      */
     static DnsServiceBrowse(pRequest, pCancel) {
@@ -2635,9 +2997,11 @@ class Dns {
 
     /**
      * Used to cancel a running DNS-SD discovery query.
+     * @remarks
+     * Canceling the query causes one further invocation of the browse callback, with status **ERROR_CANCELLED**.
      * @param {Pointer<DNS_SERVICE_CANCEL>} pCancelHandle A pointer to the [DNS_SERVICE_CANCEL](ns-windns-dns_service_cancel.md) structure that was passed to the [DnsServiceBrowse](nf-windns-dnsservicebrowse.md) call that is to be cancelled.
      * @returns {Integer} If successful, returns **ERROR_SUCCESS**; otherwise, returns the appropriate DNS-specific error code as defined in `Winerror.h`. For extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsservicebrowsecancel
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsservicebrowsecancel
      * @since windows10.0.10240
      */
     static DnsServiceBrowseCancel(pCancelHandle) {
@@ -2653,10 +3017,12 @@ class Dns {
 
     /**
      * Used to obtain more information about a service advertised on the local network.
+     * @remarks
+     * This function is asynchronous. Upon completion, the resolve callback will be invoked for each result. In contrast to [DnsServiceBrowse](nf-windns-dnsservicebrowse.md)&mdash;which returns the service name as a minimum&mdash;**DnsServiceResolve** can be used to retrieve additional information, such as hostname, IP address, and TEXT records.
      * @param {Pointer<DNS_SERVICE_RESOLVE_REQUEST>} pRequest A pointer to a [DNS_SERVICE_RESOLVE_REQUEST](ns-windns-dns_service_resolve_request.md) structure that contains the resolve request information.
      * @param {Pointer<DNS_SERVICE_CANCEL>} pCancel A pointer to a [DNS_SERVICE_CANCEL](ns-windns-dns_service_cancel.md) structure that can be used to cancel a pending asynchronous resolve operation. This handle must remain valid until the query is canceled.
      * @returns {Integer} If successful, returns **DNS_REQUEST_PENDING**; otherwise, returns the appropriate DNS-specific error code as defined in `Winerror.h`. For extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsserviceresolve
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsserviceresolve
      * @since windows10.0.10240
      */
     static DnsServiceResolve(pRequest, pCancel) {
@@ -2674,7 +3040,7 @@ class Dns {
      * Used to cancel a running DNS-SD resolve query.
      * @param {Pointer<DNS_SERVICE_CANCEL>} pCancelHandle A pointer to the [DNS_SERVICE_CANCEL](ns-windns-dns_service_cancel.md) structure that was passed to the [DnsServiceResolve](nf-windns-dnsserviceresolve.md) call that is to be cancelled.
      * @returns {Integer} If successful, returns **ERROR_SUCCESS**; otherwise, returns the appropriate DNS-specific error code as defined in `Winerror.h`. For extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsserviceresolvecancel
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsserviceresolvecancel
      * @since windows10.0.10240
      */
     static DnsServiceResolveCancel(pCancelHandle) {
@@ -2689,11 +3055,15 @@ class Dns {
     }
 
     /**
-     * Used to register a discoverable service on this device.
+     * Used to register a discoverable service on this device. (DnsServiceRegister)
+     * @remarks
+     * This function is asynchronous. The registration callback will be called once the registration succeeds. To deregister the service, call [DnsServiceDeRegister](nf-windns-dnsservicederegister.md).
+     *  
+     * The registration is tied to the lifetime of the calling process. If the process goes away, the service will be automatically deregistered.
      * @param {Pointer<DNS_SERVICE_REGISTER_REQUEST>} pRequest A pointer to a [DNS_SERVICE_REGISTER_REQUEST](ns-windns-dns_service_register_request.md) structure that contains information about the service to be registered.
      * @param {Pointer<DNS_SERVICE_CANCEL>} pCancel An optional (it can be `nullptr`) pointer to a [DNS_SERVICE_CANCEL](ns-windns-dns_service_cancel.md) structure that can be used to cancel a pending asynchronous registration operation. If not `nullptr`, then this handle must remain valid until the registration is canceled.
      * @returns {Integer} If successful, returns **DNS_REQUEST_PENDING**; otherwise, returns the appropriate DNS-specific error code as defined in `Winerror.h`. For extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsserviceregister
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsserviceregister
      * @since windows10.0.10240
      */
     static DnsServiceRegister(pRequest, pCancel) {
@@ -2709,10 +3079,12 @@ class Dns {
 
     /**
      * Used to remove a registered service.
+     * @remarks
+     * This function is asynchronous. The callback will be invoked when the deregistration is completed, with a copy of the [DNS_SERVICE_INSTANCE](ns-windns-dns_service_instance.md) structure that was passed to [DnsServiceRegister](nf-windns-dnsserviceregister.md) when the service was registered.
      * @param {Pointer<DNS_SERVICE_REGISTER_REQUEST>} pRequest A pointer to the [DNS_SERVICE_REGISTER_REQUEST](ns-windns-dns_service_register_request.md) structure that was used to register the service.
      * @param {Pointer<DNS_SERVICE_CANCEL>} pCancel Must be `nullptr`.
      * @returns {Integer} If successful, returns **DNS_REQUEST_PENDING**; otherwise, returns the appropriate DNS-specific error code as defined in `Winerror.h`. For extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsservicederegister
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsservicederegister
      * @since windows10.0.10240
      */
     static DnsServiceDeRegister(pRequest, pCancel) {
@@ -2730,7 +3102,7 @@ class Dns {
      * Used to cancel a pending registration operation.
      * @param {Pointer<DNS_SERVICE_CANCEL>} pCancelHandle A pointer to the [DNS_SERVICE_CANCEL](ns-windns-dns_service_cancel.md) structure that was passed to the [DnsServiceRegister](nf-windns-dnsserviceregister.md) call that is to be cancelled.
      * @returns {Integer} If successful, returns **ERROR_SUCCESS**. Returns **ERROR_CANCELLED** if the operation was already cancelled, or **ERROR_INVALID_PARAMETER** if the handle is invalid.
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsserviceregistercancel
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsserviceregistercancel
      * @since windows10.0.10240
      */
     static DnsServiceRegisterCancel(pCancelHandle) {
@@ -2739,11 +3111,13 @@ class Dns {
     }
 
     /**
-     * Used to register a discoverable service on this device.
+     * Used to register a discoverable service on this device. (DnsStartMulticastQuery)
+     * @remarks
+     * This function is asynchronous. The query runs indefinitely, until [DnsStopMulticastQuery](nf-windns-dnsstopmulticastquery.md) is called. For each response from the network, the query callback will be invoked with the appropriate status and results.
      * @param {Pointer<MDNS_QUERY_REQUEST>} pQueryRequest A pointer to an [MDNS_QUERY_REQUEST](ns-windns-mdns_query_request.md) structure that contains information about the query to be performed.
      * @param {Pointer<MDNS_QUERY_HANDLE>} pHandle A pointer to an [MDNS_QUERY_HANDLE](ns-windns-mdns_query_handle.md) structure that will be populated with the necessary data. This structure is to be passed later to [DnsStopMulticastQuery](nf-windns-dnsstopmulticastquery.md) to stop the query.
      * @returns {Integer} If successful, returns **ERROR_SUCCESS**; otherwise, returns the appropriate DNS-specific error code as defined in `Winerror.h`. For extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsstartmulticastquery
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsstartmulticastquery
      * @since windows10.0.10240
      */
     static DnsStartMulticastQuery(pQueryRequest, pHandle) {
@@ -2761,7 +3135,7 @@ class Dns {
      * Used to stop a running [DnsStartMulticastQuery](../windns/nf-windns-dnsstartmulticastquery.md) operation.
      * @param {Pointer<MDNS_QUERY_HANDLE>} pHandle A pointer to the [MDNS_QUERY_HANDLE](ns-windns-mdns_query_handle.md) structure that was passed to the [DnsStartMulticastQuery](nf-windns-dnsstartmulticastquery.md) call that is to be stopped.
      * @returns {Integer} If successful, returns **ERROR_SUCCESS**; otherwise, returns the appropriate DNS-specific error code as defined in `Winerror.h`. For extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://docs.microsoft.com/windows/win32/api//windns/nf-windns-dnsstopmulticastquery
+     * @see https://learn.microsoft.com/windows/win32/api/windns/nf-windns-dnsstopmulticastquery
      * @since windows10.0.10240
      */
     static DnsStopMulticastQuery(pHandle) {

@@ -4,7 +4,9 @@
 #Include .\WS_STRING.ahk
 
 /**
- * 
+ * The URL subtype for specifying a net.pipe URL.
+ * @remarks
+ * If used with the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsdecodeurl">WsDecodeUrl</a> field, <b>portAsString</b> is a zero-length string if no port is specified in <b>url</b>.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_netpipe_url
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
@@ -16,6 +18,7 @@ class WS_NETPIPE_URL extends Win32Struct
     static packingSize => 8
 
     /**
+     * The base type from which this URL subtype and all other URL subtypes derive. The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_url_scheme_type">WS_URL_SCHEME_TYPE</a> is <b>WS_URL_NETPIPE_SCHEME_TYPE</b>.
      * @type {WS_URL}
      */
     url{
@@ -27,6 +30,7 @@ class WS_NETPIPE_URL extends Win32Struct
     }
 
     /**
+     * The host name.
      * @type {WS_STRING}
      */
     host{
@@ -38,6 +42,7 @@ class WS_NETPIPE_URL extends Win32Struct
     }
 
     /**
+     * The port number.
      * @type {Integer}
      */
     port {
@@ -46,6 +51,7 @@ class WS_NETPIPE_URL extends Win32Struct
     }
 
     /**
+     * The port number as string.
      * @type {WS_STRING}
      */
     portAsString{
@@ -57,6 +63,7 @@ class WS_NETPIPE_URL extends Win32Struct
     }
 
     /**
+     * The path.
      * @type {WS_STRING}
      */
     path{
@@ -68,6 +75,7 @@ class WS_NETPIPE_URL extends Win32Struct
     }
 
     /**
+     * The query.
      * @type {WS_STRING}
      */
     query{
@@ -79,6 +87,7 @@ class WS_NETPIPE_URL extends Win32Struct
     }
 
     /**
+     * The fragment.
      * @type {WS_STRING}
      */
     fragment{

@@ -4,15 +4,12 @@
 /**
  * The AMVABeginFrameInfo structure contains information for the IAMVideoAccelerator::BeginFrame method.
  * @remarks
- * 
  * The buffer pointed to by <b>pInputData</b> cannot contain pointer values, because their addresses will not be valid in kernel mode, where frame processing occurs.
  *       
  * 
  * The video accelerator might not use the same surface memory in two consecutive calls with the same frame index.
  *       Therefore, the decoder should not make any assumption about the initial contents of the frame.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//amva/ns-amva-amvabeginframeinfo
+ * @see https://learn.microsoft.com/windows/win32/api/amva/ns-amva-amvabeginframeinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

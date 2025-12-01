@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Describes the type of notification returned.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_change
+ * The CLUSTER_CHANGE enumeration (msclus.h) describes the type of notification returned.
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_change
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Provides information about a pen flick.
- * @see https://docs.microsoft.com/windows/win32/api//tabflicks/ns-tabflicks-flick_point
+ * @see https://learn.microsoft.com/windows/win32/api/tabflicks/ns-tabflicks-flick_point
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

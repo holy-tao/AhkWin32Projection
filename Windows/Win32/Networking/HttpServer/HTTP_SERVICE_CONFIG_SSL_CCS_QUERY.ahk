@@ -6,11 +6,8 @@
 /**
  * Specifies a Secure Sockets Layer (SSL) configuration to query for an SSL Centralized Certificate Store (CCS) record on the port when you call the HttpQueryServiceConfiguration function.
  * @remarks
- * 
  * Pass this structure to the <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpqueryserviceconfiguration">HttpQueryServiceConfiguration</a> function by using the <i>pInputConfigInfo</i> parameter when the <i>ConfigId</i> parameter is set to <b>HttpServiceConfigSslCcsCertInfo</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_service_config_ssl_ccs_query
+ * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_ssl_ccs_query
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

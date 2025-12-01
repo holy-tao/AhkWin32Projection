@@ -3,7 +3,7 @@
 #Include .\WMDMDATETIME.ahk
 
 /**
- * 
+ * The WMDMRIGHTS structure describes content-use rights.
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdmrights
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
@@ -15,6 +15,7 @@ class WMDMRIGHTS extends Win32Struct
     static packingSize => 8
 
     /**
+     * Size of the structure, in bytes.
      * @type {Integer}
      */
     cbSize {
@@ -23,6 +24,7 @@ class WMDMRIGHTS extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     dwContentType {
@@ -31,6 +33,17 @@ class WMDMRIGHTS extends Win32Struct
     }
 
     /**
+     * Bit field specifying the rights options in use for the content.
+     * 
+     * 
+     * 
+     * | Value                        | Description                                  |
+     * |------------------------------|----------------------------------------------|
+     * | WMDM\_RIGHTS\_PLAYBACKCOUNT  | Number of times that the file can be played. |
+     * | WMDM\_RIGHTS\_EXPIRATIONDATE | Expiration date of the file.                 |
+     * | WMDM\_RIGHTS\_FREESERIALIDS  | Free serial identifier of the file.          |
+     * | WMDM\_RIGHTS\_GROUPID Group  | Identifier of the file.                      |
+     * | WMDM\_RIGHTS\_NAMEDSERIALIDS | Named serial identifier of the file.         |
      * @type {Integer}
      */
     fuFlags {
@@ -39,6 +52,16 @@ class WMDMRIGHTS extends Win32Struct
     }
 
     /**
+     * Bit field containing the rights bits for the content.
+     * 
+     * 
+     * 
+     * | Value                                     | Description                                   |
+     * |-------------------------------------------|-----------------------------------------------|
+     * | WMDM\_RIGHTS\_PLAY\_ON\_PC                | Content can be played on a personal computer. |
+     * | WMDM\_RIGHTS\_COPY\_TO\_NON\_SDMI\_DEVICE | Content can be copied to a non-SDMI device.   |
+     * | WMDM\_RIGHTS\_COPY\_TO\_CD                | Content can be copied to a CD.                |
+     * | WMDM\_RIGHTS\_COPY\_TO\_SDMI\_DEVICE      | Content can be copied to an SDMI device.      |
      * @type {Integer}
      */
     fuRights {
@@ -47,6 +70,7 @@ class WMDMRIGHTS extends Win32Struct
     }
 
     /**
+     * Byte array that specifies the minimum level of application security.
      * @type {Integer}
      */
     dwAppSec {
@@ -55,6 +79,7 @@ class WMDMRIGHTS extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     dwPlaybackCount {
@@ -63,6 +88,7 @@ class WMDMRIGHTS extends Win32Struct
     }
 
     /**
+     * [**WMDMDATETIME**](wmdmdatetime.md) structure containing the expiration date and time for the content. If the license has no expiration date, the **wYear** member is set to 0xFFFF, and all other members of **WMDMDATETIME** are ignored.
      * @type {WMDMDATETIME}
      */
     ExpirationDate{

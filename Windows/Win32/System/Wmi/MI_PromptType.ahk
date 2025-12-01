@@ -3,7 +3,7 @@
 
 /**
  * Defines prompt types for the CIM extensions.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ne-mi-mi_prompttype
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ne-mi-mi_prompttype
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

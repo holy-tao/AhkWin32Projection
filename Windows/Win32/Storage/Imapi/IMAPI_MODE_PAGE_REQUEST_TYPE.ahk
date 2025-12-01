@@ -3,7 +3,7 @@
 
 /**
  * Defines values that indicate requests sent to a device using the MODE_SENSE10 MMC command.
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/ne-imapi2-imapi_mode_page_request_type
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_mode_page_request_type
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */

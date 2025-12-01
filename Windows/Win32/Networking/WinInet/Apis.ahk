@@ -4628,7 +4628,16 @@ class WinInet {
 
 ;@region Methods
     /**
-     * Formats a date and time according to the HTTP version 1.0 specification.
+     * Formats a date and time according to the HTTP version 1.0 specification. (InternetTimeFromSystemTimeA)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetTimeFromSystemTime as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<SYSTEMTIME>} pst Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains the date and time to format.
      * @param {Integer} dwRFC RFC format used. Currently, the only valid format is INTERNET_RFC1123_FORMAT.
@@ -4636,8 +4645,8 @@ class WinInet {
      * @param {Integer} cbTime Size of the 
      * <i>lpszTime</i> buffer, in bytes.
      * @returns {BOOL} Returns TRUE if the function succeeds, or FALSE otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internettimefromsystemtimea
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internettimefromsystemtimea
      * @since windows5.0
      */
     static InternetTimeFromSystemTimeA(pst, dwRFC, lpszTime, cbTime) {
@@ -4652,7 +4661,16 @@ class WinInet {
     }
 
     /**
-     * Formats a date and time according to the HTTP version 1.0 specification.
+     * The InternetTimeFromSystemTimeW (Unicode) function (wininet.h) formats a date and time according to the HTTP version 1.0 specification.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetTimeFromSystemTime as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<SYSTEMTIME>} pst Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains the date and time to format.
      * @param {Integer} dwRFC RFC format used. Currently, the only valid format is INTERNET_RFC1123_FORMAT.
@@ -4660,8 +4678,8 @@ class WinInet {
      * @param {Integer} cbTime Size of the 
      * <i>lpszTime</i> buffer, in bytes.
      * @returns {BOOL} Returns TRUE if the function succeeds, or FALSE otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internettimefromsystemtimew
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internettimefromsystemtimew
      * @since windows5.0
      */
     static InternetTimeFromSystemTimeW(pst, dwRFC, lpszTime, cbTime) {
@@ -4676,7 +4694,10 @@ class WinInet {
     }
 
     /**
-     * Formats a date and time according to the HTTP version 1.0 specification.
+     * The InternetTimeFromSystemTime function (wininet.h) formats a date and time according to the HTTP version 1.0 specification.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {Pointer<SYSTEMTIME>} pst Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains the date and time to format.
      * @param {Integer} dwRFC RFC format used. Currently, the only valid format is INTERNET_RFC1123_FORMAT.
@@ -4684,8 +4705,8 @@ class WinInet {
      * @param {Integer} cbTime Size of the 
      * <i>lpszTime</i> buffer, in bytes.
      * @returns {BOOL} Returns TRUE if the function succeeds, or FALSE otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internettimefromsystemtime
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internettimefromsystemtime
      * @since windows5.0
      */
     static InternetTimeFromSystemTime(pst, dwRFC, lpszTime, cbTime) {
@@ -4700,13 +4721,22 @@ class WinInet {
     }
 
     /**
-     * Converts an HTTP time/date string to a SYSTEMTIME structure.
+     * Converts an HTTP time/date string to a SYSTEMTIME structure. (InternetTimeToSystemTimeA)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetTimeToSystemTime as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszTime Pointer to a null-terminated string that specifies the date/time to  be converted.
      * @param {Pointer<SYSTEMTIME>} pst Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the converted time.
      * @returns {BOOL} Returns <b>TRUE</b> if the string was converted, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internettimetosystemtimea
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internettimetosystemtimea
      * @since windows5.0
      */
     static InternetTimeToSystemTimeA(lpszTime, pst) {
@@ -4725,13 +4755,22 @@ class WinInet {
     }
 
     /**
-     * Converts an HTTP time/date string to a SYSTEMTIME structure.
+     * The InternetTimeToSystemTimeW (Unicode) function (wininet.h) converts an HTTP time/date string to a SYSTEMTIME structure.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetTimeToSystemTime as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszTime Pointer to a null-terminated string that specifies the date/time to  be converted.
      * @param {Pointer<SYSTEMTIME>} pst Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the converted time.
      * @returns {BOOL} Returns <b>TRUE</b> if the string was converted, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internettimetosystemtimew
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internettimetosystemtimew
      * @since windows5.0
      */
     static InternetTimeToSystemTimeW(lpszTime, pst) {
@@ -4750,13 +4789,16 @@ class WinInet {
     }
 
     /**
-     * Converts an HTTP time/date string to a SYSTEMTIME structure.
+     * The InternetTimeToSystemTime function (wininet.h) converts an HTTP time/date string to a SYSTEMTIME structure.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {PSTR} lpszTime Pointer to a null-terminated string that specifies the date/time to  be converted.
      * @param {Pointer<SYSTEMTIME>} pst Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the converted time.
      * @returns {BOOL} Returns <b>TRUE</b> if the string was converted, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internettimetosystemtime
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internettimetosystemtime
      * @since windows5.0
      */
     static InternetTimeToSystemTime(lpszTime, pst) {
@@ -4775,7 +4817,34 @@ class WinInet {
     }
 
     /**
-     * Cracks a URL into its component parts.
+     * Cracks a URL into its component parts. (ANSI)
+     * @remarks
+     * The required components are indicated by members of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-url_componentsa">URL_COMPONENTS</a> structure. Each component has a pointer to the value and has a member that stores the length of the stored value. If both the value and the length for a component are equal to zero, that component is not returned. <b>Windows Vista and later.:  </b>If the pointer to the value of the component is <b>NULL</b> and the value of its corresponding length member is nonzero, the address of the first character of the corresponding component in the 
+     * <i>lpszUrl</i> string is stored in the pointer, and the length of the component is stored in the length member.
+     * 
+     * 
+     * 
+     * If the pointer contains the address of the user-supplied buffer, the length member must contain the size of the buffer. 
+     * <b>InternetCrackUrl</b> copies the component into the buffer, and the length member is set to the length of the copied component, minus 1 for the trailing string terminator.
+     * 
+     * For 
+     * <b>InternetCrackUrl</b> to work properly, the size of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-url_componentsa">URL_COMPONENTS</a> structure, in bytes, must be stored in the 
+     * <b>dwStructSize</b> member.
+     * 
+     * <b>Note</b>  Do not use <b>InternetCrackUrl</b> on "file://" URLs that contain spaces, because  the value returned in the <b>dwUrlPathLength</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-url_componentsa">URL_COMPONENTS</a> structure pointed to by <i>lpUrlComponents</i> is too large. This is only the case, however, with "file://" URLs that contain space characters.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetCrackUrl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszUrl Pointer to a string that contains the canonical URL to be cracked.
      * @param {Integer} dwUrlLength Size of the 
      * <i>lpszUrl</i> string, in <b>TCHARs</b>, or zero if 
@@ -4784,8 +4853,8 @@ class WinInet {
      * @param {Pointer<URL_COMPONENTSA>} lpUrlComponents Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-url_componentsa">URL_COMPONENTS</a> structure that receives the URL components.
      * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetcrackurla
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetcrackurla
      * @since windows5.0
      */
     static InternetCrackUrlA(lpszUrl, dwUrlLength, dwFlags, lpUrlComponents) {
@@ -4802,7 +4871,34 @@ class WinInet {
     }
 
     /**
-     * Cracks a URL into its component parts.
+     * Cracks a URL into its component parts. (Unicode)
+     * @remarks
+     * The required components are indicated by members of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-url_componentsa">URL_COMPONENTS</a> structure. Each component has a pointer to the value and has a member that stores the length of the stored value. If both the value and the length for a component are equal to zero, that component is not returned. <b>Windows Vista and later.:  </b>If the pointer to the value of the component is <b>NULL</b> and the value of its corresponding length member is nonzero, the address of the first character of the corresponding component in the 
+     * <i>lpszUrl</i> string is stored in the pointer, and the length of the component is stored in the length member.
+     * 
+     * 
+     * 
+     * If the pointer contains the address of the user-supplied buffer, the length member must contain the size of the buffer. 
+     * <b>InternetCrackUrl</b> copies the component into the buffer, and the length member is set to the length of the copied component, minus 1 for the trailing string terminator.
+     * 
+     * For 
+     * <b>InternetCrackUrl</b> to work properly, the size of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-url_componentsa">URL_COMPONENTS</a> structure, in bytes, must be stored in the 
+     * <b>dwStructSize</b> member.
+     * 
+     * <b>Note</b>  Do not use <b>InternetCrackUrl</b> on "file://" URLs that contain spaces, because  the value returned in the <b>dwUrlPathLength</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-url_componentsa">URL_COMPONENTS</a> structure pointed to by <i>lpUrlComponents</i> is too large. This is only the case, however, with "file://" URLs that contain space characters.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetCrackUrl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszUrl Pointer to a string that contains the canonical URL to be cracked.
      * @param {Integer} dwUrlLength Size of the 
      * <i>lpszUrl</i> string, in <b>TCHARs</b>, or zero if 
@@ -4811,8 +4907,8 @@ class WinInet {
      * @param {Pointer<URL_COMPONENTSW>} lpUrlComponents Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-url_componentsa">URL_COMPONENTS</a> structure that receives the URL components.
      * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetcrackurlw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetcrackurlw
      * @since windows5.0
      */
     static InternetCrackUrlW(lpszUrl, dwUrlLength, dwFlags, lpUrlComponents) {
@@ -4829,17 +4925,28 @@ class WinInet {
     }
 
     /**
-     * Creates a URL from its component parts.
+     * Creates a URL from its component parts. (ANSI)
+     * @remarks
+     * When specifying scheme in the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-url_componentsa">URL_COMPONENTS</a> structure passed to <i>lpUrlComponents</i>, if <i>lpszScheme</i> is not NULL it will be used for the scheme.  If <i>lpszScheme</i> is NULL, the scheme can be specified using the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ne-wininet-internet_scheme">INTERNET_SCHEME</a> enumeration by setting <b>nScheme</b> to the required <b>INTERNET_SCHEME</b> or <b>INTERNET_SCHEME_DEFAULT</b>.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetCreateUrl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<URL_COMPONENTSA>} lpUrlComponents Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-url_componentsa">URL_COMPONENTS</a> structure that contains the components from which to create the URL.
      * @param {Integer} dwFlags 
      * @param {PSTR} lpszUrl Pointer to a buffer that receives the URL.
      * @param {Pointer<Integer>} lpdwUrlLength Pointer to a variable that specifies the size of the 
-     * URL<i>lpszUrl</i> buffer, in <b>TCHARs</b>. When the function returns, this parameter receives the size of the URL string, excluding the NULL terminator. If 
+     * URL <i>lpszUrl</i> buffer, in <b>TCHARs</b>. When the function returns, this parameter receives the size of the URL string, excluding the NULL terminator. If 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, this parameter receives the number of bytes required to hold the created URL.
      * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetcreateurla
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetcreateurla
      * @since windows5.0
      */
     static InternetCreateUrlA(lpUrlComponents, dwFlags, lpszUrl, lpdwUrlLength) {
@@ -4858,17 +4965,28 @@ class WinInet {
     }
 
     /**
-     * Creates a URL from its component parts.
+     * Creates a URL from its component parts. (Unicode)
+     * @remarks
+     * When specifying scheme in the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-url_componentsa">URL_COMPONENTS</a> structure passed to <i>lpUrlComponents</i>, if <i>lpszScheme</i> is not NULL it will be used for the scheme.  If <i>lpszScheme</i> is NULL, the scheme can be specified using the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ne-wininet-internet_scheme">INTERNET_SCHEME</a> enumeration by setting <b>nScheme</b> to the required <b>INTERNET_SCHEME</b> or <b>INTERNET_SCHEME_DEFAULT</b>.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetCreateUrl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<URL_COMPONENTSW>} lpUrlComponents Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-url_componentsa">URL_COMPONENTS</a> structure that contains the components from which to create the URL.
      * @param {Integer} dwFlags 
      * @param {PWSTR} lpszUrl Pointer to a buffer that receives the URL.
      * @param {Pointer<Integer>} lpdwUrlLength Pointer to a variable that specifies the size of the 
-     * URL<i>lpszUrl</i> buffer, in <b>TCHARs</b>. When the function returns, this parameter receives the size of the URL string, excluding the NULL terminator. If 
+     * URL <i>lpszUrl</i> buffer, in <b>TCHARs</b>. When the function returns, this parameter receives the size of the URL string, excluding the NULL terminator. If 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, this parameter receives the number of bytes required to hold the created URL.
      * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetcreateurlw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetcreateurlw
      * @since windows5.0
      */
     static InternetCreateUrlW(lpUrlComponents, dwFlags, lpszUrl, lpdwUrlLength) {
@@ -4887,7 +5005,30 @@ class WinInet {
     }
 
     /**
-     * Canonicalizes a URL, which includes converting unsafe characters and spaces into escape sequences.
+     * Canonicalizes a URL, which includes converting unsafe characters and spaces into escape sequences. (ANSI)
+     * @remarks
+     * In Internet Explorer 4.0 and later, 
+     * <b>InternetCanonicalizeUrl</b> always functions as if the <b>ICU_BROWSER_MODE</b> flag is set. Client applications that must canonicalize the entire URL should use either 
+     * <a href="https://msdn.microsoft.com/25f9b097-ee42-48df-8573-d6bf9a52f53b">CoInternetParseUrl</a> (with the action <b>PARSE_CANONICALIZE</b> and the flag <b>URL_ESCAPE_UNSAFE</b>) or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-urlcanonicalizea">UrlCanonicalize</a>.
+     * 
+     * <b>InternetCanonicalizeUrl</b> always encodes by default, even if the <b>ICU_DECODE</b> flag has been specified. To decode without reencoding, use <b>ICU_DECODE</b> | <b>ICU_NO_ENCODE</b>. If the <b>ICU_DECODE</b> flag is used without <b>ICU_NO_ENCODE</b>, the URL is decoded before being parsed; unsafe characters are then  re-encoded after parsing. This function  handles arbitrary protocol schemes, but to do so it must make inferences from the unsafe character set.
+     * 
+     * Applications that call 
+     * <b>InternetCanonicalizeUrl</b> when using  Internet Explorer 3.0 (or when setting the <b>ICU_ENCODE_PERCENT</b> flag for Internet Explorer 5 and later) should track the usage of this function on a particular URL. If unsafe characters in a URL have been converted to escape sequences, using 
+     * <b>InternetCanonicalizeUrl</b> again on the URL (with no flags)  causes the escape sequences to be converted to another escape sequence. For example, a blank space in a URL would be converted to the escape sequence %20. Calling 
+     * <b>InternetCanonicalizeUrl</b> again on the URL would cause the escape sequence %20 to be converted to the escape sequence %2520, because the % sign is an unsafe character that is reserved for escape sequences and is replaced by the function with the escape sequence %25.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetCanonicalizeUrl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszUrl A pointer to the string that contains the URL to canonicalize.
      * @param {PSTR} lpszBuffer A pointer to the buffer that receives the resulting canonicalized URL.
      * @param {Pointer<Integer>} lpdwBufferLength A pointer to a variable that contains the size, in characters,  of the 
@@ -4896,7 +5037,7 @@ class WinInet {
      * buffer, in characters, which includes the terminating null character.
      * @param {Integer} dwFlags Controls canonicalization. If no flags are specified, the function converts all unsafe characters and meta sequences (such as \.,\ .., and \...) to escape sequences.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. Possible errors include the following.
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. Possible errors include the following.
      * 
      * <table>
      * <tr>
@@ -4949,7 +5090,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetcanonicalizeurla
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetcanonicalizeurla
      * @since windows5.0
      */
     static InternetCanonicalizeUrlA(lpszUrl, lpszBuffer, lpdwBufferLength, dwFlags) {
@@ -4969,7 +5110,30 @@ class WinInet {
     }
 
     /**
-     * Canonicalizes a URL, which includes converting unsafe characters and spaces into escape sequences.
+     * Canonicalizes a URL, which includes converting unsafe characters and spaces into escape sequences. (Unicode)
+     * @remarks
+     * In Internet Explorer 4.0 and later, 
+     * <b>InternetCanonicalizeUrl</b> always functions as if the <b>ICU_BROWSER_MODE</b> flag is set. Client applications that must canonicalize the entire URL should use either 
+     * <a href="https://msdn.microsoft.com/25f9b097-ee42-48df-8573-d6bf9a52f53b">CoInternetParseUrl</a> (with the action <b>PARSE_CANONICALIZE</b> and the flag <b>URL_ESCAPE_UNSAFE</b>) or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-urlcanonicalizea">UrlCanonicalize</a>.
+     * 
+     * <b>InternetCanonicalizeUrl</b> always encodes by default, even if the <b>ICU_DECODE</b> flag has been specified. To decode without reencoding, use <b>ICU_DECODE</b> | <b>ICU_NO_ENCODE</b>. If the <b>ICU_DECODE</b> flag is used without <b>ICU_NO_ENCODE</b>, the URL is decoded before being parsed; unsafe characters are then  re-encoded after parsing. This function  handles arbitrary protocol schemes, but to do so it must make inferences from the unsafe character set.
+     * 
+     * Applications that call 
+     * <b>InternetCanonicalizeUrl</b> when using  Internet Explorer 3.0 (or when setting the <b>ICU_ENCODE_PERCENT</b> flag for Internet Explorer 5 and later) should track the usage of this function on a particular URL. If unsafe characters in a URL have been converted to escape sequences, using 
+     * <b>InternetCanonicalizeUrl</b> again on the URL (with no flags)  causes the escape sequences to be converted to another escape sequence. For example, a blank space in a URL would be converted to the escape sequence %20. Calling 
+     * <b>InternetCanonicalizeUrl</b> again on the URL would cause the escape sequence %20 to be converted to the escape sequence %2520, because the % sign is an unsafe character that is reserved for escape sequences and is replaced by the function with the escape sequence %25.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetCanonicalizeUrl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszUrl A pointer to the string that contains the URL to canonicalize.
      * @param {PWSTR} lpszBuffer A pointer to the buffer that receives the resulting canonicalized URL.
      * @param {Pointer<Integer>} lpdwBufferLength A pointer to a variable that contains the size, in characters,  of the 
@@ -4978,7 +5142,7 @@ class WinInet {
      * buffer, in characters, which includes the terminating null character.
      * @param {Integer} dwFlags Controls canonicalization. If no flags are specified, the function converts all unsafe characters and meta sequences (such as \.,\ .., and \...) to escape sequences.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. Possible errors include the following.
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. Possible errors include the following.
      * 
      * <table>
      * <tr>
@@ -5031,7 +5195,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetcanonicalizeurlw
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetcanonicalizeurlw
      * @since windows5.0
      */
     static InternetCanonicalizeUrlW(lpszUrl, lpszBuffer, lpdwBufferLength, dwFlags) {
@@ -5051,7 +5215,16 @@ class WinInet {
     }
 
     /**
-     * Combines a base and relative URL into a single URL. The resultant URL is canonicalized (see InternetCanonicalizeUrl).
+     * Combines a base and relative URL into a single URL. The resultant URL is canonicalized (see InternetCanonicalizeUrl). (ANSI)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetCombineUrl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszBaseUrl Pointer to a null-terminated string  that contains the base URL.
      * @param {PSTR} lpszRelativeUrl Pointer to a null-terminated string  that contains the relative URL.
      * @param {PSTR} lpszBuffer Pointer to a buffer that receives the combined URL.
@@ -5059,7 +5232,7 @@ class WinInet {
      * <i>lpszBuffer</i> buffer, in characters. If the function succeeds, this parameter receives the size of the combined URL, in characters, not including the null-terminating character. If the function fails, this parameter receives the size of the required buffer, in characters (including the null-terminating character).
      * @param {Integer} dwFlags 
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible errors include the following.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible errors include the following.
      * 
      * <table>
      * <tr>
@@ -5112,7 +5285,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetcombineurla
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetcombineurla
      * @since windows5.0
      */
     static InternetCombineUrlA(lpszBaseUrl, lpszRelativeUrl, lpszBuffer, lpdwBufferLength, dwFlags) {
@@ -5133,7 +5306,16 @@ class WinInet {
     }
 
     /**
-     * Combines a base and relative URL into a single URL. The resultant URL is canonicalized (see InternetCanonicalizeUrl).
+     * Combines a base and relative URL into a single URL. The resultant URL is canonicalized (see InternetCanonicalizeUrl). (Unicode)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetCombineUrl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszBaseUrl Pointer to a null-terminated string  that contains the base URL.
      * @param {PWSTR} lpszRelativeUrl Pointer to a null-terminated string  that contains the relative URL.
      * @param {PWSTR} lpszBuffer Pointer to a buffer that receives the combined URL.
@@ -5141,7 +5323,7 @@ class WinInet {
      * <i>lpszBuffer</i> buffer, in characters. If the function succeeds, this parameter receives the size of the combined URL, in characters, not including the null-terminating character. If the function fails, this parameter receives the size of the required buffer, in characters (including the null-terminating character).
      * @param {Integer} dwFlags 
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible errors include the following.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible errors include the following.
      * 
      * <table>
      * <tr>
@@ -5194,7 +5376,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetcombineurlw
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetcombineurlw
      * @since windows5.0
      */
     static InternetCombineUrlW(lpszBaseUrl, lpszRelativeUrl, lpszBuffer, lpdwBufferLength, dwFlags) {
@@ -5215,7 +5397,30 @@ class WinInet {
     }
 
     /**
-     * Initializes an application's use of the WinINet functions.
+     * Initializes an application's use of the WinINet functions. (ANSI)
+     * @remarks
+     * <b>InternetOpen</b> is the first WinINet function called by an application. It tells the Internet DLL to initialize internal data structures and prepare for future calls from the application. When the application finishes using the Internet functions, it should call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a> to free the handle and any associated resources.
+     * 
+     * The application can make any number of calls to 
+     * <b>InternetOpen</b>, though a single call is normally sufficient. The application might need to define separate behaviors for each 
+     * <b>InternetOpen</b> instance, such as different proxy servers configured for each.
+     * 
+     * After the calling application has finished using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-a-hinternet-handles">HINTERNET</a> handle returned by 
+     * <b>InternetOpen</b>, it must be closed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a> function.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetOpen as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszAgent Pointer to a <b>null</b>-terminated string  that specifies the name of the application or entity calling the WinINet functions. This name is used as the user agent in the HTTP protocol.
      * @param {Integer} dwAccessType 
      * @param {PSTR} lpszProxy Pointer to a <b>null</b>-terminated string  that specifies the name of the proxy server(s) to use when proxy access is specified by setting 
@@ -5242,8 +5447,8 @@ class WinInet {
      * @param {Integer} dwFlags 
      * @returns {Pointer<Void>} Returns a valid handle that the application passes to subsequent WinINet functions. If 
      * <b>InternetOpen</b> fails, it returns <b>NULL</b>. To retrieve a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetopena
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetopena
      * @since windows5.0
      */
     static InternetOpenA(lpszAgent, dwAccessType, lpszProxy, lpszProxyBypass, dwFlags) {
@@ -5262,7 +5467,30 @@ class WinInet {
     }
 
     /**
-     * Initializes an application's use of the WinINet functions.
+     * Initializes an application's use of the WinINet functions. (Unicode)
+     * @remarks
+     * <b>InternetOpen</b> is the first WinINet function called by an application. It tells the Internet DLL to initialize internal data structures and prepare for future calls from the application. When the application finishes using the Internet functions, it should call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a> to free the handle and any associated resources.
+     * 
+     * The application can make any number of calls to 
+     * <b>InternetOpen</b>, though a single call is normally sufficient. The application might need to define separate behaviors for each 
+     * <b>InternetOpen</b> instance, such as different proxy servers configured for each.
+     * 
+     * After the calling application has finished using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-a-hinternet-handles">HINTERNET</a> handle returned by 
+     * <b>InternetOpen</b>, it must be closed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a> function.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetOpen as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszAgent Pointer to a <b>null</b>-terminated string  that specifies the name of the application or entity calling the WinINet functions. This name is used as the user agent in the HTTP protocol.
      * @param {Integer} dwAccessType 
      * @param {PWSTR} lpszProxy Pointer to a <b>null</b>-terminated string  that specifies the name of the proxy server(s) to use when proxy access is specified by setting 
@@ -5289,8 +5517,8 @@ class WinInet {
      * @param {Integer} dwFlags 
      * @returns {Pointer<Void>} Returns a valid handle that the application passes to subsequent WinINet functions. If 
      * <b>InternetOpen</b> fails, it returns <b>NULL</b>. To retrieve a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetopenw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetopenw
      * @since windows5.0
      */
     static InternetOpenW(lpszAgent, dwAccessType, lpszProxy, lpszProxyBypass, dwFlags) {
@@ -5310,10 +5538,29 @@ class WinInet {
 
     /**
      * Closes a single Internet handle.
+     * @remarks
+     * The function terminates any pending operations on the handle and discards any outstanding data. 
+     * 
+     * 
+     * It is safe to call <b>InternetCloseHandle</b> as long as no API calls are being made or will be made using the handle.  Once an API has returned <b>ERROR_IO_PENDING</b>, it is safe to call <b>InternetCloseHandle</b> to cancel that I/O, as long as no subsequent API calls will be issued with the handle. 
+     * 
+     * It is safe to call <b>InternetCloseHandle</b> in a callback for the handle being closed. If there is a status callback registered for the handle being closed, and the handle was created with a non-NULL context value, an <b>INTERNET_STATUS_HANDLE_CLOSING</b> callback will be made. This indication will be the last callback made from a handle and indicates that the handle is being destroyed.
+     * 
+     * If asynchronous requests are pending for the handle or any of its child handles, the handle cannot be closed immediately, but it will be invalidated. Any new requests attempted using the handle will return with an 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/wininet-errors">ERROR_INVALID_HANDLE</a> notification. The asynchronous requests will complete with <b>INTERNET_STATUS_REQUEST_COMPLETE</b>. Applications must be prepared to receive any <b>INTERNET_STATUS_REQUEST_COMPLETE</b> indications on the handle before the final <b>INTERNET_STATUS_HANDLE_CLOSING</b> indication is made, which indicates that the handle is completely closed.
+     * 
+     * An application can call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to determine if requests are pending. If 
+     * <b>GetLastError</b> returns <b>ERROR_IO_PENDING</b>, there were outstanding requests when the handle was closed.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {Pointer<Void>} hInternet Handle to be closed.
      * @returns {BOOL} Returns <b>TRUE</b> if the handle is successfully closed, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetclosehandle
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetclosehandle
      * @since windows5.0
      */
     static InternetCloseHandle(hInternet) {
@@ -5330,7 +5577,88 @@ class WinInet {
     }
 
     /**
-     * Opens an File Transfer Protocol (FTP) or HTTP session for a given site.
+     * Opens an File Transfer Protocol (FTP) or HTTP session for a given site. (ANSI)
+     * @remarks
+     * The following table describes the behavior for the four possible settings of 
+     * <i>lpszUsername</i> and 
+     * <i>lpszPassword</i>. 
+     * 				
+     * <table class="clsStd">
+     * <tr>
+     * <th><i>lpszUsername</i></th>
+     * <th><i>lpszPassword</i></th>
+     * <th>User name sent to FTP server</th>
+     * <th>Password sent to FTP server</th>
+     * </tr>
+     * <tr>
+     * <td><b>NULL</b></td>
+     * <td><b>NULL</b></td>
+     * <td>"anonymous"</td>
+     * <td>User's email name</td>
+     * </tr>
+     * <tr>
+     * <td>Non-<b>NULL</b> string</td>
+     * <td><b>NULL</b></td>
+     * <td><i>lpszUsername</i></td>
+     * <td>""</td>
+     * </tr>
+     * <tr>
+     * <td><b>NULL</b></td>
+     * <td>Non-<b>NULL</b> string</td>
+     * <td>ERROR</td>
+     * <td>ERROR</td>
+     * </tr>
+     * <tr>
+     * <td>Non-<b>NULL</b> string</td>
+     * <td>Non-<b>NULL</b> string</td>
+     * <td><i>lpszUsername</i></td>
+     * <td><i>lpszPassword</i></td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * 
+     * For FTP sites, 
+     * <b>InternetConnect</b> actually establishes a connection with the server; for others, the actual connection is not established until the application requests a specific transaction.
+     * 
+     * For maximum efficiency, applications using the HTTP protocols should try to minimize calls to 
+     * <b>InternetConnect</b> and avoid calling this function for every transaction requested by the user. One way to accomplish this is to keep a small cache of handles returned from 
+     * <b>InternetConnect</b>; when the user makes a request to a previously accessed server, that session handle is still available.
+     * 
+     * After the calling application has finished using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-a-hinternet-handles">HINTERNET</a> handle returned by 
+     * <b>InternetConnect</b>, it must be closed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a> function.
+     * 
+     * 
+     * <b>Note</b>  When a request is sent asynchronous mode (the <i>dwFlags</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopena">InternetOpen</a> specifies <b>INTERNET_FLAG_ASYNC</b>), and the <i>dwContext</i> parameter is zero (<b>INTERNET_NO_CALLBACK</b>), the callback function set with <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> on the connection handle will not be called, however, the call will still be performed in asynchronous mode.  
+     * 
+     * 
+     * 
+     * 
+     * Examples of <b>InternetConnect</b> usage can be found in the following topics.
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/handling-authentication">Handling Authentication</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/asynchronous-example-application">Asynchronous Example Application</a>
+     * </li>
+     * </ul>
+     * 
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetConnect as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hInternet Handle returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopena">InternetOpen</a>.
      * @param {PSTR} lpszServerName Pointer to a <b>null</b>-terminated string that specifies the host name of an Internet server. Alternately, the string can contain the IP number of the site, in ASCII dotted-decimal format (for example, 11.0.1.45).
@@ -5347,9 +5675,9 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/api-flags">INTERNET_FLAG_PASSIVE</a> causes the application to use passive FTP semantics.
      * @param {Pointer} dwContext Pointer to a variable that contains an application-defined value that is used to identify the application context for the returned handle in callbacks.
      * @returns {Pointer<Void>} Returns a valid handle to the session if the connection is successful, or <b>NULL</b> otherwise. To retrieve extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why access to the service was denied.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetconnecta
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why access to the service was denied.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetconnecta
      * @since windows5.0
      */
     static InternetConnectA(hInternet, lpszServerName, nServerPort, lpszUserName, lpszPassword, dwService, dwFlags, dwContext) {
@@ -5370,7 +5698,88 @@ class WinInet {
     }
 
     /**
-     * Opens an File Transfer Protocol (FTP) or HTTP session for a given site.
+     * Opens an File Transfer Protocol (FTP) or HTTP session for a given site. (Unicode)
+     * @remarks
+     * The following table describes the behavior for the four possible settings of 
+     * <i>lpszUsername</i> and 
+     * <i>lpszPassword</i>. 
+     * 				
+     * <table class="clsStd">
+     * <tr>
+     * <th><i>lpszUsername</i></th>
+     * <th><i>lpszPassword</i></th>
+     * <th>User name sent to FTP server</th>
+     * <th>Password sent to FTP server</th>
+     * </tr>
+     * <tr>
+     * <td><b>NULL</b></td>
+     * <td><b>NULL</b></td>
+     * <td>"anonymous"</td>
+     * <td>User's email name</td>
+     * </tr>
+     * <tr>
+     * <td>Non-<b>NULL</b> string</td>
+     * <td><b>NULL</b></td>
+     * <td><i>lpszUsername</i></td>
+     * <td>""</td>
+     * </tr>
+     * <tr>
+     * <td><b>NULL</b></td>
+     * <td>Non-<b>NULL</b> string</td>
+     * <td>ERROR</td>
+     * <td>ERROR</td>
+     * </tr>
+     * <tr>
+     * <td>Non-<b>NULL</b> string</td>
+     * <td>Non-<b>NULL</b> string</td>
+     * <td><i>lpszUsername</i></td>
+     * <td><i>lpszPassword</i></td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * 
+     * For FTP sites, 
+     * <b>InternetConnect</b> actually establishes a connection with the server; for others, the actual connection is not established until the application requests a specific transaction.
+     * 
+     * For maximum efficiency, applications using the HTTP protocols should try to minimize calls to 
+     * <b>InternetConnect</b> and avoid calling this function for every transaction requested by the user. One way to accomplish this is to keep a small cache of handles returned from 
+     * <b>InternetConnect</b>; when the user makes a request to a previously accessed server, that session handle is still available.
+     * 
+     * After the calling application has finished using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-a-hinternet-handles">HINTERNET</a> handle returned by 
+     * <b>InternetConnect</b>, it must be closed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a> function.
+     * 
+     * 
+     * <b>Note</b>  When a request is sent asynchronous mode (the <i>dwFlags</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopena">InternetOpen</a> specifies <b>INTERNET_FLAG_ASYNC</b>), and the <i>dwContext</i> parameter is zero (<b>INTERNET_NO_CALLBACK</b>), the callback function set with <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> on the connection handle will not be called, however, the call will still be performed in asynchronous mode.  
+     * 
+     * 
+     * 
+     * 
+     * Examples of <b>InternetConnect</b> usage can be found in the following topics.
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/handling-authentication">Handling Authentication</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/asynchronous-example-application">Asynchronous Example Application</a>
+     * </li>
+     * </ul>
+     * 
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetConnect as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hInternet Handle returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopena">InternetOpen</a>.
      * @param {PWSTR} lpszServerName Pointer to a <b>null</b>-terminated string that specifies the host name of an Internet server. Alternately, the string can contain the IP number of the site, in ASCII dotted-decimal format (for example, 11.0.1.45).
@@ -5387,9 +5796,9 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/api-flags">INTERNET_FLAG_PASSIVE</a> causes the application to use passive FTP semantics.
      * @param {Pointer} dwContext Pointer to a variable that contains an application-defined value that is used to identify the application context for the returned handle in callbacks.
      * @returns {Pointer<Void>} Returns a valid handle to the session if the connection is successful, or <b>NULL</b> otherwise. To retrieve extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why access to the service was denied.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetconnectw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why access to the service was denied.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetconnectw
      * @since windows5.0
      */
     static InternetConnectW(hInternet, lpszServerName, nServerPort, lpszUserName, lpszPassword, dwService, dwFlags, dwContext) {
@@ -5410,7 +5819,37 @@ class WinInet {
     }
 
     /**
-     * Opens a resource specified by a complete FTP or HTTP URL.
+     * Opens a resource specified by a complete FTP or HTTP URL. (ANSI)
+     * @remarks
+     * Call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetcanonicalizeurla">InternetCanonicalizeUrl</a> first if the URL being used contains a relative URL and a base URL separated by blank spaces.
+     * 
+     * This is a general function that an application can use to retrieve data over any of the protocols that WinINet supports. This function is especially useful when the application does not need to access the particulars of a protocol, but only requires the data corresponding to a URL. The 
+     * <b>InternetOpenUrl</b> function parses the URL string, establishes a connection to the server, and prepares to download the data identified by the URL. The application can then use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetreadfile">InternetReadFile</a> (for files) or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetfindnextfilea">InternetFindNextFile</a> (for directories) to retrieve the URL data. It is not necessary to call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a> before 
+     * <b>InternetOpenUrl</b>.
+     * 
+     * <b>Windows XP and Windows Server 2003 R2 and earlier:  </b><b>InternetOpenUrl</b> disables Gopher on ports less than 1024, except for port 70—the standard Gopher port—and port 105—typically used for Central Services Organization (CSO) name searches.
+     * 
+     * After the calling application has finished using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-a-hinternet-handles">HINTERNET</a> handle returned by 
+     * <b>InternetOpenUrl</b>, it must be closed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a> function.
+     * 
+     * <b>Note</b>  When working in asynchronous mode (the <i>dwFlags</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopena">InternetOpen</a> specifies <b>INTERNET_FLAG_ASYNC</b>), and the <i>dwContext</i> parameter is zero (<b>INTERNET_NO_CALLBACK</b>), the callback function set with <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> on the session handle will not be invoked, however, the call will still be performed in asynchronous mode
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetOpenUrl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hInternet The handle to the current Internet session. The handle must have been returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopena">InternetOpen</a>.
      * @param {PSTR} lpszUrl A pointer to a <b>null</b>-terminated string variable that specifies the URL to begin reading. Only URLs beginning with ftp:, http:, or https: are supported.
@@ -5423,9 +5862,9 @@ class WinInet {
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext A pointer to a variable that specifies the application-defined value that is passed, along with the returned handle, to any callback functions.
      * @returns {Pointer<Void>} Returns a valid handle to the URL if the connection is successfully established, or <b>NULL</b> if the connection fails. To retrieve a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. To determine why access to the service was denied, call 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetopenurla
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. To determine why access to the service was denied, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetopenurla
      * @since windows5.0
      */
     static InternetOpenUrlA(hInternet, lpszUrl, lpszHeaders, dwHeadersLength, dwFlags, dwContext) {
@@ -5445,7 +5884,37 @@ class WinInet {
     }
 
     /**
-     * Opens a resource specified by a complete FTP or HTTP URL.
+     * Opens a resource specified by a complete FTP or HTTP URL. (Unicode)
+     * @remarks
+     * Call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetcanonicalizeurla">InternetCanonicalizeUrl</a> first if the URL being used contains a relative URL and a base URL separated by blank spaces.
+     * 
+     * This is a general function that an application can use to retrieve data over any of the protocols that WinINet supports. This function is especially useful when the application does not need to access the particulars of a protocol, but only requires the data corresponding to a URL. The 
+     * <b>InternetOpenUrl</b> function parses the URL string, establishes a connection to the server, and prepares to download the data identified by the URL. The application can then use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetreadfile">InternetReadFile</a> (for files) or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetfindnextfilea">InternetFindNextFile</a> (for directories) to retrieve the URL data. It is not necessary to call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a> before 
+     * <b>InternetOpenUrl</b>.
+     * 
+     * <b>Windows XP and Windows Server 2003 R2 and earlier:  </b><b>InternetOpenUrl</b> disables Gopher on ports less than 1024, except for port 70—the standard Gopher port—and port 105—typically used for Central Services Organization (CSO) name searches.
+     * 
+     * After the calling application has finished using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-a-hinternet-handles">HINTERNET</a> handle returned by 
+     * <b>InternetOpenUrl</b>, it must be closed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a> function.
+     * 
+     * <b>Note</b>  When working in asynchronous mode (the <i>dwFlags</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopena">InternetOpen</a> specifies <b>INTERNET_FLAG_ASYNC</b>), and the <i>dwContext</i> parameter is zero (<b>INTERNET_NO_CALLBACK</b>), the callback function set with <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> on the session handle will not be invoked, however, the call will still be performed in asynchronous mode
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetOpenUrl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hInternet The handle to the current Internet session. The handle must have been returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopena">InternetOpen</a>.
      * @param {PWSTR} lpszUrl A pointer to a <b>null</b>-terminated string variable that specifies the URL to begin reading. Only URLs beginning with ftp:, http:, or https: are supported.
@@ -5458,9 +5927,9 @@ class WinInet {
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext A pointer to a variable that specifies the application-defined value that is passed, along with the returned handle, to any callback functions.
      * @returns {Pointer<Void>} Returns a valid handle to the URL if the connection is successfully established, or <b>NULL</b> if the connection fails. To retrieve a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. To determine why access to the service was denied, call 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetopenurlw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. To determine why access to the service was denied, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetopenurlw
      * @since windows5.0
      */
     static InternetOpenUrlW(hInternet, lpszUrl, lpszHeaders, dwHeadersLength, dwFlags, dwContext) {
@@ -5481,6 +5950,35 @@ class WinInet {
 
     /**
      * Reads data from a handle opened by the InternetOpenUrl, FtpOpenFile, or HttpOpenRequest function.
+     * @remarks
+     * <b>InternetReadFile</b> operates much like the base 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-readfile">ReadFile</a> function, with a few exceptions. Typically, 
+     * <b>InternetReadFile</b> retrieves data from an 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-a-hinternet-handles">HINTERNET</a> handle as a sequential stream of bytes. The amount of data to be read for each call to 
+     * <b>InternetReadFile</b> is specified by the 
+     * <i>dwNumberOfBytesToRead</i> parameter and the data is returned in the 
+     * <i>lpBuffer</i> parameter. A normal read retrieves the specified 
+     * <i>dwNumberOfBytesToRead</i> for each call to 
+     * <b>InternetReadFile</b> until the end of the file is reached. To ensure all data is retrieved, an application must continue to call the 
+     * <b>InternetReadFile</b> function until the function returns <b>TRUE</b> and the 
+     * <i>lpdwNumberOfBytesRead</i> parameter equals zero. This is especially important if the requested data is written to the cache, because otherwise the cache will not be properly updated and the file downloaded will not be committed to the cache. Note that caching happens automatically unless the original request to open the data stream set the <b>INTERNET_FLAG_NO_CACHE_WRITE</b> flag.
+     * 
+     * When an application retrieves a handle using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopenurla">InternetOpenUrl</a>, WinINet attempts to make all data look like a file download, in an effort to make reading from the Internet easier for the application. For some types of information, such as FTP file directory listings, it converts the data to be returned by  
+     * <b>InternetReadFile</b> to an HTML stream. It does this on a line-by-line basis. For example, it can convert an FTP directory listing to a line of HTML and return this HTML to the application.
+     * 
+     * WinINet attempts to write the HTML to the 
+     * <i>lpBuffer</i> buffer a line at a time. If the application's buffer is too small to fit at least one line of generated HTML, the error code 
+     * <b>ERROR_INSUFFICIENT_BUFFER</b> is returned as an indication to the application that it needs a larger buffer. Also, converted lines might not completely fill the buffer, so 
+     * <b>InternetReadFile</b> can return with less data in 
+     * <i>lpBuffer</i> than requested. Subsequent reads will retrieve all the converted HTML. The application must again check that all data is retrieved as described previously.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * When running asynchronously, if a call to <b>InternetReadFile</b> does not result in a completed transaction, it will return <i>FALSE</i> and a subsequent call to <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <i>ERROR_IO_PENDING</i>. When the transaction is completed the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nc-wininet-internet_status_callback">InternetStatusCallback</a> specified in a previous call to   <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> will be called with <i>INTERNET_STATUS_REQUEST_COMPLETE</i>.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {Pointer<Void>} hFile Handle returned from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopenurla">InternetOpenUrl</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpopenfilea">FtpOpenFile</a>, 
@@ -5491,9 +5989,9 @@ class WinInet {
      * @param {Pointer<Integer>} lpdwNumberOfBytesRead Pointer to a variable that receives the number of bytes read. 
      * <b>InternetReadFile</b> sets this value to zero before doing any work or error checking.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> when necessary.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetreadfile
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> when necessary.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetreadfile
      * @since windows5.0
      */
     static InternetReadFile(hFile, lpBuffer, dwNumberOfBytesToRead, lpdwNumberOfBytesRead) {
@@ -5511,7 +6009,16 @@ class WinInet {
     }
 
     /**
-     * Reads data from a handle opened by the InternetOpenUrl or HttpOpenRequest function.
+     * Reads data from a handle opened by the InternetOpenUrl or HttpOpenRequest function. (ANSI)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetReadFileEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hFile Handle returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopenurla">InternetOpenUrl</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> function.
@@ -5520,9 +6027,9 @@ class WinInet {
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext A caller supplied context value used for asynchronous operations.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> when necessary.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetreadfileexa
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> when necessary.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetreadfileexa
      * @since windows5.0
      */
     static InternetReadFileExA(hFile, lpBuffersOut, dwFlags, dwContext) {
@@ -5539,7 +6046,16 @@ class WinInet {
     }
 
     /**
-     * Reads data from a handle opened by the InternetOpenUrl or HttpOpenRequest function.
+     * Reads data from a handle opened by the InternetOpenUrl or HttpOpenRequest function. (Unicode)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetReadFileEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hFile Handle returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopenurla">InternetOpenUrl</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> function.
@@ -5548,9 +6064,9 @@ class WinInet {
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext A caller supplied context value used for asynchronous operations.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> when necessary.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetreadfileexw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> when necessary.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetreadfileexw
      * @since windows5.0
      */
     static InternetReadFileExW(hFile, lpBuffersOut, dwFlags, dwContext) {
@@ -5568,6 +6084,25 @@ class WinInet {
 
     /**
      * Sets a file position for InternetReadFile. This is a synchronous call; however, subsequent calls to InternetReadFile might block or return pending if the data is not available from the cache and the server does not support random access.
+     * @remarks
+     * This function cannot be used once the end of the file has been reached by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetreadfile">InternetReadFile</a>.
+     * 
+     * For 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-a-hinternet-handles">HINTERNET</a> handles created by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> and sent by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpsendrequestexa">HttpSendRequestEx</a>, a call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpendrequesta">HttpEndRequest</a> must be made on the handle before 
+     * <b>InternetSetFilePointer</b> is used.
+     * 
+     * <b>InternetSetFilePointer</b> cannot be used reliably if the content length is unknown.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <b>InternetSetFilePointer</b> has changed over time. In Internet Explorer 7 and earlier, it  used to move the pointer only within the bounds of  a LONG. When calling this older version of the function, <i>lDistanceToMove</i> contains the entire value. A positive value moves the pointer forward in the file; a negative value moves it backward.  <i>lpDistanceToMoveHigh</i> is reserved and is set to <b>0</b>.  In current versions, <i>lpDistanceToMoveHigh</i> is a significant value and where any negative value would be indicated.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {Pointer<Void>} hFile Handle returned from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopenurla">InternetOpenUrl</a> (on an HTTP or HTTPS
      * 						URL) or 
@@ -5579,21 +6114,21 @@ class WinInet {
      * @param {Integer} lDistanceToMove The low order 32-bits of a signed 64-bit number of bytes to move the file pointer. <b>Internet Explorer 7 and earlier:  </b><b>InternetSetFilePointer</b> used to move the pointer only within the bounds of  a LONG. When calling this older version of the function, <i>lpDistanceToMoveHigh</i> is reserved and should be set to <b>0</b>. A positive value moves the pointer forward in the file; a negative value moves it backward.
      * @param {Pointer<Integer>} lpDistanceToMoveHigh A pointer to the high order 32-bits of the signed 64-bit distance to move. If you do not need the high order 32-bits, this pointer must  be set to <b>NULL</b>.  When not <b>NULL</b>, this parameter also receives the high order DWORD of the new value of the file pointer. A positive value moves the pointer forward in the file; a negative value moves it backward.<b>Internet Explorer 7 and earlier:  </b><b>InternetSetFilePointer</b> used to move the pointer only within the bounds of  a LONG. When calling this older version of the function, <i>lpDistanceToMoveHigh</i> is reserved and should be set to <b>0</b>.
      * @param {Integer} dwMoveMethod 
-     * @returns {Integer} I the function succeeds, it returns the current file position.     A return value of <b>INVALID_SET_FILE_POINTER</b> indicates a potential failure and needs to be followed by be a call to <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.  
+     * @returns {Integer} I the function succeeds, it returns the current file position.     A return value of <b>INVALID_SET_FILE_POINTER</b> indicates a potential failure and needs to be followed by be a call to <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.  
      * 
      * Since <b>INVALID_SET_FILE_POINTER</b> is a valid value for the  low-order DWORD of the new file pointer, the caller must check both the
-     * return value of the function and the error code returned by <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to determine whether or not an error has occurred.   If an error has occurred, the return value of InternetSetFilePointer        is <b>INVALID_SET_FILE_POINTER</b> and <b>GetLastError</b> returns a value other than <b>NO_ERROR</b>.
+     * return value of the function and the error code returned by <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to determine whether or not an error has occurred.   If an error has occurred, the return value of InternetSetFilePointer        is <b>INVALID_SET_FILE_POINTER</b> and <b>GetLastError</b> returns a value other than <b>NO_ERROR</b>.
      * 
      * If the function succeeds and <i>lpDistanceToMoveHigh</i> is <b>NULL</b>, the return value is the low-order <b>DWORD</b> of the new file pointer.
      * 
-     * Note that if the function returns a value other than <b>INVALID_SET_FILE_POINTER</b>, the call to <b>InternetSetFilePointer</b>has succeeded and there is no need to call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * Note that if the function returns a value other than <b>INVALID_SET_FILE_POINTER</b>, the call to <b>InternetSetFilePointer</b> has succeeded and there is no need to call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * If the function succeeds and <i>lpDistanceToMoveHigh</i> is not <b>NULL</b>, the return value is the lower-order <b>DWORD</b> of the new file pointer and <i>lpDistanceToMoveHigh</i> contains the high order <b>DWORD</b> of the new file pointer.
      * 
-     * If a new file pointer is a negative value, the function fails, the file pointer is not moved, and the code returned by <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> is <b>ERROR_NEGATIVE_SEEK</b>.
+     * If a new file pointer is a negative value, the function fails, the file pointer is not moved, and the code returned by <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> is <b>ERROR_NEGATIVE_SEEK</b>.
      * 
      * If <i>lpDistanceToMoveHigh</i> is <b>NULL</b> and the new file position does not fit in a 32-bit value the function fails and returns <b>INVALID_SET_FILE_POINTER</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetfilepointer
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetfilepointer
      * @since windows5.0
      */
     static InternetSetFilePointer(hFile, lDistanceToMove, lpDistanceToMoveHigh, dwMoveMethod) {
@@ -5614,6 +6149,14 @@ class WinInet {
 
     /**
      * Writes data to an open Internet file.
+     * @remarks
+     * When the application is sending data, it must call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a> to end the data transfer.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {Pointer<Void>} hFile Handle returned from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpopenfilea">FtpOpenFile</a> or an 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-a-hinternet-handles">HINTERNET</a> handle sent by 
@@ -5623,9 +6166,9 @@ class WinInet {
      * @param {Pointer<Integer>} lpdwNumberOfBytesWritten Pointer to a variable that receives the number of bytes written to the file. 
      * <b>InternetWriteFile</b> sets this value to zero before doing any work or error checking.
      * @returns {BOOL} Returns TRUE if the function succeeds, or FALSE otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> when necessary.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetwritefile
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> when necessary.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetwritefile
      * @since windows5.0
      */
     static InternetWriteFile(hFile, lpBuffer, dwNumberOfBytesToWrite, lpdwNumberOfBytesWritten) {
@@ -5644,6 +6187,22 @@ class WinInet {
 
     /**
      * Queries the server to determine the amount of data available.
+     * @remarks
+     * This function returns the number of bytes of data that are available to be read immediately by a subsequent call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetreadfile">InternetReadFile</a>. If there is currently no data available and the end of the file has not been reached, the request waits until data becomes available. The amount of data remaining will not be recalculated until all available data indicated by the call to 
+     * <b>InternetQueryDataAvailable</b> is read.
+     * 
+     * For 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-a-hinternet-handles">HINTERNET</a> handles created by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> and sent by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpsendrequestexa">HttpSendRequestEx</a>, a call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpendrequesta">HttpEndRequest</a> must be made on the handle before 
+     * <b>InternetQueryDataAvailable</b> can be used.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {Pointer<Void>} hFile Handle returned by 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopenurla">InternetOpenUrl</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpopenfilea">FtpOpenFile</a>, 
@@ -5653,9 +6212,9 @@ class WinInet {
      * @param {Integer} dwFlags This parameter is reserved and must be 0.
      * @param {Pointer} dwContext This parameter is reserved and must be 0.
      * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
      * <b>GetLastError</b> returns ERROR_NO_MORE_FILES.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetquerydataavailable
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetquerydataavailable
      * @since windows5.0
      */
     static InternetQueryDataAvailable(hFile, lpdwNumberOfBytesAvailable, dwFlags, dwContext) {
@@ -5673,7 +6232,16 @@ class WinInet {
     }
 
     /**
-     * Continues a file search started as a result of a previous call to FtpFindFirstFile.Windows XP and Windows Server 2003 R2 and earlier:  Or continues a file search as a result of a previous call to GopherFindFirstFile.
+     * Continues a file search started as a result of a previous call to FtpFindFirstFile.Windows XP and Windows Server 2003 R2 and earlier:  Or continues a file search as a result of a previous call to GopherFindFirstFile. (ANSI)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetFindNextFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hFind Handle returned from either 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpfindfirstfilea">FtpFindFirstFile</a> or  
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopenurla">InternetOpenUrl</a> (directories only).
@@ -5685,9 +6253,9 @@ class WinInet {
      * <b>Windows XP and Windows Server 2003 R2 and earlier:  </b>The Gopher protocol returns a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-gopher_find_dataa">GOPHER_FIND_DATA</a> structure.
      * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
      * <b>GetLastError</b> returns <b>ERROR_NO_MORE_FILES</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetfindnextfilea
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetfindnextfilea
      * @since windows5.0
      */
     static InternetFindNextFileA(hFind, lpvFindData) {
@@ -5705,7 +6273,16 @@ class WinInet {
     }
 
     /**
-     * Continues a file search started as a result of a previous call to FtpFindFirstFile.Windows XP and Windows Server 2003 R2 and earlier:  Or continues a file search as a result of a previous call to GopherFindFirstFile.
+     * Continues a file search started as a result of a previous call to FtpFindFirstFile.Windows XP and Windows Server 2003 R2 and earlier:  Or continues a file search as a result of a previous call to GopherFindFirstFile. (Unicode)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetFindNextFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hFind Handle returned from either 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpfindfirstfilea">FtpFindFirstFile</a> or  
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopenurla">InternetOpenUrl</a> (directories only).
@@ -5717,9 +6294,9 @@ class WinInet {
      * <b>Windows XP and Windows Server 2003 R2 and earlier:  </b>The Gopher protocol returns a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-gopher_find_dataa">GOPHER_FIND_DATA</a> structure.
      * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
      * <b>GetLastError</b> returns <b>ERROR_NO_MORE_FILES</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetfindnextfilew
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetfindnextfilew
      * @since windows5.0
      */
     static InternetFindNextFileW(hFind, lpvFindData) {
@@ -5737,7 +6314,24 @@ class WinInet {
     }
 
     /**
-     * Queries an Internet option on the specified handle.
+     * Queries an Internet option on the specified handle. (ANSI)
+     * @remarks
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return the <b>ERROR_INVALID_PARAMETER</b> if an option flag that is invalid for the specified handle type is passed to the 
+     * <i>dwOption</i> parameter.
+     * 
+     * For more  information, see  
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/setting-and-retrieving-internet-options">Setting and Retrieving Internet Options</a>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetQueryOption as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hInternet Handle on which to query information.
      * @param {Integer} dwOption Internet option to be queried. This can be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/option-flags">Option Flags</a> values.
@@ -5750,8 +6344,8 @@ class WinInet {
      * <i>lpBuffer</i>. If 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, this parameter points to the number of bytes required to hold the requested information.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetqueryoptiona
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetqueryoptiona
      * @since windows5.0
      */
     static InternetQueryOptionA(hInternet, dwOption, lpBuffer, lpdwBufferLength) {
@@ -5769,7 +6363,24 @@ class WinInet {
     }
 
     /**
-     * Queries an Internet option on the specified handle.
+     * Queries an Internet option on the specified handle. (Unicode)
+     * @remarks
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return the <b>ERROR_INVALID_PARAMETER</b> if an option flag that is invalid for the specified handle type is passed to the 
+     * <i>dwOption</i> parameter.
+     * 
+     * For more  information, see  
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/setting-and-retrieving-internet-options">Setting and Retrieving Internet Options</a>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetQueryOption as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hInternet Handle on which to query information.
      * @param {Integer} dwOption Internet option to be queried. This can be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/option-flags">Option Flags</a> values.
@@ -5782,8 +6393,8 @@ class WinInet {
      * <i>lpBuffer</i>. If 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, this parameter points to the number of bytes required to hold the requested information.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetqueryoptionw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetqueryoptionw
      * @since windows5.0
      */
     static InternetQueryOptionW(hInternet, dwOption, lpBuffer, lpdwBufferLength) {
@@ -5801,7 +6412,23 @@ class WinInet {
     }
 
     /**
-     * Sets an Internet option.
+     * Sets an Internet option. (ANSI)
+     * @remarks
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return the error <b>ERROR_INVALID_PARAMETER</b> if an option flag that cannot be set is specified.
+     * 
+     * For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/setting-and-retrieving-internet-options">Setting and Retrieving Internet Options</a>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetSetOption as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hInternet Handle on which to set information.
      * @param {Integer} dwOption Internet option to be set. This can be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/option-flags">Option Flags</a> values.
@@ -5813,8 +6440,8 @@ class WinInet {
      * <i>lpBuffer</i> contains anything other than a string, 
      * the size is in bytes.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetoptiona
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetoptiona
      * @since windows5.0
      */
     static InternetSetOptionA(hInternet, dwOption, lpBuffer, dwBufferLength) {
@@ -5832,7 +6459,23 @@ class WinInet {
     }
 
     /**
-     * Sets an Internet option.
+     * Sets an Internet option. (Unicode)
+     * @remarks
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return the error <b>ERROR_INVALID_PARAMETER</b> if an option flag that cannot be set is specified.
+     * 
+     * For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/setting-and-retrieving-internet-options">Setting and Retrieving Internet Options</a>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetSetOption as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hInternet Handle on which to set information.
      * @param {Integer} dwOption Internet option to be set. This can be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/option-flags">Option Flags</a> values.
@@ -5844,8 +6487,8 @@ class WinInet {
      * <i>lpBuffer</i> contains anything other than a string, 
      * the size is in bytes.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetoptionw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetoptionw
      * @since windows5.0
      */
     static InternetSetOptionW(hInternet, dwOption, lpBuffer, dwBufferLength) {
@@ -5863,14 +6506,23 @@ class WinInet {
     }
 
     /**
-     * Not supported.Implemented only as a stub that calls the InternetSetOption function; InternetSetOptionEx has no functionality of its own. Do not use this function at this time.
+     * Not supported.Implemented only as a stub that calls the InternetSetOption function; InternetSetOptionEx has no functionality of its own. Do not use this function at this time. (ANSI)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetSetOptionEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hInternet Unused.
      * @param {Integer} dwOption Unused.
      * @param {Pointer<Void>} lpBuffer Unused.
      * @param {Integer} dwBufferLength Unused.
      * @param {Integer} dwFlags Unused.
      * @returns {BOOL} This function does not return a value.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetoptionexa
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetoptionexa
      * @since windows5.0
      */
     static InternetSetOptionExA(hInternet, dwOption, lpBuffer, dwBufferLength, dwFlags) {
@@ -5882,14 +6534,23 @@ class WinInet {
     }
 
     /**
-     * Not supported.Implemented only as a stub that calls the InternetSetOption function; InternetSetOptionEx has no functionality of its own. Do not use this function at this time.
+     * Not supported.Implemented only as a stub that calls the InternetSetOption function; InternetSetOptionEx has no functionality of its own. Do not use this function at this time. (Unicode)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetSetOptionEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hInternet Unused.
      * @param {Integer} dwOption Unused.
      * @param {Pointer<Void>} lpBuffer Unused.
      * @param {Integer} dwBufferLength Unused.
      * @param {Integer} dwFlags Unused.
      * @returns {BOOL} This function does not return a value.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetoptionexw
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetoptionexw
      * @since windows5.0
      */
     static InternetSetOptionExW(hInternet, dwOption, lpBuffer, dwBufferLength, dwFlags) {
@@ -5902,6 +6563,18 @@ class WinInet {
 
     /**
      * Places a lock on the file that is being used.
+     * @remarks
+     * If the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-a-hinternet-handles">HINTERNET</a> handle passed to 
+     * <i>hInternet</i> was created using 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/api-flags">INTERNET_FLAG_NO_CACHE_WRITE</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/api-flags">INTERNET_FLAG_DONT_CACHE</a>, the function creates a temporary file with the extension .tmp, unless it is an HTTPS resource. If the handle was created using <b>INTERNET_FLAG_NO_CACHE_WRITE</b> or <b>INTERNET_FLAG_DONT_CACHE</b> and it is accessing an HTTPS resource, 
+     * <b>InternetLockRequestFile</b> fails.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {Pointer<Void>} hInternet Handle returned by 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpopenfilea">FtpOpenFile</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gopheropenfilea">GopherOpenFile</a>, 
@@ -5909,8 +6582,8 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopenurla">InternetOpenUrl</a> function.
      * @param {Pointer<HANDLE>} lphLockRequestInfo Pointer to a handle that receives the lock request handle.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetlockrequestfile
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetlockrequestfile
      * @since windows5.0
      */
     static InternetLockRequestFile(hInternet, lphLockRequestInfo) {
@@ -5928,11 +6601,14 @@ class WinInet {
 
     /**
      * Unlocks a file that was locked using InternetLockRequestFile.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {HANDLE} hLockRequestInfo Handle to a lock request that was returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetlockrequestfile">InternetLockRequestFile</a>.
      * @returns {BOOL} Returns TRUE if successful, or FALSE otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetunlockrequestfile
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetunlockrequestfile
      * @since windows5.0
      */
     static InternetUnlockRequestFile(hLockRequestInfo) {
@@ -5949,16 +6625,38 @@ class WinInet {
     }
 
     /**
-     * Retrieves the last error description or server response on the thread calling this function.
+     * Retrieves the last error description or server response on the thread calling this function. (ANSI)
+     * @remarks
+     * The FTP protocols can return additional text information along with most errors. This extended error information can be retrieved by using the 
+     * <b>InternetGetLastResponseInfo</b> function whenever 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/wininet-errors">ERROR_INTERNET_EXTENDED_ERROR</a> (occurring after an unsuccessful function call).
+     * 
+     * The buffer pointed to by 
+     * <i>lpszBuffer</i> must be large enough to hold both the error string and a zero terminator at the end of the string. However, note that the value returned in 
+     * <i>lpdwBufferLength</i> does not include the terminating zero.
+     * 
+     * <b>InternetGetLastResponseInfo</b> can be called multiple times until another function is called on this thread. When another function is called, the internal buffer that is storing the last response information is cleared.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetGetLastResponseInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} lpdwError Pointer to a variable that receives an error message pertaining to the operation that failed.
      * @param {PSTR} lpszBuffer Pointer to a buffer that receives the error text.
      * @param {Pointer<Integer>} lpdwBufferLength Pointer to a variable that contains the size of the 
      * <i>lpszBuffer</i> buffer, in <b>TCHARs</b>. When the function returns, this parameter contains the size of the string written to the buffer, not including the terminating zero.
      * @returns {BOOL} Returns <b>TRUE</b> if error text was successfully written to the buffer, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the buffer is too small to hold all the error text, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the buffer is too small to hold all the error text, 
      * <b>GetLastError</b> returns <b>ERROR_INSUFFICIENT_BUFFER</b>, and the 
      * <i>lpdwBufferLength</i> parameter contains the minimum buffer size required to return all the error text.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgetlastresponseinfoa
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetlastresponseinfoa
      * @since windows5.0
      */
     static InternetGetLastResponseInfoA(lpdwError, lpszBuffer, lpdwBufferLength) {
@@ -5978,16 +6676,38 @@ class WinInet {
     }
 
     /**
-     * Retrieves the last error description or server response on the thread calling this function.
+     * Retrieves the last error description or server response on the thread calling this function. (Unicode)
+     * @remarks
+     * The FTP protocols can return additional text information along with most errors. This extended error information can be retrieved by using the 
+     * <b>InternetGetLastResponseInfo</b> function whenever 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/wininet-errors">ERROR_INTERNET_EXTENDED_ERROR</a> (occurring after an unsuccessful function call).
+     * 
+     * The buffer pointed to by 
+     * <i>lpszBuffer</i> must be large enough to hold both the error string and a zero terminator at the end of the string. However, note that the value returned in 
+     * <i>lpdwBufferLength</i> does not include the terminating zero.
+     * 
+     * <b>InternetGetLastResponseInfo</b> can be called multiple times until another function is called on this thread. When another function is called, the internal buffer that is storing the last response information is cleared.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetGetLastResponseInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} lpdwError Pointer to a variable that receives an error message pertaining to the operation that failed.
      * @param {PWSTR} lpszBuffer Pointer to a buffer that receives the error text.
      * @param {Pointer<Integer>} lpdwBufferLength Pointer to a variable that contains the size of the 
      * <i>lpszBuffer</i> buffer, in <b>TCHARs</b>. When the function returns, this parameter contains the size of the string written to the buffer, not including the terminating zero.
      * @returns {BOOL} Returns <b>TRUE</b> if error text was successfully written to the buffer, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the buffer is too small to hold all the error text, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the buffer is too small to hold all the error text, 
      * <b>GetLastError</b> returns <b>ERROR_INSUFFICIENT_BUFFER</b>, and the 
      * <i>lpdwBufferLength</i> parameter contains the minimum buffer size required to return all the error text.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgetlastresponseinfow
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetlastresponseinfow
      * @since windows5.0
      */
     static InternetGetLastResponseInfoW(lpdwError, lpszBuffer, lpdwBufferLength) {
@@ -6007,12 +6727,38 @@ class WinInet {
     }
 
     /**
+     * The InternetSetStatusCallbackA (ANSI) function sets up a callback function that WinINet functions can call as progress is made during an operation.
+     * @remarks
+     * Both synchronous and asynchronous functions use the callback function to indicate the progress of the request, such as resolving a name, connecting to a server, and so on. The callback function is required for an asynchronous operation. The asynchronous request will call back to the application with INTERNET_STATUS_REQUEST_COMPLETE to indicate the request has been completed.
      * 
+     * A callback function can be set on any handle, and is inherited by derived handles. A callback function can be changed using 
+     * <b>InternetSetStatusCallback</b>, providing there are no pending requests that need to use the previous callback value. Note, however, that changing the callback function on a handle does not change the callbacks on derived handles, such as that returned by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>. You must change the callback function at each level.
+     * 
+     * Many of the WinINet functions perform several operations on the network. Each operation can take time to complete, and each can fail.
+     * 
+     * It is sometimes desirable to display status information during a long-term operation. You can display status information by setting up an Internet status callback function that cannot be removed as long as any callbacks or any asynchronous functions are pending.
+     * 
+     * After initiating 
+     * <b>InternetSetStatusCallback</b>, the callback function can be accessed from within any WinINet function for monitoring time-intensive network operations.
+     * 
+     * <b>Note</b>  The callback function specified in the <i>lpfnInternetCallback</i> parameter will not be called on asynchronous operations for the request handle when the <i>dwContext</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> is set to zero (<b>INTERNET_NO_CALLBACK</b>), or the connection handle when the <i>dwContext</i> handle of <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a> is set to zero (<b>INTERNET_NO_CALLBACK</b>).
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetSetStatusCallback as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hInternet The handle for which the callback is set.
      * @param {Pointer<LPINTERNET_STATUS_CALLBACK>} lpfnInternetCallback A pointer to the callback function to call when progress is made, or  <b>NULL</b> to remove the existing callback function. For more information about the callback function, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nc-wininet-internet_status_callback">InternetStatusCallback</a>.
      * @returns {Pointer<LPINTERNET_STATUS_CALLBACK>} Returns the previously defined status callback function if successful, <b>NULL</b> if there was no previously defined status callback function, or INTERNET_INVALID_STATUS_CALLBACK if the callback function is not valid.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetstatuscallbacka
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetstatuscallbacka
      */
     static InternetSetStatusCallbackA(hInternet, lpfnInternetCallback) {
         hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
@@ -6022,12 +6768,38 @@ class WinInet {
     }
 
     /**
+     * The InternetSetStatusCallbackW (Unicode) function sets up a callback function that WinINet functions can call as progress is made during an operation.
+     * @remarks
+     * Both synchronous and asynchronous functions use the callback function to indicate the progress of the request, such as resolving a name, connecting to a server, and so on. The callback function is required for an asynchronous operation. The asynchronous request will call back to the application with INTERNET_STATUS_REQUEST_COMPLETE to indicate the request has been completed.
      * 
+     * A callback function can be set on any handle, and is inherited by derived handles. A callback function can be changed using 
+     * <b>InternetSetStatusCallback</b>, providing there are no pending requests that need to use the previous callback value. Note, however, that changing the callback function on a handle does not change the callbacks on derived handles, such as that returned by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>. You must change the callback function at each level.
+     * 
+     * Many of the WinINet functions perform several operations on the network. Each operation can take time to complete, and each can fail.
+     * 
+     * It is sometimes desirable to display status information during a long-term operation. You can display status information by setting up an Internet status callback function that cannot be removed as long as any callbacks or any asynchronous functions are pending.
+     * 
+     * After initiating 
+     * <b>InternetSetStatusCallback</b>, the callback function can be accessed from within any WinINet function for monitoring time-intensive network operations.
+     * 
+     * <b>Note</b>  The callback function specified in the <i>lpfnInternetCallback</i> parameter will not be called on asynchronous operations for the request handle when the <i>dwContext</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> is set to zero (<b>INTERNET_NO_CALLBACK</b>), or the connection handle when the <i>dwContext</i> handle of <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a> is set to zero (<b>INTERNET_NO_CALLBACK</b>).
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetSetStatusCallback as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hInternet The handle for which the callback is set.
      * @param {Pointer<LPINTERNET_STATUS_CALLBACK>} lpfnInternetCallback A pointer to the callback function to call when progress is made, or  <b>NULL</b> to remove the existing callback function. For more information about the callback function, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nc-wininet-internet_status_callback">InternetStatusCallback</a>.
      * @returns {Pointer<LPINTERNET_STATUS_CALLBACK>} Returns the previously defined status callback function if successful, <b>NULL</b> if there was no previously defined status callback function, or INTERNET_INVALID_STATUS_CALLBACK if the callback function is not valid.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetstatuscallbackw
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetstatuscallbackw
      */
     static InternetSetStatusCallbackW(hInternet, lpfnInternetCallback) {
         hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
@@ -6038,11 +6810,31 @@ class WinInet {
 
     /**
      * Sets up a callback function that WinINet functions can call as progress is made during an operation.
+     * @remarks
+     * Both synchronous and asynchronous functions use the callback function to indicate the progress of the request, such as resolving a name, connecting to a server, and so on. The callback function is required for an asynchronous operation. The asynchronous request will call back to the application with INTERNET_STATUS_REQUEST_COMPLETE to indicate the request has been completed.
+     * 
+     * A callback function can be set on any handle, and is inherited by derived handles. A callback function can be changed using 
+     * <b>InternetSetStatusCallback</b>, providing there are no pending requests that need to use the previous callback value. Note, however, that changing the callback function on a handle does not change the callbacks on derived handles, such as that returned by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>. You must change the callback function at each level.
+     * 
+     * Many of the WinINet functions perform several operations on the network. Each operation can take time to complete, and each can fail.
+     * 
+     * It is sometimes desirable to display status information during a long-term operation. You can display status information by setting up an Internet status callback function that cannot be removed as long as any callbacks or any asynchronous functions are pending.
+     * 
+     * After initiating 
+     * <b>InternetSetStatusCallback</b>, the callback function can be accessed from within any WinINet function for monitoring time-intensive network operations.
+     * 
+     * <b>Note</b>  The callback function specified in the <i>lpfnInternetCallback</i> parameter will not be called on asynchronous operations for the request handle when the <i>dwContext</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> is set to zero (<b>INTERNET_NO_CALLBACK</b>), or the connection handle when the <i>dwContext</i> handle of <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a> is set to zero (<b>INTERNET_NO_CALLBACK</b>).
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {Pointer<Void>} hInternet The handle for which the callback is set.
      * @param {Pointer<LPINTERNET_STATUS_CALLBACK>} lpfnInternetCallback A pointer to the callback function to call when progress is made, or  <b>NULL</b> to remove the existing callback function. For more information about the callback function, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nc-wininet-internet_status_callback">InternetStatusCallback</a>.
      * @returns {Pointer<LPINTERNET_STATUS_CALLBACK>} Returns the previously defined status callback function if successful, <b>NULL</b> if there was no previously defined status callback function, or INTERNET_INVALID_STATUS_CALLBACK if the callback function is not valid.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetstatuscallback
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetstatuscallback
      * @since windows5.0
      */
     static InternetSetStatusCallback(hInternet, lpfnInternetCallback) {
@@ -6053,7 +6845,48 @@ class WinInet {
     }
 
     /**
-     * Searches the specified directory of the given FTP session. File and directory entries are returned to the application in the WIN32_FIND_DATA structure.
+     * Searches the specified directory of the given FTP session. File and directory entries are returned to the application in the WIN32_FIND_DATA structure. (ANSI)
+     * @remarks
+     * For 
+     * <b>FtpFindFirstFile</b>, file times returned in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a> structure are in the local time zone, not in a coordinated universal time (UTC) format.
+     * 
+     * <b>FtpFindFirstFile</b> is similar to the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstfilea">FindFirstFile</a> function. Note, however, that only one 
+     * <b>FtpFindFirstFile</b> can occur at a time within a given FTP session. The enumerations, therefore, are correlated with the FTP session handle. This is because the FTP protocol allows only a single directory enumeration per session.
+     * 
+     * After calling 
+     * <b>FtpFindFirstFile</b> and until calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a>, the application cannot call 
+     * <b>FtpFindFirstFile</b> again on the given FTP session handle. If a call is made to 
+     * <b>FtpFindFirstFile</b> on that handle, the function  fails with 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/wininet-errors">ERROR_FTP_TRANSFER_IN_PROGRESS</a>. After the calling application has finished using the 
+     * <b>HINTERNET</b> handle returned by 
+     * <b>FtpFindFirstFile</b>, it must be closed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a> function.
+     * 
+     * After beginning a directory enumeration with 
+     * <b>FtpFindFirstFile</b>, the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetfindnextfilea">InternetFindNextFile</a> function can be used to continue the enumeration.
+     * 
+     * Because the FTP protocol provides no standard means of enumerating, some of the common information about files, such as file creation date and time, is not always available or correct. When this happens, 
+     * <b>FtpFindFirstFile</b> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetfindnextfilea">InternetFindNextFile</a> fill in unavailable information with a best guess based on available information. For example, creation and last access dates are often  the same as the file's modification date.
+     * 
+     * The application cannot call 
+     * <b>FtpFindFirstFile</b> between calls to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpopenfilea">FtpOpenFile</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpFindFirstFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session returned from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
      * @param {PSTR} lpszSearchFile Pointer to a <b>null</b>-terminated string that specifies a valid directory path or file name for the FTP server's file system. The string can contain wildcards, but no blank spaces are allowed. If the value of 
@@ -6064,9 +6897,9 @@ class WinInet {
      * @param {Pointer} dwContext Pointer to a variable that specifies the application-defined value that associates this search with any application data. This parameter is used only if the application has already called 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback function.
      * @returns {Pointer<Void>} Returns a valid handle for the request if the directory enumeration was started successfully, or returns <b>NULL</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If <b>GetLastError</b> returns ERROR_INTERNET_EXTENDED_ERROR, as in the case where the function finds no matching files, call the 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> function to retrieve the extended error text, as documented in <a href="/windows/desktop/WinInet/appendix-c-handling-errors">Handling Errors</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpfindfirstfilea
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If <b>GetLastError</b> returns ERROR_INTERNET_EXTENDED_ERROR, as in the case where the function finds no matching files, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> function to retrieve the extended error text, as documented in <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-c-handling-errors">Handling Errors</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpfindfirstfilea
      * @since windows5.0
      */
     static FtpFindFirstFileA(hConnect, lpszSearchFile, lpFindFileData, dwFlags, dwContext) {
@@ -6085,7 +6918,48 @@ class WinInet {
     }
 
     /**
-     * Searches the specified directory of the given FTP session. File and directory entries are returned to the application in the WIN32_FIND_DATA structure.
+     * Searches the specified directory of the given FTP session. File and directory entries are returned to the application in the WIN32_FIND_DATA structure. (Unicode)
+     * @remarks
+     * For 
+     * <b>FtpFindFirstFile</b>, file times returned in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a> structure are in the local time zone, not in a coordinated universal time (UTC) format.
+     * 
+     * <b>FtpFindFirstFile</b> is similar to the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstfilea">FindFirstFile</a> function. Note, however, that only one 
+     * <b>FtpFindFirstFile</b> can occur at a time within a given FTP session. The enumerations, therefore, are correlated with the FTP session handle. This is because the FTP protocol allows only a single directory enumeration per session.
+     * 
+     * After calling 
+     * <b>FtpFindFirstFile</b> and until calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a>, the application cannot call 
+     * <b>FtpFindFirstFile</b> again on the given FTP session handle. If a call is made to 
+     * <b>FtpFindFirstFile</b> on that handle, the function  fails with 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/wininet-errors">ERROR_FTP_TRANSFER_IN_PROGRESS</a>. After the calling application has finished using the 
+     * <b>HINTERNET</b> handle returned by 
+     * <b>FtpFindFirstFile</b>, it must be closed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a> function.
+     * 
+     * After beginning a directory enumeration with 
+     * <b>FtpFindFirstFile</b>, the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetfindnextfilea">InternetFindNextFile</a> function can be used to continue the enumeration.
+     * 
+     * Because the FTP protocol provides no standard means of enumerating, some of the common information about files, such as file creation date and time, is not always available or correct. When this happens, 
+     * <b>FtpFindFirstFile</b> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetfindnextfilea">InternetFindNextFile</a> fill in unavailable information with a best guess based on available information. For example, creation and last access dates are often  the same as the file's modification date.
+     * 
+     * The application cannot call 
+     * <b>FtpFindFirstFile</b> between calls to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpopenfilea">FtpOpenFile</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpFindFirstFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session returned from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
      * @param {PWSTR} lpszSearchFile Pointer to a <b>null</b>-terminated string that specifies a valid directory path or file name for the FTP server's file system. The string can contain wildcards, but no blank spaces are allowed. If the value of 
@@ -6096,9 +6970,9 @@ class WinInet {
      * @param {Pointer} dwContext Pointer to a variable that specifies the application-defined value that associates this search with any application data. This parameter is used only if the application has already called 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback function.
      * @returns {Pointer<Void>} Returns a valid handle for the request if the directory enumeration was started successfully, or returns <b>NULL</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If <b>GetLastError</b> returns ERROR_INTERNET_EXTENDED_ERROR, as in the case where the function finds no matching files, call the 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> function to retrieve the extended error text, as documented in <a href="/windows/desktop/WinInet/appendix-c-handling-errors">Handling Errors</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpfindfirstfilew
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If <b>GetLastError</b> returns ERROR_INTERNET_EXTENDED_ERROR, as in the case where the function finds no matching files, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> function to retrieve the extended error text, as documented in <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-c-handling-errors">Handling Errors</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpfindfirstfilew
      * @since windows5.0
      */
     static FtpFindFirstFileW(hConnect, lpszSearchFile, lpFindFileData, dwFlags, dwContext) {
@@ -6117,7 +6991,29 @@ class WinInet {
     }
 
     /**
-     * Retrieves a file from the FTP server and stores it under the specified file name, creating a new local file in the process.
+     * Retrieves a file from the FTP server and stores it under the specified file name, creating a new local file in the process. (ANSI)
+     * @remarks
+     * <b>FtpGetFile</b> is a high-level routine that handles all the bookkeeping and overhead associated with reading a file from an FTP server and storing it locally. An application that needs to retrieve file data only or that requires close control over the file transfer should use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpopenfilea">FtpOpenFile</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetreadfile">InternetReadFile</a> functions.
+     * 
+     * If the 
+     * <i>dwFlags</i> parameter specifies <b>FTP_TRANSFER_TYPE_ASCII</b>, translation of the file data converts control and formatting characters to local equivalents. The default transfer is binary mode, where the file is downloaded in the same format as it is stored on the server.
+     * 
+     * Both 
+     * <i>lpszRemoteFile</i> and 
+     * <i>lpszNewFile</i> can be either partially or fully qualified file names relative to the current directory.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpGetFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
      * @param {PSTR} lpszRemoteFile Pointer to a null-terminated string that contains the name of the file to be retrieved.
      * @param {PSTR} lpszNewFile Pointer to a null-terminated string that contains the name of the file to be created on the local system.
@@ -6247,8 +7143,8 @@ class WinInet {
      * @param {Pointer} dwContext Pointer to a variable that contains the application-defined value that associates this search with any application data. This is used only if the application has already called 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback function.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpgetfilea
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpgetfilea
      * @since windows5.0
      */
     static FtpGetFileA(hConnect, lpszRemoteFile, lpszNewFile, fFailIfExists, dwFlagsAndAttributes, dwFlags, dwContext) {
@@ -6268,7 +7164,29 @@ class WinInet {
     }
 
     /**
-     * Retrieves a file from the FTP server and stores it under the specified file name, creating a new local file in the process.
+     * Retrieves a file from the FTP server and stores it under the specified file name, creating a new local file in the process. (Unicode)
+     * @remarks
+     * <b>FtpGetFile</b> is a high-level routine that handles all the bookkeeping and overhead associated with reading a file from an FTP server and storing it locally. An application that needs to retrieve file data only or that requires close control over the file transfer should use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpopenfilea">FtpOpenFile</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetreadfile">InternetReadFile</a> functions.
+     * 
+     * If the 
+     * <i>dwFlags</i> parameter specifies <b>FTP_TRANSFER_TYPE_ASCII</b>, translation of the file data converts control and formatting characters to local equivalents. The default transfer is binary mode, where the file is downloaded in the same format as it is stored on the server.
+     * 
+     * Both 
+     * <i>lpszRemoteFile</i> and 
+     * <i>lpszNewFile</i> can be either partially or fully qualified file names relative to the current directory.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpGetFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
      * @param {PWSTR} lpszRemoteFile Pointer to a null-terminated string that contains the name of the file to be retrieved.
      * @param {PWSTR} lpszNewFile Pointer to a null-terminated string that contains the name of the file to be created on the local system.
@@ -6398,8 +7316,8 @@ class WinInet {
      * @param {Pointer} dwContext Pointer to a variable that contains the application-defined value that associates this search with any application data. This is used only if the application has already called 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback function.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpgetfilew
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpgetfilew
      * @since windows5.0
      */
     static FtpGetFileW(hConnect, lpszRemoteFile, lpszNewFile, fFailIfExists, dwFlagsAndAttributes, dwFlags, dwContext) {
@@ -6419,7 +7337,29 @@ class WinInet {
     }
 
     /**
-     * Stores a file on the FTP server.
+     * Stores a file on the FTP server. (ANSI)
+     * @remarks
+     * <b>FtpPutFile</b> is a high-level routine that handles all the bookkeeping and overhead associated with reading a file locally and storing it on an FTP server. An application that needs to send file data only, or that requires close control over the file transfer, should use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpopenfilea">FtpOpenFile</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetwritefile">InternetWriteFile</a> functions.
+     * 
+     * If the 
+     * <i>dwFlags</i> parameter specifies <b>FILE_TRANSFER_TYPE_ASCII</b>, translation of the file data converts control and formatting characters to local equivalents.
+     * 
+     * Both 
+     * <i>lpszNewRemoteFile</i> and 
+     * <i>lpszLocalFile</i> can be either partially or fully qualified file names relative to the current directory.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpPutFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
      * @param {PSTR} lpszLocalFile Pointer to a null-terminated string that contains the name of the file to be sent from the local system.
      * @param {PSTR} lpszNewRemoteFile Pointer to a null-terminated string that contains the name of the file to be created on the remote system.
@@ -6427,8 +7367,8 @@ class WinInet {
      * @param {Pointer} dwContext Pointer to a variable that contains the application-defined value that associates this search with any application data. This parameter is used only if the application has already called 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpputfilea
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpputfilea
      * @since windows5.0
      */
     static FtpPutFileA(hConnect, lpszLocalFile, lpszNewRemoteFile, dwFlags, dwContext) {
@@ -6448,7 +7388,29 @@ class WinInet {
     }
 
     /**
-     * Stores a file on the FTP server.
+     * Stores a file on the FTP server. (Unicode)
+     * @remarks
+     * <b>FtpPutFile</b> is a high-level routine that handles all the bookkeeping and overhead associated with reading a file locally and storing it on an FTP server. An application that needs to send file data only, or that requires close control over the file transfer, should use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpopenfilea">FtpOpenFile</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetwritefile">InternetWriteFile</a> functions.
+     * 
+     * If the 
+     * <i>dwFlags</i> parameter specifies <b>FILE_TRANSFER_TYPE_ASCII</b>, translation of the file data converts control and formatting characters to local equivalents.
+     * 
+     * Both 
+     * <i>lpszNewRemoteFile</i> and 
+     * <i>lpszLocalFile</i> can be either partially or fully qualified file names relative to the current directory.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpPutFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
      * @param {PWSTR} lpszLocalFile Pointer to a null-terminated string that contains the name of the file to be sent from the local system.
      * @param {PWSTR} lpszNewRemoteFile Pointer to a null-terminated string that contains the name of the file to be created on the remote system.
@@ -6456,8 +7418,8 @@ class WinInet {
      * @param {Pointer} dwContext Pointer to a variable that contains the application-defined value that associates this search with any application data. This parameter is used only if the application has already called 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpputfilew
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpputfilew
      * @since windows5.0
      */
     static FtpPutFileW(hConnect, lpszLocalFile, lpszNewRemoteFile, dwFlags, dwContext) {
@@ -6517,13 +7479,27 @@ class WinInet {
     }
 
     /**
-     * Deletes a file stored on the FTP server.
+     * Deletes a file stored on the FTP server. (ANSI)
+     * @remarks
+     * The 
+     * <i>lpszFileName</i> parameter can be either partially or fully qualified file names relative to the current directory.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpDeleteFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a> using <b>INTERNET_SERVICE_FTP</b>.
      * @param {PSTR} lpszFileName Pointer to a null-terminated string that contains the name of the file to be deleted.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpdeletefilea
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpdeletefilea
      * @since windows5.0
      */
     static FtpDeleteFileA(hConnect, lpszFileName) {
@@ -6542,13 +7518,27 @@ class WinInet {
     }
 
     /**
-     * Deletes a file stored on the FTP server.
+     * Deletes a file stored on the FTP server. (Unicode)
+     * @remarks
+     * The 
+     * <i>lpszFileName</i> parameter can be either partially or fully qualified file names relative to the current directory.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpDeleteFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a> using <b>INTERNET_SERVICE_FTP</b>.
      * @param {PWSTR} lpszFileName Pointer to a null-terminated string that contains the name of the file to be deleted.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpdeletefilew
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpdeletefilew
      * @since windows5.0
      */
     static FtpDeleteFileW(hConnect, lpszFileName) {
@@ -6567,13 +7557,28 @@ class WinInet {
     }
 
     /**
-     * Renames a file stored on the FTP server.
+     * Renames a file stored on the FTP server. (ANSI)
+     * @remarks
+     * The 
+     * <i>lpszExisting</i> and 
+     * <i>lpszNew</i> parameters can be either partially or fully qualified file names relative to the current directory.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpRenameFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
      * @param {PSTR} lpszExisting Pointer to a null-terminated string that contains the name of the file to be renamed.
      * @param {PSTR} lpszNew Pointer to a null-terminated string that contains the new name for the remote file.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftprenamefilea
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftprenamefilea
      * @since windows5.0
      */
     static FtpRenameFileA(hConnect, lpszExisting, lpszNew) {
@@ -6593,13 +7598,28 @@ class WinInet {
     }
 
     /**
-     * Renames a file stored on the FTP server.
+     * Renames a file stored on the FTP server. (Unicode)
+     * @remarks
+     * The 
+     * <i>lpszExisting</i> and 
+     * <i>lpszNew</i> parameters can be either partially or fully qualified file names relative to the current directory.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpRenameFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
      * @param {PWSTR} lpszExisting Pointer to a null-terminated string that contains the name of the file to be renamed.
      * @param {PWSTR} lpszNew Pointer to a null-terminated string that contains the new name for the remote file.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftprenamefilew
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftprenamefilew
      * @since windows5.0
      */
     static FtpRenameFileW(hConnect, lpszExisting, lpszNew) {
@@ -6619,7 +7639,31 @@ class WinInet {
     }
 
     /**
-     * Initiates access to a remote file on an FTP server for reading or writing.
+     * Initiates access to a remote file on an FTP server for reading or writing. (ANSI)
+     * @remarks
+     * After calling 
+     * <b>FtpOpenFile</b> and until calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a>, all other calls to FTP functions on the same FTP session handle will fail and set the error message to 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/wininet-errors">ERROR_FTP_TRANSFER_IN_PROGRESS</a>. After the calling application has finished using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-a-hinternet-handles">HINTERNET</a> handle returned by 
+     * <b>FtpOpenFile</b>, it must be closed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a> function.
+     * 
+     * Only one file can be open in a single FTP session. Therefore, no file handle is returned and the application simply uses the FTP session handle when necessary.
+     * 
+     * The 
+     * <i>lpszFileName</i> parameter can be either a partially or fully qualified file name relative to the current directory.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpOpenFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
      * @param {PSTR} lpszFileName Pointer to a null-terminated string that contains the name of the file to be accessed.
      * @param {Integer} dwAccess File  access. This parameter can be <b>GENERIC_READ</b> or <b>GENERIC_WRITE</b>, but not both.
@@ -6627,8 +7671,8 @@ class WinInet {
      * @param {Pointer} dwContext Pointer to a variable that contains the application-defined value that associates this search with any application data. This is only used if the application has already called 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback function.
      * @returns {Pointer<Void>} Returns a handle if successful, or <b>NULL</b> otherwise. To retrieve a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpopenfilea
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpopenfilea
      * @since windows5.0
      */
     static FtpOpenFileA(hConnect, lpszFileName, dwAccess, dwFlags, dwContext) {
@@ -6647,7 +7691,31 @@ class WinInet {
     }
 
     /**
-     * Initiates access to a remote file on an FTP server for reading or writing.
+     * Initiates access to a remote file on an FTP server for reading or writing. (Unicode)
+     * @remarks
+     * After calling 
+     * <b>FtpOpenFile</b> and until calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a>, all other calls to FTP functions on the same FTP session handle will fail and set the error message to 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/wininet-errors">ERROR_FTP_TRANSFER_IN_PROGRESS</a>. After the calling application has finished using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-a-hinternet-handles">HINTERNET</a> handle returned by 
+     * <b>FtpOpenFile</b>, it must be closed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a> function.
+     * 
+     * Only one file can be open in a single FTP session. Therefore, no file handle is returned and the application simply uses the FTP session handle when necessary.
+     * 
+     * The 
+     * <i>lpszFileName</i> parameter can be either a partially or fully qualified file name relative to the current directory.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpOpenFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
      * @param {PWSTR} lpszFileName Pointer to a null-terminated string that contains the name of the file to be accessed.
      * @param {Integer} dwAccess File  access. This parameter can be <b>GENERIC_READ</b> or <b>GENERIC_WRITE</b>, but not both.
@@ -6655,8 +7723,8 @@ class WinInet {
      * @param {Pointer} dwContext Pointer to a variable that contains the application-defined value that associates this search with any application data. This is only used if the application has already called 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback function.
      * @returns {Pointer<Void>} Returns a handle if successful, or <b>NULL</b> otherwise. To retrieve a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpopenfilew
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpopenfilew
      * @since windows5.0
      */
     static FtpOpenFileW(hConnect, lpszFileName, dwAccess, dwFlags, dwContext) {
@@ -6675,14 +7743,31 @@ class WinInet {
     }
 
     /**
-     * Creates a new directory on the FTP server.
+     * Creates a new directory on the FTP server. (ANSI)
+     * @remarks
+     * An application should use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpgetcurrentdirectorya">FtpGetCurrentDirectory</a> to determine the remote site's current working directory instead of assuming that the remote system uses a hierarchical naming scheme for directories.
+     * 
+     * The 
+     * <i>lpszDirectory</i> parameter can be either partially or fully qualified file names relative to the current directory.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpCreateDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a> using <b>INTERNET_SERVICE_FTP</b>.
      * @param {PSTR} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to be created. This can be either a fully qualified path or a name relative to the current directory.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to create a directory, use 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpcreatedirectorya
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to create a directory, use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpcreatedirectorya
      * @since windows5.0
      */
     static FtpCreateDirectoryA(hConnect, lpszDirectory) {
@@ -6701,14 +7786,31 @@ class WinInet {
     }
 
     /**
-     * Creates a new directory on the FTP server.
+     * Creates a new directory on the FTP server. (Unicode)
+     * @remarks
+     * An application should use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpgetcurrentdirectorya">FtpGetCurrentDirectory</a> to determine the remote site's current working directory instead of assuming that the remote system uses a hierarchical naming scheme for directories.
+     * 
+     * The 
+     * <i>lpszDirectory</i> parameter can be either partially or fully qualified file names relative to the current directory.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpCreateDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a> using <b>INTERNET_SERVICE_FTP</b>.
      * @param {PWSTR} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to be created. This can be either a fully qualified path or a name relative to the current directory.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to create a directory, use 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpcreatedirectoryw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to create a directory, use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpcreatedirectoryw
      * @since windows5.0
      */
     static FtpCreateDirectoryW(hConnect, lpszDirectory) {
@@ -6727,13 +7829,30 @@ class WinInet {
     }
 
     /**
-     * Removes the specified directory on the FTP server.
+     * Removes the specified directory on the FTP server. (ANSI)
+     * @remarks
+     * An application should use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpgetcurrentdirectorya">FtpGetCurrentDirectory</a> to determine the remote site's current working directory, instead of assuming that the remote system uses a hierarchical naming scheme for directories.
+     * 
+     * The 
+     * <i>lpszDirectory</i> parameter can be either partially or fully qualified file names relative to the current directory.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpRemoveDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
      * @param {PSTR} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to be removed. This can be either a fully qualified path or a name relative to the current directory.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to remove a directory, use 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpremovedirectorya
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to remove a directory, use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpremovedirectorya
      * @since windows5.0
      */
     static FtpRemoveDirectoryA(hConnect, lpszDirectory) {
@@ -6752,13 +7871,30 @@ class WinInet {
     }
 
     /**
-     * Removes the specified directory on the FTP server.
+     * Removes the specified directory on the FTP server. (Unicode)
+     * @remarks
+     * An application should use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpgetcurrentdirectorya">FtpGetCurrentDirectory</a> to determine the remote site's current working directory, instead of assuming that the remote system uses a hierarchical naming scheme for directories.
+     * 
+     * The 
+     * <i>lpszDirectory</i> parameter can be either partially or fully qualified file names relative to the current directory.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpRemoveDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
      * @param {PWSTR} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to be removed. This can be either a fully qualified path or a name relative to the current directory.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to remove a directory, use 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpremovedirectoryw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to remove a directory, use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpremovedirectoryw
      * @since windows5.0
      */
     static FtpRemoveDirectoryW(hConnect, lpszDirectory) {
@@ -6777,13 +7913,30 @@ class WinInet {
     }
 
     /**
-     * Changes to a different working directory on the FTP server.
+     * Changes to a different working directory on the FTP server. (ANSI)
+     * @remarks
+     * An application should use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpgetcurrentdirectorya">FtpGetCurrentDirectory</a> to determine the remote site's current working directory, instead of assuming that the remote system uses a hierarchical naming scheme for directories.
+     * 
+     * The 
+     * <i>lpszDirectory</i> parameter can be either partially or fully qualified file names relative to the current directory.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpSetCurrentDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
      * @param {PSTR} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to become the current working directory. This can be either a fully qualified path or a name relative to the current directory.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to change a directory, use 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpsetcurrentdirectorya
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to change a directory, use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpsetcurrentdirectorya
      * @since windows5.0
      */
     static FtpSetCurrentDirectoryA(hConnect, lpszDirectory) {
@@ -6802,13 +7955,30 @@ class WinInet {
     }
 
     /**
-     * Changes to a different working directory on the FTP server.
+     * Changes to a different working directory on the FTP server. (Unicode)
+     * @remarks
+     * An application should use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpgetcurrentdirectorya">FtpGetCurrentDirectory</a> to determine the remote site's current working directory, instead of assuming that the remote system uses a hierarchical naming scheme for directories.
+     * 
+     * The 
+     * <i>lpszDirectory</i> parameter can be either partially or fully qualified file names relative to the current directory.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpSetCurrentDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
      * @param {PWSTR} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to become the current working directory. This can be either a fully qualified path or a name relative to the current directory.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to change a directory, use 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpsetcurrentdirectoryw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to change a directory, use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpsetcurrentdirectoryw
      * @since windows5.0
      */
     static FtpSetCurrentDirectoryW(hConnect, lpszDirectory) {
@@ -6827,13 +7997,28 @@ class WinInet {
     }
 
     /**
-     * Retrieves the current directory for the specified FTP session.
+     * Retrieves the current directory for the specified FTP session. (ANSI)
+     * @remarks
+     * If the 
+     * <i>lpszCurrentDirectory</i> buffer is not large enough, 
+     * <i>lpdwCurrentDirectory</i> receives the number of bytes required to retrieve the full, current directory name.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpGetCurrentDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
      * @param {PSTR} lpszCurrentDirectory Pointer to a null-terminated string that receives the absolute path of the current directory.
      * @param {Pointer<Integer>} lpdwCurrentDirectory Pointer to a variable that specifies the length of the buffer, in <b>TCHARs</b>. The buffer length must include room for a terminating null character. Using a length of <b>MAX_PATH</b> is sufficient for all paths. When the function returns, the variable receives the number of characters copied into the buffer.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpgetcurrentdirectorya
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpgetcurrentdirectorya
      * @since windows5.0
      */
     static FtpGetCurrentDirectoryA(hConnect, lpszCurrentDirectory, lpdwCurrentDirectory) {
@@ -6853,13 +8038,28 @@ class WinInet {
     }
 
     /**
-     * Retrieves the current directory for the specified FTP session.
+     * Retrieves the current directory for the specified FTP session. (Unicode)
+     * @remarks
+     * If the 
+     * <i>lpszCurrentDirectory</i> buffer is not large enough, 
+     * <i>lpdwCurrentDirectory</i> receives the number of bytes required to retrieve the full, current directory name.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpGetCurrentDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
      * @param {PWSTR} lpszCurrentDirectory Pointer to a null-terminated string that receives the absolute path of the current directory.
      * @param {Pointer<Integer>} lpdwCurrentDirectory Pointer to a variable that specifies the length of the buffer, in <b>TCHARs</b>. The buffer length must include room for a terminating null character. Using a length of <b>MAX_PATH</b> is sufficient for all paths. When the function returns, the variable receives the number of characters copied into the buffer.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpgetcurrentdirectoryw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpgetcurrentdirectoryw
      * @since windows5.0
      */
     static FtpGetCurrentDirectoryW(hConnect, lpszCurrentDirectory, lpdwCurrentDirectory) {
@@ -6879,7 +8079,22 @@ class WinInet {
     }
 
     /**
-     * Sends commands directly to an FTP server.
+     * Sends commands directly to an FTP server. (ANSI)
+     * @remarks
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> can return 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/wininet-errors">ERROR_INTERNET_NO_DIRECT_ACCESS</a> if the client application is offline. If one or more of the parameters are invalid, 
+     * <b>GetLastError</b> will return <b>ERROR_INVALID_PARAMETER</b>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpCommand as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect A handle returned from a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
      * @param {BOOL} fExpectResponse A Boolean value that indicates whether the application expects a data connection to be established by the FTP server. This must be set to <b>TRUE</b> if a data connection is expected, or <b>FALSE</b> otherwise.
@@ -6890,8 +8105,8 @@ class WinInet {
      * <i>fExpectResponse</i> parameter must be set to <b>TRUE</b> for 
      * <i>phFtpCommand</i> to be filled.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpcommanda
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpcommanda
      * @since windows5.0
      */
     static FtpCommandA(hConnect, fExpectResponse, dwFlags, lpszCommand, dwContext, phFtpCommand) {
@@ -6911,7 +8126,22 @@ class WinInet {
     }
 
     /**
-     * Sends commands directly to an FTP server.
+     * Sends commands directly to an FTP server. (Unicode)
+     * @remarks
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> can return 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/wininet-errors">ERROR_INTERNET_NO_DIRECT_ACCESS</a> if the client application is offline. If one or more of the parameters are invalid, 
+     * <b>GetLastError</b> will return <b>ERROR_INVALID_PARAMETER</b>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FtpCommand as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect A handle returned from a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
      * @param {BOOL} fExpectResponse A Boolean value that indicates whether the application expects a data connection to be established by the FTP server. This must be set to <b>TRUE</b> if a data connection is expected, or <b>FALSE</b> otherwise.
@@ -6922,8 +8152,8 @@ class WinInet {
      * <i>fExpectResponse</i> parameter must be set to <b>TRUE</b> for 
      * <i>phFtpCommand</i> to be filled.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpcommandw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpcommandw
      * @since windows5.0
      */
     static FtpCommandW(hConnect, fExpectResponse, dwFlags, lpszCommand, dwContext, phFtpCommand) {
@@ -6944,11 +8174,14 @@ class WinInet {
 
     /**
      * Retrieves the file size of the requested FTP resource.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {Pointer<Void>} hFile Handle returned from a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpopenfilea">FtpOpenFile</a>.
      * @param {Pointer<Integer>} lpdwFileSizeHigh Pointer to the high-order unsigned long integer of the file size of the requested FTP resource.
      * @returns {Integer} Returns the low-order unsigned long integer of the file size of the requested FTP resource.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpgetfilesize
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpgetfilesize
      * @since windows5.0
      */
     static FtpGetFileSize(hFile, lpdwFileSizeHigh) {
@@ -6960,7 +8193,23 @@ class WinInet {
     }
 
     /**
-     * Creates a Gopher or Gopher+ locator string from the selector string's component parts.
+     * Creates a Gopher or Gopher+ locator string from the selector string's component parts. (ANSI)
+     * @remarks
+     * To retrieve information from a Gopher server, an application must first get a Gopher "locator" from the Gopher server.
+     * 
+     * The locator, which the application should treat as an opaque token, is normally used for calls to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gopherfindfirstfilea">GopherFindFirstFile</a> function to retrieve a specific piece of information.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines GopherCreateLocator as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszHost Pointer to a <b>null</b>-terminated string that contains the name of the host, or a dotted-decimal IP address (such as 198.105.232.1).
      * @param {Integer} nServerPort Port number on which the Gopher server at 
      * <i>lpszHost</i> lives, in host byte order. If 
@@ -6979,9 +8228,9 @@ class WinInet {
      * buffer. If 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_INSUFFICIENT_BUFFER</b>, this parameter receives the number of characters required.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-gophercreatelocatora
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gophercreatelocatora
      * @since windows5.0
      */
     static GopherCreateLocatorA(lpszHost, nServerPort, lpszDisplayString, lpszSelectorString, dwGopherType, lpszLocator, lpdwBufferLength) {
@@ -7003,7 +8252,23 @@ class WinInet {
     }
 
     /**
-     * Creates a Gopher or Gopher+ locator string from the selector string's component parts.
+     * Creates a Gopher or Gopher+ locator string from the selector string's component parts. (Unicode)
+     * @remarks
+     * To retrieve information from a Gopher server, an application must first get a Gopher "locator" from the Gopher server.
+     * 
+     * The locator, which the application should treat as an opaque token, is normally used for calls to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gopherfindfirstfilea">GopherFindFirstFile</a> function to retrieve a specific piece of information.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines GopherCreateLocator as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszHost Pointer to a <b>null</b>-terminated string that contains the name of the host, or a dotted-decimal IP address (such as 198.105.232.1).
      * @param {Integer} nServerPort Port number on which the Gopher server at 
      * <i>lpszHost</i> lives, in host byte order. If 
@@ -7022,9 +8287,9 @@ class WinInet {
      * buffer. If 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_INSUFFICIENT_BUFFER</b>, this parameter receives the number of characters required.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-gophercreatelocatorw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gophercreatelocatorw
      * @since windows5.0
      */
     static GopherCreateLocatorW(lpszHost, nServerPort, lpszDisplayString, lpszSelectorString, dwGopherType, lpszLocator, lpdwBufferLength) {
@@ -7046,13 +8311,26 @@ class WinInet {
     }
 
     /**
-     * Parses a Gopher locator and determines its attributes.
+     * Parses a Gopher locator and determines its attributes. (ANSI)
+     * @remarks
+     * <b>GopherGetLocatorType</b> returns information about the item referenced by a Gopher locator. Note that it is possible for multiple attributes to be set on a file. For example, both <b>GOPHER_TYPE_TEXT_FILE</b> and <b>GOPHER_TYPE_GOPHER_PLUS</b> are set for a text file stored on a Gopher+ server.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines GopherGetLocatorType as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszLocator Pointer to a null-terminated string that specifies the Gopher locator to be parsed.
      * @param {Pointer<Integer>} lpdwGopherType Pointer to a variable that receives the type of the locator. The type is a bitmask that consists of a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/gopher-type-values">gopher type values</a>.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-gophergetlocatortypea
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gophergetlocatortypea
      * @since windows5.0
      */
     static GopherGetLocatorTypeA(lpszLocator, lpdwGopherType) {
@@ -7071,13 +8349,26 @@ class WinInet {
     }
 
     /**
-     * Parses a Gopher locator and determines its attributes.
+     * Parses a Gopher locator and determines its attributes. (Unicode)
+     * @remarks
+     * <b>GopherGetLocatorType</b> returns information about the item referenced by a Gopher locator. Note that it is possible for multiple attributes to be set on a file. For example, both <b>GOPHER_TYPE_TEXT_FILE</b> and <b>GOPHER_TYPE_GOPHER_PLUS</b> are set for a text file stored on a Gopher+ server.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines GopherGetLocatorType as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszLocator Pointer to a null-terminated string that specifies the Gopher locator to be parsed.
      * @param {Pointer<Integer>} lpdwGopherType Pointer to a variable that receives the type of the locator. The type is a bitmask that consists of a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/gopher-type-values">gopher type values</a>.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-gophergetlocatortypew
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gophergetlocatortypew
      * @since windows5.0
      */
     static GopherGetLocatorTypeW(lpszLocator, lpdwGopherType) {
@@ -7096,7 +8387,29 @@ class WinInet {
     }
 
     /**
-     * Uses a Gopher locator and search criteria to create a session with the server and locate the requested documents, binary files, index servers, or directory trees.
+     * Uses a Gopher locator and search criteria to create a session with the server and locate the requested documents, binary files, index servers, or directory trees. (ANSI)
+     * @remarks
+     * <b>GopherFindFirstFile</b> closely resembles the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstfilea">FindFirstFile</a> function. It creates a connection with a Gopher server, and then returns a single structure containing information about the first Gopher object referenced by the locator string.
+     * 
+     * After calling 
+     * <b>GopherFindFirstFile</b> to retrieve the first Gopher object in an enumeration, an application can use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetfindnextfilea">InternetFindNextFile</a> function to retrieve subsequent Gopher objects.
+     * 
+     * After the calling application has finished using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-a-hinternet-handles">HINTERNET</a> handle returned by 
+     * <b>GopherFindFirstFile</b>, it must be closed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a> function.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines GopherFindFirstFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to a Gopher session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
      * @param {PSTR} lpszLocator Pointer to a <b>null</b>-terminated string that contains the name of the item to locate. This can be one of the following: 
@@ -7115,9 +8428,9 @@ class WinInet {
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext Pointer to a variable that contains the application-defined value that associates this search with any application data.
      * @returns {Pointer<Void>} Returns a valid search handle if successful, or <b>NULL</b> otherwise. To retrieve extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-gopherfindfirstfilea
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gopherfindfirstfilea
      * @since windows5.0
      */
     static GopherFindFirstFileA(hConnect, lpszLocator, lpszSearchString, lpFindData, dwFlags, dwContext) {
@@ -7137,7 +8450,29 @@ class WinInet {
     }
 
     /**
-     * Uses a Gopher locator and search criteria to create a session with the server and locate the requested documents, binary files, index servers, or directory trees.
+     * Uses a Gopher locator and search criteria to create a session with the server and locate the requested documents, binary files, index servers, or directory trees. (Unicode)
+     * @remarks
+     * <b>GopherFindFirstFile</b> closely resembles the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstfilea">FindFirstFile</a> function. It creates a connection with a Gopher server, and then returns a single structure containing information about the first Gopher object referenced by the locator string.
+     * 
+     * After calling 
+     * <b>GopherFindFirstFile</b> to retrieve the first Gopher object in an enumeration, an application can use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetfindnextfilea">InternetFindNextFile</a> function to retrieve subsequent Gopher objects.
+     * 
+     * After the calling application has finished using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-a-hinternet-handles">HINTERNET</a> handle returned by 
+     * <b>GopherFindFirstFile</b>, it must be closed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a> function.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines GopherFindFirstFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to a Gopher session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
      * @param {PWSTR} lpszLocator Pointer to a <b>null</b>-terminated string that contains the name of the item to locate. This can be one of the following: 
@@ -7156,9 +8491,9 @@ class WinInet {
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext Pointer to a variable that contains the application-defined value that associates this search with any application data.
      * @returns {Pointer<Void>} Returns a valid search handle if successful, or <b>NULL</b> otherwise. To retrieve extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-gopherfindfirstfilew
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gopherfindfirstfilew
      * @since windows5.0
      */
     static GopherFindFirstFileW(hConnect, lpszLocator, lpszSearchString, lpFindData, dwFlags, dwContext) {
@@ -7178,7 +8513,27 @@ class WinInet {
     }
 
     /**
-     * Begins reading a Gopher data file from a Gopher server.
+     * Begins reading a Gopher data file from a Gopher server. (ANSI)
+     * @remarks
+     * <b>GopherOpenFile</b> opens a file at a Gopher server. Because a file cannot actually be opened or locked at a server, this function simply associates location information with a handle that an application can use for file-based operations such as 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetreadfile">InternetReadFile</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gophergetattributea">GopherGetAttribute</a>.
+     * 
+     * After the calling application has finished using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-a-hinternet-handles">HINTERNET</a> handle returned by 
+     * <b>GopherOpenFile</b>, it must be closed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a> function.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines GopherOpenFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to a Gopher session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
      * @param {PSTR} lpszLocator Pointer to a <b>null</b>-terminated string that specifies the file to be opened. Generally, this locator is returned from a call to 
@@ -7189,9 +8544,9 @@ class WinInet {
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext Pointer to a variable that contains an application-defined value that associates this operation with any application data.
      * @returns {Pointer<Void>} Returns a handle if successful, or <b>NULL</b> if the file cannot be opened. To retrieve extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-gopheropenfilea
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gopheropenfilea
      * @since windows5.0
      */
     static GopherOpenFileA(hConnect, lpszLocator, lpszView, dwFlags, dwContext) {
@@ -7211,7 +8566,27 @@ class WinInet {
     }
 
     /**
-     * Begins reading a Gopher data file from a Gopher server.
+     * Begins reading a Gopher data file from a Gopher server. (Unicode)
+     * @remarks
+     * <b>GopherOpenFile</b> opens a file at a Gopher server. Because a file cannot actually be opened or locked at a server, this function simply associates location information with a handle that an application can use for file-based operations such as 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetreadfile">InternetReadFile</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gophergetattributea">GopherGetAttribute</a>.
+     * 
+     * After the calling application has finished using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-a-hinternet-handles">HINTERNET</a> handle returned by 
+     * <b>GopherOpenFile</b>, it must be closed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a> function.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines GopherOpenFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to a Gopher session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
      * @param {PWSTR} lpszLocator Pointer to a <b>null</b>-terminated string that specifies the file to be opened. Generally, this locator is returned from a call to 
@@ -7222,9 +8597,9 @@ class WinInet {
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext Pointer to a variable that contains an application-defined value that associates this operation with any application data.
      * @returns {Pointer<Void>} Returns a handle if successful, or <b>NULL</b> if the file cannot be opened. To retrieve extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-gopheropenfilew
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gopheropenfilew
      * @since windows5.0
      */
     static GopherOpenFileW(hConnect, lpszLocator, lpszView, dwFlags, dwContext) {
@@ -7244,7 +8619,25 @@ class WinInet {
     }
 
     /**
-     * Retrieves the specific attribute information from the server.
+     * Retrieves the specific attribute information from the server. (ANSI)
+     * @remarks
+     * Generally, applications call this function after calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gopherfindfirstfilea">GopherFindFirstFile</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetfindnextfilea">InternetFindNextFile</a>.
+     * 
+     * The size of the 
+     * <i>lpBuffer</i> parameter must be equal to or greater than the value of <b>MIN_GOPHER_ATTRIBUTE_LENGTH</b>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines GopherGetAttribute as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to a Gopher session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
      * @param {PSTR} lpszLocator Pointer to a <b>null</b>-terminated string that identifies the item at the Gopher server on which to return attribute information.
@@ -7266,9 +8659,9 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-gopher_attribute_type">GOPHER_ATTRIBUTE_TYPE</a> structure with each call. The enumeration callback function allows the application to avoid having to parse the Gopher attribute information.
      * @param {Pointer} dwContext Application-defined value that associates this operation with any application data.
      * @returns {BOOL} Returns <b>TRUE</b> if the request is satisfied, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-gophergetattributea
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gophergetattributea
      * @since windows5.0
      */
     static GopherGetAttributeA(hConnect, lpszLocator, lpszAttributeName, lpBuffer, dwBufferLength, lpdwCharactersReturned, lpfnEnumerator, dwContext) {
@@ -7290,7 +8683,25 @@ class WinInet {
     }
 
     /**
-     * Retrieves the specific attribute information from the server.
+     * Retrieves the specific attribute information from the server. (Unicode)
+     * @remarks
+     * Generally, applications call this function after calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gopherfindfirstfilea">GopherFindFirstFile</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetfindnextfilea">InternetFindNextFile</a>.
+     * 
+     * The size of the 
+     * <i>lpBuffer</i> parameter must be equal to or greater than the value of <b>MIN_GOPHER_ATTRIBUTE_LENGTH</b>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines GopherGetAttribute as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to a Gopher session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
      * @param {PWSTR} lpszLocator Pointer to a <b>null</b>-terminated string that identifies the item at the Gopher server on which to return attribute information.
@@ -7312,9 +8723,9 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-gopher_attribute_type">GOPHER_ATTRIBUTE_TYPE</a> structure with each call. The enumeration callback function allows the application to avoid having to parse the Gopher attribute information.
      * @param {Pointer} dwContext Application-defined value that associates this operation with any application data.
      * @returns {BOOL} Returns <b>TRUE</b> if the request is satisfied, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-gophergetattributew
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gophergetattributew
      * @since windows5.0
      */
     static GopherGetAttributeW(hConnect, lpszLocator, lpszAttributeName, lpBuffer, dwBufferLength, lpdwCharactersReturned, lpfnEnumerator, dwContext) {
@@ -7336,7 +8747,32 @@ class WinInet {
     }
 
     /**
-     * Creates an HTTP request handle.
+     * Creates an HTTP request handle. (ANSI)
+     * @remarks
+     * The <b>HttpOpenRequest</b> function creates a new HTTP request handle and stores the specified parameters in that handle. An HTTP request handle holds a request to be sent to an HTTP server and contains all RFC822/MIME/HTTP headers to be sent as part of the request.
+     * 
+     * If a verb other than "GET" or "POST" is specified, <b>HttpOpenRequest</b> automatically sets INTERNET_FLAG_NO_CACHE_WRITE and INTERNET_FLAG_RELOAD for the request.
+     * 
+     * With Microsoft Internet Explorer 5 and later, if 
+     * <i>lpszVerb</i> is set to "HEAD", the Content-Length header is ignored on responses from HTTP/1.1 servers.
+     * 
+     * On Windows 7, Windows Server 2008 R2, and later, the <i>lpszVersion</i> parameter is overridden by Internet Explorer settings.  The <b>EnableHttp1_1</b> is a registry value under <b>HKLM\Software\Microsoft\InternetExplorer\AdvacnedOptions\HTTP\GENABLE</b> controlled by Internet Options set in Internet Explorer for the system.  The <b>EnableHttp1_1</b> value defaults to 1. The <b>HttpOpenRequest</b> function upgrades any HTTP version less than 1.1 to HTTP version 1.1 if <b>EnableHttp1_1</b> is set to 1.
+     * 
+     * 
+     * After the calling application has finished using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-a-hinternet-handles">HINTERNET</a> handle returned by 
+     * <b>HttpOpenRequest</b>, it must be closed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a> function.
+     * 
+     * <b>Note</b>   When a request is sent in asynchronous mode (the <i>dwFlags</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopena">InternetOpen</a> specifies <b>INTERNET_FLAG_ASYNC</b>), and the <i>dwContext</i> parameter is zero (<b>INTERNET_NO_CALLBACK</b>), the callback function set with <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> on the request handle will not be invoked, however, the call will still be performed in asynchronous mode. 
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines HttpOpenRequest as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect A  handle to an HTTP session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
      * @param {PSTR} lpszVerb A pointer to a <b>null</b>-terminated string that contains the HTTP verb to use in the request. If this parameter is <b>NULL</b>, the function uses GET as the HTTP verb.
@@ -7382,8 +8818,8 @@ class WinInet {
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext A pointer to a variable that contains the application-defined value that associates this operation with any application data.
      * @returns {Pointer<Void>} Returns an HTTP request handle if successful, or <b>NULL</b> otherwise. To retrieve extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-httpopenrequesta
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpopenrequesta
      * @since windows5.0
      */
     static HttpOpenRequestA(hConnect, lpszVerb, lpszObjectName, lpszVersion, lpszReferrer, lplpszAcceptTypes, dwFlags, dwContext) {
@@ -7406,7 +8842,33 @@ class WinInet {
     }
 
     /**
-     * Creates an HTTP request handle.
+     * Creates an HTTP request handle. (Unicode)
+     * @remarks
+     * The <b>HttpOpenRequest</b> function creates a new HTTP request handle and stores the specified parameters in that handle. An HTTP request handle holds a request to be sent to an HTTP server and contains all RFC822/MIME/HTTP headers to be sent as part of the request.
+     * 
+     * If a verb other than "GET" or "POST" is specified, <b>HttpOpenRequest</b> automatically sets INTERNET_FLAG_NO_CACHE_WRITE and INTERNET_FLAG_RELOAD for the request.
+     * 
+     * With Microsoft Internet Explorer 5 and later, if 
+     * <i>lpszVerb</i> is set to "HEAD", the Content-Length header is ignored on responses from HTTP/1.1 servers.
+     * 
+     * On Windows 7, Windows Server 2008 R2, and later, the <i>lpszVersion</i> parameter is overridden by Internet Explorer settings.  The <b>EnableHttp1_1</b> is a registry value under <b>HKLM\Software\Microsoft\InternetExplorer\AdvacnedOptions\HTTP\GENABLE</b> controlled by Internet Options set in Internet Explorer for the system.  The <b>EnableHttp1_1</b> value defaults to 1. The <b>HttpOpenRequest</b> function upgrades any HTTP version less than 1.1 to HTTP version 1.1 if <b>EnableHttp1_1</b> is set to 1.
+     * 
+     * 
+     * After the calling application has finished using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-a-hinternet-handles">HINTERNET</a> handle returned by 
+     * <b>HttpOpenRequest</b>, it must be closed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetclosehandle">InternetCloseHandle</a> function.
+     * 
+     * <b>Note</b>   When a request is sent in asynchronous mode (the <i>dwFlags</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopena">InternetOpen</a> specifies <b>INTERNET_FLAG_ASYNC</b>), and the <i>dwContext</i> parameter is zero (<b>INTERNET_NO_CALLBACK</b>), the callback function set with <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> on the request handle will not be invoked, however, the call will still be performed in asynchronous mode. 
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines HttpOpenRequest as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect A handle to an HTTP session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
      * @param {PWSTR} lpszVerb A pointer to a <b>null</b>-terminated string that contains the HTTP verb to use in the request. If this parameter is <b>NULL</b>, the function uses GET as the HTTP verb.
@@ -7452,8 +8914,8 @@ class WinInet {
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext A pointer to a variable that contains the application-defined value that associates this operation with any application data.
      * @returns {Pointer<Void>} Returns an HTTP request handle if successful, or <b>NULL</b> otherwise. To retrieve extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-httpopenrequestw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpopenrequestw
      * @since windows5.0
      */
     static HttpOpenRequestW(hConnect, lpszVerb, lpszObjectName, lpszVersion, lpszReferrer, lplpszAcceptTypes, dwFlags, dwContext) {
@@ -7476,7 +8938,28 @@ class WinInet {
     }
 
     /**
-     * Adds one or more HTTP request headers to the HTTP request handle.
+     * Adds one or more HTTP request headers to the HTTP request handle. (HttpAddRequestHeadersA)
+     * @remarks
+     * <b>HttpAddRequestHeaders</b> appends additional, free-format headers to the HTTP request handle and is intended for use by sophisticated clients that need detailed control over the exact request sent to the HTTP server.
+     * 
+     * Note that for basic 
+     * <b>HttpAddRequestHeaders</b>, the application can pass in multiple headers in a single buffer. If the application is trying to remove or replace a header, only one header can be supplied in 
+     * <i>lpszHeaders</i>.
+     * 
+     * <div class="alert"><b>Note</b>  The <b>HttpAddRequestHeadersA</b> function  represents headers as ISO-8859-1 characters not ANSI characters. The <b>HttpAddRequestHeadersW</b> function represents headers as ISO-8859-1 characters converted to UTF-16LE  characters.   As a result, it is never safe to use the <b>HttpAddRequestHeadersW</b> function when the headers to be added can contain non-ASCII characters.
+     * Instead, an application can use the <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-multibytetowidechar">MultiByteToWideChar</a> and <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-widechartomultibyte">WideCharToMultiByte</a> functions with a <i>Codepage</i> parameter set to 28591 to map between ANSI characters and  UTF-16LE characters.
+     * </div>
+     * <div> </div>
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines HttpAddRequestHeaders as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hRequest A handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> function.
      * @param {PSTR} lpszHeaders A pointer to a string variable containing the headers to append to the request. Each header must be terminated by a CR/LF (carriage return/line feed) pair.
@@ -7485,8 +8968,8 @@ class WinInet {
      * <i>lpszHeaders</i> is zero-terminated (ASCIIZ), and the length is computed.
      * @param {Integer} dwModifiers 
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-httpaddrequestheadersa
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpaddrequestheadersa
      * @since windows5.0
      */
     static HttpAddRequestHeadersA(hRequest, lpszHeaders, dwHeadersLength, dwModifiers) {
@@ -7505,7 +8988,28 @@ class WinInet {
     }
 
     /**
-     * Adds one or more HTTP request headers to the HTTP request handle.
+     * Adds one or more HTTP request headers to the HTTP request handle. (HttpAddRequestHeadersW)
+     * @remarks
+     * <b>HttpAddRequestHeaders</b> appends additional, free-format headers to the HTTP request handle and is intended for use by sophisticated clients that need detailed control over the exact request sent to the HTTP server.
+     * 
+     * Note that for basic 
+     * <b>HttpAddRequestHeaders</b>, the application can pass in multiple headers in a single buffer. If the application is trying to remove or replace a header, only one header can be supplied in 
+     * <i>lpszHeaders</i>.
+     * 
+     * <div class="alert"><b>Note</b>  The <b>HttpAddRequestHeadersA</b> function  represents headers as ISO-8859-1 characters not ANSI characters. The <b>HttpAddRequestHeadersW</b> function represents headers as ISO-8859-1 characters converted to UTF-16LE  characters.   As a result, it is never safe to use the <b>HttpAddRequestHeadersW</b> function when the headers to be added can contain non-ASCII characters.
+     * Instead, an application can use the <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-multibytetowidechar">MultiByteToWideChar</a> and <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-widechartomultibyte">WideCharToMultiByte</a> functions with a <i>Codepage</i> parameter set to 28591 to map between ANSI characters and  UTF-16LE characters.
+     * </div>
+     * <div> </div>
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines HttpAddRequestHeaders as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hRequest A handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> function.
      * @param {PWSTR} lpszHeaders A pointer to a string variable containing the headers to append to the request. Each header must be terminated by a CR/LF (carriage return/line feed) pair.
@@ -7514,8 +9018,8 @@ class WinInet {
      * <i>lpszHeaders</i> is zero-terminated (ASCIIZ), and the length is computed.
      * @param {Integer} dwModifiers 
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-httpaddrequestheadersw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpaddrequestheadersw
      * @since windows5.0
      */
     static HttpAddRequestHeadersW(hRequest, lpszHeaders, dwHeadersLength, dwModifiers) {
@@ -7534,7 +9038,41 @@ class WinInet {
     }
 
     /**
-     * Sends the specified request to the HTTP server, allowing callers to send extra data beyond what is normally passed to HttpSendRequestEx.
+     * Sends the specified request to the HTTP server, allowing callers to send extra data beyond what is normally passed to HttpSendRequestEx. (ANSI)
+     * @remarks
+     * <b>HttpSendRequest</b> sends the specified request to the HTTP server and allows the client to specify additional headers to send along with the request.
+     * 
+     * The function also lets the client specify optional data to send to the HTTP server immediately following the request headers. This feature is generally used for "write" operations such as PUT and POST.
+     * 
+     * After the request is sent, the status code and response headers from the HTTP server are read. These headers are maintained internally and are available to client applications through the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpqueryinfoa">HttpQueryInfo</a> function.
+     * 
+     * An application can use the same HTTP request handle in multiple calls to 
+     * <b>HttpSendRequest</b>, but the application must read all data returned from the previous call before calling the function again.
+     * 
+     * In offline mode, 
+     * <b>HttpSendRequest</b> returns <b>ERROR_FILE_NOT_FOUND</b> if the resource is not found in the Internet cache.
+     * 
+     * There are two versions of 
+     * <b>HttpSendRequest</b>—<b>HttpSendRequestA</b> (used with ANSI builds) and <b>HttpSendRequestW</b> (used with Unicode builds).  If 
+     * <b>dwHeadersLength</b> is -1L and 
+     * <i>lpszHeaders</i> is not <b>NULL</b>, the following will happen:  If <b>HttpSendRequestA</b> is called, the function assumes that 
+     * <i>lpszHeaders</i> is zero-terminated (ASCIIZ), and the length is calculated.  If <b>HttpSendRequestW</b> is called, the function fails with <b>ERROR_INVALID_PARAMETER</b>.
+     * 
+     * <div class="alert"><b>Note</b>  The <b>HttpSendRequestA</b> function  represents headers as ISO-8859-1 characters not ANSI characters. The <b>HttpSendRequestW</b> function represents headers as ISO-8859-1 characters converted to UTF-16LE  characters.   As a result, it is never safe to use the <b>HttpSendRequestW</b> function when the headers to be added can contain non-ASCII characters.
+     * Instead, an application can use the <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-multibytetowidechar">MultiByteToWideChar</a> and <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-widechartomultibyte">WideCharToMultiByte</a> functions with a <i>Codepage</i> parameter set to 28591 to map between ANSI characters and  UTF-16LE characters.
+     * </div>
+     * <div> </div>
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines HttpSendRequest as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hRequest A handle returned by 
      * a call to the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> function.
      * @param {PSTR} lpszHeaders A pointer to a <b>null</b>-terminated string  that contains the additional headers to be appended to the request. This parameter can be <b>NULL</b> if there are no additional headers to be appended.
@@ -7544,8 +9082,8 @@ class WinInet {
      * @param {Pointer} lpOptional A pointer to a buffer containing any optional data to be sent immediately after the request headers. This parameter is generally used for POST and PUT operations. The optional data can be the resource or information being posted to the server. This parameter can be <b>NULL</b> if there is no optional data to send.
      * @param {Integer} dwOptionalLength The size of the optional data, in bytes. This parameter can be zero if there is no optional data to send.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-httpsendrequesta
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpsendrequesta
      * @since windows5.0
      */
     static HttpSendRequestA(hRequest, lpszHeaders, dwHeadersLength, lpOptional, dwOptionalLength) {
@@ -7564,7 +9102,41 @@ class WinInet {
     }
 
     /**
-     * Sends the specified request to the HTTP server, allowing callers to send extra data beyond what is normally passed to HttpSendRequestEx.
+     * Sends the specified request to the HTTP server, allowing callers to send extra data beyond what is normally passed to HttpSendRequestEx. (Unicode)
+     * @remarks
+     * <b>HttpSendRequest</b> sends the specified request to the HTTP server and allows the client to specify additional headers to send along with the request.
+     * 
+     * The function also lets the client specify optional data to send to the HTTP server immediately following the request headers. This feature is generally used for "write" operations such as PUT and POST.
+     * 
+     * After the request is sent, the status code and response headers from the HTTP server are read. These headers are maintained internally and are available to client applications through the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpqueryinfoa">HttpQueryInfo</a> function.
+     * 
+     * An application can use the same HTTP request handle in multiple calls to 
+     * <b>HttpSendRequest</b>, but the application must read all data returned from the previous call before calling the function again.
+     * 
+     * In offline mode, 
+     * <b>HttpSendRequest</b> returns <b>ERROR_FILE_NOT_FOUND</b> if the resource is not found in the Internet cache.
+     * 
+     * There are two versions of 
+     * <b>HttpSendRequest</b>—<b>HttpSendRequestA</b> (used with ANSI builds) and <b>HttpSendRequestW</b> (used with Unicode builds).  If 
+     * <b>dwHeadersLength</b> is -1L and 
+     * <i>lpszHeaders</i> is not <b>NULL</b>, the following will happen:  If <b>HttpSendRequestA</b> is called, the function assumes that 
+     * <i>lpszHeaders</i> is zero-terminated (ASCIIZ), and the length is calculated.  If <b>HttpSendRequestW</b> is called, the function fails with <b>ERROR_INVALID_PARAMETER</b>.
+     * 
+     * <div class="alert"><b>Note</b>  The <b>HttpSendRequestA</b> function  represents headers as ISO-8859-1 characters not ANSI characters. The <b>HttpSendRequestW</b> function represents headers as ISO-8859-1 characters converted to UTF-16LE  characters.   As a result, it is never safe to use the <b>HttpSendRequestW</b> function when the headers to be added can contain non-ASCII characters.
+     * Instead, an application can use the <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-multibytetowidechar">MultiByteToWideChar</a> and <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-widechartomultibyte">WideCharToMultiByte</a> functions with a <i>Codepage</i> parameter set to 28591 to map between ANSI characters and  UTF-16LE characters.
+     * </div>
+     * <div> </div>
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines HttpSendRequest as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hRequest A handle returned by 
      * a call to the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> function.
      * @param {PWSTR} lpszHeaders A pointer to a <b>null</b>-terminated string  that contains the additional headers to be appended to the request. This parameter can be <b>NULL</b> if there are no additional headers to be appended.
@@ -7574,8 +9146,8 @@ class WinInet {
      * @param {Pointer} lpOptional A pointer to a buffer containing any optional data to be sent immediately after the request headers. This parameter is generally used for POST and PUT operations. The optional data can be the resource or information being posted to the server. This parameter can be <b>NULL</b> if there is no optional data to send.
      * @param {Integer} dwOptionalLength The size of the optional data, in bytes. This parameter can be zero if there is no optional data to send.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-httpsendrequestw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpsendrequestw
      * @since windows5.0
      */
     static HttpSendRequestW(hRequest, lpszHeaders, dwHeadersLength, lpOptional, dwOptionalLength) {
@@ -7594,7 +9166,22 @@ class WinInet {
     }
 
     /**
-     * Sends the specified request to the HTTP server.
+     * Sends the specified request to the HTTP server. (HttpSendRequestExA)
+     * @remarks
+     * <b>HttpSendRequestEx</b> performs  both the send and the receive for the response.  This does not allow the application to send any extra data beyond the single buffer that was passed to <b>HttpSendRequestEx</b>. Callers that need to send extra data beyond what is normally passed to <b>HttpSendRequestEx</b> can do so by calling <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpsendrequesta">HttpSendRequest</a> instead.   After the call to <b>HttpSendRequestEx</b>, send the remaining data by calling <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetwritefile">InternetWriteFile</a>.  Finally, follow up with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpendrequesta">HttpEndRequest</a>.  
+     * 
+     * <div class="alert"><b>Note</b>  The <b>HttpSendRequestExA</b> function  represents data to send as ISO-8859-1 characters not ANSI characters. The <b>HttpSendRequestExW</b> function represents data to send as ISO-8859-1 characters converted to UTF-16LE  characters.   As a result, it is never safe to use the <b>HttpSendRequestExW</b> function when the headers to be added can contain non-ASCII characters.
+     * Instead, an application can use the <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-multibytetowidechar">MultiByteToWideChar</a> and <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-widechartomultibyte">WideCharToMultiByte</a> functions with a <i>Codepage</i> parameter set to 28591 to map between ANSI characters and  UTF-16LE characters.
+     * </div>
+     * <div> </div>
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines HttpSendRequestEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hRequest A 
      * 						handle returned by 
      * a call to the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> function.
@@ -7607,8 +9194,8 @@ class WinInet {
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-httpsendrequestexa
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpsendrequestexa
      * @since windows5.0
      */
     static HttpSendRequestExA(hRequest, lpBuffersIn, lpBuffersOut, dwFlags, dwContext) {
@@ -7625,7 +9212,22 @@ class WinInet {
     }
 
     /**
-     * Sends the specified request to the HTTP server.
+     * Sends the specified request to the HTTP server. (HttpSendRequestExW)
+     * @remarks
+     * <b>HttpSendRequestEx</b> performs  both the send and the receive for the response.  This does not allow the application to send any extra data beyond the single buffer that was passed to <b>HttpSendRequestEx</b>. Callers that need to send extra data beyond what is normally passed to <b>HttpSendRequestEx</b> can do so by calling <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpsendrequesta">HttpSendRequest</a> instead.   After the call to <b>HttpSendRequestEx</b>, send the remaining data by calling <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetwritefile">InternetWriteFile</a>.  Finally, follow up with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpendrequesta">HttpEndRequest</a>.  
+     * 
+     * <div class="alert"><b>Note</b>  The <b>HttpSendRequestExA</b> function  represents data to send as ISO-8859-1 characters not ANSI characters. The <b>HttpSendRequestExW</b> function represents data to send as ISO-8859-1 characters converted to UTF-16LE  characters.   As a result, it is never safe to use the <b>HttpSendRequestExW</b> function when the headers to be added can contain non-ASCII characters.
+     * Instead, an application can use the <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-multibytetowidechar">MultiByteToWideChar</a> and <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-widechartomultibyte">WideCharToMultiByte</a> functions with a <i>Codepage</i> parameter set to 28591 to map between ANSI characters and  UTF-16LE characters.
+     * </div>
+     * <div> </div>
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines HttpSendRequestEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hRequest A 
      * 						handle returned by 
      * a call to the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> function.
@@ -7638,8 +9240,8 @@ class WinInet {
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-httpsendrequestexw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpsendrequestexw
      * @since windows5.0
      */
     static HttpSendRequestExW(hRequest, lpBuffersIn, lpBuffersOut, dwFlags, dwContext) {
@@ -7656,7 +9258,23 @@ class WinInet {
     }
 
     /**
-     * Ends an HTTP request that was initiated by HttpSendRequestEx.
+     * Ends an HTTP request that was initiated by HttpSendRequestEx. (ANSI)
+     * @remarks
+     * If 
+     * <i>lpBuffersOut</i> is not set to <b>NULL</b>, 
+     * <b>HttpEndRequest</b> will return ERROR_INVALID_PARAMETER.
+     * 			
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines HttpEndRequest as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hRequest Handle returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> and sent by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpsendrequestexa">HttpSendRequestEx</a>.
@@ -7667,8 +9285,8 @@ class WinInet {
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-httpendrequesta
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpendrequesta
      * @since windows5.0
      */
     static HttpEndRequestA(hRequest, lpBuffersOut, dwFlags, dwContext) {
@@ -7685,7 +9303,23 @@ class WinInet {
     }
 
     /**
-     * Ends an HTTP request that was initiated by HttpSendRequestEx.
+     * Ends an HTTP request that was initiated by HttpSendRequestEx. (Unicode)
+     * @remarks
+     * If 
+     * <i>lpBuffersOut</i> is not set to <b>NULL</b>, 
+     * <b>HttpEndRequest</b> will return ERROR_INVALID_PARAMETER.
+     * 			
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines HttpEndRequest as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hRequest Handle returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> and sent by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpsendrequestexa">HttpSendRequestEx</a>.
@@ -7696,8 +9330,8 @@ class WinInet {
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-httpendrequestw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpendrequestw
      * @since windows5.0
      */
     static HttpEndRequestW(hRequest, lpBuffersOut, dwFlags, dwContext) {
@@ -7714,7 +9348,38 @@ class WinInet {
     }
 
     /**
-     * Retrieves header information associated with an HTTP request.
+     * Retrieves header information associated with an HTTP request. (ANSI)
+     * @remarks
+     * You can retrieve the following types of data from 
+     * <b>HttpQueryInfo</b>:<ul>
+     * <li>Strings (default)</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> (for dates)</li>
+     * <li><b>DWORD</b> (for <b>STATUS_CODE</b>, <b>CONTENT_LENGTH</b>, and so on, if <b>HTTP_QUERY_FLAG_NUMBER</b> has been used)</li>
+     * </ul>
+     * 
+     * 
+     * If your application requires that the data be returned as a data type other than a string, you must include the appropriate modifier with the attribute passed to 
+     * <i>dwInfoLevel</i>.
+     * 
+     * The <b>HttpQueryInfo</b> function is available in Microsoft Internet Explorer 3.0 for ISO-8859-1 characters (<b>HttpQueryInfoA</b> function) and in Internet Explorer 4.0 or later for ISO-8859-1 characters (<b>HttpQueryInfoA</b> function)  and for ISO-8859-1  characters converted to UTF-16LE  characters.(the <b>HttpQueryInfoW</b> function). 
+     * 
+     * <div class="alert"><b>Note</b>  The <b>HttpQueryInfoA</b> function represents headers as ISO-8859-1 characters not ANSI characters. The <b>HttpQueryInfoW</b> function represents headers as ISO-8859-1 characters converted to UTF-16LE  characters.   As a result, it is never safe to use the <b>HttpQueryInfoW</b> function when the headers can contain non-ASCII characters.
+     * Instead, an application can use the <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-multibytetowidechar">MultiByteToWideChar</a> and <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-widechartomultibyte">WideCharToMultiByte</a> functions with a <i>Codepage</i> parameter set to 28591 to map between ANSI characters and  UTF-16LE characters.
+     * </div>
+     * <div> </div>
+     * See <a href="https://docs.microsoft.com/windows/desktop/WinInet/retrieving-http-headers">Retrieving HTTP Headers</a> for an example code calling the <b>HttpQueryInfo</b> function.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines HttpQueryInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hRequest A handle returned by 
      * a call to the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopenurla">InternetOpenUrl</a> function.
@@ -7729,8 +9394,8 @@ class WinInet {
      * 					fails with an extended error code of <b>ERROR_INSUFFICIENT_BUFFER</b>, the variable pointed to by <i>lpdwBufferLength</i> contains on exit the size, in bytes, of a buffer large enough to receive the requested information. The calling application can then allocate a buffer of this size or larger, and call the function again.
      * @param {Pointer<Integer>} lpdwIndex A pointer to a zero-based header index used to enumerate multiple headers with the same name. When calling the function, this parameter is the index of the specified header to return. When the function returns, this parameter is the index of the next header. If the next index cannot be found, <b>ERROR_HTTP_HEADER_NOT_FOUND</b> is returned.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-httpqueryinfoa
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpqueryinfoa
      * @since windows5.0
      */
     static HttpQueryInfoA(hRequest, dwInfoLevel, lpBuffer, lpdwBufferLength, lpdwIndex) {
@@ -7749,7 +9414,38 @@ class WinInet {
     }
 
     /**
-     * Retrieves header information associated with an HTTP request.
+     * Retrieves header information associated with an HTTP request. (Unicode)
+     * @remarks
+     * You can retrieve the following types of data from 
+     * <b>HttpQueryInfo</b>:<ul>
+     * <li>Strings (default)</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> (for dates)</li>
+     * <li><b>DWORD</b> (for <b>STATUS_CODE</b>, <b>CONTENT_LENGTH</b>, and so on, if <b>HTTP_QUERY_FLAG_NUMBER</b> has been used)</li>
+     * </ul>
+     * 
+     * 
+     * If your application requires that the data be returned as a data type other than a string, you must include the appropriate modifier with the attribute passed to 
+     * <i>dwInfoLevel</i>.
+     * 
+     * The <b>HttpQueryInfo</b> function is available in Microsoft Internet Explorer 3.0 for ISO-8859-1 characters (<b>HttpQueryInfoA</b> function) and in Internet Explorer 4.0 or later for ISO-8859-1 characters (<b>HttpQueryInfoA</b> function)  and for ISO-8859-1  characters converted to UTF-16LE  characters.(the <b>HttpQueryInfoW</b> function). 
+     * 
+     * <div class="alert"><b>Note</b>  The <b>HttpQueryInfoA</b> function represents headers as ISO-8859-1 characters not ANSI characters. The <b>HttpQueryInfoW</b> function represents headers as ISO-8859-1 characters converted to UTF-16LE  characters.   As a result, it is never safe to use the <b>HttpQueryInfoW</b> function when the headers can contain non-ASCII characters.
+     * Instead, an application can use the <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-multibytetowidechar">MultiByteToWideChar</a> and <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-widechartomultibyte">WideCharToMultiByte</a> functions with a <i>Codepage</i> parameter set to 28591 to map between ANSI characters and  UTF-16LE characters.
+     * </div>
+     * <div> </div>
+     * See <a href="https://docs.microsoft.com/windows/desktop/WinInet/retrieving-http-headers">Retrieving HTTP Headers</a> for an example code calling the <b>HttpQueryInfo</b> function.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines HttpQueryInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hRequest A handle returned by 
      * a call to the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopenurla">InternetOpenUrl</a> function.
@@ -7764,8 +9460,8 @@ class WinInet {
      * 					fails with an extended error code of <b>ERROR_INSUFFICIENT_BUFFER</b>, the variable pointed to by <i>lpdwBufferLength</i> contains on exit the size, in bytes, of a buffer large enough to receive the requested information. The calling application can then allocate a buffer of this size or larger, and call the function again.
      * @param {Pointer<Integer>} lpdwIndex A pointer to a zero-based header index used to enumerate multiple headers with the same name. When calling the function, this parameter is the index of the specified header to return. When the function returns, this parameter is the index of the next header. If the next index cannot be found, <b>ERROR_HTTP_HEADER_NOT_FOUND</b> is returned.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-httpqueryinfow
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpqueryinfow
      * @since windows5.0
      */
     static HttpQueryInfoW(hRequest, dwInfoLevel, lpBuffer, lpdwBufferLength, lpdwIndex) {
@@ -7784,13 +9480,38 @@ class WinInet {
     }
 
     /**
-     * Creates a cookie associated with the specified URL.
+     * Creates a cookie associated with the specified URL. (InternetSetCookieA)
+     * @remarks
+     * Cookies created by 
+     * <b>InternetSetCookie</b> without an expiration date are stored in memory and are available only in the same process that created them. Cookies that include an expiration date are stored in the windows\cookies directory.
+     * 
+     * Creating a new cookie might cause a dialog box to appear on the screen asking the user if they want to allow or disallow  cookies from this site based on the privacy settings for the user.
+     * 
+     * 
+     * <div class="alert"><b>Caution</b>  <b>InternetSetCookie</b> will unconditionally create a cookie even if “Block all cookies” is set in Internet Explorer. This behavior can be viewed as a breach of privacy even though such cookies are not subsequently sent back to servers while the “Block all cookies” setting is active. Applications should use <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetcookieexa">InternetSetCookieEx</a> to correctly honor the user's privacy settings.
+     * 
+     * <p class="note">For more cookie internals, see <a href="https://docs.microsoft.com/archive/blogs/ieinternals/">http://blogs.msdn.com/ieinternals/archive/2009/08/20/WinINET-IE-Cookie-Internals-FAQ.aspx</a>.
+     * 
+     * </div>
+     * <div> </div>
+     * 
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetSetCookie as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszUrl Pointer to a <b>null</b>-terminated string that specifies the URL for which the cookie should be set.
      * @param {PSTR} lpszCookieName Pointer to a <b>null</b>-terminated string that specifies the name to be associated with the cookie data. If this parameter is <b>NULL</b>, no name is associated with the cookie.
      * @param {PSTR} lpszCookieData Pointer to the actual data to be associated with the URL.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetcookiea
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetcookiea
      * @since windows5.0
      */
     static InternetSetCookieA(lpszUrl, lpszCookieName, lpszCookieData) {
@@ -7809,13 +9530,38 @@ class WinInet {
     }
 
     /**
-     * Creates a cookie associated with the specified URL.
+     * Creates a cookie associated with the specified URL. (InternetSetCookieW)
+     * @remarks
+     * Cookies created by 
+     * <b>InternetSetCookie</b> without an expiration date are stored in memory and are available only in the same process that created them. Cookies that include an expiration date are stored in the windows\cookies directory.
+     * 
+     * Creating a new cookie might cause a dialog box to appear on the screen asking the user if they want to allow or disallow  cookies from this site based on the privacy settings for the user.
+     * 
+     * 
+     * <div class="alert"><b>Caution</b>  <b>InternetSetCookie</b> will unconditionally create a cookie even if “Block all cookies” is set in Internet Explorer. This behavior can be viewed as a breach of privacy even though such cookies are not subsequently sent back to servers while the “Block all cookies” setting is active. Applications should use <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetcookieexa">InternetSetCookieEx</a> to correctly honor the user's privacy settings.
+     * 
+     * <p class="note">For more cookie internals, see <a href="https://docs.microsoft.com/archive/blogs/ieinternals/">http://blogs.msdn.com/ieinternals/archive/2009/08/20/WinINET-IE-Cookie-Internals-FAQ.aspx</a>.
+     * 
+     * </div>
+     * <div> </div>
+     * 
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetSetCookie as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszUrl Pointer to a <b>null</b>-terminated string that specifies the URL for which the cookie should be set.
      * @param {PWSTR} lpszCookieName Pointer to a <b>null</b>-terminated string that specifies the name to be associated with the cookie data. If this parameter is <b>NULL</b>, no name is associated with the cookie.
      * @param {PWSTR} lpszCookieData Pointer to the actual data to be associated with the URL.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetcookiew
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetcookiew
      * @since windows5.0
      */
     static InternetSetCookieW(lpszUrl, lpszCookieName, lpszCookieData) {
@@ -7834,7 +9580,26 @@ class WinInet {
     }
 
     /**
-     * Retrieves the cookie for the specified URL.
+     * Retrieves the cookie for the specified URL. (ANSI)
+     * @remarks
+     * <b>InternetGetCookie</b> does not require a call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopena">InternetOpen</a>. 
+     * <b>InternetGetCookie</b> checks in the windows\cookies directory for persistent cookies that have an expiration date set sometime in the future. 
+     * <b>InternetGetCookie</b> also searches memory for any session cookies, that is, cookies that do not have an expiration date that were created in the same process by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetcookiea">InternetSetCookie</a>, because these cookies are not written to any files. Rules for creating cookie files are internal to the system and can change in the future.
+     * 
+     * As noted in <a href="https://docs.microsoft.com/windows/desktop/WinInet/http-cookies">HTTP Cookies</a>, <b>InternetGetCookie</b> does not return cookies that the server marked as non-scriptable with the "HttpOnly" attribute in the Set-Cookie header.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetGetCookie as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszUrl A pointer to a <b>null</b>-terminated string that specifies the URL for which cookies are to be retrieved.
      * @param {PSTR} lpszCookieName Not implemented.
      * @param {PSTR} lpszCookieData A pointer to a buffer that receives the cookie data. This parameter can be <b>NULL</b>.
@@ -7846,7 +9611,7 @@ class WinInet {
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error data, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * The following error values apply to 
      * <b>InternetGetCookie</b>.
@@ -7894,7 +9659,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgetcookiea
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetcookiea
      * @since windows5.0
      */
     static InternetGetCookieA(lpszUrl, lpszCookieName, lpszCookieData, lpdwSize) {
@@ -7915,7 +9680,26 @@ class WinInet {
     }
 
     /**
-     * Retrieves the cookie for the specified URL.
+     * Retrieves the cookie for the specified URL. (Unicode)
+     * @remarks
+     * <b>InternetGetCookie</b> does not require a call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopena">InternetOpen</a>. 
+     * <b>InternetGetCookie</b> checks in the windows\cookies directory for persistent cookies that have an expiration date set sometime in the future. 
+     * <b>InternetGetCookie</b> also searches memory for any session cookies, that is, cookies that do not have an expiration date that were created in the same process by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetcookiea">InternetSetCookie</a>, because these cookies are not written to any files. Rules for creating cookie files are internal to the system and can change in the future.
+     * 
+     * As noted in <a href="https://docs.microsoft.com/windows/desktop/WinInet/http-cookies">HTTP Cookies</a>, <b>InternetGetCookie</b> does not return cookies that the server marked as non-scriptable with the "HttpOnly" attribute in the Set-Cookie header.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetGetCookie as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszUrl A pointer to a <b>null</b>-terminated string that specifies the URL for which cookies are to be retrieved.
      * @param {PWSTR} lpszCookieName Not implemented.
      * @param {PWSTR} lpszCookieData A pointer to a buffer that receives the cookie data. This parameter can be <b>NULL</b>.
@@ -7927,7 +9711,7 @@ class WinInet {
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error data, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * The following error values apply to 
      * <b>InternetGetCookie</b>.
@@ -7975,7 +9759,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgetcookiew
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetcookiew
      * @since windows5.0
      */
     static InternetGetCookieW(lpszUrl, lpszCookieName, lpszCookieData, lpdwSize) {
@@ -7996,7 +9780,16 @@ class WinInet {
     }
 
     /**
-     * The InternetSetCookieEx function creates a cookie with a specified name that is associated with a specified URL. This function differs from the InternetSetCookie function by being able to create third-party cookies.
+     * The InternetSetCookieEx function creates a cookie with a specified name that is associated with a specified URL. This function differs from the InternetSetCookie function by being able to create third-party cookies. (ANSI)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetSetCookieEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszUrl Pointer to a <b>null</b>-terminated string that contains the URL for which the cookie should be set. 
      * 
      * If this pointer is <b>NULL</b>, <b>InternetSetCookieEx</b> fails with an <b>ERROR_INVALID_PARAMETER</b> error.
@@ -8062,9 +9855,9 @@ class WinInet {
      * </tr>
      * </table>
      * @param {Pointer} dwReserved <b>NULL</b>, or contains a pointer to a Platform-for-Privacy-Protection (P3P) header to be associated with the cookie.
-     * @returns {Integer} Returns a member of the <a href="/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration if successful,  or  <b>FALSE</b> if the function fails. On failure, if a call to 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_NOT_ENOUGH_MEMORY,  insufficient system memory was available.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetcookieexa
+     * @returns {Integer} Returns a member of the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration if successful,  or  <b>FALSE</b> if the function fails. On failure, if a call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_NOT_ENOUGH_MEMORY,  insufficient system memory was available.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetcookieexa
      * @since windows5.1.2600
      */
     static InternetSetCookieExA(lpszUrl, lpszCookieName, lpszCookieData, dwFlags, dwReserved) {
@@ -8083,7 +9876,16 @@ class WinInet {
     }
 
     /**
-     * The InternetSetCookieEx function creates a cookie with a specified name that is associated with a specified URL. This function differs from the InternetSetCookie function by being able to create third-party cookies.
+     * The InternetSetCookieEx function creates a cookie with a specified name that is associated with a specified URL. This function differs from the InternetSetCookie function by being able to create third-party cookies. (Unicode)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetSetCookieEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszUrl Pointer to a <b>null</b>-terminated string that contains the URL for which the cookie should be set. 
      * 
      * If this pointer is <b>NULL</b>, <b>InternetSetCookieEx</b> fails with an <b>ERROR_INVALID_PARAMETER</b> error.
@@ -8149,9 +9951,9 @@ class WinInet {
      * </tr>
      * </table>
      * @param {Pointer} dwReserved <b>NULL</b>, or contains a pointer to a Platform-for-Privacy-Protection (P3P) header to be associated with the cookie.
-     * @returns {Integer} Returns a member of the <a href="/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration if successful,  or  <b>FALSE</b> if the function fails. On failure, if a call to 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_NOT_ENOUGH_MEMORY,  insufficient system memory was available.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetcookieexw
+     * @returns {Integer} Returns a member of the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration if successful,  or  <b>FALSE</b> if the function fails. On failure, if a call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_NOT_ENOUGH_MEMORY,  insufficient system memory was available.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetcookieexw
      * @since windows5.1.2600
      */
     static InternetSetCookieExW(lpszUrl, lpszCookieName, lpszCookieData, dwFlags, dwReserved) {
@@ -8170,7 +9972,16 @@ class WinInet {
     }
 
     /**
-     * Retrieves data stored in cookies associated with a specified URL.
+     * Retrieves data stored in cookies associated with a specified URL. (ANSI)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetGetCookieEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszUrl A pointer to a <b>null</b>-terminated string that contains the URL with which the cookie to retrieve is associated. This parameter cannot be <b>NULL</b> or <b>InternetGetCookieEx</b> fails and returns an  <b>ERROR_INVALID_PARAMETER</b> error.
      * @param {PSTR} lpszCookieName A pointer to a <b>null</b>-terminated string that contains the name of the cookie to retrieve. This name is case-sensitive.
      * @param {PSTR} lpszCookieData A pointer to a buffer to receive the cookie data.
@@ -8186,7 +9997,7 @@ class WinInet {
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. To get a specific error value, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * If <b>NULL</b> is passed to <i>lpszCookieData</i>, the call will succeed and the function will not set <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * 
@@ -8216,7 +10027,7 @@ class WinInet {
      * </dl>
      * </td>
      * <td width="60%">
-     * Returned if either the  <i>pchURL</i> or the <i>pcchCookieData</i> parameter is <b>NULL</b>.
+     * Returned if either the <i>pchURL</i> or the <i>pcchCookieData</i> parameter is <b>NULL</b>.
      * 
      * </td>
      * </tr>
@@ -8232,7 +10043,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgetcookieexa
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetcookieexa
      * @since windows5.1.2600
      */
     static InternetGetCookieExA(lpszUrl, lpszCookieName, lpszCookieData, lpdwSize, dwFlags) {
@@ -8255,7 +10066,16 @@ class WinInet {
     }
 
     /**
-     * Retrieves data stored in cookies associated with a specified URL.
+     * Retrieves data stored in cookies associated with a specified URL. (Unicode)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetGetCookieEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszUrl A pointer to a <b>null</b>-terminated string that contains the URL with which the cookie to retrieve is associated. This parameter cannot be <b>NULL</b> or <b>InternetGetCookieEx</b> fails and returns an  <b>ERROR_INVALID_PARAMETER</b> error.
      * @param {PWSTR} lpszCookieName A pointer to a <b>null</b>-terminated string that contains the name of the cookie to retrieve. This name is case-sensitive.
      * @param {PWSTR} lpszCookieData A pointer to a buffer to receive the cookie data.
@@ -8271,7 +10091,7 @@ class WinInet {
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. To get a specific error value, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * If <b>NULL</b> is passed to <i>lpszCookieData</i>, the call will succeed and the function will not set <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * 
@@ -8317,7 +10137,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgetcookieexw
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetcookieexw
      * @since windows5.1.2600
      */
     static InternetGetCookieExW(lpszUrl, lpszCookieName, lpszCookieData, lpdwSize, dwFlags) {
@@ -8342,15 +10162,12 @@ class WinInet {
     /**
      * Frees an array of INTERNET_COOKIE2 structures.
      * @remarks
-     * 
      * > [!NOTE]
      * > WinINet does not support server implementations. In addition, it should not be used from a service. For server implementations or services use [Microsoft Windows HTTP Services (WinHTTP)](/windows/desktop/winhttp/winhttp-start-page).
-     * 
-     * 
      * @param {Pointer<INTERNET_COOKIE2>} pCookies Pointer to an array of [**INTERNET\_COOKIE2**](ns-wininet-internet_cookie2.md) structures.
      * @param {Integer} dwCookieCount The number of structures in the array.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetfreecookies
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetfreecookies
      */
     static InternetFreeCookies(pCookies, dwCookieCount) {
         DllCall("WININET.dll\InternetFreeCookies", "ptr", pCookies, "uint", dwCookieCount)
@@ -8358,6 +10175,9 @@ class WinInet {
 
     /**
      * Retrieves one or more cookies associated with the specified URL.
+     * @remarks
+     * > [!NOTE]
+     * > WinINet does not support server implementations. In addition, it should not be used from a service. For server implementations or services use [Microsoft Windows HTTP Services (WinHTTP)](/windows/desktop/winhttp/winhttp-start-page).
      * @param {PWSTR} pcwszUrl The URL for which to retrieve cookies.
      * @param {PWSTR} pcwszCookieName The name of the cookie to retrieve. May be NULL.
      * @param {Integer} dwFlags Flags of the cookie to retrieve. The following flags are available.
@@ -8371,7 +10191,7 @@ class WinInet {
      * @param {Pointer<Pointer<INTERNET_COOKIE2>>} ppCookies Pointer that receives an array of [INTERNET\_COOKIE2](ns-wininet-internet_cookie2.md) structures. The returned array must be freed by [InternetFreeCookies](nf-wininet-internetfreecookies.md).
      * @param {Pointer<Integer>} pdwCookieCount Pointer to a DWORD that receives the number of structures in the array.
      * @returns {Integer} Returns ERROR_SUCCESS if successful, or a [system error code](/windows/desktop/debug/system-error-codes) on failure.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgetcookieex2
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetcookieex2
      */
     static InternetGetCookieEx2(pcwszUrl, pcwszCookieName, dwFlags, ppCookies, pdwCookieCount) {
         pcwszUrl := pcwszUrl is String ? StrPtr(pcwszUrl) : pcwszUrl
@@ -8385,7 +10205,10 @@ class WinInet {
     }
 
     /**
-     * Creates a cookie associated with the specified URL.
+     * Creates a cookie associated with the specified URL. (InternetSetCookieEx2)
+     * @remarks
+     * > [!NOTE]
+     * > WinINet does not support server implementations. In addition, it should not be used from a service. For server implementations or services use [Microsoft Windows HTTP Services (WinHTTP)](/windows/desktop/winhttp/winhttp-start-page).
      * @param {PWSTR} pcwszUrl The URL for which to set the cookie.
      * @param {Pointer<INTERNET_COOKIE2>} pCookie Pointer to an [INTERNET\_COOKIE2](ns-wininet-internet_cookie2.md) structure containing the cookie data.
      * @param {PWSTR} pcwszP3PPolicy String containing the Platform-for-Privacy-Protection (P3P) policy for the cookie. May be NULL.
@@ -8398,9 +10221,9 @@ class WinInet {
      * | INTERNET_COOKIE_EVALUATE_P3P | Evaluate the provided P3P policy for this cookie. This will evaluate default policy when *pcwszP3PPolicy* is NULL. |
      * | INTERNET_COOKIE_NON_SCRIPT | Indicate that this cookie is not being set via JavaScript, allowing HTTP-only cookies to be set. |
      * | INTERNET_COOKIE_APPLY_HOST_ONLY | Apply host-only policy to this cookie. If the domain attribute is not set, then this cookie will be marked host-only. |
-     * @param {Pointer<Integer>} pdwCookieState Pointer to a DWORD that receives the result of setting the cookie. For a list of possible values, see [InternetCookieState](/windows/desktop/wininet/ne-wininet.internetcookiestate).
+     * @param {Pointer<Integer>} pdwCookieState Pointer to a DWORD that receives the result of setting the cookie. For a list of possible values, see [InternetCookieState](/windows/win32/api/wininet/ne-wininet-internetcookiestate).
      * @returns {Integer} Returns ERROR_SUCCESS if successful, or a [system error code](/windows/desktop/debug/system-error-codes) on failure.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetcookieex2
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetcookieex2
      */
     static InternetSetCookieEx2(pcwszUrl, pCookie, pcwszP3PPolicy, dwFlags, pdwCookieState) {
         pcwszUrl := pcwszUrl is String ? StrPtr(pcwszUrl) : pcwszUrl
@@ -8414,9 +10237,16 @@ class WinInet {
 
     /**
      * Attempts to make a connection to the Internet.
+     * @remarks
+     * This function allows an application to first attempt to connect before issuing any requests. A client program can use this to evoke the dial-up dialog box. If the attempt fails, the application should enter offline mode.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {Integer} dwReserved This parameter is reserved and must be 0.
-     * @returns {Integer} Returns ERROR_SUCCESS if successful, or a <a href="/windows/desktop/Debug/system-error-codes">system error code</a> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetattemptconnect
+     * @returns {Integer} Returns ERROR_SUCCESS if successful, or a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> otherwise.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetattemptconnect
      * @since windows5.0
      */
     static InternetAttemptConnect(dwReserved) {
@@ -8425,7 +10255,18 @@ class WinInet {
     }
 
     /**
-     * Allows an application to check if a connection to the Internet can be established.
+     * Allows an application to check if a connection to the Internet can be established. (ANSI)
+     * @remarks
+     * <b>InternetCheckConnection</b> is deprecated. <b>InternetCheckConnection</b> does not work in environments that use a web proxy server to access the Internet. Depending on the environment, use  <a href="https://docs.microsoft.com/uwp/api/Windows.Networking.Connectivity.NetworkInformation#Windows_Networking_Connectivity_NetworkInformation_GetInternetConnectionProfile_">NetworkInformation.GetInternetConnectionProfile</a> or the <a href="https://docs.microsoft.com/windows/desktop/NLA/nlm-interfaces">NLM Interfaces</a> to check for Internet access instead.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetCheckConnection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszUrl Pointer to a <b>null</b>-terminated string that specifies the URL to use to check the connection. This value can be <b>NULL</b>.
      * @param {Integer} dwFlags Options. FLAG_ICC_FORCE_CONNECTION is the only flag that is currently available. If this flag is set, it forces a connection. A sockets connection is attempted in the following order:
      * 
@@ -8437,9 +10278,9 @@ class WinInet {
      * </ul>
      * @param {Integer} dwReserved This parameter is reserved and must be 0.
      * @returns {BOOL} Returns <b>TRUE</b> if a connection is made successfully, or <b>FALSE</b> otherwise. Use 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code. ERROR_NOT_CONNECTED is returned by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code. ERROR_NOT_CONNECTED is returned by 
      * <b>GetLastError</b> if a connection cannot be made or if the sockets database is unconditionally offline.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetcheckconnectiona
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetcheckconnectiona
      * @since windows5.0
      */
     static InternetCheckConnectionA(lpszUrl, dwFlags, dwReserved) {
@@ -8456,7 +10297,18 @@ class WinInet {
     }
 
     /**
-     * Allows an application to check if a connection to the Internet can be established.
+     * Allows an application to check if a connection to the Internet can be established. (Unicode)
+     * @remarks
+     * <b>InternetCheckConnection</b> is deprecated. <b>InternetCheckConnection</b> does not work in environments that use a web proxy server to access the Internet. Depending on the environment, use  <a href="https://docs.microsoft.com/uwp/api/Windows.Networking.Connectivity.NetworkInformation#Windows_Networking_Connectivity_NetworkInformation_GetInternetConnectionProfile_">NetworkInformation.GetInternetConnectionProfile</a> or the <a href="https://docs.microsoft.com/windows/desktop/NLA/nlm-interfaces">NLM Interfaces</a> to check for Internet access instead.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetCheckConnection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszUrl Pointer to a <b>null</b>-terminated string that specifies the URL to use to check the connection. This value can be <b>NULL</b>.
      * @param {Integer} dwFlags Options. FLAG_ICC_FORCE_CONNECTION is the only flag that is currently available. If this flag is set, it forces a connection. A sockets connection is attempted in the following order:
      * 
@@ -8468,9 +10320,9 @@ class WinInet {
      * </ul>
      * @param {Integer} dwReserved This parameter is reserved and must be 0.
      * @returns {BOOL} Returns <b>TRUE</b> if a connection is made successfully, or <b>FALSE</b> otherwise. Use 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code. ERROR_NOT_CONNECTED is returned by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code. ERROR_NOT_CONNECTED is returned by 
      * <b>GetLastError</b> if a connection cannot be made or if the sockets database is unconditionally offline.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetcheckconnectionw
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetcheckconnectionw
      * @since windows5.0
      */
     static InternetCheckConnectionW(lpszUrl, dwFlags, dwReserved) {
@@ -8488,11 +10340,20 @@ class WinInet {
 
     /**
      * The ResumeSuspendedDownload function resumes a request that is suspended by a user interface dialog box.
+     * @remarks
+     * Applications that use WinINet functions asynchronously can call <b>ResumeSuspendedDownload</b> to resume a request that is suspended by a user interface dialog box.
+     * 
+     * For example,  call  <b>ResumeSuspendedDownload</b> after a call to <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-interneterrordlg">InternetErrorDlg</a>, or in an <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nc-wininet-internet_status_callback">InternetStatusCallback</a>  function when the <i>lpvStatusInformation</i> parameter equals <b>INTERNET_STATUS_USER_INPUT_REQUIRED</b>. The following code example shows you how to use the <b>ResumeSuspendedDownload</b>  function in a callback.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {Pointer<Void>} hRequest Handle of the request that is suspended by a user interface dialog box.
      * @param {Integer} dwResultCode The error result returned from <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-interneterrordlg">InternetErrorDlg</a>, or zero if a different dialog  is  invoked.
      * @returns {BOOL} Returns <b>TRUE</b> if successful; otherwise  <b>FALSE</b>. Call
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for extended error information.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-resumesuspendeddownload
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for extended error information.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-resumesuspendeddownload
      * @since windows5.0
      */
     static ResumeSuspendedDownload(hRequest, dwResultCode) {
@@ -8510,6 +10371,19 @@ class WinInet {
 
     /**
      * Displays a dialog box for the error that is passed to InternetErrorDlg, if an appropriate dialog box exists.
+     * @remarks
+     * Always inform the user  when any of the following events occur:<ul>
+     * <li>ERROR_INTERNET_HTTP_TO_HTTPS_ON_REDIR</li>
+     * <li>ERROR_INTERNET_INVALID_CA</li>
+     * <li>ERROR_INTERNET_POST_IS_NON_SECURE</li>
+     * <li>ERROR_INTERNET_SEC_CERT_CN_INVALID</li>
+     * <li>ERROR_INTERNET_SEC_CERT_DATE_INVALID</li>
+     * </ul>Unless the user has explicitly chosen not to be informed of these events, failure to do so exposes the user involuntarily to  a significant security risk.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {HWND} hWnd Handle to the parent window for any needed dialog box. If no dialog box is needed and <b>FLAGS_ERROR_UI_FLAGS_NO_UI</b> is passed to <i>dwFlags</i>, then this parameter can be <b>NULL</b>.
      * @param {Pointer<Void>} hRequest Handle to the Internet connection used in the call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpsendrequesta">HttpSendRequest</a>.
@@ -8570,7 +10444,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-interneterrordlg
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-interneterrordlg
      * @since windows5.0
      */
     static InternetErrorDlg(hWnd, hRequest, dwError, dwFlags, lppvData) {
@@ -8584,7 +10458,20 @@ class WinInet {
     }
 
     /**
-     * Checks for changes between secure and nonsecure URLs. Always inform the user when a change occurs in security between two URLs. Typically, an application should allow the user to acknowledge the change through interaction with a dialog box.
+     * Checks for changes between secure and nonsecure URLs. Always inform the user when a change occurs in security between two URLs. Typically, an application should allow the user to acknowledge the change through interaction with a dialog box. (InternetConfirmZoneCrossingA)
+     * @remarks
+     * Always inform the user when a change in security level occurs, or you risk subjecting the user to  involuntary information disclosure.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetConfirmZoneCrossing as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hWnd Handle to the parent window for any required dialog box.
      * @param {PSTR} szUrlPrev Pointer to a null-terminated string that specifies the URL that was viewed before the current request was made.
      * @param {PSTR} szUrlNew Pointer to a null-terminated string that specifies the new URL that the user has requested to view.
@@ -8630,7 +10517,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetconfirmzonecrossinga
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetconfirmzonecrossinga
      * @since windows5.0
      */
     static InternetConfirmZoneCrossingA(hWnd, szUrlPrev, szUrlNew, bPost) {
@@ -8643,7 +10530,20 @@ class WinInet {
     }
 
     /**
-     * Checks for changes between secure and nonsecure URLs. Always inform the user when a change occurs in security between two URLs. Typically, an application should allow the user to acknowledge the change through interaction with a dialog box.
+     * The InternetConfirmZoneCrossingW (Unicode) function (wininet.h) checks for changes between secure and nonsecure URLs.
+     * @remarks
+     * Always inform the user when a change in security level occurs, or you risk subjecting the user to  involuntary information disclosure.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetConfirmZoneCrossing as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hWnd Handle to the parent window for any required dialog box.
      * @param {PWSTR} szUrlPrev Pointer to a null-terminated string that specifies the URL that was viewed before the current request was made.
      * @param {PWSTR} szUrlNew Pointer to a null-terminated string that specifies the new URL that the user has requested to view.
@@ -8689,7 +10589,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetconfirmzonecrossingw
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetconfirmzonecrossingw
      * @since windows5.0
      */
     static InternetConfirmZoneCrossingW(hWnd, szUrlPrev, szUrlNew, bPost) {
@@ -8702,7 +10602,14 @@ class WinInet {
     }
 
     /**
-     * Checks for changes between secure and nonsecure URLs. Always inform the user when a change occurs in security between two URLs. Typically, an application should allow the user to acknowledge the change through interaction with a dialog box.
+     * The InternetConfirmZoneCrossing function (wininet.h) checks for changes between secure and nonsecure URLs.
+     * @remarks
+     * Always inform the user when a change in security level occurs, or you risk subjecting the user to  involuntary information disclosure.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {HWND} hWnd Handle to the parent window for any required dialog box.
      * @param {PSTR} szUrlPrev Pointer to a null-terminated string that specifies the URL that was viewed before the current request was made.
      * @param {PSTR} szUrlNew Pointer to a null-terminated string that specifies the new URL that the user has requested to view.
@@ -8748,7 +10655,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetconfirmzonecrossing
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetconfirmzonecrossing
      * @since windows5.0
      */
     static InternetConfirmZoneCrossing(hWnd, szUrlPrev, szUrlNew, bPost) {
@@ -8761,7 +10668,37 @@ class WinInet {
     }
 
     /**
-     * Creates a local file name for saving the cache entry based on the specified URL and the file name extension.
+     * Creates a local file name for saving the cache entry based on the specified URL and the file name extension. (ANSI)
+     * @remarks
+     * After 
+     * <b>CreateUrlCacheEntry</b> is called, the application can write directly into the file in local storage. When the file is completely received, the caller should call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-commiturlcacheentrya">CommitUrlCacheEntry</a> to commit the entry in the cache.
+     * 
+     * WinINet attempts to decode Unicode  parameters according to the system code page. Applications should ensure that  Unicode parameters are properly encoded for the system code page. Applications can set the system code page with <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetoptiona">InternetSetOption</a> as shown in the following code example:
+     * 
+     * 
+     * ``` syntax
+     * DWORD CP_SHIFT_JIS = 932;  // ANSI/OEM  Japanese, Shift-JIS
+     * InternetSetOption( hRequest, 
+     *                    INTERNET_OPTION_CODEPAGE,
+     *                    &amp;CP_SHIFT_JIS, 
+     *                    sizeof(DWORD) );
+     * ```
+     * 
+     * If the Unicode parameter is not properly encoded to the system code page, WinINet attempts UTF8 decoding. 
+     * 
+     * When items are retrieved from the cache, the system code page that was used to place the item in the cache must match the current system code page for the user. For applications running under IE6 and earlier, if decoding for the system code page fails, WinINet attempts UTF8 decoding. 
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines CreateUrlCacheEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszUrlName Pointer to a string value that contains the name of the URL. The string must contain a value; an empty string will cause <b>CreateUrlCacheEntry</b> to fail. In addition, the string must not contain any escape characters.
      * @param {Integer} dwExpectedFileSize Expected size of the file needed to store the data that corresponds to the source entity, in <b>TCHARs</b>. If the expected size is unknown, set this value to zero.
      * @param {PSTR} lpszFileExtension Pointer to a string value that contains an extension name of the file in the local storage.
@@ -8771,8 +10708,8 @@ class WinInet {
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-createurlcacheentrya
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-createurlcacheentrya
      * @since windows5.0
      */
     static CreateUrlCacheEntryA(lpszUrlName, dwExpectedFileSize, lpszFileExtension, lpszFileName, dwReserved) {
@@ -8791,7 +10728,37 @@ class WinInet {
     }
 
     /**
-     * Creates a local file name for saving the cache entry based on the specified URL and the file name extension.
+     * Creates a local file name for saving the cache entry based on the specified URL and the file name extension. (Unicode)
+     * @remarks
+     * After 
+     * <b>CreateUrlCacheEntry</b> is called, the application can write directly into the file in local storage. When the file is completely received, the caller should call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-commiturlcacheentrya">CommitUrlCacheEntry</a> to commit the entry in the cache.
+     * 
+     * WinINet attempts to decode Unicode  parameters according to the system code page. Applications should ensure that  Unicode parameters are properly encoded for the system code page. Applications can set the system code page with <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetoptiona">InternetSetOption</a> as shown in the following code example:
+     * 
+     * 
+     * ``` syntax
+     * DWORD CP_SHIFT_JIS = 932;  // ANSI/OEM  Japanese, Shift-JIS
+     * InternetSetOption( hRequest, 
+     *                    INTERNET_OPTION_CODEPAGE,
+     *                    &amp;CP_SHIFT_JIS, 
+     *                    sizeof(DWORD) );
+     * ```
+     * 
+     * If the Unicode parameter is not properly encoded to the system code page, WinINet attempts UTF8 decoding. 
+     * 
+     * When items are retrieved from the cache, the system code page that was used to place the item in the cache must match the current system code page for the user. For applications running under IE6 and earlier, if decoding for the system code page fails, WinINet attempts UTF8 decoding. 
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines CreateUrlCacheEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszUrlName Pointer to a string value that contains the name of the URL. The string must contain a value; an empty string will cause <b>CreateUrlCacheEntry</b> to fail. In addition, the string must not contain any escape characters.
      * @param {Integer} dwExpectedFileSize Expected size of the file needed to store the data that corresponds to the source entity, in <b>TCHARs</b>. If the expected size is unknown, set this value to zero.
      * @param {PWSTR} lpszFileExtension Pointer to a string value that contains an extension name of the file in the local storage.
@@ -8801,8 +10768,8 @@ class WinInet {
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-createurlcacheentryw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-createurlcacheentryw
      * @since windows5.0
      */
     static CreateUrlCacheEntryW(lpszUrlName, dwExpectedFileSize, lpszFileExtension, lpszFileName, dwReserved) {
@@ -8821,7 +10788,31 @@ class WinInet {
     }
 
     /**
-     * Stores data in the specified file in the Internet cache and associates it with the specified URL.
+     * Stores data in the specified file in the Internet cache and associates it with the specified URL. (ANSI)
+     * @remarks
+     * The STICKY_CACHE_ENTRY type is used to make cache entries exempt from scavenging. The default exempt time for entries set using 
+     * <b>CommitUrlCacheEntryA</b> is ten minutes. The exempt time can be changed by setting the expires time parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure in the call to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-seturlcacheentryinfoa">SetUrlCacheEntryInfo</a> function.
+     * 
+     * If the cache storage is full, 
+     * <b>CommitUrlCacheEntryA</b> invokes cache cleanup to make space for this new file. If the cache entry already exists, the function overwrites the entry if it is not in use. An entry is in use when it has been retrieved with either 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-retrieveurlcacheentrystreama">RetrieveUrlCacheEntryStream</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-retrieveurlcacheentryfilea">RetrieveUrlCacheEntryFile</a>.
+     * 
+     * Clients that add entries to the cache should set the headers to at least "HTTP/1.0 200 OK\r\n\r\n"; otherwise, Microsoft Internet Explorer and other client applications should disregard the entry.
+     * 
+     * See <a href="https://docs.microsoft.com/windows/desktop/WinInet/caching">Caching</a> for example code calling <b>CreateUrlCacheEntryA</b>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines CommitUrlCacheEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszUrlName Pointer to a string variable that contains the source name of the cache entry. The name string must be unique and should not contain any escape characters.
      * @param {PSTR} lpszLocalFileName Pointer to a string variable that contains the name of the local file that is being cached. This should be the same name as that returned by 
      * <b>CreateUrlCacheEntryA</b>.
@@ -8933,7 +10924,7 @@ class WinInet {
      * <i>lpHeaderInfo</i>.
      * @param {PSTR} lpszOriginalUrl Pointer to a string  that contains the original URL, if redirection has occurred.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
      * 
      * <table>
      * <tr>
@@ -8963,7 +10954,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-commiturlcacheentrya
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-commiturlcacheentrya
      * @since windows5.0
      */
     static CommitUrlCacheEntryA(lpszUrlName, lpszLocalFileName, ExpireTime, LastModifiedTime, CacheEntryType, lpHeaderInfo, cchHeaderInfo, lpszOriginalUrl) {
@@ -8986,7 +10977,31 @@ class WinInet {
     }
 
     /**
-     * Stores data in the specified file in the Internet cache and associates it with the specified URL.
+     * Stores data in the specified file in the Internet cache and associates it with the specified URL. (Unicode)
+     * @remarks
+     * The STICKY_CACHE_ENTRY type is used to make cache entries exempt from scavenging. The default exempt time for entries set using 
+     * <b>CommitUrlCacheEntryW</b> is ten minutes. The exempt time can be changed by setting the expires time parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure in the call to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-seturlcacheentryinfoa">SetUrlCacheEntryInfo</a> function.
+     * 
+     * If the cache storage is full, 
+     * <b>CommitUrlCacheEntryW</b> invokes cache cleanup to make space for this new file. If the cache entry already exists, the function overwrites the entry if it is not in use. An entry is in use when it has been retrieved with either 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-retrieveurlcacheentrystreama">RetrieveUrlCacheEntryStream</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-retrieveurlcacheentryfilea">RetrieveUrlCacheEntryFile</a>.
+     * 
+     * Clients that add entries to the cache should set the headers to at least "HTTP/1.0 200 OK\r\n\r\n"; otherwise, Microsoft Internet Explorer and other client applications should disregard the entry.
+     * 
+     * See <a href="https://docs.microsoft.com/windows/desktop/WinInet/caching">Caching</a> for example code calling <b>CreateUrlCacheEntryW</b>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines CommitUrlCacheEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszUrlName Pointer to a string variable that contains the source name of the cache entry. The name string must be unique and should not contain any escape characters.
      * @param {PWSTR} lpszLocalFileName Pointer to a string variable that contains the name of the local file that is being cached. This should be the same name as that returned by 
      * <b>CreateUrlCacheEntryW</b>.
@@ -9099,7 +11114,7 @@ class WinInet {
      * <i>lpHeaderInfo</i>.
      * @param {PWSTR} lpszOriginalUrl Pointer to a string  that contains the original URL, if redirection has occurred.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
      * 
      * <table>
      * <tr>
@@ -9129,7 +11144,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-commiturlcacheentryw
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-commiturlcacheentryw
      * @since windows5.0
      */
     static CommitUrlCacheEntryW(lpszUrlName, lpszLocalFileName, ExpireTime, LastModifiedTime, CacheEntryType, lpszHeaderInfo, cchHeaderInfo, lpszOriginalUrl) {
@@ -9151,14 +11166,30 @@ class WinInet {
     }
 
     /**
-     * Locks the cache entry file associated with the specified URL.
+     * Locks the cache entry file associated with the specified URL. (ANSI)
+     * @remarks
+     * <b>RetrieveUrlCacheEntryFile</b> does not do any URL parsing, so a URL containing an anchor (#) will not be found in the cache, even if the resource is cached. For example, if the URL http://adatum.com/example.htm#sample was passed, the function would return ERROR_FILE_NOT_FOUND even if http://adatum.com/example.htm is in the cache.
+     * 
+     * The file is locked for the caller when it is retrieved; the caller should unlock the file after the caller is finished with the file. The cache manager automatically unlocks the files after a certain interval. While the file is locked, the cache manager will not remove the file from the cache. It is important to note that this function may or may not perform efficiently, depending on the internal implementation of the cache. For instance, if the URL data is stored in a packed file that contains data for other URLs, the cache will make a copy of the data to a file in a temporary directory maintained by the cache. The cache will eventually delete the copy. It is recommended that this function be used only in situations where a file name is needed to launch an application. 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-retrieveurlcacheentrystreama">RetrieveUrlCacheEntryStream</a> and associated stream functions should be used in most cases.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines RetrieveUrlCacheEntryFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszUrlName Pointer to a string that contains the URL of the resource associated with the cache entry. This must be a unique name. The name string should not contain any escape characters.
      * @param {Pointer} lpCacheEntryInfo Pointer to a cache entry information buffer. If the buffer is not sufficient, this function returns ERROR_INSUFFICIENT_BUFFER and sets 
      * <i>lpdwCacheEntryInfoBufferSize</i> to the number of bytes required.
      * @param {Pointer<Integer>} lpcbCacheEntryInfo Pointer to an unsigned long integer variable that specifies the size of the 
      * <i>lpCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the size, in bytes, of the actual buffer used or the number of bytes required to retrieve the cache entry file. The caller should check the return value in this parameter. If the return size is less than or equal to the size passed in, all the relevant data has been returned.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include:
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include:
      * 
      * <table>
      * <tr>
@@ -9191,7 +11222,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-retrieveurlcacheentryfilea
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-retrieveurlcacheentryfilea
      * @since windows5.0
      */
     static RetrieveUrlCacheEntryFileA(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -9212,14 +11243,30 @@ class WinInet {
     }
 
     /**
-     * Locks the cache entry file associated with the specified URL.
+     * Locks the cache entry file associated with the specified URL. (Unicode)
+     * @remarks
+     * <b>RetrieveUrlCacheEntryFile</b> does not do any URL parsing, so a URL containing an anchor (#) will not be found in the cache, even if the resource is cached. For example, if the URL http://adatum.com/example.htm#sample was passed, the function would return ERROR_FILE_NOT_FOUND even if http://adatum.com/example.htm is in the cache.
+     * 
+     * The file is locked for the caller when it is retrieved; the caller should unlock the file after the caller is finished with the file. The cache manager automatically unlocks the files after a certain interval. While the file is locked, the cache manager will not remove the file from the cache. It is important to note that this function may or may not perform efficiently, depending on the internal implementation of the cache. For instance, if the URL data is stored in a packed file that contains data for other URLs, the cache will make a copy of the data to a file in a temporary directory maintained by the cache. The cache will eventually delete the copy. It is recommended that this function be used only in situations where a file name is needed to launch an application. 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-retrieveurlcacheentrystreama">RetrieveUrlCacheEntryStream</a> and associated stream functions should be used in most cases.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines RetrieveUrlCacheEntryFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszUrlName Pointer to a string that contains the URL of the resource associated with the cache entry. This must be a unique name. The name string should not contain any escape characters.
      * @param {Pointer} lpCacheEntryInfo Pointer to a cache entry information buffer. If the buffer is not sufficient, this function returns ERROR_INSUFFICIENT_BUFFER and sets 
      * <i>lpdwCacheEntryInfoBufferSize</i> to the number of bytes required.
      * @param {Pointer<Integer>} lpcbCacheEntryInfo Pointer to an unsigned long integer variable that specifies the size of the 
      * <i>lpCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the size, in bytes, of the actual buffer used or the number of bytes required to retrieve the cache entry file. The caller should check the return value in this parameter. If the return size is less than or equal to the size passed in, all the relevant data has been returned.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include:
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include:
      * 
      * <table>
      * <tr>
@@ -9252,7 +11299,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-retrieveurlcacheentryfilew
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-retrieveurlcacheentryfilew
      * @since windows5.0
      */
     static RetrieveUrlCacheEntryFileW(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -9273,11 +11320,26 @@ class WinInet {
     }
 
     /**
-     * Unlocks the cache entry that was locked while the file was retrieved for use from the cache.
+     * Unlocks the cache entry that was locked while the file was retrieved for use from the cache. (UnlockUrlCacheEntryFileA)
+     * @remarks
+     * The application should not access the file after calling this function.
+     * 
+     * When this function returns, the cache manager is free to delete the cache entry.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines UnlockUrlCacheEntryFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszUrlName Pointer to a <b>null</b>-terminated string that specifies the source name of the cache entry that is being unlocked. The name string should not contain any escape characters.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. ERROR_FILE_NOT_FOUND indicates that the cache entry specified by the source name is not found in the cache storage.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-unlockurlcacheentryfilea
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. ERROR_FILE_NOT_FOUND indicates that the cache entry specified by the source name is not found in the cache storage.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-unlockurlcacheentryfilea
      * @since windows5.0
      */
     static UnlockUrlCacheEntryFileA(lpszUrlName) {
@@ -9296,11 +11358,26 @@ class WinInet {
     }
 
     /**
-     * Unlocks the cache entry that was locked while the file was retrieved for use from the cache.
+     * The UnlockUrlCacheEntryFileW (Unicode) function (wininet.h) unlocks the cache entry that was locked while the file was retrieved for use from the cache.
+     * @remarks
+     * The application should not access the file after calling this function.
+     * 
+     * When this function returns, the cache manager is free to delete the cache entry.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines UnlockUrlCacheEntryFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszUrlName Pointer to a <b>null</b>-terminated string that specifies the source name of the cache entry that is being unlocked. The name string should not contain any escape characters.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. ERROR_FILE_NOT_FOUND indicates that the cache entry specified by the source name is not found in the cache storage.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-unlockurlcacheentryfilew
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. ERROR_FILE_NOT_FOUND indicates that the cache entry specified by the source name is not found in the cache storage.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-unlockurlcacheentryfilew
      * @since windows5.0
      */
     static UnlockUrlCacheEntryFileW(lpszUrlName) {
@@ -9319,11 +11396,20 @@ class WinInet {
     }
 
     /**
-     * Unlocks the cache entry that was locked while the file was retrieved for use from the cache.
+     * The UnlockUrlCacheEntryFile function (wininet.h) unlocks the cache entry that was locked while the file was retrieved for use from the cache.
+     * @remarks
+     * The application should not access the file after calling this function.
+     * 
+     * When this function returns, the cache manager is free to delete the cache entry.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {PSTR} lpszUrlName Pointer to a <b>null</b>-terminated string that specifies the source name of the cache entry that is being unlocked. The name string should not contain any escape characters.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. ERROR_FILE_NOT_FOUND indicates that the cache entry specified by the source name is not found in the cache storage.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-unlockurlcacheentryfile
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. ERROR_FILE_NOT_FOUND indicates that the cache entry specified by the source name is not found in the cache storage.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-unlockurlcacheentryfile
      * @since windows5.0
      */
     static UnlockUrlCacheEntryFile(lpszUrlName) {
@@ -9342,7 +11428,22 @@ class WinInet {
     }
 
     /**
-     * Provides the most efficient and implementation-independent way to access the cache data.
+     * Provides the most efficient and implementation-independent way to access the cache data. (ANSI)
+     * @remarks
+     * <b>RetrieveUrlCacheEntryStream</b> does not do any URL parsing, so a URL containing an anchor (#) will not be found in the cache, even if the resource is cached. For example, if the URL http://adatum.com/example.htm#sample is passed, the function returns ERROR_FILE_NOT_FOUND even if http://adatum.com/example.htm is in the cache.
+     * 
+     * Cache clients that do not need URL data in the form of a file should use this function to access the data for a particular URL.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines RetrieveUrlCacheEntryStream as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszUrlName Pointer to a null-terminated string that contains the source name of the cache entry. This must be a unique name. The name string should not contain any escape characters.
      * @param {Pointer} lpCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry.
@@ -9350,11 +11451,11 @@ class WinInet {
      * <i>lpCacheEntryInfo</i> buffer. When the function returns, the variable receives the number of bytes copied to the buffer or the required size, in bytes, of the buffer. Note that this buffer size must accommodate both the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure and the associated strings that are stored immediately following it.
      * @param {BOOL} fRandomRead Whether the stream is open for random access. Set the flag to <b>TRUE</b> to open the stream for random access.
      * @returns {HANDLE} If the function succeeds, the function returns a valid handle for use in the 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-readurlcacheentrystream">ReadUrlCacheEntryStream</a> and 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-unlockurlcacheentrystream">UnlockUrlCacheEntryStream</a> functions.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-readurlcacheentrystream">ReadUrlCacheEntryStream</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-unlockurlcacheentrystream">UnlockUrlCacheEntryStream</a> functions.
      * 
      * If the function fails, it returns <b>NULL</b>. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * Possible error values include the following.
      * 
@@ -9389,7 +11490,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-retrieveurlcacheentrystreama
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-retrieveurlcacheentrystreama
      * @since windows5.0
      */
     static RetrieveUrlCacheEntryStreamA(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo, fRandomRead) {
@@ -9411,7 +11512,22 @@ class WinInet {
     }
 
     /**
-     * Provides the most efficient and implementation-independent way to access the cache data.
+     * Provides the most efficient and implementation-independent way to access the cache data. (Unicode)
+     * @remarks
+     * <b>RetrieveUrlCacheEntryStream</b> does not do any URL parsing, so a URL containing an anchor (#) will not be found in the cache, even if the resource is cached. For example, if the URL http://adatum.com/example.htm#sample is passed, the function returns ERROR_FILE_NOT_FOUND even if http://adatum.com/example.htm is in the cache.
+     * 
+     * Cache clients that do not need URL data in the form of a file should use this function to access the data for a particular URL.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines RetrieveUrlCacheEntryStream as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszUrlName Pointer to a null-terminated string that contains the source name of the cache entry. This must be a unique name. The name string should not contain any escape characters.
      * @param {Pointer} lpCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry.
@@ -9419,11 +11535,11 @@ class WinInet {
      * <i>lpCacheEntryInfo</i> buffer. When the function returns, the variable receives the number of bytes copied to the buffer or the required size, in bytes, of the buffer. Note that this buffer size must accommodate both the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure and the associated strings that are stored immediately following it.
      * @param {BOOL} fRandomRead Whether the stream is open for random access. Set the flag to <b>TRUE</b> to open the stream for random access.
      * @returns {HANDLE} If the function succeeds, the function returns a valid handle for use in the 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-readurlcacheentrystream">ReadUrlCacheEntryStream</a> and 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-unlockurlcacheentrystream">UnlockUrlCacheEntryStream</a> functions.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-readurlcacheentrystream">ReadUrlCacheEntryStream</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-unlockurlcacheentrystream">UnlockUrlCacheEntryStream</a> functions.
      * 
      * If the function fails, it returns <b>NULL</b>. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * Possible error values include the following.
      * 
@@ -9458,7 +11574,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-retrieveurlcacheentrystreamw
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-retrieveurlcacheentrystreamw
      * @since windows5.0
      */
     static RetrieveUrlCacheEntryStreamW(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo, fRandomRead) {
@@ -9481,6 +11597,15 @@ class WinInet {
 
     /**
      * Reads the cached data from a stream that has been opened using the RetrieveUrlCacheEntryStream function.
+     * @remarks
+     * If the buffer size is not sufficient, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER and sets 
+     * <i>lpdwLen</i> to the size necessary to contain all the information.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {HANDLE} hUrlCacheStream Handle that was returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-retrieveurlcacheentrystreama">RetrieveUrlCacheEntryStream</a> function.
      * @param {Integer} dwLocation Offset to be read from.
@@ -9488,8 +11613,8 @@ class WinInet {
      * @param {Pointer<Integer>} lpdwLen Pointer to a  variable that specifies the size of the 
      * <i>lpBuffer</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size of the buffer, in bytes.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-readurlcacheentrystream
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-readurlcacheentrystream
      * @since windows5.0
      */
     static ReadUrlCacheEntryStream(hUrlCacheStream, dwLocation, lpBuffer, lpdwLen) {
@@ -9528,11 +11653,14 @@ class WinInet {
 
     /**
      * Closes the stream that has been retrieved using the RetrieveUrlCacheEntryStream function.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {HANDLE} hUrlCacheStream Handle that was returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-retrieveurlcacheentrystreama">RetrieveUrlCacheEntryStream</a> function.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-unlockurlcacheentrystream
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-unlockurlcacheentrystream
      * @since windows5.0
      */
     static UnlockUrlCacheEntryStream(hUrlCacheStream) {
@@ -9551,7 +11679,20 @@ class WinInet {
     }
 
     /**
-     * Retrieves information about a cache entry.
+     * Retrieves information about a cache entry. (ANSI)
+     * @remarks
+     * <b>GetUrlCacheEntryInfo</b> does not do any URL parsing, so a URL containing an anchor (#) will not be found in the cache, even if the resource is cached. For example, if the URL `http://example.com/example.htm#sample` is passed, the function returns <b>ERROR_FILE_NOT_FOUND</b> even if `http://example.com/example.htm` is in the cache.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines GetUrlCacheEntryInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszUrlName A pointer to a null-terminated string that contains the name of the cache entry. The name string should not contain any escape characters.
      * @param {Pointer} lpCacheEntryInfo A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry. A buffer should be allocated for this parameter. 
@@ -9560,7 +11701,7 @@ class WinInet {
      * @param {Pointer<Integer>} lpcbCacheEntryInfo A pointer to a variable that specifies the size of the 
      * <i>lpCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size of the buffer, in bytes.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
      * <table>
      * <tr>
@@ -9593,7 +11734,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-geturlcacheentryinfoa
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-geturlcacheentryinfoa
      * @since windows5.0
      */
     static GetUrlCacheEntryInfoA(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -9612,7 +11753,20 @@ class WinInet {
     }
 
     /**
-     * Retrieves information about a cache entry.
+     * Retrieves information about a cache entry. (Unicode)
+     * @remarks
+     * <b>GetUrlCacheEntryInfo</b> does not do any URL parsing, so a URL containing an anchor (#) will not be found in the cache, even if the resource is cached. For example, if the URL `http://example.com/example.htm#sample` is passed, the function returns <b>ERROR_FILE_NOT_FOUND</b> even if `http://example.com/example.htm` is in the cache.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines GetUrlCacheEntryInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszUrlName A pointer to a null-terminated string that contains the name of the cache entry. The name string should not contain any escape characters.
      * @param {Pointer} lpCacheEntryInfo A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry. A buffer should be allocated for this parameter. 
@@ -9621,7 +11775,7 @@ class WinInet {
      * @param {Pointer<Integer>} lpcbCacheEntryInfo A pointer to a variable that specifies the size of the 
      * <i>lpCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size of the buffer, in bytes.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
      * <table>
      * <tr>
@@ -9654,7 +11808,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-geturlcacheentryinfow
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-geturlcacheentryinfow
      * @since windows5.0
      */
     static GetUrlCacheEntryInfoW(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -9674,13 +11828,21 @@ class WinInet {
 
     /**
      * Initiates the enumeration of the cache groups in the Internet cache.
+     * @remarks
+     * The handle returned from <b>FindFirstUrlCacheGroup</b> is used in subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findnexturlcachegroup">FindNextUrlCacheGroup</a>. At the end of the enumeration, the application should call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findcloseurlcache">FindCloseUrlCache</a>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {Integer} dwFlags This parameter is reserved and must be 0.
      * @param {Integer} dwFilter 
      * @param {Pointer<Integer>} lpGroupId Pointer to the ID of the first cache group that matches the search criteria.
      * @returns {HANDLE} Returns a valid handle to the first item in the enumeration if successful, or <b>NULL</b> otherwise. To get specific error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
      * <b>GetLastError</b> returns ERROR_NO_MORE_FILES.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-findfirsturlcachegroup
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findfirsturlcachegroup
      * @since windows5.0
      */
     static FindFirstUrlCacheGroup(dwFlags, dwFilter, lpGroupId) {
@@ -9701,12 +11863,19 @@ class WinInet {
 
     /**
      * Retrieves the next cache group in a cache group enumeration started by FindFirstUrlCacheGroup.
+     * @remarks
+     * Continue to call <b>FindNextUrlCacheGroup</b> until the last item in the cache is returned.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {HANDLE} hFind The cache group enumeration handle, which is returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findfirsturlcachegroup">FindFirstUrlCacheGroup</a>.
      * @param {Pointer<Integer>} lpGroupId Pointer to a variable that receives the cache group identifier.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-findnexturlcachegroup
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findnexturlcachegroup
      * @since windows5.0
      */
     static FindNextUrlCacheGroup(hFind, lpGroupId) {
@@ -9727,7 +11896,16 @@ class WinInet {
     }
 
     /**
-     * Retrieves the attribute information of the specified cache group.
+     * Retrieves the attribute information of the specified cache group. (ANSI)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines GetUrlCacheGroupAttribute as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} gid Identifier of the cache group.
      * @param {Integer} dwAttributes 
      * @param {Pointer} lpGroupInfo Pointer to an 
@@ -9735,8 +11913,8 @@ class WinInet {
      * @param {Pointer<Integer>} lpcbGroupInfo Pointer to a variable that contains the size of the 
      * <i>lpGroupInfo</i> buffer. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size of the buffer, in bytes.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-geturlcachegroupattributea
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-geturlcachegroupattributea
      * @since windows5.0
      */
     static GetUrlCacheGroupAttributeA(gid, dwAttributes, lpGroupInfo, lpcbGroupInfo) {
@@ -9755,7 +11933,16 @@ class WinInet {
     }
 
     /**
-     * Retrieves the attribute information of the specified cache group.
+     * Retrieves the attribute information of the specified cache group. (Unicode)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines GetUrlCacheGroupAttribute as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} gid Identifier of the cache group.
      * @param {Integer} dwAttributes 
      * @param {Pointer} lpGroupInfo Pointer to an 
@@ -9763,8 +11950,8 @@ class WinInet {
      * @param {Pointer<Integer>} lpcbGroupInfo Pointer to a variable that contains the size of the 
      * <i>lpGroupInfo</i> buffer. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size of the buffer, in bytes.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-geturlcachegroupattributew
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-geturlcachegroupattributew
      * @since windows5.0
      */
     static GetUrlCacheGroupAttributeW(gid, dwAttributes, lpGroupInfo, lpcbGroupInfo) {
@@ -9783,14 +11970,23 @@ class WinInet {
     }
 
     /**
-     * Sets the attribute information of the specified cache group.
+     * Sets the attribute information of the specified cache group. (ANSI)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines SetUrlCacheGroupAttribute as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} gid Identifier of the cache group.
      * @param {Integer} dwAttributes 
      * @param {Pointer<INTERNET_CACHE_GROUP_INFOA>} lpGroupInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_group_infoa">INTERNET_CACHE_GROUP_INFO</a> structure that specifies the attribute information to be stored.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-seturlcachegroupattributea
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-seturlcachegroupattributea
      * @since windows5.0
      */
     static SetUrlCacheGroupAttributeA(gid, dwAttributes, lpGroupInfo) {
@@ -9807,14 +12003,23 @@ class WinInet {
     }
 
     /**
-     * Sets the attribute information of the specified cache group.
+     * Sets the attribute information of the specified cache group. (Unicode)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines SetUrlCacheGroupAttribute as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} gid Identifier of the cache group.
      * @param {Integer} dwAttributes 
      * @param {Pointer<INTERNET_CACHE_GROUP_INFOW>} lpGroupInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_group_infoa">INTERNET_CACHE_GROUP_INFO</a> structure that specifies the attribute information to be stored.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-seturlcachegroupattributew
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-seturlcachegroupattributew
      * @since windows5.0
      */
     static SetUrlCacheGroupAttributeW(gid, dwAttributes, lpGroupInfo) {
@@ -9831,7 +12036,20 @@ class WinInet {
     }
 
     /**
-     * Retrieves information on the cache entry associated with the specified URL, taking into account any redirections that are applied in offline mode by the HttpSendRequest function.
+     * Retrieves information on the cache entry associated with the specified URL, taking into account any redirections that are applied in offline mode by the HttpSendRequest function. (ANSI)
+     * @remarks
+     * <b>GetUrlCacheEntryInfoEx</b> does not do any URL parsing, so a URL containing an anchor (#) will not be found in the cache, even if the resource is cached. For example, if the URL `http://example.com/example.htm#sample` is passed, the function returns ERROR_FILE_NOT_FOUND even if `http://example.com/example.htm` is in the cache.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines GetUrlCacheEntryInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszUrl A pointer to a <b>null</b>-terminated string that contains the name of the cache entry. The name string should not contain any escape characters.
      * @param {Pointer} lpCacheEntryInfo A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry. A buffer should be allocated for this parameter. 
@@ -9841,7 +12059,7 @@ class WinInet {
      * <i>lpCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size of the buffer in bytes.
      * @param {Integer} dwFlags This parameter is reserved and must be 0.
      * @returns {BOOL} Returns <b>TRUE</b> if the URL was located, or <b>FALSE</b> otherwise. Call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for specific error information. Possible errors include the following.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for specific error information. Possible errors include the following.
      * 
      * <table>
      * <tr>
@@ -9873,7 +12091,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-geturlcacheentryinfoexa
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-geturlcacheentryinfoexa
      * @since windows5.0
      */
     static GetUrlCacheEntryInfoExA(lpszUrl, lpCacheEntryInfo, lpcbCacheEntryInfo, dwFlags) {
@@ -9894,7 +12112,20 @@ class WinInet {
     }
 
     /**
-     * Retrieves information on the cache entry associated with the specified URL, taking into account any redirections that are applied in offline mode by the HttpSendRequest function.
+     * Retrieves information on the cache entry associated with the specified URL, taking into account any redirections that are applied in offline mode by the HttpSendRequest function. (Unicode)
+     * @remarks
+     * <b>GetUrlCacheEntryInfoEx</b> does not do any URL parsing, so a URL containing an anchor (#) will not be found in the cache, even if the resource is cached. For example, if the URL `http://example.com/example.htm#sample` is passed, the function returns ERROR_FILE_NOT_FOUND even if `http://example.com/example.htm` is in the cache.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines GetUrlCacheEntryInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszUrl A pointer to a <b>null</b>-terminated string that contains the name of the cache entry. The name string should not contain any escape characters.
      * @param {Pointer} lpCacheEntryInfo A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry. A buffer should be allocated for this parameter. 
@@ -9904,7 +12135,7 @@ class WinInet {
      * <i>lpCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size of the buffer in bytes.
      * @param {Integer} dwFlags This parameter is reserved and must be 0.
      * @returns {BOOL} Returns <b>TRUE</b> if the URL was located, or <b>FALSE</b> otherwise. Call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for specific error information. Possible errors include the following.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for specific error information. Possible errors include the following.
      * 
      * <table>
      * <tr>
@@ -9936,7 +12167,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-geturlcacheentryinfoexw
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-geturlcacheentryinfoexw
      * @since windows5.0
      */
     static GetUrlCacheEntryInfoExW(lpszUrl, lpCacheEntryInfo, lpcbCacheEntryInfo, dwFlags) {
@@ -9957,14 +12188,23 @@ class WinInet {
     }
 
     /**
-     * Sets the specified members of the INTERNET_CACHE_ENTRY_INFO structure.
+     * Sets the specified members of the INTERNET_CACHE_ENTRY_INFO structure. (ANSI)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines SetUrlCacheEntryInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszUrlName Pointer to a null-terminated string that specifies the name of the cache entry. The name string should not contain any escape characters.
      * @param {Pointer<INTERNET_CACHE_ENTRY_INFOA>} lpCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure containing the values to be assigned to the cache entry designated by 
      * <i>lpszUrlName</i>.
      * @param {Integer} dwFieldControl 
      * @returns {BOOL} Returns TRUE if successful, or FALSE otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
      * <table>
      * <tr>
@@ -9994,7 +12234,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-seturlcacheentryinfoa
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-seturlcacheentryinfoa
      * @since windows5.0
      */
     static SetUrlCacheEntryInfoA(lpszUrlName, lpCacheEntryInfo, dwFieldControl) {
@@ -10011,14 +12251,23 @@ class WinInet {
     }
 
     /**
-     * Sets the specified members of the INTERNET_CACHE_ENTRY_INFO structure.
+     * Sets the specified members of the INTERNET_CACHE_ENTRY_INFO structure. (Unicode)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines SetUrlCacheEntryInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszUrlName Pointer to a null-terminated string that specifies the name of the cache entry. The name string should not contain any escape characters.
      * @param {Pointer<INTERNET_CACHE_ENTRY_INFOW>} lpCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure containing the values to be assigned to the cache entry designated by 
      * <i>lpszUrlName</i>.
      * @param {Integer} dwFieldControl 
      * @returns {BOOL} Returns TRUE if successful, or FALSE otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
      * <table>
      * <tr>
@@ -10048,7 +12297,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-seturlcacheentryinfow
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-seturlcacheentryinfow
      * @since windows5.0
      */
     static SetUrlCacheEntryInfoW(lpszUrlName, lpCacheEntryInfo, dwFieldControl) {
@@ -10066,12 +12315,15 @@ class WinInet {
 
     /**
      * Generates cache group identifications.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {Integer} dwFlags Controls the creation of the cache group. This parameter can be set to 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/cache-group-constants">CACHEGROUP_FLAG_GIDONLY</a>, which causes 
      * <b>CreateUrlCacheGroup</b> to generate a unique GROUPID, but does not create a physical group.
      * @returns {Integer} Returns a valid <b>GROUPID</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-createurlcachegroup
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-createurlcachegroup
      * @since windows5.0
      */
     static CreateUrlCacheGroup(dwFlags) {
@@ -10089,13 +12341,16 @@ class WinInet {
 
     /**
      * Releases the specified GROUPID and any associated state in the cache index file.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {Integer} GroupId ID of the cache group to be released.
      * @param {Integer} dwFlags Controls the cache group deletion. This can be set to 
      * any member of the <a href="https://docs.microsoft.com/windows/desktop/WinInet/cache-group-constants">cache group constants</a>. When this parameter is set to <a href="https://docs.microsoft.com/windows/desktop/WinInet/cache-group-constants">CACHEGROUP_FLAG_FLUSHURL_ONDELETE</a>, it causes 
      * <b>DeleteUrlCacheGroup</b> to delete all of the cache entries associated with this group, unless the entry belongs to another group.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-deleteurlcachegroup
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-deleteurlcachegroup
      * @since windows5.0
      */
     static DeleteUrlCacheGroup(GroupId, dwFlags) {
@@ -10112,12 +12367,25 @@ class WinInet {
     }
 
     /**
-     * Adds entries to or removes entries from a cache group.
+     * Adds entries to or removes entries from a cache group. (SetUrlCacheEntryGroupA)
+     * @remarks
+     * A cache entry can belong to more than one cache group.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines SetUrlCacheEntryGroup as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszUrlName Pointer to a <b>null</b>-terminated string value that specifies the URL of the cached resource.
      * @param {Integer} dwFlags 
      * @param {Integer} GroupId Identifier of the cache group that the entry will be added to or removed from.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-seturlcacheentrygroupa
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-seturlcacheentrygroupa
      * @since windows5.0
      */
     static SetUrlCacheEntryGroupA(lpszUrlName, dwFlags, GroupId) {
@@ -10130,12 +12398,25 @@ class WinInet {
     }
 
     /**
-     * Adds entries to or removes entries from a cache group.
+     * The SetUrlCacheEntryGroupW (Unicode) function (wininet.h) adds entries to or removes entries from a cache group.
+     * @remarks
+     * A cache entry can belong to more than one cache group.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines SetUrlCacheEntryGroup as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszUrlName Pointer to a <b>null</b>-terminated string value that specifies the URL of the cached resource.
      * @param {Integer} dwFlags 
      * @param {Integer} GroupId Identifier of the cache group that the entry will be added to or removed from.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-seturlcacheentrygroupw
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-seturlcacheentrygroupw
      * @since windows5.0
      */
     static SetUrlCacheEntryGroupW(lpszUrlName, dwFlags, GroupId) {
@@ -10148,12 +12429,19 @@ class WinInet {
     }
 
     /**
-     * Adds entries to or removes entries from a cache group.
+     * The SetUrlCacheEntryGroup function (wininet.h) adds entries to or removes entries from a cache group.
+     * @remarks
+     * A cache entry can belong to more than one cache group.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {PSTR} lpszUrlName Pointer to a <b>null</b>-terminated string value that specifies the URL of the cached resource.
      * @param {Integer} dwFlags 
      * @param {Integer} GroupId Identifier of the cache group that the entry will be added to or removed from.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-seturlcacheentrygroup
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-seturlcacheentrygroup
      * @since windows5.0
      */
     static SetUrlCacheEntryGroup(lpszUrlName, dwFlags, GroupId) {
@@ -10166,7 +12454,21 @@ class WinInet {
     }
 
     /**
-     * Starts a filtered enumeration of the Internet cache.
+     * Starts a filtered enumeration of the Internet cache. (ANSI)
+     * @remarks
+     * The handle returned from <b>FindFirstUrlCacheEntryEx</b> is used in all subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findnexturlcacheentryexa">FindNextUrlCacheEntryEx</a>. At the end of the enumeration, the application should call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findcloseurlcache">FindCloseUrlCache</a>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FindFirstUrlCacheEntryEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszUrlSearchPattern A pointer to a string that contains the source name pattern to search for. This parameter can only be set to "cookie:", "visited:", or NULL. Set this parameter to "cookie:" to enumerate the cookies or "visited:" to enumerate the URL History entries in the cache. If this parameter is NULL, <b>FindFirstUrlCacheEntryEx</b> returns all content entries in the cache.
      * @param {Integer} dwFlags Controls the enumeration. No flags are currently implemented; this parameter must be set to zero.
      * @param {Integer} dwFilter A bitmask indicating the type of cache entry and its properties. The cache entry types include: history entries (URLHISTORY_CACHE_ENTRY),  cookie entries  (COOKIE_CACHE_ENTRY), and normal cached content (NORMAL_CACHE_ENTRY).
@@ -10273,9 +12575,9 @@ class WinInet {
      * @param {Pointer<Integer>} lpcbCacheEntryInfo Pointer to variable that indicates the size of 
      * the structure referenced by the <i>lpFirstCacheEntryInfo</i> parameter, in bytes.
      * @returns {HANDLE} Returns a valid handle if successful, or NULL otherwise. To get specific error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
      * <b>GetLastError</b> returns ERROR_NO_MORE_FILES.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-findfirsturlcacheentryexa
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findfirsturlcacheentryexa
      * @since windows5.0
      */
     static FindFirstUrlCacheEntryExA(lpszUrlSearchPattern, dwFlags, dwFilter, GroupId, lpFirstCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -10297,7 +12599,21 @@ class WinInet {
     }
 
     /**
-     * Starts a filtered enumeration of the Internet cache.
+     * Starts a filtered enumeration of the Internet cache. (Unicode)
+     * @remarks
+     * The handle returned from <b>FindFirstUrlCacheEntryEx</b> is used in all subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findnexturlcacheentryexa">FindNextUrlCacheEntryEx</a>. At the end of the enumeration, the application should call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findcloseurlcache">FindCloseUrlCache</a>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FindFirstUrlCacheEntryEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszUrlSearchPattern A pointer to a string that contains the source name pattern to search for. This parameter can only be set to "cookie:", "visited:", or NULL. Set this parameter to "cookie:" to enumerate the cookies or "visited:" to enumerate the URL History entries in the cache. If this parameter is NULL, <b>FindFirstUrlCacheEntryEx</b> returns all content entries in the cache.
      * @param {Integer} dwFlags Controls the enumeration. No flags are currently implemented; this parameter must be set to zero.
      * @param {Integer} dwFilter A bitmask indicating the type of cache entry and its properties. The cache entry types include: history entries (URLHISTORY_CACHE_ENTRY),  cookie entries  (COOKIE_CACHE_ENTRY), and normal cached content (NORMAL_CACHE_ENTRY).
@@ -10404,9 +12720,9 @@ class WinInet {
      * @param {Pointer<Integer>} lpcbCacheEntryInfo Pointer to variable that indicates the size of 
      * the structure referenced by the <i>lpFirstCacheEntryInfo</i> parameter, in bytes.
      * @returns {HANDLE} Returns a valid handle if successful, or NULL otherwise. To get specific error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
      * <b>GetLastError</b> returns ERROR_NO_MORE_FILES.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-findfirsturlcacheentryexw
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findfirsturlcacheentryexw
      * @since windows5.0
      */
     static FindFirstUrlCacheEntryExW(lpszUrlSearchPattern, dwFlags, dwFilter, GroupId, lpFirstCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -10428,15 +12744,28 @@ class WinInet {
     }
 
     /**
-     * Finds the next cache entry in a cache enumeration started by the FindFirstUrlCacheEntryEx function.
+     * Finds the next cache entry in a cache enumeration started by the FindFirstUrlCacheEntryEx function. (ANSI)
+     * @remarks
+     * Continue to call <b>FindNextUrlCacheEntryEx</b> until the last item in the cache is returned.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FindNextUrlCacheEntryEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hEnumHandle Handle returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findfirsturlcacheentryexa">FindFirstUrlCacheEntryEx</a>, which started a cache enumeration.
      * @param {Pointer} lpNextCacheEntryInfo Pointer to the  
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives the cache entry information.
      * @param {Pointer<Integer>} lpcbCacheEntryInfo Pointer to a variable that indicates the size of the buffer, in bytes.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-findnexturlcacheentryexa
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findnexturlcacheentryexa
      * @since windows5.0
      */
     static FindNextUrlCacheEntryExA(hEnumHandle, lpNextCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -10457,15 +12786,28 @@ class WinInet {
     }
 
     /**
-     * Finds the next cache entry in a cache enumeration started by the FindFirstUrlCacheEntryEx function.
+     * Finds the next cache entry in a cache enumeration started by the FindFirstUrlCacheEntryEx function. (Unicode)
+     * @remarks
+     * Continue to call <b>FindNextUrlCacheEntryEx</b> until the last item in the cache is returned.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FindNextUrlCacheEntryEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hEnumHandle Handle returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findfirsturlcacheentryexa">FindFirstUrlCacheEntryEx</a>, which started a cache enumeration.
      * @param {Pointer} lpNextCacheEntryInfo Pointer to the  
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives the cache entry information.
      * @param {Pointer<Integer>} lpcbCacheEntryInfo Pointer to a variable that indicates the size of the buffer, in bytes.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-findnexturlcacheentryexw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findnexturlcacheentryexw
      * @since windows5.0
      */
     static FindNextUrlCacheEntryExW(hEnumHandle, lpNextCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -10486,21 +12828,40 @@ class WinInet {
     }
 
     /**
-     * Begins the enumeration of the Internet cache.
+     * Begins the enumeration of the Internet cache. (ANSI)
+     * @remarks
+     * The handle returned from <b>FindFirstUrlCacheEntry</b> is used in all subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findnexturlcacheentrya">FindNextUrlCacheEntry</a>. At the end of the enumeration, the application should call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findcloseurlcache">FindCloseUrlCache</a>.
+     * 
+     * <b>FindFirstUrlCacheEntry</b> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findnexturlcacheentrya">FindNextUrlCacheEntry</a> return variable size information. If ERROR_INSUFFICIENT_BUFFER is returned, the application should allocate a buffer of the size specified by 
+     * <i>lpdwFirstCacheEntryInfoBufferSize</i>. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-b-using-buffers">Using Buffers</a>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FindFirstUrlCacheEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszUrlSearchPattern A pointer to a string that contains the source name pattern to search for. This parameter can only be set to "cookie:", "visited:", or <b>NULL</b>. Set this parameter to "cookie:" to enumerate the cookies or "visited:" to enumerate the URL History entries in the cache. If this parameter is <b>NULL</b>, <b>FindFirstUrlCacheEntry</b> returns all content entries in the cache.
      * @param {Pointer} lpFirstCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure.
      * @param {Pointer<Integer>} lpcbCacheEntryInfo Pointer to a variable that specifies the size of the 
      * <i>lpFirstCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size needed to retrieve the cache entry, in bytes.
      * @returns {HANDLE} Returns a handle that the application can use in the 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-findnexturlcacheentrya">FindNextUrlCacheEntry</a> function to retrieve subsequent entries in the cache. If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findnexturlcacheentrya">FindNextUrlCacheEntry</a> function to retrieve subsequent entries in the cache. If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * ERROR_INSUFFICIENT_BUFFER indicates that the size of 
      * <i>lpFirstCacheEntryInfo</i> as specified by 
      * <i>lpdwFirstCacheEntryInfoBufferSize</i> is not sufficient to contain all the information. The value returned in 
      * <i>lpdwFirstCacheEntryInfoBufferSize</i> indicates the buffer size necessary to contain all the information.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-findfirsturlcacheentrya
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findfirsturlcacheentrya
      * @since windows5.0
      */
     static FindFirstUrlCacheEntryA(lpszUrlSearchPattern, lpFirstCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -10520,21 +12881,40 @@ class WinInet {
     }
 
     /**
-     * Begins the enumeration of the Internet cache.
+     * Begins the enumeration of the Internet cache. (Unicode)
+     * @remarks
+     * The handle returned from <b>FindFirstUrlCacheEntry</b> is used in all subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findnexturlcacheentrya">FindNextUrlCacheEntry</a>. At the end of the enumeration, the application should call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findcloseurlcache">FindCloseUrlCache</a>.
+     * 
+     * <b>FindFirstUrlCacheEntry</b> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findnexturlcacheentrya">FindNextUrlCacheEntry</a> return variable size information. If ERROR_INSUFFICIENT_BUFFER is returned, the application should allocate a buffer of the size specified by 
+     * <i>lpdwFirstCacheEntryInfoBufferSize</i>. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-b-using-buffers">Using Buffers</a>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FindFirstUrlCacheEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszUrlSearchPattern A pointer to a string that contains the source name pattern to search for. This parameter can only be set to "cookie:", "visited:", or <b>NULL</b>. Set this parameter to "cookie:" to enumerate the cookies or "visited:" to enumerate the URL History entries in the cache. If this parameter is <b>NULL</b>, <b>FindFirstUrlCacheEntry</b> returns all content entries in the cache.
      * @param {Pointer} lpFirstCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure.
      * @param {Pointer<Integer>} lpcbCacheEntryInfo Pointer to a variable that specifies the size of the 
      * <i>lpFirstCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size needed to retrieve the cache entry, in bytes.
      * @returns {HANDLE} Returns a handle that the application can use in the 
-     * <a href="/windows/desktop/api/wininet/nf-wininet-findnexturlcacheentrya">FindNextUrlCacheEntry</a> function to retrieve subsequent entries in the cache. If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findnexturlcacheentrya">FindNextUrlCacheEntry</a> function to retrieve subsequent entries in the cache. If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * ERROR_INSUFFICIENT_BUFFER indicates that the size of 
      * <i>lpFirstCacheEntryInfo</i> as specified by 
      * <i>lpdwFirstCacheEntryInfoBufferSize</i> is not sufficient to contain all the information. The value returned in 
      * <i>lpdwFirstCacheEntryInfoBufferSize</i> indicates the buffer size necessary to contain all the information.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-findfirsturlcacheentryw
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findfirsturlcacheentryw
      * @since windows5.0
      */
     static FindFirstUrlCacheEntryW(lpszUrlSearchPattern, lpFirstCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -10554,7 +12934,20 @@ class WinInet {
     }
 
     /**
-     * Retrieves the next entry in the Internet cache.
+     * Retrieves the next entry in the Internet cache. (ANSI)
+     * @remarks
+     * Continue to call <b>FindNextUrlCacheEntry</b> until the last item in the cache is returned. 
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FindNextUrlCacheEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hEnumHandle Handle to the enumeration obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findfirsturlcacheentrya">FindFirstUrlCacheEntry</a>.
      * @param {Pointer} lpNextCacheEntryInfo Pointer to an 
@@ -10562,7 +12955,7 @@ class WinInet {
      * @param {Pointer<Integer>} lpcbCacheEntryInfo Pointer to a variable that specifies the size of the 
      * <i>lpNextCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the size of the buffer required to retrieve the cache entry, in bytes.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
      * <table>
      * <tr>
@@ -10595,7 +12988,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-findnexturlcacheentrya
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findnexturlcacheentrya
      * @since windows5.0
      */
     static FindNextUrlCacheEntryA(hEnumHandle, lpNextCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -10614,7 +13007,20 @@ class WinInet {
     }
 
     /**
-     * Retrieves the next entry in the Internet cache.
+     * Retrieves the next entry in the Internet cache. (Unicode)
+     * @remarks
+     * Continue to call <b>FindNextUrlCacheEntry</b> until the last item in the cache is returned. 
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines FindNextUrlCacheEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hEnumHandle Handle to the enumeration obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findfirsturlcacheentrya">FindFirstUrlCacheEntry</a>.
      * @param {Pointer} lpNextCacheEntryInfo Pointer to an 
@@ -10622,7 +13028,7 @@ class WinInet {
      * @param {Pointer<Integer>} lpcbCacheEntryInfo Pointer to a variable that specifies the size of the 
      * <i>lpNextCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the size of the buffer required to retrieve the cache entry, in bytes.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
      * <table>
      * <tr>
@@ -10655,7 +13061,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-findnexturlcacheentryw
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findnexturlcacheentryw
      * @since windows5.0
      */
     static FindNextUrlCacheEntryW(hEnumHandle, lpNextCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -10675,11 +13081,14 @@ class WinInet {
 
     /**
      * Closes the specified cache enumeration handle.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {HANDLE} hEnumHandle Handle returned by a previous call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findfirsturlcacheentrya">FindFirstUrlCacheEntry</a> function.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-findcloseurlcache
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findcloseurlcache
      * @since windows5.0
      */
     static FindCloseUrlCache(hEnumHandle) {
@@ -10696,10 +13105,19 @@ class WinInet {
     }
 
     /**
-     * Removes the file associated with the source name from the cache, if the file exists.
+     * Removes the file associated with the source name from the cache, if the file exists. (DeleteUrlCacheEntryA)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines DeleteUrlCacheEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszUrlName Pointer to a string that contains the name of the source that corresponds to the cache entry.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
      * <table>
      * <tr>
@@ -10729,7 +13147,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-deleteurlcacheentrya
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-deleteurlcacheentrya
      * @since windows5.0
      */
     static DeleteUrlCacheEntryA(lpszUrlName) {
@@ -10746,10 +13164,19 @@ class WinInet {
     }
 
     /**
-     * Removes the file associated with the source name from the cache, if the file exists.
+     * The DeleteUrlCacheEntryW (Unicode) function (wininet.h) removes the file associated with the source name from the cache, if the file exists.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines DeleteUrlCacheEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszUrlName Pointer to a string that contains the name of the source that corresponds to the cache entry.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
      * <table>
      * <tr>
@@ -10779,7 +13206,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-deleteurlcacheentryw
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-deleteurlcacheentryw
      * @since windows5.0
      */
     static DeleteUrlCacheEntryW(lpszUrlName) {
@@ -10796,10 +13223,13 @@ class WinInet {
     }
 
     /**
-     * Removes the file associated with the source name from the cache, if the file exists.
+     * The DeleteUrlCacheEntry function (wininet.h) removes the file associated with the source name from the cache, if the file exists.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {PSTR} lpszUrlName Pointer to a string that contains the name of the source that corresponds to the cache entry.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
      * <table>
      * <tr>
@@ -10829,7 +13259,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-deleteurlcacheentry
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-deleteurlcacheentry
      * @since windows5.0
      */
     static DeleteUrlCacheEntry(lpszUrlName) {
@@ -10846,11 +13276,26 @@ class WinInet {
     }
 
     /**
-     * Initiates a connection to the Internet using a modem.
+     * The InternetDialA (ANSI) function (wininet.h) initiates a connection to the Internet using a modem.
+     * @remarks
+     * <b>InternetDial</b> does not support double-dial connections, SmartCard authentication, or connections that require registry-based certification.
+     * 
+     * <div class="alert"><b>Note</b>  Starting on Windows Vista and Windows Server 2008, the WinINet dial-up functions use the <a href="https://docs.microsoft.com/windows/desktop/RRAS/remote-access-service-functions">RAS  functions</a> to establish a dial-up connection. WinINet supports the functionality documented in the <a href="https://docs.microsoft.com/windows/desktop/api/rasdlg/nf-rasdlg-rasdialdlga">RasDialDlg</a> function.</div>
+     * <div> </div>
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetDial as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwndParent Handle to the parent window.
      * @param {PSTR} lpszConnectoid Pointer to a <b>null</b>-terminated string that specifies the name of the dial-up connection to be used. If this parameter contains the empty string (""), the user chooses the connection. If this parameter is <b>NULL</b>, the function connects to the autodial connection.
      * @param {Integer} dwFlags 
-     * @param {Pointer<Pointer>} lpdwConnection Pointer to a variable that specifies the connection number. This number is a unique indentifier for the connection that can be used in other functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internethangup">InternetHangUp</a>.
+     * @param {Pointer<Pointer>} lpdwConnection Pointer to a variable that specifies the connection number. This number is a unique identifier for the connection that can be used in other functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internethangup">InternetHangUp</a>.
      * @returns {Integer} Returns ERROR_SUCCESS if successful, or an error value otherwise. The error code can be one of the following values.
      * 
      * <table>
@@ -10892,7 +13337,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetdiala
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetdiala
      * @since windows5.0
      */
     static InternetDialA(hwndParent, lpszConnectoid, dwFlags, lpdwConnection) {
@@ -10908,11 +13353,26 @@ class WinInet {
     }
 
     /**
-     * Initiates a connection to the Internet using a modem.
+     * The InternetDialW (Unicode) function (wininet.h) initiates a connection to the Internet using a modem.
+     * @remarks
+     * <b>InternetDial</b> does not support double-dial connections, SmartCard authentication, or connections that require registry-based certification.
+     * 
+     * <div class="alert"><b>Note</b>  Starting on Windows Vista and Windows Server 2008, the WinINet dial-up functions use the <a href="https://docs.microsoft.com/windows/desktop/RRAS/remote-access-service-functions">RAS  functions</a> to establish a dial-up connection. WinINet supports the functionality documented in the <a href="https://docs.microsoft.com/windows/desktop/api/rasdlg/nf-rasdlg-rasdialdlga">RasDialDlg</a> function.</div>
+     * <div> </div>
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetDial as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwndParent Handle to the parent window.
      * @param {PWSTR} lpszConnectoid Pointer to a <b>null</b>-terminated string that specifies the name of the dial-up connection to be used. If this parameter contains the empty string (""), the user chooses the connection. If this parameter is <b>NULL</b>, the function connects to the autodial connection.
      * @param {Integer} dwFlags 
-     * @param {Pointer<Pointer>} lpdwConnection Pointer to a variable that specifies the connection number. This number is a unique indentifier for the connection that can be used in other functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internethangup">InternetHangUp</a>.
+     * @param {Pointer<Pointer>} lpdwConnection Pointer to a variable that specifies the connection number. This number is a unique identifier for the connection that can be used in other functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internethangup">InternetHangUp</a>.
      * @returns {Integer} Returns ERROR_SUCCESS if successful, or an error value otherwise. The error code can be one of the following values.
      * 
      * <table>
@@ -10954,7 +13414,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetdialw
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetdialw
      * @since windows5.0
      */
     static InternetDialW(hwndParent, lpszConnectoid, dwFlags, lpdwConnection) {
@@ -10970,11 +13430,20 @@ class WinInet {
     }
 
     /**
-     * Initiates a connection to the Internet using a modem.
+     * The InternetDial function (wininet.h) initiates a connection to the Internet using a modem.
+     * @remarks
+     * <b>InternetDial</b> does not support double-dial connections, SmartCard authentication, or connections that require registry-based certification.
+     * 
+     * <div class="alert"><b>Note</b>  Starting on Windows Vista and Windows Server 2008, the WinINet dial-up functions use the <a href="https://docs.microsoft.com/windows/desktop/RRAS/remote-access-service-functions">RAS  functions</a> to establish a dial-up connection. WinINet supports the functionality documented in the <a href="https://docs.microsoft.com/windows/desktop/api/rasdlg/nf-rasdlg-rasdialdlga">RasDialDlg</a> function.</div>
+     * <div> </div>
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {HWND} hwndParent Handle to the parent window.
      * @param {PSTR} lpszConnectoid Pointer to a <b>null</b>-terminated string that specifies the name of the dial-up connection to be used. If this parameter contains the empty string (""), the user chooses the connection. If this parameter is <b>NULL</b>, the function connects to the autodial connection.
      * @param {Integer} dwFlags 
-     * @param {Pointer<Integer>} lpdwConnection Pointer to a variable that specifies the connection number. This number is a unique indentifier for the connection that can be used in other functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internethangup">InternetHangUp</a>.
+     * @param {Pointer<Integer>} lpdwConnection Pointer to a variable that specifies the connection number. This number is a unique identifier for the connection that can be used in other functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internethangup">InternetHangUp</a>.
      * @param {Integer} dwReserved This parameter is reserved and must be <b>NULL</b>.
      * @returns {Integer} Returns ERROR_SUCCESS if successful, or an error value otherwise. The error code can be one of the following values.
      * 
@@ -11017,7 +13486,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetdial
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetdial
      * @since windows5.0
      */
     static InternetDial(hwndParent, lpszConnectoid, dwFlags, lpdwConnection, dwReserved) {
@@ -11031,10 +13500,13 @@ class WinInet {
     }
 
     /**
-     * Instructs the modem to disconnect from the Internet.
+     * The InternetHangUp function (wininet.h) instructs the modem to disconnect from the Internet.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {Pointer} dwConnection Connection number of  the connection to be disconnected.
      * @returns {Integer} Returns ERROR_SUCCESS if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internethangup
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internethangup
      * @since windows5.0
      */
     static InternetHangUp(dwConnection) {
@@ -11045,7 +13517,16 @@ class WinInet {
     }
 
     /**
-     * Prompts the user for permission to initiate connection to a URL.
+     * The InternetGoOnlineA (ANSI) function (wininet.h) prompts the user for permission to initiate connection to a URL.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetGoOnline as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszURL Pointer to a null-terminated string that specifies the URL of the website for the connection.
      * @param {HWND} hwndParent Handle to the parent window.
      * @param {Integer} dwFlags This parameter can be zero or the following flag.
@@ -11069,7 +13550,7 @@ class WinInet {
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * 
-     * If the function fails, it returns <b>FALSE</b>. Applications can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
+     * If the function fails, it returns <b>FALSE</b>. Applications can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
      * 
      * If the functions fails, it can  return the following error code:
      * 
@@ -11092,7 +13573,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgoonlinea
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgoonlinea
      * @since windows5.0
      */
     static InternetGoOnlineA(lpszURL, hwndParent, dwFlags) {
@@ -11110,7 +13591,16 @@ class WinInet {
     }
 
     /**
-     * Prompts the user for permission to initiate connection to a URL.
+     * The InternetGoOnlineW (Unicode) function (wininet.h) prompts the user for permission to initiate connection to a URL.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetGoOnline as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszURL Pointer to a null-terminated string that specifies the URL of the website for the connection.
      * @param {HWND} hwndParent Handle to the parent window.
      * @param {Integer} dwFlags This parameter can be zero or the following flag.
@@ -11134,7 +13624,7 @@ class WinInet {
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * 
-     * If the function fails, it returns <b>FALSE</b>. Applications can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
+     * If the function fails, it returns <b>FALSE</b>. Applications can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
      * 
      * If the functions fails, it can  return the following error code:
      * 
@@ -11157,7 +13647,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgoonlinew
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgoonlinew
      * @since windows5.0
      */
     static InternetGoOnlineW(lpszURL, hwndParent, dwFlags) {
@@ -11175,7 +13665,10 @@ class WinInet {
     }
 
     /**
-     * Prompts the user for permission to initiate connection to a URL.
+     * The InternetGoOnline function (wininet.h) prompts the user for permission to initiate connection to a URL.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {PSTR} lpszURL Pointer to a null-terminated string that specifies the URL of the website for the connection.
      * @param {HWND} hwndParent Handle to the parent window.
      * @param {Integer} dwFlags This parameter can be zero or the following flag.
@@ -11199,7 +13692,7 @@ class WinInet {
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * 
-     * If the function fails, it returns <b>FALSE</b>. Applications can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
+     * If the function fails, it returns <b>FALSE</b>. Applications can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
      * 
      * If the functions fails, it can  return the following error code:
      * 
@@ -11222,7 +13715,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgoonline
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgoonline
      * @since windows5.0
      */
     static InternetGoOnline(lpszURL, hwndParent, dwFlags) {
@@ -11240,14 +13733,25 @@ class WinInet {
     }
 
     /**
-     * Causes the modem to automatically dial the default Internet connection.
+     * The InternetAutodial function (wininet.h) causes the modem to automatically dial the default Internet connection.
+     * @remarks
+     * <b>InternetAutodial</b> does not support double-dial connections, SmartCard authentication, or connections that require registry-based certification.
+     * 
+     * <div class="alert"><b>Note</b>  Starting on Windows Vista and Windows Server 2008, the WinINet dial-up functions use the <a href="https://docs.microsoft.com/windows/desktop/RRAS/remote-access-service-functions">RAS  functions</a> to establish a dial-up connection. WinINet supports the functionality documented in the <a href="https://docs.microsoft.com/windows/desktop/api/rasdlg/nf-rasdlg-rasdialdlga">RasDialDlg</a> function.</div>
+     * <div> </div>
+     * <b>InternetAutodial</b> does not attempt to dial if there is an existing dial-up connection on the system. Also, if there is an existing LAN connection, and <b>InternetAutodial</b> is not configured to force dial (set the <b>INTERNET_AUTODIAL_FORCE_ONLINE</b> in the <i>dwFlags</i> parameter), <b>InternetAutodial</b> does not attempt to dial the connection and returns <b>TRUE</b>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {Integer} dwFlags 
      * @param {HWND} hwndParent Handle to the parent window.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * 
-     * If the function fails, it returns <b>FALSE</b>. Applications can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetautodial
+     * If the function fails, it returns <b>FALSE</b>. Applications can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetautodial
      * @since windows5.0
      */
     static InternetAutodial(dwFlags, hwndParent) {
@@ -11264,12 +13768,19 @@ class WinInet {
     }
 
     /**
-     * Disconnects an automatic dial-up connection.
+     * The InternetAutodialHangup function (wininet.h) disconnects an automatic dial-up connection.
+     * @remarks
+     * <b>InternetAutoDialHangup</b> returns <b>TRUE</b> if autodial is not enabled, or if autodial is enabled but does not have an entry configured on the computer.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * 
-     * If the function fails, it returns <b>FALSE</b>. Applications can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetautodialhangup
+     * If the function fails, it returns <b>FALSE</b>. Applications can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetautodialhangup
      * @since windows5.0
      */
     static InternetAutodialHangup() {
@@ -11286,12 +13797,21 @@ class WinInet {
     }
 
     /**
-     * Note  Using this API is not recommended, use the INetworkListManager::GetConnectivity method instead. Retrieves the connected state of the local system.
+     * The InternetGetConnectedState function (wininet.h) retrieves the connected state of the local system and is not recommended for use.
+     * @remarks
+     * A return value of <b>TRUE</b> from <b>InternetGetConnectedState</b> indicates that at least one connection to the Internet is available.  It does not guarantee that a connection to a specific host can be established. Applications should always check for errors returned from API calls that connect to a server. <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetcheckconnectiona">InternetCheckConnection</a> can be called to determine if a connection to a specific destination can be established.
+     * 
+     * A return value of <b>TRUE</b> indicates that either the modem connection is active, or a LAN connection is active and a proxy is properly configured for the LAN. A return value of <b>FALSE</b> indicates that neither the modem nor the LAN is connected. If <b>FALSE</b> is returned, the <b>INTERNET_CONNECTION_CONFIGURED</b> flag may be set to indicate that autodial is configured to "always dial" but is not currently active. If autodial is not configured, the function returns <b>FALSE</b>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {Pointer<Integer>} lpdwFlags 
      * @returns {BOOL} Returns <b>TRUE</b> if there is an active modem or a LAN Internet connection, or <b>FALSE</b> if there is no Internet connection, or if all possible Internet connections are not currently active. For more information, see the Remarks section.
      * 
-     * When <b>InternetGetConnectedState</b> returns <b>FALSE</b>, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>  to retrieve the error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgetconnectedstate
+     * When <b>InternetGetConnectedState</b> returns <b>FALSE</b>, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>  to retrieve the error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetconnectedstate
      * @since windows5.0
      */
     static InternetGetConnectedState(lpdwFlags) {
@@ -11310,14 +13830,29 @@ class WinInet {
     }
 
     /**
-     * Note  Using this API is not recommended, use the INetworkListManager::GetConnectivity method instead. Retrieves the connected state of the specified Internet connection.
+     * The InternetGetConnectedStateExA (ANSI) function (wininet.h) retrieves the connected state of the specified Internet connection and is not recommended for use.
+     * @remarks
+     * A return value of <b>TRUE</b> from <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetconnectedstate">InternetGetConnectedState</a> indicates that at least one connection to the Internet is available.  It does not guarantee that a connection to a specific host can be established.    Applications should always check for errors returned from API calls that connect to a server. <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetcheckconnectiona">InternetCheckConnection</a> can be called to determine if a connection to a specific destination can be established.
+     * 
+     * A return value of <b>TRUE</b> indicates that either the modem connection is active, or a LAN connection is active and a proxy is properly configured for the LAN. A return value of <b>FALSE</b> indicates that neither the modem nor the LAN is connected. If <b>FALSE</b> is returned, the <b>INTERNET_CONNECTION_CONFIGURED</b> flag may be set to indicate that autodial is configured to "always dial" but is not currently active. If autodial is not configured, the function returns <b>FALSE</b>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetGetConnectedStateEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} lpdwFlags 
      * @param {PSTR} lpszConnectionName Pointer to a string value that receives the connection name.
      * @param {Integer} cchNameLen TBD
      * @returns {BOOL} Returns <b>TRUE</b> if there is an Internet connection, or <b>FALSE</b> if there is no Internet connection, or if all possible Internet connections are not currently active. For more information, see the Remarks section.
      * 
-     * When <a href="/windows/desktop/api/wininet/nf-wininet-internetgetconnectedstate">InternetGetConnectedState</a> returns <b>FALSE</b>, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgetconnectedstateexa
+     * When <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetconnectedstate">InternetGetConnectedState</a> returns <b>FALSE</b>, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetconnectedstateexa
      * @since windows5.0
      */
     static InternetGetConnectedStateExA(lpdwFlags, lpszConnectionName, cchNameLen) {
@@ -11338,14 +13873,29 @@ class WinInet {
     }
 
     /**
-     * Note  Using this API is not recommended, use the INetworkListManager::GetConnectivity method instead. Retrieves the connected state of the specified Internet connection.
+     * The InternetGetConnectedStateExW (Unicode) function (wininet.h) retrieves the connected state of the specified Internet connection and is not recommended for use.
+     * @remarks
+     * A return value of <b>TRUE</b> from <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetconnectedstate">InternetGetConnectedState</a> indicates that at least one connection to the Internet is available.  It does not guarantee that a connection to a specific host can be established.    Applications should always check for errors returned from API calls that connect to a server. <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetcheckconnectiona">InternetCheckConnection</a> can be called to determine if a connection to a specific destination can be established.
+     * 
+     * A return value of <b>TRUE</b> indicates that either the modem connection is active, or a LAN connection is active and a proxy is properly configured for the LAN. A return value of <b>FALSE</b> indicates that neither the modem nor the LAN is connected. If <b>FALSE</b> is returned, the <b>INTERNET_CONNECTION_CONFIGURED</b> flag may be set to indicate that autodial is configured to "always dial" but is not currently active. If autodial is not configured, the function returns <b>FALSE</b>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetGetConnectedStateEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} lpdwFlags 
      * @param {PWSTR} lpszConnectionName Pointer to a string value that receives the connection name.
      * @param {Integer} cchNameLen TBD
      * @returns {BOOL} Returns <b>TRUE</b> if there is an Internet connection, or <b>FALSE</b> if there is no Internet connection, or if all possible Internet connections are not currently active. For more information, see the Remarks section.
      * 
-     * When <a href="/windows/desktop/api/wininet/nf-wininet-internetgetconnectedstate">InternetGetConnectedState</a> returns <b>FALSE</b>, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgetconnectedstateexw
+     * When <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetconnectedstate">InternetGetConnectedState</a> returns <b>FALSE</b>, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetconnectedstateexw
      * @since windows5.0
      */
     static InternetGetConnectedStateExW(lpdwFlags, lpszConnectionName, cchNameLen) {
@@ -11376,11 +13926,18 @@ class WinInet {
     }
 
     /**
-     * There are two WinINet functions named InternetInitializeAutoProxyDll.
+     * The InternetInitializeAutoProxyDll function (wininet.h) is one of two WinINet functions named InternetInitializeAutoProxyDll.
+     * @remarks
+     * Because the <b>InternetInitializeAutoProxyDll</b> function takes time to complete its operation, it should not be called from  a UI thread.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {Integer} dwReserved This parameter is reserved and must be 0.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetinitializeautoproxydll
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetinitializeautoproxydll
      * @since windows5.0
      */
     static InternetInitializeAutoProxyDll(dwReserved) {
@@ -11395,14 +13952,17 @@ class WinInet {
     }
 
     /**
-     * Attempts to determine the location of a WPAD autoproxy script.
+     * The DetectAutoProxyUrl function (wininet.h) attempts to determine the location of a WPAD autoproxy script.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {PSTR} pszAutoProxyUrl Pointer to a buffer to receive the URL from which a WPAD autoproxy script can be downloaded.
      * @param {Integer} cchAutoProxyUrl Size of 
      * the buffer pointed to by <i>lpszAutoProxyUrl</i>, in bytes.
      * @param {Integer} dwDetectFlags 
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-detectautoproxyurl
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-detectautoproxyurl
      * @since windows5.0
      */
     static DetectAutoProxyUrl(pszAutoProxyUrl, cchAutoProxyUrl, dwDetectFlags) {
@@ -11419,13 +13979,22 @@ class WinInet {
     }
 
     /**
-     * The CreateMD5SSOHash function obtains the default Microsoft Passport password for a specified account or realm, creates an MD5 hash from it using a specified wide-character challenge string, and returns the result as a string of hexadecimal digit bytes.
+     * The CreateMD5SSOHash function (wininet.h) obtains the Microsoft Passport password, creates an MD5 hash using a specific string, and returns the result.
+     * @remarks
+     * Once the <b>CreateMD5SSOHash</b> function successfully obtains the Microsoft Passport password for the specified account or realm, it converts both the challenge string and the password from wide characters to multi-byte (generally 8-bit) characters, concatenates them, and uses the RSA library to generate an MD5 hash from the resulting key. It then converts the hash into a <b>null</b>-terminated string of 8-bit hexadecimal digits (using lowercase letters) which it places in the buffer pointed to by the <i>pbHexHash</i> parameter. 
+     * 
+     * The output buffer pointed to by  <i>pbHexHash</i> must therefore be long enough to accept two bytes for each of the 16 bytes of the hash, plus a terminating <b>null</b> character, for a total of 33 bytes.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {PWSTR} pszChallengeInfo Pointer to the wide-character challenge string to use for the MD5 hash.
      * @param {PWSTR} pwszRealm Pointer to a string that names a realm for which to obtain the password. This parameter is ignored unless <i>pwszTarget</i> is <b>NULL</b>. If both <i>pwszTarget</i> and <i>pwszRealm</i> are <b>NULL</b>, the default realm is used.
      * @param {PWSTR} pwszTarget Pointer to a string that names an account for which to obtain the password. If <i>pwszTarget</i> is <b>NULL</b>, the realm indicated by <i>pwszRealm</i> is used.
      * @param {Pointer<Integer>} pbHexHash Pointer to an output buffer into which the MD5 hash is returned in hex string format. This buffer must be at least 33 bytes long.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-createmd5ssohash
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-createmd5ssohash
      * @since windows5.0
      */
     static CreateMD5SSOHash(pszChallengeInfo, pwszRealm, pwszTarget, pbHexHash) {
@@ -11440,7 +14009,16 @@ class WinInet {
     }
 
     /**
-     * Note  Using this API is not recommended, use the INetworkListManager::GetConnectivity method instead. Retrieves the connected state of the specified Internet connection.
+     * The InternetGetConnectedStateEx function (wininet.h) retrieves the connected state of the specified Internet connection and is not recommended for use.
+     * @remarks
+     * A return value of <b>TRUE</b> from <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetconnectedstate">InternetGetConnectedState</a> indicates that at least one connection to the Internet is available.  It does not guarantee that a connection to a specific host can be established.    Applications should always check for errors returned from API calls that connect to a server. <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetcheckconnectiona">InternetCheckConnection</a> can be called to determine if a connection to a specific destination can be established.
+     * 
+     * A return value of <b>TRUE</b> indicates that either the modem connection is active, or a LAN connection is active and a proxy is properly configured for the LAN. A return value of <b>FALSE</b> indicates that neither the modem nor the LAN is connected. If <b>FALSE</b> is returned, the <b>INTERNET_CONNECTION_CONFIGURED</b> flag may be set to indicate that autodial is configured to "always dial" but is not currently active. If autodial is not configured, the function returns <b>FALSE</b>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {Pointer<Integer>} lpdwFlags 
      * @param {PSTR} lpszConnectionName Pointer to a string value that receives the connection name.
      * @param {Integer} dwNameLen Size of the 
@@ -11448,8 +14026,8 @@ class WinInet {
      * @param {Integer} dwReserved This parameter is reserved and must be <b>NULL</b>.
      * @returns {BOOL} Returns <b>TRUE</b> if there is an Internet connection, or <b>FALSE</b> if there is no Internet connection, or if all possible Internet connections are not currently active. For more information, see the Remarks section.
      * 
-     * When <a href="/windows/desktop/api/wininet/nf-wininet-internetgetconnectedstate">InternetGetConnectedState</a> returns <b>FALSE</b>, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgetconnectedstateex
+     * When <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetconnectedstate">InternetGetConnectedState</a> returns <b>FALSE</b>, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetconnectedstateex
      * @since windows5.0
      */
     static InternetGetConnectedStateEx(lpdwFlags, lpszConnectionName, dwNameLen, dwReserved) {
@@ -11468,11 +14046,19 @@ class WinInet {
     }
 
     /**
-     * Not supported.This function is obsolete. Do not use.
+     * The InternetSetDialStateA (ANSI) function (wininet.h) is not supported, is obsolete, and should not be used.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetSetDialState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszConnectoid Unused.
      * @param {Integer} dwState Unused.
      * @returns {BOOL} This function does not return a value.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetdialstatea
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetdialstatea
      */
     static InternetSetDialStateA(lpszConnectoid, dwState) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
@@ -11484,11 +14070,19 @@ class WinInet {
     }
 
     /**
-     * Not supported.This function is obsolete. Do not use.
+     * The InternetSetDialStateW (Unicode) function (wininet.h) is not supported, is obsolete, and should not be used.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetSetDialState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszConnectoid Unused.
      * @param {Integer} dwState Unused.
      * @returns {BOOL} This function does not return a value.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetdialstatew
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetdialstatew
      */
     static InternetSetDialStateW(lpszConnectoid, dwState) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
@@ -11500,12 +14094,15 @@ class WinInet {
     }
 
     /**
-     * Not supported.This function is obsolete. Do not use.
+     * The InternetSetDialState function (wininet.h) is not supported, is obsolete, and should not be used.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {PSTR} lpszConnectoid Unused.
      * @param {Integer} dwState Unused.
      * @param {Integer} dwReserved Unused.
      * @returns {BOOL} This function does not return a value.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetdialstate
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetdialstate
      */
     static InternetSetDialState(lpszConnectoid, dwState, dwReserved) {
         lpszConnectoid := lpszConnectoid is String ? StrPtr(lpszConnectoid) : lpszConnectoid
@@ -11515,11 +14112,24 @@ class WinInet {
     }
 
     /**
-     * Sets a decision on cookies for a given domain.
+     * Sets a decision on cookies for a given domain. (ANSI)
+     * @remarks
+     * WinINet minimizes the domain specified in the <i>pchHostName</i> parameter and sets the cookie policy on the minimum legal domain. For example, if the specified host name is  widgets.microsoft.com, the policy is set on the minimized host name microsoft.com.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetSetPerSiteCookieDecision as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
      * @param {Integer} dwDecision A value of type <b>DWORD</b> that contains one of the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration values.
      * @returns {BOOL} Returns <b>TRUE</b> if the decision is set and <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetpersitecookiedecisiona
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetpersitecookiedecisiona
      * @since windows5.0
      */
     static InternetSetPerSiteCookieDecisionA(pchHostName, dwDecision) {
@@ -11530,11 +14140,24 @@ class WinInet {
     }
 
     /**
-     * Sets a decision on cookies for a given domain.
+     * Sets a decision on cookies for a given domain. (Unicode)
+     * @remarks
+     * WinINet minimizes the domain specified in the <i>pchHostName</i> parameter and sets the cookie policy on the minimum legal domain. For example, if the specified host name is  widgets.microsoft.com, the policy is set on the minimized host name microsoft.com.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetSetPerSiteCookieDecision as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
      * @param {Integer} dwDecision A value of type <b>DWORD</b> that contains one of the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration values.
      * @returns {BOOL} Returns <b>TRUE</b> if the decision is set and <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetpersitecookiedecisionw
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetpersitecookiedecisionw
      * @since windows5.0
      */
     static InternetSetPerSiteCookieDecisionW(pchHostName, dwDecision) {
@@ -11545,11 +14168,28 @@ class WinInet {
     }
 
     /**
-     * Retrieves a decision on cookies for a given domain.
+     * Retrieves a decision on cookies for a given domain. (ANSI)
+     * @remarks
+     * A return value of <b>FALSE</b> may indicate that the domain <i>pchHostName</i> does not have any site-specific cookie regulations.
+     * 
+     * 
+     * 
+     * WinINet minimizes the domain specified in the <i>pchHostName</i> parameter and sets the cookie policy on the minimum legal domain. For example, if the specified host name is  widgets.microsoft.com, the policy is set on the minimized host name microsoft.com.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetGetPerSiteCookieDecision as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
      * @param {Pointer<Integer>} pResult A pointer to an <b>unsigned long</b> that contains one of the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration values.
      * @returns {BOOL} Returns <b>TRUE</b> if the decision was retrieved and <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgetpersitecookiedecisiona
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetpersitecookiedecisiona
      * @since windows5.0
      */
     static InternetGetPerSiteCookieDecisionA(pchHostName, pResult) {
@@ -11562,11 +14202,28 @@ class WinInet {
     }
 
     /**
-     * Retrieves a decision on cookies for a given domain.
+     * Retrieves a decision on cookies for a given domain. (Unicode)
+     * @remarks
+     * A return value of <b>FALSE</b> may indicate that the domain <i>pchHostName</i> does not have any site-specific cookie regulations.
+     * 
+     * 
+     * 
+     * WinINet minimizes the domain specified in the <i>pchHostName</i> parameter and sets the cookie policy on the minimum legal domain. For example, if the specified host name is  widgets.microsoft.com, the policy is set on the minimized host name microsoft.com.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetGetPerSiteCookieDecision as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
      * @param {Pointer<Integer>} pResult A pointer to an <b>unsigned long</b> that contains one of the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration values.
      * @returns {BOOL} Returns <b>TRUE</b> if the decision was retrieved and <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgetpersitecookiedecisionw
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetpersitecookiedecisionw
      * @since windows5.0
      */
     static InternetGetPerSiteCookieDecisionW(pchHostName, pResult) {
@@ -11580,8 +14237,11 @@ class WinInet {
 
     /**
      * Clears all decisions that were made about cookies on a site by site basis.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @returns {BOOL} Returns <b>TRUE</b> if all decisions were cleared and <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetclearallpersitecookiedecisions
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetclearallpersitecookiedecisions
      * @since windows5.0
      */
     static InternetClearAllPerSiteCookieDecisions() {
@@ -11590,13 +14250,26 @@ class WinInet {
     }
 
     /**
-     * Retrieves the domains and cookie settings of websites for which site-specific cookie regulations are set.
+     * The InternetEnumPerSiteCookieDecisionA (ANSI) function (wininet.h) retrieves the domains and cookie settings of websites with set site-specific cookie regulations.
+     * @remarks
+     * <b>InternetEnumPerSiteCookieDecision</b> should be initially called with <i>dwIndex</i> equal to 0. Incrementing the <i>dwIndex</i> parameter steps through the list of websites and cookie settings. The end of the list is reached when <b>InternetEnumPerSiteCookieDecision</b> returns <b>FALSE</b> and produces the wininet error, <b>ERROR_NO_MORE_ITEMS</b>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetEnumPerSiteCookieDecision as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pszSiteName An <b>LPSTR</b> that receives a string specifying a website domain.
      * @param {Pointer<Integer>} pcSiteNameSize A pointer to an unsigned long that specifies the size of the <i>pcSiteNameSize</i> parameter provided to the InternetEnumPerSiteCookieDecision function when it is called. When <b>InternetEnumPerSiteCookieDecision</b> returns, <i>pcSiteNameSize</i> receives the actual length of the domain string returned in <i>pszSiteName</i>.
      * @param {Pointer<Integer>} pdwDecision Pointer to an unsigned long that receives the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration value corresponding to <i>pszSiteName</i>.
      * @param {Integer} dwIndex An unsigned long that specifies the index of the website and corresponding cookie setting to retrieve.
      * @returns {BOOL} <b>TRUE</b> if the function retrieved the cookie setting for the given domain; otherwise, false. <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetenumpersitecookiedecisiona
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetenumpersitecookiedecisiona
      * @since windows5.0
      */
     static InternetEnumPerSiteCookieDecisionA(pszSiteName, pcSiteNameSize, pdwDecision, dwIndex) {
@@ -11610,13 +14283,26 @@ class WinInet {
     }
 
     /**
-     * Retrieves the domains and cookie settings of websites for which site-specific cookie regulations are set.
+     * The InternetEnumPerSiteCookieDecisionW (Unicode) function (wininet.h) retrieves the domains and cookie settings of websites with set site-specific cookie regulations.
+     * @remarks
+     * <b>InternetEnumPerSiteCookieDecision</b> should be initially called with <i>dwIndex</i> equal to 0. Incrementing the <i>dwIndex</i> parameter steps through the list of websites and cookie settings. The end of the list is reached when <b>InternetEnumPerSiteCookieDecision</b> returns <b>FALSE</b> and produces the wininet error, <b>ERROR_NO_MORE_ITEMS</b>.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wininet.h header defines InternetEnumPerSiteCookieDecision as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pszSiteName An <b>LPSTR</b> that receives a string specifying a website domain.
      * @param {Pointer<Integer>} pcSiteNameSize A pointer to an unsigned long that specifies the size of the <i>pcSiteNameSize</i> parameter provided to the InternetEnumPerSiteCookieDecision function when it is called. When <b>InternetEnumPerSiteCookieDecision</b> returns, <i>pcSiteNameSize</i> receives the actual length of the domain string returned in <i>pszSiteName</i>.
      * @param {Pointer<Integer>} pdwDecision Pointer to an unsigned long that receives the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration value corresponding to <i>pszSiteName</i>.
      * @param {Integer} dwIndex An unsigned long that specifies the index of the website and corresponding cookie setting to retrieve.
      * @returns {BOOL} <b>TRUE</b> if the function retrieved the cookie setting for the given domain; otherwise, false. <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetenumpersitecookiedecisionw
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetenumpersitecookiedecisionw
      * @since windows5.0
      */
     static InternetEnumPerSiteCookieDecisionW(pszSiteName, pcSiteNameSize, pdwDecision, dwIndex) {
@@ -11630,13 +14316,85 @@ class WinInet {
     }
 
     /**
-     * Sets the privacy settings for a given URLZONE and PrivacyType.
-     * @param {Integer} dwZone Value of type <b>DWORD</b> that specifies the <a href="https://docs.microsoft.com/dotnet/api/microsoft.visualstudio.ole.interop.urlzone?view=visualstudiosdk-2017">URLZONE</a>for which privacy settings are being set.
+     * The PrivacySetZonePreferenceW (Unicode) function (wininet.h) sets the privacy settings for a given URLZONE and PrivacyType.
+     * @remarks
+     * These privacy settings for the Internet zone are found on the <b>Privacy</b> tab of the <b>Internet Options</b> dialog box.
+     * 
+     * Setting the privacy options for the <a href="https://docs.microsoft.com/dotnet/api/microsoft.visualstudio.ole.interop.urlzone">URLZONE_INTERNET</a> involves setting the <a href="https://docs.microsoft.com/windows/desktop/WinInet/privacy-templates">privacy templates</a> for both <a href="https://docs.microsoft.com/windows/desktop/WinInet/privacy-type">PrivacyTypes</a>. The slider on the <b>Privacy</b> Menu in <b>Internet Options</b> only moves if privacy is set for both <b>PrivacyTypes</b>.
+     * 
+     * Custom privacy preferences for a given <a href="https://docs.microsoft.com/dotnet/api/microsoft.visualstudio.ole.interop.urlzone">URLZONE</a> and <a href="https://docs.microsoft.com/windows/desktop/WinInet/privacy-type">PrivacyType</a> can be set through the <i>pszPreference</i> parameter. The <i>pszPreference</i> parameter can contain a series of rules separated by white space describing the privacy preferences. It is important to note that the rules themselves cannot contain white space. The <i>pszPreference</i> has the following structure where there can be multiple logical rules: &lt;<i>signature</i>&gt; &lt;<i>logical-rule</i>&gt; &lt;<i>special-rule</i>&gt;.
+     * 
+     * Currently, the signature must be set to IE6-P3PSettings/V1:.
+     * 
+     * Logical rules have the following format: /&lt;<i>expression</i>&gt;=&lt;<i>decision</i>&gt;/.
+     * 
+     * An expression is a Boolean statement composed of compact policy tokens using the operators &amp; (logical AND) and ! (logical NOT). The compact policy token is case-sensitive. (For more information on Platform for Privacy Preferences (P3P) privacy policies and compact policy tokens, see the <a href="https://www.w3.org/P3P/">W3C: Platform for Privacy Preferences (P3P) Project</a>  specification.) The decision is a single lowercase character that defines the action to take on the cookie whose compact policy contains the specified token(s). The following table lists valid decision characters.
+     * 
+     * <table>
+     * <tr>
+     * <th>Character</th>
+     * <th>Definition</th>
+     * </tr>
+     * <tr>
+     * <td>a</td>
+     * <td>Accept the cookie.</td>
+     * </tr>
+     * <tr>
+     * <td>p</td>
+     * <td>Prompt user to accept or deny the cookie.</td>
+     * </tr>
+     * <tr>
+     * <td>r</td>
+     * <td>Reject the cookie.</td>
+     * </tr>
+     * <tr>
+     * <td>l</td>
+     * <td>Leash the cookie (only send it in a first-party context).</td>
+     * </tr>
+     * <tr>
+     * <td>d</td>
+     * <td>Downgrade the cookie, if it is a persistent cookie, to a session cookie.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Logical rules are evaluated in the order they are listed. The first logical-rule to be matched, if any, determines the cookie action.
+     * 
+     * An empty expression is also allowed. If an expression is empty, the left side evaluates to true. This form of a logical-rule can be used at the end of a set of rules to catch all situations that did not fall into the other categories.
+     * 
+     * The following examples show valid logical rules. 
+     * 
+     * 
+     * ``` syntax
+     * /DEM=d/
+     *     Deny a cookie whose compact policy contains the DEM token
+     * /CON&amp;!TEL=a/	
+     *     Accept a cookie whose compact policy contains the CON token 
+     *     and does not contain the TEL token
+     * /=a/		
+     *     Accept all cookies
+     * ```
+     * 
+     * Special rules are specified using the nopolicy, session, and always symbols. The nopolicy symbol is used to specify the action to taken when there is no compact policy. For example nopolicy=d specifies to downgrade all cookies without a compact policy to session cookies. The session symbol is used to specify the action to take on session cookies and can only be set to a. When session=a is specified, all session cookies are accepted regardless of the content of the compact policy. If this rule is not specified, session cookies are subject to the same rules as persistent cookies. Finally, the always symbol is used to specify to perform the same action for everything. For example, always=d specifies to deny all cookies regardless of the existence of a compact policy. Note that always=d is equivalent to /=d/.
+     * 
+     * The following example shows a privacy preferences string that specifies to accept cookies for which the compact policy contains a FIN/CONi token pair, reject cookies with compact policies containing FIN/CON, FIN/CONo, FIN/CONa and GOV/PUB token pairs or a TEL token, and to prompt the user when a cookie's compact policy contains the UNR token. It also specifies to downgrade cookies without a compact policy to session cookies and to accept all cookies that do not match one of the given rules. Note that the first rule that evaluates to true determines the cookie action. 
+     * 
+     * 
+     * ``` syntax
+     * IE6-P3PSettings/V1: /FIN&amp;CONi=a/ /FIN&amp;CONo=r/ /FIN&amp;CONa=r/ /FIN&amp;CON=r/ 
+     * /GOV&amp;PUB=r/ /TEL=r/ /UNR=p/ nopolicy=d /=a/
+     * ```
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * @param {Integer} dwZone Value of type <b>DWORD</b> that specifies the <a href="https://docs.microsoft.com/dotnet/api/microsoft.visualstudio.ole.interop.urlzone">URLZONE</a> for which privacy settings are being set.
      * @param {Integer} dwType Value of type <b>DWORD</b> that specifies the <a href="https://docs.microsoft.com/windows/desktop/WinInet/privacy-type">PrivacyType</a> for which privacy settings are being set.
      * @param {Integer} dwTemplate Value of type <b>DWORD</b> that specifies which of the <a href="https://docs.microsoft.com/windows/desktop/WinInet/privacy-templates">privacy templates</a> is to be used to set the privacy settings.
      * @param {PWSTR} pszPreference If <i>dwTemplate</i> is set to <b>PRIVACY_TEMPLATE_CUSTOM</b>, this parameter is the string representation of the custom preferences. Otherwise, it should be set to <b>NULL</b>. A description of this string representation is included in the Remarks section.
      * @returns {Integer} Returns zero if successful. Otherwise, one of the errors defined in winerr.h is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-privacysetzonepreferencew
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-privacysetzonepreferencew
      * @since windows5.0
      */
     static PrivacySetZonePreferenceW(dwZone, dwType, dwTemplate, pszPreference) {
@@ -11647,14 +14405,21 @@ class WinInet {
     }
 
     /**
-     * Retrieves the privacy settings for a given URLZONE and PrivacyType.
-     * @param {Integer} dwZone A value of type <i>DWORD</i> that specifies the <a href="https://docs.microsoft.com/dotnet/api/microsoft.visualstudio.ole.interop.urlzone?view=visualstudiosdk-2017">URLZONE</a> for which privacy settings are being retrieved.
+     * The PrivacyGetZonePreferenceW (Unicode) function (wininet.h) retrieves the privacy settings for a given URLZONE and PrivacyType.
+     * @remarks
+     * These privacy settings for the Internet zone are found on the Privacy tab of the Internet Options dialog box.
+     * 
+     * Like all other aspects of the WinINet API, this function cannot be safely called from within DllMain or the constructors and destructors of global objects.
+     * 
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * @param {Integer} dwZone A value of type <i>DWORD</i> that specifies the <a href="https://docs.microsoft.com/dotnet/api/microsoft.visualstudio.ole.interop.urlzone">URLZONE</a> for which privacy settings are being retrieved.
      * @param {Integer} dwType A value of type <i>DWORD</i> that specifies the <a href="https://docs.microsoft.com/windows/desktop/WinInet/privacy-type">PrivacyType</a> for which privacy settings are being retrieved.
      * @param {Pointer<Integer>} pdwTemplate An <b>LPDWORD</b> that returns a pointer to a <b>DWORD</b> containing which of the <a href="https://docs.microsoft.com/windows/desktop/WinInet/privacy-templates">PrivacyTemplates</a> is in use for this <i>dwZone</i> and <i>dwType</i>.
      * @param {PWSTR} pszBuffer An  <b>LPWSTR</b> that points to a buffer containing a <b>LPCWSTR</b> representing a string version of the <i>pdwTemplate</i> or a customized string if the <i>pdwTemplate</i> is set to <b>PRIVACY_TEMPLATE_CUSTOM</b>. See <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-privacysetzonepreferencew">PrivacySetZonePreferenceW</a> for a description of a customized privacy preferences string.
      * @param {Pointer<Integer>} pdwBufferLength An <b>LPDWORD</b> that contains the buffer length in characters. If the buffer length is not sufficient, <b>PrivacyGetZonePreferenceW</b> returns with this parameter set to the number of characters required and with a return value of <b>ERROR_MORE_DATA</b>.
      * @returns {Integer} Returns zero if successful. Otherwise, one of the Error Messages defined in winerr.h is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-privacygetzonepreferencew
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-privacygetzonepreferencew
      * @since windows5.0
      */
     static PrivacyGetZonePreferenceW(dwZone, dwType, pdwTemplate, pszBuffer, pdwBufferLength) {
@@ -12161,7 +14926,10 @@ class WinInet {
     }
 
     /**
-     * Creates a cache container in the specified cache path to hold cache entries based on the specified name, cache prefix, and container type.
+     * Creates a cache container in the specified cache path to hold cache entries based on the specified name, cache prefix, and container type. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The winineti.h header defines CreateUrlCacheContainer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} Name The name to give to the cache.
      * @param {PSTR} lpCachePrefix The cache prefix to base the cache on.
      * @param {PSTR} lpszCachePath The cache prefix to create the cache in.
@@ -12169,8 +14937,8 @@ class WinInet {
      * @param {Integer} dwContainerType The container type to base the cache on.
      * @param {Integer} dwOptions This parameter is reserved and must be 0.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winineti/nf-winineti-createurlcachecontainera
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winineti/nf-winineti-createurlcachecontainera
      * @since windows5.0
      */
     static CreateUrlCacheContainerA(Name, lpCachePrefix, lpszCachePath, KBCacheLimit, dwContainerType, dwOptions) {
@@ -12191,7 +14959,10 @@ class WinInet {
     }
 
     /**
-     * Creates a cache container in the specified cache path to hold cache entries based on the specified name, cache prefix, and container type.
+     * Creates a cache container in the specified cache path to hold cache entries based on the specified name, cache prefix, and container type. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The winineti.h header defines CreateUrlCacheContainer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} Name The name to give to the cache.
      * @param {PWSTR} lpCachePrefix The cache prefix to base the cache on.
      * @param {PWSTR} lpszCachePath The cache prefix to create the cache in.
@@ -12199,8 +14970,8 @@ class WinInet {
      * @param {Integer} dwContainerType The container type to base the cache on.
      * @param {Integer} dwOptions This parameter is reserved and must be 0.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winineti/nf-winineti-createurlcachecontainerw
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winineti/nf-winineti-createurlcachecontainerw
      * @since windows5.0
      */
     static CreateUrlCacheContainerW(Name, lpCachePrefix, lpszCachePath, KBCacheLimit, dwContainerType, dwOptions) {
@@ -12221,11 +14992,20 @@ class WinInet {
     }
 
     /**
-     * Deletes a cache container (which contains cache entries) based on the specified name.
+     * Deletes a cache container (which contains cache entries) based on the specified name. (ANSI)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service nor when impersonating a security context. For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winineti.h header defines DeleteUrlCacheContainer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} Name The name of the cache container to be deleted.
      * @param {Integer} dwOptions This parameter is reserved, and must be 0.
-     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winineti/nf-winineti-deleteurlcachecontainera
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winineti/nf-winineti-deleteurlcachecontainera
      * @since windows5.0
      */
     static DeleteUrlCacheContainerA(Name, dwOptions) {
@@ -12242,11 +15022,20 @@ class WinInet {
     }
 
     /**
-     * Deletes a cache container (which contains cache entries) based on the specified name.
+     * Deletes a cache container (which contains cache entries) based on the specified name. (Unicode)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service nor when impersonating a security context. For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winineti.h header defines DeleteUrlCacheContainer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} Name The name of the cache container to be deleted.
      * @param {Integer} dwOptions This parameter is reserved, and must be 0.
-     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winineti/nf-winineti-deleteurlcachecontainerw
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winineti/nf-winineti-deleteurlcachecontainerw
      * @since windows5.0
      */
     static DeleteUrlCacheContainerW(Name, dwOptions) {
@@ -12329,12 +15118,21 @@ class WinInet {
     }
 
     /**
-     * Frees space in the cache.
+     * Frees space in the cache. (ANSI)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service nor when impersonating a security context. For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winineti.h header defines FreeUrlCacheSpace as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszCachePath The path for the cache.
      * @param {Integer} dwSize The percentage of the cache to free (in the range 1 to 100, inclusive).
      * @param {Integer} dwFilter This parameter is reserved, and must be 0.
-     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winineti/nf-winineti-freeurlcachespacea
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winineti/nf-winineti-freeurlcachespacea
      * @since windows5.0
      */
     static FreeUrlCacheSpaceA(lpszCachePath, dwSize, dwFilter) {
@@ -12351,12 +15149,21 @@ class WinInet {
     }
 
     /**
-     * Frees space in the cache.
+     * Frees space in the cache. (Unicode)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service nor when impersonating a security context. For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winineti.h header defines FreeUrlCacheSpace as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszCachePath The path for the cache.
      * @param {Integer} dwSize The percentage of the cache to free (in the range 1 to 100, inclusive).
      * @param {Integer} dwFilter This parameter is reserved, and must be 0.
-     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winineti/nf-winineti-freeurlcachespacew
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winineti/nf-winineti-freeurlcachespacew
      * @since windows5.0
      */
     static FreeUrlCacheSpaceW(lpszCachePath, dwSize, dwFilter) {
@@ -12399,7 +15206,16 @@ class WinInet {
     }
 
     /**
-     * Retrieves information about cache configuration.
+     * Retrieves information about cache configuration. (ANSI)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winineti.h header defines GetUrlCacheConfigInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<INTERNET_CACHE_CONFIG_INFOA>} lpCacheConfigInfo A pointer to an 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winineti/ns-winineti-internet_cache_config_infoa">INTERNET_CACHE_CONFIG_INFO</a> structure 
      *        that receives information about the cache configuration. The <b>dwStructSize</b> field of 
@@ -12407,8 +15223,8 @@ class WinInet {
      *        <b>INTERNET_CACHE_CONFIG_INFO</b>.
      * @param {Integer} dwFieldControl 
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get 
-     *        extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winineti/nf-winineti-geturlcacheconfiginfoa
+     *        extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winineti/nf-winineti-geturlcacheconfiginfoa
      * @since windows5.1.2600
      */
     static GetUrlCacheConfigInfoA(lpCacheConfigInfo, dwFieldControl) {
@@ -12425,7 +15241,16 @@ class WinInet {
     }
 
     /**
-     * Retrieves information about cache configuration.
+     * Retrieves information about cache configuration. (Unicode)
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winineti.h header defines GetUrlCacheConfigInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<INTERNET_CACHE_CONFIG_INFOW>} lpCacheConfigInfo A pointer to an 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winineti/ns-winineti-internet_cache_config_infoa">INTERNET_CACHE_CONFIG_INFO</a> structure 
      *        that receives information about the cache configuration. The <b>dwStructSize</b> field of 
@@ -12433,8 +15258,8 @@ class WinInet {
      *        <b>INTERNET_CACHE_CONFIG_INFO</b>.
      * @param {Integer} dwFieldControl 
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get 
-     *        extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winineti/nf-winineti-geturlcacheconfiginfow
+     *        extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winineti/nf-winineti-geturlcacheconfiginfow
      * @since windows5.1.2600
      */
     static GetUrlCacheConfigInfoW(lpCacheConfigInfo, dwFieldControl) {

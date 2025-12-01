@@ -5,7 +5,6 @@
 /**
  * The LINEDEVCAPS structure describes the capabilities of a line device. The lineGetDevCaps function and the TSPI_lineGetDevCaps function return the LINEDEVCAPS structure.
  * @remarks
- * 
  * Device-specific extensions should use the DevSpecific (<b>dwDevSpecificSize</b> and <b>dwDevSpecificOffset</b>) variably sized area of this data structure.
  * 
  * Older applications are compiled without new members in the 
@@ -26,9 +25,7 @@
  * It should also be noted that if the modem has not been specifically identified (for example, it is a "generic" modem), the figure indicated is a "best guess" based on examination of the modem.
  * 
  * The members <b>dwSettableDevStatus</b> through <b>dwDeviceClassesOffset</b> are available only to applications that open the line device with a TAPI version of 2.0 or later.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-linedevcaps
+ * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linedevcaps
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Defines the security attributes for a wireless connection.
- * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-wlan_security_attributes
+ * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_security_attributes
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

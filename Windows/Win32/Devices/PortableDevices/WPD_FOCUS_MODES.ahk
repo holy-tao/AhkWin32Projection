@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * The WPD\_FOCUS\_MODES enumeration type describes the focus mode used by a still image capture device.
+ * @remarks
+ * This enumeration is used by the [WPD\_STILL\_IMAGE\_FOCUS\_MODE](still-image-properties.md) property.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-focus-modes
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319

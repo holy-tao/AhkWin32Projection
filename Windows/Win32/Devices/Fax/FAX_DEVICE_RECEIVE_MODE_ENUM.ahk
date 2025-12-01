@@ -3,7 +3,7 @@
 
 /**
  * The FAX_DEVICE_RECEIVE_MODE_ENUM enumeration defines the way a device answers an incoming call.
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/ne-faxcomex-fax_device_receive_mode_enum
+ * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_device_receive_mode_enum
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */

@@ -4,11 +4,8 @@
 /**
  * The WMPBurnFormat enumeration type defines the possible types of CDs for burning.
  * @remarks
- * 
  * Windows Media Player 10 Mobile: This enumeration is not supported.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmp/ne-wmp-wmpburnformat
+ * @see https://learn.microsoft.com/windows/win32/api/wmp/ne-wmp-wmpburnformat
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */

@@ -2,16 +2,14 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents a source file line.
+ * Represents a source file line. (IMAGEHLP_LINEW64)
  * @remarks
- * 
  * This structure supersedes the <b>IMAGEHLP_LINE</b> structure. For more information, see 
  * <a href="https://docs.microsoft.com/windows/desktop/Debug/updated-platform-support">Updated Platform Support</a>. <b>IMAGEHLP_LINE</b> is defined as follows in DbgHelp.h. 
  * 
  * 
  * ```cpp
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dbghelp/ns-dbghelp-imagehlp_linew64
+ * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-imagehlp_linew64
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

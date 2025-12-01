@@ -3,7 +3,7 @@
 
 /**
  * Defines the source of the event data.
- * @see https://docs.microsoft.com/windows/win32/api//tdh/ne-tdh-decoding_source
+ * @see https://learn.microsoft.com/windows/win32/api/tdh/ne-tdh-decoding_source
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

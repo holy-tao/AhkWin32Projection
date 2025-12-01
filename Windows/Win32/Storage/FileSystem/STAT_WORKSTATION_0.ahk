@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The STAT_WORKSTATION_0 structure (lmstats.h) contains statistical information about the specified workstation.
  * @see https://learn.microsoft.com/windows/win32/api/lmstats/ns-lmstats-stat_workstation_0~r1
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
@@ -14,6 +14,9 @@ class STAT_WORKSTATION_0 extends Win32Struct
     static packingSize => 8
 
     /**
+     * Specifies the time statistics collection started.
+     * 
+     * This member also indicates when statistics for the workstations were last cleared. The value is stored as the number of seconds elapsed since 00:00:00, January 1, 1970.
      * @type {Integer}
      */
     StatisticsStartTime {
@@ -22,6 +25,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of bytes received by the workstation.
      * @type {Integer}
      */
     BytesReceived {
@@ -30,6 +34,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of server message blocks (SMBs) received by the workstation.
      * @type {Integer}
      */
     SmbsReceived {
@@ -38,6 +43,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of bytes that have been read by paging I/O requests.
      * @type {Integer}
      */
     PagingReadBytesRequested {
@@ -46,6 +52,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of bytes that have been read by non-paging I/O requests.
      * @type {Integer}
      */
     NonPagingReadBytesRequested {
@@ -54,6 +61,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of bytes that have been read by cache I/O requests.
      * @type {Integer}
      */
     CacheReadBytesRequested {
@@ -62,6 +70,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total amount of bytes that have been read by disk I/O requests.
      * @type {Integer}
      */
     NetworkReadBytesRequested {
@@ -70,6 +79,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of bytes transmitted by the workstation.
      * @type {Integer}
      */
     BytesTransmitted {
@@ -78,6 +88,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of SMBs transmitted by the workstation.
      * @type {Integer}
      */
     SmbsTransmitted {
@@ -86,6 +97,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of bytes that have been written by paging I/O requests.
      * @type {Integer}
      */
     PagingWriteBytesRequested {
@@ -94,6 +106,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of bytes that have been written by non-paging I/O requests.
      * @type {Integer}
      */
     NonPagingWriteBytesRequested {
@@ -102,6 +115,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of bytes that have been written by cache I/O requests.
      * @type {Integer}
      */
     CacheWriteBytesRequested {
@@ -110,6 +124,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of bytes that have been written by disk I/O requests.
      * @type {Integer}
      */
     NetworkWriteBytesRequested {
@@ -118,6 +133,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of network operations that failed to begin.
      * @type {Integer}
      */
     InitiallyFailedOperations {
@@ -126,6 +142,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of network operations that failed to complete.
      * @type {Integer}
      */
     FailedCompletionOperations {
@@ -134,6 +151,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of read operations initiated by the workstation.
      * @type {Integer}
      */
     ReadOperations {
@@ -142,6 +160,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of random access reads initiated by the workstation.
      * @type {Integer}
      */
     RandomReadOperations {
@@ -150,6 +169,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of read requests the workstation has sent to servers.
      * @type {Integer}
      */
     ReadSmbs {
@@ -158,6 +178,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of read requests the workstation has sent to servers that are greater than twice the size of the server's negotiated buffer size.
      * @type {Integer}
      */
     LargeReadSmbs {
@@ -166,6 +187,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of read requests the workstation has sent to servers that are less than 1/4 of the size of the server's negotiated buffer size.
      * @type {Integer}
      */
     SmallReadSmbs {
@@ -174,6 +196,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of write operations initiated by the workstation.
      * @type {Integer}
      */
     WriteOperations {
@@ -182,6 +205,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of random access writes initiated by the workstation.
      * @type {Integer}
      */
     RandomWriteOperations {
@@ -190,6 +214,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of write requests the workstation has sent to servers.
      * @type {Integer}
      */
     WriteSmbs {
@@ -198,6 +223,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of write requests the workstation has sent to servers that are greater than twice the size of the server's negotiated buffer size.
      * @type {Integer}
      */
     LargeWriteSmbs {
@@ -206,6 +232,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of write requests the workstation has sent to servers that are less than 1/4 of the size of the server's negotiated buffer size.
      * @type {Integer}
      */
     SmallWriteSmbs {
@@ -214,6 +241,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of raw read requests made by the workstation that have been denied.
      * @type {Integer}
      */
     RawReadsDenied {
@@ -222,6 +250,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of raw write requests made by the workstation that have been denied.
      * @type {Integer}
      */
     RawWritesDenied {
@@ -230,6 +259,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of network errors received by the workstation.
      * @type {Integer}
      */
     NetworkErrors {
@@ -238,6 +268,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of sessions established by the workstation.
      * @type {Integer}
      */
     Sessions {
@@ -246,6 +277,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the number of times the workstation attempted to create a session but failed.
      * @type {Integer}
      */
     FailedSessions {
@@ -254,6 +286,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of connections that have failed.
      * @type {Integer}
      */
     Reconnects {
@@ -262,6 +295,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of connections to servers supporting the PCNET dialect that have succeeded.
      * @type {Integer}
      */
     CoreConnects {
@@ -270,6 +304,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of connections to servers supporting the LanManager 2.0 dialect that have succeeded.
      * @type {Integer}
      */
     Lanman20Connects {
@@ -278,6 +313,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of connections to servers supporting the LanManager 2.1 dialect that have succeeded.
      * @type {Integer}
      */
     Lanman21Connects {
@@ -286,6 +322,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of connections to servers supporting the NTLM dialect that have succeeded.
      * @type {Integer}
      */
     LanmanNtConnects {
@@ -294,6 +331,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the number of times the workstation was disconnected by a network server.
      * @type {Integer}
      */
     ServerDisconnects {
@@ -302,6 +340,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of sessions that have expired on the workstation.
      * @type {Integer}
      */
     HungSessions {
@@ -310,6 +349,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of network connections established by the workstation.
      * @type {Integer}
      */
     UseCount {
@@ -318,6 +358,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the total number of failed network connections for the workstation.
      * @type {Integer}
      */
     FailedUseCount {
@@ -326,6 +367,7 @@ class STAT_WORKSTATION_0 extends Win32Struct
     }
 
     /**
+     * Specifies the number of current requests that have not been completed.
      * @type {Integer}
      */
     CurrentCommands {

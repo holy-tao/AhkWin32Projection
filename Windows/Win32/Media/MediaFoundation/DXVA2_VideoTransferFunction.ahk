@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Specifies the conversion function from linear RGB to non-linear RGB (R'G'B').
+ * Specifies the conversion function from linear RGB to non-linear RGB (R'G'B'). (DXVA2_VideoTransferFunction)
  * @remarks
- * 
  * The following table shows the formulas for the most common transfer functions. In these formulas, L is the linear value and L' is the non-linear (gamma corrected) value. These values are relative to a normalized range [0...1].
  * 
  * <table>
@@ -106,9 +105,7 @@
  * This enumeration is equivalent to the <b>DXVA_VideoTransferFunction</b> enumeration used in DXVA 1.0.
  * 
  * If you are using the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface to describe the video format, the transfer function is specified in the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-transfer-function-attribute">MF_MT_TRANSFER_FUNCTION</a> attribute.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxva2api/ne-dxva2api-dxva2_videotransferfunction
+ * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ne-dxva2api-dxva2_videotransferfunction
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

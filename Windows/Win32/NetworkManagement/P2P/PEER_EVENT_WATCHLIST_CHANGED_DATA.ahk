@@ -4,13 +4,10 @@
 /**
  * The PEER_EVENT_WATCHLIST_CHANGED_DATA structure contains information returned when a PEER_EVENT_WATCHLIST_CHANGED event is raised on a peer participating in a peer collaboration network.
  * @remarks
- * 
  * The PEER_EVENT_WATCHLIST_CHANGED event is raised when the watch list is changed. The watch list is composed of the contacts that have <b>fWatch</b> set to true. If a new contact is added with <b>fWatch</b> set to true, or if an existing contact's <b>fWatch</b> is changed to true, the <b>changeType</b> member is set to PEER_CHANGE_ADDED. If <b>fWatch</b> is changed to false or if a contact is deleted, <b>changeType</b> is set to PEER_CHANGE_DELETED. 
  * 
  * The p2phost.exe service must running to receive this event. P2phost.exe is launched when an application calls <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabregisterevent">PeerCollabRegisterEvent</a> on this event.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_event_watchlist_changed_data
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_event_watchlist_changed_data
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

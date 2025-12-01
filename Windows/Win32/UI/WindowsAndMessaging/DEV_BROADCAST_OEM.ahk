@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a OEM-defined device type.
- * @see https://docs.microsoft.com/windows/win32/api//dbt/ns-dbt-dev_broadcast_oem
+ * @see https://learn.microsoft.com/windows/win32/api/dbt/ns-dbt-dev_broadcast_oem
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

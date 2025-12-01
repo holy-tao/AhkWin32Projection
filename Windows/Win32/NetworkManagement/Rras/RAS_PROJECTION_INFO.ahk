@@ -7,7 +7,7 @@
 
 /**
  * Contains the Point-to-Point (PPP) or Internet Key Exchange version 2 (IKEv2) projection information for a RAS connection.
- * @see https://docs.microsoft.com/windows/win32/api//ras/ns-ras-ras_projection_info
+ * @see https://learn.microsoft.com/windows/win32/api/ras/ns-ras-ras_projection_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

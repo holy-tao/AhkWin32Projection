@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains parameters for the Directive Send command.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw10_directive_send
  * @namespace Windows.Win32.Storage.Nvme
@@ -14,6 +16,7 @@ class NVME_CDW10_DIRECTIVE_SEND extends Win32Struct
     static packingSize => 4
 
     /**
+     * Indicates the number of Dwords.
      * @type {Integer}
      */
     NUMD {

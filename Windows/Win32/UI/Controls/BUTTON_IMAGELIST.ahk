@@ -5,7 +5,7 @@
 
 /**
  * Contains information about an image list that is used with a button control.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-button_imagelist
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-button_imagelist
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

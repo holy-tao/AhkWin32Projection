@@ -3,7 +3,7 @@
 
 /**
  * Describes an entry from a list that enumerates the heaps used by a specified process.
- * @see https://docs.microsoft.com/windows/win32/api//tlhelp32/ns-tlhelp32-heaplist32
+ * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/ns-tlhelp32-heaplist32
  * @namespace Windows.Win32.System.Diagnostics.ToolHelp
  * @version v4.0.30319
  */

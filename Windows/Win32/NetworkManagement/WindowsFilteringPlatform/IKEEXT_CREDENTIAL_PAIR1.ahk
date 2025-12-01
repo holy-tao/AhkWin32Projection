@@ -3,8 +3,8 @@
 #Include .\IKEEXT_CREDENTIAL1.ahk
 
 /**
- * Is used to store credential information used for the authentication.
- * @see https://docs.microsoft.com/windows/win32/api//iketypes/ns-iketypes-ikeext_credential_pair1
+ * Is used to store credential information used for the authentication. (IKEEXT_CREDENTIAL_PAIR1)
+ * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_credential_pair1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

@@ -4,11 +4,8 @@
 /**
  * Contains a table of pointers to service provider functions.
  * @remarks
- * 
  * The **WSPPROC_TABLE** structure contains a table of pointers to service provider functions that are returned by the <a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wspstartup">WSPStartup<a> function.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ws2spi/ns-ws2spi-wspproc_table
+ * @see https://learn.microsoft.com/windows/win32/api/ws2spi/ns-ws2spi-wspproc_table
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

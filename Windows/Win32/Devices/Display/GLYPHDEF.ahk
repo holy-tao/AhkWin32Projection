@@ -3,7 +3,7 @@
 
 /**
  * The GLYPHDEF union identifies individual glyphs and provides either a pointer to a GLYPHBITS structure or a pointer to a PATHOBJ structure.
- * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-glyphdef
+ * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-glyphdef
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

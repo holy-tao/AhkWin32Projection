@@ -4,16 +4,13 @@
 /**
  * Returned from the FSCTL_LOOKUP_STREAM_FROM_CLUSTER control code.
  * @remarks
- * 
  * The name in the <b>FileName</b> member can be very long and in a format not recognized by 
  *     a customer with the stream name and attribute type name following the filename. While it's appropriate to log the 
  *     entire filename for diagnostic purposes, if it is to be presented to an end-user it should be reformatted to be 
  *     more understandable (for example, remove the attribute type name and if the <b>Flags</b> 
  *     member has any flag other than <b>LOOKUP_STREAM_FROM_CLUSTER_ENTRY_ATTRIBUTE_DATA</b> set then 
  *     an appropriate message should be displayed.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-lookup_stream_from_cluster_entry
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-lookup_stream_from_cluster_entry
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
@@ -63,9 +60,7 @@ class LOOKUP_STREAM_FROM_CLUSTER_ENTRY extends Win32Struct
      * </dl>
      * </td>
      * <td width="60%">
-     * The stream is locked from defragmentation. The <b>HandleInfo</b> member of the 
-     *         <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-mark_handle_info">MARK_HANDLE_INFO</a> structure for this stream has 
-     *         the <b>MARK_HANDLE_PROTECT_CLUSTERS</b> flag set.
+     * The stream is locked from defragmentation. The <b>HandleInfo</b> member of the [MARK_HANDLE_INFO structure](ns-winioctl-mark_handle_info.md) for this stream has the <b>MARK_HANDLE_PROTECT_CLUSTERS</b> flag set.
      * 
      * </td>
      * </tr>

@@ -4,11 +4,8 @@
 /**
  * The WMT_TRANSPORT_TYPE enumeration type defines the transport types supported by this SDK.
  * @remarks
- * 
  * This enumeration indicates the type of data communication protocol (reliable or unreliable).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ne-wmsdkidl-wmt_transport_type
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_transport_type
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

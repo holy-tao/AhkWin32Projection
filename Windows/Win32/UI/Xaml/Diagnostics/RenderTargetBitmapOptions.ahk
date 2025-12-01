@@ -3,7 +3,7 @@
 
 /**
  * Defines constants that specify what parts of the visual tree should be rendered.
- * @see https://docs.microsoft.com/windows/win32/api//xamlom/ne-xamlom-rendertargetbitmapoptions
+ * @see https://learn.microsoft.com/windows/win32/api/xamlom/ne-xamlom-rendertargetbitmapoptions
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  * @version v4.0.30319
  */

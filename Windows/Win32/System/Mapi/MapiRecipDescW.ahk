@@ -3,7 +3,7 @@
 
 /**
  * A MapiRecipDescW structure contains information about a message sender or recipient.
- * @see https://docs.microsoft.com/windows/win32/api//mapi/ns-mapi-mapirecipdescw
+ * @see https://learn.microsoft.com/windows/win32/api/mapi/ns-mapi-mapirecipdescw
  * @namespace Windows.Win32.System.Mapi
  * @version v4.0.30319
  * @charset Unicode

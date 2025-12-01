@@ -3,7 +3,7 @@
 
 /**
  * The DWRITE_TEXT_ANTIALIAS_MODE enumeration contains values that specify the type of antialiasing to use for text when the rendering mode calls for antialiasing.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/ne-dwrite_1-dwrite_text_antialias_mode
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_text_antialias_mode
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

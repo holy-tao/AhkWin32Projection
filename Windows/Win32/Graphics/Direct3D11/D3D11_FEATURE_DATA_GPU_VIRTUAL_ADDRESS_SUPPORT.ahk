@@ -4,11 +4,8 @@
 /**
  * Describes feature data GPU virtual address support, including maximum address bits per resource and per process.
  * @remarks
- * 
  * See <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_feature">D3D11_FEATURE</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_feature_data_gpu_virtual_address_support
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_feature_data_gpu_virtual_address_support
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies the inertia values for a manipulation (translation, rotation, scaling).
- * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/ne-interactioncontext-inertia_parameter
+ * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ne-interactioncontext-inertia_parameter
  * @namespace Windows.Win32.UI.InteractionContext
  * @version v4.0.30319
  */

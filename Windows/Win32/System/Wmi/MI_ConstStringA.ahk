@@ -3,7 +3,7 @@
 
 /**
  * Represents an array of MI_Char types.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_conststringa
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_conststringa
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

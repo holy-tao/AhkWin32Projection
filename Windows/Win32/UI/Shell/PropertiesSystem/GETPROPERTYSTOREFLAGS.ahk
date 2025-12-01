@@ -4,7 +4,6 @@
 /**
  * Indicates flags that modify the property store object retrieved by methods that create a property store, such as IShellItem2::GetPropertyStore or IPropertyStoreFactory::GetPropertyStore.
  * @remarks
- * 
  * If the Shell item is a file, the property store contains the following items. 
  *                 
  *                 
@@ -17,8 +16,7 @@
  * 
  * <div class="alert"><b>Note</b>  GPS_INCLUDEOFFLINEPROPERTIES has been superseded by GPS_OPENSLOWITEM.</div>
  * <div> </div>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//propsys/ne-propsys-getpropertystoreflags
+ * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-getpropertystoreflags
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */

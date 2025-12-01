@@ -4,7 +4,7 @@
 
 /**
  * Contains flags that indicate the types of objects presented to the user for a specified scope or scopes.
- * @see https://docs.microsoft.com/windows/win32/api//objsel/ns-objsel-dsop_filter_flags
+ * @see https://learn.microsoft.com/windows/win32/api/objsel/ns-objsel-dsop_filter_flags
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

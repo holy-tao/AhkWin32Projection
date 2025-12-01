@@ -3,7 +3,7 @@
 
 /**
  * Identifies a type of tensor description.
- * @see https://docs.microsoft.com/windows/win32/api//directml/ne-directml-dml_tensor_type
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_tensor_type
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

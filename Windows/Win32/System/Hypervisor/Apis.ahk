@@ -1468,7 +1468,7 @@ class Hypervisor {
     }
 
     /**
-     * 
+     * HdvInitializeDeviceHost function
      * @param {HCS_SYSTEM} computeSystem 
      * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvInitializeDeviceHost
@@ -1502,9 +1502,19 @@ class Hypervisor {
     }
 
     /**
-     * 
+     * HdvTeardownDeviceHost
      * @param {Pointer<Void>} deviceHostHandle 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} |Parameter|Description|
+     * |---|---|---|---|---|---|---|---|
+     * |`DeviceHost` |Handle to the device host to tear down.|
+     * |    |    |
+     * 
+     * 
+     * |Return Value     |Description|
+     * |---|---|
+     * |`S_OK` | Returned if function succeeds.|
+     * |`HRESULT` | An error code is returned if the function fails.
+     * |     |     |
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvTeardownDeviceHost
      */
     static HdvTeardownDeviceHost(deviceHostHandle) {
@@ -1519,7 +1529,7 @@ class Hypervisor {
     }
 
     /**
-     * 
+     * HdvCreateDeviceInstance
      * @param {Pointer<Void>} deviceHostHandle 
      * @param {Integer} deviceType 
      * @param {Pointer<Guid>} deviceClassId 
@@ -1543,7 +1553,7 @@ class Hypervisor {
     }
 
     /**
-     * 
+     * HdvReadGuestMemory
      * @param {Pointer<Void>} requestor 
      * @param {Integer} guestPhysicalAddress 
      * @param {Integer} byteCount 
@@ -1562,12 +1572,24 @@ class Hypervisor {
     }
 
     /**
-     * 
+     * HdvWriteGuestMemory
      * @param {Pointer<Void>} requestor 
      * @param {Integer} guestPhysicalAddress 
      * @param {Integer} byteCount 
      * @param {Pointer<Integer>} buffer_R 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} |Parameter|Description|
+     * |---|---|---|---|---|---|---|---|
+     * |`Requestor` |Handle to the device requesting memory access.|
+     * |`GuestPhysicalAddress` |Guest physical address at which the write operation starts.|
+     * |`ByteCount` |Number of bytes to write.|
+     * |`Buffer` |Source buffer for the write operation.|
+     * 
+     * 
+     * |Return Value     |Description|
+     * |---|---|
+     * |`S_OK` | Returned if function succeeds.|
+     * |`HRESULT` | An error code is returned if the function fails.
+     * |     |     |
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvWriteGuestMemory
      */
     static HdvWriteGuestMemory(requestor, guestPhysicalAddress, byteCount, buffer_R) {
@@ -1583,7 +1605,7 @@ class Hypervisor {
     }
 
     /**
-     * 
+     * HdvCreateGuestMemoryAperture
      * @param {Pointer<Void>} requestor 
      * @param {Integer} guestPhysicalAddress 
      * @param {Integer} byteCount 
@@ -1621,11 +1643,23 @@ class Hypervisor {
     }
 
     /**
-     * 
+     * HdvDeliverGuestInterrupt
      * @param {Pointer<Void>} requestor 
      * @param {Integer} msiAddress 
      * @param {Integer} msiData 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} |Parameter|Description|
+     * |---|---|---|---|---|---|---|---|
+     * |`Requestor` |Handle to the device requesting the interrupt.|
+     * |`MsiAddress` |The guest address to which the interrupt message is written.|
+     * |`MsiData`|The data to write at MsiAddress.|
+     * |    |    |
+     * 
+     * 
+     * |Return Value     |Description|
+     * |---|---|
+     * |`S_OK` | Returned if function succeeds.|
+     * |`HRESULT` | An error code is returned if the function fails.
+     * |     |     |
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvDeliverGuestInterrupt
      */
     static HdvDeliverGuestInterrupt(requestor, msiAddress, msiData) {

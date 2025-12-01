@@ -3,7 +3,7 @@
 
 /**
  * Identifies the type of handle operation that has occurred.
- * @see https://docs.microsoft.com/windows/win32/api//avrfsdk/ne-avrfsdk-ehandle_trace_operations
+ * @see https://learn.microsoft.com/windows/win32/api/avrfsdk/ne-avrfsdk-ehandle_trace_operations
  * @namespace Windows.Win32.System.ApplicationVerifier
  * @version v4.0.30319
  */

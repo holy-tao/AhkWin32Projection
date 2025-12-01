@@ -3,7 +3,7 @@
 
 /**
  * Defines an item identifier.
- * @see https://docs.microsoft.com/windows/win32/api//shtypes/ns-shtypes-shitemid
+ * @see https://learn.microsoft.com/windows/win32/api/shtypes/ns-shtypes-shitemid
  * @namespace Windows.Win32.UI.Shell.Common
  * @version v4.0.30319
  */

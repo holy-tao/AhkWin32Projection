@@ -4,13 +4,10 @@
 /**
  * The ADDRESS_EVENT enum describes address events. The ITAddressEvent::get_Event method returns a member of this enum to indicate the type of address event that occurred.
  * @remarks
- * 
  * Certain events on PnP devices will not be received until after the first time static terminals are enumerated using 
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itterminalsupport-enumeratestaticterminals">ITTerminalSupport::EnumerateStaticTerminals</a> or 
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itterminalsupport-get_staticterminals">ITTerminalSupport::get_StaticTerminals</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-address_event
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-address_event
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains the results for each of the token bindings that TokenBindingVerifyMessage verified.
- * @see https://docs.microsoft.com/windows/win32/api//tokenbinding/ns-tokenbinding-tokenbinding_result_list
+ * @see https://learn.microsoft.com/windows/win32/api/tokenbinding/ns-tokenbinding-tokenbinding_result_list
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

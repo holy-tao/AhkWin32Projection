@@ -3,7 +3,7 @@
 
 /**
  * Defines the state of the cross-slide interaction.
- * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/ns-interactioncontext-interaction_arguments_cross_slide
+ * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ns-interactioncontext-interaction_arguments_cross_slide
  * @namespace Windows.Win32.UI.InteractionContext
  * @version v4.0.30319
  */

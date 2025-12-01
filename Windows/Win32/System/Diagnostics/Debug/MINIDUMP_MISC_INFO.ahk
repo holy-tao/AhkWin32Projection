@@ -3,7 +3,7 @@
 
 /**
  * Contains a variety of information.
- * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ns-minidumpapiset-minidump_misc_info
+ * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_misc_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

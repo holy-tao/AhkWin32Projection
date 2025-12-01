@@ -3,7 +3,7 @@
 
 /**
  * Specifies values that identify the ownership conditions under which an image is created by the Windows Ribbon framework.
- * @see https://docs.microsoft.com/windows/win32/api//uiribbon/ne-uiribbon-ui_ownership
+ * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ne-uiribbon-ui_ownership
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */

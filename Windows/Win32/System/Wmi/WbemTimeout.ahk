@@ -3,7 +3,7 @@
 
 /**
  * Defines the time-out constants. This constant is used by SWbemEventSource.NextEvent.
- * @see https://docs.microsoft.com/windows/win32/api//wbemdisp/ne-wbemdisp-wbemtimeout
+ * @see https://learn.microsoft.com/windows/win32/api/wbemdisp/ne-wbemdisp-wbemtimeout
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The DD_CREATEVPORTDATA structure contains the information necessary to describe the video port extensions (VPE) object being created.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_createvportdata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_createvportdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

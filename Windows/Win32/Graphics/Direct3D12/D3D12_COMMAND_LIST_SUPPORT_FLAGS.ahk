@@ -3,7 +3,7 @@
 
 /**
  * Used to determine which kinds of command lists are capable of supporting various operations.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_command_list_support_flags
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_command_list_support_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

@@ -3,9 +3,8 @@
 #Include ..\..\Graphics\Gdi\LOGFONTW.ahk
 
 /**
- * Contains the scalable metrics associated with the nonclient area of a nonminimized window.
+ * Contains the scalable metrics associated with the nonclient area of a nonminimized window. (Unicode)
  * @remarks
- * 
  * If the <b>iPaddedBorderWidth</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-nonclientmetricsa">NONCLIENTMETRICS</a> structure is present, this structure is 4 bytes larger than for an application that is compiled with <b>_WIN32_WINNT</b> less than or equal to 0x0502. For more information about conditional compilation, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
  * 
  * <b>Windows Server 2003 and Windows XP/2000:  </b>If an application  that is compiled for Windows Server 2008 or Windows Vista must also run on Windows Server 2003 or Windows XP/2000, use the <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getversionexa">GetVersionEx</a> function to check the operating system version at run time and, if the application is running on Windows Server 2003 or Windows XP/2000, subtract the size of the <b>iPaddedBorderWidth</b> member from the <b>cbSize</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-nonclientmetricsa">NONCLIENTMETRICS</a> structure before calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-systemparametersinfoa">SystemParametersInfo</a> function. 
@@ -16,9 +15,7 @@
  * 
  * > [!NOTE]
  * > The winuser.h header defines NONCLIENTMETRICS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-nonclientmetricsw
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-nonclientmetricsw
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  * @charset Unicode

@@ -3,7 +3,7 @@
 
 /**
  * The TF_DA_COLOR structure contains color data used in the display attributes for a range of text.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/ns-msctf-tf_da_color
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/ns-msctf-tf_da_color
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

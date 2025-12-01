@@ -4,11 +4,8 @@
 /**
  * Defines constants controlling the transform applied in the DirectML operators [DML_OPERATOR_DEPTH_TO_SPACE1](/windows/win32/api/directml/ne-directml-dml_operator_type) and **DML_OPERATOR_SPACE_TO_DEPTH1**.
  * @remarks
- * 
  * See [DML_DEPTH_TO_SPACE1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_depth_to_space1_operator_desc) and [DML_SPACE_TO_DEPTH1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_space_to_depth1_operator_desc) documentation for examples showing the effect of these values.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//directml/ne-directml-dml_depth_space_order
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_depth_space_order
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

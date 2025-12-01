@@ -4,7 +4,6 @@
 /**
  * Defines the relative position in the result set from which to seek.
  * @remarks
- * 
  * If the offset or bookmark seeks past the boundary of the result set (past the first or last record), and EvtSeekStrict is not set, seek will return the last record within the boundary.
  * 
  * If the bookmark is within the boundaries of the result set (based on event record ID) but is not included in the result set, the seek function will apply the offset relative to the bookmark's record ID. In the following table, the first column shows the record IDs of the events in the result set. If the bookmark's record ID is 3989, the second column shows the record that the seek function would seek to given the specified offset.
@@ -55,9 +54,7 @@
  * <td>8</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_seek_flags
+ * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_seek_flags
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */

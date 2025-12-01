@@ -3,7 +3,7 @@
 
 /**
  * Indicates the type of objects in a tracking information collection.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/ne-comsvcs-tracking_coll_type
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-tracking_coll_type
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */

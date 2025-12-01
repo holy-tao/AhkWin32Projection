@@ -4,11 +4,8 @@
 /**
  * Describes an indirect argument (an indirect parameter), for use with a command signature.
  * @remarks
- * 
  * Use this structure with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_command_signature_desc">D3D12_COMMAND_SIGNATURE_DESC</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_indirect_argument_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_indirect_argument_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

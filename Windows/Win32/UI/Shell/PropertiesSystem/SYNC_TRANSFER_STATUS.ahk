@@ -3,7 +3,7 @@
 
 /**
  * Specifies possible status values used in the System.SyncTransferStatus property.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-sync_transfer_status
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-sync_transfer_status
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
 
 /**
  * The EMRPOLYPOLYLINE16 and EMRPOLYPOLYGON16 structures contain members for the PolyPolyline and PolyPolygon enhanced metafile records.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrpolypolyline16
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrpolypolyline16
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
@@ -71,7 +71,7 @@ class EMRPOLYPOLYLINE16 extends Win32Struct
     }
 
     /**
-     * An array of <a href="https://docs.microsoft.com/previous-versions/dd162808(v=vs.85)">POINTS</a> structures, representing the points in logical units.
+     * An array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-points">POINTS</a> structures, representing the points in logical units.
      * @type {Array<POINTS>}
      */
     apts{

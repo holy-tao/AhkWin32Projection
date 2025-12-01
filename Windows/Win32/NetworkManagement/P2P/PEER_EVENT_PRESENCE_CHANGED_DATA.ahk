@@ -3,7 +3,7 @@
 
 /**
  * The PEER_EVENT_PRESENCE_CHANGED_DATA structure contains information returned when a PEER_EVENT_ENDPOINT_PRESENCE_CHANGED or PEER_EVENT_MY_PRESENCE_CHANGED event is raised on a peer participating in a peer collaboration network.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_event_presence_changed_data
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_event_presence_changed_data
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

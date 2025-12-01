@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the shared resource, including name of the resource, type and permissions, and the number of current connections.
- * @see https://docs.microsoft.com/windows/win32/api//lmshare/ns-lmshare-share_info_2
+ * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-share_info_2
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

@@ -2,12 +2,10 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Gathers elements from the input tensor, using the indices tensor to remap indices to entire subblocks of the input.
+ * Gathers elements from the input tensor, using the indices tensor to remap indices to entire subblocks of the input. (DML_GATHER_ND1_OPERATOR_DESC)
  * @remarks
  * **DML_GATHER_ND1_OPERATOR_DESC** adds *BatchDimensionCount*, and is equivalent to [DML_GATHER_ND_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_gather_nd_operator_desc) when *BatchDimensionCount* = 0.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_gather_nd1_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_gather_nd1_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

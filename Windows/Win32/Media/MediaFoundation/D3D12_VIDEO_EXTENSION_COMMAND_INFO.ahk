@@ -2,13 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes a video extension command.
+ * Describes a video extension command. (D3D12_VIDEO_EXTENSION_COMMAND_INFO)
  * @remarks
- * 
  * An array of this structure is provided in a [D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMANDS](ns-d3d12video-d3d12_feature_data_video_extension_commands.md) structure returned from a call to[ID3D12VideoDevice::CheckFeatureSupport](nf-d3d12video-id3d12videodevice-checkfeaturesupport.md) when the feature specified is [D3D12_FEATURE_VIDEO_EXTENSION_COMMANDS](ne-d3d12video-d3d12_feature_video.md).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_video_extension_command_info
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_extension_command_info
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

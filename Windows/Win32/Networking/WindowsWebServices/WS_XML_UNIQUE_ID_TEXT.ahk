@@ -4,7 +4,7 @@
 
 /**
  * Represents a GUID formatted as the text &quot;urn:uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx&quot;.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_xml_unique_id_text
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_unique_id_text
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies the throttling policies and how to apply them to a target thread when that thread is subject to power management.
- * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/ns-processthreadsapi-thread_power_throttling_state
+ * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-thread_power_throttling_state
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

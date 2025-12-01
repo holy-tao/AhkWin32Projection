@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Defines the attributes of a font.
+ * Defines the attributes of a font. (LOGFONTA)
  * @remarks
- * 
  * The following situations do not support ClearType antialiasing:
  * 
  * <ul>
@@ -15,9 +14,7 @@
  * <li>The font has tuned embedded bitmaps, for any font sizes that contain the embedded bitmaps. For example, this occurs commonly in East Asian fonts.</li>
  * </ul>
  * This structure first appeared in Shtypes.idl and Shtypes.h in Windows Vista, for ease of use with members of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nn-shobjidl-ivisualproperties">IVisualProperties</a> interface. However, the identical structure is defined in Wingdi.h and Windows.h in earlier versions of Windows.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shtypes/ns-shtypes-logfonta
+ * @see https://learn.microsoft.com/windows/win32/api/shtypes/ns-shtypes-logfonta
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  * @charset ANSI

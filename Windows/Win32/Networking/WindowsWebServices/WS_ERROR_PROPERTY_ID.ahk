@@ -3,7 +3,7 @@
 
 /**
  * A set of property values associated with the error. They are set and retrieved using WsGetErrorProperty and WsSetErrorProperty.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_error_property_id
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_error_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -11,7 +11,7 @@ class WS_ERROR_PROPERTY_ID extends Win32Enum{
 
     /**
      * The number of error strings (ULONG) available in the error object. Error strings 
-     *                     might be added using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsadderrorstring">WsAddErrorString</a>. When <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_error_property_id">WS_ERROR_PROPERTY_ORIGINAL_ERROR_CODE</a>is present in the error object, the corresponding error text will be counted as an
+     *                     might be added using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsadderrorstring">WsAddErrorString</a>. When <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_error_property_id">WS_ERROR_PROPERTY_ORIGINAL_ERROR_CODE</a> is present in the error object, the corresponding error text will be counted as an
      *                     additional string in the returned number of error strings. 
      *                 
      * 
@@ -26,7 +26,7 @@ class WS_ERROR_PROPERTY_ID extends Win32Enum{
      *                     implementation specific error code.
      *                 
      * 
-     * Note that the original error code is specific to an particular implementation and version of the underlying libraries used by WWSAPI. It should not be 
+     * Note that the original error code is specific to a particular implementation and version of the underlying libraries used by WWSAPI. It should not be 
      *                     expected to remain constant, as the libraries may change.  
      * 
      * 

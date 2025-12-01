@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Specifies the type of cluster group to create.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-clusgroup_type
+ * The CLUSGROUP_TYPE enumeration (msclus.h) specifies the type of cluster group to create.
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusgroup_type
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

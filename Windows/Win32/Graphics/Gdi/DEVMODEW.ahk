@@ -5,7 +5,6 @@
 /**
  * The DEVMODEW structure is used for specifying characteristics of display and print devices in the Unicode (wide) character set.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows-hardware/drivers/display/the-devmodew-structure">DEVMODEW structure</a> is the Unicode version of the <a href="https://docs.microsoft.com/previous-versions//ms535771(v=vs.85)">DEVMODE </a> structure (described in the Microsoft Windows SDK documentation). While applications can use either the ANSI or Unicode version of the structure, drivers are required to use the Unicode version.
  * 
  * For printer drivers, the DEVMODEW structure is used for specifying printer characteristics required by a print document. It is also used for specifying a printer's default characteristics.
@@ -36,9 +35,7 @@
  * 
  * > [!NOTE]
  * > The wingdi.h header defines DEVMODE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-devmodew
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodew
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  * @charset Unicode

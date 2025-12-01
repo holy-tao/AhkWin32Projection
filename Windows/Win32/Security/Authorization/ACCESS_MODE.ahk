@@ -3,7 +3,7 @@
 
 /**
  * Contains values that indicate how the access rights in an EXPLICIT_ACCESS structure apply to the trustee.
- * @see https://docs.microsoft.com/windows/win32/api//accctrl/ne-accctrl-access_mode
+ * @see https://learn.microsoft.com/windows/win32/api/accctrl/ne-accctrl-access_mode
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
@@ -23,7 +23,7 @@ class ACCESS_MODE extends Win32Enum{
     static GRANT_ACCESS => 1
 
     /**
-     * Indicates an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_allowed_ace">ACCESS_ALLOWED_ACE</a>structure that allows the specified rights. 
+     * Indicates an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_allowed_ace">ACCESS_ALLOWED_ACE</a> structure that allows the specified rights. 
      * 
      * 
      * 
@@ -35,7 +35,7 @@ class ACCESS_MODE extends Win32Enum{
 
     /**
      * Indicates an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_denied_ace">ACCESS_DENIED_ACE</a>structure that denies the specified rights. 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_denied_ace">ACCESS_DENIED_ACE</a> structure that denies the specified rights. 
      * 
      * 
      * 
@@ -53,7 +53,7 @@ class ACCESS_MODE extends Win32Enum{
     static REVOKE_ACCESS => 4
 
     /**
-     * Indicates a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_audit_ace">SYSTEM_AUDIT_ACE</a>structure that generates audit messages for successful attempts to use the specified access rights. 
+     * Indicates a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_audit_ace">SYSTEM_AUDIT_ACE</a> structure that generates audit messages for successful attempts to use the specified access rights. 
      * 						
      * 
      * On input, this value combines the specified rights with any existing audited access rights for the trustee.
@@ -63,7 +63,7 @@ class ACCESS_MODE extends Win32Enum{
 
     /**
      * Indicates a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_audit_ace">SYSTEM_AUDIT_ACE</a>structure that generates audit messages for failed attempts to use the specified access rights.  
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_audit_ace">SYSTEM_AUDIT_ACE</a> structure that generates audit messages for failed attempts to use the specified access rights.  
      * 
      * On input, this value combines the specified rights with any existing audited access rights for the trustee.
      * @type {Integer (Int32)}

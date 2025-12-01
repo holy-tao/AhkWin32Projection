@@ -3,7 +3,7 @@
 
 /**
  * Represents the types of information that can be queried with the SLGetReferralInformation function.
- * @see https://docs.microsoft.com/windows/win32/api//slpublic/ne-slpublic-slreferraltype
+ * @see https://learn.microsoft.com/windows/win32/api/slpublic/ne-slpublic-slreferraltype
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

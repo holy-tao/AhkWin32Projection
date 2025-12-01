@@ -4,7 +4,7 @@
 
 /**
  * Contains configuration information for interactive UI components raised on an EAP supplicant.
- * @see https://docs.microsoft.com/windows/win32/api//eaptypes/ns-eaptypes-eap_interactive_ui_data
+ * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_interactive_ui_data
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

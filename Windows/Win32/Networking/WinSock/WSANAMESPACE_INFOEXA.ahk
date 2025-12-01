@@ -3,9 +3,8 @@
 #Include ..\..\System\Com\BLOB.ahk
 
 /**
- * Contains all registration information for a namespace provider.
+ * Contains all registration information for a namespace provider. (WSANAMESPACE_INFOEXA)
  * @remarks
- * 
  * The <b>WSANAMESPACE_INFOEX</b>  structure is an enhanced version of the <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFO</a> structure that is used by the <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaenumnamespaceprovidersexa">WSAEnumNameSpaceProvidersEx</a> and the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscenumnamespaceprovidersex32">WSCEnumNameSpaceProvidersEx32</a> functions to return information on available namespace providers. The <b>WSANAMESPACE_INFOEX</b>  structure contains the provider-specific data blob associated with the namespace entry
  *                      passed in the <i>lpProviderInfo</i> parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscinstallnamespaceex">WSCInstallNameSpaceEx</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscinstallnamespaceex32">WSCInstallNameSpaceEx32</a> functions.
  * 
@@ -23,9 +22,7 @@
  * 
  * > [!NOTE]
  * > The winsock2.h header defines WSANAMESPACE_INFOEX as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsock2/ns-winsock2-wsanamespace_infoexa
+ * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsanamespace_infoexa
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  * @charset ANSI

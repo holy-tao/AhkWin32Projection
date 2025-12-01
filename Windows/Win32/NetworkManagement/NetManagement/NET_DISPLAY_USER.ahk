@@ -3,7 +3,7 @@
 
 /**
  * The NET_DISPLAY_USER structure contains information that an account manager can access to determine information about user accounts.
- * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-net_display_user
+ * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-net_display_user
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

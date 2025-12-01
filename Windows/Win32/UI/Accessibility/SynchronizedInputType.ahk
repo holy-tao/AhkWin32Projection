@@ -3,7 +3,7 @@
 
 /**
  * Contains values that specify the type of synchronized input.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-synchronizedinputtype
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-synchronizedinputtype
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

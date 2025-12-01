@@ -4,11 +4,8 @@
 /**
  * The USER_INFO_11 structure contains information about a user account, including the account name, privilege level, the path to the user's home directory, and other user-related network statistics.
  * @remarks
- * 
  * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-user_info_11
+ * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_11
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

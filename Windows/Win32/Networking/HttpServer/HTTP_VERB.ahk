@@ -3,7 +3,7 @@
 
 /**
  * The HTTP_VERB enumeration type defines values that are used to specify known, standard HTTP verbs in the HTTP_REQUEST structure. The majority of these known verbs are documented in RFC 2616 and RFC 2518, as indicated below.
- * @see https://docs.microsoft.com/windows/win32/api//http/ne-http-http_verb
+ * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_verb
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

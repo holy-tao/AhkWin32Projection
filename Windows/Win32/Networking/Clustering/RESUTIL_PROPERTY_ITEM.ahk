@@ -4,13 +4,9 @@
 /**
  * Contains information about a cluster object property. An array of RESUTIL_PROPERTY_ITEM structures forms a property table which can be used in property operations.
  * @remarks
- * 
  * For more information about building parameter blocks and property tables, see 
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-lists-and-tables">Using Lists and Tables</a>.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//resapi/ns-resapi-resutil_property_item
+ * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-resutil_property_item
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

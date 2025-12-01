@@ -11,7 +11,7 @@
 
 /**
  * The RAS_CONNECTION_2 structure contains information for a connection, including the Globally Unique Identifier (GUID) that identifies the connection.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-ras_connection_2
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_connection_2
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains an EAP attribute.
- * @see https://docs.microsoft.com/windows/win32/api//eaptypes/ns-eaptypes-eap_attribute
+ * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_attribute
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Provides the list of possible flags for the session invitation.
- * @see https://docs.microsoft.com/windows/win32/api//rendezvoussession/ne-rendezvoussession-rendezvous_session_flags
+ * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/ne-rendezvoussession-rendezvous_session_flags
  * @namespace Windows.Win32.System.RemoteAssistance
  * @version v4.0.30319
  */

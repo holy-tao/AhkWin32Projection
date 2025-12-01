@@ -5,7 +5,6 @@
 /**
  * Specifies settings for a time zone and dynamic daylight saving time.
  * @remarks
- * 
  * Dynamic daylight saving time provides support for time zones whose boundaries for daylight saving time change 
  *     from year to year. This feature enables easier updating of systems, especially for locales where the yearly DST 
  *     boundaries are known in advance. After the time zone has been updated, the current time zone setting is applied to 
@@ -18,7 +17,7 @@
  *      are stored in the following registry key:
  * 
  * 
- * <pre xml:space="preserve"><b>HKEY_LOCAL_MACHINE</b>
+ * <pre><b>HKEY_LOCAL_MACHINE</b>
  *    <b>SOFTWARE</b>
  *       <b>Microsoft</b>
  *          <b>Windows NT</b>
@@ -52,14 +51,18 @@
  * <td>
  * The following time zone information.
  * 
- * <pre class="syntax" xml:space="preserve"><code>typedef struct _REG_TZI_FORMAT
+ * 
+ * ``` syntax
+ * typedef struct _REG_TZI_FORMAT
  * {
  *     LONG Bias;
  *     LONG StandardBias;
  *     LONG DaylightBias;
  *     SYSTEMTIME StandardDate;
  *     SYSTEMTIME DaylightDate;
- * } REG_TZI_FORMAT;</code></pre>
+ * } REG_TZI_FORMAT;
+ * ```
+ * 
  * </td>
  * </tr>
  * <tr>
@@ -79,9 +82,7 @@
  *      <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-time_zone_information">TIME_ZONE_INFORMATION</a>.
  * 
  *  Both <b>StandardName</b> and <b>DaylightName</b> are localized according to the current user default UI language.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//timezoneapi/ns-timezoneapi-dynamic_time_zone_information
+ * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/ns-timezoneapi-dynamic_time_zone_information
  * @namespace Windows.Win32.System.Time
  * @version v4.0.30319
  */

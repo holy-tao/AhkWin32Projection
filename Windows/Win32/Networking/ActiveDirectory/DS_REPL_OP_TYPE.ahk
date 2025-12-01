@@ -3,7 +3,7 @@
 
 /**
  * Used to indicate the type of replication operation that a given entry in the replication queue represents.
- * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ne-ntdsapi-ds_repl_op_type
+ * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ne-ntdsapi-ds_repl_op_type
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

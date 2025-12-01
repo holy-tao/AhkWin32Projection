@@ -4,7 +4,6 @@
 /**
  * The QOS_TRAFFIC_TYPE enumeration defines the various traffic types. Each flow has a single traffic type. This allows the QOS subsystem to apply user-specified policies to each type.
  * @remarks
- * 
  * 802.1p tags are  added to sent traffic only when the following conditions are met:<ul>
  * <li>
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qosaddsockettoflow">QOSAddSocketToFlow</a> is called without the QOS_NON_ADAPTIVE_FLOW flag</li>
@@ -12,9 +11,7 @@
  * <li>The qWAVE subsystem has determined that 802.1p tagged packets are not discarded by a network element on the end-to-end path
  * </li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//qos2/ne-qos2-qos_traffic_type
+ * @see https://learn.microsoft.com/windows/win32/api/qos2/ne-qos2-qos_traffic_type
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

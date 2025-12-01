@@ -3,7 +3,7 @@
 
 /**
  * The MBN_REGISTER_MODE enumerated type indicates the network selection mode of a device.
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ne-mbnapi-mbn_register_mode
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_register_mode
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

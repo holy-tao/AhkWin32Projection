@@ -3,7 +3,7 @@
 
 /**
  * Describes a set of information that indicates whether a disk is eligible for replication.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-sr_resource_type_disk_info
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-sr_resource_type_disk_info
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

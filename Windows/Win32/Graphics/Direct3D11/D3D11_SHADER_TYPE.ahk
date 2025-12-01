@@ -4,14 +4,11 @@
 /**
  * Identifies a shader type for tracing.
  * @remarks
- * 
  * <b>D3D11_SHADER_TYPE</b> identifies the type of shader in a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_shader_trace_desc">D3D11_SHADER_TRACE_DESC</a> structure.
  * 
  * <div class="alert"><b>Note</b>  This API requires the Windows Software Development Kit (SDK) for Windows 8.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11shadertracing/ne-d3d11shadertracing-d3d11_shader_type
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/ne-d3d11shadertracing-d3d11_shader_type
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

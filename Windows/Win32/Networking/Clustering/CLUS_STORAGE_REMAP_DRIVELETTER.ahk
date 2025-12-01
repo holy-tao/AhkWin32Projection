@@ -3,7 +3,7 @@
 
 /**
  * Identifies the existing and target drive letter for a disk drive on a node.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clus_storage_remap_driveletter
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_storage_remap_driveletter
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

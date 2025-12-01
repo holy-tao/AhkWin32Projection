@@ -4,11 +4,8 @@
 /**
  * Describes the rotation of the video image in the counter-clockwise direction.
  * @remarks
- * 
  * This enumeration is used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-rotation">MF_MT_VIDEO_ROTATION</a> attribute.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfapi/ne-mfapi-mfvideorotationformat
+ * @see https://learn.microsoft.com/windows/win32/api/mfapi/ne-mfapi-mfvideorotationformat
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

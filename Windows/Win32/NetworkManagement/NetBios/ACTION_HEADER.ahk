@@ -4,7 +4,6 @@
 /**
  * The ACTION_HEADER structure contains information about an action. This action is an extension to the standard transport interface.
  * @remarks
- * 
  * The scope of the action is determined by the <b>ncb_lsn</b> and <b>ncb_num</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/nb30/ns-nb30-ncb">NCB</a> structure, as follows.
  * 
  * <table>
@@ -24,9 +23,7 @@
  * <td>Illegal combination. </td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//nb30/ns-nb30-action_header
+ * @see https://learn.microsoft.com/windows/win32/api/nb30/ns-nb30-action_header
  * @namespace Windows.Win32.NetworkManagement.NetBios
  * @version v4.0.30319
  */

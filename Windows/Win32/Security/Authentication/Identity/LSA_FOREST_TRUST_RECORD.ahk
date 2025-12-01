@@ -6,7 +6,7 @@
 
 /**
  * Represents a Local Security Authority forest trust record.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-lsa_forest_trust_record
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-lsa_forest_trust_record
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

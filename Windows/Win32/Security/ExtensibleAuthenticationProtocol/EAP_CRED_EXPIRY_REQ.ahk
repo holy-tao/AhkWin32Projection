@@ -5,13 +5,10 @@
 /**
  * Contains both the old and new EAP credentials for credential expiry operations.
  * @remarks
- * 
  * The <b>EAP_CRED_EXPIRY_REQ</b> structure can be employed to support Single-Sign-On (SSO).
  * 
  * The <b>EAP_CRED_EXPIRY_REQ</b> structure is identical to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb530539(v=vs.85)">EAP_CRED_EXPIRY_RESP</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//eaptypes/ns-eaptypes-eap_cred_expiry_req
+ * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_cred_expiry_req
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

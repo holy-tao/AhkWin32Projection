@@ -3,8 +3,8 @@
 #Include .\IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS0.ahk
 
 /**
- * Various statistics common to IKE and Authip.
- * @see https://docs.microsoft.com/windows/win32/api//iketypes/ns-iketypes-ikeext_common_statistics0
+ * Various statistics common to IKE and Authip. (IKEEXT_COMMON_STATISTICS0)
+ * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_common_statistics0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

@@ -4,11 +4,8 @@
 /**
  * Used to provide GINA with Terminal Services user configuration information.
  * @remarks
- * 
  * The Terminal Services user configuration information is received from the Domain Controller and SAM database.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winwlx/ns-winwlx-wlx_terminal_services_data
+ * @see https://learn.microsoft.com/windows/win32/api/winwlx/ns-winwlx-wlx_terminal_services_data
  * @namespace Windows.Win32.Security.WinWlx
  * @version v4.0.30319
  */

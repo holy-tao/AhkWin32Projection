@@ -5,8 +5,8 @@
 #Include .\FWP_BYTE_BLOB.ahk
 
 /**
- * Contains information common to all events.
- * @see https://docs.microsoft.com/windows/win32/api//fwpmtypes/ns-fwpmtypes-fwpm_net_event_header2
+ * Contains information common to all events. (FWPM_NET_EVENT_HEADER2)
+ * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_header2
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

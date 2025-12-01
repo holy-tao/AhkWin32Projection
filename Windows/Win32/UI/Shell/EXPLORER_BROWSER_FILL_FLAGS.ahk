@@ -3,7 +3,7 @@
 
 /**
  * These flags are used with IExplorerBrowser::FillFromObject.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-explorer_browser_fill_flags
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-explorer_browser_fill_flags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

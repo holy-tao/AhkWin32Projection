@@ -3,7 +3,7 @@
 
 /**
  * The PROBLEM_TYPE enumeration describes the type of problem a helper class indicates is present.
- * @see https://docs.microsoft.com/windows/win32/api//ndhelper/ne-ndhelper-problem_type
+ * @see https://learn.microsoft.com/windows/win32/api/ndhelper/ne-ndhelper-problem_type
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */

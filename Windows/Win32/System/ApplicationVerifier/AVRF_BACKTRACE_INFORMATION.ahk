@@ -3,7 +3,7 @@
 
 /**
  * Contains information about backtraces performed.
- * @see https://docs.microsoft.com/windows/win32/api//avrfsdk/ns-avrfsdk-avrf_backtrace_information
+ * @see https://learn.microsoft.com/windows/win32/api/avrfsdk/ns-avrfsdk-avrf_backtrace_information
  * @namespace Windows.Win32.System.ApplicationVerifier
  * @version v4.0.30319
  */

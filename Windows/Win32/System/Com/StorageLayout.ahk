@@ -4,7 +4,6 @@
 /**
  * Describes a single block of data, including its name, location, and length.
  * @remarks
- * 
  * An array of 
  * <b>StorageLayout</b> structures might appear as follows.
  * 
@@ -32,9 +31,7 @@
  * 
  * <div class="alert"><b>Note</b>  The parameters <i>cOffset</i> and <i>cBytes</i> are <b>LARGE_INTEGER</b> structures, used to represent a 64-bit signed integer value as a union of two 32-bit members. The two 32-bit members must be represented as a <b>LARGE_INTEGER</b> structure with <b>DWORD</b> LowPart and <b>LONG</b> HighPart as the structure members. (LowPart specifies the low-order 32 bits and HighPart specifies the high-order 32 bits.) If your compiler has built-in support for 64-bit integers, use the <b>QuadPart</b> member of the <b>LARGE_INTEGER</b> structure to store the 64-bit integer.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//objidl/ns-objidl-storagelayout
+ * @see https://learn.microsoft.com/windows/win32/api/objidl/ns-objidl-storagelayout
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

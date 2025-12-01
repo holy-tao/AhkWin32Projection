@@ -2,27 +2,24 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The ImageType enumeration indicates whether an image is a bitmap or a metafile. The Image::GetType method returns an element of this enumeration.
- * @see https://docs.microsoft.com/windows/win32/api//gdiplusenums/ne-gdiplusenums-imagetype
+ * Defines the type that contains the binary information for an image in a Journal note.
+ * @see https://learn.microsoft.com/windows/win32/tablet/imagetype-complex-type
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
 class ImageType extends Win32Enum{
 
     /**
-     * Indicates that the image type is not known.
      * @type {Integer (Int32)}
      */
     static ImageTypeUnknown => 0
 
     /**
-     * Indicates a bitmap image.
      * @type {Integer (Int32)}
      */
     static ImageTypeBitmap => 1
 
     /**
-     * Indicates a metafile image.
      * @type {Integer (Int32)}
      */
     static ImageTypeMetafile => 2

@@ -3,7 +3,7 @@
 
 /**
  * Contains optional information to pass to the CryptRetrieveObjectByUrl function.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_retrieve_aux_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_retrieve_aux_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
@@ -32,7 +32,7 @@ class CRYPT_RETRIEVE_AUX_INFO extends Win32Struct
     }
 
     /**
-     * A value that specifies a limit to the number of byes retrieved. A value of zero or less specifies no limit.
+     * A value that specifies a limit to the number of bytes retrieved. A value of zero or less specifies no limit.
      * @type {Integer}
      */
     dwMaxUrlRetrievalByteCount {

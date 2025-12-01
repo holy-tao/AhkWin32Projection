@@ -3,7 +3,7 @@
 
 /**
  * Represents the static information that characterizes a Pulse Width Modulation (PWM) controller.
- * @see https://docs.microsoft.com/windows/win32/api//pwm/ns-pwm-pwm_controller_info
+ * @see https://learn.microsoft.com/windows/win32/api/pwm/ns-pwm-pwm_controller_info
  * @namespace Windows.Win32.Devices.Pwm
  * @version v4.0.30319
  */

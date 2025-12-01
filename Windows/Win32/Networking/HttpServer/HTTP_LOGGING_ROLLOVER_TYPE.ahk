@@ -4,7 +4,6 @@
 /**
  * Defines the log file rollover types.
  * @remarks
- * 
  * The log files are named based on the rollover type and logging format as shown in  the following table.
  * 
  * 
@@ -125,9 +124,7 @@
  * <td>The two digit representation of the numerical sequence.</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//http/ne-http-http_logging_rollover_type
+ * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_logging_rollover_type
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

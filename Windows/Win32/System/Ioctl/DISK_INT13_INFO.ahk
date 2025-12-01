@@ -3,7 +3,7 @@
 
 /**
  * Contains standard Int13 drive geometry parameters.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-disk_int13_info
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_int13_info
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Type for unknown endpoint identity. This type is only used to represent an endpoint identity type that was deserialized but was not understood.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_unknown_endpoint_identity
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_unknown_endpoint_identity
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

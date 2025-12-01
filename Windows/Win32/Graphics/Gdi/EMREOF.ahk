@@ -4,7 +4,7 @@
 
 /**
  * The EMREOF structure contains data for the enhanced metafile record that indicates the end of the metafile.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emreof
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emreof
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

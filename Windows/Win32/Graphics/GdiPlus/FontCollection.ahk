@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The FontCollection class is an abstract base class. It contains methods for enumerating the font families in a collection of fonts. Objects built from this class include the InstalledFontCollection and PrivateFontCollection classes.
- * @see https://docs.microsoft.com/windows/win32/api//gdiplusheaders/nl-gdiplusheaders-fontcollection
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

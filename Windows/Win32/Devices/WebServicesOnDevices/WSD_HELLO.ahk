@@ -3,7 +3,7 @@
 
 /**
  * Represents a Hello message.
- * @see https://docs.microsoft.com/windows/win32/api//wsdtypes/ns-wsdtypes-wsd_hello
+ * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_hello
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

@@ -4,11 +4,8 @@
 /**
  * The ADS_ATTR_DEF structure is used only as a part of IDirectorySchemaMgmt, which is an obsolete interface.
  * @remarks
- * 
  * In ADSI, attributes and properties are used interchangeably.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/ns-iads-ads_attr_def
+ * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_attr_def
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

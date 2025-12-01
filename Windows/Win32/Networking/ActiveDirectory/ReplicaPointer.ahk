@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The IADsReplicaPointer interface provides methods for an ADSI client to access the Replica Pointer attribute.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsreplicapointer
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319

@@ -3,7 +3,7 @@
 
 /**
  * Defines the set of possible attributes used to search DHCPv6 client information records.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ne-dhcpsapi-dhcp_search_info_type_v6
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_search_info_type_v6
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

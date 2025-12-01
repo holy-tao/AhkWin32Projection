@@ -4,7 +4,7 @@
 
 /**
  * Contains information returned by the installed CertDllOpenStoreProv function when a store is opened by using the CertOpenStore function.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_store_prov_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_store_prov_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

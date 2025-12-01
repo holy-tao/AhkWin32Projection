@@ -3,7 +3,7 @@
 
 /**
  * Defines values for the priority used to send packets on the channel.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/ne-rdpencomapi-channel_priority
+ * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/ne-rdpencomapi-channel_priority
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */

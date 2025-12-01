@@ -9,7 +9,7 @@
 
 /**
  * Contains information used for key agreement algorithms.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmsg_key_agree_recipient_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_key_agree_recipient_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

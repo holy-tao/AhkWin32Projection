@@ -4,7 +4,7 @@
 
 /**
  * The MPR_TRANSPORT_0 structure contains information for a particular transport.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-mpr_transport_0
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_transport_0
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

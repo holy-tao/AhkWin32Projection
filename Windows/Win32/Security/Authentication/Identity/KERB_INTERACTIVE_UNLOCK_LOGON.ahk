@@ -6,7 +6,7 @@
 
 /**
  * Contains information used to unlock a workstation that has been locked during an interactive logon session.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_interactive_unlock_logon
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_interactive_unlock_logon
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

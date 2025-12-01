@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains values for the Arbitration Feature that controls command arbitration.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw11_feature_arbitration
  * @namespace Windows.Win32.Storage.Nvme
@@ -68,6 +70,7 @@ class NVME_CDW11_FEATURE_ARBITRATION extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     AsUlong {

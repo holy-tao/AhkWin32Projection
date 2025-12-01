@@ -4,11 +4,8 @@
 /**
  * Represents an identifier for the storage tier relative to the volume.
  * @remarks
- * 
  * The storage tier ID for a particular volume has no relationship to the storage tier ID with the same value on a different volume.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-file_storage_tier
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_storage_tier
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Contains a DDE service name and topic name. A DDE server application can use this structure during an XTYP_WILDCONNECT transaction to enumerate the service-topic pairs that it supports.
- * @see https://docs.microsoft.com/windows/win32/api//ddeml/ns-ddeml-hszpair
+ * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-hszpair
  * @namespace Windows.Win32.System.DataExchange
  * @version v4.0.30319
  */

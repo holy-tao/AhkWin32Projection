@@ -4,7 +4,7 @@
 
 /**
  * Used to sort groups. It is used with LVM_INSERTGROUPSORTED.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-lvinsertgroupsorted
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvinsertgroupsorted
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

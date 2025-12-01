@@ -3,7 +3,7 @@
 
 /**
  * The DHCPV6Prefix contains an IPv6 prefix.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpv6csdk/ns-dhcpv6csdk-dhcpv6prefix
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6prefix
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

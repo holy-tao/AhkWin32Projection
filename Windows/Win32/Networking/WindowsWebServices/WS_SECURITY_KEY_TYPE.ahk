@@ -3,7 +3,7 @@
 
 /**
  * The key type of a security token. It is used as the return type when a security token is queried about its key. It is also used to specify the required key type when requesting a security token from a security token service.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_security_key_type
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_key_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

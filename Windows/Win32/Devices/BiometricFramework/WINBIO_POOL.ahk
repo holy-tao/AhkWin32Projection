@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * Specify the type of biometric unit pool to be used in the session.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-pool-constants
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319

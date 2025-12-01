@@ -7,7 +7,7 @@
 
 /**
  * The CMSG_RECIPIENT_ENCRYPTED_KEY_INFO structure contains information used for an individual key agreement recipient.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmsg_recipient_encrypted_key_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_recipient_encrypted_key_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

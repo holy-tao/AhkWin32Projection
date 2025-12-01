@@ -4,7 +4,7 @@
 
 /**
  * The ADSPROPERROR structure is used to pass error data to the notification object with the ADsPropSendErrorMessage function or the WM_ADSPROP_NOTIFY_ERROR message.
- * @see https://docs.microsoft.com/windows/win32/api//adsprop/ns-adsprop-adsproperror
+ * @see https://learn.microsoft.com/windows/win32/api/adsprop/ns-adsprop-adsproperror
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -54,7 +54,7 @@ class ADSPROPERROR extends Win32Struct
     }
 
     /**
-     * Contains an <b>HRESULT</b> value that specifies the  code of the error that occurred. If <i>hr</i> is not equal to <b>S_OK</b>, then <i>pszError</i> is ignored. If <i>hr</i>is equal to <b>S_OK</b>, then <i>pszError</i> contains an error message.
+     * Contains an <b>HRESULT</b> value that specifies the  code of the error that occurred. If <i>hr</i> is not equal to <b>S_OK</b>, then <i>pszError</i> is ignored. If <i>hr</i> is equal to <b>S_OK</b>, then <i>pszError</i> contains an error message.
      * @type {HRESULT}
      */
     hr {

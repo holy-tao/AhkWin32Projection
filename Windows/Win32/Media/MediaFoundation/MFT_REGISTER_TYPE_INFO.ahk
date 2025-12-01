@@ -3,7 +3,7 @@
 
 /**
  * Contains media type information for registering a Media Foundation transform (MFT).
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ns-mfobjects-mft_register_type_info
+ * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mft_register_type_info
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

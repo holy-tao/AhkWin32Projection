@@ -3,7 +3,7 @@
 
 /**
  * Indicates the type of credential that a credential provider should return to associate with the &quot;Other user&quot; tile. Used by ICredentialProviderUserArray_GetAccountOptions.
- * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/ne-credentialprovider-credential_provider_account_options
+ * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_account_options
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

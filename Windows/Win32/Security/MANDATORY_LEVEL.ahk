@@ -3,7 +3,7 @@
 
 /**
  * Lists the possible security levels.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-mandatory_level
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-mandatory_level
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

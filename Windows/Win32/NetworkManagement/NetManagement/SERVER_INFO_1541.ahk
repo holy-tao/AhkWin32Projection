@@ -3,7 +3,7 @@
 
 /**
  * The SERVER_INFO_1541 structure specifies the minimum number of free connection blocks the server sets aside to handle bursts of requests by clients to connect to the server.
- * @see https://docs.microsoft.com/windows/win32/api//lmserver/ns-lmserver-server_info_1541
+ * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_1541
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

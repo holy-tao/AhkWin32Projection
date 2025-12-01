@@ -3,7 +3,7 @@
 
 /**
  * Specifies whether to get or set the vertical or horizontal position of a monitor's display area.
- * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_position_type
+ * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_position_type
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

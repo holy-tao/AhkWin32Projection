@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Contains values that indicate a type of directive.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_directive_types
  * @namespace Windows.Win32.Storage.Nvme
@@ -10,11 +12,13 @@
 class NVME_DIRECTIVE_TYPES extends Win32Enum{
 
     /**
+     * A directive for an Identify operation.
      * @type {Integer (Int32)}
      */
     static NVME_DIRECTIVE_TYPE_IDENTIFY => 0
 
     /**
+     * A directive for a Streams operation.
      * @type {Integer (Int32)}
      */
     static NVME_DIRECTIVE_TYPE_STREAMS => 1

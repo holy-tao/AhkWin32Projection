@@ -3,7 +3,7 @@
 
 /**
  * The COMPARTMENT_ID enumeration indicates the network routing compartment identifier.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-compartment_id
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-compartment_id
  * @namespace Windows.Win32.System.Kernel
  * @version v4.0.30319
  */

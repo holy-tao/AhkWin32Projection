@@ -3,7 +3,7 @@
 
 /**
  * Contains values that indicate the options that can be retrieved or set with the IADsObjectOptions.GetOption and IADsObjectOptions.SetOption methods.
- * @see https://docs.microsoft.com/windows/win32/api//iads/ne-iads-ads_option_enum
+ * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_option_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

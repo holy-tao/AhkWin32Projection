@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the resource manager (RM).
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-txfs_query_rm_information
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_query_rm_information
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

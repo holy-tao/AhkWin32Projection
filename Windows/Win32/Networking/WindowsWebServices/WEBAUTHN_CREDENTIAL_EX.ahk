@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Data about a credential with extra information.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_credential_ex
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -14,6 +16,7 @@ class WEBAUTHN_CREDENTIAL_EX extends Win32Struct
     static packingSize => 8
 
     /**
+     * Version of this structure, to allow for modifications in the future. This field is required and should be set to **CURRENT_VERSION**.
      * @type {Integer}
      */
     dwVersion {
@@ -22,6 +25,7 @@ class WEBAUTHN_CREDENTIAL_EX extends Win32Struct
     }
 
     /**
+     * The size of **pbID**.
      * @type {Integer}
      */
     cbId {
@@ -30,6 +34,7 @@ class WEBAUTHN_CREDENTIAL_EX extends Win32Struct
     }
 
     /**
+     * Unique ID for this particular credential.
      * @type {Pointer<Integer>}
      */
     pbId {
@@ -38,6 +43,7 @@ class WEBAUTHN_CREDENTIAL_EX extends Win32Struct
     }
 
     /**
+     * Well-known credential type specifying the type of this particular credential.
      * @type {PWSTR}
      */
     pwszCredentialType {
@@ -46,6 +52,7 @@ class WEBAUTHN_CREDENTIAL_EX extends Win32Struct
     }
 
     /**
+     * The transports. **0** implies no transport restrictions.
      * @type {Integer}
      */
     dwTransports {

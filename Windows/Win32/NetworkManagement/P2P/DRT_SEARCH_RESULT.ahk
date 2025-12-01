@@ -5,7 +5,7 @@
 
 /**
  * DRT_SEARCH_RESULT.
- * @see https://docs.microsoft.com/windows/win32/api//drt/ns-drt-drt_search_result
+ * @see https://learn.microsoft.com/windows/win32/api/drt/ns-drt-drt_search_result
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

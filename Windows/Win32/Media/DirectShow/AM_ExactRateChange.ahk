@@ -3,7 +3,7 @@
 
 /**
  * The AM_ExactRateChange structure is not supported. Use AM_SimpleRateChange.
- * @see https://docs.microsoft.com/windows/win32/api//dvdmedia/ns-dvdmedia-am_exactratechange
+ * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-am_exactratechange
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

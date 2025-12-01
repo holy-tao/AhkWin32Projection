@@ -4,7 +4,6 @@
 /**
  * The TS_STATUS structure contains document status data.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms629192(v=vs.85)">TF_STATUS</a> structure contains document status data.
  * 
  * 
@@ -71,9 +70,7 @@
  * <td><b>Starting with Windows 8:</b> The document supports text suggestions provided by the touch keyboard.</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//textstor/ns-textstor-ts_status
+ * @see https://learn.microsoft.com/windows/win32/api/textstor/ns-textstor-ts_status
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

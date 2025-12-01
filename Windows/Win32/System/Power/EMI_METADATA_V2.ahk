@@ -4,7 +4,7 @@
 
 /**
  * The EMI_METADATA_V2 structure provides metadata about a device that supports the EMI_VERSION_V2 interface. This metadata contains information about the hardware device and what EMI channels are exposed by this device.
- * @see https://docs.microsoft.com/windows/win32/api//emi/ns-emi-emi_metadata_v2
+ * @see https://learn.microsoft.com/windows/win32/api/emi/ns-emi-emi_metadata_v2
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

@@ -2,8 +2,8 @@
 #Include ..\..\..\Win32Enum.ahk
 
 /**
- * Reserved for Microsoft use.
- * @see https://docs.microsoft.com/windows/win32/api//xblidpauthmanager/ne-xblidpauthmanager-xbl_idp_auth_token_status
+ * Reserved for Microsoft use. (XBL_IDP_AUTH_TOKEN_STATUS)
+ * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/ne-xblidpauthmanager-xbl_idp_auth_token_status
  * @namespace Windows.Win32.Gaming
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * The DISPLAYCONFIG_SOURCE_DEVICE_NAME structure contains the GDI device name for the source or view.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-displayconfig_source_device_name
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_source_device_name
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

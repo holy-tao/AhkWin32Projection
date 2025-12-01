@@ -4,14 +4,11 @@
 /**
  * Represents the type of a minidump data stream.
  * @remarks
- * 
  * In this context, a data stream is a set of data in a minidump file.
  * 
  * The <b>StreamType</b> member of the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ns-minidumpapiset-minidump_directory">MINIDUMP_DIRECTORY</a> structure can be one of these types. Additional types may be added in the future, so if a program reading the minidump header encounters a stream type it does not recognize, it should ignore the stream altogether.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ne-minidumpapiset-minidump_stream_type
+ * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ne-minidumpapiset-minidump_stream_type
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

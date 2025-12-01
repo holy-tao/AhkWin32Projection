@@ -3,7 +3,7 @@
 
 /**
  * Defines the outcomes (results) that KTM can assign to a transaction.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-transaction_outcome
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-transaction_outcome
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

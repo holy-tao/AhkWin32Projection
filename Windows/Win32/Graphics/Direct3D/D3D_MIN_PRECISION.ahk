@@ -4,11 +4,8 @@
 /**
  * Values that indicate the minimum desired interpolation precision.
  * @remarks
- * 
  * For more info, see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-scalar">Scalar Types</a> and <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/using-hlsl-minimum-precision">Using HLSL minimum precision</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3dcommon/ne-d3dcommon-d3d_min_precision
+ * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_min_precision
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */

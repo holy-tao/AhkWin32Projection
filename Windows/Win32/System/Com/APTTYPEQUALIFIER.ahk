@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Specifies the set of possible COM apartment type qualifiers.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/ne-objidl-apttypequalifier
+ * The APTTYPEQUALIFIER (objidlbase.h) enumeration specifies the set of possible COM apartment type qualifiers.
+ * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ne-objidlbase-apttypequalifier
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

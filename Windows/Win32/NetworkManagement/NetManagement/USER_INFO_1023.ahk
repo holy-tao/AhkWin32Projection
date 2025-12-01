@@ -3,7 +3,7 @@
 
 /**
  * The USER_INFO_1023 structure contains the name of the server to which network logon requests should be sent. This information level is valid only when you call the NetUserSetInfo function.
- * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-user_info_1023
+ * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_1023
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The CIEXYZ structure contains the x,y, and z coordinates of a specific color in a specified color space.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-ciexyz
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-ciexyz
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

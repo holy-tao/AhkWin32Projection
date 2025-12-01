@@ -4,7 +4,7 @@
 
 /**
  * The AMVPDIMINFO structure specifies the dimensional characteristics of a video port (VP) input stream.
- * @see https://docs.microsoft.com/windows/win32/api//vptype/ns-vptype-amvpdiminfo
+ * @see https://learn.microsoft.com/windows/win32/api/vptype/ns-vptype-amvpdiminfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Stores position information for an item. Used with message SFVM_SETITEMPOS.
- * @see https://docs.microsoft.com/windows/win32/api//shlobj/ns-shlobj-sfv_setitempos
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj/ns-shlobj-sfv_setitempos
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -26,9 +26,9 @@ class SFV_SETITEMPOS extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
-     * A <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure indicating the position of the item.
+     * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure indicating the position of the item.
      * @type {POINT}
      */
     pt{

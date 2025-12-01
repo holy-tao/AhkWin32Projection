@@ -3,7 +3,7 @@
 
 /**
  * Specifies the direction in which reading progresses.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_reading_direction
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_reading_direction
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

@@ -2,12 +2,10 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Performs a mean variance normalization function on the input tensor. This operator will calculate the mean and variance of the input tensor to perform normalization.
+ * Performs a mean variance normalization function on the input tensor. This operator will calculate the mean and variance of the input tensor to perform normalization. (DML_MEAN_VARIANCE_NORMALIZATION_OPERATOR_DESC)
  * @remarks
  * A newer version of this operator, [DML_MEAN_VARIANCE_NORMALIZATION1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_mean_variance_normalization1_operator_desc), was introduced in `DML_FEATURE_LEVEL_2_1`.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_mean_variance_normalization_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_mean_variance_normalization_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
@@ -31,7 +29,7 @@ class DML_MEAN_VARIANCE_NORMALIZATION_OPERATOR_DESC extends Win32Struct
     /**
      * Type: \_Maybenull\_ **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
      * 
-     * An optional tensor containing the Scale data. This tensor's dimensions should be `{ BatchCount, ChannelCount, Height, Width }`. Any dimension can be replaced with 1 to broadcast in that dimension. This tensor is required if the *BiasTensor* is used.
+     * An optional tensor containing the Scale data. This tensor's dimensions should be `{ BatchCount, ChannelCount, Height, Width }`. Any dimension can be replaced with 1 to broadcast in that dimension. If **DML_FEATURE_LEVEL** is less than **DML_FEATURE_LEVEL_5_2**, then this tensor is required if *BiasTensor* is present. If **DML_FEATURE_LEVEL** is greater than or equal to **DML_FEATURE_LEVEL_5_2**, then this tensor can be null regardless of the value of *BiasTensor*.
      * @type {Pointer<DML_TENSOR_DESC>}
      */
     ScaleTensor {
@@ -42,7 +40,7 @@ class DML_MEAN_VARIANCE_NORMALIZATION_OPERATOR_DESC extends Win32Struct
     /**
      * Type: \_Maybenull\_ **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
      * 
-     * An optional tensor containing the bias data. This tensor's dimensions should be `{ BatchCount, ChannelCount, Height, Width }`. Any dimension can be replaced with 1 to broadcast in that dimension. This tensor is required if the *ScaleTensor* is used.
+     * An optional tensor containing the bias data. This tensor's dimensions should be `{ BatchCount, ChannelCount, Height, Width }`. Any dimension can be replaced with 1 to broadcast in that dimension. If **DML_FEATURE_LEVEL** is less than **DML_FEATURE_LEVEL_5_2**, then this tensor is required if *ScaleTensor* is present. If **DML_FEATURE_LEVEL** is greater than or equal to **DML_FEATURE_LEVEL_5_2**, then this tensor can be null regardless of the value of *ScaleTensor*.
      * @type {Pointer<DML_TENSOR_DESC>}
      */
     BiasTensor {
@@ -97,7 +95,7 @@ class DML_MEAN_VARIANCE_NORMALIZATION_OPERATOR_DESC extends Win32Struct
     /**
      * Type: \_Maybenull\_ **const [DML_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_operator_desc)\***
      * 
-     * An optional fused activation layer to apply after the normalization.
+     * An optional fused activation layer to apply after the normalization. For more info, see [Using fused operators for improved performance](/windows/ai/directml/dml-fused-activations).
      * @type {Pointer<DML_OPERATOR_DESC>}
      */
     FusedActivation {

@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a domain's password policy, such as the minimum length for passwords and how unique passwords must be.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-domain_password_information
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-domain_password_information
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

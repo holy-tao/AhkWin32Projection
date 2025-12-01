@@ -3,7 +3,7 @@
 
 /**
  * Contains values that correspond to the types of Windows objects that support security.
- * @see https://docs.microsoft.com/windows/win32/api//accctrl/ne-accctrl-se_object_type
+ * @see https://learn.microsoft.com/windows/win32/api/accctrl/ne-accctrl-se_object_type
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * The security binding template for specifying the use of Windows SSPI protocol based transport security.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_tcp_sspi_transport_security_binding_template
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_tcp_sspi_transport_security_binding_template
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

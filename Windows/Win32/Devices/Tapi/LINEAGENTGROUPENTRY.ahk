@@ -3,7 +3,7 @@
 
 /**
  * The LINEAGENTGROUPENTRY structure provides information on ACD agent groups. The LINEAGENTGROUPLIST structure can contain an array of LINEAGENTGROUPENTRY structures.
- * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-lineagentgroupentry
+ * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineagentgroupentry
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

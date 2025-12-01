@@ -3,7 +3,7 @@
 
 /**
  * The DD_DIRECTDRAW_LOCAL structure contains driver information that is relevant to the current DirectDraw process only.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_directdraw_local
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_directdraw_local
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

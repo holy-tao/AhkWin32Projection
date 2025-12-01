@@ -173,10 +173,12 @@ class Cabinets {
 ;@region Methods
     /**
      * The FCICreate function creates an FCI context.
+     * @remarks
+     * FCI supports multiple simultaneous contexts. As a result it is possible to create or extract multiple cabinets at the same time within the same application. If the application is multithreaded, it is also possible to run a different context in each thread; however, an application cannot use the same context simultaneously in multiple threads. For example, <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fciaddfile">FCIAddFile</a> cannot be called from two different threads, using the same FCI context.
      * @param {Pointer<ERF>} perf Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure that receives the error information.
      * @param {Pointer<PFNFCIFILEPLACED>} pfnfcifp Pointer to an application-defined callback function to notify when a file is placed in the cabinet. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfcifileplaced">FNFCIFILEPLACED</a> macro.
      * @param {Pointer<PFNFCIALLOC>} pfna Pointer to an application-defined callback function to allocate memory. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfcialloc">FNFCIALLOC</a> macro.
-     * @param {Pointer<PFNFCIFREE>} pfnf Pointer to an application-defined callback function to free previously allocated memory. The function should be delcared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfcifree">FNFCIFREE</a> macro.
+     * @param {Pointer<PFNFCIFREE>} pfnf Pointer to an application-defined callback function to free previously allocated memory. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfcifree">FNFCIFREE</a> macro.
      * @param {Pointer<PFNFCIOPEN>} pfnopen Pointer to an application-defined callback function to open a file. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfciopen">FNFCIOPEN</a> macro.
      * @param {Pointer<PFNFCIREAD>} pfnread Pointer to an application-defined callback function to read data from a file. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfciread">FNFCIREAD</a> macro.
      * @param {Pointer<PFNFCIWRITE>} pfnwrite Pointer to an application-defined callback function to write data to a file. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfciwrite">FNFCIWRITE</a> macro.
@@ -188,8 +190,8 @@ class Cabinets {
      * @param {Pointer<Void>} pv Pointer to an application-defined value that is passed to callback functions.
      * @returns {Pointer<Void>} If the function succeeds, it returns a non-<b>NULL</b> HFCI context pointer; otherwise, <b>NULL</b>.
      * 
-     * Extended error information is provided in the <a href="/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//fci/nf-fci-fcicreate
+     * Extended error information is provided in the <a href="https://docs.microsoft.com/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure.
+     * @see https://learn.microsoft.com/windows/win32/api/fci/nf-fci-fcicreate
      */
     static FCICreate(perf, pfnfcifp, pfna, pfnf, pfnopen, pfnread, pfnwrite, pfnclose, pfnseek, pfndelete, pfnfcigtf, pccab, pv) {
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
@@ -200,6 +202,8 @@ class Cabinets {
 
     /**
      * The FCIAddFile adds a file to the cabinet under construction.
+     * @remarks
+     * When set, the _A_EXEC attribute is added to the file entry in the CAB. This mechanism is used in some Microsoft self-extracting executables, and could be used for this purpose in any custom extraction application.
      * @param {Pointer<Void>} hfci A valid FCI context handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fcicreate">FCICreate</a> function.
      * @param {PSTR} pszSourceFile The name of the file to add; this value should include path information.
      * @param {PSTR} pszFileName The name under which to store the file in the cabinet.
@@ -241,8 +245,8 @@ class Cabinets {
      * </table>
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>; otherwise, <b>FALSE</b>.
      * 
-     * Extended error information is provided in the <a href="/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FCI context.
-     * @see https://docs.microsoft.com/windows/win32/api//fci/nf-fci-fciaddfile
+     * Extended error information is provided in the <a href="https://docs.microsoft.com/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FCI context.
+     * @see https://learn.microsoft.com/windows/win32/api/fci/nf-fci-fciaddfile
      */
     static FCIAddFile(hfci, pszSourceFile, pszFileName, fExecute, pfnfcignc, pfnfcis, pfnfcigoi, typeCompress) {
         pszSourceFile := pszSourceFile is String ? StrPtr(pszSourceFile) : pszSourceFile
@@ -256,14 +260,20 @@ class Cabinets {
 
     /**
      * The FCIFlushCabinet function completes the current cabinet.
+     * @remarks
+     * The <b>FCIFlushCabinet</b> API forces the current cabinet under construction to be completed immediately and then written to disk. Further calls to <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fciaddfile">FCIAddFile</a> will result in files being added to another cabinet.
+     * 
+     *  In the event the current cabinet has reached the application-specified media size limit, the pending data within an FCI's internal buffers will be placed into another cabinet.
+     * 
+     * The <i>fGetNextCab</i> flag determines whether the function pointed to by the <i>GetNextCab</i> parameter will be called. If <i>fGetNextCab</i> is set <b>TRUE</b>, <i>GetNextCab</i> is called to obtain continuation information. If <b>FALSE</b>, then <i>GetNextCab</i> is called only in the event the cabinet overflows.
      * @param {Pointer<Void>} hfci A valid FCI context handle returned by the<a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fcicreate">FCICreate</a> function.
      * @param {BOOL} fGetNextCab Specifies whether the function pointed to by the supplied <i>GetNextCab</i> parameter will be called.
      * @param {Pointer<PFNFCIGETNEXTCABINET>} pfnfcignc Pointer to an application-defined callback function to obtain specifications on the next cabinet to create. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfcigetnextcabinet">FNFCIGETNEXTCABINET</a> macro.
      * @param {Pointer<PFNFCISTATUS>} pfnfcis Pointer to an application-defined callback function to update the user. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfcistatus">FNFCISTATUS</a> macro.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>; otherwise, <b>FALSE</b>.
      * 
-     * Extended error information is provided in the <a href="/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FCI context.
-     * @see https://docs.microsoft.com/windows/win32/api//fci/nf-fci-fciflushcabinet
+     * Extended error information is provided in the <a href="https://docs.microsoft.com/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FCI context.
+     * @see https://learn.microsoft.com/windows/win32/api/fci/nf-fci-fciflushcabinet
      */
     static FCIFlushCabinet(hfci, fGetNextCab, pfnfcignc, pfnfcis) {
         hfciMarshal := hfci is VarRef ? "ptr" : "ptr"
@@ -274,13 +284,17 @@ class Cabinets {
 
     /**
      * The FCIFlushFolder function forces the current folder under construction to be completed immediately.
+     * @remarks
+     * The <b>FCIFlushFolder</b> API forces the folder currently under construction to be completed immediately; effectively resetting the compression history if a compression method is in use.
+     * 
+     * The callback function indicated by <i>GetNextCab</i> will be called if the cabinet overflows, which occurs if the pending data buffered inside an FCI causes the application-specified cabinet media size to be exceeded.
      * @param {Pointer<Void>} hfci A valid FCI context handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fcicreate">FCICreate</a> function.
      * @param {Pointer<PFNFCIGETNEXTCABINET>} pfnfcignc Pointer to an application-defined callback function to obtain specifications on the next cabinet to create. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfcigetnextcabinet">FNFCIGETNEXTCABINET</a> macro.
      * @param {Pointer<PFNFCISTATUS>} pfnfcis Pointer to an application-defined callback function to update the user. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfcistatus">FNFCISTATUS</a> macro.
-     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>; otherwise, FASLE.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>; otherwise, <b>FALSE</b>.
      * 
-     * Extended error information is provided in the <a href="/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FCI context.
-     * @see https://docs.microsoft.com/windows/win32/api//fci/nf-fci-fciflushfolder
+     * Extended error information is provided in the <a href="https://docs.microsoft.com/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FCI context.
+     * @see https://learn.microsoft.com/windows/win32/api/fci/nf-fci-fciflushfolder
      */
     static FCIFlushFolder(hfci, pfnfcignc, pfnfcis) {
         hfciMarshal := hfci is VarRef ? "ptr" : "ptr"
@@ -294,8 +308,8 @@ class Cabinets {
      * @param {Pointer<Void>} hfci A valid FCI context handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fcicreate">FCICreate</a> function.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>; otherwise, <b>FALSE</b>.
      * 
-     * Extended error information is provided in the <a href="/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FCI context.
-     * @see https://docs.microsoft.com/windows/win32/api//fci/nf-fci-fcidestroy
+     * Extended error information is provided in the <a href="https://docs.microsoft.com/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FCI context.
+     * @see https://learn.microsoft.com/windows/win32/api/fci/nf-fci-fcidestroy
      */
     static FCIDestroy(hfci) {
         hfciMarshal := hfci is VarRef ? "ptr" : "ptr"
@@ -317,8 +331,8 @@ class Cabinets {
      * @param {Pointer<ERF>} perf Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure that receives the error information.
      * @returns {Pointer<Void>} If the function succeeds, it returns a non-<b>NULL</b> HFDI context pointer; otherwise, it returns <b>NULL</b>.
      * 
-     * Extended error information is provided in the <a href="/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//fdi/nf-fdi-fdicreate
+     * Extended error information is provided in the <a href="https://docs.microsoft.com/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure.
+     * @see https://learn.microsoft.com/windows/win32/api/fdi/nf-fdi-fdicreate
      * @since windows5.0
      */
     static FDICreate(pfnalloc, pfnfree, pfnopen, pfnread, pfnwrite, pfnclose, pfnseek, cpuType, perf) {
@@ -333,8 +347,8 @@ class Cabinets {
      * @param {Pointer<FDICABINETINFO>} pfdici Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/fdi/ns-fdi-fdicabinetinfo">FDICABINETINFO</a> structure that receives the cabinet details, in the event the file is actually a cabinet.
      * @returns {BOOL} If the file is a cabinet, the function returns <b>TRUE</b> ; otherwise, <b>FALSE</b>.
      * 
-     * Extended error information is provided in the <a href="/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FDI context.
-     * @see https://docs.microsoft.com/windows/win32/api//fdi/nf-fdi-fdiiscabinet
+     * Extended error information is provided in the <a href="https://docs.microsoft.com/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FDI context.
+     * @see https://learn.microsoft.com/windows/win32/api/fdi/nf-fdi-fdiiscabinet
      * @since windows5.0
      */
     static FDIIsCabinet(hfdi, hf, pfdici) {
@@ -357,8 +371,8 @@ class Cabinets {
      * @param {Pointer<Void>} pvUser Pointer to an application-specified value to pass to the notification function.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>; otherwise, <b>FALSE</b>.
      * 
-     * Extended error information is provided in the <a href="/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FDI context.
-     * @see https://docs.microsoft.com/windows/win32/api//fdi/nf-fdi-fdicopy
+     * Extended error information is provided in the <a href="https://docs.microsoft.com/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FDI context.
+     * @see https://learn.microsoft.com/windows/win32/api/fdi/nf-fdi-fdicopy
      * @since windows5.0
      */
     static FDICopy(hfdi, pszCabinet, pszCabPath, flags, pfnfdin, pfnfdid, pvUser) {
@@ -377,8 +391,8 @@ class Cabinets {
      * @param {Pointer<Void>} hfdi A valid FDI context handle returned by  the <a href="https://docs.microsoft.com/windows/desktop/api/fdi/nf-fdi-fdicreate">FDICreate</a> function.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>; otherwise, <b>FALSE</b>.
      * 
-     * Extended error information is provided in the <a href="/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FDI context.
-     * @see https://docs.microsoft.com/windows/win32/api//fdi/nf-fdi-fdidestroy
+     * Extended error information is provided in the <a href="https://docs.microsoft.com/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FDI context.
+     * @see https://learn.microsoft.com/windows/win32/api/fdi/nf-fdi-fdidestroy
      * @since windows5.0
      */
     static FDIDestroy(hfdi) {
@@ -395,8 +409,8 @@ class Cabinets {
      * @param {Integer} iFolderToDelete The index of the first folder to delete.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>; otherwise, <b>FALSE</b>.
      * 
-     * Extended error information is provided in the <a href="/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FDI context.
-     * @see https://docs.microsoft.com/windows/win32/api//fdi/nf-fdi-fditruncatecabinet
+     * Extended error information is provided in the <a href="https://docs.microsoft.com/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FDI context.
+     * @see https://learn.microsoft.com/windows/win32/api/fdi/nf-fdi-fditruncatecabinet
      */
     static FDITruncateCabinet(hfdi, pszCabinetName, iFolderToDelete) {
         pszCabinetName := pszCabinetName is String ? StrPtr(pszCabinetName) : pszCabinetName

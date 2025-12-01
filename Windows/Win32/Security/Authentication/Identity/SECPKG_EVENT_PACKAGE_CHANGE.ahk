@@ -4,7 +4,7 @@
 
 /**
  * The SECPKG_EVENT_PACKAGE_CHANGE structure contains information about changes in security package availability.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ns-ntsecpkg-secpkg_event_package_change
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_event_package_change
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

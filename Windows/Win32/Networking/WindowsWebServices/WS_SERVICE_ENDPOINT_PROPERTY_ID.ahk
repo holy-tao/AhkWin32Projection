@@ -3,7 +3,7 @@
 
 /**
  * Each property represents optional parameters for configuring the given WS_SERVICE_ENDPOINT structure. This enumeration is used within the WS_SERVICE_ENDPOINT_PROPERTY structure that is part of WS_SERVICE_ENDPOINT.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_service_endpoint_property_id
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_service_endpoint_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -147,7 +147,7 @@ class WS_SERVICE_ENDPOINT_PROPERTY_ID extends Win32Enum{
      *                 
      * 
      * When setting this property to WS_METADATA_EXCHANGE_TYPE_HTTP_GET an application must not specify <a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_buffer_property_id">WS_MATCH_URL_EXACT_PATH</a> for the listener 
-     *                     properties <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_listener_property_id">WS_LISTENER_PROPERTY_TRANSPORT_URL_MATCHING_OPTIONS</a> and <b>WS_LISTENER_PROPERTY_TO_HEADER_MATCHING_OPTIONS</b>for the given <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_service_endpoint">WS_SERVICE_ENDPOINT</a>.
+     *                     properties <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_listener_property_id">WS_LISTENER_PROPERTY_TRANSPORT_URL_MATCHING_OPTIONS</a> and <b>WS_LISTENER_PROPERTY_TO_HEADER_MATCHING_OPTIONS</b> for the given <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_service_endpoint">WS_SERVICE_ENDPOINT</a>.
      * @type {Integer (Int32)}
      */
     static WS_SERVICE_ENDPOINT_PROPERTY_METADATA_EXCHANGE_TYPE => 11

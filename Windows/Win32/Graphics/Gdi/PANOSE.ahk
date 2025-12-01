@@ -3,7 +3,7 @@
 
 /**
  * The PANOSE structure describes the PANOSE font-classification values for a TrueType font. These characteristics are then used to associate the font with other fonts of similar appearance but different names.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-panose
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-panose
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

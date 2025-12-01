@@ -3,7 +3,7 @@
 
 /**
  * Indicates the type of SID operations that can be made by a call to the AuthzModifySids function.
- * @see https://docs.microsoft.com/windows/win32/api//authz/ne-authz-authz_sid_operation
+ * @see https://learn.microsoft.com/windows/win32/api/authz/ne-authz-authz_sid_operation
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */

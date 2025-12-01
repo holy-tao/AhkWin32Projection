@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_BINARY_DATA structure defines an opaque blob of binary data.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_binary_data
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_binary_data
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

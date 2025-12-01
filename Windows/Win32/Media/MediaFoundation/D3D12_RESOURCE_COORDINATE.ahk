@@ -5,8 +5,7 @@
  * Describes the coordinates of a resource.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_resource_coordinate
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_resource_coordinate
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

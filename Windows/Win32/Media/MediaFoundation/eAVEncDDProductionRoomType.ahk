@@ -3,7 +3,7 @@
 
 /**
  * Specifies the room type for a Dolby Digital audio stream. This enumeration is used with the AVEncDDProductionRoomType property.
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencddproductionroomtype
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencddproductionroomtype
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

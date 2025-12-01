@@ -3,6 +3,8 @@
 #Include .\COMPOSITION_STATS.ahk
 
 /**
+ * Contains per-target information for a composition frame and render target.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/dcomptypes/ns-dcomptypes-composition_target_stats
  * @namespace Windows.Win32.Graphics.DirectComposition
@@ -15,6 +17,7 @@ class COMPOSITION_TARGET_STATS extends Win32Struct
     static packingSize => 8
 
     /**
+     * Type: **[UINT](/windows/win32/WinProg/windows-data-types)**
      * @type {Integer}
      */
     outstandingPresents {
@@ -23,6 +26,7 @@ class COMPOSITION_TARGET_STATS extends Win32Struct
     }
 
     /**
+     * Type: **[UINT64](/windows/win32/WinProg/windows-data-types)**
      * @type {Integer}
      */
     presentTime {
@@ -31,6 +35,7 @@ class COMPOSITION_TARGET_STATS extends Win32Struct
     }
 
     /**
+     * Type: **[UINT64](/windows/win32/WinProg/windows-data-types)**
      * @type {Integer}
      */
     vblankDuration {
@@ -39,6 +44,7 @@ class COMPOSITION_TARGET_STATS extends Win32Struct
     }
 
     /**
+     * Type: **[COMPOSITION_STATS](ns-dcomptypes-composition_stats.md)**
      * @type {COMPOSITION_STATS}
      */
     presentedStats{
@@ -50,6 +56,7 @@ class COMPOSITION_TARGET_STATS extends Win32Struct
     }
 
     /**
+     * Type: **[COMPOSITION_STATS](ns-dcomptypes-composition_stats.md)**
      * @type {COMPOSITION_STATS}
      */
     completedStats{

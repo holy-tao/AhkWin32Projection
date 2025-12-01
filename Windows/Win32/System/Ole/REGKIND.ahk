@@ -3,7 +3,7 @@
 
 /**
  * Controls how a type library is registered.
- * @see https://docs.microsoft.com/windows/win32/api//oleauto/ne-oleauto-regkind
+ * @see https://learn.microsoft.com/windows/win32/api/oleauto/ne-oleauto-regkind
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

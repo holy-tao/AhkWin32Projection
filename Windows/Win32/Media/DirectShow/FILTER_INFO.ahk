@@ -4,11 +4,8 @@
 /**
  * The FILTER_INFO structure contains information about a filter.
  * @remarks
- * 
  * If the <b>pGraph</b> member is not <b>NULL</b>, the application should release the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ifiltergraph">IFilterGraph</a> interface when it is finished using it.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-filter_info
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-filter_info
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

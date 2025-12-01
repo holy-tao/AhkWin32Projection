@@ -3,7 +3,7 @@
 
 /**
  * WCN_ATTRIBUTE_TYPE enumeration defines the attribute buffer types defined for Wi-Fi Protected Setup. The overall size occupied by each attribute buffer includes an additional 4 bytes (2 bytes of ID, 2 bytes of Length).
- * @see https://docs.microsoft.com/windows/win32/api//wcntypes/ne-wcntypes-wcn_attribute_type
+ * @see https://learn.microsoft.com/windows/win32/api/wcntypes/ne-wcntypes-wcn_attribute_type
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
  * @version v4.0.30319
  */
@@ -503,7 +503,7 @@ class WCN_ATTRIBUTE_TYPE extends Win32Enum{
      * This attribute value indicates that the <i>puInteger</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/wcndevice/nf-wcndevice-iwcndevice-getintegerattribute">IWCNDevice::GetAttribute</a> method is    a buffer, up to 1024 bytes in size, that permits the use of vendor extensions in the Wi-Fi Protected Setup TLV framework. The Vendor
      * Extension figure illustrates the implementation of vendor extensions. Vendor ID is the SMI network management private enterprise code. 
      * 
-     *  Instead of querying this value, implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/wcndevice/nf-wcndevice-iwcndevice-getvendorextension">IWCNDevice::GetVendorExtension</a> API is recommended for convenience and flexibilty while accessing the raw vendor extension attribute directly.
+     *  Instead of querying this value, implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/wcndevice/nf-wcndevice-iwcndevice-getvendorextension">IWCNDevice::GetVendorExtension</a> API is recommended for convenience and flexibility while accessing the raw vendor extension attribute directly.
      * @type {Integer (Int32)}
      */
     static WCN_TYPE_VENDOR_EXTENSION => 64

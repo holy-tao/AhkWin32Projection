@@ -4,11 +4,8 @@
 /**
  * Flags indicating the memory location of a resource.
  * @remarks
- * 
  * This enum is used by <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgidevice-queryresourceresidency">QueryResourceResidency</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi/ne-dxgi-dxgi_residency
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi/ne-dxgi-dxgi_residency
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

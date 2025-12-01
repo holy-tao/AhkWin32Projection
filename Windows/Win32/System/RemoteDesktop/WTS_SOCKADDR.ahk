@@ -3,7 +3,7 @@
 
 /**
  * Contains a socket address.
- * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ns-wtsdefs-wts_sockaddr
+ * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_sockaddr
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

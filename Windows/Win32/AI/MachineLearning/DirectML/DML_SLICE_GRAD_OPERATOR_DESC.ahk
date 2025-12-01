@@ -3,7 +3,7 @@
 
 /**
  * Computes backpropagation gradients for Slice (see [DML_SLICE1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_slice1_operator_desc)).
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_slice_grad_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_slice_grad_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

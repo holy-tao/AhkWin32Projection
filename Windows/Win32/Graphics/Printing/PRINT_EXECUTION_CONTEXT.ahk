@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * Represents the execution context when GetPrintExecutionData is called.
  * @see https://learn.microsoft.com/windows/win32/printdocs/print-execution-context
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319

@@ -6,11 +6,8 @@
 /**
  * The URL subtype for specifying an HTTP URL.
  * @remarks
- * 
  * If used with the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsdecodeurl">WsDecodeUrl</a> field, portAsString is a zero-length string if no port is specified in url.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_http_url
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_http_url
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

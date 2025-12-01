@@ -3,7 +3,7 @@
 
 /**
  * Contains category information. A component category is a group of logically-related Component Object Model (COM) classes that share a common category identifier (CATID).
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ns-shobjidl_core-category_info
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-category_info
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

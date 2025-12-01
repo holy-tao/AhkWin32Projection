@@ -3,7 +3,7 @@
 
 /**
  * Represents the PnP hardware ID parts for an adapter.
- * @see https://docs.microsoft.com/windows/win32/api//dxcore_interface/ns-dxcore_interface-dxcorehardwareid
+ * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/ns-dxcore_interface-dxcorehardwareid
  * @namespace Windows.Win32.Graphics.DXCore
  * @version v4.0.30319
  */

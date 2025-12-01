@@ -42,10 +42,12 @@ class Kernel {
 
 ;@region Methods
     /**
-     * Initializes the head of a singly linked list.
+     * Initializes the head of a singly linked list. (RtlInitializeSListHead)
+     * @remarks
+     * Calls to the <a href="https://docs.microsoft.com/windows/desktop/api/interlockedapi/nf-interlockedapi-initializeslisthead">InitializeSListHead</a> function are forwarded to the <b>RtlInitializeSListHead</b> function. Applications should call <b>InitializeSListHead</b> instead of calling this function directly.
      * @param {Pointer<SLIST_HEADER>} ListHead A pointer to an <b>SLIST_HEADER</b> structure that represents the head of a singly linked list. This structure is for system use only.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//winnt/nf-winnt-rtlinitializeslisthead
+     * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlinitializeslisthead
      * @since windows5.1.2600
      */
     static RtlInitializeSListHead(ListHead) {
@@ -58,7 +60,7 @@ class Kernel {
      * 
      * The list must  be previously initialized with the <a href="https://docs.microsoft.com/windows/desktop/api/interlockedapi/nf-interlockedapi-initializeslisthead">InitializeSListHead</a> function.
      * @returns {Pointer<SLIST_ENTRY>} The return value is a pointer to the first entry in the list. If the list is empty, the return value is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//winnt/nf-winnt-rtlfirstentryslist
+     * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlfirstentryslist
      * @since windows5.1.2600
      */
     static RtlFirstEntrySList(ListHead) {
@@ -67,10 +69,12 @@ class Kernel {
     }
 
     /**
-     * Removes an item from the front of a singly linked list. Access to the list is synchronized on a multiprocessor system.
+     * Removes an item from the front of a singly linked list. Access to the list is synchronized on a multiprocessor system. (RtlInterlockedPopEntrySList)
+     * @remarks
+     * Calls to the <a href="https://docs.microsoft.com/windows/desktop/api/interlockedapi/nf-interlockedapi-interlockedpopentryslist">InterlockedPopEntrySList</a> function are forwarded to the <b>RtlInterlockedPopEntrySList</b> function. Applications should call <b>InterlockedPopEntrySList</b> instead of calling this function directly.
      * @param {Pointer<SLIST_HEADER>} ListHead A pointer to an <b>SLIST_HEADER</b> structure that represents the head of a singly linked list.
      * @returns {Pointer<SLIST_ENTRY>} The return value is a pointer to the item removed from the list. If the list is empty, the return value is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//winnt/nf-winnt-rtlinterlockedpopentryslist
+     * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlinterlockedpopentryslist
      * @since windows5.1.2600
      */
     static RtlInterlockedPopEntrySList(ListHead) {
@@ -79,12 +83,14 @@ class Kernel {
     }
 
     /**
-     * Inserts an item at the front of a singly linked list. Access to the list is synchronized on a multiprocessor system.
+     * Inserts an item at the front of a singly linked list. Access to the list is synchronized on a multiprocessor system. (RtlInterlockedPushEntrySList)
+     * @remarks
+     * Calls to the <a href="https://docs.microsoft.com/windows/desktop/api/interlockedapi/nf-interlockedapi-interlockedpushentryslist">InterlockedPushEntrySList</a> function are forwarded to the <b>RtlInterlockedPushEntrySList</b> function. Applications should call <b>InterlockedPushEntrySList</b> instead of calling this function directly.
      * @param {Pointer<SLIST_HEADER>} ListHead A pointer to an <b>SLIST_HEADER</b> structure that represents the head of a singly linked list.
      * @param {Pointer<SLIST_ENTRY>} ListEntry A pointer to an 
      * [SLIST_ENTRY](./ns-winnt-slist_entry.md) structure that represents an item in a singly linked list.
      * @returns {Pointer<SLIST_ENTRY>} The return value is the previous first item in the list. If the list was previously empty, the return value is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//winnt/nf-winnt-rtlinterlockedpushentryslist
+     * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlinterlockedpushentryslist
      * @since windows5.1.2600
      */
     static RtlInterlockedPushEntrySList(ListHead, ListEntry) {
@@ -106,10 +112,12 @@ class Kernel {
     }
 
     /**
-     * Removes all items from a singly linked list. Access to the list is synchronized on a multiprocessor system.
+     * Removes all items from a singly linked list. Access to the list is synchronized on a multiprocessor system. (RtlInterlockedFlushSList)
+     * @remarks
+     * Calls to the <a href="https://docs.microsoft.com/windows/desktop/api/interlockedapi/nf-interlockedapi-interlockedflushslist">InterlockedFlushSList</a> function are forwarded to the <b>RtlInterlockedFlushSList</b> function. Applications should call <b>InterlockedFlushSList</b> instead of calling this function directly.
      * @param {Pointer<SLIST_HEADER>} ListHead A pointer to an <b>SLIST_HEADER</b> structure that represents the head of the singly linked list. This structure is for system use only.
      * @returns {Pointer<SLIST_ENTRY>} The return value is a pointer to the items removed from the list. If the list is empty, the return value is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//winnt/nf-winnt-rtlinterlockedflushslist
+     * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlinterlockedflushslist
      * @since windows5.1.2600
      */
     static RtlInterlockedFlushSList(ListHead) {
@@ -118,12 +126,14 @@ class Kernel {
     }
 
     /**
-     * Retrieves the number of entries in the specified singly linked list.
+     * Retrieves the number of entries in the specified singly linked list. (RtlQueryDepthSList)
+     * @remarks
+     * Calls to the <a href="https://docs.microsoft.com/windows/desktop/api/interlockedapi/nf-interlockedapi-querydepthslist">QueryDepthSList</a> function are forwarded to the <b>RtlQueryDepthSList</b> function. Applications should call <b>QueryDepthSList</b> instead of calling this function directly.
      * @param {Pointer<SLIST_HEADER>} ListHead A pointer to an <b>SLIST_HEADER</b> structure that represents the head of a singly linked list. This structure is for system use only. 
      * 
      * The list must  be previously initialized with the <a href="https://docs.microsoft.com/windows/desktop/api/interlockedapi/nf-interlockedapi-initializeslisthead">InitializeSListHead</a> function.
      * @returns {Integer} The function returns the number of entries in the list.
-     * @see https://docs.microsoft.com/windows/win32/api//winnt/nf-winnt-rtlquerydepthslist
+     * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlquerydepthslist
      * @since windows5.1.2600
      */
     static RtlQueryDepthSList(ListHead) {

@@ -3,7 +3,7 @@
 
 /**
  * Identifies the type of corrective action to be taken for a spelling error.
- * @see https://docs.microsoft.com/windows/win32/api//spellcheck/ne-spellcheck-corrective_action
+ * @see https://learn.microsoft.com/windows/win32/api/spellcheck/ne-spellcheck-corrective_action
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

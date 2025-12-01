@@ -4,7 +4,7 @@
 
 /**
  * Used when calling WinVerifyTrust to pass necessary information into the trust providers.
- * @see https://docs.microsoft.com/windows/win32/api//wintrust/ns-wintrust-wintrust_data
+ * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-wintrust_data
  * @namespace Windows.Win32.Security.WinTrust
  * @version v4.0.30319
  */

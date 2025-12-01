@@ -3,7 +3,7 @@
 
 /**
  * Used with the CryptInstallDefaultContext function to contain an array of object identifier strings.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_default_context_multi_oid_para
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_default_context_multi_oid_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

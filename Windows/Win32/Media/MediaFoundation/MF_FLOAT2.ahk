@@ -3,7 +3,7 @@
 
 /**
  * A vector with two components.
- * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-mf_float2
+ * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mf_float2
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

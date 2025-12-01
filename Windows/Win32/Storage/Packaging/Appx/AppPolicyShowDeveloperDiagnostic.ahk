@@ -3,7 +3,7 @@
 
 /**
  * The AppPolicyShowDeveloperDiagnostic enumeration indicates the method used for a process to surface developer information, such as asserts, to the user.
- * @see https://docs.microsoft.com/windows/win32/api//appmodel/ne-appmodel-apppolicyshowdeveloperdiagnostic
+ * @see https://learn.microsoft.com/windows/win32/api/appmodel/ne-appmodel-apppolicyshowdeveloperdiagnostic
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

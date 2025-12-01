@@ -3,7 +3,7 @@
 
 /**
  * Provides additional information about flat or end-to-end subject types.
- * @see https://docs.microsoft.com/windows/win32/api//mssip/ns-mssip-ms_addinfo_flat
+ * @see https://learn.microsoft.com/windows/win32/api/mssip/ns-mssip-ms_addinfo_flat
  * @namespace Windows.Win32.Security.Cryptography.Sip
  * @version v4.0.30319
  */

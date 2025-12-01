@@ -5,7 +5,7 @@
 
 /**
  * Represents key-encryption key information when using Elliptic Curve Cryptography (ECC) in the Cryptographic Message Syntax (CMS) EnvelopedData content type.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_ecc_cms_shared_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_ecc_cms_shared_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_POL_COMPARATOR enumeration defines the comparison operator for a condition when building a DHCP server policy.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ne-dhcpsapi-dhcp_pol_comparator
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_pol_comparator
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

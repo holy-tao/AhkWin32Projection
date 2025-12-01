@@ -4,7 +4,7 @@
 
 /**
  * The SECPKG_SUPPLEMENTAL_CRED structure contains supplemental credentials recognized by the security package.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ns-ntsecpkg-secpkg_supplemental_cred
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_supplemental_cred
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

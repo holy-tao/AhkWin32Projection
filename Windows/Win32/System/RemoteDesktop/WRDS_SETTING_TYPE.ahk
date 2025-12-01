@@ -3,7 +3,7 @@
 
 /**
  * Specifies the category of settings being stored in a WRDS_SETTINGS structure.
- * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ne-wtsdefs-wrds_setting_type
+ * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ne-wtsdefs-wrds_setting_type
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

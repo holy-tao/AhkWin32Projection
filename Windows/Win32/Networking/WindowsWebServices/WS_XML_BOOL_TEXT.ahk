@@ -4,7 +4,7 @@
 
 /**
  * A Boolean value that represents the text &quot;true&quot; or &quot;false&quot;.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_xml_bool_text
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_bool_text
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

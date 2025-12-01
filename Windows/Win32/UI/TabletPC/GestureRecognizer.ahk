@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Implements the IGestureRecognizer Interface.
  * @see https://learn.microsoft.com/windows/win32/tablet/gesturerecognizer-class
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319

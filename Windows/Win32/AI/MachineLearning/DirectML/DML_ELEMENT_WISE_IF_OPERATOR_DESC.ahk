@@ -5,9 +5,7 @@
  * Selects elements either from *ATensor* or *BTensor*, depending on the value of the corresponding element in *ConditionTensor*. Non-zero elements of *ConditionTensor* select from *ATensor*, while zero-valued elements select from *BTensor*.
  * @remarks
  * Can be used to functionally build up other aggregate operators, such as LeakyRelu. Here's an illustration in pseudo-code (not the most efficient way, but possible): `LeakyRelu(x) = If(Less(x, 0), Mul(x, alpha), x)`.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_element_wise_if_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_if_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

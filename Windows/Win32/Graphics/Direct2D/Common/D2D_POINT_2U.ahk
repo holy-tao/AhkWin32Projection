@@ -3,7 +3,7 @@
 
 /**
  * Represents an x-coordinate and y-coordinate pair, expressed as an unsigned 32-bit integer value, in two-dimensional space.
- * @see https://docs.microsoft.com/windows/win32/api//dcommon/ns-dcommon-d2d_point_2u
+ * @see https://learn.microsoft.com/windows/win32/api/dcommon/ns-dcommon-d2d_point_2u
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */

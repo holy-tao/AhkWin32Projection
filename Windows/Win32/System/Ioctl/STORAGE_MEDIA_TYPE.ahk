@@ -3,7 +3,7 @@
 
 /**
  * Specifies various types of storage media.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ne-winioctl-storage_media_type
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-storage_media_type
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

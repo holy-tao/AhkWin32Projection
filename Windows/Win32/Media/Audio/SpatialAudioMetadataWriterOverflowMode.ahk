@@ -3,7 +3,7 @@
 
 /**
  * Specifies the desired behavior when an ISpatialAudioMetadataWriter attempts to write more items into the metadata buffer than was specified when the client was initialized.
- * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/ne-spatialaudiometadata-spatialaudiometadatawriteroverflowmode
+ * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/ne-spatialaudiometadata-spatialaudiometadatawriteroverflowmode
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

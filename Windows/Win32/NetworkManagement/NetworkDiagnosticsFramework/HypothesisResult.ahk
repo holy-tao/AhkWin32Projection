@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a hypothesis returned from a helper class.
- * @see https://docs.microsoft.com/windows/win32/api//ndhelper/ns-ndhelper-hypothesisresult
+ * @see https://learn.microsoft.com/windows/win32/api/ndhelper/ns-ndhelper-hypothesisresult
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The NTMS_NOTIFICATIONINFORMATION structure defines an object and operation that occurred in the RSM database.
- * @see https://docs.microsoft.com/windows/win32/api//ntmsapi/ns-ntmsapi-ntms_notificationinformation
+ * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_notificationinformation
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

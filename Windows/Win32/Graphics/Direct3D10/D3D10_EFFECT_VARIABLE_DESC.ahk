@@ -4,11 +4,8 @@
 /**
  * Describes an effect variable.
  * @remarks
- * 
  * To get an effect-variable description, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-id3d10effectvariable-getdesc">ID3D10EffectVariable::GetDesc</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/ns-d3d10effect-d3d10_effect_variable_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/ns-d3d10effect-d3d10_effect_variable_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

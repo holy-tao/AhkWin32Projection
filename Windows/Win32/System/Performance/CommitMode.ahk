@@ -4,11 +4,8 @@
 /**
  * Defines the action to take when committing changes to the data collector set.
  * @remarks
- * 
  * All commit modes validate the set.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//pla/ne-pla-commitmode
+ * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-commitmode
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies whether the first element or all elements within a group of points or packet values are used.
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkselectionconstants
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkselectionconstants
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

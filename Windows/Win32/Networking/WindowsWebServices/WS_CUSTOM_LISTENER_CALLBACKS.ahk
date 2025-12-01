@@ -4,7 +4,6 @@
 /**
  * A structure that is used to specify a set of callbacks that form the implementation of a custom listener.
  * @remarks
- * 
  * This structure is specified when a listener is created using
  *                 <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a> 
  *                 using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_listener_property_id">WS_LISTENER_PROPERTY_CUSTOM_LISTENER_CALLBACKS</a>.
@@ -13,8 +12,7 @@
  * Except where noted, each callback is responsible for validating all parameters and
  *                 that the operation requested is acceptable given the current
  *                 <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_listener_state">WS_LISTENER_STATE</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_custom_listener_callbacks
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_custom_listener_callbacks
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

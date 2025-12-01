@@ -3,7 +3,7 @@
 
 /**
  * Contains the string value of an EAP method property.
- * @see https://docs.microsoft.com/windows/win32/api//eaptypes/ns-eaptypes-eap_method_property_value_string
+ * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_method_property_value_string
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

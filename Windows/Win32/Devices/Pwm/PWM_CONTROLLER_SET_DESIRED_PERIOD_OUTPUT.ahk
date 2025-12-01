@@ -3,7 +3,7 @@
 
 /**
  * Contains the effective output signal period of the Pulse Width Modulation (PWM) controller.
- * @see https://docs.microsoft.com/windows/win32/api//pwm/ns-pwm-pwm_controller_set_desired_period_output
+ * @see https://learn.microsoft.com/windows/win32/api/pwm/ns-pwm-pwm_controller_set_desired_period_output
  * @namespace Windows.Win32.Devices.Pwm
  * @version v4.0.30319
  */

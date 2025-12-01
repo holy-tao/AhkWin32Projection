@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains an ordered list of controller identifiers.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_controller_list
  * @namespace Windows.Win32.Storage.Nvme
@@ -14,6 +16,9 @@ class NVME_CONTROLLER_LIST extends Win32Struct
     static packingSize => 2
 
     /**
+     * Specifies the number of controller entries in the list.
+     * 
+     * There may be up to 2047 identifiers in the list. A value of 0 indicates that there are no controllers in the list.
      * @type {Integer}
      */
     NumberOfIdentifiers {
@@ -22,6 +27,9 @@ class NVME_CONTROLLER_LIST extends Win32Struct
     }
 
     /**
+     * Contains a list of unique controller identifiers.
+     * 
+     * If the first value in the list is `0h`, the list is empty and there are no controllers in the list.
      * @type {Array<UInt16>}
      */
     ControllerID{

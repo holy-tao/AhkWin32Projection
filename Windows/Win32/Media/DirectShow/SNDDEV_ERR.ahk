@@ -3,7 +3,7 @@
 
 /**
  * Specifies how the audio device was being accessed when the failure occurred.
- * @see https://docs.microsoft.com/windows/win32/api//audevcod/ne-audevcod-snddev_err
+ * @see https://learn.microsoft.com/windows/win32/api/audevcod/ne-audevcod-snddev_err
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

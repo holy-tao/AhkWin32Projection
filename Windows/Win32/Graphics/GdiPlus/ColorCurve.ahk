@@ -3,8 +3,6 @@
 #Include .\Effect.ahk
 
 /**
- * The ColorCurve class encompasses eight separate adjustments:\_exposure, density, contrast, highlight, shadow, midtone, white saturation, and black saturation.
- * @see https://docs.microsoft.com/windows/win32/api//gdipluseffects/nl-gdipluseffects-colorcurve
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

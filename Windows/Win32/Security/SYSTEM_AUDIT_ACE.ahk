@@ -5,15 +5,12 @@
 /**
  * Defines an access control entry (ACE) for the system access control list (SACL) that specifies what types of access cause system-level notifications.
  * @remarks
- * 
  * Audit messages are stored in an event log that can be manipulated by using the Windows API event-logging functions or by using the Event Viewer (Eventvwr.exe).
  * 
  * ACE structures should be aligned on <b>DWORD</b> boundaries. All Windows memory-management functions return <b>DWORD</b>-aligned handles to memory.
  * 
  * When a <b>SYSTEM_AUDIT_ACE</b> structure is created, sufficient memory must be allocated to accommodate the complete SID of the trustee in the <b>SidStart</b> member and the contiguous memory that follows it.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-system_audit_ace
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_audit_ace
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

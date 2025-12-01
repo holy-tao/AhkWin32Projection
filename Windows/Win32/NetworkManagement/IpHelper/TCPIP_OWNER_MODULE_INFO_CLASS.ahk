@@ -3,7 +3,7 @@
 
 /**
  * Defines the type of module information structure passed to calls of the GetOwnerModuleFromXXXEntry family.
- * @see https://docs.microsoft.com/windows/win32/api//iprtrmib/ne-iprtrmib-tcpip_owner_module_info_class
+ * @see https://learn.microsoft.com/windows/win32/api/iprtrmib/ne-iprtrmib-tcpip_owner_module_info_class
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

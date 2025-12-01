@@ -3,7 +3,7 @@
 
 /**
  * Contains callback specific parameters such as file offset, length, flags, etc.
- * @see https://docs.microsoft.com/windows/win32/api//cfapi/ns-cfapi-cf_callback_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_callback_parameters
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
@@ -14,7 +14,23 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     static packingSize => 8
 
     /**
+     * _ParamSize_ is set based on the callback being performed.
      * 
+     * | Callback | ParamSize Information |
+     * |--------|--------|
+     * | CF_CALLBACK_TYPE_FETCH_DATA | Set to the size of `FetchData` plus the size of a `ULONG`. |
+     * | CF_CALLBACK_TYPE_VALIDATE_DATA | Set to the size of `ValidateData` plus the size of a `ULONG`. |
+     * | CF_CALLBACK_TYPE_CANCEL_FETCH_DATA | Set to the size of `Cancel.FetchData` plus the size of two `ULONG`s. |
+     * | CF_CALLBACK_TYPE_FETCH_PLACHOLDERS | Set to the size of `FetchPlaceholders` plus the size of a `ULONG`. |
+     * | CF_CALLBACK_TYPE_CANCEL_FETCH_PLACHOLDERS | Set to the size of two `ULONG`s. |
+     * | CF_CALLBACK_TYPE_NOTIFY_FILE_OPEN_COMPLETION | Set to the size of `OpenCompletion` plus the size of a `ULONG`. |
+     * | CF_CALLBACK_TYPE_NOTIFY_FILE_CLOSE_COMPLETION | set to the size of `CloseCompletion` plus the size of a `ULONG`. |
+     * | CF_CALLBACK_TYPE_NOTIFY_DEHYDRATE | Set to the size of `Dehydrate` plus the size of a `ULONG`. |
+     * | CF_CALLBACK_TYPE_NOTIFY_DEHYDRATE_COMPLETION | Set to the size of `DehydrateCompletion` plus the size of a `ULONG`. |
+     * | CF_CALLBACK_TYPE_NOTIFY_DELETE | Set to the size of `Delete` plus the size of a `ULONG`. |
+     * | CF_CALLBACK_TYPE_NOTIFY_DELETE_COMPLETION | Set to the size of `DeleteCompletion` plus the size of a `ULONG`. |
+     * | CF_CALLBACK_TYPE_NOTIFY_RENAME | Set to the size of `Rename` plus the size of a `ULONG`. |
+     * | CF_CALLBACK_TYPE_NOTIFY_RENAME_COMPLETION | Set to the size of `RenameCompletion` plus the size of a `ULONG`. |
      * @type {Integer}
      */
     ParamSize {

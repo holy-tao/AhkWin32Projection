@@ -4,7 +4,7 @@
 
 /**
  * The LINEATTRS structure is used by a driver's line-drawing functions to determine line attributes.
- * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-lineattrs
+ * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-lineattrs
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

@@ -5,7 +5,6 @@
 /**
  * The LINECALLPARAMS structure describes parameters supplied when making calls using the lineMakeCall and TSPI_lineMakeCall functions. The LINECALLPARAMS structure is also used as a parameter in other operations, such as the lineOpen function.
  * @remarks
- * 
  * Device-specific extensions should use the DevSpecific (<b>dwDevSpecificSize</b> and <b>dwDevSpecificOffset</b>) variably sized area of this data structure.
  * 
  * This structure is used as a parameter to 
@@ -17,9 +16,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-lineopen">lineOpen</a> function.</div>
  * <div> </div>
  * The members <b>dwPredictiveAutoTransferStates</b> through <b>dwCallingPartyIDOffset</b> are available only to applications that open the line device with an API version of 2.0 or later.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-linecallparams
+ * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linecallparams
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies the font style of the timed text.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/ne-mfmediaengine-mf_timed_text_font_style
+ * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_font_style
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

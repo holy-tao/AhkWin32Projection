@@ -3,7 +3,7 @@
 
 /**
  * Indicates shader type.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/ne-d3d11shader-d3d11_shader_version_type
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/ne-d3d11shader-d3d11_shader_version_type
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

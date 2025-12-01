@@ -3,7 +3,7 @@
 
 /**
  * Describes a shader output variable.
- * @see https://docs.microsoft.com/windows/win32/api//d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_outputvar
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_outputvar
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

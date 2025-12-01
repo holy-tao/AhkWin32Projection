@@ -5,15 +5,12 @@
 /**
  * The ACCESS_ALLOWED_CALLBACK_ACE structure defines an access control entry for the discretionary access control list that controls access to an object.
  * @remarks
- * 
  * ACE structures must be aligned on <b>DWORD</b> boundaries. All Windows memory-management functions return <b>DWORD</b>-aligned handles to memory.
  * 
  * The access rights specified by the <b>Mask</b> member are granted to any <a href="https://docs.microsoft.com/windows/desktop/SecGloss/t-gly">trustee</a> that possesses an enabled SID that matches the SID stored in the <b>SidStart</b> member.
  * 
  * When an <b>ACCESS_ALLOWED_CALLBACK_ACE</b> structure is created, sufficient memory must be allocated to accommodate the complete SID of the trustee in the <b>SidStart</b> member and the contiguous memory that follows it.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-access_allowed_callback_ace
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-access_allowed_callback_ace
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

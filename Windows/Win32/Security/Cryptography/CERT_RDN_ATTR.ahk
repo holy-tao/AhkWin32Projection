@@ -4,7 +4,7 @@
 
 /**
  * Contains a single attribute of a relative distinguished name (RDN). A whole RDN is expressed in a CERT_RDN structure that contains an array of CERT_RDN_ATTR structures.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_rdn_attr
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_rdn_attr
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

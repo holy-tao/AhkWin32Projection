@@ -4,7 +4,7 @@
 
 /**
  * The security binding template for specifying the use of an application supplied username / password pair as a direct (i.e., one-shot) security token.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_username_message_security_binding_template
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_username_message_security_binding_template
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

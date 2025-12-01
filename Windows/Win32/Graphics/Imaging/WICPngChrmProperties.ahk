@@ -3,7 +3,7 @@
 
 /**
  * Specifies the Portable Network Graphics (PNG) cHRM chunk metadata properties for CIE XYZ chromaticity.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicpngchrmproperties
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicpngchrmproperties
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

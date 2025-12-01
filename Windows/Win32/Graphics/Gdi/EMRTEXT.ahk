@@ -6,11 +6,8 @@
 /**
  * The EMRTEXT structure contains members for text output.
  * @remarks
- * 
  * The <b>EMRTEXT</b> structure is used as a member in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-emrexttextouta">EMREXTTEXTOUT</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-emrpolytextouta">EMRPOLYTEXTOUT</a> structures.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrtext
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrtext
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

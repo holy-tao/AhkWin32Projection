@@ -3,7 +3,7 @@
 
 /**
  * The NDR_USER_MARSHAL_INFO_LEVEL1 structure holds information about the state of an RPC call that can be passed to wire_marshal and user_marshal helper functions.
- * @see https://docs.microsoft.com/windows/win32/api//rpcndr/ns-rpcndr-ndr_user_marshal_info_level1
+ * @see https://learn.microsoft.com/windows/win32/api/rpcndr/ns-rpcndr-ndr_user_marshal_info_level1
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */

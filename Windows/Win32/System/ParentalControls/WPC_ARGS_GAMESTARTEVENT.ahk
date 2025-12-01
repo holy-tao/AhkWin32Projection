@@ -3,7 +3,7 @@
 
 /**
  * Indicates information about the start of a computer game.
- * @see https://docs.microsoft.com/windows/win32/api//wpcevent/ne-wpcevent-wpc_args_gamestartevent
+ * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_args_gamestartevent
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */

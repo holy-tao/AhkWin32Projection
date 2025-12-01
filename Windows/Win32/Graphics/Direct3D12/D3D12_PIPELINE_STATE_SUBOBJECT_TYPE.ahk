@@ -4,16 +4,8 @@
 /**
  * Specifies the type of a sub-object in a pipeline state stream description.
  * @remarks
- * 
- * 
- * 
  * This enum is used in the creation of pipeline state objects using the ID3D12Device1::CreatePipelineState method. The CreatePipelineState method takes a D3D12_PIPELINE_STATE_STREAM_DESC as one of its parameters, this structure in turn describes a bytestream made up of alternating D3D12_PIPELINE_STATE_SUBOBJECT_TYPE enumeration values and their corresponding subobject description structs. This bytestream description can be made a concrete type by defining a structure that has the same alternating pattern of alternating D3D12_PIPELINE_STATE_SUBOBJECT_TYPE enumeration values and their corresponding subobject description structs as members.
- * 
- * 
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_pipeline_state_subobject_type
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_pipeline_state_subobject_type
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -125,7 +117,7 @@ class D3D12_PIPELINE_STATE_SUBOBJECT_TYPE extends Win32Enum{
     static D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_PRIMITIVE_TOPOLOGY => 14
 
     /**
-     * Indicates a render target formats subobject type. The corresponding subobject type is **[D3D12_RT_FORMAT_ARRAY](/windows/win32/api/d3d12/ne-d3d12-d3d12_rt_format_array)** structure, which wraps an array of render target formats along with a count of the array elements.
+     * Indicates a render target formats subobject type. The corresponding subobject type is **[D3D12_RT_FORMAT_ARRAY](/windows/win32/api/d3d12/ns-d3d12-d3d12_rt_format_array)** structure, which wraps an array of render target formats along with a count of the array elements.
      * @type {Integer (Int32)}
      */
     static D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_RENDER_TARGET_FORMATS => 15

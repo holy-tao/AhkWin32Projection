@@ -4,7 +4,6 @@
 /**
  * Contains extended result information obtained by calling the ChangeWindowMessageFilterEx function.
  * @remarks
- * 
  * Certain messages whose value is smaller than <b>WM_USER</b> are required to pass through the filter, 
  * 		regardless of the filter setting. There will be no effect when you attempt to use this function to allow or 
  * 		block such messages.
@@ -98,9 +97,7 @@
  * <td><b>MSGFLTINFO_NONE</b></td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-changefilterstruct
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-changefilterstruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

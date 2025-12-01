@@ -3,7 +3,7 @@
 
 /**
  * The LINEAGENTACTIVITYLIST structure describes a list of ACD agent activities. This structure can contain an array of LINEAGENTACTIVITYENTRY structures. The lineGetAgentActivityList function returns the LINEAGENTACTIVITYLIST structure.
- * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-lineagentactivitylist
+ * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineagentactivitylist
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

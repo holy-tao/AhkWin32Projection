@@ -4,7 +4,7 @@
 
 /**
  * The APOInitSystemEffects2 structure was introduced with Windows 8.1, to make it possible to provide additional initialization context to the audio processing object (APO) for initialization.
- * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/ns-audioenginebaseapo-apoinitsystemeffects2
+ * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/ns-audioenginebaseapo-apoinitsystemeffects2
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
  */

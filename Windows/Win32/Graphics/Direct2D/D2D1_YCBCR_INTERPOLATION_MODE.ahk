@@ -3,7 +3,7 @@
 
 /**
  * Specifies the interpolation mode for the YCbCr effect.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effects_1/ne-d2d1effects_1-d2d1_ycbcr_interpolation_mode
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effects_1/ne-d2d1effects_1-d2d1_ycbcr_interpolation_mode
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

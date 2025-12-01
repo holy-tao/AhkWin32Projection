@@ -3,7 +3,7 @@
 
 /**
  * The SERVER_INFO_1544 structure specifies the initial number of tree connections to be allocated in the connection table.
- * @see https://docs.microsoft.com/windows/win32/api//lmserver/ns-lmserver-server_info_1544
+ * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_1544
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

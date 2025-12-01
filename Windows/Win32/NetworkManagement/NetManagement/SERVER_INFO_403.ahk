@@ -3,7 +3,7 @@
 
 /**
  * The SERVER_INFO_403 structure contains information about a specified server.
- * @see https://docs.microsoft.com/windows/win32/api//lmserver/ns-lmserver-server_info_403
+ * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_403
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

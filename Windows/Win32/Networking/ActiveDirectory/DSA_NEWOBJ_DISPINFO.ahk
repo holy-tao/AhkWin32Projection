@@ -4,7 +4,7 @@
 
 /**
  * Used with the IDsAdminNewObjExt::Initialize method to supply additional data about an Active Directory Domain Services object creation wizard.
- * @see https://docs.microsoft.com/windows/win32/api//dsadmin/ns-dsadmin-dsa_newobj_dispinfo
+ * @see https://learn.microsoft.com/windows/win32/api/dsadmin/ns-dsadmin-dsa_newobj_dispinfo
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

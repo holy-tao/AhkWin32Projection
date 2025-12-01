@@ -3,7 +3,7 @@
 
 /**
  * Contains parameters for the DeviceDsmAction_Notification action for the IOCTL_STORAGE_MANAGE_DATA_SET_ATTRIBUTES control code.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-device_dsm_notification_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_dsm_notification_parameters
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Specifies the physical type of pin (audio or video).
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-physicalconnectortype
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-physicalconnectortype
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

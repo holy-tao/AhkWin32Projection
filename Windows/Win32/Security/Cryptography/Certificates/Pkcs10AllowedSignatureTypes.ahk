@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of signature permitted when signing a certificate request.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-pkcs10allowedsignaturetypes
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-pkcs10allowedsignaturetypes
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

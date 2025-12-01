@@ -3,7 +3,7 @@
 
 /**
  * Specifies whether the encoder discards partial groups of pictures (GOPs) at the end of the stream. This enumeration is used with the AVEncCommonStreamEndHandling codec property.
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavenccommonstreamendhandling
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavenccommonstreamendhandling
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

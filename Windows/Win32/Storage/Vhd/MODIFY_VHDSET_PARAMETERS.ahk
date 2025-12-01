@@ -3,7 +3,7 @@
 
 /**
  * Contains VHD Set modification parameters, indicating how the VHD Set should be altered.
- * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ns-virtdisk-modify_vhdset_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-modify_vhdset_parameters
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */

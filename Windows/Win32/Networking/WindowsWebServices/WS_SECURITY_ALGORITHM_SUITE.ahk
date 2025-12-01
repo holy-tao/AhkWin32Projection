@@ -4,12 +4,10 @@
 /**
  * Defines the security algorithms and key lengths to be used with WS-Security. This setting is relevant to message security bindings and mixed-mode security bindings.
  * @remarks
- * 
  * When key derivation is used, the key length restrictions apply to the
  * source security token from which the signing or encryption derived
  * token are derived.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_security_algorithm_suite
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_algorithm_suite
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

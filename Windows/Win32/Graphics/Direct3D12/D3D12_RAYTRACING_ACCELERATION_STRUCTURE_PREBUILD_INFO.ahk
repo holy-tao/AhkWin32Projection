@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents prebuild information about a raytracing acceleration structure. Get an instance of this stucture by calling GetRaytracingAccelerationStructurePrebuildInfo.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_raytracing_acceleration_structure_prebuild_info
+ * Represents prebuild information about a raytracing acceleration structure. Get an instance of this structure by calling GetRaytracingAccelerationStructurePrebuildInfo.
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_raytracing_acceleration_structure_prebuild_info
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

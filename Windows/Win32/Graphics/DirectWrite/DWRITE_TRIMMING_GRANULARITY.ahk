@@ -3,7 +3,7 @@
 
 /**
  * Specifies the text granularity used to trim text overflowing the layout box.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_trimming_granularity
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_trimming_granularity
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

@@ -4852,7 +4852,7 @@ class Jet {
 
 ;@region Methods
     /**
-     * 
+     * Learn more about: JetInit Function
      * @param {Pointer<JET_INSTANCE>} pinstance 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetinit-function
@@ -4863,7 +4863,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetInit2 Function
      * @param {Pointer<JET_INSTANCE>} pinstance 
      * @param {Integer} grbit 
      * @returns {Integer} 
@@ -4875,7 +4875,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetInit3 Function
      * @param {Pointer<JET_INSTANCE>} pinstance 
      * @param {Pointer<JET_RSTINFO_A>} prstInfo 
      * @param {Integer} grbit 
@@ -4888,7 +4888,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetInit3 Function
      * @param {Pointer<JET_INSTANCE>} pinstance 
      * @param {Pointer<JET_RSTINFO_W>} prstInfo 
      * @param {Integer} grbit 
@@ -4901,7 +4901,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateInstance Function
      * @param {Pointer<JET_INSTANCE>} pinstance 
      * @param {Pointer<Integer>} szInstanceName 
      * @returns {Integer} 
@@ -4915,7 +4915,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateInstance Function
      * @param {Pointer<JET_INSTANCE>} pinstance 
      * @param {Pointer<Integer>} szInstanceName 
      * @returns {Integer} 
@@ -4929,7 +4929,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateInstance2 Function
      * @param {Pointer<JET_INSTANCE>} pinstance 
      * @param {Pointer<Integer>} szInstanceName 
      * @param {Pointer<Integer>} szDisplayName 
@@ -4946,7 +4946,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateInstance2 Function
      * @param {Pointer<JET_INSTANCE>} pinstance 
      * @param {Pointer<Integer>} szInstanceName 
      * @param {Pointer<Integer>} szDisplayName 
@@ -4963,7 +4963,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetInstanceMiscInfo Function
      * @param {JET_INSTANCE} instance 
      * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
@@ -4979,7 +4979,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetTerm Function
      * @param {JET_INSTANCE} instance 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetterm-function
@@ -4992,7 +4992,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetTerm2 Function
      * @param {JET_INSTANCE} instance 
      * @param {Integer} grbit 
      * @returns {Integer} 
@@ -5006,7 +5006,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetStopService Function
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetstopservice-function
      */
@@ -5016,7 +5016,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetStopServiceInstance Function
      * @param {JET_INSTANCE} instance 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetstopserviceinstance-function
@@ -5029,7 +5029,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetStopServiceInstance2 Function
      * @param {JET_INSTANCE} instance 
      * @param {Integer} grbit 
      * @returns {Integer} 
@@ -5043,7 +5043,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetStopBackup Function
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetstopbackup-function
      */
@@ -5053,7 +5053,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetStopBackupInstance Function
      * @param {JET_INSTANCE} instance 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetstopbackupinstance-function
@@ -5066,7 +5066,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetSetSystemParameter Function
      * @param {Pointer<JET_INSTANCE>} pinstance 
      * @param {JET_SESID} sesid 
      * @param {Integer} paramid 
@@ -5086,7 +5086,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetSetSystemParameter Function
      * @param {Pointer<JET_INSTANCE>} pinstance 
      * @param {JET_SESID} sesid 
      * @param {Integer} paramid 
@@ -5106,7 +5106,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetSystemParameter Function
      * @param {JET_INSTANCE} instance 
      * @param {JET_SESID} sesid 
      * @param {Integer} paramid 
@@ -5125,7 +5125,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetSystemParameter Function
      * @param {JET_INSTANCE} instance 
      * @param {JET_SESID} sesid 
      * @param {Integer} paramid 
@@ -5144,7 +5144,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetEnableMultiInstance Function
      * @param {Pointer<JET_SETSYSPARAM_A>} psetsysparam 
      * @param {Integer} csetsysparam 
      * @param {Pointer<Integer>} pcsetsucceed 
@@ -5159,7 +5159,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetEnableMultiInstance Function
      * @param {Pointer<JET_SETSYSPARAM_W>} psetsysparam 
      * @param {Integer} csetsysparam 
      * @param {Pointer<Integer>} pcsetsucceed 
@@ -5174,7 +5174,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetThreadStats Function
      * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
      * @returns {Integer} 
@@ -5186,7 +5186,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetBeginSession Function
      * @param {JET_INSTANCE} instance 
      * @param {Pointer<JET_SESID>} psesid 
      * @param {Pointer<Integer>} szUserName 
@@ -5205,7 +5205,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetBeginSession Function
      * @param {JET_INSTANCE} instance 
      * @param {Pointer<JET_SESID>} psesid 
      * @param {Pointer<Integer>} szUserName 
@@ -5224,7 +5224,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetDupSession Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<JET_SESID>} psesid 
      * @returns {Integer} 
@@ -5238,7 +5238,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetEndSession Function
      * @param {JET_SESID} sesid 
      * @param {Integer} grbit 
      * @returns {Integer} 
@@ -5252,7 +5252,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetVersion Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<Integer>} pwVersion 
      * @returns {Integer} 
@@ -5268,7 +5268,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetIdle Function
      * @param {JET_SESID} sesid 
      * @param {Integer} grbit 
      * @returns {Integer} 
@@ -5282,7 +5282,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateDatabase Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<Integer>} szFilename 
      * @param {Pointer<Integer>} szConnect 
@@ -5303,7 +5303,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateDatabase Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<Integer>} szFilename 
      * @param {Pointer<Integer>} szConnect 
@@ -5324,7 +5324,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateDatabase2 Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<Integer>} szFilename 
      * @param {Integer} cpgDatabaseSizeMax 
@@ -5344,7 +5344,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateDatabase2 Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<Integer>} szFilename 
      * @param {Integer} cpgDatabaseSizeMax 
@@ -5364,7 +5364,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetAttachDatabase Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<Integer>} szFilename 
      * @param {Integer} grbit 
@@ -5381,7 +5381,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetAttachDatabase Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<Integer>} szFilename 
      * @param {Integer} grbit 
@@ -5398,7 +5398,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetAttachDatabase2 Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<Integer>} szFilename 
      * @param {Integer} cpgDatabaseSizeMax 
@@ -5416,7 +5416,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetAttachDatabase2 Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<Integer>} szFilename 
      * @param {Integer} cpgDatabaseSizeMax 
@@ -5434,7 +5434,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetDetachDatabase Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<Integer>} szFilename 
      * @returns {Integer} 
@@ -5450,7 +5450,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetDetachDatabase Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<Integer>} szFilename 
      * @returns {Integer} 
@@ -5466,7 +5466,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetDetachDatabase2 Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<Integer>} szFilename 
      * @param {Integer} grbit 
@@ -5483,7 +5483,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetDetachDatabase2 Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<Integer>} szFilename 
      * @param {Integer} grbit 
@@ -5500,7 +5500,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetObjectInfo Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Integer} objtyp 
@@ -5523,7 +5523,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetObjectInfo Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Integer} objtyp 
@@ -5546,7 +5546,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetTableInfo Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvResult 
@@ -5564,7 +5564,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetTableInfo Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvResult 
@@ -5582,7 +5582,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateTable Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<Integer>} szTableName 
@@ -5602,7 +5602,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateTable Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<Integer>} szTableName 
@@ -5622,7 +5622,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateTableColumnIndex Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<JET_TABLECREATE_A>} ptablecreate 
@@ -5637,7 +5637,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateTableColumnIndex Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<JET_TABLECREATE_W>} ptablecreate 
@@ -5652,7 +5652,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateTableColumnIndex2 Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<JET_TABLECREATE2_A>} ptablecreate 
@@ -5667,7 +5667,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateTableColumnIndex2 Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<JET_TABLECREATE2_W>} ptablecreate 
@@ -5682,7 +5682,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateTableColumnIndex3 Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<JET_TABLECREATE3_A>} ptablecreate 
@@ -5697,7 +5697,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateTableColumnIndex3 Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<JET_TABLECREATE3_W>} ptablecreate 
@@ -5726,7 +5726,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateTableColumnIndex4W Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<JET_TABLECREATE4_W>} ptablecreate 
@@ -5741,7 +5741,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetDeleteTable Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<Integer>} szTableName 
@@ -5758,7 +5758,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetDeleteTable Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<Integer>} szTableName 
@@ -5775,7 +5775,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetRenameTable Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<Integer>} szName 
@@ -5794,7 +5794,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetRenameTable Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<Integer>} szName 
@@ -5813,7 +5813,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetTableColumnInfo Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szColumnName 
@@ -5834,7 +5834,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetTableColumnInfo Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szColumnName 
@@ -5855,7 +5855,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetColumnInfo Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<Integer>} szTableName 
@@ -5877,7 +5877,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetColumnInfo Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<Integer>} szTableName 
@@ -5899,7 +5899,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetAddColumn Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szColumnName 
@@ -5922,7 +5922,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetAddColumn Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szColumnName 
@@ -5945,7 +5945,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetDeleteColumn Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szColumnName 
@@ -5963,7 +5963,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetDeleteColumn Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szColumnName 
@@ -5981,7 +5981,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetDeleteColumn2 Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szColumnName 
@@ -6000,7 +6000,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetDeleteColumn2 Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szColumnName 
@@ -6101,7 +6101,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetTableIndexInfo Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szIndexName 
@@ -6122,7 +6122,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetTableIndexInfo Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szIndexName 
@@ -6143,7 +6143,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetIndexInfo Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<Integer>} szTableName 
@@ -6165,7 +6165,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetIndexInfo Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<Integer>} szTableName 
@@ -6187,7 +6187,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateIndex Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szIndexName 
@@ -6209,7 +6209,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateIndex Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szIndexName 
@@ -6231,7 +6231,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateIndex2 Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_INDEXCREATE_A>} pindexcreate 
@@ -6248,7 +6248,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateIndex2 Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_INDEXCREATE_W>} pindexcreate 
@@ -6265,7 +6265,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateIndex3 Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_INDEXCREATE2_A>} pindexcreate 
@@ -6282,7 +6282,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateIndex3 Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_INDEXCREATE2_W>} pindexcreate 
@@ -6315,7 +6315,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCreateIndex4W Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_INDEXCREATE3_W>} pindexcreate 
@@ -6332,7 +6332,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetDeleteIndex Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szIndexName 
@@ -6350,7 +6350,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetDeleteIndex Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szIndexName 
@@ -6368,7 +6368,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetBeginTransaction Function
      * @param {JET_SESID} sesid 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbegintransaction-function
@@ -6381,7 +6381,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetBeginTransaction2 Function
      * @param {JET_SESID} sesid 
      * @param {Integer} grbit 
      * @returns {Integer} 
@@ -6395,7 +6395,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetBeginTransaction3 Function
      * @param {JET_SESID} sesid 
      * @param {Integer} trxid 
      * @param {Integer} grbit 
@@ -6410,7 +6410,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCommitTransaction Function
      * @param {JET_SESID} sesid 
      * @param {Integer} grbit 
      * @returns {Integer} 
@@ -6424,7 +6424,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCommitTransaction2 Function
      * @param {JET_SESID} sesid 
      * @param {Integer} grbit 
      * @param {Integer} cmsecDurableCommit 
@@ -6440,7 +6440,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetRollback Function
      * @param {JET_SESID} sesid 
      * @param {Integer} grbit 
      * @returns {Integer} 
@@ -6486,7 +6486,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetDatabaseFileInfo Function
      * @param {Pointer<Integer>} szDatabaseName 
      * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
@@ -6502,7 +6502,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetDatabaseFileInfo Function
      * @param {Pointer<Integer>} szDatabaseName 
      * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
@@ -6518,7 +6518,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOpenDatabase Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<Integer>} szFilename 
      * @param {Pointer<Integer>} szConnect 
@@ -6539,7 +6539,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOpenDatabase Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<Integer>} szFilename 
      * @param {Pointer<Integer>} szConnect 
@@ -6560,7 +6560,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCloseDatabase Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Integer} grbit 
@@ -6575,7 +6575,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOpenTable Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<Integer>} szTableName 
@@ -6596,7 +6596,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOpenTable Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<Integer>} szTableName 
@@ -6617,7 +6617,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetSetTableSequential Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Integer} grbit 
@@ -6633,7 +6633,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetResetTableSequential Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Integer} grbit 
@@ -6649,7 +6649,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCloseTable Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @returns {Integer} 
@@ -6664,7 +6664,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetDelete Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @returns {Integer} 
@@ -6679,7 +6679,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetUpdate Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvBookmark 
@@ -6699,7 +6699,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetUpdate2 Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvBookmark 
@@ -6720,7 +6720,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetEscrowUpdate Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Integer} columnid 
@@ -6744,7 +6744,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetRetrieveColumn Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Integer} columnid 
@@ -6767,7 +6767,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetRetrieveColumns Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_RETRIEVECOLUMN>} pretrievecolumn 
@@ -6784,7 +6784,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Describes the JetEnumerateColumns function and provides the function's parameters, return value, remarks, and requirements.
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Integer} cEnumColumnId 
@@ -6811,7 +6811,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetRecordSize Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_RECSIZE>} precsize 
@@ -6828,7 +6828,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetRecordSize2 Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_RECSIZE2>} precsize 
@@ -6845,7 +6845,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetSetColumn Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Integer} columnid 
@@ -6865,7 +6865,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetSetColumns Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_SETCOLUMN>} psetcolumn 
@@ -6882,7 +6882,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetPrepareUpdate Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Integer} prep 
@@ -6898,7 +6898,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetRecordPosition Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer} precpos 
@@ -6915,7 +6915,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGotoPosition Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_RECPOS>} precpos 
@@ -6931,7 +6931,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetCursorInfo Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvResult 
@@ -6949,7 +6949,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetDupCursor Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_TABLEID>} ptableid 
@@ -6966,7 +6966,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetCurrentIndex Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer} szIndexName 
@@ -6983,7 +6983,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetCurrentIndex Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer} szIndexName 
@@ -7000,7 +7000,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetSetCurrentIndex Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szIndexName 
@@ -7018,7 +7018,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetSetCurrentIndex Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szIndexName 
@@ -7036,7 +7036,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetSetCurrentIndex2 Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szIndexName 
@@ -7055,7 +7055,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetSetCurrentIndex2 Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szIndexName 
@@ -7074,7 +7074,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetSetCurrentIndex3 Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szIndexName 
@@ -7094,7 +7094,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetSetCurrentIndex3 Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szIndexName 
@@ -7114,7 +7114,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetSetCurrentIndex4 Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szIndexName 
@@ -7135,7 +7135,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetSetCurrentIndex4 Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} szIndexName 
@@ -7156,7 +7156,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetMove Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Integer} cRow 
@@ -7173,7 +7173,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetSetCursorFilter Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_INDEX_COLUMN>} rgColumnFilters 
@@ -7191,7 +7191,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetLock Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Integer} grbit 
@@ -7207,7 +7207,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetMakeKey Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvData 
@@ -7225,7 +7225,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetSeek Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Integer} grbit 
@@ -7241,7 +7241,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetPrereadKeys Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Pointer<Void>>} rgpvKeys 
@@ -7265,7 +7265,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetPrereadIndexRanges Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_INDEX_RANGE>} rgIndexRanges 
@@ -7289,7 +7289,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetBookmark Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvBookmark 
@@ -7309,7 +7309,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetSecondaryIndexBookmark Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvSecondaryKey 
@@ -7334,7 +7334,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCompact Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<Integer>} szDatabaseSrc 
      * @param {Pointer<Integer>} szDatabaseDest 
@@ -7355,7 +7355,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCompact Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<Integer>} szDatabaseSrc 
      * @param {Pointer<Integer>} szDatabaseDest 
@@ -7376,7 +7376,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetDefragment Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<Integer>} szTableName 
@@ -7398,7 +7398,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetDefragment Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<Integer>} szTableName 
@@ -7420,7 +7420,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetDefragment2 Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<Integer>} szTableName 
@@ -7443,7 +7443,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetDefragment2 Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<Integer>} szTableName 
@@ -7516,7 +7516,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetSetDatabaseSize Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<Integer>} szDatabaseName 
      * @param {Integer} cpg 
@@ -7535,7 +7535,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetSetDatabaseSize Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<Integer>} szDatabaseName 
      * @param {Integer} cpg 
@@ -7554,7 +7554,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGrowDatabase Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Integer} cpg 
@@ -7572,7 +7572,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetResizeDatabase Function
      * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Integer} cpgTarget 
@@ -7591,7 +7591,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetSetSessionContext Function
      * @param {JET_SESID} sesid 
      * @param {JET_API_PTR} ulContext 
      * @returns {Integer} 
@@ -7606,7 +7606,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetResetSessionContext Function
      * @param {JET_SESID} sesid 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetresetsessioncontext-function
@@ -7619,7 +7619,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGotoBookmark Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvBookmark 
@@ -7636,7 +7636,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGotoSecondaryIndexBookmark Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvSecondaryKey 
@@ -7656,7 +7656,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetIntersectIndexes Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<JET_INDEXRANGE>} rgindexrange 
      * @param {Integer} cindexrange 
@@ -7673,7 +7673,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetComputeStats Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @returns {Integer} 
@@ -7688,7 +7688,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOpenTempTable Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<JET_COLUMNDEF>} prgcolumndef 
      * @param {Integer} ccolumn 
@@ -7708,7 +7708,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOpenTempTable2 Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<JET_COLUMNDEF>} prgcolumndef 
      * @param {Integer} ccolumn 
@@ -7729,7 +7729,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOpenTempTable3 Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<JET_COLUMNDEF>} prgcolumndef 
      * @param {Integer} ccolumn 
@@ -7750,7 +7750,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOpenTemporaryTable Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<JET_OPENTEMPORARYTABLE>} popentemporarytable 
      * @returns {Integer} 
@@ -7764,7 +7764,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOpenTemporaryTable2 Function
      * @param {JET_SESID} sesid 
      * @param {Pointer<JET_OPENTEMPORARYTABLE2>} popentemporarytable 
      * @returns {Integer} 
@@ -7778,7 +7778,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetBackup Function
      * @param {Pointer<Integer>} szBackupPath 
      * @param {Integer} grbit 
      * @param {Pointer<JET_PFNSTATUS>} pfnStatus 
@@ -7793,7 +7793,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetBackup Function
      * @param {Pointer<Integer>} szBackupPath 
      * @param {Integer} grbit 
      * @param {Pointer<JET_PFNSTATUS>} pfnStatus 
@@ -7808,7 +7808,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetBackupInstance Function
      * @param {JET_INSTANCE} instance 
      * @param {Pointer<Integer>} szBackupPath 
      * @param {Integer} grbit 
@@ -7826,7 +7826,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetBackupInstance Function
      * @param {JET_INSTANCE} instance 
      * @param {Pointer<Integer>} szBackupPath 
      * @param {Integer} grbit 
@@ -7844,7 +7844,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetRestore Function
      * @param {Pointer<Integer>} szSource 
      * @param {Pointer<JET_PFNSTATUS>} pfn 
      * @returns {Integer} 
@@ -7858,7 +7858,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetRestore Function
      * @param {Pointer<Integer>} szSource 
      * @param {Pointer<JET_PFNSTATUS>} pfn 
      * @returns {Integer} 
@@ -7872,7 +7872,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetRestore2 Function
      * @param {Pointer<Integer>} sz 
      * @param {Pointer<Integer>} szDest 
      * @param {Pointer<JET_PFNSTATUS>} pfn 
@@ -7888,7 +7888,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetRestore2 Function
      * @param {Pointer<Integer>} sz 
      * @param {Pointer<Integer>} szDest 
      * @param {Pointer<JET_PFNSTATUS>} pfn 
@@ -7904,7 +7904,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetRestoreInstance Function
      * @param {JET_INSTANCE} instance 
      * @param {Pointer<Integer>} sz 
      * @param {Pointer<Integer>} szDest 
@@ -7923,7 +7923,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetRestoreInstance Function
      * @param {JET_INSTANCE} instance 
      * @param {Pointer<Integer>} sz 
      * @param {Pointer<Integer>} szDest 
@@ -7942,7 +7942,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetSetIndexRange Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableidSrc 
      * @param {Integer} grbit 
@@ -7958,7 +7958,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetIndexRecordCount Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<Integer>} pcrec 
@@ -7977,7 +7977,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetRetrieveKey Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvKey 
@@ -7998,7 +7998,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetBeginExternalBackup Function
      * @param {Integer} grbit 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbeginexternalbackup-function
@@ -8009,7 +8009,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetBeginExternalBackupInstance Function
      * @param {JET_INSTANCE} instance 
      * @param {Integer} grbit 
      * @returns {Integer} 
@@ -8023,7 +8023,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetAttachInfo Function
      * @param {Pointer} szzDatabases 
      * @param {Integer} cbMax 
      * @param {Pointer<Integer>} pcbActual 
@@ -8038,7 +8038,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetAttachInfo Function
      * @param {Pointer} wszzDatabases 
      * @param {Integer} cbMax 
      * @param {Pointer<Integer>} pcbActual 
@@ -8053,7 +8053,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetAttachInfoInstance Function
      * @param {JET_INSTANCE} instance 
      * @param {Pointer} szzDatabases 
      * @param {Integer} cbMax 
@@ -8071,7 +8071,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetAttachInfoInstance Function
      * @param {JET_INSTANCE} instance 
      * @param {Pointer} szzDatabases 
      * @param {Integer} cbMax 
@@ -8089,7 +8089,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOpenFile Function
      * @param {Pointer<Integer>} szFileName 
      * @param {Pointer<JET_HANDLE>} phfFile 
      * @param {Pointer<Integer>} pulFileSizeLow 
@@ -8107,7 +8107,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOpenFile Function
      * @param {Pointer<Integer>} szFileName 
      * @param {Pointer<JET_HANDLE>} phfFile 
      * @param {Pointer<Integer>} pulFileSizeLow 
@@ -8125,7 +8125,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOpenFileInstance Function
      * @param {JET_INSTANCE} instance 
      * @param {Pointer<Integer>} szFileName 
      * @param {Pointer<JET_HANDLE>} phfFile 
@@ -8146,7 +8146,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOpenFileInstance Function
      * @param {JET_INSTANCE} instance 
      * @param {Pointer<Integer>} szFileName 
      * @param {Pointer<JET_HANDLE>} phfFile 
@@ -8167,7 +8167,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetReadFile Function
      * @param {JET_HANDLE} hfFile 
      * @param {Pointer} pv 
      * @param {Integer} cb 
@@ -8185,7 +8185,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetReadFileInstance Function
      * @param {JET_INSTANCE} instance 
      * @param {JET_HANDLE} hfFile 
      * @param {Pointer} pv 
@@ -8205,7 +8205,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCloseFile Function
      * @param {JET_HANDLE} hfFile 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetclosefile-function
@@ -8218,7 +8218,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetCloseFileInstance Function
      * @param {JET_INSTANCE} instance 
      * @param {JET_HANDLE} hfFile 
      * @returns {Integer} 
@@ -8233,7 +8233,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetLogInfo Function
      * @param {Pointer} szzLogs 
      * @param {Integer} cbMax 
      * @param {Pointer<Integer>} pcbActual 
@@ -8248,7 +8248,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetLogInfo Function
      * @param {Pointer} szzLogs 
      * @param {Integer} cbMax 
      * @param {Pointer<Integer>} pcbActual 
@@ -8263,7 +8263,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetLogInfoInstance Function
      * @param {JET_INSTANCE} instance 
      * @param {Pointer} szzLogs 
      * @param {Integer} cbMax 
@@ -8281,7 +8281,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetLogInfoInstance Function
      * @param {JET_INSTANCE} instance 
      * @param {Pointer} wszzLogs 
      * @param {Integer} cbMax 
@@ -8299,7 +8299,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetLogInfoInstance2 Function
      * @param {JET_INSTANCE} instance 
      * @param {Pointer} szzLogs 
      * @param {Integer} cbMax 
@@ -8318,7 +8318,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetLogInfoInstance2 Function
      * @param {JET_INSTANCE} instance 
      * @param {Pointer} wszzLogs 
      * @param {Integer} cbMax 
@@ -8337,7 +8337,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetTruncateLogInfoInstance Function
      * @param {JET_INSTANCE} instance 
      * @param {Pointer} szzLogs 
      * @param {Integer} cbMax 
@@ -8355,7 +8355,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetTruncateLogInfoInstance Function
      * @param {JET_INSTANCE} instance 
      * @param {Pointer} wszzLogs 
      * @param {Integer} cbMax 
@@ -8373,7 +8373,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetTruncateLog Function
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jettruncatelog-function
      */
@@ -8383,7 +8383,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetTruncateLogInstance Function
      * @param {JET_INSTANCE} instance 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jettruncateloginstance-function
@@ -8396,7 +8396,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetEndExternalBackup Function
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetendexternalbackup-function
      */
@@ -8406,7 +8406,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetEndExternalBackupInstance Function
      * @param {JET_INSTANCE} instance 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetendexternalbackupinstance-function
@@ -8419,7 +8419,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetEndExternalBackupInstance2 Function
      * @param {JET_INSTANCE} instance 
      * @param {Integer} grbit 
      * @returns {Integer} 
@@ -8433,7 +8433,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetExternalRestore Function
      * @param {Pointer<Integer>} szCheckpointFilePath 
      * @param {Pointer<Integer>} szLogPath 
      * @param {Pointer<JET_RSTMAP_A>} rgrstmap 
@@ -8455,7 +8455,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetExternalRestore Function
      * @param {Pointer<Integer>} szCheckpointFilePath 
      * @param {Pointer<Integer>} szLogPath 
      * @param {Pointer<JET_RSTMAP_W>} rgrstmap 
@@ -8477,7 +8477,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetExternalRestore2 Function
      * @param {Pointer<Integer>} szCheckpointFilePath 
      * @param {Pointer<Integer>} szLogPath 
      * @param {Pointer<JET_RSTMAP_A>} rgrstmap 
@@ -8504,7 +8504,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetExternalRestore2 Function
      * @param {Pointer<Integer>} szCheckpointFilePath 
      * @param {Pointer<Integer>} szLogPath 
      * @param {Pointer<JET_RSTMAP_W>} rgrstmap 
@@ -8531,7 +8531,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetRegisterCallback Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Integer} cbtyp 
@@ -8552,7 +8552,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetUnregisterCallback Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Integer} cbtyp 
@@ -8570,7 +8570,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetInstanceInfo Function
      * @param {Pointer<Integer>} pcInstanceInfo 
      * @param {Pointer<Pointer<JET_INSTANCE_INFO_A>>} paInstanceInfo 
      * @returns {Integer} 
@@ -8585,7 +8585,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetInstanceInfo Function
      * @param {Pointer<Integer>} pcInstanceInfo 
      * @param {Pointer<Pointer<JET_INSTANCE_INFO_W>>} paInstanceInfo 
      * @returns {Integer} 
@@ -8600,7 +8600,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetFreeBuffer Function
      * @param {Pointer<Integer>} pbBuf 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetfreebuffer-function
@@ -8613,7 +8613,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetSetLS Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {JET_LS} ls 
@@ -8631,7 +8631,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetLS Function
      * @param {JET_SESID} sesid 
      * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_LS>} pls 
@@ -8648,7 +8648,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOSSnapshotPrepare Function
      * @param {Pointer<JET_OSSNAPID>} psnapId 
      * @param {Integer} grbit 
      * @returns {Integer} 
@@ -8660,7 +8660,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOSSnapshotPrepareInstance Function
      * @param {JET_OSSNAPID} snapId 
      * @param {JET_INSTANCE} instance 
      * @param {Integer} grbit 
@@ -8676,7 +8676,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOSSnapshotFreeze Function
      * @param {JET_OSSNAPID} snapId 
      * @param {Pointer<Integer>} pcInstanceInfo 
      * @param {Pointer<Pointer<JET_INSTANCE_INFO_A>>} paInstanceInfo 
@@ -8695,7 +8695,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOSSnapshotFreeze Function
      * @param {JET_OSSNAPID} snapId 
      * @param {Pointer<Integer>} pcInstanceInfo 
      * @param {Pointer<Pointer<JET_INSTANCE_INFO_W>>} paInstanceInfo 
@@ -8714,7 +8714,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOSSnapshotThaw Function
      * @param {JET_OSSNAPID} snapId 
      * @param {Integer} grbit 
      * @returns {Integer} 
@@ -8728,7 +8728,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOSSnapshotAbort Function
      * @param {JET_OSSNAPID} snapId 
      * @param {Integer} grbit 
      * @returns {Integer} 
@@ -8742,7 +8742,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOSSnapshotTruncateLog Function
      * @param {JET_OSSNAPID} snapId 
      * @param {Integer} grbit 
      * @returns {Integer} 
@@ -8756,7 +8756,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOSSnapshotTruncateLogInstance Function
      * @param {JET_OSSNAPID} snapId 
      * @param {JET_INSTANCE} instance 
      * @param {Integer} grbit 
@@ -8772,7 +8772,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOSSnapshotGetFreezeInfo Function
      * @param {JET_OSSNAPID} snapId 
      * @param {Pointer<Integer>} pcInstanceInfo 
      * @param {Pointer<Pointer<JET_INSTANCE_INFO_A>>} paInstanceInfo 
@@ -8791,7 +8791,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOSSnapshotGetFreezeInfo Function
      * @param {JET_OSSNAPID} snapId 
      * @param {Pointer<Integer>} pcInstanceInfo 
      * @param {Pointer<Pointer<JET_INSTANCE_INFO_W>>} paInstanceInfo 
@@ -8810,7 +8810,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetOSSnapshotEnd Function
      * @param {JET_OSSNAPID} snapId 
      * @param {Integer} grbit 
      * @returns {Integer} 
@@ -8834,7 +8834,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetErrorInfoW Function
      * @param {Pointer<Void>} pvContext 
      * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
@@ -8851,7 +8851,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetSetSessionParameter Function
      * @param {JET_SESID} sesid 
      * @param {Integer} sesparamid 
      * @param {Pointer} pvParam 
@@ -8867,7 +8867,7 @@ class Jet {
     }
 
     /**
-     * 
+     * Learn more about: JetGetSessionParameter Function
      * @param {JET_SESID} sesid 
      * @param {Integer} sesparamid 
      * @param {Pointer<Void>} pvParam 

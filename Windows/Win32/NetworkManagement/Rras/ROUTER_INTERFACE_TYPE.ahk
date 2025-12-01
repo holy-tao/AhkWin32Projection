@@ -3,7 +3,7 @@
 
 /**
  * The ROUTER_INTERFACE_TYPE type enumerates the different kinds of interfaces on a router.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ne-mprapi-router_interface_type
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ne-mprapi-router_interface_type
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

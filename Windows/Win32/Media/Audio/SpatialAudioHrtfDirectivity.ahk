@@ -3,7 +3,7 @@
 
 /**
  * Represents an omnidirectional model for an ISpatialAudioObjectForHrtf. The omnidirectional emission is interpolated linearly with the directivity model specified in the Type field based on the value of the Scaling field.
- * @see https://docs.microsoft.com/windows/win32/api//spatialaudiohrtf/ns-spatialaudiohrtf-spatialaudiohrtfdirectivity
+ * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/ns-spatialaudiohrtf-spatialaudiohrtfdirectivity
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

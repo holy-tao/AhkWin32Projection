@@ -3,7 +3,7 @@
 
 /**
  * Deprecated. Used by IBrowserService::SetNavigateState and IBrowserService::GetNavigateState to specify navigation states.
- * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/ne-shdeprecated-bnstate
+ * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/ne-shdeprecated-bnstate
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

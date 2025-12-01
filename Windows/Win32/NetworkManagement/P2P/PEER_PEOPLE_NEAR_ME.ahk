@@ -8,7 +8,7 @@
 
 /**
  * Contains information about a peer in the same logical or virtual subnet.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_people_near_me
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_people_near_me
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

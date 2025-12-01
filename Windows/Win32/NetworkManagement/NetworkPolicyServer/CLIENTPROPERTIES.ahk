@@ -3,7 +3,7 @@
 
 /**
  * The values of the CLIENTPROPERTIES type enumerate the properties of a RADIUS client. The SDO computer is the RADIUS server.
- * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-clientproperties
+ * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-clientproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

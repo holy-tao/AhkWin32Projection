@@ -4,11 +4,8 @@
 /**
  * Represents a range of bytes in a font file.
  * @remarks
- * 
  * DWRITE_FILE_FRAGMENT is passed as input to <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-begindownload">IDWriteRemoteFontFileStream::BeginDownload</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/ns-dwrite_3-dwrite_file_fragment
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_file_fragment
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains flags for the MFP_ACQUIRE_USER_CREDENTIAL_EVENT structure.
- * @see https://docs.microsoft.com/windows/win32/api//mfplay/ne-mfplay-_mfp_credential_flags
+ * @see https://learn.microsoft.com/windows/win32/api/mfplay/ne-mfplay-_mfp_credential_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

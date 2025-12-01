@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_CLIENT_INFO_ARRAY structure defines an array of DHCP_CLIENT_INFO structures for use with enumeration functions.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_client_info_array
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_array
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

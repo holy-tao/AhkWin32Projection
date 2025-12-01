@@ -4,7 +4,9 @@
 
 /**
  * Contains information about a power request. This structure is used by the PowerCreateRequest and SetWaitableTimerEx functions.
- * @see https://docs.microsoft.com/windows/win32/api//minwinbase/ns-minwinbase-reason_context
+ * @remarks
+ * It is safe to pass read-only strings as the <i>SimpleReasonString</i> or <i>ReasonStrings</i> because the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-powercreaterequest">PowerCreateRequest</a> and <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-setwaitabletimerex">SetWaitableTimerEx</a> functions read from the strings and do not write to them.
+ * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-reason_context
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

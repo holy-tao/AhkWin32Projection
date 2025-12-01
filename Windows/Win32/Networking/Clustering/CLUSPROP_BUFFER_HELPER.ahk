@@ -4,7 +4,6 @@
 /**
  * Used to build or parse a property list or, a value list.
  * @remarks
- * 
  * The <b>CLUSPROP_BUFFER_HELPER</b> structure is useful 
  *      in working with property and value lists. Applications can use a generic 
  *      <b>CLUSPROP_BUFFER_HELPER</b> pointer to advance by 
@@ -22,10 +21,7 @@
  *      ending in 4h or C), which will cause an alignment fault when the data is read or written. You can avoid alignment 
  *      faults by handling the high and low parts of large values separately, or by using local variables, which are 
  *      guaranteed to be naturally aligned.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clusprop_buffer_helper
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_buffer_helper
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

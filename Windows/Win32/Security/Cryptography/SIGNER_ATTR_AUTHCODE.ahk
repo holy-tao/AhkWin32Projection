@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Specifies attributes for an Authenticode signature.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-attr-authcode
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
@@ -14,6 +14,7 @@ class SIGNER_ATTR_AUTHCODE extends Win32Struct
     static packingSize => 8
 
     /**
+     * The size, in bytes, of the structure.
      * @type {Integer}
      */
     cbSize {
@@ -22,6 +23,7 @@ class SIGNER_ATTR_AUTHCODE extends Win32Struct
     }
 
     /**
+     * 
      * @type {BOOL}
      */
     fCommercial {
@@ -30,6 +32,7 @@ class SIGNER_ATTR_AUTHCODE extends Win32Struct
     }
 
     /**
+     * 
      * @type {BOOL}
      */
     fIndividual {
@@ -38,6 +41,7 @@ class SIGNER_ATTR_AUTHCODE extends Win32Struct
     }
 
     /**
+     * The display name of the file upon download.
      * @type {PWSTR}
      */
     pwszName {
@@ -46,6 +50,7 @@ class SIGNER_ATTR_AUTHCODE extends Win32Struct
     }
 
     /**
+     * The display name of the URL of the file upon download.
      * @type {PWSTR}
      */
     pwszInfo {

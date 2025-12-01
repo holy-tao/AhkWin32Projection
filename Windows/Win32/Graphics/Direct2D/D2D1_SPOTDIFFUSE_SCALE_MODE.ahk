@@ -3,7 +3,7 @@
 
 /**
  * The interpolation mode the Spot-diffuse lighting effect uses to scale the image to the corresponding kernel unit length. There are six scale modes that range in quality and speed.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effects/ne-d2d1effects-d2d1_spotdiffuse_scale_mode
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_spotdiffuse_scale_mode
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

@@ -5,11 +5,8 @@
 /**
  * Cleans up the PKINIT device credentials from the computer.
  * @remarks
- * 
  * You must clean up PKINIT device credentials for LOCAL_SYSTEM 	or NETWORK_SERVICE. When the PKINIT device credential is cleaned up, only the password credentials remain.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_cleanup_machine_pkinit_creds_request
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_cleanup_machine_pkinit_creds_request
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

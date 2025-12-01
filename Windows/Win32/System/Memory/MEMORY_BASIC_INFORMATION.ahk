@@ -4,7 +4,6 @@
 /**
  * Contains information about a range of pages in the virtual address space of a process.
  * @remarks
- * 
  * To enable a debugger to debug a target that is running on a different architecture (32-bit versus 64-bit), use one of the explicit forms of this structure.
  * 
  * 
@@ -31,9 +30,7 @@
  *     DWORD     __alignment2;
  * } MEMORY_BASIC_INFORMATION64, *PMEMORY_BASIC_INFORMATION64;
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-memory_basic_information
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-memory_basic_information
  * @namespace Windows.Win32.System.Memory
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * The PDH_STATISTICS structure contains the minimum, maximum, and mean values for an array of raw counters values.
- * @see https://docs.microsoft.com/windows/win32/api//pdh/ns-pdh-pdh_statistics
+ * @see https://learn.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_statistics
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

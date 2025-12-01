@@ -3,7 +3,7 @@
 
 /**
  * Serves as a standard header for information related to a device event reported through the WM_DEVICECHANGE message.
- * @see https://docs.microsoft.com/windows/win32/api//dbt/ns-dbt-dev_broadcast_hdr
+ * @see https://learn.microsoft.com/windows/win32/api/dbt/ns-dbt-dev_broadcast_hdr
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

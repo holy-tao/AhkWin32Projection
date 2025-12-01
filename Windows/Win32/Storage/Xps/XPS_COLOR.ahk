@@ -4,11 +4,8 @@
 /**
  * The contents of the XPS_COLOR structure when the colorType is XPS_COLOR_TYPE_CONTEXT.
  * @remarks
- * 
  * For information about how to interpret or apply the values in this structure's members, see the <a href="https://www.ecma-international.org/activities/XML%20Paper%20Specification/XPS%20Standard%20WD%201.6.pdf">XML Paper Specification</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/ns-xpsobjectmodel-xps_color
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_color
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

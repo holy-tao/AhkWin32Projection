@@ -3,7 +3,7 @@
 
 /**
  * Indicates the source from which the WDS multicast provider obtains a multicast address for a new session.
- * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/ne-wdstptmgmt-wdstransport_ip_address_source_type
+ * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_ip_address_source_type
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

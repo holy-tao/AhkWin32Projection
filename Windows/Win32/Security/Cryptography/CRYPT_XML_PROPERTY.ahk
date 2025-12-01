@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a CryptXML property.
- * @see https://docs.microsoft.com/windows/win32/api//cryptxml/ns-cryptxml-crypt_xml_property
+ * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_property
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

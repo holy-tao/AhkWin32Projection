@@ -31,7 +31,9 @@
 #Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 
 /**
- * 
+ * The WMDM\_PROP\_VALUES\_RANGE structure describes a range of valid values for a particular property in a particular property configuration.
+ * @remarks
+ * This structure is used in the [**WMDM\_PROP\_DESC**](wmdm-prop-desc.md) structure to describe a range of valid values. A range of valid values is applicable when WMDM\_ENUM\_PROP\_VALID\_VALUES\_ENUM is selected from the [**WMDM\_ENUM\_PROP\_VALID\_VALUES\_FORM**](wmdm-enum-prop-valid-values-form.md) enumeration.
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-prop-values-range
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
@@ -43,6 +45,7 @@ class WMDM_PROP_VALUES_RANGE extends Win32Struct
     static packingSize => 8
 
     /**
+     * Minimum value in the range.
      * @type {PROPVARIANT}
      */
     rangeMin{
@@ -54,6 +57,7 @@ class WMDM_PROP_VALUES_RANGE extends Win32Struct
     }
 
     /**
+     * Maximum value in the range.
      * @type {PROPVARIANT}
      */
     rangeMax{
@@ -65,6 +69,7 @@ class WMDM_PROP_VALUES_RANGE extends Win32Struct
     }
 
     /**
+     * The step size in which valid values increment from the minimum value to the maximum value. This permits specifying discrete permissible values in a range.
      * @type {PROPVARIANT}
      */
     rangeStep{

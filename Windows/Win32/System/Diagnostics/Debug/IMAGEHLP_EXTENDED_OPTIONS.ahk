@@ -3,7 +3,7 @@
 
 /**
  * Lists the extended symbol options that you can get and set by using the SymGetExtendedOption and SymSetExtendedOption functions.
- * @see https://docs.microsoft.com/windows/win32/api//dbghelp/ne-dbghelp-imagehlp_extended_options
+ * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ne-dbghelp-imagehlp_extended_options
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

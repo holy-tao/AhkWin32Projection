@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of Microsoft Direct3D authenticated channel.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_authenticated_channel_type
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_authenticated_channel_type
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

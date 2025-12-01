@@ -3,7 +3,7 @@
 
 /**
  * The DD_SETPALETTEDATA structure contains information necessary to set a palette for a specific surface.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_setpalettedata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_setpalettedata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

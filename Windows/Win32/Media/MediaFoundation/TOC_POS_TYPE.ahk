@@ -4,11 +4,8 @@
 /**
  * The TOC_POS_TYPE enumeration contains members that specify the position type of a table of contents.
  * @remarks
- * 
  * Currently, only <b>TOC_POS_TOPLEVELOBJECT</b> is supported.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/ne-wmcodecdsp-toc_pos_type
+ * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/ne-wmcodecdsp-toc_pos_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

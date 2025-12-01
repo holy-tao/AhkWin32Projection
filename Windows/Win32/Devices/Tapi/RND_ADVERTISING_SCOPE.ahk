@@ -4,7 +4,6 @@
 /**
  * Members of the RND_ADVERTISING_SCOPE enumeration specify how widely a conference announcement is distributed. Values correspond to the advertising scope property on the ITDirectoryObjectConference interface.
  * @remarks
- * 
  * Mapping between scope string value, enum value, and 
  * <a href="https://docs.microsoft.com/windows/win32/tapi/t-tapgloss">time to live</a> (TTL) based on SDP Internet draft.
  * 
@@ -35,9 +34,7 @@
  * <td>127</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//rend/ne-rend-rnd_advertising_scope
+ * @see https://learn.microsoft.com/windows/win32/api/rend/ne-rend-rnd_advertising_scope
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

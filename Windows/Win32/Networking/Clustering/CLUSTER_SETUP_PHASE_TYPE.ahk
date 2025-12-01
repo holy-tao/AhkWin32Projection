@@ -3,7 +3,7 @@
 
 /**
  * Describes the progress of the cluster setup process.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ne-clusapi-cluster_setup_phase_type
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ne-clusapi-cluster_setup_phase_type
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

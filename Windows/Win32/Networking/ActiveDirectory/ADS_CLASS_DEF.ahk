@@ -3,7 +3,7 @@
 
 /**
  * The ADS_CLASS_DEF structure is used only as a part of IDirectorySchemaMgmt, which is an obsolete interface. The information that follows is provided for legacy purposes only. The ADS_CLASS_DEF structure holds the definitions of an object class.
- * @see https://docs.microsoft.com/windows/win32/api//iads/ns-iads-ads_class_def
+ * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_class_def
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

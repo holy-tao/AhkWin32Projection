@@ -3,7 +3,7 @@
 
 /**
  * Stores information about a Bluetooth device.
- * @see https://docs.microsoft.com/windows/win32/api//bthdef/ns-bthdef-bth_device_info
+ * @see https://learn.microsoft.com/windows/win32/api/bthdef/ns-bthdef-bth_device_info
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

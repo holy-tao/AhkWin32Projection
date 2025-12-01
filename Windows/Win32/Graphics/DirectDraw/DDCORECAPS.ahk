@@ -5,7 +5,6 @@
 /**
  * The DDCORECAPS structure specifies the core capabilities of the Microsoft DirectDraw driver and its device, which are exposed to an application through the DirectDraw object.
  * @remarks
- * 
  * This section contains the DirectDraw driver structure whose name has the form DDCORECAPS, which is the form used on Windows 98/Me. This structure is identical to that whose name has the form DDNTCORECAPS which is the form used on Windows 2000 and later versions. The include file <i>dx95type.h</i> contains a type define from DDNTCORECAPS to DDCORECAPS.
  * 
  * This structure mirrors the first entries of the DDCAPS structure, but is of a fixed size and does not grow as DDCAPS does.
@@ -13,8 +12,7 @@
  * The driver initializes DDCORECAPS when it is initializing the other members of the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_halinfo">DD_HALINFO</a> structure in its <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvgetdirectdrawinfo">DrvGetDirectDrawInfo</a> structure. The DirectDraw runtime might update some members.
  * 
  * DirectDraw requests additional driver capabilities by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_getdriverinfo">DdGetDriverInfo</a> function that is also returned in the DD_HALINFO structure.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ddrawi/ns-ddrawi-ddcorecaps
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawi/ns-ddrawi-ddcorecaps
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

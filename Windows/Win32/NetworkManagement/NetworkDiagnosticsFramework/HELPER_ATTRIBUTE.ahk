@@ -7,7 +7,7 @@
 
 /**
  * The HELPER_ATTRIBUTE structure contains all NDF supported data types.
- * @see https://docs.microsoft.com/windows/win32/api//ndattrib/ns-ndattrib-helper_attribute
+ * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-helper_attribute
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */

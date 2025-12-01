@@ -3,7 +3,7 @@
 
 /**
  * Specifies whether to allow authentication to be used to connect to a proxy or to connect to the HTTP server.
- * @see https://docs.microsoft.com/windows/win32/api//msxml6/ne-msxml6-xhr_auth
+ * @see https://learn.microsoft.com/windows/win32/api/msxml6/ne-msxml6-xhr_auth
  * @namespace Windows.Win32.Data.Xml.MsXml
  * @version v4.0.30319
  */

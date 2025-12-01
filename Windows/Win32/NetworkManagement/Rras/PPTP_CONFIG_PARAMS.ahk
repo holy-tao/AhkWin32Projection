@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Used to get and set the device configuration for Point-to-Point Tunneling Protocool (PPTP) on a RAS Server.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-pptp_config_params
+ * Used to get and set the device configuration for Point-to-Point Tunneling Protocol (PPTP) on a RAS Server.
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-pptp_config_params
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */
@@ -50,7 +50,7 @@ class PPTP_CONFIG_PARAMS extends Win32Struct
      * </dl>
      * </td>
      * <td width="60%">
-     * Windows Server 2008 Datacenterand Windows Server 2008 Enterprise
+     * Windows Server 2008 Datacenter and Windows Server 2008 Enterprise
      * 
      * </td>
      * </tr>

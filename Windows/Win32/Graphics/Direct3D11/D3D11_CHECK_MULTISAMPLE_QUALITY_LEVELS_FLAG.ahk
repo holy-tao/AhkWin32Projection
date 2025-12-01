@@ -3,7 +3,7 @@
 
 /**
  * Identifies how to check multisample quality levels.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11_2/ne-d3d11_2-d3d11_check_multisample_quality_levels_flag
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/ne-d3d11_2-d3d11_check_multisample_quality_levels_flag
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Specifies a subject to sign.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-subject-info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
@@ -14,6 +14,7 @@ class SIGNER_SUBJECT_INFO extends Win32Struct
     static packingSize => 8
 
     /**
+     * The size, in bytes, of the structure.
      * @type {Integer}
      */
     cbSize {
@@ -22,6 +23,7 @@ class SIGNER_SUBJECT_INFO extends Win32Struct
     }
 
     /**
+     * This member is reserved. It must be set to zero.
      * @type {Pointer<Integer>}
      */
     pdwIndex {
@@ -30,6 +32,14 @@ class SIGNER_SUBJECT_INFO extends Win32Struct
     }
 
     /**
+     * Specifies whether the subject is a file or a [*BLOB*](../secgloss/b-gly.md). This member can be one or more of the following values.
+     * 
+     * 
+     * 
+     * | Value                                                                                                                                                                                                                                         | Meaning                           |
+     * |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
+     * | <span id="SIGNER_SUBJECT_BLOB"></span><span id="signer_subject_blob"></span><dl> <dt>**SIGNER\_SUBJECT\_BLOB**</dt> <dt>2 (0x2)</dt> </dl> | The subject is a BLOB.<br/> |
+     * | <span id="SIGNER_SUBJECT_FILE"></span><span id="signer_subject_file"></span><dl> <dt>**SIGNER\_SUBJECT\_FILE**</dt> <dt>1 (0x1)</dt> </dl> | The subject is a file.<br/> |
      * @type {Integer}
      */
     dwSubjectChoice {

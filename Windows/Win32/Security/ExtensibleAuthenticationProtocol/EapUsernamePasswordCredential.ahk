@@ -3,7 +3,7 @@
 
 /**
  * Contains the username and password that is used by the EAP method for authenticating the user.
- * @see https://docs.microsoft.com/windows/win32/api//eaptypes/ns-eaptypes-eapusernamepasswordcredential
+ * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eapusernamepasswordcredential
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

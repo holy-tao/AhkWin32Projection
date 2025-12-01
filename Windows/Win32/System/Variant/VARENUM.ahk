@@ -4,7 +4,6 @@
 /**
  * Specifies the variant types.
  * @remarks
- * 
  * The following table shows where these values can be used.
  * 
  * <table>
@@ -355,8 +354,7 @@
  *  
  * 
  * <b>VT_BSTR_BLOB</b> is reserved for system use.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wtypes/ne-wtypes-varenum
+ * @see https://learn.microsoft.com/windows/win32/api/wtypes/ne-wtypes-varenum
  * @namespace Windows.Win32.System.Variant
  * @version v4.0.30319
  */

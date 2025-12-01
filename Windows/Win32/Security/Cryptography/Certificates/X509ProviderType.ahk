@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of cryptographic provider.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-x509providertype
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509providertype
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

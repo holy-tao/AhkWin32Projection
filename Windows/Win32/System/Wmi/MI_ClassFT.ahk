@@ -3,7 +3,7 @@
 
 /**
  * A support structure used in the MI_Class structure. Use the functions with the name prefix &quot;MI_Class_&quot; to manipulate these structures.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_classft
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_classft
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

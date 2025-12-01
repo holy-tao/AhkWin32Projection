@@ -5,13 +5,10 @@
 /**
  * Contains additional information about a resource that can be assigned to users in RemoteApp and Desktop Connection.
  * @remarks
- * 
  * The <b>pluginFolderName</b> type is defined as follows:
  * 
  * <c>typedef [string] WCHAR* pluginFolderName;</c>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tspubplugin2com/ns-tspubplugin2com-pluginresource2
+ * @see https://learn.microsoft.com/windows/win32/api/tspubplugin2com/ns-tspubplugin2com-pluginresource2
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

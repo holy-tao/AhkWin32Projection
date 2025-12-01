@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Extends the FolderItem object. In addition to the properties and methods supported by FolderItem, ShellFolderItem has two additional methods.
  * @see https://learn.microsoft.com/windows/win32/shell/shellfolderitem-object
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

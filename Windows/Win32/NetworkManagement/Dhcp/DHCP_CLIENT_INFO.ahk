@@ -6,7 +6,7 @@
 
 /**
  * The DHCP_CLIENT_INFO structure defines a client information record used by the DHCP server.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_client_info
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

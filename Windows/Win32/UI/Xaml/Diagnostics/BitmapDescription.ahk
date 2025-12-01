@@ -3,7 +3,7 @@
 
 /**
  * Represents information about the bitmap stored in IBitmapData.
- * @see https://docs.microsoft.com/windows/win32/api//xamlom/ns-xamlom-bitmapdescription
+ * @see https://learn.microsoft.com/windows/win32/api/xamlom/ns-xamlom-bitmapdescription
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  * @version v4.0.30319
  */

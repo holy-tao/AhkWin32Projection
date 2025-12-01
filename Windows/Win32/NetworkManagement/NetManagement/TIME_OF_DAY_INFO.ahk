@@ -3,7 +3,7 @@
 
 /**
  * The TIME_OF_DAY_INFO structure contains information about the time of day from a remote server.
- * @see https://docs.microsoft.com/windows/win32/api//lmremutl/ns-lmremutl-time_of_day_info
+ * @see https://learn.microsoft.com/windows/win32/api/lmremutl/ns-lmremutl-time_of_day_info
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

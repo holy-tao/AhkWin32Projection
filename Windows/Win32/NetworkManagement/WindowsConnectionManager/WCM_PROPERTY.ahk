@@ -3,7 +3,7 @@
 
 /**
  * Specifies a property of a connection.
- * @see https://docs.microsoft.com/windows/win32/api//wcmapi/ne-wcmapi-wcm_property
+ * @see https://learn.microsoft.com/windows/win32/api/wcmapi/ne-wcmapi-wcm_property
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
  * @version v4.0.30319
  */

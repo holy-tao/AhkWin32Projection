@@ -3,7 +3,7 @@
 
 /**
  * Advises the secure processor of the Multimedia Class Scheduler service (MMCSS) parameters so that real-time tasks can be scheduled at the expected priority.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ns-mfidl-mfcontentprotectiondevice_realtimeclient_data
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mfcontentprotectiondevice_realtimeclient_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

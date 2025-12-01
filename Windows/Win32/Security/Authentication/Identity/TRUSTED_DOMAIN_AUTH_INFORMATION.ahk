@@ -3,7 +3,7 @@
 
 /**
  * The TRUSTED_DOMAIN_AUTH_INFORMATION structure is used to retrieve authentication information for a trusted domain. The LsaQueryTrustedDomainInfo function uses this structure when its InformationClass parameter is set to TrustedDomainAuthInformation.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-trusted_domain_auth_information
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-trusted_domain_auth_information
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

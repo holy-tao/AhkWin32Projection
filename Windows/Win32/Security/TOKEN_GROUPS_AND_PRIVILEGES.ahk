@@ -4,7 +4,7 @@
 
 /**
  * Contains information about the group security identifiers (SIDs) and privileges in an access token.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-token_groups_and_privileges
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_groups_and_privileges
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

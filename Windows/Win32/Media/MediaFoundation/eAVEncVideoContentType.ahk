@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of video content.
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencvideocontenttype
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencvideocontenttype
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

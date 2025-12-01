@@ -8,7 +8,7 @@
 
 /**
  * Contains parameters to create a picture object through the OleCreatePictureIndirect function.
- * @see https://docs.microsoft.com/windows/win32/api//olectl/ns-olectl-pictdesc
+ * @see https://learn.microsoft.com/windows/win32/api/olectl/ns-olectl-pictdesc
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

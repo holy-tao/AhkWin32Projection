@@ -13,6 +13,15 @@ class IO {
 ;@region Methods
     /**
      * Deprecated. Builds descriptors for the supplied buffer(s) and passes the untyped data to the device driver associated with the file handle. NtDeviceIoControlFile is superseded by DeviceIoControl.
+     * @remarks
+     * The <b>NtDeviceIoControlFile</b> service is a device-dependent interface that extends the control that applications have over various devices within the system. This API provides a consistent view of the input and output data to the system while still providing the application and the driver a device-dependent method of specifying a communications interface.
+     * 		
+     * 
+     * The type of access to the file that the caller needs is dependent on the actual operation being performed.
+     * 
+     * Once the service is complete the <i>Event</i>, if specified, is set to the <c>signaled</code> state. If no <i>Event</i> parameter is specified, then the file object specified by the <i>FileHandle</i> is set to the <code>signaled</c> state. If an <i>ApcRoutine</i> is specified, it is invoked with the <i>ApcContext</i> and the <i>IoStatusBlock</i> as its arguments.
+     * 
+     * Because there is no import library for this function, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
      * @param {HANDLE} FileHandle Open file handle to the file or device to which the control information should be given.
      * @param {HANDLE} Event A handle to an event to be set to the <c>signaled</c> state when the operation completes. This parameter can be <b>NULL</b>.
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine Procedure to be invoked once the operation completes. This parameter can be <b>NULL</b>. For more information on Asynchronous Procedure Calls (APCs), see <a href="https://docs.microsoft.com/windows/desktop/Sync/asynchronous-procedure-calls">Asynchronous Procedure Calls</a>.
@@ -42,7 +51,7 @@ class IO {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winternl/nf-winternl-ntdeviceiocontrolfile
+     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntdeviceiocontrolfile
      */
     static NtDeviceIoControlFile(FileHandle, Event, ApcRoutine, ApcContext, IoStatusBlock, IoControlCode, InputBuffer, InputBufferLength, OutputBuffer, OutputBufferLength) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle

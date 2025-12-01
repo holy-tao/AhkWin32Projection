@@ -3,7 +3,7 @@
 
 /**
  * Contains version information for a programmatic interface for a CNG provider.
- * @see https://docs.microsoft.com/windows/win32/api//bcrypt/ns-bcrypt-bcrypt_interface_version
+ * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_interface_version
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

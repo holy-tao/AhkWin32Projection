@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes the extend modes and the interpolation mode of an ID2D1BitmapBrush.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/ns-d2d1-d2d1_bitmap_brush_properties
+ * Describes the extend modes and the interpolation mode of an ID2D1BitmapBrush. (D2D1_BITMAP_BRUSH_PROPERTIES)
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_bitmap_brush_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

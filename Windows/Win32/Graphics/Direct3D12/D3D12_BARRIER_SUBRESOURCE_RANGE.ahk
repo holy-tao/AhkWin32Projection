@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Allows you to transition logically-adjacent ranges of subresources.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_barrier_subresource_range
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -14,6 +16,7 @@ class D3D12_BARRIER_SUBRESOURCE_RANGE extends Win32Struct
     static packingSize => 4
 
     /**
+     * The index of the first mip level in the range; or a subresource index, if *NumMipLevels* is zero. If a subresource index, then you can use the value `0xffffffff` to specify all subresources.
      * @type {Integer}
      */
     IndexOrFirstMipLevel {
@@ -22,6 +25,7 @@ class D3D12_BARRIER_SUBRESOURCE_RANGE extends Win32Struct
     }
 
     /**
+     * Number of mip levels in the range, or zero to indicate that *IndexOrFirstMipLevel* is a subresource index.
      * @type {Integer}
      */
     NumMipLevels {
@@ -30,6 +34,7 @@ class D3D12_BARRIER_SUBRESOURCE_RANGE extends Win32Struct
     }
 
     /**
+     * Index of first array slice in the range. Ignored if *NumMipLevels* is zero.
      * @type {Integer}
      */
     FirstArraySlice {
@@ -38,6 +43,7 @@ class D3D12_BARRIER_SUBRESOURCE_RANGE extends Win32Struct
     }
 
     /**
+     * Number of array slices in the range. Ignored if *NumMipLevels* is zero.
      * @type {Integer}
      */
     NumArraySlices {
@@ -46,6 +52,7 @@ class D3D12_BARRIER_SUBRESOURCE_RANGE extends Win32Struct
     }
 
     /**
+     * First plane slice in the range. Ignored if *NumMipLevels* is zero.
      * @type {Integer}
      */
     FirstPlane {
@@ -54,6 +61,7 @@ class D3D12_BARRIER_SUBRESOURCE_RANGE extends Win32Struct
     }
 
     /**
+     * Number of plane slices in the range. Ignored if *NumMipLevels* is zero.
      * @type {Integer}
      */
     NumPlanes {

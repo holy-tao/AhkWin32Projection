@@ -3,7 +3,7 @@
 #Include ..\..\Foundation\RECT.ahk
 
 /**
- * 
+ * Deprecated. Represents information about the recognition guide. Use the WritingBox Property, DrawnBox Property, Rows Property, Columns Property, and Midline Property [InkRecognizerGuide Class] properties instead.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ns-msinkaut-inkrecoguide
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
@@ -15,6 +15,7 @@ class InkRecoGuide extends Win32Struct
     static packingSize => 8
 
     /**
+     * Deprecated.
      * @type {RECT}
      */
     rectWritingBox{
@@ -26,6 +27,7 @@ class InkRecoGuide extends Win32Struct
     }
 
     /**
+     * Deprecated.
      * @type {RECT}
      */
     rectDrawnBox{
@@ -37,6 +39,7 @@ class InkRecoGuide extends Win32Struct
     }
 
     /**
+     * Deprecated.
      * @type {Integer}
      */
     cRows {
@@ -45,6 +48,7 @@ class InkRecoGuide extends Win32Struct
     }
 
     /**
+     * Deprecated.
      * @type {Integer}
      */
     cColumns {
@@ -53,6 +57,7 @@ class InkRecoGuide extends Win32Struct
     }
 
     /**
+     * Deprecated.
      * @type {Integer}
      */
     midline {

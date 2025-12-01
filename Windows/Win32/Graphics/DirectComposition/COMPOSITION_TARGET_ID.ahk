@@ -3,6 +3,8 @@
 #Include ..\..\Foundation\LUID.ahk
 
 /**
+ * Contains information about a composition render target.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/dcomptypes/ns-dcomptypes-composition_target_id
  * @namespace Windows.Win32.Graphics.DirectComposition
@@ -15,6 +17,9 @@ class COMPOSITION_TARGET_ID extends Win32Struct
     static packingSize => 8
 
     /**
+     * Type: **[LUID](/windows/win32/api/winnt/ns-winnt-luid)**
+     * 
+     * The locally unique identifier (LUID) of the display adapter to which the monitor is connected.
      * @type {LUID}
      */
     displayAdapterLuid{
@@ -26,6 +31,9 @@ class COMPOSITION_TARGET_ID extends Win32Struct
     }
 
     /**
+     * Type: **[LUID](/windows/win32/api/winnt/ns-winnt-luid)**
+     * 
+     * The locally unique identifier (LUID) of the render adapter.
      * @type {LUID}
      */
     renderAdapterLuid{
@@ -37,6 +45,9 @@ class COMPOSITION_TARGET_ID extends Win32Struct
     }
 
     /**
+     * Type: **[UINT](/windows/win32/WinProg/windows-data-types)**
+     * 
+     * The unique ID of the video present source.
      * @type {Integer}
      */
     vidPnSourceId {
@@ -45,6 +56,9 @@ class COMPOSITION_TARGET_ID extends Win32Struct
     }
 
     /**
+     * Type: **[UINT](/windows/win32/WinProg/windows-data-types)**
+     * 
+     * The unique ID of the video present target.
      * @type {Integer}
      */
     vidPnTargetId {
@@ -53,6 +67,7 @@ class COMPOSITION_TARGET_ID extends Win32Struct
     }
 
     /**
+     * A unique identifier for this `COMPOSITION_TARGET_ID`.
      * @type {Integer}
      */
     uniqueId {

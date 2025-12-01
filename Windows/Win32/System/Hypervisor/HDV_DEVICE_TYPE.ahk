@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * HDV_DEVICE_TYPE
  * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvDeviceType
  * @namespace Windows.Win32.System.Hypervisor
  * @version v4.0.30319

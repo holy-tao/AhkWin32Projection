@@ -5,8 +5,7 @@
  * Indicates the level of support for protected resource sessions.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_feature_data_protected_resource_session_support
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_protected_resource_session_support
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

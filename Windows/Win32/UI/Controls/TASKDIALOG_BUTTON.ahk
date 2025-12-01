@@ -3,7 +3,7 @@
 
 /**
  * The TASKDIALOG_BUTTON structure contains information used to display a button in a task dialog. The TASKDIALOGCONFIG structure uses this structure.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-taskdialog_button
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-taskdialog_button
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

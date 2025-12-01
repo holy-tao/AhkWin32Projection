@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_FAILOVER_MODE enumeration defines the DHCPv4 server mode operation in a failover relationship.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ne-dhcpsapi-dhcp_failover_mode
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_failover_mode
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

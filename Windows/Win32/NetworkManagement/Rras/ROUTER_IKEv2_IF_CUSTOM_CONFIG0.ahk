@@ -4,7 +4,7 @@
 
 /**
  * Gets or sets IKEv2 tunnel configuration parameter for IKEv2 tunnel based demand dial interfaces.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-router_ikev2_if_custom_config0
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-router_ikev2_if_custom_config0
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

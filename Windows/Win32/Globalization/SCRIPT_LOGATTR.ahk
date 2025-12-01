@@ -3,7 +3,7 @@
 
 /**
  * Contains attributes of logical characters that are useful when editing and formatting text.
- * @see https://docs.microsoft.com/windows/win32/api//usp10/ns-usp10-script_logattr
+ * @see https://learn.microsoft.com/windows/win32/api/usp10/ns-usp10-script_logattr
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

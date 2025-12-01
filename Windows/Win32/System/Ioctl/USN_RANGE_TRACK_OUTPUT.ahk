@@ -4,11 +4,8 @@
 /**
  * Contains returned update sequence number (USN) from FSCTL_USN_TRACK_MODIFIED_RANGES control code.
  * @remarks
- * 
  * This structure is optional.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-usn_range_track_output
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_range_track_output
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

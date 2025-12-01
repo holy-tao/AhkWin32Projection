@@ -4,11 +4,8 @@
 /**
  * KEYBOARD_INPUT_DATA contains one packet of keyboard input data.
  * @remarks
- * 
  * In response to an <a href="https://docs.microsoft.com/previous-versions/ff542213(v=vs.85)">IRP_MJ_READ (Kbdclass)</a> request, Kbdclass transfers zero or more <b>KEYBOARD_INPUT_DATA</b> structures from its internal data queue to the Win32 subsystem buffer.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ntddkbd/ns-ntddkbd-keyboard_input_data
+ * @see https://learn.microsoft.com/windows/win32/api/ntddkbd/ns-ntddkbd-keyboard_input_data
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319
  */
@@ -19,7 +16,7 @@ class KEYBOARD_INPUT_DATA extends Win32Struct
     static packingSize => 4
 
     /**
-     * Specifies the unit number of a keyboard device. A keyboard device name has the format \Device\KeyboardPort<i>N</i>, where the suffix <i>N </i>is the unit number of the device. For example, a device, whose name is \Device\KeyboardPort0, has a unit number of zero, and a device, whose name is \Device\KeyboardPort1, has a unit number of one.
+     * Specifies the unit number of a keyboard device. A keyboard device name has the format \Device\KeyboardPort<i>N</i>, where the suffix <i>N </i> is the unit number of the device. For example, a device, whose name is \Device\KeyboardPort0, has a unit number of zero, and a device, whose name is \Device\KeyboardPort1, has a unit number of one.
      * @type {Integer}
      */
     UnitId {

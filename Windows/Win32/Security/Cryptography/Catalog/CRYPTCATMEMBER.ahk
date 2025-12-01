@@ -5,7 +5,7 @@
 
 /**
  * The CRYPTCATMEMBER structure provides information about a catalog member. This structure is used by the CryptCATGetMemberInfo and CryptCATEnumerateAttr functions.
- * @see https://docs.microsoft.com/windows/win32/api//mscat/ns-mscat-cryptcatmember
+ * @see https://learn.microsoft.com/windows/win32/api/mscat/ns-mscat-cryptcatmember
  * @namespace Windows.Win32.Security.Cryptography.Catalog
  * @version v4.0.30319
  */

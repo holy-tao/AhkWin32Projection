@@ -6,7 +6,7 @@
 
 /**
  * The EMRMASKBLT structure contains members for the MaskBlt enhanced metafile record. Note that graphics device interface (GDI) converts the device-dependent bitmap into a device-independent bitmap (DIB) before storing it in the metafile record.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrmaskblt
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrmaskblt
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

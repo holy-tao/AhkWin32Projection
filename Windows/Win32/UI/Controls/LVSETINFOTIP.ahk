@@ -3,7 +3,7 @@
 
 /**
  * Provides information about tooltip text that is to be set.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-lvsetinfotip
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvsetinfotip
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

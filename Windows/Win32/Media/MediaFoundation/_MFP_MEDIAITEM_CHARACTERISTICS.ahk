@@ -4,13 +4,13 @@
 /**
  * Contains flags that describe a media item.
  * @remarks
- * 
  * The following <b>typedef</b> is defined for combining flags from this enumeration.
  * 
- * <pre class="syntax" xml:space="preserve"><c>typedef UINT32 MFP_MEDIAITEM_CHARACTERISTICS;</c></pre>
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfplay/ne-mfplay-_mfp_mediaitem_characteristics
+ * ``` syntax
+ * typedef UINT32 MFP_MEDIAITEM_CHARACTERISTICS;
+ * ```
+ * @see https://learn.microsoft.com/windows/win32/api/mfplay/ne-mfplay-_mfp_mediaitem_characteristics
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

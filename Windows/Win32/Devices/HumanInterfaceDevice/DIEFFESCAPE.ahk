@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The DIEFFESCAPE structure passes hardware-specific data directly to the device driver.
  * @see https://learn.microsoft.com/windows/win32/api/dinput/ns-dinput-dieffescape
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319
@@ -14,6 +14,7 @@ class DIEFFESCAPE extends Win32Struct
     static packingSize => 8
 
     /**
+     * Specifies the size of the structure in bytes. This member must be initialized before the structure is used.
      * @type {Integer}
      */
     dwSize {
@@ -22,6 +23,7 @@ class DIEFFESCAPE extends Win32Struct
     }
 
     /**
+     * Specifies a driver-specific command number. Contact the hardware vendor for a list of valid commands and their parameters.
      * @type {Integer}
      */
     dwCommand {
@@ -30,6 +32,7 @@ class DIEFFESCAPE extends Win32Struct
     }
 
     /**
+     * Points to the buffer containing the data required to perform the operation.
      * @type {Pointer<Void>}
      */
     lpvInBuffer {
@@ -38,6 +41,7 @@ class DIEFFESCAPE extends Win32Struct
     }
 
     /**
+     * Specifies the size, in bytes, of the <b>lpvInBuffer</b> buffer.
      * @type {Integer}
      */
     cbInBuffer {
@@ -46,6 +50,7 @@ class DIEFFESCAPE extends Win32Struct
     }
 
     /**
+     * Points to the buffer in which the operation's output data is returned.
      * @type {Pointer<Void>}
      */
     lpvOutBuffer {
@@ -54,6 +59,7 @@ class DIEFFESCAPE extends Win32Struct
     }
 
     /**
+     * On entry, specifies the size, in bytes, of the <b>lpvOutBuffer</b> buffer. On exit, specifies the number of bytes actually produced by the command.
      * @type {Integer}
      */
     cbOutBuffer {

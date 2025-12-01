@@ -12,9 +12,8 @@
 #Include .\D3D10_TEXCUBE_ARRAY_SRV1.ahk
 
 /**
- * Describes a shader-resource view.
+ * Describes a shader-resource view. (D3D10_SHADER_RESOURCE_VIEW_DESC1)
  * @remarks
- * 
  * A view is a format-specific way to look at the data in a resource. The view determines what data to look at, and how it is cast when read. For more information about how views work, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-access-views">Views</a>
  * 
  * 
@@ -23,9 +22,7 @@
  * Create a shader-resource-view description by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1/nf-d3d10_1-id3d10device1-createshaderresourceview1">ID3D10Device1::CreateShaderResourceView1</a>. To view a shader-resource-view description, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10shaderresourceview-getdesc">ID3D10ShaderResourceView::GetDesc</a>.
  * 
  * This structure requires Windows Vista Service Pack 1.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10_1/ns-d3d10_1-d3d10_shader_resource_view_desc1
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/ns-d3d10_1-d3d10_shader_resource_view_desc1
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

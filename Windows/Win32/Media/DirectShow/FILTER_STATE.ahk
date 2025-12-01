@@ -3,7 +3,7 @@
 
 /**
  * Specifies a filter's state or the state of the filter graph.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-filter_state
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-filter_state
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

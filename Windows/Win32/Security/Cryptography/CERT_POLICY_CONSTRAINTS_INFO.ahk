@@ -3,7 +3,7 @@
 
 /**
  * The CERT_POLICY_CONSTRAINTS_INFO structure contains established policies for accepting certificates as trusted.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_policy_constraints_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_policy_constraints_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

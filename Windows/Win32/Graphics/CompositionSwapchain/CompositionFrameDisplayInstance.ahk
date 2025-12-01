@@ -4,6 +4,8 @@
 #Include .\PresentationTransform.ahk
 
 /**
+ * Represents a single instance of the content shown on a single output.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/presentation/ns-presentation-compositionframedisplayinstance
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
@@ -54,6 +56,9 @@ class CompositionFrameDisplayInstance extends Win32Struct
     }
 
     /**
+     * Type: **[CompositionFrameInstanceKind](ne-presentation-compositionframeinstancekind.md)**
+     * 
+     * The kind of instance.
      * @type {Integer}
      */
     instanceKind {
@@ -62,6 +67,9 @@ class CompositionFrameDisplayInstance extends Win32Struct
     }
 
     /**
+     * Type: **[PresentationTransform](../presentationtypes/ns-presentationtypes-presentationtransform.md)**
+     * 
+     * The accumulated transform on screen of displayed content, including all transforms of ancestor visuals, if applicable.
      * @type {PresentationTransform}
      */
     finalTransform{
@@ -73,6 +81,9 @@ class CompositionFrameDisplayInstance extends Win32Struct
     }
 
     /**
+     * Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
+     * 
+     * `TRUE` if a copy took place to display this instance due to the destination being a different adapter than the allocation's adapter; otherwise, `FALSE`.
      * @type {Integer}
      */
     requiredCrossAdapterCopy {
@@ -81,6 +92,9 @@ class CompositionFrameDisplayInstance extends Win32Struct
     }
 
     /**
+     * Type: **[DXGI_COLOR_SPACE_TYPE](/windows/win32/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type)**
+     * 
+     * The color space type of the output this instance was shown on.
      * @type {Integer}
      */
     colorSpace {

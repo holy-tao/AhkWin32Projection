@@ -5,7 +5,6 @@
 /**
  * Contains information that the GetFileInformationByHandle function retrieves.
  * @remarks
- * 
  * The identifier that is stored in the <b>nFileIndexHigh</b> and 
  *     <b>nFileIndexLow</b> members is called the file ID. Support for file IDs is file 
  *     system-specific. File IDs are not guaranteed to be unique over time, because file systems are free to reuse them. 
@@ -26,9 +25,7 @@
  *     time has a resolution of 2 seconds, and access time has a resolution of 1 day (the access date). On the NTFS file 
  *     system, access time has a resolution of 1 hour. For more information, see 
  *     <a href="https://docs.microsoft.com/windows/desktop/SysInfo/file-times">File Times</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fileapi/ns-fileapi-by_handle_file_information
+ * @see https://learn.microsoft.com/windows/win32/api/fileapi/ns-fileapi-by_handle_file_information
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

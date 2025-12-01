@@ -3,7 +3,7 @@
 
 /**
  * The HMAC_INFO structure specifies the hash algorithm and the inner and outer strings that are to be used to calculate the HMAC hash.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-hmac_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-hmac_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

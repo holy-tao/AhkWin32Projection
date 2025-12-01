@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains the data for a credential.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_credential_details
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -14,6 +16,7 @@ class WEBAUTHN_CREDENTIAL_DETAILS extends Win32Struct
     static packingSize => 8
 
     /**
+     * Version of this structure, to allow for modifications in the future. This field is required and should be set to **CURRENT_VERSION**.
      * @type {Integer}
      */
     dwVersion {
@@ -22,6 +25,7 @@ class WEBAUTHN_CREDENTIAL_DETAILS extends Win32Struct
     }
 
     /**
+     * The size of pbCredentialID.
      * @type {Integer}
      */
     cbCredentialID {
@@ -30,6 +34,7 @@ class WEBAUTHN_CREDENTIAL_DETAILS extends Win32Struct
     }
 
     /**
+     * The credential Id.
      * @type {Pointer<Integer>}
      */
     pbCredentialID {
@@ -38,6 +43,7 @@ class WEBAUTHN_CREDENTIAL_DETAILS extends Win32Struct
     }
 
     /**
+     * The relying party information.
      * @type {Pointer<WEBAUTHN_RP_ENTITY_INFORMATION>}
      */
     pRpInformation {
@@ -46,6 +52,7 @@ class WEBAUTHN_CREDENTIAL_DETAILS extends Win32Struct
     }
 
     /**
+     * The user information.
      * @type {Pointer<WEBAUTHN_USER_ENTITY_INFORMATION>}
      */
     pUserInformation {
@@ -54,6 +61,7 @@ class WEBAUTHN_CREDENTIAL_DETAILS extends Win32Struct
     }
 
     /**
+     * Indicates if the credential is removable or not.
      * @type {BOOL}
      */
     bRemovable {

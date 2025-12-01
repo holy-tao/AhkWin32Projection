@@ -3,7 +3,7 @@
 
 /**
  * This structure is used to set the over or under temperature threshold of a storage device (via IOCTL_STORAGE_SET_TEMPERATURE_THRESHOLD).
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_temperature_threshold
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_temperature_threshold
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

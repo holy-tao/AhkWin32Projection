@@ -408,12 +408,16 @@ class ClrHosting {
     }
 
     /**
+     * Loads a specified version of a .NET Framework library DLL.
+     * @remarks
+     * This function is used to load library DLLs that are included in the .NET Framework redistributable package, not user-generated DLLs.
      * 
-     * @param {PWSTR} szDllName 
-     * @param {PWSTR} szVersion 
-     * @param {Pointer<Void>} pvReserved 
-     * @param {Pointer<HMODULE>} phModDll 
-     * @returns {HRESULT} 
+     * This function has no associated import library or header file; you must call it using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) and [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) functions.
+     * @param {PWSTR} szDllName The name of the DLL to be loaded from the .NET Framework.
+     * @param {PWSTR} szVersion The version of the DLL to be loaded. If *szVersion* is **NULL**, the latest version of the specified DLL is loaded.
+     * @param {Pointer<Void>} pvReserved Reserved.
+     * @param {Pointer<HMODULE>} phModDll A handle to the module.
+     * @returns {HRESULT} If this function succeeds, it returns **S\_OK**. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/loadlibraryshim
      * @deprecated 
      */

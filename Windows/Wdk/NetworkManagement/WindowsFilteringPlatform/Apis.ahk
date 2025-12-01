@@ -14,7 +14,6 @@ class WindowsFilteringPlatform {
     /**
      * Is used to release memory resources allocated by the Windows Filtering Platform (WFP) functions.
      * @remarks
-     * 
      * <b>FwpmFreeMemory0</b> is used to free memory returned by the various <b>Fwpm*</b> functions, such as <b>FwpmFilterGetByKey0</b>.
      * 
      * <b>Fwpm*</b> functions that return a HANDLE, such as <b>FwpmCalloutCreateEnumHandle0</b>, have specific functions to release memory.
@@ -22,13 +21,11 @@ class WindowsFilteringPlatform {
      * If the caller passes a pointer that is not valid, the behavior is undefined.
      * 
      * <b>FwpmFreeMemory0</b> is a specific implementation of FwpmFreeMemory. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
-     * 
-     * 
      * @param {Pointer<Pointer<Void>>} p Type: <b>void**</b>
      * 
      * Address of the pointer to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmfreememory0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfreememory0
      */
     static FwpmFreeMemory0(p) {
         pMarshal := p is VarRef ? "ptr*" : "ptr"
@@ -75,16 +72,29 @@ class WindowsFilteringPlatform {
 
     /**
      * Opens a session to the filter engine.
+     * @remarks
+     * A user application must call <b>FwpmEngineOpen0</b> to obtain a handle for open session to the filter engine before adding or removing any filter objects. A handle for an open session to the filter engine is also required for most of the other Windows Filtering Platform management functions.
+     * 
+     * The session is automatically closed when the program ends. To explicitly close a session, call <a href="https://docs.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmengineclose0">FwpmEngineClose0</a>.
+     * 
+     * If <i>session</i>.<b>flags</b> is set to <b>FWPM_SESSION_FLAG_DYNAMIC</b>, any WFP objects added during the session are
+     * automatically deleted when the session ends. If the session is not dynamic, the caller needs to explicitly delete all WFP objects added during the session.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_OPEN</a> access to the filter engine. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmEngineOpen0</b> is intended for use in non-impersonated mode only.
+     * 
+     * <b>FwpmEngineOpen0</b> is a specific implementation of FwpmEngineOpen. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {PWSTR} serverName Type: <b>const wchar_t*</b>
      * 
      * This value must be <b>NULL</b>.
      * @param {Integer} authnService Type: <b>UINT32</b>
      * 
      * Specifies the authentication service to use. Allowed services are RPC_C_AUTHN_WINNT and RPC_C_AUTHN_DEFAULT.
-     * @param {Pointer<SEC_WINNT_AUTH_IDENTITY_W>} authIdentity Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-sec_winnt_auth_identity_a">SEC_WINNT_AUTH_IDENTITY_W</a>*</b>
+     * @param {Pointer<SEC_WINNT_AUTH_IDENTITY_W>} authIdentity Type: <b><a href="https://docs.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-sec_winnt_auth_identity_a">SEC_WINNT_AUTH_IDENTITY_A</a>*</b>
      * 
      * The authentication and authorization credentials for accessing the filter engine. This pointer is optional and can be <b>NULL</b>. If this pointer is <b>NULL</b>, the calling thread's credentials are used.
-     * @param {Pointer<FWPM_SESSION0>} session Type: [FWPM_SESSION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_session0)*</b>
+     * @param {Pointer<FWPM_SESSION0>} session Type: [FWPM_SESSION0](/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_session0)*</b>
      * 
      * Session-specific parameters for the session being opened. This pointer is optional and can be <b>NULL</b>.
      * @param {Pointer<HANDLE>} engineHandle Type: <b>HANDLE*</b>
@@ -129,7 +139,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -146,7 +156,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmengineopen0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmengineopen0
      */
     static FwpmEngineOpen0(serverName, authnService, authIdentity, session, engineHandle) {
         serverName := serverName is String ? StrPtr(serverName) : serverName
@@ -157,6 +167,14 @@ class WindowsFilteringPlatform {
 
     /**
      * Closes a session to a filter engine.
+     * @remarks
+     * After an application has completed adding or removing system objects, it may call the <b>FwpmEngineClose0</b> function to close the open session to the filter engine.
+     * 
+     * A filter engine session is also closed when a client process terminates.
+     * 
+     * If this function is called with a transaction in progress, the transaction will be aborted.
+     * 
+     * <b>FwpmEngineClose0</b> is a specific implementation of FwpmEngineClose. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -187,7 +205,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -204,7 +222,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmengineclose0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmengineclose0
      */
     static FwpmEngineClose0(engineHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -215,6 +233,12 @@ class WindowsFilteringPlatform {
 
     /**
      * Retrieves a filter engine option.
+     * @remarks
+     * The caller must free the returned object by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> access to the filter engine. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmEngineGetOption0</b> is a specific implementation of FwpmEngineGetOption. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -285,7 +309,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -302,7 +326,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmenginegetoption0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmenginegetoption0
      */
     static FwpmEngineGetOption0(engineHandle, option, value) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -315,6 +339,37 @@ class WindowsFilteringPlatform {
 
     /**
      * Changes the filter engine settings.
+     * @remarks
+     * This function cannot be called from within a transaction. It will fail
+     * with <b>FWP_E_TXN_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * This function cannot be called from within a dynamic session. It will fail with
+     * <b>FWP_E_DYNAMIC_SESSION_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about sessions.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_WRITE</a> access to the filter engine. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * The default settings for network event collection are as follows:
+     * 
+     * <ul>
+     * <li>Outbound, all (unicast, multicast, and broadcast) events  are collected.</li>
+     * <li>Inbound, only unicast events are collected.</li>
+     * </ul>
+     * Network event collection settings persist across reboots.
+     * 
+     * To collect inbound broadcast and/or multicast network events,
+     * 
+     * <ol>
+     * <li>Call <b>FwpmEngineSetOption0</b> with <i>option</i> set to FWPM_ENGINE_COLLECT_NET_EVENTS and <i>newValue</i> set to 1.</li>
+     * <li> Call <b>FwpmEngineSetOption0</b> with <i>option</i> set to FWPM_ENGINE_NET_EVENT_MATCH_ANY_KEYWORDS and <i>newValue</i> parameter set to FWPM_NET_EVENT_KEYWORD_INBOUND_MCAST and/or FWPM_NET_EVENT_KEYWORD_INBOUND_BCAST.</li>
+     * </ol>
+     * To stop collecting inbound broadcast and/or multicast network events,
+     * 
+     * <ul>
+     * <li> Call <b>FwpmEngineSetOption0</b> with <i>option</i> set to FWPM_ENGINE_NET_EVENT_MATCH_ANY_KEYWORDS and <i>newValue</i> parameter set to 0 (zero).</li>
+     * </ul>
+     * Disabling and re-enabling of network event collection (FWPM_ENGINE_COLLECT_NET_EVENTS) does not reset the collection of inbound broadcast and multicast events.
+     * 
+     * <b>FwpmEngineSetOption0</b> is a specific implementation of FwpmEngineSetOption. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -385,7 +440,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -402,7 +457,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmenginesetoption0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmenginesetoption0
      */
     static FwpmEngineSetOption0(engineHandle, option, newValue) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -413,6 +468,12 @@ class WindowsFilteringPlatform {
 
     /**
      * Retrieves a copy of the security descriptor for the filter engine.
+     * @remarks
+     * The returned <i>securityDescriptor</i> parameter must be freed through a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>. The other four (optional) returned parameters must not be freed, as they point to addresses within the <i>securityDescriptor</i> parameter.
+     * 
+     * This function behaves like the standard Win32 	<a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-getsecurityinfo">GetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>GetSecurityInfo</b> reference topic.
+     * 
+     * <b>FwpmEngineGetSecurityInfo0</b> is a specific implementation of FwpmEngineGetSecurityInfo. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -461,7 +522,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -478,7 +539,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmenginegetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmenginegetsecurityinfo0
      */
     static FwpmEngineGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -494,6 +555,13 @@ class WindowsFilteringPlatform {
 
     /**
      * Sets specified security information in the security descriptor of the filter engine.
+     * @remarks
+     * <b>FwpmEngineSetSecurityInfo0</b> cannot be called from within a transaction. It will fail
+     * with <b>FWP_E_TXN_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * <b>FwpmEngineSetSecurityInfo0</b> behaves like the standard Win32 	 <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-setsecurityinfo">SetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>SetSecurityInfo</b> reference topic.
+     * 
+     * <b>FwpmEngineSetSecurityInfo0</b> is a specific implementation of FwpmEngineSetSecurityInfo. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -539,7 +607,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -556,7 +624,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmenginesetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmenginesetsecurityinfo0
      */
     static FwpmEngineSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -567,6 +635,17 @@ class WindowsFilteringPlatform {
 
     /**
      * Creates a handle used to enumerate a set of session objects.
+     * @remarks
+     * If <i>enumTemplate</i> is <b>NULL</b>, all session objects are returned.
+     * 
+     * The caller must free the returned handle by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmsessiondestroyenumhandle0">FwpmSessionDestroyEnumHandle0</a>.
+     * 
+     * <b>FwpmSessionCreateEnumHandle0</b> cannot be called from within a transaction. It will fail
+     * with <b>FWP_E_TXN_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ENUM</a> access to the filter engine. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmSessionCreateEnumHandle0</b> is a specific implementation of FwpmSessionCreateEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -603,7 +682,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -620,7 +699,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmsessioncreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsessioncreateenumhandle0
      */
     static FwpmSessionCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -631,6 +710,16 @@ class WindowsFilteringPlatform {
 
     /**
      * Returns the next page of results from the session enumerator.
+     * @remarks
+     * If the <i>numEntriesReturned</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted. 
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * A subsequent call using the same enumeration handle will return the next set of items following those in the last output buffer.
+     * 
+     * <b>FwpmSessionEnum0</b> works on a snapshot of the sessions taken at the time the enumeration handle was created.
+     * 
+     * <b>FwpmSessionEnum0</b> is a specific implementation of FwpmSessionEnum. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -673,7 +762,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -690,7 +779,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmsessionenum0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsessionenum0
      */
     static FwpmSessionEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -705,6 +794,8 @@ class WindowsFilteringPlatform {
 
     /**
      * Frees a handle returned by FwpmSessionCreateEnumHandle0.
+     * @remarks
+     * <b>FwpmSessionDestroyEnumHandle0</b> is a specific implementation of FwpmSessionDestroyEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -738,7 +829,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -755,7 +846,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmsessiondestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsessiondestroyenumhandle0
      */
     static FwpmSessionDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -767,6 +858,13 @@ class WindowsFilteringPlatform {
 
     /**
      * Begins an explicit transaction within the current session.
+     * @remarks
+     * This function cannot be called from within a transaction. It will fail
+     * with <b>FWP_E_TXN_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * For a read-only transaction, the caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_BEGIN_READ_TXN</a> access to the filter engine. For a read/write transaction, the caller needs <b>FWPM_ACTRL_BEGIN_WRITE_TXN</b> access to the filter engine. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmTransactionBegin0</b> is a specific implementation of FwpmTransactionBegin. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -828,7 +926,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -845,7 +943,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmtransactionbegin0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmtransactionbegin0
      */
     static FwpmTransactionBegin0(engineHandle, flags) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -856,6 +954,11 @@ class WindowsFilteringPlatform {
 
     /**
      * Commits the current transaction within the current session.
+     * @remarks
+     * This function can only be called from within a transaction. Otherwise, it will fail
+     * with <b>FWP_E_NO_TXN_IN_PROGRESS</b>.
+     * 
+     * <b>FwpmTransactionCommit0</b> is a specific implementation of FwpmTransactionCommit. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -886,7 +989,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -903,7 +1006,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmtransactioncommit0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmtransactioncommit0
      */
     static FwpmTransactionCommit0(engineHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -914,6 +1017,11 @@ class WindowsFilteringPlatform {
 
     /**
      * Causes the current transaction within the current session to abort and rollback.
+     * @remarks
+     * This function can only be called from within a transaction. Otherwise, it will fail
+     * with <b>FWP_E_NO_TXN_IN_PROGRESS</b>.
+     * 
+     * <b>FwpmTransactionAbort0</b> is a specific implementation of FwpmTransactionAbort. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -944,7 +1052,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -961,7 +1069,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmtransactionabort0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmtransactionabort0
      */
     static FwpmTransactionAbort0(engineHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -972,6 +1080,22 @@ class WindowsFilteringPlatform {
 
     /**
      * Adds a new provider to the system.
+     * @remarks
+     * If the caller supplies a null security descriptor, the system will assign a default security descriptor.
+     * 
+     * Boot-time objects are added to the Base Filtering Engine (BFE) when the TCP/IP driver starts, and are removed once the BFE finishes initialization.  Persistent objects are added when the BFE starts. If a policy provider has a persistent policy that is not intended to be enforced if its associated service is disabled, the caller can specify an optional service name in the [FWPM_PROVIDER0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_provider0) structure.  This service then owns the persistent policy object.  At start, the BFE only adds the following types of persistent objects to the system.
+     * 
+     * <ul>
+     * <li>The object is not associated with a provider.</li>
+     * <li>The object has an associated provider that does not specify a service name.</li>
+     * <li>The object has an associated provider and an associated service set to auto-start.</li>
+     * </ul>
+     * This function cannot be called from within a read-only transaction. It will fail
+     * with <b>FWP_E_INCOMPATIBLE_TXN</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ADD</a> access to the provider's container.  See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmProviderAdd0</b> is a specific implementation of FwpmProviderAdd. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -1008,7 +1132,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -1025,7 +1149,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovideradd0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovideradd0
      */
     static FwpmProviderAdd0(engineHandle, provider, sd) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1037,6 +1161,15 @@ class WindowsFilteringPlatform {
 
     /**
      * Removes a provider from the system.
+     * @remarks
+     * This function cannot be called from within a read-only transaction. It will fail with
+     * <b>FWP_E_INCOMPATIBLE_TXN</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * This function can be called within a dynamic session if the corresponding object was added during the same session. If this function is called for an object that was added during a different dynamic session, it will fail with <b>FWP_E_WRONG_SESSION</b>. If this function is called for an object that was not added during a dynamic session, it will fail with <b>FWP_E_DYNAMIC_SESSION_IN_PROGRESS</b>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">DELETE</a> access to the provider. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmProviderDeleteByKey0</b> is a specific implementation of FwpmProviderDeleteByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -1070,7 +1203,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -1087,7 +1220,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmproviderdeletebykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmproviderdeletebykey0
      */
     static FwpmProviderDeleteByKey0(engineHandle, key) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1098,6 +1231,12 @@ class WindowsFilteringPlatform {
 
     /**
      * Retrieves a provider.
+     * @remarks
+     * The caller must free the returned object by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> access to the provider. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmProviderGetByKey0</b> is a specific implementation of FwpmProviderGetByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -1134,7 +1273,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -1151,7 +1290,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidergetbykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidergetbykey0
      */
     static FwpmProviderGetByKey0(engineHandle, key, provider) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1164,6 +1303,16 @@ class WindowsFilteringPlatform {
 
     /**
      * Creates a handle used to enumerate a set of providers.
+     * @remarks
+     * If <i>enumTemplate</i> is <b>NULL</b>, all providers are returned.
+     * 
+     * The enumerator is not "live", meaning it does not reflect changes made to the system after the call to  <b>FwpmProviderCreateEnumHandle0</b> returns. If you need to ensure that the results are current, you must call  <b>FwpmProviderCreateEnumHandle0</b> and <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmproviderenum0">FwpmProviderEnum0</a> from within the same explicit transaction.
+     * 
+     * The caller must free the returned handle by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmproviderdestroyenumhandle0">FwpmProviderDestroyEnumHandle0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ENUM</a> access to the providers' containers and <b>FWPM_ACTRL_READ</b> access to the providers. Only providers to which the caller has <b>FWPM_ACTRL_READ</b> access will be returned. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmProviderCreateEnumHandle0</b> is a specific implementation of FwpmProviderCreateEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -1200,7 +1349,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -1217,7 +1366,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidercreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercreateenumhandle0
      */
     static FwpmProviderCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1228,6 +1377,16 @@ class WindowsFilteringPlatform {
 
     /**
      * Returns the next page of results from the provider enumerator.
+     * @remarks
+     * If the <i>numEntriesReturned</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted. 
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * A subsequent call using the same enumeration handle will return the next set of items following those in the last output buffer.
+     * 
+     * <b>FwpmProviderEnum0</b> works on a snapshot of the providers taken at the time the enumeration handle was created.
+     * 
+     * <b>FwpmProviderEnum0</b> is a specific implementation of FwpmProviderEnum. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -1270,7 +1429,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -1287,7 +1446,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmproviderenum0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmproviderenum0
      */
     static FwpmProviderEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1302,6 +1461,8 @@ class WindowsFilteringPlatform {
 
     /**
      * Frees a handle returned by FwpmProviderCreateEnumHandle0.
+     * @remarks
+     * <b>FwpmProviderDestroyEnumHandle0</b> is a specific implementation of FwpmProviderDestroyEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -1335,7 +1496,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -1352,7 +1513,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmproviderdestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmproviderdestroyenumhandle0
      */
     static FwpmProviderDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1364,6 +1525,14 @@ class WindowsFilteringPlatform {
 
     /**
      * Retrieves a copy of the security descriptor for a provider object.
+     * @remarks
+     * If the <i>key</i> parameter is <b>NULL</b> or if it is  a <b>NULL</b> GUID, this function manages the security information of the providers container.
+     * 
+     * The returned <i>securityDescriptor</i> parameter must be freed through a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>. The other four (optional) returned parameters must not be freed, as they point to addresses within the <i>securityDescriptor</i> parameter.
+     * 
+     * This function behaves like the standard Win32 	<a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-getsecurityinfo">GetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>GetSecurityInfo</b> reference topic.
+     * 
+     * <b>FwpmProviderGetSecurityInfoByKey0</b> is a specific implementation of FwpmProviderGetSecurityInfoByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -1415,7 +1584,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -1432,7 +1601,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidergetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidergetsecurityinfobykey0
      */
     static FwpmProviderGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1448,6 +1617,17 @@ class WindowsFilteringPlatform {
 
     /**
      * Sets specified security information in the security descriptor of a provider object.
+     * @remarks
+     * If the <i>key</i> parameter is <b>NULL</b> or if it is  a <b>NULL</b> GUID, this function manages the security information of the providers container.
+     * 
+     * This function cannot be called from within a transaction. It will fail with
+     * <b>FWP_E_TXN_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * This function can be called within a dynamic session if the corresponding object was added during the same session. If this function is called for an object that was added during a different dynamic session, it will fail with <b>FWP_E_WRONG_SESSION</b>. If this function is called for an object that was not added during a dynamic session, it will fail with <b>FWP_E_DYNAMIC_SESSION_IN_PROGRESS</b>.
+     * 
+     * This function behaves like the standard Win32 	 <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-setsecurityinfo">SetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>SetSecurityInfo</b> reference topic.
+     * 
+     * <b>FwpmProviderSetSecurityInfoByKey0</b> is a specific implementation of FwpmProviderSetSecurityInfoByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -1496,7 +1676,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -1513,7 +1693,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidersetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidersetsecurityinfobykey0
      */
     static FwpmProviderSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1523,7 +1703,16 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Adds a new provider context to the system.
+     * Adds a new provider context to the system. (FwpmProviderContextAdd0)
+     * @remarks
+     * Some fields in the [FWPM_PROVIDER_CONTEXT0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_context0) structure are assigned by the system, not the caller, and are ignored in the call to <b>FwpmProviderContextAdd0</b>. 
+     * 
+     * If the caller supplies a <b>NULL</b> security descriptor, the system will assign a default security descriptor.
+     * 
+     * This function cannot be called from within a read-only transaction. It will fail
+     * with <b>FWP_E_INCOMPATIBLE_TXN</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ADD</a> access to the provider context's container and <b>FWPM_ACTRL_ADD_LINK</b> access to the provider (if any).  See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -1576,7 +1765,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -1593,7 +1782,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidercontextadd0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextadd0
      */
     static FwpmProviderContextAdd0(engineHandle, providerContext, sd, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1606,7 +1795,16 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Adds a new provider context to the system.
+     * Adds a new provider context to the system. (FwpmProviderContextAdd1)
+     * @remarks
+     * Some fields in the [FWPM_PROVIDER_CONTEXT1](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_context1) structure are assigned by the system, not the caller, and are ignored in the call to <b>FwpmProviderContextAdd1</b>. 
+     * 
+     * If the caller supplies a <b>NULL</b> security descriptor, the system will assign a default security descriptor.
+     * 
+     * This function cannot be called from within a read-only transaction. It will fail
+     * with <b>FWP_E_INCOMPATIBLE_TXN</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ADD</a> access to the provider context's container and <b>FWPM_ACTRL_ADD_LINK</b> access to the provider (if any).  See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -1659,7 +1857,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -1676,7 +1874,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidercontextadd1
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextadd1
      */
     static FwpmProviderContextAdd1(engineHandle, providerContext, sd, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1689,7 +1887,16 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Adds a new provider context to the system.
+     * Adds a new provider context to the system. (FwpmProviderContextAdd2)
+     * @remarks
+     * Some fields in the [FWPM_PROVIDER_CONTEXT2](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_context2) structure are assigned by the system, not the caller, and are ignored in the call to <b>FwpmProviderContextAdd2</b>. 
+     * 
+     * If the caller supplies a <b>NULL</b> security descriptor, the system will assign a default security descriptor.
+     * 
+     * This function cannot be called from within a read-only transaction. It will fail
+     * with <b>FWP_E_INCOMPATIBLE_TXN</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ADD</a> access to the provider context's container and <b>FWPM_ACTRL_ADD_LINK</b> access to the provider (if any).  See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -1742,7 +1949,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -1759,7 +1966,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidercontextadd2
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextadd2
      */
     static FwpmProviderContextAdd2(engineHandle, providerContext, sd, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1791,6 +1998,15 @@ class WindowsFilteringPlatform {
 
     /**
      * Removes a provider context from the system .
+     * @remarks
+     * This function cannot be called from within a read-only transaction. It will fail with
+     * <b>FWP_E_INCOMPATIBLE_TXN</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * This function can be called within a dynamic session if the corresponding object was added during the same session. If this function is called for an object that was added during a different dynamic session, it will fail with <b>FWP_E_WRONG_SESSION</b>. If this function is called for an object that was not added during a dynamic session, it will fail with <b>FWP_E_DYNAMIC_SESSION_IN_PROGRESS</b>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">DELETE</a> access to the provider context. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmProviderContextDeleteById0</b> is a specific implementation of FwpmProviderContextDeleteById. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -1824,7 +2040,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -1841,7 +2057,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidercontextdeletebyid0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextdeletebyid0
      */
     static FwpmProviderContextDeleteById0(engineHandle, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1852,6 +2068,15 @@ class WindowsFilteringPlatform {
 
     /**
      * Removes a provider context from the system.
+     * @remarks
+     * This function cannot be called from within a read-only transaction. It will fail with
+     * <b>FWP_E_INCOMPATIBLE_TXN</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * This function can be called within a dynamic session if the corresponding object was added during the same session. If this function is called for an object that was added during a different dynamic session, it will fail with <b>FWP_E_WRONG_SESSION</b>. If this function is called for an object that was not added during a dynamic session, it will fail with <b>FWP_E_DYNAMIC_SESSION_IN_PROGRESS</b>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">DELETE</a> access to the provider context. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmProviderContextDeleteByKey0</b> is a specific implementation of FwpmProviderContextDeleteByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -1885,7 +2110,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -1902,7 +2127,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidercontextdeletebykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextdeletebykey0
      */
     static FwpmProviderContextDeleteByKey0(engineHandle, key) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1912,7 +2137,11 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves a provider context.
+     * Retrieves a provider context. (FwpmProviderContextGetById0)
+     * @remarks
+     * The caller must free the returned object by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> access to the provider context. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -1949,7 +2178,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -1966,7 +2195,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidercontextgetbyid0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetbyid0
      */
     static FwpmProviderContextGetById0(engineHandle, id, providerContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1978,7 +2207,11 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves a provider context.
+     * Retrieves a provider context. (FwpmProviderContextGetById1)
+     * @remarks
+     * The caller must free the returned object by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> access to the provider context. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -2015,7 +2248,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -2032,7 +2265,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidercontextgetbyid1
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetbyid1
      */
     static FwpmProviderContextGetById1(engineHandle, id, providerContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2044,7 +2277,11 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves a provider context.
+     * Retrieves a provider context. (FwpmProviderContextGetById2)
+     * @remarks
+     * The caller must free the returned object by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> access to the provider context. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -2081,7 +2318,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -2098,7 +2335,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidercontextgetbyid2
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetbyid2
      */
     static FwpmProviderContextGetById2(engineHandle, id, providerContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2126,7 +2363,11 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves a provider context.
+     * Retrieves a provider context. (FwpmProviderContextGetByKey0)
+     * @remarks
+     * The caller must free the returned object by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> access to the provider context. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -2163,7 +2404,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -2180,7 +2421,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidercontextgetbykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetbykey0
      */
     static FwpmProviderContextGetByKey0(engineHandle, key, providerContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2192,7 +2433,11 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves a provider context.
+     * Retrieves a provider context. (FwpmProviderContextGetByKey1)
+     * @remarks
+     * The caller must free the returned object by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> access to the provider context. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -2229,7 +2474,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -2246,7 +2491,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidercontextgetbykey1
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetbykey1
      */
     static FwpmProviderContextGetByKey1(engineHandle, key, providerContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2258,7 +2503,11 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves a provider context.
+     * Retrieves a provider context. (FwpmProviderContextGetByKey2)
+     * @remarks
+     * The caller must free the returned object by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> access to the provider context. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -2295,7 +2544,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -2312,7 +2561,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidercontextgetbykey2
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetbykey2
      */
     static FwpmProviderContextGetByKey2(engineHandle, key, providerContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2341,6 +2590,16 @@ class WindowsFilteringPlatform {
 
     /**
      * Creates a handle used to enumerate a set of provider contexts.
+     * @remarks
+     * If <i>enumTemplate</i> is <b>NULL</b>, all provider contexts are returned.
+     * 
+     * The enumerator is not "live", meaning it does not reflect changes made to the system after the call to  <b>FwpmProviderContextCreateEnumHandle0</b> returns. If you need to ensure that the results are current, you must call <b>FwpmProviderContextCreateEnumHandle0</b> and <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercontextenum0">FwpmProviderContextEnum0</a> from within the same explicit transaction.
+     * 
+     * The caller must free the returned handle by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercontextdestroyenumhandle0">FwpmProviderContextDestroyEnumHandle0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ENUM</a> access to the provider contexts' containers and <b>FWPM_ACTRL_READ</b> access to the provider contexts. Only provider contexts to which the caller has <b>FWPM_ACTRL_READ</b> access will be returned. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmProviderContextCreateEnumHandle0</b> is a specific implementation of FwpmProviderContextCreateEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -2377,7 +2636,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -2394,7 +2653,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidercontextcreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextcreateenumhandle0
      */
     static FwpmProviderContextCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2404,7 +2663,15 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Returns the next page of results from the provider context enumerator.
+     * Returns the next page of results from the provider context enumerator. (FwpmProviderContextEnum0)
+     * @remarks
+     * If the <i>numEntriesReturned</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted. 
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * A subsequent call using the same enumeration handle will return the next set of items following those in the last output buffer.
+     * 
+     * <b>FwpmProviderContextEnum0</b> works on a snapshot of the provider contexts taken at the time the enumeration handle was created.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -2447,7 +2714,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -2464,7 +2731,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidercontextenum0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextenum0
      */
     static FwpmProviderContextEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2478,7 +2745,15 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Returns the next page of results from the provider context enumerator.
+     * Returns the next page of results from the provider context enumerator. (FwpmProviderContextEnum1)
+     * @remarks
+     * If the <i>numEntriesReturned</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted. 
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * A subsequent call using the same enumeration handle will return the next set of items following those in the last output buffer.
+     * 
+     * <b>FwpmProviderContextEnum1</b> works on a snapshot of the provider contexts taken at the time the enumeration handle was created.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -2521,7 +2796,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -2538,7 +2813,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidercontextenum1
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextenum1
      */
     static FwpmProviderContextEnum1(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2552,7 +2827,15 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Returns the next page of results from the provider context enumerator.
+     * Returns the next page of results from the provider context enumerator. (FwpmProviderContextEnum2)
+     * @remarks
+     * If the <i>numEntriesReturned</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted.
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * A subsequent call using the same enumeration handle will return the next set of items following those in the last output buffer.
+     * 
+     * <b>FwpmProviderContextEnum2</b> works on a snapshot of the provider contexts taken at the time the enumeration handle was created.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -2595,7 +2878,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -2612,7 +2895,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidercontextenum2
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextenum2
      */
     static FwpmProviderContextEnum2(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2647,6 +2930,8 @@ class WindowsFilteringPlatform {
 
     /**
      * Frees a handle returned by FwpmProviderContextCreateEnumHandle0.
+     * @remarks
+     * <b>FwpmProviderContextDestroyEnumHandle0</b> is a specific implementation of FwpmProviderContextDestroyEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -2680,7 +2965,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -2697,7 +2982,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidercontextdestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextdestroyenumhandle0
      */
     static FwpmProviderContextDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2709,6 +2994,14 @@ class WindowsFilteringPlatform {
 
     /**
      * Retrieves a copy of the security descriptor for a provider context object.
+     * @remarks
+     * If the <i>key</i> parameter is <b>NULL</b> or if it is  a <b>NULL</b> GUID, this function manages the security information of the provider contexts container.
+     * 
+     * The returned <i>securityDescriptor</i> parameter must be freed through a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>. The other four (optional) returned parameters must not be freed, as they point to addresses within the <i>securityDescriptor</i> parameter.
+     * 
+     * This function behaves like the standard Win32 	<a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-getsecurityinfo">GetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>GetSecurityInfo</b> reference topic.
+     * 
+     * <b>FwpmProviderContextGetSecurityInfoByKey0</b> is a specific implementation of FwpmProviderContextGetSecurityInfoByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -2760,7 +3053,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -2777,7 +3070,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidercontextgetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetsecurityinfobykey0
      */
     static FwpmProviderContextGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2793,6 +3086,17 @@ class WindowsFilteringPlatform {
 
     /**
      * Sets specified security information in the security descriptor of a provider context object.
+     * @remarks
+     * If the <i>key</i> parameter is <b>NULL</b> or if it is  a <b>NULL</b> GUID, this function manages the security information of the provider contexts container.
+     * 
+     * This function cannot be called from within a transaction. It will fail with
+     * <b>FWP_E_TXN_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * This function can be called within a dynamic session if the corresponding object was added during the same session. If this function is called for an object that was added during a different dynamic session, it will fail with <b>FWP_E_WRONG_SESSION</b>. If this function is called for an object that was not added during a dynamic session, it will fail with <b>FWP_E_DYNAMIC_SESSION_IN_PROGRESS</b>.
+     * 
+     * This function behaves like the standard Win32 	 <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-setsecurityinfo">SetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>SetSecurityInfo</b> reference topic.
+     * 
+     * <b>FwpmProviderContextSetSecurityInfoByKey0</b> is a specific implementation of FwpmProviderContextSetSecurityInfoByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -2841,7 +3145,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -2858,7 +3162,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmprovidercontextsetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextsetsecurityinfobykey0
      */
     static FwpmProviderContextSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2869,6 +3173,15 @@ class WindowsFilteringPlatform {
 
     /**
      * Adds a new sublayer to the system.
+     * @remarks
+     * If the caller supplies a null security descriptor, the system will assign a default security descriptor.
+     * 
+     * This function cannot be called from within a read-only transaction. It will fail
+     * with <b>FWP_E_INCOMPATIBLE_TXN</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ADD</a> access to the sublayers's container and <b>FWPM_ACTRL_ADD_LINK</b> access to the provider (if any).  See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmSubLayerAdd0</b> is a specific implementation of FwpmSubLayerAdd. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -2905,7 +3218,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -2922,7 +3235,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmsublayeradd0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayeradd0
      */
     static FwpmSubLayerAdd0(engineHandle, subLayer, sd) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2934,6 +3247,15 @@ class WindowsFilteringPlatform {
 
     /**
      * Deletes a sublayer from the system by its key.
+     * @remarks
+     * This function cannot be called from within a read-only transaction. It will fail with
+     * <b>FWP_E_INCOMPATIBLE_TXN</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * This function can be called within a dynamic session if the corresponding object was added during the same session. If this function is called for an object that was added during a different dynamic session, it will fail with <b>FWP_E_WRONG_SESSION</b>. If this function is called for an object that was not added during a dynamic session, it will fail with <b>FWP_E_DYNAMIC_SESSION_IN_PROGRESS</b>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">DELETE</a> access to the sub-layer. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmSubLayerDeleteByKey0</b> is a specific implementation of FwpmSubLayerDeleteByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -2967,7 +3289,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -2984,7 +3306,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmsublayerdeletebykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayerdeletebykey0
      */
     static FwpmSubLayerDeleteByKey0(engineHandle, key) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2995,6 +3317,12 @@ class WindowsFilteringPlatform {
 
     /**
      * Retrieves a sublayer by its key.
+     * @remarks
+     * The caller must free the returned object by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> access to the sublayer. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmSubLayerGetByKey0</b> is a specific implementation of FwpmSubLayerGetByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -3031,7 +3359,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -3048,7 +3376,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmsublayergetbykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayergetbykey0
      */
     static FwpmSubLayerGetByKey0(engineHandle, key, subLayer) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3061,6 +3389,16 @@ class WindowsFilteringPlatform {
 
     /**
      * Creates a handle used to enumerate a set of sublayers.
+     * @remarks
+     * If <i>enumTemplate</i> is <b>NULL</b>, all sublayers are returned.
+     * 
+     * The enumerator is not "live", meaning it does not reflect changes made to the system after the call to   <b>FwpmSubLayerCreateEnumHandle0</b> returns. If you need to ensure that the results are current, you must call <b>FwpmSubLayerCreateEnumHandle0</b> and <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmsublayerenum0">FwpmSubLayerEnum0</a> from within the same explicit transaction.
+     * 
+     * The caller must free the returned handle by a call to  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmsublayerdestroyenumhandle0">FwpmSubLayerDestroyEnumHandle0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ENUM</a> access to the sublayers' containers and <b>FWPM_ACTRL_READ</b> access to the sub-layers. Only sublayers to which the caller has <b>FWPM_ACTRL_READ</b> access will be returned. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmSubLayerCreateEnumHandle0</b> is a specific implementation of FwpmSubLayerCreateEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -3097,7 +3435,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -3114,7 +3452,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmsublayercreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayercreateenumhandle0
      */
     static FwpmSubLayerCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3125,6 +3463,16 @@ class WindowsFilteringPlatform {
 
     /**
      * Returns the next page of results from the sublayer enumerator.
+     * @remarks
+     * If the <i>numEntriesReturned</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted. 
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * A subsequent call using the same enumeration handle will return the next set of items following those in the last output buffer.
+     * 
+     * <b>FwpmSubLayerEnum0</b> works on a snapshot of the sublayers taken at the time the enumeration handle was created.
+     * 
+     * <b>FwpmSubLayerEnum0</b> is a specific implementation of FwpmSubLayerEnum. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -3167,7 +3515,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -3184,7 +3532,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmsublayerenum0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayerenum0
      */
     static FwpmSubLayerEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3199,6 +3547,8 @@ class WindowsFilteringPlatform {
 
     /**
      * Frees a handle returned by FwpmSubLayerCreateEnumHandle0.
+     * @remarks
+     * <b>FwpmSubLayerDestroyEnumHandle0</b> is a specific implementation of FwpmSubLayerDestroyEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -3232,7 +3582,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -3249,7 +3599,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmsublayerdestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayerdestroyenumhandle0
      */
     static FwpmSubLayerDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3261,6 +3611,14 @@ class WindowsFilteringPlatform {
 
     /**
      * Retrieves a copy of the security descriptor for a sublayer.
+     * @remarks
+     * If the <i>key</i> parameter is <b>NULL</b> or if it is  a <b>NULL</b> GUID, this function manages the security information of the sublayers container.
+     * 
+     * The returned <i>securityDescriptor</i> parameter must be freed through a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>. The other four (optional) returned parameters must not be freed, as they point to addresses within the <i>securityDescriptor</i> parameter.
+     * 
+     * This function behaves like the standard Win32 	<a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-getsecurityinfo">GetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>GetSecurityInfo</b> reference topic.
+     * 
+     * <b>FwpmSubLayerGetSecurityInfoByKey0</b> is a specific implementation of FwpmSubLayerGetSecurityInfoByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -3312,7 +3670,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -3329,7 +3687,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmsublayergetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayergetsecurityinfobykey0
      */
     static FwpmSubLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3345,6 +3703,17 @@ class WindowsFilteringPlatform {
 
     /**
      * Sets specified security information in the security descriptor of a sublayer.
+     * @remarks
+     * If the <i>key</i> parameter is <b>NULL</b> or if it is  a <b>NULL</b> GUID, this function manages the security information of the sublayers container.
+     * 
+     * This function cannot be called from within a transaction. It will fail with
+     * <b>FWP_E_TXN_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * This function can be called within a dynamic session if the corresponding object was added during the same session. If this function is called for an object that was added during a different dynamic session, it will fail with <b>FWP_E_WRONG_SESSION</b>. If this function is called for an object that was not added during a dynamic session, it will fail with <b>FWP_E_DYNAMIC_SESSION_IN_PROGRESS</b>.
+     * 
+     * This function behaves like the standard Win32 	 <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-setsecurityinfo">SetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>SetSecurityInfo</b> reference topic.
+     * 
+     * <b>FwpmSubLayerSetSecurityInfoByKey0</b> is a specific implementation of FwpmSubLayerSetSecurityInfoByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -3393,7 +3762,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -3410,7 +3779,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmsublayersetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayersetsecurityinfobykey0
      */
     static FwpmSubLayerSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3420,7 +3789,13 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves a layer object.
+     * Retrieves a layer object. (FwpmLayerGetById0)
+     * @remarks
+     * The caller must free the returned object by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> access to the layer. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmLayerGetById0</b> is a specific implementation of FwpmLayerGetById. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -3457,7 +3832,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -3474,7 +3849,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmlayergetbyid0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayergetbyid0
      */
     static FwpmLayerGetById0(engineHandle, id, layer) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3486,7 +3861,13 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves a layer object.
+     * Retrieves a layer object. (FwpmLayerGetByKey0)
+     * @remarks
+     * The caller must free the returned object by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> access to the layer. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmLayerGetByKey0</b> is a specific implementation of FwpmLayerGetByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -3523,7 +3904,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -3540,7 +3921,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmlayergetbykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayergetbykey0
      */
     static FwpmLayerGetByKey0(engineHandle, key, layer) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3553,6 +3934,16 @@ class WindowsFilteringPlatform {
 
     /**
      * Creates a handle used to enumerate a set of layer objects.
+     * @remarks
+     * If <i>enumTemplate</i> is <b>NULL</b>, all layers are returned.
+     * 
+     * The enumerator is not "live", meaning it does not reflect changes made to the system after the call to   <b>FwpmLayerCreateEnumHandle0</b> returns. If you need to ensure that the results are current, you must call  <b>FwpmLayerCreateEnumHandle0</b> and <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmlayerenum0">FwpmLayerEnum0</a> from within the same explicit transaction.
+     * 
+     * The caller must free the returned handle by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmlayerdestroyenumhandle0">FwpmLayerDestroyEnumHandle0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ENUM</a> access to the layers' containers and <b>FWPM_ACTRL_READ</b> access to the layers. Only layers to which the caller has <b>FWPM_ACTRL_READ</b> access will be returned. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmLayerCreateEnumHandle0</b> is a specific implementation of FwpmLayerCreateEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -3589,7 +3980,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -3606,7 +3997,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmlayercreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayercreateenumhandle0
      */
     static FwpmLayerCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3617,6 +4008,14 @@ class WindowsFilteringPlatform {
 
     /**
      * Returns the next page of results from the layer enumerator.
+     * @remarks
+     * If the <i>numEntriesReturned</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted. 
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * A subsequent call using the same enumeration handle will return the next set of items following those in the last output buffer.
+     * 
+     * <b>FwpmLayerEnum0</b> is a specific implementation of FwpmLayerEnum. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -3659,7 +4058,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -3676,7 +4075,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmlayerenum0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayerenum0
      */
     static FwpmLayerEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3690,7 +4089,9 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Frees a handle returned by FwpmFilterCreateEnumHandle0.
+     * Frees a handle returned by FwpmFilterCreateEnumHandle0. (FwpmLayerDestroyEnumHandle0)
+     * @remarks
+     * <b>FwpmLayerDestroyEnumHandle0</b> is a specific implementation of FwpmLayerDestroyEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -3724,7 +4125,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -3741,7 +4142,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmlayerdestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayerdestroyenumhandle0
      */
     static FwpmLayerDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3753,6 +4154,14 @@ class WindowsFilteringPlatform {
 
     /**
      * Retrieves a copy of the security descriptor for a layer object.
+     * @remarks
+     * If the <i>key</i> parameter is <b>NULL</b> or if it is  a <b>NULL</b> GUID, this function manages the security information of the layers container.
+     * 
+     * The returned <i>securityDescriptor</i> parameter must be freed through a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>. The other four (optional) returned parameters must not be freed, as they point to addresses within the <i>securityDescriptor</i> parameter.
+     * 
+     * This function behaves like the standard Win32 	<a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-getsecurityinfo">GetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>GetSecurityInfo</b> reference topic.
+     * 
+     * <b>FwpmLayerGetSecurityInfoByKey0</b> is a specific implementation of FwpmLayerGetSecurityInfoByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -3804,7 +4213,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -3821,7 +4230,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmlayergetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayergetsecurityinfobykey0
      */
     static FwpmLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3837,6 +4246,15 @@ class WindowsFilteringPlatform {
 
     /**
      * Sets specified security information in the security descriptor of a layer object.
+     * @remarks
+     * If the <i>key</i> parameter is <b>NULL</b> or if it is  a <b>NULL</b> GUID, this function manages the security information of the layers container.
+     * 
+     * This function cannot be called from within a transaction. It will fail with
+     * <b>FWP_E_TXN_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * This function behaves like the standard Win32 	 <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-setsecurityinfo">SetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>SetSecurityInfo</b> reference topic.
+     * 
+     * <b>FwpmLayerSetSecurityInfoByKey0</b> is a specific implementation of FwpmLayerSetSecurityInfoByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -3885,7 +4303,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -3902,7 +4320,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmlayersetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayersetsecurityinfobykey0
      */
     static FwpmLayerSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3913,6 +4331,27 @@ class WindowsFilteringPlatform {
 
     /**
      * Adds a new callout object to the system.
+     * @remarks
+     * Some fields in the [FWPM_CALLOUT0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_callout0) structure are assigned by the system, not the caller, and are ignored in the call to <b>FwpmCalloutAdd0</b>. If the caller supplies a null security descriptor, the system will assign a default security descriptor.
+     * 
+     * This function cannot be called from within a read-only transaction. It will fail
+     * with <b>FWP_E_INCOMPATIBLE_TXN</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ADD</a> access to the callout's container, 
+     *    <b>FWPM_ACTRL_ADD_LINK </b> access to the provider (if any), and 
+     *    <b>FWPM_ACTRL_ADD_LINK </b> access to the applicable layer. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * To add a filter that references a callout, invoke the functions in the following order.
+     * 
+     * <ul>
+     * <li>Call <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/fwpsk/nf-fwpsk-fwpscalloutregister0">FwpsCalloutRegister</a> (documented in the Windows Driver Kit (WDK)), to register the callout with the filter engine.</li>
+     * <li>Call <b>FwpmCalloutAdd0</b> to add the callout to the system.</li>
+     * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfilteradd0">FwpmFilterAdd0</a> to add the filter that references the callout to the system.</li>
+     * </ul>
+     *   
+     * By default filters that reference callouts that have been added but have not yet registered with the filter engine are treated as Block filters.
+     * 
+     * <b>FwpmCalloutAdd0</b> is a specific implementation of FwpmCalloutAdd. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -3965,7 +4404,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -3982,7 +4421,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmcalloutadd0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutadd0
      */
     static FwpmCalloutAdd0(engineHandle, callout, sd, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3995,7 +4434,18 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Removes a callout object from the system.
+     * Removes a callout object from the system. (FwpmCalloutDeleteById0)
+     * @remarks
+     * An applications's callouts cannot be removed from the system as long as there are filters in the system that specify the callouts for an action.
+     * 
+     * This function cannot be called from within a read-only transaction. It will fail with
+     * <b>FWP_E_INCOMPATIBLE_TXN</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * This function can be called within a dynamic session if the corresponding object was added during the same session. If this function is called for an object that was added during a different dynamic session, it will fail with <b>FWP_E_WRONG_SESSION</b>. If this function is called for an object that was not added during a dynamic session, it will fail with <b>FWP_E_DYNAMIC_SESSION_IN_PROGRESS</b>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">DELETE</a> access to the callout. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmCalloutDeleteById0</b> is a specific implementation of FwpmCalloutDeleteById. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -4029,7 +4479,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -4046,7 +4496,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmcalloutdeletebyid0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutdeletebyid0
      */
     static FwpmCalloutDeleteById0(engineHandle, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4056,7 +4506,18 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Removes a callout object from the system.
+     * Removes a callout object from the system. (FwpmCalloutDeleteByKey0)
+     * @remarks
+     * An applications's callouts cannot be removed from the system as long as there are filters in the system that specify the callouts for an action.
+     * 
+     * This function cannot be called from within a read-only transaction. It will fail with
+     * <b>FWP_E_INCOMPATIBLE_TXN</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * This function can be called within a dynamic session if the corresponding object was added during the same session. If this function is called for an object that was added during a different dynamic session, it will fail with <b>FWP_E_WRONG_SESSION</b>. If this function is called for an object that was not added during a dynamic session, it will fail with <b>FWP_E_DYNAMIC_SESSION_IN_PROGRESS</b>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">DELETE</a> access to the callout. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmCalloutDeleteByKey0</b> is a specific implementation of FwpmCalloutDeleteByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -4090,7 +4551,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -4107,7 +4568,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmcalloutdeletebykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutdeletebykey0
      */
     static FwpmCalloutDeleteByKey0(engineHandle, key) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4117,7 +4578,13 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves a callout object.
+     * Retrieves a callout object. (FwpmCalloutGetById0)
+     * @remarks
+     * The caller must free the returned object by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> access to the callout. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmCalloutGetById0</b> is a specific implementation of FwpmCalloutGetById. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -4154,7 +4621,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -4171,7 +4638,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmcalloutgetbyid0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutgetbyid0
      */
     static FwpmCalloutGetById0(engineHandle, id, callout) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4183,7 +4650,13 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves a callout object.
+     * Retrieves a callout object. (FwpmCalloutGetByKey0)
+     * @remarks
+     * The caller must free the returned object by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> access to the callout. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmCalloutGetByKey0</b> is a specific implementation of FwpmCalloutGetByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -4220,7 +4693,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -4237,7 +4710,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmcalloutgetbykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutgetbykey0
      */
     static FwpmCalloutGetByKey0(engineHandle, key, callout) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4250,6 +4723,16 @@ class WindowsFilteringPlatform {
 
     /**
      * Creates a handle used to enumerate a set of callout objects.
+     * @remarks
+     * If <i>enumTemplate</i> is <b>NULL</b>, all callout objects are returned.
+     * 
+     * The enumerator is not "live", meaning it does not reflect changes made to the system after the call to <b>FwpmCalloutCreateEnumHandle0</b> returns. If you need to ensure that the results are current, you must call <b>FwpmCalloutCreateEnumHandle0</b> and <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmcalloutenum0">FwpmCalloutEnum0</a> from within the same explicit transaction.
+     * 
+     * The caller must call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmcalloutdestroyenumhandle0">FwpmCalloutDestroyEnumHandle0</a> to free the returned handle.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ENUM</a> access to the callouts' containers and <b>FWPM_ACTRL_READ</b> access to the callouts. Only callouts to which the caller has <b>FWPM_ACTRL_READ</b> access will be returned. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmCalloutCreateEnumHandle0</b> is a specific implementation of FwpmCalloutCreateEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -4286,7 +4769,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -4303,7 +4786,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmcalloutcreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutcreateenumhandle0
      */
     static FwpmCalloutCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4314,6 +4797,16 @@ class WindowsFilteringPlatform {
 
     /**
      * Returns the next page of results from the callout enumerator.
+     * @remarks
+     * If the <i>numEntriesReturned</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted. 
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * A subsequent call using the same enumeration handle will return the next set of items following those in the last output buffer.
+     * 
+     * <b>FwpmCalloutEnum0</b> works on a snapshot of the callouts taken at the time the enumeration handle was created.
+     * 
+     * <b>FwpmCalloutEnum0</b> is a specific implementation of FwpmCalloutEnum. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -4356,7 +4849,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -4373,7 +4866,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmcalloutenum0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutenum0
      */
     static FwpmCalloutEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4388,6 +4881,8 @@ class WindowsFilteringPlatform {
 
     /**
      * Frees a handle returned by FwpmCalloutCreateEnumHandle0.
+     * @remarks
+     * <b>FwpmCalloutDestroyEnumHandle0</b> is a specific implementation of FwpmCalloutDestroyEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -4421,7 +4916,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -4438,7 +4933,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmcalloutdestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutdestroyenumhandle0
      */
     static FwpmCalloutDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4450,6 +4945,14 @@ class WindowsFilteringPlatform {
 
     /**
      * Retrieves a copy of the security descriptor for a callout object.
+     * @remarks
+     * If the <i>key</i> parameter is <b>NULL</b> or if it is  a <b>NULL</b> GUID, this function manages the security information of the callouts container.
+     * 
+     * The returned <i>securityDescriptor</i> parameter must be freed through a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>. The other four (optional) returned parameters must not be freed, as they point to addresses within the <i>securityDescriptor</i> parameter.
+     * 
+     * This function behaves like the standard Win32 	<a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-getsecurityinfo">GetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>GetSecurityInfo</b> reference topic.
+     * 
+     * <b>FwpmCalloutGetSecurityInfoByKey0</b> is a specific implementation of FwpmCalloutGetSecurityInfoByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -4501,7 +5004,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -4518,7 +5021,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmcalloutgetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutgetsecurityinfobykey0
      */
     static FwpmCalloutGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4534,6 +5037,17 @@ class WindowsFilteringPlatform {
 
     /**
      * Sets specified security information in the security descriptor of a callout object.
+     * @remarks
+     * If the <i>key</i> parameter is <b>NULL</b> or if it is  a <b>NULL</b> GUID, this function manages the security information of the callouts container.
+     * 
+     * This function cannot be called from within a transaction. It will fail with
+     * <b>FWP_E_TXN_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * This function can be called within a dynamic session if the corresponding object was added during the same session. If this function is called for an object that was added during a different dynamic session, it will fail with <b>FWP_E_WRONG_SESSION</b>. If this function is called for an object that was not added during a dynamic session, it will fail with <b>FWP_E_DYNAMIC_SESSION_IN_PROGRESS</b>.
+     * 
+     * This function behaves like the standard Win32 	 <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-setsecurityinfo">SetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>SetSecurityInfo</b> reference topic.
+     * 
+     * <b>FwpmCalloutSetSecurityInfoByKey0</b> is a specific implementation of FwpmCalloutSetSecurityInfoByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -4582,7 +5096,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -4599,7 +5113,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmcalloutsetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutsetsecurityinfobykey0
      */
     static FwpmCalloutSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4610,6 +5124,42 @@ class WindowsFilteringPlatform {
 
     /**
      * Adds a new filter object to the system.
+     * @remarks
+     * **FwpmFilterAdd0** adds the filter to the specified sub-layer at every filtering layer in the system.
+     * 
+     * Some fields in the [FWPM_FILTER0](../fwpmtypes/ns-fwpmtypes-fwpm_filter0.md) structure are assigned by the system, not the caller, and are ignored in the call to **FwpmFilterAdd0**.
+     * 
+     * If the caller supplies a **NULL** security descriptor, the system will assign a default security descriptor.
+     * 
+     * To block connections to particular locations, add a [FWP_ACTION_BLOCK](../fwpmtypes/ns-fwpmtypes-fwpm_action0.md) filter specifying the local address at the [FWPM_LAYER_ALE_AUTH_CONNECT_V*](/windows/desktop/FWP/management-filtering-layer-identifiers-) layer, or add a **FWP_ACTION_BLOCK** filter without specifying the local address at the **FWPM_LAYER_ALE_RESOURCE_ASSIGNMENT_V*** layer.
+     * 
+     * > [!Note]
+     * > If a local address is specified at the resource assignment layer, an implicit bind would succeed because address, address type, and port may come back as [FWP_EMPTY](../fwptypes/ne-fwptypes-fwp_data_type.md).
+     * 
+     * The [FWPM_FILTER0](../fwpmtypes/ns-fwpmtypes-fwpm_filter0.md) structure can label a filter as a boot-time or persistent filter.  Boot-time filters are added to the Base Filtering Engine (BFE) when the TCP/IP driver starts, and are removed once the BFE finishes initialization.  Persistent objects are added when the BFE starts.
+     * 
+     * This function cannot be called from within a read-only transaction. It will fail with **FWP_E_INCOMPATIBLE_TXN**. See [Object Management](/windows/desktop/FWP/object-management) for more information about transactions.
+     * 
+     * The caller needs the following access rights:
+     * 
+     * - [FWPM_ACTRL_ADD](/windows/desktop/FWP/access-right-identifiers) access to the filter's container
+     * - [FWPM_ACTRL_ADD_LINK](/windows/desktop/FWP/access-right-identifiers) access to the provider (if any)
+     * - [FWPM_ACTRL_ADD_LINK](/windows/desktop/FWP/access-right-identifiers) access to the applicable layer
+     * - [FWPM_ACTRL_ADD_LINK](/windows/desktop/FWP/access-right-identifiers) access to the applicable sub-layer
+     * - [FWPM_ACTRL_ADD_LINK](/windows/desktop/FWP/access-right-identifiers) access to the callout (if any)
+     * - [FWPM_ACTRL_ADD_LINK](/windows/desktop/FWP/access-right-identifiers) access to the provider context (if any).
+     *   
+     * See [Access Control](/windows/desktop/FWP/access-control) for more information.
+     * 
+     * To add a filter that references a callout, invoke the functions in the following order.
+     * 
+     * - Call [FwpsCalloutRegister0](/windows-hardware/drivers/ddi/fwpsk/nf-fwpsk-fwpscalloutregister0) (documented in the Windows Driver Kit (WDK)), to register the callout with the filter engine.
+     * - Call [FwpmCalloutAdd0](nf-fwpmu-fwpmcalloutadd0.md) to add the callout to the system.
+     * - Call **FwpmFilterAdd0** to add the filter that references the callout to the system.
+     * 
+     * By default filters that reference callouts that have been added but have not yet registered with the filter engine are treated as Block filters.
+     * 
+     * **FwpmFilterAdd0** is a specific implementation of FwpmFilterAdd. See [WFP Version-Independent Names and Targeting Specific Versions of Windows](/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows)  for more information.
      * @param {HANDLE} engineHandle Type: **HANDLE**
      * 
      * Handle for an open session to the filter engine. Call  [FwpmEngineOpen0](nf-fwpmu-fwpmengineopen0.md) to open a session to the filter engine.
@@ -4631,7 +5181,7 @@ class WindowsFilteringPlatform {
      * | FWP_E_CALLOUT_NOTIFICATION_FAILED <br/> 0x80320037 | The caller added a callout filter and the callout returned an error from its notification routine. |
      * | FWP_E_* error code <br/> 0x80320001—0x80320039 | A Windows Filtering Platform (WFP) specific error. See [WFP Error Codes](/windows/desktop/FWP/wfp-error-codes) for details. |
      * | RPC_* error code <br/> 0x80010001—0x80010122 | Failure to communicate with the remote or local firewall engine. |
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmfilteradd0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfilteradd0
      */
     static FwpmFilterAdd0(engineHandle, filter, sd, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4644,7 +5194,16 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Removes a filter object from the system.
+     * Removes a filter object from the system. (FwpmFilterDeleteById0)
+     * @remarks
+     * This function cannot be called from within a read-only transaction. It will fail with
+     * <b>FWP_E_INCOMPATIBLE_TXN</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * This function can be called within a dynamic session if the corresponding object was added during the same session. If this function is called for an object that was added during a different dynamic session, it will fail with <b>FWP_E_WRONG_SESSION</b>. If this function is called for an object that was not added during a dynamic session, it will fail with <b>FWP_E_DYNAMIC_SESSION_IN_PROGRESS</b>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">DELETE</a> access to the filter. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmFilterDeleteById0</b> is a specific implementation of FwpmFilterDeleteById. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -4678,7 +5237,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -4695,7 +5254,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmfilterdeletebyid0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfilterdeletebyid0
      */
     static FwpmFilterDeleteById0(engineHandle, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4705,7 +5264,16 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Removes a filter object from the system.
+     * Removes a filter object from the system. (FwpmFilterDeleteByKey0)
+     * @remarks
+     * This function cannot be called from within a read-only transaction. It will fail with
+     * <b>FWP_E_INCOMPATIBLE_TXN</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * This function can be called within a dynamic session if the corresponding object was added during the same session. If this function is called for an object that was added during a different dynamic session, it will fail with <b>FWP_E_WRONG_SESSION</b>. If this function is called for an object that was not added during a dynamic session, it will fail with <b>FWP_E_DYNAMIC_SESSION_IN_PROGRESS</b>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">DELETE</a> access to the filter. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmFilterDeleteByKey0</b> is a specific implementation of FwpmFilterDeleteByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -4739,7 +5307,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -4756,7 +5324,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmfilterdeletebykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfilterdeletebykey0
      */
     static FwpmFilterDeleteByKey0(engineHandle, key) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4766,7 +5334,13 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves a filter object.
+     * Retrieves a filter object. (FwpmFilterGetById0)
+     * @remarks
+     * The caller must free the returned object by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> access to the filter. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmFilterGetById0</b> is a specific implementation of FwpmFilterGetById. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -4803,7 +5377,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -4820,7 +5394,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmfiltergetbyid0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfiltergetbyid0
      */
     static FwpmFilterGetById0(engineHandle, id, filter) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4832,7 +5406,13 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves a filter object.
+     * Retrieves a filter object. (FwpmFilterGetByKey0)
+     * @remarks
+     * The caller must free the returned object by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> access to the filter. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmFilterGetByKey0</b> is a specific implementation of FwpmFilterGetByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -4869,7 +5449,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -4886,7 +5466,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmfiltergetbykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfiltergetbykey0
      */
     static FwpmFilterGetByKey0(engineHandle, key, filter) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4899,6 +5479,16 @@ class WindowsFilteringPlatform {
 
     /**
      * Creates a handle used to enumerate a set of filter objects.
+     * @remarks
+     * If <i>enumTemplate</i> is <b>NULL</b>, all filters are returned.
+     * 
+     * The enumerator is not "live", meaning it does not reflect changes made to the system after the call to  <b>FwpmFilterCreateEnumHandle0</b> returns. If you need to ensure that the results are current, you must call <b>FwpmFilterCreateEnumHandle0</b> and <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfilterenum0">FwpmFilterEnum0</a> from within the same explicit transaction.
+     * 
+     * The caller must free the returned handle by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfilterdestroyenumhandle0">FwpmFilterDestroyEnumHandle0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ENUM</a> access to the filters' containers and <b>FWPM_ACTRL_READ</b> access to the filters. Only filters to which the caller has <b>FWPM_ACTRL_READ</b> access will be returned. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmFilterCreateEnumHandle0</b> is a specific implementation of FwpmFilterCreateEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -4935,7 +5525,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -4952,7 +5542,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmfiltercreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfiltercreateenumhandle0
      */
     static FwpmFilterCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4963,6 +5553,16 @@ class WindowsFilteringPlatform {
 
     /**
      * Returns the next page of results from the filter enumerator.
+     * @remarks
+     * If the <i>numEntriesReturned</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted. 
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * A subsequent call using the same enumeration handle will return the next set of items following those in the last output buffer.
+     * 
+     * <b>FwpmFilterEnum0</b> works on a snapshot of the filters taken at the time the enumeration handle was created.
+     * 
+     * <b>FwpmFilterEnum0</b> is a specific implementation of FwpmFilterEnum. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -5005,7 +5605,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -5022,7 +5622,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmfilterenum0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfilterenum0
      */
     static FwpmFilterEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5036,7 +5636,9 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Frees a handle returned by FwpmFilterCreateEnumHandle0.
+     * Frees a handle returned by FwpmFilterCreateEnumHandle0. (FwpmFilterDestroyEnumHandle0)
+     * @remarks
+     * <b>FwpmFilterDestroyEnumHandle0</b> is a specific implementation of FwpmFilterDestroyEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -5070,7 +5672,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -5087,7 +5689,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmfilterdestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfilterdestroyenumhandle0
      */
     static FwpmFilterDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5099,6 +5701,14 @@ class WindowsFilteringPlatform {
 
     /**
      * Retrieves a copy of the security descriptor for a filter object.
+     * @remarks
+     * If the <i>key</i> parameter is <b>NULL</b> or if it is  a <b>NULL</b> GUID, this function manages the security information of the filters container.
+     * 
+     * The returned <i>securityDescriptor</i> parameter must be freed through a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>. The other four (optional) returned parameters must not be freed, as they point to addresses within the <i>securityDescriptor</i> parameter.
+     * 
+     * This function behaves like the standard Win32 	<a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-getsecurityinfo">GetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>GetSecurityInfo</b> reference topic.
+     * 
+     * <b>FwpmFilterGetSecurityInfoByKey0</b> is a specific implementation of FwpmFilterGetSecurityInfoByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -5150,7 +5760,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -5167,7 +5777,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmfiltergetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfiltergetsecurityinfobykey0
      */
     static FwpmFilterGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5183,6 +5793,17 @@ class WindowsFilteringPlatform {
 
     /**
      * Sets specified security information in the security descriptor of a filter object.
+     * @remarks
+     * If the <i>key</i> parameter is <b>NULL</b> or if it is  a <b>NULL</b> GUID, this function manages the security information of the filters container.
+     * 
+     * This function cannot be called from within a transaction. It will fail with
+     * <b>FWP_E_TXN_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * This function can be called within a dynamic session if the corresponding object was added during the same session. If this function is called for an object that was added during a different dynamic session, it will fail with <b>FWP_E_WRONG_SESSION</b>. If this function is called for an object that was not added during a dynamic session, it will fail with <b>FWP_E_DYNAMIC_SESSION_IN_PROGRESS</b>.
+     * 
+     * This function behaves like the standard Win32 	 <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-setsecurityinfo">SetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>SetSecurityInfo</b> reference topic.
+     * 
+     * <b>FwpmFilterSetSecurityInfoByKey0</b> is a specific implementation of FwpmFilterSetSecurityInfoByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -5231,7 +5852,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -5248,7 +5869,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmfiltersetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfiltersetsecurityinfobykey0
      */
     static FwpmFilterSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5258,15 +5879,106 @@ class WindowsFilteringPlatform {
     }
 
     /**
+     * Adds a new Internet Protocol Security (IPsec) tunnel mode policy to the system. (FwpmIpsecTunnelAdd0)
+     * @remarks
+     * This function cannot be called from within a read-only transaction. It will fail
+     * with <b>FWP_E_INCOMPATIBLE_TXN</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
-     * @param {HANDLE} engineHandle 
-     * @param {Integer} flags 
-     * @param {Pointer<FWPM_PROVIDER_CONTEXT0>} mainModePolicy 
-     * @param {Pointer<FWPM_PROVIDER_CONTEXT0>} tunnelPolicy 
-     * @param {Integer} numFilterConditions 
-     * @param {Pointer<FWPM_FILTER_CONDITION0>} filterConditions 
-     * @param {PSECURITY_DESCRIPTOR} sd 
-     * @returns {NTSTATUS} 
+     * A handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
+     * @param {Integer} flags Type: <b>UINT32</b>
+     * 
+     * Possible values:
+     * 
+     * <table>
+     * <tr>
+     * <th>IPsec tunnel flag</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="FWPM_TUNNEL_FLAG_POINT_TO_POINT"></a><a id="fwpm_tunnel_flag_point_to_point"></a><dl>
+     * <dt><b>FWPM_TUNNEL_FLAG_POINT_TO_POINT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Adds a point-to-point tunnel to the system.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @param {Pointer<FWPM_PROVIDER_CONTEXT0>} mainModePolicy Type: [FWPM_PROVIDER_CONTEXT0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_context0)*</b>
+     * 
+     * The Main Mode policy for the IPsec tunnel.
+     * @param {Pointer<FWPM_PROVIDER_CONTEXT0>} tunnelPolicy Type: [FWPM_PROVIDER_CONTEXT0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_context0)*</b>
+     * 
+     * The Quick Mode policy for the IPsec tunnel.
+     * @param {Integer} numFilterConditions Type: <b>UINT32</b>
+     * 
+     * Number of filter conditions present in the <i>filterConditions</i> parameter.
+     * @param {Pointer<FWPM_FILTER_CONDITION0>} filterConditions Type: [FWPM_FILTER_CONDITION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_filter_condition0)*</b>
+     * 
+     * Array of filter conditions that describe the traffic which should be tunneled by IPsec.
+     * @param {PSECURITY_DESCRIPTOR} sd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a></b>
+     * 
+     * The security information associated with the IPsec tunnel.
+     * @returns {NTSTATUS} Type: <b>DWORD</b>
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_SUCCESS</b></dt>
+     * <dt>0</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The IPsec tunnel mode policy was successfully added.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>FWP_E_INVALID_PARAMETER</b></dt>
+     * <dt>0x80320035</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * FWPM_TUNNEL_FLAG_POINT_TO_POINT was not set and conditions other than local/remote
+     *    address were specified.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>FWP_E_* error code</b></dt>
+     * <dt>0x80320001—0x80320039</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>RPC_* error code</b></dt>
+     * <dt>0x80010001—0x80010122</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Failure to communicate with the remote or local firewall engine.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmipsectunneladd0
      */
     static FwpmIPsecTunnelAdd0(engineHandle, flags, mainModePolicy, tunnelPolicy, numFilterConditions, filterConditions, sd) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5277,16 +5989,121 @@ class WindowsFilteringPlatform {
     }
 
     /**
+     * Adds a new Internet Protocol Security (IPsec) tunnel mode policy to the system. (FwpmIpsecTunnelAdd1)
+     * @remarks
+     * This function cannot be called from within a read-only transaction. It will fail
+     * with <b>FWP_E_INCOMPATIBLE_TXN</b>.  See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
-     * @param {HANDLE} engineHandle 
-     * @param {Integer} flags 
-     * @param {Pointer<FWPM_PROVIDER_CONTEXT1>} mainModePolicy 
-     * @param {Pointer<FWPM_PROVIDER_CONTEXT1>} tunnelPolicy 
-     * @param {Integer} numFilterConditions 
-     * @param {Pointer<FWPM_FILTER_CONDITION0>} filterConditions 
-     * @param {Pointer<Guid>} keyModKey 
-     * @param {PSECURITY_DESCRIPTOR} sd 
-     * @returns {NTSTATUS} 
+     * A handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
+     * @param {Integer} flags Type: <b>UINT32</b>
+     * 
+     * Possible values:
+     * 
+     * <table>
+     * <tr>
+     * <th>IPsec tunnel flag</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="FWPM_TUNNEL_FLAG_POINT_TO_POINT"></a><a id="fwpm_tunnel_flag_point_to_point"></a><dl>
+     * <dt><b>FWPM_TUNNEL_FLAG_POINT_TO_POINT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Adds a point-to-point tunnel to the system.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="FWPM_TUNNEL_FLAG_ENABLE_VIRTUAL_IF_TUNNELING"></a><a id="fwpm_tunnel_flag_enable_virtual_if_tunneling"></a><dl>
+     * <dt><b>FWPM_TUNNEL_FLAG_ENABLE_VIRTUAL_IF_TUNNELING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Enables virtual interface-based IPsec tunnel mode.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @param {Pointer<FWPM_PROVIDER_CONTEXT1>} mainModePolicy Type: [FWPM_PROVIDER_CONTEXT1](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_context1)*</b>
+     * 
+     * The Main Mode policy for the IPsec tunnel.
+     * @param {Pointer<FWPM_PROVIDER_CONTEXT1>} tunnelPolicy Type: [FWPM_PROVIDER_CONTEXT1](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_context1)*</b>
+     * 
+     * The Quick Mode policy for the IPsec tunnel.
+     * @param {Integer} numFilterConditions Type: <b>UINT32</b>
+     * 
+     * Number of filter conditions present in the <i>filterConditions</i> parameter.
+     * @param {Pointer<FWPM_FILTER_CONDITION0>} filterConditions Type: <b>const FWPM_FILTER_CONDITION0*</b>
+     * 
+     * Array of filter conditions that describe the traffic which should be tunneled by IPsec.
+     * @param {Pointer<Guid>} keyModKey Type: <b>const GUID*</b>
+     * 
+     * Pointer to a GUID that uniquely identifies the keying module key.
+     * 
+     * If the caller supplies this parameter, only that keying module will be used for the tunnel. Otherwise, the default keying policy applies.
+     * @param {PSECURITY_DESCRIPTOR} sd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a></b>
+     * 
+     * The security information associated with the IPsec tunnel.
+     * @returns {NTSTATUS} Type: <b>DWORD</b>
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_SUCCESS</b></dt>
+     * <dt>0</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The IPsec tunnel mode policy was successfully added.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>FWP_E_INVALID_PARAMETER</b></dt>
+     * <dt>0x80320035</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * FWPM_TUNNEL_FLAG_POINT_TO_POINT was not set and conditions other than local/remote
+     *    address were specified.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>FWP_E_* error code</b></dt>
+     * <dt>0x80320001—0x80320039</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>RPC_* error code</b></dt>
+     * <dt>0x80010001—0x80010122</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Failure to communicate with the remote or local firewall engine.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmipsectunneladd1
      */
     static FwpmIPsecTunnelAdd1(engineHandle, flags, mainModePolicy, tunnelPolicy, numFilterConditions, filterConditions, keyModKey, sd) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5297,7 +6114,10 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Adds a new Internet Protocol Security (IPsec) tunnel mode policy to the system.
+     * Adds a new Internet Protocol Security (IPsec) tunnel mode policy to the system. (FwpmIPsecTunnelAdd2)
+     * @remarks
+     * This function cannot be called from within a read-only transaction. It will fail
+     * with <b>FWP_E_INCOMPATIBLE_TXN</b>.  See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * A handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -5391,7 +6211,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -5408,7 +6228,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmipsectunneladd2
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmipsectunneladd2
      */
     static FwpmIPsecTunnelAdd2(engineHandle, flags, mainModePolicy, tunnelPolicy, numFilterConditions, filterConditions, keyModKey, sd) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5440,6 +6260,11 @@ class WindowsFilteringPlatform {
 
     /**
      * Removes an Internet Protocol Security (IPsec) tunnel mode policy from the system.
+     * @remarks
+     * This function cannot be called from within a read-only transaction. It will fail
+     * with <b>FWP_E_INCOMPATIBLE_TXN</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * <b>FwpmIPsecTunnelDeleteByKey0</b> is a specific implementation of FwpmIPsecTunnelDeleteByKey. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * A handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -5473,7 +6298,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -5490,7 +6315,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmipsectunneldeletebykey0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmipsectunneldeletebykey0
      */
     static FwpmIPsecTunnelDeleteByKey0(engineHandle, key) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5500,7 +6325,12 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves Internet Protocol Security (IPsec) statistics.
+     * Retrieves Internet Protocol Security (IPsec) statistics. (IPsecGetStatistics0)
+     * @remarks
+     * This function cannot be called from within a transaction. It will fail with
+     * <b>FWP_E_TXN_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ_STATS</a> access to the IPsec security associations database. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -5534,7 +6364,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -5551,7 +6381,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecgetstatistics0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecgetstatistics0
      */
     static IPsecGetStatistics0(engineHandle, ipsecStatistics) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5561,7 +6391,12 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves Internet Protocol Security (IPsec) statistics.
+     * Retrieves Internet Protocol Security (IPsec) statistics. (IPsecGetStatistics1)
+     * @remarks
+     * This function cannot be called from within a transaction. It will fail with
+     * <b>FWP_E_TXN_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ_STATS</a> access to the IPsec security associations database. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -5595,7 +6430,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -5612,7 +6447,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecgetstatistics1
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecgetstatistics1
      */
     static IPsecGetStatistics1(engineHandle, ipsecStatistics) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5622,7 +6457,14 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Creates an IPsec security association (SA) context.
+     * Creates an IPsec security association (SA) context. (IPsecSaContextCreate0)
+     * @remarks
+     * This function cannot be called from within a transaction. It will fail with
+     * <b>FWP_E_TXN_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * This function cannot be called from within a dynamic session. The call will fail with <b>FWP_E_DYNAMIC_SESSION_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about dynamic sessions.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ADD</a> access to the IPsec security associations database. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -5662,7 +6504,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -5679,7 +6521,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsacontextcreate0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextcreate0
      */
     static IPsecSaContextCreate0(engineHandle, outboundTraffic, inboundFilterId, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5692,7 +6534,14 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Creates an IPsec security association (SA) context.
+     * Creates an IPsec security association (SA) context. (IPsecSaContextCreate1)
+     * @remarks
+     * This function cannot be called from within a transaction. It will fail with
+     * <b>FWP_E_TXN_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * This function cannot be called from within a dynamic session. The call will fail with <b>FWP_E_DYNAMIC_SESSION_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about dynamic sessions.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ADD</a> access to the IPsec security associations database. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -5735,7 +6584,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -5752,7 +6601,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsacontextcreate1
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextcreate1
      */
     static IPsecSaContextCreate1(engineHandle, outboundTraffic, virtualIfTunnelInfo, inboundFilterId, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5766,6 +6615,15 @@ class WindowsFilteringPlatform {
 
     /**
      * Deletes an IPsec security association (SA) context.
+     * @remarks
+     * This function cannot be called from within a transaction. It will fail with
+     * <b>FWP_E_TXN_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * This function cannot be called from within a dynamic session. The call will fail with <b>FWP_E_DYNAMIC_SESSION_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about dynamic sessions.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">DELETE</a> access to the IPsec security associations database. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>IPsecSaContextDeleteById0</b> is a specific implementation of IPsecSaContextDeleteById. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -5799,7 +6657,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -5816,7 +6674,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsacontextdeletebyid0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextdeletebyid0
      */
     static IPsecSaContextDeleteById0(engineHandle, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5826,7 +6684,11 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves an IPsec security association (SA) context.
+     * Retrieves an IPsec security association (SA) context. (IPsecSaContextGetById0)
+     * @remarks
+     * The caller must free the returned object, <i>saContext</i>,  by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> access to the IPsec security associations database. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -5863,7 +6725,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -5880,7 +6742,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsacontextgetbyid0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextgetbyid0
      */
     static IPsecSaContextGetById0(engineHandle, id, saContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5892,7 +6754,11 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves an IPsec security association (SA) context.
+     * Retrieves an IPsec security association (SA) context. (IPsecSaContextGetById1)
+     * @remarks
+     * The caller must free the returned object, <i>saContext</i>,  by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> access to the IPsec security associations database. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -5929,7 +6795,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -5946,7 +6812,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsacontextgetbyid1
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextgetbyid1
      */
     static IPsecSaContextGetById1(engineHandle, id, saContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5958,7 +6824,9 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves the security parameters index (SPI) for a security association (SA) context.
+     * Retrieves the security parameters index (SPI) for a security association (SA) context. (IPsecSaContextGetSpi0)
+     * @remarks
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ADD</a> access to the IPsec security associations database. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -5998,7 +6866,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -6015,7 +6883,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsacontextgetspi0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextgetspi0
      */
     static IPsecSaContextGetSpi0(engineHandle, id, getSpi, inboundSpi) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6027,7 +6895,9 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves the security parameters index (SPI) for a security association (SA) context.
+     * Retrieves the security parameters index (SPI) for a security association (SA) context. (IPsecSaContextGetSpi1)
+     * @remarks
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ADD</a> access to the IPsec security associations database. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -6067,7 +6937,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -6084,7 +6954,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsacontextgetspi1
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextgetspi1
      */
     static IPsecSaContextGetSpi1(engineHandle, id, getSpi, inboundSpi) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6097,6 +6967,10 @@ class WindowsFilteringPlatform {
 
     /**
      * Sets the security parameters index (SPI) for a security association (SA) context.
+     * @remarks
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ADD</a> access to the IPsec security associations database. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>IPsecSaContextSetSpi0</b> is a specific implementation of IPsecSaContextSetSpi. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -6136,7 +7010,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -6153,7 +7027,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsacontextsetspi0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextsetspi0
      */
     static IPsecSaContextSetSpi0(engineHandle, id, getSpi, inboundSpi) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6200,7 +7074,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -6217,7 +7091,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsacontextaddinbound0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextaddinbound0
      */
     static IPsecSaContextAddInbound0(engineHandle, id, inboundBundle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6264,7 +7138,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -6281,7 +7155,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsacontextaddoutbound0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextaddoutbound0
      */
     static IPsecSaContextAddOutbound0(engineHandle, id, outboundBundle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6328,7 +7202,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -6345,7 +7219,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsacontextaddinbound1
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextaddinbound1
      */
     static IPsecSaContextAddInbound1(engineHandle, id, inboundBundle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6392,7 +7266,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -6409,7 +7283,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsacontextaddoutbound1
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextaddoutbound1
      */
     static IPsecSaContextAddOutbound1(engineHandle, id, outboundBundle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6420,6 +7294,12 @@ class WindowsFilteringPlatform {
 
     /**
      * Indicates that an IPsec security association (SA) context should be expired.
+     * @remarks
+     * When an SA context is expired, the corresponding outbound SA gets deleted immediately, whereas the inbound SA deletion is postponed for a minute. This allows the processing of any inbound IPsec protected traffic that may still be on the wire.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">DELETE</a> access to the IPsec security associations database. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>IPsecSaContextExpire0</b> is a specific implementation of IPsecSaContextExpire. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -6453,7 +7333,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -6470,7 +7350,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsacontextexpire0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextexpire0
      */
     static IPsecSaContextExpire0(engineHandle, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6481,6 +7361,8 @@ class WindowsFilteringPlatform {
 
     /**
      * Updates an IPsec security association (SA) context.
+     * @remarks
+     * <b>IPsecSaContextUpdate0</b> is a specific implementation of IPsecSaContextUpdate. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -6596,7 +7478,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -6613,7 +7495,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsacontextupdate0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextupdate0
      */
     static IPsecSaContextUpdate0(engineHandle, flags, newValues) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6624,6 +7506,14 @@ class WindowsFilteringPlatform {
 
     /**
      * Creates a handle used to enumerate a set of IPsec security association (SA) context objects.
+     * @remarks
+     * If <i>enumTemplate</i> is <b>NULL</b>, all IPsec SA objects are returned.
+     * 
+     * The caller must call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ipsecsacontextdestroyenumhandle0">IPsecSaContextDestroyEnumHandle0</a> to free the returned handle.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ENUM</a> and <b>FWPM_ACTRL_READ</b> access to the IPsec security associations database. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>IPsecSaContextCreateEnumHandle0</b> is a specific implementation of IPsecSaContextCreateEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -6660,7 +7550,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -6677,7 +7567,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsacontextcreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextcreateenumhandle0
      */
     static IPsecSaContextCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6687,7 +7577,11 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Returns the next page of results from the IPsec security association (SA) context enumerator.
+     * Returns the next page of results from the IPsec security association (SA) context enumerator. (IPsecSaContextEnum0)
+     * @remarks
+     * If the <i>numEntriesReturned</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted. 
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -6730,7 +7624,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -6747,7 +7641,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsacontextenum0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextenum0
      */
     static IPsecSaContextEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6761,7 +7655,11 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Returns the next page of results from the IPsec security association (SA) context enumerator.
+     * Returns the next page of results from the IPsec security association (SA) context enumerator. (IPsecSaContextEnum1)
+     * @remarks
+     * If the <i>numEntriesReturned</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted. 
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -6804,7 +7702,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -6821,7 +7719,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsacontextenum1
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextenum1
      */
     static IPsecSaContextEnum1(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6836,6 +7734,8 @@ class WindowsFilteringPlatform {
 
     /**
      * Frees a handle returned by IPsecSaContextCreateEnumHandle0.
+     * @remarks
+     * <b>IPsecSaContextDestroyEnumHandle0</b> is a specific implementation of IPsecSaContextDestroyEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -6869,7 +7769,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -6886,7 +7786,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsacontextdestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextdestroyenumhandle0
      */
     static IPsecSaContextDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6898,6 +7798,14 @@ class WindowsFilteringPlatform {
 
     /**
      * Creates a handle used to enumerate a set of Internet Protocol Security (IPsec) security association (SA) objects.
+     * @remarks
+     * If <i>enumTemplate</i> is <b>NULL</b>, all IPsec SA objects are returned.
+     * 
+     * The caller must call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ipsecsadestroyenumhandle0">IPsecSaDestroyEnumHandle0</a> to free the returned handle.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> and <b>FWPM_ACTRL_ENUM</b> access to the IPsec security associations database. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>IPsecSaCreateEnumHandle0</b> is a specific implementation of IPsecSaCreateEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -6934,7 +7842,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -6951,7 +7859,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsacreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacreateenumhandle0
      */
     static IPsecSaCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6961,7 +7869,15 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Returns the next page of results from the IPsec security association (SA) enumerator.
+     * Returns the next page of results from the IPsec security association (SA) enumerator. (IPsecSaEnum0)
+     * @remarks
+     * If the <i>numEntriesReturned</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted. 
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * A subsequent call using the same enumeration handle will return the next set of items following those in the last output buffer.
+     * 
+     * <b>IPsecSaEnum0</b> works on a snapshot of the SAs taken at the time the enumeration handle was created.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -7004,7 +7920,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -7021,7 +7937,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsaenum0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsaenum0
      */
     static IPsecSaEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7035,7 +7951,15 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Returns the next page of results from the IPsec security association (SA) enumerator.
+     * Returns the next page of results from the IPsec security association (SA) enumerator. (IPsecSaEnum1)
+     * @remarks
+     * If the <i>numEntriesReturned</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted.
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * A subsequent call using the same enumeration handle will return the next set of items following those in the last output buffer.
+     * 
+     * <b>IPsecSaEnum1</b> works on a snapshot of the SAs taken at the time the enumeration handle was created.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -7078,7 +8002,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -7095,7 +8019,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsaenum1
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsaenum1
      */
     static IPsecSaEnum1(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7110,6 +8034,8 @@ class WindowsFilteringPlatform {
 
     /**
      * Frees a handle returned by IPsecSaCreateEnumHandle0.
+     * @remarks
+     * <b>IPsecSaDestroyEnumHandle0</b> is a specific implementation of IPsecSaDestroyEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -7143,7 +8069,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -7160,7 +8086,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsadestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsadestroyenumhandle0
      */
     static IPsecSaDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7172,6 +8098,12 @@ class WindowsFilteringPlatform {
 
     /**
      * Retrieves a copy of the security descriptor for the IPsec security association (SA) database.
+     * @remarks
+     * The returned <i>securityDescriptor</i> parameter must be freed through a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>. The other four (optional) returned parameters must not be freed, as they point to addresses within the <i>securityDescriptor</i> parameter.
+     * 
+     * This function behaves like the standard Win32 	<a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-getsecurityinfo">GetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>GetSecurityInfo</b> reference topic.
+     * 
+     * <b>IPsecSaDbGetSecurityInfo0</b> is a specific implementation of IPsecSaDbGetSecurityInfo. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -7220,7 +8152,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -7237,7 +8169,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsadbgetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsadbgetsecurityinfo0
      */
     static IPsecSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7253,6 +8185,10 @@ class WindowsFilteringPlatform {
 
     /**
      * Sets specified security information in the security descriptor of the IPsec security association database.
+     * @remarks
+     * This function behaves like the standard Win32 	 <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-setsecurityinfo">SetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>SetSecurityInfo</b> reference topic.
+     * 
+     * <b>IPsecSaDbSetSecurityInfo0</b> is a specific implementation of IPsecSaDbSetSecurityInfo. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -7298,7 +8234,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -7315,7 +8251,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecsadbsetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsadbsetsecurityinfo0
      */
     static IPsecSaDbSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7326,6 +8262,13 @@ class WindowsFilteringPlatform {
 
     /**
      * The IPsecDospGetStatistics0 function retrieves Internet Protocol Security (IPsec) DoS Protection statistics.
+     * @remarks
+     * This function cannot be called from within a transaction. It will fail with
+     * <b>FWP_E_TXN_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ_STATS</a> access to the IPsec DoS Protection component. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>IPsecDospGetStatistics0</b> is a specific implementation of IPsecDospGetStatistics. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -7359,7 +8302,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -7376,7 +8319,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecdospgetstatistics0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecdospgetstatistics0
      */
     static IPsecDospGetStatistics0(engineHandle, idpStatistics) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7387,6 +8330,14 @@ class WindowsFilteringPlatform {
 
     /**
      * Creates a handle used to enumerate a set of IPsec DoS Protection objects.
+     * @remarks
+     * If <i>enumTemplate</i> is <b>NULL</b>, all IPsec DoS Protection objects are returned.
+     * 
+     * The caller must call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ipsecdospstatedestroyenumhandle0">IPsecDospStateDestroyEnumHandle0</a> to free the returned handle.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ_STATS</a> access to the IPsec DoS Protection component. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>IPsecDospStateCreateEnumHandle0</b> is a specific implementation of IPsecDospStateCreateEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -7423,7 +8374,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -7440,7 +8391,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecdospstatecreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecdospstatecreateenumhandle0
      */
     static IPsecDospStateCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7451,6 +8402,14 @@ class WindowsFilteringPlatform {
 
     /**
      * Returns the next page of results from the IPsec DoS Protection state enumerator. Each IPsec DoS Protection state entry corresponds to a flow that has successfully passed the IPsec DoS Protection authentication checks.
+     * @remarks
+     * If the <i>numEntries</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted.
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * A subsequent call using the same enumeration handle will return the next set of items following those in the last output buffer.
+     * 
+     * <b>IPsecDospStateEnum0</b> is a specific implementation of IPsecDospStateEnum. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -7493,7 +8452,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -7510,7 +8469,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecdospstateenum0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecdospstateenum0
      */
     static IPsecDospStateEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntries) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7525,6 +8484,8 @@ class WindowsFilteringPlatform {
 
     /**
      * Frees a handle returned by IPsecDospStateCreateEnumHandle0.
+     * @remarks
+     * <b>IPsecDospStateDestroyEnumHandle0</b> is a specific implementation of IPsecDospStateDestroyEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -7558,7 +8519,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -7575,7 +8536,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecdospstatedestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecdospstatedestroyenumhandle0
      */
     static IPsecDospStateDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7587,6 +8548,12 @@ class WindowsFilteringPlatform {
 
     /**
      * Retrieves a copy of the security descriptor for the IPsec DoS Protection database.
+     * @remarks
+     * The returned <i>securityDescriptor</i> parameter must be freed through a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>. The other four (optional) returned parameters must not be freed, as they point to addresses within the <i>securityDescriptor</i> parameter.
+     * 
+     * This function behaves like the standard Win32 	<a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-getsecurityinfo">GetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>GetSecurityInfo</b> reference topic. 
+     * 
+     * <b>IPsecDospGetSecurityInfo0</b> is a specific implementation of IPsecDospGetSecurityInfo. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -7635,7 +8602,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -7652,7 +8619,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecdospgetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecdospgetsecurityinfo0
      */
     static IPsecDospGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7668,6 +8635,10 @@ class WindowsFilteringPlatform {
 
     /**
      * The IPsecDospSetSecurityInfo0 function sets specified security information in the security descriptor of the IPsec DoS Protection database.
+     * @remarks
+     * This function behaves like the standard Win32 	 <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-setsecurityinfo">SetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>SetSecurityInfo</b> reference topic.
+     * 
+     * <b>IPsecDospSetSecurityInfo0</b> is a specific implementation of IPsecDospSetSecurityInfo. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -7713,7 +8684,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -7730,7 +8701,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ipsecdospsetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecdospsetsecurityinfo0
      */
     static IPsecDospSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7740,7 +8711,9 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves Internet Key Exchange (IKE) and Authenticated Internet Protocol (AuthIP) statistics.
+     * Retrieves Internet Key Exchange (IKE) and Authenticated Internet Protocol (AuthIP) statistics. (IkeextGetStatistics0)
+     * @remarks
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ_STATS</a> access to the IKE/AuthIP security associations database. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine generated by a previous  call to  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a>.
@@ -7774,7 +8747,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -7791,7 +8764,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ikeextgetstatistics0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextgetstatistics0
      */
     static IkeextGetStatistics0(engineHandle, ikeextStatistics) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7801,7 +8774,9 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves Internet Key Exchange (IKE) and Authenticated Internet Protocol (AuthIP) statistics.
+     * Retrieves Internet Key Exchange (IKE) and Authenticated Internet Protocol (AuthIP) statistics. (IkeextGetStatistics1)
+     * @remarks
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ_STATS</a> access to the IKE/AuthIP security associations database. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine generated by a previous  call to  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a>.
@@ -7835,7 +8810,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -7852,7 +8827,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ikeextgetstatistics1
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextgetstatistics1
      */
     static IkeextGetStatistics1(engineHandle, ikeextStatistics) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7863,6 +8838,8 @@ class WindowsFilteringPlatform {
 
     /**
      * The IkeextSaDeleteById0 function removes a security association (SA) from the database.
+     * @remarks
+     * <b>IkeextSaDeleteById0</b> is a specific implementation of IkeextSaDeleteById. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine generated by a previous  call to  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a>.
@@ -7896,7 +8873,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -7913,7 +8890,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ikeextsadeletebyid0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsadeletebyid0
      */
     static IkeextSaDeleteById0(engineHandle, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7923,7 +8900,11 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves an IKE/AuthIP security association (SA) from the database.
+     * Retrieves an IKE/AuthIP security association (SA) from the database. (IkeextSaGetById0)
+     * @remarks
+     * The caller must free <i>sa</i> by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> access to the IKE/AuthIP security associations database. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -7960,7 +8941,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -7977,7 +8958,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ikeextsagetbyid0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsagetbyid0
      */
     static IkeextSaGetById0(engineHandle, id, sa) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7989,7 +8970,11 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves an IKE/AuthIP security association (SA) from the database.
+     * Retrieves an IKE/AuthIP security association (SA) from the database. (IkeextSaGetById1)
+     * @remarks
+     * The caller must free <i>sa</i> by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> access to the IKE/AuthIP security associations database. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -8029,7 +9014,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -8046,7 +9031,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ikeextsagetbyid1
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsagetbyid1
      */
     static IkeextSaGetById1(engineHandle, id, saLookupContext, sa) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8058,7 +9043,11 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Retrieves an IKE/AuthIP security association (SA) from the database.
+     * Retrieves an IKE/AuthIP security association (SA) from the database. (IkeextSaGetById2)
+     * @remarks
+     * The caller must free <i>sa</i> by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> access to the IKE/AuthIP security associations database. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -8098,7 +9087,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -8115,7 +9104,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ikeextsagetbyid2
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsagetbyid2
      */
     static IkeextSaGetById2(engineHandle, id, saLookupContext, sa) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8128,6 +9117,14 @@ class WindowsFilteringPlatform {
 
     /**
      * Creates a handle used to enumerate a set of Internet Key Exchange (IKE) and Authenticated Internet Protocol (AuthIP) security association (SA) objects.
+     * @remarks
+     * If <i>enumTemplate</i> is <b>NULL</b>, all IKE/AuthIP SA objects are returned.
+     * 
+     * The caller must call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ikeextsadestroyenumhandle0">IkeextSaDestroyEnumHandle0</a> to free the returned handle.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ENUM</a> and <b>FWPM_ACTRL_READ</b> access to the IKE/AuthIP security associations database. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>IkeextSaCreateEnumHandle0</b> is a specific implementation of IkeextSaCreateEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine generated by a previous  call to  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a>.
@@ -8164,7 +9161,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -8181,7 +9178,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ikeextsacreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsacreateenumhandle0
      */
     static IkeextSaCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8191,7 +9188,15 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Returns the next page of results from the IKE/AuthIP security association (SA) enumerator.
+     * Returns the next page of results from the IKE/AuthIP security association (SA) enumerator. (IkeextSaEnum0)
+     * @remarks
+     * If the <i>numEntriesReturned</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted. 
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * A subsequent call using the same enumeration handle will return the next set of items following those in the last output buffer.
+     * 
+     * <b>IkeextSaEnum0</b> works on a snapshot of the SAs taken at the time the enumeration handle was created.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -8234,7 +9239,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -8251,7 +9256,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ikeextsaenum0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsaenum0
      */
     static IkeextSaEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8265,7 +9270,15 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Returns the next page of results from the IKE/AuthIP security association (SA) enumerator.
+     * Returns the next page of results from the IKE/AuthIP security association (SA) enumerator. (IkeextSaEnum1)
+     * @remarks
+     * If the <i>numEntriesReturned</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted. 
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * A subsequent call using the same enumeration handle will return the next set of items following those in the last output buffer.
+     * 
+     * <b>IkeextSaEnum1</b> works on a snapshot of the SAs taken at the time the enumeration handle was created.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -8308,7 +9321,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -8325,7 +9338,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ikeextsaenum1
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsaenum1
      */
     static IkeextSaEnum1(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8339,7 +9352,15 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Returns the next page of results from the IKE/AuthIP security association (SA) enumerator.
+     * Returns the next page of results from the IKE/AuthIP security association (SA) enumerator. (IkeextSaEnum2)
+     * @remarks
+     * If the <i>numEntriesReturned</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted. 
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * A subsequent call using the same enumeration handle will return the next set of items following those in the last output buffer.
+     * 
+     * <b>IkeextSaEnum2</b> works on a snapshot of the SAs taken at the time the enumeration handle was created.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -8382,7 +9403,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -8399,7 +9420,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ikeextsaenum2
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsaenum2
      */
     static IkeextSaEnum2(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8414,6 +9435,8 @@ class WindowsFilteringPlatform {
 
     /**
      * Frees a handle returned by IkeextSaCreateEnumHandle0.
+     * @remarks
+     * <b>IkeextSaDestroyEnumHandle0</b> is a specific implementation of IkeextSaDestroyEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine generated by a previous  call to  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a>.
@@ -8447,7 +9470,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -8464,7 +9487,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ikeextsadestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsadestroyenumhandle0
      */
     static IkeextSaDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8476,6 +9499,12 @@ class WindowsFilteringPlatform {
 
     /**
      * The IkeextSaDbGetSecurityInfo0 function retrieves a copy of the security descriptor for a security association (SA) database.
+     * @remarks
+     * The returned <i>securityDescriptor</i> parameter must be freed through a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>. The other four (optional) returned parameters must not be freed, as they point to addresses within the <i>securityDescriptor</i> parameter.
+     * 
+     * This function behaves like the standard Win32 	<a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-getsecurityinfo">GetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>GetSecurityInfo</b> reference topic.
+     * 
+     * <b>IkeextSaDbGetSecurityInfo0</b> is a specific implementation of IkeextSaDbGetSecurityInfo. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine generated by a previous  call to  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a>.
@@ -8524,7 +9553,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -8541,7 +9570,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ikeextsadbgetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsadbgetsecurityinfo0
      */
     static IkeextSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8557,6 +9586,10 @@ class WindowsFilteringPlatform {
 
     /**
      * The IkeextSaDbSetSecurityInfo0 function sets specified security information in the security descriptor of the IKE/AuthIP security association database.
+     * @remarks
+     * This function behaves like the standard Win32 	 <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-setsecurityinfo">SetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>SetSecurityInfo</b> reference topic.
+     * 
+     * <b>IkeextSaDbSetSecurityInfo0</b> is a specific implementation of IkeextSaDbSetSecurityInfo. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine generated by a previous  call to  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a>.
@@ -8602,7 +9635,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -8619,7 +9652,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-ikeextsadbsetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsadbsetsecurityinfo0
      */
     static IkeextSaDbSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8630,6 +9663,17 @@ class WindowsFilteringPlatform {
 
     /**
      * Creates a handle used to enumerate a set of network events.
+     * @remarks
+     * If <i>enumTemplate</i> is <b>NULL</b>, all network event objects are returned.
+     * 
+     * The caller must call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmneteventdestroyenumhandle0">FwpmNetEventDestroyEnumHandle0</a> to free the returned handle.
+     * 
+     * This function cannot be called from within a transaction. It will fail
+     * with <b>FWP_E_TXN_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ENUM</a> access to the events' containers. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
+     * 
+     * <b>FwpmNetEventCreateEnumHandle0</b> is a specific implementation of FwpmNetEventCreateEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -8666,7 +9710,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -8683,7 +9727,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmneteventcreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventcreateenumhandle0
      */
     static FwpmNetEventCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8693,7 +9737,15 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Returns the next page of results from the network event enumerator.
+     * Returns the next page of results from the network event enumerator. (FwpmNetEventEnum0)
+     * @remarks
+     * If the <i>numEntriesReturned</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted.
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * A subsequent call  that uses  the same <i>enumHandle</i> parameter will return the next set of events following those in the  current <i>entries</i> buffer.
+     * 
+     * <b>FwpmNetEventEnum0</b> returns only events that were logged prior to the creation of the  <i>enumHandle</i> parameter. See <a href="https://docs.microsoft.com/windows/desktop/FWP/logging">Logging</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -8737,7 +9789,7 @@ class WindowsFilteringPlatform {
      * </td>
      * <td width="60%">
      * The collection of network diagnostic events is disabled.
-     * Call <a href="/windows/desktop/api/fwpmu/nf-fwpmu-fwpmenginesetoption0">FwpmEngineSetOption0</a> to enable it.
+     * Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmenginesetoption0">FwpmEngineSetOption0</a> to enable it.
      * 
      * </td>
      * </tr>
@@ -8749,7 +9801,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -8766,7 +9818,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmneteventenum0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventenum0
      */
     static FwpmNetEventEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8780,7 +9832,15 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Returns the next page of results from the network event enumerator.
+     * Returns the next page of results from the network event enumerator. (FwpmNetEventEnum1)
+     * @remarks
+     * If the <i>numEntriesReturned</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted.
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * A subsequent call  that uses  the same <i>enumHandle</i> parameter will return the next set of events following those in the  current <i>entries</i> buffer.
+     * 
+     * <b>FwpmNetEventEnum1</b> returns only events that were logged prior to the creation of the  <i>enumHandle</i> parameter. See <a href="https://docs.microsoft.com/windows/desktop/FWP/logging">Logging</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -8824,7 +9884,7 @@ class WindowsFilteringPlatform {
      * </td>
      * <td width="60%">
      * The collection of network diagnostic events is disabled.
-     * Call <a href="/windows/desktop/api/fwpmu/nf-fwpmu-fwpmenginesetoption0">FwpmEngineSetOption0</a> to enable it.
+     * Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmenginesetoption0">FwpmEngineSetOption0</a> to enable it.
      * 
      * </td>
      * </tr>
@@ -8836,7 +9896,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -8853,7 +9913,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmneteventenum1
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventenum1
      */
     static FwpmNetEventEnum1(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8867,7 +9927,15 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Returns the next page of results from the network event enumerator.
+     * Returns the next page of results from the network event enumerator. (FwpmNetEventEnum2)
+     * @remarks
+     * If the <i>numEntriesReturned</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted.
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * A subsequent call  that uses  the same <i>enumHandle</i> parameter will return the next set of events following those in the  current <i>entries</i> buffer.
+     * 
+     * <b>FwpmNetEventEnum2</b> returns only events that were logged prior to the creation of the  <i>enumHandle</i> parameter. See <a href="https://docs.microsoft.com/windows/desktop/FWP/logging">Logging</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -8911,7 +9979,7 @@ class WindowsFilteringPlatform {
      * </td>
      * <td width="60%">
      * The collection of network diagnostic events is disabled.
-     * Call <a href="/windows/desktop/api/fwpmu/nf-fwpmu-fwpmenginesetoption0">FwpmEngineSetOption0</a> to enable it.
+     * Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmenginesetoption0">FwpmEngineSetOption0</a> to enable it.
      * 
      * </td>
      * </tr>
@@ -8923,7 +9991,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -8940,7 +10008,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmneteventenum2
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventenum2
      */
     static FwpmNetEventEnum2(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8954,7 +10022,15 @@ class WindowsFilteringPlatform {
     }
 
     /**
-     * Returns the next page of results from the network event enumerator.
+     * Returns the next page of results from the network event enumerator. (FwpmNetEventEnum3)
+     * @remarks
+     * If the <i>numEntriesReturned</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted.
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * A subsequent call  that uses  the same <i>enumHandle</i> parameter will return the next set of events following those in the  current <i>entries</i> buffer.
+     * 
+     * <b>FwpmNetEventEnum3</b> returns only events that were logged prior to the creation of the  <i>enumHandle</i> parameter. See <a href="https://docs.microsoft.com/windows/desktop/FWP/logging">Logging</a> for more information.
      * @param {HANDLE} engineHandle Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {HANDLE} enumHandle Handle for a network event enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmneteventcreateenumhandle0">FwpmNetEventCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested The number of enumeration entries requested.
@@ -8986,7 +10062,7 @@ class WindowsFilteringPlatform {
      * </td>
      * <td width="60%">
      * The collection of network diagnostic events is disabled.
-     * Call <a href="/windows/desktop/api/fwpmu/nf-fwpmu-fwpmenginesetoption0">FwpmEngineSetOption0</a> to enable it.
+     * Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmenginesetoption0">FwpmEngineSetOption0</a> to enable it.
      * 
      * </td>
      * </tr>
@@ -8998,7 +10074,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -9015,7 +10091,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmneteventenum3
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventenum3
      */
     static FwpmNetEventEnum3(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9070,6 +10146,8 @@ class WindowsFilteringPlatform {
 
     /**
      * Frees a handle returned by FwpmNetEventCreateEnumHandle0.
+     * @remarks
+     * <b>FwpmNetEventDestroyEnumHandle0</b> is a specific implementation of FwpmNetEventDestroyEnumHandle. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -9103,7 +10181,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -9120,7 +10198,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmneteventdestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventdestroyenumhandle0
      */
     static FwpmNetEventDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9132,6 +10210,12 @@ class WindowsFilteringPlatform {
 
     /**
      * The FwpmNetEventsGetSecurityInfo0 function retrieves a copy of the security descriptor for a network event object.
+     * @remarks
+     * The returned <i>securityDescriptor</i> parameter must be freed through a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>. The other four (optional) returned parameters must not be freed, as they point to addresses within the <i>securityDescriptor</i> parameter.
+     * 
+     * This function behaves like the standard Win32 	<a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-getsecurityinfo">GetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>GetSecurityInfo</b> reference topic.
+     * 
+     * <b>FwpmNetEventsGetSecurityInfo0</b> is a specific implementation of FwpmNetEventsGetSecurityInfo. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -9184,7 +10268,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -9201,7 +10285,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmneteventsgetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventsgetsecurityinfo0
      */
     static FwpmNetEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9217,6 +10301,16 @@ class WindowsFilteringPlatform {
 
     /**
      * Sets specified security information in the security descriptor of a network event object.
+     * @remarks
+     * This function cannot be called from within a transaction. It will fail with
+     * <b>FWP_E_TXN_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * This function cannot be called from within a dynamic session. It will fail with
+     * <b>FWP_E_DYNAMIC_SESSION_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about sessions.
+     * 
+     * This function behaves like the standard Win32 	 <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-setsecurityinfo">SetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>SetSecurityInfo</b> reference topic.
+     * 
+     * <b>FwpmNetEventsSetSecurityInfo0</b> is a specific implementation of FwpmNetEventsSetSecurityInfo. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -9262,7 +10356,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -9279,7 +10373,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmneteventssetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventssetsecurityinfo0
      */
     static FwpmNetEventsSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9290,6 +10384,10 @@ class WindowsFilteringPlatform {
 
     /**
      * Retrieves a connection object.
+     * @remarks
+     * The caller must free the returned object by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_READ</a> access to the provider context. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -9326,7 +10424,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -9343,7 +10441,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmconnectiongetbyid0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectiongetbyid0
      */
     static FwpmConnectionGetById0(engineHandle, id, connection) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9356,6 +10454,14 @@ class WindowsFilteringPlatform {
 
     /**
      * Returns the next page of results from the connection object enumerator.
+     * @remarks
+     * If the <i>numEntriesReturned</i> is less than the <i>numEntriesRequested</i>, the enumeration is exhausted. 
+     * 
+     * The returned array of entries (but not the individual entries themselves) must be freed by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>.
+     * 
+     * A subsequent call using the same enumeration handle will return the next set of items following those in the last output buffer.
+     * 
+     * <b>FwpmConnectionEnum0</b> works on a snapshot of the connection objects taken at the time the enumeration handle was created.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -9396,7 +10502,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -9413,7 +10519,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmconnectionenum0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectionenum0
      */
     static FwpmConnectionEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9428,6 +10534,12 @@ class WindowsFilteringPlatform {
 
     /**
      * Creates a handle used to enumerate a set of connection objects.
+     * @remarks
+     * If <i>enumTemplate</i> is <b>NULL</b>, all connection objects are returned.
+     * 
+     * The caller must free the returned handle by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmconnectiondestroyenumhandle0">FwpmConnectionDestroyEnumHandle0</a>.
+     * 
+     * The caller needs <a href="https://docs.microsoft.com/windows/desktop/FWP/access-right-identifiers">FWPM_ACTRL_ENUM</a> access to the connection objects' containers and <b>FWPM_ACTRL_READ</b> access to the connection objects. See <a href="https://docs.microsoft.com/windows/desktop/FWP/access-control">Access Control</a> for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -9464,7 +10576,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -9481,7 +10593,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmconnectioncreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectioncreateenumhandle0
      */
     static FwpmConnectionCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9525,7 +10637,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -9542,7 +10654,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmconnectiondestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectiondestroyenumhandle0
      */
     static FwpmConnectionDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9554,6 +10666,10 @@ class WindowsFilteringPlatform {
 
     /**
      * Retrieves a copy of the security descriptor for a connection object change event.
+     * @remarks
+     * The returned <i>securityDescriptor</i> parameter must be freed through a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>. The other four returned parameters must not be freed, as they point to addresses within the <i>securityDescriptor</i> parameter.
+     * 
+     * This function behaves like the standard Win32 	<a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-getsecurityinfo">GetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>GetSecurityInfo</b> reference topic.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -9602,7 +10718,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -9619,7 +10735,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmconnectiongetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectiongetsecurityinfo0
      */
     static FwpmConnectionGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9635,6 +10751,14 @@ class WindowsFilteringPlatform {
 
     /**
      * Sets specified security information in the security descriptor for a connection object change event.
+     * @remarks
+     * This function cannot be called from within a transaction. It will fail with
+     * <b>FWP_E_TXN_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * This function cannot be called from within a dynamic session. It will fail with
+     * <b>FWP_E_DYNAMIC_SESSION_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about sessions.
+     * 
+     * This function behaves like the standard Win32 	 <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-setsecurityinfo">SetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>SetSecurityInfo</b> reference topic.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * A handle to an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -9680,7 +10804,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -9697,7 +10821,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmconnectionsetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectionsetsecurityinfo0
      */
     static FwpmConnectionSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9708,6 +10832,12 @@ class WindowsFilteringPlatform {
 
     /**
      * Retrieves a copy of the security descriptor for a vSwitch event.
+     * @remarks
+     * The returned <i>securityDescriptor</i> parameter must be freed through a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfreememory0">FwpmFreeMemory0</a>. The other four returned parameters must not be freed, as they point to addresses within the <i>securityDescriptor</i> parameter.
+     * 
+     * This function behaves like the standard Win32 	<a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-getsecurityinfo">GetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>GetSecurityInfo</b> reference topic.
+     * 
+     * <b>FwpmvSwitchEventsGetSecurityInfo0</b> is a specific implementation of FwpmvSwitchEventsGetSecurityInfo. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -9756,7 +10886,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -9773,7 +10903,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmvswitcheventsgetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmvswitcheventsgetsecurityinfo0
      */
     static FwpmvSwitchEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9789,6 +10919,16 @@ class WindowsFilteringPlatform {
 
     /**
      * Sets specified security information in the security descriptor for a vSwitch event.
+     * @remarks
+     * This function cannot be called from within a transaction. It will fail with
+     * <b>FWP_E_TXN_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about transactions.
+     * 
+     * This function cannot be called from within a dynamic session. It will fail with
+     * <b>FWP_E_DYNAMIC_SESSION_IN_PROGRESS</b>. See <a href="https://docs.microsoft.com/windows/desktop/FWP/object-management">Object Management</a> for more information about sessions.
+     * 
+     * This function behaves like the standard Win32 	 <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-setsecurityinfo">SetSecurityInfo</a> function. The caller needs the same standard access rights as described in the <b>SetSecurityInfo</b> reference topic.
+     * 
+     * <b>FwpmvSwitchEventsSetSecurityInfo0</b> is a specific implementation of FwpmvSwitchEventsSetSecurityInfo. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
      * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * A handle to an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
@@ -9834,7 +10974,7 @@ class WindowsFilteringPlatform {
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows Filtering Platform (WFP) specific error. See <a href="/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
+     * A Windows Filtering Platform (WFP) specific error. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-error-codes">WFP Error Codes</a> for details.
      * 
      * </td>
      * </tr>
@@ -9851,7 +10991,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//fwpmu/nf-fwpmu-fwpmvswitcheventssetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmvswitcheventssetsecurityinfo0
      */
     static FwpmvSwitchEventsSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle

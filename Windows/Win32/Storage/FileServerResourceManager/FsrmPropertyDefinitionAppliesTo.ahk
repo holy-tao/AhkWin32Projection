@@ -3,7 +3,7 @@
 
 /**
  * Flags that indicate what a FSRM classification property can be applied to.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmpropertydefinitionappliesto
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmpropertydefinitionappliesto
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

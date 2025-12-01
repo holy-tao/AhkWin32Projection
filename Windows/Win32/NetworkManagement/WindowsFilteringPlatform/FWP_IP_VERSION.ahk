@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Specifies the IP version.
- * @see https://docs.microsoft.com/windows/win32/api//fwptypes/ne-fwptypes-fwp_ip_version
+ * Specifies the IP version. (FWP_IP_VERSION)
+ * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ne-fwptypes-fwp_ip_version
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

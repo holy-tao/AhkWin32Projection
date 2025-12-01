@@ -5,7 +5,7 @@
 
 /**
  * The DisplayMode structure describes a display device.
- * @see https://docs.microsoft.com/windows/win32/api//cloneviewhelper/ns-cloneviewhelper-displaymode
+ * @see https://learn.microsoft.com/windows/win32/api/cloneviewhelper/ns-cloneviewhelper-displaymode
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

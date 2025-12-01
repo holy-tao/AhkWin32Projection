@@ -3,7 +3,7 @@
 
 /**
  * Specifies the layout for a packed 3D video frame.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/ne-mfmediaengine-mf_media_engine_s3d_packing_mode
+ * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_s3d_packing_mode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -5,12 +5,9 @@
 /**
  * The CERT_SYSTEM_STORE_RELOCATE_PARA structure contains data to be passed to CertOpenStore when that function's dwFlags parameter is set to CERT_SYSTEM_STORE_RELOCATE_FLAG.
  * @remarks
- * 
  * The relocate capability is used to access system stores persisted in the Group Policy Template (GPT). For example, the Group Policy Editor's MMC snap-in extension for managing group policy trust lists and certificates uses the GPT's base HKEY to call 
  * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_system_store_relocate_para
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_system_store_relocate_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

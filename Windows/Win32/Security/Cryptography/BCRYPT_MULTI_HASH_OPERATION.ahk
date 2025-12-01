@@ -3,7 +3,7 @@
 
 /**
  * A BCRYPT_MULTI_HASH_OPERATION structure defines a single operation in a multi-hash operation.
- * @see https://docs.microsoft.com/windows/win32/api//bcrypt/ns-bcrypt-bcrypt_multi_hash_operation
+ * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_multi_hash_operation
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

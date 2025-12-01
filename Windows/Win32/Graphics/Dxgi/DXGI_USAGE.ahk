@@ -2,7 +2,11 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Flags for surface and resource creation options.
+ * @remarks
+ * Each flag is defined as an unsigned integer.
  * 
+ * ``` syntax
  * @see https://learn.microsoft.com/windows/win32/direct3ddxgi/dxgi-usage
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319

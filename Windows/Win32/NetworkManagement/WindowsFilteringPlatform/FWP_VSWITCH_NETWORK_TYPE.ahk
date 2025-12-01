@@ -3,7 +3,7 @@
 
 /**
  * Specifies the network type of a vSwitch.
- * @see https://docs.microsoft.com/windows/win32/api//fwptypes/ne-fwptypes-fwp_vswitch_network_type
+ * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ne-fwptypes-fwp_vswitch_network_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

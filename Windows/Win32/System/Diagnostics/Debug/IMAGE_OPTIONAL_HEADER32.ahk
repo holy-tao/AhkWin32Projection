@@ -3,9 +3,8 @@
 #Include .\IMAGE_DATA_DIRECTORY.ahk
 
 /**
- * Represents the optional header format.
+ * Represents the optional header format. (32 bit)
  * @remarks
- * 
  * The number of directories is not fixed. Check the <b>NumberOfRvaAndSizes</b> member before 
  *     looking for a specific directory.
  * 
@@ -51,9 +50,7 @@
  *  IMAGE_DATA_DIRECTORY DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];
  * } IMAGE_OPTIONAL_HEADER64, *PIMAGE_OPTIONAL_HEADER64;
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-image_optional_header32
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_optional_header32
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

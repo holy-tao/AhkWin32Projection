@@ -4,8 +4,8 @@
 #Include .\VDS_PARTITION_INFO_GPT.ahk
 
 /**
- * This structure is reserved for system use.
- * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_partition_information_ex
+ * This structure is reserved for system use. (VDS_PARTITION_INFORMATION_EX)
+ * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_partition_information_ex
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

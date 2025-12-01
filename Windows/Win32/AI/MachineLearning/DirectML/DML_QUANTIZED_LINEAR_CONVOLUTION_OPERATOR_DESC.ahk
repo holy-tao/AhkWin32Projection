@@ -3,7 +3,7 @@
 
 /**
  * Performs a convolution of the *FilterTensor* with the *InputTensor*. This operator performs forward convolution on quantized data. This operator is mathematically equivalent to dequantizing the inputs, convolving, and then quantizing the output.
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_quantized_linear_convolution_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_quantized_linear_convolution_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

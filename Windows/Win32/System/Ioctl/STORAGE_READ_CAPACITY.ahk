@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Contains information about the size of a device. This is returned from the IOCTL\_STORAGE\_READ\_CAPACITY control code.
+ * @remarks
+ * The header file Ntddstor.h is available in the Windows Driver Kit (WDK).
  * @see https://learn.microsoft.com/windows/win32/DevIO/storage-read-capacity
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
@@ -14,6 +16,7 @@ class STORAGE_READ_CAPACITY extends Win32Struct
     static packingSize => 8
 
     /**
+     * The version of this structure. The caller must set this member to `sizeof(STORAGE_READ_CAPACITY)`.
      * @type {Integer}
      */
     Version {
@@ -22,6 +25,7 @@ class STORAGE_READ_CAPACITY extends Win32Struct
     }
 
     /**
+     * The size of the data returned.
      * @type {Integer}
      */
     Size {
@@ -30,6 +34,7 @@ class STORAGE_READ_CAPACITY extends Win32Struct
     }
 
     /**
+     * The number of bytes per block.
      * @type {Integer}
      */
     BlockLength {
@@ -38,6 +43,7 @@ class STORAGE_READ_CAPACITY extends Win32Struct
     }
 
     /**
+     * The total number of blocks on the disk.
      * @type {Integer}
      */
     NumberOfBlocks {
@@ -46,6 +52,7 @@ class STORAGE_READ_CAPACITY extends Win32Struct
     }
 
     /**
+     * The disk size in bytes.
      * @type {Integer}
      */
     DiskLength {

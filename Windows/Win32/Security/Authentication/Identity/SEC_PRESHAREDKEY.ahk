@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains the pre-shared key information.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_presharedkey
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -14,6 +16,7 @@ class SEC_PRESHAREDKEY extends Win32Struct
     static packingSize => 2
 
     /**
+     * The size of the PSK.
      * @type {Integer}
      */
     KeySize {
@@ -22,6 +25,7 @@ class SEC_PRESHAREDKEY extends Win32Struct
     }
 
     /**
+     * The PSK.
      * @type {Array<Byte>}
      */
     Key{

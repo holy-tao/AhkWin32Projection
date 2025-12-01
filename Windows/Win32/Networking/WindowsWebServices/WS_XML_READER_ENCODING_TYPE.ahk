@@ -3,7 +3,7 @@
 
 /**
  * The type of WS_XML_READER_ENCODING structure.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_xml_reader_encoding_type
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_reader_encoding_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

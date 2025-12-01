@@ -3,7 +3,7 @@
 
 /**
  * The values of the IASPROPERTIES enumeration type enumerate properties related to NPS.
- * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-iasproperties
+ * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-iasproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

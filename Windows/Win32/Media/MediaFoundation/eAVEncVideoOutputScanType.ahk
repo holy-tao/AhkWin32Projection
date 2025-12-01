@@ -3,7 +3,7 @@
 
 /**
  * Specifies how the encoder interlaces the output video. This enumeration is used with the AVEncVideoOutputScanType property.
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencvideooutputscantype
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencvideooutputscantype
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

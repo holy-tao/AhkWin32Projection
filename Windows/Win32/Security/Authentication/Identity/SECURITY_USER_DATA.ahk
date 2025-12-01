@@ -4,7 +4,7 @@
 
 /**
  * The SecurityUserData structure contains information about the user of a security support provider/authentication package. This structure is used by the SpGetUserInfo function.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ns-ntsecpkg-security_user_data
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-security_user_data
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

@@ -2,13 +2,10 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Specifies how to access a resource used in a depth-stencil view.
+ * Specifies how to access a resource used in a depth-stencil view. (D3D12_DSV_DIMENSION)
  * @remarks
- * 
  * Specify one of the values in this enumeration in the <b>ViewDimension</b> member of a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_depth_stencil_view_desc">D3D12_DEPTH_STENCIL_VIEW_DESC</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_dsv_dimension
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_dsv_dimension
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

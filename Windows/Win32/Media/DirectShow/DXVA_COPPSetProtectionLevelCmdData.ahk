@@ -3,7 +3,7 @@
 
 /**
  * Contains data for the Set Protection Level command in Certified Output Protection Protocol (COPP).
- * @see https://docs.microsoft.com/windows/win32/api//dxva9typ/ns-dxva9typ-dxva_coppsetprotectionlevelcmddata
+ * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ns-dxva9typ-dxva_coppsetprotectionlevelcmddata
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

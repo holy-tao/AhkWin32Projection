@@ -3,7 +3,7 @@
 
 /**
  * Specifies the location of a resource.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/ne-dwrite_3-dwrite_locality
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

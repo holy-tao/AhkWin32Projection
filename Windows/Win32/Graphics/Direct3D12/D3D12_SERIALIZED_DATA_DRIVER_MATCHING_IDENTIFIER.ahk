@@ -3,7 +3,7 @@
 
 /**
  * Opaque data structure describing driver versioning for a serialized acceleration structure.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_serialized_data_driver_matching_identifier
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_serialized_data_driver_matching_identifier
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

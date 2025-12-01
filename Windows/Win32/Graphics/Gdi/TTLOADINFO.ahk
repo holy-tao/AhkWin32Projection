@@ -3,7 +3,7 @@
 
 /**
  * The TTLOADINFO structure contains the URL from which the embedded font object has been obtained.
- * @see https://docs.microsoft.com/windows/win32/api//t2embapi/ns-t2embapi-ttloadinfo
+ * @see https://learn.microsoft.com/windows/win32/api/t2embapi/ns-t2embapi-ttloadinfo
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

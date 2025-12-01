@@ -3,7 +3,7 @@
 
 /**
  * The DNS_RRSET structure contains information about a DNS Resource Record (RR) set.
- * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_rrset
+ * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_rrset
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

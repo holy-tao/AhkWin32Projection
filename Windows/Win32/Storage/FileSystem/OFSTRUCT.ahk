@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a file that the OpenFile function opened or attempted to open.
- * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-ofstruct
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-ofstruct
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Contains information that the IOCTL_CHANGER_GET_ELEMENT_STATUS control code needs to determine the elements whose status is to be retrieved.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-changer_read_element_status
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_read_element_status
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

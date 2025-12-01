@@ -3,7 +3,7 @@
 
 /**
  * Specifies the animation frame properties of a WebP image.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicwebpanmfproperties
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicwebpanmfproperties
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

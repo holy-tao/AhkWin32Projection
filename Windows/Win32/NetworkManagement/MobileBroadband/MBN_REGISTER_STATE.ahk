@@ -3,7 +3,7 @@
 
 /**
  * The MBN_REGISTER_STATE enumerated type indicates the network registration state of a Mobile Broadband device.
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ne-mbnapi-mbn_register_state
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_register_state
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

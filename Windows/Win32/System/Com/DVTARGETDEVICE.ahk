@@ -4,11 +4,8 @@
 /**
  * Specifies information about the target device for which data is being composed. DVTARGETDEVICE contains enough information about a Windows target device so a handle to a device context (HDC) can be created using the CreateDC function.
  * @remarks
- * 
  * Some OLE 1 client applications incorrectly construct target devices by allocating too few bytes in the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure for the <b>DVTARGETDEVICE</b>. They typically only supply the number of bytes in the <b>dmSize</b> member of <b>DEVMODE</b>. The number of bytes to be allocated should be the sum of <b>dmSize</b> + <b>dmDriverExtra</b>. When a call is made to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdca">CreateDC</a> function with an incorrect target device, the printer driver tries to access the additional bytes and unpredictable results can occur. To help protect against a crash and make the additional bytes available, OLE pads the size of OLE 2 target devices created from OLE 1 target devices.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//objidl/ns-objidl-dvtargetdevice
+ * @see https://learn.microsoft.com/windows/win32/api/objidl/ns-objidl-dvtargetdevice
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

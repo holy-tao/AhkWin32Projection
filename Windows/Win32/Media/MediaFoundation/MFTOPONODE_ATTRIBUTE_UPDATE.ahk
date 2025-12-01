@@ -4,11 +4,8 @@
 /**
  * Specifies a new attribute value for a topology node.
  * @remarks
- * 
  * Due to an error in the structure declaration, the <b>u64</b> member is declared as a 32-bit integer, not a 64-bit integer. Therefore, any 64-bit value passed to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imftopologynodeattributeeditor-updatenodeattributes">IMFTopologyNodeAttributeEditor::UpdateNodeAttributes</a> method is truncated to 32 bits.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ns-mfidl-mftoponode_attribute_update
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mftoponode_attribute_update
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

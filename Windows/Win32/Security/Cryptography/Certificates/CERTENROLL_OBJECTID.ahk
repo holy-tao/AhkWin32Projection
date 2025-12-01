@@ -3,7 +3,7 @@
 
 /**
  * Contains the predefined object identifiers (OIDs) supported by Certificate Enrollment API.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-certenroll_objectid
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-certenroll_objectid
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -184,7 +184,7 @@ class CERTENROLL_OBJECTID extends Win32Enum{
     /**
      * (1.2.840.113549.1.3.1)
      * 
-     * Identifies an Diffie-Hellman key exchange algorithm.
+     * Identifies a Diffie-Hellman key exchange algorithm.
      * @type {Integer (Int32)}
      */
     static XCN_OID_RSA_DH => 22

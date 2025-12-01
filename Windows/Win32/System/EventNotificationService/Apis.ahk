@@ -73,7 +73,23 @@ class EventNotificationService {
 
 ;@region Methods
     /**
-     * The IsDestinationReachable function determines whether or not a specified destination can be reached, and provides Quality of Connection (QOC) information for a destination.
+     * The IsDestinationReachable function determines whether or not a specified destination can be reached, and provides Quality of Connection (QOC) information for a destination. (ANSI)
+     * @remarks
+     * Client applications use this function to determine the QOC information before proceeding with network operations. For standalone computers that are directly connected to a network through a network card or remote access server (RAS), this function generates minimal network traffic with RPC calls to the nearest router. For computers that are part of a network where a destination can be reached by using RAS or a network gateway, this function pings a destination to generate accurate QOC information.
+     * 
+     * This function is only available for TCP/IP connections. A caller supplies the buffer for the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/sensapi/ns-sensapi-qocinfo">QOCINFO</a> structure, and must release the memory when it is not needed.
+     * 
+     * Starting with applications designed for Windows Vista and Windows Server 2008, developers should consider using the <a href="https://docs.microsoft.com/windows/desktop/NLA/portal">Network List Manager</a> instead of this function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The sensapi.h header defines IsDestinationReachable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszDestination A pointer to a <b>null</b>-terminated string that specifies a destination. The destination can be an IP address, UNC name, or URL.
      * @param {Pointer<QOCINFO>} lpQOCInfo A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sensapi/ns-sensapi-qocinfo">QOCINFO</a> structure that receives the Quality of Connection (QOC) information. You can supply a <b>NULL</b> pointer if you do not want to receive the QOC information.
@@ -101,7 +117,7 @@ class EventNotificationService {
      * </td>
      * <td width="60%">
      * A destination cannot be reached. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * </td>
      * </tr>
@@ -117,7 +133,7 @@ class EventNotificationService {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensapi/nf-sensapi-isdestinationreachablea
+     * @see https://learn.microsoft.com/windows/win32/api/sensapi/nf-sensapi-isdestinationreachablea
      * @since windows5.1.2600
      */
     static IsDestinationReachableA(lpszDestination, lpQOCInfo) {
@@ -134,7 +150,23 @@ class EventNotificationService {
     }
 
     /**
-     * The IsDestinationReachable function determines whether or not a specified destination can be reached, and provides Quality of Connection (QOC) information for a destination.
+     * The IsDestinationReachable function determines whether or not a specified destination can be reached, and provides Quality of Connection (QOC) information for a destination. (Unicode)
+     * @remarks
+     * Client applications use this function to determine the QOC information before proceeding with network operations. For standalone computers that are directly connected to a network through a network card or remote access server (RAS), this function generates minimal network traffic with RPC calls to the nearest router. For computers that are part of a network where a destination can be reached by using RAS or a network gateway, this function pings a destination to generate accurate QOC information.
+     * 
+     * This function is only available for TCP/IP connections. A caller supplies the buffer for the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/sensapi/ns-sensapi-qocinfo">QOCINFO</a> structure, and must release the memory when it is not needed.
+     * 
+     * Starting with applications designed for Windows Vista and Windows Server 2008, developers should consider using the <a href="https://docs.microsoft.com/windows/desktop/NLA/portal">Network List Manager</a> instead of this function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The sensapi.h header defines IsDestinationReachable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszDestination A pointer to a <b>null</b>-terminated string that specifies a destination. The destination can be an IP address, UNC name, or URL.
      * @param {Pointer<QOCINFO>} lpQOCInfo A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sensapi/ns-sensapi-qocinfo">QOCINFO</a> structure that receives the Quality of Connection (QOC) information. You can supply a <b>NULL</b> pointer if you do not want to receive the QOC information.
@@ -162,7 +194,7 @@ class EventNotificationService {
      * </td>
      * <td width="60%">
      * A destination cannot be reached. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * </td>
      * </tr>
@@ -178,7 +210,7 @@ class EventNotificationService {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensapi/nf-sensapi-isdestinationreachablew
+     * @see https://learn.microsoft.com/windows/win32/api/sensapi/nf-sensapi-isdestinationreachablew
      * @since windows5.1.2600
      */
     static IsDestinationReachableW(lpszDestination, lpQOCInfo) {
@@ -196,8 +228,19 @@ class EventNotificationService {
 
     /**
      * The IsNetworkAlive function determines whether or not a local system is connected to a network, and identifies the type of network connection, for example, a LAN, WAN, or both.
+     * @remarks
+     * Starting with applications designed for Windows Vista and Windows Server 2008, developers should consider using the <a href="https://docs.microsoft.com/windows/desktop/NLA/portal">Network List Manager</a> instead of this function.
+     * 
+     * This function can be used by an application to determine whether or not there is network connectivity before proceeding with network operations. A directory service type of application, e-mail client, or Internet browser can adapt to various types of network connectivity. For example, a printing operation can be deferred until a network connection is available.
+     * 
+     * It may not always be practical for an application to call 
+     * <b>IsNetworkAlive</b> to determine whether or not a  local system is disconnected from a LAN, because <b>IsNetworkAlive</b> can be slow, and it may take too much time for the function to detect that a local system is disconnected. 
+     * However, <b>IsNetworkAlive</b> can always identify a WAN connectivity at the moment.
+     * 
+     * <div class="alert"><b>Note</b>  This function is only available for TCP/IP connections.</div>
+     * <div> </div>
      * @param {Pointer<Integer>} lpdwFlags 
-     * @returns {BOOL} Always call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> before checking the return code of this function.  If the last error is not 0, the <b>IsNetworkAlive</b> function has failed and the following <b>TRUE</b> and <b>FALSE</b> values do not apply.
+     * @returns {BOOL} Always call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> before checking the return code of this function.  If the last error is not 0, the <b>IsNetworkAlive</b> function has failed and the following <b>TRUE</b> and <b>FALSE</b> values do not apply.
      * 
      * <table>
      * <tr>
@@ -229,7 +272,7 @@ class EventNotificationService {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensapi/nf-sensapi-isnetworkalive
+     * @see https://learn.microsoft.com/windows/win32/api/sensapi/nf-sensapi-isnetworkalive
      * @since windows5.1.2600
      */
     static IsNetworkAlive(lpdwFlags) {

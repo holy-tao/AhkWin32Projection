@@ -4,7 +4,6 @@
 /**
  * Specifies the authentication algorithm for user or machine authentication on an ad hoc network.
  * @remarks
- * 
  * Authentication and cipher algorithms are used in pairs. The following table shows valid algorithm pairs for use on an ad hoc network.
  * 
  * <table>
@@ -29,9 +28,7 @@
  * <td>DOT11_ADHOC_CIPHER_ALGO_CCMP</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//adhoc/ne-adhoc-dot11_adhoc_auth_algorithm
+ * @see https://learn.microsoft.com/windows/win32/api/adhoc/ne-adhoc-dot11_adhoc_auth_algorithm
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

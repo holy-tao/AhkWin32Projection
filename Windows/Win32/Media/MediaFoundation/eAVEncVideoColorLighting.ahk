@@ -3,7 +3,7 @@
 
 /**
  * Specifies the intended lighting conditions for viewing a video source. This enumeration is used with the AVEncVideoInputColorLighting and AVEncVideoOutputColorLighting properties.
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencvideocolorlighting
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencvideocolorlighting
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The SAMPR_ENCRYPTED_USER_PASSWORD stores a user's encrypted password.
- * @see https://docs.microsoft.com/windows/win32/api//mschapp/ns-mschapp-sampr_encrypted_user_password
+ * @see https://learn.microsoft.com/windows/win32/api/mschapp/ns-mschapp-sampr_encrypted_user_password
  * @namespace Windows.Win32.System.PasswordManagement
  * @version v4.0.30319
  */

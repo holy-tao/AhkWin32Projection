@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains values for the Power Management Feature that allows the host to configure the power state.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw11_feature_power_management
  * @namespace Windows.Win32.Storage.Nvme
@@ -41,6 +43,7 @@ class NVME_CDW11_FEATURE_POWER_MANAGEMENT extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     AsUlong {

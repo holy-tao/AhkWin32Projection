@@ -5,7 +5,7 @@
 
 /**
  * Contains the information in a PKCS
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_encrypted_private_key_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_encrypted_private_key_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

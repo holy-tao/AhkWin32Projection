@@ -3,7 +3,7 @@
 
 /**
  * The values of the ACCOUNTINGPROPERTIES type enumerate properties that control what types of packets are logged and characteristics of the log file.
- * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-accountingproperties
+ * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-accountingproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

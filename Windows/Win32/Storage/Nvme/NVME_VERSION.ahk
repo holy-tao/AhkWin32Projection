@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Contains fields that specify the version number of the NVM Express specification that the controller implementation supports.
+ * @remarks
+ * Valid versions of the NVM Express specification are: 1.0, 1.1, and 1.2.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_version
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
@@ -50,6 +52,7 @@ class NVME_VERSION extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     AsUlong {

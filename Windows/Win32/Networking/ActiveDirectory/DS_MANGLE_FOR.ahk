@@ -3,7 +3,7 @@
 
 /**
  * The DS_MANGLE_FOR enumeration is used to define whether a relative distinguished name is mangled (encoded) and in what form the mangling occurs.
- * @see https://docs.microsoft.com/windows/win32/api//dsparse/ne-dsparse-ds_mangle_for
+ * @see https://learn.microsoft.com/windows/win32/api/dsparse/ne-dsparse-ds_mangle_for
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

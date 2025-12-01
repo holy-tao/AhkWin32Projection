@@ -3,7 +3,7 @@
 
 /**
  * A structure containing a list of host names.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_host_names
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_host_names
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

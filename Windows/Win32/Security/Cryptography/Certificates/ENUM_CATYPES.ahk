@@ -3,7 +3,7 @@
 
 /**
  * Specifies a certification authority (CA) type.
- * @see https://docs.microsoft.com/windows/win32/api//certsrv/ne-certsrv-enum_catypes
+ * @see https://learn.microsoft.com/windows/win32/api/certsrv/ne-certsrv-enum_catypes
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
 
 /**
  * Contains and receives information that the pager control uses when scrolling the contained window. It is used with the PGN_SCROLL notification.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmpgscroll
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmpgscroll
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

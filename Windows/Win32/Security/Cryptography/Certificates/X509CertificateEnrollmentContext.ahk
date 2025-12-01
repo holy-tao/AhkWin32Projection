@@ -3,7 +3,7 @@
 
 /**
  * Specifies the nature of the end entity for which the certificate is intended.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-x509certificateenrollmentcontext
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509certificateenrollmentcontext
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

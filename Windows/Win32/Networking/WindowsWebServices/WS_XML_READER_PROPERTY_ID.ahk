@@ -3,7 +3,7 @@
 
 /**
  * Identifies each XML reader property is and its associated value.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_xml_reader_property_id
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_reader_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -39,7 +39,7 @@ class WS_XML_READER_PROPERTY_ID extends Win32Enum{
     static WS_XML_READER_PROPERTY_ALLOW_FRAGMENT => 1
 
     /**
-     * A <b>ULONG</b>that specifies the maximum number of attributes the reader will permit on an element.
+     * A <b>ULONG</b> that specifies the maximum number of attributes the reader will permit on an element.
      *         
      * 
      * This property defaults to 128.
@@ -116,7 +116,7 @@ class WS_XML_READER_PROPERTY_ID extends Win32Enum{
     static WS_XML_READER_PROPERTY_IN_ATTRIBUTE => 9
 
     /**
-     * A <b>ULONG</b>used with <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_reader_mtom_encoding">WS_XML_READER_STREAM_INPUT</a> in conjunction with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_reader_mtom_encoding">WS_XML_READER_MTOM_ENCODING</a>.
+     * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_reader_mtom_encoding">WS_XML_READER_STREAM_INPUT</a> in conjunction with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_reader_mtom_encoding">WS_XML_READER_MTOM_ENCODING</a>.
      *           This value specifies the maximum size of the root MIME part, which is the part that contains
      *           the xml portion of the document.  It has no effect when used with other encodings, or when used with
      *           <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_reader_buffer_input">WS_XML_READER_BUFFER_INPUT</a>.
@@ -128,7 +128,7 @@ class WS_XML_READER_PROPERTY_ID extends Win32Enum{
     static WS_XML_READER_PROPERTY_STREAM_MAX_ROOT_MIME_PART_SIZE => 10
 
     /**
-     * A <b>ULONG</b>used with <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_reader_mtom_encoding">WS_XML_READER_STREAM_INPUT</a> in conjunction with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_reader_mtom_encoding">WS_XML_READER_MTOM_ENCODING</a>.
+     * A <b>ULONG</b> used with <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_reader_mtom_encoding">WS_XML_READER_STREAM_INPUT</a> in conjunction with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_reader_mtom_encoding">WS_XML_READER_MTOM_ENCODING</a>.
      *           This value specifies the maximum size of any group of MIME headers that may appear in the document.
      *           It has no effect when used with other encodings, or when used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_reader_buffer_input">WS_XML_READER_BUFFER_INPUT</a>.
      *         
@@ -139,7 +139,7 @@ class WS_XML_READER_PROPERTY_ID extends Win32Enum{
     static WS_XML_READER_PROPERTY_STREAM_MAX_MIME_HEADERS_SIZE => 11
 
     /**
-     * A <b>ULONG</b>used with  <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_reader_mtom_encoding">WS_XML_READER_MTOM_ENCODING</a>. This value specifies the maximum number of MIME parts
+     * A <b>ULONG</b> used with  <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_reader_mtom_encoding">WS_XML_READER_MTOM_ENCODING</a>. This value specifies the maximum number of MIME parts
      *           that may appear in the document.  It has no effect when used with other encodings.
      *         
      * 
@@ -162,7 +162,7 @@ class WS_XML_READER_PROPERTY_ID extends Win32Enum{
     static WS_XML_READER_PROPERTY_ALLOW_INVALID_CHARACTER_REFERENCES => 13
 
     /**
-     * A <b>ULONG</b>that specifies the maximum number of xmlns unique declarations that may appear in scope at any point
+     * A <b>ULONG</b> that specifies the maximum number of xmlns unique declarations that may appear in scope at any point
      *           while reading the document.
      *         
      * 

@@ -3,7 +3,7 @@
 
 /**
  * Defines attributes of a context.
- * @see https://docs.microsoft.com/windows/win32/api//netsh/ns-netsh-ns_context_attributes
+ * @see https://learn.microsoft.com/windows/win32/api/netsh/ns-netsh-ns_context_attributes
  * @namespace Windows.Win32.NetworkManagement.NetShell
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The PNRP_RESOLVE_CRITERIA enumeration specifies the criteria that PNRP uses to resolve searches.
- * @see https://docs.microsoft.com/windows/win32/api//pnrpdef/ne-pnrpdef-pnrp_resolve_criteria
+ * @see https://learn.microsoft.com/windows/win32/api/pnrpdef/ne-pnrpdef-pnrp_resolve_criteria
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

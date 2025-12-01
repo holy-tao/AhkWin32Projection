@@ -3,7 +3,7 @@
 
 /**
  * Elements of the TfCandidateResult enumeration are used with the ITfCandidateList::SetResult method to specify the result of a reconversion operation performed on a given candidate string.
- * @see https://docs.microsoft.com/windows/win32/api//ctffunc/ne-ctffunc-tfcandidateresult
+ * @see https://learn.microsoft.com/windows/win32/api/ctffunc/ne-ctffunc-tfcandidateresult
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

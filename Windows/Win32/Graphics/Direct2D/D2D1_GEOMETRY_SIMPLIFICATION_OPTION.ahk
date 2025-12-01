@@ -3,7 +3,7 @@
 
 /**
  * Specifies how a geometry is simplified to an ID2D1SimplifiedGeometrySink.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/ne-d2d1-d2d1_geometry_simplification_option
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_geometry_simplification_option
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

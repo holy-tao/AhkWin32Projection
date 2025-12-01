@@ -3,7 +3,7 @@
 
 /**
  * Used generically to filter elements.
- * @see https://docs.microsoft.com/windows/win32/api//shtypes/ns-shtypes-comdlg_filterspec
+ * @see https://learn.microsoft.com/windows/win32/api/shtypes/ns-shtypes-comdlg_filterspec
  * @namespace Windows.Win32.UI.Shell.Common
  * @version v4.0.30319
  */

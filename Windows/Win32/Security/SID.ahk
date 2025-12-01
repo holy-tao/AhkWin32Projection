@@ -4,7 +4,7 @@
 
 /**
  * Used to uniquely identify users or groups.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-sid
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-sid
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

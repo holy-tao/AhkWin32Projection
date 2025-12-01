@@ -9,6 +9,8 @@
 #Include .\PEER_EVENT_REQUEST_STATUS_CHANGED_DATA.ahk
 
 /**
+ * The PEER_COLLAB_EVENT_DATA structure (p2p.h) contains variant data for each possible peer collaboration network event raised on a peer.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_collab_event_data~r1
  * @namespace Windows.Win32.NetworkManagement.P2P
@@ -21,6 +23,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     static packingSize => 8
 
     /**
+     * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_collab_event_type">PEER_COLLAB_EVENT_TYPE</a> enumeration value that contains the type of the event whose corresponding data structure appears in the subsequent union arm.
      * @deprecated 
      * @type {Integer}
      */

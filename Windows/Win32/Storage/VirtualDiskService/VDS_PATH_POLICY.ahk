@@ -3,8 +3,8 @@
 #Include .\VDS_PATH_ID.ahk
 
 /**
- * Defines the load balance policy as it applies to a particular path.
- * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_path_policy
+ * The VDS_PATH_POLICY structure (vdshwprv.h) defines the load balance policy as it applies to a particular path.
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_path_policy
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The AMCOPPSignature structure contains the signature needed for the IAMCertifiedOutputProtection::SessionSequenceStart method.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-amcoppsignature
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-amcoppsignature
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

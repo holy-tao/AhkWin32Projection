@@ -3,7 +3,7 @@
 
 /**
  * Represents the different memory exhaustion types.
- * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/ne-processthreadsapi-process_memory_exhaustion_type
+ * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ne-processthreadsapi-process_memory_exhaustion_type
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

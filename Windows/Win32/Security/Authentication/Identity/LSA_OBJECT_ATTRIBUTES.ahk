@@ -5,13 +5,10 @@
 /**
  * The LSA_OBJECT_ATTRIBUTES structure is used with the LsaOpenPolicy function to specify the attributes of the connection to the Policy object.
  * @remarks
- * 
  * The <b>LSA_OBJECT_ATTRIBUTES</b> structure is defined in the LsaLookup.h header file.
  * 
  * <b>Windows Server 2008 with SP2 and earlier, Windows Vista with SP2 and earlier, Windows Server 2003, Windows XP/2000:  </b>The <b>LSA_OBJECT_ATTRIBUTES</b> structure is defined in the NTSecAPI.h header file.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//lsalookup/ns-lsalookup-lsa_object_attributes
+ * @see https://learn.microsoft.com/windows/win32/api/lsalookup/ns-lsalookup-lsa_object_attributes
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Identifies the credentials to use for the authentication scheme specified in the BG_AUTH_CREDENTIALS structure.
- * @see https://docs.microsoft.com/windows/win32/api//bits1_5/ns-bits1_5-bg_auth_credentials_union
+ * @see https://learn.microsoft.com/windows/win32/api/bits1_5/ns-bits1_5-bg_auth_credentials_union
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */

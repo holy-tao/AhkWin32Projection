@@ -5,7 +5,7 @@
 
 /**
  * Describes numeric data.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clusprop_word
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_word
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

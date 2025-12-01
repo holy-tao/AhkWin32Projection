@@ -4,11 +4,8 @@
 /**
  * The MIDIPROPTEMPO structure contains the tempo property for a stream.
  * @remarks
- * 
  * The tempo property is read or written by the <a href="https://docs.microsoft.com/previous-versions/dd798490(v=vs.85)">midiStreamProperty</a> function.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mmeapi/ns-mmeapi-midiproptempo
+ * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-midiproptempo
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

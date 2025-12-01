@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * The WMDMMessage enumeration type defines message types and states.
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdmmessage
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319

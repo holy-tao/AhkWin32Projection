@@ -4,7 +4,7 @@
 
 /**
  * The SYSTEM_ALARM_ACE structure is reserved for future use.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-system_alarm_ace
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_alarm_ace
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

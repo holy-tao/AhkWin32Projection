@@ -3,7 +3,7 @@
 
 /**
  * The RESULTDATAITEM structure specifies or receives the attributes of result items in the result pane of the snap-in.
- * @see https://docs.microsoft.com/windows/win32/api//mmc/ns-mmc-resultdataitem
+ * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-resultdataitem
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

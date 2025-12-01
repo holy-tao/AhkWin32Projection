@@ -3,7 +3,7 @@
 
 /**
  * The state of the service proxy.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_service_proxy_state
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_service_proxy_state
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

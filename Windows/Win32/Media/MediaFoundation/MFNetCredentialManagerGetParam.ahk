@@ -3,7 +3,7 @@
 
 /**
  * Contains the authentication information for the credential manager.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ns-mfidl-mfnetcredentialmanagergetparam
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mfnetcredentialmanagergetparam
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Defines how a task is run.
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/ne-taskschd-task_run_flags
+ * @see https://learn.microsoft.com/windows/win32/api/taskschd/ne-taskschd-task_run_flags
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */

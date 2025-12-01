@@ -5,13 +5,11 @@
 #Include .\TVITEMEXW.ahk
 
 /**
- * Contains information pertaining to extended TreeView notification information.
+ * Contains information pertaining to extended TreeView notification information. (Unicode)
  * @remarks
- * 
  * > [!NOTE]
  * > The commctrl.h header defines NMTVDISPINFOEX as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmtvdispinfoexw
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtvdispinfoexw
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  * @charset Unicode

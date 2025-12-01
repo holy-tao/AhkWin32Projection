@@ -2,12 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents a JPEG frame header.
+ * Represents a JPEG frame header. (WICJpegScanHeader)
  * @remarks
- * 
  * Get the scan header for an image by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicjpegframedecode-getscanheader">IWICJpegFrameDecode::GetScanHeader</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ns-wincodec-wicjpegscanheader
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicjpegscanheader
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

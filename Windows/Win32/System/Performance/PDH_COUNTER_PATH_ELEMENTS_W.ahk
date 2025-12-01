@@ -2,15 +2,12 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The PDH_COUNTER_PATH_ELEMENTS structure contains the components of a counter path.
+ * The PDH_COUNTER_PATH_ELEMENTS structure contains the components of a counter path. (Unicode)
  * @remarks
- * 
  * This structure is used by <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhmakecounterpatha">PdhMakeCounterPath</a> to create a counter path and by <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhparsecounterpatha">PdhParseCounterPath</a> to parse a counter path.
  * 
  * When you allocate memory for this structure, allocate enough memory for the member strings, such as <b>szCounterName</b>, that are appended to the end of this structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//pdh/ns-pdh-pdh_counter_path_elements_w
+ * @see https://learn.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_counter_path_elements_w
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  * @charset Unicode

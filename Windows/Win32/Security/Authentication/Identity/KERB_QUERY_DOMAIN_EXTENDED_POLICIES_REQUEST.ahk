@@ -4,7 +4,7 @@
 
 /**
  * Contains information used to query the domain for the extended policies.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_query_domain_extended_policies_request
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_query_domain_extended_policies_request
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

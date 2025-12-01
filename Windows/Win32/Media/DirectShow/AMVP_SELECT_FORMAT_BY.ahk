@@ -3,7 +3,7 @@
 
 /**
  * Specifies the criteria that the Overlay Mixer Filter should use to select the video format.
- * @see https://docs.microsoft.com/windows/win32/api//vptype/ne-vptype-amvp_select_format_by
+ * @see https://learn.microsoft.com/windows/win32/api/vptype/ne-vptype-amvp_select_format_by
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

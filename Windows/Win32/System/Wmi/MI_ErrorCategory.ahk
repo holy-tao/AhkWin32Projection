@@ -3,7 +3,7 @@
 
 /**
  * This enumeration defines error categories for the CIM extensions.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ne-mi-mi_errorcategory
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ne-mi-mi_errorcategory
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

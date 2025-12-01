@@ -13,6 +13,8 @@ class Registry {
 ;@region Methods
     /**
      * Requests notification when a registry key or any of its subkeys changes.
+     * @remarks
+     * This function has no associated header file. The associated import library, Ntdll.lib, is available in the WDK. You can also use the <a href="https://docs.microsoft.com/windows/desktop/DevNotes/-loadlibrary">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/DevNotes/-getprocaddress-">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
      * @param {HANDLE} MasterKeyHandle A handle to an open key. The handle must be opened with the <b>KEY_NOTIFY</b> access right.
      * @param {Integer} Count The number of subkeys under the key specified by the <i>MasterKeyHandle</i> parameter. This parameter must be 1.
      * @param {Pointer<OBJECT_ATTRIBUTES>} SubordinateObjects Pointer to an array of <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wudfwdm/ns-wudfwdm-_object_attributes">OBJECT_ATTRIBUTES</a> structures, one for each subkey.   This array can contain one <b>OBJECT_ATTRIBUTES</b> structure.
@@ -77,7 +79,7 @@ class Registry {
      * If the <i>Asynchronous</i> parameter is <b>TRUE</b> and the specified event has not yet occurred, the function returns <b>STATUS_PENDING</b>.
      * 
      * The forms and significance of <b>NTSTATUS</b> error codes are listed in the Ntstatus.h header file available in the WDK, and are described in the WDK documentation.
-     * @see https://docs.microsoft.com/windows/win32/api//winternl/nf-winternl-ntnotifychangemultiplekeys
+     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntnotifychangemultiplekeys
      */
     static NtNotifyChangeMultipleKeys(MasterKeyHandle, Count, SubordinateObjects, Event, ApcRoutine, ApcContext, IoStatusBlock, CompletionFilter, WatchTree, Buffer_R, BufferSize, Asynchronous) {
         MasterKeyHandle := MasterKeyHandle is Win32Handle ? NumGet(MasterKeyHandle, "ptr") : MasterKeyHandle
@@ -117,6 +119,8 @@ class Registry {
 
     /**
      * Retrieves values for the specified multiple-value key.
+     * @remarks
+     * This function has no associated header file. The associated import library, Ntdll.lib, is available in the WDK. You can also use the <a href="https://docs.microsoft.com/windows/desktop/DevNotes/-loadlibrary">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/DevNotes/-getprocaddress-">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
      * @param {HANDLE} KeyHandle A handle to the key for which to retrieve values. The handle must be opened with the <b>KEY_QUERY_VALUE</b> access right.
      * @param {Pointer<KEY_VALUE_ENTRY>} ValueEntries A pointer to an array of [**KEY_VALUE_ENTRY**] structures containing the names of values to retrieve.
      * @param {Integer} EntryCount The number of elements in the <i>ValueEntries</i> array.
@@ -128,7 +132,7 @@ class Registry {
      * If the buffer is too small to hold the information to be retrieved, the function returns <b>STATUS_BUFFER_OVERFLOW</b> and, if the <i>RequiredBufferLength</i> parameter is specified, sets it to the buffer size required.
      * 
      * The forms and significance of <b>NTSTATUS</b> error codes are listed in the Ntstatus.h header file available in the WDK, and are described in the WDK documentation.
-     * @see https://docs.microsoft.com/windows/win32/api//winternl/nf-winternl-ntquerymultiplevaluekey
+     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntquerymultiplevaluekey
      */
     static NtQueryMultipleValueKey(KeyHandle, ValueEntries, EntryCount, ValueBuffer, BufferLength, RequiredBufferLength) {
         KeyHandle := KeyHandle is Win32Handle ? NumGet(KeyHandle, "ptr") : KeyHandle
@@ -161,13 +165,17 @@ class Registry {
     }
 
     /**
-     * Changes the name of the specified registry key.
+     * Changes the name of the specified registry key. (NtRenameKey)
+     * @remarks
+     * This function has no associated header file. The associated import library, Ntdll.lib, is available in the WDK. You can also use the <a href="https://docs.microsoft.com/windows/desktop/DevNotes/-loadlibrary">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/DevNotes/-getprocaddress-">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
+     * 
+     * The <b>NtRenameKey</b> function can be used to rename an entire registry subtree. The caller must have <b>KEY_CREATE_SUB_KEY</b> access to the parent of the specified key and DELETE access to the entire subtree being renamed.
      * @param {HANDLE} KeyHandle A handle to the key to be renamed. The handle must be opened with the KEY_WRITE access right.
      * @param {Pointer<UNICODE_STRING>} NewName A pointer to a UNICODE string that is the new name for the key.
      * @returns {NTSTATUS} Returns an <b>NTSTATUS</b> or error code. An error code of <b>STATUS_ACCESS_DENIED</b> indicates that the caller does not have the necessary access rights to the specified registry key or subkeys.
      * 
      * The forms and significance of <b>NTSTATUS</b> error codes are listed in the Ntstatus.h header file available in the WDK, and are described in the WDK documentation.
-     * @see https://docs.microsoft.com/windows/win32/api//winternl/nf-winternl-ntrenamekey
+     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntrenamekey
      */
     static NtRenameKey(KeyHandle, NewName) {
         KeyHandle := KeyHandle is Win32Handle ? NumGet(KeyHandle, "ptr") : KeyHandle
@@ -178,6 +186,11 @@ class Registry {
 
     /**
      * Sets information for the specified registry key.
+     * @remarks
+     * The associated import library, Ntdll.lib, is available in the 
+     *     WDK. You can also use the <a href="https://docs.microsoft.com/windows/desktop/DevNotes/-loadlibrary">LoadLibrary</a> and 
+     *     <a href="https://docs.microsoft.com/windows/desktop/DevNotes/-getprocaddress-">GetProcAddress</a> functions to dynamically link to 
+     *     Ntdll.dll.
      * @param {HANDLE} KeyHandle A handle to the registry key. The handle must be opened with the <b>KEY_WRITE</b> access 
      *       right.
      * @param {Integer} KeySetInformationClass A <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/ne-wdm-_key_set_information_class">KEY_SET_INFORMATION_CLASS</a> value that 
@@ -193,7 +206,7 @@ class Registry {
      * 
      * The forms and significance of <b>NTSTATUS</b> error codes are listed in the Ntstatus.h 
      *        header file available in the WDK, and are described in the WDK documentation.
-     * @see https://docs.microsoft.com/windows/win32/api//winternl/nf-winternl-ntsetinformationkey
+     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntsetinformationkey
      */
     static NtSetInformationKey(KeyHandle, KeySetInformationClass, KeySetInformation, KeySetInformationLength) {
         KeyHandle := KeyHandle is Win32Handle ? NumGet(KeyHandle, "ptr") : KeyHandle

@@ -4,7 +4,6 @@
 /**
  * Contains information about the MouseKeys accessibility feature.
  * @remarks
- * 
  * An application uses a <b>MOUSEKEYS</b> structure when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-systemparametersinfoa">SystemParametersInfo</a> function with the <i>uiAction</i> parameter set to the <b>SPI_GETMOUSEKEYS</b> or <b>SPI_SETMOUSEKEYS</b> value. When using <b>SPI_GETMOUSEKEYS</b>, an application must specify the <b>cbSize</b> member of the <b>MOUSEKEYS</b> structure; the <b>SystemParametersInfo</b> function fills the remaining members. An application must specify all structure members when using the <b>SPI_SETMOUSEKEYS</b> value.
  * 
  * If you call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-systemparametersinfoa">SystemParametersInfo</a> with the <b>SPI_SETMOUSEKEYS</b> value, the following flags are ignored:
@@ -16,9 +15,7 @@
  * <li><b>MKF_RIGHTBUTTONDOWN</b></li>
  * <li><b>MKF_RIGHTBUTTONSEL</b></li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-mousekeys
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-mousekeys
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

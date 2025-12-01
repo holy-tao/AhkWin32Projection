@@ -3,7 +3,7 @@
 
 /**
  * The AM_WST_STATE enumeration specifies whether WST closed captioning is enabled or disabled.
- * @see https://docs.microsoft.com/windows/win32/api//iwstdec/ne-iwstdec-am_wst_state
+ * @see https://learn.microsoft.com/windows/win32/api/iwstdec/ne-iwstdec-am_wst_state
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

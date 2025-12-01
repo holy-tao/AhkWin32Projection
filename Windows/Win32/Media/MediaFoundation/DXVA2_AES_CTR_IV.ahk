@@ -2,10 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains an initialization vector (IV) for 128-bit Advanced Encryption Standard CTR mode (AES-CTR) block cipher encryption.
+ * Contains an initialization vector (IV) for 128-bit Advanced Encryption Standard CTR mode (AES-CTR) block cipher encryption. (DXVA2_AES_CTR_IV)
  * @remarks
- * 
- * For AES-CTR encyption, the <b>pvPVPState</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_decodebufferdesc">DXVA2_DecodeBufferDesc</a> structure points to a <b>DXVA2_AES_CTR_IV</b> structure.
+ * For AES-CTR encryption, the <b>pvPVPState</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_decodebufferdesc">DXVA2_DecodeBufferDesc</a> structure points to a <b>DXVA2_AES_CTR_IV</b> structure.
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/medfound/d3daes-ctr-iv">D3DAES_CTR_IV</a> structure and the <b>DXVA2_AES_CTR_IV</b> structure are equivalent.
  * 
@@ -15,9 +14,7 @@
  * Example: Suppose the software decoder submits three buffers for a single frame, and that each buffer contains three 128-bit blocks.  For the first buffer, <b>IV</b> can be any value. For the next two buffers, the same value of <b>IV</b>  must be used. The value of  <b>Count</b> starts at 1. For the second buffer, <b>Count</b> equals 4 (1 + 3 blocks from the first submission). For the third buffer, <b>Count</b> equals 7 (4 + 3 blocks from the second submission).
  * 
  * When the <b>D3DCPCAPS_SEQUENTIAL_CTR_IV</b> capability is present, it is recommended to submit data in 128-bit blocks.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxva2api/ns-dxva2api-dxva2_aes_ctr_iv
+ * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_aes_ctr_iv
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

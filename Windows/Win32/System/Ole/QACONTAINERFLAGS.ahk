@@ -3,7 +3,7 @@
 
 /**
  * Indicates ambient properties supplied by the container. It is used in the dwAmbientFlags member of the QACONTAINER structure.
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/ne-ocidl-qacontainerflags
+ * @see https://learn.microsoft.com/windows/win32/api/ocidl/ne-ocidl-qacontainerflags
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

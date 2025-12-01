@@ -13,7 +13,6 @@
 /**
  * The ADS_SEARCHPREF_INFO structure specifies the query preferences.
  * @remarks
- * 
  * To setup a search preference, assign appropriate values to the fields of an  <b>ADS_SEARCHPREF_INFO</b> structure passed to the server. The <b>vValue</b> member of the <b>ADS_SEARCHPREF_INFO</b> structure is an <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-adsvalue">ADSVALUE</a> structure. The following table lists the <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_searchpref_enum">ADS_SEARCHPREF_ENUM</a> values, the corresponding values for the <b>dwType</b> member of the <b>ADSVALUE</b> structure, and the <b>ADSVALUE</b> member that is used for the specified type.
  * 
  * <table>
@@ -124,9 +123,7 @@
  *  
  * 
  * For more information and examples of how to use the <b>ADS_SEARCHPREF_INFO</b> structure, see the discussions of the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectorysearch-setsearchpreference">IDirectorySearch::SetSearchPreference</a> method and the  <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_searchpref_enum">ADS_SEARCHPREF_ENUM</a> enumeration.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/ns-iads-ads_searchpref_info
+ * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_searchpref_info
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

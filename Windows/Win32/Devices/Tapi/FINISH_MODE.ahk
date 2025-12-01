@@ -3,7 +3,7 @@
 
 /**
  * The FINISH_MODE enum is used by applications to indicate the type of call finish required. Operations that the TAPI DLL performs vary depending on whether a call transfer is being completed or a call is being added to a conference.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-finish_mode
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-finish_mode
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

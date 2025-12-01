@@ -3,7 +3,7 @@
 
 /**
  * Used by IQueryAssociations::GetString to define the type of string that is to be returned.
- * @see https://docs.microsoft.com/windows/win32/api//shlwapi/ne-shlwapi-assocstr
+ * @see https://learn.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-assocstr
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -114,7 +114,7 @@ class ASSOCSTR extends Win32Enum{
     static ASSOCSTR_SHELLEXTENSION => 16
 
     /**
-     * <b>Introduced in Internet Explorer 8</b>.. For a verb invoked through COM and the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idroptarget">IDropTarget</a> interface, you can use this flag to retrieve the <b>IDropTarget</b> object's CLSID. This CLSID is registered in the <b>DropTarget</b> subkey. The verb is specified in the <i>pwszExtra</i> parameter in the call to <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-iqueryassociations-getstring">IQueryAssociations::GetString</a>.
+     * <b>Introduced in Internet Explorer 8</b>. For a verb invoked through COM and the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idroptarget">IDropTarget</a> interface, you can use this flag to retrieve the <b>IDropTarget</b> object's CLSID. This CLSID is registered in the <b>DropTarget</b> subkey. The verb is specified in the <i>pwszExtra</i> parameter in the call to <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-iqueryassociations-getstring">IQueryAssociations::GetString</a>.
      * 
      * This type of string will identify the code that will be invoked in the implementation of the verb.
      * @type {Integer (Int32)}
@@ -122,7 +122,7 @@ class ASSOCSTR extends Win32Enum{
     static ASSOCSTR_DROPTARGET => 17
 
     /**
-     * <b>Introduced in Internet Explorer 8</b>.. For a verb invoked through COM and the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iexecutecommand">IExecuteCommand</a> interface, you can use this flag to retrieve the <b>IExecuteCommand</b> object's CLSID. This CLSID is registered in the verb's <b>command</b> subkey as the DelegateExecute entry. The verb is specified in the <i>pwszExtra</i> parameter in the call to <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-iqueryassociations-getstring">IQueryAssociations::GetString</a>.
+     * <b>Introduced in Internet Explorer 8</b>. For a verb invoked through COM and the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iexecutecommand">IExecuteCommand</a> interface, you can use this flag to retrieve the <b>IExecuteCommand</b> object's CLSID. This CLSID is registered in the verb's <b>command</b> subkey as the DelegateExecute entry. The verb is specified in the <i>pwszExtra</i> parameter in the call to <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-iqueryassociations-getstring">IQueryAssociations::GetString</a>.
      * 
      * This type of string will identify the code that will be invoked in the implementation of the verb.
      * @type {Integer (Int32)}
@@ -130,31 +130,31 @@ class ASSOCSTR extends Win32Enum{
     static ASSOCSTR_DELEGATEEXECUTE => 18
 
     /**
-     * <b>Introduced in Windows 8</b>.
+     * A string value of the URI protocol schemes. For example, `http:https:ftp:file:` or `*` indicating all.
      * @type {Integer (Int32)}
      */
     static ASSOCSTR_SUPPORTED_URI_PROTOCOLS => 19
 
     /**
-     * The ProgID provided by the app associated with the file type or URI scheme. This if configured by users in their default program settings.
+     * <b>Introduced in Windows 10</b>. The ProgID provided by the app associated with the file type or URI scheme. This if configured by users in their default program settings.
      * @type {Integer (Int32)}
      */
     static ASSOCSTR_PROGID => 20
 
     /**
-     * The AppUserModelID of the app associated with the file type or URI scheme. This is configured by users in their default program settings.
+     * <b>Introduced in Windows 10</b>. The AppUserModelID of the app associated with the file type or URI scheme. This is configured by users in their default program settings.
      * @type {Integer (Int32)}
      */
     static ASSOCSTR_APPID => 21
 
     /**
-     * The publisher of the app associated with the file type or URI scheme. This is configured by users in their default program settings.
+     * <b>Introduced in Windows 10</b>. The publisher of the app associated with the file type or URI scheme. This is configured by users in their default program settings.
      * @type {Integer (Int32)}
      */
     static ASSOCSTR_APPPUBLISHER => 22
 
     /**
-     * The icon reference of the app associated with the file type or URI scheme. This is configured by users in their default program settings.
+     * <b>Introduced in Windows 10</b>. The icon reference of the app associated with the file type or URI scheme. This is configured by users in their default program settings.
      * @type {Integer (Int32)}
      */
     static ASSOCSTR_APPICONREFERENCE => 23

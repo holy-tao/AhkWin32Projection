@@ -3,7 +3,7 @@
 
 /**
  * The AUDIO_STREAM_CONFIG_CAPS structure describes a range of audio formats. Audio compression and capture filters use this structure to describe the formats they can produce.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-audio_stream_config_caps
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-audio_stream_config_caps
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Defines constants that specify whether the credentials are used for proxy or server user authentication requests.
- * @see https://docs.microsoft.com/windows/win32/api//bits1_5/ne-bits1_5-bg_auth_target
+ * @see https://learn.microsoft.com/windows/win32/api/bits1_5/ne-bits1_5-bg_auth_target
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */

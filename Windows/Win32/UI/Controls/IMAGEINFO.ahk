@@ -4,8 +4,8 @@
 #Include ..\..\Foundation\RECT.ahk
 
 /**
- * Contains information about an image in an image list. This structure is used with the IImageList::GetImageInfo function.
- * @see https://docs.microsoft.com/windows/win32/api//commoncontrols/ns-commoncontrols-imageinfo
+ * Contains information about an image in an image list. This structure is used with the IImageList::GetImageInfo function. (IMAGEINFO)
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-imageinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
