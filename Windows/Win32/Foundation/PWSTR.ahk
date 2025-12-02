@@ -18,4 +18,31 @@ class PWSTR extends Win32Struct
         get => NumGet(this, 0, "ptr")
         set => NumPut("ptr", value, this, 0)
     }
+
+    /**
+     * Creates and returns a `Buffer` containing a copy of `str` in UTF-16 encoding which can be passed
+     * as an argument to functins requiring `PWSTR`s.
+     * @param {String} str the string to encode
+     * @param {Integer} buffLen the length of the buffer to encode the string in. If unset, the returned
+     *      buffer is exactly the number of bytes required to fit `str`. This can be used if the function
+     *      you intend to call will modify the string in-place.
+     * @returns {Buffer} a `Buffer` containing `str` encoded in UTF-16  
+     */
+    static Alloc(str, buffLen?) {
+        if(!(str is String))
+            throw TypeError("Expected a String but got a(n) " . str, , str)
+    
+        if(str == "")
+            str := Chr(0)
+
+        requiredLen := StrPut(str, "UTF-16")
+        buffLen := buffLen ?? requiredLen
+    
+        if(buffLen < requiredLen)
+            throw MemoryError(Format("String requires {1} bytes but {2} were requrested", requiredLen, buffLen))
+    
+        buf := Buffer(buffLen, 0)
+        StrPut(str, buf, "UTF-16")
+        return buf
+    }
 }
