@@ -32,6 +32,9 @@ class PSTR extends Win32Struct
         if(!(str is String))
             throw TypeError("Expected a String but got a(n) " . str, , str)
     
+        if(str == "")
+            str := Chr(0)
+    
         requiredLen := StrPut(str, "CP0")
         buffLen := buffLen ?? requiredLen
     

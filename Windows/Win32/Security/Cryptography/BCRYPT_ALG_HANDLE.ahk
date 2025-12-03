@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\Apis.ahk
 #Include ..\..\..\..\Win32Handle.ahk
 
 /**
@@ -25,10 +24,5 @@ class BCRYPT_ALG_HANDLE extends Win32Handle
     Value {
         get => NumGet(this, 0, "ptr")
         set => NumPut("ptr", value, this, 0)
-    }
-
-    Free(){
-        Cryptography.BCryptCloseAlgorithmProvider(this.Value)
-        this.Value := 0
     }
 }

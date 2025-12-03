@@ -34,7 +34,7 @@ class PWSTR extends Win32Struct
     
         if(str == "")
             str := Chr(0)
-
+    
         requiredLen := StrPut(str, "UTF-16")
         buffLen := buffLen ?? requiredLen
     
