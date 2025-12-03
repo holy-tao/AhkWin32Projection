@@ -10593,7 +10593,6 @@ class Threading {
 
         result := DllCall("KERNEL32.dll\CreatePrivateNamespaceW", "ptr", lpPrivateNamespaceAttributes, lpBoundaryDescriptorMarshal, lpBoundaryDescriptor, "ptr", lpAliasPrefix, "ptr")
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", { Call: (self) => Threading.ClosePrivateNamespace(self.Value) })
         return resultHandle
     }
 
@@ -10613,7 +10612,6 @@ class Threading {
 
         result := DllCall("KERNEL32.dll\OpenPrivateNamespaceW", lpBoundaryDescriptorMarshal, lpBoundaryDescriptor, "ptr", lpAliasPrefix, "ptr")
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", { Call: (self) => Threading.ClosePrivateNamespace(self.Value) })
         return resultHandle
     }
 
@@ -14843,7 +14841,6 @@ class Threading {
         }
 
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", { Call: (self) => Threading.ClosePrivateNamespace(self.Value) })
         return resultHandle
     }
 
@@ -14864,7 +14861,6 @@ class Threading {
 
         result := DllCall("KERNEL32.dll\OpenPrivateNamespaceA", lpBoundaryDescriptorMarshal, lpBoundaryDescriptor, "ptr", lpAliasPrefix, "ptr")
         resultHandle := HANDLE({Value: result}, True)
-        resultHandle.DefineProp("Free", { Call: (self) => Threading.ClosePrivateNamespace(self.Value) })
         return resultHandle
     }
 

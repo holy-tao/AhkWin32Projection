@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\HCERTSTORE.ahk
-#Include .\Apis.ahk
 #Include .\BCRYPT_ALG_HANDLE.ahk
 
 /**
