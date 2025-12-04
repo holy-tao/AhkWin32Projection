@@ -36,7 +36,7 @@ class Guid extends Win32Struct {
      *          are not modified. If a string, a new Buffer is allocated and populated based on the
      *          contents of the string
      */
-    __New(ptrOrGuidString){
+    __New(ptrOrGuidString := 0){
         if(IsInteger(ptrOrGuidString)){
             super.__New(ptrOrGuidString)
             return
