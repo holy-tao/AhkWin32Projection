@@ -1045,7 +1045,7 @@ class Com {
      * @param {IUnknown} pUnkOuter If the cache is to be created as part of an aggregate, pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the aggregate. If not, the parameter should be <b>NULL</b>.
      * @param {Pointer<Guid>} rclsid CLSID used to generate icon labels. This value is typically CLSID_NULL.
      * @param {Pointer<Guid>} iid Reference to the identifier of the interface the caller wants to use to communicate with the cache. This value is typically IID_IOleCache (defined in the OLE headers to equal the interface identifier for <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-iolecache">IOleCache</a>).
-     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer to the supplied cache object.
+     * @returns {Pointer<Pointer<Void>>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer to the supplied cache object.
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-createdatacache
      * @since windows5.0
      */
@@ -1128,7 +1128,7 @@ class Com {
      * @param {IMoniker} pmk A pointer to the object's moniker. See <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>.
      * @param {Integer} grfOpt This parameter is reserved for future use and must be 0.
      * @param {Pointer<Guid>} iidResult The interface identifier to be used to communicate with the object.
-     * @returns {Pointer<Void>} The address of pointer variable that receives the interface pointer requested in <i>iidResult</i>. Upon successful return, *<i>ppvResult</i> contains the requested interface pointer. If an error occurs, *<i>ppvResult</i> is <b>NULL</b>. If the call is successful, the caller is responsible for releasing the pointer with a call to the object's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
+     * @returns {Pointer<Pointer<Void>>} The address of pointer variable that receives the interface pointer requested in <i>iidResult</i>. Upon successful return, *<i>ppvResult</i> contains the requested interface pointer. If an error occurs, *<i>ppvResult</i> is <b>NULL</b>. If the call is successful, the caller is responsible for releasing the pointer with a call to the object's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-bindmoniker
      * @since windows5.0
      */
@@ -1148,7 +1148,7 @@ class Com {
      * @param {PWSTR} pszName The display name of the object to be created.
      * @param {Pointer<BIND_OPTS>} pBindOptions The binding options used to create a moniker that creates the actual object. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-bind_opts">BIND_OPTS</a>. This parameter can be <b>NULL</b>.
      * @param {Pointer<Guid>} riid A reference to the identifier of an interface that is implemented on the object to be created.
-     * @returns {Pointer<Void>} The address of a pointer to the interface specified by <i>riid</i> on the object that is created.
+     * @returns {Pointer<Pointer<Void>>} The address of a pointer to the interface specified by <i>riid</i> on the object that is created.
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-cogetobject
      * @since windows5.0
      */
@@ -2079,7 +2079,7 @@ class Com {
      * For objects running within COM applications, IID_IComThreadingInfo, IID_IContext, and IID_IContextCallback are available.
      * 
      * For objects running within COM+ applications, IID_IObjectContext, IID_IObjectContextActivity IID_IObjectContextInfo, and IID_IContextState are available.
-     * @returns {Pointer<Void>} The address of a pointer to the interface specified by <i>riid</i> on the context object.
+     * @returns {Pointer<Pointer<Void>>} The address of a pointer to the interface specified by <i>riid</i> on the context object.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetobjectcontext
      * @since windows5.0
      */
@@ -2134,7 +2134,7 @@ class Com {
      * @param {Integer} dwClsContext The context in which the executable code is to be run. To enable a remote activation, include CLSCTX_REMOTE_SERVER. For more information on the context values and their use, see the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a> enumeration.
      * @param {Pointer<Void>} pvReserved A pointer to computer on which to instantiate the class object. If this parameter is <b>NULL</b>, the class object is instantiated on the current computer or at the computer specified under the class's <a href="https://docs.microsoft.com/windows/desktop/com/remoteservername">RemoteServerName</a> key, according to the interpretation of the <i>dwClsCtx</i> parameter. See <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-coserverinfo">COSERVERINFO</a>.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface, which will be supplied in _ppv_ on successful return. This interface will be used to communicate with the class object. Typically this value is IID_IClassFactory, although other values such as IID_IClassFactory2 which supports a form of licensing are allowed. All OLE-defined interface IIDs are defined in the OLE header files as IID_interfacename, where interfacename is the name of the interface.
-     * @returns {Pointer<Void>} The address of pointer variable that receives the interface pointer requested in <i>riid</i>. Upon successful return, *<i>ppv</i> contains the requested interface pointer.
+     * @returns {Pointer<Pointer<Void>>} The address of pointer variable that receives the interface pointer requested in <i>riid</i>. Upon successful return, *<i>ppv</i> contains the requested interface pointer.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetclassobject
      * @since windows5.0
      */
@@ -2852,7 +2852,7 @@ class Com {
      * @remarks
      * <b>CoGetCallContext</b> retrieves the context of the current call on the current thread. The <i>riid</i> parameter specifies the interface on the context to be retrieved. This is one of the functions provided to give the server access to any contextual information of the caller.
      * @param {Pointer<Guid>} riid Interface identifier (IID) of the call context that is being requested. If you are using the default call context supported by standard marshaling, IID_IServerSecurity is available. For COM+ applications using role-based security, IID_ISecurityCallContext is available.
-     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppInterface</i> contains the requested interface pointer.
+     * @returns {Pointer<Pointer<Void>>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppInterface</i> contains the requested interface pointer.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetcallcontext
      * @since windows5.0
      */
@@ -3201,7 +3201,7 @@ class Com {
      * @param {IUnknown} pUnkOuter If <b>NULL</b>, indicates that the object is not being created as part of an aggregate. If non-<b>NULL</b>, pointer to the aggregate object's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface (the controlling <b>IUnknown</b>).
      * @param {Integer} dwClsContext Context in which the code that manages the newly created object will run. The values are taken from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a>.
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be used to communicate with the object.
-     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in <i>riid</i>. Upon successful return, *<i>ppv</i> contains the requested interface pointer. Upon failure, *<i>ppv</i> contains <b>NULL</b>.
+     * @returns {Pointer<Pointer<Void>>} Address of pointer variable that receives the interface pointer requested in <i>riid</i>. Upon successful return, *<i>ppv</i> contains the requested interface pointer. Upon failure, *<i>ppv</i> contains <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cocreateinstance
      * @since windows5.0
      */
@@ -3427,7 +3427,7 @@ class Com {
      * This function does not locate cancel objects for asynchronous calls.
      * @param {Integer} dwThreadId The identifier of the thread on which the pending COM call is to be canceled. If this parameter is 0, the call is on the current thread.
      * @param {Pointer<Guid>} iid The globally unique identifier of an interface on the cancel object for the call to be canceled. This argument is usually IID_ICancelMethodCalls.
-     * @returns {Pointer<Void>} Receives the address of a pointer to the interface specified by <i>riid</i>.
+     * @returns {Pointer<Pointer<Void>>} Receives the address of a pointer to the interface specified by <i>riid</i>.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetcancelobject
      * @since windows5.0
      */

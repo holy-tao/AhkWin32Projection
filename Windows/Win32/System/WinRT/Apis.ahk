@@ -113,7 +113,7 @@ class WinRT {
      * @param {Integer} options The registration options.
      * @param {Pointer<Guid>} riid The interface ID of the object for which an agile reference is being obtained.
      * @param {IUnknown} pUnk Pointer to the interface to be encapsulated in an agile reference. It must be the same type as <i>riid</i>. It may be a pointer to an in-process object or a pointer to a proxy of an object.
-     * @returns {IAgileReference} The agile reference for the object. Call the <a href="https://docs.microsoft.com/windows/desktop/WinRT/iagilereference-resolve">Resolve</a> method to localize the object into the apartment in which <b>Resolve</b> is called.
+     * @returns {Pointer<IAgileReference>} The agile reference for the object. Call the <a href="https://docs.microsoft.com/windows/desktop/WinRT/iagilereference-resolve">Resolve</a> method to localize the object into the apartment in which <b>Resolve</b> is called.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-rogetagilereference
      * @since windows8.1
      */
@@ -123,7 +123,7 @@ class WinRT {
             throw OSError(A_LastError || result)
         }
 
-        return IAgileReference(ppAgileReference)
+        return ppAgileReference
     }
 
     /**
@@ -1127,7 +1127,7 @@ class WinRT {
      * @param {HSTRING} activatableClassId Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
      * 
      * The class identifier that is associated with the activatable runtime class.
-     * @returns {IInspectable} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/inspectable/nn-inspectable-iinspectable">IInspectable</a>**</b>
+     * @returns {Pointer<IInspectable>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/inspectable/nn-inspectable-iinspectable">IInspectable</a>**</b>
      * 
      * A pointer to the activated instance of the runtime class.
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-roactivateinstance
@@ -1141,7 +1141,7 @@ class WinRT {
             throw OSError(A_LastError || result)
         }
 
-        return IInspectable(instance)
+        return instance
     }
 
     /**
@@ -1195,7 +1195,7 @@ class WinRT {
      * @param {Pointer<Guid>} iid Type: <b>REFIID</b>
      * 
      * The reference ID of the interface.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * The activation factory.
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-rogetactivationfactory
@@ -1886,7 +1886,7 @@ class WinRT {
      * @remarks
      * The function checks to see if current error info matches the *hrIn* value passed in and, if not, it originates a matching error info.
      * @param {HRESULT} hrIn An HRESULT representing the error for which restricted error info is retrieved.
-     * @returns {IRestrictedErrorInfo} Receives an instance of [IRestrictedErrorInfo](../restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo.md) representing the details of an error, including restricted error information.
+     * @returns {Pointer<IRestrictedErrorInfo>} Receives an instance of [IRestrictedErrorInfo](../restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo.md) representing the details of an error, including restricted error information.
      * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rogetmatchingrestrictederrorinfo
      */
     static RoGetMatchingRestrictedErrorInfo(hrIn) {
@@ -1895,7 +1895,7 @@ class WinRT {
             throw OSError(A_LastError || result)
         }
 
-        return IRestrictedErrorInfo(ppRestrictedErrorInfo)
+        return ppRestrictedErrorInfo
     }
 
     /**
@@ -2028,7 +2028,7 @@ class WinRT {
      * @param {PWSTR} filePath The fully qualified path of the file to encapsulate.
      * @param {Integer} accessMode An <a href="https://docs.microsoft.com/uwp/api/Windows.Storage.FileAccessMode">AccessMode</a> value that specifies the behavior of the <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> that encapsulates the file.
      * @param {Pointer<Guid>} riid A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_RandomAccessStream.
-     * @returns {Pointer<Void>} When this method returns successfully, contains the interface pointer requested in <i>riid</i>, typically the <a href="https://docs.microsoft.com/previous-versions/hh438400(v=vs.85)">IRandomAccessStream</a> that encapsulates the file.
+     * @returns {Pointer<Pointer<Void>>} When this method returns successfully, contains the interface pointer requested in <i>riid</i>, typically the <a href="https://docs.microsoft.com/previous-versions/hh438400(v=vs.85)">IRandomAccessStream</a> that encapsulates the file.
      * @see https://learn.microsoft.com/windows/win32/api/shcore/nf-shcore-createrandomaccessstreamonfile
      * @since windows8.0
      */
@@ -2054,7 +2054,7 @@ class WinRT {
      * @param {IStream} stream The COM stream to encapsulate.
      * @param {Integer} options One of the <a href="https://docs.microsoft.com/windows/desktop/api/shcore/ne-shcore-bsos_options">BSOS_OPTIONS</a> options that specify the behavior of the <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> that encapsulates <i>stream</i>.
      * @param {Pointer<Guid>} riid A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_RandomAccessStream.
-     * @returns {Pointer<Void>} When this method returns successfully, contains the interface pointer to the <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> that encapsulates <i>stream</i> requested in <i>riid</i>.
+     * @returns {Pointer<Pointer<Void>>} When this method returns successfully, contains the interface pointer to the <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> that encapsulates <i>stream</i> requested in <i>riid</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shcore/nf-shcore-createrandomaccessstreamoverstream
      * @since windows8.0
      */
@@ -2073,7 +2073,7 @@ class WinRT {
      * We recommend that you use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-iid_ppv_args">IID_PPV_ARGS</a> macro, defined in Objbase.h, to package the <i>riid</i> and <i>ppv</i> parameters. This macro provides the correct IID based on the interface pointed to by the value in <i>ppv</i>, which eliminates the possibility of a coding error in <i>riid</i> that could lead to unexpected results.
      * @param {IUnknown} randomAccessStream The source <a href="https://docs.microsoft.com/previous-versions/hh438400(v=vs.85)">IRandomAccessStream</a>.
      * @param {Pointer<Guid>} riid A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_IStream. This object encapsulates <i>randomAccessStream</i>.
-     * @returns {Pointer<Void>} When this method returns successfully, contains the interface pointer requested in <i>riid</i>, typically <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
+     * @returns {Pointer<Pointer<Void>>} When this method returns successfully, contains the interface pointer requested in <i>riid</i>, typically <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
      * @see https://learn.microsoft.com/windows/win32/api/shcore/nf-shcore-createstreamoverrandomaccessstream
      * @since windows8.0
      */
@@ -2093,7 +2093,7 @@ class WinRT {
      * 
      * If the call is successful, the  caller can call <b>QueryInterface</b> on the returned <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object to obtain the <a href="https://docs.microsoft.com/windows/desktop/api/corewindow/nn-corewindow-icoreinputinterop">ICoreInputInterop</a> object that created it.
      * @param {Pointer<Guid>} riid Interface ID of the object. Must to be set to the UUID for  <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a>, which is 9F488807-4580-4BE8-BE68-92A9311713BB.
-     * @returns {Pointer<Void>} Pointer to receive the <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object.
+     * @returns {Pointer<Pointer<Void>>} Pointer to receive the <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object.
      * @see https://learn.microsoft.com/windows/win32/api/corewindow/nf-corewindow-createcontrolinput
      */
     static CreateControlInput(riid) {
@@ -2120,7 +2120,7 @@ class WinRT {
      * </ul>
      * @param {IUnknown} pCoreWindow Pointer to the parent <a href="https://msdn.microsoft.com/60b1c8c6-c136-4c4c-8e46-69a792d58ed0">CoreWindow</a> to which the <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object will be attached. This parameter can’t be NULL.
      * @param {Pointer<Guid>} riid Interface ID of the object. Must to be set to the UUID for  <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a>, which is 9F488807-4580-4BE8-BE68-92A9311713BB.
-     * @returns {Pointer<Void>} Pointer to receive the <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object.
+     * @returns {Pointer<Pointer<Void>>} Pointer to receive the <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object.
      * @see https://learn.microsoft.com/windows/win32/api/corewindow/nf-corewindow-createcontrolinputex
      */
     static CreateControlInputEx(pCoreWindow, riid) {

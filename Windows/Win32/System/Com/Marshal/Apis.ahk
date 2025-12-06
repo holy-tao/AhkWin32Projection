@@ -1170,7 +1170,7 @@ class Marshal {
      * The primary caller of this function is COM itself, from within interface proxies or stubs that unmarshal an interface pointer. There are, however, some situations in which you might call <b>CoUnmarshalInterface</b>. For example, if you are implementing a stub, your implementation would call <b>CoUnmarshalInterface</b> when the stub receives an interface pointer as a parameter in a method call.
      * @param {IStream} pStm A pointer to the stream from which the interface is to be unmarshaled.
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be unmarshaled. For <b>IID_NULL</b>, the returned interface is the one defined by the stream, objref.iid.
-     * @returns {Pointer<Void>} The address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppv</i> contains the requested interface pointer for the unmarshaled interface.
+     * @returns {Pointer<Pointer<Void>>} The address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppv</i> contains the requested interface pointer for the unmarshaled interface.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-counmarshalinterface
      * @since windows5.0
      */

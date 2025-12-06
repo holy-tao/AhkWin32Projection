@@ -50,10 +50,10 @@ class Direct3D11on12 {
      * @param {Integer} NodeMask Type: <b>UINT</b>
      * 
      * Which node of the Direct3D 12 device to use. Only 1 bit may be set.
-     * @param {Pointer<ID3D11Device>} ppDevice Type: <b>ID3D11Device**</b>
+     * @param {Pointer<Pointer<ID3D11Device>>} ppDevice Type: <b>ID3D11Device**</b>
      * 
      * Pointer to the returned <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11device">ID3D11Device</a>. May be NULL.
-     * @param {Pointer<ID3D11DeviceContext>} ppImmediateContext Type: <b>ID3D11DeviceContext**</b>
+     * @param {Pointer<Pointer<ID3D11DeviceContext>>} ppImmediateContext Type: <b>ID3D11DeviceContext**</b>
      * 
      * A pointer to the returned <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>. May be NULL.
      * @param {Pointer<Integer>} pChosenFeatureLevel Type: <b>D3D_FEATURE_LEVEL*</b>

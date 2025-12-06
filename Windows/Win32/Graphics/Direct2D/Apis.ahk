@@ -372,7 +372,7 @@ class Direct2D {
      * @param {Pointer<D2D1_FACTORY_OPTIONS>} pFactoryOptions Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_factory_options">D2D1_FACTORY_OPTIONS</a>*</b>
      * 
      * The level of detail provided to the debugging layer.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the address to a pointer to the new factory.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-d2d1createfactory

@@ -10806,7 +10806,7 @@ class MediaFoundation {
      * </td>
      * </tr>
      * </table>
-     * @returns {IOPMVideoOutput} Receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/opmapi/nn-opmapi-iopmvideooutput">IOPMVideoOutput</a> pointer. The caller must release this  pointer.
+     * @returns {Pointer<IOPMVideoOutput>} Receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/opmapi/nn-opmapi-iopmvideooutput">IOPMVideoOutput</a> pointer. The caller must release this  pointer.
      * @see https://learn.microsoft.com/windows/win32/api/opmapi/nf-opmapi-opmgetvideooutputfortarget
      * @since windows6.0.6000
      */
@@ -10816,7 +10816,7 @@ class MediaFoundation {
             throw OSError(A_LastError || result)
         }
 
-        return IOPMVideoOutput(ppOPMVideoOutput)
+        return ppOPMVideoOutput
     }
 
     /**
@@ -13041,7 +13041,7 @@ class MediaFoundation {
      * <div class="alert"><b>Note</b>  When this API is used with a <a href="https://docs.microsoft.com/previous-versions/ff548567(v=vs.85)">KSCATEGORY_SENSOR_CAMERA</a> or <a href="https://docs.microsoft.com/previous-versions/ff548567(v=vs.85)">KSCATEGORY_VIDEO_CAMERA</a> symbolic name, the resulting <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensorgroup">IMFSensorGroup</a> object will only contain one sensor device but behaves as a virtualized sensor group.  The caller  may use the resulting object in the same manner as a sensor group obtained from a <a href="https://docs.microsoft.com/previous-versions/ff548567(v=vs.85)">KSCATEGORY_SENSOR_GROUP</a>.</div>
      * <div> </div>
      * @param {PWSTR} SensorGroupSymbolicLink The symbolic link for the new <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensorgroup">IMFSensorGroup</a>. This name can be obtained through device enumeration APIs such as <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdigetclassdevsw">SetupDiGetClassDevs</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfenumdevicesources">MFEnumDeviceSources</a> or by getting the  <a href="https://docs.microsoft.com/uwp/api/Windows.Devices.Enumeration.DeviceInformation">Id</a> property of the <a href="https://docs.microsoft.com/uwp/api/Windows.Devices.Enumeration.DeviceInformation">DeviceInformation</a> class.
-     * @returns {IMFSensorGroup} The symbolic link for the new <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensorgroup">IMFSensorGroup</a>.
+     * @returns {Pointer<IMFSensorGroup>} The symbolic link for the new <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensorgroup">IMFSensorGroup</a>.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatesensorgroup
      * @since windows10.0.14393
      */
@@ -13053,7 +13053,7 @@ class MediaFoundation {
             throw OSError(A_LastError || result)
         }
 
-        return IMFSensorGroup(ppSensorGroup)
+        return ppSensorGroup
     }
 
     /**
@@ -13061,7 +13061,7 @@ class MediaFoundation {
      * @param {Integer} StreamId The identifier for the created stream. This is the same as setting the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-devicestream-stream-id">MF_DEVICESTREAM_STREAM_ID</a> attribute. This value is used if <i>pAttributes</i> is null.
      * @param {IMFAttributes} pAttributes The attribute store for the created stream.
      * @param {IMFCollection} pMediaTypeCollection The collection of <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> objects specifying the media types supported by the stream.
-     * @returns {IMFSensorStream} The created stream interface.
+     * @returns {Pointer<IMFSensorStream>} The created stream interface.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatesensorstream
      * @since windows10.0.15063
      */
@@ -13071,7 +13071,7 @@ class MediaFoundation {
             throw OSError(A_LastError || result)
         }
 
-        return IMFSensorStream(ppStream)
+        return ppStream
     }
 
     /**
@@ -13079,7 +13079,7 @@ class MediaFoundation {
      * @param {Pointer<Guid>} ProfileType The profile type to create.
      * @param {Integer} ProfileIndex The profile index.
      * @param {PWSTR} Constraints Any optional constraints to be put on the profile.
-     * @returns {IMFSensorProfile} On success, returns a double pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensorprofile">IMFSensorProfile</a> containing the sensor profile.
+     * @returns {Pointer<IMFSensorProfile>} On success, returns a double pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensorprofile">IMFSensorProfile</a> containing the sensor profile.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatesensorprofile
      * @since windows10.0.17134
      */
@@ -13091,12 +13091,12 @@ class MediaFoundation {
             throw OSError(A_LastError || result)
         }
 
-        return IMFSensorProfile(ppProfile)
+        return ppProfile
     }
 
     /**
      * Creates a sensor profile collection.
-     * @returns {IMFSensorProfileCollection} On success, points to an <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensorprofilecollection">IMFSensorProfileCollection</a> containing the sensor profile collection.
+     * @returns {Pointer<IMFSensorProfileCollection>} On success, points to an <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensorprofilecollection">IMFSensorProfileCollection</a> containing the sensor profile collection.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatesensorprofilecollection
      * @since windows10.0.15063
      */
@@ -13106,13 +13106,13 @@ class MediaFoundation {
             throw OSError(A_LastError || result)
         }
 
-        return IMFSensorProfileCollection(ppSensorProfile)
+        return ppSensorProfile
     }
 
     /**
      * Initializes a new instance of the IMFSensorActivityMonitor interface.
      * @param {IMFSensorActivitiesReportCallback} pCallback An implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensoractivitiesreportcallback">IMFSensorActivitiesReportCallback</a> interface through which the system delivers <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensoractivitiesreport">IMFSensorActivitiesReport</a> objects.
-     * @returns {IMFSensorActivityMonitor} A pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensoractivitymonitor">IMFSensorActivityMonitor</a>.
+     * @returns {Pointer<IMFSensorActivityMonitor>} A pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensoractivitymonitor">IMFSensorActivityMonitor</a>.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatesensoractivitymonitor
      */
     static MFCreateSensorActivityMonitor(pCallback) {
@@ -13121,12 +13121,12 @@ class MediaFoundation {
             throw OSError(A_LastError || result)
         }
 
-        return IMFSensorActivityMonitor(ppActivityMonitor)
+        return ppActivityMonitor
     }
 
     /**
      * 
-     * @returns {IMFExtendedCameraIntrinsics} 
+     * @returns {Pointer<IMFExtendedCameraIntrinsics>} 
      */
     static MFCreateExtendedCameraIntrinsics() {
         result := DllCall("MFCORE.dll\MFCreateExtendedCameraIntrinsics", "ptr*", &ppExtendedCameraIntrinsics := 0, "int")
@@ -13134,13 +13134,13 @@ class MediaFoundation {
             throw OSError(A_LastError || result)
         }
 
-        return IMFExtendedCameraIntrinsics(ppExtendedCameraIntrinsics)
+        return ppExtendedCameraIntrinsics
     }
 
     /**
      * 
      * @param {Integer} distortionModelType 
-     * @returns {IMFExtendedCameraIntrinsicModel} 
+     * @returns {Pointer<IMFExtendedCameraIntrinsicModel>} 
      */
     static MFCreateExtendedCameraIntrinsicModel(distortionModelType) {
         result := DllCall("MFCORE.dll\MFCreateExtendedCameraIntrinsicModel", "int", distortionModelType, "ptr*", &ppExtendedCameraIntrinsicModel := 0, "int")
@@ -13148,14 +13148,14 @@ class MediaFoundation {
             throw OSError(A_LastError || result)
         }
 
-        return IMFExtendedCameraIntrinsicModel(ppExtendedCameraIntrinsicModel)
+        return ppExtendedCameraIntrinsicModel
     }
 
     /**
      * Creates a new instance of the **IMFRelativePanelWatcher** interface
      * @param {PWSTR} videoDeviceId A string containing the symbolic link name of the video capture device.
      * @param {PWSTR} displayMonitorDeviceId A string containing the symbolic link name of the display monitor device.
-     * @returns {IMFRelativePanelWatcher} A pointer to an **IMFRelativePanelWatcher** interface representing the watcher.
+     * @returns {Pointer<IMFRelativePanelWatcher>} A pointer to an **IMFRelativePanelWatcher** interface representing the watcher.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreaterelativepanelwatcher
      * @since windows10.0.19041
      */
@@ -13168,14 +13168,14 @@ class MediaFoundation {
             throw OSError(A_LastError || result)
         }
 
-        return IMFRelativePanelWatcher(ppRelativePanelWatcher)
+        return ppRelativePanelWatcher
     }
 
     /**
      * Creates a new instance of IMFCameraOcclusionStateMonitor which allows an application to receive notifications when the camera occlusion state changes.
      * @param {PWSTR} symbolicLink The symbolic link name of the video device for which occlusion state will be monitored. This value is enumerated through the standard Windows enumeration APIs such as [MFEnumDeviceSources](../mfidl/nf-mfidl-mfenumdevicesources.md) and [DeviceInformation](/uwp/api/Windows.Devices.Enumeration.DeviceInformation)
      * @param {IMFCameraOcclusionStateReportCallback} callback The [IMFCameraOcclusionStateReportCallback](nn-mfidl-imfcameraocclusionstatereportcallback.md) implemented by the client to receive camera occlusion state change notifications.
-     * @returns {IMFCameraOcclusionStateMonitor} An output parameter that receives the [IMFCameraOcclusionStateMonitor](nf-mfidl-mfcreatecameraocclusionstatemonitor.md).
+     * @returns {Pointer<IMFCameraOcclusionStateMonitor>} An output parameter that receives the [IMFCameraOcclusionStateMonitor](nf-mfidl-mfcreatecameraocclusionstatemonitor.md).
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatecameraocclusionstatemonitor
      */
     static MFCreateCameraOcclusionStateMonitor(symbolicLink, callback) {
@@ -13186,7 +13186,7 @@ class MediaFoundation {
             throw OSError(A_LastError || result)
         }
 
-        return IMFCameraOcclusionStateMonitor(occlusionStateMonitor)
+        return occlusionStateMonitor
     }
 
     /**
@@ -13195,7 +13195,7 @@ class MediaFoundation {
      * The symbolic link can be obtained from an   [MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE_VIDCAP_SYMBOLIC_LINK](/windows/win32/medfound/mf-devsource-attribute-source-type-vidcap-symbolic-link) attribute returned by [MFEnumDeviceSources](nf-mfidl-mfenumdevicesources.md) or obtained by accessing the [DeviceInformation.Id](/uwp/api/windows.devices.enumeration.deviceinformation.id) property obtained through the [Windows.Devices.Enumeration](/uwp/api/windows.devices.enumeration) APIs.
      * @param {PWSTR} symbolicLink String symbolic link name of the video capture device that is active.
      * @param {IMFCameraControlNotify} callback Pointer to an object that implements the [IMFCameraControlNotify](nn-mfidl-imfcameracontrolnotify.md) callback interface.
-     * @returns {IMFCameraControlMonitor} Receives a pointer to the created **IMFCameraControlMonitor** object.
+     * @returns {Pointer<IMFCameraControlMonitor>} Receives a pointer to the created **IMFCameraControlMonitor** object.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-mfcreatecameracontrolmonitor
      */
     static MFCreateCameraControlMonitor(symbolicLink, callback) {
@@ -13206,7 +13206,7 @@ class MediaFoundation {
             throw OSError(A_LastError || result)
         }
 
-        return IMFCameraControlMonitor(ppCameraControlMonitor)
+        return ppCameraControlMonitor
     }
 
     /**
@@ -15134,7 +15134,7 @@ class MediaFoundation {
      * @param {IUnknown} punkDevice 
      * @param {IMFMediaType} pMediaType 
      * @param {Integer} uSubresource 
-     * @returns {IMFMediaBuffer} 
+     * @returns {Pointer<IMFMediaBuffer>} 
      */
     static MFCreateDXGICrossAdapterBuffer(riid, punkDevice, pMediaType, uSubresource) {
         result := DllCall("MFPlat.DLL\MFCreateDXGICrossAdapterBuffer", "ptr", riid, "ptr", punkDevice, "ptr", pMediaType, "uint", uSubresource, "ptr*", &ppBuffer := 0, "int")
@@ -15142,7 +15142,7 @@ class MediaFoundation {
             throw OSError(A_LastError || result)
         }
 
-        return IMFMediaBuffer(ppBuffer)
+        return ppBuffer
     }
 
     /**
@@ -15426,7 +15426,7 @@ class MediaFoundation {
      * 
      * For a complete list of all the defined attribute GUIDs in Media Foundation, see <a href="https://docs.microsoft.com/windows/desktop/medfound/media-foundation-attributes">Media Foundation Attributes</a>.
      * @param {Integer} cInitialSize The initial number of elements allocated for the attribute store. The attribute store grows as needed.
-     * @returns {IMFAttributes} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface. The caller must release the interface.
+     * @returns {Pointer<IMFAttributes>} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface. The caller must release the interface.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcreateattributes
      * @since windows6.0.6000
      */
@@ -15436,7 +15436,7 @@ class MediaFoundation {
             throw OSError(A_LastError || result)
         }
 
-        return IMFAttributes(ppMFAttributes)
+        return ppMFAttributes
     }
 
     /**
@@ -16556,7 +16556,7 @@ class MediaFoundation {
     /**
      * Creates an IMFAttributes describing the content of multiplexed substreams.
      * @param {IMFCollection} pAttributesToMux The collection containing the  <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> for each multiplexed substream.
-     * @returns {IMFAttributes} The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> containing the attributes for the multiplexed substreams.
+     * @returns {Pointer<IMFAttributes>} The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> containing the attributes for the multiplexed substreams.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcreatemuxstreamattributes
      * @since windows10.0.15063
      */
@@ -16566,13 +16566,13 @@ class MediaFoundation {
             throw OSError(A_LastError || result)
         }
 
-        return IMFAttributes(ppMuxAttribs)
+        return ppMuxAttribs
     }
 
     /**
      * Creates an IMFMediaType describing the media types of multiplexed substreams.
      * @param {IMFCollection} pMediaTypesToMux The collection containing the  <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> for each multiplexed substream.
-     * @returns {IMFMediaType} The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> containing the media types for the multiplexed substreams.
+     * @returns {Pointer<IMFMediaType>} The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> containing the media types for the multiplexed substreams.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcreatemuxstreammediatype
      * @since windows10.0.15063
      */
@@ -16582,13 +16582,13 @@ class MediaFoundation {
             throw OSError(A_LastError || result)
         }
 
-        return IMFMediaType(ppMuxMediaType)
+        return ppMuxMediaType
     }
 
     /**
      * Creates an IMFSample containing the samples of multiplexed substreams.
      * @param {IMFCollection} pSamplesToMux The collection containing the  <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> for each multiplexed substream.
-     * @returns {IMFSample} The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> containing the samples for the multiplexed substreams.
+     * @returns {Pointer<IMFSample>} The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> containing the samples for the multiplexed substreams.
      * @see https://learn.microsoft.com/windows/win32/api/mfapi/nf-mfapi-mfcreatemuxstreamsample
      * @since windows10.0.15063
      */
@@ -16598,7 +16598,7 @@ class MediaFoundation {
             throw OSError(A_LastError || result)
         }
 
-        return IMFSample(ppMuxSample)
+        return ppMuxSample
     }
 
     /**
@@ -18446,7 +18446,7 @@ class MediaFoundation {
      * @param {PWSTR} sourceId The unique CLSID of the custom media source to be activated for this virtual camera.  The string must be in the “{CLSID}” format.  This parameter must not be nullptr.
      * @param {Pointer<Guid>} categories 
      * @param {Integer} categoryCount The number of categories provided in the *categories* parameter.  If *categories* is nullptr, *categoryCount* must be 0.
-     * @returns {IMFVirtualCamera} Output parameter that receives the newly created [IMFVirtualCamera](nn-mfvirtualcamera-imfvirtualcamera.md).  This parameter must not be nullptr.
+     * @returns {Pointer<IMFVirtualCamera>} Output parameter that receives the newly created [IMFVirtualCamera](nn-mfvirtualcamera-imfvirtualcamera.md).  This parameter must not be nullptr.
      * @see https://learn.microsoft.com/windows/win32/api/mfvirtualcamera/nf-mfvirtualcamera-mfcreatevirtualcamera
      */
     static MFCreateVirtualCamera(type, lifetime, access, friendlyName, sourceId, categories, categoryCount) {
@@ -18458,7 +18458,7 @@ class MediaFoundation {
             throw OSError(A_LastError || result)
         }
 
-        return IMFVirtualCamera(virtualCamera)
+        return virtualCamera
     }
 
     /**

@@ -5827,7 +5827,7 @@ class Fax {
      * @param {HINSTANCE} hinst 
      * @param {Integer} dwVer 
      * @param {IUnknown} punkOuter 
-     * @returns {IStillImageW} 
+     * @returns {Pointer<IStillImageW>} 
      */
     static StiCreateInstanceW(hinst, dwVer, punkOuter) {
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
@@ -5837,7 +5837,7 @@ class Fax {
             throw OSError(A_LastError || result)
         }
 
-        return IStillImageW(ppSti)
+        return ppSti
     }
 
 ;@endregion Methods

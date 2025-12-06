@@ -1580,7 +1580,7 @@ class ExtensibleAuthenticationProtocol {
      * @param {EAP_METHOD_TYPE} eapMethodType Refers to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that is referred to in the XML document.
      * @param {Integer} dwSizeOfConfigIn The size, in bytes, of the configuration BLOB.
      * @param {Pointer<Integer>} pConfigIn A pointer to a buffer that  contains the configuration BLOB to convert.  The buffer is of size <i>dwSizeOfConfigIn</i>.
-     * @param {Pointer<IXMLDOMDocument2>} ppConfigDoc A pointer to a pointer to an XML document that  contains the converted configuration. If the EAP method does not support
+     * @param {Pointer<Pointer<IXMLDOMDocument2>>} ppConfigDoc A pointer to a pointer to an XML document that  contains the converted configuration. If the EAP method does not support
      *                 the [EapHostConfig Schema](/windows/win32/eaphost/eaphostconfigschema-schema) element.
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure that contains any errors raised by EAPHost during  the execution of this function call. After consuming the error data, this memory must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreeerrormemory">EapHostPeerFreeErrorMemory</a>.
      * @returns {Integer} 

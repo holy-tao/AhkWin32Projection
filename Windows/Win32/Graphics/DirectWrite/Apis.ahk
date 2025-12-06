@@ -87,7 +87,7 @@ class DirectWrite {
      * @param {Pointer<Guid>} iid Type: <b>REFIID</b>
      * 
      * A GUID value that identifies the DirectWrite factory interface, such as __uuidof(<a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefactory">IDWriteFactory</a>).
-     * @returns {Pointer<Void>} Type: <b>IUnknown**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>IUnknown**</b>
      * 
      * An address of a pointer to the newly created DirectWrite factory object.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-dwritecreatefactory

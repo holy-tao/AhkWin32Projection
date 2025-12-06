@@ -3366,7 +3366,7 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the desired interface ID.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> or a related interface.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shgetpropertystorefromparsingname
@@ -3702,7 +3702,7 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the property store object to retrieve through <i>ppv</i>. This is typically IID_IPropertyStore.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shgetpropertystoreforwindow

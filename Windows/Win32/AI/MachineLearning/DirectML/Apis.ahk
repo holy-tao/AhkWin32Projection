@@ -56,7 +56,7 @@ class DirectML {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the globally unique identifier (GUID) of the interface that you wish to be returned in <i>device</i>. This is expected to be the GUID of [IDMLDevice](/windows/win32/api/directml/nn-directml-idmldevice).
-     * @returns {Pointer<Void>} Type: \_COM\_Outptr\_opt\_ <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: \_COM\_Outptr\_opt\_ <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the device. This is the address of a pointer to an [IDMLDevice](/windows/win32/api/directml/nn-directml-idmldevice), representing  the DirectML device created.
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-dmlcreatedevice
@@ -95,7 +95,7 @@ class DirectML {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the globally unique identifier (GUID) of the interface that you wish to be returned in <i>device</i>. This is expected to be the GUID of [IDMLDevice](/windows/win32/api/directml/nn-directml-idmldevice).
-     * @returns {Pointer<Void>} Type: \_COM\_Outptr\_opt\_ <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: \_COM\_Outptr\_opt\_ <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the device. This is the address of a pointer to an [IDMLDevice](/windows/win32/api/directml/nn-directml-idmldevice), representing  the DirectML device created.
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-dmlcreatedevice1

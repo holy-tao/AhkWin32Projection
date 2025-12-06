@@ -657,7 +657,7 @@ class ClrHosting {
      * 
      * @param {Pointer<Guid>} clsid 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     static CLRCreateInstance(clsid, riid) {
         result := DllCall("MSCorEE.dll\CLRCreateInstance", "ptr", clsid, "ptr", riid, "ptr*", &ppInterface := 0, "int")
