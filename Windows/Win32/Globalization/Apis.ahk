@@ -21974,43 +21974,43 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} string 
+     * @param {Pointer<Integer>} string_R 
      * @param {Pointer<Integer>} matchSet 
      * @returns {Pointer<Integer>} 
      */
-    static u_strpbrk(string, matchSet) {
-        stringMarshal := string is VarRef ? "ushort*" : "ptr"
+    static u_strpbrk(string_R, matchSet) {
+        string_RMarshal := string_R is VarRef ? "ushort*" : "ptr"
         matchSetMarshal := matchSet is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("icuuc.dll\u_strpbrk", stringMarshal, string, matchSetMarshal, matchSet, "CDecl ptr")
+        result := DllCall("icuuc.dll\u_strpbrk", string_RMarshal, string_R, matchSetMarshal, matchSet, "CDecl ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} string 
+     * @param {Pointer<Integer>} string_R 
      * @param {Pointer<Integer>} matchSet 
      * @returns {Integer} 
      */
-    static u_strcspn(string, matchSet) {
-        stringMarshal := string is VarRef ? "ushort*" : "ptr"
+    static u_strcspn(string_R, matchSet) {
+        string_RMarshal := string_R is VarRef ? "ushort*" : "ptr"
         matchSetMarshal := matchSet is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("icuuc.dll\u_strcspn", stringMarshal, string, matchSetMarshal, matchSet, "CDecl int")
+        result := DllCall("icuuc.dll\u_strcspn", string_RMarshal, string_R, matchSetMarshal, matchSet, "CDecl int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} string 
+     * @param {Pointer<Integer>} string_R 
      * @param {Pointer<Integer>} matchSet 
      * @returns {Integer} 
      */
-    static u_strspn(string, matchSet) {
-        stringMarshal := string is VarRef ? "ushort*" : "ptr"
+    static u_strspn(string_R, matchSet) {
+        string_RMarshal := string_R is VarRef ? "ushort*" : "ptr"
         matchSetMarshal := matchSet is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("icuuc.dll\u_strspn", stringMarshal, string, matchSetMarshal, matchSet, "CDecl int")
+        result := DllCall("icuuc.dll\u_strspn", string_RMarshal, string_R, matchSetMarshal, matchSet, "CDecl int")
         return result
     }
 

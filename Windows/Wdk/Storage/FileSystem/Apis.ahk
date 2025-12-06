@@ -4885,13 +4885,13 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<UNICODE_STRING>} String 
+     * @param {Pointer<UNICODE_STRING>} String_R 
      * @returns {NTSTATUS} 
      */
-    static RtlValidateUnicodeString(String) {
+    static RtlValidateUnicodeString(String_R) {
         static Flags := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("ntdll.dll\RtlValidateUnicodeString", "uint", Flags, "ptr", String, "int")
+        result := DllCall("ntdll.dll\RtlValidateUnicodeString", "uint", Flags, "ptr", String_R, "int")
         return result
     }
 

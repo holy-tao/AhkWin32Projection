@@ -2934,18 +2934,18 @@ class RemoteManagement {
      * @param {WSMAN_SESSION_HANDLE} session Specifies the session handle returned by a  <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreatesession">WSManCreateSession</a> call.  This parameter cannot be <b>NULL</b>.
      * @param {Integer} option Specifies the option to get. Not all session options can be retrieved. The values for the options are defined in the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ne-wsman-wsmansessionoption">WSManSessionOption</a> enumeration.
      * @param {Integer} stringLength Specifies the length of the storage location for <i>string</i> parameter.
-     * @param {PWSTR} string A pointer to the storage location for the value of the specified session option.
+     * @param {PWSTR} string_R 
      * @param {Pointer<Integer>} stringLengthUsed Specifies the length of the string returned in the <i>string</i> parameter.
      * @returns {Integer} This method returns zero on success. Otherwise, this method returns an error code.
      * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmangetsessionoptionasstring
      * @since windows6.1
      */
-    static WSManGetSessionOptionAsString(session, option, stringLength, string, stringLengthUsed) {
-        string := string is String ? StrPtr(string) : string
+    static WSManGetSessionOptionAsString(session, option, stringLength, string_R, stringLengthUsed) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
 
         stringLengthUsedMarshal := stringLengthUsed is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WsmSvc.dll\WSManGetSessionOptionAsString", "ptr", session, "int", option, "uint", stringLength, "ptr", string, stringLengthUsedMarshal, stringLengthUsed, "uint")
+        result := DllCall("WsmSvc.dll\WSManGetSessionOptionAsString", "ptr", session, "int", option, "uint", stringLength, "ptr", string_R, stringLengthUsedMarshal, stringLengthUsed, "uint")
         return result
     }
 

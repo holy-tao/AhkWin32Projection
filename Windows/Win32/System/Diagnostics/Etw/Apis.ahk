@@ -7094,7 +7094,7 @@ class Etw {
      * 
      * See [EVENT_DESCRIPTOR](nf-evntprov-eventdatadesccreate.md) for details about the
      * event keyword.
-     * @param {PWSTR} String NUL-terminated string to write as the event data.
+     * @param {PWSTR} String_R 
      * @returns {Integer} Returns **ERROR_SUCCESS** if successful or an error code. Possible error codes
      * include the following:
      * 
@@ -7119,11 +7119,11 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntprov/nf-evntprov-eventwritestring
      * @since windows6.0.6000
      */
-    static EventWriteString(RegHandle, Level, Keyword, String) {
+    static EventWriteString(RegHandle, Level, Keyword, String_R) {
         RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
-        String := String is String ? StrPtr(String) : String
+        String_R := String_R is String ? StrPtr(String_R) : String_R
 
-        result := DllCall("ADVAPI32.dll\EventWriteString", "ptr", RegHandle, "char", Level, "uint", Keyword, "ptr", String, "uint")
+        result := DllCall("ADVAPI32.dll\EventWriteString", "ptr", RegHandle, "char", Level, "uint", Keyword, "ptr", String_R, "uint")
         return result
     }
 

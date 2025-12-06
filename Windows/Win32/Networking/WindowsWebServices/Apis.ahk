@@ -9029,8 +9029,7 @@ class WindowsWebServices {
      * This function requires that the string be in the language specified by the LANGID of the 
      *                 error object.  You can retrieve this LANGID value by calling the  <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgeterrorproperty">WsGetErrorProperty</a> function with the WS_ERROR_PROPERTY_LANGID value of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_error_property_id">WS_ERROR_PROPERTY_ID</a> enumeration.
      * @param {Pointer<WS_ERROR>} error Pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> structure representing the error object to which to add the string.
-     * @param {Pointer<WS_STRING>} string The string to add.  The error object will
-     *                     make a copy of the string.
+     * @param {Pointer<WS_STRING>} string_R 
      * @returns {HRESULT} If the function succeeds, it returns NO_ERROR; otherwise, it returns an HRESULT error code.
      * 
      * <table>
@@ -9075,10 +9074,10 @@ class WindowsWebServices {
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wsadderrorstring
      * @since windows6.1
      */
-    static WsAddErrorString(error, string) {
+    static WsAddErrorString(error, string_R) {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("webservices.dll\WsAddErrorString", errorMarshal, error, "ptr", string, "int")
+        result := DllCall("webservices.dll\WsAddErrorString", errorMarshal, error, "ptr", string_R, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -9100,10 +9099,7 @@ class WindowsWebServices {
      *                 
      * 
      * The number of errors can be retrieved using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_error_property_id">WS_ERROR_PROPERTY_STRING_COUNT</a>.
-     * @param {Pointer<WS_STRING>} string The returned string.  The string is valid until <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreseterror">WsResetError</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreeerror">WsFreeError</a> is called.
-     *                 
-     * 
-     * The string is not zero terminated.
+     * @param {Pointer<WS_STRING>} string_R 
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -9137,10 +9133,10 @@ class WindowsWebServices {
      * @see https://learn.microsoft.com/windows/win32/api/webservices/nf-webservices-wsgeterrorstring
      * @since windows6.1
      */
-    static WsGetErrorString(error, index, string) {
+    static WsGetErrorString(error, index, string_R) {
         errorMarshal := error is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("webservices.dll\WsGetErrorString", errorMarshal, error, "uint", index, "ptr", string, "int")
+        result := DllCall("webservices.dll\WsGetErrorString", errorMarshal, error, "uint", index, "ptr", string_R, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }

@@ -1268,7 +1268,7 @@ class Snmp {
      * 
      * You must always precede the object identifier with a period (.) to obtain the correct system group (for example, ".1.3.6.1.2.1.1"). If an application passes the variable "1.3.6.1.2.1.1", 
      * <b>SnmpMgrStrToOid</b> cannot interpret the object identifier correctly.
-     * @param {PSTR} string Pointer to a null-terminated string to convert.
+     * @param {PSTR} string_R 
      * @param {Pointer<AsnObjectIdentifier>} oid Pointer to an object identifier variable to receive the converted value.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -1276,10 +1276,10 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/mgmtapi/nf-mgmtapi-snmpmgrstrtooid
      * @since windows5.0
      */
-    static SnmpMgrStrToOid(string, oid) {
-        string := string is String ? StrPtr(string) : string
+    static SnmpMgrStrToOid(string_R, oid) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
 
-        result := DllCall("mgmtapi.dll\SnmpMgrStrToOid", "ptr", string, "ptr", oid, "int")
+        result := DllCall("mgmtapi.dll\SnmpMgrStrToOid", "ptr", string_R, "ptr", oid, "int")
         return result
     }
 
@@ -1289,17 +1289,17 @@ class Snmp {
      * If the function succeeds, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilmemfree">SnmpUtilMemFree</a> function to free the memory allocated for the converted string.
      * @param {Pointer<AsnObjectIdentifier>} oid Pointer to an object identifier variable to convert.
-     * @param {Pointer<PSTR>} string Pointer to a null-terminated string to receive the converted value.
+     * @param {Pointer<PSTR>} string_R 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/mgmtapi/nf-mgmtapi-snmpmgroidtostr
      * @since windows5.0
      */
-    static SnmpMgrOidToStr(oid, string) {
-        stringMarshal := string is VarRef ? "ptr*" : "ptr"
+    static SnmpMgrOidToStr(oid, string_R) {
+        string_RMarshal := string_R is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("mgmtapi.dll\SnmpMgrOidToStr", "ptr", oid, stringMarshal, string, "int")
+        result := DllCall("mgmtapi.dll\SnmpMgrOidToStr", "ptr", oid, string_RMarshal, string_R, "int")
         return result
     }
 
@@ -3823,47 +3823,7 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function. A WinSNMP application can change the setting of the entity and context translation mode with a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpsettranslatemode">SnmpSetTranslateMode</a> function.
      * @param {Pointer} session Handle to the WinSNMP session.
-     * @param {PSTR} string Pointer to a null-terminated string that identifies the SNMP management entity of interest. The current setting of the entity and context translation mode determines the manner in which 
-     * <b>SnmpStrToEntity</b> interprets the input string as follows. 
-     * 
-     * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Entity/Context Translation Mode</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="SNMPAPI_TRANSLATED"></a><a id="snmpapi_translated"></a><dl>
-     * <dt><b>SNMPAPI_TRANSLATED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The implementation interprets the <i>string</i> parameter as a user-friendly name. The implementation translates the name into its SNMPv1 or SNMPv2C components using the implementation's database.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="SNMPAPI_UNTRANSLATED_V1"></a><a id="snmpapi_untranslated_v1"></a><dl>
-     * <dt><b>SNMPAPI_UNTRANSLATED_V1</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The implementation interprets the <i>string</i> parameter as a literal SNMP transport address.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="SNMPAPI_UNTRANSLATED_V2"></a><a id="snmpapi_untranslated_v2"></a><dl>
-     * <dt><b>SNMPAPI_UNTRANSLATED_V2</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The implementation interprets the <i>string</i> parameter as a literal SNMP transport address.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @param {PSTR} string_R 
      * @returns {Pointer} If the function succeeds, the return value is a handle to the SNMP management entity of interest.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -3935,10 +3895,10 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpstrtoentity
      * @since windows5.0
      */
-    static SnmpStrToEntity(session, string) {
-        string := string is String ? StrPtr(string) : string
+    static SnmpStrToEntity(session, string_R) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
 
-        result := DllCall("wsnmp32.dll\SnmpStrToEntity", "ptr", session, "ptr", string, "ptr")
+        result := DllCall("wsnmp32.dll\SnmpStrToEntity", "ptr", session, "ptr", string_R, "ptr")
         return result
     }
 
@@ -3956,7 +3916,7 @@ class Snmp {
      * When the entity and context translation mode is SNMPAPI_UNTRANSLATED_V1 or SNMPAPI_UNTRANSLATED_V2, the Microsoft WinSNMP implementation also returns the literal SNMP transport address of the management entity.
      * @param {Pointer} entity Handle to the SNMP management entity of interest.
      * @param {Integer} size Specifies the size, in bytes, of the buffer pointed to by the <i>string</i> parameter. The WinSNMP application must allocate a buffer that is large enough to contain the output string.
-     * @param {PSTR} string Pointer to a buffer to receive the null-terminated string that identifies the SNMP management entity of interest.
+     * @param {PSTR} string_R 
      * @returns {Integer} If the function succeeds, the return value is the number of bytes, including a terminating null byte, that 
      * <b>SnmpEntityToStr</b> returns in the <i>string</i> buffer. This value can be less than or equal to the value of the <i>size</i> parameter, but it cannot be greater.
      * 
@@ -4029,10 +3989,10 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpentitytostr
      * @since windows5.0
      */
-    static SnmpEntityToStr(entity, size, string) {
-        string := string is String ? StrPtr(string) : string
+    static SnmpEntityToStr(entity, size, string_R) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
 
-        result := DllCall("wsnmp32.dll\SnmpEntityToStr", "ptr", entity, "uint", size, "ptr", string, "uint")
+        result := DllCall("wsnmp32.dll\SnmpEntityToStr", "ptr", entity, "uint", size, "ptr", string_R, "uint")
         return result
     }
 
@@ -4131,51 +4091,7 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalfree">GlobalFree</a> function to deallocate the resources. For additional information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/freeing-winsnmp-descriptors">Freeing WinSNMP Descriptors</a>.
      * @param {Pointer} session Handle to the WinSNMP session.
-     * @param {Pointer<smiOCTETS>} string Pointer to an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure that contains a string to interpret. The string can identify a collection of managed objects, or it can be a community string. 
-     * 
-     * 
-     * 
-     * 
-     * The current setting of the entity and context translation mode determines the way 
-     * <b>SnmpStrToContext</b> interprets the input string structure as shown in the following table.
-     * 
-     * <table>
-     * <tr>
-     * <th>Entity/Context Translation Mode</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="SNMPAPI_TRANSLATED"></a><a id="snmpapi_translated"></a><dl>
-     * <dt><b>SNMPAPI_TRANSLATED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The implementation interprets the <i>string</i> parameter as a user-friendly name for a collection of managed objects. The implementation translates the name into its SNMPv1 or SNMPv2C components using the implementation's database.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="SNMPAPI_UNTRANSLATED_V1"></a><a id="snmpapi_untranslated_v1"></a><dl>
-     * <dt><b>SNMPAPI_UNTRANSLATED_V1</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The implementation interprets the <i>string</i> parameter as a literal SNMP community string.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="SNMPAPI_UNTRANSLATED_V2"></a><a id="snmpapi_untranslated_v2"></a><dl>
-     * <dt><b>SNMPAPI_UNTRANSLATED_V2</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The implementation interprets the <i>string</i> parameter as a literal SNMP community string.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @param {Pointer<smiOCTETS>} string_R 
      * @returns {Pointer} If the function succeeds, the return value is a handle to the context of interest.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -4259,8 +4175,8 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpstrtocontext
      * @since windows5.0
      */
-    static SnmpStrToContext(session, string) {
-        result := DllCall("wsnmp32.dll\SnmpStrToContext", "ptr", session, "ptr", string, "ptr")
+    static SnmpStrToContext(session, string_R) {
+        result := DllCall("wsnmp32.dll\SnmpStrToContext", "ptr", session, "ptr", string_R, "ptr")
         return result
     }
 
@@ -4281,8 +4197,7 @@ class Snmp {
      * 
      * When the entity and context translation mode is SNMPAPI_UNTRANSLATED_V1 or SNMPAPI_UNTRANSLATED_V2, the implementation also returns the SNMP community string.
      * @param {Pointer} context Handle to the SNMP context of interest.
-     * @param {Pointer<smiOCTETS>} string Pointer to an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure to receive the string that identifies the context of interest. The string can have a null-terminating byte.
+     * @param {Pointer<smiOCTETS>} string_R 
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -4343,8 +4258,8 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpcontexttostr
      * @since windows5.0
      */
-    static SnmpContextToStr(context, string) {
-        result := DllCall("wsnmp32.dll\SnmpContextToStr", "ptr", context, "ptr", string, "uint")
+    static SnmpContextToStr(context, string_R) {
+        result := DllCall("wsnmp32.dll\SnmpContextToStr", "ptr", context, "ptr", string_R, "uint")
         return result
     }
 
@@ -5998,7 +5913,7 @@ class Snmp {
      * For additional information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/freeing-winsnmp-descriptors">Freeing WinSNMP Descriptors</a>.
-     * @param {PSTR} string Pointer to a <b>null</b>-terminated object identifier string to convert.
+     * @param {PSTR} string_R 
      * @param {Pointer<smiOID>} dstOID Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure that receives the converted value.
      * @returns {Integer} If the function succeeds, the return value is the number of subidentifiers in the converted object identifier. This number is also the value of the <b>len</b> member of the 
@@ -6062,10 +5977,10 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpstrtooid
      * @since windows5.0
      */
-    static SnmpStrToOid(string, dstOID) {
-        string := string is String ? StrPtr(string) : string
+    static SnmpStrToOid(string_R, dstOID) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
 
-        result := DllCall("wsnmp32.dll\SnmpStrToOid", "ptr", string, "ptr", dstOID, "uint")
+        result := DllCall("wsnmp32.dll\SnmpStrToOid", "ptr", string_R, "ptr", dstOID, "uint")
         return result
     }
 
@@ -6077,7 +5992,7 @@ class Snmp {
      * @param {Pointer<smiOID>} srcOID Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure with an object identifier to convert.
      * @param {Integer} size Specifies the size, in bytes, of the buffer indicated by the <i>string</i> parameter. For more information, see the following Remarks section.
-     * @param {PSTR} string Pointer to a buffer to receive the converted string object identifier that specifies the SNMP management entity.
+     * @param {PSTR} string_R 
      * @returns {Integer} If the function succeeds, the return value is the length, in bytes, of the string that the WinSNMP application writes to the <i>string</i> parameter. The return value includes a <b>null</b>-terminating byte. This value may be less than or equal to the value of the <i>size</i> parameter, but it may not be greater.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -6160,10 +6075,10 @@ class Snmp {
      * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpoidtostr
      * @since windows5.0
      */
-    static SnmpOidToStr(srcOID, size, string) {
-        string := string is String ? StrPtr(string) : string
+    static SnmpOidToStr(srcOID, size, string_R) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
 
-        result := DllCall("wsnmp32.dll\SnmpOidToStr", "ptr", srcOID, "uint", size, "ptr", string, "uint")
+        result := DllCall("wsnmp32.dll\SnmpOidToStr", "ptr", srcOID, "uint", size, "ptr", string_R, "uint")
         return result
     }
 
