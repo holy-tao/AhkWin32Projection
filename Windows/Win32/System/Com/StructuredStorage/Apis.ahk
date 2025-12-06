@@ -693,7 +693,7 @@ class StructuredStorage {
      * </ul>
      * @param {IStream} pStm A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface on the stream to be unmarshaled.
      * @param {Pointer<Guid>} iid A reference to the identifier of the interface requested from the unmarshaled object.
-     * @returns {Pointer<Void>} The address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppv</i> contains the requested interface pointer to the unmarshaled interface.
+     * @returns {Pointer<Pointer<Void>>} The address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppv</i> contains the requested interface pointer to the unmarshaled interface.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetinterfaceandreleasestream
      * @since windows5.0
      */
@@ -2055,7 +2055,7 @@ class StructuredStorage {
      * We recommend that you use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-iid_ppv_args">IID_PPV_ARGS</a> macro, defined in Objbase.h, to package the <i>riid</i> and <i>ppv</i> parameters. This macro provides the correct IID based on the interface pointed to by the value in <i>ppv</i>, which eliminates the possibility of a coding error in <i>riid</i> that could lead to unexpected results.
      * @param {Pointer<PROPVARIANT>} propvar Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
      * @param {Pointer<Guid>} riid A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_IPropertyValue (defined in Windows.Foundation.h).
-     * @returns {Pointer<Void>} When this method returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically an <a href="https://docs.microsoft.com/uwp/api/Windows.Foundation.IPropertyValue">IPropertyValue</a> pointer. If the call fails, this value is <b>NULL</b>.
+     * @returns {Pointer<Pointer<Void>>} When this method returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically an <a href="https://docs.microsoft.com/uwp/api/Windows.Foundation.IPropertyValue">IPropertyValue</a> pointer. If the call fails, this value is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-propvarianttowinrtpropertyvalue
      * @since windows8.0
      */

@@ -1572,7 +1572,7 @@ class Metadata {
 
     /**
      * 
-     * @returns {Pointer<IPropertySet>} 
+     * @returns {Pointer<Pointer<IPropertySet>>} 
      */
     static RoCreateNonAgilePropertySet() {
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoCreateNonAgilePropertySet", "ptr*", &ppPropertySet := 0, "int")
@@ -1585,7 +1585,7 @@ class Metadata {
 
     /**
      * 
-     * @returns {Pointer<IPropertySetSerializer>} 
+     * @returns {Pointer<Pointer<IPropertySetSerializer>>} 
      */
     static RoCreatePropertySetSerializer() {
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoCreatePropertySetSerializer", "ptr*", &ppPropertySetSerializer := 0, "int")

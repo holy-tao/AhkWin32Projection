@@ -9841,7 +9841,7 @@ class Audio {
      * 
      * Starting with TBD, you can specify [AUDIOCLIENT_ACTIVATION_PARAMS](/windows/desktop/api/audioclientactivationparams/ns-audioclientactivationparams-audioclient_activation_params) to activate the interface to include or exclude audio streams associated with a specified process ID.
      * @param {IActivateAudioInterfaceCompletionHandler} completionHandler An interface implemented by the caller that is called by Windows when the result of the activation procedure is available.
-     * @returns {IActivateAudioInterfaceAsyncOperation} Returns an <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nn-mmdeviceapi-iactivateaudiointerfaceasyncoperation">IActivateAudioInterfaceAsyncOperation</a> interface that represents the asynchronous operation of activating the requested <b>WASAPI</b> interface.
+     * @returns {Pointer<IActivateAudioInterfaceAsyncOperation>} Returns an <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nn-mmdeviceapi-iactivateaudiointerfaceasyncoperation">IActivateAudioInterfaceAsyncOperation</a> interface that represents the asynchronous operation of activating the requested <b>WASAPI</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-activateaudiointerfaceasync
      * @since windows8.0
      */
@@ -9853,7 +9853,7 @@ class Audio {
             throw OSError(A_LastError || result)
         }
 
-        return IActivateAudioInterfaceAsyncOperation(activationOperation)
+        return activationOperation
     }
 
     /**

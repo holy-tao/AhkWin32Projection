@@ -244,7 +244,7 @@ class Dxgi {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The globally unique identifier (GUID) of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgifactory">IDXGIFactory</a> object referenced by the <i>ppFactory</i> parameter.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgifactory">IDXGIFactory</a> object.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-createdxgifactory
@@ -285,7 +285,7 @@ class Dxgi {
      * 
      * The globally unique identifier (GUID) of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgifactory1">IDXGIFactory1</a> object referenced by 
      *           the <i>ppFactory</i> parameter.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgifactory1">IDXGIFactory1</a> object.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-createdxgifactory1
@@ -318,7 +318,7 @@ class Dxgi {
      * 
      * The globally unique identifier (GUID) of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nn-dxgi1_2-idxgifactory2">IDXGIFactory2</a> object referenced by 
      *           the <i>ppFactory</i> parameter.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nn-dxgi1_2-idxgifactory2">IDXGIFactory2</a> object.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-createdxgifactory2
@@ -339,7 +339,7 @@ class Dxgi {
      * The <b>DXGIGetDebugInterface1</b> function returns  <b>E_NOINTERFACE</b> on systems without the Windows Software Development Kit (SDK) installed, because it's a development-time aid.
      * @param {Integer} Flags Not used.
      * @param {Pointer<Guid>} riid The globally unique identifier (GUID) of the requested interface type, which can be the identifier for the <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/nn-dxgidebug-idxgidebug">IDXGIDebug</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/nn-dxgidebug-idxgidebug1">IDXGIDebug1</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/nn-dxgidebug-idxgiinfoqueue">IDXGIInfoQueue</a> interfaces.
-     * @returns {Pointer<Void>} A pointer to a buffer that receives a pointer to the debugging interface.
+     * @returns {Pointer<Pointer<Void>>} A pointer to a buffer that receives a pointer to the debugging interface.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-dxgigetdebuginterface1
      * @since windows8.1
      */

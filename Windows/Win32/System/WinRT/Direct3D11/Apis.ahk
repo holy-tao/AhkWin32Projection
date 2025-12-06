@@ -29,7 +29,7 @@ class Direct3D11 {
      * @param {IDXGIDevice} dxgiDevice Type: **[IDXGIDevice](/windows/desktop/api/dxgi/nn-dxgi-idxgidevice)\***
      * 
      * The [IDXGIDevice](/windows/desktop/api/dxgi/nn-dxgi-idxgidevice) to create the Direct3DDevice from.
-     * @returns {IInspectable} Type: **[IInspectable](/windows/desktop/api/inspectable/nn-inspectable-iinspectable)\*\***
+     * @returns {Pointer<IInspectable>} Type: **[IInspectable](/windows/desktop/api/inspectable/nn-inspectable-iinspectable)\*\***
      * 
      * A Direct3DDevice instance that wraps the DXGIDevice.
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.directx.direct3d11.interop/nf-windows-graphics-directx-direct3d11-interop-createdirect3d11devicefromdxgidevice
@@ -40,7 +40,7 @@ class Direct3D11 {
             throw OSError(A_LastError || result)
         }
 
-        return IInspectable(graphicsDevice)
+        return graphicsDevice
     }
 
     /**
@@ -58,7 +58,7 @@ class Direct3D11 {
      * }
      * ```
      * @param {IDXGISurface} dgxiSurface 
-     * @returns {IInspectable} Type: **[IInspectable](/windows/desktop/api/inspectable/nn-inspectable-iinspectable)\*\***
+     * @returns {Pointer<IInspectable>} Type: **[IInspectable](/windows/desktop/api/inspectable/nn-inspectable-iinspectable)\*\***
      * 
      * An [IDirect3DSurface](/uwp/api/windows.graphics.directx.direct3d11.idirect3dsurface) instance that wraps the [IDXGISurface](/windows/desktop/api/dxgi/nn-dxgi-idxgisurface).
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.directx.direct3d11.interop/nf-windows-graphics-directx-direct3d11-interop-createdirect3d11surfacefromdxgisurface
@@ -69,7 +69,7 @@ class Direct3D11 {
             throw OSError(A_LastError || result)
         }
 
-        return IInspectable(graphicsSurface)
+        return graphicsSurface
     }
 
 ;@endregion Methods

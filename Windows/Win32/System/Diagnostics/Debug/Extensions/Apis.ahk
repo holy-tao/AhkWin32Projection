@@ -4670,7 +4670,7 @@ class Extensions {
     /**
      * 
      * @param {Pointer<Guid>} InterfaceId 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     static DebugCreate(InterfaceId) {
         result := DllCall("dbgeng.dll\DebugCreate", "ptr", InterfaceId, "ptr*", &Interface := 0, "int")
@@ -4685,7 +4685,7 @@ class Extensions {
      * 
      * @param {Pointer<Guid>} InterfaceId 
      * @param {Integer} DbgEngOptions 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     static DebugCreateEx(InterfaceId, DbgEngOptions) {
         result := DllCall("dbgeng.dll\DebugCreateEx", "ptr", InterfaceId, "uint", DbgEngOptions, "ptr*", &Interface := 0, "int")
@@ -4699,7 +4699,7 @@ class Extensions {
     /**
      * 
      * @param {IDebugHost} debugHost 
-     * @returns {IDataModelManager} 
+     * @returns {Pointer<IDataModelManager>} 
      */
     static CreateDataModelManager(debugHost) {
         result := DllCall("dbgmodel.dll\CreateDataModelManager", "ptr", debugHost, "ptr*", &manager := 0, "int")
@@ -4707,7 +4707,7 @@ class Extensions {
             throw OSError(A_LastError || result)
         }
 
-        return IDataModelManager(manager)
+        return manager
     }
 
 ;@endregion Methods

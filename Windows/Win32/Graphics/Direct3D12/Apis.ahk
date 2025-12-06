@@ -2637,7 +2637,7 @@ class Direct3D12 {
      * The globally unique identifier (<b>GUID</b>) for the device interface.
      *             This parameter, and <i>ppDevice</i>, can be addressed with the single macro
      *           <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-iid_ppv_args">IID_PPV_ARGS</a>.
-     * @returns {Pointer<Void>} Type: <b><b>void</b>**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b><b>void</b>**</b>
      * 
      * A pointer to a memory block that receives a pointer to the device. Pass **NULL** to test if device creation would succeed, but to not actually create the device. If **NULL** is passed and device creation would succeed, **S_FALSE** is returned.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12createdevice
@@ -2660,7 +2660,7 @@ class Direct3D12 {
      * The globally unique identifier (<b>GUID</b>) for the debug interface.
      *             The <b>REFIID</b>, or <b>GUID</b>, of the debug interface can be obtained by using the __uuidof() macro.
      *             For example, __uuidof(<a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debug">ID3D12Debug</a>) will get the <b>GUID</b> of the debug interface.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * The debug interface, as a pointer to pointer to void.
      *             See
@@ -2746,7 +2746,7 @@ class Direct3D12 {
      * @param {Pointer<Guid>} riid Type: \_In\_ **[REFIID](/openspecs/windows_protocols/ms-oaut/bbde795f-5398-42d8-9f59-3613da03c318)**
      * 
      * The globally unique identifier (**GUID**) for the SDK configuration interface. The **REFIID**, or **GUID**, of the interface can be obtained by using the `__uuidof` macro. For example, `__uuidof(ID3D12SDKConfiguration)` will retrieve the **GUID** of the debug interface.
-     * @returns {Pointer<Void>} Type: \_COM\_Outptr\_opt\_ **[void](/windows/win32/winprog/windows-data-types)\*\***
+     * @returns {Pointer<Pointer<Void>>} Type: \_COM\_Outptr\_opt\_ **[void](/windows/win32/winprog/windows-data-types)\*\***
      * 
      * The `out` parameter that contains the requested interface on return (for example, the SDK configuration interface), as a pointer to pointer to void. See [ID3D12SDKConfiguration](nn-d3d12-id3d12sdkconfiguration.md).
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12getinterface

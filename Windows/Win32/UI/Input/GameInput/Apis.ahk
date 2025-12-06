@@ -49,7 +49,7 @@ class GameInput {
 ;@region Methods
     /**
      * 
-     * @returns {IGameInput} 
+     * @returns {Pointer<IGameInput>} 
      */
     static GameInputCreate() {
         result := DllCall("GameInput.dll\GameInputCreate", "ptr*", &gameInput := 0, "int")
@@ -57,7 +57,7 @@ class GameInput {
             throw OSError(A_LastError || result)
         }
 
-        return IGameInput(gameInput)
+        return gameInput
     }
 
 ;@endregion Methods

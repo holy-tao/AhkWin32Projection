@@ -9577,7 +9577,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the requested interface.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in riid.  This will typically be <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or 
      *         <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
@@ -9613,7 +9613,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>, typically <b>IID_IShellItem</b> or <b>IID_IShellItem2</b>.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateitemfromparsingname
@@ -9644,7 +9644,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to an interface ID.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in riid.  This will typically be <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or 
      *         <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
@@ -9674,7 +9674,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to an interface ID.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in riid.  This will usually be <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or 
      *         <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
@@ -9706,7 +9706,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface that represents the item, retrieved through <i>ppv</i>. This value is typically IID_IShellItem or IID_IShellItem2.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this function returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateiteminknownfolder
@@ -9753,7 +9753,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the desired IID.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or a related interface.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shgetitemfromobject
@@ -9806,7 +9806,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_IShellItem.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shgetitemfromdataobject
@@ -9866,7 +9866,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the desired interface ID.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateshellitemarrayfromdataobject
@@ -9916,7 +9916,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_IShellItemArray.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateshellitemarrayfromshellitem
@@ -9936,7 +9936,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the requested interface.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this function returns, contains the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iapplicationassociationregistration">IApplicationAssociationRegistration</a> object.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateassociationregistration
@@ -9997,7 +9997,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to interface ID.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * The address of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-idefaultextracticoninit">IDefaultExtractIconInit</a> interface pointer.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreatedefaultextracticon
@@ -10204,7 +10204,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>enumHandlers</i>, typically IID_IEnumAssocHandlers.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumassochandlers">IEnumAssocHandlers</a>.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shassocenumhandlersforprotocolbyapplication
@@ -12194,7 +12194,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface that represents the item, usually IID_IShellItem or IID_IShellItem2.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetknownfolderitem
@@ -12950,7 +12950,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this function returns successfully, receives the interface pointer requested in <i>riid</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcocreateinstance
@@ -12992,7 +12992,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>. This must be IID_IDataObject.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface pointer requested in <i>riid</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreatedataobject
@@ -14766,7 +14766,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the interface ID of the interface on which to base the object. This is typically the IID of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu2">IContextMenu2</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu3">IContextMenu3</a>.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreatedefaultcontextmenu
@@ -14874,7 +14874,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The <b>REFIID</b> of one of the interfaces exposed by the item's parent object.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>VOID**</b>
+     * @param {Pointer<Pointer<Pointer<Void>>>} ppv Type: <b>VOID**</b>
      * 
      * A pointer to the interface specified by <i>riid</i>. You must release the object when you are finished.
      * @param {Pointer<Pointer<ITEMIDLIST>>} ppidlLast Type: <b>PCUITEMID_CHILD*</b>
@@ -14917,7 +14917,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the desired interface ID. This is typically IID_IShellFolder or IID_IShellFolder2, but can be anything supported by the target folder.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Pointer<Void>>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder2">IShellFolder2</a>, but can be anything supported by the target folder.
      * @param {Pointer<Pointer<ITEMIDLIST>>} ppidlLast Type: <b>PCUITEMID_CHILD*</b>
@@ -14955,7 +14955,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the desired interface ID. This is typically IID_IShellFolder or IID_IShellFolder2, but can be anything supported by the target folder.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @param {Pointer<Pointer<Pointer<Void>>>} ppv Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder2">IShellFolder2</a>, but can be anything supported by the target folder.
      * @param {Pointer<Pointer<ITEMIDLIST>>} ppidlLast Type: <b>PCUITEMID_CHILD*</b>
@@ -14997,7 +14997,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Identifier of the interface to return.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer as specified in <i>riid</i> to the bound object. If an error occurs, contains a <b>NULL</b> pointer.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shbindtoobject
@@ -15138,7 +15138,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the desired interface ID of the icon extractor interface to create. This must be either IID_IExtractIconA or IID_IExtractIconW.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nn-shlobj_core-iextracticona">IExtractIcon</a>.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreatefileextracticonw
@@ -15332,7 +15332,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_IStorage or IID_IStream.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-stgmakeuniquename
@@ -18257,7 +18257,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the desired IID, normally IID_IQueryAssociations.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is normally <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nn-shlwapi-iqueryassociations">IQueryAssociations</a>.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-assoccreateforclasses
@@ -19491,7 +19491,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the image list interface identifier, normally IID_IImageList.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/nn-commoncontrols-iimagelist">IImageList</a>.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shgetimagelist
@@ -29406,7 +29406,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the IID IID_IQueryAssociations, which is defined in Shlguid.h.
-     * @returns {Pointer<Void>} Type: <b>void*</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void*</b>
      * 
      * When this method returns, contains the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nn-shlwapi-iqueryassociations">IQueryAssociations</a> interface pointer requested in <i>riid</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-assoccreate
@@ -30379,7 +30379,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The IID of the interface pointer that should be returned in <i>ppvSite</i>.
-     * @returns {Pointer<Void>} Type: <b>VOID**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>VOID**</b>
      * 
      * The address of the pointer to receive the requested interface pointer. If the function call is successful, <i>ppvSite</i> will contain the requested interface pointer. If no site is available or the requested interface is not supported, <i>ppvSite</i> is set to <b>NULL</b> and the function returns a COM error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iunknown_getsite
@@ -30409,7 +30409,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The IID of the desired service interface.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested <i>riid</i>. If successful, the calling application is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> using this value when the service is no longer needed. In the case of failure, this value is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iunknown_queryservice
@@ -30694,7 +30694,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the interface pointer requested in <i>riid</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shgetviewstatepropertybag
@@ -31520,7 +31520,7 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the interface pointer requested in <i>riid</i>.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-qisearch
@@ -31709,7 +31709,7 @@ class Shell {
 
     /**
      * Retrieves the per-thread object reference set by SHSetThreadRef.
-     * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
+     * @returns {Pointer<IUnknown>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      * The address of a pointer that, when this function returns successfully, points to the object whose reference is stored. Your application is responsible for freeing this resource when it is no longer needed.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shgetthreadref
@@ -31721,7 +31721,7 @@ class Shell {
             throw OSError(A_LastError || result)
         }
 
-        return IUnknown(ppunk)
+        return ppunk
     }
 
     /**
@@ -32014,7 +32014,7 @@ class Shell {
      * @param {Integer} dwSiteData 
      * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     static HlinkCreateFromMoniker(pimkTrgt, pwzLocation, pwzFriendlyName, pihlsite, dwSiteData, piunkOuter, riid) {
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
@@ -32037,7 +32037,7 @@ class Shell {
      * @param {Integer} dwSiteData 
      * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     static HlinkCreateFromString(pwzTarget, pwzLocation, pwzFriendlyName, pihlsite, dwSiteData, piunkOuter, riid) {
         pwzTarget := pwzTarget is String ? StrPtr(pwzTarget) : pwzTarget
@@ -32059,7 +32059,7 @@ class Shell {
      * @param {Integer} dwSiteData 
      * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     static HlinkCreateFromData(piDataObj, pihlsite, dwSiteData, piunkOuter, riid) {
         result := DllCall("hlink.dll\HlinkCreateFromData", "ptr", piDataObj, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr*", &ppvObj := 0, "int")
@@ -32090,7 +32090,7 @@ class Shell {
      * @param {Pointer<Guid>} riid 
      * @param {IHlinkSite} pihlsiteForClone 
      * @param {Integer} dwSiteData 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     static HlinkClone(pihl, riid, pihlsiteForClone, dwSiteData) {
         result := DllCall("hlink.dll\HlinkClone", "ptr", pihl, "ptr", riid, "ptr", pihlsiteForClone, "uint", dwSiteData, "ptr*", &ppvObj := 0, "int")
@@ -32105,7 +32105,7 @@ class Shell {
      * 
      * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     static HlinkCreateBrowseContext(piunkOuter, riid) {
         result := DllCall("hlink.dll\HlinkCreateBrowseContext", "ptr", piunkOuter, "ptr", riid, "ptr*", &ppvObj := 0, "int")
@@ -32295,7 +32295,7 @@ class Shell {
      * @param {PWSTR} pszPassword 
      * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     static HlinkCreateExtensionServices(pwzAdditionalHeaders, phwnd, pszUsername, pszPassword, piunkOuter, riid) {
         pwzAdditionalHeaders := pwzAdditionalHeaders is String ? StrPtr(pwzAdditionalHeaders) : pwzAdditionalHeaders

@@ -226,7 +226,7 @@ class Dxc {
      * 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     static DxcCreateInstance(rclsid, riid) {
         result := DllCall("dxcompiler.dll\DxcCreateInstance", "ptr", rclsid, "ptr", riid, "ptr*", &ppv := 0, "int")
@@ -242,7 +242,7 @@ class Dxc {
      * @param {IMalloc} pMalloc 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     static DxcCreateInstance2(pMalloc, rclsid, riid) {
         result := DllCall("dxcompiler.dll\DxcCreateInstance2", "ptr", pMalloc, "ptr", rclsid, "ptr", riid, "ptr*", &ppv := 0, "int")

@@ -1220,7 +1220,7 @@ class XAudio2 {
      * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
      * Windows 10 (XAudio2.9);
      * @param {Pointer<HrtfApoInit>} init Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/hrtfapoapi/ns-hrtfapoapi-hrtfapoinit">HrtfApoInit</a> struct. Specifies parameters for XAPO interface initialization.
-     * @returns {IXAPO} The new instance of the <a href="https://docs.microsoft.com/windows/desktop/api/xapo/nn-xapo-ixapo">IXAPO</a> interface.
+     * @returns {Pointer<IXAPO>} The new instance of the <a href="https://docs.microsoft.com/windows/desktop/api/xapo/nn-xapo-ixapo">IXAPO</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/nf-hrtfapoapi-createhrtfapo
      */
     static CreateHrtfApo(init) {
@@ -1229,7 +1229,7 @@ class XAudio2 {
             throw OSError(A_LastError || result)
         }
 
-        return IXAPO(xApo)
+        return xApo
     }
 
 ;@endregion Methods
