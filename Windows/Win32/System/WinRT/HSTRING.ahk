@@ -64,6 +64,78 @@ class HSTRING extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
+    /**
+     * @readonly The length of the allocated string in characters, not including the null terminator
+     * @see https://learn.microsoft.com/en-us/windows/win32/api/winstring/nf-winstring-windowsgetstringlen
+     * @type {Integer}
+     */
+    length => WinRT.WindowsGetStringLen(this)
+    
+    /**
+     * @readonly Indicates whether the specified string has embedded null characters. An embedded
+     *      null character is any null character other than the null terminator.
+     * @See https://learn.microsoft.com/en-us/windows/win32/api/winstring/nf-winstring-windowsstringhasembeddednull
+     * @type {Boolean}
+     */
+    hasEmbeddedNull => WinRT.WindowsStringHasEmbeddedNull(this)
+    
+    /**
+     * Indicates whether the string is the empty string.
+     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsisstringempty
+     * @type {Boolean}
+     */
+    isEmpty => WinRT.WindowsIsStringEmpty(this)
+    
+    /**
+     * Creates a new HSTRING from an existing AHK string.
+     * @param {String | Integer} str the string or or pointer to a string to allocate. Must point to a PWSTR
+     * @param {Integer} len the length of `str` in characters. If `str` is a native AutoHotkey string, this
+     *          argument is optional; it will be calculated using `StrLen`. If `str` is NULL (0), this Must
+     *          be 0. If `str` is a string pointer, this value is required.
+     * @see https://learn.microsoft.com/en-us/windows/win32/api/winstring/nf-winstring-windowscreatestring
+     */
+    static Create(str := 0, len := 0) {
+        str := str == "" ? 0 : str  ; Convert empty string to NULL
+        if(str is String && len == 0) {
+            len := StrLen(str)
+        }
+        
+        return WinRT.WindowsCreateString(str, len)
+    }
+    
+    /**
+     * Retrieves the backing buffer for the specified string.
+     * @param {VarRef<Integer> | Integer} len an optional output variable or pointer to a UInt32 that receives the
+     *      length of the string in characters.
+     * @returns {Integer} a pointer to the backing buffer of the string. Do not modify this memory, HSTRINGs are
+     *      required to be immutable
+     * @see https://learn.microsoft.com/en-us/windows/win32/api/winstring/nf-winstring-windowsgetstringrawbuffer
+     */
+    GetRawBuffer(len := 0) {
+        return WinRT.WindowsGetStringRawBuffer(this, len)
+    }
+    
+    /**
+     * Copies the string
+     * @see https://learn.microsoft.com/en-us/windows/win32/api/winstring/nf-winstring-windowsduplicatestring
+     */
+    Clone() {
+        return WinRT.WindowsDuplicateString(this)
+    }
+    
+    /**
+     * Gets the value of the HSTRING as a native AHK string
+     * @returns {String}
+     */
+    ToString() {
+        buf := this.GetRawBuffer(&len := 0)
+        if(len > 0) {
+            return StrGet(buf, len, "UTF-16")
+        }
+    
+        return ""
+    }
+
     Free(){
         WinRT.WindowsDeleteString(this.Value)
         this.Value := 0
