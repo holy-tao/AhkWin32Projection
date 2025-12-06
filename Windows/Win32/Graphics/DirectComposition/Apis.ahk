@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectComposition
@@ -131,22 +132,20 @@ class DirectComposition {
      * @param {Pointer<SECURITY_ATTRIBUTES>} securityAttributes Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a>*</b>
      * 
      * Contains the security descriptor for the composition surface object, and specifies whether the handle of the composition surface object is inheritable when a child process is created. If this parameter is NULL, the composition surface object is created with default security attributes  that grant read and write access to the current process,  but do not enable child processes to  inherit the handle.
-     * @param {Pointer<HANDLE>} surfaceHandle Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HANDLE</a>*</b>
+     * @returns {HANDLE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HANDLE</a>*</b>
      * 
      * The handle of the new composition surface object. This parameter must not be NULL.
-     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositioncreatesurfacehandle
      * @since windows8.0
      */
-    static DCompositionCreateSurfaceHandle(desiredAccess, securityAttributes, surfaceHandle) {
+    static DCompositionCreateSurfaceHandle(desiredAccess, securityAttributes) {
+        surfaceHandle := HANDLE()
         result := DllCall("dcomp.dll\DCompositionCreateSurfaceHandle", "uint", desiredAccess, "ptr", securityAttributes, "ptr", surfaceHandle, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return surfaceHandle
     }
 
     /**

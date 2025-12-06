@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\HINTERACTIONCONTEXT.ahk
 
 /**
  * @namespace Windows.Win32.UI.InteractionContext
@@ -15,20 +16,18 @@ class InteractionContext {
      * Creates and initializes an Interaction Context object.
      * @remarks
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/nf-interactioncontext-destroyinteractioncontext">DestroyInteractionContext</a> must be called to destroy any interaction context created by <b>CreateInteractionContext</b>.
-     * @param {Pointer<HINTERACTIONCONTEXT>} interactionContext Pointer to a handle for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
-     * @returns {HRESULT} If this function succeeds, it returns S_OK.
-     *  
-     * Otherwise, it returns an HRESULT error code.
+     * @returns {HINTERACTIONCONTEXT} Pointer to a handle for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
      * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-createinteractioncontext
      * @since windows8.0
      */
-    static CreateInteractionContext(interactionContext) {
+    static CreateInteractionContext() {
+        interactionContext := HINTERACTIONCONTEXT()
         result := DllCall("NInput.dll\CreateInteractionContext", "ptr", interactionContext, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return interactionContext
     }
 
     /**

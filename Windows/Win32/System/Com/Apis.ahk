@@ -8,7 +8,9 @@
 #Include .\IRunningObjectTable.ahk
 #Include .\IBindStatusCallback.ahk
 #Include .\IMalloc.ahk
+#Include .\CO_MTA_USAGE_COOKIE.ahk
 #Include .\IUnknown.ahk
+#Include .\CO_DEVICE_CATALOG_COOKIE.ahk
 #Include .\IUri.ahk
 #Include .\IUriBuilder.ahk
 #Include .\IErrorInfo.ahk
@@ -2006,17 +2008,17 @@ class Com {
      * <li>You want a server to keep the MTA alive even when all worker threads are idle.</li>
      * <li> Your API implementation requires COM to be initialized, but has no information about whether the current thread is already in an apartment, and does not need the current thread to go into a particular apartment. </li>
      * </ul>
-     * @param {Pointer<CO_MTA_USAGE_COOKIE>} pCookie Address of a <b>PVOID</b> variable that receives the cookie for the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-codecrementmtausage">CoDecrementMTAUsage</a> function, or <b>NULL</b> if the call fails.
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {CO_MTA_USAGE_COOKIE} Address of a <b>PVOID</b> variable that receives the cookie for the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-codecrementmtausage">CoDecrementMTAUsage</a> function, or <b>NULL</b> if the call fails.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coincrementmtausage
      */
-    static CoIncrementMTAUsage(pCookie) {
+    static CoIncrementMTAUsage() {
+        pCookie := CO_MTA_USAGE_COOKIE()
         result := DllCall("OLE32.dll\CoIncrementMTAUsage", "ptr", pCookie, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return pCookie
     }
 
     /**
@@ -4218,21 +4220,21 @@ class Com {
      * @param {PWSTR} deviceInstanceId Type: \_In\_ **[PCWSTR](/windows/desktop/winprog/windows-data-types)**
      * 
      * A null-terminated string containing the instance identifier of the device to register.
-     * @param {Pointer<CO_DEVICE_CATALOG_COOKIE>} cookie Type: \_Out\_ **CO_DEVICE_CATALOG_COOKIE\***
+     * @returns {CO_DEVICE_CATALOG_COOKIE} Type: \_Out\_ **CO_DEVICE_CATALOG_COOKIE\***
      * 
      * Returns an instance of **CO_DEVICE_CATALOG_COOKIE**. You can use this value to revoke the device catalog using [CoRevokeDeviceCatalog](nf-combaseapi-corevokedevicecatalog.md).
-     * @returns {HRESULT} This function can return the standard return values **E_INVALIDARG**, **E_OUTOFMEMORY**, and **S_OK**.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coregisterdevicecatalog
      */
-    static CoRegisterDeviceCatalog(deviceInstanceId, cookie) {
+    static CoRegisterDeviceCatalog(deviceInstanceId) {
         deviceInstanceId := deviceInstanceId is String ? StrPtr(deviceInstanceId) : deviceInstanceId
 
+        cookie := CO_DEVICE_CATALOG_COOKIE()
         result := DllCall("OLE32.dll\CoRegisterDeviceCatalog", "ptr", deviceInstanceId, "ptr", cookie, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return cookie
     }
 
     /**

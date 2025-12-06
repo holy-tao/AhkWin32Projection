@@ -3,9 +3,11 @@
 #Include .\IStorage.ahk
 #Include .\IFillLockBytes.ahk
 #Include ..\IStream.ahk
+#Include ..\..\..\Foundation\HGLOBAL.ahk
 #Include .\IPropertyStorage.ahk
 #Include .\IPropertySetStorage.ahk
 #Include .\ILockBytes.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.StructuredStorage
@@ -660,18 +662,18 @@ class StructuredStorage {
      * This function can be called only from within the same process from which the byte array was created.
      * @param {IStream} pstm <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> pointer to the stream object previously created by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-createstreamonhglobal">CreateStreamOnHGlobal</a> function.
-     * @param {Pointer<HGLOBAL>} phglobal Pointer to the current memory handle used by the specified stream object.
-     * @returns {HRESULT} This function returns HRESULT.
+     * @returns {HGLOBAL} Pointer to the current memory handle used by the specified stream object.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-gethglobalfromstream
      * @since windows5.0
      */
-    static GetHGlobalFromStream(pstm, phglobal) {
+    static GetHGlobalFromStream(pstm) {
+        phglobal := HGLOBAL()
         result := DllCall("OLE32.dll\GetHGlobalFromStream", "ptr", pstm, "ptr", phglobal, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phglobal
     }
 
     /**
@@ -1607,18 +1609,18 @@ class StructuredStorage {
      * @param {ILockBytes} plkbyt Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ilockbytes">ILockBytes</a> interface on the byte-array object previously created by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/coml2api/nf-coml2api-createilockbytesonhglobal">CreateILockBytesOnHGlobal</a> function.
-     * @param {Pointer<HGLOBAL>} phglobal Pointer to the current memory handle used by the specified byte-array object.
-     * @returns {HRESULT} This function returns HRESULT.
+     * @returns {HGLOBAL} Pointer to the current memory handle used by the specified byte-array object.
      * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-gethglobalfromilockbytes
      * @since windows5.0
      */
-    static GetHGlobalFromILockBytes(plkbyt, phglobal) {
+    static GetHGlobalFromILockBytes(plkbyt) {
+        phglobal := HGLOBAL()
         result := DllCall("OLE32.dll\GetHGlobalFromILockBytes", "ptr", plkbyt, "ptr", phglobal, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phglobal
     }
 
     /**
@@ -3292,22 +3294,20 @@ class StructuredStorage {
      * @param {Pointer<PROPVARIANT>} propvar Type: <b>REFPROPVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
-     * @param {Pointer<BSTR>} pbstrOut Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
+     * @returns {BSTR} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, contains an empty string.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttobstr
      * @since windows5.1.2600
      */
-    static PropVariantToBSTR(propvar, pbstrOut) {
+    static PropVariantToBSTR(propvar) {
+        pbstrOut := BSTR()
         result := DllCall("PROPSYS.dll\PropVariantToBSTR", "ptr", propvar, "ptr", pbstrOut, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return pbstrOut
     }
 
     /**

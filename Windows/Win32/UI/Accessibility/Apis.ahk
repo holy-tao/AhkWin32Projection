@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\IAccessible.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IRawElementProviderSimple.ahk
@@ -2781,42 +2782,20 @@ class Accessibility {
     /**
      * Retrieves the window handle that corresponds to a particular instance of an IAccessible interface.
      * @param {IAccessible} param0 
-     * @param {Pointer<HWND>} phwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a>*</b>
+     * @returns {HWND} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a>*</b>
      * 
      * Address of a variable that receives a handle to the window containing the object specified in <i>pacc</i>. If this value is <b>NULL</b> after the call, the object is not contained within a window; for example, the mouse pointer is not contained within a window.
-     * @returns {HRESULT} Type: <b>STDAPI</b>
-     * 
-     * If successful, returns S_OK.
-     * 
-     * If not successful, returns the following or another standard <a href="https://docs.microsoft.com/windows/desktop/WinAuto/return-values">COM error code</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An argument is not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-windowfromaccessibleobject
      * @since windows5.0
      */
-    static WindowFromAccessibleObject(param0, phwnd) {
+    static WindowFromAccessibleObject(param0) {
+        phwnd := HWND()
         result := DllCall("OLEACC.dll\WindowFromAccessibleObject", "ptr", param0, "ptr", phwnd, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phwnd
     }
 
     /**

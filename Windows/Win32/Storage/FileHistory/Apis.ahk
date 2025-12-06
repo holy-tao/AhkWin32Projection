@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\FH_SERVICE_PIPE_HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileHistory
@@ -226,19 +227,19 @@ class FileHistory {
      * @param {BOOL} StartServiceIfStopped If the File History Service is not started yet and this parameter is <b>TRUE</b>, this function starts the File History Service before opening a communication channel to it.
      * 
      * If the File History Service is not started yet and this parameter is <b>FALSE</b>, this function fails and returns an unsuccessful <b>HRESULT</b> value.
-     * @param {Pointer<FH_SERVICE_PIPE_HANDLE>} Pipe On successful return, this parameter contains a non-NULL handle representing a newly opened communication channel to the File History Service.
-     * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> value on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
+     * @returns {FH_SERVICE_PIPE_HANDLE} On successful return, this parameter contains a non-NULL handle representing a newly opened communication channel to the File History Service.
      * @see https://learn.microsoft.com/windows/win32/api/fhsvcctl/nf-fhsvcctl-fhserviceopenpipe
      * @deprecated FhServiceOpenPipe is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows8.0
      */
-    static FhServiceOpenPipe(StartServiceIfStopped, Pipe) {
+    static FhServiceOpenPipe(StartServiceIfStopped) {
+        Pipe := FH_SERVICE_PIPE_HANDLE()
         result := DllCall("fhsvcctl.dll\FhServiceOpenPipe", "int", StartServiceIfStopped, "ptr", Pipe, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return Pipe
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include .\IAgileReference.ahk
+#Include .\HSTRING.ahk
 #Include .\IInspectable.ahk
 #Include ..\Com\Marshal\IMarshal.ahk
 #Include .\IRestrictedErrorInfo.ahk
@@ -327,75 +328,22 @@ class WinRT {
      * @param {Integer} length Type: [in] <b>UINT32</b>
      * 
      * The length of <i>sourceString</i>, in Unicode characters. Must be 0 if <i>sourceString</i> is <b>NULL</b>.
-     * @param {Pointer<HSTRING>} string Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
+     * @returns {HSTRING} Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A pointer to the newly created [**HSTRING**](/windows/win32/winrt/hstring), or <b>NULL</b> if an error occurs. Any existing  content in <i>string</i> is overwritten. The <b>HSTRING</b> is a standard handle type.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The  [**HSTRING**](/windows/win32/winrt/hstring) was created successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>string</i> is <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Failed to allocate the new [**HSTRING**](/windows/win32/winrt/hstring).
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>sourceString</i> is <b>NULL</b> and <i>length</i> is non-zero.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowscreatestring
      * @since windows8.0
      */
-    static WindowsCreateString(sourceString, length, string) {
+    static WindowsCreateString(sourceString, length) {
         sourceString := sourceString is String ? StrPtr(sourceString) : sourceString
 
+        string := HSTRING()
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateString", "ptr", sourceString, "uint", length, "ptr", string, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return string
     }
 
     /**
@@ -419,75 +367,22 @@ class WinRT {
      * @param {Pointer<HSTRING_HEADER>} hstringHeader Type: [out] <b><a href="https://docs.microsoft.com/windows/desktop/api/hstring/ns-hstring-hstring_header">HSTRING_HEADER</a>*</b>
      * 
      * A pointer to a structure that the Windows Runtime uses to identify <i>string</i> as a string reference, or fast-pass string.
-     * @param {Pointer<HSTRING>} string Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
+     * @returns {HSTRING} Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A pointer to the newly created string, or <b>NULL</b> if an error occurs. Any existing  content in <i>string</i> is overwritten. The [**HSTRING**](/windows/win32/winrt/hstring) is a standard handle type.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The  [**HSTRING**](/windows/win32/winrt/hstring) was created successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Either <i>string</i> or <i>hstringHeader</i>  is <b>NULL</b>, or <i>string</i> is not null-terminated.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Failed to allocate the new [**HSTRING**](/windows/win32/winrt/hstring).
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>sourceString</i> is <b>NULL</b> and <i>length</i> is non-zero.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowscreatestringreference
      * @since windows8.0
      */
-    static WindowsCreateStringReference(sourceString, length, hstringHeader, string) {
+    static WindowsCreateStringReference(sourceString, length, hstringHeader) {
         sourceString := sourceString is String ? StrPtr(sourceString) : sourceString
 
+        string := HSTRING()
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateStringReference", "ptr", sourceString, "uint", length, "ptr", hstringHeader, "ptr", string, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return string
     }
 
     /**
@@ -523,64 +418,22 @@ class WinRT {
      * @param {HSTRING} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The string to be copied.
-     * @param {Pointer<HSTRING>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
+     * @returns {HSTRING} Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A copy of <i>string</i>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The  [**HSTRING**](/windows/win32/winrt/hstring) was copied successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>newString</i> is <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b> E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Failed to allocate the new [**HSTRING**](/windows/win32/winrt/hstring).
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsduplicatestring
      * @since windows8.0
      */
-    static WindowsDuplicateString(string, newString) {
+    static WindowsDuplicateString(string) {
         string := string is Win32Handle ? NumGet(string, "ptr") : string
 
+        newString := HSTRING()
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsDuplicateString", "ptr", string, "ptr", newString, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return newString
     }
 
     /**
@@ -725,75 +578,22 @@ class WinRT {
      * @param {Integer} startIndex Type: [in] <b>UINT32</b>
      * 
      * The zero-based starting character position of a substring in this instance.
-     * @param {Pointer<HSTRING>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
+     * @returns {HSTRING} Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A string that is equivalent to the substring that begins at <i>startIndex</i> in <i>string</i>, or <b>NULL</b> if <i>startIndex</i> is equal to the length of <i>string</i>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The  substring was created successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>newString</i> is <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BOUNDS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>startIndex</i> is greater than the length of <i>string</i>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Failed to allocate the new substring.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowssubstring
      * @since windows8.0
      */
-    static WindowsSubstring(string, startIndex, newString) {
+    static WindowsSubstring(string, startIndex) {
         string := string is Win32Handle ? NumGet(string, "ptr") : string
 
+        newString := HSTRING()
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstring", "ptr", string, "uint", startIndex, "ptr", newString, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return newString
     }
 
     /**
@@ -809,75 +609,22 @@ class WinRT {
      * @param {Integer} length Type: [in] <b>UINT32</b>
      * 
      * The number of characters in the substring.
-     * @param {Pointer<HSTRING>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
+     * @returns {HSTRING} Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A string that is equivalent to the substring that begins at <i>startIndex</i> in <i>string</i>, or <b>NULL</b> if <i>startIndex</i> is equal to the length of <i>string</i>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The  substring was created successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>newString</i> is <b>NULL</b>, or <i>startIndex</i> plus <i>length</i> is greater than <b>MAXUINT32</b>, which is  4,294,967,295; that is, hexadecimal 0xFFFFFFFF.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BOUNDS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>startIndex</i> is greater than the length of <i>string</i>, or <i>startIndex</i> plus <i>length</i> indicates a position not within  <i>string</i>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Failed to allocate the new substring.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowssubstringwithspecifiedlength
      * @since windows8.0
      */
-    static WindowsSubstringWithSpecifiedLength(string, startIndex, length, newString) {
+    static WindowsSubstringWithSpecifiedLength(string, startIndex, length) {
         string := string is Win32Handle ? NumGet(string, "ptr") : string
 
+        newString := HSTRING()
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstringWithSpecifiedLength", "ptr", string, "uint", startIndex, "uint", length, "ptr", newString, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return newString
     }
 
     /**
@@ -890,65 +637,23 @@ class WinRT {
      * @param {HSTRING} string2 Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The second string to be concatenated.
-     * @param {Pointer<HSTRING>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
+     * @returns {HSTRING} Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * The concatenation of <i>string1</i> and <i>string2</i>. If <i>string1</i> and <i>string2</i> are <b>NULL</b>, <i>newString</i> is <b>NULL</b>. If either <i>string1</i> or <i>string2</i> is <b>NULL</b>, <i>newString</i> is a copy of the non-null string.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The  concatenated string was created successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>newString</i> is <b>NULL</b>, or the length of <i>string1</i> plus the length of <i>string2</i> is greater than <b>MAXUINT32</b>, which is  4,294,967,295; that is, hexadecimal 0xFFFFFFFF.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Failed to allocate the concatenated string.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsconcatstring
      * @since windows8.0
      */
-    static WindowsConcatString(string1, string2, newString) {
+    static WindowsConcatString(string1, string2) {
         string1 := string1 is Win32Handle ? NumGet(string1, "ptr") : string1
         string2 := string2 is Win32Handle ? NumGet(string2, "ptr") : string2
 
+        newString := HSTRING()
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsConcatString", "ptr", string1, "ptr", string2, "ptr", newString, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return newString
     }
 
     /**
@@ -965,66 +670,24 @@ class WinRT {
      * 
      * The string to replace all occurrences of <i>stringReplaced</i>. 
      * If this parameter is <b>NULL</b>, all instances of <i>stringReplaced</i> are removed.
-     * @param {Pointer<HSTRING>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
+     * @returns {HSTRING} Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A string that is equivalent to the original, except that all instances of <i>stringReplaced</i> are replaced with <i>stringReplaceWith</i>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The  string replacement was successful.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>newString</i> is <b>NULL</b>, <i>stringReplaced</i> is empty, or the length of <i>string1</i> plus the length of <i>string2</i> is greater than <b>MAXUINT32</b>, which is  4,294,967,295; that is, hexadecimal 0xFFFFFFFF. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Failed to allocate the new string.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsreplacestring
      * @since windows8.0
      */
-    static WindowsReplaceString(string, stringReplaced, stringReplaceWith, newString) {
+    static WindowsReplaceString(string, stringReplaced, stringReplaceWith) {
         string := string is Win32Handle ? NumGet(string, "ptr") : string
         stringReplaced := stringReplaced is Win32Handle ? NumGet(stringReplaced, "ptr") : stringReplaced
         stringReplaceWith := stringReplaceWith is Win32Handle ? NumGet(stringReplaceWith, "ptr") : stringReplaceWith
 
+        newString := HSTRING()
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsReplaceString", "ptr", string, "ptr", stringReplaced, "ptr", stringReplaceWith, "ptr", newString, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return newString
     }
 
     /**
@@ -1037,65 +700,23 @@ class WinRT {
      * @param {HSTRING} trimString Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The characters to remove from <i>string</i>.
-     * @param {Pointer<HSTRING>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
+     * @returns {HSTRING} Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * The string that remains after all occurrences of characters in the <i>trimString</i> parameter are removed from the start of <i>string</i>, or <b>NULL</b> if <i>trimString</i> contains all of the characters in <i>string</i>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The  trimmed string was created successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>newString</i> is <b>NULL</b>, or <i>trimString</i> is empty.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Failed to allocate the trimmed string.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowstrimstringstart
      * @since windows8.0
      */
-    static WindowsTrimStringStart(string, trimString, newString) {
+    static WindowsTrimStringStart(string, trimString) {
         string := string is Win32Handle ? NumGet(string, "ptr") : string
         trimString := trimString is Win32Handle ? NumGet(trimString, "ptr") : trimString
 
+        newString := HSTRING()
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsTrimStringStart", "ptr", string, "ptr", trimString, "ptr", newString, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return newString
     }
 
     /**
@@ -1108,65 +729,23 @@ class WinRT {
      * @param {HSTRING} trimString Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The characters to remove from <i>string</i>.
-     * @param {Pointer<HSTRING>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
+     * @returns {HSTRING} Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * The string that remains after all occurrences of characters in the <i>trimString</i> parameter are removed from the end of <i>string</i>, or <b>NULL</b> if <i>trimString</i> contains all of the characters in <i>string</i>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The  trimmed string was created successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>newString</i> is <b>NULL</b>, or <i>trimString</i> is empty.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Failed to allocate the trimmed string.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowstrimstringend
      * @since windows8.0
      */
-    static WindowsTrimStringEnd(string, trimString, newString) {
+    static WindowsTrimStringEnd(string, trimString) {
         string := string is Win32Handle ? NumGet(string, "ptr") : string
         trimString := trimString is Win32Handle ? NumGet(trimString, "ptr") : trimString
 
+        newString := HSTRING()
         result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsTrimStringEnd", "ptr", string, "ptr", trimString, "ptr", newString, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return newString
     }
 
     /**
@@ -1179,38 +758,12 @@ class WinRT {
      * @param {Integer} length Type: [in] <b>UINT32</b>
      * 
      * The size of the buffer to allocate. A value of zero corresponds to the empty string.
+     * @param {Pointer<Pointer<Integer>>} charBuffer Type: [out] <b>WCHAR**</b>
+     * 
+     * The mutable buffer that holds the characters. Note that the buffer already contains a terminating <b>NULL</b> character.
      * @param {Pointer<HSTRING_BUFFER>} bufferHandle Type: [out] <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a>*</b>
      * 
      * The preallocated string buffer, or <b>NULL</b> if  <i>length</i> is 0.
-     * @returns {Pointer<Integer>} Type: [out] <b>WCHAR**</b>
-     * 
-     * The mutable buffer that holds the characters. Note that the buffer already contains a terminating <b>NULL</b> character.
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowspreallocatestringbuffer
-     * @since windows8.0
-     */
-    static WindowsPreallocateStringBuffer(length, bufferHandle) {
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsPreallocateStringBuffer", "uint", length, "ptr*", &charBuffer := 0, "ptr", bufferHandle, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
-        return charBuffer
-    }
-
-    /**
-     * Creates an HSTRING from the specified HSTRING_BUFFER.
-     * @remarks
-     * Use the <b>WindowsPromoteStringBuffer</b> function to create a new [**HSTRING**](/windows/win32/winrt/hstring) from an <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a>. Calling the <b>WindowsPromoteStringBuffer</b> function converts the mutable    buffer to an immutable <b>HSTRING</b>. Use the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowspreallocatestringbuffer">WindowsPreallocateStringBuffer</a> function to create the <b>HSTRING_BUFFER</b>.
-     * 
-     * If the <b>WindowsPromoteStringBuffer</b> call fails, you can call the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestringbuffer">WindowsDeleteStringBuffer</a> function to discard the mutable buffer.
-     * 
-     * Each call to the <b>WindowsPromoteStringBuffer</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
-     * @param {HSTRING_BUFFER} bufferHandle Type: [in] <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a></b>
-     * 
-     * The buffer to use for the new [**HSTRING**](/windows/win32/winrt/hstring). You must use the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowspreallocatestringbuffer">WindowsPreallocateStringBuffer</a> function to create the <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a>.
-     * @param {Pointer<HSTRING>} string Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
-     * 
-     * The newly created [**HSTRING**](/windows/win32/winrt/hstring) that contains the contents of <i>bufferHandle</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function can return one of these values.
@@ -1238,34 +791,74 @@ class WinRT {
      * </dl>
      * </td>
      * <td width="60%">
-     * <i>string</i>  is <b>NULL</b>.
+     * <i>mutableBuffer</i> or <i>bufferHandle</i>  is <b>NULL</b>.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
+     * <dt><b>MEM_E_INVALID_SIZE</b></dt>
      * </dl>
      * </td>
      * <td width="60%">
-     * <i>bufferHandle</i> was not created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowspreallocatestringbuffer">WindowsPreallocateStringBuffer</a> function, or the caller has overwritten the   terminating NUL character in  <i>bufferHandle</i>.
+     * The requested [**HSTRING**](/windows/win32/winrt/hstring) allocation size is too large.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Failed to allocate the [**HSTRING**](/windows/win32/winrt/hstring) buffer.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowspromotestringbuffer
+     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowspreallocatestringbuffer
      * @since windows8.0
      */
-    static WindowsPromoteStringBuffer(bufferHandle, string) {
-        bufferHandle := bufferHandle is Win32Handle ? NumGet(bufferHandle, "ptr") : bufferHandle
+    static WindowsPreallocateStringBuffer(length, charBuffer, bufferHandle) {
+        charBufferMarshal := charBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsPromoteStringBuffer", "ptr", bufferHandle, "ptr", string, "int")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsPreallocateStringBuffer", "uint", length, charBufferMarshal, charBuffer, "ptr", bufferHandle, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
         return result
+    }
+
+    /**
+     * Creates an HSTRING from the specified HSTRING_BUFFER.
+     * @remarks
+     * Use the <b>WindowsPromoteStringBuffer</b> function to create a new [**HSTRING**](/windows/win32/winrt/hstring) from an <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a>. Calling the <b>WindowsPromoteStringBuffer</b> function converts the mutable    buffer to an immutable <b>HSTRING</b>. Use the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowspreallocatestringbuffer">WindowsPreallocateStringBuffer</a> function to create the <b>HSTRING_BUFFER</b>.
+     * 
+     * If the <b>WindowsPromoteStringBuffer</b> call fails, you can call the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestringbuffer">WindowsDeleteStringBuffer</a> function to discard the mutable buffer.
+     * 
+     * Each call to the <b>WindowsPromoteStringBuffer</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
+     * @param {HSTRING_BUFFER} bufferHandle Type: [in] <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a></b>
+     * 
+     * The buffer to use for the new [**HSTRING**](/windows/win32/winrt/hstring). You must use the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowspreallocatestringbuffer">WindowsPreallocateStringBuffer</a> function to create the <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a>.
+     * @returns {HSTRING} Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
+     * 
+     * The newly created [**HSTRING**](/windows/win32/winrt/hstring) that contains the contents of <i>bufferHandle</i>.
+     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowspromotestringbuffer
+     * @since windows8.0
+     */
+    static WindowsPromoteStringBuffer(bufferHandle) {
+        bufferHandle := bufferHandle is Win32Handle ? NumGet(bufferHandle, "ptr") : bufferHandle
+
+        string := HSTRING()
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsPromoteStringBuffer", "ptr", bufferHandle, "ptr", string, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return string
     }
 
     /**
@@ -1656,18 +1249,21 @@ class WinRT {
      * <div> </div>
      * Don't call the <b>RoRegisterForApartmentShutdown</b> function from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iapartmentshutdown-onuninitialize">OnUninitialize</a> callback.
      * @param {IApartmentShutdown} callbackObject The application-supplied <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iapartmentshutdown">IApartmentShutdown</a> interface.
+     * @param {Pointer<Integer>} apartmentIdentifier The identifier for the current apartment.
      * @param {Pointer<APARTMENT_SHUTDOWN_REGISTRATION_COOKIE>} regCookie A cookie that you can use to unregister the callback.
-     * @returns {Integer} The identifier for the current apartment.
+     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-roregisterforapartmentshutdown
      * @since windows8.0
      */
-    static RoRegisterForApartmentShutdown(callbackObject, regCookie) {
-        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterForApartmentShutdown", "ptr", callbackObject, "uint*", &apartmentIdentifier := 0, "ptr", regCookie, "int")
+    static RoRegisterForApartmentShutdown(callbackObject, apartmentIdentifier, regCookie) {
+        apartmentIdentifierMarshal := apartmentIdentifier is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterForApartmentShutdown", "ptr", callbackObject, apartmentIdentifierMarshal, apartmentIdentifier, "ptr", regCookie, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return apartmentIdentifier
+        return result
     }
 
     /**

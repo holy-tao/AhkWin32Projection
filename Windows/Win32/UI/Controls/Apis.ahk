@@ -8,6 +8,7 @@
 #Include .\HDSA.ahk
 #Include .\HDPA.ahk
 #Include .\HTHEME.ahk
+#Include ..\..\Graphics\Gdi\HRGN.ahk
 #Include ..\..\Graphics\Gdi\HBRUSH.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\Input\Pointer\HSYNTHETICPOINTERDEVICE.ahk
@@ -13785,9 +13786,6 @@ class Controls {
      * This function must be called directly from ComCtl32.dll. It is ordinal 9.
      * 
      * The callback is responsible for writing the <i>pvInstData</i> data to the stream.
-     * @param {Pointer<HDPA>} phdpa Type: <b>HDPA*</b>
-     * 
-     * A handle to a DPA.
      * @param {Pointer<PFNDPASTREAM>} pfn Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dpa_dsa/nc-dpa_dsa-pfndpastream">PFNDPASTREAM</a></b>
      * 
      * The callback function. See <a href="https://docs.microsoft.com/windows/desktop/api/dpa_dsa/nc-dpa_dsa-pfndpastream">PFNDPASTREAM</a> for the callback function prototype.
@@ -13797,83 +13795,22 @@ class Controls {
      * @param {Pointer<Void>} pvInstData Type: <b>void*</b>
      * 
      * A pointer to callback data. <i>pvInstData</i> is passed as a parameter to <i>pfn</i>.
-     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HDPA} Type: <b>HDPA*</b>
      * 
-     * Returns one of the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Indicates that the callback function was successful and the element was loaded. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_FALSE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Indicates that the callback function was unsuccessful in loading the element; however, the process should continue. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Indicates that one or more of the parameters is invalid. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Indicates that the stream object could not be read. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The buffer length is invalid or there was insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * A handle to a DPA.
      * @see https://learn.microsoft.com/windows/win32/api/dpa_dsa/nf-dpa_dsa-dpa_loadstream
      * @since windows6.0.6000
      */
-    static DPA_LoadStream(phdpa, pfn, pstream, pvInstData) {
+    static DPA_LoadStream(pfn, pstream, pvInstData) {
         pvInstDataMarshal := pvInstData is VarRef ? "ptr" : "ptr"
 
+        phdpa := HDPA()
         result := DllCall("COMCTL32.dll\DPA_LoadStream", "ptr", phdpa, "ptr", pfn, "ptr", pstream, pvInstDataMarshal, pvInstData, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phdpa
     }
 
     /**
@@ -14540,43 +14477,23 @@ class Controls {
      * <li>The icon ordinal, if the icon resource is to be loaded by ordinal from the module. This ordinal must be packaged by using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.</li>
      * </ol>
      * @param {Integer} lims Type: <b>int</b>
-     * @param {Pointer<HICON>} phico Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HICON</a>*</b>
+     * @returns {HICON} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HICON</a>*</b>
      * 
      * When this function returns, contains a pointer to the handle of the loaded icon.
-     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * Returns S_OK if successful, otherwise an error, including the following value.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The contents of the buffer pointed to by <i>pszName</i> do not fit any of the expected interpretations.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-loadiconmetric
      * @since windows6.0.6000
      */
-    static LoadIconMetric(hinst, pszName, lims, phico) {
+    static LoadIconMetric(hinst, pszName, lims) {
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
+        phico := HICON()
         result := DllCall("COMCTL32.dll\LoadIconMetric", "ptr", hinst, "ptr", pszName, "int", lims, "ptr", phico, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phico
     }
 
     /**
@@ -14716,43 +14633,23 @@ class Controls {
      * @param {Integer} cy Type: <b>int</b>
      * 
      * The desired height, in pixels, of the icon.
-     * @param {Pointer<HICON>} phico Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HICON</a>*</b>
+     * @returns {HICON} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HICON</a>*</b>
      * 
      * When this function returns, contains a pointer to the handle of the loaded icon.
-     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * Returns S_OK if successful, or an error value otherwise, including the following:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The contents of the buffer pointed to by <i>pszName</i> do not fit any of the expected interpretations.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-loadiconwithscaledown
      * @since windows6.0.6000
      */
-    static LoadIconWithScaleDown(hinst, pszName, cx, cy, phico) {
+    static LoadIconWithScaleDown(hinst, pszName, cx, cy) {
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
+        phico := HICON()
         result := DllCall("COMCTL32.dll\LoadIconWithScaleDown", "ptr", hinst, "ptr", pszName, "int", cx, "int", cy, "ptr", phico, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phico
     }
 
     /**
@@ -15283,25 +15180,23 @@ class Controls {
      * @param {Pointer<RECT>} pRect Type: <b>LPCRECT</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains, in logical coordinates, the specified rectangle used to compute the region.
-     * @param {Pointer<HRGN>} pRegion Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRGN</a>*</b>
+     * @returns {HRGN} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRGN</a>*</b>
      * 
      * Pointer to the handle to the computed <a href="https://docs.microsoft.com/windows/desktop/gdi/regions">region</a>.
-     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemebackgroundregion
      * @since windows6.0.6000
      */
-    static GetThemeBackgroundRegion(hTheme, hdc, iPartId, iStateId, pRect, pRegion) {
+    static GetThemeBackgroundRegion(hTheme, hdc, iPartId, iStateId, pRect) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
+        pRegion := HRGN()
         result := DllCall("UxTheme.dll\GetThemeBackgroundRegion", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pRect, "ptr", pRegion, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return pRegion
     }
 
     /**
@@ -17194,24 +17089,22 @@ class Controls {
      * 
      * The property to retrieve. Pass zero to automatically select the first available bitmap for this part and state,
      * @param {Integer} dwFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">ULONG</a></b>
-     * @param {Pointer<HBITMAP>} phBitmap Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBITMAP</a>*</b>
+     * @returns {HBITMAP} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBITMAP</a>*</b>
      * 
      * A pointer that receives a handle to the requested bitmap.
-     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getthemebitmap
      * @since windows6.0.6000
      */
-    static GetThemeBitmap(hTheme, iPartId, iStateId, iPropId, dwFlags, phBitmap) {
+    static GetThemeBitmap(hTheme, iPartId, iStateId, iPropId, dwFlags) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
+        phBitmap := HBITMAP()
         result := DllCall("UXTHEME.dll\GetThemeBitmap", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "uint", dwFlags, "ptr", phBitmap, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phBitmap
     }
 
     /**
