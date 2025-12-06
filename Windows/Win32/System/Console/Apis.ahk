@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\HPCON.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\UI\WindowsAndMessaging\HMENU.ahk
@@ -1091,22 +1092,20 @@ class Console {
      * |-|-|
      * | **0** | Perform a standard pseudoconsole creation. |
      * | **PSEUDOCONSOLE_INHERIT_CURSOR** (DWORD)1 | The created pseudoconsole session will attempt to inherit the cursor position of the parent console. |
-     * @param {Pointer<HPCON>} phPC Pointer to a location that will receive a handle to the new pseudoconsole device.
-     * @returns {HRESULT} Type: **HRESULT**
-     * 
-     * If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HPCON} Pointer to a location that will receive a handle to the new pseudoconsole device.
      * @see https://learn.microsoft.com/windows/console/createpseudoconsole
      */
-    static CreatePseudoConsole(size, hInput, hOutput, dwFlags, phPC) {
+    static CreatePseudoConsole(size, hInput, hOutput, dwFlags) {
         hInput := hInput is Win32Handle ? NumGet(hInput, "ptr") : hInput
         hOutput := hOutput is Win32Handle ? NumGet(hOutput, "ptr") : hOutput
 
+        phPC := HPCON()
         result := DllCall("KERNEL32.dll\CreatePseudoConsole", "ptr", size, "ptr", hInput, "ptr", hOutput, "uint", dwFlags, "ptr", phPC, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phPC
     }
 
     /**

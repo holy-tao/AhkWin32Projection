@@ -13573,18 +13573,21 @@ class Printing {
      * @param {HWND} hWnd 
      * @param {PWSTR} pszPrinter 
      * @param {Pointer<HANDLE>} phFile 
-     * @returns {PWSTR} 
+     * @param {Pointer<PWSTR>} ppszOutputFile 
+     * @returns {HRESULT} 
      */
-    static GetPrintOutputInfo(hWnd, pszPrinter, phFile) {
+    static GetPrintOutputInfo(hWnd, pszPrinter, phFile, ppszOutputFile) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         pszPrinter := pszPrinter is String ? StrPtr(pszPrinter) : pszPrinter
 
-        result := DllCall("winspool.drv\GetPrintOutputInfo", "ptr", hWnd, "ptr", pszPrinter, "ptr", phFile, "ptr*", &ppszOutputFile := 0, "int")
+        ppszOutputFileMarshal := ppszOutputFile is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("winspool.drv\GetPrintOutputInfo", "ptr", hWnd, "ptr", pszPrinter, "ptr", phFile, ppszOutputFileMarshal, ppszOutputFile, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return ppszOutputFile
+        return result
     }
 
     /**
@@ -13617,96 +13620,20 @@ class Printing {
      * </ul>
      * @param {Integer} eConversationStyle A value specifying whether communication is bidirectional or unidirectional.
      * @param {IPrintAsyncNotifyCallback} pCallback A pointer to an object that the Print Spooler-hosted component will use to call back the application. This should never be <b>NULL</b>.
-     * @param {Pointer<HANDLE>} phNotify A pointer to a structure that represents the registration.
-     * @returns {HRESULT} <table>
-     * <tr>
-     * <th>HRESULT</th>
-     * <th>Severity</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td>S_OK</td>
-     * <td>SUCCESS</td>
-     * <td>The function completed successfully.</td>
-     * </tr>
-     * <tr>
-     * <td>ALREADY_REGISTERED</td>
-     * <td>ERROR</td>
-     * <td>The registration object has already been registered.</td>
-     * </tr>
-     * <tr>
-     * <td>LOCAL_ONLY_REGISTRATION</td>
-     * <td>SUCCESS</td>
-     * <td>Registration for local notification was successful. Registration for remote notifications was not.</td>
-     * </tr>
-     * <tr>
-     * <td>MAX_REGISTRATION_COUNT_EXCEEDED</td>
-     * <td>ERROR</td>
-     * <td>The maximum number of registrations has been reached. No more registrations are permitted.</td>
-     * </tr>
-     * <tr>
-     * <td>REMOTE_ONLY_REGISTRATION</td>
-     * <td>SUCCESS</td>
-     * <td>Registration for remote notifications was successful. Registration for local notifications was not.</td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * The return values are COM error codes. Because this function might complete the operation successfully yet return an HRESULT other than S_OK you should use the SUCCEEDED or FAILED macro to determine the success of the call. To get the specific HRESULT that was returned by the function, use the HRESULT_CODE macro.
-     * 
-     * The following code example shows how these macros can be used to evaluate the return value.
-     * 
-     * 
-     * ```cpp
-     * if (SUCCEEDED(hr)) {
-     *   // Call succeeded, check HRESULT value returned
-     *   switch (HRESULT_CODE(hr)){
-     *     case S_OK:
-     *       // Some action 
-     *       break;
-     *       case LOCAL_ONLY_REGISTRATION:
-     *       // Some action 
-     *       break;
-     *     case REMOTE_ONLY_REGISTRATION:
-     *       // Some action 
-     *       break;
-     *     default:
-     *       // Default action 
-     *       break;
-     *   }
-     * } else {
-     *   // Call failed, check HRESULT value returned
-     *   switch (HRESULT_CODE(hr)){
-     *     case ALREADY_REGISTERED:
-     *       // Some action 
-     *       break;
-     *     case MAX_REGISTRATION_COUNT_EXCEEDED:
-     *       // Some action 
-     *       break;
-     *     default:
-     *       // Default action 
-     *       break;
-     *   }
-     * }
-     * 
-     * ```
-     * 
-     * 
-     * For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/SetupApi/error-handling">Error Handling</a>.
-     * 
-     * See <a href="https://docs.microsoft.com/windows/desktop/api/prnasnot/ne-prnasnot-printasyncnotifyerror">PrintAsyncNotifyError</a> for other possible return values.
+     * @returns {HANDLE} A pointer to a structure that represents the registration.
      * @see https://learn.microsoft.com/windows/win32/api/prnasnot/nf-prnasnot-registerforprintasyncnotifications
      * @since windows6.0.6000
      */
-    static RegisterForPrintAsyncNotifications(pszName, pNotificationType, eUserFilter, eConversationStyle, pCallback, phNotify) {
+    static RegisterForPrintAsyncNotifications(pszName, pNotificationType, eUserFilter, eConversationStyle, pCallback) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
+        phNotify := HANDLE()
         result := DllCall("winspool.drv\RegisterForPrintAsyncNotifications", "ptr", pszName, "ptr", pNotificationType, "int", eUserFilter, "int", eConversationStyle, "ptr", pCallback, "ptr", phNotify, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phNotify
     }
 
     /**
@@ -14517,18 +14444,18 @@ class Printing {
     /**
      * 
      * @param {PRINTER_HANDLE} hPrinter 
-     * @param {Pointer<HANDLE>} phDeviceObject 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    static AddPrintDeviceObject(hPrinter, phDeviceObject) {
+    static AddPrintDeviceObject(hPrinter) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
+        phDeviceObject := HANDLE()
         result := DllCall("SPOOLSS.dll\AddPrintDeviceObject", "ptr", hPrinter, "ptr", phDeviceObject, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phDeviceObject
     }
 
     /**

@@ -7021,7 +7021,7 @@ class Debug {
      * The SymMatchString function (dbghelp.h) compares the specified string to the specified wildcard expression.
      * @remarks
      * All DbgHelp functions, such as this one, are single threaded. Therefore, calls from more than one thread to this function will likely result in unexpected behavior or memory corruption. To avoid this, you must synchronize all concurrent calls from more than one thread to this function.
-     * @param {PSTR} string The string, such as a symbol name, to be compared to the <i>expression</i> parameter.
+     * @param {PSTR} string_R 
      * @param {PSTR} expression The wildcard expression to compare to the <i>string</i> parameter.  The wildcard expression supports the inclusion of the * and ? characters.  * matches any string and ? matches any single character.
      * @param {BOOL} fCase A variable that indicates whether or not the comparison is to be case sensitive.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
@@ -7031,13 +7031,13 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dbghelp/nf-dbghelp-symmatchstring
      */
-    static SymMatchString(string, expression, fCase) {
-        string := string is String ? StrPtr(string) : string
+    static SymMatchString(string_R, expression, fCase) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
         expression := expression is String ? StrPtr(expression) : expression
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymMatchString", "ptr", string, "ptr", expression, "int", fCase, "int")
+        result := DllCall("dbghelp.dll\SymMatchString", "ptr", string_R, "ptr", expression, "int", fCase, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -7052,7 +7052,7 @@ class Debug {
      * 
      * > [!NOTE]
      * > The dbghelp.h header defines SymMatchString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} string The string, such as a symbol name, to be compared to the <i>expression</i> parameter.
+     * @param {PSTR} string_R 
      * @param {PSTR} expression The wildcard expression to compare to the <i>string</i> parameter. The wildcard expression supports the inclusion of the * and ? characters. * matches any string and ? matches any single character.
      * @param {BOOL} fCase A variable that indicates whether or not the comparison is to be case sensitive.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.  
@@ -7060,11 +7060,11 @@ class Debug {
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dbghelp/nf-dbghelp-symmatchstringa
      */
-    static SymMatchStringA(string, expression, fCase) {
-        string := string is String ? StrPtr(string) : string
+    static SymMatchStringA(string_R, expression, fCase) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
         expression := expression is String ? StrPtr(expression) : expression
 
-        result := DllCall("dbghelp.dll\SymMatchStringA", "ptr", string, "ptr", expression, "int", fCase, "int")
+        result := DllCall("dbghelp.dll\SymMatchStringA", "ptr", string_R, "ptr", expression, "int", fCase, "int")
         return result
     }
 
@@ -7079,7 +7079,7 @@ class Debug {
      * 
      * > [!NOTE]
      * > The dbghelp.h header defines SymMatchString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} string The string, such as a symbol name, to be compared to the <i>expression</i> parameter.
+     * @param {PWSTR} string_R 
      * @param {PWSTR} expression The wildcard expression to compare to the <i>string</i> parameter.  The wildcard expression supports the inclusion of the * and ? characters.  * matches any string and ? matches any single character.
      * @param {BOOL} fCase A variable that indicates whether or not the comparison is to be case sensitive.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
@@ -7089,13 +7089,13 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dbghelp/nf-dbghelp-symmatchstringw
      */
-    static SymMatchStringW(string, expression, fCase) {
-        string := string is String ? StrPtr(string) : string
+    static SymMatchStringW(string_R, expression, fCase) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
         expression := expression is String ? StrPtr(expression) : expression
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymMatchStringW", "ptr", string, "ptr", expression, "int", fCase, "int")
+        result := DllCall("dbghelp.dll\SymMatchStringW", "ptr", string_R, "ptr", expression, "int", fCase, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }

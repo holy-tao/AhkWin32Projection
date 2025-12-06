@@ -2101,7 +2101,7 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpPath>} path 
-     * @param {PWSTR} string 
+     * @param {PWSTR} string_R 
      * @param {Integer} length 
      * @param {Pointer<GpFontFamily>} family 
      * @param {Integer} style 
@@ -2110,17 +2110,17 @@ class GdiPlus {
      * @param {Pointer<GpStringFormat>} format 
      * @returns {Integer} 
      */
-    static GdipAddPathString(path, string, length, family, style, emSize, layoutRect, format) {
-        string := string is String ? StrPtr(string) : string
+    static GdipAddPathString(path, string_R, length, family, style, emSize, layoutRect, format) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
 
-        result := DllCall("gdiplus.dll\GdipAddPathString", "ptr", path, "ptr", string, "int", length, "ptr", family, "int", style, "float", emSize, "ptr", layoutRect, "ptr", format, "int")
+        result := DllCall("gdiplus.dll\GdipAddPathString", "ptr", path, "ptr", string_R, "int", length, "ptr", family, "int", style, "float", emSize, "ptr", layoutRect, "ptr", format, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpPath>} path 
-     * @param {PWSTR} string 
+     * @param {PWSTR} string_R 
      * @param {Integer} length 
      * @param {Pointer<GpFontFamily>} family 
      * @param {Integer} style 
@@ -2129,10 +2129,10 @@ class GdiPlus {
      * @param {Pointer<GpStringFormat>} format 
      * @returns {Integer} 
      */
-    static GdipAddPathStringI(path, string, length, family, style, emSize, layoutRect, format) {
-        string := string is String ? StrPtr(string) : string
+    static GdipAddPathStringI(path, string_R, length, family, style, emSize, layoutRect, format) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
 
-        result := DllCall("gdiplus.dll\GdipAddPathStringI", "ptr", path, "ptr", string, "int", length, "ptr", family, "int", style, "float", emSize, "ptr", layoutRect, "ptr", format, "int")
+        result := DllCall("gdiplus.dll\GdipAddPathStringI", "ptr", path, "ptr", string_R, "int", length, "ptr", family, "int", style, "float", emSize, "ptr", layoutRect, "ptr", format, "int")
         return result
     }
 
@@ -9598,7 +9598,7 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {PWSTR} string 
+     * @param {PWSTR} string_R 
      * @param {Integer} length 
      * @param {Pointer<GpFont>} font 
      * @param {Pointer<RectF>} layoutRect 
@@ -9606,17 +9606,17 @@ class GdiPlus {
      * @param {Pointer<GpBrush>} brush 
      * @returns {Integer} 
      */
-    static GdipDrawString(graphics, string, length, font, layoutRect, stringFormat, brush) {
-        string := string is String ? StrPtr(string) : string
+    static GdipDrawString(graphics, string_R, length, font, layoutRect, stringFormat, brush) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
 
-        result := DllCall("gdiplus.dll\GdipDrawString", "ptr", graphics, "ptr", string, "int", length, "ptr", font, "ptr", layoutRect, "ptr", stringFormat, "ptr", brush, "int")
+        result := DllCall("gdiplus.dll\GdipDrawString", "ptr", graphics, "ptr", string_R, "int", length, "ptr", font, "ptr", layoutRect, "ptr", stringFormat, "ptr", brush, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {PWSTR} string 
+     * @param {PWSTR} string_R 
      * @param {Integer} length 
      * @param {Pointer<GpFont>} font 
      * @param {Pointer<RectF>} layoutRect 
@@ -9626,20 +9626,20 @@ class GdiPlus {
      * @param {Pointer<Integer>} linesFilled 
      * @returns {Integer} 
      */
-    static GdipMeasureString(graphics, string, length, font, layoutRect, stringFormat, boundingBox, codepointsFitted, linesFilled) {
-        string := string is String ? StrPtr(string) : string
+    static GdipMeasureString(graphics, string_R, length, font, layoutRect, stringFormat, boundingBox, codepointsFitted, linesFilled) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
 
         codepointsFittedMarshal := codepointsFitted is VarRef ? "int*" : "ptr"
         linesFilledMarshal := linesFilled is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipMeasureString", "ptr", graphics, "ptr", string, "int", length, "ptr", font, "ptr", layoutRect, "ptr", stringFormat, "ptr", boundingBox, codepointsFittedMarshal, codepointsFitted, linesFilledMarshal, linesFilled, "int")
+        result := DllCall("gdiplus.dll\GdipMeasureString", "ptr", graphics, "ptr", string_R, "int", length, "ptr", font, "ptr", layoutRect, "ptr", stringFormat, "ptr", boundingBox, codepointsFittedMarshal, codepointsFitted, linesFilledMarshal, linesFilled, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {PWSTR} string 
+     * @param {PWSTR} string_R 
      * @param {Integer} length 
      * @param {Pointer<GpFont>} font 
      * @param {Pointer<RectF>} layoutRect 
@@ -9648,12 +9648,12 @@ class GdiPlus {
      * @param {Pointer<Pointer<GpRegion>>} regions 
      * @returns {Integer} 
      */
-    static GdipMeasureCharacterRanges(graphics, string, length, font, layoutRect, stringFormat, regionCount, regions) {
-        string := string is String ? StrPtr(string) : string
+    static GdipMeasureCharacterRanges(graphics, string_R, length, font, layoutRect, stringFormat, regionCount, regions) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
 
         regionsMarshal := regions is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipMeasureCharacterRanges", "ptr", graphics, "ptr", string, "int", length, "ptr", font, "ptr", layoutRect, "ptr", stringFormat, "int", regionCount, regionsMarshal, regions, "int")
+        result := DllCall("gdiplus.dll\GdipMeasureCharacterRanges", "ptr", graphics, "ptr", string_R, "int", length, "ptr", font, "ptr", layoutRect, "ptr", stringFormat, "int", regionCount, regionsMarshal, regions, "int")
         return result
     }
 

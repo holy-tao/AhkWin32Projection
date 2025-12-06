@@ -388,23 +388,21 @@ class HostComputeSystem {
      * @param {PWSTR} configuration JSON document specifying the settings of the [compute system](./../SchemaReference.md#ComputeSystem). The compute system document is expected to have a `Container`, `VirtualMachine` or `HostedSystem` property set since they are mutually exclusive.
      * @param {HCS_OPERATION} operation The handle to the operation that tracks the create operation.
      * @param {Pointer<SECURITY_DESCRIPTOR>} securityDescriptor Reserved for future use, must be `NULL`.
-     * @param {Pointer<HCS_SYSTEM>} computeSystem Receives a handle to the newly created compute system. It is the responsibility of the caller to release the handle using [HcsCloseComputeSystem](./HcsCloseComputeSystem.md) once it is no longer in use.
-     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
-     * 
-     * If the return value is `S_OK`, it means the operation started successfully. Callers are expected to get the operation's result using [`HcsWaitForOperationResult`](./HcsWaitForOperationResult.md) or [`HcsGetOperationResult`](./HcsGetOperationResult.md).
+     * @returns {HCS_SYSTEM} Receives a handle to the newly created compute system. It is the responsibility of the caller to release the handle using [HcsCloseComputeSystem](./HcsCloseComputeSystem.md) once it is no longer in use.
      * @see https://learn.microsoft.com/virtualization/api/hcs/reference/HcsCreateComputeSystem
      */
-    static HcsCreateComputeSystem(id, configuration, operation, securityDescriptor, computeSystem) {
+    static HcsCreateComputeSystem(id, configuration, operation, securityDescriptor) {
         id := id is String ? StrPtr(id) : id
         configuration := configuration is String ? StrPtr(configuration) : configuration
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
+        computeSystem := HCS_SYSTEM()
         result := DllCall("computecore.dll\HcsCreateComputeSystem", "ptr", id, "ptr", configuration, "ptr", operation, "ptr", securityDescriptor, "ptr", computeSystem, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return computeSystem
     }
 
     /**
@@ -414,10 +412,9 @@ class HostComputeSystem {
      * @param {PWSTR} configuration 
      * @param {HCS_OPERATION} operation 
      * @param {Pointer<Integer>} options 
-     * @param {Pointer<HCS_SYSTEM>} computeSystem 
-     * @returns {HRESULT} 
+     * @returns {HCS_SYSTEM} 
      */
-    static HcsCreateComputeSystemInNamespace(idNamespace, id, configuration, operation, options, computeSystem) {
+    static HcsCreateComputeSystemInNamespace(idNamespace, id, configuration, operation, options) {
         idNamespace := idNamespace is String ? StrPtr(idNamespace) : idNamespace
         id := id is String ? StrPtr(id) : id
         configuration := configuration is String ? StrPtr(configuration) : configuration
@@ -425,31 +422,32 @@ class HostComputeSystem {
 
         optionsMarshal := options is VarRef ? "int*" : "ptr"
 
+        computeSystem := HCS_SYSTEM()
         result := DllCall("computecore.dll\HcsCreateComputeSystemInNamespace", "ptr", idNamespace, "ptr", id, "ptr", configuration, "ptr", operation, optionsMarshal, options, "ptr", computeSystem, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return computeSystem
     }
 
     /**
      * HcsOpenComputeSystem
      * @param {PWSTR} id Unique Id identifying the compute system.
      * @param {Integer} requestedAccess Reserved for future use, must be `GENERIC_ALL`.
-     * @param {Pointer<HCS_SYSTEM>} computeSystem Receives a handle to the compute system. It is the responsibility of the caller to release the handle using [HcsCloseComputeSystem](./HcsCloseComputeSystem.md) once it is no longer in use.
-     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
+     * @returns {HCS_SYSTEM} Receives a handle to the compute system. It is the responsibility of the caller to release the handle using [HcsCloseComputeSystem](./HcsCloseComputeSystem.md) once it is no longer in use.
      * @see https://learn.microsoft.com/virtualization/api/hcs/reference/HcsOpenComputeSystem
      */
-    static HcsOpenComputeSystem(id, requestedAccess, computeSystem) {
+    static HcsOpenComputeSystem(id, requestedAccess) {
         id := id is String ? StrPtr(id) : id
 
+        computeSystem := HCS_SYSTEM()
         result := DllCall("computecore.dll\HcsOpenComputeSystem", "ptr", id, "uint", requestedAccess, "ptr", computeSystem, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return computeSystem
     }
 
     /**
@@ -457,19 +455,19 @@ class HostComputeSystem {
      * @param {PWSTR} idNamespace 
      * @param {PWSTR} id 
      * @param {Integer} requestedAccess 
-     * @param {Pointer<HCS_SYSTEM>} computeSystem 
-     * @returns {HRESULT} 
+     * @returns {HCS_SYSTEM} 
      */
-    static HcsOpenComputeSystemInNamespace(idNamespace, id, requestedAccess, computeSystem) {
+    static HcsOpenComputeSystemInNamespace(idNamespace, id, requestedAccess) {
         idNamespace := idNamespace is String ? StrPtr(idNamespace) : idNamespace
         id := id is String ? StrPtr(id) : id
 
+        computeSystem := HCS_SYSTEM()
         result := DllCall("computecore.dll\HcsOpenComputeSystemInNamespace", "ptr", idNamespace, "ptr", id, "uint", requestedAccess, "ptr", computeSystem, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return computeSystem
     }
 
     /**
@@ -844,23 +842,21 @@ class HostComputeSystem {
      * @param {PWSTR} processParameters JSON document of [ProcessParameters](./../SchemaReference.md#ProcessParameters) specifying the command line and environment for the process.
      * @param {HCS_OPERATION} operation Handle to the operation that tracks the process creation operation.
      * @param {Pointer<SECURITY_DESCRIPTOR>} securityDescriptor Reserved for future use, must be `NULL`.
-     * @param {Pointer<HCS_PROCESS>} process Receives the `HCS_PROCESS` handle to the newly created process.
-     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
-     * 
-     * If the return value is `S_OK`, it means the operation started successfully. Callers are expected to get the operation's result using [`HcsWaitForOperationResultAndProcessInfo`](./HcsWaitForOperationResultAndProcessInfo.md) or [`HcsGetOperationResultAndProcessInfo`](./HcsGetOperationResultAndProcessInfo.md).
+     * @returns {HCS_PROCESS} Receives the `HCS_PROCESS` handle to the newly created process.
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCreateProcess
      */
-    static HcsCreateProcess(computeSystem, processParameters, operation, securityDescriptor, process) {
+    static HcsCreateProcess(computeSystem, processParameters, operation, securityDescriptor) {
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
         processParameters := processParameters is String ? StrPtr(processParameters) : processParameters
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
+        process := HCS_PROCESS()
         result := DllCall("computecore.dll\HcsCreateProcess", "ptr", computeSystem, "ptr", processParameters, "ptr", operation, "ptr", securityDescriptor, "ptr", process, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return process
     }
 
     /**
@@ -868,19 +864,19 @@ class HostComputeSystem {
      * @param {HCS_SYSTEM} computeSystem The handle to the compute system in which to start the process.
      * @param {Integer} processId Specifies the Id of the process to open.
      * @param {Integer} requestedAccess Specifies the required access to the compute system.
-     * @param {Pointer<HCS_PROCESS>} process Receives the handle to the process.
-     * @returns {HRESULT} The function returns [HRESULT](./HCSHResult.md).
+     * @returns {HCS_PROCESS} Receives the handle to the process.
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsOpenProcess
      */
-    static HcsOpenProcess(computeSystem, processId, requestedAccess, process) {
+    static HcsOpenProcess(computeSystem, processId, requestedAccess) {
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
 
+        process := HCS_PROCESS()
         result := DllCall("computecore.dll\HcsOpenProcess", "ptr", computeSystem, "uint", processId, "uint", requestedAccess, "ptr", process, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return process
     }
 
     /**

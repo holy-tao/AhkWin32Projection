@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT.ahk
 
 /**
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
@@ -19,23 +20,23 @@ class ProjectedFileSystem {
      * @param {Pointer<PRJ_CALLBACKS>} callbacks Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/ns-projectedfslib-prj_callbacks">PRJ_CALLBACKS</a> structure that has been initialized with PrjCommandCallbacksInit and filled in with pointers to the provider's callback functions.
      * @param {Pointer<Void>} instanceContext Pointer to context information defined by the provider for each instance. This parameter is optional and can be NULL. If it is specified, ProjFS will return it in the InstanceContext member of <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/ns-projectedfslib-prj_callback_data">PRJ_CALLBACK_DATA</a> when invoking provider callback routines.
      * @param {Pointer<PRJ_STARTVIRTUALIZING_OPTIONS>} options An optional pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/ns-projectedfslib-prj_startvirtualizing_options">PRJ_STARTVIRTUALIZING_OPTIONS</a>.
-     * @param {Pointer<PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT>} namespaceVirtualizationContext On success returns an opaque handle to the ProjFS virtualization instance. 
+     * @returns {PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT} On success returns an opaque handle to the ProjFS virtualization instance. 
      * The provider passes this value when calling functions that require a PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT as input.
-     * @returns {HRESULT} The error, HRESULT_FROM_WIN32(ERROR_REPARSE_TAG_MISMATCH), indicates that virtualizationRootPath has not been configured as a virtualization root.
      * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjstartvirtualizing
      * @since windows10.0.17763
      */
-    static PrjStartVirtualizing(virtualizationRootPath, callbacks, instanceContext, options, namespaceVirtualizationContext) {
+    static PrjStartVirtualizing(virtualizationRootPath, callbacks, instanceContext, options) {
         virtualizationRootPath := virtualizationRootPath is String ? StrPtr(virtualizationRootPath) : virtualizationRootPath
 
         instanceContextMarshal := instanceContext is VarRef ? "ptr" : "ptr"
 
+        namespaceVirtualizationContext := PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT()
         result := DllCall("PROJECTEDFSLIB.dll\PrjStartVirtualizing", "ptr", virtualizationRootPath, "ptr", callbacks, instanceContextMarshal, instanceContext, "ptr", options, "ptr", namespaceVirtualizationContext, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return namespaceVirtualizationContext
     }
 
     /**

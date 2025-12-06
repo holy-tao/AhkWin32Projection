@@ -2920,26 +2920,26 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<Integer>} String 
+     * @param {Pointer<Integer>} String_R 
      * @returns {Integer} 
      */
-    static uaw_lstrlenW(String) {
-        StringMarshal := String is VarRef ? "ushort*" : "ptr"
+    static uaw_lstrlenW(String_R) {
+        String_RMarshal := String_R is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\uaw_lstrlenW", StringMarshal, String, "int")
+        result := DllCall("KERNEL32.dll\uaw_lstrlenW", String_RMarshal, String_R, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} String 
+     * @param {Pointer<Integer>} String_R 
      * @param {Integer} Character 
      * @returns {Pointer<Integer>} 
      */
-    static uaw_wcschr(String, Character) {
-        StringMarshal := String is VarRef ? "ushort*" : "ptr"
+    static uaw_wcschr(String_R, Character) {
+        String_RMarshal := String_R is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\uaw_wcschr", StringMarshal, String, "char", Character, "ptr")
+        result := DllCall("KERNEL32.dll\uaw_wcschr", String_RMarshal, String_R, "char", Character, "ptr")
         return result
     }
 
@@ -2975,27 +2975,27 @@ class WindowsProgramming {
      * Retrieves the number of characters in a null-terminated Unicode string.
      * @remarks
      * This function is available only on 64-bit Windows.
-     * @param {Pointer<Integer>} String A pointer to a null-terminated Unicode string.
+     * @param {Pointer<Integer>} String_R 
      * @returns {Pointer} The return value is the number of characters in <i>String</i>, not including the terminating null character.
      * @see https://learn.microsoft.com/windows/win32/api/stralign/nf-stralign-uaw_wcslen
      */
-    static uaw_wcslen(String) {
-        StringMarshal := String is VarRef ? "ushort*" : "ptr"
+    static uaw_wcslen(String_R) {
+        String_RMarshal := String_R is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\uaw_wcslen", StringMarshal, String, "ptr")
+        result := DllCall("KERNEL32.dll\uaw_wcslen", String_RMarshal, String_R, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} String 
+     * @param {Pointer<Integer>} String_R 
      * @param {Integer} Character 
      * @returns {Pointer<Integer>} 
      */
-    static uaw_wcsrchr(String, Character) {
-        StringMarshal := String is VarRef ? "ushort*" : "ptr"
+    static uaw_wcsrchr(String_R, Character) {
+        String_RMarshal := String_R is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\uaw_wcsrchr", StringMarshal, String, "char", Character, "ptr")
+        result := DllCall("KERNEL32.dll\uaw_wcsrchr", String_RMarshal, String_R, "char", Character, "ptr")
         return result
     }
 
@@ -7264,20 +7264,18 @@ class WindowsProgramming {
      * When converting strings to integers the preferred function to use is <a href="https://docs.microsoft.com/previous-versions/visualstudio/visual-studio-2010/w4z2wdyc(v=vs.100)">strtol, wcstol</a>.
      * 
      * There is no import library for this function. Use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> rather than linking to the function directly.
-     * @param {Pointer<Integer>} String A pointer to the string to convert. The format of the string is as follows: 
-     * 
-     * [whitespace] [{+ | -}] [0 [{x | o | b}]] [digits]
+     * @param {Pointer<Integer>} String_R 
      * @param {Integer} Base <b>ULONG</b> that contains the number base to use for the conversion, such as base 10. Only base 2, 8, 10, and 16 are supported.
      * @param {Pointer<Integer>} Value A pointer to a <b>ULONG</b> that receives the integer that resulted from the conversion.
      * @returns {NTSTATUS} If the function succeeds, the function returns <b>STATUS_SUCCESS</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlchartointeger
      * @since windows5.0
      */
-    static RtlCharToInteger(String, Base, Value) {
-        StringMarshal := String is VarRef ? "char*" : "ptr"
+    static RtlCharToInteger(String_R, Base, Value) {
+        String_RMarshal := String_R is VarRef ? "char*" : "ptr"
         ValueMarshal := Value is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlCharToInteger", StringMarshal, String, "uint", Base, ValueMarshal, Value, "int")
+        result := DllCall("ntdll.dll\RtlCharToInteger", String_RMarshal, String_R, "uint", Base, ValueMarshal, Value, "int")
         return result
     }
 

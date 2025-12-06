@@ -7951,11 +7951,11 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<UNICODE_STRING>} String 
+     * @param {Pointer<UNICODE_STRING>} String_R 
      * @returns {NTSTATUS} 
      */
-    static NtDisplayString(String) {
-        result := DllCall("ntdll.dll\NtDisplayString", "ptr", String, "int")
+    static NtDisplayString(String_R) {
+        result := DllCall("ntdll.dll\NtDisplayString", "ptr", String_R, "int")
         return result
     }
 
@@ -8098,11 +8098,11 @@ class SystemServices {
      * 
      * @param {Integer} Value 
      * @param {Integer} Base 
-     * @param {Pointer<UNICODE_STRING>} String 
+     * @param {Pointer<UNICODE_STRING>} String_R 
      * @returns {NTSTATUS} 
      */
-    static RtlIntegerToUnicodeString(Value, Base, String) {
-        result := DllCall("ntdll.dll\RtlIntegerToUnicodeString", "uint", Value, "uint", Base, "ptr", String, "int")
+    static RtlIntegerToUnicodeString(Value, Base, String_R) {
+        result := DllCall("ntdll.dll\RtlIntegerToUnicodeString", "uint", Value, "uint", Base, "ptr", String_R, "int")
         return result
     }
 
@@ -8110,41 +8110,41 @@ class SystemServices {
      * 
      * @param {Integer} Value 
      * @param {Integer} Base 
-     * @param {Pointer<UNICODE_STRING>} String 
+     * @param {Pointer<UNICODE_STRING>} String_R 
      * @returns {NTSTATUS} 
      */
-    static RtlInt64ToUnicodeString(Value, Base, String) {
-        result := DllCall("ntdll.dll\RtlInt64ToUnicodeString", "uint", Value, "uint", Base, "ptr", String, "int")
+    static RtlInt64ToUnicodeString(Value, Base, String_R) {
+        result := DllCall("ntdll.dll\RtlInt64ToUnicodeString", "uint", Value, "uint", Base, "ptr", String_R, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UNICODE_STRING>} String 
+     * @param {Pointer<UNICODE_STRING>} String_R 
      * @param {Integer} Base 
      * @param {Pointer<Integer>} Value 
      * @returns {NTSTATUS} 
      */
-    static RtlUnicodeStringToInteger(String, Base, Value) {
+    static RtlUnicodeStringToInteger(String_R, Base, Value) {
         ValueMarshal := Value is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlUnicodeStringToInteger", "ptr", String, "uint", Base, ValueMarshal, Value, "int")
+        result := DllCall("ntdll.dll\RtlUnicodeStringToInteger", "ptr", String_R, "uint", Base, ValueMarshal, Value, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UNICODE_STRING>} String 
+     * @param {Pointer<UNICODE_STRING>} String_R 
      * @param {Integer} Base 
      * @param {Pointer<Integer>} Number_R 
      * @param {Pointer<PWSTR>} EndPointer 
      * @returns {NTSTATUS} 
      */
-    static RtlUnicodeStringToInt64(String, Base, Number_R, EndPointer) {
+    static RtlUnicodeStringToInt64(String_R, Base, Number_R, EndPointer) {
         Number_RMarshal := Number_R is VarRef ? "int64*" : "ptr"
         EndPointerMarshal := EndPointer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ntoskrnl.exe\RtlUnicodeStringToInt64", "ptr", String, "uint", Base, Number_RMarshal, Number_R, EndPointerMarshal, EndPointer, "int")
+        result := DllCall("ntoskrnl.exe\RtlUnicodeStringToInt64", "ptr", String_R, "uint", Base, Number_RMarshal, Number_R, EndPointerMarshal, EndPointer, "int")
         return result
     }
 
@@ -8313,16 +8313,16 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<UNICODE_STRING>} String 
+     * @param {Pointer<UNICODE_STRING>} String_R 
      * @param {BOOLEAN} CaseInSensitive 
      * @param {Integer} HashAlgorithm 
      * @param {Pointer<Integer>} HashValue 
      * @returns {NTSTATUS} 
      */
-    static RtlHashUnicodeString(String, CaseInSensitive, HashAlgorithm, HashValue) {
+    static RtlHashUnicodeString(String_R, CaseInSensitive, HashAlgorithm, HashValue) {
         HashValueMarshal := HashValue is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlHashUnicodeString", "ptr", String, "char", CaseInSensitive, "uint", HashAlgorithm, HashValueMarshal, HashValue, "int")
+        result := DllCall("ntdll.dll\RtlHashUnicodeString", "ptr", String_R, "char", CaseInSensitive, "uint", HashAlgorithm, HashValueMarshal, HashValue, "int")
         return result
     }
 
@@ -15025,14 +15025,14 @@ class SystemServices {
      * @param {Integer} Level 
      * @param {Integer} Keyword 
      * @param {Pointer<Guid>} ActivityId 
-     * @param {PWSTR} String 
+     * @param {PWSTR} String_R 
      * @returns {NTSTATUS} 
      */
-    static EtwWriteString(RegHandle, Level, Keyword, ActivityId, String) {
+    static EtwWriteString(RegHandle, Level, Keyword, ActivityId, String_R) {
         RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
-        String := String is String ? StrPtr(String) : String
+        String_R := String_R is String ? StrPtr(String_R) : String_R
 
-        result := DllCall("ntoskrnl.exe\EtwWriteString", "ptr", RegHandle, "char", Level, "uint", Keyword, "ptr", ActivityId, "ptr", String, "int")
+        result := DllCall("ntoskrnl.exe\EtwWriteString", "ptr", RegHandle, "char", Level, "uint", Keyword, "ptr", ActivityId, "ptr", String_R, "int")
         return result
     }
 
@@ -20756,12 +20756,12 @@ class SystemServices {
     /**
      * 
      * @param {NTSTATUS} ErrorStatus 
-     * @param {Pointer<UNICODE_STRING>} String 
+     * @param {Pointer<UNICODE_STRING>} String_R 
      * @param {PKTHREAD} Thread 
      * @returns {BOOLEAN} 
      */
-    static IoRaiseInformationalHardError(ErrorStatus, String, Thread) {
-        result := DllCall("ntoskrnl.exe\IoRaiseInformationalHardError", "int", ErrorStatus, "ptr", String, "ptr", Thread, "char")
+    static IoRaiseInformationalHardError(ErrorStatus, String_R, Thread) {
+        result := DllCall("ntoskrnl.exe\IoRaiseInformationalHardError", "int", ErrorStatus, "ptr", String_R, "ptr", Thread, "char")
         return result
     }
 
@@ -21873,11 +21873,11 @@ class SystemServices {
 
     /**
      * 
-     * @param {Pointer<UNICODE_STRING>} String 
+     * @param {Pointer<UNICODE_STRING>} String_R 
      * @returns {NTSTATUS} 
      */
-    static ZwDisplayString(String) {
-        result := DllCall("ntdll.dll\ZwDisplayString", "ptr", String, "int")
+    static ZwDisplayString(String_R) {
+        result := DllCall("ntdll.dll\ZwDisplayString", "ptr", String_R, "int")
         return result
     }
 

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.SubsystemForLinux
@@ -154,23 +155,23 @@ class SubsystemForLinux {
      * @param {HANDLE} stdIn Handle to use for <b>STDIN</b>.
      * @param {HANDLE} stdOut Handle to use for <b>STDOUT</b>.
      * @param {HANDLE} stdErr Handle to use for <b>STDERR</b>.
-     * @param {Pointer<HANDLE>} process Pointer to address to receive the process HANDLE associated with the newly-launched WSL process.
-     * @returns {HRESULT} Returns S_OK on success, or a failing HRESULT otherwise.
+     * @returns {HANDLE} Pointer to address to receive the process HANDLE associated with the newly-launched WSL process.
      * @see https://learn.microsoft.com/windows/win32/api/wslapi/nf-wslapi-wsllaunch
      */
-    static WslLaunch(distributionName, command, useCurrentWorkingDirectory, stdIn, stdOut, stdErr, process) {
+    static WslLaunch(distributionName, command, useCurrentWorkingDirectory, stdIn, stdOut, stdErr) {
         distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
         command := command is String ? StrPtr(command) : command
         stdIn := stdIn is Win32Handle ? NumGet(stdIn, "ptr") : stdIn
         stdOut := stdOut is Win32Handle ? NumGet(stdOut, "ptr") : stdOut
         stdErr := stdErr is Win32Handle ? NumGet(stdErr, "ptr") : stdErr
 
+        process := HANDLE()
         result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslLaunch", "ptr", distributionName, "ptr", command, "int", useCurrentWorkingDirectory, "ptr", stdIn, "ptr", stdOut, "ptr", stdErr, "ptr", process, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return process
     }
 
 ;@endregion Methods

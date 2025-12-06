@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
@@ -294,20 +295,20 @@ class WindowsConnectionManager {
      * ```
      * @param {Pointer<ONDEMAND_NOTIFICATION_CALLBACK>} callback A pointer to a function of type <b>ONDEMAND_NOTIFICATION_CALLBACK</b> to receive the notifications.
      * @param {Pointer<Void>} callbackContext A pointer to a memory location containing optional context to be passed to the callback.
-     * @param {Pointer<HANDLE>} registrationHandle A pointer to a HANDLE to receive a handle to the registration in case of success.
-     * @returns {HRESULT} Returns S_OK on success.
+     * @returns {HANDLE} A pointer to a HANDLE to receive a handle to the registration in case of success.
      * @see https://learn.microsoft.com/windows/win32/api/ondemandconnroutehelper/nf-ondemandconnroutehelper-ondemandregisternotification
      * @since windows8.1
      */
-    static OnDemandRegisterNotification(callback, callbackContext, registrationHandle) {
+    static OnDemandRegisterNotification(callback, callbackContext) {
         callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
 
+        registrationHandle := HANDLE()
         result := DllCall("OnDemandConnRouteHelper.dll\OnDemandRegisterNotification", "ptr", callback, callbackContextMarshal, callbackContext, "ptr", registrationHandle, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return registrationHandle
     }
 
     /**

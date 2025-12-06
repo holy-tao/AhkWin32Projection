@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\DEVPROPKEY.ahk
 
 /**
@@ -3329,36 +3330,36 @@ class KernelStreaming {
      * 
      * @param {HANDLE} ConnectionHandle 
      * @param {Pointer<KSALLOCATOR_FRAMING>} AllocatorFraming 
-     * @param {Pointer<HANDLE>} AllocatorHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    static KsCreateAllocator2(ConnectionHandle, AllocatorFraming, AllocatorHandle) {
+    static KsCreateAllocator2(ConnectionHandle, AllocatorFraming) {
         ConnectionHandle := ConnectionHandle is Win32Handle ? NumGet(ConnectionHandle, "ptr") : ConnectionHandle
 
+        AllocatorHandle := HANDLE()
         result := DllCall("ksuser.dll\KsCreateAllocator2", "ptr", ConnectionHandle, "ptr", AllocatorFraming, "ptr", AllocatorHandle, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return AllocatorHandle
     }
 
     /**
      * 
      * @param {HANDLE} ConnectionHandle 
      * @param {Pointer<KSCLOCK_CREATE>} ClockCreate 
-     * @param {Pointer<HANDLE>} ClockHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    static KsCreateClock2(ConnectionHandle, ClockCreate, ClockHandle) {
+    static KsCreateClock2(ConnectionHandle, ClockCreate) {
         ConnectionHandle := ConnectionHandle is Win32Handle ? NumGet(ConnectionHandle, "ptr") : ConnectionHandle
 
+        ClockHandle := HANDLE()
         result := DllCall("ksuser.dll\KsCreateClock2", "ptr", ConnectionHandle, "ptr", ClockCreate, "ptr", ClockHandle, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return ClockHandle
     }
 
     /**
@@ -3366,18 +3367,18 @@ class KernelStreaming {
      * @param {HANDLE} FilterHandle 
      * @param {Pointer<KSPIN_CONNECT>} Connect 
      * @param {Integer} DesiredAccess 
-     * @param {Pointer<HANDLE>} ConnectionHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    static KsCreatePin2(FilterHandle, Connect, DesiredAccess, ConnectionHandle) {
+    static KsCreatePin2(FilterHandle, Connect, DesiredAccess) {
         FilterHandle := FilterHandle is Win32Handle ? NumGet(FilterHandle, "ptr") : FilterHandle
 
+        ConnectionHandle := HANDLE()
         result := DllCall("ksuser.dll\KsCreatePin2", "ptr", FilterHandle, "ptr", Connect, "uint", DesiredAccess, "ptr", ConnectionHandle, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return ConnectionHandle
     }
 
     /**
@@ -3385,18 +3386,18 @@ class KernelStreaming {
      * @param {HANDLE} ParentHandle 
      * @param {Pointer<KSNODE_CREATE>} NodeCreate 
      * @param {Integer} DesiredAccess 
-     * @param {Pointer<HANDLE>} NodeHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    static KsCreateTopologyNode2(ParentHandle, NodeCreate, DesiredAccess, NodeHandle) {
+    static KsCreateTopologyNode2(ParentHandle, NodeCreate, DesiredAccess) {
         ParentHandle := ParentHandle is Win32Handle ? NumGet(ParentHandle, "ptr") : ParentHandle
 
+        NodeHandle := HANDLE()
         result := DllCall("ksuser.dll\KsCreateTopologyNode2", "ptr", ParentHandle, "ptr", NodeCreate, "uint", DesiredAccess, "ptr", NodeHandle, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return NodeHandle
     }
 
     /**
@@ -3418,16 +3419,16 @@ class KernelStreaming {
      * 
      * @param {Pointer<Guid>} Category 
      * @param {Integer} Access 
-     * @param {Pointer<HANDLE>} DeviceHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    static KsOpenDefaultDevice(Category, Access, DeviceHandle) {
+    static KsOpenDefaultDevice(Category, Access) {
+        DeviceHandle := HANDLE()
         result := DllCall("ksproxy.ax\KsOpenDefaultDevice", "ptr", Category, "uint", Access, "ptr", DeviceHandle, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return DeviceHandle
     }
 
     /**

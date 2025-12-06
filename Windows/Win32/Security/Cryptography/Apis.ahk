@@ -1,7 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\NCRYPT_PROV_HANDLE.ahk
+#Include .\NCRYPT_KEY_HANDLE.ahk
+#Include .\NCRYPT_SECRET_HANDLE.ahk
 #Include .\HCERTSTORE.ahk
+#Include ..\NCRYPT_DESCRIPTOR_HANDLE.ahk
+#Include ..\NCRYPT_STREAM_HANDLE.ahk
+#Include .\BCRYPT_KEY_HANDLE.ahk
+#Include .\NCRYPT_HASH_HANDLE.ahk
 #Include .\BCRYPT_ALG_HANDLE.ahk
 
 /**
@@ -27794,7 +27801,6 @@ class Cryptography {
      * In the case that an error condition is returned, the provider will have been unloaded from memory. Functions within the provider must not be called after a failure error is returned.
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {Pointer<NCRYPT_PROV_HANDLE>} phProvider A pointer to a <b>NCRYPT_PROV_HANDLE</b> variable that receives the provider handle. When you have finished using this handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreeobject">NCryptFreeObject</a> function.
      * @param {PWSTR} pszProviderName A pointer to a null-terminated Unicode string that identifies the key storage provider to load. This is the registered alias of the key storage provider. This parameter is optional and can be <b>NULL</b>. If this parameter is <b>NULL</b>, the default key storage provider is loaded. The following values identify the built-in key storage providers.
      * 
      * <table>
@@ -27837,75 +27843,20 @@ class Cryptography {
      * </tr>
      * </table>
      * @param {Integer} dwFlags Flags that modify the behavior of the function. No flags are defined for this function.
-     * @returns {HRESULT} Returns a status code that indicates the success or failure of the function.
-     * 
-     * 
-     * Possible return codes include, but are not limited to, the following.
-     * 
-     * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_SUCCESS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function was successful.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_BAD_FLAGS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>dwFlags</i> parameter contains one or more flags that are not supported.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more parameters are not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_NO_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A memory allocation failure occurred.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {NCRYPT_PROV_HANDLE} A pointer to a <b>NCRYPT_PROV_HANDLE</b> variable that receives the provider handle. When you have finished using this handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreeobject">NCryptFreeObject</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider
      * @since windows6.0.6000
      */
-    static NCryptOpenStorageProvider(phProvider, pszProviderName, dwFlags) {
+    static NCryptOpenStorageProvider(pszProviderName, dwFlags) {
         pszProviderName := pszProviderName is String ? StrPtr(pszProviderName) : pszProviderName
 
+        phProvider := NCRYPT_PROV_HANDLE()
         result := DllCall("ncrypt.dll\NCryptOpenStorageProvider", "ptr", phProvider, "ptr", pszProviderName, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phProvider
     }
 
     /**
@@ -28319,102 +28270,24 @@ class Cryptography {
      * 
      * For performance reasons, Microsoft software-based KSPs cache private key material in the Local Security Authority (LSA) for as long as a handle to the key is open. The LSA is a privileged system process. Therefore, other users cannot access this cached copy of the key unless the user possesses administrator privileges on the system. This behavior cannot be altered through configuration.
      * @param {NCRYPT_PROV_HANDLE} hProvider The handle of the key storage provider to open the key from.
-     * @param {Pointer<NCRYPT_KEY_HANDLE>} phKey A pointer to a <b>NCRYPT_KEY_HANDLE</b> variable that receives the key handle. When you have finished using this handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreeobject">NCryptFreeObject</a> function.
      * @param {PWSTR} pszKeyName A pointer to a null-terminated Unicode string that contains the name of the key to retrieve.
      * @param {Integer} dwLegacyKeySpec 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} Returns a status code that indicates the success or failure of the function.
-     * 
-     * 
-     * Possible return codes include, but are not limited to, the following.
-     * 
-     * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_SUCCESS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function was successful.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_BAD_FLAGS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>dwFlags</i> parameter contains a value that is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_BAD_KEYSET</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified key was not found.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_INVALID_HANDLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>hProvider</i> parameter is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more parameters are not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_NO_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A memory allocation failure occurred.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {NCRYPT_KEY_HANDLE} A pointer to a <b>NCRYPT_KEY_HANDLE</b> variable that receives the key handle. When you have finished using this handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreeobject">NCryptFreeObject</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptopenkey
      * @since windows6.0.6000
      */
-    static NCryptOpenKey(hProvider, phKey, pszKeyName, dwLegacyKeySpec, dwFlags) {
+    static NCryptOpenKey(hProvider, pszKeyName, dwLegacyKeySpec, dwFlags) {
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
         pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
+        phKey := NCRYPT_KEY_HANDLE()
         result := DllCall("ncrypt.dll\NCryptOpenKey", "ptr", hProvider, "ptr", phKey, "ptr", pszKeyName, "uint", dwLegacyKeySpec, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phKey
     }
 
     /**
@@ -28424,104 +28297,26 @@ class Cryptography {
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
      * @param {NCRYPT_PROV_HANDLE} hProvider The handle of the key storage provider to create the key in. This handle is obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
-     * @param {Pointer<NCRYPT_KEY_HANDLE>} phKey The address of an <b>NCRYPT_KEY_HANDLE</b> variable that receives the handle of the key. When you have finished using this handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreeobject">NCryptFreeObject</a> function. To delete the key file on disk, pass the handle to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptdeletekey">NCryptDeleteKey</a> function. This will also release the handle. So applications may pass the handle to either <b>NCryptFreeObject</b> or <b>NCryptDeleteKey</b>, but not both.
      * @param {PWSTR} pszAlgId A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic algorithm to create the key. This can be one of the standard <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> or the identifier for another registered algorithm.
      * @param {PWSTR} pszKeyName A pointer to a null-terminated Unicode string that contains the name of the key. If this parameter is <b>NULL</b>, this function will create an ephemeral key that is not persisted.
      * @param {Integer} dwLegacyKeySpec 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} Returns a status code that indicates the success or failure of the function.
-     * 
-     * 
-     * Possible return codes include, but are not limited to, the following.
-     * 
-     * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_SUCCESS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function was successful.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_BAD_FLAGS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>dwFlags</i> parameter contains a value that is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_EXISTS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A key with the specified name already exists and the <b>NCRYPT_OVERWRITE_KEY_FLAG</b> was not specified.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_INVALID_HANDLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>hProvider</i> parameter is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more parameters are not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_NO_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A memory allocation failure occurred.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {NCRYPT_KEY_HANDLE} The address of an <b>NCRYPT_KEY_HANDLE</b> variable that receives the handle of the key. When you have finished using this handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreeobject">NCryptFreeObject</a> function. To delete the key file on disk, pass the handle to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptdeletekey">NCryptDeleteKey</a> function. This will also release the handle. So applications may pass the handle to either <b>NCryptFreeObject</b> or <b>NCryptDeleteKey</b>, but not both.
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptcreatepersistedkey
      * @since windows6.0.6000
      */
-    static NCryptCreatePersistedKey(hProvider, phKey, pszAlgId, pszKeyName, dwLegacyKeySpec, dwFlags) {
+    static NCryptCreatePersistedKey(hProvider, pszAlgId, pszKeyName, dwLegacyKeySpec, dwFlags) {
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
         pszAlgId := pszAlgId is String ? StrPtr(pszAlgId) : pszAlgId
         pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
+        phKey := NCRYPT_KEY_HANDLE()
         result := DllCall("ncrypt.dll\NCryptCreatePersistedKey", "ptr", hProvider, "ptr", phKey, "ptr", pszAlgId, "ptr", pszKeyName, "uint", dwLegacyKeySpec, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phKey
     }
 
     /**
@@ -28824,36 +28619,25 @@ class Cryptography {
      * @param {NCRYPT_KEY_HANDLE} hImportKey The handle of the [cryptographic key](/windows/win32/SecGloss/c-gly) with which the key data within the imported [key BLOB](/windows/win32/SecGloss/k-gly) was encrypted. This must be a handle to the same key that was passed in the _hExportKey_ parameter of the [NCryptExportKey](/windows/win32/api/ncrypt/nf-ncrypt-ncryptexportkey) function. If this parameter is **NULL**, the key BLOB is assumed to not be encrypted.
      * @param {PWSTR} pszBlobType A null-terminated Unicode string that contains an identifier that specifies the format of the key BLOB. These formats are specific to a particular key storage provider. For the BLOB formats supported by Microsoft providers, see Remarks.
      * @param {Pointer<BCryptBufferDesc>} pParameterList The address of an [NCryptBufferDesc](/windows/win32/api/bcrypt/ns-bcrypt-bcryptbufferdesc) structure that points to an array of buffers that contain parameter information for the key.
-     * @param {Pointer<NCRYPT_KEY_HANDLE>} phKey The address of an **NCRYPT_KEY_HANDLE** variable that receives the handle of the key. When you have finished using this handle, release it by passing it to the [NCryptFreeObject](/windows/win32/api/ncrypt/nf-ncrypt-ncryptfreeobject) function.
      * @param {Pointer} pbData The address of a buffer that contains the key BLOB to be imported. The _cbData_ parameter contains the size of this buffer.
      * @param {Integer} cbData The size, in bytes, of the _pbData_ buffer.
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} Returns a status code that indicates the success or failure of the function.
-     * 
-     * Possible return codes include, but are not limited to, the following.
-     * 
-     * | Return code | Description |
-     * |--------|--------|
-     * | **ERROR_SUCCESS** | The function was successful. |
-     * | **NTE_BAD_FLAGS** | The _dwFlags_ parameter contains a value that is not valid. |
-     * | **NTE_EXISTS** | A key with the specified name already exists and the **NCRYPT_OVERWRITE_KEY_FLAG** was not specified. |
-     * | **NTE_INVALID_HANDLE** | The _hProvider_ parameter is not valid. |
-     * | **NTE_INVALID_PARAMETER** | One or more parameters are not valid. |
-     * | **NTE_NO_MEMORY** | A memory allocation failure occurred. |
+     * @returns {NCRYPT_KEY_HANDLE} The address of an **NCRYPT_KEY_HANDLE** variable that receives the handle of the key. When you have finished using this handle, release it by passing it to the [NCryptFreeObject](/windows/win32/api/ncrypt/nf-ncrypt-ncryptfreeobject) function.
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptimportkey
      * @since windows6.0.6000
      */
-    static NCryptImportKey(hProvider, hImportKey, pszBlobType, pParameterList, phKey, pbData, cbData, dwFlags) {
+    static NCryptImportKey(hProvider, hImportKey, pszBlobType, pParameterList, pbData, cbData, dwFlags) {
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
         hImportKey := hImportKey is Win32Handle ? NumGet(hImportKey, "ptr") : hImportKey
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
+        phKey := NCRYPT_KEY_HANDLE()
         result := DllCall("ncrypt.dll\NCryptImportKey", "ptr", hProvider, "ptr", hImportKey, "ptr", pszBlobType, "ptr", pParameterList, "ptr", phKey, "ptr", pbData, "uint", cbData, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phKey
     }
 
     /**
@@ -29348,78 +29132,22 @@ class Cryptography {
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
      * @param {NCRYPT_KEY_HANDLE} hPrivKey The handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key</a> to use to create the secret agreement value. This key and the <i>hPubKey</i> key must come from the same key storage provider.
      * @param {NCRYPT_KEY_HANDLE} hPubKey The handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key</a> to use to create the secret agreement value. This key and the <i>hPrivKey</i> key must come from the same key storage provider.
-     * @param {Pointer<NCRYPT_SECRET_HANDLE>} phAgreedSecret A pointer to an <b>NCRYPT_SECRET_HANDLE</b> variable that receives a handle that represents the secret agreement value. When this handle is no longer needed, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreeobject">NCryptFreeObject</a> function.
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} Returns a status code that indicates the success or failure of the function.
-     * 
-     * 
-     * Possible return codes include, but are not limited to, the following.
-     * 
-     * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_SUCCESS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function was successful.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_INVALID_HANDLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>hPrivKey</i> or the <i>hPubKey</i> parameter is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more parameters are not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_NO_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A memory allocation failure occurred.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {NCRYPT_SECRET_HANDLE} A pointer to an <b>NCRYPT_SECRET_HANDLE</b> variable that receives a handle that represents the secret agreement value. When this handle is no longer needed, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreeobject">NCryptFreeObject</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptsecretagreement
      * @since windows6.0.6000
      */
-    static NCryptSecretAgreement(hPrivKey, hPubKey, phAgreedSecret, dwFlags) {
+    static NCryptSecretAgreement(hPrivKey, hPubKey, dwFlags) {
         hPrivKey := hPrivKey is Win32Handle ? NumGet(hPrivKey, "ptr") : hPrivKey
         hPubKey := hPubKey is Win32Handle ? NumGet(hPubKey, "ptr") : hPubKey
 
+        phAgreedSecret := NCRYPT_SECRET_HANDLE()
         result := DllCall("ncrypt.dll\NCryptSecretAgreement", "ptr", hPrivKey, "ptr", hPubKey, "ptr", phAgreedSecret, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phAgreedSecret
     }
 
     /**
@@ -50145,84 +49873,20 @@ class Cryptography {
      * </ul>
      * <div class="alert"><b>Note</b>  To associate a descriptor rule with a display name and save both in the registry, call the <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptregisterprotectiondescriptorname">NCryptRegisterProtectionDescriptorName</a> function.</div>
      * <div> </div>
-     * @param {Pointer<NCRYPT_DESCRIPTOR_HANDLE>} phDescriptor Pointer to a protection descriptor object handle.
-     * @returns {HRESULT} Returns a status code that indicates the success or failure of the function. Possible return codes include, but are not limited to, the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_SUCCESS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function was successful.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>phDescriptor</i> parameter cannot be <b>NULL</b>.
-     * 
-     * The <i>pwszDescriptorString</i> parameter cannot be <b>NULL</b> and it cannot be an empty sting.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_BAD_FLAGS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The dwFlags parameter must be <b>NCRYPT_MACHINE_KEY_FLAG</b> or <b>NCRYPT_NAMED_DESCRIPTOR_FLAG</b>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_NO_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Memory could not be allocated to retrieve the registered protection descriptor string.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_NOT_FOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The protection descriptor name specified in the <i>pwszDescriptorString</i> parameter could not be found.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {NCRYPT_DESCRIPTOR_HANDLE} Pointer to a protection descriptor object handle.
      * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptcreateprotectiondescriptor
      * @since windows8.0
      */
-    static NCryptCreateProtectionDescriptor(pwszDescriptorString, dwFlags, phDescriptor) {
+    static NCryptCreateProtectionDescriptor(pwszDescriptorString, dwFlags) {
         pwszDescriptorString := pwszDescriptorString is String ? StrPtr(pwszDescriptorString) : pwszDescriptorString
 
+        phDescriptor := NCRYPT_DESCRIPTOR_HANDLE()
         result := DllCall("ncrypt.dll\NCryptCreateProtectionDescriptor", "ptr", pwszDescriptorString, "uint", dwFlags, "ptr", phDescriptor, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phDescriptor
     }
 
     /**
@@ -50511,85 +50175,21 @@ class Cryptography {
      * </table>
      * @param {HWND} hWnd Handle to the parent window of the user interface, if any, to be displayed.
      * @param {Pointer<NCRYPT_PROTECT_STREAM_INFO>} pStreamInfo Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/ns-ncryptprotect-ncrypt_protect_stream_info">NCRYPT_PROTECT_STREAM_INFO</a> structure that contains the address of a user defined callback function to receive the encrypted data and a pointer to user-defined context data.
-     * @param {Pointer<NCRYPT_STREAM_HANDLE>} phStream Pointer to the stream object handle.
-     * @returns {HRESULT} Returns a status code that indicates the success or failure of the function. Possible return codes include, but are not limited to, the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_SUCCESS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function was successful.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_BAD_FLAGS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The dwFlags parameter must contain zero (0), <b>NCRYPT_MACHINE_KEY_FLAG</b>, or <b>NCRYPT_SILENT_FLAG</b>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_INVALID_HANDLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The handle specified by the <i>hDescriptor</i> parameter is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>phStream</i> and <i>pStreamInfo</i> parameters cannot be <b>NULL</b>.
-     * 
-     * The callback function pointed to by the <b>pfnStreamOutput</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/ns-ncryptprotect-ncrypt_protect_stream_info">NCRYPT_PROTECT_STREAM_INFO</a> structure pointed to by the <i>pStreamInfo</i> parameter cannot be <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_NO_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There was insufficient memory to allocate a data stream.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {NCRYPT_STREAM_HANDLE} Pointer to the stream object handle.
      * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentoprotect
      * @since windows8.0
      */
-    static NCryptStreamOpenToProtect(hDescriptor, dwFlags, hWnd, pStreamInfo, phStream) {
+    static NCryptStreamOpenToProtect(hDescriptor, dwFlags, hWnd, pStreamInfo) {
         hDescriptor := hDescriptor is Win32Handle ? NumGet(hDescriptor, "ptr") : hDescriptor
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
+        phStream := NCRYPT_STREAM_HANDLE()
         result := DllCall("ncrypt.dll\NCryptStreamOpenToProtect", "ptr", hDescriptor, "uint", dwFlags, "ptr", hWnd, "ptr", pStreamInfo, "ptr", phStream, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phStream
     }
 
     /**
@@ -50620,73 +50220,20 @@ class Cryptography {
      * </tr>
      * </table>
      * @param {HWND} hWnd Handle to the parent window of the user interface, if any, to be displayed.
-     * @param {Pointer<NCRYPT_STREAM_HANDLE>} phStream Pointer to the handle of the decrypted stream of data.
-     * @returns {HRESULT} Returns a status code that indicates the success or failure of the function. Possible return codes include, but are not limited to, the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_SUCCESS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function was successful.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_BAD_FLAGS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The dwFlags parameter must contain zero (0) or <b>NCRYPT_SILENT_FLAG</b>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>phStream</i> and <i>pStreamInfo</i> parameters cannot be <b>NULL</b>.
-     * 
-     * The callback function pointed to by the <b>pfnStreamOutput</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/ns-ncryptprotect-ncrypt_protect_stream_info">NCRYPT_PROTECT_STREAM_INFO</a> structure pointed to by the <i>pStreamInfo</i> parameter cannot be <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NTE_NO_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There was insufficient memory to allocate a data stream.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {NCRYPT_STREAM_HANDLE} Pointer to the handle of the decrypted stream of data.
      * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentounprotect
      * @since windows8.0
      */
-    static NCryptStreamOpenToUnprotect(pStreamInfo, dwFlags, hWnd, phStream) {
+    static NCryptStreamOpenToUnprotect(pStreamInfo, dwFlags, hWnd) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
+        phStream := NCRYPT_STREAM_HANDLE()
         result := DllCall("ncrypt.dll\NCryptStreamOpenToUnprotect", "ptr", pStreamInfo, "uint", dwFlags, "ptr", hWnd, "ptr", phStream, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phStream
     }
 
     /**
@@ -50695,35 +50242,19 @@ class Cryptography {
      * @param {Integer} dwFlags Only the NCRYPT_SILENT_FLAG is supported.
      * @param {HWND} hWnd A window handle to be used as the parent of any user
      *         interface that is displayed.
-     * @param {Pointer<NCRYPT_STREAM_HANDLE>} phStream Receives a pointer to a stream handle.
-     * @returns {HRESULT} Returns a status code that indicates the success or failure of the function.
-     *         Possible return codes include, but are not limited to:
-     * 
-     * <ul>
-     * <li>ERROR_SUCCESS</li>
-     * <li>NTE_INVALID_PARAMETER</li>
-     * <li>NTE_BAD_FLAGS</li>
-     * <li>NTE_BAD_DATA</li>
-     * <li>NTE_NO_MEMORY</li>
-     * <li>NTE_NOT_FOUND</li>
-     * <li>NTE_NOT_SUPPORTED</li>
-     * <li>NTE_INVALID_HANDLE</li>
-     * <li>NTE_BAD_KEY</li>
-     * <li>NTE_BAD_PROVIDER</li>
-     * <li>NTE_BAD_TYPE</li>
-     * <li>NTE_DECRYPTION_FAILURE</li>
-     * </ul>
+     * @returns {NCRYPT_STREAM_HANDLE} Receives a pointer to a stream handle.
      * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentounprotectex
      */
-    static NCryptStreamOpenToUnprotectEx(pStreamInfo, dwFlags, hWnd, phStream) {
+    static NCryptStreamOpenToUnprotectEx(pStreamInfo, dwFlags, hWnd) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
+        phStream := NCRYPT_STREAM_HANDLE()
         result := DllCall("ncrypt.dll\NCryptStreamOpenToUnprotectEx", "ptr", pStreamInfo, "uint", dwFlags, "ptr", hWnd, "ptr", phStream, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phStream
     }
 
     /**
@@ -51600,20 +51131,18 @@ class Cryptography {
      * Imports the public key specified by the supplied handle.
      * @param {Integer} dwFlags 
      * @param {Pointer<CRYPT_XML_KEY_VALUE>} pKeyValue A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_key_value">CRYPT_XML_KEY_VALUE</a> structure to receive the imported key.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} phKey A pointer to the handle of the key to import.
-     * @returns {HRESULT} If the function succeeds, the function returns zero.
-     * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error.
+     * @returns {BCRYPT_KEY_HANDLE} A pointer to the handle of the key to import.
      * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlimportpublickey
      * @since windows6.1
      */
-    static CryptXmlImportPublicKey(dwFlags, pKeyValue, phKey) {
+    static CryptXmlImportPublicKey(dwFlags, pKeyValue) {
+        phKey := BCRYPT_KEY_HANDLE()
         result := DllCall("CRYPTXML.dll\CryptXmlImportPublicKey", "uint", dwFlags, "ptr", pKeyValue, "ptr", phKey, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phKey
     }
 
     /**
@@ -52442,7 +51971,6 @@ class Cryptography {
      * 
      * The format of the data in the *pbParams* buffer is the same as that used when setting the [**BCRYPT\_DH\_PARAMETERS**](cng-property-identifiers.md) property, and it starts with a [**BCRYPT\_DH\_PARAMETER\_HEADER**](/windows/desktop/api/Bcrypt/ns-bcrypt-bcrypt_dh_parameter_header) structure.
      * @param {NCRYPT_PROV_HANDLE} hSslProvider The handle of the SSL protocol provider instance.
-     * @param {Pointer<NCRYPT_KEY_HANDLE>} phEphemeralKey The handle of the ephemeral key.
      * @param {Integer} dwProtocol One of the [**CNG SSL Provider Protocol Identifier**](https://msdn.microsoft.com/library/Hh971257(v=VS.85).aspx) values.
      * @param {Integer} dwCipherSuite One of the [**CNG SSL Provider Cipher Suite Identifier**](https://msdn.microsoft.com/library/Hh971253(v=VS.85).aspx) values.
      * @param {Integer} dwKeyType One of the [**CNG SSL Provider Key Type Identifier**](https://msdn.microsoft.com/library/Hh971256(v=VS.85).aspx) values. Set this parameter to zero for key types that are not [*elliptic curve cryptography*](/windows/desktop/SecGloss/e-gly) (ECC).
@@ -52450,28 +51978,19 @@ class Cryptography {
      * @param {Pointer} pbParams A pointer to a buffer to contain parameters for the key that is to be created. If a [*Diffie-Hellman (ephemeral) key-exchange algorithm*](/windows/desktop/SecGloss/d-gly) (DHE) cipher suite is not used, set the *pbParams* parameter to **NULL** and the *cbParams* parameter to zero.
      * @param {Integer} cbParams The length, in bytes, of the data in the *pbParams* buffer.
      * @param {Integer} dwFlags This parameter is reserved for future use.
-     * @returns {HRESULT} If the function succeeds, it returns zero.
-     * 
-     * If the function fails, it returns a nonzero error value.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                                       | Description                                                     |
-     * |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------|
-     * | <dl> <dt>**NTE\_NO\_MEMORY**</dt> <dt>0x8009000EL</dt> </dl>         | There is insufficient memory to allocate the buffer.<br/> |
-     * | <dl> <dt>**NTE\_INVALID\_HANDLE**</dt> <dt>0x80090026L</dt> </dl>    | The *hSslProvider* handle is not valid.<br/>              |
-     * | <dl> <dt>**NTE\_INVALID\_PARAMETER**</dt> <dt>0x80090027L</dt> </dl> | One of the supplied parameters is not valid.<br/>         |
+     * @returns {NCRYPT_KEY_HANDLE} The handle of the ephemeral key.
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslcreateephemeralkey
      */
-    static SslCreateEphemeralKey(hSslProvider, phEphemeralKey, dwProtocol, dwCipherSuite, dwKeyType, dwKeyBitLen, pbParams, cbParams, dwFlags) {
+    static SslCreateEphemeralKey(hSslProvider, dwProtocol, dwCipherSuite, dwKeyType, dwKeyBitLen, pbParams, cbParams, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
 
+        phEphemeralKey := NCRYPT_KEY_HANDLE()
         result := DllCall("ncrypt.dll\SslCreateEphemeralKey", "ptr", hSslProvider, "ptr", phEphemeralKey, "uint", dwProtocol, "uint", dwCipherSuite, "uint", dwKeyType, "uint", dwKeyBitLen, "ptr", pbParams, "uint", cbParams, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phEphemeralKey
     }
 
     /**
@@ -52483,37 +52002,25 @@ class Cryptography {
      * 2.  The [**SslHashHandshake**](sslhashhandshake.md) function is called any number of times with the hash handle to add data to the hash.
      * 3.  The [**SslComputeFinishedHash**](sslcomputefinishedhash.md) function is called with the hash handle to obtain the digest of the hashed data.
      * @param {NCRYPT_PROV_HANDLE} hSslProvider The handle of the [*Secure Sockets Layer protocol*](/windows/desktop/SecGloss/s-gly) (SSL) protocol provider instance.
-     * @param {Pointer<NCRYPT_HASH_HANDLE>} phHandshakeHash A hash handle that can be passed to other SSL provider functions.
      * @param {Integer} dwProtocol One of the [**CNG SSL Provider Protocol Identifier**](https://msdn.microsoft.com/library/Hh971257(v=VS.85).aspx) values.
      * 
      * > [!Note]  
      * > This function is not used with the SSL 2.0 protocol.
      * @param {Integer} dwCipherSuite One of the [**CNG SSL Provider Cipher Suite Identifier**](https://msdn.microsoft.com/library/Hh971253(v=VS.85).aspx) values.
      * @param {Integer} dwFlags This parameter is reserved for future use.
-     * @returns {HRESULT} If the function succeeds, it returns zero.
-     * 
-     * If the function fails, it returns a nonzero error value.
-     * 
-     * Possible return codes include, but are not limited to, the following.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                                       | Description                                                          |
-     * |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|
-     * | <dl> <dt>**NTE\_NO\_MEMORY**</dt> <dt>0x8009000EL</dt> </dl>         | There is insufficient memory to allocate the hash buffer.<br/> |
-     * | <dl> <dt>**NTE\_INVALID\_HANDLE**</dt> <dt>0x80090026L</dt> </dl>    | The *hSslProvider* handle is not valid.<br/>                   |
-     * | <dl> <dt>**NTE\_INVALID\_PARAMETER**</dt> <dt>0x80090027L</dt> </dl> | The *phHandshakeHash* is null.<br/>                            |
+     * @returns {NCRYPT_HASH_HANDLE} A hash handle that can be passed to other SSL provider functions.
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslcreatehandshakehash
      */
-    static SslCreateHandshakeHash(hSslProvider, phHandshakeHash, dwProtocol, dwCipherSuite, dwFlags) {
+    static SslCreateHandshakeHash(hSslProvider, dwProtocol, dwCipherSuite, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
 
+        phHandshakeHash := NCRYPT_HASH_HANDLE()
         result := DllCall("ncrypt.dll\SslCreateHandshakeHash", "ptr", hSslProvider, "ptr", phHandshakeHash, "uint", dwProtocol, "uint", dwCipherSuite, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phHandshakeHash
     }
 
     /**
@@ -52804,6 +52311,7 @@ class Cryptography {
      * > [!Note]  
      * > This buffer is used when performing a RSA key exchange.
      * @param {Integer} cbOutput The size, in bytes, of the *pbOutput* buffer.
+     * @param {Pointer<Integer>} pcbResult A pointer to a **DWORD** value in which to place number of bytes written to the *pbOutput* buffer.
      * @param {Integer} dwFlags Specifies whether this function is being used for client-side or server-side key exchange.
      * 
      * 
@@ -52812,20 +52320,34 @@ class Cryptography {
      * |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|
      * | <span id="NCRYPT_SSL_CLIENT_FLAG"></span><span id="ncrypt_ssl_client_flag"></span><dl> <dt>**NCRYPT\_SSL\_CLIENT\_FLAG**</dt> <dt>0x00000001</dt> </dl> | Specifies a client-side key exchange.<br/> |
      * | <span id="NCRYPT_SSL_SERVER_FLAG"></span><span id="ncrypt_ssl_server_flag"></span><dl> <dt>**NCRYPT\_SSL\_SERVER\_FLAG**</dt> <dt>0x00000002</dt> </dl> | Specifies a server-side key exchange.<br/> |
-     * @returns {Integer} A pointer to a **DWORD** value in which to place number of bytes written to the *pbOutput* buffer.
+     * @returns {HRESULT} If the function succeeds, it returns zero.
+     * 
+     * If the function fails, it returns a nonzero error value.
+     * 
+     * Possible return codes include, but are not limited to, the following.
+     * 
+     * 
+     * 
+     * | Return code/value                                                                                                                                                       | Description                                                              |
+     * |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
+     * | <dl> <dt>**NTE\_NO\_MEMORY**</dt> <dt>0x8009000EL</dt> </dl>         | Not enough memory is available to allocate necessary buffers.<br/> |
+     * | <dl> <dt>**NTE\_INVALID\_HANDLE**</dt> <dt>0x80090026L</dt> </dl>    | One of the provided handles is not valid.<br/>                     |
+     * | <dl> <dt>**NTE\_INVALID\_PARAMETER**</dt> <dt>0x80090027L</dt> </dl> | The *phMasterKey* or *hPublicKey* parameter is not valid.<br/>     |
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslgeneratemasterkey
      */
-    static SslGenerateMasterKey(hSslProvider, hPrivateKey, hPublicKey, phMasterKey, dwProtocol, dwCipherSuite, pParameterList, pbOutput, cbOutput, dwFlags) {
+    static SslGenerateMasterKey(hSslProvider, hPrivateKey, hPublicKey, phMasterKey, dwProtocol, dwCipherSuite, pParameterList, pbOutput, cbOutput, pcbResult, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hPrivateKey := hPrivateKey is Win32Handle ? NumGet(hPrivateKey, "ptr") : hPrivateKey
         hPublicKey := hPublicKey is Win32Handle ? NumGet(hPublicKey, "ptr") : hPublicKey
 
-        result := DllCall("ncrypt.dll\SslGenerateMasterKey", "ptr", hSslProvider, "ptr", hPrivateKey, "ptr", hPublicKey, "ptr", phMasterKey, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pParameterList, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "int")
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\SslGenerateMasterKey", "ptr", hSslProvider, "ptr", hPrivateKey, "ptr", hPublicKey, "ptr", phMasterKey, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pParameterList, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return pcbResult
+        return result
     }
 
     /**
@@ -52975,7 +52497,6 @@ class Cryptography {
      * @remarks
      * You can use the **SslImportKey** function to import session keys as a part of the process of transferring session keys from one process to another.
      * @param {NCRYPT_PROV_HANDLE} hSslProvider The handle to the SSL protocol provider instance.
-     * @param {Pointer<NCRYPT_KEY_HANDLE>} phKey A pointer to the handle of the [*cryptographic key*](/windows/desktop/SecGloss/c-gly) to receive the imported key.
      * @param {PWSTR} pszBlobType A null-terminated Unicode string that contains an identifier that specifies the type of [*BLOB*](/windows/desktop/SecGloss/b-gly) that is contained in the *pbInput* buffer. This can be one of the following values.
      * 
      * 
@@ -52989,31 +52510,20 @@ class Cryptography {
      * @param {Pointer} pbKeyBlob A pointer to the buffer that contains the [*key BLOB*](/windows/desktop/SecGloss/k-gly).
      * @param {Integer} cbKeyBlob The size, in bytes, of the *pbKeyBlob* buffer.
      * @param {Integer} dwFlags This parameter is reserved for future use.
-     * @returns {HRESULT} If the function succeeds, it returns zero.
-     * 
-     * If the function fails, it returns a nonzero error value.
-     * 
-     * Possible return codes include, but are not limited to, the following.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                                       | Description                                                              |
-     * |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
-     * | <dl> <dt>**NTE\_NO\_MEMORY**</dt> <dt>0x8009000EL</dt> </dl>         | Not enough memory is available to allocate necessary buffers.<br/> |
-     * | <dl> <dt>**NTE\_INVALID\_HANDLE**</dt> <dt>0x80090026L</dt> </dl>    | The *hSslProvider* handle is not valid.<br/>                       |
-     * | <dl> <dt>**NTE\_INVALID\_PARAMETER**</dt> <dt>0x80090027L</dt> </dl> | The *phKey* parameter is **NULL**.<br/>                            |
+     * @returns {NCRYPT_KEY_HANDLE} A pointer to the handle of the [*cryptographic key*](/windows/desktop/SecGloss/c-gly) to receive the imported key.
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslimportkey
      */
-    static SslImportKey(hSslProvider, phKey, pszBlobType, pbKeyBlob, cbKeyBlob, dwFlags) {
+    static SslImportKey(hSslProvider, pszBlobType, pbKeyBlob, cbKeyBlob, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
+        phKey := NCRYPT_KEY_HANDLE()
         result := DllCall("ncrypt.dll\SslImportKey", "ptr", hSslProvider, "ptr", phKey, "ptr", pszBlobType, "ptr", pbKeyBlob, "uint", cbKeyBlob, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phKey
     }
 
     /**
@@ -53025,38 +52535,26 @@ class Cryptography {
      * > This function is used when the [*RSA*](/windows/desktop/SecGloss/r-gly) key exchange algorithm is being used. When [*DH*](/windows/desktop/SecGloss/d-gly) is used, then the server code calls [**SslGenerateMasterKey**](sslgeneratemasterkey.md) instead.
      * @param {NCRYPT_PROV_HANDLE} hSslProvider The handle to the SSL protocol provider instance.
      * @param {NCRYPT_KEY_HANDLE} hPrivateKey The handle to the [*private key*](/windows/desktop/SecGloss/p-gly) used in the exchange.
-     * @param {Pointer<NCRYPT_KEY_HANDLE>} phMasterKey A pointer to the handle to receive the [*master key*](/windows/desktop/SecGloss/m-gly).
      * @param {Integer} dwProtocol One of the [**CNG SSL Provider Protocol Identifier**](https://msdn.microsoft.com/library/Hh971257(v=VS.85).aspx) values.
      * @param {Integer} dwCipherSuite One of the [**CNG SSL Provider Cipher Suite Identifiers**](https://msdn.microsoft.com/library/Hh971253(v=VS.85).aspx) values.
      * @param {Pointer<BCryptBufferDesc>} pParameterList A pointer to an array of **NCryptBuffer** buffers that contain information used as part of the key exchange operation. The precise set of buffers is dependent on the protocol and cipher suite that is used. At the minimum, the list will contain buffers that contain the client and server supplied random values.
      * @param {Pointer} pbEncryptedKey A pointer to a buffer that contains the encrypted premaster secret key encrypted with the [*public key*](/windows/desktop/SecGloss/p-gly) of the server.
      * @param {Integer} cbEncryptedKey The size, in bytes, of the *pbEncryptedKey* buffer.
      * @param {Integer} dwFlags Set this parameter to **NCRYPT\_SSL\_SERVER\_FLAG** to indicate that this is a server call.
-     * @returns {HRESULT} If the function succeeds, it returns zero.
-     * 
-     * If the function fails, it returns a nonzero error value.
-     * 
-     * Possible return codes include, but are not limited to, the following.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                                       | Description                                                              |
-     * |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
-     * | <dl> <dt>**NTE\_NO\_MEMORY**</dt> <dt>0x8009000EL</dt> </dl>         | Not enough memory is available to allocate necessary buffers.<br/> |
-     * | <dl> <dt>**NTE\_INVALID\_HANDLE**</dt> <dt>0x80090026L</dt> </dl>    | One of the provided handles is not valid.<br/>                     |
-     * | <dl> <dt>**NTE\_INVALID\_PARAMETER**</dt> <dt>0x80090027L</dt> </dl> | The *phMasterKey* parameter is **NULL**.<br/>                      |
+     * @returns {NCRYPT_KEY_HANDLE} A pointer to the handle to receive the [*master key*](/windows/desktop/SecGloss/m-gly).
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslimportmasterkey
      */
-    static SslImportMasterKey(hSslProvider, hPrivateKey, phMasterKey, dwProtocol, dwCipherSuite, pParameterList, pbEncryptedKey, cbEncryptedKey, dwFlags) {
+    static SslImportMasterKey(hSslProvider, hPrivateKey, dwProtocol, dwCipherSuite, pParameterList, pbEncryptedKey, cbEncryptedKey, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hPrivateKey := hPrivateKey is Win32Handle ? NumGet(hPrivateKey, "ptr") : hPrivateKey
 
+        phMasterKey := NCRYPT_KEY_HANDLE()
         result := DllCall("ncrypt.dll\SslImportMasterKey", "ptr", hSslProvider, "ptr", hPrivateKey, "ptr", phMasterKey, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pParameterList, "ptr", pbEncryptedKey, "uint", cbEncryptedKey, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phMasterKey
     }
 
     /**
@@ -53096,68 +52594,44 @@ class Cryptography {
      * @remarks
      * The private key obtained is part of a [*public/private key pair*](/windows/desktop/SecGloss/p-gly) within a [*certificate*](/windows/desktop/SecGloss/c-gly). This function merely extracts the private key from the certificate specified by the *pCertContext* parameter.
      * @param {NCRYPT_PROV_HANDLE} hSslProvider The handle to the [*Secure Sockets Layer protocol*](/windows/desktop/SecGloss/s-gly) (SSL) protocol provider instance.
-     * @param {Pointer<NCRYPT_KEY_HANDLE>} phPrivateKey The address of a buffer in which to write the handle to the private key.
-     * 
-     * When you have finished using the key, you should free *phPrivateKey* by calling the [**SslFreeObject**](sslfreeobject.md) function.
      * @param {Pointer<CERT_CONTEXT>} pCertContext The address of the certificate from which to obtain the private key.
      * @param {Integer} dwFlags This parameter is reserved for future use.
-     * @returns {HRESULT} If the function succeeds, it returns zero.
+     * @returns {NCRYPT_KEY_HANDLE} The address of a buffer in which to write the handle to the private key.
      * 
-     * If the function fails, it returns a nonzero error value.
-     * 
-     * Possible return codes include, but are not limited to, the following.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                                       | Description                                                              |
-     * |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
-     * | <dl> <dt>**NTE\_NO\_MEMORY**</dt> <dt>0x8009000EL</dt> </dl>         | Not enough memory is available to allocate necessary buffers.<br/> |
-     * | <dl> <dt>**NTE\_INVALID\_HANDLE**</dt> <dt>0x80090026L</dt> </dl>    | The *hSslProvider* handle is not valid.<br/>                       |
-     * | <dl> <dt>**NTE\_INVALID\_PARAMETER**</dt> <dt>0x80090027L</dt> </dl> | The *phPrivateKey* or *pCertContext* parameter is **NULL**.<br/>   |
+     * When you have finished using the key, you should free *phPrivateKey* by calling the [**SslFreeObject**](sslfreeobject.md) function.
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslopenprivatekey
      */
-    static SslOpenPrivateKey(hSslProvider, phPrivateKey, pCertContext, dwFlags) {
+    static SslOpenPrivateKey(hSslProvider, pCertContext, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
 
+        phPrivateKey := NCRYPT_KEY_HANDLE()
         result := DllCall("ncrypt.dll\SslOpenPrivateKey", "ptr", hSslProvider, "ptr", phPrivateKey, "ptr", pCertContext, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phPrivateKey
     }
 
     /**
      * Opens a handle to the specified Secure Sockets Layer protocol (SSL) protocol provider.
-     * @param {Pointer<NCRYPT_PROV_HANDLE>} phSslProvider The address of an **NCRYPT\_PROV\_HANDLE** in which to write the provider handle.
-     * 
-     * When you have finished using the handle, you should free it by calling the [**SslFreeObject**](sslfreeobject.md) function.
      * @param {PWSTR} pszProviderName A pointer to a Unicode string that contains the provider name. If the value of this parameter is **NULL**, a handle to the **MS\_SCHANNEL\_PROVIDER** is returned.
      * @param {Integer} dwFlags This parameter is reserved for future use, and it must be set to zero.
-     * @returns {HRESULT} If the function succeeds, it returns zero.
+     * @returns {NCRYPT_PROV_HANDLE} The address of an **NCRYPT\_PROV\_HANDLE** in which to write the provider handle.
      * 
-     * If the function fails, it returns a nonzero error value.
-     * 
-     * Possible return codes include, but are not limited to, the following.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                                       | Description                                                               |
-     * |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
-     * | <dl> <dt>**NTE\_INVALID\_HANDLE**</dt> <dt>0x80090026L</dt> </dl>    | One of the provided handles is not valid.<br/>                      |
-     * | <dl> <dt>**NTE\_INVALID\_PARAMETER**</dt> <dt>0x80090027L</dt> </dl> | The *phSslProvider* or *ppProviderList* parameter is **NULL**.<br/> |
-     * | <dl> <dt>**STATUS\_NO\_MEMORY**</dt> <dt>0xC0000017L</dt> </dl>      | Not enough memory is available to allocate necessary buffers.<br/>  |
+     * When you have finished using the handle, you should free it by calling the [**SslFreeObject**](sslfreeobject.md) function.
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslopenprovider
      */
-    static SslOpenProvider(phSslProvider, pszProviderName, dwFlags) {
+    static SslOpenProvider(pszProviderName, dwFlags) {
         pszProviderName := pszProviderName is String ? StrPtr(pszProviderName) : pszProviderName
 
+        phSslProvider := NCRYPT_PROV_HANDLE()
         result := DllCall("ncrypt.dll\SslOpenProvider", "ptr", phSslProvider, "ptr", pszProviderName, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phSslProvider
     }
 
     /**
@@ -53264,38 +52738,24 @@ class Cryptography {
      * @remarks
      * The **SslCreateClientAuthHash** function is called for [*Transport Layer Security protocol*](/windows/desktop/SecGloss/t-gly) (TLS) 1.2 or later conversations to create hash objects that are used to hash handshake messages. It is called once for each possible [*hashing algorithm*](/windows/desktop/SecGloss/h-gly) that can be used in the client authentication signature.
      * @param {NCRYPT_PROV_HANDLE} hSslProvider The handle of the [*Secure Sockets Layer protocol*](/windows/desktop/SecGloss/s-gly) (SSL) protocol provider instance.
-     * @param {Pointer<NCRYPT_HASH_HANDLE>} phHandshakeHash A pointer to an **NCRYPT\_HASH\_HANDLE** variable to receive the hash handle.
      * @param {Integer} dwProtocol One of the [**CNG SSL Provider Protocol Identifier**](https://msdn.microsoft.com/library/Hh971257(v=VS.85).aspx) values.
      * @param {Integer} dwCipherSuite One of the [**CNG SSL Provider Cipher Suite Identifier**](https://msdn.microsoft.com/library/Hh971253(v=VS.85).aspx) values.
      * @param {PWSTR} pszHashAlgId One of the [**CNG Algorithm Identifiers**](cng-algorithm-identifiers.md) values.
      * @param {Integer} dwFlags This parameter is reserved for future use and must be set to zero.
-     * @returns {HRESULT} If the function succeeds, it returns zero.
-     * 
-     * If the function fails, it returns a nonzero error value.
-     * 
-     * Possible return codes include, but are not limited to, the following.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                                       | Description                                                                                  |
-     * |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
-     * | <dl> <dt>**NTE\_INVALID\_HANDLE**</dt> <dt>0x80090026L</dt> </dl>    | The *hSslProvider* parameter contains a pointer that is not valid.<br/>                |
-     * | <dl> <dt>**NTE\_INVALID\_PARAMETER**</dt> <dt>0x80090027L</dt> </dl> | The *phHandshakeHash* parameter is set to **NULL**.<br/>                               |
-     * | <dl> <dt>**NTE\_NOT\_SUPPORTED**</dt> <dt>0x80090029L</dt> </dl>     | The selected function is not supported in the specified version of the interface.<br/> |
-     * | <dl> <dt>**NTE\_NO\_MEMORY**</dt> <dt>0x8009000EL</dt> </dl>         | Insufficient memory to allocate buffers.<br/>                                          |
-     * | <dl> <dt>**NTE\_BAD\_FLAGS**</dt> <dt>0x80090009L</dt> </dl>         | The *dwFlags* parameter must be set to zero.<br/>                                      |
+     * @returns {NCRYPT_HASH_HANDLE} A pointer to an **NCRYPT\_HASH\_HANDLE** variable to receive the hash handle.
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslcreateclientauthhash
      */
-    static SslCreateClientAuthHash(hSslProvider, phHandshakeHash, dwProtocol, dwCipherSuite, pszHashAlgId, dwFlags) {
+    static SslCreateClientAuthHash(hSslProvider, dwProtocol, dwCipherSuite, pszHashAlgId, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         pszHashAlgId := pszHashAlgId is String ? StrPtr(pszHashAlgId) : pszHashAlgId
 
+        phHandshakeHash := NCRYPT_HASH_HANDLE()
         result := DllCall("ncrypt.dll\SslCreateClientAuthHash", "ptr", hSslProvider, "ptr", phHandshakeHash, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pszHashAlgId, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phHandshakeHash
     }
 
     /**
@@ -53368,19 +52828,22 @@ class Cryptography {
      * @param {Pointer<BCryptBufferDesc>} pParameterList 
      * @param {Pointer} pbOutput 
      * @param {Integer} cbOutput 
+     * @param {Pointer<Integer>} pcbResult 
      * @param {Integer} dwFlags 
-     * @returns {Integer} 
+     * @returns {HRESULT} 
      */
-    static SslGeneratePreMasterKey(hSslProvider, hPublicKey, phPreMasterKey, dwProtocol, dwCipherSuite, pParameterList, pbOutput, cbOutput, dwFlags) {
+    static SslGeneratePreMasterKey(hSslProvider, hPublicKey, phPreMasterKey, dwProtocol, dwCipherSuite, pParameterList, pbOutput, cbOutput, pcbResult, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hPublicKey := hPublicKey is Win32Handle ? NumGet(hPublicKey, "ptr") : hPublicKey
 
-        result := DllCall("ncrypt.dll\SslGeneratePreMasterKey", "ptr", hSslProvider, "ptr", hPublicKey, "ptr", phPreMasterKey, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pParameterList, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "int")
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("ncrypt.dll\SslGeneratePreMasterKey", "ptr", hSslProvider, "ptr", hPublicKey, "ptr", phPreMasterKey, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pParameterList, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return pcbResult
+        return result
     }
 
     /**
@@ -53425,23 +52888,23 @@ class Cryptography {
      * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hPreSharedKey 
-     * @param {Pointer<NCRYPT_KEY_HANDLE>} phEarlyKey 
      * @param {Integer} dwProtocol 
      * @param {Integer} dwCipherSuite 
      * @param {Pointer<BCryptBufferDesc>} pParameterList 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {NCRYPT_KEY_HANDLE} 
      */
-    static SslExtractEarlyKey(hSslProvider, hPreSharedKey, phEarlyKey, dwProtocol, dwCipherSuite, pParameterList, dwFlags) {
+    static SslExtractEarlyKey(hSslProvider, hPreSharedKey, dwProtocol, dwCipherSuite, pParameterList, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hPreSharedKey := hPreSharedKey is Win32Handle ? NumGet(hPreSharedKey, "ptr") : hPreSharedKey
 
+        phEarlyKey := NCRYPT_KEY_HANDLE()
         result := DllCall("ncrypt.dll\SslExtractEarlyKey", "ptr", hSslProvider, "ptr", hPreSharedKey, "ptr", phEarlyKey, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pParameterList, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phEarlyKey
     }
 
     /**
@@ -53450,44 +52913,44 @@ class Cryptography {
      * @param {NCRYPT_KEY_HANDLE} hPrivateKey 
      * @param {NCRYPT_KEY_HANDLE} hPublicKey 
      * @param {NCRYPT_KEY_HANDLE} hEarlyKey 
-     * @param {Pointer<NCRYPT_KEY_HANDLE>} phHandshakeKey 
      * @param {Pointer<BCryptBufferDesc>} pParameterList 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {NCRYPT_KEY_HANDLE} 
      */
-    static SslExtractHandshakeKey(hSslProvider, hPrivateKey, hPublicKey, hEarlyKey, phHandshakeKey, pParameterList, dwFlags) {
+    static SslExtractHandshakeKey(hSslProvider, hPrivateKey, hPublicKey, hEarlyKey, pParameterList, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hPrivateKey := hPrivateKey is Win32Handle ? NumGet(hPrivateKey, "ptr") : hPrivateKey
         hPublicKey := hPublicKey is Win32Handle ? NumGet(hPublicKey, "ptr") : hPublicKey
         hEarlyKey := hEarlyKey is Win32Handle ? NumGet(hEarlyKey, "ptr") : hEarlyKey
 
+        phHandshakeKey := NCRYPT_KEY_HANDLE()
         result := DllCall("ncrypt.dll\SslExtractHandshakeKey", "ptr", hSslProvider, "ptr", hPrivateKey, "ptr", hPublicKey, "ptr", hEarlyKey, "ptr", phHandshakeKey, "ptr", pParameterList, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phHandshakeKey
     }
 
     /**
      * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hHandshakeKey 
-     * @param {Pointer<NCRYPT_KEY_HANDLE>} phMasterKey 
      * @param {Pointer<BCryptBufferDesc>} pParameterList 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {NCRYPT_KEY_HANDLE} 
      */
-    static SslExtractMasterKey(hSslProvider, hHandshakeKey, phMasterKey, pParameterList, dwFlags) {
+    static SslExtractMasterKey(hSslProvider, hHandshakeKey, pParameterList, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hHandshakeKey := hHandshakeKey is Win32Handle ? NumGet(hHandshakeKey, "ptr") : hHandshakeKey
 
+        phMasterKey := NCRYPT_KEY_HANDLE()
         result := DllCall("ncrypt.dll\SslExtractMasterKey", "ptr", hSslProvider, "ptr", hHandshakeKey, "ptr", phMasterKey, "ptr", pParameterList, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phMasterKey
     }
 
     /**
@@ -53518,21 +52981,21 @@ class Cryptography {
      * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hBaseTrafficKey 
-     * @param {Pointer<NCRYPT_KEY_HANDLE>} phWriteKey 
      * @param {Pointer<BCryptBufferDesc>} pParameterList 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {NCRYPT_KEY_HANDLE} 
      */
-    static SslExpandWriteKey(hSslProvider, hBaseTrafficKey, phWriteKey, pParameterList, dwFlags) {
+    static SslExpandWriteKey(hSslProvider, hBaseTrafficKey, pParameterList, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hBaseTrafficKey := hBaseTrafficKey is Win32Handle ? NumGet(hBaseTrafficKey, "ptr") : hBaseTrafficKey
 
+        phWriteKey := NCRYPT_KEY_HANDLE()
         result := DllCall("ncrypt.dll\SslExpandWriteKey", "ptr", hSslProvider, "ptr", hBaseTrafficKey, "ptr", phWriteKey, "ptr", pParameterList, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phWriteKey
     }
 
     /**
@@ -53540,22 +53003,22 @@ class Cryptography {
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hBaseKey 
      * @param {NCRYPT_HASH_HANDLE} hHashValue 
-     * @param {Pointer<NCRYPT_KEY_HANDLE>} phExporterMasterKey 
      * @param {Pointer<BCryptBufferDesc>} pParameterList 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {NCRYPT_KEY_HANDLE} 
      */
-    static SslExpandExporterMasterKey(hSslProvider, hBaseKey, hHashValue, phExporterMasterKey, pParameterList, dwFlags) {
+    static SslExpandExporterMasterKey(hSslProvider, hBaseKey, hHashValue, pParameterList, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hBaseKey := hBaseKey is Win32Handle ? NumGet(hBaseKey, "ptr") : hBaseKey
         hHashValue := hHashValue is Win32Handle ? NumGet(hHashValue, "ptr") : hHashValue
 
+        phExporterMasterKey := NCRYPT_KEY_HANDLE()
         result := DllCall("ncrypt.dll\SslExpandExporterMasterKey", "ptr", hSslProvider, "ptr", hBaseKey, "ptr", hHashValue, "ptr", phExporterMasterKey, "ptr", pParameterList, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phExporterMasterKey
     }
 
     /**
@@ -53563,63 +53026,63 @@ class Cryptography {
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hMasterKey 
      * @param {NCRYPT_HASH_HANDLE} hHashValue 
-     * @param {Pointer<NCRYPT_KEY_HANDLE>} phResumptionMasterKey 
      * @param {Pointer<BCryptBufferDesc>} pParameterList 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {NCRYPT_KEY_HANDLE} 
      */
-    static SslExpandResumptionMasterKey(hSslProvider, hMasterKey, hHashValue, phResumptionMasterKey, pParameterList, dwFlags) {
+    static SslExpandResumptionMasterKey(hSslProvider, hMasterKey, hHashValue, pParameterList, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hMasterKey := hMasterKey is Win32Handle ? NumGet(hMasterKey, "ptr") : hMasterKey
         hHashValue := hHashValue is Win32Handle ? NumGet(hHashValue, "ptr") : hHashValue
 
+        phResumptionMasterKey := NCRYPT_KEY_HANDLE()
         result := DllCall("ncrypt.dll\SslExpandResumptionMasterKey", "ptr", hSslProvider, "ptr", hMasterKey, "ptr", hHashValue, "ptr", phResumptionMasterKey, "ptr", pParameterList, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phResumptionMasterKey
     }
 
     /**
      * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_HASH_HANDLE} hTranscriptHash 
-     * @param {Pointer<NCRYPT_HASH_HANDLE>} phTranscriptHash 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {NCRYPT_HASH_HANDLE} 
      */
-    static SslDuplicateTranscriptHash(hSslProvider, hTranscriptHash, phTranscriptHash, dwFlags) {
+    static SslDuplicateTranscriptHash(hSslProvider, hTranscriptHash, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hTranscriptHash := hTranscriptHash is Win32Handle ? NumGet(hTranscriptHash, "ptr") : hTranscriptHash
 
+        phTranscriptHash := NCRYPT_HASH_HANDLE()
         result := DllCall("ncrypt.dll\SslDuplicateTranscriptHash", "ptr", hSslProvider, "ptr", hTranscriptHash, "ptr", phTranscriptHash, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phTranscriptHash
     }
 
     /**
      * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hEarlyKey 
-     * @param {Pointer<NCRYPT_KEY_HANDLE>} phBinderKey 
      * @param {Pointer<BCryptBufferDesc>} pParameterList 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {NCRYPT_KEY_HANDLE} 
      */
-    static SslExpandBinderKey(hSslProvider, hEarlyKey, phBinderKey, pParameterList, dwFlags) {
+    static SslExpandBinderKey(hSslProvider, hEarlyKey, pParameterList, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hEarlyKey := hEarlyKey is Win32Handle ? NumGet(hEarlyKey, "ptr") : hEarlyKey
 
+        phBinderKey := NCRYPT_KEY_HANDLE()
         result := DllCall("ncrypt.dll\SslExpandBinderKey", "ptr", hSslProvider, "ptr", hEarlyKey, "ptr", phBinderKey, "ptr", pParameterList, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phBinderKey
     }
 
     /**
@@ -53628,21 +53091,21 @@ class Cryptography {
      * @param {NCRYPT_KEY_HANDLE} hResumptionMasterKey 
      * @param {Pointer} pbTicketNonce 
      * @param {Integer} cbTicketNonce 
-     * @param {Pointer<NCRYPT_KEY_HANDLE>} phPreSharedKey 
      * @param {Pointer<BCryptBufferDesc>} pParameterList 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {NCRYPT_KEY_HANDLE} 
      */
-    static SslExpandPreSharedKey(hSslProvider, hResumptionMasterKey, pbTicketNonce, cbTicketNonce, phPreSharedKey, pParameterList, dwFlags) {
+    static SslExpandPreSharedKey(hSslProvider, hResumptionMasterKey, pbTicketNonce, cbTicketNonce, pParameterList, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
         hResumptionMasterKey := hResumptionMasterKey is Win32Handle ? NumGet(hResumptionMasterKey, "ptr") : hResumptionMasterKey
 
+        phPreSharedKey := NCRYPT_KEY_HANDLE()
         result := DllCall("ncrypt.dll\SslExpandPreSharedKey", "ptr", hSslProvider, "ptr", hResumptionMasterKey, "ptr", pbTicketNonce, "uint", cbTicketNonce, "ptr", phPreSharedKey, "ptr", pParameterList, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phPreSharedKey
     }
 
     /**

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\System\Registry\HKEY.ahk
 #Include .\IMapMIMEToCLSID.ahk
 #Include ..\..\System\Com\IStream.ahk
 #Include ..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk
@@ -2361,22 +2362,25 @@ class InternetExplorer {
      * @param {PWSTR} lpwstrDefExt 
      * @param {Integer} dwFilterIndex 
      * @param {Integer} dwFlags 
+     * @param {Pointer<PWSTR>} lppwstrDestinationFilePath 
      * @param {Pointer<HANDLE>} phState 
-     * @returns {PWSTR} 
+     * @returns {HRESULT} 
      */
-    static IEShowSaveFileDialog(hwnd, lpwstrInitialFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags, phState) {
+    static IEShowSaveFileDialog(hwnd, lpwstrInitialFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags, lppwstrDestinationFilePath, phState) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         lpwstrInitialFileName := lpwstrInitialFileName is String ? StrPtr(lpwstrInitialFileName) : lpwstrInitialFileName
         lpwstrInitialDir := lpwstrInitialDir is String ? StrPtr(lpwstrInitialDir) : lpwstrInitialDir
         lpwstrFilter := lpwstrFilter is String ? StrPtr(lpwstrFilter) : lpwstrFilter
         lpwstrDefExt := lpwstrDefExt is String ? StrPtr(lpwstrDefExt) : lpwstrDefExt
 
-        result := DllCall("Ieframe.dll\IEShowSaveFileDialog", "ptr", hwnd, "ptr", lpwstrInitialFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, "ptr*", &lppwstrDestinationFilePath := 0, "ptr", phState, "int")
+        lppwstrDestinationFilePathMarshal := lppwstrDestinationFilePath is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("Ieframe.dll\IEShowSaveFileDialog", "ptr", hwnd, "ptr", lpwstrInitialFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, lppwstrDestinationFilePathMarshal, lppwstrDestinationFilePath, "ptr", phState, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return lppwstrDestinationFilePath
+        return result
     }
 
     /**
@@ -2389,36 +2393,36 @@ class InternetExplorer {
      * @param {PWSTR} lpwstrDefExt 
      * @param {Integer} dwFilterIndex 
      * @param {Integer} dwFlags 
-     * @param {Pointer<HANDLE>} phFile 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    static IEShowOpenFileDialog(hwnd, lpwstrFileName, cchMaxFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags, phFile) {
+    static IEShowOpenFileDialog(hwnd, lpwstrFileName, cchMaxFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         lpwstrFileName := lpwstrFileName is String ? StrPtr(lpwstrFileName) : lpwstrFileName
         lpwstrInitialDir := lpwstrInitialDir is String ? StrPtr(lpwstrInitialDir) : lpwstrInitialDir
         lpwstrFilter := lpwstrFilter is String ? StrPtr(lpwstrFilter) : lpwstrFilter
         lpwstrDefExt := lpwstrDefExt is String ? StrPtr(lpwstrDefExt) : lpwstrDefExt
 
+        phFile := HANDLE()
         result := DllCall("Ieframe.dll\IEShowOpenFileDialog", "ptr", hwnd, "ptr", lpwstrFileName, "uint", cchMaxFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, "ptr", phFile, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phFile
     }
 
     /**
      * 
-     * @param {Pointer<HKEY>} pHKey 
-     * @returns {HRESULT} 
+     * @returns {HKEY} 
      */
-    static IEGetWriteableLowHKCU(pHKey) {
+    static IEGetWriteableLowHKCU() {
+        pHKey := HKEY()
         result := DllCall("Ieframe.dll\IEGetWriteableLowHKCU", "ptr", pHKey, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return pHKey
     }
 
     /**
@@ -2605,18 +2609,21 @@ class InternetExplorer {
      * @param {Integer} samDesired 
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes 
      * @param {Pointer<HKEY>} phkResult 
-     * @returns {Integer} 
+     * @param {Pointer<Integer>} lpdwDisposition 
+     * @returns {HRESULT} 
      */
-    static IERegCreateKeyEx(lpSubKey, Reserved, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult) {
+    static IERegCreateKeyEx(lpSubKey, Reserved, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition) {
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
-        result := DllCall("Ieframe.dll\IERegCreateKeyEx", "ptr", lpSubKey, "uint", Reserved, "ptr", lpClass, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, "uint*", &lpdwDisposition := 0, "int")
+        lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("Ieframe.dll\IERegCreateKeyEx", "ptr", lpSubKey, "uint", Reserved, "ptr", lpClass, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, lpdwDispositionMarshal, lpdwDisposition, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return lpdwDisposition
+        return result
     }
 
     /**
@@ -2938,18 +2945,18 @@ class InternetExplorer {
      * @param {PSTR} pszTargetUrl 
      * @param {Integer} dwUserData 
      * @param {Pointer} fCallback 
-     * @param {Pointer<HANDLE>} phRatingObtainQuery 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    static RatingObtainQuery(pszTargetUrl, dwUserData, fCallback, phRatingObtainQuery) {
+    static RatingObtainQuery(pszTargetUrl, dwUserData, fCallback) {
         pszTargetUrl := pszTargetUrl is String ? StrPtr(pszTargetUrl) : pszTargetUrl
 
+        phRatingObtainQuery := HANDLE()
         result := DllCall("MSRATING.dll\RatingObtainQuery", "ptr", pszTargetUrl, "uint", dwUserData, "ptr", fCallback, "ptr", phRatingObtainQuery, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phRatingObtainQuery
     }
 
     /**
@@ -2957,18 +2964,18 @@ class InternetExplorer {
      * @param {PWSTR} pszTargetUrl 
      * @param {Integer} dwUserData 
      * @param {Pointer} fCallback 
-     * @param {Pointer<HANDLE>} phRatingObtainQuery 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    static RatingObtainQueryW(pszTargetUrl, dwUserData, fCallback, phRatingObtainQuery) {
+    static RatingObtainQueryW(pszTargetUrl, dwUserData, fCallback) {
         pszTargetUrl := pszTargetUrl is String ? StrPtr(pszTargetUrl) : pszTargetUrl
 
+        phRatingObtainQuery := HANDLE()
         result := DllCall("MSRATING.dll\RatingObtainQueryW", "ptr", pszTargetUrl, "uint", dwUserData, "ptr", fCallback, "ptr", phRatingObtainQuery, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phRatingObtainQuery
     }
 
     /**

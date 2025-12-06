@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\System\Registry\HKEY.ahk
 
 /**
  * @namespace Windows.Win32.Security.Isolation
@@ -220,51 +221,20 @@ class Isolation {
      * @param {Integer} desiredAccess Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/messages">REGSAM</a></b>
      * 
      * The desired registry access.
-     * @param {Pointer<HKEY>} phAppContainerKey Type: <b>PHKEY</b>
+     * @returns {HKEY} Type: <b>PHKEY</b>
      * 
      * A pointer to an HKEY that, when this function returns successfully, receives the registry storage location for the current profile.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * This function returns an <b>HRESULT</b> code, including but not limited to the following:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The caller is not running as or impersonating a user who can access this profile.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-getappcontainerregistrylocation
      * @since windows8.0
      */
-    static GetAppContainerRegistryLocation(desiredAccess, phAppContainerKey) {
+    static GetAppContainerRegistryLocation(desiredAccess) {
+        phAppContainerKey := HKEY()
         result := DllCall("USERENV.dll\GetAppContainerRegistryLocation", "uint", desiredAccess, "ptr", phAppContainerKey, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phAppContainerKey
     }
 
     /**

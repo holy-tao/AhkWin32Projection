@@ -20,8 +20,10 @@
 #Include ..\..\System\Com\IMoniker.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Registry\HKEY.ahk
 #Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Graphics\Gdi\HPALETTE.ahk
 
 /**
@@ -22094,22 +22096,20 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> that uniquely identifies a file object or subfolder relative to the parent folder. This value can be <b>NULL</b>.
-     * @param {Pointer<BSTR>} pbstr Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
+     * @returns {BSTR} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
      * 
      * A pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> that receives the converted string.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrettobstr
      * @since windows5.1.2600
      */
-    static StrRetToBSTR(pstr, pidl, pbstr) {
+    static StrRetToBSTR(pstr, pidl) {
+        pbstr := BSTR()
         result := DllCall("SHLWAPI.dll\StrRetToBSTR", "ptr", pstr, "ptr", pidl, "ptr", pbstr, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return pbstr
     }
 
     /**
@@ -29731,25 +29731,23 @@ class Shell {
      * @param {PSTR} pszExtra Type: <b>LPCTSTR</b>
      * 
      * A pointer to an optional null-terminated string with additional information about the location of the string. It is normally set to a Shell verb such as <b>open</b>. Set this parameter to <b>NULL</b> if it is not used.
-     * @param {Pointer<HKEY>} phkeyOut Type: <b>HKEY*</b>
+     * @returns {HKEY} Type: <b>HKEY*</b>
      * 
      * A pointer to the key's HKEY value.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns S_OK if successful, or a COM error value otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-assocquerykeya
      * @since windows5.0
      */
-    static AssocQueryKeyA(flags, key, pszAssoc, pszExtra, phkeyOut) {
+    static AssocQueryKeyA(flags, key, pszAssoc, pszExtra) {
         pszAssoc := pszAssoc is String ? StrPtr(pszAssoc) : pszAssoc
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
+        phkeyOut := HKEY()
         result := DllCall("SHLWAPI.dll\AssocQueryKeyA", "uint", flags, "int", key, "ptr", pszAssoc, "ptr", pszExtra, "ptr", phkeyOut, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phkeyOut
     }
 
     /**
@@ -29774,25 +29772,23 @@ class Shell {
      * @param {PWSTR} pszExtra Type: <b>LPCTSTR</b>
      * 
      * A pointer to an optional null-terminated string with additional information about the location of the string. It is normally set to a Shell verb such as <b>open</b>. Set this parameter to <b>NULL</b> if it is not used.
-     * @param {Pointer<HKEY>} phkeyOut Type: <b>HKEY*</b>
+     * @returns {HKEY} Type: <b>HKEY*</b>
      * 
      * A pointer to the key's HKEY value.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns S_OK if successful, or a COM error value otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-assocquerykeyw
      * @since windows5.0
      */
-    static AssocQueryKeyW(flags, key, pszAssoc, pszExtra, phkeyOut) {
+    static AssocQueryKeyW(flags, key, pszAssoc, pszExtra) {
         pszAssoc := pszAssoc is String ? StrPtr(pszAssoc) : pszAssoc
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
+        phkeyOut := HKEY()
         result := DllCall("SHLWAPI.dll\AssocQueryKeyW", "uint", flags, "int", key, "ptr", pszAssoc, "ptr", pszExtra, "ptr", phkeyOut, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phkeyOut
     }
 
     /**
@@ -30332,22 +30328,20 @@ class Shell {
      * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the COM object from which this function will attempt to obtain a window handle.
-     * @param {Pointer<HWND>} phwnd Type: <b>HWND*</b>
+     * @returns {HWND} Type: <b>HWND*</b>
      * 
      * A pointer to a HWND that, when this function returns successfully, receives the window handle. If a window handle was not obtained, this parameter is set to <b>NULL</b>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns S_OK if a window handle was successfully returned, or a COM error code otherwise. If no suitable interface was found, the function returns E_NOINTERFACE. Otherwise, the function returns the <b>HRESULT</b> returned by the corresponding interface's <b>GetWindow</b> method.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iunknown_getwindow
      * @since windows5.0
      */
-    static IUnknown_GetWindow(punk, phwnd) {
+    static IUnknown_GetWindow(punk) {
+        phwnd := HWND()
         result := DllCall("SHLWAPI.dll\IUnknown_GetWindow", "ptr", punk, "ptr", phwnd, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return phwnd
     }
 
     /**

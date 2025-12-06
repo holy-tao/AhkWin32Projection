@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\HIORING.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -27143,22 +27144,17 @@ class FileSystem {
      * @param {IORING_CREATE_FLAGS} flags A value from the [IORING_CREATE_FLAGS](ns-ioringapi-ioring_create_flags.md) enumeration specifying creation flags.
      * @param {Integer} submissionQueueSize The requested minimum submission queue size. The system may round up the size as needed to ensure the actual size is a power of 2. You can get the actual allocated queue size by calling [GetIoRingInfo](nf-ioringapi-getioringinfo.md). You can get the maximum submission queue size on the current system by calling [QueryIoRingCapabilities](nf-ioringapi-queryioringcapabilities.md).
      * @param {Integer} completionQueueSize The requested minimum size of the completion queue. The system will round this size up to a power of two that is no less than two times the actual submission queue size to allow for submissions while some operations are still in progress. You can get the actual allocated queue size by calling [GetIoRingInfo](nf-ioringapi-getioringinfo.md).
-     * @param {Pointer<HIORING>} h Receives the resulting **HIORING**  handle, if creation was successful. The returned **HIORING** ring must be closed by calling [CloseIoRing](nf-ioringapi-closeioring.md), not [CloseHandle](../handleapi/nf-handleapi-closehandle.md), to release the underlying resources for the IORING.
-     * @returns {HRESULT} An HRESULT, including but not limited to the following:
-     * 
-     * | Value | Description |
-     * |-------|-------------|
-     * | S_OK | Success. |
-     * | IORING_E_UNKNOWN_VERSION | The version specified in *ioringVersion* is unknown. |
+     * @returns {HIORING} Receives the resulting **HIORING**  handle, if creation was successful. The returned **HIORING** ring must be closed by calling [CloseIoRing](nf-ioringapi-closeioring.md), not [CloseHandle](../handleapi/nf-handleapi-closehandle.md), to release the underlying resources for the IORING.
      * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-createioring
      */
-    static CreateIoRing(ioringVersion, flags, submissionQueueSize, completionQueueSize, h) {
+    static CreateIoRing(ioringVersion, flags, submissionQueueSize, completionQueueSize) {
+        h := HIORING()
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\CreateIoRing", "int", ioringVersion, "ptr", flags, "uint", submissionQueueSize, "uint", completionQueueSize, "ptr", h, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return h
     }
 
     /**

@@ -2682,7 +2682,7 @@ class Rpc {
      * 
      * > [!NOTE]
      * > The rpcdce.h header defines RpcStringFree as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} String Pointer to a pointer to the character string to free.
+     * @param {Pointer<PSTR>} String_R 
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -2708,10 +2708,10 @@ class Rpc {
      * @see https://learn.microsoft.com/windows/win32/api/rpcdce/nf-rpcdce-rpcstringfreea
      * @since windows5.0
      */
-    static RpcStringFreeA(String) {
-        StringMarshal := String is VarRef ? "ptr*" : "ptr"
+    static RpcStringFreeA(String_R) {
+        String_RMarshal := String_R is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("RPCRT4.dll\RpcStringFreeA", StringMarshal, String, "int")
+        result := DllCall("RPCRT4.dll\RpcStringFreeA", String_RMarshal, String_R, "int")
         return result
     }
 
@@ -2727,7 +2727,7 @@ class Rpc {
      * 
      * > [!NOTE]
      * > The rpcdce.h header defines RpcStringFree as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} String Pointer to a pointer to the character string to free.
+     * @param {Pointer<PWSTR>} String_R 
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -2753,10 +2753,10 @@ class Rpc {
      * @see https://learn.microsoft.com/windows/win32/api/rpcdce/nf-rpcdce-rpcstringfreew
      * @since windows5.0
      */
-    static RpcStringFreeW(String) {
-        StringMarshal := String is VarRef ? "ptr*" : "ptr"
+    static RpcStringFreeW(String_R) {
+        String_RMarshal := String_R is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("RPCRT4.dll\RpcStringFreeW", StringMarshal, String, "int")
+        result := DllCall("RPCRT4.dll\RpcStringFreeW", String_RMarshal, String_R, "int")
         return result
     }
 

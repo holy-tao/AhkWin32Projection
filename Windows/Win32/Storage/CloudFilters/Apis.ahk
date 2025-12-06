@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\CF_CONNECTION_KEY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -216,22 +217,22 @@ class CloudFilters {
      * | **REQUEST_PROCESS_INFO** | The platform returns the full image path of the hydrating process in the callback parameters when this flag is specified. |
      * | **REQUIRE_FULL_FILE_PATH** | The platform returns the full path of the placeholder being requested in the callback parameters when this flag is specified. |
      * | **BLOCK_SELF_IMPLICIT_HYDRATION** | The implicit hydration, which is not performed via [CfHydratePlaceholder](nf-cfapi-cfhydrateplaceholder.md), can happen when Anti-Virus software scans sync provider’s file system activities on non-hydrated cloud file placeholders. This kind of implicit hydrations is not expected. If the sync provider never initiates implicit hydration operations itself, it can instruct the platform block all such implicit hydration operations as opposed to failing the **FETCH_DATA** callbacks later. |
-     * @param {Pointer<CF_CONNECTION_KEY>} ConnectionKey On successful return, this API will return an opaque *ConnectionKey* back to the sync provider. This represents the communication channel that was just established, and the sync provider may remember the *ConnectionKey* and pass it when calling various sync provider APIs. If a sync provider only expects to establish a single connection, then the *ConnectionKey* could be stored in a global. However, the platform supports a single provider process connecting to multiple different sync roots at the same time, and for each connection there will be a different *ConnectionKey* returned. A good place to store each *ConnectionKey* would be inside the sync provider’s internal structure identified by the *CallbackContext*.
-     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {CF_CONNECTION_KEY} On successful return, this API will return an opaque *ConnectionKey* back to the sync provider. This represents the communication channel that was just established, and the sync provider may remember the *ConnectionKey* and pass it when calling various sync provider APIs. If a sync provider only expects to establish a single connection, then the *ConnectionKey* could be stored in a global. However, the platform supports a single provider process connecting to multiple different sync roots at the same time, and for each connection there will be a different *ConnectionKey* returned. A good place to store each *ConnectionKey* would be inside the sync provider’s internal structure identified by the *CallbackContext*.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfconnectsyncroot
      * @since windows10.0.16299
      */
-    static CfConnectSyncRoot(SyncRootPath, CallbackTable, CallbackContext, ConnectFlags, ConnectionKey) {
+    static CfConnectSyncRoot(SyncRootPath, CallbackTable, CallbackContext, ConnectFlags) {
         SyncRootPath := SyncRootPath is String ? StrPtr(SyncRootPath) : SyncRootPath
 
         CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
+        ConnectionKey := CF_CONNECTION_KEY()
         result := DllCall("cldapi.dll\CfConnectSyncRoot", "ptr", SyncRootPath, "ptr", CallbackTable, CallbackContextMarshal, CallbackContext, "int", ConnectFlags, "ptr", ConnectionKey, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return ConnectionKey
     }
 
     /**
@@ -446,20 +447,20 @@ class CloudFilters {
      * This aims to remove the complexity related to oplock usages. The caller must close the handle returned by **CfOpenFileWithOplock** with [CfCloseHandle](nf-cfapi-cfclosehandle.md).
      * @param {PWSTR} FilePath Fully qualified path to the file or directory to be opened.
      * @param {Integer} Flags 
-     * @param {Pointer<HANDLE>} ProtectedHandle An opaque handle to the file or directory that is just opened. Note that this is not a normal Win32 handle and hence cannot be used with non-CfApi Win32 APIs directly.
-     * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
+     * @returns {HANDLE} An opaque handle to the file or directory that is just opened. Note that this is not a normal Win32 handle and hence cannot be used with non-CfApi Win32 APIs directly.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfopenfilewithoplock
      * @since windows10.0.16299
      */
-    static CfOpenFileWithOplock(FilePath, Flags, ProtectedHandle) {
+    static CfOpenFileWithOplock(FilePath, Flags) {
         FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
 
+        ProtectedHandle := HANDLE()
         result := DllCall("cldapi.dll\CfOpenFileWithOplock", "ptr", FilePath, "int", Flags, "ptr", ProtectedHandle, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return ProtectedHandle
     }
 
     /**
