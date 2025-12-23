@@ -8,7 +8,7 @@
 
 /**
  * Contains specific information for the connection that includes:\_the user name, domain, Globally Unique Identifier (GUID) associated with the connection, Network Access Protection (NAP) quarantine state, packet statistics, as well as its Point-to-Point (PPP) and Internet Key Exchange version 2 (IKEv2) related information.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-ras_connection_4
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_connection_4
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */
@@ -106,7 +106,7 @@ class RAS_CONNECTION_4 extends Win32Struct
     probationTime{
         get {
             if(!this.HasProp("__probationTime"))
-                this.__probationTime := FILETIME(1128, this)
+                this.__probationTime := FILETIME(1124, this)
             return this.__probationTime
         }
     }
@@ -118,7 +118,7 @@ class RAS_CONNECTION_4 extends Win32Struct
     connectionStartTime{
         get {
             if(!this.HasProp("__connectionStartTime"))
-                this.__connectionStartTime := FILETIME(1136, this)
+                this.__connectionStartTime := FILETIME(1132, this)
             return this.__connectionStartTime
         }
     }

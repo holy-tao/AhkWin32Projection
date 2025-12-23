@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of possible scopes for DHCP options.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ne-dhcpsapi-dhcp_option_scope_type6
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_option_scope_type6
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */
-class DHCP_OPTION_SCOPE_TYPE6{
+class DHCP_OPTION_SCOPE_TYPE6 extends Win32Enum{
 
     /**
      * The default set of DHCP options are selected.

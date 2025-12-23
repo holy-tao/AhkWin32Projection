@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DWRITE_PANOSE_XHEIGHT enumeration contains values that specify info about the relative size of lowercase letters and the treatment of diacritic marks (xheight).
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/ne-dwrite_1-dwrite_panose_xheight
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_panose_xheight
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_PANOSE_XHEIGHT{
+class DWRITE_PANOSE_XHEIGHT extends Win32Enum{
 
     /**
      * Any xheight.

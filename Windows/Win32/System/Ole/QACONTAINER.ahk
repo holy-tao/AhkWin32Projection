@@ -5,11 +5,8 @@
 /**
  * Specifies container information for IQuickActivate::QuickActivate.
  * @remarks
- * 
  * If an interface pointer in the <b>QACONTAINER</b> structure is <b>NULL</b> it does not indicate that the interface is not supported. In this situation, the control should use <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> to obtain the interface pointer in the standard manner.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/ns-ocidl-qacontainer
+ * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-qacontainer
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

@@ -1,21 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of partition style values.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_disk_prop">VDS_DISK_PROP</a> and
- *         <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_partition_prop">VDS_PARTITION_PROP</a>structures include a <b>VDS_PARTITION_STYLE</b> value as a member. Additionally, the  <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsdisk-convertstyle">IVdsDisk::ConvertStyle</a>and <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdspack-adddisk">IVdsPack::AddDisk</a>methods pass a <b>VDS_PARTITION_STYLE</b> value  as an argument to indicate the partition style on a disk.
+ *         <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_partition_prop">VDS_PARTITION_PROP</a> structures include a <b>VDS_PARTITION_STYLE</b> value as a member. Additionally, the  <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsdisk-convertstyle">IVdsDisk::ConvertStyle</a> and <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdspack-adddisk">IVdsPack::AddDisk</a> methods pass a <b>VDS_PARTITION_STYLE</b> value  as an argument to indicate the partition style on a disk.
  * 
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_PARTITION_STYLE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_PARTITION_STYLE</b> enumeration constant.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_partition_style
+ * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_partition_style
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_PARTITION_STYLE{
+class VDS_PARTITION_STYLE extends Win32Enum{
 
     /**
      * An uninitialized disk. New disks or newly cleaned disks have this partitioning type.

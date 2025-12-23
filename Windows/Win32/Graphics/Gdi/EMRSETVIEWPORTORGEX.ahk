@@ -5,7 +5,7 @@
 
 /**
  * The EMRSETVIEWPORTORGEX, EMRSETWINDOWORGEX, and EMRSETBRUSHORGEX structures contain members for the SetViewportOrgEx, SetWindowOrgEx, and SetBrushOrgEx enhanced metafile records.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrsetviewportorgex
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrsetviewportorgex
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
@@ -13,7 +13,7 @@ class EMRSETVIEWPORTORGEX extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Base structure for all record types.

@@ -5,13 +5,13 @@
 
 /**
  * Contains information about the current system power policy.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-system_power_policy
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_power_policy
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */
 class SYSTEM_POWER_POLICY extends Win32Struct
 {
-    static sizeof => 192
+    static sizeof => 168
 
     static packingSize => 8
 
@@ -32,7 +32,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
     PowerButton{
         get {
             if(!this.HasProp("__PowerButton"))
-                this.__PowerButton := POWER_ACTION_POLICY(8, this)
+                this.__PowerButton := POWER_ACTION_POLICY(4, this)
             return this.__PowerButton
         }
     }
@@ -45,7 +45,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
     SleepButton{
         get {
             if(!this.HasProp("__SleepButton"))
-                this.__SleepButton := POWER_ACTION_POLICY(24, this)
+                this.__SleepButton := POWER_ACTION_POLICY(16, this)
             return this.__SleepButton
         }
     }
@@ -58,7 +58,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
     LidClose{
         get {
             if(!this.HasProp("__LidClose"))
-                this.__LidClose := POWER_ACTION_POLICY(40, this)
+                this.__LidClose := POWER_ACTION_POLICY(28, this)
             return this.__LidClose
         }
     }
@@ -69,8 +69,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     LidOpenWake {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
@@ -78,8 +78,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     Reserved {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -90,7 +90,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
     Idle{
         get {
             if(!this.HasProp("__Idle"))
-                this.__Idle := POWER_ACTION_POLICY(64, this)
+                this.__Idle := POWER_ACTION_POLICY(48, this)
             return this.__Idle
         }
     }
@@ -100,8 +100,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     IdleTimeout {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
@@ -109,8 +109,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     IdleSensitivity {
-        get => NumGet(this, 80, "char")
-        set => NumPut("char", value, this, 80)
+        get => NumGet(this, 64, "char")
+        set => NumPut("char", value, this, 64)
     }
 
     /**
@@ -119,8 +119,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     DynamicThrottle {
-        get => NumGet(this, 81, "char")
-        set => NumPut("char", value, this, 81)
+        get => NumGet(this, 65, "char")
+        set => NumPut("char", value, this, 65)
     }
 
     /**
@@ -130,7 +130,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
     Spare2{
         get {
             if(!this.HasProp("__Spare2ProxyArray"))
-                this.__Spare2ProxyArray := Win32FixedArray(this.ptr + 82, 2, Primitive, "char")
+                this.__Spare2ProxyArray := Win32FixedArray(this.ptr + 66, 2, Primitive, "char")
             return this.__Spare2ProxyArray
         }
     }
@@ -141,8 +141,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     MinSleep {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
+        get => NumGet(this, 68, "int")
+        set => NumPut("int", value, this, 68)
     }
 
     /**
@@ -151,8 +151,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     MaxSleep {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
+        get => NumGet(this, 72, "int")
+        set => NumPut("int", value, this, 72)
     }
 
     /**
@@ -162,8 +162,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     ReducedLatencySleep {
-        get => NumGet(this, 92, "int")
-        set => NumPut("int", value, this, 92)
+        get => NumGet(this, 76, "int")
+        set => NumPut("int", value, this, 76)
     }
 
     /**
@@ -171,8 +171,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     WinLogonFlags {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
@@ -180,8 +180,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     Spare3 {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 
     /**
@@ -189,8 +189,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     DozeS4Timeout {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
@@ -198,8 +198,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     BroadcastCapacityResolution {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
+        get => NumGet(this, 92, "uint")
+        set => NumPut("uint", value, this, 92)
     }
 
     /**
@@ -210,7 +210,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
     DischargePolicy{
         get {
             if(!this.HasProp("__DischargePolicyProxyArray"))
-                this.__DischargePolicyProxyArray := Win32FixedArray(this.ptr + 112, 4, SYSTEM_POWER_LEVEL, "")
+                this.__DischargePolicyProxyArray := Win32FixedArray(this.ptr + 96, 4, SYSTEM_POWER_LEVEL, "")
             return this.__DischargePolicyProxyArray
         }
     }
@@ -220,8 +220,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     VideoTimeout {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
+        get => NumGet(this, 128, "uint")
+        set => NumPut("uint", value, this, 128)
     }
 
     /**
@@ -229,8 +229,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {BOOLEAN}
      */
     VideoDimDisplay {
-        get => NumGet(this, 148, "char")
-        set => NumPut("char", value, this, 148)
+        get => NumGet(this, 132, "char")
+        set => NumPut("char", value, this, 132)
     }
 
     /**
@@ -240,7 +240,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
     VideoReserved{
         get {
             if(!this.HasProp("__VideoReservedProxyArray"))
-                this.__VideoReservedProxyArray := Win32FixedArray(this.ptr + 152, 3, Primitive, "uint")
+                this.__VideoReservedProxyArray := Win32FixedArray(this.ptr + 136, 3, Primitive, "uint")
             return this.__VideoReservedProxyArray
         }
     }
@@ -250,8 +250,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     SpindownTimeout {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
+        get => NumGet(this, 148, "uint")
+        set => NumPut("uint", value, this, 148)
     }
 
     /**
@@ -259,8 +259,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {BOOLEAN}
      */
     OptimizeForPower {
-        get => NumGet(this, 168, "char")
-        set => NumPut("char", value, this, 168)
+        get => NumGet(this, 152, "char")
+        set => NumPut("char", value, this, 152)
     }
 
     /**
@@ -268,8 +268,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     FanThrottleTolerance {
-        get => NumGet(this, 169, "char")
-        set => NumPut("char", value, this, 169)
+        get => NumGet(this, 153, "char")
+        set => NumPut("char", value, this, 153)
     }
 
     /**
@@ -277,8 +277,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     ForcedThrottle {
-        get => NumGet(this, 170, "char")
-        set => NumPut("char", value, this, 170)
+        get => NumGet(this, 154, "char")
+        set => NumPut("char", value, this, 154)
     }
 
     /**
@@ -286,8 +286,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     MinThrottle {
-        get => NumGet(this, 171, "char")
-        set => NumPut("char", value, this, 171)
+        get => NumGet(this, 155, "char")
+        set => NumPut("char", value, this, 155)
     }
 
     /**
@@ -298,7 +298,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
     OverThrottled{
         get {
             if(!this.HasProp("__OverThrottled"))
-                this.__OverThrottled := POWER_ACTION_POLICY(176, this)
+                this.__OverThrottled := POWER_ACTION_POLICY(156, this)
             return this.__OverThrottled
         }
     }

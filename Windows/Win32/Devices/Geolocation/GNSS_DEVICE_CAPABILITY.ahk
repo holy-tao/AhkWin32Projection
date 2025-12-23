@@ -8,9 +8,9 @@
  */
 class GNSS_DEVICE_CAPABILITY extends Win32Struct
 {
-    static sizeof => 608
+    static sizeof => 604
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -186,7 +186,7 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     SupportedSuplVersion{
         get {
             if(!this.HasProp("__SupportedSuplVersion"))
-                this.__SupportedSuplVersion := GNSS_SUPL_VERSION(88, this)
+                this.__SupportedSuplVersion := GNSS_SUPL_VERSION(84, this)
             return this.__SupportedSuplVersion
         }
     }
@@ -195,32 +195,32 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
      * @type {Integer}
      */
     MaxGeofencesSupported {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+        get => NumGet(this, 92, "uint")
+        set => NumPut("uint", value, this, 92)
     }
 
     /**
      * @type {BOOL}
      */
     SupportMultipleSuplRootCert {
-        get => NumGet(this, 100, "int")
-        set => NumPut("int", value, this, 100)
+        get => NumGet(this, 96, "int")
+        set => NumPut("int", value, this, 96)
     }
 
     /**
      * @type {Integer}
      */
     GnssBreadCrumbPayloadVersion {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
+        get => NumGet(this, 100, "uint")
+        set => NumPut("uint", value, this, 100)
     }
 
     /**
      * @type {Integer}
      */
     MaxGnssBreadCrumbFixes {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
@@ -229,7 +229,7 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     Unused{
         get {
             if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 112, 496, Primitive, "char")
+                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 108, 496, Primitive, "char")
             return this.__UnusedProxyArray
         }
     }

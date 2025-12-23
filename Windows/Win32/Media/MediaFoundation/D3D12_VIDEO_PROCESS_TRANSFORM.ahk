@@ -5,19 +5,16 @@
 /**
  * Specifies transform parameters for video processing.
  * @remarks
- * 
  * For stereo formats, the orientation is applied before the stereo format is applied.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_video_process_transform
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_process_transform
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
 class D3D12_VIDEO_PROCESS_TRANSFORM extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the source rectangle of the transform. This is the portion of the input surface that is blitted to the destination surface. The source rectangle is given in pixel coordinates, relative to the input surface.

@@ -11,39 +11,56 @@ class IMAGE_DELAYLOAD_DESCRIPTOR extends Win32Struct
 
     static packingSize => 4
 
-    /**
-     * @type {Integer}
-     */
-    AllAttributes {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    class _Attributes_e__Union extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        AllAttributes {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * This bitfield backs the following members:
+         * - RvaBased
+         * - ReservedAttributes
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        RvaBased {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReservedAttributes {
+            get => (this._bitfield >> 1) & 0x7FFFFFFF
+            set => this._bitfield := ((value & 0x7FFFFFFF) << 1) | (this._bitfield & ~(0x7FFFFFFF << 1))
+        }
+    
     }
 
     /**
-     * This bitfield backs the following members:
-     * - RvaBased
-     * - ReservedAttributes
-     * @type {Integer}
+     * @type {_Attributes_e__Union}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    RvaBased {
-        get => (this._bitfield >> 0) & 0x1
-        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ReservedAttributes {
-        get => (this._bitfield >> 1) & 0x7FFFFFFF
-        set => this._bitfield := ((value & 0x7FFFFFFF) << 1) | (this._bitfield & ~(0x7FFFFFFF << 1))
+    Attributes{
+        get {
+            if(!this.HasProp("__Attributes"))
+                this.__Attributes := %this.__Class%._Attributes_e__Union(0, this)
+            return this.__Attributes
+        }
     }
 
     /**

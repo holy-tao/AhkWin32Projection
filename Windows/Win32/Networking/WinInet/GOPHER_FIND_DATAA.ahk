@@ -3,9 +3,8 @@
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
- * Contains information retrieved by the GopherFindFirstFile and InternetFindNextFile functions.
+ * Contains information retrieved by the GopherFindFirstFile and InternetFindNextFile functions. (ANSI)
  * @remarks
- * 
  * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
  * <div> </div>
  * 
@@ -14,9 +13,7 @@
  * 
  * > [!NOTE]
  * > The wininet.h header defines GOPHER_FIND_DATA as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wininet/ns-wininet-gopher_find_dataa
+ * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-gopher_find_dataa
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
  * @charset ANSI
@@ -25,7 +22,7 @@ class GOPHER_FIND_DATAA extends Win32Struct
 {
     static sizeof => 808
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Friendly name of an object. An application can display this string to allow the user to select the object.

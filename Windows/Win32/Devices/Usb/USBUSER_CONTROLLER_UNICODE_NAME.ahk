@@ -6,11 +6,8 @@
 /**
  * The USBUSER_CONTROLLER_UNICODE_NAME structure is used in conjunction with the IOCTL_USB_USER_REQUEST I/O control request to retrieve the USB host controller driverkey name.
  * @remarks
- * 
  * The <b>USBUSER_CONTROLLER_UNICODE_NAME</b> structure is used in conjunction with the USBUSER_GET_CONTROLLER_DRIVER_KEY user-mode request. For a description of this request, see <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ni-usbuser-ioctl_usb_user_request">IOCTL_USB_USER_REQUEST</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//usbuser/ns-usbuser-usbuser_controller_unicode_name
+ * @see https://learn.microsoft.com/windows/win32/api/usbuser/ns-usbuser-usbuser_controller_unicode_name
  * @namespace Windows.Win32.Devices.Usb
  * @version v4.0.30319
  */
@@ -18,7 +15,7 @@ class USBUSER_CONTROLLER_UNICODE_NAME extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Contains a structure of type <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ns-usbuser-usbuser_request_header">USBUSER_REQUEST_HEADER</a> that specifies the user-mode request on input to <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ni-usbuser-ioctl_usb_user_request">IOCTL_USB_USER_REQUEST</a>, and provides buffer and status information on output.

@@ -8,9 +8,9 @@
  */
 class PANEL_GET_BACKLIGHT_REDUCTION extends Win32Struct
 {
-    static sizeof => 1544
+    static sizeof => 1540
 
-    static packingSize => 8
+    static packingSize => 2
 
     /**
      * @type {Integer}
@@ -34,7 +34,7 @@ class PANEL_GET_BACKLIGHT_REDUCTION extends Win32Struct
     GammaRamp{
         get {
             if(!this.HasProp("__GammaRamp"))
-                this.__GammaRamp := BACKLIGHT_REDUCTION_GAMMA_RAMP(8, this)
+                this.__GammaRamp := BACKLIGHT_REDUCTION_GAMMA_RAMP(4, this)
             return this.__GammaRamp
         }
     }

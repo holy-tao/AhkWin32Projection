@@ -3,7 +3,7 @@
 
 /**
  * The SERVER_INFO_1501 structure specifies the number of files that can be open in one session on the specified server.
- * @see https://docs.microsoft.com/windows/win32/api//lmserver/ns-lmserver-server_info_1501
+ * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_1501
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

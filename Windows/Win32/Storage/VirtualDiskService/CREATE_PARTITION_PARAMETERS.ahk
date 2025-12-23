@@ -2,15 +2,12 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Defines the partition parameters of a partition style.
+ * Defines the partition parameters of a partition style. (CREATE_PARTITION_PARAMETERS)
  * @remarks
- * 
  * The 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsadvanceddisk-createpartition">IVdsAdvancedDisk::CreatePartition</a> 
  *     method passes this structure as an argument to specify a set of parameters.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-create_partition_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-create_partition_parameters
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -30,8 +27,8 @@ class CREATE_PARTITION_PARAMETERS extends Win32Struct
     }
 
     class _MbrPartInfo extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+        static sizeof => 2
+        static packingSize => 1
 
         /**
          * @type {Integer}

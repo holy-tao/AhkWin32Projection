@@ -4,16 +4,16 @@
 #Include .\JOYRANGE.ahk
 
 /**
- * The JOYREGHWVALUES structure contains the range of values returned by the hardware (filled in by calibration).
- * @see https://docs.microsoft.com/windows/win32/api//dinputd/ns-dinputd-joyreghwvalues
+ * The JOYREGHWVALUES (dinputd.h) structure contains the range of values returned by the hardware (filled in by calibration).
+ * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-joyreghwvalues
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319
  */
 class JOYREGHWVALUES extends Win32Struct
 {
-    static sizeof => 96
+    static sizeof => 92
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The values returned by the hardware.

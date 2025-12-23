@@ -1,12 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * The WPD\_META\_GENRES enumeration type describes a broad genre type of a media file.
+ * @remarks
+ * This enumeration is used by the [WPD\_MEDIA\_META\_GENRE](media-properties.md) property.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-meta-genres
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */
-class WPD_META_GENRES{
+class WPD_META_GENRES extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

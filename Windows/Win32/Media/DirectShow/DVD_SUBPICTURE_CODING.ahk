@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates what kind of content the subpicture stream contains.
  * @remarks
- * 
  * Most subpicture streams contain language-related content such as movie subtitles, but subpictures can also be used for the bouncing ball in karaoke or other non-language-related purposes.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-dvd_subpicture_coding
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_subpicture_coding
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class DVD_SUBPICTURE_CODING{
+class DVD_SUBPICTURE_CODING extends Win32Enum{
 
     /**
      * Indicates that the subpicture uses run length encoding.

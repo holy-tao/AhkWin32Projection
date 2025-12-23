@@ -1,25 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Flags that control caching and notification of changes in data.
  * @remarks
- * 
  * For a data or view advisory connection, the container uses the <b>ADVF</b> constants when setting up a connection between an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> instance and either an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> or <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-iviewobject">IViewObject</a> instance. These connections are set up using the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataadviseholder-advise">IDataAdviseHolder::Advise</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iviewobject-setadvise">IViewObject::SetAdvise</a> methods.
  * 
  * 
  * 
- * For a caching connection, the constants are specified in the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a>method to indicate the container's requests on how the object should update its cache.
+ * For a caching connection, the constants are specified in the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a> method to indicate the container's requests on how the object should update its cache.
  * 
  * 
  * 
  * These constants are also used in the <b>advf</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-statdata">STATDATA</a> structure. This structure is used by <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstatdata">IEnumSTATDATA</a> to describe the enumerated connections, and the <b>advf</b> member indicates the flags that were specified when the advisory or cache connection was established. When <b>STATDATA</b> is used for an<a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-enumadvise"> IOleObject::EnumAdvise</a> enumerator, the <b>advf</b> member is indeterminate.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//objidl/ne-objidl-advf
+ * @see https://learn.microsoft.com/windows/win32/api/objidl/ne-objidl-advf
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class ADVF{
+class ADVF extends Win32Enum{
 
     /**
      * For data advisory connections (<a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataadviseholder-advise">IDataAdviseHolder::Advise</a>), this flag requests the data object not to send data when it calls <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iadvisesink-ondatachange">IAdviseSink::OnDataChange</a>. The recipient of the change notification can later request the data by calling <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-getdata">IDataObject::GetData</a>. The data object can honor the request by passing TYMED_NULL in the STGMEDIUM parameter, or it can provide the data anyway. For example, the data object might have multiple advisory connections, not all of which specified ADVF_NODATA, in which case the object might send the same notification to all connections. Regardless of the container's request, its <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> implementation must check the STGMEDIUM parameter because it is responsible for releasing the medium if it is not TYMED_NULL.

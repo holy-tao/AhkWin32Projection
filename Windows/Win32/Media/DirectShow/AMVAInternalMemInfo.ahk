@@ -3,7 +3,7 @@
 
 /**
  * The AMVAInternalMemInfo structure specifies the amount of scratch memory the hardware abstraction layer (HAL) will allocate for its private use.
- * @see https://docs.microsoft.com/windows/win32/api//amva/ns-amva-amvainternalmeminfo
+ * @see https://learn.microsoft.com/windows/win32/api/amva/ns-amva-amvainternalmeminfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

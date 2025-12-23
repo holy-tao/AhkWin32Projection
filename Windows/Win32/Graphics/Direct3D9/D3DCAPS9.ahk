@@ -6,7 +6,6 @@
 /**
  * Represents the capabilities of the hardware exposed through the Direct3D object.
  * @remarks
- * 
  * The MaxTextureBlendStages and MaxSimultaneousTextures members might seem similar, but they contain different information. The MaxTextureBlendStages member contains the total number of texture-blending stages supported by the current device, and the MaxSimultaneousTextures member describes how many of those stages can have textures bound to them by using the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nf-d3d9helper-idirect3ddevice9-settexture">SetTexture</a> method.
  * 
  * When the driver fills this structure, it can set values for execute-buffer capabilities, even when the interface being used to retrieve the capabilities (such as <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a>) does not support execute buffers.
@@ -22,9 +21,7 @@
  * <li>D3DPTFILTERCAPS_MIPNEAREST</li>
  * <li>D3DPTFILTERCAPS_NEAREST</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d9caps/ns-d3d9caps-d3dcaps9
+ * @see https://learn.microsoft.com/windows/win32/api/d3d9caps/ns-d3d9caps-d3dcaps9
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */
@@ -32,7 +29,7 @@ class D3DCAPS9 extends Win32Struct
 {
     static sizeof => 304
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a></b>
@@ -1169,7 +1166,7 @@ class D3DCAPS9 extends Win32Struct
      * </dl>
      * </td>
      * <td width="60%">
-     * Device does not support a projected bump-environment loopkup operation in programmable and fixed function shaders.
+     * Device does not support a projected bump-environment lookup operation in programmable and fixed function shaders.
      * 
      * </td>
      * </tr>

@@ -11,6 +11,39 @@ class POWER_LIMIT_ATTRIBUTES extends Win32Struct
 
     static packingSize => 4
 
+    class _Flags_e__Union extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * This bitfield backs the following members:
+         * - SupportTimeParameter
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SupportTimeParameter {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AsUlong {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -76,29 +109,13 @@ class POWER_LIMIT_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * This bitfield backs the following members:
-     * - SupportTimeParameter
-     * - Reserved
-     * @type {Integer}
+     * @type {_Flags_e__Union}
      */
-    _bitfield {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SupportTimeParameter {
-        get => (this._bitfield >> 0) & 0x1
-        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AsUlong {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+    Flags{
+        get {
+            if(!this.HasProp("__Flags"))
+                this.__Flags := %this.__Class%._Flags_e__Union(32, this)
+            return this.__Flags
+        }
     }
 }

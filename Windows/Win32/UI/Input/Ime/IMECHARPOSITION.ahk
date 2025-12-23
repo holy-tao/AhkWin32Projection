@@ -4,21 +4,18 @@
 #Include ..\..\..\Foundation\RECT.ahk
 
 /**
- * Contains information about the character position in the composition window.
+ * The IMECHARPOSITION structure (immdev.h) contains information about the character position in the composition window.
  * @remarks
- * 
  * When an application uses IME to draw the composition string, the members of this structure are automatically filled. Applications that draw the composition string themselves, rather than relying on the IME, are responsible for filling all the fields defined in the structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imm/ns-imm-imecharposition
+ * @see https://learn.microsoft.com/windows/win32/api/immdev/ns-immdev-imecharposition
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */
 class IMECHARPOSITION extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Size of the structure, in bytes.
@@ -39,7 +36,7 @@ class IMECHARPOSITION extends Win32Struct
     }
 
     /**
-     * A <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure containing the coordinate of the top left point of requested character in screen coordinates. The top left point is based on the character baseline in any text flow.
+     * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure containing the coordinate of the top left point of requested character in screen coordinates. The top left point is based on the character baseline in any text flow.
      * @type {POINT}
      */
     pt{
@@ -66,7 +63,7 @@ class IMECHARPOSITION extends Win32Struct
     rcDocument{
         get {
             if(!this.HasProp("__rcDocument"))
-                this.__rcDocument := RECT(24, this)
+                this.__rcDocument := RECT(20, this)
             return this.__rcDocument
         }
     }

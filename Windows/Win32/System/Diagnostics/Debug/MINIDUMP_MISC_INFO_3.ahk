@@ -9,9 +9,9 @@
  */
 class MINIDUMP_MISC_INFO_3 extends Win32Struct
 {
-    static sizeof => 248
+    static sizeof => 232
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -139,7 +139,7 @@ class MINIDUMP_MISC_INFO_3 extends Win32Struct
     TimeZone{
         get {
             if(!this.HasProp("__TimeZone"))
-                this.__TimeZone := TIME_ZONE_INFORMATION(64, this)
+                this.__TimeZone := TIME_ZONE_INFORMATION(60, this)
             return this.__TimeZone
         }
     }

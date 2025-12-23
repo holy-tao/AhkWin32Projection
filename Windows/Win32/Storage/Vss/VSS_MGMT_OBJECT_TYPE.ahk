@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Discriminant for the VSS_MGMT_OBJECT_UNION union within the VSS_MGMT_OBJECT_PROP structure.
- * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/ne-vsmgmt-vss_mgmt_object_type
+ * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/ne-vsmgmt-vss_mgmt_object_type
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_MGMT_OBJECT_TYPE{
+class VSS_MGMT_OBJECT_TYPE extends Win32Enum{
 
     /**
      * The object type is unknown.

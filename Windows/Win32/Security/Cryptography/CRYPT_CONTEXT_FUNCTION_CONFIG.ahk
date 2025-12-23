@@ -3,7 +3,7 @@
 
 /**
  * Contains configuration information for a cryptographic function of a CNG context.
- * @see https://docs.microsoft.com/windows/win32/api//bcrypt/ns-bcrypt-crypt_context_function_config
+ * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-crypt_context_function_config
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains the IKEv2 main mode and quick mode policy configuration.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-router_custom_ikev2_policy0
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-router_custom_ikev2_policy0
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

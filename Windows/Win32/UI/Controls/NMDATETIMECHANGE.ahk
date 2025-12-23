@@ -6,7 +6,7 @@
 
 /**
  * Contains information about a change that has taken place in a date and time picker (DTP) control. This structure is used with the DTN_DATETIMECHANGE notification code.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmdatetimechange
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmdatetimechange
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -78,7 +78,7 @@ class NMDATETIMECHANGE extends Win32Struct
     st{
         get {
             if(!this.HasProp("__st"))
-                this.__st := SYSTEMTIME(32, this)
+                this.__st := SYSTEMTIME(28, this)
             return this.__st
         }
     }

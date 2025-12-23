@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies actions to be taken by WebSocket applications.
- * @see https://docs.microsoft.com/windows/win32/api//websocket/ne-websocket-web_socket_action
+ * @see https://learn.microsoft.com/windows/win32/api/websocket/ne-websocket-web_socket_action
  * @namespace Windows.Win32.Networking.WebSocket
  * @version v4.0.30319
  */
-class WEB_SOCKET_ACTION{
+class WEB_SOCKET_ACTION extends Win32Enum{
 
     /**
      * There are no actions to process.

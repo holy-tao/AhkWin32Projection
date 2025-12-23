@@ -5,7 +5,6 @@
 /**
  * Contains information about media specific module (MSM) connection related notifications.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanregisternotification">WlanRegisterNotification</a> function is used by an application to register and unregister notifications on all wireless interfaces. When registering for notifications, an application must provide a callback function pointed to by the <i>funcCallback</i> parameter passed to the <b>WlanRegisterNotification</b> function. The prototype for this callback function is the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nc-wlanapi-wlan_notification_callback">WLAN_NOTIFICATION_CALLBACK</a>. This callback function will receive notifications that have been registered in the <i>dwNotifSource</i> parameter passed to the <b>WlanRegisterNotification</b> function. 
  * 
  * The callback function is called with a pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure as the first parameter that contains detailed information on the notification. 
@@ -13,17 +12,15 @@
  * If the <b>NotificationSource</b> member of the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure received by the callback function is <b>WLAN_NOTIFICATION_SOURCE_MSM</b>, then the received notification is a media specific module (MSM) notification. The <b>NotificationCode</b> member of the <b>WLAN_NOTIFICATION_DATA</b> structure passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nc-wlanapi-wlan_notification_callback">WLAN_NOTIFICATION_CALLBACK</a> function  determines the interpretation of the <i>pData</i> member of <b>WLAN_NOTIFICATION_DATA</b> structure.  For some of these notifications, a <b>WLAN_MSM_NOTIFICATION_DATA</b> structure is returned in the <i>pData</i> member of <b>WLAN_NOTIFICATION_DATA</b> structure. 
  * 
  * For more information on these notifications, see the <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_notification_msm-r1">WLAN_NOTIFICATION_MSM</a> enumeration reference.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-wlan_msm_notification_data
+ * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_msm_notification_data
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
 class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
 {
-    static sizeof => 584
+    static sizeof => 580
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_connection_mode">WLAN_CONNECTION_MODE</a> value that specifies the mode of the connection.
@@ -50,7 +47,7 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
     dot11Ssid{
         get {
             if(!this.HasProp("__dot11Ssid"))
-                this.__dot11Ssid := DOT11_SSID(520, this)
+                this.__dot11Ssid := DOT11_SSID(516, this)
             return this.__dot11Ssid
         }
     }
@@ -60,8 +57,8 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
      * @type {Integer}
      */
     dot11BssType {
-        get => NumGet(this, 556, "int")
-        set => NumPut("int", value, this, 556)
+        get => NumGet(this, 552, "int")
+        set => NumPut("int", value, this, 552)
     }
 
     /**
@@ -71,7 +68,7 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
     dot11MacAddr{
         get {
             if(!this.HasProp("__dot11MacAddrProxyArray"))
-                this.__dot11MacAddrProxyArray := Win32FixedArray(this.ptr + 560, 6, Primitive, "char")
+                this.__dot11MacAddrProxyArray := Win32FixedArray(this.ptr + 556, 6, Primitive, "char")
             return this.__dot11MacAddrProxyArray
         }
     }
@@ -81,8 +78,8 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
      * @type {BOOL}
      */
     bSecurityEnabled {
-        get => NumGet(this, 568, "int")
-        set => NumPut("int", value, this, 568)
+        get => NumGet(this, 564, "int")
+        set => NumPut("int", value, this, 564)
     }
 
     /**
@@ -92,8 +89,8 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
      * @type {BOOL}
      */
     bFirstPeer {
-        get => NumGet(this, 572, "int")
-        set => NumPut("int", value, this, 572)
+        get => NumGet(this, 568, "int")
+        set => NumPut("int", value, this, 568)
     }
 
     /**
@@ -101,8 +98,8 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
      * @type {BOOL}
      */
     bLastPeer {
-        get => NumGet(this, 576, "int")
-        set => NumPut("int", value, this, 576)
+        get => NumGet(this, 572, "int")
+        set => NumPut("int", value, this, 572)
     }
 
     /**
@@ -110,7 +107,7 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
      * @type {Integer}
      */
     wlanReasonCode {
-        get => NumGet(this, 580, "uint")
-        set => NumPut("uint", value, this, 580)
+        get => NumGet(this, 576, "uint")
+        set => NumPut("uint", value, this, 576)
     }
 }

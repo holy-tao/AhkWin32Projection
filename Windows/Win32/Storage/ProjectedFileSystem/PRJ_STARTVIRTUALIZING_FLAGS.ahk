@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Flags to provide when starting a virtualization instance.
- * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/ne-projectedfslib-prj_startvirtualizing_flags
+ * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ne-projectedfslib-prj_startvirtualizing_flags
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  * @version v4.0.30319
  */
-class PRJ_STARTVIRTUALIZING_FLAGS{
+class PRJ_STARTVIRTUALIZING_FLAGS extends Win32BitflagEnum{
 
     /**
      * No flags.

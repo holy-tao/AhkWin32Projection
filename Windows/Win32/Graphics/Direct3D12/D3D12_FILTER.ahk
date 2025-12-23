@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies filtering options during texture sampling.
  * @remarks
- * 
  * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_sampler_desc">D3D12_SAMPLER_DESC</a> structure.
  * 
  * <div class="alert"><b>Note</b>  If you use different filter types for min versus mag filter, undefined behavior occurs in certain cases where the choice between whether magnification or minification happens is ambiguous.  To prevent this undefined behavior, use filter modes that use similar filter operations for both min and mag (or use anisotropic filtering, which avoids the issue as well).</div>
@@ -16,14 +16,13 @@
  * 
  * Also note the following defines:
  * 
- * <pre class="syntax" xml:space="preserve"><code>#define	D3D12_FILTER_REDUCTION_TYPE_MASK	( 0x3 )
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_filter
+ * ``` syntax
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_filter
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_FILTER{
+class D3D12_FILTER extends Win32Enum{
 
     /**
      * Use point sampling for minification, magnification, and mip-level sampling.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the interest in a set of operating system-specific gestures.
  * @remarks
- * 
  * The flick gesture is recognized in Windows Vista and later versions of Windows.
  * 
  * The Windows Vista and Tablet PC operating systems support these gestures by default. When any of these gestures are recognized, the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-systemgesture">SystemGesture</a> event fires automatically. Many of these gestures map to traditional mouse events. For instance, the Tap system gesture mimics a click of the left mouse button.
@@ -11,13 +11,11 @@
  * A system gesture is separate from an application gesture. Application gestures are defined in the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkapplicationgesture">InkApplicationGesture</a> enumeration type.
  * 
  * For more information about system gestures, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-gestures">Using Gestures</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inksystemgesture
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inksystemgesture
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InkSystemGesture{
+class InkSystemGesture extends Win32Enum{
 
     /**
      * A click of the left mouse button. This can be used to choose a command from the menu or toolbar, take action if a command is chosen, set an insertion point (IP), or show selection feedback.

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies effects on a DirectDraw hardware overlay surface.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-amoverlayfx
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-amoverlayfx
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class AMOVERLAYFX{
+class AMOVERLAYFX extends Win32Enum{
 
     /**
      * Normal video (no effects).

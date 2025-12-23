@@ -5,15 +5,15 @@
 
 /**
  * The RGNDATA structure contains a header and an array of rectangles that compose a region. The rectangles are sorted top to bottom, left to right. They do not overlap.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-rgndata
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-rgndata
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
 class RGNDATA extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-rgndataheader">RGNDATAHEADER</a> structure. The members of this structure specify the type of region (whether it is rectangular or trapezoidal), the number of rectangles that make up the region, the size of the buffer that contains the rectangle structures, and so on.

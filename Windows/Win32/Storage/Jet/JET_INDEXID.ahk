@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Learn more about: JET_INDEXID Structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-indexid-structure
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319

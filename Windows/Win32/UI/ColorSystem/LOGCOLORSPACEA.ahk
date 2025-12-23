@@ -4,14 +4,13 @@
 #Include ..\..\Graphics\Gdi\CIEXYZTRIPLE.ahk
 
 /**
- * The LOGCOLORSPACE structure contains information that defines a logical color space.
+ * The LOGCOLORSPACE structure contains information that defines a logical color space. (ANSI)
  * @remarks
- * 
  * Like palettes, but unlike pens and brushes, a pointer must be passed when creating a LogColorSpace.
  * 
  * If the <b>lcsCSType</b> member is set to LCS_sRGB or LCS_WINDOWS_COLOR_SPACE, the other members of this structure are ignored, and WCS uses the sRGB color space. The <b>lcsEndpoints,</b><b>lcsGammaRed, lcsGammaGreen,</b> and <b>lcsGammaBlue</b> members are used to describe the logical color space. The <b>lcsEndpoints</b> member is a <b>CIEXYZTRIPLE</b> that contains the x, y, and z values of the color space's RGB endpoint.
  * 
- * The required DWORD bit format for the <b>lcsGammaRed</b>, <b>lcsGammaGreen</b>, and <b>lcsGammaBlue</b> is an 8.8 fixed point interger left-shifted by 8 bits. This means 8 interger bits are followed by 8 fraction bits. Taking the bit shift into account, the required format of the 32-bit DWORD is:
+ * The required DWORD bit format for the <b>lcsGammaRed</b>, <b>lcsGammaGreen</b>, and <b>lcsGammaBlue</b> is an 8.8 fixed point integer left-shifted by 8 bits. This means 8 integer bits are followed by 8 fraction bits. Taking the bit shift into account, the required format of the 32-bit DWORD is:
  * 
  * 00000000nnnnnnnnffffffff00000000
  * 
@@ -25,7 +24,7 @@
  * 
  * z = Z/(X+Y+Z)
  * 
- * If the lcsCSType member is set to LCS_sRGB or LCS_WINDOWS_COLOR_SPACE, the other members of this structure are ignored, and ICM uses the sRGB color space. Appliations should still initialize the rest of the structure since CreateProfileFromLogColorSpace ignores lcsCSType member and uses lcsEndpoints, lcsGammaRed, lcsGammaGreen, lcsGammaBlue members to create a profile, which may not be initialized in case of LCS_sRGB or LCS_WINDOWS_COLOR_SPACE color spaces.
+ * If the lcsCSType member is set to LCS_sRGB or LCS_WINDOWS_COLOR_SPACE, the other members of this structure are ignored, and ICM uses the sRGB color space. Applications should still initialize the rest of the structure since CreateProfileFromLogColorSpace ignores lcsCSType member and uses lcsEndpoints, lcsGammaRed, lcsGammaGreen, lcsGammaBlue members to create a profile, which may not be initialized in case of LCS_sRGB or LCS_WINDOWS_COLOR_SPACE color spaces.
  * 
  * 
  * 
@@ -33,18 +32,16 @@
  * 
  * > [!NOTE]
  * > The wingdi.h header defines LOGCOLORSPACE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-logcolorspacea
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-logcolorspacea
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  * @charset ANSI
  */
 class LOGCOLORSPACEA extends Win32Struct
 {
-    static sizeof => 344
+    static sizeof => 328
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Color space signature. At present, this member should always be set to LCS_SIGNATURE.
@@ -98,7 +95,7 @@ class LOGCOLORSPACEA extends Win32Struct
     lcsEndpoints{
         get {
             if(!this.HasProp("__lcsEndpoints"))
-                this.__lcsEndpoints := CIEXYZTRIPLE(24, this)
+                this.__lcsEndpoints := CIEXYZTRIPLE(20, this)
             return this.__lcsEndpoints
         }
     }
@@ -108,8 +105,8 @@ class LOGCOLORSPACEA extends Win32Struct
      * @type {Integer}
      */
     lcsGammaRed {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -117,8 +114,8 @@ class LOGCOLORSPACEA extends Win32Struct
      * @type {Integer}
      */
     lcsGammaGreen {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
@@ -126,8 +123,8 @@ class LOGCOLORSPACEA extends Win32Struct
      * @type {Integer}
      */
     lcsGammaBlue {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -135,7 +132,7 @@ class LOGCOLORSPACEA extends Win32Struct
      * @type {String}
      */
     lcsFilename {
-        get => StrGet(this.ptr + 84, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 84, 259, "UTF-8")
+        get => StrGet(this.ptr + 68, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 68, 259, "UTF-8")
     }
 }

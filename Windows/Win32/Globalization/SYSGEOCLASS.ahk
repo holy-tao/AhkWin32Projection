@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the geographical location class.
- * @see https://docs.microsoft.com/windows/win32/api//winnls/ne-winnls-sysgeoclass
+ * @see https://learn.microsoft.com/windows/win32/api/winnls/ne-winnls-sysgeoclass
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */
-class SYSGEOCLASS{
+class SYSGEOCLASS extends Win32Enum{
 
     /**
      * Class for nation geographical location identifiers.

@@ -8,9 +8,9 @@
  */
 class WHV_SRIOV_RESOURCE_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 416
+    static sizeof => 412
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {String}

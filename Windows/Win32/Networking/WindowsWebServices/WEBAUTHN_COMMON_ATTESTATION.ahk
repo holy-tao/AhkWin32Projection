@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * The structure containing the common data for an attestation.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_common_attestation
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -14,6 +16,7 @@ class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct
     static packingSize => 8
 
     /**
+     * Version of this structure, to allow for modifications in the future. This field is required and should be set to **CURRENT_VERSION**.
      * @type {Integer}
      */
     dwVersion {
@@ -22,6 +25,7 @@ class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct
     }
 
     /**
+     * The hash and padding algorithm. This won't be set for _fido-u2f_ which assumes **"ES256"**.
      * @type {PWSTR}
      */
     pwszAlg {
@@ -30,6 +34,7 @@ class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct
     }
 
     /**
+     * The COSE algorithm identifier. This value is a number identifying a cryptographic algorithm. The algorithm identifiers _should_ be values registered in the [IANA COSE Algorithms registry](https://w3c.github.io/webauthn/#biblio-iana-cose-algs-reg), for instance, -7 for "ES256" and -257 for "RS256".
      * @type {Integer}
      */
     lAlg {
@@ -38,6 +43,7 @@ class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct
     }
 
     /**
+     * The signature that was generated for this attestation.
      * @type {Integer}
      */
     cbSignature {
@@ -46,6 +52,7 @@ class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct
     }
 
     /**
+     * A pointer to the signature that was generated for this attestation.
      * @type {Pointer<Integer>}
      */
     pbSignature {
@@ -54,6 +61,7 @@ class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct
     }
 
     /**
+     * Array of X.509 DER encoded certificates. The first certificate is the signer, leaf certificate. This is set for **Full Basic Attestation**. If not set, then this is a **Self Attestation**.
      * @type {Integer}
      */
     cX5c {
@@ -62,6 +70,7 @@ class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct
     }
 
     /**
+     * A pointer to the array of X.509 certificates.
      * @type {Pointer<WEBAUTHN_X5C>}
      */
     pX5c {
@@ -70,6 +79,7 @@ class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct
     }
 
     /**
+     * A pointer to the version of the attestation statement. (This is set for tpm.)
      * @type {PWSTR}
      */
     pwszVer {
@@ -78,6 +88,7 @@ class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct
     }
 
     /**
+     * The size of the certificate information. (This is set for tpm.)
      * @type {Integer}
      */
     cbCertInfo {
@@ -86,6 +97,7 @@ class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct
     }
 
     /**
+     * A pointer to the certificate information. (This is set for tpm.)
      * @type {Pointer<Integer>}
      */
     pbCertInfo {
@@ -94,6 +106,7 @@ class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct
     }
 
     /**
+     * The size of the public key area. (This is set for tpm.)
      * @type {Integer}
      */
     cbPubArea {
@@ -102,6 +115,7 @@ class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct
     }
 
     /**
+     * A pointer to the public key area. (This is set for tpm.)
      * @type {Pointer<Integer>}
      */
     pbPubArea {

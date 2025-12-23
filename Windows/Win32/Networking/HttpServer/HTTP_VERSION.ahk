@@ -4,7 +4,6 @@
 /**
  * Defines a version of the HTTP protocol that a request requires or a response provides.
  * @remarks
- * 
  * For more information about the HTTP protocol, see 
  * <a href="https://www.ietf.org/rfc/rfc2616.txt">RFC 2616</a>.
  * 
@@ -15,9 +14,7 @@
  * 
  * <div class="alert"><b>Note</b>  The HTTP Server API rejects a version of HTTP larger than 65,535 in either the major or minor portion. If a request includes such a version number, the HTTP Server API discards it and returns a response with status 400 ("Bad Request").</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_version
+ * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_version
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

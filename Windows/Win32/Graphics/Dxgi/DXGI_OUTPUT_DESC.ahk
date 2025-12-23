@@ -6,11 +6,8 @@
 /**
  * Describes an output or physical connection between the adapter (video card) and a device.
  * @remarks
- * 
  * The <b>DXGI_OUTPUT_DESC</b> structure is initialized by the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgioutput-getdesc">IDXGIOutput::GetDesc</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi/ns-dxgi-dxgi_output_desc
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi/ns-dxgi-dxgi_output_desc
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

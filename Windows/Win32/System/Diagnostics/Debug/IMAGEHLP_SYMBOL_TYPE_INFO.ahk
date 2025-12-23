@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the type of symbol information to be retrieved.
- * @see https://docs.microsoft.com/windows/win32/api//dbghelp/ne-dbghelp-imagehlp_symbol_type_info
+ * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ne-dbghelp-imagehlp_symbol_type_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */
-class IMAGEHLP_SYMBOL_TYPE_INFO{
+class IMAGEHLP_SYMBOL_TYPE_INFO extends Win32Enum{
 
     /**
      * The symbol tag.
@@ -68,7 +69,10 @@ class IMAGEHLP_SYMBOL_TYPE_INFO{
      * The type index of all children.
      * 
      * The data type  is a pointer to a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-ti_findchildren_params">TI_FINDCHILDREN_PARAMS</a> structure. The <b>Count</b> member should be initialized with the number of children.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-ti_findchildren_params">TI_FINDCHILDREN_PARAMS</a> structure.
+     * 
+     * - The <b>Count</b> member should be initialized with the number of children.
+     * - The <b>Start</b> member should also be initialized. In most cases, to zero.
      * @type {Integer (Int32)}
      */
     static TI_FINDCHILDREN => 7

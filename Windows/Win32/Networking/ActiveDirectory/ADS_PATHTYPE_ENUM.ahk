@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ADS_PATHTYPE_ENUM enumeration specifies the type of object on which the IADsSecurityUtility interface is going to add or modify a security descriptor.
- * @see https://docs.microsoft.com/windows/win32/api//iads/ne-iads-ads_pathtype_enum
+ * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_pathtype_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class ADS_PATHTYPE_ENUM{
+class ADS_PATHTYPE_ENUM extends Win32Enum{
 
     /**
      * Indicates that the security descriptor will be retrieved or set on a file object.

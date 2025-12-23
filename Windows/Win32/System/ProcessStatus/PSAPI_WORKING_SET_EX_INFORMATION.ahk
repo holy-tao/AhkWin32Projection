@@ -4,7 +4,7 @@
 
 /**
  * Contains extended working set information for a process.
- * @see https://docs.microsoft.com/windows/win32/api//psapi/ns-psapi-psapi_working_set_ex_information
+ * @see https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-psapi_working_set_ex_information
  * @namespace Windows.Win32.System.ProcessStatus
  * @version v4.0.30319
  */

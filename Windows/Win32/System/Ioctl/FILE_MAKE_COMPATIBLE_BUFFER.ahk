@@ -3,7 +3,7 @@
 
 /**
  * Specifies the disc to close the current session for. This control code is used for UDF file systems. This structure is used for input when calling FSCTL_MAKE_MEDIA_COMPATIBLE.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-file_make_compatible_buffer
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_make_compatible_buffer
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the levels of information that can be included in a logon token.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ne-ntsecpkg-lsa_token_information_type
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ne-ntsecpkg-lsa_token_information_type
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
-class LSA_TOKEN_INFORMATION_TYPE{
+class LSA_TOKEN_INFORMATION_TYPE extends Win32Enum{
 
     /**
      * The token information is stored in an 

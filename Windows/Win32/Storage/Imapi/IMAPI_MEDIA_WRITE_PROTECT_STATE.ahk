@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values that indicate the media write protect status. One or more write protect values can be set on a given drive.
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/ne-imapi2-imapi_media_write_protect_state
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_media_write_protect_state
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
-class IMAPI_MEDIA_WRITE_PROTECT_STATE{
+class IMAPI_MEDIA_WRITE_PROTECT_STATE extends Win32Enum{
 
     /**
      * Power to the drive needs to be cycled before allowing writes to the media.

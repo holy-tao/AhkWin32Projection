@@ -12,8 +12,8 @@ class NVME_ZONE_DESCRIPTOR extends Win32Struct
     static packingSize => 8
 
     class _ZA extends Win32Struct {
-        static sizeof => 64
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:

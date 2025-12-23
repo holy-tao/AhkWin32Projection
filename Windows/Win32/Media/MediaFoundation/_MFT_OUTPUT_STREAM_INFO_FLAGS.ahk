@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes an output stream on a Media Foundation transform (MFT).
  * @remarks
- * 
  * Before the client sets the media types on the MFT, the only flag guaranteed to be accurate is the MFT_OUTPUT_STREAM_OPTIONAL flag. For all other flags, the client should first set the media type on every non-optional stream.
  * 
  * The MFT_OUTPUT_STREAM_DISCARDABLE and MFT_OUTPUT_STREAM_LAZY_READ flags define different behaviors for how the MFT can discard output data.
@@ -19,13 +19,11 @@
  * </li>
  * </ul>
  * If neither of these flags is set, the MFT never discards output data.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mftransform/ne-mftransform-_mft_output_stream_info_flags
+ * @see https://learn.microsoft.com/windows/win32/api/mftransform/ne-mftransform-_mft_output_stream_info_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class _MFT_OUTPUT_STREAM_INFO_FLAGS{
+class _MFT_OUTPUT_STREAM_INFO_FLAGS extends Win32Enum{
 
     /**
      * Each media sample (<a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> interface) of output data from the MFT contains complete, unbroken units of data. The definition of a <i>unit of data</i> depends on the media type: For uncompressed video, a video frame; for compressed data, a compressed packet; for uncompressed audio, a single audio frame.

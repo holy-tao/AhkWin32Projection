@@ -3,7 +3,7 @@
 
 /**
  * The SURFACEALIGNMENT structure is used by a display driver to describe the alignment restrictions for a surface being allocated by HeapVidMemAllocAligned.
- * @see https://docs.microsoft.com/windows/win32/api//dmemmgr/ns-dmemmgr-surfacealignment
+ * @see https://learn.microsoft.com/windows/win32/api/dmemmgr/ns-dmemmgr-surfacealignment
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */
@@ -11,11 +11,11 @@ class SURFACEALIGNMENT extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _Linear extends Win32Struct {
         static sizeof => 16
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -53,7 +53,7 @@ class SURFACEALIGNMENT extends Win32Struct
 
     class _Rectangular extends Win32Struct {
         static sizeof => 16
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}

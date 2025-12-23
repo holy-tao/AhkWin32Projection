@@ -8,7 +8,7 @@
  */
 class GAMMA_RAMP_DXGI_1 extends Win32Struct
 {
-    static sizeof => 8232
+    static sizeof => 8224
 
     static packingSize => 8
 
@@ -29,7 +29,7 @@ class GAMMA_RAMP_DXGI_1 extends Win32Struct
     Offset{
         get {
             if(!this.HasProp("__Offset"))
-                this.__Offset := GAMMA_RAMP_RGB(16, this)
+                this.__Offset := GAMMA_RAMP_RGB(12, this)
             return this.__Offset
         }
     }
@@ -40,7 +40,7 @@ class GAMMA_RAMP_DXGI_1 extends Win32Struct
     GammaCurve{
         get {
             if(!this.HasProp("__GammaCurveProxyArray"))
-                this.__GammaCurveProxyArray := Win32FixedArray(this.ptr + 32, 1025, GAMMA_RAMP_RGB, "")
+                this.__GammaCurveProxyArray := Win32FixedArray(this.ptr + 24, 1025, GAMMA_RAMP_RGB, "")
             return this.__GammaCurveProxyArray
         }
     }

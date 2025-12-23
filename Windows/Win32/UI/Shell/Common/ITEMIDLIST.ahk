@@ -5,7 +5,6 @@
 /**
  * Contains a list of item identifiers.
  * @remarks
- * 
  * A pointer to this structure, called a <i>PIDL</i>, is used to identify objects in the Shell namespace.  For more information about pointers to item identifier lists (PIDLs) and item identifiers, see <a href="https://docs.microsoft.com/windows/desktop/shell/namespace-intro">Introduction to the Shell Namespace</a>.
  * 
  * <h3><a id="ITEMIDLIST_Strict_Types"></a><a id="itemidlist_strict_types"></a><a id="ITEMIDLIST_STRICT_TYPES"></a>ITEMIDLIST Strict Types</h3>
@@ -22,9 +21,7 @@
  * 
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shtypes/ns-shtypes-itemidlist
+ * @see https://learn.microsoft.com/windows/win32/api/shtypes/ns-shtypes-itemidlist
  * @namespace Windows.Win32.UI.Shell.Common
  * @version v4.0.30319
  */
@@ -32,7 +29,7 @@ class ITEMIDLIST extends Win32Struct
 {
     static sizeof => 4
 
-    static packingSize => 4
+    static packingSize => 2
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-shitemid">SHITEMID</a></b>

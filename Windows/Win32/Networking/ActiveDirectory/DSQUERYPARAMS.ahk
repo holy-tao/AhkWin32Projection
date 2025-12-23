@@ -5,7 +5,7 @@
 
 /**
  * The DSQUERYPARAMS structure contains query data used by the directory service query when searching the directory service.
- * @see https://docs.microsoft.com/windows/win32/api//dsquery/ns-dsquery-dsqueryparams
+ * @see https://learn.microsoft.com/windows/win32/api/dsquery/ns-dsquery-dsqueryparams
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

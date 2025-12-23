@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifiers for the properties of the Arithmetic composite effect.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effects/ne-d2d1effects-d2d1_arithmeticcomposite_prop
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_arithmeticcomposite_prop
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_ARITHMETICCOMPOSITE_PROP{
+class D2D1_ARITHMETICCOMPOSITE_PROP extends Win32Enum{
 
     /**
      * The coefficients for the equation used to composite the two input images. The coefficients are unitless and unbounded.

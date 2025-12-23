@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Provides relevant information about a given service, including service class ID, service name, applicable namespace identifier and protocol information, as well as a set of transport addresses at which the service listens.
+ * Provides relevant information about a given service, including service class ID, service name, applicable namespace identifier and protocol information, as well as a set of transport addresses at which the service listens. (ANSI)
  * @remarks
- * 
  * The 
  * <b>WSAQUERYSET</b> structure is used as part of the original namespace provider version 1 architecture available on Windows 95 and later. A newer version 2 of the namespace architecture  is available on Windows Vista and later. 
  * 
@@ -16,13 +15,11 @@
  * 
  * > [!NOTE]
  * > The winsock2.h header defines WSAQUERYSET as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsock2/ns-winsock2-wsaqueryseta
+ * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaqueryseta
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  * @charset ANSI
- * @deprecated
+ * @deprecated WSAQUERYSETW
  */
 class WSAQUERYSETA extends Win32Struct
 {

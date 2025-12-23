@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a pagefile.
- * @see https://docs.microsoft.com/windows/win32/api//psapi/ns-psapi-enum_page_file_information
+ * @see https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-enum_page_file_information
  * @namespace Windows.Win32.System.ProcessStatus
  * @version v4.0.30319
  */

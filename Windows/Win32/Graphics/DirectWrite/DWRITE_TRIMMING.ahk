@@ -3,7 +3,7 @@
 
 /**
  * Specifies the trimming option for text overflowing the layout box.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/ns-dwrite-dwrite_trimming
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_trimming
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -28,7 +28,7 @@ class DWRITE_TRIMMING extends Win32Struct
      * Type: <b>UINT32</b>
      * 
      * A character code used as the delimiter that signals the beginning of the portion of text to be preserved. 
-     *           Text starting from the Nth occurence of the delimiter (where N equals delimiterCount) counting backwards from the end of the text block will be preserved.
+     *           Text starting from the Nth occurrence of the delimiter (where N equals delimiterCount) counting backwards from the end of the text block will be preserved.
      *           For example, given the text is a path like c:\A\B\C\D\file.txt and delimiter equal to '\' and delimiterCount equal to 1, the file.txt portion of the text would be preserved.  
      *           Specifying a delimiterCount of 2 would preserve D\file.txt.
      * @type {Integer}

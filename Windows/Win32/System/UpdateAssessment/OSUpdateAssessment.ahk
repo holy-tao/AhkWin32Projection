@@ -5,13 +5,13 @@
 
 /**
  * The OSUpdateAssessment structure defines how up-to-date the OS on a targeted device is.
- * @see https://docs.microsoft.com/windows/win32/api//waasapitypes/ns-waasapitypes-osupdateassessment
+ * @see https://learn.microsoft.com/windows/win32/api/waasapitypes/ns-waasapitypes-osupdateassessment
  * @namespace Windows.Win32.System.UpdateAssessment
  * @version v4.0.30319
  */
 class OSUpdateAssessment extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -31,7 +31,7 @@ class OSUpdateAssessment extends Win32Struct
     assessmentForCurrent{
         get {
             if(!this.HasProp("__assessmentForCurrent"))
-                this.__assessmentForCurrent := UpdateAssessment(8, this)
+                this.__assessmentForCurrent := UpdateAssessment(4, this)
             return this.__assessmentForCurrent
         }
     }
@@ -43,7 +43,7 @@ class OSUpdateAssessment extends Win32Struct
     assessmentForUpToDate{
         get {
             if(!this.HasProp("__assessmentForUpToDate"))
-                this.__assessmentForUpToDate := UpdateAssessment(24, this)
+                this.__assessmentForUpToDate := UpdateAssessment(16, this)
             return this.__assessmentForUpToDate
         }
     }
@@ -53,8 +53,8 @@ class OSUpdateAssessment extends Win32Struct
      * @type {Integer}
      */
     securityStatus {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -64,7 +64,7 @@ class OSUpdateAssessment extends Win32Struct
     assessmentTime{
         get {
             if(!this.HasProp("__assessmentTime"))
-                this.__assessmentTime := FILETIME(40, this)
+                this.__assessmentTime := FILETIME(32, this)
             return this.__assessmentTime
         }
     }
@@ -76,7 +76,7 @@ class OSUpdateAssessment extends Win32Struct
     releaseInfoTime{
         get {
             if(!this.HasProp("__releaseInfoTime"))
-                this.__releaseInfoTime := FILETIME(48, this)
+                this.__releaseInfoTime := FILETIME(40, this)
             return this.__releaseInfoTime
         }
     }
@@ -86,8 +86,8 @@ class OSUpdateAssessment extends Win32Struct
      * @type {PWSTR}
      */
     currentOSBuild {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -97,7 +97,7 @@ class OSUpdateAssessment extends Win32Struct
     currentOSReleaseTime{
         get {
             if(!this.HasProp("__currentOSReleaseTime"))
-                this.__currentOSReleaseTime := FILETIME(64, this)
+                this.__currentOSReleaseTime := FILETIME(56, this)
             return this.__currentOSReleaseTime
         }
     }
@@ -107,8 +107,8 @@ class OSUpdateAssessment extends Win32Struct
      * @type {PWSTR}
      */
     upToDateOSBuild {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -118,7 +118,7 @@ class OSUpdateAssessment extends Win32Struct
     upToDateOSReleaseTime{
         get {
             if(!this.HasProp("__upToDateOSReleaseTime"))
-                this.__upToDateOSReleaseTime := FILETIME(80, this)
+                this.__upToDateOSReleaseTime := FILETIME(72, this)
             return this.__upToDateOSReleaseTime
         }
     }

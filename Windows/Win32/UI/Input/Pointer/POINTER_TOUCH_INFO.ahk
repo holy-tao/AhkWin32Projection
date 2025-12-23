@@ -8,7 +8,7 @@
 
 /**
  * Defines basic touch information common to all pointer types.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-pointer_touch_info
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-pointer_touch_info
  * @namespace Windows.Win32.UI.Input.Pointer
  * @version v4.0.30319
  */
@@ -19,9 +19,9 @@ class POINTER_TOUCH_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_info">POINTER_INFO</a></b>
+     * Type: **[POINTER_INFO](ns-winuser-pointer_info.md)**
      * 
-     * An embedded <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_info">POINTER_INFO</a> header structure.
+     * An embedded [POINTER_INFO](ns-winuser-pointer_info.md) header structure.
      * @type {POINTER_INFO}
      */
     pointerInfo{
@@ -33,7 +33,7 @@ class POINTER_TOUCH_INFO extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/inputmsg/touch-flags-constants">Touch Flags</a></b>
+     * Type: **[Touch Flags](/windows/win32/inputmsg/touch-flags-constants)**
      * 
      * Currently none.
      * @type {Integer}
@@ -44,9 +44,9 @@ class POINTER_TOUCH_INFO extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/inputmsg/touch-mask-constants">Touch Mask</a></b>
+     * Type: **[Touch Mask](/windows/win32/inputmsg/touch-mask-constants)**
      * 
-     * Indicates which of the optional fields contain valid values. The member can be zero or any combination of the values from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/inputmsg/touch-mask-constants">Touch Mask</a> constants.
+     * Indicates which of the optional fields contain valid values. The member can be zero or any combination of the values from the [Touch Mask](/windows/win32/inputmsg/touch-mask-constants) constants.
      * @type {Integer}
      */
     touchMask {
@@ -55,13 +55,12 @@ class POINTER_TOUCH_INFO extends Win32Struct
     }
 
     /**
-     * Type: <b>RECT</b>
+     * Type: **RECT**
      * 
-     *  The predicted screen coordinates of the contact area, in pixels.
+     * The predicted screen coordinates of the contact area, in pixels.
      * By default, if the device does not report a contact area, this field defaults to a 0-by-0 rectangle centered around the pointer location.
      * 
-     * 
-     * The predicted value is based on the pointer position reported by the digitizer and the motion of the pointer. This correction can compensate for visual lag due to inherent delays in sensing and processing the pointer location on the digitizer. This is applicable to  pointers of type <a href="https://docs.microsoft.com/windows/win32/api/winuser/ne-winuser-tagpointer_input_type">PT_TOUCH</a>.
+     * The predicted value is based on the pointer position reported by the digitizer and the motion of the pointer. This correction can compensate for visual lag due to inherent delays in sensing and processing the pointer location on the digitizer. This is applicable to  pointers of type [PT_TOUCH](ne-winuser-tagpointer_input_type.md).
      * @type {RECT}
      */
     rcContact{
@@ -73,9 +72,9 @@ class POINTER_TOUCH_INFO extends Win32Struct
     }
 
     /**
-     * Type: <b>RECT</b>
+     * Type: **RECT**
      * 
-     * The raw screen coordinates of the contact area, in pixels. For adjusted screen coordinates, see <b>rcContact</b>.
+     * The raw screen coordinates of the contact area, in pixels. For adjusted screen coordinates, see **rcContact**.
      * @type {RECT}
      */
     rcContactRaw{
@@ -87,11 +86,14 @@ class POINTER_TOUCH_INFO extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT32</b>
+     * Type: **UINT32**
      * 
      * A pointer orientation, with a value between 0 and 359, where 0 indicates a touch pointer aligned with the x-axis and pointing from left to right; increasing values indicate degrees of rotation in the clockwise direction.
      * 
      * This field defaults to 0 if the device does not report orientation.
+     * 
+     * > [!NOTE]
+     * > Some touchscreen devices that support orientation will only report half-range (0-180°) values, while other devices will only report full-range (0-359°) values.
      * @type {Integer}
      */
     orientation {
@@ -100,9 +102,9 @@ class POINTER_TOUCH_INFO extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT32</b>
+     * Type: **UINT32**
      * 
-     *  A pen pressure normalized to a range between 0 and 1024. The default is 0 if the device does not report pressure.
+     *  A pen pressure normalized to a range between 0 and 1024. The default is 512.
      * @type {Integer}
      */
     pressure {

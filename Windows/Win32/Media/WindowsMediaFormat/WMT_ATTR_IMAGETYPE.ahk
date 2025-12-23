@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WMT_ATTR_IMAGETYPE enumeration type lists image types that can be stored in the header of an ASF file.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ne-wmsdkidl-wmt_attr_imagetype
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_attr_imagetype
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
-class WMT_ATTR_IMAGETYPE{
+class WMT_ATTR_IMAGETYPE extends Win32Enum{
 
     /**
      * The image is a device-independent bitmap.

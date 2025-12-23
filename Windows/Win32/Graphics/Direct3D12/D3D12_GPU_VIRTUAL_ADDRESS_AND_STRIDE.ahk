@@ -3,7 +3,7 @@
 
 /**
  * Represents a GPU virtual address and indexing stride.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_gpu_virtual_address_and_stride
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_gpu_virtual_address_and_stride
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

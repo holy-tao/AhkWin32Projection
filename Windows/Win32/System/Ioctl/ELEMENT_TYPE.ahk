@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the element type of a changer device.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ne-winioctl-element_type
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-element_type
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
-class ELEMENT_TYPE{
+class ELEMENT_TYPE extends Win32Enum{
 
     /**
      * All elements of a changer, including its robotic transport, drives, slots, and insert/eject ports. This value is valid only with 

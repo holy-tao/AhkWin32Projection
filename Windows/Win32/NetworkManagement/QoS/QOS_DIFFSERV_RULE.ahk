@@ -3,7 +3,7 @@
 
 /**
  * The QOS_DIFFSERV_RULE structure is used in conjunction with the traffic control object QOS_DIFFSERV to provide Diffserv rules for a given flow.
- * @see https://docs.microsoft.com/windows/win32/api//qosobjs/ns-qosobjs-qos_diffserv_rule
+ * @see https://learn.microsoft.com/windows/win32/api/qosobjs/ns-qosobjs-qos_diffserv_rule
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

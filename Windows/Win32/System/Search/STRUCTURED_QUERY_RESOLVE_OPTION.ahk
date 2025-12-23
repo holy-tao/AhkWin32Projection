@@ -1,21 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Options for resolving data into a condition tree.
  * @remarks
- * 
  * The <b>STRUCTURED_QUERY_RESOLVE_OPTION</b> type is defined in StructuredQuery.h as shown here.
  * 
  *             
  * 
- * <pre class="syntax" xml:space="preserve"><c>typedef int STRUCTURED_QUERY_RESOLVE_OPTION;</c></pre>
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//structuredquery/ne-structuredquery-structured_query_resolve_option
+ * ``` syntax
+ * typedef int STRUCTURED_QUERY_RESOLVE_OPTION;
+ * ```
+ * @see https://learn.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-structured_query_resolve_option
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
-class STRUCTURED_QUERY_RESOLVE_OPTION{
+class STRUCTURED_QUERY_RESOLVE_OPTION extends Win32BitflagEnum{
 
     /**
      * <b>Windows 7 and later.</b> The default flag.

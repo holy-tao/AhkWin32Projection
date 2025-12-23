@@ -1,20 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies a type of trace register.
  * @remarks
- * 
  * <b>D3D11_TRACE_REGISTER_TYPE</b> identifies the type of trace register in a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_trace_register">D3D11_TRACE_REGISTER</a> structure.
  * 
  * <div class="alert"><b>Note</b>  This API requires the Windows Software Development Kit (SDK) for Windows 8.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11shadertracing/ne-d3d11shadertracing-d3d11_trace_register_type
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/ne-d3d11shadertracing-d3d11_trace_register_type
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_TRACE_REGISTER_TYPE{
+class D3D11_TRACE_REGISTER_TYPE extends Win32Enum{
 
     /**
      * Output <b>NULL</b> register.

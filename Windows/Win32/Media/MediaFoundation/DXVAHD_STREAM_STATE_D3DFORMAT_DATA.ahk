@@ -3,7 +3,7 @@
 
 /**
  * Specifies the format for an input stream, when using Microsoft DirectX Video Acceleration High Definition (DXVA-HD).
- * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ns-dxvahd-dxvahd_stream_state_d3dformat_data
+ * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_state_d3dformat_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -5,15 +5,15 @@
 
 /**
  * The DISPLAYCONFIG_SUPPORT_VIRTUAL_RESOLUTION structure contains information on the state of virtual resolution support for the monitor.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-displayconfig_support_virtual_resolution
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_support_virtual_resolution
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
 class DISPLAYCONFIG_SUPPORT_VIRTUAL_RESOLUTION extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_device_info_header">DISPLAYCONFIG_DEVICE_INFO_HEADER</a> structure that holds information on the type, size, adapterID, and ID of the target the monitor is connected to.
@@ -34,8 +34,8 @@ class DISPLAYCONFIG_SUPPORT_VIRTUAL_RESOLUTION extends Win32Struct
      * @type {Integer}
      */
     _bitfield {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -58,7 +58,7 @@ class DISPLAYCONFIG_SUPPORT_VIRTUAL_RESOLUTION extends Win32Struct
      * @type {Integer}
      */
     value {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 }

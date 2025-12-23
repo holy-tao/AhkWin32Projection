@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Determines the parameter type to be walked.
- * @see https://docs.microsoft.com/windows/win32/api//callobj/ne-callobj-callframe_walk
+ * @see https://learn.microsoft.com/windows/win32/api/callobj/ne-callobj-callframe_walk
  * @namespace Windows.Win32.System.Com.CallObj
  * @version v4.0.30319
  */
-class CALLFRAME_WALK{
+class CALLFRAME_WALK extends Win32Enum{
 
     /**
      * The [in] parameter values will be walked.

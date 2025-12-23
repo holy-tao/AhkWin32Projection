@@ -12,8 +12,8 @@ class KSCAMERA_PROFILE_MEDIAINFO extends Win32Struct
     static packingSize => 8
 
     class _Resolution extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -34,8 +34,8 @@ class KSCAMERA_PROFILE_MEDIAINFO extends Win32Struct
     }
 
     class _MaxFrameRate extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}

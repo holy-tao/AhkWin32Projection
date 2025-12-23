@@ -9,7 +9,7 @@
 
 /**
  * The DISPLAYCONFIG_TARGET_PREFERRED_MODE structure contains information about the preferred mode of a display.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-displayconfig_target_preferred_mode
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_target_preferred_mode
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
@@ -36,8 +36,8 @@ class DISPLAYCONFIG_TARGET_PREFERRED_MODE extends Win32Struct
      * @type {Integer}
      */
     width {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -45,8 +45,8 @@ class DISPLAYCONFIG_TARGET_PREFERRED_MODE extends Win32Struct
      * @type {Integer}
      */
     height {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**

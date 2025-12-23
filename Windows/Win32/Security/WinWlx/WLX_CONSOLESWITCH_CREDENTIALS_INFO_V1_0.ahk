@@ -6,7 +6,7 @@
 
 /**
  * Contains the client credentials returned by a call to WlxGetConsoleSwitchCredentials.
- * @see https://docs.microsoft.com/windows/win32/api//winwlx/ns-winwlx-wlx_consoleswitch_credentials_info_v1_0
+ * @see https://learn.microsoft.com/windows/win32/api/winwlx/ns-winwlx-wlx_consoleswitch_credentials_info_v1_0
  * @namespace Windows.Win32.Security.WinWlx
  * @version v4.0.30319
  */

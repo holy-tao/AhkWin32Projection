@@ -3,7 +3,7 @@
 
 /**
  * Contains the security package's object identifier (OID).
- * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ns-ntsecpkg-secpkg_serialized_oid
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_serialized_oid
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

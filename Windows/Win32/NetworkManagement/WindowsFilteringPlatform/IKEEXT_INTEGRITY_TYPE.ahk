@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of hash algorithm used for integrity protection of Internet Key Exchange (IKE) and Authenticated Internet Protocol (AuthIP) messages.
- * @see https://docs.microsoft.com/windows/win32/api//iketypes/ne-iketypes-ikeext_integrity_type
+ * @see https://learn.microsoft.com/windows/win32/api/iketypes/ne-iketypes-ikeext_integrity_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class IKEEXT_INTEGRITY_TYPE{
+class IKEEXT_INTEGRITY_TYPE extends Win32Enum{
 
     /**
      * Specifies MD5 hash algorithm.

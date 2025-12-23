@@ -3,7 +3,7 @@
 
 /**
  * The ADS_FAXNUMBER structure is an ADSI representation of the Facsimile Telephone Number attribute syntax.
- * @see https://docs.microsoft.com/windows/win32/api//iads/ns-iads-ads_faxnumber
+ * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_faxnumber
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

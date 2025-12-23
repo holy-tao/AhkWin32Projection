@@ -4,7 +4,7 @@
 
 /**
  * The DHCP_OPTION structure defines a single DHCP option and any data elements associated with it.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_option
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_option
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

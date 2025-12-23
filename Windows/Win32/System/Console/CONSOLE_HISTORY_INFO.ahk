@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * See reference information about the CONSOLE_HISTORY_INFO structure, which contains information about the console history.
  * @see https://learn.microsoft.com/windows/console/console-history-info
  * @namespace Windows.Win32.System.Console
  * @version v4.0.30319
@@ -14,6 +14,7 @@ class CONSOLE_HISTORY_INFO extends Win32Struct
     static packingSize => 4
 
     /**
+     * The size of the structure, in bytes. Set this member to `sizeof(CONSOLE_HISTORY_INFO)`.
      * @type {Integer}
      */
     cbSize {
@@ -22,6 +23,7 @@ class CONSOLE_HISTORY_INFO extends Win32Struct
     }
 
     /**
+     * The number of commands kept in each history buffer.
      * @type {Integer}
      */
     HistoryBufferSize {
@@ -30,6 +32,7 @@ class CONSOLE_HISTORY_INFO extends Win32Struct
     }
 
     /**
+     * The number of history buffers kept for this console process.
      * @type {Integer}
      */
     NumberOfHistoryBuffers {
@@ -38,6 +41,11 @@ class CONSOLE_HISTORY_INFO extends Win32Struct
     }
 
     /**
+     * This parameter can be zero or the following value.
+     * 
+     * | Value | Meaning |
+     * |-|-|
+     * | **HISTORY_NO_DUP_FLAG** 0x1 | Duplicate entries will not be stored in the history buffer.
      * @type {Integer}
      */
     dwFlags {

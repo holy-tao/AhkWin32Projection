@@ -3,7 +3,7 @@
 
 /**
  * Represents the schema objects in a CIM schema, which include CIM classes and CIM qualifier declarations.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_schemadecl
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_schemadecl
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

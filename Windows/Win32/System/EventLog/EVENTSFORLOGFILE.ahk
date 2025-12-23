@@ -5,7 +5,7 @@
 /**
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
- * @deprecated
+ * @deprecated struct EVENTSFORLOGFILE is deprecated and might not work on all platforms. For more info, see MSDN.
  */
 class EVENTSFORLOGFILE extends Win32Struct
 {

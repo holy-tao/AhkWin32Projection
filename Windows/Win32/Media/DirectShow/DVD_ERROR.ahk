@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DVD_ERROR enumeration value defines DVD error conditions.
  * @remarks
- * 
  * For the flags where <i>lParam2</i> contains two region codes, the regions are encoded as a set of bits, one bit per region, in reverse order. If a disc is allowed in a region, that bit is turned off. For example, for a Region 2 disc, the value is 11111101, with the second least significant bit turned off. A multi-region disc will have more than one bit turned off.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dvdevcod/ne-dvdevcod-dvd_error
+ * @see https://learn.microsoft.com/windows/win32/api/dvdevcod/ne-dvdevcod-dvd_error
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class DVD_ERROR{
+class DVD_ERROR extends Win32Enum{
 
     /**
      * Something unexpected happened; perhaps content is authored incorrectly. Playback is stopped.

@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the intended use for a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device.
  * @remarks
- * 
  * The graphics driver uses one of these enumeration constants as a hint when it creates the DXVA-HD device.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ne-dxvahd-dxvahd_device_usage
+ * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ne-dxvahd-dxvahd_device_usage
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class DXVAHD_DEVICE_USAGE{
+class DXVAHD_DEVICE_USAGE extends Win32Enum{
 
     /**
      * Normal video playback. The graphics driver should expose a set of capabilities that are appropriate for real-time video playback.
@@ -28,7 +26,7 @@ class DXVAHD_DEVICE_USAGE{
     static DXVAHD_DEVICE_USAGE_OPTIMAL_SPEED => 1
 
     /**
-     * Optimal quality. The grahics driver should expose its maximum set of capabilities.
+     * Optimal quality. The graphics driver should expose its maximum set of capabilities.
      * 
      * Specify this setting to get the best video quality possible. It is appropriate for tasks such as video editing, when quality is more important than speed. It is not appropriate for real-time playback.
      * @type {Integer (Int32)}

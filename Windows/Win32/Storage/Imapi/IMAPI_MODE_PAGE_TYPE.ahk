@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values for the mode pages that are supported by CD and DVD devices.
  * @remarks
- * 
- * Note that the range of mode page type values is 0x0000 to 0xFFFF. This enumeration contains those features defined in the Multmedia Commands - 5 (MMC) specification. For a complete definition of each feature, see Mode Parameters for Multi-Media Devices in the latest release of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/ne-imapi2-imapi_mode_page_type
+ * Note that the range of mode page type values is 0x0000 to 0xFFFF. This enumeration contains those features defined in the Multimedia Commands - 5 (MMC) specification. For a complete definition of each feature, see Mode Parameters for Multi-Media Devices in the latest release of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_mode_page_type
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
-class IMAPI_MODE_PAGE_TYPE{
+class IMAPI_MODE_PAGE_TYPE extends Win32Enum{
 
     /**
      * The mode page specifies the error recovery parameters the

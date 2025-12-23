@@ -4,7 +4,7 @@
 
 /**
  * The RGNDATAHEADER structure describes the data returned by the GetRegionData function.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-rgndataheader
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-rgndataheader
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
@@ -12,7 +12,7 @@ class RGNDATAHEADER extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The size, in bytes, of the header.

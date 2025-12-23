@@ -3,7 +3,7 @@
 
 /**
  * Contains extended Int13 drive parameters.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-disk_ex_int13_info
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_ex_int13_info
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

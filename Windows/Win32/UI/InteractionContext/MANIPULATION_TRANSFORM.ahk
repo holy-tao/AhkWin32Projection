@@ -3,7 +3,7 @@
 
 /**
  * Defines the transformation data for a manipulation.
- * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/ns-interactioncontext-manipulation_transform
+ * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ns-interactioncontext-manipulation_transform
  * @namespace Windows.Win32.UI.InteractionContext
  * @version v4.0.30319
  */

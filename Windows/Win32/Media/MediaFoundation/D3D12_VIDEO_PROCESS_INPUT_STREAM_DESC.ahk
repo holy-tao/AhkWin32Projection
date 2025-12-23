@@ -8,8 +8,7 @@
  * Specifies the parameters for the input stream for a video process operation.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_video_process_input_stream_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_process_input_stream_desc
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -17,7 +16,7 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC extends Win32Struct
 {
     static sizeof => 112
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A value from the [DXGI_FORMAT](/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format) enumeration specifying the format of the input stream. In the case of stereo, this format is the format of both inputs.

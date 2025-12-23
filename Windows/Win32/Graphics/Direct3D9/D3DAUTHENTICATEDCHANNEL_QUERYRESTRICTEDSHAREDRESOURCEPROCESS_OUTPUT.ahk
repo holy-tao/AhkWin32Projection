@@ -5,7 +5,9 @@
 #Include .\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk
 
 /**
- * 
+ * Contains the response to a D3DAUTHENTICATEDQUERY\_RESTRICTEDSHAREDRESOURCEPROCESS query.
+ * @remarks
+ * The Desktop Window Manager (DWM) process is identified by setting **ProcessIdentifier** equal to **PROCESSIDTYPE\_DWM**. Other processes are identified by setting the process handle in **ProcessHandle** and setting **ProcessIdentifier** equal to **PROCESSIDTYPE\_HANDLE**.
  * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-queryrestrictedsharedresourceprocess-output
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
@@ -17,6 +19,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_OUTPUT extend
     static packingSize => 8
 
     /**
+     * A [**D3DAUTHENTICATEDCHANNEL\_QUERY\_OUTPUT**](d3dauthenticatedchannel-query-output.md) structure that contains a Message Authentication Code (MAC) and other data.
      * @type {D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT}
      */
     Output{
@@ -28,6 +31,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_OUTPUT extend
     }
 
     /**
+     * The index of the process in the list of processes.
      * @type {Integer}
      */
     ProcessIndex {
@@ -36,6 +40,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_OUTPUT extend
     }
 
     /**
+     * A [**D3DAUTHENTICATEDCHANNEL\_PROCESSIDENTIFIERTYPE**](d3dauthenticatedchannel-processidentifiertype.md) value that specifies the type of process.
      * @type {Integer}
      */
     ProcessIdentifer {
@@ -44,6 +49,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_OUTPUT extend
     }
 
     /**
+     * A process handle. If the **ProcessIdentifier** member equals **PROCESSIDTYPE\_HANDLE**, the **ProcessHandle** member contains a valid handle to a process. Otherwise, this member is ignored.
      * @type {HANDLE}
      */
     ProcessHandle{

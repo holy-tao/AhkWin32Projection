@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MMC_CONSOLE_VERB enumeration defines the command identifiers available for MMC verbs. These values are used in the m_eCmdID parameter of IConsoleVerb::GetVerbState, IConsoleVerb::SetVerbState, and IConsoleVerb::SetDefaultVerb.
- * @see https://docs.microsoft.com/windows/win32/api//mmc/ne-mmc-mmc_console_verb
+ * @see https://learn.microsoft.com/windows/win32/api/mmc/ne-mmc-mmc_console_verb
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
-class MMC_CONSOLE_VERB{
+class MMC_CONSOLE_VERB extends Win32Enum{
 
     /**
      * No verbs specified. Snap-ins can use this verb in calls to 

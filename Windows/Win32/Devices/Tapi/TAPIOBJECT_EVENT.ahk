@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The TAPIOBJECT_EVENT enum describes TAPI object events. The ITTAPIObjectEvent::get_Event method returns a member of this enum to indicate the type of TAPI object event that occurred.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-tapiobject_event
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-tapiobject_event
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class TAPIOBJECT_EVENT{
+class TAPIOBJECT_EVENT extends Win32Enum{
 
     /**
      * A new address has been created.

@@ -3,7 +3,7 @@
 
 /**
  * The WMSCRIPTFORMAT structure describes the type of script data used in a script stream.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ns-wmsdkidl-wmscriptformat
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmscriptformat
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

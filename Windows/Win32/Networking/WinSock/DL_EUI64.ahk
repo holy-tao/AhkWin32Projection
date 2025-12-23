@@ -50,7 +50,7 @@ class DL_EUI64 extends Win32Struct
     Ei64{
         get {
             if(!this.HasProp("__Ei64"))
-                this.__Ei64 := DL_EI64(6, this)
+                this.__Ei64 := DL_EI64(4, this)
             return this.__Ei64
         }
     }
@@ -59,16 +59,16 @@ class DL_EUI64 extends Win32Struct
      * @type {Integer}
      */
     Type {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
+        get => NumGet(this, 4, "char")
+        set => NumPut("char", value, this, 4)
     }
 
     /**
      * @type {Integer}
      */
     Tse {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
+        get => NumGet(this, 5, "char")
+        set => NumPut("char", value, this, 5)
     }
 
     /**
@@ -77,7 +77,7 @@ class DL_EUI64 extends Win32Struct
     Ei48{
         get {
             if(!this.HasProp("__Ei48"))
-                this.__Ei48 := DL_EI48(9, this)
+                this.__Ei48 := DL_EI48(6, this)
             return this.__Ei48
         }
     }

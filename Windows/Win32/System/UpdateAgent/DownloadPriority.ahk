@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the possible priorities for a download operation.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/ne-wuapi-downloadpriority
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-downloadpriority
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
-class DownloadPriority{
+class DownloadPriority extends Win32Enum{
 
     /**
      * Updates are downloaded as low priority.

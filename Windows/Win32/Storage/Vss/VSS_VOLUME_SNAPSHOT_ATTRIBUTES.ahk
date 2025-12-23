@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Allows additional attributes to be specified for a shadow copy.
  * @remarks
- * 
  * The default context for VSS shadow copies is VSS_CTX_BACKUP.
  * 
  * A requester sets the context for a shadow copy about to be created by passing the member of the 
@@ -50,13 +50,11 @@
  * The shadow copies' context and attributes are found as a bit mask contained in the 
  *     <b>m_lSnapshotAttributes</b> member of the 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vss/ne-vss-vss_volume_snapshot_attributes
+ * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_volume_snapshot_attributes
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_VOLUME_SNAPSHOT_ATTRIBUTES{
+class VSS_VOLUME_SNAPSHOT_ATTRIBUTES extends Win32Enum{
 
     /**
      * The shadow copy is persistent across reboots.

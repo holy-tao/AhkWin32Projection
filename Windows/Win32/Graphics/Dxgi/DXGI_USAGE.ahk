@@ -1,12 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Flags for surface and resource creation options.
+ * @remarks
+ * Each flag is defined as an unsigned integer.
  * 
+ * ``` syntax
  * @see https://learn.microsoft.com/windows/win32/direct3ddxgi/dxgi-usage
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
-class DXGI_USAGE{
+class DXGI_USAGE extends Win32BitflagEnum{
 
     /**
      * @type {Integer (UInt32)}

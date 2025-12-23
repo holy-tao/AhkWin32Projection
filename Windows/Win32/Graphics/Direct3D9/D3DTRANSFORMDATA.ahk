@@ -90,7 +90,7 @@ class D3DTRANSFORMDATA extends Win32Struct
     drExtent{
         get {
             if(!this.HasProp("__drExtent"))
-                this.__drExtent := D3DRECT(64, this)
+                this.__drExtent := D3DRECT(60, this)
             return this.__drExtent
         }
     }

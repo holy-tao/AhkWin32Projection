@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the thread affinity for a new DispatcherQueueController.
  * @remarks
- * 
  * Introduced in Windows 10, version 1709.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dispatcherqueue/ne-dispatcherqueue-dispatcherqueue_thread_type
+ * @see https://learn.microsoft.com/windows/win32/api/dispatcherqueue/ne-dispatcherqueue-dispatcherqueue_thread_type
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
-class DISPATCHERQUEUE_THREAD_TYPE{
+class DISPATCHERQUEUE_THREAD_TYPE extends Win32Enum{
 
     /**
      * Specifies that the <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueuecontroller">DispatcherQueueController</a> be created on a dedicated thread. With this option, <a href="https://docs.microsoft.com/windows/desktop/api/dispatcherqueue/nf-dispatcherqueue-createdispatcherqueuecontroller">CreateDispatcherQueueController</a> creates a thread, the <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueuecontroller">DispatcherQueueController</a> instance, and runs the dispatcher queue event loop on the newly created thread.

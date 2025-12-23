@@ -3,7 +3,7 @@
 
 /**
  * The MBN_SMS_FILTER structure contains the values that describe a set of SMS messages.
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ns-mbnapi-mbn_sms_filter
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ns-mbnapi-mbn_sms_filter
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

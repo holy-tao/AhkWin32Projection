@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the status of a document's digital signature.
  * @remarks
- * 
  * The digital signature status values correspond to section 10.2.1.2 in the <a href="https://www.ecma-international.org/activities/XML%20Paper%20Specification/XPS%20Standard%20WD%201.6.pdf">XML Paper Specification</a>.
  * 
  * The Open Packaging Conventions are specified in   the 1st edition, Part 2, "Open Packaging Conventions," of <a href="https://www.ecma-international.org/publications/standards/Ecma-376.htm">Standard ECMA-376, Office Open XML File Formats</a>.
@@ -12,13 +12,11 @@
  * 
  * and countries.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/ne-xpsdigitalsignature-xps_signature_status
+ * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/ne-xpsdigitalsignature-xps_signature_status
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
-class XPS_SIGNATURE_STATUS{
+class XPS_SIGNATURE_STATUS extends Win32Enum{
 
     /**
      * The signature violates one or more  signing rules stated in section 10.2.1.2 of the   <a href="https://www.ecma-international.org/activities/XML%20Paper%20Specification/XPS%20Standard%20WD%201.6.pdf">XML Paper Specification</a>. These rules describe the parts or relationships that must or must not be signed.

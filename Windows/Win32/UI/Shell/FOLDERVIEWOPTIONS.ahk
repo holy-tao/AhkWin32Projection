@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by methods of the IFolderViewOptions interface to activate Windows Vista options not supported by default in Windows 7 and later systems as well as deactivating new Windows 7 options.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/ne-shobjidl-folderviewoptions
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl/ne-shobjidl-folderviewoptions
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class FOLDERVIEWOPTIONS{
+class FOLDERVIEWOPTIONS extends Win32BitflagEnum{
 
     /**
      * 0x00000000. Do not use any special options.

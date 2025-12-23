@@ -8,9 +8,9 @@
  */
 class KERB_TRANSFER_CRED_REQUEST extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class KERB_TRANSFER_CRED_REQUEST extends Win32Struct
     OriginLogonId{
         get {
             if(!this.HasProp("__OriginLogonId"))
-                this.__OriginLogonId := LUID(8, this)
+                this.__OriginLogonId := LUID(4, this)
             return this.__OriginLogonId
         }
     }
@@ -37,7 +37,7 @@ class KERB_TRANSFER_CRED_REQUEST extends Win32Struct
     DestinationLogonId{
         get {
             if(!this.HasProp("__DestinationLogonId"))
-                this.__DestinationLogonId := LUID(16, this)
+                this.__DestinationLogonId := LUID(12, this)
             return this.__DestinationLogonId
         }
     }
@@ -46,7 +46,7 @@ class KERB_TRANSFER_CRED_REQUEST extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 }

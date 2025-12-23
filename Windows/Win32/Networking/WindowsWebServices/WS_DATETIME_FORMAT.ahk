@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the textual format of a WS_DATETIME.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_datetime_format
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_datetime_format
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_DATETIME_FORMAT{
+class WS_DATETIME_FORMAT extends Win32Enum{
 
     /**
      * This format displays a time in the GMT timezone.  It is formatted with a "Z" following the time.

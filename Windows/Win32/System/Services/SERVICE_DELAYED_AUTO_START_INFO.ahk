@@ -4,7 +4,6 @@
 /**
  * Contains the delayed auto-start setting of an auto-start service.
  * @remarks
- * 
  * Any service can be marked as a delayed auto-start service; however, this setting has no effect unless the service is an auto-start service. The change takes effect the next time the system is started.
  * 
  * The service control manager (SCM) supports delayed auto-start services to improve system performance at boot time without affecting the user experience. The SCM makes a list of delayed auto-start services during boot and starts them one at a time after the delay has passed, honoring dependencies. There is no specific time guarantee as to when the service will be started. To minimize the impact on the user, the <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lpservice_main_functiona">ServiceMain</a> thread for the service is started with THREAD_PRIORITY_LOWEST. Threads that are started by the <i>ServiceMain</i> thread should also be run at a low priority. After the service has reported that it has entered the SERVICE_RUNNING state, the priority of the <i>ServiceMain</i> thread is raised to THREAD_PRIORITY_NORMAL.
@@ -14,9 +13,7 @@
  * If a delayed auto-start service is demand-started using the <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-startservicea">StartService</a> function shortly after boot, the system starts the service on demand instead of delaying its start further. If this situation is likely to occur on a regular basis, the service should not be marked as a delayed auto-start service.
  * 
  * If a client calls a delayed auto-start service before it is loaded, the call fails. Therefore, clients should be prepared to either retry the call or demand start the service.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsvc/ns-winsvc-service_delayed_auto_start_info
+ * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_delayed_auto_start_info
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  */

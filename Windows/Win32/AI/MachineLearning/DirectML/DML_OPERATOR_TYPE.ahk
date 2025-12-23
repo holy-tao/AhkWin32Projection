@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the type of an operator description.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//directml/ne-directml-dml_operator_type
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_operator_type
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
-class DML_OPERATOR_TYPE{
+class DML_OPERATOR_TYPE extends Win32Enum{
 
     /**
      * Indicates an unknown operator type, and is never valid. Using this value results in an error.
@@ -653,7 +653,7 @@ class DML_OPERATOR_TYPE{
     static DML_OPERATOR_CUMULATIVE_SUMMATION => 105
 
     /**
-     * Indicates the operator described by the [DML_REVERSE_SUBSEQUENCES_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_reverse_subsequences_operator_desc) structure.
+     * Indicates the operator described by the [DML_REVERSE_SUBSEQUENCES_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_reverse_subsequences_desc) structure.
      * @type {Integer (Int32)}
      */
     static DML_OPERATOR_REVERSE_SUBSEQUENCES => 106
@@ -863,87 +863,97 @@ class DML_OPERATOR_TYPE{
     static DML_OPERATOR_GATHER_ND1 => 140
 
     /**
-     * Indicates the operator described by the [DML_ELEMENT_WISE_ATAN_YX_OPERATOR_DESC](/windows/win32/direct3d12/directml/ns-directml-dml_element_wise_atan_yx_operator_desc) structure.
+     * Indicates the operator described by the [DML_ELEMENT_WISE_ATAN_YX_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_element_wise_atan_yx_operator_desc) structure.
      * @type {Integer (Int32)}
      */
     static DML_OPERATOR_ELEMENT_WISE_ATAN_YX => 141
 
     /**
-     * Indicates the operator described by the [DML_ELEMENT_WISE_CLIP_GRAD_OPERATOR_DESC](/windows/win32/direct3d12/directml/ns-directml-dml_element_wise_clip_grad_operator_desc) structure.
+     * Indicates the operator described by the [DML_ELEMENT_WISE_CLIP_GRAD_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_element_wise_clip_grad_operator_desc) structure.
      * @type {Integer (Int32)}
      */
     static DML_OPERATOR_ELEMENT_WISE_CLIP_GRAD => 142
 
     /**
-     * Indicates the operator described by the [DML_ELEMENT_WISE_DIFFERENCE_SQUARE_OPERATOR_DESC](/windows/win32/direct3d12/directml/ns-directml-dml_element_wise_difference_square_operator_desc) structure.
+     * Indicates the operator described by the [DML_ELEMENT_WISE_DIFFERENCE_SQUARE_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_element_wise_difference_square_operator_desc) structure.
      * @type {Integer (Int32)}
      */
     static DML_OPERATOR_ELEMENT_WISE_DIFFERENCE_SQUARE => 143
 
     /**
-     * Indicates the operator described by the [DML_LOCAL_RESPONSE_NORMALIZATION_GRAD_OPERATOR_DESC](/windows/win32/direct3d12/directml/ns-directml-dml_local_response_normalization_grad_operator_desc) structure.
+     * Indicates the operator described by the [DML_LOCAL_RESPONSE_NORMALIZATION_GRAD_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_local_response_normalization_grad_operator_desc) structure.
      * @type {Integer (Int32)}
      */
     static DML_OPERATOR_LOCAL_RESPONSE_NORMALIZATION_GRAD => 144
 
     /**
-     * Indicates the operator described by the [DML_CUMULATIVE_PRODUCT_OPERATOR_DESC](/windows/win32/direct3d12/directml/ns-directml-dml_cumulative_product_operator_desc) structure.
+     * Indicates the operator described by the [DML_CUMULATIVE_PRODUCT_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_cumulative_product_operator_desc) structure.
      * @type {Integer (Int32)}
      */
     static DML_OPERATOR_CUMULATIVE_PRODUCT => 145
 
     /**
-     * Indicates the operator described by the [DML_BATCH_NORMALIZATION_GRAD_OPERATOR_DESC](/windows/win32/direct3d12/directml/ns-directml-dml_batch_normalization_grad_operator_desc) structure.
+     * Indicates the operator described by the [DML_BATCH_NORMALIZATION_GRAD_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_batch_normalization_grad_operator_desc) structure.
      * @type {Integer (Int32)}
      */
     static DML_OPERATOR_BATCH_NORMALIZATION_GRAD => 146
 
     /**
+     * Indicates the operator described by the [DML_ELEMENT_WISE_QUANTIZED_LINEAR_ADD_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_element_wise_quantized_linear_add_operator_desc) structure.
      * @type {Integer (Int32)}
      */
     static DML_OPERATOR_ELEMENT_WISE_QUANTIZED_LINEAR_ADD => 147
 
     /**
+     * Indicates the operator described by the [DML_DYNAMIC_QUANTIZE_LINEAR_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_dynamic_quantize_linear_operator_desc) structure.
      * @type {Integer (Int32)}
      */
     static DML_OPERATOR_DYNAMIC_QUANTIZE_LINEAR => 148
 
     /**
+     * Indicates the operator described by the [DML_ROI_ALIGN1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_roi_align1_operator_desc) structure.
      * @type {Integer (Int32)}
      */
     static DML_OPERATOR_ROI_ALIGN1 => 149
 
     /**
+     * Indicates the operator described by the [DML_ROI_ALIGN_GRAD_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_roi_align_grad_operator_desc) structure.
      * @type {Integer (Int32)}
      */
     static DML_OPERATOR_ROI_ALIGN_GRAD => 150
 
     /**
+     * Indicates the operator described by the [DML_BATCH_NORMALIZATION_TRAINING_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_batch_normalization_training_operator_desc) structure.
      * @type {Integer (Int32)}
      */
     static DML_OPERATOR_BATCH_NORMALIZATION_TRAINING => 151
 
     /**
+     * Indicates the operator described by the [DML_BATCH_NORMALIZATION_TRAINING_GRAD_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_batch_normalization_training_grad_operator_desc) structure.
      * @type {Integer (Int32)}
      */
     static DML_OPERATOR_BATCH_NORMALIZATION_TRAINING_GRAD => 152
 
     /**
+     * Indicates the operator described by the [DML_ELEMENT_WISE_CLIP1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_element_wise_clip1_operator_desc) structure.
      * @type {Integer (Int32)}
      */
     static DML_OPERATOR_ELEMENT_WISE_CLIP1 => 153
 
     /**
+     * Indicates the operator described by the [DML_ELEMENT_WISE_CLIP_GRAD1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_element_wise_clip_grad1_operator_desc) structure.
      * @type {Integer (Int32)}
      */
     static DML_OPERATOR_ELEMENT_WISE_CLIP_GRAD1 => 154
 
     /**
+     * Indicates the operator described by the [DML_PADDING1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_padding1_operator_desc) structure.
      * @type {Integer (Int32)}
      */
     static DML_OPERATOR_PADDING1 => 155
 
     /**
+     * Indicates the operator described by the [DML_ELEMENT_WISE_NEGATE_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_element_wise_negate_operator_desc) structure.
      * @type {Integer (Int32)}
      */
     static DML_OPERATOR_ELEMENT_WISE_NEGATE => 156

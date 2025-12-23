@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */
-class WINDOW_ACTION_MODIFIERS{
+class WINDOW_ACTION_MODIFIERS extends Win32BitflagEnum{
 
     /**
      * @type {Integer (Int32)}

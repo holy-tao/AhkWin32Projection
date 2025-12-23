@@ -1,12 +1,36 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Defines the various types of surface formats.
+ * @remarks
+ * There are several types of formats:
  * 
+ * -   [BackBuffer or Display Formats](#backbuffer-or-display-formats)
+ * -   [Buffer Formats](#buffer-formats)
+ * -   [DXTn Compressed Texture Formats](#dxtn-compressed-texture-formats)
+ * -   [Floating-Point Formats](#floating-point-formats)
+ * -   [FOURCC Formats](#fourcc-formats)
+ * -   [IEEE Formats](#ieee-formats)
+ * -   [Mixed Formats](#mixed-formats)
+ * -   [Signed Formats](#signed-formats)
+ * -   [Unsigned Formats](#unsigned-formats)
+ * -   [Other](#other)
+ * 
+ * All formats are listed from left to right, most-significant bit to least-significant bit. For example, **D3DFORMAT\_ARGB** is ordered from the most-significant bit channel A (alpha), to the least-significant bit channel B (blue). When traversing surface data, the data is stored in memory from least-significant bit to most-significant bit, which means that the channel order in memory is from least-significant bit (blue) to most-significant bit (alpha).
+ * 
+ * The default value for formats that contain undefined channels (G16R16, A8, and so on) is 1. The only exception is the A8 format, which is initialized to 000 for the three color channels.
+ * 
+ * The order of the bits is from the most significant byte first, so D3DFMT\_A8L8 indicates that the high byte of this 2-byte format is alpha. **D3DFMT\_D16** indicates a 16-bit integer value and an application-lockable surface.
+ * 
+ * Pixel formats have been chosen to enable the expression of hardware-vendor-defined extension formats, as well as to include the well-established FOURCC method. The set of formats understood by the Direct3D runtime is defined by D3DFORMAT.
+ * 
+ * Note that formats are supplied by independent hardware vendors (IHVs) and many FOURCC codes are not listed. The formats in this enumeration are unique in that they are sanctioned by the runtime, meaning that the reference rasterizer will operate on all these types. IHV-supplied formats will be supported by the individual IHVs on a card-by-card basis.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dformat
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */
-class D3DFORMAT{
+class D3DFORMAT extends Win32Enum{
 
     /**
      * @type {Integer (UInt32)}

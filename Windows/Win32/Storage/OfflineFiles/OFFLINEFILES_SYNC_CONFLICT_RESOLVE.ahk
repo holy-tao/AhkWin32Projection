@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the conflict resolution code returned by the IOfflineFilesSyncConflictHandler::ResolveConflict method.
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/ne-cscobj-offlinefiles_sync_conflict_resolve
+ * @see https://learn.microsoft.com/windows/win32/api/cscobj/ne-cscobj-offlinefiles_sync_conflict_resolve
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */
-class OFFLINEFILES_SYNC_CONFLICT_RESOLVE{
+class OFFLINEFILES_SYNC_CONFLICT_RESOLVE extends Win32Enum{
 
     /**
      * No resolution.  The conflict is unresolved.  This allows the conflict to be processed by other handlers in the system.

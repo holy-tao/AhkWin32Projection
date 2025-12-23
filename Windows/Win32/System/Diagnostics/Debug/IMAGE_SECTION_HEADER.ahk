@@ -3,7 +3,7 @@
 
 /**
  * Represents the image section header format.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-image_section_header
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_section_header
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */
@@ -12,6 +12,28 @@ class IMAGE_SECTION_HEADER extends Win32Struct
     static sizeof => 40
 
     static packingSize => 4
+
+    class _Misc_e__Union extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        PhysicalAddress {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        VirtualSize {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
 
     /**
      * An 8-byte, null-padded UTF-8 string. There is no terminating null character if the string is exactly eight characters long. For longer names, this member contains a forward slash (/) followed by an ASCII representation of a decimal number that is an offset into the string table. Executable images do not use a string table and do not support section names longer than eight characters.
@@ -26,19 +48,15 @@ class IMAGE_SECTION_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * 
+     * @type {_Misc_e__Union}
      */
-    PhysicalAddress {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    VirtualSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Misc{
+        get {
+            if(!this.HasProp("__Misc"))
+                this.__Misc := %this.__Class%._Misc_e__Union(8, this)
+            return this.__Misc
+        }
     }
 
     /**

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by the DCOM protocol handler to specify how impersonation is done on the server.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ne-mi-mi_destinationoptions_impersonationtype
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ne-mi-mi_destinationoptions_impersonationtype
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class MI_DestinationOptions_ImpersonationType{
+class MI_DestinationOptions_ImpersonationType extends Win32Enum{
 
     /**
      * Use the default impersonation.

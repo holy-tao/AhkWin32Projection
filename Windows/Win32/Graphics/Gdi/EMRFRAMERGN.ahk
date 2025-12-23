@@ -6,15 +6,15 @@
 
 /**
  * The EMRFRAMERGN structure contains members for the FrameRgn enhanced metafile record.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrframergn
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrframergn
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
 class EMRFRAMERGN extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.

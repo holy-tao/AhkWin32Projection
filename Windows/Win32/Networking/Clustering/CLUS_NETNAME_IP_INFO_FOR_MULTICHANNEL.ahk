@@ -4,7 +4,7 @@
 
 /**
  * Represents IP information for a NetName resource that has Multichannel enabled.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clus_netname_ip_info_for_multichannel
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_netname_ip_info_for_multichannel
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

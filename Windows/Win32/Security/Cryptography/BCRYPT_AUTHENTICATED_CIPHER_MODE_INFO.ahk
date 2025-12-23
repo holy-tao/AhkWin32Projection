@@ -4,10 +4,8 @@
 /**
  * Used with the BCryptEncrypt and BCryptDecrypt functions to contain additional information related to authenticated cipher modes.
  * @remarks
- * 
  * The size of this structure is different between 64-bit and 32-bit operating systems.  On 64-bit operating systems, the size is different between 64-bit and 32-bit processes.  Instances of this structure must not be shared across threads or passed between processes.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bcrypt/ns-bcrypt-bcrypt_authenticated_cipher_mode_info
+ * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_authenticated_cipher_mode_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

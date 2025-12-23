@@ -3,7 +3,7 @@
 
 /**
  * Provides the payload information of the certificate hash.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_certificate_hashinfo
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_certificate_hashinfo
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

@@ -5,15 +5,15 @@
 
 /**
  * The MPEG2_FILTER structure specifies criteria for matching MPEG-2 section headers.
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ns-mpeg2structs-mpeg2_filter
+ * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-mpeg2_filter
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
 class MPEG2_FILTER extends Win32Struct
 {
-    static sizeof => 152
+    static sizeof => 148
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the version number of the structure. This value must be 1 or higher.
@@ -121,7 +121,7 @@ class MPEG2_FILTER extends Win32Struct
     }
 
     /**
-     * If <b>TRUE</b>, the <b>current_next_indicator</b> bit in the header must match the value of the <b>fNext</b> structue member. Otherwise, the <b>current_next_indicator</b> field is ignored.
+     * If <b>TRUE</b>, the <b>current_next_indicator</b> bit in the header must match the value of the <b>fNext</b> structure member. Otherwise, the <b>current_next_indicator</b> field is ignored.
      * @type {BOOL}
      */
     fSpecifyCurrentNext {
@@ -154,7 +154,7 @@ class MPEG2_FILTER extends Win32Struct
     Dsmcc{
         get {
             if(!this.HasProp("__Dsmcc"))
-                this.__Dsmcc := DSMCC_FILTER_OPTIONS(80, this)
+                this.__Dsmcc := DSMCC_FILTER_OPTIONS(76, this)
             return this.__Dsmcc
         }
     }
@@ -164,8 +164,8 @@ class MPEG2_FILTER extends Win32Struct
      * @type {BOOL}
      */
     fSpecifyAtscOptions {
-        get => NumGet(this, 140, "int")
-        set => NumPut("int", value, this, 140)
+        get => NumGet(this, 136, "int")
+        set => NumPut("int", value, this, 136)
     }
 
     /**
@@ -175,7 +175,7 @@ class MPEG2_FILTER extends Win32Struct
     Atsc{
         get {
             if(!this.HasProp("__Atsc"))
-                this.__Atsc := ATSC_FILTER_OPTIONS(144, this)
+                this.__Atsc := ATSC_FILTER_OPTIONS(140, this)
             return this.__Atsc
         }
     }

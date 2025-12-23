@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies application management actions supported by an application publisher. These flags are bitmasks passed to IShellApp::GetPossibleActions.
  * @remarks
- * 
  * The Add or Remove Programs application in Control Panel uses only <b><b>APPACTION_INSTALL</b></b> and <b><b>APPACTION_ADDLATER</b></b> for published applications.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shappmgr/ne-shappmgr-appactionflags
+ * @see https://learn.microsoft.com/windows/win32/api/shappmgr/ne-shappmgr-appactionflags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class APPACTIONFLAGS{
+class APPACTIONFLAGS extends Win32Enum{
 
     /**
      * Indicates that the application can be installed. Published applications always set this bit.

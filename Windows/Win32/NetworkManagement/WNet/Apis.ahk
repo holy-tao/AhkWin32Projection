@@ -377,7 +377,22 @@ class WNet {
 
 ;@region Methods
     /**
-     * The WNetAddConnection function enables the calling application to connect a local device to a network resource. A successful connection is persistent, meaning that the system automatically restores the connection during subsequent logon operations.
+     * The WNetAddConnection function enables the calling application to connect a local device to a network resource. A successful connection is persistent, meaning that the system automatically restores the connection during subsequent logon operations. (ANSI)
+     * @remarks
+     * On Windows Server 2003 and Windows XP, the WNet functions create and delete network drive letters in the MS-DOS device namespace associated with a logon session because MS-DOS devices are identified by AuthenticationID (a  
+     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a>, or LUID, associated with a logon session.) This can affect applications that call one of the WNet functions to create a network drive letter under one user logon, but query for existing network drive letters under a different user logon. An example of this situation could be when a user's second logon is created within a logon session, for example, by calling the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. The call to the <b>GetLogicalDrives</b> function does not return network drive letters created by WNet function calls under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
+     * 
+     * On Windows Server 2003 and Windows XP, if a service that runs as LocalSystem calls the <b>WNetAddConnection</b> function, then the mapped drive is visible to all user logon sessions.  
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetAddConnection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpRemoteName A pointer to a constant <b>null</b>-terminated string that specifies the network resource to connect to.
      * @param {PSTR} lpPassword A pointer to a constant <b>null</b>-terminated string that specifies the password to be used to make a connection. This parameter is usually the password associated with the current user.
      * 
@@ -388,7 +403,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -491,7 +506,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. To obtain a description of the error, call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
      * 
      * </td>
      * </tr>
@@ -529,7 +544,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetaddconnectiona
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetaddconnectiona
      * @since windows5.0
      */
     static WNetAddConnectionA(lpRemoteName, lpPassword, lpLocalName) {
@@ -542,7 +557,22 @@ class WNet {
     }
 
     /**
-     * The WNetAddConnection function enables the calling application to connect a local device to a network resource. A successful connection is persistent, meaning that the system automatically restores the connection during subsequent logon operations.
+     * The WNetAddConnection function enables the calling application to connect a local device to a network resource. A successful connection is persistent, meaning that the system automatically restores the connection during subsequent logon operations. (Unicode)
+     * @remarks
+     * On Windows Server 2003 and Windows XP, the WNet functions create and delete network drive letters in the MS-DOS device namespace associated with a logon session because MS-DOS devices are identified by AuthenticationID (a  
+     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a>, or LUID, associated with a logon session.) This can affect applications that call one of the WNet functions to create a network drive letter under one user logon, but query for existing network drive letters under a different user logon. An example of this situation could be when a user's second logon is created within a logon session, for example, by calling the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. The call to the <b>GetLogicalDrives</b> function does not return network drive letters created by WNet function calls under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
+     * 
+     * On Windows Server 2003 and Windows XP, if a service that runs as LocalSystem calls the <b>WNetAddConnection</b> function, then the mapped drive is visible to all user logon sessions.  
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetAddConnection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpRemoteName A pointer to a constant <b>null</b>-terminated string that specifies the network resource to connect to.
      * @param {PWSTR} lpPassword A pointer to a constant <b>null</b>-terminated string that specifies the password to be used to make a connection. This parameter is usually the password associated with the current user.
      * 
@@ -553,7 +583,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -656,7 +686,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. To obtain a description of the error, call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
      * 
      * </td>
      * </tr>
@@ -694,7 +724,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetaddconnectionw
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetaddconnectionw
      * @since windows5.0
      */
     static WNetAddConnectionW(lpRemoteName, lpPassword, lpLocalName) {
@@ -707,7 +737,38 @@ class WNet {
     }
 
     /**
-     * The WNetAddConnection2 function makes a connection to a network resource and can redirect a local device to the network resource.
+     * The WNetAddConnection2 function makes a connection to a network resource and can redirect a local device to the network resource. (ANSI)
+     * @remarks
+     * On Windows Server 2003 and Windows XP, the WNet functions create and delete network drive letters in the MS-DOS device namespace associated with a logon session because MS-DOS devices are identified by AuthenticationID (a  
+     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a>, or LUID, associated with a logon session.) This can affect applications that call one of the WNet functions to create a network drive letter under one user logon, but query for existing network drive letters under a different user logon. An example of this situation could be when a user's second logon is created within a logon session, for example, by calling the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. The call to the <b>GetLogicalDrives</b> function does not return network drive letters created by WNet function calls under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
+     * 
+     * On Windows Server 2003 and Windows XP, if a service that runs as LocalSystem calls the <b>WNetAddConnection2</b> function, then the mapped drive is visible to all user logon sessions.  
+     * 
+     * For Microsoft network providers, the <b>lpRemoteName</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter can contain an IPv4 address in dotted-decimal notation. An example for a share might be the following:
+     * 
+     * <code>\\192.168.1.1\share
+     * </code>
+     * 
+     * For Microsoft network providers on Windows Vista and later, the <b>lpRemoteName</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter can contain an IPv6 address. However, the IPv6 literal format must be used so that the IPv6 address is parsed correctly. An IPv6 literal address is of the form:
+     * 
+     * ipv6-address with the ':' characters replaced by '-' characters followed by the ".ipv6-literal.net" string.
+     * 
+     * 
+     * For example, for the following IPv6 address:
+     * 
+     * <code>2001:4898:9:3:c069:aa97:fe76:2449
+     * </code>
+     * 
+     * an example for a share might be the following:
+     * 
+     * <c>\\2001-4898-9-3-c069-aa97-fe76-2449.ipv6-literal.net\share</c>
+     * 
+     * Other network providers may support the <b>lpRemoteName</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter that contains an IPv4 or IPv6 address, but this is up to specific network provider.
+     * 
+     * <b>Windows 7 and Windows Server 2008 R2:  </b>If the <b>WNetAddConnection2</b> function is called with explicit user credentials specified in the <i>pUsername</i> and <i>lpPassword</i> to establish a connection with a network resource on a specific server and then called again with either of these parameters as <b>NULL</b> (to use the default user name or default password) to the same server, the call with fail. The error returned will be <b>ERROR_BAD_USERNAME</b> or <b>ERROR_INVALID_PASSWORD</b>.
      * @param {Pointer<NETRESOURCEA>} lpNetResource A pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure that specifies details of the proposed connection, such as information about the network resource, the local device, and the network resource provider. 
      * 
@@ -960,7 +1021,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value can be one of the following error codes or one of the 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -1007,7 +1068,7 @@ class WNet {
      * </dl>
      * </td>
      * <td width="60%">
-     * The specified device name is not valid. This error is returned if the <b>lpLocalName</b> member of the <a href="/windows/win32/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter specifies a device that is not redirectable.
+     * The specified device name is not valid. This error is returned if the <b>lpLocalName</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter specifies a device that is not redirectable.
      * 
      * </td>
      * </tr>
@@ -1018,7 +1079,7 @@ class WNet {
      * </dl>
      * </td>
      * <td width="60%">
-     * The network name cannot be found. This value is returned if the <b>lpRemoteName</b> member of the <a href="/windows/win32/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter specifies a resource that is not acceptable to any network resource provider, either because the resource name is empty, not valid, or because the named resource cannot be located.
+     * The network name cannot be found. This value is returned if the <b>lpRemoteName</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter specifies a resource that is not acceptable to any network resource provider, either because the resource name is empty, not valid, or because the named resource cannot be located.
      * 
      * </td>
      * </tr>
@@ -1040,7 +1101,7 @@ class WNet {
      * </dl>
      * </td>
      * <td width="60%">
-     * The specified network provider name is not valid. This error is returned if the <b>lpProvider</b> member of the <a href="/windows/win32/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter specifies a value that does not match any network provider.
+     * The specified network provider name is not valid. This error is returned if the <b>lpProvider</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter specifies a value that does not match any network provider.
      * 
      * </td>
      * </tr>
@@ -1095,7 +1156,7 @@ class WNet {
      * </dl>
      * </td>
      * <td width="60%">
-     * The local device name has a remembered connection to another network resource. This error is returned if an entry for the device specified by <b>lpLocalName</b> member of the <a href="/windows/win32/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter specifies a value that is already in the user profile for a different connection than that specified in the
+     * The local device name has a remembered connection to another network resource. This error is returned if an entry for the device specified by <b>lpLocalName</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter specifies a value that is already in the user profile for a different connection than that specified in the
      *         <i>lpNetResource</i> parameter.
      * 
      * </td>
@@ -1108,7 +1169,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. Call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function to obtain a description of the error.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function to obtain a description of the error.
      * 
      * </td>
      * </tr>
@@ -1119,7 +1180,7 @@ class WNet {
      * </dl>
      * </td>
      * <td width="60%">
-     * An attempt was made to access an invalid address. This error is returned if the <i>dwFlags</i> parameter specifies a value of CONNECT_REDIRECT, but the <b>lpLocalName</b> member  of the  <a href="/windows/win32/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter was unspecified.
+     * An attempt was made to access an invalid address. This error is returned if the <i>dwFlags</i> parameter specifies a value of CONNECT_REDIRECT, but the <b>lpLocalName</b> member  of the  <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter was unspecified.
      * 
      * </td>
      * </tr>
@@ -1130,7 +1191,7 @@ class WNet {
      * </dl>
      * </td>
      * <td width="60%">
-     * A parameter is incorrect. This error is returned if the <b>dwType</b> member of the  <a href="/windows/win32/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter specifies a value other than RESOURCETYPE_DISK, RESOURCETYPE_PRINT, or RESOURCETYPE_ANY. This error is also returned if the <i>dwFlags</i> parameter specifies an incorrect or unknown value. 
+     * A parameter is incorrect. This error is returned if the <b>dwType</b> member of the  <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter specifies a value other than RESOURCETYPE_DISK, RESOURCETYPE_PRINT, or RESOURCETYPE_ANY. This error is also returned if the <i>dwFlags</i> parameter specifies an incorrect or unknown value. 
      * 
      * </td>
      * </tr>
@@ -1163,7 +1224,7 @@ class WNet {
      * </dl>
      * </td>
      * <td width="60%">
-     * No network provider accepted the given network path. This error is returned if no network provider recognized the <b>lpRemoteName</b> member of the <a href="/windows/win32/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter.
+     * No network provider accepted the given network path. This error is returned if no network provider recognized the <b>lpRemoteName</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter.
      * 
      * </td>
      * </tr>
@@ -1186,12 +1247,12 @@ class WNet {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetaddconnection2a
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetaddconnection2a
      * @since windows5.0
      */
     static WNetAddConnection2A(lpNetResource, lpPassword, lpUserName, dwFlags) {
@@ -1203,9 +1264,40 @@ class WNet {
     }
 
     /**
-     * The WNetAddConnection2 function makes a connection to a network resource and can redirect a local device to the network resource.
+     * The WNetAddConnection2 function makes a connection to a network resource and can redirect a local device to the network resource. (Unicode)
+     * @remarks
+     * On Windows Server 2003 and Windows XP, the WNet functions create and delete network drive letters in the MS-DOS device namespace associated with a logon session because MS-DOS devices are identified by AuthenticationID (a  
+     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a>, or LUID, associated with a logon session.) This can affect applications that call one of the WNet functions to create a network drive letter under one user logon, but query for existing network drive letters under a different user logon. An example of this situation could be when a user's second logon is created within a logon session, for example, by calling the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. The call to the <b>GetLogicalDrives</b> function does not return network drive letters created by WNet function calls under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
+     * 
+     * On Windows Server 2003 and Windows XP, if a service that runs as LocalSystem calls the <b>WNetAddConnection2</b> function, then the mapped drive is visible to all user logon sessions.  
+     * 
+     * For Microsoft network providers, the <b>lpRemoteName</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter can contain an IPv4 address in dotted-decimal notation. An example for a share might be the following:
+     * 
+     * <code>\\192.168.1.1\share
+     * </code>
+     * 
+     * For Microsoft network providers on Windows Vista and later, the <b>lpRemoteName</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter can contain an IPv6 address. However, the IPv6 literal format must be used so that the IPv6 address is parsed correctly. An IPv6 literal address is of the form:
+     * 
+     * ipv6-address with the ':' characters replaced by '-' characters followed by the ".ipv6-literal.net" string.
+     * 
+     * 
+     * For example, for the following IPv6 address:
+     * 
+     * <code>2001:4898:9:3:c069:aa97:fe76:2449
+     * </code>
+     * 
+     * an example for a share might be the following:
+     * 
+     * <c>\\2001-4898-9-3-c069-aa97-fe76-2449.ipv6-literal.net\share</c>
+     * 
+     * Other network providers may support the <b>lpRemoteName</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter that contains an IPv4 or IPv6 address, but this is up to specific network provider.
+     * 
+     * <b>Windows 7 and Windows Server 2008 R2:  </b>If the <b>WNetAddConnection2</b> function is called with explicit user credentials specified in the <i>pUsername</i> and <i>lpPassword</i> to establish a connection with a network resource on a specific server and then called again with either of these parameters as <b>NULL</b> (to use the default user name or default password) to the same server, the call with fail. The error returned will be <b>ERROR_BAD_USERNAME</b> or <b>ERROR_INVALID_PASSWORD</b>.
      * @param {Pointer<NETRESOURCEW>} lpNetResource A pointer to a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure that specifies details of the proposed connection, such as information about the network resource, the local device, and the network resource provider. 
+     * <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> structure that specifies details of the proposed connection, such as information about the network resource, the local device, and the network resource provider. 
      * 
      * 
      * 
@@ -1283,7 +1375,7 @@ class WNet {
      * 
      * The 
      * <b>WNetAddConnection2</b> function ignores the other members of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure.
+     * <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> structure.
      * @param {PWSTR} lpPassword A pointer to a constant <b>null</b>-terminated string that specifies a password to be used in making the network connection.
      * 
      * If <i>lpPassword</i> is <b>NULL</b>, the function uses the current default password associated with the user specified by the <i>lpUserName</i> parameter.
@@ -1394,7 +1486,7 @@ class WNet {
      * This flag forces the redirection of a local device when making the connection.
      * 
      * If the <b>lpLocalName</b> member of 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> specifies a local device to redirect, this flag has no effect, because the operating system still attempts to redirect the specified device. When the operating system automatically chooses a local device, the <b>dwType</b> member must not be equal to RESOURCETYPE_ANY.
+     * <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> specifies a local device to redirect, this flag has no effect, because the operating system still attempts to redirect the specified device. When the operating system automatically chooses a local device, the <b>dwType</b> member must not be equal to RESOURCETYPE_ANY.
      * 
      * If this flag is not set, a local device is automatically chosen for redirection only if the network requires a local device to be redirected.
      * 
@@ -1456,7 +1548,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value can be one of the following error codes or one of the 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -1503,7 +1595,7 @@ class WNet {
      * </dl>
      * </td>
      * <td width="60%">
-     * The specified device name is not valid. This error is returned if the <b>lpLocalName</b> member of the <a href="/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter specifies a device that is not redirectable.
+     * The specified device name is not valid. This error is returned if the <b>lpLocalName</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter specifies a device that is not redirectable.
      * 
      * </td>
      * </tr>
@@ -1514,7 +1606,7 @@ class WNet {
      * </dl>
      * </td>
      * <td width="60%">
-     * The network name cannot be found. This value is returned if the <b>lpRemoteName</b> member of the <a href="/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter specifies a resource that is not acceptable to any network resource provider, either because the resource name is empty, not valid, or because the named resource cannot be located.
+     * The network name cannot be found. This value is returned if the <b>lpRemoteName</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter specifies a resource that is not acceptable to any network resource provider, either because the resource name is empty, not valid, or because the named resource cannot be located.
      * 
      * </td>
      * </tr>
@@ -1536,7 +1628,7 @@ class WNet {
      * </dl>
      * </td>
      * <td width="60%">
-     * The specified network provider name is not valid. This error is returned if the <b>lpProvider</b> member of the <a href="/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter specifies a value that does not match any network provider.
+     * The specified network provider name is not valid. This error is returned if the <b>lpProvider</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter specifies a value that does not match any network provider.
      * 
      * </td>
      * </tr>
@@ -1591,7 +1683,7 @@ class WNet {
      * </dl>
      * </td>
      * <td width="60%">
-     * The local device name has a remembered connection to another network resource. This error is returned if an entry for the device specified by <b>lpLocalName</b> member of the <a href="/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter specifies a value that is already in the user profile for a different connection than that specified in the
+     * The local device name has a remembered connection to another network resource. This error is returned if an entry for the device specified by <b>lpLocalName</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter specifies a value that is already in the user profile for a different connection than that specified in the
      *         <i>lpNetResource</i> parameter.
      * 
      * </td>
@@ -1604,7 +1696,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. Call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function to obtain a description of the error.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function to obtain a description of the error.
      * 
      * </td>
      * </tr>
@@ -1615,7 +1707,7 @@ class WNet {
      * </dl>
      * </td>
      * <td width="60%">
-     * An attempt was made to access an invalid address. This error is returned if the <i>dwFlags</i> parameter specifies a value of CONNECT_REDIRECT, but the <b>lpLocalName</b> member  of the  <a href="/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter was unspecified.
+     * An attempt was made to access an invalid address. This error is returned if the <i>dwFlags</i> parameter specifies a value of CONNECT_REDIRECT, but the <b>lpLocalName</b> member  of the  <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter was unspecified.
      * 
      * </td>
      * </tr>
@@ -1626,7 +1718,7 @@ class WNet {
      * </dl>
      * </td>
      * <td width="60%">
-     * A parameter is incorrect. This error is returned if the <b>dwType</b> member of the  <a href="/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter specifies a value other than RESOURCETYPE_DISK, RESOURCETYPE_PRINT, or RESOURCETYPE_ANY. This error is also returned if the <i>dwFlags</i> parameter specifies an incorrect or unknown value. 
+     * A parameter is incorrect. This error is returned if the <b>dwType</b> member of the  <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter specifies a value other than RESOURCETYPE_DISK, RESOURCETYPE_PRINT, or RESOURCETYPE_ANY. This error is also returned if the <i>dwFlags</i> parameter specifies an incorrect or unknown value. 
      * 
      * </td>
      * </tr>
@@ -1659,7 +1751,7 @@ class WNet {
      * </dl>
      * </td>
      * <td width="60%">
-     * No network provider accepted the given network path. This error is returned if no network provider recognized the <b>lpRemoteName</b> member of the <a href="/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter.
+     * No network provider accepted the given network path. This error is returned if no network provider recognized the <b>lpRemoteName</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter.
      * 
      * </td>
      * </tr>
@@ -1682,12 +1774,12 @@ class WNet {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetaddconnection2w
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetaddconnection2w
      * @since windows5.0
      */
     static WNetAddConnection2W(lpNetResource, lpPassword, lpUserName, dwFlags) {
@@ -1699,7 +1791,50 @@ class WNet {
     }
 
     /**
-     * The WNetAddConnection3 function makes a connection to a network resource. The function can redirect a local device to the network resource.
+     * The WNetAddConnection3 function makes a connection to a network resource. The function can redirect a local device to the network resource. (ANSI)
+     * @remarks
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetuseconnectiona">WNetUseConnection</a> function is similar to the 
+     * <b>WNetAddConnection3</b> function. The main difference is that 
+     * <b>WNetUseConnection</b> can automatically select an unused local device to redirect to the network resource.
+     * 
+     * On Windows Server 2003 and Windows XP, the WNet functions create and delete network drive letters in the MS-DOS device namespace associated with a logon session because MS-DOS devices are identified by AuthenticationID (a  
+     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a>, or LUID, associated with a logon session.) This can affect applications that call one of the WNet functions to create a network drive letter under one user logon, but query for existing network drive letters under a different user logon. An example of this situation could be when a user's second logon is created within a logon session, for example, by calling the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. The call to the <b>GetLogicalDrives</b> function does not return network drive letters created by WNet function calls under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
+     * 
+     * On Windows Server 2003 and Windows XP, if a service that runs as LocalSystem calls the <b>WNetAddConnection3</b> function, then the mapped drive is visible to all user logon sessions.  
+     * 
+     * For Microsoft network providers, the <b>lpRemoteName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter can contain an IPv4 address in dotted-decimal notation. An example for a share might be the following:
+     * 
+     * <code>\\192.168.1.1\share
+     * </code>
+     * 
+     * For Microsoft network providers on Windows Vista and later, the <b>lpRemoteName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter can contain an IPv6 address. However, the IPv6 literal format must be used so that the IPv6 address is parsed correctly. An IPv6 literal address is of the form:
+     * 
+     * ipv6-address with the ':' characters replaced by '-' characters followed by the ".ipv6-literal.net" string.
+     * 
+     * 
+     * For example, for the following IPv6 address:
+     * 
+     * <code>2001:4898:9:3:c069:aa97:fe76:2449
+     * </code>
+     * 
+     * an example for a share might be the following:
+     * 
+     * <c>\\2001-4898-9-3-c069-aa97-fe76-2449.ipv6-literal.net\share</c>
+     * 
+     * Other network providers may support the <b>lpRemoteName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter that contains an IPv4 or IPv6 address, but this is up to specific network provider.
+     * 
+     * <b>Windows 7 and Windows Server 2008 R2:  </b>If the <b>WNetAddConnection3</b> function is called with explicit user credentials specified in the <i>pUsername</i> and <i>lpPassword</i> to establish a connection with a network resource on a specific server and then called again with either of these parameters as <b>NULL</b> (to use the default user name or default password) to the same server, the call with fail. The error returned will be <b>ERROR_BAD_USERNAME</b> or <b>ERROR_INVALID_PASSWORD</b>. 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetAddConnection3 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwndOwner A handle to a window that the provider of network resources can use as an owner window for dialog boxes. Use this parameter if you set the CONNECT_INTERACTIVE value in the <i>dwFlags</i> parameter.
      * 
      * The <i>hwndOwner</i> parameter can be <b>NULL</b>. If it is, a call to 
@@ -1899,7 +2034,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -2035,7 +2170,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. Call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function to obtain a description of the error.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function to obtain a description of the error.
      * 
      * </td>
      * </tr>
@@ -2073,7 +2208,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetaddconnection3a
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetaddconnection3a
      * @since windows5.0
      */
     static WNetAddConnection3A(hwndOwner, lpNetResource, lpPassword, lpUserName, dwFlags) {
@@ -2086,7 +2221,50 @@ class WNet {
     }
 
     /**
-     * The WNetAddConnection3 function makes a connection to a network resource. The function can redirect a local device to the network resource.
+     * The WNetAddConnection3 function makes a connection to a network resource. The function can redirect a local device to the network resource. (Unicode)
+     * @remarks
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetuseconnectiona">WNetUseConnection</a> function is similar to the 
+     * <b>WNetAddConnection3</b> function. The main difference is that 
+     * <b>WNetUseConnection</b> can automatically select an unused local device to redirect to the network resource.
+     * 
+     * On Windows Server 2003 and Windows XP, the WNet functions create and delete network drive letters in the MS-DOS device namespace associated with a logon session because MS-DOS devices are identified by AuthenticationID (a  
+     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a>, or LUID, associated with a logon session.) This can affect applications that call one of the WNet functions to create a network drive letter under one user logon, but query for existing network drive letters under a different user logon. An example of this situation could be when a user's second logon is created within a logon session, for example, by calling the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. The call to the <b>GetLogicalDrives</b> function does not return network drive letters created by WNet function calls under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
+     * 
+     * On Windows Server 2003 and Windows XP, if a service that runs as LocalSystem calls the <b>WNetAddConnection3</b> function, then the mapped drive is visible to all user logon sessions.  
+     * 
+     * For Microsoft network providers, the <b>lpRemoteName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter can contain an IPv4 address in dotted-decimal notation. An example for a share might be the following:
+     * 
+     * <code>\\192.168.1.1\share
+     * </code>
+     * 
+     * For Microsoft network providers on Windows Vista and later, the <b>lpRemoteName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter can contain an IPv6 address. However, the IPv6 literal format must be used so that the IPv6 address is parsed correctly. An IPv6 literal address is of the form:
+     * 
+     * ipv6-address with the ':' characters replaced by '-' characters followed by the ".ipv6-literal.net" string.
+     * 
+     * 
+     * For example, for the following IPv6 address:
+     * 
+     * <code>2001:4898:9:3:c069:aa97:fe76:2449
+     * </code>
+     * 
+     * an example for a share might be the following:
+     * 
+     * <c>\\2001-4898-9-3-c069-aa97-fe76-2449.ipv6-literal.net\share</c>
+     * 
+     * Other network providers may support the <b>lpRemoteName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter that contains an IPv4 or IPv6 address, but this is up to specific network provider.
+     * 
+     * <b>Windows 7 and Windows Server 2008 R2:  </b>If the <b>WNetAddConnection3</b> function is called with explicit user credentials specified in the <i>pUsername</i> and <i>lpPassword</i> to establish a connection with a network resource on a specific server and then called again with either of these parameters as <b>NULL</b> (to use the default user name or default password) to the same server, the call with fail. The error returned will be <b>ERROR_BAD_USERNAME</b> or <b>ERROR_INVALID_PASSWORD</b>. 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetAddConnection3 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwndOwner A handle to a window that the provider of network resources can use as an owner window for dialog boxes. Use this parameter if you set the CONNECT_INTERACTIVE value in the <i>dwFlags</i> parameter.
      * 
      * The <i>hwndOwner</i> parameter can be <b>NULL</b>. If it is, a call to 
@@ -2286,7 +2464,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -2422,7 +2600,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. Call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function to obtain a description of the error.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function to obtain a description of the error.
      * 
      * </td>
      * </tr>
@@ -2460,7 +2638,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetaddconnection3w
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetaddconnection3w
      * @since windows5.0
      */
     static WNetAddConnection3W(hwndOwner, lpNetResource, lpPassword, lpUserName, dwFlags) {
@@ -2509,7 +2687,20 @@ class WNet {
     }
 
     /**
-     * The WNetCancelConnection function cancels an existing network connection.
+     * The WNetCancelConnection function cancels an existing network connection. (ANSI)
+     * @remarks
+     * <b>Windows Server 2003 and Windows XP:  </b>The WNet functions create and delete network drive letters in the MS-DOS device namespace associated with a logon session because MS-DOS devices are identified by AuthenticationID. (An AuthenticationID is the 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a>, or LUID, associated with a logon session.) This can affect applications that call one of the WNet functions to create a network drive letter under one user logon, but query for existing network drive letters under a different user logon. An example of this situation could be when a user's second logon is created within a logon session, for example, by calling the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. <b>GetLogicalDrives</b> does not return network drive letters created by a WNet function under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetCancelConnection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpName Pointer to a constant null-terminated string that specifies the name of either the redirected local device or the remote network resource to disconnect from. 
      * 
      * 
@@ -2520,7 +2711,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -2568,7 +2759,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. To obtain a description of the error, call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
      * 
      * </td>
      * </tr>
@@ -2595,7 +2786,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetcancelconnectiona
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetcancelconnectiona
      * @since windows5.0
      */
     static WNetCancelConnectionA(lpName, fForce) {
@@ -2606,7 +2797,20 @@ class WNet {
     }
 
     /**
-     * The WNetCancelConnection function cancels an existing network connection.
+     * The WNetCancelConnection function cancels an existing network connection. (Unicode)
+     * @remarks
+     * <b>Windows Server 2003 and Windows XP:  </b>The WNet functions create and delete network drive letters in the MS-DOS device namespace associated with a logon session because MS-DOS devices are identified by AuthenticationID. (An AuthenticationID is the 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a>, or LUID, associated with a logon session.) This can affect applications that call one of the WNet functions to create a network drive letter under one user logon, but query for existing network drive letters under a different user logon. An example of this situation could be when a user's second logon is created within a logon session, for example, by calling the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. <b>GetLogicalDrives</b> does not return network drive letters created by a WNet function under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetCancelConnection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpName Pointer to a constant null-terminated string that specifies the name of either the redirected local device or the remote network resource to disconnect from. 
      * 
      * 
@@ -2617,7 +2821,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -2665,7 +2869,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. To obtain a description of the error, call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
      * 
      * </td>
      * </tr>
@@ -2692,7 +2896,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetcancelconnectionw
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetcancelconnectionw
      * @since windows5.0
      */
     static WNetCancelConnectionW(lpName, fForce) {
@@ -2703,7 +2907,13 @@ class WNet {
     }
 
     /**
-     * The WNetCancelConnection2 function cancels an existing network connection. You can also call the function to remove remembered network connections that are not currently connected.
+     * The WNetCancelConnection2 function cancels an existing network connection. You can also call the function to remove remembered network connections that are not currently connected. (ANSI)
+     * @remarks
+     * <b>Windows Server 2003 and Windows XP:  </b>The WNet functions create and delete network drive letters in the MS-DOS device namespace associated with a logon session because MS-DOS devices are identified by AuthenticationID. (An AuthenticationID is the 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a>, or LUID, associated with a logon session.) This can affect applications that call one of the WNet functions to create a network drive letter under one user logon, but query for existing network drive letters under a different user logon. An example of this situation could be when a user's second logon is created within a logon session, for example, by calling the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. <b>GetLogicalDrives</b> does not return network drive letters created by a WNet function under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
      * @param {PSTR} lpName Pointer to a constant <b>null</b>-terminated string that specifies the name of either the redirected local device or the remote network resource to disconnect from. 
      * 
      * 
@@ -2754,7 +2964,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -2802,7 +3012,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. To obtain a description of the error, call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
      * 
      * </td>
      * </tr>
@@ -2829,7 +3039,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetcancelconnection2a
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetcancelconnection2a
      * @since windows5.0
      */
     static WNetCancelConnection2A(lpName, dwFlags, fForce) {
@@ -2840,7 +3050,13 @@ class WNet {
     }
 
     /**
-     * The WNetCancelConnection2 function cancels an existing network connection. You can also call the function to remove remembered network connections that are not currently connected.
+     * The WNetCancelConnection2 function cancels an existing network connection. You can also call the function to remove remembered network connections that are not currently connected. (Unicode)
+     * @remarks
+     * <b>Windows Server 2003 and Windows XP:  </b>The WNet functions create and delete network drive letters in the MS-DOS device namespace associated with a logon session because MS-DOS devices are identified by AuthenticationID. (An AuthenticationID is the 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a>, or LUID, associated with a logon session.) This can affect applications that call one of the WNet functions to create a network drive letter under one user logon, but query for existing network drive letters under a different user logon. An example of this situation could be when a user's second logon is created within a logon session, for example, by calling the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. <b>GetLogicalDrives</b> does not return network drive letters created by a WNet function under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
      * @param {PWSTR} lpName Pointer to a constant <b>null</b>-terminated string that specifies the name of either the redirected local device or the remote network resource to disconnect from. 
      * 
      * 
@@ -2891,7 +3107,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -2939,7 +3155,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. To obtain a description of the error, call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
      * 
      * </td>
      * </tr>
@@ -2966,7 +3182,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetcancelconnection2w
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetcancelconnection2w
      * @since windows5.0
      */
     static WNetCancelConnection2W(lpName, dwFlags, fForce) {
@@ -2977,14 +3193,24 @@ class WNet {
     }
 
     /**
-     * The WNetGetConnection function retrieves the name of the network resource associated with a local device.
+     * The WNetGetConnection function retrieves the name of the network resource associated with a local device. (ANSI)
+     * @remarks
+     * If the network connection was made using the Microsoft LAN Manager network, and the calling application is running in a different logon session than the application that made the connection, a call to the 
+     * <b>WNetGetConnection</b> function for the associated local device will fail. The function fails with ERROR_NOT_CONNECTED or ERROR_CONNECTION_UNAVAIL. This is because a connection made using Microsoft LAN Manager is visible only to applications running in the same logon session as the application that made the connection. (To prevent the call to 
+     * <b>WNetGetConnection</b> from failing it is not sufficient for the application to be running in the user account that created the connection.)
+     * 
+     * <b>Windows Server 2003 and Windows XP:  </b>This function queries the MS-DOS device namespaces associated with a logon session because MS-DOS devices are identified by AuthenticationID. (An AuthenticationID is the 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a>, or LUID, associated with a logon session.) This can affect applications that call one of the WNet functions to create a network drive letter under one user logon, but query for existing network drive letters under a different user logon. An example of this situation could be when a user's second logon is created within a logon session, for example, by calling the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. <b>GetLogicalDrives</b> does not return network drive letters created by a WNet function under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
      * @param {PSTR} lpLocalName Pointer to a constant null-terminated string that specifies the name of the local device to get the network name for.
      * @param {PSTR} lpRemoteName Pointer to a null-terminated  string  that receives the remote name used to make the connection.
      * @param {Pointer<Integer>} lpnLength Pointer to a variable that specifies the size of the buffer pointed to by the <i>lpRemoteName</i> parameter, in characters. If the function fails because the buffer is not large enough, this parameter returns the required buffer size.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -3054,7 +3280,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. To obtain a description of the error, call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
      * 
      * </td>
      * </tr>
@@ -3070,7 +3296,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetgetconnectiona
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetconnectiona
      * @since windows5.0
      */
     static WNetGetConnectionA(lpLocalName, lpRemoteName, lpnLength) {
@@ -3084,14 +3310,24 @@ class WNet {
     }
 
     /**
-     * The WNetGetConnection function retrieves the name of the network resource associated with a local device.
+     * The WNetGetConnection function retrieves the name of the network resource associated with a local device. (Unicode)
+     * @remarks
+     * If the network connection was made using the Microsoft LAN Manager network, and the calling application is running in a different logon session than the application that made the connection, a call to the 
+     * <b>WNetGetConnection</b> function for the associated local device will fail. The function fails with ERROR_NOT_CONNECTED or ERROR_CONNECTION_UNAVAIL. This is because a connection made using Microsoft LAN Manager is visible only to applications running in the same logon session as the application that made the connection. (To prevent the call to 
+     * <b>WNetGetConnection</b> from failing it is not sufficient for the application to be running in the user account that created the connection.)
+     * 
+     * <b>Windows Server 2003 and Windows XP:  </b>This function queries the MS-DOS device namespaces associated with a logon session because MS-DOS devices are identified by AuthenticationID. (An AuthenticationID is the 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a>, or LUID, associated with a logon session.) This can affect applications that call one of the WNet functions to create a network drive letter under one user logon, but query for existing network drive letters under a different user logon. An example of this situation could be when a user's second logon is created within a logon session, for example, by calling the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. <b>GetLogicalDrives</b> does not return network drive letters created by a WNet function under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
      * @param {PWSTR} lpLocalName Pointer to a constant null-terminated string that specifies the name of the local device to get the network name for.
      * @param {PWSTR} lpRemoteName Pointer to a null-terminated  string  that receives the remote name used to make the connection.
      * @param {Pointer<Integer>} lpnLength Pointer to a variable that specifies the size of the buffer pointed to by the <i>lpRemoteName</i> parameter, in characters. If the function fails because the buffer is not large enough, this parameter returns the required buffer size.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -3161,7 +3397,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. To obtain a description of the error, call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
      * 
      * </td>
      * </tr>
@@ -3177,7 +3413,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetgetconnectionw
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetconnectionw
      * @since windows5.0
      */
     static WNetGetConnectionW(lpLocalName, lpRemoteName, lpnLength) {
@@ -3191,7 +3427,20 @@ class WNet {
     }
 
     /**
-     * The WNetUseConnection function makes a connection to a network resource. The function can redirect a local device to a network resource.
+     * The WNetUseConnection function makes a connection to a network resource. The function can redirect a local device to a network resource. (ANSI)
+     * @remarks
+     * <b>Windows Server 2003 and Windows XP:  </b>The WNet functions create and delete network drive letters in the MS-DOS device namespace associated with a logon session because MS-DOS devices are identified by AuthenticationID. (An AuthenticationID is the 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a>, or LUID, associated with a logon session.) This can affect applications that call one of the WNet functions to create a network drive letter under one user logon, but query for existing network drive letters under a different user logon. An example of this situation could be when a user's second logon is created within a logon session, for example, by calling the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. <b>GetLogicalDrives</b> does not return network drive letters created by a WNet function under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetUseConnection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwndOwner Handle to a window that the provider of network resources can use as an owner window for dialog boxes. Use this parameter if you set the CONNECT_INTERACTIVE value in the <i>dwFlags</i> parameter.
      * @param {Pointer<NETRESOURCEA>} lpNetResource Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure that specifies details of the proposed connection. The structure contains information about the network resource, the local device, and the network resource provider. 
@@ -3332,7 +3581,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -3413,7 +3662,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. To obtain a description of the error, call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
      * 
      * </td>
      * </tr>
@@ -3507,7 +3756,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetuseconnectiona
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetuseconnectiona
      * @since windows5.0
      */
     static WNetUseConnectionA(hwndOwner, lpNetResource, lpPassword, lpUserId, dwFlags, lpAccessName, lpBufferSize, lpResult) {
@@ -3524,7 +3773,20 @@ class WNet {
     }
 
     /**
-     * The WNetUseConnection function makes a connection to a network resource. The function can redirect a local device to a network resource.
+     * The WNetUseConnection function makes a connection to a network resource. The function can redirect a local device to a network resource. (Unicode)
+     * @remarks
+     * <b>Windows Server 2003 and Windows XP:  </b>The WNet functions create and delete network drive letters in the MS-DOS device namespace associated with a logon session because MS-DOS devices are identified by AuthenticationID. (An AuthenticationID is the 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a>, or LUID, associated with a logon session.) This can affect applications that call one of the WNet functions to create a network drive letter under one user logon, but query for existing network drive letters under a different user logon. An example of this situation could be when a user's second logon is created within a logon session, for example, by calling the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. <b>GetLogicalDrives</b> does not return network drive letters created by a WNet function under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetUseConnection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwndOwner Handle to a window that the provider of network resources can use as an owner window for dialog boxes. Use this parameter if you set the CONNECT_INTERACTIVE value in the <i>dwFlags</i> parameter.
      * @param {Pointer<NETRESOURCEW>} lpNetResource Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure that specifies details of the proposed connection. The structure contains information about the network resource, the local device, and the network resource provider. 
@@ -3665,7 +3927,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -3746,7 +4008,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. To obtain a description of the error, call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
      * 
      * </td>
      * </tr>
@@ -3840,7 +4102,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetuseconnectionw
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetuseconnectionw
      * @since windows5.0
      */
     static WNetUseConnectionW(hwndOwner, lpNetResource, lpPassword, lpUserId, dwFlags, lpAccessName, lpBufferSize, lpResult) {
@@ -3908,6 +4170,11 @@ class WNet {
 
     /**
      * The WNetConnectionDialog function starts a general browsing dialog box for connecting to network resources. The function requires a handle to the owner window for the dialog box.
+     * @remarks
+     * If the user clicks <b>OK</b> in the dialog box, the requested network connection will have been made when the 
+     * <b>WNetConnectionDialog</b> function returns.
+     * 
+     * If the function attempts to make a connection and the network provider returns the message ERROR_INVALID_PASSWORD, the system prompts the user to enter a password. The system uses the new password in another attempt to make the connection.
      * @param {HWND} hwnd Handle to the owner window for the dialog box.
      * @param {Integer} dwType Resource type to allow connections to. This parameter can be the following value. 
      * 
@@ -3932,7 +4199,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR. If the user cancels the dialog box, the function returns –1.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -3947,7 +4214,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. To obtain a description of the error, call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
      * 
      * </td>
      * </tr>
@@ -3985,7 +4252,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetconnectiondialog
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetconnectiondialog
      * @since windows5.0
      */
     static WNetConnectionDialog(hwnd, dwType) {
@@ -3997,6 +4264,11 @@ class WNet {
 
     /**
      * The WNetDisconnectDialog function starts a general browsing dialog box for disconnecting from network resources. The function requires a handle to the owner window for the dialog box.
+     * @remarks
+     * The 
+     * <b>WNetDisconnectDialog</b> function returns immediately and creates a dialog box for disconnecting networked drives. This dialog box runs asynchronously on a worker thread.
+     * 
+     * If the worker thread is terminated, the owner window and its associated dialog box are also terminated. If this occurs, the user might not be able to interact with the dialog box, because it will not  appear on the user's screen or will appear briefly.
      * @param {HWND} hwnd Handle to the owner window for the dialog box.
      * @param {Integer} dwType Resource type to disconnect from. This parameter can have the following value. 
      * 
@@ -4021,7 +4293,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR. If the user cancels the dialog box, the return value is –1.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -4036,7 +4308,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. To obtain a description of the error, call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
      * 
      * </td>
      * </tr>
@@ -4063,7 +4335,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetdisconnectdialog
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetdisconnectdialog
      * @since windows5.0
      */
     static WNetDisconnectDialog(hwnd, dwType) {
@@ -4074,14 +4346,17 @@ class WNet {
     }
 
     /**
-     * The WNetConnectionDialog1 function brings up a general browsing dialog for connecting to network resources. The function requires a CONNECTDLGSTRUCT to establish the dialog box parameters.
+     * The WNetConnectionDialog1 function brings up a general browsing dialog for connecting to network resources. The function requires a CONNECTDLGSTRUCT to establish the dialog box parameters. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetConnectionDialog1 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<CONNECTDLGSTRUCTA>} lpConnDlgStruct Pointer to a 
      * <b>CONNECTDLGSTRUCT</b> structure. The structure establishes the browsing dialog parameters.
      * @returns {Integer} If the user cancels the dialog box, the function returns –1. If the function is successful, it returns NO_ERROR. Also, if the call is successful, the <b>dwDevNum</b> member of the 
      * <b>CONNECTDLGSTRUCT</b> structure contains the number of the connected device.
      * 
      * Typically this dialog returns an error only if the user cannot enter a dialog session. This is because errors that occur after a dialog session are reported to the user directly. If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -4096,7 +4371,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * Both the CONNDLG_RO_PATH and the CONNDLG_USE_MRU dialog box options are set. (Dialog box options are specified by the <b>dwFlags</b> member of the 
-     * <a href="/windows/desktop/api/winnetwk/ns-winnetwk-connectdlgstructa">CONNECTDLGSTRUCT</a> structure.) 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-connectdlgstructa">CONNECTDLGSTRUCT</a> structure.) 
      * 
      * 
      * 
@@ -4108,7 +4383,7 @@ class WNet {
      * -or-
      * 
      * The CONNDLG_RO_PATH dialog box option is set and the <b>lpRemoteName</b> member of the 
-     * <a href="/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure does not point to a remote network. (The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure does not point to a remote network. (The 
      * <b>CONNECTDLGSTRUCT</b> structure points to a 
      * <b>NETRESOURCE</b> structure.)
      * 
@@ -4167,12 +4442,12 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. Call 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> to obtain a description of the error.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> to obtain a description of the error.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetconnectiondialog1a
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetconnectiondialog1a
      * @since windows5.0
      */
     static WNetConnectionDialog1A(lpConnDlgStruct) {
@@ -4181,14 +4456,17 @@ class WNet {
     }
 
     /**
-     * The WNetConnectionDialog1 function brings up a general browsing dialog for connecting to network resources. The function requires a CONNECTDLGSTRUCT to establish the dialog box parameters.
+     * The WNetConnectionDialog1 function brings up a general browsing dialog for connecting to network resources. The function requires a CONNECTDLGSTRUCT to establish the dialog box parameters. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetConnectionDialog1 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<CONNECTDLGSTRUCTW>} lpConnDlgStruct Pointer to a 
      * <b>CONNECTDLGSTRUCT</b> structure. The structure establishes the browsing dialog parameters.
      * @returns {Integer} If the user cancels the dialog box, the function returns –1. If the function is successful, it returns NO_ERROR. Also, if the call is successful, the <b>dwDevNum</b> member of the 
      * <b>CONNECTDLGSTRUCT</b> structure contains the number of the connected device.
      * 
      * Typically this dialog returns an error only if the user cannot enter a dialog session. This is because errors that occur after a dialog session are reported to the user directly. If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -4203,7 +4481,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * Both the CONNDLG_RO_PATH and the CONNDLG_USE_MRU dialog box options are set. (Dialog box options are specified by the <b>dwFlags</b> member of the 
-     * <a href="/windows/desktop/api/winnetwk/ns-winnetwk-connectdlgstructa">CONNECTDLGSTRUCT</a> structure.) 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-connectdlgstructa">CONNECTDLGSTRUCT</a> structure.) 
      * 
      * 
      * 
@@ -4215,7 +4493,7 @@ class WNet {
      * -or-
      * 
      * The CONNDLG_RO_PATH dialog box option is set and the <b>lpRemoteName</b> member of the 
-     * <a href="/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure does not point to a remote network. (The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure does not point to a remote network. (The 
      * <b>CONNECTDLGSTRUCT</b> structure points to a 
      * <b>NETRESOURCE</b> structure.)
      * 
@@ -4274,12 +4552,12 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. Call 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> to obtain a description of the error.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> to obtain a description of the error.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetconnectiondialog1w
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetconnectiondialog1w
      * @since windows5.0
      */
     static WNetConnectionDialog1W(lpConnDlgStruct) {
@@ -4288,13 +4566,16 @@ class WNet {
     }
 
     /**
-     * The WNetDisconnectDialog1 function attempts to disconnect a network resource.
+     * The WNetDisconnectDialog1 function attempts to disconnect a network resource. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetDisconnectDialog1 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<DISCDLGSTRUCTA>} lpConnDlgStruct Pointer to a 
      * <b>DISCDLGSTRUCT</b> structure. The structure specifies the behavior for the disconnect attempt.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR. If the user cancels the dialog box, the return value is –1.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -4364,12 +4645,12 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. Call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function to obtain a description of the error.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function to obtain a description of the error.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetdisconnectdialog1a
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetdisconnectdialog1a
      * @since windows5.0
      */
     static WNetDisconnectDialog1A(lpConnDlgStruct) {
@@ -4378,13 +4659,16 @@ class WNet {
     }
 
     /**
-     * The WNetDisconnectDialog1 function attempts to disconnect a network resource.
+     * The WNetDisconnectDialog1 function attempts to disconnect a network resource. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetDisconnectDialog1 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<DISCDLGSTRUCTW>} lpConnDlgStruct Pointer to a 
      * <b>DISCDLGSTRUCT</b> structure. The structure specifies the behavior for the disconnect attempt.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR. If the user cancels the dialog box, the return value is –1.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -4454,12 +4738,12 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. Call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function to obtain a description of the error.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function to obtain a description of the error.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetdisconnectdialog1w
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetdisconnectdialog1w
      * @since windows5.0
      */
     static WNetDisconnectDialog1W(lpConnDlgStruct) {
@@ -4468,12 +4752,36 @@ class WNet {
     }
 
     /**
-     * The WNetOpenEnum function starts an enumeration of network resources or existing connections. You can continue the enumeration by calling the WNetEnumResource function.
+     * The WNetOpenEnum function starts an enumeration of network resources or existing connections. You can continue the enumeration by calling the WNetEnumResource function. (ANSI)
+     * @remarks
+     * If the <i>dwScope</i> parameter is equal to RESOURCE_CONNECTED, a network connection made using the Microsoft LAN Manager network is omitted from the enumeration if the connection was made by an application running in a different logon session than the application calling the 
+     * <b>WNetOpenEnum</b> function. This is because connections made using Microsoft LAN Manager are visible only to applications running in the same logon session as the application that made the connection. (To include the connection in the enumeration, it is not sufficient for the application to be running in the user account that created the connection.)
+     * 
+     * The exact interpretation of RESOURCE_CONTEXT in the <i>dwScope</i> parameter depends on the networks installed on the machine.
+     * 
+     * The 
+     * <b>WNetOpenEnum</b> function is used to begin enumeration of the resources in a single container. The following examples show the hierarchical structure of a Microsoft LAN Manager network and a Novell NetWare network and identify the containers.
+     * 
+     * 
+     * ``` syntax
+     * LanMan (container, in this case the provider) 
+     *   ACCOUNTING (container, in this case the domain) 
+     *     \\ACCTSPAY (container, in this case the server) 
+     *       PAYFILES (disk) 
+     *       LASERJET (print) 
+     *  
+     * NetWare (container, in this case the provider) 
+     *   MARKETING (container, in this case the server) 
+     *     SYS (disk, first one on any NetWare server) 
+     *     ANOTHERVOLUME (disk) 
+     *     LASERJET (print) 
+     * 
+     * ```
      * @param {Integer} dwScope 
      * @param {Integer} dwType 
      * @param {Integer} dwUsage 
      * @param {Pointer<NETRESOURCEA>} lpNetResource Pointer to a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure that specifies the container to enumerate. If the <i>dwScope</i> parameter is not RESOURCE_GLOBALNET, this parameter must be <b>NULL</b>. 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure that specifies the container to enumerate. If the <i>dwScope</i> parameter is not RESOURCE_GLOBALNET, this parameter must be <b>NULL</b>. 
      * 
      * 
      * 
@@ -4496,7 +4804,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -4544,7 +4852,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. To obtain a description of the error, call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
      * 
      * </td>
      * </tr>
@@ -4560,7 +4868,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetopenenuma
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetopenenuma
      * @since windows5.0
      */
     static WNetOpenEnumA(dwScope, dwType, dwUsage, lpNetResource, lphEnum) {
@@ -4569,12 +4877,36 @@ class WNet {
     }
 
     /**
-     * The WNetOpenEnum function starts an enumeration of network resources or existing connections. You can continue the enumeration by calling the WNetEnumResource function.
+     * The WNetOpenEnum function starts an enumeration of network resources or existing connections. You can continue the enumeration by calling the WNetEnumResource function. (Unicode)
+     * @remarks
+     * If the <i>dwScope</i> parameter is equal to RESOURCE_CONNECTED, a network connection made using the Microsoft LAN Manager network is omitted from the enumeration if the connection was made by an application running in a different logon session than the application calling the 
+     * <b>WNetOpenEnum</b> function. This is because connections made using Microsoft LAN Manager are visible only to applications running in the same logon session as the application that made the connection. (To include the connection in the enumeration, it is not sufficient for the application to be running in the user account that created the connection.)
+     * 
+     * The exact interpretation of RESOURCE_CONTEXT in the <i>dwScope</i> parameter depends on the networks installed on the machine.
+     * 
+     * The 
+     * <b>WNetOpenEnum</b> function is used to begin enumeration of the resources in a single container. The following examples show the hierarchical structure of a Microsoft LAN Manager network and a Novell NetWare network and identify the containers.
+     * 
+     * 
+     * ``` syntax
+     * LanMan (container, in this case the provider) 
+     *   ACCOUNTING (container, in this case the domain) 
+     *     \\ACCTSPAY (container, in this case the server) 
+     *       PAYFILES (disk) 
+     *       LASERJET (print) 
+     *  
+     * NetWare (container, in this case the provider) 
+     *   MARKETING (container, in this case the server) 
+     *     SYS (disk, first one on any NetWare server) 
+     *     ANOTHERVOLUME (disk) 
+     *     LASERJET (print) 
+     * 
+     * ```
      * @param {Integer} dwScope 
      * @param {Integer} dwType 
      * @param {Integer} dwUsage 
      * @param {Pointer<NETRESOURCEW>} lpNetResource Pointer to a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure that specifies the container to enumerate. If the <i>dwScope</i> parameter is not RESOURCE_GLOBALNET, this parameter must be <b>NULL</b>. 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> structure that specifies the container to enumerate. If the <i>dwScope</i> parameter is not RESOURCE_GLOBALNET, this parameter must be <b>NULL</b>. 
      * 
      * 
      * 
@@ -4597,7 +4929,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -4645,7 +4977,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. To obtain a description of the error, call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
      * 
      * </td>
      * </tr>
@@ -4661,7 +4993,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetopenenumw
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetopenenumw
      * @since windows5.0
      */
     static WNetOpenEnumW(dwScope, dwType, dwUsage, lpNetResource, lphEnum) {
@@ -4670,7 +5002,14 @@ class WNet {
     }
 
     /**
-     * The WNetEnumResource function continues an enumeration of network resources that was started by a call to the WNetOpenEnum function.
+     * The WNetEnumResource function continues an enumeration of network resources that was started by a call to the WNetOpenEnum function. (ANSI)
+     * @remarks
+     * The 
+     * <b>WNetEnumResource</b> function does not enumerate users connected to a share; you can call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netconnectionenum">NetConnectionEnum</a> function to accomplish this task. To enumerate hidden shares, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netshareenum">NetShareEnum</a> function.
+     * 
+     * An application cannot set the <i>lpBuffer</i> parameter to <b>NULL</b> and retrieve the required buffer size from the <i>lpBufferSize</i> parameter. Instead, the application should allocate a buffer of a reasonable size—16 kilobytes is typical—and use the value of <i>lpBufferSize</i> for error detection.
      * @param {HANDLE} hEnum Handle that identifies an enumeration instance. This handle must be returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetopenenuma">WNetOpenEnum</a> function.
      * @param {Pointer<Integer>} lpcCount Pointer to a variable specifying the number of entries requested. If the number requested is –1, the function returns as many entries as possible. 
@@ -4722,7 +5061,7 @@ class WNet {
      *  
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -4770,12 +5109,12 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. To obtain a description of the error, call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetenumresourcea
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetenumresourcea
      * @since windows5.0
      */
     static WNetEnumResourceA(hEnum, lpcCount, lpBuffer, lpBufferSize) {
@@ -4789,7 +5128,14 @@ class WNet {
     }
 
     /**
-     * The WNetEnumResource function continues an enumeration of network resources that was started by a call to the WNetOpenEnum function.
+     * The WNetEnumResource function continues an enumeration of network resources that was started by a call to the WNetOpenEnum function. (Unicode)
+     * @remarks
+     * The 
+     * <b>WNetEnumResource</b> function does not enumerate users connected to a share; you can call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netconnectionenum">NetConnectionEnum</a> function to accomplish this task. To enumerate hidden shares, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netshareenum">NetShareEnum</a> function.
+     * 
+     * An application cannot set the <i>lpBuffer</i> parameter to <b>NULL</b> and retrieve the required buffer size from the <i>lpBufferSize</i> parameter. Instead, the application should allocate a buffer of a reasonable size—16 kilobytes is typical—and use the value of <i>lpBufferSize</i> for error detection.
      * @param {HANDLE} hEnum Handle that identifies an enumeration instance. This handle must be returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetopenenuma">WNetOpenEnum</a> function.
      * @param {Pointer<Integer>} lpcCount Pointer to a variable specifying the number of entries requested. If the number requested is –1, the function returns as many entries as possible. 
@@ -4841,7 +5187,7 @@ class WNet {
      *  
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -4889,12 +5235,12 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. To obtain a description of the error, call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetenumresourcew
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetenumresourcew
      * @since windows5.0
      */
     static WNetEnumResourceW(hEnum, lpcCount, lpBuffer, lpBufferSize) {
@@ -4914,7 +5260,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -4939,7 +5285,7 @@ class WNet {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <i>hEnum</i> parameter does not specifiy a valid handle.
+     * The <i>hEnum</i> parameter does not specify a valid handle.
      * 
      * </td>
      * </tr>
@@ -4951,12 +5297,12 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. To obtain a description of the error, call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetcloseenum
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetcloseenum
      * @since windows5.0
      */
     static WNetCloseEnum(hEnum) {
@@ -4967,7 +5313,33 @@ class WNet {
     }
 
     /**
-     * The WNetGetResourceParent function returns the parent of a network resource in the network browse hierarchy. Browsing begins at the location of the specified network resource.
+     * The WNetGetResourceParent function returns the parent of a network resource in the network browse hierarchy. Browsing begins at the location of the specified network resource. (ANSI)
+     * @remarks
+     * The 
+     * <b>WNetGetResourceParent</b> function is typically used in conjunction with the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetresourceinformationa">WNetGetResourceInformation</a> function to parse and interpret a network path typed in by a user.
+     * 
+     * Unlike the 
+     * <b>WNetGetResourceInformation</b> function, if the resource includes a parent in its syntax, the 
+     * <b>WNetGetResourceParent</b> function returns the parent, whether or not the resource actually exists. 
+     * <b>WNetGetResourceParent</b> should typically be used only by applications that display network resources to the user in a hierarchical fashion. The Windows Explorer and the <b>File Open</b> dialog box are two well-known examples of this type of application. Note that no assumptions should be made about the type of resource that will be returned.
+     * 
+     * You can call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetenumresourcea">WNetEnumResource</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetresourceinformationa">WNetGetResourceInformation</a>, or 
+     * <b>WNetGetResourceParent</b> function to return information from the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure. You can also construct network resource information using the members of the 
+     * <b>NETRESOURCE</b> structure.
+     * 
+     * An example of an inappropriate use of 
+     * <b>WNetGetResourceParent</b> is to determine the name of the domain to which a specified server belongs. The function may happen to return the correct domain name for some networks in which domains appear directly above servers in the browse hierarchy. The function will return incorrect results for other networks.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetGetResourceParent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<NETRESOURCEA>} lpNetResource Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure that specifies the network resource for which the parent name is required. 
      * 
@@ -5035,7 +5407,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -5098,7 +5470,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetgetresourceparenta
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetresourceparenta
      * @since windows5.0
      */
     static WNetGetResourceParentA(lpNetResource, lpBuffer, lpcbBuffer) {
@@ -5109,7 +5481,33 @@ class WNet {
     }
 
     /**
-     * The WNetGetResourceParent function returns the parent of a network resource in the network browse hierarchy. Browsing begins at the location of the specified network resource.
+     * The WNetGetResourceParent function returns the parent of a network resource in the network browse hierarchy. Browsing begins at the location of the specified network resource. (Unicode)
+     * @remarks
+     * The 
+     * <b>WNetGetResourceParent</b> function is typically used in conjunction with the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetresourceinformationa">WNetGetResourceInformation</a> function to parse and interpret a network path typed in by a user.
+     * 
+     * Unlike the 
+     * <b>WNetGetResourceInformation</b> function, if the resource includes a parent in its syntax, the 
+     * <b>WNetGetResourceParent</b> function returns the parent, whether or not the resource actually exists. 
+     * <b>WNetGetResourceParent</b> should typically be used only by applications that display network resources to the user in a hierarchical fashion. The Windows Explorer and the <b>File Open</b> dialog box are two well-known examples of this type of application. Note that no assumptions should be made about the type of resource that will be returned.
+     * 
+     * You can call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetenumresourcea">WNetEnumResource</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetresourceinformationa">WNetGetResourceInformation</a>, or 
+     * <b>WNetGetResourceParent</b> function to return information from the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure. You can also construct network resource information using the members of the 
+     * <b>NETRESOURCE</b> structure.
+     * 
+     * An example of an inappropriate use of 
+     * <b>WNetGetResourceParent</b> is to determine the name of the domain to which a specified server belongs. The function may happen to return the correct domain name for some networks in which domains appear directly above servers in the browse hierarchy. The function will return incorrect results for other networks.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetGetResourceParent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<NETRESOURCEW>} lpNetResource Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure that specifies the network resource for which the parent name is required. 
      * 
@@ -5177,7 +5575,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -5240,7 +5638,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetgetresourceparentw
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetresourceparentw
      * @since windows5.0
      */
     static WNetGetResourceParentW(lpNetResource, lpBuffer, lpcbBuffer) {
@@ -5251,9 +5649,12 @@ class WNet {
     }
 
     /**
-     * When provided with a remote path to a network resource, the WNetGetResourceInformation function identifies the network provider that owns the resource and obtains information about the type of the resource.
+     * When provided with a remote path to a network resource, the WNetGetResourceInformation function identifies the network provider that owns the resource and obtains information about the type of the resource. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetGetResourceInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<NETRESOURCEA>} lpNetResource Pointer to a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure that specifies the network resource for which information is required. 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure that specifies the network resource for which information is required. 
      * 
      * 
      * 
@@ -5261,7 +5662,7 @@ class WNet {
      * The <b>lpRemoteName</b> member of the structure should specify the remote path name of the resource, typically one typed in by a user. The <b>lpProvider</b> and <b>dwType</b> members should also be filled in if known, because this operation can be memory intensive, especially if you do not specify the <b>dwType</b> member. If you do not know the values for these members, you should set them to <b>NULL</b>. All other members of the 
      * <b>NETRESOURCE</b> structure are ignored.
      * @param {Pointer} lpBuffer Pointer to the buffer to receive the result. On successful return, the first portion of the buffer is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure representing that portion of the input resource path that is accessed through the WNet functions, rather than through system functions specific to the input resource type. (The remainder of the buffer contains the variable-length strings to which the members of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure representing that portion of the input resource path that is accessed through the WNet functions, rather than through system functions specific to the input resource type. (The remainder of the buffer contains the variable-length strings to which the members of the 
      * <b>NETRESOURCE</b> structure point.) 
      * 
      * 
@@ -5284,11 +5685,11 @@ class WNet {
      * 
      * 
      * For example, if the input remote resource name is \\server\share\dir1\dir2, the <b>lpRemoteName</b> member of the output 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure points to \\server\share. Also, the <i>lplpSystem</i> parameter points to \dir1\dir2. Both strings are stored in the buffer pointed to by the <i>lpBuffer</i> parameter.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure points to \\server\share. Also, the <i>lplpSystem</i> parameter points to \dir1\dir2. Both strings are stored in the buffer pointed to by the <i>lpBuffer</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -5325,7 +5726,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. Call 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> to obtain a description of the error.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> to obtain a description of the error.
      * 
      * </td>
      * </tr>
@@ -5352,7 +5753,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetgetresourceinformationa
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetresourceinformationa
      * @since windows5.0
      */
     static WNetGetResourceInformationA(lpNetResource, lpBuffer, lpcbBuffer, lplpSystem) {
@@ -5364,9 +5765,12 @@ class WNet {
     }
 
     /**
-     * When provided with a remote path to a network resource, the WNetGetResourceInformation function identifies the network provider that owns the resource and obtains information about the type of the resource.
+     * When provided with a remote path to a network resource, the WNetGetResourceInformation function identifies the network provider that owns the resource and obtains information about the type of the resource. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetGetResourceInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<NETRESOURCEW>} lpNetResource Pointer to a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure that specifies the network resource for which information is required. 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> structure that specifies the network resource for which information is required. 
      * 
      * 
      * 
@@ -5374,7 +5778,7 @@ class WNet {
      * The <b>lpRemoteName</b> member of the structure should specify the remote path name of the resource, typically one typed in by a user. The <b>lpProvider</b> and <b>dwType</b> members should also be filled in if known, because this operation can be memory intensive, especially if you do not specify the <b>dwType</b> member. If you do not know the values for these members, you should set them to <b>NULL</b>. All other members of the 
      * <b>NETRESOURCE</b> structure are ignored.
      * @param {Pointer} lpBuffer Pointer to the buffer to receive the result. On successful return, the first portion of the buffer is a 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure representing that portion of the input resource path that is accessed through the WNet functions, rather than through system functions specific to the input resource type. (The remainder of the buffer contains the variable-length strings to which the members of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> structure representing that portion of the input resource path that is accessed through the WNet functions, rather than through system functions specific to the input resource type. (The remainder of the buffer contains the variable-length strings to which the members of the 
      * <b>NETRESOURCE</b> structure point.) 
      * 
      * 
@@ -5397,11 +5801,11 @@ class WNet {
      * 
      * 
      * For example, if the input remote resource name is \\server\share\dir1\dir2, the <b>lpRemoteName</b> member of the output 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure points to \\server\share. Also, the <i>lplpSystem</i> parameter points to \dir1\dir2. Both strings are stored in the buffer pointed to by the <i>lpBuffer</i> parameter.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> structure points to \\server\share. Also, the <i>lplpSystem</i> parameter points to \dir1\dir2. Both strings are stored in the buffer pointed to by the <i>lpBuffer</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -5438,7 +5842,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. Call 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> to obtain a description of the error.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> to obtain a description of the error.
      * 
      * </td>
      * </tr>
@@ -5465,7 +5869,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetgetresourceinformationw
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetresourceinformationw
      * @since windows5.0
      */
     static WNetGetResourceInformationW(lpNetResource, lpBuffer, lpcbBuffer, lplpSystem) {
@@ -5477,7 +5881,45 @@ class WNet {
     }
 
     /**
-     * The WNetGetUniversalName function takes a drive-based path for a network resource and returns an information structure that contains a more universal form of the name.
+     * The WNetGetUniversalName function takes a drive-based path for a network resource and returns an information structure that contains a more universal form of the name. (ANSI)
+     * @remarks
+     * A universal form of a local drive-based path identifies a network resource in an unambiguous, computer-independent manner. The name can then be passed to processes on other computers, allowing those processes to obtain access to the resource.
+     * 
+     * The 
+     * <b>WNetGetUniversalName</b> function currently supports one universal name form: universal naming convention (UNC) names, which look like the following:
+     * 
+     * 
+     * ``` syntax
+     * \\servername\sharename\path\file 
+     * 
+     * ```
+     * 
+     * Using the example from the preceding description of the <i>lpLocalPath</i> parameter, if the shared network drive is on a server named COOLSERVER, and the share name is HOTSHARE, the UNC name for the network resource whose drive-based name is H:\Win32\Examples\Sample.doc would be the following:
+     * 
+     * 
+     * ``` syntax
+     * \\coolserver\hotshare\win32\examples\sample.doc 
+     * 
+     * ```
+     * 
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-universal_name_infoa">UNIVERSAL_NAME_INFO</a> structure contains a pointer to a UNC name string. The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-remote_name_infow">REMOTE_NAME_INFO</a> structure also contains a pointer to a UNC name string as well as pointers to two other useful strings. For example, a process can pass the 
+     * <b>REMOTE_NAME_INFO</b> structure's <b>lpszConnectionInfo</b> member to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetaddconnection2a">WNetAddConnection2</a> function to connect a local device to the network resource. Then the process can append the string pointed to by the <b>lpszRemainingPath</b> member to the local device string. The resulting string can be passed to functions that require a drive-based path.
+     * 
+     * The <i>lpLocalPath</i> parameter does not have to specify a path or resource that is already present on a remote resource.  For example, the <i>lpLocalPath</i> parameter could specify and folder, a hierarchy of folders, or a file that does not currently exist. The
+     * 				<b>WNetGetUniversalName</b> function returns a more universal form of the name in these cases.
+     * 
+     * The size of the buffer pointed to by the <i>lpBuffer</i> parameter and specified in the <i>lpBufferSize</i> parameter must be much larger than the size of the <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-remote_name_infow">REMOTE_NAME_INFO</a> 
+     * 		 or <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-universal_name_infoa">UNIVERSAL_NAME_INFO</a> structures. The buffer pointed to by the <i>lpBuffer</i> parameter must be large enough to store the UNC strings pointed to by the members in the <b>REMOTE_NAME_INFO</b> 
+     * 		 or <b>UNIVERSAL_NAME_INFO</b> structures. If the buffer size is too small, then the function fails with ERROR_MORE_DATA and the variable pointed to by the <i>lpBufferSize</i> parameter indicates the required buffer size.
+     * 
+     * <b>Windows Server 2003 and Windows XP:  </b>This function queries the MS-DOS device namespaces associated with a logon session because MS-DOS devices are identified by AuthenticationID. (An AuthenticationID is the 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a>, or LUID, associated with a logon session.) This can affect applications that call one of the WNet functions to create a network drive letter under one user logon, but query for existing network drive letters under a different user logon. An example of this situation could be when a user's second logon is created within a logon session, for example, by calling the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. <b>GetLogicalDrives</b> does not return network drive letters created by a WNet function under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
      * @param {PSTR} lpLocalPath A pointer to a constant null-terminated string that is a drive-based path for a network resource. 
      * 
      * 
@@ -5492,7 +5934,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -5529,7 +5971,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. Use the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function to obtain a description of the error.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function to obtain a description of the error.
      * 
      * </td>
      * </tr>
@@ -5589,7 +6031,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetgetuniversalnamea
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetuniversalnamea
      * @since windows5.0
      */
     static WNetGetUniversalNameA(lpLocalPath, dwInfoLevel, lpBuffer, lpBufferSize) {
@@ -5602,7 +6044,45 @@ class WNet {
     }
 
     /**
-     * The WNetGetUniversalName function takes a drive-based path for a network resource and returns an information structure that contains a more universal form of the name.
+     * The WNetGetUniversalName function takes a drive-based path for a network resource and returns an information structure that contains a more universal form of the name. (Unicode)
+     * @remarks
+     * A universal form of a local drive-based path identifies a network resource in an unambiguous, computer-independent manner. The name can then be passed to processes on other computers, allowing those processes to obtain access to the resource.
+     * 
+     * The 
+     * <b>WNetGetUniversalName</b> function currently supports one universal name form: universal naming convention (UNC) names, which look like the following:
+     * 
+     * 
+     * ``` syntax
+     * \\servername\sharename\path\file 
+     * 
+     * ```
+     * 
+     * Using the example from the preceding description of the <i>lpLocalPath</i> parameter, if the shared network drive is on a server named COOLSERVER, and the share name is HOTSHARE, the UNC name for the network resource whose drive-based name is H:\Win32\Examples\Sample.doc would be the following:
+     * 
+     * 
+     * ``` syntax
+     * \\coolserver\hotshare\win32\examples\sample.doc 
+     * 
+     * ```
+     * 
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-universal_name_infoa">UNIVERSAL_NAME_INFO</a> structure contains a pointer to a UNC name string. The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-remote_name_infow">REMOTE_NAME_INFO</a> structure also contains a pointer to a UNC name string as well as pointers to two other useful strings. For example, a process can pass the 
+     * <b>REMOTE_NAME_INFO</b> structure's <b>lpszConnectionInfo</b> member to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetaddconnection2a">WNetAddConnection2</a> function to connect a local device to the network resource. Then the process can append the string pointed to by the <b>lpszRemainingPath</b> member to the local device string. The resulting string can be passed to functions that require a drive-based path.
+     * 
+     * The <i>lpLocalPath</i> parameter does not have to specify a path or resource that is already present on a remote resource.  For example, the <i>lpLocalPath</i> parameter could specify and folder, a hierarchy of folders, or a file that does not currently exist. The
+     * 				<b>WNetGetUniversalName</b> function returns a more universal form of the name in these cases.
+     * 
+     * The size of the buffer pointed to by the <i>lpBuffer</i> parameter and specified in the <i>lpBufferSize</i> parameter must be much larger than the size of the <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-remote_name_infow">REMOTE_NAME_INFO</a> 
+     * 		 or <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-universal_name_infoa">UNIVERSAL_NAME_INFO</a> structures. The buffer pointed to by the <i>lpBuffer</i> parameter must be large enough to store the UNC strings pointed to by the members in the <b>REMOTE_NAME_INFO</b> 
+     * 		 or <b>UNIVERSAL_NAME_INFO</b> structures. If the buffer size is too small, then the function fails with ERROR_MORE_DATA and the variable pointed to by the <i>lpBufferSize</i> parameter indicates the required buffer size.
+     * 
+     * <b>Windows Server 2003 and Windows XP:  </b>This function queries the MS-DOS device namespaces associated with a logon session because MS-DOS devices are identified by AuthenticationID. (An AuthenticationID is the 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a>, or LUID, associated with a logon session.) This can affect applications that call one of the WNet functions to create a network drive letter under one user logon, but query for existing network drive letters under a different user logon. An example of this situation could be when a user's second logon is created within a logon session, for example, by calling the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. <b>GetLogicalDrives</b> does not return network drive letters created by a WNet function under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
      * @param {PWSTR} lpLocalPath A pointer to a constant null-terminated string that is a drive-based path for a network resource. 
      * 
      * 
@@ -5617,7 +6097,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -5654,7 +6134,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. Use the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function to obtain a description of the error.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function to obtain a description of the error.
      * 
      * </td>
      * </tr>
@@ -5714,7 +6194,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetgetuniversalnamew
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetuniversalnamew
      * @since windows5.0
      */
     static WNetGetUniversalNameW(lpLocalPath, dwInfoLevel, lpBuffer, lpBufferSize) {
@@ -5727,7 +6207,9 @@ class WNet {
     }
 
     /**
-     * The WNetGetUser function retrieves the current default user name, or the user name used to establish a network connection.
+     * The WNetGetUser function retrieves the current default user name, or the user name used to establish a network connection. (ANSI)
+     * @remarks
+     * The <b>WNetGetUser</b> function is not aware of shares on the Distributed File System (DFS). If the name specified by the <i>lpName</i> parameter is a local device  redirected to a DFS share or a remote resource that represents a DFS share, the <b>WNetGetUser</b> function fails with ERROR_NOT_CONNECTED.
      * @param {PSTR} lpName A pointer to a constant <b>null</b>-terminated string that specifies either the name of a local device that has been redirected to a network resource, or the remote name of a network resource to which a connection has been made without redirecting a local device.
      * 
      * If this parameter is <b>NULL</b> or the empty string, the system returns the name of the current user for the process.
@@ -5736,7 +6218,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -5784,7 +6266,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. To obtain a description of the error, call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
      * 
      * </td>
      * </tr>
@@ -5800,7 +6282,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetgetusera
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetusera
      * @since windows5.0
      */
     static WNetGetUserA(lpName, lpUserName, lpnLength) {
@@ -5814,7 +6296,9 @@ class WNet {
     }
 
     /**
-     * The WNetGetUser function retrieves the current default user name, or the user name used to establish a network connection.
+     * The WNetGetUser function retrieves the current default user name, or the user name used to establish a network connection. (Unicode)
+     * @remarks
+     * The <b>WNetGetUser</b> function is not aware of shares on the Distributed File System (DFS). If the name specified by the <i>lpName</i> parameter is a local device  redirected to a DFS share or a remote resource that represents a DFS share, the <b>WNetGetUser</b> function fails with ERROR_NOT_CONNECTED.
      * @param {PWSTR} lpName A pointer to a constant <b>null</b>-terminated string that specifies either the name of a local device that has been redirected to a network resource, or the remote name of a network resource to which a connection has been made without redirecting a local device.
      * 
      * If this parameter is <b>NULL</b> or the empty string, the system returns the name of the current user for the process.
@@ -5823,7 +6307,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -5871,7 +6355,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. To obtain a description of the error, call the 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a> function.
      * 
      * </td>
      * </tr>
@@ -5887,7 +6371,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetgetuserw
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetuserw
      * @since windows5.0
      */
     static WNetGetUserW(lpName, lpUserName, lpnLength) {
@@ -5901,7 +6385,10 @@ class WNet {
     }
 
     /**
-     * The WNetGetProviderName function obtains the provider name for a specific type of network.
+     * The WNetGetProviderName function obtains the provider name for a specific type of network. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetGetProviderName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} dwNetType Network type that is unique to the network. If two networks claim the same type, the function returns the name of the provider loaded first. Only the high word of the network type is used. If a network reports a subtype in the low word, it is ignored. 
      * 
      * 
@@ -5918,7 +6405,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -5959,7 +6446,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetgetprovidernamea
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetprovidernamea
      * @since windows5.0
      */
     static WNetGetProviderNameA(dwNetType, lpProviderName, lpBufferSize) {
@@ -5972,7 +6459,10 @@ class WNet {
     }
 
     /**
-     * The WNetGetProviderName function obtains the provider name for a specific type of network.
+     * The WNetGetProviderName function obtains the provider name for a specific type of network. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetGetProviderName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} dwNetType Network type that is unique to the network. If two networks claim the same type, the function returns the name of the provider loaded first. Only the high word of the network type is used. If a network reports a subtype in the low word, it is ignored. 
      * 
      * 
@@ -5989,7 +6479,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -6030,7 +6520,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetgetprovidernamew
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetprovidernamew
      * @since windows5.0
      */
     static WNetGetProviderNameW(dwNetType, lpProviderName, lpBufferSize) {
@@ -6043,14 +6533,17 @@ class WNet {
     }
 
     /**
-     * The WNetGetNetworkInformation function returns extended information about a specific network provider whose name was returned by a previous network enumeration.
+     * The WNetGetNetworkInformation function returns extended information about a specific network provider whose name was returned by a previous network enumeration. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetGetNetworkInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpProvider Pointer to a constant null-terminated string that contains the name of the network provider for which information is required.
      * @param {Pointer<NETINFOSTRUCT>} lpNetInfoStruct Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netinfostruct">NETINFOSTRUCT</a> structure. The structure describes characteristics of the network.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -6081,7 +6574,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetgetnetworkinformationa
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetnetworkinformationa
      * @since windows5.0
      */
     static WNetGetNetworkInformationA(lpProvider, lpNetInfoStruct) {
@@ -6092,14 +6585,17 @@ class WNet {
     }
 
     /**
-     * The WNetGetNetworkInformation function returns extended information about a specific network provider whose name was returned by a previous network enumeration.
+     * The WNetGetNetworkInformation function returns extended information about a specific network provider whose name was returned by a previous network enumeration. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetGetNetworkInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpProvider Pointer to a constant null-terminated string that contains the name of the network provider for which information is required.
      * @param {Pointer<NETINFOSTRUCT>} lpNetInfoStruct Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netinfostruct">NETINFOSTRUCT</a> structure. The structure describes characteristics of the network.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -6130,7 +6626,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetgetnetworkinformationw
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetnetworkinformationw
      * @since windows5.0
      */
     static WNetGetNetworkInformationW(lpProvider, lpNetInfoStruct) {
@@ -6141,7 +6637,27 @@ class WNet {
     }
 
     /**
-     * The WNetGetLastError function retrieves the most recent extended error code set by a WNet function. The network provider reported this error code; it will not generally be one of the errors included in the SDK header file WinError.h.
+     * The WNetGetLastError function retrieves the most recent extended error code set by a WNet function. The network provider reported this error code; it will not generally be one of the errors included in the SDK header file WinError.h. (ANSI)
+     * @remarks
+     * The 
+     * <b>WNetGetLastError</b> function retrieves errors that are specific to a network provider. You can call 
+     * <b>WNetGetLastError</b> when a WNet function returns ERROR_EXTENDED_ERROR.
+     * 
+     * Like the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function, 
+     * <b>WNetGetLastError</b> returns extended error information, which is maintained on a per-thread basis. Unlike <b>GetLastError</b>, the 
+     * <b>WNetGetLastError</b> function can return a string for reporting errors that are not described by any existing error code in WinError.h.
+     * 
+     * For more information about using an application-defined error handler that calls the 
+     * <b>WNetGetLastError</b> function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WNet/retrieving-network-errors">Retrieving Network Errors</a>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetGetLastError as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} lpError Pointer to a variable that receives the error code reported by the network provider. The error code is specific to the network provider.
      * @param {PSTR} lpErrorBuf Pointer to the buffer that receives the null-terminated string describing the error.
      * @param {Integer} nErrorBufSize Size of the buffer pointed to by the <i>lpErrorBuf</i> parameter, in characters. If the buffer is too small for the error string, the string is truncated but still null-terminated. A buffer of at least 256 characters is recommended.
@@ -6150,7 +6666,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, and it obtains the last error that the network provider reported, the return value is NO_ERROR.
      * 
      * If the caller supplies an invalid buffer, the return value is ERROR_INVALID_ADDRESS.
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetgetlasterrora
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetlasterrora
      * @since windows5.0
      */
     static WNetGetLastErrorA(lpError, lpErrorBuf, nErrorBufSize, lpNameBuf, nNameBufSize) {
@@ -6162,14 +6678,35 @@ class WNet {
         A_LastError := 0
 
         result := DllCall("MPR.dll\WNetGetLastErrorA", lpErrorMarshal, lpError, "ptr", lpErrorBuf, "uint", nErrorBufSize, "ptr", lpNameBuf, "uint", nNameBufSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * The WNetGetLastError function retrieves the most recent extended error code set by a WNet function. The network provider reported this error code; it will not generally be one of the errors included in the SDK header file WinError.h.
+     * The WNetGetLastError function retrieves the most recent extended error code set by a WNet function. The network provider reported this error code; it will not generally be one of the errors included in the SDK header file WinError.h. (Unicode)
+     * @remarks
+     * The 
+     * <b>WNetGetLastError</b> function retrieves errors that are specific to a network provider. You can call 
+     * <b>WNetGetLastError</b> when a WNet function returns ERROR_EXTENDED_ERROR.
+     * 
+     * Like the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function, 
+     * <b>WNetGetLastError</b> returns extended error information, which is maintained on a per-thread basis. Unlike <b>GetLastError</b>, the 
+     * <b>WNetGetLastError</b> function can return a string for reporting errors that are not described by any existing error code in WinError.h.
+     * 
+     * For more information about using an application-defined error handler that calls the 
+     * <b>WNetGetLastError</b> function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WNet/retrieving-network-errors">Retrieving Network Errors</a>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winnetwk.h header defines WNetGetLastError as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} lpError Pointer to a variable that receives the error code reported by the network provider. The error code is specific to the network provider.
      * @param {PWSTR} lpErrorBuf Pointer to the buffer that receives the null-terminated string describing the error.
      * @param {Integer} nErrorBufSize Size of the buffer pointed to by the <i>lpErrorBuf</i> parameter, in characters. If the buffer is too small for the error string, the string is truncated but still null-terminated. A buffer of at least 256 characters is recommended.
@@ -6178,7 +6715,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, and it obtains the last error that the network provider reported, the return value is NO_ERROR.
      * 
      * If the caller supplies an invalid buffer, the return value is ERROR_INVALID_ADDRESS.
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-wnetgetlasterrorw
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetlasterrorw
      * @since windows5.0
      */
     static WNetGetLastErrorW(lpError, lpErrorBuf, nErrorBufSize, lpNameBuf, nNameBufSize) {
@@ -6190,14 +6727,35 @@ class WNet {
         A_LastError := 0
 
         result := DllCall("MPR.dll\WNetGetLastErrorW", lpErrorMarshal, lpError, "ptr", lpErrorBuf, "uint", nErrorBufSize, "ptr", lpNameBuf, "uint", nNameBufSize, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Returns information about the expected performance of a connection used to access a network resource.
+     * Returns information about the expected performance of a connection used to access a network resource. (ANSI)
+     * @remarks
+     * The <b>MultinetGetConnectionPerformance</b> function returns the information in a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netconnectinfostruct">NETCONNECTINFOSTRUCT</a> structure.
+     * 
+     * The information returned by the 
+     * <b>MultinetGetConnectionPerformance</b> function is an estimate only. Network traffic and routing can affect the accuracy of the results returned.
+     * 
+     * Note that the 
+     * <b>MultinetGetConnectionPerformance</b> function can be used only to request information for a local device that is redirected to a network resource, or for a network resource to which there is currently a connection.
+     * 
+     * If a UNC path is specified in the <b>lpRemoteName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter,  the <b>lpRemoteName</b> member must be a directory name, not  a filename. 
+     * 
+     * A typical way to use this function would be to open a file on a network server (which would ensure that there is a connection to the file), call this function, and use the results to make decisions about how to manage file I/O. For example, you can decide whether to read the entire file into a temporary file on the client or directly access the file on the server.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winnetwk.h header defines MultinetGetConnectionPerformance as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<NETRESOURCEA>} lpNetResource A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure that specifies the network resource. The following members have specific meanings in this context.
      * 
@@ -6252,7 +6810,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -6277,7 +6835,7 @@ class WNet {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <b>lpLocalName</b> member of the <a href="/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the  <i>lpNetResource</i> parameter does not specify a redirected device, or the <i>lpRemoteName</i> member does not specify the name of a resource that is currently connected.
+     * The <b>lpLocalName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the  <i>lpNetResource</i> parameter does not specify a redirected device, or the <i>lpRemoteName</i> member does not specify the name of a resource that is currently connected.
      * 
      * </td>
      * </tr>
@@ -6310,7 +6868,7 @@ class WNet {
      * </dl>
      * </td>
      * <td width="60%">
-     * The network name cannot be found. This error is returned if the <b>lpLocalName</b> member of the <a href="/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the  <i>lpNetResource</i> parameter was <b>NULL</b> and the <b>lpRemoteName</b> member of the <b>NETRESOURCE</b> structure pointed to by the  <i>lpNetResource</i> was also or <b>NULL</b> or could not recognized by any network.
+     * The network name cannot be found. This error is returned if the <b>lpLocalName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the  <i>lpNetResource</i> parameter was <b>NULL</b> and the <b>lpRemoteName</b> member of the <b>NETRESOURCE</b> structure pointed to by the  <i>lpNetResource</i> was also or <b>NULL</b> or could not recognized by any network.
      * 
      * </td>
      * </tr>
@@ -6333,7 +6891,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A bad parameter was passed. This error is returned if the <i>lpNetConnectInfoStruct</i> parameter does not point to a 
-     * <a href="/windows/desktop/api/winnetwk/ns-winnetwk-netconnectinfostruct">NETCONNECTINFOSTRUCT</a> structure in which the <b>cbStructure</b> member is filled with the proper structure size.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netconnectinfostruct">NETCONNECTINFOSTRUCT</a> structure in which the <b>cbStructure</b> member is filled with the proper structure size.
      * 
      * </td>
      * </tr>
@@ -6356,12 +6914,12 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. To obtain a description of the error, call 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-multinetgetconnectionperformancea
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-multinetgetconnectionperformancea
      * @since windows5.0
      */
     static MultinetGetConnectionPerformanceA(lpNetResource, lpNetConnectInfoStruct) {
@@ -6370,7 +6928,27 @@ class WNet {
     }
 
     /**
-     * Returns information about the expected performance of a connection used to access a network resource.
+     * Returns information about the expected performance of a connection used to access a network resource. (Unicode)
+     * @remarks
+     * The <b>MultinetGetConnectionPerformance</b> function returns the information in a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netconnectinfostruct">NETCONNECTINFOSTRUCT</a> structure.
+     * 
+     * The information returned by the 
+     * <b>MultinetGetConnectionPerformance</b> function is an estimate only. Network traffic and routing can affect the accuracy of the results returned.
+     * 
+     * Note that the 
+     * <b>MultinetGetConnectionPerformance</b> function can be used only to request information for a local device that is redirected to a network resource, or for a network resource to which there is currently a connection.
+     * 
+     * If a UNC path is specified in the <b>lpRemoteName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the <i>lpNetResource</i> parameter,  the <b>lpRemoteName</b> member must be a directory name, not  a filename. 
+     * 
+     * A typical way to use this function would be to open a file on a network server (which would ensure that there is a connection to the file), call this function, and use the results to make decisions about how to manage file I/O. For example, you can decide whether to read the entire file into a temporary file on the client or directly access the file on the server.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winnetwk.h header defines MultinetGetConnectionPerformance as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<NETRESOURCEW>} lpNetResource A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure that specifies the network resource. The following members have specific meanings in this context.
      * 
@@ -6425,7 +7003,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
-     * <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
      * 
      * <table>
      * <tr>
@@ -6450,7 +7028,7 @@ class WNet {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <b>lpLocalName</b> member of the <a href="/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the  <i>lpNetResource</i> parameter does not specify a redirected device, or the <i>lpRemoteName</i> member does not specify the name of a resource that is currently connected.
+     * The <b>lpLocalName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the  <i>lpNetResource</i> parameter does not specify a redirected device, or the <i>lpRemoteName</i> member does not specify the name of a resource that is currently connected.
      * 
      * </td>
      * </tr>
@@ -6483,7 +7061,7 @@ class WNet {
      * </dl>
      * </td>
      * <td width="60%">
-     * The network name cannot be found. This error is returned if the <b>lpLocalName</b> member of the <a href="/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the  <i>lpNetResource</i> parameter was <b>NULL</b> and the <b>lpRemoteName</b> member of the <b>NETRESOURCE</b> structure pointed to by the  <i>lpNetResource</i> was also or <b>NULL</b> or could not recognized by any network.
+     * The network name cannot be found. This error is returned if the <b>lpLocalName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure pointed to by the  <i>lpNetResource</i> parameter was <b>NULL</b> and the <b>lpRemoteName</b> member of the <b>NETRESOURCE</b> structure pointed to by the  <i>lpNetResource</i> was also or <b>NULL</b> or could not recognized by any network.
      * 
      * </td>
      * </tr>
@@ -6506,7 +7084,7 @@ class WNet {
      * </td>
      * <td width="60%">
      * A bad parameter was passed. This error is returned if the <i>lpNetConnectInfoStruct</i> parameter does not point to a 
-     * <a href="/windows/desktop/api/winnetwk/ns-winnetwk-netconnectinfostruct">NETCONNECTINFOSTRUCT</a> structure in which the <b>cbStructure</b> member is filled with the proper structure size.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netconnectinfostruct">NETCONNECTINFOSTRUCT</a> structure in which the <b>cbStructure</b> member is filled with the proper structure size.
      * 
      * </td>
      * </tr>
@@ -6529,12 +7107,12 @@ class WNet {
      * </td>
      * <td width="60%">
      * A network-specific error occurred. To obtain a description of the error, call 
-     * <a href="/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetlasterrora">WNetGetLastError</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winnetwk/nf-winnetwk-multinetgetconnectionperformancew
+     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-multinetgetconnectionperformancew
      * @since windows5.0
      */
     static MultinetGetConnectionPerformanceW(lpNetResource, lpNetConnectInfoStruct) {
@@ -6543,7 +7121,7 @@ class WNet {
     }
 
     /**
-     * Connects a local device to a network resource.
+     * Connects a local device to a network resource. (NPAddConnection)
      * @param {Pointer<NETRESOURCEW>} lpNetResource Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure which specifies the network resource to connect to. The following fields must be set in the <b>NETRESOURCE</b> structure you pass in. The <b>NPAddConnection</b> function ignores the other fields.
      * 
@@ -6661,7 +7239,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//npapi/nf-npapi-npaddconnection
+     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npaddconnection
      * @since windows5.1.2600
      */
     static NPAddConnection(lpNetResource, lpPassword, lpUserName) {
@@ -6673,7 +7251,13 @@ class WNet {
     }
 
     /**
-     * Connects a local device to a network resource.
+     * Connects a local device to a network resource. (NPAddConnection3)
+     * @remarks
+     * If a provider displays a password dialog box because the specified credentials are insufficient and the CONNECT_INTERACTIVE flag is set, then the provider may not return an access-denied error code (one of ERROR_LOGON_FAILURE, WN_BAD_PASSWORD, WN_ACCESS_DENIED). The suggested behavior is for the provider to continue asking the user for valid credentials until the user either supplies them or presses a "cancel" button. If <b>NPAddConnection3</b> is called to make the connection requested during the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetconnectiondialog">WNetConnectionDialog</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetconnectiondialog1a">WNetConnectionDialog1</a> function and an access-denied code is returned, the 
+     * <b>WNetConnectionDialog</b> or 
+     * <b>WNetConnectionDialog1</b> function will, itself, display a password dialog box.
      * @param {HWND} hwndOwner A handle to a window that should own any messages or dialog boxes. This handle is valid only if CONNECT_INTERACTIVE is set in <i>dwFlags</i>, and the handle should only be used to produce dialog boxes needed for authentication.
      * @param {Pointer<NETRESOURCEW>} lpNetResource Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure that specifies the network resource to connect to. The following fields must be set when making a connection. The others are ignored.
@@ -6802,7 +7386,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//npapi/nf-npapi-npaddconnection3
+     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npaddconnection3
      * @since windows5.1.2600
      */
     static NPAddConnection3(hwndOwner, lpNetResource, lpPassword, lpUserName, dwFlags) {
@@ -6866,7 +7450,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//npapi/nf-npapi-npcancelconnection
+     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npcancelconnection
      * @since windows5.1.2600
      */
     static NPCancelConnection(lpName, fForce) {
@@ -6892,6 +7476,9 @@ class WNet {
 
     /**
      * Retrieves information about a connection.
+     * @remarks
+     * The <b>NPGetConnection</b> function can return information only about a network connection that is currently connected. To retrieve information about a network connection that is currently disconnected, use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npgetconnection3">NPGetConnection3</a>.
      * @param {PWSTR} lpLocalName Pointer to the name of the local device the caller is interested in. The network provider can assume this name is syntactically valid.
      * @param {PWSTR} lpRemoteName Pointer to a buffer that will receive the remote name used to make the connection. This buffer is allocated by the caller.
      * @param {Pointer<Integer>} lpnBufferLen Pointer to the size, in characters, of the <i>lpRemoteName</i> buffer. If the call fails because the buffer is not big enough, <i>lpBufferSize</i> is set to the required buffer size.
@@ -6936,7 +7523,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//npapi/nf-npapi-npgetconnection
+     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npgetconnection
      * @since windows5.1.2600
      */
     static NPGetConnection(lpLocalName, lpRemoteName, lpnBufferLen) {
@@ -6951,6 +7538,8 @@ class WNet {
 
     /**
      * Retrieves information about a network connection, even if it is currently disconnected.
+     * @remarks
+     * A network connection can exist in three states: connected, disconnected, and unavailable. The <b>NPGetConnection3</b> function cannot retrieve information about network connections that are currently unavailable. It can, however, retrieve information about network connections that are currently disconnected because Windows stores the connection information.
      * @param {PWSTR} lpLocalName Pointer to the name of the local device the caller is interested in. The provider can assume that this is syntactically valid.
      * @param {Integer} dwLevel Value that specifies whether the network connection is currently connected or disconnected.
      * 
@@ -7026,7 +7615,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//npapi/nf-npapi-npgetconnection3
+     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npgetconnection3
      * @since windows5.1.2600
      */
     static NPGetConnection3(lpLocalName, dwLevel, lpBuffer, lpBufferSize) {
@@ -7096,7 +7685,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//npapi/nf-npapi-npgetuniversalname
+     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npgetuniversalname
      * @since windows5.1.2600
      */
     static NPGetUniversalName(lpLocalPath, dwInfoLevel, lpBuffer, lpBufferSize) {
@@ -7145,7 +7734,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//npapi/nf-npapi-npgetconnectionperformance
+     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npgetconnectionperformance
      * @since windows5.1.2600
      */
     static NPGetConnectionPerformance(lpRemoteName, lpNetConnectInfo) {
@@ -7335,7 +7924,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//npapi/nf-npapi-npopenenum
+     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npopenenum
      * @since windows5.1.2600
      */
     static NPOpenEnum(dwScope, dwType, dwUsage, lpNetResource, lphEnum) {
@@ -7345,6 +7934,9 @@ class WNet {
 
     /**
      * Performs an enumeration based on a handle returned by NPOpenEnum.
+     * @remarks
+     * When this function is called, the provider should fill the buffer with the requested number of entries (or the maximum that can fit). The returned 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structures should be located contiguously at the head of the buffer, like an array of such structures. The pointers in these structures must point to locations within the buffer. Therefore, data referenced by these pointers should be located at the end of the buffer, after the array of structures. It is the provider's responsibility to package this information correctly.
      * @param {HANDLE} hEnum Handle obtained from an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npopenenum">NPOpenEnum</a> call.
      * @param {Pointer<Integer>} lpcCount Pointer to the number of entries requested. It may be 0xFFFFFFFF to request as many entries as possible. If the call succeeds, this location will receive the number of entries actually read.
@@ -7403,7 +7995,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//npapi/nf-npapi-npenumresource
+     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npenumresource
      * @since windows5.1.2600
      */
     static NPEnumResource(hEnum, lpcCount, lpBuffer, lpBufferSize) {
@@ -7450,7 +8042,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//npapi/nf-npapi-npcloseenum
+     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npcloseenum
      * @since windows5.1.2600
      */
     static NPCloseEnum(hEnum) {
@@ -7462,11 +8054,13 @@ class WNet {
 
     /**
      * Returns information about which services are supported on the network.
+     * @remarks
+     * When a start time is returned by <b>NPGetCaps</b>, the MPR uses this value to determine when to try to start all network providers again. MPR uses the longest start time returned by the providers it called.
      * @param {Integer} ndex 
      * @returns {Integer} The <b>NPGetCaps</b> function returns either a constant or a bitmask, depending on the value of the <i>nIndex</i> parameter. A few of the <i>nIndex</i> values cause a constant to be returned. But in most cases, the <i>nIndex</i> parameter specifies which set of services to query, and the returned value is a bitmask that indicates which services in this set are supported. In these cases, a zero return value indicates that none of the services in the set are supported.
      * 
      * The following list shows the values that <i>nIndex</i> may contain, each followed by a description of what is returned for that value.
-     * @see https://docs.microsoft.com/windows/win32/api//npapi/nf-npapi-npgetcaps
+     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npgetcaps
      * @since windows5.1.2600
      */
     static NPGetCaps(ndex) {
@@ -7522,7 +8116,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//npapi/nf-npapi-npgetuser
+     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npgetuser
      * @since windows5.1.2600
      */
     static NPGetUser(lpName, lpUserName, lpnBufferLen) {
@@ -7643,7 +8237,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//npapi/nf-npapi-npgetresourceparent
+     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npgetresourceparent
      * @since windows5.1.2600
      */
     static NPGetResourceParent(lpNetResource, lpBuffer, lpBufferSize) {
@@ -7655,6 +8249,12 @@ class WNet {
 
     /**
      * Separates the part of a network resource accessed through the WNet API from the part accessed through APIs specific to the resource type.
+     * @remarks
+     * The enumeration tree can be navigated down from a named network resource by using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npopenenum">NPOpenEnum</a> and its related functions. To navigate up from a named resource, the <b>NPGetResourceInformation</b> function can be called to obtain information about the resource, followed by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npgetresourceparent">NPGetResourceParent</a> function to obtain the name and type of the parent resource.
+     * 
+     * <b>NPGetResourceInformation</b> determines whether the specified provider is the right provider to respond to a request for a specified network resource. It then returns information about the resource's type.
      * @param {Pointer<NETRESOURCEW>} lpNetResource Specifies the network resource for which information is required. The <b>lpRemoteName</b> field specifies the remote name of the resource. The calling program should fill in the values for the <b>lpProvider</b> and <b>dwType</b> fields if it knows these values; otherwise, it should set these fields to <b>NULL</b>. All other fields in the <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> are ignored and are not initialized. 
      * 
      * 
@@ -7749,7 +8349,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//npapi/nf-npapi-npgetresourceinformation
+     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npgetresourceinformation
      * @since windows5.1.2600
      */
     static NPGetResourceInformation(lpNetResource, lpBuffer, lpBufferSize, lplpSystem) {
@@ -7762,6 +8362,123 @@ class WNet {
 
     /**
      * Formats a network name in a provider-specific format for display in a control.
+     * @remarks
+     * This function allows network vendors to trim or modify network names before they are presented to the user. For example, in the common <b>Open</b> dialog box, the <b>Drives</b> combo box presents all connected resources and their associated network name. Before each item is displayed, <b>NPFormatNetworkName</b> is called, and the network provider has the option of editing the name so it will fit in the combo box. More important, the network provider can edit the name to present the most significant portion of the network name to the user.
+     * 
+     * Note that <b>NPFormatNetworkName</b> is not routed to each network provider like most of the other network provider functions are. Each network vendor need worry only about formatting their own network name. They can assume that only names produced by their network provider driver will be passed to <b>NPFormatNetworkName</b>.
+     * 
+     * The WNFMT_ flags are typically passed at various places in the user interface as described in the following table. No assumptions should be made about what flags are passed where; this table is provided solely to help each network vendor  decide the best method for modifying their network name.
+     * 
+     * <table>
+     * <tr>
+     * <th>Display location</th>
+     * <th>WNFMT_
+     * MULTILINE</th>
+     * <th>WNFMT_
+     * ABBREVIATED</th>
+     * <th>WNFMT_
+     * INENUM</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * File Manager <b>Connection</b> dialog box, <b>Drive</b> combo box, selection. (The selection section of the combo box is the upper rectangle, above the list section, which displays the current selection.)
+     * 
+     * </td>
+     * <td> </td>
+     * <td>
+     * X
+     * 
+     * </td>
+     * <td> </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * File Manager <b>Connection</b> dialog box, <b>Drive</b> combo box, list. (The list section of the combo box is the list box that appears below the selection portion of the combo box.)
+     * 
+     * </td>
+     * <td>
+     * X
+     * 
+     * </td>
+     * <td> </td>
+     * <td> </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * File Manager, <b>Shared Directories</b> list.
+     * 
+     * </td>
+     * <td> </td>
+     * <td>
+     * X
+     * 
+     * </td>
+     * <td>
+     * X
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * File Manager <b>Disconnect Network Drive</b> list.
+     * 
+     * </td>
+     * <td>
+     * X
+     * 
+     * </td>
+     * <td> </td>
+     * <td> </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * File Manager, toolbar, combo box, selection.
+     * 
+     * </td>
+     * <td> </td>
+     * <td>
+     * X
+     * 
+     * </td>
+     * <td> </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * File Manager, toolbar, combo box, list.
+     * 
+     * </td>
+     * <td>
+     * X
+     * 
+     * </td>
+     * <td> </td>
+     * <td> </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Common <b>Open</b> and <b>Save</b> dialog boxes, <b>Drive</b> combo box, selection.
+     * 
+     * </td>
+     * <td> </td>
+     * <td>
+     * X
+     * 
+     * </td>
+     * <td> </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Common <b>Open</b> and <b>Save</b> dialog boxes, <b>Drive</b> combo box, list.
+     * 
+     * </td>
+     * <td> </td>
+     * <td>
+     * X
+     * 
+     * </td>
+     * <td> </td>
+     * </tr>
+     * </table>
      * @param {PWSTR} lpRemoteName Pointer to the network name to format.
      * @param {PWSTR} lpFormattedName Pointer to a string that receives the formatted name.
      * @param {Pointer<Integer>} lpnLength Pointer to <b>DWORD</b> that specifies the size, in characters, of the <i>lpFormattedName</i> buffer. If the return value of this function is WN_MORE_DATA, <i>lpnLength</i> contains the required buffer size, in characters.
@@ -7790,7 +8507,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//npapi/nf-npapi-npformatnetworkname
+     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npformatnetworkname
      * @since windows5.1.2600
      */
     static NPFormatNetworkName(lpRemoteName, lpFormattedName, lpnLength, dwFlags, dwAveCharPerLine) {
@@ -7804,9 +8521,8 @@ class WNet {
     }
 
     /**
-     * Sets extended error information. Network providers should call this function instead of SetLastError.
+     * Sets extended error information. Network providers should call this function instead of SetLastError. (ANSI)
      * @remarks
-     * 
      * This function is implemented by the Windows operating system and can be called by network providers.
      * 
      * A provider should use this function to report errors that contain provider-specific information. The error information is saved until it is overwritten by another call to <b>WNetSetLastError</b> in the same thread.
@@ -7838,12 +8554,11 @@ class WNet {
      * In this case, providerError is the provider-specific error code.
      * 
      * Providers do not need to call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> before returning from a provider function. The MPR calls <b>SetLastError</b> to set the Windows error returned from a provider when necessary to satisfy applications.
-     * 
      * @param {Integer} err The error that occurred. This is a network-specific error code.
      * @param {PSTR} lpError String that describes the network-specific error.
      * @param {PSTR} lpProviders String that names the network provider that raised the error.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//npapi/nf-npapi-wnetsetlasterrora
+     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-wnetsetlasterrora
      * @since windows5.1.2600
      */
     static WNetSetLastErrorA(err, lpError, lpProviders) {
@@ -7854,9 +8569,8 @@ class WNet {
     }
 
     /**
-     * Sets extended error information. Network providers should call this function instead of SetLastError.
+     * Sets extended error information. Network providers should call this function instead of SetLastError. (Unicode)
      * @remarks
-     * 
      * This function is implemented by the Windows operating system and can be called by network providers.
      * 
      * A provider should use this function to report errors that contain provider-specific information. The error information is saved until it is overwritten by another call to <b>WNetSetLastError</b> in the same thread.
@@ -7882,12 +8596,11 @@ class WNet {
      * In this case, providerError is the provider-specific error code.
      * 
      * Providers do not need to call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> before returning from a provider function. The MPR calls <b>SetLastError</b> to set the Windows error returned from a provider when necessary to satisfy applications.
-     * 
      * @param {Integer} err The error that occurred. This is a network-specific error code.
      * @param {PWSTR} lpError String that describes the network-specific error.
      * @param {PWSTR} lpProviders String that names the network provider that raised the error.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//npapi/nf-npapi-wnetsetlasterrorw
+     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-wnetsetlasterrorw
      */
     static WNetSetLastErrorW(err, lpError, lpProviders) {
         lpError := lpError is String ? StrPtr(lpError) : lpError

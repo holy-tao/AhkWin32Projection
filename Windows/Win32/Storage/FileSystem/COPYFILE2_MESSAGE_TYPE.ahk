@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the type of message passed in the COPYFILE2_MESSAGE structure to the CopyFile2ProgressRoutine callback function.
  * @remarks
- * 
  * To compile an application that uses this enumeration, define the <b>_WIN32_WINNT</b> 
  *     macro as 0x0601 or later. For more information, see 
  *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winbase/ne-winbase-copyfile2_message_type
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/ne-winbase-copyfile2_message_type
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
-class COPYFILE2_MESSAGE_TYPE{
+class COPYFILE2_MESSAGE_TYPE extends Win32Enum{
 
     /**
      * Not a valid value.

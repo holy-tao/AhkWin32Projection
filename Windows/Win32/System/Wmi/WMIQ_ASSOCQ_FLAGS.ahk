@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains flags that indicate the features in a query.
- * @see https://docs.microsoft.com/windows/win32/api//wmiutils/ne-wmiutils-wmiq_assocq_flags
+ * @see https://learn.microsoft.com/windows/win32/api/wmiutils/ne-wmiutils-wmiq_assocq_flags
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class WMIQ_ASSOCQ_FLAGS{
+class WMIQ_ASSOCQ_FLAGS extends Win32Enum{
 
     /**
      * Associators exist in the query.

@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.System.Recovery
  * @version v4.0.30319
  */
-class REGISTER_APPLICATION_RESTART_FLAGS{
+class REGISTER_APPLICATION_RESTART_FLAGS extends Win32BitflagEnum{
 
     /**
      * @type {Integer (UInt32)}

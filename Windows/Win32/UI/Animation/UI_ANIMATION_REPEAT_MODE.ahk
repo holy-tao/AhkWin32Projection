@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the pattern for a loop iteration.
- * @see https://docs.microsoft.com/windows/win32/api//uianimation/ne-uianimation-ui_animation_repeat_mode
+ * @see https://learn.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_repeat_mode
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319
  */
-class UI_ANIMATION_REPEAT_MODE{
+class UI_ANIMATION_REPEAT_MODE extends Win32Enum{
 
     /**
      * The start of a  loop begins with the first value (v1-&gt;v2, v1-&gt;v2, v1-&gt;v2, and so on).

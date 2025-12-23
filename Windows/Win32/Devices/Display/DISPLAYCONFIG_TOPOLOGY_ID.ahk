@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DISPLAYCONFIG_TOPOLOGY_ID enumeration specifies the type of display topology.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ne-wingdi-displayconfig_topology_id
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ne-wingdi-displayconfig_topology_id
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
-class DISPLAYCONFIG_TOPOLOGY_ID{
+class DISPLAYCONFIG_TOPOLOGY_ID extends Win32Enum{
 
     /**
      * Indicates that the display topology is an internal configuration.

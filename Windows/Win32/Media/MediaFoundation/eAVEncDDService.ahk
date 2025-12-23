@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the audio service contained in a Dolby Digital audio stream. This enumeration is used with the AVEncDDService property.
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencddservice
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencddservice
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVEncDDService{
+class eAVEncDDService extends Win32Enum{
 
     /**
      * Complete main audio service.

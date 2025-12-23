@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The VMR9ProcAmpControlFlags enumeration type specifies image adjustment properties, for use with the Video Mixing Render Filter 9 (VMR-9).
- * @see https://docs.microsoft.com/windows/win32/api//vmr9/ne-vmr9-vmr9procampcontrolflags
+ * @see https://learn.microsoft.com/windows/win32/api/vmr9/ne-vmr9-vmr9procampcontrolflags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class VMR9ProcAmpControlFlags{
+class VMR9ProcAmpControlFlags extends Win32Enum{
 
     /**
      * Brightness adjustment.

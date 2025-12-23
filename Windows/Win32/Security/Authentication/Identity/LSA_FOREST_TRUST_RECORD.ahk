@@ -6,7 +6,7 @@
 
 /**
  * Represents a Local Security Authority forest trust record.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-lsa_forest_trust_record
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-lsa_forest_trust_record
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
@@ -15,6 +15,45 @@ class LSA_FOREST_TRUST_RECORD extends Win32Struct
     static sizeof => 56
 
     static packingSize => 8
+
+    class _ForestTrustData_e__Union extends Win32Struct {
+        static sizeof => 40
+        static packingSize => 8
+
+        /**
+         * @type {LSA_UNICODE_STRING}
+         */
+        TopLevelName{
+            get {
+                if(!this.HasProp("__TopLevelName"))
+                    this.__TopLevelName := LSA_UNICODE_STRING(0, this)
+                return this.__TopLevelName
+            }
+        }
+    
+        /**
+         * @type {LSA_FOREST_TRUST_DOMAIN_INFO}
+         */
+        DomainInfo{
+            get {
+                if(!this.HasProp("__DomainInfo"))
+                    this.__DomainInfo := LSA_FOREST_TRUST_DOMAIN_INFO(0, this)
+                return this.__DomainInfo
+            }
+        }
+    
+        /**
+         * @type {LSA_FOREST_TRUST_BINARY_DATA}
+         */
+        Data{
+            get {
+                if(!this.HasProp("__Data"))
+                    this.__Data := LSA_FOREST_TRUST_BINARY_DATA(0, this)
+                return this.__Data
+            }
+        }
+    
+    }
 
     /**
      * Flags that control the behavior of the operation.
@@ -91,35 +130,14 @@ class LSA_FOREST_TRUST_RECORD extends Win32Struct
     }
 
     /**
-     * @type {LSA_UNICODE_STRING}
+     * 
+     * @type {_ForestTrustData_e__Union}
      */
-    TopLevelName{
+    ForestTrustData{
         get {
-            if(!this.HasProp("__TopLevelName"))
-                this.__TopLevelName := LSA_UNICODE_STRING(16, this)
-            return this.__TopLevelName
-        }
-    }
-
-    /**
-     * @type {LSA_FOREST_TRUST_DOMAIN_INFO}
-     */
-    DomainInfo{
-        get {
-            if(!this.HasProp("__DomainInfo"))
-                this.__DomainInfo := LSA_FOREST_TRUST_DOMAIN_INFO(16, this)
-            return this.__DomainInfo
-        }
-    }
-
-    /**
-     * @type {LSA_FOREST_TRUST_BINARY_DATA}
-     */
-    Data{
-        get {
-            if(!this.HasProp("__Data"))
-                this.__Data := LSA_FOREST_TRUST_BINARY_DATA(16, this)
-            return this.__Data
+            if(!this.HasProp("__ForestTrustData"))
+                this.__ForestTrustData := %this.__Class%._ForestTrustData_e__Union(16, this)
+            return this.__ForestTrustData
         }
     }
 }

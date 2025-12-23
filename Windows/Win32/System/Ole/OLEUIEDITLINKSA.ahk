@@ -5,13 +5,11 @@
 #Include ..\..\Foundation\HRSRC.ahk
 
 /**
- * Contains information that the OLE User Interface Library uses to initialize the Edit Links dialog box, and contains space for the library to return information when the dialog box is dismissed.
+ * Contains information that the OLE User Interface Library uses to initialize the Edit Links dialog box, and contains space for the library to return information when the dialog box is dismissed. (ANSI)
  * @remarks
- * 
  * > [!NOTE]
  * > The oledlg.h header defines OLEUIEDITLINKS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//oledlg/ns-oledlg-oleuieditlinksa
+ * @see https://learn.microsoft.com/windows/win32/api/oledlg/ns-oledlg-oleuieditlinksa
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  * @charset ANSI

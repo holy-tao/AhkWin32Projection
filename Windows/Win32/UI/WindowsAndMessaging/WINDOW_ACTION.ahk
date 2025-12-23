@@ -11,7 +11,7 @@
  */
 class WINDOW_ACTION extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 96
 
     static packingSize => 8
 
@@ -45,7 +45,7 @@ class WINDOW_ACTION extends Win32Struct
     position{
         get {
             if(!this.HasProp("__position"))
-                this.__position := POINT(16, this)
+                this.__position := POINT(12, this)
             return this.__position
         }
     }
@@ -56,7 +56,7 @@ class WINDOW_ACTION extends Win32Struct
     size{
         get {
             if(!this.HasProp("__size"))
-                this.__size := SIZE(24, this)
+                this.__size := SIZE(20, this)
             return this.__size
         }
     }
@@ -86,7 +86,7 @@ class WINDOW_ACTION extends Win32Struct
     normalRect{
         get {
             if(!this.HasProp("__normalRect"))
-                this.__normalRect := RECT(48, this)
+                this.__normalRect := RECT(44, this)
             return this.__normalRect
         }
     }
@@ -97,7 +97,7 @@ class WINDOW_ACTION extends Win32Struct
     workArea{
         get {
             if(!this.HasProp("__workArea"))
-                this.__workArea := RECT(64, this)
+                this.__workArea := RECT(60, this)
             return this.__workArea
         }
     }
@@ -106,8 +106,8 @@ class WINDOW_ACTION extends Win32Struct
      * @type {Integer}
      */
     dpi {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 76, "uint")
+        set => NumPut("uint", value, this, 76)
     }
 
     /**
@@ -116,7 +116,7 @@ class WINDOW_ACTION extends Win32Struct
     pointOnMonitor{
         get {
             if(!this.HasProp("__pointOnMonitor"))
-                this.__pointOnMonitor := POINT(88, this)
+                this.__pointOnMonitor := POINT(80, this)
             return this.__pointOnMonitor
         }
     }
@@ -125,7 +125,7 @@ class WINDOW_ACTION extends Win32Struct
      * @type {Integer}
      */
     monitorTopologyId {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 }

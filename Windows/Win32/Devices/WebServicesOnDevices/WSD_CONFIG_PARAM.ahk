@@ -3,7 +3,7 @@
 
 /**
  * Represents configuration parameters for creating WSDAPI objects.
- * @see https://docs.microsoft.com/windows/win32/api//wsdbase/ns-wsdbase-wsd_config_param
+ * @see https://learn.microsoft.com/windows/win32/api/wsdbase/ns-wsdbase-wsd_config_param
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

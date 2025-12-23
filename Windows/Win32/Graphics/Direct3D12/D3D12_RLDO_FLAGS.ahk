@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies options for the amount of information to report about a live device object's lifetime.
  * @remarks
- * 
  * This enumeration is used by <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugdevice-reportlivedeviceobjects">ID3D12DebugDevice::ReportLiveDeviceObjects</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/ne-d3d12sdklayers-d3d12_rldo_flags
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_rldo_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_RLDO_FLAGS{
+class D3D12_RLDO_FLAGS extends Win32BitflagEnum{
 
     /**
      * 

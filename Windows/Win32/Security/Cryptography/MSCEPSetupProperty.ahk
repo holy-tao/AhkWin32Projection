@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a property type for setup and configuration of a Microsoft Simple Certificate Enrollment Protocol (SCEP) role using IMSCEPSetup.
- * @see https://docs.microsoft.com/windows/win32/api//casetup/ne-casetup-mscepsetupproperty
+ * @see https://learn.microsoft.com/windows/win32/api/casetup/ne-casetup-mscepsetupproperty
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
-class MSCEPSetupProperty{
+class MSCEPSetupProperty extends Win32Enum{
 
     /**
      * A <b>VT_BOOL</b> value that specifies whether the Microsoft SCEP ISAPI Extension runs as the  local system user or under a separate user account. For remote CA or standalone CA configurations, by default this is set to <b>VARIANT_FALSE</b>. For a local enterprise CA configuration, by default this is set to <b>VARIANT_TRUE</b>.

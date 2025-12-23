@@ -4,12 +4,8 @@
 /**
  * Indicates whether a node's attempt to start the Cluster service represents an attempt to form or join a cluster, and whether the node has attempted to start this version of the Cluster service before.
  * @remarks
- * 
  * The  <b>CLUS_STARTING_PARAMS</b> structure allows resource DLLs to respond to the CLUSCTL_RESOURCE_TYPE_STARTING_PHASE1 and CLUSCTL_RESOURCE_TYPE_STARTING_PHASE2 control codes based on the circumstances of the start. For example, a DLL might perform special initialization steps when the cluster forms, and perform another set of operations in response to joins.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clus_starting_params
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_starting_params
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

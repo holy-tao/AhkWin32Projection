@@ -10,7 +10,7 @@ class NCRYPT_EXPORTED_ISOLATED_KEY_ENVELOPE extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {NCRYPT_EXPORTED_ISOLATED_KEY_HEADER}

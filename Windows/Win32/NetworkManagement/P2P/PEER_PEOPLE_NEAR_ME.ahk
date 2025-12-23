@@ -8,13 +8,13 @@
 
 /**
  * Contains information about a peer in the same logical or virtual subnet.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_people_near_me
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_people_near_me
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
 class PEER_PEOPLE_NEAR_ME extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -29,7 +29,7 @@ class PEER_PEOPLE_NEAR_ME extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_endpoint">PEER_ENDPOINT</a> structure that contains the IPv6 network address of the peer whose endpoint shares the same subnet.
-     * @deprecated
+     * @deprecated 
      * @type {PEER_ENDPOINT}
      */
     endpoint{
@@ -45,7 +45,7 @@ class PEER_PEOPLE_NEAR_ME extends Win32Struct
      * @type {Pointer<Guid>}
      */
     id {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

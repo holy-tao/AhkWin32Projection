@@ -4,21 +4,18 @@
 /**
  * Contains virtual hard disk (VHD) merge request parameters.
  * @remarks
- * 
  * The depth of a merge request specified by the <b>MergeDepth</b> member is the number of  
  *     parent VHD image files in the differencing chain to be merged.  For more information, see 
  *     <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-mergevirtualdisk">MergeVirtualDisk</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ns-virtdisk-merge_virtual_disk_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-merge_virtual_disk_parameters
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */
 class MERGE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-merge_virtual_disk_version">MERGE_VIRTUAL_DISK_VERSION</a> enumeration 
@@ -33,8 +30,8 @@ class MERGE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     class _Version1 extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -48,7 +45,7 @@ class MERGE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
 
     class _Version2 extends Win32Struct {
         static sizeof => 8
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -74,7 +71,7 @@ class MERGE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     Version1{
         get {
             if(!this.HasProp("__Version1"))
-                this.__Version1 := %this.__Class%._Version1(8, this)
+                this.__Version1 := %this.__Class%._Version1(4, this)
             return this.__Version1
         }
     }
@@ -85,7 +82,7 @@ class MERGE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     Version2{
         get {
             if(!this.HasProp("__Version2"))
-                this.__Version2 := %this.__Class%._Version2(8, this)
+                this.__Version2 := %this.__Class%._Version2(4, this)
             return this.__Version2
         }
     }

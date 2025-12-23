@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Retrieves a value indicating if the specified codec is supported for video encoding.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_codec
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -14,6 +16,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC extends Win32Struct
     static packingSize => 4
 
     /**
+     * In multi-adapter operation, this indicates which physical adapter of the device this operation applies to.
      * @type {Integer}
      */
     NodeIndex {
@@ -22,6 +25,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC extends Win32Struct
     }
 
     /**
+     * A member of the [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) enumeration specifying the codec for which encoder support is being queried.
      * @type {Integer}
      */
     Codec {
@@ -30,6 +34,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC extends Win32Struct
     }
 
     /**
+     * Receives a boolean value indicating if the specified codec is supported.
      * @type {BOOL}
      */
     IsSupported {

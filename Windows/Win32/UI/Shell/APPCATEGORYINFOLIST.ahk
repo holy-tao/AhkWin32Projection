@@ -3,7 +3,7 @@
 
 /**
  * Provides a list of supported application categories from an application publisher to Add/Remove Programs in Control Panel.
- * @see https://docs.microsoft.com/windows/win32/api//appmgmt/ns-appmgmt-appcategoryinfolist
+ * @see https://learn.microsoft.com/windows/win32/api/appmgmt/ns-appmgmt-appcategoryinfolist
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains information that is common to every type of MFPlay event.
- * @see https://docs.microsoft.com/windows/win32/api//mfplay/ns-mfplay-mfp_event_header
+ * @see https://learn.microsoft.com/windows/win32/api/mfplay/ns-mfplay-mfp_event_header
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

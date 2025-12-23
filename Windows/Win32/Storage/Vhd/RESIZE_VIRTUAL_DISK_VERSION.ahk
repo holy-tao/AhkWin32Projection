@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Enumerates the possible versions for parameters for the ResizeVirtualDisk function.
- * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ne-virtdisk-resize_virtual_disk_version
+ * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-resize_virtual_disk_version
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */
-class RESIZE_VIRTUAL_DISK_VERSION{
+class RESIZE_VIRTUAL_DISK_VERSION extends Win32Enum{
 
     /**
      * The version is not valid.

@@ -4,7 +4,7 @@
 
 /**
  * Describes the start and end points of a line recognition segment, such as the baseline or midline.
- * @see https://docs.microsoft.com/windows/win32/api//rectypes/ns-rectypes-line_segment
+ * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-line_segment
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -12,7 +12,7 @@ class LINE_SEGMENT extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Point that represents the start of the line segment. The point is in ink space coordinates.

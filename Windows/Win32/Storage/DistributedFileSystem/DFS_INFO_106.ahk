@@ -4,15 +4,15 @@
 
 /**
  * Contains the storage state and priority for a DFS root target or link target. This structure is only for use with the NetDfsSetInfo function.
- * @see https://docs.microsoft.com/windows/win32/api//lmdfs/ns-lmdfs-dfs_info_106
+ * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_106
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319
  */
 class DFS_INFO_106 extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * 
@@ -30,7 +30,7 @@ class DFS_INFO_106 extends Win32Struct
     TargetPriority{
         get {
             if(!this.HasProp("__TargetPriority"))
-                this.__TargetPriority := DFS_TARGET_PRIORITY(8, this)
+                this.__TargetPriority := DFS_TARGET_PRIORITY(4, this)
             return this.__TargetPriority
         }
     }

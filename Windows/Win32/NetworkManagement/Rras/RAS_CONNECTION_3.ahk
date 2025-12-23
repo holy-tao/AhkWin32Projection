@@ -11,13 +11,13 @@
 
 /**
  * The RAS_CONNECTION_3 structure contains information for the connection, including the Globally Unique Identifier (GUID) that identifies the connection and the quarantine state of the connection.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-ras_connection_3
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_connection_3
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */
 class RAS_CONNECTION_3 extends Win32Struct
 {
-    static sizeof => 800
+    static sizeof => 784
 
     static packingSize => 8
 
@@ -96,8 +96,8 @@ class RAS_CONNECTION_3 extends Win32Struct
      * @type {Integer}
      */
     rasQuarState {
-        get => NumGet(this, 784, "int")
-        set => NumPut("int", value, this, 784)
+        get => NumGet(this, 772, "int")
+        set => NumPut("int", value, this, 772)
     }
 
     /**
@@ -107,7 +107,7 @@ class RAS_CONNECTION_3 extends Win32Struct
     timer{
         get {
             if(!this.HasProp("__timer"))
-                this.__timer := FILETIME(792, this)
+                this.__timer := FILETIME(776, this)
             return this.__timer
         }
     }

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines DVD navigation command types.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-dvd_navcmdtype
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_navcmdtype
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class DVD_NavCmdType{
+class DVD_NavCmdType extends Win32Enum{
 
     /**
      * Pre-command.

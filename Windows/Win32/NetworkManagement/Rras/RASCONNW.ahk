@@ -95,7 +95,7 @@ class RASCONNW extends Win32Struct
     luid{
         get {
             if(!this.HasProp("__luid"))
-                this.__luid := LUID(1368, this)
+                this.__luid := LUID(1364, this)
             return this.__luid
         }
     }

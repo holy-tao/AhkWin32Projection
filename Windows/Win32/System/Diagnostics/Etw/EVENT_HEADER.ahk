@@ -3,15 +3,12 @@
 #Include .\EVENT_DESCRIPTOR.ahk
 
 /**
- * Defines information about the event.
+ * The EVENT_HEADER structure (evntcons.h) defines information about the event.
  * @remarks
- * 
  * You can use the <b>KernelTime</b> and <b>UserTime</b> members to determine the CPU cost in units for a set of instructions (the values indicate the CPU usage charged to that thread at the time of logging). For example, if Event A and Event B are consecutively logged by the same thread and they have CPU usage numbers 150 and 175, then the activity that was performed by that thread between events A and B cost 25 CPU time units (175 – 150).
  * 
  * The <b>TimerResolution</b> of the <a href="https://docs.microsoft.com/windows/desktop/ETW/trace-logfile-header">TRACE_LOGFILE_HEADER</a> structure contains the resolution of the CPU usage timer in 100-nanosecond units. You can use the timer resolution with the kernel time and user time values to determine the amount of CPU time that the set of instructions used. For example, if the timer resolution is 156,250, then 25 CPU time units is 0.39 seconds (156,250 * 25 * 100 / 1,000,000,000). This is the amount of CPU time (not elapsed wall clock time) used by the set of instructions between events A and B.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//evntcons/ns-evntcons-event_header
+ * @see https://learn.microsoft.com/windows/win32/api/evntcons/ns-evntcons-event_header
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

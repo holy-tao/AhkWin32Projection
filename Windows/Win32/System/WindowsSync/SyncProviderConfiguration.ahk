@@ -3,7 +3,7 @@
 
 /**
  * Represents the information for a synchronization provider configuration.
- * @see https://docs.microsoft.com/windows/win32/api//syncregistration/ns-syncregistration-syncproviderconfiguration
+ * @see https://learn.microsoft.com/windows/win32/api/syncregistration/ns-syncregistration-syncproviderconfiguration
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -14,7 +14,7 @@ class SyncProviderConfiguration extends Win32Struct
     static packingSize => 8
 
     /**
-     * The xersion of the synchronization provider. The constant value <b>SYNC_PROVIDER_CONFIGURATION_VERSION.</b>
+     * The version of the synchronization provider. The constant value <b>SYNC_PROVIDER_CONFIGURATION_VERSION.</b>
      * @type {Integer}
      */
     dwVersion {
@@ -41,7 +41,7 @@ class SyncProviderConfiguration extends Win32Struct
     }
 
     /**
-     * The instance ID of the configuration UI  used to create this synchronization provider, or <b>GUID_NULL</b> if no configuration UI was used.
+     * The instance ID of the configuration UI used to create this synchronization provider, or <b>GUID_NULL</b> if no configuration UI was used.
      * @type {Pointer<Guid>}
      */
     guidConfigUIInstanceId {
@@ -76,7 +76,7 @@ class SyncProviderConfiguration extends Win32Struct
      * 
      * <ul>
      * <li><b>SYNC_32_BIT_SUPPORTED</b> ((DWORD)0x00000001)</li>
-     * <li><b>SYNC_64_BIT_SUPPORTED</b>  ((DWORD)0x00000002)</li>
+     * <li><b>SYNC_64_BIT_SUPPORTED</b> ((DWORD)0x00000002)</li>
      * </ul>
      * @type {Integer}
      */

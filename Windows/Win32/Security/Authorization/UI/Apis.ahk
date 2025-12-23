@@ -154,36 +154,55 @@ class UI {
 ;@region Methods
     /**
      * Creates a basic security property page that enables the user to view and edit the access rights allowed or denied by the access control entries (ACEs) in an object's discretionary access control list (DACL).
+     * @remarks
+     * During the property page initialization, the system calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nf-aclui-isecurityinformation-getsecurity">ISecurityInformation::GetSecurity</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nf-aclui-isecurityinformation-setsecurity">ISecurityInformation::SetSecurity</a> methods to determine whether the user has permission to edit the object's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>. The system displays an error message if the user does not have permission.
+     * 
+     * The basic security property page can include an <b>Advanced</b> button for displaying the 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/advanced-security-property-sheet">advanced security property sheet</a>. This advanced security property sheet can contain three additional property pages that enable the user to view and edit the object's DACL, <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL), and owner.
      * @param {ISecurityInformation} psi A pointer to your implementation of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nn-aclui-isecurityinformation">ISecurityInformation</a> interface. The system calls the interface methods to retrieve information about the object being edited and to return the user's input.
      * @returns {HPROPSHEETPAGE} If the function succeeds, the function returns a handle to a basic security property page.
      * 						
      * 
      * If the function fails, it returns <b>NULL</b>. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//aclui/nf-aclui-createsecuritypage
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-createsecuritypage
      * @since windows5.1.2600
      */
     static CreateSecurityPage(psi) {
         A_LastError := 0
 
         result := DllCall("ACLUI.dll\CreateSecurityPage", "ptr", psi, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HPROPSHEETPAGE({Value: result}, True)
+        resultHandle := HPROPSHEETPAGE({Value: result}, True)
+        return resultHandle
     }
 
     /**
      * Displays a property sheet that contains a basic security property page. This property page enables the user to view and edit the access rights allowed or denied by the ACEs in an object's DACL.
+     * @remarks
+     * The <b>EditSecurity</b> function calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nf-aclui-createsecuritypage">CreateSecurityPage</a> function to create a basic security property page.
+     * 
+     * During the property page initialization, the system calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nf-aclui-isecurityinformation-getsecurity">ISecurityInformation::GetSecurity</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nf-aclui-isecurityinformation-setsecurity">ISecurityInformation::SetSecurity</a> methods to determine whether the user has permission to edit the object's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>. The system displays an error message if the user does not have permission.
+     * 
+     * The basic security property page can include an <b>Advanced</b> button for displaying the 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/advanced-security-property-sheet">advanced security property sheet</a>. This advanced security property sheet can contain three additional property pages that enable the user to view and edit the object's DACL, SACL, and owner.
      * @param {HWND} hwndOwner A handle to the window that owns the property sheet. This parameter can be <b>NULL</b>.
      * @param {ISecurityInformation} psi A pointer to your implementation of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nn-aclui-isecurityinformation">ISecurityInformation</a> interface. The system calls the interface methods to retrieve information about the object being edited and to return the user's input.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//aclui/nf-aclui-editsecurity
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-editsecurity
      * @since windows5.1.2600
      */
     static EditSecurity(hwndOwner, psi) {
@@ -192,8 +211,9 @@ class UI {
         A_LastError := 0
 
         result := DllCall("ACLUI.dll\EditSecurity", "ptr", hwndOwner, "ptr", psi, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -207,16 +227,17 @@ class UI {
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/ne-aclui-si_page_type">SI_PAGE_TYPE</a> enumeration that indicates the page type on which to display the elevated access control editor.
      * @returns {HRESULT} If the function succeeds, the return value is S_OK.
      * 
-     * If the function fails, any other <b>HRESULT</b> value indicates an error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//aclui/nf-aclui-editsecurityadvanced
+     * If the function fails, any other <b>HRESULT</b> value indicates an error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-editsecurityadvanced
      * @since windows6.0.6000
      */
     static EditSecurityAdvanced(hwndOwner, psi, uSIPage) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
         result := DllCall("ACLUI.dll\EditSecurityAdvanced", "ptr", hwndOwner, "ptr", psi, "int", uSIPage, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

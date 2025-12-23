@@ -5,7 +5,7 @@
 
 /**
  * Contains information that identifies an access token.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-token_control
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_control
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */
@@ -13,7 +13,7 @@ class TOKEN_CONTROL extends Win32Struct
 {
     static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a> (LUID) identifying this instance of the token object.

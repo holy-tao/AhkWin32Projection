@@ -5,7 +5,7 @@
 
 /**
  * Contains information to unlock a workstation.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_ticket_unlock_logon
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_ticket_unlock_logon
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

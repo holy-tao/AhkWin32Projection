@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_ALL_OPTION_VALUES_PB structure defines the set of all option values for a DHCP server within a scope.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_all_option_values_pb
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_all_option_values_pb
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

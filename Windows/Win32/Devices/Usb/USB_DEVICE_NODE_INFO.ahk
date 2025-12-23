@@ -63,7 +63,7 @@ class USB_DEVICE_NODE_INFO extends Win32Struct
     BusAddress{
         get {
             if(!this.HasProp("__BusAddress"))
-                this.__BusAddress := USB_TOPOLOGY_ADDRESS(96, this)
+                this.__BusAddress := USB_TOPOLOGY_ADDRESS(92, this)
             return this.__BusAddress
         }
     }

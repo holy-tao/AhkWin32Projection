@@ -8,9 +8,34 @@
  */
 class NSID extends Win32Struct
 {
-    static sizeof => 176
+    static sizeof => 168
 
-    static packingSize => 8
+    static packingSize => 4
+
+    class _address_e__Union extends Win32Struct {
+        static sizeof => 138
+        static packingSize => 4
+
+        /**
+         * @type {ADDRALIAS}
+         */
+        alias{
+            get {
+                if(!this.HasProp("__alias"))
+                    this.__alias := ADDRALIAS(0, this)
+                return this.__alias
+            }
+        }
+    
+        /**
+         * @type {String}
+         */
+        rgchInterNet {
+            get => StrGet(this.ptr + 0, 0, "UTF-16")
+            set => StrPut(value, this.ptr + 0, 0, "UTF-16")
+        }
+    
+    }
 
     /**
      * @type {Integer}
@@ -48,21 +73,13 @@ class NSID extends Win32Struct
     }
 
     /**
-     * @type {ADDRALIAS}
+     * @type {_address_e__Union}
      */
-    alias{
+    address{
         get {
-            if(!this.HasProp("__alias"))
-                this.__alias := ADDRALIAS(32, this)
-            return this.__alias
+            if(!this.HasProp("__address"))
+                this.__address := %this.__Class%._address_e__Union(28, this)
+            return this.__address
         }
-    }
-
-    /**
-     * @type {String}
-     */
-    rgchInterNet {
-        get => StrGet(this.ptr + 32, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 32, 0, "UTF-16")
     }
 }

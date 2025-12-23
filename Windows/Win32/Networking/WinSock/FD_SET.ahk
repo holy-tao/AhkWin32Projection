@@ -3,7 +3,7 @@
 #Include .\SOCKET.ahk
 
 /**
- * 
+ * The FD_SET macro (winsock.h) structure is used by Windows Sockets (Winsock) functions and service providers to place sockets into a set.
  * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-fd_set
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319

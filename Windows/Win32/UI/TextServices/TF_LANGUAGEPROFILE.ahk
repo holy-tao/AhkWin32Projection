@@ -3,7 +3,7 @@
 
 /**
  * The TF_LANGUAGEPROFILE structure contains information about a language profile.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/ns-msctf-tf_languageprofile
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/ns-msctf-tf_languageprofile
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

@@ -5,11 +5,8 @@
 /**
  * The MCI_DGV_PASTE_PARMS structure contains parameters for the MCI_PASTE command for digital-video devices.
  * @remarks
- * 
  * When assigning data to the members of this structure, set the corresponding flags in the <i>fdwCommand</i> parameter of the <a href="https://docs.microsoft.com/previous-versions/dd757160(v=vs.85)">mciSendCommand</a> function to validate the members.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//digitalv/ns-digitalv-mci_dgv_paste_parms
+ * @see https://learn.microsoft.com/windows/win32/api/digitalv/ns-digitalv-mci_dgv_paste_parms
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */
@@ -44,7 +41,7 @@ class MCI_DGV_PASTE_PARMS extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(16, this)
+                this.__rc := RECT(12, this)
             return this.__rc
         }
     }
@@ -54,8 +51,8 @@ class MCI_DGV_PASTE_PARMS extends Win32Struct
      * @type {Integer}
      */
     dwAudioStream {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -63,7 +60,7 @@ class MCI_DGV_PASTE_PARMS extends Win32Struct
      * @type {Integer}
      */
     dwVideoStream {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

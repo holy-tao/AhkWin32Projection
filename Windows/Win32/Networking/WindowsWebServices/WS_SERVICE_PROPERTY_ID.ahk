@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The optional parameters for configuring the service host. This enumeration is used within the WS_SERVICE_PROPERTY structure when calling WsCreateServiceHost or by itself when calling WsGetServiceHostProperty.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_service_property_id
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_service_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_SERVICE_PROPERTY_ID{
+class WS_SERVICE_PROPERTY_ID extends Win32Enum{
 
     /**
      * A void pointer

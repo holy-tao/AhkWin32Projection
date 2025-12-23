@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies constraints for state objects. Use values from this enumeration in the D3D12_STATE_OBJECT_CONFIG structure.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_state_object_flags
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_state_object_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_STATE_OBJECT_FLAGS{
+class D3D12_STATE_OBJECT_FLAGS extends Win32BitflagEnum{
 
     /**
      * No state object constraints.

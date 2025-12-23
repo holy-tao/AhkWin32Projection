@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Describes an encoder profile.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_profile_desc
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -14,6 +16,7 @@ class D3D12_VIDEO_ENCODER_PROFILE_DESC extends Win32Struct
     static packingSize => 8
 
     /**
+     * The data size of the provided encoder profile value.
      * @type {Integer}
      */
     DataSize {

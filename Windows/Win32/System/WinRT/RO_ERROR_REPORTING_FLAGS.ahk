@@ -1,22 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the behavior of the RoOriginateError and RoTransformError functions.
  * @remarks
- * 
- * 
- * 
  * Use the <b>RO_ERROR_REPORTING_FLAGS</b> enumeration with the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-roseterrorreportingflags">RoSetErrorReportingFlags</a> function to specify the behavior of the  <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rooriginateerror">RoOriginateError</a>, <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rooriginateerrorw">RoOriginateErrorW</a>,  <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rotransformerror">RoTransformError</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rotransformerrorw">RoTransformErrorW</a> functions.
- * 
- * 
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/ne-roerrorapi-ro_error_reporting_flags
+ * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/ne-roerrorapi-ro_error_reporting_flags
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
-class RO_ERROR_REPORTING_FLAGS{
+class RO_ERROR_REPORTING_FLAGS extends Win32BitflagEnum{
 
     /**
      * Error functions raise structured exceptions when a debugger is attached.

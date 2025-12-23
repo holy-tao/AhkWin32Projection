@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that specify the OverlineStyle, StrikethroughStyle, and UnderlineStyle text attributes.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-textdecorationlinestyle
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-textdecorationlinestyle
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
-class TextDecorationLineStyle{
+class TextDecorationLineStyle extends Win32Enum{
 
     /**
      * No line style.

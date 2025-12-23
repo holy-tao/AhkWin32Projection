@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how the default proxy locator will specify the connection settings to a proxy server.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mfnet_proxysettings
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfnet_proxysettings
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFNET_PROXYSETTINGS{
+class MFNET_PROXYSETTINGS extends Win32Enum{
 
     /**
      * The proxy locator bypasses all addresses.

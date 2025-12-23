@@ -3,7 +3,7 @@
 
 /**
  * Contains information about sent and received MAC frames.
- * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-wlan_mac_frame_statistics
+ * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_mac_frame_statistics
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

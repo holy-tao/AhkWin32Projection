@@ -9,7 +9,6 @@
 /**
  * Contains the raw input from a device.
  * @remarks
- * 
  * The handle to this structure is passed in the <i>lParam</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-input">WM_INPUT</a>.
  * 
  * To get detailed information -- such as the header and the content of the raw input -- call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getrawinputdata">GetRawInputData</a>.
@@ -19,17 +18,54 @@
  * To get device specific information, call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getrawinputdeviceinfoa">GetRawInputDeviceInfo</a> with the <i>hDevice</i> from <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rawinputheader">RAWINPUTHEADER</a>.
  * 
  * Raw input is available only when the application calls <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerrawinputdevices">RegisterRawInputDevices</a> with valid device specifications.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-rawinput
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rawinput
  * @namespace Windows.Win32.UI.Input
  * @version v4.0.30319
  */
 class RAWINPUT extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 48
 
     static packingSize => 8
+
+    class _data_e__Union extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 4
+
+        /**
+         * @type {RAWMOUSE}
+         */
+        mouse{
+            get {
+                if(!this.HasProp("__mouse"))
+                    this.__mouse := RAWMOUSE(0, this)
+                return this.__mouse
+            }
+        }
+    
+        /**
+         * @type {RAWKEYBOARD}
+         */
+        keyboard{
+            get {
+                if(!this.HasProp("__keyboard"))
+                    this.__keyboard := RAWKEYBOARD(0, this)
+                return this.__keyboard
+            }
+        }
+    
+        /**
+         * @type {RAWHID}
+         */
+        hid{
+            get {
+                if(!this.HasProp("__hid"))
+                    this.__hid := RAWHID(0, this)
+                return this.__hid
+            }
+        }
+    
+    }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rawinputheader">RAWINPUTHEADER</a></b>
@@ -46,35 +82,14 @@ class RAWINPUT extends Win32Struct
     }
 
     /**
-     * @type {RAWMOUSE}
+     * 
+     * @type {_data_e__Union}
      */
-    mouse{
+    data{
         get {
-            if(!this.HasProp("__mouse"))
-                this.__mouse := RAWMOUSE(24, this)
-            return this.__mouse
-        }
-    }
-
-    /**
-     * @type {RAWKEYBOARD}
-     */
-    keyboard{
-        get {
-            if(!this.HasProp("__keyboard"))
-                this.__keyboard := RAWKEYBOARD(24, this)
-            return this.__keyboard
-        }
-    }
-
-    /**
-     * @type {RAWHID}
-     */
-    hid{
-        get {
-            if(!this.HasProp("__hid"))
-                this.__hid := RAWHID(24, this)
-            return this.__hid
+            if(!this.HasProp("__data"))
+                this.__data := %this.__Class%._data_e__Union(24, this)
+            return this.__data
         }
     }
 }

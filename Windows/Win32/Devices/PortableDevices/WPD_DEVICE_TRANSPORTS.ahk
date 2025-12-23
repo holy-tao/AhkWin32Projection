@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * The WPD\_DEVICE\_TRANSPORTS enumeration type specifies the inheritance relationship for a service. This enumeration is used by the WPD\_DEVICE\_TRANSPORT property.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-device-transports
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */
-class WPD_DEVICE_TRANSPORTS{
+class WPD_DEVICE_TRANSPORTS extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

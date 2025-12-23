@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Enumerates values returned by the ClusterControl function with the CLUSCTL_CLUSTER_CHECK_VOTER_DOWN or the CLUSCTL_CLUSTER_CHECK_VOTER_EVICT control codes.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_quorum_value
+ * CLUSTER_QUORUM_VALUE (msclus.h) enumerates values returned by the ClusterControl function with two specific control codes.
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_quorum_value
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_QUORUM_VALUE{
+class CLUSTER_QUORUM_VALUE extends Win32Enum{
 
     /**
      * The quorum will be maintained.

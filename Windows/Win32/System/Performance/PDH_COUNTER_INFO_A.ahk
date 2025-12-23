@@ -4,13 +4,10 @@
 #Include .\PDH_COUNTER_PATH_ELEMENTS_A.ahk
 
 /**
- * The PDH_COUNTER_INFO structure contains information describing the properties of a counter. This information also includes the counter path.
+ * The PDH_COUNTER_INFO structure contains information describing the properties of a counter. This information also includes the counter path. (ANSI)
  * @remarks
- * 
  * When you allocate memory for this structure, allocate enough memory for the member strings, such as <b>szCounterName</b>, that are appended to the end of this structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//pdh/ns-pdh-pdh_counter_info_a
+ * @see https://learn.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_counter_info_a
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  * @charset ANSI

@@ -4,15 +4,12 @@
 /**
  * Contains the copy offload capabilities for a storage device.
  * @remarks
- * 
  * This structure is returned from a 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_storage_query_property">IOCTL_STORAGE_QUERY_PROPERTY</a> request when the 
  *     <b>PropertyId</b> member of 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-storage_property_query">STORAGE_PROPERTY_QUERY</a> is set to 
  *     <b>StorageDeviceCopyOffloadProperty</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-device_copy_offload_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_copy_offload_descriptor
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -9,9 +9,9 @@
  */
 class SE_SID extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 80
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {SID}

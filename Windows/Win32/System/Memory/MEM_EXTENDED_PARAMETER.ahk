@@ -4,7 +4,7 @@
 
 /**
  * Represents an extended parameter for a function that manages virtual memory.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-mem_extended_parameter
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-mem_extended_parameter
  * @namespace Windows.Win32.System.Memory
  * @version v4.0.30319
  */

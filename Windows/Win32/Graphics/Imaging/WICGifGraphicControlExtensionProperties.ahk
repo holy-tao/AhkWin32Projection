@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the graphic control extension metadata properties that define the transitions between each frame animation for Graphics Interchange Format (GIF) images.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicgifgraphiccontrolextensionproperties
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicgifgraphiccontrolextensionproperties
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICGifGraphicControlExtensionProperties{
+class WICGifGraphicControlExtensionProperties extends Win32Enum{
 
     /**
      * [VT_UI1] Indicates  the disposal requirements. 0 - no disposal, 1 - do not dispose, 2 - restore to background color, 3 - restore to previous.

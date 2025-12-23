@@ -3,7 +3,7 @@
 
 /**
  * Used to delete an unauthenticated attribute of a signer of a signed message.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmsg_ctrl_del_signer_unauth_attr_para
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_ctrl_del_signer_unauth_attr_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes how property values are displayed when multiple items are selected.
  * @remarks
- * 
  * These values are defined in propsys.h and propsys.idl.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//propsys/ne-propsys-propdesc_aggregation_type
+ * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-propdesc_aggregation_type
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
-class PROPDESC_AGGREGATION_TYPE{
+class PROPDESC_AGGREGATION_TYPE extends Win32Enum{
 
     /**
      * Display the string "Multiple Values".

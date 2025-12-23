@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies values for audio constriction.
  * @remarks
- * 
  * Values defined by the <b>MFAudioConstriction</b> enumeration matches the <b>EAudioConstriction</b> enumeration defined <b>audioenginebaseapo.h</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mfaudioconstriction
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfaudioconstriction
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFAudioConstriction{
+class MFAudioConstriction extends Win32Enum{
 
     /**
      * Audio is not constricted.

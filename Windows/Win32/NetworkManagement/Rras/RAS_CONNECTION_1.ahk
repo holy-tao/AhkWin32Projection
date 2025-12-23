@@ -9,13 +9,13 @@
 
 /**
  * The RAS_CONNECTION_1 structure contains detailed information regarding a specific connection, such as error counts and bytes received. For more general information about a specific connection, such as user name or domain, see RAS_CONNECTION_0.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-ras_connection_1
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_connection_1
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */
 class RAS_CONNECTION_1 extends Win32Struct
 {
-    static sizeof => 304
+    static sizeof => 296
 
     static packingSize => 8
 
@@ -60,8 +60,8 @@ class RAS_CONNECTION_1 extends Win32Struct
      * @type {Integer}
      */
     dwBytesXmited {
-        get => NumGet(this, 256, "uint")
-        set => NumPut("uint", value, this, 256)
+        get => NumGet(this, 248, "uint")
+        set => NumPut("uint", value, this, 248)
     }
 
     /**
@@ -69,8 +69,8 @@ class RAS_CONNECTION_1 extends Win32Struct
      * @type {Integer}
      */
     dwBytesRcved {
-        get => NumGet(this, 260, "uint")
-        set => NumPut("uint", value, this, 260)
+        get => NumGet(this, 252, "uint")
+        set => NumPut("uint", value, this, 252)
     }
 
     /**
@@ -78,8 +78,8 @@ class RAS_CONNECTION_1 extends Win32Struct
      * @type {Integer}
      */
     dwFramesXmited {
-        get => NumGet(this, 264, "uint")
-        set => NumPut("uint", value, this, 264)
+        get => NumGet(this, 256, "uint")
+        set => NumPut("uint", value, this, 256)
     }
 
     /**
@@ -87,8 +87,8 @@ class RAS_CONNECTION_1 extends Win32Struct
      * @type {Integer}
      */
     dwFramesRcved {
-        get => NumGet(this, 268, "uint")
-        set => NumPut("uint", value, this, 268)
+        get => NumGet(this, 260, "uint")
+        set => NumPut("uint", value, this, 260)
     }
 
     /**
@@ -96,8 +96,8 @@ class RAS_CONNECTION_1 extends Win32Struct
      * @type {Integer}
      */
     dwCrcErr {
-        get => NumGet(this, 272, "uint")
-        set => NumPut("uint", value, this, 272)
+        get => NumGet(this, 264, "uint")
+        set => NumPut("uint", value, this, 264)
     }
 
     /**
@@ -105,8 +105,8 @@ class RAS_CONNECTION_1 extends Win32Struct
      * @type {Integer}
      */
     dwTimeoutErr {
-        get => NumGet(this, 276, "uint")
-        set => NumPut("uint", value, this, 276)
+        get => NumGet(this, 268, "uint")
+        set => NumPut("uint", value, this, 268)
     }
 
     /**
@@ -114,8 +114,8 @@ class RAS_CONNECTION_1 extends Win32Struct
      * @type {Integer}
      */
     dwAlignmentErr {
-        get => NumGet(this, 280, "uint")
-        set => NumPut("uint", value, this, 280)
+        get => NumGet(this, 272, "uint")
+        set => NumPut("uint", value, this, 272)
     }
 
     /**
@@ -123,8 +123,8 @@ class RAS_CONNECTION_1 extends Win32Struct
      * @type {Integer}
      */
     dwHardwareOverrunErr {
-        get => NumGet(this, 284, "uint")
-        set => NumPut("uint", value, this, 284)
+        get => NumGet(this, 276, "uint")
+        set => NumPut("uint", value, this, 276)
     }
 
     /**
@@ -132,8 +132,8 @@ class RAS_CONNECTION_1 extends Win32Struct
      * @type {Integer}
      */
     dwFramingErr {
-        get => NumGet(this, 288, "uint")
-        set => NumPut("uint", value, this, 288)
+        get => NumGet(this, 280, "uint")
+        set => NumPut("uint", value, this, 280)
     }
 
     /**
@@ -141,8 +141,8 @@ class RAS_CONNECTION_1 extends Win32Struct
      * @type {Integer}
      */
     dwBufferOverrunErr {
-        get => NumGet(this, 292, "uint")
-        set => NumPut("uint", value, this, 292)
+        get => NumGet(this, 284, "uint")
+        set => NumPut("uint", value, this, 284)
     }
 
     /**
@@ -150,8 +150,8 @@ class RAS_CONNECTION_1 extends Win32Struct
      * @type {Integer}
      */
     dwCompressionRatioIn {
-        get => NumGet(this, 296, "uint")
-        set => NumPut("uint", value, this, 296)
+        get => NumGet(this, 288, "uint")
+        set => NumPut("uint", value, this, 288)
     }
 
     /**
@@ -159,7 +159,7 @@ class RAS_CONNECTION_1 extends Win32Struct
      * @type {Integer}
      */
     dwCompressionRatioOut {
-        get => NumGet(this, 300, "uint")
-        set => NumPut("uint", value, this, 300)
+        get => NumGet(this, 292, "uint")
+        set => NumPut("uint", value, this, 292)
     }
 }

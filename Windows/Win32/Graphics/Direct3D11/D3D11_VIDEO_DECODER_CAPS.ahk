@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies capabilities of the video decoder.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/ne-d3d11_1-d3d11_video_decoder_caps
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/ne-d3d11_1-d3d11_video_decoder_caps
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_VIDEO_DECODER_CAPS{
+class D3D11_VIDEO_DECODER_CAPS extends Win32Enum{
 
     /**
      * Indicates that the graphics driver supports at least a subset of downsampling operations.

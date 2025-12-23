@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains the security flags.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_flags
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -14,6 +16,7 @@ class SEC_FLAGS extends Win32Struct
     static packingSize => 8
 
     /**
+     * The caller sets ISC/ASC REQ flags. The lower 32 bits are reserved and must be set to 0.
      * @type {Integer}
      */
     Flags {

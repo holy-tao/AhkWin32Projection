@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a context mode type that indicates the direction and access methods that a client uses to scan a log.
- * @see https://docs.microsoft.com/windows/win32/api//clfs/ne-clfs-clfs_context_mode
+ * @see https://learn.microsoft.com/windows/win32/api/clfs/ne-clfs-clfs_context_mode
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
-class CLFS_CONTEXT_MODE{
+class CLFS_CONTEXT_MODE extends Win32Enum{
 
     /**
      * Do not move the cursor.

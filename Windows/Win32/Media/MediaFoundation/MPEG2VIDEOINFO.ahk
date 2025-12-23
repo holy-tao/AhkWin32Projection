@@ -7,11 +7,8 @@
 /**
  * The MPEG2VIDEOINFO structure describes an MPEG-2 video stream.
  * @remarks
- * 
- * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure contained in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvdmedia/ns-dvdmedia-videoinfoheader2">VIDEOINFOHEADER2</a> structure (<b>hdr</b>) cannot be followed by any pallette entries or color masks, because this structure is immediately followed by the <b>dwStartTimeCode</b> member.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dvdmedia/ns-dvdmedia-mpeg2videoinfo
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure contained in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvdmedia/ns-dvdmedia-videoinfoheader2">VIDEOINFOHEADER2</a> structure (<b>hdr</b>) cannot be followed by any palette entries or color masks, because this structure is immediately followed by the <b>dwStartTimeCode</b> member.
+ * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-mpeg2videoinfo
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

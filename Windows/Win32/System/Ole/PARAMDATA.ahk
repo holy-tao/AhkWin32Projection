@@ -3,7 +3,7 @@
 
 /**
  * Describes a parameter accepted by a method or property.
- * @see https://docs.microsoft.com/windows/win32/api//oleauto/ns-oleauto-paramdata
+ * @see https://learn.microsoft.com/windows/win32/api/oleauto/ns-oleauto-paramdata
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

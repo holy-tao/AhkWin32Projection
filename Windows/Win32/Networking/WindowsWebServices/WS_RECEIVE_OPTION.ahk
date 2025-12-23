@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether a message is required when receiving from a channel.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_receive_option
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_receive_option
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_RECEIVE_OPTION{
+class WS_RECEIVE_OPTION extends Win32Enum{
 
     /**
      * A message is required to be received.  If the channel does not have

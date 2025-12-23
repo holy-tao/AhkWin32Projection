@@ -11,7 +11,7 @@ class USBUSER_CONTROLLER_INFO_0 extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {USBUSER_REQUEST_HEADER}

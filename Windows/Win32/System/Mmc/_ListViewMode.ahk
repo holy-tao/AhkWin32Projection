@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The ListViewMode enumeration is used by the View.ListViewMode property to define the list view.
- * @see https://docs.microsoft.com/windows/win32/api//mmcobj/ne-mmcobj-_listviewmode
+ * @see https://learn.microsoft.com/windows/win32/api/mmcobj/ne-mmcobj-_listviewmode
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
-class _ListViewMode{
+class _ListViewMode extends Win32Enum{
 
     /**
      * The list view is displayed with small icons.

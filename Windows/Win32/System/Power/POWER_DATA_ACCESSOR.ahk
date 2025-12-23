@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Enumeration values used by PowerEnumerate and PowerSettingAccessCheck.
- * @see https://docs.microsoft.com/windows/win32/api//powrprof/ne-powrprof-power_data_accessor
+ * @see https://learn.microsoft.com/windows/win32/api/powrprof/ne-powrprof-power_data_accessor
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */
-class POWER_DATA_ACCESSOR{
+class POWER_DATA_ACCESSOR extends Win32Enum{
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powersettingaccesscheck">PowerSettingAccessCheck</a> to 

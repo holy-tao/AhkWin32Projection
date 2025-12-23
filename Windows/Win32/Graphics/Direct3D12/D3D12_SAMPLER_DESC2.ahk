@@ -7,9 +7,9 @@
  */
 class D3D12_SAMPLER_DESC2 extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 56
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -73,7 +73,7 @@ class D3D12_SAMPLER_DESC2 extends Win32Struct
     FloatBorderColor{
         get {
             if(!this.HasProp("__FloatBorderColorProxyArray"))
-                this.__FloatBorderColorProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "float")
+                this.__FloatBorderColorProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "float")
             return this.__FloatBorderColorProxyArray
         }
     }
@@ -84,7 +84,7 @@ class D3D12_SAMPLER_DESC2 extends Win32Struct
     UintBorderColor{
         get {
             if(!this.HasProp("__UintBorderColorProxyArray"))
-                this.__UintBorderColorProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "uint")
+                this.__UintBorderColorProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "uint")
             return this.__UintBorderColorProxyArray
         }
     }
@@ -93,23 +93,23 @@ class D3D12_SAMPLER_DESC2 extends Win32Struct
      * @type {Float}
      */
     MinLOD {
-        get => NumGet(this, 48, "float")
-        set => NumPut("float", value, this, 48)
+        get => NumGet(this, 44, "float")
+        set => NumPut("float", value, this, 44)
     }
 
     /**
      * @type {Float}
      */
     MaxLOD {
-        get => NumGet(this, 52, "float")
-        set => NumPut("float", value, this, 52)
+        get => NumGet(this, 48, "float")
+        set => NumPut("float", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 }

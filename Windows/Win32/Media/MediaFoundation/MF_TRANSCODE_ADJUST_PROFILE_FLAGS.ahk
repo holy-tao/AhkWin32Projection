@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the profile flags that are set in the MF_TRANSCODE_ADJUST_PROFILE attribute.
  * @remarks
- * 
  * If the <b>MF_TRANSCODE_ADJUST_PROFILE_DEFAULT</b> flag is specified, the following changes are made for the video stream:
  * 
  * <ul>
@@ -50,13 +50,11 @@
  * Use the <b>MF_TRANSCODE_ADJUST_PROFILE_USE_SOURCE_ATTRIBUTES</b> flag when you want to transcode the file by using the input stream attributes. The input source stream attributes are copied to the output media type before the MFT node is inserted in the topology. If you set additional stream attributes, this flag does not overwrite the set values. Only the missing attributes are filled with the input source's attribute values. This flag is useful in remux scenario where you want to generate the output file in the same format as the input source. If you want to perform format conversion, make sure you set the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-subtype-attribute">MF_MT_SUBTYPE</a>  attribute for the stream to specify the encoder that topology builder must use. The transform node is added in the topology unless <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-transcode-donot-insert-encoder">MF_TRANSCODE_DONOT_INSERT_ENCODER</a> is set. In this case, and the content is not encoded. Instead, if permitted by the container, the content is embedded in the specified container. 
  * 
  * For example, assume that your input source is an MP3 file.  You set the container to be <b>MFTranscodeContainerType_ASF</b>, you do not set any stream attributes, and you set the <b>MF_TRANSCODE_ADJUST_PROFILE_USE_SOURCE_ATTRIBUTES</b> flag. In this case, the generated output file is an ASF file (.wma)  containing MP3 media data. Note that if you use this flag, certain input stream attributes and the container type might not be compatible.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mf_transcode_adjust_profile_flags
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_transcode_adjust_profile_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_TRANSCODE_ADJUST_PROFILE_FLAGS{
+class MF_TRANSCODE_ADJUST_PROFILE_FLAGS extends Win32Enum{
 
     /**
      * Media Foundation uses the application-specified settings for audio and video streams. If the required settings are not provided by the application, the topology is created but the encoding session fails. For the video stream, the frame rate and the interlace mode settings are modified. For more information, see Remarks.

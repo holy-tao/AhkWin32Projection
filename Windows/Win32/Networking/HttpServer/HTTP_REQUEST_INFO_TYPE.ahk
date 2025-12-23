@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The HTTP_REQUEST_INFO_TYPE enumeration defines the type of information contained in the HTTP_REQUEST_INFO structure. This enumeration is used in the HTTP_REQUEST_INFO structure.
- * @see https://docs.microsoft.com/windows/win32/api//http/ne-http-http_request_info_type
+ * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_request_info_type
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */
-class HTTP_REQUEST_INFO_TYPE{
+class HTTP_REQUEST_INFO_TYPE extends Win32Enum{
 
     /**
      * The request information type is authentication.

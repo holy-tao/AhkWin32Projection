@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether the content of the XPS OM will be interleaved when it is written to a file or a stream.
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/ne-xpsobjectmodel-xps_interleaving
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_interleaving
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
-class XPS_INTERLEAVING{
+class XPS_INTERLEAVING extends Win32Enum{
 
     /**
      * The content of the XPS OM is not interleaved. The document parts are written as complete parts.

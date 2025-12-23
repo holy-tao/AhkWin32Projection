@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The NL_ROUTE_ORIGIN enumeration type defines the origin of the IP route.
- * @see https://docs.microsoft.com/windows/win32/api//nldef/ne-nldef-nl_route_origin
+ * @see https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_route_origin
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
-class NL_ROUTE_ORIGIN{
+class NL_ROUTE_ORIGIN extends Win32Enum{
 
     /**
      * The route is a result of manual configuration.

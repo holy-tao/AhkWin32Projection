@@ -4,7 +4,7 @@
 
 /**
  * The WMT_PAYLOAD_FRAGMENT structure contains the information needed to extract a payload fragment from a buffer and identifies the payload to which the fragment belongs.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ns-wmsdkidl-wmt_payload_fragment
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmt_payload_fragment
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

@@ -2,14 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Defines an RPC interface group server interface.
+ * The RPC_INTERFACE_TEMPLATEW (Unicode) structure (rpcdce.h) defines an RPC interface group server interface.
  * @remarks
- * 
  * To register an interface, the server provides the following information:<ul>
- * <li>Interface specificationThe interface specification is a data structure that the MIDL compiler generates.
+ * <li>Interface specification The interface specification is a data structure that the MIDL compiler generates.
  * 
  * </li>
- * <li>Manager type <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a> and manager EPVThe manager type <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a> and the manager EPV determine which manager routine executes when a server receives a remote procedure call request from a client. For each implementation of an interface offered by a server, it must register a separate manager EPV.
+ * <li>Manager type <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a> and manager EPV The manager type <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a> and the manager EPV determine which manager routine executes when a server receives a remote procedure call request from a client. For each implementation of an interface offered by a server, it must register a separate manager EPV.
  * Note that when specifying a non-nil, manager type <b>UUID</b>, the server must also call <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcobjectsettype">RpcObjectSetType</a> to register objects of this non-nil type.
  * 
  * </li>
@@ -34,9 +33,7 @@
  * 
  * > [!NOTE]
  * > The rpcdce.h header defines RPC_INTERFACE_TEMPLATE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//rpcdce/ns-rpcdce-rpc_interface_templatew
+ * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_interface_templatew
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  * @charset Unicode

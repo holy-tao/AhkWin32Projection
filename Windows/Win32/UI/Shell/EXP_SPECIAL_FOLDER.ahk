@@ -3,7 +3,7 @@
 
 /**
  * Holds an extra data block used by IShellLinkDataList. It holds special folder information.
- * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-exp_special_folder
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-exp_special_folder
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

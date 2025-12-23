@@ -3,6 +3,8 @@
 #Include .\PROCESSTRACE_HANDLE.ahk
 
 /**
+ * Provided to the BufferCallback as the *ConsumerInfo* parameter and provides details on the current processing session.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-etw_buffer_callback_information
  * @namespace Windows.Win32.System.Diagnostics.Etw
@@ -15,6 +17,7 @@ class ETW_BUFFER_CALLBACK_INFORMATION extends Win32Struct
     static packingSize => 8
 
     /**
+     * The TraceHandle for this processing session.
      * @type {PROCESSTRACE_HANDLE}
      */
     TraceHandle{
@@ -26,6 +29,7 @@ class ETW_BUFFER_CALLBACK_INFORMATION extends Win32Struct
     }
 
     /**
+     * [TRACE_LOGFILE_HEADER](ns-evntrace-trace_logfile_header.md) structure containing trace processing status (previously-existing structure).
      * @type {Pointer<TRACE_LOGFILE_HEADER>}
      */
     LogfileHeader {
@@ -34,6 +38,7 @@ class ETW_BUFFER_CALLBACK_INFORMATION extends Win32Struct
     }
 
     /**
+     * The count of how many buffers have been processed up to this point.
      * @type {Integer}
      */
     BuffersRead {

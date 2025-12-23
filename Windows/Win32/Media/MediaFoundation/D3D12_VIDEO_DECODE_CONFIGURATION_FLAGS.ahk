@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the configuration for video decoding.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ne-d3d12video-d3d12_video_decode_configuration_flags
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_decode_configuration_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class D3D12_VIDEO_DECODE_CONFIGURATION_FLAGS{
+class D3D12_VIDEO_DECODE_CONFIGURATION_FLAGS extends Win32BitflagEnum{
 
     /**
      * No configuration flags.

@@ -9,7 +9,7 @@
 
 /**
  * Is used to store information returned when enumerating IKE, AuthIP, or IKEv2 security associations (SAs).
- * @see https://docs.microsoft.com/windows/win32/api//iketypes/ns-iketypes-ikeext_sa_details0
+ * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_sa_details0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

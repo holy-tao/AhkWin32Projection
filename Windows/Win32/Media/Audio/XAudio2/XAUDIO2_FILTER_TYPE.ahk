@@ -1,20 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the filter type.
  * @remarks
- * 
  * <div class="alert"><b>Note</b>  Note that the DirectX SDK versions of XAUDIO2 do not support the <b>LowPassOnePoleFilter</b> or the <b>HighPassOnePoleFilter</b>.    </div>
  * <div> </div>
  * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xaudio2/ne-xaudio2-xaudio2_filter_type
+ * @see https://learn.microsoft.com/windows/win32/api/xaudio2/ne-xaudio2-xaudio2_filter_type
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319
  */
-class XAUDIO2_FILTER_TYPE{
+class XAUDIO2_FILTER_TYPE extends Win32Enum{
 
     /**
      * Attenuates (reduces) frequencies above the cutoff frequency.

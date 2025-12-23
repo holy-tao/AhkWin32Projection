@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the type of a topology node.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mf_topology_type
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_topology_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_TOPOLOGY_TYPE{
+class MF_TOPOLOGY_TYPE extends Win32Enum{
 
     /**
      * Output node. Represents a media sink in the topology.

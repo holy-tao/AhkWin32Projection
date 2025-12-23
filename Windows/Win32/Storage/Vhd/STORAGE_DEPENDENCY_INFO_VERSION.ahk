@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains the version of the virtual hard disk (VHD) STORAGE_DEPENDENCY_INFO structure to use in calls to VHD functions.
- * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ne-virtdisk-storage_dependency_info_version
+ * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-storage_dependency_info_version
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */
-class STORAGE_DEPENDENCY_INFO_VERSION{
+class STORAGE_DEPENDENCY_INFO_VERSION extends Win32Enum{
 
     /**
      * The version is not specified.

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the possible levels of impact that can be caused by installing or uninstalling an update.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/ne-wuapi-installationimpact
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-installationimpact
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
-class InstallationImpact{
+class InstallationImpact extends Win32Enum{
 
     /**
      * Installing or uninstalling an update results in a level of impact on the target computer that is typical of most updates. Therefore, the update does not qualify for any of the special impact ratings that are defined in this topic.

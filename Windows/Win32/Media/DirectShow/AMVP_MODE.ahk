@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the various modes for video ports.
- * @see https://docs.microsoft.com/windows/win32/api//vptype/ne-vptype-amvp_mode
+ * @see https://learn.microsoft.com/windows/win32/api/vptype/ne-vptype-amvp_mode
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class AMVP_MODE{
+class AMVP_MODE extends Win32Enum{
 
     /**
      * Weave.

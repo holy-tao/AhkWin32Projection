@@ -3,7 +3,7 @@
 
 /**
  * Describes an array of RdcSignature structures.
- * @see https://docs.microsoft.com/windows/win32/api//msrdc/ns-msrdc-rdcsignaturepointer
+ * @see https://learn.microsoft.com/windows/win32/api/msrdc/ns-msrdc-rdcsignaturepointer
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */

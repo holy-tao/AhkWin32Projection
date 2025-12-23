@@ -3,7 +3,7 @@
 
 /**
  * This structure represents a CIM instance. This object should not be accessed directly. Instead, the MI_Instance_* functions should be used.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_instance
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_instance
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

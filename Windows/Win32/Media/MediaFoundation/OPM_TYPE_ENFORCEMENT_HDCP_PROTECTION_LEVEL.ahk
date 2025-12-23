@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class OPM_TYPE_ENFORCEMENT_HDCP_PROTECTION_LEVEL{
+class OPM_TYPE_ENFORCEMENT_HDCP_PROTECTION_LEVEL extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

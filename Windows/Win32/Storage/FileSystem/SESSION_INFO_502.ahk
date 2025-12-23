@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the session, including name of the computer; name of the user; open files, pipes, and devices on the computer; and the name of the transport the client is using.
- * @see https://docs.microsoft.com/windows/win32/api//lmshare/ns-lmshare-session_info_502
+ * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-session_info_502
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

@@ -6,15 +6,15 @@
 
 /**
  * The DIJOYUSERVALUES structure contains information about the user's joystick settings.
- * @see https://docs.microsoft.com/windows/win32/api//dinputd/ns-dinputd-dijoyuservalues
+ * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-dijoyuservalues
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319
  */
 class DIJOYUSERVALUES extends Win32Struct
 {
-    static sizeof => 1136
+    static sizeof => 1128
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the size of the structure in bytes. This member must be initialized before the structure is used.
@@ -32,7 +32,7 @@ class DIJOYUSERVALUES extends Win32Struct
     ruv{
         get {
             if(!this.HasProp("__ruv"))
-                this.__ruv := JOYREGUSERVALUES(8, this)
+                this.__ruv := JOYREGUSERVALUES(4, this)
             return this.__ruv
         }
     }
@@ -42,8 +42,8 @@ class DIJOYUSERVALUES extends Win32Struct
      * @type {String}
      */
     wszGlobalDriver {
-        get => StrGet(this.ptr + 112, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 112, 255, "UTF-16")
+        get => StrGet(this.ptr + 104, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 104, 255, "UTF-16")
     }
 
     /**
@@ -51,7 +51,7 @@ class DIJOYUSERVALUES extends Win32Struct
      * @type {String}
      */
     wszGameportEmulator {
-        get => StrGet(this.ptr + 624, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 624, 255, "UTF-16")
+        get => StrGet(this.ptr + 616, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 616, 255, "UTF-16")
     }
 }

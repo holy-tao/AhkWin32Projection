@@ -3,23 +3,20 @@
 #Include ..\Dxgi\Common\DXGI_SAMPLE_DESC.ahk
 
 /**
- * Describes a 2D texture.
+ * Describes a 2D texture. (D3D10_TEXTURE2D_DESC)
  * @remarks
- * 
  * This structure is used in a call to <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createtexture2d">ID3D10Device::CreateTexture2D</a>. A helpful derived structure CD3D10_TEXTURE2D_DESC is declared in D3D10.h, to help create a texture description.
  * 
  * The device places some size restrictions (must be multiples of a minimum size) for a subsampled, <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-block-compression">block compressed</a>, or bit-format resource.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10/ns-d3d10-d3d10_texture2d_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_texture2d_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
 class D3D10_TEXTURE2D_DESC extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -85,7 +82,7 @@ class D3D10_TEXTURE2D_DESC extends Win32Struct
     SampleDesc{
         get {
             if(!this.HasProp("__SampleDesc"))
-                this.__SampleDesc := DXGI_SAMPLE_DESC(24, this)
+                this.__SampleDesc := DXGI_SAMPLE_DESC(20, this)
             return this.__SampleDesc
         }
     }
@@ -97,8 +94,8 @@ class D3D10_TEXTURE2D_DESC extends Win32Struct
      * @type {Integer}
      */
     Usage {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -108,8 +105,8 @@ class D3D10_TEXTURE2D_DESC extends Win32Struct
      * @type {Integer}
      */
     BindFlags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -119,8 +116,8 @@ class D3D10_TEXTURE2D_DESC extends Win32Struct
      * @type {Integer}
      */
     CPUAccessFlags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -130,7 +127,7 @@ class D3D10_TEXTURE2D_DESC extends Win32Struct
      * @type {Integer}
      */
     MiscFlags {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 }

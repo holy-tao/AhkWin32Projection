@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * Specifies an algorithm identifier.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/alg-id
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
-class ALG_ID{
+class ALG_ID extends Win32Enum{
 
     /**
      * @type {Integer (UInt32)}

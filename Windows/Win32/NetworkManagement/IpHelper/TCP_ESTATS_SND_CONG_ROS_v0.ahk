@@ -4,7 +4,6 @@
 /**
  * Contains read-only static information for extended TCP statistics on the maximum congestion window for a TCP connection.
  * @remarks
- * 
  * The <b>TCP_ESTATS_SND_CONG_ROS_v0</b> structure is used as part of the TCP extended statistics feature available on Windows Vista and later. 
  * 
  * The <b>TCP_ESTATS_SND_CONG_ROS_v0</b> is defined as version 0 of the structure for  read-only dynamic information on basic sender congestion data for a TCP connection.  This information is available after the connection has been established.
@@ -38,9 +37,7 @@
  * </td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tcpestats/ns-tcpestats-tcp_estats_snd_cong_ros_v0
+ * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ns-tcpestats-tcp_estats_snd_cong_ros_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

@@ -5,19 +5,16 @@
 /**
  * Contains information about a network state change for a data peer on the wireless Hosted Network.
  * @remarks
- * 
  * The <b>WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE</b> structure is an extension to native wireless APIs added to support the wireless Hosted Network on Windows 7 and  later.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-wlan_hosted_network_data_peer_state_change
+ * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_hosted_network_data_peer_state_change
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
 class WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The previous network state for a data peer on the wireless Hosted Network.
@@ -38,7 +35,7 @@ class WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE extends Win32Struct
     NewState{
         get {
             if(!this.HasProp("__NewState"))
-                this.__NewState := WLAN_HOSTED_NETWORK_PEER_STATE(16, this)
+                this.__NewState := WLAN_HOSTED_NETWORK_PEER_STATE(12, this)
             return this.__NewState
         }
     }
@@ -48,7 +45,7 @@ class WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE extends Win32Struct
      * @type {Integer}
      */
     PeerStateChangeReason {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

@@ -6,7 +6,7 @@
 
 /**
  * Specifies or receives the attributes of a filter button click.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmhdfilterbtnclick
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmhdfilterbtnclick
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -50,7 +50,7 @@ class NMHDFILTERBTNCLICK extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(32, this)
+                this.__rc := RECT(28, this)
             return this.__rc
         }
     }

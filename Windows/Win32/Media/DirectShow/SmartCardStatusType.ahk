@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The SmartCardStatusType enumeration type specifies the status of a smart card.
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/ne-bdaiface-smartcardstatustype
+ * @see https://learn.microsoft.com/windows/win32/api/bdaiface/ne-bdaiface-smartcardstatustype
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class SmartCardStatusType{
+class SmartCardStatusType extends Win32Enum{
 
     /**
      * The card was inserted.

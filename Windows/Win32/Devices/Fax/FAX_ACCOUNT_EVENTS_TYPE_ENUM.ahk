@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the types of event notifications, on a particular account, that the server sends to listening clients.
  * @remarks
- * 
  * The following table lists the <a href="https://docs.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-_ifaxaccountnotify">IFaxAccountNotify</a> methods called by each member of the enumeration:
  * 
  * 
@@ -37,13 +37,11 @@
  * <td>OnServerShutDown</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/ne-faxcomex-fax_account_events_type_enum
+ * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_account_events_type_enum
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
-class FAX_ACCOUNT_EVENTS_TYPE_ENUM{
+class FAX_ACCOUNT_EVENTS_TYPE_ENUM extends Win32Enum{
 
     /**
      * No notifications are sent.

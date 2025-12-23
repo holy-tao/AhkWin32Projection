@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Determines the format in which the counter data is saved to a file.
- * @see https://docs.microsoft.com/windows/win32/api//isysmon/ne-isysmon-sysmonfiletype
+ * @see https://learn.microsoft.com/windows/win32/api/isysmon/ne-isysmon-sysmonfiletype
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
-class SysmonFileType{
+class SysmonFileType extends Win32Enum{
 
     /**
      * Saves the control's property settings, list of counters, and counter data as HTML to a file. If the source of the counter data is a log file, the counter data is not saved.

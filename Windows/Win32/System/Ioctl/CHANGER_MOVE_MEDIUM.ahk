@@ -4,15 +4,15 @@
 
 /**
  * Contains information that the IOCTL_CHANGER_MOVE_MEDIUM control code uses to move a piece of media to a destination.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-changer_move_medium
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_move_medium
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
 class CHANGER_MOVE_MEDIUM extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A 

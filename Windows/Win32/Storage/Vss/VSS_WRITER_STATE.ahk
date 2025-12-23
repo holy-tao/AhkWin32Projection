@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the current state of the writer.
  * @remarks
- * 
  * A requester determines the state of a writer through 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-getwriterstatus">IVssBackupComponents::GetWriterStatus</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vss/ne-vss-vss_writer_state
+ * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_writer_state
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_WRITER_STATE{
+class VSS_WRITER_STATE extends Win32Enum{
 
     /**
      * The writer's state is not known. 

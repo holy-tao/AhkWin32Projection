@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the Portable Network Graphics (PNG) iCCP chunk metadata properties.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicpngiccpproperties
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicpngiccpproperties
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICPngIccpProperties{
+class WICPngIccpProperties extends Win32Enum{
 
     /**
      * [VT_LPSTR] Indicates the International Color Consortium (ICC) profile name.

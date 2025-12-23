@@ -3,7 +3,7 @@
 
 /**
  * The NAME_BUFFER structure contains information about a local network name. One or more NAME_BUFFER structures follows an ADAPTER_STATUS structure when an application specifies the NCBASTAT command in the ncb_command member of the NCB structure.
- * @see https://docs.microsoft.com/windows/win32/api//nb30/ns-nb30-name_buffer
+ * @see https://learn.microsoft.com/windows/win32/api/nb30/ns-nb30-name_buffer
  * @namespace Windows.Win32.NetworkManagement.NetBios
  * @version v4.0.30319
  */

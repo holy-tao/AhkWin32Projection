@@ -3,7 +3,7 @@
 
 /**
  * Contains the default string values for user and vendor class names.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_server_specific_strings
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_server_specific_strings
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

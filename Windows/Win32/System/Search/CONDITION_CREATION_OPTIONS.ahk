@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Provides a set of flags to be used with the following interfaces to indicate the type of condition tree node:\_ICondition, ICondition2, IConditionFactory, IConditionFactory2, and IConditionGenerator.
  * @remarks
- * 
  * &gt;Only one of following flags should be set simultaneously:
  *                 
  * 
@@ -13,13 +13,11 @@
  * <li>CONDITION_CREATION_VECTOR_LEAF</li>
  * </ul>
  * However, if none of these flags is set, then attempting to create a leaf condition with VT_VECTOR set in the PROPVARIANT results in failure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//structuredquery/ne-structuredquery-condition_creation_options
+ * @see https://learn.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-condition_creation_options
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
-class CONDITION_CREATION_OPTIONS{
+class CONDITION_CREATION_OPTIONS extends Win32BitflagEnum{
 
     /**
      * Indicates that the condition is set to the default value.

@@ -5,15 +5,43 @@
 
 /**
  * Represents a union of MI_Timestamp and MI_Interval.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_datetime
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_datetime
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
 class MI_Datetime extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
+
+    class _u_e__Union extends Win32Struct {
+        static sizeof => 32
+        static packingSize => 4
+
+        /**
+         * @type {MI_Timestamp}
+         */
+        timestamp{
+            get {
+                if(!this.HasProp("__timestamp"))
+                    this.__timestamp := MI_Timestamp(0, this)
+                return this.__timestamp
+            }
+        }
+    
+        /**
+         * @type {MI_Interval}
+         */
+        interval{
+            get {
+                if(!this.HasProp("__interval"))
+                    this.__interval := MI_Interval(0, this)
+                return this.__interval
+            }
+        }
+    
+    }
 
     /**
      * If <b>isTimestamp</b> is nonzero, timestamp is used.  If <b>isTimestamp</b> is 0, interval is used.
@@ -25,24 +53,14 @@ class MI_Datetime extends Win32Struct
     }
 
     /**
-     * @type {MI_Timestamp}
+     * 
+     * @type {_u_e__Union}
      */
-    timestamp{
+    u{
         get {
-            if(!this.HasProp("__timestamp"))
-                this.__timestamp := MI_Timestamp(8, this)
-            return this.__timestamp
-        }
-    }
-
-    /**
-     * @type {MI_Interval}
-     */
-    interval{
-        get {
-            if(!this.HasProp("__interval"))
-                this.__interval := MI_Interval(8, this)
-            return this.__interval
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._u_e__Union(4, this)
+            return this.__u
         }
     }
 }

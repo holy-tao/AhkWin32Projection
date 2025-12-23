@@ -3,7 +3,7 @@
 #Include ..\StructuredStorage\JET_TABLEID.ahk
 
 /**
- * 
+ * Learn more about: JET_OPENTEMPORARYTABLE Structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-opentemporarytable-structure
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319

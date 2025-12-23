@@ -4,11 +4,8 @@
 /**
  * The DRM_VAL16 structure is used by some DRM-related methods for passing 128-bit device identification values.
  * @remarks
- * 
  * This structure is used to store the device serial number for network devices, such as set-top boxes.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ns-wmsdkidl-drm_val16
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-drm_val16
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

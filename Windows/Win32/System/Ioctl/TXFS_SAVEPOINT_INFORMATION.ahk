@@ -4,7 +4,7 @@
 
 /**
  * The FSCTL_TXFS_SAVEPOINT_INFORMATION structure specifies the action to perform, and on which transaction.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-txfs_savepoint_information
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_savepoint_information
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

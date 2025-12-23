@@ -930,6 +930,18 @@ class Power {
 ;@region Methods
     /**
      * Sets or retrieves power information.
+     * @remarks
+     * Changes made to the current system power policy using 
+     *     <b>CallNtPowerInformation</b> are immediate, but they 
+     *     are not persistent; that is, the changes are not stored as part of a power scheme. Any changes to system power 
+     *     policy made with <b>CallNtPowerInformation</b> may be 
+     *     overwritten by changes to a policy scheme made by the user in the Power Options control panel program, or by 
+     *     subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-writepwrscheme">WritePwrScheme</a>, 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-setactivepwrscheme">SetActivePwrScheme</a>, or other power scheme 
+     *     functions.
+     * 
+     * For more information on using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power 
+     *     Schemes</a>.
      * @param {Integer} InformationLevel The information level requested. This value indicates the specific power information to be set or 
      *       retrieved. This parameter must be one of the following 
      *       <b>POWER_INFORMATION_LEVEL</b> enumeration type values.
@@ -1051,9 +1063,7 @@ class Power {
      *         function returns <b>ERROR_INVALID_PARAMETER</b>.
      *         
      * 
-     * The <i>lpOutputBuffer</i> buffer receives a 
-     *          <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_battery_state">SYSTEM_BATTERY_STATE</a> structure containing 
-     *          information about the current system battery.
+     * The <i>lpOutputBuffer</i> buffer receives a [SYSTEM_BATTERY_STATE structure](../winnt/ns-winnt-system_battery_state.md) containing information about the current system battery.
      * 
      * </td>
      * </tr>
@@ -1109,7 +1119,7 @@ class Power {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//powerbase/nf-powerbase-callntpowerinformation
+     * @see https://learn.microsoft.com/windows/win32/api/powerbase/nf-powerbase-callntpowerinformation
      * @since windows5.1.2600
      */
     static CallNtPowerInformation(InformationLevel, InputBuffer, InputBufferLength, OutputBuffer, OutputBufferLength) {
@@ -1119,31 +1129,45 @@ class Power {
 
     /**
      * Retrieves information about the system power capabilities.
+     * @remarks
+     * This function retrieves detailed information about the current system power management hardware resources and capabilities. This includes information about the presence of hardware features such as power buttons, lid switches, and batteries. Other details returned include information about current power management capabilities and configurations that can change dynamically, such as the minimum sleep state currently supported, which may change as new drivers are introduced into the system, or the presence of the system hibernation file.
+     * 
+     * This information is also available through the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/powerbase/nf-powerbase-callntpowerinformation">CallNtPowerInformation</a> function, using the SystemPowerCapabilities level.
+     * 
+     * For more information on using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power Schemes</a>.
      * @param {Pointer<SYSTEM_POWER_CAPABILITIES>} lpspc A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_power_capabilities">SYSTEM_POWER_CAPABILITIES</a> structure that receives the information.
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//powerbase/nf-powerbase-getpwrcapabilities
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/powerbase/nf-powerbase-getpwrcapabilities
      * @since windows5.1.2600
      */
     static GetPwrCapabilities(lpspc) {
         A_LastError := 0
 
         result := DllCall("POWRPROF.dll\GetPwrCapabilities", "ptr", lpspc, "char")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Determines the computer role for the specified platform.
+     * @remarks
+     * This function reads the ACPI Fixed ACPI Description Table (FADT) to determine the OEM preferred computer role. If that information is not available, the function looks for a battery. If at least one battery is available, the function returns <b>PlatformRoleMobile</b>. If no batteries are available, the function returns <b>PlatformRoleDesktop</b>.
+     * 
+     * 
+     * 
+     * If the OEM preferred computer role is not supported on the platform specified by the caller, the function returns the closest supported value.  For example, calling the <b>PowerDeterminePlatformRoleEx</b> function with a <i>Version</i> of <b>POWER_PLATFORM_ROLE_V1</b> on a tablet device returns <b>PlatformRoleMobile</b>.
      * @param {Integer} Version 
      * @returns {Integer} The return value is one of the values from the 
-     *       specified version of the <a href="/windows/desktop/api/winnt/ne-winnt-power_platform_role">POWER_PLATFORM_ROLE</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//powerbase/nf-powerbase-powerdetermineplatformroleex
+     *       specified version of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-power_platform_role">POWER_PLATFORM_ROLE</a> enumeration.
+     * @see https://learn.microsoft.com/windows/win32/api/powerbase/nf-powerbase-powerdetermineplatformroleex
      * @since windows8.0
      */
     static PowerDeterminePlatformRoleEx(Version) {
@@ -1157,7 +1181,7 @@ class Power {
      * @param {HANDLE} Recipient This parameter is a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/powrprof/ns-powrprof-device_notify_subscribe_parameters">DEVICE_NOTIFY_SUBSCRIBE_PARAMETERS</a> structure. In this case, the callback function is <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nc-powrprof-device_notify_callback_routine">DeviceNotifyCallbackRoutine</a>. When the <b>Callback</b> function executes, the  <i>Type</i> parameter is set indicating the type of event that occurred. Possible values include <b>PBT_APMSUSPEND</b>, <b>PBT_APMRESUMESUSPEND</b>, and <b>PBT_APMRESUMEAUTOMATIC</b> - see  <a href="https://docs.microsoft.com/windows/desktop/Power/power-management-events">Power Management Events</a> for more info. The <i>Setting</i> parameter is not used with suspend/resume notifications.
      * @param {Pointer<Pointer<Void>>} RegistrationHandle A handle to the registration. Use this handle to unregister for notifications.
      * @returns {Integer} Returns ERROR_SUCCESS (zero) if the call was successful, and a nonzero value if the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powerbase/nf-powerbase-powerregistersuspendresumenotification
+     * @see https://learn.microsoft.com/windows/win32/api/powerbase/nf-powerbase-powerregistersuspendresumenotification
      * @since windows8.0
      */
     static PowerRegisterSuspendResumeNotification(Flags, Recipient, RegistrationHandle) {
@@ -1173,7 +1197,7 @@ class Power {
      * Cancels a registration to receive notification when the system is suspended or resumed.
      * @param {HPOWERNOTIFY} RegistrationHandle A handle to a registration obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/powerbase/nf-powerbase-powerregistersuspendresumenotification">PowerRegisterSuspendResumeNotification</a> function.
      * @returns {Integer} Returns ERROR_SUCCESS (zero) if the call was successful, and a nonzero value if the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powerbase/nf-powerbase-powerunregistersuspendresumenotification
+     * @see https://learn.microsoft.com/windows/win32/api/powerbase/nf-powerbase-powerunregistersuspendresumenotification
      * @since windows8.0
      */
     static PowerUnregisterSuspendResumeNotification(RegistrationHandle) {
@@ -1192,9 +1216,7 @@ class Power {
      * @param {Pointer<Integer>} Type A pointer to a variable that receives the type of data for the value. The 
      *      possible values are listed in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>. 
      *      This parameter can be <b>NULL</b> and the type of data is not returned.
-     * @param {Pointer} Buffer A pointer to a buffer that receives the data value. If this parameter is <b>NULL</b>, 
-     *      the <i>BufferSize</i> 
-     *      parameter receives the required buffer size.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      *      <i>Buffer</i> parameter. 
      * 
@@ -1206,16 +1228,16 @@ class Power {
      *       the call failed. If the buffer size specified by the <i>BufferSize</i> parameter is too small, 
      *       <b>ERROR_MORE_DATA</b> will be returned and the <b>DWORD</b> pointed to 
      *       by the <i>BufferSize</i> parameter will be filled in with the required buffer size.
-     * @see https://docs.microsoft.com/windows/win32/api//powersetting/nf-powersetting-powerreadacvalue
+     * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powerreadacvalue
      * @since windows6.0.6000
      */
-    static PowerReadACValue(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, Buffer, BufferSize) {
+    static PowerReadACValue(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, Buffer_R, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
         TypeMarshal := Type is VarRef ? "uint*" : "ptr"
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerReadACValue", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, TypeMarshal, Type, "ptr", Buffer, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadACValue", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, TypeMarshal, Type, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -1228,9 +1250,7 @@ class Power {
      * @param {Pointer<Integer>} Type A pointer to a variable that receives the type of data for the value. The 
      *      possible values are listed in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>. 
      *      This parameter can be <b>NULL</b> and the type of data is not returned.
-     * @param {Pointer} Buffer A pointer to a variable that receives the data value. If this parameter is <b>NULL</b>, 
-     *      the <i>BufferSize</i> 
-     *      parameter receives the required buffer size.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      *      <i>Buffer</i> parameter. 
      * 
@@ -1242,21 +1262,24 @@ class Power {
      *       the call failed. If the buffer size specified by the <i>BufferSize</i> parameter is too small, 
      *       <b>ERROR_MORE_DATA</b> will be returned and the <b>DWORD</b> pointed to 
      *       by the <i>BufferSize</i> parameter will be filled in with the required buffer size.
-     * @see https://docs.microsoft.com/windows/win32/api//powersetting/nf-powersetting-powerreaddcvalue
+     * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powerreaddcvalue
      * @since windows6.0.6000
      */
-    static PowerReadDCValue(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, Buffer, BufferSize) {
+    static PowerReadDCValue(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, Buffer_R, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
         TypeMarshal := Type is VarRef ? "uint*" : "ptr"
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerReadDCValue", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, TypeMarshal, Type, "ptr", Buffer, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadDCValue", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, TypeMarshal, Type, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
     /**
      * Sets the AC value index of the specified power setting.
+     * @remarks
+     * Changes to the settings for the active power scheme do not take effect until you call the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
@@ -1264,7 +1287,7 @@ class Power {
      * @param {Integer} AcValueIndex The AC value index.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powersetting/nf-powersetting-powerwriteacvalueindex
+     * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powerwriteacvalueindex
      * @since windows6.0.6000
      */
     static PowerWriteACValueIndex(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, AcValueIndex) {
@@ -1276,6 +1299,9 @@ class Power {
 
     /**
      * Sets the DC index of the specified power setting.
+     * @remarks
+     * Changes to the settings for the active power scheme do not take effect until you call the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
@@ -1283,7 +1309,7 @@ class Power {
      * @param {Integer} DcValueIndex The DC value index.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      * 	      the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powersetting/nf-powersetting-powerwritedcvalueindex
+     * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powerwritedcvalueindex
      * @since windows6.0.6000
      */
     static PowerWriteDCValueIndex(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, DcValueIndex) {
@@ -1300,7 +1326,7 @@ class Power {
      *       Use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to free this memory.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powersetting/nf-powersetting-powergetactivescheme
+     * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powergetactivescheme
      * @since windows6.0.6000
      */
     static PowerGetActiveScheme(UserRootPowerKey, ActivePolicyGuid) {
@@ -1318,7 +1344,7 @@ class Power {
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powersetting/nf-powersetting-powersetactivescheme
+     * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powersetactivescheme
      * @since windows6.0.6000
      */
     static PowerSetActiveScheme(UserRootPowerKey, SchemeGuid) {
@@ -1330,12 +1356,14 @@ class Power {
 
     /**
      * Registers to receive notification when a power setting changes.
+     * @remarks
+     * Immediately after registration, the callback will be invoked with the current value of the power setting. If the registration occurs while the power setting is changing, you may receive multiple callbacks; the last callback is the most recent update.
      * @param {Pointer<Guid>} SettingGuid A GUID that represents the power setting.
      * @param {Integer} Flags 
      * @param {HANDLE} Recipient A handle to the recipient of the notifications.
      * @param {Pointer<Pointer<Void>>} RegistrationHandle A handle to the registration. Use this handle to unregister for notifications.
      * @returns {Integer} Returns ERROR_SUCCESS (zero) if the call was successful, and a nonzero value if the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powersetting/nf-powersetting-powersettingregisternotification
+     * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powersettingregisternotification
      * @since windows6.1
      */
     static PowerSettingRegisterNotification(SettingGuid, Flags, Recipient, RegistrationHandle) {
@@ -1351,7 +1379,7 @@ class Power {
      * Cancels a registration to receive notification when a power setting changes.
      * @param {HPOWERNOTIFY} RegistrationHandle A handle to a registration obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersettingregisternotification">PowerSettingRegisterNotification</a> function.
      * @returns {Integer} Returns ERROR_SUCCESS (zero) if the call was successful, and a nonzero value if the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powersetting/nf-powersetting-powersettingunregisternotification
+     * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powersettingunregisternotification
      * @since windows6.1
      */
     static PowerSettingUnregisterNotification(RegistrationHandle) {
@@ -1363,6 +1391,8 @@ class Power {
 
     /**
      * Registers a callback to receive effective power mode change notifications.
+     * @remarks
+     * Immediately after registration, the callback will be invoked with the current value of the power setting. If the registration occurs while the power mode is changing, you may receive multiple callbacks; the last callback is the most recent update.
      * @param {Integer} Version Supplies the maximum effective power mode version the caller understands. If the effective power mode comes from a later version, it is reduced to a compatible version that is then passed to the callback. 
      * 
      * The following values can be passed in: 
@@ -1371,45 +1401,53 @@ class Power {
      * @param {Pointer<EFFECTIVE_POWER_MODE_CALLBACK>} Callback A pointer to the callback to call when the effective power mode changes. This will also be called once upon registration to supply the current mode. If multiple callbacks are registered using this API, those callbacks can be called concurrently.
      * @param {Pointer<Void>} Context Caller-specified opaque context.
      * @returns {Pointer<Void>} A handle to the registration. Use this handle to unregister for notifications.
-     * @see https://docs.microsoft.com/windows/win32/api//powersetting/nf-powersetting-powerregisterforeffectivepowermodenotifications
+     * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powerregisterforeffectivepowermodenotifications
      * @since windows10.0.17763
      */
     static PowerRegisterForEffectivePowerModeNotifications(Version, Callback, Context) {
         ContextMarshal := Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("POWRPROF.dll\PowerRegisterForEffectivePowerModeNotifications", "uint", Version, "ptr", Callback, ContextMarshal, Context, "ptr*", &RegistrationHandle := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return RegistrationHandle
     }
 
     /**
      * Unregisters from effective power mode change notifications. This function is intended to be called from cleanup code and will wait for all callbacks to complete before unregistering.
+     * @remarks
+     * Immediately after registration, the callback will be invoked with the current value of the power setting. If the registration occurs while the power setting is changing, you may receive multiple callbacks; the last callback is the most recent update.
      * @param {Pointer<Void>} RegistrationHandle The handle corresponding to a single power mode registration. This handle should have been saved by the caller after the call to <a href="../powersetting/nf-powersetting-powerregisterforeffectivepowermodenotifications.md">PowerRegisterForEffectivePowerModeNotifications</a> and passed in here.
      * @returns {HRESULT} Returns S_OK (zero) if the call was successful, and a nonzero value if the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powersetting/nf-powersetting-powerunregisterfromeffectivepowermodenotifications
+     * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powerunregisterfromeffectivepowermodenotifications
      * @since windows10.0.17763
      */
     static PowerUnregisterFromEffectivePowerModeNotifications(RegistrationHandle) {
         RegistrationHandleMarshal := RegistrationHandle is VarRef ? "ptr" : "ptr"
 
         result := DllCall("POWRPROF.dll\PowerUnregisterFromEffectivePowerModeNotifications", RegistrationHandleMarshal, RegistrationHandle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Retrieves the disk spindown range.
+     * @remarks
+     * Starting with Windows Vista, power management configuration of the system's hard disk drives is controlled through the GUID_DISK_SUBGROUP power settings subgroup. Use the <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powerenumerate">PowerEnumerate</a> function to enumerate individual settings.
+     * 
+     * For more information on using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power Schemes</a>.
      * @param {Pointer<Integer>} puiMax The maximum disk spindown time, in seconds.
      * @param {Pointer<Integer>} puiMin The minimum disk spindown time, in seconds.
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-getpwrdiskspindownrange
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-getpwrdiskspindownrange
      * @since windows5.1.2600
      */
     static GetPwrDiskSpindownRange(puiMax, puiMin) {
@@ -1419,78 +1457,129 @@ class Power {
         A_LastError := 0
 
         result := DllCall("POWRPROF.dll\GetPwrDiskSpindownRange", puiMaxMarshal, puiMax, puiMinMarshal, puiMin, "char")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Enumerates all power schemes.
+     * @remarks
+     * For each power scheme enumerated, the callback function is called with the following parameters:
+     * 
+     * 
+     * ``` syntax
+     * 
+     * typedef BOOLEAN (CALLBACK* PWRSCHEMESENUMPROC)(
+     *   UINT uiIndex,      // power scheme index
+     *   DWORD dwName,      // size of the sName string, in bytes
+     *   LPWSTR sName,      // name of the power scheme
+     *   DWORD dwDesc,      // size of the sDesc string, in bytes
+     *   LPWSTR sDesc,      // description string
+     *   PPOWER_POLICY pp,  // receives the power policy
+     *   LPARAM lParam      // user-defined value
+     * );
+     * ```
+     * 
+     * The <i>sName</i> and <i>sDesc</i> parameters are null-terminated Unicode strings. The <i>pp</i> parameter is a pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/ns-powrprof-power_policy">POWER_POLICY</a> structure containing the power policy scheme. To continue until all power schemes have been enumerated, the callback function must return <b>TRUE</b>. To stop the enumeration, the callback function must return <b>FALSE</b>.
+     * 
+     * For more information on using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power Schemes</a>.
      * @param {Pointer<PWRSCHEMESENUMPROC>} lpfn A pointer to a callback function to be called for each power scheme enumerated. For more information, see Remarks.
      * @param {LPARAM} lParam A user-defined value to be passed to the callback function.
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-enumpwrschemes
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-enumpwrschemes
      * @since windows5.1.2600
      */
     static EnumPwrSchemes(lpfn, lParam) {
         A_LastError := 0
 
         result := DllCall("POWRPROF.dll\EnumPwrSchemes", "ptr", lpfn, "ptr", lParam, "char")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Retrieves the current global power policy settings.
+     * @remarks
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/ns-powrprof-global_power_policy">GLOBAL_POWER_POLICY</a> structure contains policy settings that are common to all power schemes. This structure contains both user and computer policy settings.
+     * 
+     * Starting with Windows Vista, use the <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powerenumerate">PowerEnumerate</a> function to enumerate power settings for a specified scheme and the power read functions to retrieve individual settings. 
+     * 
+     * For more information on using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power Schemes</a>.
      * @param {Pointer<GLOBAL_POWER_POLICY>} pGlobalPowerPolicy A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/ns-powrprof-global_power_policy">GLOBAL_POWER_POLICY</a> structure that receives the information.
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-readglobalpwrpolicy
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-readglobalpwrpolicy
      * @since windows5.1.2600
      */
     static ReadGlobalPwrPolicy(pGlobalPowerPolicy) {
         A_LastError := 0
 
         result := DllCall("POWRPROF.dll\ReadGlobalPwrPolicy", "ptr", pGlobalPowerPolicy, "char")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Retrieves the power policy settings that are unique to the specified power scheme.
+     * @remarks
+     * If the power scheme specified does not exist, the function returns <b>FALSE</b>.
+     * 
+     * To retrieve information about the power policy settings currently in use by the system, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-getactivepwrscheme">GetActivePwrScheme</a> function. To retrieve additional information about the current power policy settings, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/powerbase/nf-powerbase-callntpowerinformation">CallNtPowerInformation</a> function.
+     * 
+     * Starting with Windows Vista, use the <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powerenumerate">PowerEnumerate</a> function to enumerate power settings for a specified scheme and the power read functions to retrieve individual settings. 
+     * 
+     * For more information on using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power Schemes</a>.
      * @param {Integer} uiID The index of the power scheme to be read.
      * @param {Pointer<POWER_POLICY>} pPowerPolicy A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/ns-powrprof-power_policy">POWER_POLICY</a> structure that receives the power policy settings.
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-readpwrscheme
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-readpwrscheme
      * @since windows5.1.2600
      */
     static ReadPwrScheme(uiID, pPowerPolicy) {
         A_LastError := 0
 
         result := DllCall("POWRPROF.dll\ReadPwrScheme", "uint", uiID, "ptr", pPowerPolicy, "char")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Writes policy settings that are unique to the specified power scheme.
+     * @remarks
+     * This change does not affect the current system power policy. To apply this change to the current system power policy, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-setactivepwrscheme">SetActivePwrScheme</a> function with the index of this power scheme.
+     * 
+     * Power policy schemes written using 
+     * <b>WritePwrScheme</b> are permanently stored in the system registry hives, and remain available for use in the Power Options control panel program, or by subsequent calls to the power scheme API. To permanently remove a power scheme from the system, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-deletepwrscheme">DeletePwrScheme</a> function.
+     * 
+     * For more information about using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power Schemes</a>.
      * @param {Pointer<Integer>} puiID The index of the power scheme to be written. If a power scheme with the same index already exists, it is replaced. Otherwise, a new power scheme is created.
      * @param {PWSTR} lpszSchemeName The name of the power scheme.
      * @param {PWSTR} lpszDescription The description of the power scheme.
@@ -1499,8 +1588,8 @@ class Power {
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-writepwrscheme
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-writepwrscheme
      * @since windows5.1.2600
      */
     static WritePwrScheme(puiID, lpszSchemeName, lpszDescription, lpScheme) {
@@ -1512,61 +1601,80 @@ class Power {
         A_LastError := 0
 
         result := DllCall("POWRPROF.dll\WritePwrScheme", puiIDMarshal, puiID, "ptr", lpszSchemeName, "ptr", lpszDescription, "ptr", lpScheme, "char")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Writes global power policy settings.
+     * @remarks
+     * The function replaces any existing global power policy settings. Each user has a separate global power scheme, which contains power policy settings that apply to all power schemes for that user.
+     * 
+     * Starting with Windows Vista, use the <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powerenumerate">PowerEnumerate</a> function to enumerate power settings for a specified scheme and the power write functions to write individual settings. 
+     * 
+     * For more information on using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power Schemes</a>.
      * @param {Pointer<GLOBAL_POWER_POLICY>} pGlobalPowerPolicy A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/ns-powrprof-global_power_policy">GLOBAL_POWER_POLICY</a> structure that contains the power policy settings to be written.
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-writeglobalpwrpolicy
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-writeglobalpwrpolicy
      * @since windows5.1.2600
      */
     static WriteGlobalPwrPolicy(pGlobalPowerPolicy) {
         A_LastError := 0
 
         result := DllCall("POWRPROF.dll\WriteGlobalPwrPolicy", "ptr", pGlobalPowerPolicy, "char")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Deletes the specified power scheme.
+     * @remarks
+     * Applications can call 
+     * <b>DeletePwrScheme</b> to permanently delete a power scheme. An attempt to delete the currently active power scheme fails with the last error set to ERROR_ACCESS_DENIED.
+     * 
+     * For more information on using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power Schemes</a>.
      * @param {Integer} uiID The index of the power scheme to be deleted.
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-deletepwrscheme
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-deletepwrscheme
      * @since windows5.1.2600
      */
     static DeletePwrScheme(uiID) {
         A_LastError := 0
 
         result := DllCall("POWRPROF.dll\DeletePwrScheme", "uint", uiID, "char")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Retrieves the index of the active power scheme.
+     * @remarks
+     * The active power scheme remains active until either the user sets a new power scheme using the Power Options control panel program, or an application calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-setactivepwrscheme">SetActivePwrScheme</a> function.
+     * 
+     * For more information on using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power Schemes</a>.
      * @param {Pointer<Integer>} puiID A pointer to a variable that receives the index of the active power scheme.
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-getactivepwrscheme
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-getactivepwrscheme
      * @since windows5.1.2600
      */
     static GetActivePwrScheme(puiID) {
@@ -1575,14 +1683,26 @@ class Power {
         A_LastError := 0
 
         result := DllCall("POWRPROF.dll\GetActivePwrScheme", puiIDMarshal, puiID, "char")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Sets the active power scheme.
+     * @remarks
+     * Use this function to make long-term changes to the system configuration. To temporarily keep the system running while an application is performing a task, use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setthreadexecutionstate">SetThreadExecutionState</a> function.
+     * 
+     * If the power scheme specified by <i>uiID</i> does not exist, the function returns zero.
+     * 
+     * If <i>lpGlobalPowerPolicy</i> is <b>NULL</b>, the function uses the current global power policy settings set by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-writeglobalpwrpolicy">WriteGlobalPwrPolicy</a>. Otherwise, the settings in the specified structure replace the current global power policy settings.
+     * 
+     * If <i>lpPowerPolicy</i> is <b>NULL</b>, the function uses the current power policy settings for the power scheme. Otherwise, the settings in the specified structure replace the current power policy settings.
+     * 
+     * For more information on using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power Schemes</a>.
      * @param {Integer} uiID The index of the power scheme to be activated.
      * @param {Pointer<GLOBAL_POWER_POLICY>} pGlobalPowerPolicy A pointer to an optional 
      * <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/ns-powrprof-global_power_policy">GLOBAL_POWER_POLICY</a> structure, which provides global power policy settings to be merged with the power scheme when it becomes active.
@@ -1591,24 +1711,31 @@ class Power {
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-setactivepwrscheme
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-setactivepwrscheme
      * @since windows5.1.2600
      */
     static SetActivePwrScheme(uiID, pGlobalPowerPolicy, pPowerPolicy) {
         A_LastError := 0
 
         result := DllCall("POWRPROF.dll\SetActivePwrScheme", "uint", uiID, "ptr", pGlobalPowerPolicy, "ptr", pPowerPolicy, "char")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Determines whether the computer supports the sleep states.
+     * @remarks
+     * This information is also available through the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/powerbase/nf-powerbase-callntpowerinformation">CallNtPowerInformation</a> function. Check the <b>SystemS1</b>, <b>SystemS2</b>, and <b>SystemS3</b> members of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_power_capabilities">SYSTEM_POWER_CAPABILITIES</a> structure.
+     * 
+     * For more information on using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power Schemes</a>.
      * @returns {BOOLEAN} If the computer supports the sleep states (S1, S2, and S3), the function returns <b>TRUE</b>. Otherwise, the function returns <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-ispwrsuspendallowed
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-ispwrsuspendallowed
      * @since windows5.1.2600
      */
     static IsPwrSuspendAllowed() {
@@ -1618,8 +1745,14 @@ class Power {
 
     /**
      * Determines whether the computer supports hibernation.
+     * @remarks
+     * This information is also available through the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/powerbase/nf-powerbase-callntpowerinformation">CallNtPowerInformation</a> function. The value is returned in the <b>SystemS4</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_power_capabilities">SYSTEM_POWER_CAPABILITIES</a> structure.
+     * 
+     * For more information on using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power Schemes</a>.
      * @returns {BOOLEAN} If the computer supports hibernation (power state S4) and the file Hiberfil.sys is present on the system, the function returns <b>TRUE</b>. Otherwise, the function returns <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-ispwrhibernateallowed
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-ispwrhibernateallowed
      * @since windows5.1.2600
      */
     static IsPwrHibernateAllowed() {
@@ -1629,8 +1762,16 @@ class Power {
 
     /**
      * Determines whether the computer supports the soft off power state.
+     * @remarks
+     * This information is also available through the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/powerbase/nf-powerbase-callntpowerinformation">CallNtPowerInformation</a> function. The value is returned in the <b>SystemS5</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_power_capabilities">SYSTEM_POWER_CAPABILITIES</a> structure.
+     * 
+     * Starting with Windows Vista, computers must support the soft off power state. Therefore, this function is relevant only to Windows Server 2003 and earlier operating systems.
+     * 
+     * For more information on using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power Schemes</a>.
      * @returns {BOOLEAN} If the computer supports soft off (power state S5), the function returns <b>TRUE</b>. Otherwise, the function returns <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-ispwrshutdownallowed
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-ispwrshutdownallowed
      * @since windows5.1.2600
      */
     static IsPwrShutdownAllowed() {
@@ -1650,6 +1791,20 @@ class Power {
 
     /**
      * Suspends the system by shutting power down. Depending on the Hibernate parameter, the system either enters a suspend (sleep) state or hibernation (S4).
+     * @remarks
+     * The calling process must have the <b>SE_SHUTDOWN_NAME</b> privilege. To enable the 
+     *     <b>SE_SHUTDOWN_NAME</b> privilege, use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-adjusttokenprivileges">AdjustTokenPrivileges</a> function. For more 
+     *     information, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/changing-privileges-in-a-token">Changing Privileges in a 
+     *     Token</a>.
+     * 
+     * An application may use <b>SetSuspendState</b> to 
+     *     transition the system from the working state to the standby (sleep), or optionally, hibernate (S4) state. This 
+     *     function is similar to the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setsystempowerstate">SetSystemPowerState</a> 
+     *     function.
+     * 
+     * For more information on using PowrProf.h, see 
+     *     <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power Schemes</a>. For information about events that can wake the system, see <a href="https://docs.microsoft.com/windows/desktop/Power/system-wake-up-events">System Wake-up Events</a>.
      * @param {BOOLEAN} bHibernate If this parameter is <b>TRUE</b>, the system hibernates. If the parameter is 
      *       <b>FALSE</b>, the system is suspended.
      * @param {BOOLEAN} bForce This parameter has no effect.
@@ -1658,22 +1813,29 @@ class Power {
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-setsuspendstate
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-setsuspendstate
      * @since windows5.1.2600
      */
     static SetSuspendState(bHibernate, bForce, bWakeupEventsDisabled) {
         A_LastError := 0
 
         result := DllCall("POWRPROF.dll\SetSuspendState", "char", bHibernate, "char", bForce, "char", bWakeupEventsDisabled, "char")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Retrieves the current system power policy settings.
+     * @remarks
+     * To update the current power policy settings, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-writeglobalpwrpolicy">WriteGlobalPwrPolicy</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-writepwrscheme">WritePwrScheme</a> functions.
+     * 
+     * For more information on using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power Schemes</a>.
      * @param {Pointer<GLOBAL_POWER_POLICY>} pGlobalPowerPolicy A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/ns-powrprof-global_power_policy">GLOBAL_POWER_POLICY</a> structure that receives the current global power policy settings.
      * @param {Pointer<POWER_POLICY>} pPowerPolicy A pointer to a 
@@ -1681,26 +1843,31 @@ class Power {
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-getcurrentpowerpolicies
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-getcurrentpowerpolicies
      * @since windows5.1.2600
      */
     static GetCurrentPowerPolicies(pGlobalPowerPolicy, pPowerPolicy) {
         A_LastError := 0
 
         result := DllCall("POWRPROF.dll\GetCurrentPowerPolicies", "ptr", pGlobalPowerPolicy, "ptr", pPowerPolicy, "char")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Determines whether the current user has sufficient privilege to write a power scheme.
+     * @remarks
+     * This function is useful if your application is impersonating a user.
+     * 
+     * For more information on using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power Schemes</a>.
      * @returns {BOOLEAN} If the current user has sufficient privilege to write a power scheme, the function returns <b>TRUE</b>.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
      * <table>
      * <tr>
@@ -1719,59 +1886,76 @@ class Power {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-canuserwritepwrscheme
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-canuserwritepwrscheme
      * @since windows5.1.2600
      */
     static CanUserWritePwrScheme() {
         A_LastError := 0
 
         result := DllCall("POWRPROF.dll\CanUserWritePwrScheme", "char")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Retrieves the processor power policy settings for the specified power scheme.
+     * @remarks
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/ns-powrprof-machine_processor_power_policy">MACHINE_PROCESSOR_POWER_POLICY</a> structure contains processor power policy settings for use while the system is running on AC power or battery power.
+     * 
+     * Starting with Windows Vista, power management configuration of the system's processor is controlled through the GUID_PROCESSOR_SETTINGS_SUBGROUP power settings subgroup. Use the <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powerenumerate">PowerEnumerate</a> function to enumerate individual settings.
+     * 
+     * For more information on using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power Schemes</a>.
      * @param {Integer} uiID The index of the power scheme to be read.
      * @param {Pointer<MACHINE_PROCESSOR_POWER_POLICY>} pMachineProcessorPowerPolicy A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/ns-powrprof-machine_processor_power_policy">MACHINE_PROCESSOR_POWER_POLICY</a> structure that receives the processor power policy settings.
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-readprocessorpwrscheme
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-readprocessorpwrscheme
      * @since windows5.1.2600
      */
     static ReadProcessorPwrScheme(uiID, pMachineProcessorPowerPolicy) {
         A_LastError := 0
 
         result := DllCall("POWRPROF.dll\ReadProcessorPwrScheme", "uint", uiID, "ptr", pMachineProcessorPowerPolicy, "char")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Writes processor power policy settings for the specified power scheme.
+     * @remarks
+     * This change does not affect the current system power policy. To apply this change to the current system power policy, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-setactivepwrscheme">SetActivePwrScheme</a> function, using the index of this power scheme.
+     * 
+     * Starting with Windows Vista, power management configuration of the system's processor is controlled through the GUID_PROCESSOR_SETTINGS_SUBGROUP power settings subgroup. Use the <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powerenumerate">PowerEnumerate</a> function to enumerate individual settings.
+     * 
+     * For more information on using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power Schemes</a>.
      * @param {Integer} uiID The index of the power scheme to be written.
      * @param {Pointer<MACHINE_PROCESSOR_POWER_POLICY>} pMachineProcessorPowerPolicy A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/ns-powrprof-machine_processor_power_policy">MACHINE_PROCESSOR_POWER_POLICY</a> structure that contains the power policy settings to be written.
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-writeprocessorpwrscheme
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-writeprocessorpwrscheme
      * @since windows5.1.2600
      */
     static WriteProcessorPwrScheme(uiID, pMachineProcessorPowerPolicy) {
         A_LastError := 0
 
         result := DllCall("POWRPROF.dll\WriteProcessorPwrScheme", "uint", uiID, "ptr", pMachineProcessorPowerPolicy, "char")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1794,7 +1978,7 @@ class Power {
      * @returns {BOOLEAN} TRUE if the registry key specified by <i>SubKeyGuid</i> represents a single power setting. 
      * 
      * If the registry key specified by <i>SubKeyGuid</i>  represents a range, this function returns FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerissettingrangedefined
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerissettingrangedefined
      * @since windows6.1
      */
     static PowerIsSettingRangeDefined(SubKeyGuid, SettingGuid) {
@@ -1914,7 +2098,7 @@ class Power {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powersettingaccesscheckex
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powersettingaccesscheckex
      * @since windows6.1
      */
     static PowerSettingAccessCheckEx(AccessFlags, PowerGuid, AccessType) {
@@ -2033,7 +2217,7 @@ class Power {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powersettingaccesscheck
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powersettingaccesscheck
      * @since windows6.0.6000
      */
     static PowerSettingAccessCheck(AccessFlags, PowerGuid) {
@@ -2090,7 +2274,7 @@ class Power {
      * @param {Pointer<Integer>} AcValueIndex A pointer to a variable that receives the AC value index.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreadacvalueindex
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadacvalueindex
      * @since windows6.0.6000
      */
     static PowerReadACValueIndex(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, AcValueIndex) {
@@ -2212,7 +2396,7 @@ class Power {
      * @param {Pointer<Integer>} DcValueIndex A pointer to a variable that receives the DC value index.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreaddcvalueindex
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreaddcvalueindex
      * @since windows6.0.6000
      */
     static PowerReadDCValueIndex(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, DcValueIndex) {
@@ -2326,9 +2510,7 @@ class Power {
      * </tr>
      * </table>
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
-     * @param {Pointer} Buffer A pointer to a buffer that receives the friendly name. If this parameter is <b>NULL</b>, 
-     *      the <i>BufferSize</i> 
-     *      parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      *      <i>Buffer</i> parameter. 
      * 
@@ -2340,15 +2522,15 @@ class Power {
      *         the call failed. If the buffer size specified by the <i>BufferSize</i> parameter is too small, 
      *         <b>ERROR_MORE_DATA</b> will be returned and the <b>DWORD</b> pointed 
      *         to by the <i>BufferSize</i> parameter will be filled in with the required buffer size.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreadfriendlyname
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadfriendlyname
      * @since windows6.0.6000
      */
-    static PowerReadFriendlyName(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer, BufferSize) {
+    static PowerReadFriendlyName(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer_R, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerReadFriendlyName", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadFriendlyName", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -2358,9 +2540,7 @@ class Power {
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
-     * @param {Pointer} Buffer A pointer to a buffer that receives the description. If this parameter is <b>NULL</b>, 
-     *      the <i>BufferSize</i> 
-     *      parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      *      <i>Buffer</i> parameter. 
      * 
@@ -2373,15 +2553,15 @@ class Power {
      * 	      the function returns 
      * 	      <b>ERROR_SUCCESS</b> and the <b>DWORD</b> pointed 
      *        to by the <i>BufferSize</i> parameter is filled in with the required buffer size.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreaddescription
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreaddescription
      * @since windows6.0.6000
      */
-    static PowerReadDescription(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer, BufferSize) {
+    static PowerReadDescription(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer_R, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerReadDescription", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadDescription", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -2395,7 +2575,7 @@ class Power {
      *      possible values are listed in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>. 
      *      This parameter can be <b>NULL</b> and the type of data is not returned.
      * @param {Integer} PossibleSettingIndex The zero-based index of the possible setting.
-     * @param {Pointer} Buffer A pointer to a buffer that receives the value. If this parameter is <b>NULL</b>, the <i>BufferSize</i> parameter receives the required buffer size.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the  <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
@@ -2404,16 +2584,16 @@ class Power {
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if the call failed. If the buffer size specified by the <i>BufferSize</i> parameter is too small, 
      *        
      * <b>ERROR_MORE_DATA</b> will be returned and the <b>DWORD</b> pointed to by the <i>BufferSize</i> parameter will be filled in with the required buffer size.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreadpossiblevalue
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadpossiblevalue
      * @since windows6.0.6000
      */
-    static PowerReadPossibleValue(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, PossibleSettingIndex, Buffer, BufferSize) {
+    static PowerReadPossibleValue(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, PossibleSettingIndex, Buffer_R, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
         TypeMarshal := Type is VarRef ? "uint*" : "ptr"
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerReadPossibleValue", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, TypeMarshal, Type, "uint", PossibleSettingIndex, "ptr", Buffer, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadPossibleValue", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, TypeMarshal, Type, "uint", PossibleSettingIndex, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -2423,8 +2603,7 @@ class Power {
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
-     * @param {Pointer} Buffer A pointer to a buffer that receives the friendly name. If this parameter is <b>NULL</b>, the <i>BufferSize</i> 
-     * parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      * <i>Buffer</i> parameter. 
      * 
@@ -2434,15 +2613,15 @@ class Power {
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if the call failed. If the buffer size specified by the <i>BufferSize</i> parameter is too small, 
      * 	      
      * <b>ERROR_MORE_DATA</b> will be returned and the <b>DWORD</b> pointed to by the <i>BufferSize</i> parameter will be filled in with the required buffer size.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreadpossiblefriendlyname
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadpossiblefriendlyname
      * @since windows6.0.6000
      */
-    static PowerReadPossibleFriendlyName(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, Buffer, BufferSize) {
+    static PowerReadPossibleFriendlyName(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, Buffer_R, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerReadPossibleFriendlyName", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", PossibleSettingIndex, "ptr", Buffer, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadPossibleFriendlyName", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", PossibleSettingIndex, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -2452,7 +2631,7 @@ class Power {
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
-     * @param {Pointer} Buffer A pointer to a buffer that receives the description. If this parameter is <b>NULL</b>, the <i>BufferSize</i>  parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
@@ -2461,15 +2640,15 @@ class Power {
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if the call failed. If the buffer size specified by the <i>BufferSize</i> parameter is too small, 
      *        
      * <b>ERROR_MORE_DATA</b> will be returned and the <b>DWORD</b> pointed to by the <i>BufferSize</i> parameter will be filled in with the required buffer size.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreadpossibledescription
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadpossibledescription
      * @since windows6.0.6000
      */
-    static PowerReadPossibleDescription(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, Buffer, BufferSize) {
+    static PowerReadPossibleDescription(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, Buffer_R, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerReadPossibleDescription", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", PossibleSettingIndex, "ptr", Buffer, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadPossibleDescription", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", PossibleSettingIndex, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -2482,7 +2661,7 @@ class Power {
      *       setting.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      * 	     the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreadvaluemin
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadvaluemin
      * @since windows6.0.6000
      */
     static PowerReadValueMin(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, ValueMinimum) {
@@ -2503,7 +2682,7 @@ class Power {
      *       setting.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *      the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreadvaluemax
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadvaluemax
      * @since windows6.0.6000
      */
     static PowerReadValueMax(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, ValueMaximum) {
@@ -2523,7 +2702,7 @@ class Power {
      * @param {Pointer<Integer>} ValueIncrement A pointer to a variable that receives the increment for the specified power setting.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *      the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreadvalueincrement
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadvalueincrement
      * @since windows6.0.6000
      */
     static PowerReadValueIncrement(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, ValueIncrement) {
@@ -2540,7 +2719,7 @@ class Power {
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
-     * @param {Pointer} Buffer A pointer to a buffer that receives the string. If this parameter is <b>NULL</b>, the <i>BufferSize</i> parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
@@ -2549,15 +2728,15 @@ class Power {
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if the call failed. If the buffer size specified by the <i>BufferSize</i> parameter is too small, 
      * 		      
      * <b>ERROR_MORE_DATA</b> will be returned and the <b>DWORD</b> pointed to by the <i>BufferSize</i> parameter will be filled in with the required buffer size.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreadvalueunitsspecifier
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadvalueunitsspecifier
      * @since windows6.0.6000
      */
-    static PowerReadValueUnitsSpecifier(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer, BufferSize) {
+    static PowerReadValueUnitsSpecifier(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer_R, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerReadValueUnitsSpecifier", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadValueUnitsSpecifier", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -2571,7 +2750,7 @@ class Power {
      * @param {Pointer<Integer>} AcDefaultIndex A pointer to a variable that receives the default AC index.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *        the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreadacdefaultindex
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadacdefaultindex
      * @since windows6.0.6000
      */
     static PowerReadACDefaultIndex(RootPowerKey, SchemePersonalityGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, AcDefaultIndex) {
@@ -2593,7 +2772,7 @@ class Power {
      * @param {Pointer<Integer>} DcDefaultIndex A pointer to a variable that receives the default DC index.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *      the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreaddcdefaultindex
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreaddcdefaultindex
      * @since windows6.0.6000
      */
     static PowerReadDCDefaultIndex(RootPowerKey, SchemePersonalityGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, DcDefaultIndex) {
@@ -2611,9 +2790,7 @@ class Power {
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer} Buffer A pointer to a buffer that receives the icon resource. If this parameter is <b>NULL</b>, 
-     *      the <i>BufferSize</i> 
-     *      parameter receives the required buffer size.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      *      <i>Buffer</i> parameter. 
      * 
@@ -2625,15 +2802,15 @@ class Power {
      *        the call failed. If the buffer size specified by the <i>BufferSize</i> parameter is too small, 
      *        <b>ERROR_MORE_DATA</b> will be returned and the <b>DWORD</b> pointed 
      *        to by the <i>BufferSize</i> parameter will be filled in with the required buffer size.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreadiconresourcespecifier
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadiconresourcespecifier
      * @since windows6.0.6000
      */
-    static PowerReadIconResourceSpecifier(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer, BufferSize) {
+    static PowerReadIconResourceSpecifier(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer_R, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerReadIconResourceSpecifier", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadIconResourceSpecifier", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -2662,7 +2839,7 @@ class Power {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreadsettingattributes
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadsettingattributes
      * @since windows6.0.6000
      */
     static PowerReadSettingAttributes(SubGroupGuid, PowerSettingGuid) {
@@ -2672,115 +2849,144 @@ class Power {
 
     /**
      * Sets the friendly name for the specified power setting, subgroup, or scheme.
+     * @remarks
+     * Changes to the settings for the active power scheme do not take effect until you call the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer} Buffer The friendly name, in wide (Unicode) characters.
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferSize The size of the friendly name specified by the <i>Buffer</i> parameter, including the terminating <b>NULL</b> character.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerwritefriendlyname
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritefriendlyname
      * @since windows6.0.6000
      */
-    static PowerWriteFriendlyName(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer, BufferSize) {
+    static PowerWriteFriendlyName(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer_R, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
-        result := DllCall("POWRPROF.dll\PowerWriteFriendlyName", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer, "uint", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerWriteFriendlyName", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer_R, "uint", BufferSize, "uint")
         return result
     }
 
     /**
      * Sets the description for the specified power setting, subgroup, or scheme.
+     * @remarks
+     * If the 
+     *     <i>SchemeGuid</i> parameter is not <b>NULL</b> but both the 
+     *     <i>SubGroupOfPowerSettingsGuid</i> and <i>PowerSettingGuid</i> parameters 
+     *     are <b>NULL</b>, the description of the power scheme will be set. If the 
+     *     <i>SchemeGuid</i> and <i>SubGroupOfPowerSettingsGuid</i> parameters are not 
+     *    <b>NULL</b> and  the <i>PowerSettingGuid</i> parameter is 
+     *     <b>NULL</b>, the description of the subgroup will be set. If the 
+     *     <i>SchemeGuid</i>, <i>SubGroupOfPowerSettingsGuid</i>, and 
+     *     <i>PowerSettingGuid</i> parameters are not <b>NULL</b>, the description of 
+     *     the power setting will be set.
+     * 
+     * Changes to the settings for the active power scheme do not take effect until you call the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer} Buffer The description, in wide (Unicode) characters.
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *        the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerwritedescription
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritedescription
      * @since windows6.0.6000
      */
-    static PowerWriteDescription(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer, BufferSize) {
+    static PowerWriteDescription(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer_R, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
-        result := DllCall("POWRPROF.dll\PowerWriteDescription", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer, "uint", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerWriteDescription", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer_R, "uint", BufferSize, "uint")
         return result
     }
 
     /**
      * Sets the value for a possible value of a power setting.
+     * @remarks
+     * Changes to the settings for the active power scheme do not take effect until you call the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Integer} Type The type of data for the value. The possible values are listed in 
      *       <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
-     * @param {Pointer} Buffer The value for the possible setting.
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *      the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerwritepossiblevalue
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritepossiblevalue
      * @since windows6.0.6000
      */
-    static PowerWritePossibleValue(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, PossibleSettingIndex, Buffer, BufferSize) {
+    static PowerWritePossibleValue(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, PossibleSettingIndex, Buffer_R, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
-        result := DllCall("POWRPROF.dll\PowerWritePossibleValue", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", Type, "uint", PossibleSettingIndex, "ptr", Buffer, "uint", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerWritePossibleValue", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", Type, "uint", PossibleSettingIndex, "ptr", Buffer_R, "uint", BufferSize, "uint")
         return result
     }
 
     /**
      * Sets the friendly name for the specified possible setting of a power setting.
+     * @remarks
+     * Changes to the settings for the active power scheme do not take effect until you call the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
-     * @param {Pointer} Buffer The friendly name, in wide (Unicode) characters.
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerwritepossiblefriendlyname
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritepossiblefriendlyname
      * @since windows6.0.6000
      */
-    static PowerWritePossibleFriendlyName(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, Buffer, BufferSize) {
+    static PowerWritePossibleFriendlyName(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, Buffer_R, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
-        result := DllCall("POWRPROF.dll\PowerWritePossibleFriendlyName", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", PossibleSettingIndex, "ptr", Buffer, "uint", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerWritePossibleFriendlyName", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", PossibleSettingIndex, "ptr", Buffer_R, "uint", BufferSize, "uint")
         return result
     }
 
     /**
      * Sets the description for one of the possible choices of a power setting value.
+     * @remarks
+     * Changes to the settings for the active power scheme do not take effect until you call the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
-     * @param {Pointer} Buffer The description, in wide (Unicode) characters.
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerwritepossibledescription
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritepossibledescription
      * @since windows6.0.6000
      */
-    static PowerWritePossibleDescription(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, Buffer, BufferSize) {
+    static PowerWritePossibleDescription(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, Buffer_R, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
-        result := DllCall("POWRPROF.dll\PowerWritePossibleDescription", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", PossibleSettingIndex, "ptr", Buffer, "uint", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerWritePossibleDescription", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", PossibleSettingIndex, "ptr", Buffer_R, "uint", BufferSize, "uint")
         return result
     }
 
     /**
      * Sets the minimum value for the specified power setting.
+     * @remarks
+     * Changes to the settings for the active power scheme do not take effect until you call the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Integer} ValueMinimum The minimum value to be set.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *        the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerwritevaluemin
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritevaluemin
      * @since windows6.0.6000
      */
     static PowerWriteValueMin(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, ValueMinimum) {
@@ -2792,13 +2998,16 @@ class Power {
 
     /**
      * Sets the maximum value for the specified power setting.
+     * @remarks
+     * Changes to the settings for the active power scheme do not take effect until you call the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Integer} ValueMaximum The maximum value to be set.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerwritevaluemax
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritevaluemax
      * @since windows6.0.6000
      */
     static PowerWriteValueMax(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, ValueMaximum) {
@@ -2810,13 +3019,16 @@ class Power {
 
     /**
      * Sets the increment for valid values between the power settings minimum and maximum.
+     * @remarks
+     * Changes to the settings for the active power scheme do not take effect until you call the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Integer} ValueIncrement The increment to be set.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      * 	     the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerwritevalueincrement
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritevalueincrement
      * @since windows6.0.6000
      */
     static PowerWriteValueIncrement(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, ValueIncrement) {
@@ -2828,25 +3040,31 @@ class Power {
 
     /**
      * Writes the string used to describe the units of a power setting that supports a range of values.
+     * @remarks
+     * Changes to the settings for the active power scheme do not take effect until you call the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer} Buffer The units specifier, in wide (Unicode) characters.
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerwritevalueunitsspecifier
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritevalueunitsspecifier
      * @since windows6.0.6000
      */
-    static PowerWriteValueUnitsSpecifier(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer, BufferSize) {
+    static PowerWriteValueUnitsSpecifier(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer_R, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
-        result := DllCall("POWRPROF.dll\PowerWriteValueUnitsSpecifier", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer, "uint", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerWriteValueUnitsSpecifier", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer_R, "uint", BufferSize, "uint")
         return result
     }
 
     /**
      * Sets the default AC index of the specified power setting.
+     * @remarks
+     * Changes to the settings for the active power scheme do not take effect until you call the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
      * @param {HKEY} RootSystemPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemePersonalityGuid The identifier of the scheme personality for this power setting. A power setting can have different default 
      *      values depending on the power scheme personality.
@@ -2855,7 +3073,7 @@ class Power {
      * @param {Integer} DefaultAcIndex The default AC index.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerwriteacdefaultindex
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwriteacdefaultindex
      * @since windows6.0.6000
      */
     static PowerWriteACDefaultIndex(RootSystemPowerKey, SchemePersonalityGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, DefaultAcIndex) {
@@ -2867,6 +3085,9 @@ class Power {
 
     /**
      * Sets the default DC index of the specified power setting.
+     * @remarks
+     * Changes to the settings for the active power scheme do not take effect until you call the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
      * @param {HKEY} RootSystemPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemePersonalityGuid The identifier of the scheme personality for this power setting. A power setting can have different default 
      * 	     values depending on the power scheme personality.
@@ -2875,7 +3096,7 @@ class Power {
      * @param {Integer} DefaultDcIndex The default DC index.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerwritedcdefaultindex
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritedcdefaultindex
      * @since windows6.0.6000
      */
     static PowerWriteDCDefaultIndex(RootSystemPowerKey, SchemePersonalityGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, DefaultDcIndex) {
@@ -2887,26 +3108,43 @@ class Power {
 
     /**
      * Sets the icon resource for the specified power setting, subgroup, or scheme.
+     * @remarks
+     * If the 
+     *     <i>SchemeGuid</i> parameter is not <b>NULL</b> but both the 
+     *     <i>SubGroupOfPowerSettingsGuid</i> and <i>PowerSettingGuid</i> parameters 
+     *     are <b>NULL</b>, the friendly name of the power scheme will be set. If the 
+     *     <i>SchemeGuid</i> and <i>SubGroupOfPowerSettingsGuid</i> parameters are not 
+     *    <b>NULL</b> and  the <i>PowerSettingGuid</i> parameter is 
+     *     <b>NULL</b>, the friendly name of the subgroup will be set. If the 
+     *     <i>SchemeGuid</i>, <i>SubGroupOfPowerSettingsGuid</i>, and 
+     *     <i>PowerSettingGuid</i> parameters are not <b>NULL</b>, the friendly name of 
+     *     the power setting will be set.
+     * 
+     * Changes to the settings for the active power scheme do not take effect until you call the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer} Buffer The icon resource.
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerwriteiconresourcespecifier
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwriteiconresourcespecifier
      * @since windows6.0.6000
      */
-    static PowerWriteIconResourceSpecifier(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer, BufferSize) {
+    static PowerWriteIconResourceSpecifier(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer_R, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
-        result := DllCall("POWRPROF.dll\PowerWriteIconResourceSpecifier", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer, "uint", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerWriteIconResourceSpecifier", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer_R, "uint", BufferSize, "uint")
         return result
     }
 
     /**
      * Sets the power attributes of a power key.
+     * @remarks
+     * Changes to the settings for the active power scheme do not take effect until you call the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
      * @param {Pointer<Guid>} SubGroupGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Integer} Attributes The attributes to be associated with the specified power setting.
@@ -2930,7 +3168,7 @@ class Power {
      * </table>
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *      the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerwritesettingattributes
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritesettingattributes
      * @since windows6.0.6000
      */
     static PowerWriteSettingAttributes(SubGroupGuid, PowerSettingGuid, Attributes) {
@@ -2987,13 +3225,13 @@ class Power {
      * </td>
      * <td width="60%">
      * The <i>DestinationSchemeGuid</i> parameter refers to an existing power scheme. 
-     *         <a href="/windows/desktop/api/powrprof/nf-powrprof-powerdeletescheme">PowerDeleteScheme</a> can be used to delete this 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powerdeletescheme">PowerDeleteScheme</a> can be used to delete this 
      *         scheme.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerduplicatescheme
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerduplicatescheme
      * @since windows6.0.6000
      */
     static PowerDuplicateScheme(RootPowerKey, SourceSchemeGuid, DestinationSchemeGuid) {
@@ -3015,7 +3253,7 @@ class Power {
      *       memory using <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerimportpowerscheme
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerimportpowerscheme
      * @since windows6.0.6000
      */
     static PowerImportPowerScheme(RootPowerKey, ImportFileNamePath, DestinationSchemeGuid) {
@@ -3034,7 +3272,7 @@ class Power {
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerdeletescheme
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerdeletescheme
      * @since windows6.0.6000
      */
     static PowerDeleteScheme(RootPowerKey, SchemeGuid) {
@@ -3050,7 +3288,7 @@ class Power {
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting to be deleted.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      * 	     the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerremovepowersetting
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerremovepowersetting
      * @since windows6.0.6000
      */
     static PowerRemovePowerSetting(PowerSettingSubKeyGuid, PowerSettingGuid) {
@@ -3065,7 +3303,7 @@ class Power {
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being created.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powercreatesetting
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powercreatesetting
      * @since windows6.0.6000
      */
     static PowerCreateSetting(RootSystemPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid) {
@@ -3083,7 +3321,7 @@ class Power {
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting being created.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powercreatepossiblesetting
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powercreatepossiblesetting
      * @since windows6.0.6000
      */
     static PowerCreatePossibleSetting(RootSystemPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex) {
@@ -3243,7 +3481,7 @@ class Power {
      * </tr>
      * </table>
      * @param {Integer} Index The zero-based index of the scheme, subgroup, or setting that is being enumerated.
-     * @param {Pointer} Buffer A pointer to a variable to receive the elements. If this parameter is <b>NULL</b>, the function retrieves the size of the buffer required.
+     * @param {Pointer} Buffer_R 
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that on input contains the size of the buffer pointed to by 
      *       the <i>Buffer</i> parameter. If the  <i>Buffer</i> parameter is 
      *       <b>NULL</b> or if the <i>BufferSize</i> is not large enough, the function 
@@ -3253,15 +3491,15 @@ class Power {
      *       or if the <i>Buffer</i> parameter is <b>NULL</b>, 
      *       <b>ERROR_MORE_DATA</b> will be returned and the <b>DWORD</b> pointed to 
      *       by the <i>BufferSize</i> parameter will be filled in with the required buffer size.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerenumerate
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerenumerate
      * @since windows6.0.6000
      */
-    static PowerEnumerate(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, AccessFlags, Index, Buffer, BufferSize) {
+    static PowerEnumerate(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, AccessFlags, Index, Buffer_R, BufferSize) {
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("POWRPROF.dll\PowerEnumerate", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "int", AccessFlags, "uint", Index, "ptr", Buffer, BufferSizeMarshal, BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerEnumerate", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "int", AccessFlags, "uint", Index, "ptr", Buffer_R, BufferSizeMarshal, BufferSize, "uint")
         return result
     }
 
@@ -3294,7 +3532,7 @@ class Power {
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powercanrestoreindividualdefaultpowerscheme
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powercanrestoreindividualdefaultpowerscheme
      * @since windows6.0.6000
      */
     static PowerCanRestoreIndividualDefaultPowerScheme(SchemeGuid) {
@@ -3307,7 +3545,7 @@ class Power {
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      * 	     the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerrestoreindividualdefaultpowerscheme
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerrestoreindividualdefaultpowerscheme
      * @since windows6.0.6000
      */
     static PowerRestoreIndividualDefaultPowerScheme(SchemeGuid) {
@@ -3317,9 +3555,11 @@ class Power {
 
     /**
      * Replaces the power schemes for the system with default power schemes. All current power schemes and settings are deleted and replaced with the default system power schemes.
+     * @remarks
+     * The caller must be a member of the local Administrators group.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerrestoredefaultpowerschemes
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerrestoredefaultpowerschemes
      * @since windows6.0.6000
      */
     static PowerRestoreDefaultPowerSchemes() {
@@ -3329,9 +3569,11 @@ class Power {
 
     /**
      * Replaces the default power schemes with the current user's power schemes.
+     * @remarks
+     * The caller must be a member of the local Administrators group.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreplacedefaultpowerschemes
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreplacedefaultpowerschemes
      * @since windows6.0.6000
      */
     static PowerReplaceDefaultPowerSchemes() {
@@ -3341,9 +3583,16 @@ class Power {
 
     /**
      * Determines the computer role for Windows 7, Windows Server 2008 R2, Windows Vista or Windows Server 2008.
+     * @remarks
+     * This function reads the ACPI Fixed ACPI Description Table (FADT) to determine the OEM preferred computer role. If that information is not available, the function looks for a battery. If at least one battery is available, the function returns <b>PlatformRoleMobile</b>. If no batteries are available, the function returns <b>PlatformRoleDesktop</b>.
+     * 
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  This API has a newer version. To query additional power platform roles defined after Windows 7 and Windows Server 2008 R2, use <a href="https://docs.microsoft.com/windows/desktop/api/powerbase/nf-powerbase-powerdetermineplatformroleex">PowerDeterminePlatformRoleEx</a>.</div>
+     * <div> </div>
      * @returns {Integer} The return value is one of the values from the 
-     *       <a href="/windows/desktop/api/winnt/ne-winnt-power_platform_role">POWER_PLATFORM_ROLE</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerdetermineplatformrole
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-power_platform_role">POWER_PLATFORM_ROLE</a> enumeration.
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerdetermineplatformrole
      * @since windows6.0.6000
      */
     static PowerDeterminePlatformRole() {
@@ -3353,6 +3602,19 @@ class Power {
 
     /**
      * Enumerates devices on the system that meet the specified criteria.
+     * @remarks
+     * The values of the <i>QueryFlags</i> parameter may be combined to query for devices that 
+     *      support two or more criteria. For example; if <b>PDCAP_D3_SUPPORTED</b> | 
+     *      <b>PDCAP_D1_SUPPORTED</b> is passed as the <i>QueryFlags</i> parameter, the 
+     *      function will query for devices that support either D3 or D1.
+     * 
+     * <i>QueryFlags</i> also may be combined with 
+     *      <i>QueryInterpretationFlags</i> set to <b>DEVICEPOWER_AND_OPERATION</b> to 
+     *      produce a query of devices that support all of the requested criteria. For example; if 
+     *      <b>PDCAP_D3_SUPPORTED</b> | <b>PDCAP_D1_SUPPORTED</b> is passed as the 
+     *      <i>QueryFlags</i> parameter and <b>DEVICEPOWER_AND_OPERATION</b> is passed 
+     *      as the <i>QueryInterpretationFlags</i> parameter, the function will query devices that support 
+     *      both D3 and D1.
      * @param {Integer} QueryIndex The index of the requested device. For initial calls, this value should be zero.
      * @param {Integer} QueryInterpretationFlags The criteria applied to the search results.
      * 
@@ -3645,7 +3907,7 @@ class Power {
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-devicepowerenumdevices
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-devicepowerenumdevices
      * @since windows6.0.6000
      */
     static DevicePowerEnumDevices(QueryIndex, QueryInterpretationFlags, QueryFlags, pReturnBuffer, pBufferSize) {
@@ -3692,8 +3954,8 @@ class Power {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * 	      <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-devicepowersetdevicestate
+     * 	      <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-devicepowersetdevicestate
      * @since windows6.0.6000
      */
     static DevicePowerSetDeviceState(DeviceDescription, SetFlags, SetData) {
@@ -3704,8 +3966,9 @@ class Power {
         A_LastError := 0
 
         result := DllCall("POWRPROF.dll\DevicePowerSetDeviceState", "ptr", DeviceDescription, "uint", SetFlags, SetDataMarshal, SetData, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3716,7 +3979,7 @@ class Power {
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-devicepoweropen
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-devicepoweropen
      * @since windows6.0.6000
      */
     static DevicePowerOpen(DebugMask) {
@@ -3730,7 +3993,7 @@ class Power {
      * 
      * If the function fails, the return value is 
      *        zero.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-devicepowerclose
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-devicepowerclose
      * @since windows6.0.6000
      */
     static DevicePowerClose() {
@@ -3740,10 +4003,14 @@ class Power {
 
     /**
      * Notifies the operating system of thermal events.
+     * @remarks
+     * Thermal managers call the <b>PowerReportThermalEvent</b> routine to notify the operating system of a thermal event so that the event can be recorded in the system event log.
+     * 
+     * Before calling <b>PowerReportThermalEvent</b>, the thermal manager sets the members of the <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/ns-powrprof-thermal_event">THERMAL_EVENT</a> structure to describe the thermal event.
      * @param {Pointer<THERMAL_EVENT>} Event The thermal event structure, <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/ns-powrprof-thermal_event">THERMAL_EVENT</a>.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//powrprof/nf-powrprof-powerreportthermalevent
+     * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreportthermalevent
      * @since windows8.1
      */
     static PowerReportThermalEvent(Event) {
@@ -3795,8 +4062,8 @@ class Power {
      * </tr>
      * </table>
      * @returns {HPOWERNOTIFY} Returns a notification handle for unregistering for power notifications. If the function fails, the return value is NULL. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-registerpowersettingnotification
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-registerpowersettingnotification
      * @since windows6.0.6000
      */
     static RegisterPowerSettingNotification(hRecipient, PowerSettingGuid, Flags) {
@@ -3805,10 +4072,12 @@ class Power {
         A_LastError := 0
 
         result := DllCall("USER32.dll\RegisterPowerSettingNotification", "ptr", hRecipient, "ptr", PowerSettingGuid, "uint", Flags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HPOWERNOTIFY({Value: result}, True)
+        resultHandle := HPOWERNOTIFY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3817,8 +4086,8 @@ class Power {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-unregisterpowersettingnotification
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-unregisterpowersettingnotification
      * @since windows6.0.6000
      */
     static UnregisterPowerSettingNotification(Handle) {
@@ -3827,8 +4096,9 @@ class Power {
         A_LastError := 0
 
         result := DllCall("USER32.dll\UnregisterPowerSettingNotification", "ptr", Handle, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3844,8 +4114,8 @@ class Power {
      * @returns {HPOWERNOTIFY} A handle to the registration. Use this handle to unregister for notifications.
      * 
      * If the function fails, the return value is NULL. To get extended error information call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-registersuspendresumenotification
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-registersuspendresumenotification
      * @since windows8.0
      */
     static RegisterSuspendResumeNotification(hRecipient, Flags) {
@@ -3854,10 +4124,12 @@ class Power {
         A_LastError := 0
 
         result := DllCall("USER32.dll\RegisterSuspendResumeNotification", "ptr", hRecipient, "uint", Flags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HPOWERNOTIFY({Value: result}, True)
+        resultHandle := HPOWERNOTIFY({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3866,8 +4138,8 @@ class Power {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-unregistersuspendresumenotification
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-unregistersuspendresumenotification
      * @since windows8.0
      */
     static UnregisterSuspendResumeNotification(Handle) {
@@ -3876,14 +4148,22 @@ class Power {
         A_LastError := 0
 
         result := DllCall("USER32.dll\UnregisterSuspendResumeNotification", "ptr", Handle, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Has no effect and returns STATUS_NOT_SUPPORTED. This function is provided only for compatibility with earlier versions of Windows.Windows Server 2008 and Windows Vista:  Has no effect and always returns success.
+     * @remarks
+     * The system uses the wake-up latency requirement when choosing a sleeping state. The latency is not guaranteed 
+     *     because wake-up time is determined by the hardware design of the particular computer.
+     * 
+     * To cancel a latency request, call 
+     *     <b>RequestWakeupLatency</b> with 
+     *     <b>LT_DONT_CARE</b>.
      * @param {Integer} latency The latency requirement for the time is takes to wake the computer. This parameter can be one of the 
      *       following values.
      * 
@@ -3916,7 +4196,7 @@ class Power {
      * </tr>
      * </table>
      * @returns {BOOL} The return value is nonzero.
-     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-requestwakeuplatency
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-requestwakeuplatency
      * @since windows5.1.2600
      */
     static RequestWakeupLatency(latency) {
@@ -3926,8 +4206,13 @@ class Power {
 
     /**
      * Determines the current state of the computer.
+     * @remarks
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/Power/pbt-apmresumeautomatic">PBT_APMRESUMEAUTOMATIC</a> event is broadcast when the system wakes automatically to handle an event. The user is generally not present. If the system detects any user activity after broadcasting the 
+     * PBT_APMRESUMEAUTOMATIC event, it will broadcast the 
+     * <a href="https://docs.microsoft.com/windows/desktop/Power/pbt-apmresumesuspend">PBT_APMRESUMESUSPEND</a> event to let applications know they can resume full interaction with the user.
      * @returns {BOOL} If the system was restored to the working state automatically and the user is not active, the function returns <b>TRUE</b>. Otherwise, the function returns <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-issystemresumeautomatic
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-issystemresumeautomatic
      * @since windows5.1.2600
      */
     static IsSystemResumeAutomatic() {
@@ -3937,11 +4222,29 @@ class Power {
 
     /**
      * Enables an application to inform the system that it is in use, thereby preventing the system from entering sleep or turning off the display while the application is running.
+     * @remarks
+     * The system automatically detects activities such as local keyboard or mouse input, server activity, and changing window focus. Activities that are not automatically detected include disk or CPU activity and video display.
+     * 
+     * Calling 
+     * <b>SetThreadExecutionState</b> without <b>ES_CONTINUOUS</b> simply resets the idle timer; to keep the display or system in the working state, the thread must call 
+     * <b>SetThreadExecutionState</b> periodically.
+     * 
+     * To run properly on a power-managed computer, applications such as fax servers, answering machines, backup agents, and network management applications must use both <b>ES_SYSTEM_REQUIRED</b> and <b>ES_CONTINUOUS</b> when they process events. Multimedia applications, such as video players and presentation applications, must use <b>ES_DISPLAY_REQUIRED</b> when they display video for long periods of time without user input. Applications such as word processors, spreadsheets, browsers, and games do not need to call 
+     * <b>SetThreadExecutionState</b>.
+     * 
+     * The <b>ES_AWAYMODE_REQUIRED</b> value should be used only when absolutely necessary by media applications that require the system to perform background tasks such as recording television content or streaming media to other devices while the system appears to be sleeping. Applications that do not require critical background processing or that run on portable computers should not enable away mode because it prevents the system from conserving power by entering true sleep. 
+     * 
+     * To enable away mode, an application uses both <b>ES_AWAYMODE_REQUIRED</b> and <b>ES_CONTINUOUS</b>; to disable away mode, an application calls <b>SetThreadExecutionState</b> with <b>ES_CONTINUOUS</b> and clears <b>ES_AWAYMODE_REQUIRED</b>. When away mode is enabled, any operation that would put the computer to sleep puts it in away mode instead. The computer appears to be sleeping while the system continues to perform tasks that do not require user input.  Away mode does not affect the sleep idle timer; to prevent the system from entering sleep when the timer expires, an application must also set the <b>ES_SYSTEM_REQUIRED</b> value. 
+     * 
+     * The 
+     * <b>SetThreadExecutionState</b> function cannot be used to prevent the user from putting the computer to sleep. Applications should respect that the user expects a certain behavior when they close the lid on their laptop or press the power button.
+     * 
+     * This function does not  stop the screen saver from executing.
      * @param {Integer} esFlags 
      * @returns {Integer} If the function succeeds, the return value is the previous thread execution state.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-setthreadexecutionstate
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setthreadexecutionstate
      * @since windows5.1.2600
      */
     static SetThreadExecutionState(esFlags) {
@@ -3951,32 +4254,47 @@ class Power {
 
     /**
      * Creates a new power request object.
+     * @remarks
+     * When the power request object is no longer needed, use the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function to free the handle and clean up the object.
      * @param {Pointer<REASON_CONTEXT>} Context Points to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-reason_context">REASON_CONTEXT</a> structure that contains information about the power request.
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the power request object.
      * 
      * If the function fails, the return value is INVALID_HANDLE_VALUE. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-powercreaterequest
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-powercreaterequest
      * @since windows6.1
      */
     static PowerCreateRequest(Context) {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\PowerCreateRequest", "ptr", Context, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
      * Increments the count of power requests of the specified type for a power request object.
+     * @remarks
+     * On Modern Standby systems on DC power, system and execution required power requests are terminated 5 minutes after the system sleep timeout has expired.
+     * 
+     * Except for <b>PowerRequestAwayModeRequired</b> on Traditional Sleep (S3) systems, power requests are terminated upon user-initiated system sleep entry (power button, lid close or selecting **Sleep** from the **Start** menu).
+     * 
+     * To conserve power and provide the best user experience, applications that use power requests should follow these best practices:
+     * 
+     * * When creating a power request, provide a localized text string that describes the reason for the request in the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-reason_context">REASON_CONTEXT</a> structure.
+     * * Call <b>PowerSetRequest</b> immediately before the scenario that requires the request.
+     * * Call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-powerclearrequest">PowerClearRequest</a> to decrement the reference count for the request as soon as the scenario is finished.
+     * * Clean up all request objects and associated handles before the process exits or the service stops.
      * @param {HANDLE} PowerRequest A handle to a power request object.
      * @param {Integer} RequestType 
      * @returns {BOOL} If the function succeeds, it returns a nonzero value.
      * 
-     * If the function fails, it returns zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-powersetrequest
+     * If the function fails, it returns zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-powersetrequest
      * @since windows6.1
      */
     static PowerSetRequest(PowerRequest, RequestType) {
@@ -3985,8 +4303,9 @@ class Power {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\PowerSetRequest", "ptr", PowerRequest, "int", RequestType, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3998,8 +4317,8 @@ class Power {
      * @returns {BOOL} If the function succeeds, it returns a nonzero value.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-powerclearrequest
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-powerclearrequest
      * @since windows6.1
      */
     static PowerClearRequest(PowerRequest, RequestType) {
@@ -4008,21 +4327,31 @@ class Power {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\PowerClearRequest", "ptr", PowerRequest, "int", RequestType, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Retrieves the current power state of the specified device.
+     * @remarks
+     * An application can use 
+     * <b>GetDevicePowerState</b> to determine whether a device is in the working state or a low-power state. If the device is in a low-power state, accessing the device may cause it to either queue or fail any I/O requests, or transition the device into the working state. The exact behavior depends on the implementation of the device.
+     * 
+     * To ensure maximum battery life on a laptop computer, use 
+     * <b>GetDevicePowerState</b> to reduce power consumption. For example, if a disk is currently powered down, accessing the disk will cause it to spin up, resulting in increased power consumption and reduced battery life.
+     * 
+     * Applications should defer or limit access to devices wherever possible while the system is running on battery power. To determine whether the system is running on battery power, and the remaining battery life, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getsystempowerstatus">GetSystemPowerStatus</a> function.
      * @param {HANDLE} hDevice A handle to an object on the device, such as a file or socket, or a handle to the device itself.
      * @param {Pointer<BOOL>} pfOn A pointer to the variable that receives the 
      * <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">power state</a>. This value is <b>TRUE</b> if the device is in the working state. Otherwise, it is <b>FALSE</b>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-getdevicepowerstate
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getdevicepowerstate
      * @since windows5.1.2600
      */
     static GetDevicePowerState(hDevice, pfOn) {
@@ -4036,43 +4365,67 @@ class Power {
 
     /**
      * Suspends the system by shutting power down. Depending on the ForceFlag parameter, the function either suspends operation immediately or requests permission from all applications and device drivers before doing so.
+     * @remarks
+     * The calling process must have the <b>SE_SHUTDOWN_NAME</b> privilege. To enable the 
+     *     <b>SE_SHUTDOWN_NAME</b> privilege, use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-adjusttokenprivileges">AdjustTokenPrivileges</a> function. For more 
+     *     information, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/changing-privileges-in-a-token">Changing Privileges in a 
+     *     Token</a>.
+     * 
+     * If any application or driver denies permission to suspend operation, the function broadcasts a 
+     *     <a href="https://docs.microsoft.com/windows/desktop/Power/pbt-apmquerysuspendfailed">PBT_APMQUERYSUSPENDFAILED</a> event to each 
+     *     application and driver. If power is suspended, this function returns only after system operation is resumed and 
+     *     related <a href="https://docs.microsoft.com/windows/desktop/Power/wm-powerbroadcast">WM_POWERBROADCAST</a> messages have been broadcast 
+     *     to all applications and drivers.
+     * 
+     * This function is similar to the <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-setsuspendstate">SetSuspendState</a> 
+     *     function.
+     * 
+     * To compile an application that uses this function, define the _WIN32_WINNT macro as 0x0400 or later. For more 
+     *     information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows 
+     *     Headers</a>.
      * @param {BOOL} fSuspend If this parameter is <b>TRUE</b>, the system is suspended. If the parameter is 
      *       <b>FALSE</b>, the system hibernates.
      * @param {BOOL} fForce This parameter has no effect.
      * @returns {BOOL} If power has been suspended and subsequently restored, the return value is nonzero.
      * 
      * If the system was not suspended, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-setsystempowerstate
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setsystempowerstate
      * @since windows5.1.2600
      */
     static SetSystemPowerState(fSuspend, fForce) {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetSystemPowerState", "int", fSuspend, "int", fForce, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Retrieves the power status of the system. The status indicates whether the system is running on AC or DC power, whether the battery is currently charging, how much battery life remains, and if battery saver is on or off.
+     * @remarks
+     * To compile an application that uses this function, define the _WIN32_WINNT macro as 0x0400 or later. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Pointer<SYSTEM_POWER_STATUS>} lpSystemPowerStatus A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-system_power_status">SYSTEM_POWER_STATUS</a> structure that receives status information.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-getsystempowerstatus
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getsystempowerstatus
      * @since windows5.1.2600
      */
     static GetSystemPowerStatus(lpSystemPowerStatus) {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetSystemPowerStatus", "ptr", lpSystemPowerStatus, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

@@ -69,7 +69,7 @@ class DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS extends Win32Struct
     MinimumConfigTimeout{
         get {
             if(!this.HasProp("__MinimumConfigTimeout"))
-                this.__MinimumConfigTimeout := DOT11_WFD_CONFIGURATION_TIMEOUT(18, this)
+                this.__MinimumConfigTimeout := DOT11_WFD_CONFIGURATION_TIMEOUT(17, this)
             return this.__MinimumConfigTimeout
         }
     }
@@ -80,7 +80,7 @@ class DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS extends Win32Struct
     IntendedInterfaceAddress{
         get {
             if(!this.HasProp("__IntendedInterfaceAddressProxyArray"))
-                this.__IntendedInterfaceAddressProxyArray := Win32FixedArray(this.ptr + 20, 6, Primitive, "char")
+                this.__IntendedInterfaceAddressProxyArray := Win32FixedArray(this.ptr + 19, 6, Primitive, "char")
             return this.__IntendedInterfaceAddressProxyArray
         }
     }
@@ -89,8 +89,8 @@ class DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS extends Win32Struct
      * @type {Integer}
      */
     GroupCapability {
-        get => NumGet(this, 26, "char")
-        set => NumPut("char", value, this, 26)
+        get => NumGet(this, 25, "char")
+        set => NumPut("char", value, this, 25)
     }
 
     /**

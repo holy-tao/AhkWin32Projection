@@ -7,13 +7,13 @@
  */
 class NDIS_WMI_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct
 {
-    static sizeof => 96
+    static sizeof => 88
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _IPv4Transmit extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+        static sizeof => 24
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -66,8 +66,8 @@ class NDIS_WMI_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct
     }
 
     class _IPv4Receive extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+        static sizeof => 24
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -120,8 +120,8 @@ class NDIS_WMI_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct
     }
 
     class _IPv6Transmit extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+        static sizeof => 20
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -166,8 +166,8 @@ class NDIS_WMI_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct
     }
 
     class _IPv6Receive extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+        static sizeof => 20
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -250,7 +250,7 @@ class NDIS_WMI_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct
     IPv6Receive{
         get {
             if(!this.HasProp("__IPv6Receive"))
-                this.__IPv6Receive := %this.__Class%._IPv6Receive(72, this)
+                this.__IPv6Receive := %this.__Class%._IPv6Receive(68, this)
             return this.__IPv6Receive
         }
     }

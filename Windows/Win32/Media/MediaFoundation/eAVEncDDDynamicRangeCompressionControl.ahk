@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the dynamic range control profile in a Dolby Digital audio stream. This enumeration is used with the AVEncDDDynamicRangeCompressionControl property.
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencdddynamicrangecompressioncontrol
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencdddynamicrangecompressioncontrol
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVEncDDDynamicRangeCompressionControl{
+class eAVEncDDDynamicRangeCompressionControl extends Win32Enum{
 
     /**
      * No dynamic range compression.

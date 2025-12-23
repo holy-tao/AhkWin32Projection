@@ -4,13 +4,10 @@
 /**
  * Contains an AVI 2.0 super index (index of indexes).
  * @remarks
- * 
  * For more information, see the <i>OpenDML AVI File Format Extensions</i>, published by the OpenDML AVI M-JPEG File Format Subcommittee. (This resource may not be available in some languages 
  * 
  * and countries.)
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//aviriff/ns-aviriff-avisuperindex
+ * @see https://learn.microsoft.com/windows/win32/api/aviriff/ns-aviriff-avisuperindex
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -21,7 +18,7 @@ class AVISUPERINDEX extends Win32Struct
     static packingSize => 8
 
     class _avisuperindex_entry extends Win32Struct {
-        static sizeof => 8208
+        static sizeof => 16
         static packingSize => 8
 
         /**

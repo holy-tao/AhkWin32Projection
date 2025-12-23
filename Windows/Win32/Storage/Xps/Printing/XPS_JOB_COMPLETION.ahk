@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the completion status of a print job.
- * @see https://docs.microsoft.com/windows/win32/api//xpsprint/ne-xpsprint-xps_job_completion
+ * @see https://learn.microsoft.com/windows/win32/api/xpsprint/ne-xpsprint-xps_job_completion
  * @namespace Windows.Win32.Storage.Xps.Printing
  * @version v4.0.30319
  */
-class XPS_JOB_COMPLETION{
+class XPS_JOB_COMPLETION extends Win32Enum{
 
     /**
      * The print  job is running.

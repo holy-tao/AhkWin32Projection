@@ -6,7 +6,6 @@
 /**
  * The LONG_SECTION structure represents a long MPEG-2 section header. If a section contains a long header, you can cast a SECTION pointer to a LONG_SECTION pointer. For more information, see the Remarks section in the SECTION reference.
  * @remarks
- * 
  * The following code shows how to access the bit fields within the <b>Version</b> member:
  * 
  * 
@@ -22,9 +21,7 @@
  * BYTE VersionNumber = pSection->VersionNumber;
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ns-mpeg2structs-long_section
+ * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-long_section
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -33,6 +30,56 @@ class LONG_SECTION extends Win32Struct
     static sizeof => 10
 
     static packingSize => 2
+
+    class _Header_e__Union extends Win32Struct {
+        static sizeof => 2
+        static packingSize => 1
+
+        /**
+         * @type {MPEG_HEADER_BITS_MIDL}
+         */
+        S{
+            get {
+                if(!this.HasProp("__S"))
+                    this.__S := MPEG_HEADER_BITS_MIDL(0, this)
+                return this.__S
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        W {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+    }
+
+    class _Version_e__Union extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 1
+
+        /**
+         * @type {MPEG_HEADER_VERSION_BITS_MIDL}
+         */
+        S{
+            get {
+                if(!this.HasProp("__S"))
+                    this.__S := MPEG_HEADER_VERSION_BITS_MIDL(0, this)
+                return this.__S
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        B {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+    }
 
     /**
      * Specifies the table identifier (TID) of the section.
@@ -44,22 +91,15 @@ class LONG_SECTION extends Win32Struct
     }
 
     /**
-     * @type {MPEG_HEADER_BITS_MIDL}
+     * A union that contains the following members.
+     * @type {_Header_e__Union}
      */
-    S{
+    Header{
         get {
-            if(!this.HasProp("__S"))
-                this.__S := MPEG_HEADER_BITS_MIDL(2, this)
-            return this.__S
+            if(!this.HasProp("__Header"))
+                this.__Header := %this.__Class%._Header_e__Union(1, this)
+            return this.__Header
         }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    W {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
     }
 
     /**
@@ -72,11 +112,15 @@ class LONG_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * A union that contains the following members.
+     * @type {_Version_e__Union}
      */
-    B {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
+    Version{
+        get {
+            if(!this.HasProp("__Version"))
+                this.__Version := %this.__Class%._Version_e__Union(6, this)
+            return this.__Version
+        }
     }
 
     /**

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Options that specify how to perform shader debug tracking.
  * @remarks
- * 
  * This enumeration is used by the following methods:
  *         
  * 
@@ -24,13 +24,11 @@
  * <div class="alert"><b>Note</b>  This API requires the Windows Software Development Kit (SDK) for Windows 8.
  *       </div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/ne-d3d11sdklayers-d3d11_shader_tracking_options
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_shader_tracking_options
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_SHADER_TRACKING_OPTIONS{
+class D3D11_SHADER_TRACKING_OPTIONS extends Win32Enum{
 
     /**
      * No debug tracking is performed.

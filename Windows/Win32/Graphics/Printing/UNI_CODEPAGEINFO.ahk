@@ -8,9 +8,9 @@
  */
 class UNI_CODEPAGEINFO extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class UNI_CODEPAGEINFO extends Win32Struct
     SelectSymbolSet{
         get {
             if(!this.HasProp("__SelectSymbolSet"))
-                this.__SelectSymbolSet := INVOC(8, this)
+                this.__SelectSymbolSet := INVOC(4, this)
             return this.__SelectSymbolSet
         }
     }
@@ -37,7 +37,7 @@ class UNI_CODEPAGEINFO extends Win32Struct
     UnSelectSymbolSet{
         get {
             if(!this.HasProp("__UnSelectSymbolSet"))
-                this.__UnSelectSymbolSet := INVOC(16, this)
+                this.__UnSelectSymbolSet := INVOC(12, this)
             return this.__UnSelectSymbolSet
         }
     }

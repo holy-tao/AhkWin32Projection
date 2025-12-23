@@ -5,15 +5,15 @@
 
 /**
  * The EMRANGLEARC structure contains members for the AngleArc enhanced metafile record.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emranglearc
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emranglearc
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
 class EMRANGLEARC extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.

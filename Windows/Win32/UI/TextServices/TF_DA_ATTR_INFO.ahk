@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Elements of the TF_DA_ATTR_INFO enumeration are used to specify text conversion data in the TF_DISPLAYATTRIBUTE structure.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/ne-msctf-tf_da_attr_info
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/ne-msctf-tf_da_attr_info
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
-class TF_DA_ATTR_INFO{
+class TF_DA_ATTR_INFO extends Win32Enum{
 
     /**
      * The text is entered by the user and has not been converted yet.

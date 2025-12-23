@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The StatusCode enum contains status codes for IPv6 operations.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpv6csdk/ne-dhcpv6csdk-statuscode
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/ne-dhcpv6csdk-statuscode
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */
-class StatusCode{
+class StatusCode extends Win32Enum{
 
     /**
      * 

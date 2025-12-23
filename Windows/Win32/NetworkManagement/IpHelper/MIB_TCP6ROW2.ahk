@@ -3,12 +3,11 @@
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
 
 /**
- * Contains information that describes an IPv6 TCP connection.
+ * Contains information that describes an IPv6 TCP connection. (MIB_TCP6ROW2)
  * @remarks
- * 
  * The <b>MIB_TCP6ROW2</b> structure is defined on Windows Vista and later. 
  * 
- * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-gettcp6table2">GetTcp6Table2</a>function retrieves the IPv6 TCP connection table on the local computer and returns this information in a <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcp6table2">MIB_TCP6TABLE2</a> structure. 
+ * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-gettcp6table2">GetTcp6Table2</a> function retrieves the IPv6 TCP connection table on the local computer and returns this information in a <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcp6table2">MIB_TCP6TABLE2</a> structure. 
  * 
  * An array of <b>MIB_TCP6ROW2</b> structures are contained in the <b>MIB_TCP6TABLE2</b> structure.  
  * 
@@ -25,17 +24,15 @@
  * The <b>dwLocalScopeId</b>, and <b>dwRemoteScopeId</b> members are in network byte order. In order to use the <b>dwLocalScopeId</b> or <b>dwRemoteScopeId</b> members, the <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-ntohl">ntohl</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wsipv6ok/nf-wsipv6ok-inet_ntoa">inet_ntoa</a> functions in Windows Sockets or similar functions may be needed. 
  * 
  * The <b>LocalAddr</b> and <b>RemoteAddr</b> members are stored in  <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-in_addr">in6_addr</a> structures. The <a href="https://docs.microsoft.com/windows/desktop/api/ip2string/nf-ip2string-rtlipv6addresstostringa">RtlIpv6AddressToString</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ip2string/nf-ip2string-rtlipv6addresstostringexw">RtlIpv6AddressToStringEx</a> functions may be used to convert the IPv6 address in the <b>LocalAddr</b> or <b>RemoteAddr</b> members to a string without loading the Windows Sockets DLL.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tcpmib/ns-tcpmib-mib_tcp6row2
+ * @see https://learn.microsoft.com/windows/win32/api/tcpmib/ns-tcpmib-mib_tcp6row2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */
 class MIB_TCP6ROW2 extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>IN6_ADDR</b>

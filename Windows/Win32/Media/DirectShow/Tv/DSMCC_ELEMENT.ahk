@@ -3,7 +3,7 @@
 
 /**
  * The DSMCC_ELEMENT structure contains information from a DSM-CC element.
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ns-mpeg2structs-dsmcc_element
+ * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-dsmcc_element
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

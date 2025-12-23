@@ -4,13 +4,10 @@
 /**
  * A variable-size structure that contains information about a menu file name.
  * @remarks
- * 
  * <div class="alert"><b>Important</b>  This structure cannot be used with operating systems later than Windows 2000.</div>
  * <div> </div>
  * When reading an <b>AASHELLMENUFILENAME</b> structure, first read a single SHORT to determine the total size of the structure, then use that value to read the remainder of the structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shlobj/ns-shlobj-aashellmenufilename
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj/ns-shlobj-aashellmenufilename
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

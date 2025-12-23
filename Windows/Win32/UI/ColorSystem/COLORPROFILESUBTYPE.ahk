@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the subtype of the color profile.
  * @remarks
- * 
  * For a description of rendering intents, see [Rendering Intents](/windows/win32/wcs/rendering-intents).
  * 
  * The PCOLORPROFILESUBTYPE and LPCOLORPROFILESUBTYPE data types are defined as pointers to the **COLORPROFILESUBTYPE** enumeration:
@@ -67,13 +67,11 @@
  * Get/Set GMMP as global gamut map model profile for a specific rendering intent as described by that subtype to be used in CreateMultiProfileTransform API when resolving the rendering intent array in WCS transform.<br/>
  * 
  * COLORPROFILESUBTYPE Global default can be or?d with WCS\_DEFAULT to set this GMMP as the global default for use in OpenColorProfile or WcsOpenColorProfile where GMMP is **NULL**.<br/>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//icm/ne-icm-colorprofilesubtype
+ * @see https://learn.microsoft.com/windows/win32/api/icm/ne-icm-colorprofilesubtype
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  */
-class COLORPROFILESUBTYPE{
+class COLORPROFILESUBTYPE extends Win32Enum{
 
     /**
      * A perceptual rendering intent for gamut map model profiles (GMMPs) defined in WCS.

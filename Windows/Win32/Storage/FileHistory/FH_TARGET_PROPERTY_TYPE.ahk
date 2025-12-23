@@ -1,21 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of a property of a backup target.
  * @remarks
- * 
  * To query a backup target property, call the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhtarget-getstringproperty">IFhTarget::GetStringProperty</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhtarget-getnumericalproperty">IFhTarget::GetNumericalProperty</a> method.
  * 
- * For local disks, the <b>FH_TARGET_URL</b> property contains the drive letter. This path must end with a trailing backslash (for example, "X:\").
+ * For local disks, the <b>FH_TARGET_URL</b> property contains the drive letter. This path must end with a trailing backslash (for example, "X:\\").
  * 
- * For network shares, the <b>FH_TARGET_URL</b> property contains the full path of the share.  This path must end with a trailing backslash (for example, "\\myserver\myshare\").
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fhcfg/ne-fhcfg-fh_target_property_type
+ * For network shares, the <b>FH_TARGET_URL</b> property contains the full path of the share. This path must end with a trailing backslash (for example, "\\\\myserver\myshare\\").
+ * @see https://learn.microsoft.com/windows/win32/api/fhcfg/ne-fhcfg-fh_target_property_type
  * @namespace Windows.Win32.Storage.FileHistory
  * @version v4.0.30319
  */
-class FH_TARGET_PROPERTY_TYPE{
+class FH_TARGET_PROPERTY_TYPE extends Win32Enum{
 
     /**
      * The property is a string that contains the backup target’s friendly name.  The friendly name is set during target provisioning by calling the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhconfigmgr-provisionandsetnewtarget">IFhConfigMgr::ProvisionAndSetNewTarget</a> method.

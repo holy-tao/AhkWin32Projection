@@ -8,9 +8,9 @@
  */
 class WOW64_DESCRIPTOR_TABLE_ENTRY extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class WOW64_DESCRIPTOR_TABLE_ENTRY extends Win32Struct
     Descriptor{
         get {
             if(!this.HasProp("__Descriptor"))
-                this.__Descriptor := WOW64_LDT_ENTRY(8, this)
+                this.__Descriptor := WOW64_LDT_ENTRY(4, this)
             return this.__Descriptor
         }
     }

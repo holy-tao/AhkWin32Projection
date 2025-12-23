@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies which formats are supported in the font, either at a font-wide level or per glyph.
- * @see https://docs.microsoft.com/windows/win32/api//dcommon/ne-dcommon-dwrite_glyph_image_formats
+ * @see https://learn.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_glyph_image_formats
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_GLYPH_IMAGE_FORMATS{
+class DWRITE_GLYPH_IMAGE_FORMATS extends Win32BitflagEnum{
 
     /**
      * Indicates no data is available for this glyph.

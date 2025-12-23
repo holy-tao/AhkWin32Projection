@@ -10,7 +10,7 @@
 
 /**
  * Adds claim support to the LSA token and contains information an authentication package can place in a Version 3 Windows token object and has superceded LSA_TOKEN_INFORMATION_V1.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ns-ntsecpkg-lsa_token_information_v3
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-lsa_token_information_v3
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

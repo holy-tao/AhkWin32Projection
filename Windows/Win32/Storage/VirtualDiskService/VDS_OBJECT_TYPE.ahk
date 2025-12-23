@@ -1,22 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Defines the set of valid types of a VDS object.
+ * The VDS_OBJECT_TYPE enumeration (vdshwprv.h) defines the set of valid types of a VDS object.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsproviderprivate-getobject">IVdsProviderPrivate::GetObject</a> 
  *     and <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-getobject">IVdsService::GetObject</a> methods pass a <b>VDS_OBJECT_TYPE</b> 
  *     value as an argument to indicate an object type.
  * 
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_OBJECT_TYPE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_OBJECT_TYPE</b> enumeration constant.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_object_type
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_object_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_OBJECT_TYPE{
+class VDS_OBJECT_TYPE extends Win32Enum{
 
     /**
      * This value is reserved.

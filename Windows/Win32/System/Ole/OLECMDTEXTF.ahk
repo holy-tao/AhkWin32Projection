@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of information that an object should store in the OLECMDTEXT structure passed in IOleCommandTarget::QueryStatus.
- * @see https://docs.microsoft.com/windows/win32/api//docobj/ne-docobj-olecmdtextf
+ * @see https://learn.microsoft.com/windows/win32/api/docobj/ne-docobj-olecmdtextf
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
-class OLECMDTEXTF{
+class OLECMDTEXTF extends Win32Enum{
 
     /**
      * No extra information is requested.

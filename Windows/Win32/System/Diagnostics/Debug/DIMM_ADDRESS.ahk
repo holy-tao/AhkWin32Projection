@@ -12,7 +12,7 @@ class DIMM_ADDRESS extends Win32Struct
     static packingSize => 8
 
     class _Ddr4 extends Win32Struct {
-        static sizeof => 48
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -133,7 +133,7 @@ class DIMM_ADDRESS extends Win32Struct
     }
 
     class _Ddr5 extends Win32Struct {
-        static sizeof => 48
+        static sizeof => 24
         static packingSize => 8
 
         /**

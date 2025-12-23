@@ -4,7 +4,7 @@
 #Include .\D3DAUTHENTICATEDCHANNEL_QUERY_INPUT.ahk
 
 /**
- * 
+ * Contains input data for a D3DAUTHENTICATEDQUERY\_ENCRYPTIONWHENACCESSIBLEGUID query.
  * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-queryevictionencryptionguid-input
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
@@ -16,6 +16,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYEVICTIONENCRYPTIONGUID_INPUT extends Win32Str
     static packingSize => 8
 
     /**
+     * A [**D3DAUTHENTICATEDCHANNEL\_QUERY\_INPUT**](d3dauthenticatedchannel-query-input.md) structure that contains the GUID for the query and other data.
      * @type {D3DAUTHENTICATEDCHANNEL_QUERY_INPUT}
      */
     Input{
@@ -27,6 +28,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYEVICTIONENCRYPTIONGUID_INPUT extends Win32Str
     }
 
     /**
+     * The index of the encryption GUID.
      * @type {Integer}
      */
     EncryptionGuidIndex {

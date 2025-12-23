@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The state of the service proxy.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_service_proxy_state
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_service_proxy_state
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_SERVICE_PROXY_STATE{
+class WS_SERVICE_PROXY_STATE extends Win32Enum{
 
     /**
      * 

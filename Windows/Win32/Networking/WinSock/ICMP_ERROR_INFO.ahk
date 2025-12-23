@@ -11,16 +11,15 @@
  * Used to store received ICMP error information.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ws2ipdef/ns-ws2ipdef-icmp_error_info
+ * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-icmp_error_info
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
 class ICMP_ERROR_INFO extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: **[SOCKADDR_INET](./ns-ws2ipdef-sockaddr_inet.md)**
@@ -43,8 +42,8 @@ class ICMP_ERROR_INFO extends Win32Struct
      * @type {Integer}
      */
     protocol {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 
     /**
@@ -54,8 +53,8 @@ class ICMP_ERROR_INFO extends Win32Struct
      * @type {Integer}
      */
     type {
-        get => NumGet(this, 68, "char")
-        set => NumPut("char", value, this, 68)
+        get => NumGet(this, 60, "char")
+        set => NumPut("char", value, this, 60)
     }
 
     /**
@@ -65,7 +64,7 @@ class ICMP_ERROR_INFO extends Win32Struct
      * @type {Integer}
      */
     code {
-        get => NumGet(this, 69, "char")
-        set => NumPut("char", value, this, 69)
+        get => NumGet(this, 61, "char")
+        set => NumPut("char", value, this, 61)
     }
 }

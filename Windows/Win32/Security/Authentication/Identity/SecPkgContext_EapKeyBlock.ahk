@@ -3,7 +3,7 @@
 
 /**
  * Contains key data used by the EAP TLS Authentication Protocol.
- * @see https://docs.microsoft.com/windows/win32/api//schannel/ns-schannel-secpkgcontext_eapkeyblock
+ * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_eapkeyblock
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

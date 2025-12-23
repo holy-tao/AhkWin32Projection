@@ -3,7 +3,7 @@
 
 /**
  * The TOC_ENTRY_DESCRIPTOR structure holds descriptive information for an entry in a table of contents.
- * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/ns-wmcodecdsp-toc_entry_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/ns-wmcodecdsp-toc_entry_descriptor
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Represents the sizing data used in IViewObjectEx::GetNaturalExtent.
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/ns-ocidl-dvextentinfo
+ * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-dvextentinfo
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -12,7 +12,7 @@ class DVEXTENTINFO extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The size of the structure, in bytes.

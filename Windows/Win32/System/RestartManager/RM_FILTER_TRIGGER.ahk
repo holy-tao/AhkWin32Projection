@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the restart or shutdown actions for an application or service.
- * @see https://docs.microsoft.com/windows/win32/api//restartmanager/ne-restartmanager-rm_filter_trigger
+ * @see https://learn.microsoft.com/windows/win32/api/restartmanager/ne-restartmanager-rm_filter_trigger
  * @namespace Windows.Win32.System.RestartManager
  * @version v4.0.30319
  */
-class RM_FILTER_TRIGGER{
+class RM_FILTER_TRIGGER extends Win32Enum{
 
     /**
      * An invalid filter trigger.

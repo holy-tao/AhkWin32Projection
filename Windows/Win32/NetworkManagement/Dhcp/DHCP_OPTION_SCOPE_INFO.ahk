@@ -4,7 +4,7 @@
 
 /**
  * The DHCP_OPTION_SCOPE_INFO structure defines information about the options provided for a certain DHCP scope.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */
@@ -15,7 +15,7 @@ class DHCP_OPTION_SCOPE_INFO extends Win32Struct
     static packingSize => 8
 
     class _DHCP_OPTION_SCOPE_UNION extends Win32Struct {
-        static sizeof => 48
+        static sizeof => 40
         static packingSize => 8
 
         /**

@@ -268,57 +268,57 @@ class Js {
     /**
      * 
      * @param {PWSTR} script 
-     * @param {Pointer<Integer>} buffer 
+     * @param {Pointer<Integer>} buffer_R 
      * @param {Pointer<Integer>} bufferSize 
      * @returns {Integer} 
      */
-    static JsSerializeScript(script, buffer, bufferSize) {
+    static JsSerializeScript(script, buffer_R, bufferSize) {
         script := script is String ? StrPtr(script) : script
 
-        bufferMarshal := buffer is VarRef ? "char*" : "ptr"
+        buffer_RMarshal := buffer_R is VarRef ? "char*" : "ptr"
         bufferSizeMarshal := bufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("chakra.dll\JsSerializeScript", "ptr", script, bufferMarshal, buffer, bufferSizeMarshal, bufferSize, "uint")
+        result := DllCall("chakra.dll\JsSerializeScript", "ptr", script, buffer_RMarshal, buffer_R, bufferSizeMarshal, bufferSize, "uint")
         return result
     }
 
     /**
      * 
      * @param {PWSTR} script 
-     * @param {Pointer<Integer>} buffer 
+     * @param {Pointer<Integer>} buffer_R 
      * @param {Pointer} sourceContext 
      * @param {PWSTR} sourceUrl 
      * @param {Pointer<Pointer<Void>>} result 
      * @returns {Integer} 
      */
-    static JsParseSerializedScript(script, buffer, sourceContext, sourceUrl, result) {
+    static JsParseSerializedScript(script, buffer_R, sourceContext, sourceUrl, result) {
         script := script is String ? StrPtr(script) : script
         sourceUrl := sourceUrl is String ? StrPtr(sourceUrl) : sourceUrl
 
-        bufferMarshal := buffer is VarRef ? "char*" : "ptr"
+        buffer_RMarshal := buffer_R is VarRef ? "char*" : "ptr"
         resultMarshal := result is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("chakra.dll\JsParseSerializedScript", "ptr", script, bufferMarshal, buffer, "ptr", sourceContext, "ptr", sourceUrl, resultMarshal, result, "uint")
+        result := DllCall("chakra.dll\JsParseSerializedScript", "ptr", script, buffer_RMarshal, buffer_R, "ptr", sourceContext, "ptr", sourceUrl, resultMarshal, result, "uint")
         return result
     }
 
     /**
      * 
      * @param {PWSTR} script 
-     * @param {Pointer<Integer>} buffer 
+     * @param {Pointer<Integer>} buffer_R 
      * @param {Pointer} sourceContext 
      * @param {PWSTR} sourceUrl 
      * @param {Pointer<Pointer<Void>>} result 
      * @returns {Integer} 
      */
-    static JsRunSerializedScript(script, buffer, sourceContext, sourceUrl, result) {
+    static JsRunSerializedScript(script, buffer_R, sourceContext, sourceUrl, result) {
         script := script is String ? StrPtr(script) : script
         sourceUrl := sourceUrl is String ? StrPtr(sourceUrl) : sourceUrl
 
-        bufferMarshal := buffer is VarRef ? "char*" : "ptr"
+        buffer_RMarshal := buffer_R is VarRef ? "char*" : "ptr"
         resultMarshal := result is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("chakra.dll\JsRunSerializedScript", "ptr", script, bufferMarshal, buffer, "ptr", sourceContext, "ptr", sourceUrl, resultMarshal, result, "uint")
+        result := DllCall("chakra.dll\JsRunSerializedScript", "ptr", script, buffer_RMarshal, buffer_R, "ptr", sourceContext, "ptr", sourceUrl, resultMarshal, result, "uint")
         return result
     }
 
@@ -583,14 +583,14 @@ class Js {
 
     /**
      * 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Void>} object_R 
      * @param {Pointer<VARIANT>} variant 
      * @returns {Integer} 
      */
-    static JsValueToVariant(object, variant) {
-        objectMarshal := object is VarRef ? "ptr" : "ptr"
+    static JsValueToVariant(object_R, variant) {
+        object_RMarshal := object_R is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("chakra.dll\JsValueToVariant", objectMarshal, object, "ptr", variant, "uint")
+        result := DllCall("chakra.dll\JsValueToVariant", object_RMarshal, object_R, "ptr", variant, "uint")
         return result
     }
 
@@ -608,13 +608,13 @@ class Js {
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} object 
+     * @param {Pointer<Pointer<Void>>} object_R 
      * @returns {Integer} 
      */
-    static JsCreateObject(object) {
-        objectMarshal := object is VarRef ? "ptr*" : "ptr"
+    static JsCreateObject(object_R) {
+        object_RMarshal := object_R is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("chakra.dll\JsCreateObject", objectMarshal, object, "uint")
+        result := DllCall("chakra.dll\JsCreateObject", object_RMarshal, object_R, "uint")
         return result
     }
 
@@ -622,258 +622,258 @@ class Js {
      * 
      * @param {Pointer<Void>} data 
      * @param {Pointer<JsFinalizeCallback>} finalizeCallback 
-     * @param {Pointer<Pointer<Void>>} object 
+     * @param {Pointer<Pointer<Void>>} object_R 
      * @returns {Integer} 
      */
-    static JsCreateExternalObject(data, finalizeCallback, object) {
+    static JsCreateExternalObject(data, finalizeCallback, object_R) {
         dataMarshal := data is VarRef ? "ptr" : "ptr"
-        objectMarshal := object is VarRef ? "ptr*" : "ptr"
+        object_RMarshal := object_R is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("chakra.dll\JsCreateExternalObject", dataMarshal, data, "ptr", finalizeCallback, objectMarshal, object, "uint")
+        result := DllCall("chakra.dll\JsCreateExternalObject", dataMarshal, data, "ptr", finalizeCallback, object_RMarshal, object_R, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} value 
-     * @param {Pointer<Pointer<Void>>} object 
+     * @param {Pointer<Pointer<Void>>} object_R 
      * @returns {Integer} 
      */
-    static JsConvertValueToObject(value, object) {
+    static JsConvertValueToObject(value, object_R) {
         valueMarshal := value is VarRef ? "ptr" : "ptr"
-        objectMarshal := object is VarRef ? "ptr*" : "ptr"
+        object_RMarshal := object_R is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("chakra.dll\JsConvertValueToObject", valueMarshal, value, objectMarshal, object, "uint")
+        result := DllCall("chakra.dll\JsConvertValueToObject", valueMarshal, value, object_RMarshal, object_R, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Void>} object_R 
      * @param {Pointer<Pointer<Void>>} prototypeObject 
      * @returns {Integer} 
      */
-    static JsGetPrototype(object, prototypeObject) {
-        objectMarshal := object is VarRef ? "ptr" : "ptr"
+    static JsGetPrototype(object_R, prototypeObject) {
+        object_RMarshal := object_R is VarRef ? "ptr" : "ptr"
         prototypeObjectMarshal := prototypeObject is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("chakra.dll\JsGetPrototype", objectMarshal, object, prototypeObjectMarshal, prototypeObject, "uint")
+        result := DllCall("chakra.dll\JsGetPrototype", object_RMarshal, object_R, prototypeObjectMarshal, prototypeObject, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Void>} object_R 
      * @param {Pointer<Void>} prototypeObject 
      * @returns {Integer} 
      */
-    static JsSetPrototype(object, prototypeObject) {
-        objectMarshal := object is VarRef ? "ptr" : "ptr"
+    static JsSetPrototype(object_R, prototypeObject) {
+        object_RMarshal := object_R is VarRef ? "ptr" : "ptr"
         prototypeObjectMarshal := prototypeObject is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("chakra.dll\JsSetPrototype", objectMarshal, object, prototypeObjectMarshal, prototypeObject, "uint")
+        result := DllCall("chakra.dll\JsSetPrototype", object_RMarshal, object_R, prototypeObjectMarshal, prototypeObject, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Void>} object_R 
      * @param {Pointer<Boolean>} value 
      * @returns {Integer} 
      */
-    static JsGetExtensionAllowed(object, value) {
-        objectMarshal := object is VarRef ? "ptr" : "ptr"
+    static JsGetExtensionAllowed(object_R, value) {
+        object_RMarshal := object_R is VarRef ? "ptr" : "ptr"
         valueMarshal := value is VarRef ? "int*" : "ptr"
 
-        result := DllCall("chakra.dll\JsGetExtensionAllowed", objectMarshal, object, valueMarshal, value, "uint")
+        result := DllCall("chakra.dll\JsGetExtensionAllowed", object_RMarshal, object_R, valueMarshal, value, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Void>} object_R 
      * @returns {Integer} 
      */
-    static JsPreventExtension(object) {
-        objectMarshal := object is VarRef ? "ptr" : "ptr"
+    static JsPreventExtension(object_R) {
+        object_RMarshal := object_R is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("chakra.dll\JsPreventExtension", objectMarshal, object, "uint")
+        result := DllCall("chakra.dll\JsPreventExtension", object_RMarshal, object_R, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Void>} object_R 
      * @param {Pointer<Void>} propertyId 
      * @param {Pointer<Pointer<Void>>} value 
      * @returns {Integer} 
      */
-    static JsGetProperty(object, propertyId, value) {
-        objectMarshal := object is VarRef ? "ptr" : "ptr"
+    static JsGetProperty(object_R, propertyId, value) {
+        object_RMarshal := object_R is VarRef ? "ptr" : "ptr"
         propertyIdMarshal := propertyId is VarRef ? "ptr" : "ptr"
         valueMarshal := value is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("chakra.dll\JsGetProperty", objectMarshal, object, propertyIdMarshal, propertyId, valueMarshal, value, "uint")
+        result := DllCall("chakra.dll\JsGetProperty", object_RMarshal, object_R, propertyIdMarshal, propertyId, valueMarshal, value, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Void>} object_R 
      * @param {Pointer<Void>} propertyId 
      * @param {Pointer<Pointer<Void>>} propertyDescriptor 
      * @returns {Integer} 
      */
-    static JsGetOwnPropertyDescriptor(object, propertyId, propertyDescriptor) {
-        objectMarshal := object is VarRef ? "ptr" : "ptr"
+    static JsGetOwnPropertyDescriptor(object_R, propertyId, propertyDescriptor) {
+        object_RMarshal := object_R is VarRef ? "ptr" : "ptr"
         propertyIdMarshal := propertyId is VarRef ? "ptr" : "ptr"
         propertyDescriptorMarshal := propertyDescriptor is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("chakra.dll\JsGetOwnPropertyDescriptor", objectMarshal, object, propertyIdMarshal, propertyId, propertyDescriptorMarshal, propertyDescriptor, "uint")
+        result := DllCall("chakra.dll\JsGetOwnPropertyDescriptor", object_RMarshal, object_R, propertyIdMarshal, propertyId, propertyDescriptorMarshal, propertyDescriptor, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Void>} object_R 
      * @param {Pointer<Pointer<Void>>} propertyNames 
      * @returns {Integer} 
      */
-    static JsGetOwnPropertyNames(object, propertyNames) {
-        objectMarshal := object is VarRef ? "ptr" : "ptr"
+    static JsGetOwnPropertyNames(object_R, propertyNames) {
+        object_RMarshal := object_R is VarRef ? "ptr" : "ptr"
         propertyNamesMarshal := propertyNames is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("chakra.dll\JsGetOwnPropertyNames", objectMarshal, object, propertyNamesMarshal, propertyNames, "uint")
+        result := DllCall("chakra.dll\JsGetOwnPropertyNames", object_RMarshal, object_R, propertyNamesMarshal, propertyNames, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Void>} object_R 
      * @param {Pointer<Void>} propertyId 
      * @param {Pointer<Void>} value 
      * @param {Integer} useStrictRules 
      * @returns {Integer} 
      */
-    static JsSetProperty(object, propertyId, value, useStrictRules) {
-        objectMarshal := object is VarRef ? "ptr" : "ptr"
+    static JsSetProperty(object_R, propertyId, value, useStrictRules) {
+        object_RMarshal := object_R is VarRef ? "ptr" : "ptr"
         propertyIdMarshal := propertyId is VarRef ? "ptr" : "ptr"
         valueMarshal := value is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("chakra.dll\JsSetProperty", objectMarshal, object, propertyIdMarshal, propertyId, valueMarshal, value, "char", useStrictRules, "uint")
+        result := DllCall("chakra.dll\JsSetProperty", object_RMarshal, object_R, propertyIdMarshal, propertyId, valueMarshal, value, "char", useStrictRules, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Void>} object_R 
      * @param {Pointer<Void>} propertyId 
      * @param {Pointer<Boolean>} hasProperty 
      * @returns {Integer} 
      */
-    static JsHasProperty(object, propertyId, hasProperty) {
-        objectMarshal := object is VarRef ? "ptr" : "ptr"
+    static JsHasProperty(object_R, propertyId, hasProperty) {
+        object_RMarshal := object_R is VarRef ? "ptr" : "ptr"
         propertyIdMarshal := propertyId is VarRef ? "ptr" : "ptr"
         hasPropertyMarshal := hasProperty is VarRef ? "int*" : "ptr"
 
-        result := DllCall("chakra.dll\JsHasProperty", objectMarshal, object, propertyIdMarshal, propertyId, hasPropertyMarshal, hasProperty, "uint")
+        result := DllCall("chakra.dll\JsHasProperty", object_RMarshal, object_R, propertyIdMarshal, propertyId, hasPropertyMarshal, hasProperty, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Void>} object_R 
      * @param {Pointer<Void>} propertyId 
      * @param {Integer} useStrictRules 
      * @param {Pointer<Pointer<Void>>} result 
      * @returns {Integer} 
      */
-    static JsDeleteProperty(object, propertyId, useStrictRules, result) {
-        objectMarshal := object is VarRef ? "ptr" : "ptr"
+    static JsDeleteProperty(object_R, propertyId, useStrictRules, result) {
+        object_RMarshal := object_R is VarRef ? "ptr" : "ptr"
         propertyIdMarshal := propertyId is VarRef ? "ptr" : "ptr"
         resultMarshal := result is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("chakra.dll\JsDeleteProperty", objectMarshal, object, propertyIdMarshal, propertyId, "char", useStrictRules, resultMarshal, result, "uint")
+        result := DllCall("chakra.dll\JsDeleteProperty", object_RMarshal, object_R, propertyIdMarshal, propertyId, "char", useStrictRules, resultMarshal, result, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Void>} object_R 
      * @param {Pointer<Void>} propertyId 
      * @param {Pointer<Void>} propertyDescriptor 
      * @param {Pointer<Boolean>} result 
      * @returns {Integer} 
      */
-    static JsDefineProperty(object, propertyId, propertyDescriptor, result) {
-        objectMarshal := object is VarRef ? "ptr" : "ptr"
+    static JsDefineProperty(object_R, propertyId, propertyDescriptor, result) {
+        object_RMarshal := object_R is VarRef ? "ptr" : "ptr"
         propertyIdMarshal := propertyId is VarRef ? "ptr" : "ptr"
         propertyDescriptorMarshal := propertyDescriptor is VarRef ? "ptr" : "ptr"
         resultMarshal := result is VarRef ? "int*" : "ptr"
 
-        result := DllCall("chakra.dll\JsDefineProperty", objectMarshal, object, propertyIdMarshal, propertyId, propertyDescriptorMarshal, propertyDescriptor, resultMarshal, result, "uint")
+        result := DllCall("chakra.dll\JsDefineProperty", object_RMarshal, object_R, propertyIdMarshal, propertyId, propertyDescriptorMarshal, propertyDescriptor, resultMarshal, result, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Void>} object_R 
      * @param {Pointer<Void>} index 
      * @param {Pointer<Boolean>} result 
      * @returns {Integer} 
      */
-    static JsHasIndexedProperty(object, index, result) {
-        objectMarshal := object is VarRef ? "ptr" : "ptr"
+    static JsHasIndexedProperty(object_R, index, result) {
+        object_RMarshal := object_R is VarRef ? "ptr" : "ptr"
         indexMarshal := index is VarRef ? "ptr" : "ptr"
         resultMarshal := result is VarRef ? "int*" : "ptr"
 
-        result := DllCall("chakra.dll\JsHasIndexedProperty", objectMarshal, object, indexMarshal, index, resultMarshal, result, "uint")
+        result := DllCall("chakra.dll\JsHasIndexedProperty", object_RMarshal, object_R, indexMarshal, index, resultMarshal, result, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Void>} object_R 
      * @param {Pointer<Void>} index 
      * @param {Pointer<Pointer<Void>>} result 
      * @returns {Integer} 
      */
-    static JsGetIndexedProperty(object, index, result) {
-        objectMarshal := object is VarRef ? "ptr" : "ptr"
+    static JsGetIndexedProperty(object_R, index, result) {
+        object_RMarshal := object_R is VarRef ? "ptr" : "ptr"
         indexMarshal := index is VarRef ? "ptr" : "ptr"
         resultMarshal := result is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("chakra.dll\JsGetIndexedProperty", objectMarshal, object, indexMarshal, index, resultMarshal, result, "uint")
+        result := DllCall("chakra.dll\JsGetIndexedProperty", object_RMarshal, object_R, indexMarshal, index, resultMarshal, result, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Void>} object_R 
      * @param {Pointer<Void>} index 
      * @param {Pointer<Void>} value 
      * @returns {Integer} 
      */
-    static JsSetIndexedProperty(object, index, value) {
-        objectMarshal := object is VarRef ? "ptr" : "ptr"
+    static JsSetIndexedProperty(object_R, index, value) {
+        object_RMarshal := object_R is VarRef ? "ptr" : "ptr"
         indexMarshal := index is VarRef ? "ptr" : "ptr"
         valueMarshal := value is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("chakra.dll\JsSetIndexedProperty", objectMarshal, object, indexMarshal, index, valueMarshal, value, "uint")
+        result := DllCall("chakra.dll\JsSetIndexedProperty", object_RMarshal, object_R, indexMarshal, index, valueMarshal, value, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Void>} object_R 
      * @param {Pointer<Void>} index 
      * @returns {Integer} 
      */
-    static JsDeleteIndexedProperty(object, index) {
-        objectMarshal := object is VarRef ? "ptr" : "ptr"
+    static JsDeleteIndexedProperty(object_R, index) {
+        object_RMarshal := object_R is VarRef ? "ptr" : "ptr"
         indexMarshal := index is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("chakra.dll\JsDeleteIndexedProperty", objectMarshal, object, indexMarshal, index, "uint")
+        result := DllCall("chakra.dll\JsDeleteIndexedProperty", object_RMarshal, object_R, indexMarshal, index, "uint")
         return result
     }
 
@@ -911,43 +911,43 @@ class Js {
 
     /**
      * 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Void>} object_R 
      * @param {Pointer<Boolean>} value 
      * @returns {Integer} 
      */
-    static JsHasExternalData(object, value) {
-        objectMarshal := object is VarRef ? "ptr" : "ptr"
+    static JsHasExternalData(object_R, value) {
+        object_RMarshal := object_R is VarRef ? "ptr" : "ptr"
         valueMarshal := value is VarRef ? "int*" : "ptr"
 
-        result := DllCall("chakra.dll\JsHasExternalData", objectMarshal, object, valueMarshal, value, "uint")
+        result := DllCall("chakra.dll\JsHasExternalData", object_RMarshal, object_R, valueMarshal, value, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Void>} object_R 
      * @param {Pointer<Pointer<Void>>} externalData 
      * @returns {Integer} 
      */
-    static JsGetExternalData(object, externalData) {
-        objectMarshal := object is VarRef ? "ptr" : "ptr"
+    static JsGetExternalData(object_R, externalData) {
+        object_RMarshal := object_R is VarRef ? "ptr" : "ptr"
         externalDataMarshal := externalData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("chakra.dll\JsGetExternalData", objectMarshal, object, externalDataMarshal, externalData, "uint")
+        result := DllCall("chakra.dll\JsGetExternalData", object_RMarshal, object_R, externalDataMarshal, externalData, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Void>} object_R 
      * @param {Pointer<Void>} externalData 
      * @returns {Integer} 
      */
-    static JsSetExternalData(object, externalData) {
-        objectMarshal := object is VarRef ? "ptr" : "ptr"
+    static JsSetExternalData(object_R, externalData) {
+        object_RMarshal := object_R is VarRef ? "ptr" : "ptr"
         externalDataMarshal := externalData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("chakra.dll\JsSetExternalData", objectMarshal, object, externalDataMarshal, externalData, "uint")
+        result := DllCall("chakra.dll\JsSetExternalData", object_RMarshal, object_R, externalDataMarshal, externalData, "uint")
         return result
     }
 

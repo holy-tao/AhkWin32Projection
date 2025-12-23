@@ -3,7 +3,7 @@
 
 /**
  * Averages each pair of corresponding elements of the input tensors, placing the result into the corresponding element of *OutputTensor*.
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_element_wise_mean_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_mean_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

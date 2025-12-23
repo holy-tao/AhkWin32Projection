@@ -4,7 +4,7 @@
 
 /**
  * The DD_LOCKDATA structure contains information necessary to do a lock as defined by the Microsoft DirectDraw parameter structures.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_lockdata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_lockdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */
@@ -48,7 +48,7 @@ class DD_LOCKDATA extends Win32Struct
     rArea{
         get {
             if(!this.HasProp("__rArea"))
-                this.__rArea := RECTL(24, this)
+                this.__rArea := RECTL(20, this)
             return this.__rArea
         }
     }

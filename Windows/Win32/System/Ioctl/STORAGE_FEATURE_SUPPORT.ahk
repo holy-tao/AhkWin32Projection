@@ -11,6 +11,39 @@ class STORAGE_FEATURE_SUPPORT extends Win32Struct
 
     static packingSize => 8
 
+    class _Flags_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - StorMQMiniportsSupported
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        StorMQMiniportsSupported {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AsUlonglong {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -28,30 +61,14 @@ class STORAGE_FEATURE_SUPPORT extends Win32Struct
     }
 
     /**
-     * This bitfield backs the following members:
-     * - StorMQMiniportsSupported
-     * - Reserved
-     * @type {Integer}
+     * @type {_Flags_e__Union}
      */
-    _bitfield {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    StorMQMiniportsSupported {
-        get => (this._bitfield >> 0) & 0x1
-        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AsUlonglong {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Flags{
+        get {
+            if(!this.HasProp("__Flags"))
+                this.__Flags := %this.__Class%._Flags_e__Union(8, this)
+            return this.__Flags
+        }
     }
 
     /**

@@ -1,21 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the predication operation to apply.
  * @remarks
- * 
  * This enum is used by <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setpredication">SetPredication</a>.
  *         
  * 
  * Predication is decoupled from queries.
  *           Predication can be set based on the value of 64-bits within a buffer.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_predication_op
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_predication_op
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_PREDICATION_OP{
+class D3D12_PREDICATION_OP extends Win32Enum{
 
     /**
      * Enables predication if all 64-bits are zero.

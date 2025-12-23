@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WMPFolderScanState enumeration type defines the possible operational states of Windows Media Player as it monitors file folders for digital media content.
  * @remarks
- * 
  * A scanning operation consists of two phases: scanning and updating. During the first phase, Windows Media Player determines which digital media files to add to the library. During the second phase, the Player adds the files. You can determine the current scan state by calling <b>IWMPFolderMonitorServices::get_scanState</b> or by handling the <b>FolderScanStateChange</b> event.
  * 
  * Windows Media Player 10 Mobile: This enumeration is not supported.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmp/ne-wmp-wmpfolderscanstate
+ * @see https://learn.microsoft.com/windows/win32/api/wmp/ne-wmp-wmpfolderscanstate
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
-class WMPFolderScanState{
+class WMPFolderScanState extends Win32Enum{
 
     /**
      * Not a valid state.

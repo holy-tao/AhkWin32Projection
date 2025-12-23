@@ -3,7 +3,7 @@
 
 /**
  * Provides the property value of a BITS file.
- * @see https://docs.microsoft.com/windows/win32/api//bits5_0/ns-bits5_0-bits_file_property_value
+ * @see https://learn.microsoft.com/windows/win32/api/bits5_0/ns-bits5_0-bits_file_property_value
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */

@@ -5,17 +5,14 @@
 /**
  * Used to store configuration parameters for IPsec DoS Protection.
  * @remarks
- * 
  * <b>IPSEC_DOSP_OPTIONS0</b> is a specific implementation of IPSEC_DOSP_OPTIONS. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ipsectypes/ns-ipsectypes-ipsec_dosp_options0
+ * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_dosp_options0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
 class IPSEC_DOSP_OPTIONS0 extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 136
 
     static packingSize => 8
 
@@ -218,7 +215,7 @@ class IPSEC_DOSP_OPTIONS0 extends Win32Struct
     internalV6AddrMask{
         get {
             if(!this.HasProp("__internalV6AddrMask"))
-                this.__internalV6AddrMask := FWP_V6_ADDR_AND_MASK(120, this)
+                this.__internalV6AddrMask := FWP_V6_ADDR_AND_MASK(113, this)
             return this.__internalV6AddrMask
         }
     }

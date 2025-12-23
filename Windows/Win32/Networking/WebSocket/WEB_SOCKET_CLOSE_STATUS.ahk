@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the WebSocket close status.
- * @see https://docs.microsoft.com/windows/win32/api//websocket/ne-websocket-web_socket_close_status
+ * @see https://learn.microsoft.com/windows/win32/api/websocket/ne-websocket-web_socket_close_status
  * @namespace Windows.Win32.Networking.WebSocket
  * @version v4.0.30319
  */
-class WEB_SOCKET_CLOSE_STATUS{
+class WEB_SOCKET_CLOSE_STATUS extends Win32Enum{
 
     /**
      * Close completed successfully.

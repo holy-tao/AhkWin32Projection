@@ -3,7 +3,7 @@
 
 /**
  * The DD_GETVPORTSIGNALDATA structure contains the signal status of the hardware video port.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_getvportsignaldata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_getvportsignaldata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

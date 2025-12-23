@@ -3,7 +3,7 @@
 
 /**
  * Used in connection with obtaining WM_DEVICECHANGE messages for Bluetooth.
- * @see https://docs.microsoft.com/windows/win32/api//bthdef/ns-bthdef-bth_hci_event_info
+ * @see https://learn.microsoft.com/windows/win32/api/bthdef/ns-bthdef-bth_hci_event_info
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by ISearchCatalogManager::GetCatalogStatus to determine the reason the catalog is paused.
- * @see https://docs.microsoft.com/windows/win32/api//searchapi/ne-searchapi-catalogpausedreason
+ * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-catalogpausedreason
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
-class CatalogPausedReason{
+class CatalogPausedReason extends Win32Enum{
 
     /**
      * Not paused.

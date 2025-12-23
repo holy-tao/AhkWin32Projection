@@ -4,22 +4,20 @@
 #Include .\PANOSE.ahk
 
 /**
- * The EXTLOGFONT structure defines the attributes of a font.
+ * The EXTLOGFONT structure defines the attributes of a font. (Unicode)
  * @remarks
- * 
  * > [!NOTE]
  * > The wingdi.h header defines EXTLOGFONT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-extlogfontw
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-extlogfontw
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  * @charset Unicode
  */
 class EXTLOGFONTW extends Win32Struct
 {
-    static sizeof => 328
+    static sizeof => 320
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies some of the attributes of the specified font. This member is a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure.
@@ -115,7 +113,7 @@ class EXTLOGFONTW extends Win32Struct
     elfPanose{
         get {
             if(!this.HasProp("__elfPanose"))
-                this.__elfPanose := PANOSE(312, this)
+                this.__elfPanose := PANOSE(308, this)
             return this.__elfPanose
         }
     }

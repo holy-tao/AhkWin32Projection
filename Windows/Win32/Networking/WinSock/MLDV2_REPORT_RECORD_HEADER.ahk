@@ -8,9 +8,9 @@
  */
 class MLDV2_REPORT_RECORD_HEADER extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 2
 
     /**
      * @type {Integer}
@@ -42,7 +42,7 @@ class MLDV2_REPORT_RECORD_HEADER extends Win32Struct
     MulticastAddress{
         get {
             if(!this.HasProp("__MulticastAddress"))
-                this.__MulticastAddress := IN6_ADDR(8, this)
+                this.__MulticastAddress := IN6_ADDR(4, this)
             return this.__MulticastAddress
         }
     }

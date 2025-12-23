@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains option flags for IMofCompiler methods.
- * @see https://docs.microsoft.com/windows/win32/api//wbemcli/ne-wbemcli-wbem_compiler_options
+ * @see https://learn.microsoft.com/windows/win32/api/wbemcli/ne-wbemcli-wbem_compiler_options
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class WBEM_COMPILER_OPTIONS{
+class WBEM_COMPILER_OPTIONS extends Win32Enum{
 
     /**
      * 

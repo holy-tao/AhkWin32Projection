@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the loopback mode for an AUDIOCLIENT_ACTIVATION_PARAMS structure passed into a call to ActivateAudioInterfaceAsync.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//audioclientactivationparams/ne-audioclientactivationparams-process_loopback_mode
+ * @see https://learn.microsoft.com/windows/win32/api/audioclientactivationparams/ne-audioclientactivationparams-process_loopback_mode
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
-class PROCESS_LOOPBACK_MODE{
+class PROCESS_LOOPBACK_MODE extends Win32Enum{
 
     /**
      * Render streams from the specified process and its child processes are included in the activated process loopback stream.

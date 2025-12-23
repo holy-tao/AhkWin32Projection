@@ -74,7 +74,7 @@ class URLCACHE_ENTRY_INFO extends Win32Struct
     ftLastModifiedTime{
         get {
             if(!this.HasProp("__ftLastModifiedTime"))
-                this.__ftLastModifiedTime := FILETIME(40, this)
+                this.__ftLastModifiedTime := FILETIME(36, this)
             return this.__ftLastModifiedTime
         }
     }
@@ -85,7 +85,7 @@ class URLCACHE_ENTRY_INFO extends Win32Struct
     ftExpireTime{
         get {
             if(!this.HasProp("__ftExpireTime"))
-                this.__ftExpireTime := FILETIME(48, this)
+                this.__ftExpireTime := FILETIME(44, this)
             return this.__ftExpireTime
         }
     }
@@ -96,7 +96,7 @@ class URLCACHE_ENTRY_INFO extends Win32Struct
     ftLastAccessTime{
         get {
             if(!this.HasProp("__ftLastAccessTime"))
-                this.__ftLastAccessTime := FILETIME(56, this)
+                this.__ftLastAccessTime := FILETIME(52, this)
             return this.__ftLastAccessTime
         }
     }
@@ -107,7 +107,7 @@ class URLCACHE_ENTRY_INFO extends Win32Struct
     ftLastSyncTime{
         get {
             if(!this.HasProp("__ftLastSyncTime"))
-                this.__ftLastSyncTime := FILETIME(64, this)
+                this.__ftLastSyncTime := FILETIME(60, this)
             return this.__ftLastSyncTime
         }
     }

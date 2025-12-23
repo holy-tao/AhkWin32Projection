@@ -8,15 +8,12 @@
 /**
  * The RPC_EXTENDED_ERROR_INFO structure is used to store extended error information.
  * @remarks
- * 
  * On input, the caller fills in only the <b>Version</b> and <b>Flags</b> members of the 
  * <b>RPC_EXTENDED_ERROR_INFO</b> structure. All other members are filled upon output by RPC.
  * 
  * The 
  * <b>RPC_EXTENDED_ERROR_INFO</b> structure is used in conjunction with the <b>RpcError</b>* functions to investigate and create extended RPC error information.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//rpcasync/ns-rpcasync-rpc_extended_error_info
+ * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ns-rpcasync-rpc_extended_error_info
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */
@@ -25,6 +22,34 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
     static sizeof => 88
 
     static packingSize => 8
+
+    class _u_e__Union extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 4
+
+        /**
+         * @type {SYSTEMTIME}
+         */
+        SystemTime{
+            get {
+                if(!this.HasProp("__SystemTime"))
+                    this.__SystemTime := SYSTEMTIME(0, this)
+                return this.__SystemTime
+            }
+        }
+    
+        /**
+         * @type {FILETIME}
+         */
+        FileTime{
+            get {
+                if(!this.HasProp("__FileTime"))
+                    this.__FileTime := FILETIME(0, this)
+                return this.__FileTime
+            }
+        }
+    
+    }
 
     /**
      * Version of the structure. Must be RPC_EEINFO_VERSION.
@@ -54,24 +79,14 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
     }
 
     /**
-     * @type {SYSTEMTIME}
+     * 
+     * @type {_u_e__Union}
      */
-    SystemTime{
+    u{
         get {
-            if(!this.HasProp("__SystemTime"))
-                this.__SystemTime := SYSTEMTIME(24, this)
-            return this.__SystemTime
-        }
-    }
-
-    /**
-     * @type {FILETIME}
-     */
-    FileTime{
-        get {
-            if(!this.HasProp("__FileTime"))
-                this.__FileTime := FILETIME(24, this)
-            return this.__FileTime
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._u_e__Union(20, this)
+            return this.__u
         }
     }
 
@@ -80,8 +95,8 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
      * @type {Integer}
      */
     GeneratingComponent {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -89,8 +104,8 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
      * @type {Integer}
      */
     Status {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -99,8 +114,8 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
      * @type {Integer}
      */
     DetectionLocation {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
+        get => NumGet(this, 44, "ushort")
+        set => NumPut("ushort", value, this, 44)
     }
 
     /**
@@ -113,8 +128,8 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 50, "ushort")
-        set => NumPut("ushort", value, this, 50)
+        get => NumGet(this, 46, "ushort")
+        set => NumPut("ushort", value, this, 46)
     }
 
     /**
@@ -122,8 +137,8 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
      * @type {Integer}
      */
     NumberOfParameters {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**

@@ -3,7 +3,7 @@
 
 /**
  * The MIDIHDR structure defines the header used to identify a MIDI system-exclusive or stream buffer.
- * @see https://docs.microsoft.com/windows/win32/api//mmeapi/ns-mmeapi-midihdr
+ * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-midihdr
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

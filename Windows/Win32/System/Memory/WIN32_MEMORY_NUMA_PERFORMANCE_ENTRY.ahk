@@ -12,8 +12,8 @@ class WIN32_MEMORY_NUMA_PERFORMANCE_ENTRY extends Win32Struct
     static packingSize => 8
 
     class _Flags extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * This bitfield backs the following members:

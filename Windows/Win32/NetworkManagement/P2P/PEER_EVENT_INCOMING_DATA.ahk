@@ -4,7 +4,7 @@
 
 /**
  * Points to the PEER_EVENT_INCOMING_DATA structure if one of the following peer events is triggered.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_event_incoming_data
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_event_incoming_data
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
@@ -43,7 +43,7 @@ class PEER_EVENT_INCOMING_DATA extends Win32Struct
 
     /**
      * Specifies the actual data received.
-     * @deprecated
+     * @deprecated 
      * @type {PEER_DATA}
      */
     data{

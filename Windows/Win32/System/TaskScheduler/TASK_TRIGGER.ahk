@@ -9,22 +9,19 @@
 /**
  * Defines the times to run a scheduled work item.
  * @remarks
- * 
  * These times may include the start time, end time, duration, and modification flags for the work item. Note that when setting a trigger, the beginning day month and year must be set.
  * 
  * <div class="alert"><b>Note</b>  A scheduled work item can have one or more triggers defined. The times that the work item will run is the union of all the triggers defined for that item.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mstask/ns-mstask-task_trigger
+ * @see https://learn.microsoft.com/windows/win32/api/mstask/ns-mstask-task_trigger
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
 class TASK_TRIGGER extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Size of this structure, in bytes.
@@ -172,7 +169,7 @@ class TASK_TRIGGER extends Win32Struct
     Type{
         get {
             if(!this.HasProp("__Type"))
-                this.__Type := TRIGGER_TYPE_UNION(40, this)
+                this.__Type := TRIGGER_TYPE_UNION(36, this)
             return this.__Type
         }
     }
@@ -182,8 +179,8 @@ class TASK_TRIGGER extends Win32Struct
      * @type {Integer}
      */
     Reserved2 {
-        get => NumGet(this, 64, "ushort")
-        set => NumPut("ushort", value, this, 64)
+        get => NumGet(this, 60, "ushort")
+        set => NumPut("ushort", value, this, 60)
     }
 
     /**
@@ -191,7 +188,7 @@ class TASK_TRIGGER extends Win32Struct
      * @type {Integer}
      */
     wRandomMinutesInterval {
-        get => NumGet(this, 66, "ushort")
-        set => NumPut("ushort", value, this, 66)
+        get => NumGet(this, 62, "ushort")
+        set => NumPut("ushort", value, this, 62)
     }
 }

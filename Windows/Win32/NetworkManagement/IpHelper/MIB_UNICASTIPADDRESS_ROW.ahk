@@ -11,7 +11,6 @@
 /**
  * Stores information about a unicast IP address.
  * @remarks
- * 
  * The <b>MIB_UNICASTIPADDRESS_ROW</b> structure is defined on Windows Vista and later. 
  * 
  * The <b>SkipAsSource</b> member of the <b>MIB_UNICASTIPADDRESS_ROW</b> structure affects the operation of the <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfo">getaddrinfo</a>, <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfow">GetAddrInfoW</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfoexa">GetAddrInfoEx</a> functions in Windows sockets. If the <i>pNodeName</i> parameter passed to the <b>getaddrinfo</b> or <b>GetAddrInfoW</b> functions or the <i>pName</i> parameter passed to the <b>GetAddrInfoEx</b> function points to a computer name, all permanent addresses for the computer that can be used as a source address are returned. On Windows Vista and later, these addresses would include all unicast IP addresses returned by the  <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getunicastipaddresstable">GetUnicastIpAddressTable</a> or <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getunicastipaddressentry">GetUnicastIpAddressEntry</a> functions in which the <b>SkipAsSource</b> member is set to false in the <b>MIB_UNICASTIPADDRESS_ROW</b> structure. 
@@ -22,17 +21,14 @@
  * 
  * A hotfix is available for Windows 7 and Windows Server 2008 R2 that adds support to Netsh.exe for setting the SkipAsSource attribute on an IP address.  This hotfix also changes the behavior such that if the <b>SkipAsSource</b> member in the <b>MIB_UNICASTIPADDRESS_ROW</b> structure is set to false, the IP address will be registered in DNS. If the <b>SkipAsSource</b> member is set to true, the IP address is not registered in DNS.  For more information, see Knowledge Base (KB) <a href="https://support.microsoft.com/kb/2386184">2386184</a>.   
  * 
- * A similar hotfix is also available for Windows Vista with Service Pack 2 (SP2) and Windows Server 2008 with Service Pack 2 (SP2) that adds support to Netsh.exe for setting the SkipAsSource attribute on an IP address. This hotfix also changes behavior such that if the <b>SkipAsSource</b> member in the <b>MIB_UNICASTIPADDRESS_ROW</b> structure is set to false, the IP address will be registered in DNS. If the <b>SkipAsSource</b> member is set to true, the IP address is not registered in DNS.  For more information, see Knowledge Base (KB) <a href="https://support.microsoft.com/kb/975808">975808</a>. 
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//netioapi/ns-netioapi-mib_unicastipaddress_row
+ * A similar hotfix is also available for Windows Vista with Service Pack 2 (SP2) and Windows Server 2008 with Service Pack 2 (SP2) that adds support to Netsh.exe for setting the SkipAsSource attribute on an IP address. This hotfix also changes behavior such that if the <b>SkipAsSource</b> member in the <b>MIB_UNICASTIPADDRESS_ROW</b> structure is set to false, the IP address will be registered in DNS. If the <b>SkipAsSource</b> member is set to true, the IP address is not registered in DNS.
+ * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_unicastipaddress_row
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */
 class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
 {
-    static sizeof => 120
+    static sizeof => 112
 
     static packingSize => 8
 
@@ -59,7 +55,7 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
     InterfaceLuid{
         get {
             if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(64, this)
+                this.__InterfaceLuid := NET_LUID_LH(56, this)
             return this.__InterfaceLuid
         }
     }
@@ -71,8 +67,8 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * @type {Integer}
      */
     InterfaceIndex {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -155,8 +151,8 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * @type {Integer}
      */
     PrefixOrigin {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
+        get => NumGet(this, 76, "int")
+        set => NumPut("int", value, this, 76)
     }
 
     /**
@@ -250,8 +246,8 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * @type {Integer}
      */
     SuffixOrigin {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
+        get => NumGet(this, 80, "int")
+        set => NumPut("int", value, this, 80)
     }
 
     /**
@@ -261,8 +257,8 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * @type {Integer}
      */
     ValidLifetime {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 
     /**
@@ -272,8 +268,8 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * @type {Integer}
      */
     PreferredLifetime {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
@@ -283,8 +279,8 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * @type {Integer}
      */
     OnLinkPrefixLength {
-        get => NumGet(this, 100, "char")
-        set => NumPut("char", value, this, 100)
+        get => NumGet(this, 92, "char")
+        set => NumPut("char", value, this, 92)
     }
 
     /**
@@ -294,8 +290,8 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * @type {BOOLEAN}
      */
     SkipAsSource {
-        get => NumGet(this, 101, "char")
-        set => NumPut("char", value, this, 101)
+        get => NumGet(this, 93, "char")
+        set => NumPut("char", value, this, 93)
     }
 
     /**
@@ -368,8 +364,8 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * @type {Integer}
      */
     DadState {
-        get => NumGet(this, 104, "int")
-        set => NumPut("int", value, this, 104)
+        get => NumGet(this, 96, "int")
+        set => NumPut("int", value, this, 96)
     }
 
     /**
@@ -381,7 +377,7 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
     ScopeId{
         get {
             if(!this.HasProp("__ScopeId"))
-                this.__ScopeId := SCOPE_ID(108, this)
+                this.__ScopeId := SCOPE_ID(100, this)
             return this.__ScopeId
         }
     }
@@ -393,7 +389,7 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * @type {Integer}
      */
     CreationTimeStamp {
-        get => NumGet(this, 112, "int64")
-        set => NumPut("int64", value, this, 112)
+        get => NumGet(this, 104, "int64")
+        set => NumPut("int64", value, this, 104)
     }
 }

@@ -5,21 +5,18 @@
 /**
  * The PERBANDINFO structure is used as input to a printer graphics DLL's DrvQueryPerBandInfo function.
  * @remarks
- * 
  * If the result of <b>ulHorzRes</b> divided by <b>ulVertRes</b> is smaller than the result obtained by dividing the same members of the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-gdiinfo">GDIINFO</a> structure, the band is rendered smaller by the graphics engine. If the values are the same, no scaling is done. The resultant scale factor obtained from this structure cannot be larger than the one stored in GDIINFO.
  * 
  * When the band is scaled, the graphics engine anchors the smaller band to the upper-left corner of the original band.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-perbandinfo
+ * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-perbandinfo
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
 class PERBANDINFO extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * If <b>TRUE</b>, GDI redraws the previous band. If <b>FALSE</b>, GDI draws the next band.
@@ -37,7 +34,7 @@ class PERBANDINFO extends Win32Struct
     szlBand{
         get {
             if(!this.HasProp("__szlBand"))
-                this.__szlBand := SIZE(8, this)
+                this.__szlBand := SIZE(4, this)
             return this.__szlBand
         }
     }
@@ -47,8 +44,8 @@ class PERBANDINFO extends Win32Struct
      * @type {Integer}
      */
     ulHorzRes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
@@ -56,7 +53,7 @@ class PERBANDINFO extends Win32Struct
      * @type {Integer}
      */
     ulVertRes {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 }

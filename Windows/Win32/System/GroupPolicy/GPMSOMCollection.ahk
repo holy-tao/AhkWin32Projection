@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The IGPMSOMCollection interface represents a collection of GPMSOM objects.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmsomcollection
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319

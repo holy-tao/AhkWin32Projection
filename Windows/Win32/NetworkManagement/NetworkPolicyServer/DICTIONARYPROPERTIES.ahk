@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the DICTIONARYPROPERTIES properties type enumerate properties associated with the attribute dictionary.
  * @remarks
- * 
  * The dictionary is the collection of all possible attributes. It includes some attributes that are reserved for system use.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-dictionaryproperties
+ * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-dictionaryproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class DICTIONARYPROPERTIES{
+class DICTIONARYPROPERTIES extends Win32Enum{
 
     /**
      * The collection of all possible attributes.

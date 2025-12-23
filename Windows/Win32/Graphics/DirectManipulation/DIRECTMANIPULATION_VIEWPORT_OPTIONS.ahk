@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the input behavior options for the viewport.
  * @remarks
- * 
  * <b>DIRECTMANIPULATION_VIEWPORT_OPTIONS</b> is used in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setviewportoptions">SetViewportOptions</a> method. These flags can be combined to set the input behavior for a viewport.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/ne-directmanipulation-directmanipulation_viewport_options
+ * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/ne-directmanipulation-directmanipulation_viewport_options
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */
-class DIRECTMANIPULATION_VIEWPORT_OPTIONS{
+class DIRECTMANIPULATION_VIEWPORT_OPTIONS extends Win32BitflagEnum{
 
     /**
      * No special behaviors. This is the default value used to set or revert to default behavior.

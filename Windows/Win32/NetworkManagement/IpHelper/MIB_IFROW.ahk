@@ -2,15 +2,12 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Stores information about a particular interface.
+ * Stores information about a particular interface. (MIB_IFROW)
  * @remarks
- * 
- * The <b>dwSpeed</b> member of the <b>MIB_IFROW</b> structure will be incorrect for very high-speed network interfaces (10 Gbit/s network adapter, for example) since the maximum value that can be store in a DWORD is 4,294,967,295. Applications should use the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_if_row2">MIB_IF_ROW2</a> structure returned by the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getifentry2">GetIfEntry2</a> and <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getiftable2">GetIfTable2</a> functions or the <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_adapter_addresses_lh">IP_ADAPTER_ADDRESSES</a> structure returned by the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getadaptersaddresses">GetAdaptersAddresses</a>function for determining the speed for very high-speed network interfaces.
+ * The <b>dwSpeed</b> member of the <b>MIB_IFROW</b> structure will be incorrect for very high-speed network interfaces (10 Gbit/s network adapter, for example) since the maximum value that can be store in a DWORD is 4,294,967,295. Applications should use the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_if_row2">MIB_IF_ROW2</a> structure returned by the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getifentry2">GetIfEntry2</a> and <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getiftable2">GetIfTable2</a> functions or the <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_adapter_addresses_lh">IP_ADAPTER_ADDRESSES</a> structure returned by the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getadaptersaddresses">GetAdaptersAddresses</a> function for determining the speed for very high-speed network interfaces.
  * 
  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>MIB_IFROW</b> structure is defined in the <i>Ifmib.h</i> header file not in the <i>Iprtrmib.h</i> header file. Note that the <i>Ifmib.h</i> header file is automatically included in <i>Iprtrmib.h</i> which is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Ifmib.h</i> and <i>Iprtrmib.h</i> header files should never be used directly.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ifmib/ns-ifmib-mib_ifrow
+ * @see https://learn.microsoft.com/windows/win32/api/ifmib/ns-ifmib-mib_ifrow
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

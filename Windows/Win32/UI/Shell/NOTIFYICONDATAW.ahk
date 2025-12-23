@@ -4,9 +4,8 @@
 #Include ..\WindowsAndMessaging\HICON.ahk
 
 /**
- * Contains information that the system needs to display notifications in the notification area. Used by Shell_NotifyIcon.
+ * Contains information that the system needs to display notifications in the notification area. Used by Shell_NotifyIcon. (Unicode)
  * @remarks
- * 
  * See <a href="https://msdn.microsoft.com/library/aa511497.aspx">Notifications</a> in the Windows User Experience Interaction Guidelines for more information on notification UI and content best practices.
  * 
  * If you set the <b>NIF_INFO</b> flag in the <b>uFlags</b> member, the balloon-style notification is used. For more discussion of these notifications, see <a href="https://docs.microsoft.com/windows/desktop/Controls/using-tooltip-contro">Balloon tooltips</a>.
@@ -18,8 +17,7 @@
  * 
  * ```cpp
  * // Windows Vista and later:
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shellapi/ns-shellapi-notifyicondataw
+ * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-notifyicondataw
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  * @charset Unicode

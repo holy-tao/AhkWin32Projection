@@ -3,7 +3,7 @@
 
 /**
  * Provides information about the context in which marshalling should be carried out.
- * @see https://docs.microsoft.com/windows/win32/api//callobj/ns-callobj-callframe_marshalcontext
+ * @see https://learn.microsoft.com/windows/win32/api/callobj/ns-callobj-callframe_marshalcontext
  * @namespace Windows.Win32.System.Com.CallObj
  * @version v4.0.30319
  */

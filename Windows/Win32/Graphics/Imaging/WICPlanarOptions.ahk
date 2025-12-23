@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies additional options to an IWICPlanarBitmapSourceTransform implementation.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicplanaroptions
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicplanaroptions
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICPlanarOptions{
+class WICPlanarOptions extends Win32Enum{
 
     /**
      * No options specified.  

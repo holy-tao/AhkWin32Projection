@@ -5,19 +5,16 @@
 /**
  * The DRAWPATRECT structure defines a rectangle to be created.
  * @remarks
- * 
  * This structure is used with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd162495(v=vs.85)">DRAWPATTERNRECT</a> printer escape.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-drawpatrect
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-drawpatrect
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
 class DRAWPATRECT extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The upper-left corner of the rectangle, in logical units.

@@ -3,7 +3,7 @@
 
 /**
  * The TTEMBEDINFO structure contains a list of URLs from which the embedded font object may be legitimately referenced.
- * @see https://docs.microsoft.com/windows/win32/api//t2embapi/ns-t2embapi-ttembedinfo
+ * @see https://learn.microsoft.com/windows/win32/api/t2embapi/ns-t2embapi-ttembedinfo
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

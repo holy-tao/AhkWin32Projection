@@ -3,7 +3,7 @@
 
 /**
  * Contains the properties of a shadow copy source volume.
- * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/ns-vsmgmt-vss_volume_prop
+ * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/ns-vsmgmt-vss_volume_prop
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used in the SYNCMGRHANDLERINFO structure as flags that apply to the current handler.
  * @remarks
- * 
  * Only the <b><b>SYNCMGRHANDLER_HASPROPERTIES</b></b> and <b><b>SYNCMGRHANDLER_HIDDEN</b></b> flags are recognized by Windows Vista. Although Windows Vista recognizes the <b><b>SYNCMGRHANDLER_HIDDEN</b></b> flag, it does not currently use it.  
  * 
  * All flags are still valid for previous versions of Windows.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mobsync/ne-mobsync-syncmgrhandlerflags
+ * @see https://learn.microsoft.com/windows/win32/api/mobsync/ne-mobsync-syncmgrhandlerflags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SYNCMGRHANDLERFLAGS{
+class SYNCMGRHANDLERFLAGS extends Win32Enum{
 
     /**
      * The current handler provides a property sheet dialog.

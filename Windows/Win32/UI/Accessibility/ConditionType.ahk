@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that specify a type of UiaCondition.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/ne-uiautomationcoreapi-conditiontype
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ne-uiautomationcoreapi-conditiontype
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
-class ConditionType{
+class ConditionType extends Win32Enum{
 
     /**
      * A condition that is true.

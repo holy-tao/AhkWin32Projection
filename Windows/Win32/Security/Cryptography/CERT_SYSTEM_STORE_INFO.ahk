@@ -4,11 +4,8 @@
 /**
  * The CERT_SYSTEM_STORE_INFO structure contains information used by functions that work with system stores. Currently, no essential information is contained in this structure.
  * @remarks
- * 
  * Currently, no system store information is persisted.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_system_store_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_system_store_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

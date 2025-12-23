@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * Defines a cipher algorithm for data encryption and decryption.
  * @see https://learn.microsoft.com/windows/win32/NativeWiFi/dot11-cipher-algorithm
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
-class DOT11_CIPHER_ALGORITHM{
+class DOT11_CIPHER_ALGORITHM extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

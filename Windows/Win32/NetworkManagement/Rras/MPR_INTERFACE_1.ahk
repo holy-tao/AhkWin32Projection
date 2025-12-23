@@ -4,7 +4,7 @@
 
 /**
  * The MPR_INTERFACE_1 structure contains configuration and status information for a particular router interface.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-mpr_interface_1
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_interface_1
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */
@@ -89,8 +89,12 @@ class MPR_INTERFACE_1 extends Win32Struct
      * 
      * 
      * 
-     * <pre class="syntax" xml:space="preserve"><code>&lt;day&gt;&lt;space&gt;&lt;time range&gt;&lt;space&gt;&lt;time range&gt; . . . &lt;NULL&gt;&lt;day&gt;. . . &lt;NULL&gt;&lt;NULL&gt;
-     * </code></pre>
+     * 
+     * ``` syntax
+     * &lt;day&gt;&lt;space&gt;&lt;time range&gt;&lt;space&gt;&lt;time range&gt; . . . &lt;NULL&gt;&lt;day&gt;. . . &lt;NULL&gt;&lt;NULL&gt;
+     * 
+     * ```
+     * 
      * Where day is a numeral that corresponds to a day of the week.
      * 
      * <table>
@@ -186,8 +190,12 @@ class MPR_INTERFACE_1 extends Win32Struct
      * 
      * Example:
      * 
-     * <pre class="syntax" xml:space="preserve"><code>2 09:00-12:00 13:00-17:30&lt;NULL&gt;4 09:00-12:00 13:00-17:30&lt;NULL&gt;&lt;NULL&gt;
-     * </code></pre>
+     * 
+     * ``` syntax
+     * 2 09:00-12:00 13:00-17:30&lt;NULL&gt;4 09:00-12:00 13:00-17:30&lt;NULL&gt;&lt;NULL&gt;
+     * 
+     * ```
+     * 
      * The preceding string restricts dial-out to Tuesdays and Thursdays from 9:00 AM to 12:00 PM and from 1:00 PM to 5:30 PM.
      * @type {PWSTR}
      */

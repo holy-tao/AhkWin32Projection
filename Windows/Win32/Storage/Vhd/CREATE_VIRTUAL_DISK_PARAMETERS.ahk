@@ -4,7 +4,7 @@
 
 /**
  * Contains virtual hard disk (VHD) creation parameters, providing control over, and information about, the newly created virtual disk.
- * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ns-virtdisk-create_virtual_disk_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-create_virtual_disk_parameters
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */
@@ -54,7 +54,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     class _Version1 extends Win32Struct {
-        static sizeof => 136
+        static sizeof => 40
         static packingSize => 8
 
         /**
@@ -108,7 +108,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     class _Version2 extends Win32Struct {
-        static sizeof => 136
+        static sizeof => 96
         static packingSize => 8
 
         /**
@@ -208,7 +208,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     class _Version3 extends Win32Struct {
-        static sizeof => 136
+        static sizeof => 120
         static packingSize => 8
 
         /**

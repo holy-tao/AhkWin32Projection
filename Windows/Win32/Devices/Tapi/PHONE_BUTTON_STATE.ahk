@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PHONE_BUTTON_STATE enum describes the state of a phone button.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-phone_button_state
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-phone_button_state
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class PHONE_BUTTON_STATE{
+class PHONE_BUTTON_STATE extends Win32Enum{
 
     /**
      * State of the button is up.

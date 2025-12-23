@@ -3,7 +3,7 @@
 
 /**
  * The SERVER_INFO_1515 structure specifies whether the server should force a client to disconnect once the client's logon time has expired.
- * @see https://docs.microsoft.com/windows/win32/api//lmserver/ns-lmserver-server_info_1515
+ * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_1515
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

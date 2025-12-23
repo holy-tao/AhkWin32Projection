@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Unordered-access view options.
  * @remarks
- * 
  * This enumeration is used by a unordered access-view description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_unordered_access_view_desc">D3D11_UNORDERED_ACCESS_VIEW_DESC</a>).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_uav_dimension
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_uav_dimension
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_UAV_DIMENSION{
+class D3D11_UAV_DIMENSION extends Win32Enum{
 
     /**
      * The view type is unknown.

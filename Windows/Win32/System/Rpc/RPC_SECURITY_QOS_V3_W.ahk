@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The RPC_SECURITY_QOS_V3 structure defines version 3 security quality-of-service settings on a binding handle. See Remarks for version availability on Windows editions.
+ * The RPC_SECURITY_QOS_V3 structure defines version 3 security quality-of-service settings on a binding handle. See Remarks for version availability on Windows editions. (Unicode)
  * @remarks
- * 
  * The following listing defines the availability of QOS versions on various Windows operating systems:
  * 
  * <ul>
@@ -27,9 +26,7 @@
  * 
  * <div class="alert"><b>Note</b>  Some security providers, such as Kerberos, support delegation-impersonation type. On Windows editions that support delegation-impersonation type, if the client has asked for delegation but the security provider is unable to provide it, the call fails with PRC_S_SEC_PKG_ERROR unless the RPC_C_QOS_CAPABILITIES_IGNORE_DELEGATE_FAILURE flag is specified.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//rpcdce/ns-rpcdce-rpc_security_qos_v3_w
+ * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_security_qos_v3_w
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  * @charset Unicode
@@ -39,6 +36,20 @@ class RPC_SECURITY_QOS_V3_W extends Win32Struct
     static sizeof => 40
 
     static packingSize => 8
+
+    class _u_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<RPC_HTTP_TRANSPORT_CREDENTIALS_W>}
+         */
+        HttpCredentials {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
 
     /**
      * Version of the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_security_qos">RPC_SECURITY_QOS</a> structure being used. This topic documents version 3 of the <b>RPC_SECURITY_QOS</b> structure. See <b>RPC_SECURITY_QOS</b>, <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_security_qos_v2_a">RPC_SECURITY_QOS_V2</a> and <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_security_qos_v4_a">RPC_SECURITY_QOS_V4</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_security_qos_v5_a">RPC_SECURITY_QOS_V5</a> for other versions.
@@ -276,11 +287,15 @@ class RPC_SECURITY_QOS_V3_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<RPC_HTTP_TRANSPORT_CREDENTIALS_W>}
+     * 
+     * @type {_u_e__Union}
      */
-    HttpCredentials {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    u{
+        get {
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._u_e__Union(24, this)
+            return this.__u
+        }
     }
 
     /**

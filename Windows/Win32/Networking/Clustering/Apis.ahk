@@ -3274,14 +3274,18 @@ class Clustering {
 
     /**
      * Determines whether the Cluster service is installed and running on a node.
+     * @remarks
+     * <b>Note</b>  The <b>GetNodeClusterState</b> function does not 
+     *      support a 64-bit Windows-based <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> if the calling application is 
+     *      32-bit Windows-based.
      * @param {PWSTR} lpszNodeName Pointer to a null-terminated Unicode string containing the name of the node to query. If 
      *        <i>lpszNodeName</i> is <b>NULL</b>, the local node is queried.
      * @param {Pointer<Integer>} pdwClusterState Pointer to a value describing the state of the Cluster service on the node. A node will be described by one 
      *        of the following <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-node_cluster_state">NODE_CLUSTER_STATE</a> enumeration 
      *        values.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b> (0). If the operation 
-     *        fails, the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getnodeclusterstate
+     *        fails, the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getnodeclusterstate
      * @since windowsserver2008
      */
     static GetNodeClusterState(lpszNodeName, pdwClusterState) {
@@ -3294,7 +3298,22 @@ class Clustering {
     }
 
     /**
-     * Opens a connection to a cluster and returns a handle to it.
+     * Opens a connection to a cluster and returns a handle to it. (OpenCluster)
+     * @remarks
+     * A cluster handle is a pointer to an internally defined structure which stores information about the RPC or LPC 
+     *      connection to the cluster. Any object handles obtained from the cluster handle will be associated with the RPC or 
+     *      LPC session data stored in the cluster structure. Combining RPC and LPC handles or using handles obtained from 
+     *      different contexts can cause exceptions or other unpredictable results. For more information, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/lpc-and-rpc-handles">LPC and RPC Handles</a>.
+     * 
+     * When finished with a cluster handle, it is important to call 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closecluster">CloseCluster</a> to ensure that all memory is freed and the 
+     *      connection is shut down cleanly.
+     * 
+     * If the cluster is remote, the client must be running a compatible operating system. For example computers running 
+     *      Windows Server 2008 cannot call <b>OpenCluster</b> against a 
+     *      cluster running Windows Server 2016. To remotely manage these clusters, use 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/failover-cluster-apis-portal">the Failover Cluster WMI Provider</a>.
      * @param {PWSTR} lpszClusterName 
      * @returns {HCLUSTER} If the operation was successful, <b>OpenCluster</b> returns 
      *        a cluster handle.
@@ -3313,12 +3332,12 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The operation was not successful. For more information about the error, call the function 
-     *          <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     *          <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-opencluster
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-opencluster
      * @since windowsserver2008
      */
     static OpenCluster(lpszClusterName) {
@@ -3327,14 +3346,25 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\OpenCluster", "ptr", lpszClusterName, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Opens a connection to a cluster and returns a handle to it.
+     * Opens a connection to a cluster and returns a handle to it. (OpenClusterEx)
+     * @remarks
+     * A cluster handle is a pointer to an internally defined structure which stores information about the RPC or LPC 
+     *      connection to the cluster. Any object handles obtained from the cluster handle will be associated with the RPC or 
+     *      LPC session data stored in the cluster structure. Combining RPC and LPC handles or using handles obtained from 
+     *      different contexts can cause exceptions or other unpredictable results. For more information, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/lpc-and-rpc-handles">LPC and RPC Handles</a>.
+     * 
+     * When finished with a cluster handle, it is important to call 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closecluster">CloseCluster</a> to ensure that all memory is freed and the 
+     *      connection is shut down cleanly.
      * @param {PWSTR} lpszClusterName 
      * @param {Integer} DesiredAccess The requested access privileges. This may be any combination of <b>GENERIC_READ</b> 
      *       (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> 
@@ -3362,8 +3392,8 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The operation was not successful. For more information about the error, call the 
-     *         <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. If the target server does not 
-     *         support the <a href="/windows/desktop/api/clusapi/nf-clusapi-openclusterex">OpenClusterEx</a> function (for example if 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. If the target server does not 
+     *         support the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterex">OpenClusterEx</a> function (for example if 
      *         the target server is running Windows Server 2008 or earlier) then the 
      *         <b>GetLastError</b> function will return 
      *         <b>RPC_S_PROCNUM_OUT_OF_RANGE</b> (1745).
@@ -3371,7 +3401,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-openclusterex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclusterex
      * @since windowsserver2008
      */
     static OpenClusterEx(lpszClusterName, DesiredAccess, GrantedAccess) {
@@ -3382,17 +3412,21 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\OpenClusterEx", "ptr", lpszClusterName, "uint", DesiredAccess, GrantedAccessMarshal, GrantedAccess, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Closes a cluster handle.
+     * @remarks
+     * Do not close a cluster handle if there are any object handles still in use that were obtained from the cluster 
+     *     handle. After a cluster handle has been closed, all handles obtained from that handle are invalid.
      * @param {HCLUSTER} hCluster Handle to the cluster to close.
      * @returns {BOOL} This function always returns <b>TRUE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-closecluster
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-closecluster
      * @since windowsserver2008
      */
     static CloseCluster(hCluster) {
@@ -3402,13 +3436,17 @@ class Clustering {
 
     /**
      * Sets the name for a cluster.
+     * @remarks
+     * The cluster name is stored in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-names-name">Name</a> private property of the core  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-name">Network Name</a> resource (that is, the Network Name resource of the cluster). Because of possible dependencies on this resource, the change is not effective until the Network Name resource is brought back online.
+     * 
+     * Do not call  <b>SetClusterName</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HCLUSTER} hCluster Handle to a cluster to rename.
      * @param {PWSTR} lpszNewClusterName Pointer to a null-terminated Unicode string containing the new cluster name.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_RESOURCE_PROPERTIES_STORED</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-setclustername
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setclustername
      * @since windowsserver2008
      */
     static SetClusterName(hCluster, lpszNewClusterName) {
@@ -3435,6 +3473,11 @@ class Clustering {
 
     /**
      * Retrieves a cluster's name and version.
+     * @remarks
+     * Note that <i>lpcchClusterName</i> refers to a count of characters and not a count of bytes, 
+     *     and that the returned size does not include the terminating <b>NULL</b> in the count. For more 
+     *     information on sizing buffers, see 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
      * @param {HCLUSTER} hCluster Handle to a cluster.
      * @param {PWSTR} lpszClusterName Pointer to a null-terminated Unicode string containing the name of the cluster identified by 
      *       <i>hCluster</i>.
@@ -3451,7 +3494,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b> (0).
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is one of the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is one of the 
      *        possible values.
      * 
      * <table>
@@ -3473,7 +3516,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusterinformation
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterinformation
      * @since windowsserver2008
      */
     static GetClusterInformation(hCluster, lpszClusterName, lpcchClusterName, lpClusterInfo) {
@@ -3487,6 +3530,8 @@ class Clustering {
 
     /**
      * Returns the name of a cluster's quorum resource.
+     * @remarks
+     * Note that <i>lpcchName</i> refers to a count of characters and not a count of bytes, and that the returned size does not include the terminating <b>NULL</b> in the count. For more information on sizing buffers, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
      * @param {HCLUSTER} hCluster Handle to an existing <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
      * @param {PWSTR} lpszResourceName Pointer to a null-terminated Unicode string containing the name of the cluster's quorum resource. The name is read from the quorum resource's  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources-name">Name</a> common property. Do not pass <b>NULL</b> for this parameter.
      * @param {Pointer<Integer>} lpcchResourceName Pointer to the size of the <i>lpszResourceName</i> buffer as a count of characters. On input, specify the maximum number of characters the buffer can hold, including the terminating <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding the terminating <b>NULL</b>.
@@ -3496,7 +3541,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is one of the possible values.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is one of the possible values.
      * 
      * <table>
      * <tr>
@@ -3515,7 +3560,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusterquorumresource
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterquorumresource
      * @since windowsserver2008
      */
     static GetClusterQuorumResource(hCluster, lpszResourceName, lpcchResourceName, lpszDeviceName, lpcchDeviceName, lpdwMaxQuorumLogSize) {
@@ -3532,6 +3577,10 @@ class Clustering {
 
     /**
      * Establishes a resource as the quorum resource for a cluster.
+     * @remarks
+     * Do not call <b>SetClusterQuorumResource</b> from 
+     *      a resource DLL. For more information, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HRESOURCE} hResource Handle to the new quorum resource; or the existing 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/quorum-resource">quorum resource</a> when 
      *        <i>dwMaxQuoLogSize</i> is 
@@ -3558,7 +3607,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b> (0).
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error 
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error 
      *        code.
      * 
      * <table>
@@ -3579,7 +3628,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-setclusterquorumresource
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setclusterquorumresource
      * @since windowsserver2008
      */
     static SetClusterQuorumResource(hResource, lpszDeviceName, dwMaxQuoLogSize) {
@@ -3607,6 +3656,89 @@ class Clustering {
 
     /**
      * Creates a backup of the cluster database and all registry checkpoints.
+     * @remarks
+     * Ideally, the specified path should be a path visible to all cluster 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">nodes</a>, such as a UNC path. At minimum, the path must be visible to 
+     *      the node that currently owns the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/quorum-resource">quorum resource</a>. Do not 
+     *      include a filename in the path or the function will fail, returning <b>ERROR_DIRECTORY</b>. 
+     *      The path can include a trailing backslash.
+     * 
+     * One way to ensure that an appropriate path exists is to create a temporary network share, as follows:
+     * 
+     * <ul>
+     * <li>Call the function <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netshareadd">NetShareAdd</a> to create a temporary 
+     *       network share. All cluster nodes must have write access to this share.</li>
+     * <li>Call <b>BackupClusterDatabase</b>, specifying 
+     *       the temporary share in the <i>lpszPathName</i> parameter.</li>
+     * <li>Copy the backup files (see below) to one or more safe storage locations.</li>
+     * <li>Call the function <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharedel">NetShareDel</a> to delete the 
+     *       share.</li>
+     * </ul>
+     * The backup contains the following files.
+     * 
+     * <table>
+     * <tr>
+     * <th>Path\File</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <i>lpszPathName</i>\chk????.tmp
+     * 
+     * </td>
+     * <td>
+     * Snapshot files.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <i>lpszPathName</i>\quolog.log
+     * 
+     * </td>
+     * <td>
+     * The quorum log file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <i>lpszPathName</i>\&lt;GUID of resource&gt;\*.CPT
+     * 
+     * </td>
+     * <td>
+     * The registry checkpoint files for the resource identified by GUID.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <i>lpszPathName</i>\&lt;GUID of resource&gt;\*.CPR
+     * 
+     * </td>
+     * <td>
+     * The crypto checkpoint files for the resource identified by GUID.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <i>lpszPathName</i>\Clusbackup.dat
+     * 
+     * </td>
+     * <td>
+     * Backup completion marker file (read-only, hidden, 0-byte file)
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Subsequent <b>BackupClusterDatabase</b> operations 
+     *      that use the same <i>lpszPath</i> parameter will overwrite the existing backup files.
+     * 
+     * If possible, make multiple copies of the backup directory on different media and store these copies in separate 
+     *      locations.
      * @param {HCLUSTER} hCluster Handle to the cluster to be backed up.
      * @param {PWSTR} lpszPathName Null-terminated Unicode string specifying the path to where the backup should be created. Cluster 
      *       configuration information will be saved to this location; this is sensitive data that should be protected. For 
@@ -3615,8 +3747,8 @@ class Clustering {
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, it returns one of the 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-backupclusterdatabase
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-backupclusterdatabase
      * @since windowsserver2003
      */
     static BackupClusterDatabase(hCluster, lpszPathName) {
@@ -3628,6 +3760,76 @@ class Clustering {
 
     /**
      * Restores the cluster database and restarts the Cluster service on the node from which the function is called. This node is called the restoring node.
+     * @remarks
+     * If the restore operation is successful, the restoring node forms a 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> according to the configuration data in the 
+     *      restored cluster database. As other nodes join the cluster, they update their cluster databases from the database 
+     *      on the restoring node.
+     * 
+     * Note that <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster disks</a> other than the quorum 
+     *      resource that have added or changed since the backup was made will not be recognized by the restored cluster 
+     *      database and will remain <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/o-gly">offline</a> even if the restore 
+     *      operation is successful. New <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resources</a> must be created for these 
+     *      disks (see 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/creating-physical-disk-resources">Creating a Physical Disk Resource</a>).
+     * 
+     * The following general procedure is recommended for any cluster restore routine:
+     * 
+     * <ol>
+     * <li>Call <b>RestoreClusterDatabase</b> with 
+     *       <i>bForce</i> set to <b>FALSE</b> and no drive letter specified. This is 
+     *       the best approach because, if successful, the operation does not have to force configuration changes.</li>
+     * <li>
+     * If the first call fails, let the user decide whether to force the procedure to continue or manually fix the 
+     *       problem. Be sure to communicate the implications of each decision.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return value</th>
+     * <th>Action if forced</th>
+     * <th>Manual fix</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>ERROR_CLUSTER_NODE_UP</b>
+     * 
+     * </td>
+     * <td>
+     * The restore operation will stop the Cluster service on all other nodes.
+     * 
+     * </td>
+     * <td>
+     * User manually shuts down the Cluster service on all other cluster nodes. The command 
+     *           <b>Net Stop ClusSvc</b> is sufficient; a complete power-down is unnecessary.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>ERROR_QUORUM_DISK_NOT_FOUND</b>
+     * 
+     * </td>
+     * <td>
+     * User must supply the drive letter of the quorum resource. The restore operation will change the disk's 
+     *           signature and drive letter to the values stored in the backup.
+     * 
+     * </td>
+     * <td>
+     * User repartitions the quorum disk so that the layout is identical to the layout stored in the backup.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * If the user agrees to force continuation, call 
+     *        <b>RestoreClusterDatabase</b> with 
+     *        <i>bForce</i> set to <b>TRUE</b> and the drive letter specified (if 
+     *        applicable). Forcing does not guarantee success. If the restore operation fails again, test the return value 
+     *        and respond appropriately.
+     * 
+     * </li>
+     * </ol>
      * @param {PWSTR} lpszPathName Null-terminated Unicode string specifying the path to the backup file. Cluster configuration information is 
      *        contained in this location; this is sensitive data that should be protected. For example, this data can be 
      *        protected by using an access control list to restrict access to the location where the data is stored.
@@ -3656,7 +3858,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error 
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error 
      *        codes.
      * 
      * <table>
@@ -3672,7 +3874,7 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The operation failed because other cluster nodes are currently active. If you call 
-     *          <a href="/previous-versions/windows/desktop/api/clusapi/nf-clusapi-restoreclusterdatabase">RestoreClusterDatabase</a> again with 
+     *          <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-restoreclusterdatabase">RestoreClusterDatabase</a> again with 
      *          <i>bForce</i> set to <b>TRUE</b>, the cluster will attempt to shut down 
      *          the Cluster service on the other active nodes.
      * 
@@ -3686,14 +3888,14 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The operation failed because the quorum disk described in the backup does not match the current quorum 
-     *          disk. If you call <a href="/previous-versions/windows/desktop/api/clusapi/nf-clusapi-restoreclusterdatabase">RestoreClusterDatabase</a> 
+     *          disk. If you call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-restoreclusterdatabase">RestoreClusterDatabase</a> 
      *          again with <i>bForce</i> set to <b>TRUE</b>, the cluster will attempt 
      *          to change the signature and drive letter of the current quorum disk to the values stored in the backup.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-restoreclusterdatabase
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-restoreclusterdatabase
      * @since windowsserver2003
      */
     static RestoreClusterDatabase(lpszPathName, bForce, lpszQuorumDriveLetter) {
@@ -3706,6 +3908,11 @@ class Clustering {
 
     /**
      * Sets the priority order for the set of networks used for internal communication between cluster nodes.
+     * @remarks
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and 
+     *      can have additional destructive effects. For information on how LPC and RPC handles are created, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {HCLUSTER} hCluster Handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> to be affected.
      * @param {Integer} NetworkCount Number of items in the list specified by the <i>NetworkList</i> parameter.
      * @param {Pointer<HNETWORK>} NetworkList Prioritized array of handles to network objects. The first handle in the array has the highest priority. The 
@@ -3714,7 +3921,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b> (0).
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error 
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error 
      *        codes.
      * 
      * <table>
@@ -3735,7 +3942,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-setclusternetworkpriorityorder
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setclusternetworkpriorityorder
      * @since windowsserver2003
      */
     static SetClusterNetworkPriorityOrder(hCluster, NetworkCount, NetworkList) {
@@ -3747,6 +3954,24 @@ class Clustering {
 
     /**
      * Changes the password for the Cluster service user account on all available cluster nodes.
+     * @remarks
+     * By default, the 
+     *      <b>SetClusterServiceAccountPassword</b> 
+     *      function does nothing unless all nodes in the cluster are available (that is, in the 
+     *      <b>ClusterNodeStateUp</b> or <b>ClusterNodeStatePaused</b> states). You 
+     *      can use the <b>CLUSTER_SET_PASSWORD_IGNORE_DOWN_NODES</b> flag to override this behavior, 
+     *      but note that any node that fails to update the password will be unable to join the cluster until the password is 
+     *      manually updated on that node.
+     * 
+     * If the new password is the same as the old password on a node, the password update is not applied to that node 
+     *      and <b>ERROR_SUCCESS</b> is returned.
+     * 
+     * This function does not update the password stored by the domain controllers for the Cluster service user 
+     *      account.
+     * 
+     * Do not call 
+     *      <b>SetClusterServiceAccountPassword</b> 
+     *      from a resource DLL.
      * @param {PWSTR} lpszClusterName <b>NULL</b>-terminated Unicode string specifying the name of the cluster.
      * @param {PWSTR} lpszNewPassword <b>NULL</b>-terminated Unicode string specifying the new password for the Cluster service 
      *        user account.
@@ -3771,7 +3996,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b> (0).
      * 
      * If the operation fails, the function returns a 
-     *       <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error 
+     *       <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error 
      *       codes.
      * 
      * <table>
@@ -3807,7 +4032,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-setclusterserviceaccountpassword
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setclusterserviceaccountpassword
      * @since windowsserver2003
      */
     static SetClusterServiceAccountPassword(lpszClusterName, lpszNewPassword, dwFlags, lpReturnStatusBuffer, lpcbReturnStatusBufferSize) {
@@ -3822,6 +4047,20 @@ class Clustering {
 
     /**
      * Initiates an operation that affects a cluster.
+     * @remarks
+     * If <b>ClusterControl</b> returns 
+     *      <b>ERROR_MORE_DATA</b>, set <i>nOutBufferSize</i> to the number of bytes 
+     *      pointed to by <i>lpcbBytesReturned</i> and call the function again.
+     * 
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and 
+     *      can have additional destructive effects. For information on how LPC and RPC handles are created, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/lpc-and-rpc-handles">LPC and RPC Handles</a> and 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
+     * 
+     * <b>ClusterControl</b> is one of the 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information on 
+     *      control codes and control code functions, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
      * @param {HCLUSTER} hCluster Handle to the cluster to be affected.
      * @param {HNODE} hHostNode If non-<b>NULL</b>, handle to the node to perform the operation represented by the control 
      *        code. If <b>NULL</b>, the local node performs the operation. Specifying 
@@ -3940,7 +4179,7 @@ class Clustering {
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -3951,7 +4190,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clustercontrol
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustercontrol
      * @since windowsserver2008
      */
     static ClusterControl(hCluster, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
@@ -3990,7 +4229,7 @@ class Clustering {
      * @param {Pointer<PCLUSTER_UPGRADE_PROGRESS_CALLBACK>} pfnProgressCallback A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nc-clusapi-pcluster_upgrade_progress_callback">ClusterUpgradeProgressCallback</a> callback function that retrieves the status of the rolling upgrade.
      * @param {Pointer<Void>} pvCallbackArg A pointer to the arguments for <b>pfnProgressCallback</b>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>. If the operation fails, the function returns a system error code.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterupgradefunctionallevel
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterupgradefunctionallevel
      * @since windowsserver2016
      */
     static ClusterUpgradeFunctionalLevel(hCluster, perform, pfnProgressCallback, pvCallbackArg) {
@@ -4021,16 +4260,17 @@ class Clustering {
      * 
      * If the operation fails, the 
      *        function returns <b>NULL</b>. For more information about the error, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-createclusternotifyportv2
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-createclusternotifyportv2
      * @since windowsserver2012
      */
     static CreateClusterNotifyPortV2(hChange, hCluster, Filters, dwFilterCount, dwNotifyKey) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CreateClusterNotifyPortV2", "ptr", hChange, "ptr", hCluster, "ptr", Filters, "uint", dwFilterCount, "ptr", dwNotifyKey, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4049,8 +4289,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-registerclusternotifyv2
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-registerclusternotifyv2
      * @since windowsserver2016
      */
     static RegisterClusterNotifyV2(hChange, Filter, hObject, dwNotifyKey) {
@@ -4067,7 +4307,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>. 
      * 
      * If the operation fails, the function returns a system error code.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getnotifyeventhandle
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getnotifyeventhandle
      * @since windowsserver2012
      */
     static GetNotifyEventHandle(hChange, lphTargetEvent) {
@@ -4082,7 +4322,7 @@ class Clustering {
      * @param {Pointer<Pointer>} lpdwNotifyKey A pointer to the notification key for the notification port.
      * @param {Pointer<NOTIFY_FILTER_AND_TYPE>} pFilterAndType A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ns-clusapi-notify_filter_and_type">NOTIFY_FILTER_AND_TYPE</a> 
      *       structure that describes the next notification event for the notification port.
-     * @param {Pointer} buffer A pointer to a buffer for the notification event.
+     * @param {Pointer} buffer_R 
      * @param {Pointer<Integer>} lpbBufferSize A pointer to  the size of the <i>buffer</i> parameter, in bytes.
      * @param {PWSTR} lpszObjectId A pointer to a  Unicode string   with  the ID of the 
      *        cluster object that triggered the event. The string ends with a  terminating null character.
@@ -4112,7 +4352,7 @@ class Clustering {
      * @returns {Integer} if the operation succeeds,  this function returns  <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, this function returns one of the following 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -4159,10 +4399,10 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusternotifyv2
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternotifyv2
      * @since windowsserver2012
      */
-    static GetClusterNotifyV2(hChange, lpdwNotifyKey, pFilterAndType, buffer, lpbBufferSize, lpszObjectId, lpcchObjectId, lpszParentId, lpcchParentId, lpszName, lpcchName, lpszType, lpcchType, dwMilliseconds) {
+    static GetClusterNotifyV2(hChange, lpdwNotifyKey, pFilterAndType, buffer_R, lpbBufferSize, lpszObjectId, lpcchObjectId, lpszParentId, lpcchParentId, lpszName, lpcchName, lpszType, lpcchType, dwMilliseconds) {
         lpszObjectId := lpszObjectId is String ? StrPtr(lpszObjectId) : lpszObjectId
         lpszParentId := lpszParentId is String ? StrPtr(lpszParentId) : lpszParentId
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
@@ -4175,12 +4415,18 @@ class Clustering {
         lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
         lpcchTypeMarshal := lpcchType is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CLUSAPI.dll\GetClusterNotifyV2", "ptr", hChange, lpdwNotifyKeyMarshal, lpdwNotifyKey, "ptr", pFilterAndType, "ptr", buffer, lpbBufferSizeMarshal, lpbBufferSize, "ptr", lpszObjectId, lpcchObjectIdMarshal, lpcchObjectId, "ptr", lpszParentId, lpcchParentIdMarshal, lpcchParentId, "ptr", lpszName, lpcchNameMarshal, lpcchName, "ptr", lpszType, lpcchTypeMarshal, lpcchType, "uint", dwMilliseconds, "uint")
+        result := DllCall("CLUSAPI.dll\GetClusterNotifyV2", "ptr", hChange, lpdwNotifyKeyMarshal, lpdwNotifyKey, "ptr", pFilterAndType, "ptr", buffer_R, lpbBufferSizeMarshal, lpbBufferSize, "ptr", lpszObjectId, lpcchObjectIdMarshal, lpcchObjectId, "ptr", lpszParentId, lpcchParentIdMarshal, lpcchParentId, "ptr", lpszName, lpcchNameMarshal, lpcchName, "ptr", lpszType, lpcchTypeMarshal, lpcchType, "uint", dwMilliseconds, "uint")
         return result
     }
 
     /**
      * Creates or modifies a notification port. For information on notification ports, see Receiving Cluster Events.
+     * @remarks
+     * For more information on using the 
+     *      <b>CreateClusterNotifyPort</b>, 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-getclusternotify">GetClusterNotify</a>, and 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-registerclusternotify">RegisterClusterNotify</a>, functions, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/receiving-cluster-events">Receiving Cluster Events</a>.
      * @param {HCHANGE} hChange Handle to a notification port or <b>INVALID_HANDLE_VALUE</b>, indicating that a new handle 
      *        should be created. If <i>hChange</i> is an existing handle, the events specified in 
      *        <i>dwFilter</i> are added to the notification port.
@@ -4202,22 +4448,31 @@ class Clustering {
      * 
      * If the operation fails, the 
      *        function returns <b>NULL</b>. For more information about the error, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-createclusternotifyport
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-createclusternotifyport
      * @since windowsserver2008
      */
     static CreateClusterNotifyPort(hChange, hCluster, dwFilter, dwNotifyKey) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CreateClusterNotifyPort", "ptr", hChange, "ptr", hCluster, "uint", dwFilter, "ptr", dwNotifyKey, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Adds an event type to the list of events stored for a notification port.
+     * @remarks
+     * The  <b>RegisterClusterNotify</b> function enables an application that has already created a notification port with  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclusternotifyport">CreateClusterNotifyPort</a> to register for an additional event that affects a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a>,  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resource</a>, or  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">group</a>.
+     * 
+     * To receive notifications of 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a> changes, one or more of the 
+     *     flags applicable to the database must be set in the <i>dwFilterType</i> parameter. Applicable 
+     *     flags start with the prefix CLUSTER_CHANGE_REGISTRY. Making manual changes to the cluster database through the 
+     *     registry editor, RegEdit.exe, does not generate notifications.
      * @param {HCHANGE} hChange Handle to a notification port created with the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclusternotifyport">CreateClusterNotifyPort</a> function.
      * @param {Integer} dwFilterType Bitmask of flags that describes the event to be added to the set of events currently being monitored by the 
@@ -4233,8 +4488,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-registerclusternotify
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-registerclusternotify
      * @since windowsserver2008
      */
     static RegisterClusterNotify(hChange, dwFilterType, hObject, dwNotifyKey) {
@@ -4246,6 +4501,14 @@ class Clustering {
 
     /**
      * Information relating to the next notification event that is stored for a notification port.
+     * @remarks
+     * Note that the <i>lpcchName</i> parameter refers to a count of characters and not a count of 
+     *      bytes, and that the returned size does not include the terminating <b>NULL</b> in the count. 
+     *      For more information on sizing buffers, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
+     * 
+     * The notifications are asynchronous, and the state of the cluster at the time that the application processes the 
+     *      notification can be different than the state of the cluster at the time the notification was generated.
      * @param {HCHANGE} hChange The handle to a notification port that is created with the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclusternotifyport">CreateClusterNotifyPort</a> function.
      * @param {Pointer<Pointer>} lpdwNotifyKey A  pointer to the notification key for the port that is  identified by the  <i>hChange</i> parameter.
@@ -4263,7 +4526,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible 
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible 
      *        values.
      * 
      * <table>
@@ -4311,7 +4574,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusternotify
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternotify
      * @since windowsserver2008
      */
     static GetClusterNotify(hChange, lpdwNotifyKey, lpdwFilterType, lpszName, lpcchName, dwMilliseconds) {
@@ -4329,7 +4592,7 @@ class Clustering {
      * Closes a notification port established through CreateClusterNotifyPort.
      * @param {HCHANGE} hChange Handle to the notification port to close.
      * @returns {BOOL} This function always returns <b>TRUE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-closeclusternotifyport
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-closeclusternotifyport
      * @since windowsserver2008
      */
     static CloseClusterNotifyPort(hChange) {
@@ -4339,22 +4602,36 @@ class Clustering {
 
     /**
      * Opens an enumerator for iterating through cluster objects in a cluster.
+     * @remarks
+     * Applications call the <b>ClusterOpenEnum</b> function to 
+     *      create a particular type of enumerator. 
+     *      <b>ClusterOpenEnum</b> can create enumerators for iterating 
+     *      through groups, nodes, resource types, resources, or all of these. For example, an application can call 
+     *      <b>ClusterOpenEnum</b> to get an enumeration of all of the 
+     *      nodes and groups in a cluster by specifying 
+     *      <c>CLUSTER_ENUM_GROUP | CLUSTER_ENUM_NODE</c> in the 
+     *      <i>dwType</i> parameter. 
+     *      <b>ClusterOpenEnum</b> returns a handle that can be passed 
+     *      to <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterenum">ClusterEnum</a> to access each of the cluster groups or 
+     *      nodes and to <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clustercloseenum">ClusterCloseEnum</a> to release the 
+     *      enumerator.
      * @param {HCLUSTER} hCluster A handle to a cluster.
      * @param {Integer} dwType 
      * @returns {HCLUSENUM} If the operation succeeds, <b>ClusterOpenEnum</b> 
      *        returns a handle to a cluster enumerator.
      * 
      * If the operation fails, the function returns <b>NULL</b>. For more information about the 
-     *        error, call the function <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusteropenenum
+     *        error, call the function <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusteropenenum
      * @since windowsserver2008
      */
     static ClusterOpenEnum(hCluster, dwType) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\ClusterOpenEnum", "ptr", hCluster, "uint", dwType, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4366,7 +4643,7 @@ class Clustering {
      *       parameter cannot be NULL.
      * @returns {Integer} <b>ClusterGetEnumCount</b> returns the number of 
      *        objects associated with the enumeration handle.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clustergetenumcount
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergetenumcount
      * @since windowsserver2008
      */
     static ClusterGetEnumCount(hEnum) {
@@ -4376,6 +4653,25 @@ class Clustering {
 
     /**
      * Enumerates the cluster objects in a cluster, returning the name of one object with each call.
+     * @remarks
+     * The <b>ClusterEnum</b> function is typically used to iterate 
+     *      through a collection of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-objects">cluster objects</a> of one 
+     *      or more types. If, for example, an application wants to enumerate all of the 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">nodes</a> in a cluster, it calls 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusteropenenum">ClusterOpenEnum</a> to open a cluster 
+     *      enumerator that can process nodes. The <i>dwType</i> parameter is set to 
+     *      <b>CLUSTER_ENUM_NODE</b> to specify nodes as the object type to be enumerated. If the 
+     *      application enumerates <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">groups</a> in addition to nodes, the 
+     *      <i>dwType</i> parameter is set to 
+     *      <c>CLUSTER_ENUM_NODE | CLUSTER_ENUM_GROUP</c>. With the handle that 
+     *      <b>ClusterOpenEnum</b> returns, the application calls 
+     *      <b>ClusterEnum</b> repeatedly to retrieve each of the objects. 
+     *      The <i>lpdwType</i> parameter points to the type of object that is retrieved.
+     * 
+     * Note that <i>lpcchName</i> refers to a count of characters and not a count of bytes, and 
+     *      that the returned size does not include the terminating <b>NULL</b> in the count. For more 
+     *      information on sizing buffers, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
      * @param {HCLUSENUM} hEnum A cluster enumeration handle returned by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusteropenenum">ClusterOpenEnum</a> function.
      * @param {Integer} dwIndex The index used to identify the next entry to be enumerated. This parameter should be zero for the first call 
@@ -4435,7 +4731,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterenum
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterenum
      * @since windowsserver2008
      */
     static ClusterEnum(hEnum, dwIndex, lpdwType, lpszName, lpcchName) {
@@ -4454,8 +4750,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clustercloseenum
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustercloseenum
      * @since windowsserver2008
      */
     static ClusterCloseEnum(hEnum) {
@@ -4464,16 +4760,11 @@ class Clustering {
     }
 
     /**
-     * Opens a handle to a cluster in order to iterate through its objects.
-     * @param {HCLUSTER} hCluster The handle to the cluster.
-     * @param {Integer} dwType A bitmask that describes the type of objects to be enumerated. This must be one or more of the 
-     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_enum">CLUSTER_ENUM</a> enumeration values.
-     * @param {Pointer<Void>} pOptions Options.
-     * @returns {HCLUSENUMEX} If the operation succeeds, returns a handle to a cluster enumerator.
      * 
-     * If the operation fails, the function returns <b>NULL</b>. For more information about the 
-     *        error, call the function <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusteropenenumex
+     * @param {HCLUSTER} hCluster 
+     * @param {Integer} dwType 
+     * @param {Pointer<Void>} pOptions 
+     * @returns {HCLUSENUMEX} 
      * @since windowsserver2008
      */
     static ClusterOpenEnumEx(hCluster, dwType, pOptions) {
@@ -4482,8 +4773,9 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\ClusterOpenEnumEx", "ptr", hCluster, "uint", dwType, pOptionsMarshal, pOptions, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4495,7 +4787,7 @@ class Clustering {
      *       parameter cannot be NULL.
      * @returns {Integer} The number of 
      *        objects that are associated with the enumeration handle.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clustergetenumcountex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergetenumcountex
      * @since windowsserver2008
      */
     static ClusterGetEnumCountEx(hClusterEnum) {
@@ -4550,7 +4842,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterenumex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterenumex
      * @since windowsserver2008
      */
     static ClusterEnumEx(hClusterEnum, dwIndex, pItem, cbItem) {
@@ -4566,8 +4858,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clustercloseenumex
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustercloseenumex
      * @since windowsserver2008
      */
     static ClusterCloseEnumEx(hClusterEnum) {
@@ -4583,8 +4875,8 @@ class Clustering {
      * returns a groupset handle.
      * 
      * If the operation fails, 
-     * returns <b>NULL</b>. For more information about the error, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-createclustergroupset
+     * returns <b>NULL</b>. For more information about the error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-createclustergroupset
      * @since windowsserver2016
      */
     static CreateClusterGroupSet(hCluster, groupSetName) {
@@ -4593,8 +4885,9 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CreateClusterGroupSet", "ptr", hCluster, "ptr", groupSetName, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4607,8 +4900,8 @@ class Clustering {
      * the function returns a groupset handle.
      * 
      * If the operation fails, 
-     * the function returns <b>NULL</b>. For more information about the error, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-openclustergroupset
+     * the function returns <b>NULL</b>. For more information about the error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclustergroupset
      * @since windowsserver2016
      */
     static OpenClusterGroupSet(hCluster, lpszGroupSetName) {
@@ -4617,8 +4910,9 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\OpenClusterGroupSet", "ptr", hCluster, "ptr", lpszGroupSetName, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4649,20 +4943,21 @@ class Clustering {
      * </dl>
      * </td>
      * <td width="60%">
-     * The operation was not successful. For more information about the error, call the function  <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * The operation was not successful. For more information about the error, call the function  <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-closeclustergroupset
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-closeclustergroupset
      * @since windowsserver2016
      */
     static CloseClusterGroupSet(hGroupSet) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CloseClusterGroupSet", "ptr", hGroupSet, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4673,8 +4968,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-deleteclustergroupset
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-deleteclustergroupset
      * @since windowsserver2016
      */
     static DeleteClusterGroupSet(hGroupSet) {
@@ -4702,8 +4997,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusteraddgrouptogroupset
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusteraddgrouptogroupset
      * @since windowsserver2016
      */
     static ClusterAddGroupToGroupSet(hGroupSet, hGroup) {
@@ -4746,8 +5041,8 @@ class Clustering {
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b>  if successful, or if the group was not currently a member of a collection.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterremovegroupfromgroupset
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterremovegroupfromgroupset
      * @since windowsserver2016
      */
     static ClusterRemoveGroupFromGroupSet(hGroup) {
@@ -4853,7 +5148,7 @@ class Clustering {
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -4864,7 +5159,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clustergroupsetcontrol
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupsetcontrol
      * @since windowsserver2016
      */
     static ClusterGroupSetControl(hGroupSet, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
@@ -4903,8 +5198,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-addclustergroupdependency
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-addclustergroupdependency
      * @since windowsserver2016
      */
     static AddClusterGroupDependency(hDependentGroup, hProviderGroup) {
@@ -4933,8 +5228,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-setgroupdependencyexpression
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setgroupdependencyexpression
      * @since windowsserver2016
      */
     static SetGroupDependencyExpression(hGroup, lpszDependencyExpression) {
@@ -4966,8 +5261,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-removeclustergroupdependency
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-removeclustergroupdependency
      * @since windowsserver2016
      */
     static RemoveClusterGroupDependency(hGroup, hDependsOn) {
@@ -4996,8 +5291,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-addclustergroupsetdependency
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-addclustergroupsetdependency
      * @since windowsserver2016
      */
     static AddClusterGroupSetDependency(hDependentGroupSet, hProviderGroupSet) {
@@ -5026,8 +5321,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-setclustergroupsetdependencyexpression
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setclustergroupsetdependencyexpression
      * @since windowsserver2016
      */
     static SetClusterGroupSetDependencyExpression(hGroupSet, lpszDependencyExprssion) {
@@ -5059,8 +5354,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-removeclustergroupsetdependency
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-removeclustergroupsetdependency
      * @since windowsserver2016
      */
     static RemoveClusterGroupSetDependency(hGroupSet, hDependsOn) {
@@ -5089,8 +5384,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-addclustergrouptogroupsetdependency
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-addclustergrouptogroupsetdependency
      * @since windowsserver2016
      */
     static AddClusterGroupToGroupSetDependency(hDependentGroup, hProviderGroupSet) {
@@ -5119,8 +5414,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-removeclustergrouptogroupsetdependency
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-removeclustergrouptogroupsetdependency
      * @since windowsserver2016
      */
     static RemoveClusterGroupToGroupSetDependency(hGroup, hDependsOn) {
@@ -5145,20 +5440,21 @@ class Clustering {
     /**
      * Starts the enumeration of groupset for a cluster.
      * @param {HCLUSTER} hCluster A handle to the cluster containing the groupset.
-     * @returns {HGROUPSETENUM} If successful, returns a handle suitable for use with <a href="/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clustergroupsetenum">ClusterGroupSetEnum</a>
+     * @returns {HGROUPSETENUM} If successful, returns a handle suitable for use with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clustergroupsetenum">ClusterGroupSetEnum</a>
      * 
      * 
      * If the operation fails, 
-     * the function returns <b>NULL</b>. For more information about the error, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clustergroupsetopenenum
+     * the function returns <b>NULL</b>. For more information about the error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupsetopenenum
      * @since windowsserver2016
      */
     static ClusterGroupSetOpenEnum(hCluster) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\ClusterGroupSetOpenEnum", "ptr", hCluster, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5167,7 +5463,7 @@ class Clustering {
      * Gets the number of items contained the enumerator's collection.
      * @param {HGROUPSETENUM} hGroupSetEnum A handle to an enumerator returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clustergroupsetopenenum">ClusterGroupSetOpenEnum</a>.
      * @returns {Integer} The number of items in the enumerator's collection. May be zero.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clustergroupsetgetenumcount
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupsetgetenumcount
      * @since windowsserver2016
      */
     static ClusterGroupSetGetEnumCount(hGroupSetEnum) {
@@ -5176,12 +5472,22 @@ class Clustering {
     }
 
     /**
+     * Returns the next enumerable object.
+     * @param {HGROUPSETENUM} hGroupSetEnum A handle to an open cluster node enumeration
+     *     returned by <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodeopenenum">ClusterNodeOpenEnum</a>
+     * @param {Integer} dwIndex The index to enumerate, zero for the first call to this function and then
+     *     incremented for subsequent calls.
+     * @param {PWSTR} lpszName Points to a buffer that receives the name of the object,
+     *     including the terminating null character.
+     * @param {Pointer<Integer>} lpcchName Points to a variable that specifies the size, in characters,
+     *     of the buffer pointed to by the <i>lpszName</i> parameter. This size
+     *     should include the terminating null character. When the function
+     *     returns, the variable contains the
+     *     number of characters stored in the buffer, not including the terminating null character.
+     * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
-     * @param {HGROUPSETENUM} hGroupSetEnum 
-     * @param {Integer} dwIndex 
-     * @param {PWSTR} lpszName 
-     * @param {Pointer<Integer>} lpcchName 
-     * @returns {Integer} 
+     * If the operation fails, 
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupsetenum
      * @since windowsserver2016
      */
@@ -5200,8 +5506,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clustergroupsetcloseenum
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupsetcloseenum
      * @since windowsserver2016
      */
     static ClusterGroupSetCloseEnum(hGroupSetEnum) {
@@ -5346,7 +5652,7 @@ class Clustering {
     }
 
     /**
-     * Opens a node and returns a handle to it.
+     * Opens a node and returns a handle to it. (OpenClusterNode)
      * @param {HCLUSTER} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> returned from the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterex">OpenClusterEx</a> functions.
@@ -5370,12 +5676,12 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The operation was not successful. For more information about the error, call the function 
-     *       <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-openclusternode
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclusternode
      * @since windowsserver2008
      */
     static OpenClusterNode(hCluster, lpszNodeName) {
@@ -5384,14 +5690,15 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\OpenClusterNode", "ptr", hCluster, "ptr", lpszNodeName, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Opens a node and returns a handle to it.
+     * Opens a node and returns a handle to it. (OpenClusterNodeEx)
      * @param {HCLUSTER} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> returned from the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterex">OpenClusterEx</a> functions.
@@ -5424,8 +5731,8 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The operation was not successful. For more information about the error, call the 
-     *         <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. If the target server does not 
-     *         support the <a href="/windows/desktop/api/clusapi/nf-clusapi-openclusternodeex">OpenClusterNodeEx</a> function (for 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. If the target server does not 
+     *         support the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusternodeex">OpenClusterNodeEx</a> function (for 
      *         example if the target server is running Windows Server 2008 or earlier) then the 
      *         <b>GetLastError</b> function will return 
      *         <b>RPC_S_PROCNUM_OUT_OF_RANGE</b> (1745).
@@ -5433,7 +5740,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-openclusternodeex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclusternodeex
      * @since windowsserver2008
      */
     static OpenClusterNodeEx(hCluster, lpszNodeName, dwDesiredAccess, lpdwGrantedAccess) {
@@ -5444,8 +5751,9 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\OpenClusterNodeEx", "ptr", hCluster, "ptr", lpszNodeName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5487,33 +5795,51 @@ class Clustering {
      * </dl>
      * </td>
      * <td width="60%">
-     * The operation was not successful. For more information about the error, call the function  <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * The operation was not successful. For more information about the error, call the function  <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-closeclusternode
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-closeclusternode
      * @since windowsserver2008
      */
     static CloseClusterNode(hNode) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CloseClusterNode", "ptr", hNode, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Returns the current state of a node.
+     * @remarks
+     * The <b>ClusterNodeDown</b> state only indicates that a node is inactive; it does not 
+     *     specify the reason for the inactivity. A node can be in the <b>ClusterNodeDown</b> state for 
+     *     the following reasons:
+     * 
+     * <ul>
+     * <li>The node is not running.</li>
+     * <li>The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a> on the node is not 
+     *       running.</li>
+     * <li>The node cannot communicate with the node controlling the 
+     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/quorum-resource">quorum resource</a>.</li>
+     * <li>The node is inactive for any other reason.</li>
+     * </ul>
+     * When a node is operating as an active member of a cluster but cannot host any resources or groups, it is in 
+     *     the <b>ClusterNodePaused</b> state (see the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-pauseclusternode">PauseClusterNode</a> function). Nodes that are undergoing 
+     *     maintenance are typically placed in this state.
      * @param {HNODE} hNode Handle to the node for which state information should be returned.
      * @returns {Integer} <b>GetClusterNodeState</b> returns the current state 
      *        of the node, which is represented by one of the following values.
      * 
      * 
      * The returned values are from the 
-     *        <a href="/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_node_state">CLUSTER_NODE_STATE</a> enumeration.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_node_state">CLUSTER_NODE_STATE</a> enumeration.
      * 
      * 
      * 
@@ -5555,7 +5881,7 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The node is in the process of joining a 
-     *         <a href="/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
+     *         <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
      * 
      * </td>
      * </tr>
@@ -5580,26 +5906,44 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The operation was not successful. For more information about the error, call the function 
-     *         <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusternodestate
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternodestate
      * @since windowsserver2008
      */
     static GetClusterNodeState(hNode) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\GetClusterNodeState", "ptr", hNode, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Returns the unique identifier of a cluster node.
+     * @remarks
+     * The <b>PCLUSAPI_GET_CLUSTER_NODE_ID</b> type defines a pointer to this function.
+     * 
+     * If <i>hNode</i> is set to <b>NULL</b> and the caller is running on an 
+     *      active cluster node, the <b>GetClusterNodeId</b> function 
+     *      returns the identifier of the node on which the application is running. Setting <i>hNode</i> 
+     *      to <b>NULL</b> is a convenient way for 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-dlls">resource DLLs</a> to determine the node identifier of the node 
+     *      they are running on. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-getcurrentclusternodeid">GetCurrentClusterNodeId</a> 
+     *      macro can be used instead of passing <b>NULL</b> for the <i>hNode</i> 
+     *      parameter.
+     * 
+     * A cluster node identifier is a unique identifier that does not change even if the node's name is changed.
+     * 
+     * Note that <i>lpcchName</i> refers to a count of characters and not a count of bytes, and 
+     *      that the returned size does not include the terminating <b>NULL</b> in the count. For more information on sizing 
+     *      buffers, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
      * @param {HNODE} hNode Handle to the node with the identifier to be returned or <b>NULL</b>. If 
      *        <i>hNode</i> is set to <b>NULL</b>, the node identifier for the node on 
      *        which the application is running is returned in the content of <i>lpszNodeId</i>.
@@ -5610,7 +5954,7 @@ class Clustering {
      *        output, pointer to the count of characters stored in the buffer excluding the <b>NULL</b> 
      *        terminator.
      * @returns {Integer} This function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are the 
      *        possible values:
      * 
      * <table>
@@ -5640,13 +5984,13 @@ class Clustering {
      * <td width="60%">
      * More data is available. This value is returned if the buffer pointed to by 
      *          <i>lpszNodeId</i> is not long enough to hold the required number of characters. 
-     *          <a href="/windows/desktop/api/clusapi/nf-clusapi-getclusternodeid">GetClusterNodeId</a> sets the content of 
+     *          <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-getclusternodeid">GetClusterNodeId</a> sets the content of 
      *          <i>lpcchName</i> to the required length.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusternodeid
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternodeid
      * @since windowsserver2008
      */
     static GetClusterNodeId(hNode, lpszNodeId, lpcchName) {
@@ -5660,32 +6004,43 @@ class Clustering {
 
     /**
      * Returns a handle to the cluster associated with a node.
+     * @remarks
+     * For <i>hNode</i> to be a valid handle, there must necessarily be an open cluster handle (see  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusternode">OpenClusterNode</a>).  <b>GetClusterFromNode</b> returns another instance of the handle from which <i>hNode</i> was obtained.
+     * 
+     * Be sure to call  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closecluster">CloseCluster</a> on the handle returned from  <b>GetClusterFromNode</b> before the handle goes out of scope. Closing this handle does not invalidate <i>hNode</i> or the cluster handle from which <i>hNode</i> was obtained.
      * @param {HNODE} hNode Handle to the node.
      * @returns {HCLUSTER} If the operation succeeds, the function returns a handle to the cluster that owns the node.
      * 
      * If the operation fails, 
-     * the function returns <b>NULL</b>. For more information about the error, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusterfromnode
+     * the function returns <b>NULL</b>. For more information about the error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterfromnode
      * @since windowsserver2008
      */
     static GetClusterFromNode(hNode) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\GetClusterFromNode", "ptr", hNode, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Requests that a node temporarily suspend its cluster activity. The PCLUSAPI_PAUSE_CLUSTER_NODE type defines a pointer to this function.
+     * @remarks
+     * When a node temporarily suspends its cluster activity,  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">groups</a> cannot be moved to the node. Furthermore, groups that would normally fail over to the node cannot do so when it is in the paused state.
+     * 
+     * Groups that are owned by a paused node remain owned by the node. A paused node's groups and resources can be taken offline, but they cannot be brought online. Because the paused state is persistent, a paused node that is rebooted continues to be paused when it comes back up.
+     * 
+     * A paused node is said to be in the <b>ClusterNodePaused</b> state (see  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-getclusternodestate">GetClusterNodeState</a>). To resume a node's cluster activity, use the  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-resumeclusternode">ResumeClusterNode</a> function.
      * @param {HNODE} hNode Handle to the node to suspend activity.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-pauseclusternode
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-pauseclusternode
      * @since windowsserver2008
      */
     static PauseClusterNode(hNode) {
@@ -5699,8 +6054,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-resumeclusternode
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-resumeclusternode
      * @since windowsserver2008
      */
     static ResumeClusterNode(hNode) {
@@ -5710,12 +6065,14 @@ class Clustering {
 
     /**
      * Deletes a node from the cluster database.
+     * @remarks
+     * To reinstate an evicted node, you must first remove the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a> from the node and then reinstall it. During installation, choose the <b>Join an Existing Cluster</b> option.
      * @param {HNODE} hNode Handle to the node to delete.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-evictclusternode
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-evictclusternode
      * @since windowsserver2008
      */
     static EvictClusterNode(hNode) {
@@ -5732,8 +6089,8 @@ class Clustering {
      *        enumerator.
      * 
      * If the operation fails, the function returns <b>NULL</b>. For more information about the 
-     *        error, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusternetinterfaceopenenum
+     *        error, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternetinterfaceopenenum
      * @since windowsserver2016
      */
     static ClusterNetInterfaceOpenEnum(hCluster, lpszNodeName, lpszNetworkName) {
@@ -5743,8 +6100,9 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\ClusterNetInterfaceOpenEnum", "ptr", hCluster, "ptr", lpszNodeName, "ptr", lpszNetworkName, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5808,7 +6166,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusternetinterfaceenum
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternetinterfaceenum
      * @since windowsserver2016
      */
     static ClusterNetInterfaceEnum(hNetInterfaceEnum, dwIndex, lpszName, lpcchName) {
@@ -5825,8 +6183,8 @@ class Clustering {
      * @param {HNETINTERFACEENUM} hNetInterfaceEnum Handle to the node enumerator to close. This is a handle originally returned by the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusternetinterfaceopenenum">ClusterNetInterfaceOpenEnum</a> function.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      *      If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusternetinterfacecloseenum
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternetinterfacecloseenum
      * @since windowsserver2016
      */
     static ClusterNetInterfaceCloseEnum(hNetInterfaceEnum) {
@@ -5836,6 +6194,12 @@ class Clustering {
 
     /**
      * Opens an enumerator for iterating through the network interfaces or groups installed on a node.
+     * @remarks
+     * The <b>ClusterNodeOpenEnum</b> function returns a 
+     *      handle that can be passed to <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodeenum">ClusterNodeEnum</a> to 
+     *      access each of the objects to be enumerated and to 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodecloseenum">ClusterNodeCloseEnum</a> to release the 
+     *      enumerator.
      * @param {HNODE} hNode Handle to a node.
      * @param {Integer} dwType Bitmask describing the type of objects to be enumerated. The following values of the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_node_enum">CLUSTER_NODE_ENUM</a> enumeration are valid.
@@ -5844,33 +6208,27 @@ class Clustering {
      *        enumerator.
      * 
      * If the operation fails, the function returns <b>NULL</b>. For more information about the 
-     *        error, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusternodeopenenum
+     *        error, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternodeopenenum
      * @since windowsserver2008
      */
     static ClusterNodeOpenEnum(hNode, dwType) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\ClusterNodeOpenEnum", "ptr", hNode, "uint", dwType, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Opens an enumerator that can iterate through the network interfaces or groups that are installed on a node.
-     * @param {HNODE} hNode A handle to the  node.
-     * @param {Integer} dwType A bitmask that describes the type of objects to enumerate. This parameter  is retrieved from a 
-     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_node_enum">CLUSTER_NODE_ENUM</a> enumeration value.
-     * @param {Pointer<Void>} pOptions Options.
-     * @returns {HNODEENUMEX} If the operation succeeds, 
-     *        the <b>ClusterNodeOpenEnumEx</b>  function  returns a handle to a node 
-     *        enumerator.
      * 
-     * If the operation fails, the function returns <b>NULL</b>. For more information about the 
-     *        error, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusternodeopenenumex
+     * @param {HNODE} hNode 
+     * @param {Integer} dwType 
+     * @param {Pointer<Void>} pOptions 
+     * @returns {HNODEENUMEX} 
      * @since windowsserver2008
      */
     static ClusterNodeOpenEnumEx(hNode, dwType, pOptions) {
@@ -5879,8 +6237,9 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\ClusterNodeOpenEnumEx", "ptr", hNode, "uint", dwType, pOptionsMarshal, pOptions, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5889,7 +6248,7 @@ class Clustering {
      * Returns the number of cluster objects that are associated with a node enumeration handle.
      * @param {HNODEENUMEX} hNodeEnum The handle to a node enumeration that was retrieved by the   <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodeopenenumex">ClusterNodeOpenEnumEx</a> function. A valid handle is required. This parameter cannot be <b>NULL</b>.
      * @returns {Integer} The number of objects that are associated with the enumeration handle.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusternodegetenumcountex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternodegetenumcountex
      * @since windowsserver2008
      */
     static ClusterNodeGetEnumCountEx(hNodeEnum) {
@@ -5944,7 +6303,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusternodeenumex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternodeenumex
      * @since windowsserver2008
      */
     static ClusterNodeEnumEx(hNodeEnum, dwIndex, pItem, cbItem) {
@@ -5955,12 +6314,12 @@ class Clustering {
     }
 
     /**
-     * Closes a node enumeration handle.
+     * Closes a node enumeration handle. (ClusterNodeCloseEnumEx)
      * @param {HNODEENUMEX} hNodeEnum The handle to the node enumeration  to close. This handle is returned by the  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodeopenenumex">ClusterNodeOpenEnumEx</a> function.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      *      If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusternodecloseenumex
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternodecloseenumex
      * @since windowsserver2008
      */
     static ClusterNodeCloseEnumEx(hNodeEnum) {
@@ -5972,7 +6331,7 @@ class Clustering {
      * Returns the number of cluster objects associated with a node enumeration handle.
      * @param {HNODEENUM} hNodeEnum Handle to a node enumeration. This handle is obtained from  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodeopenenum">ClusterNodeOpenEnum</a>. A valid handle is required. This parameter cannot be <b>NULL</b>.
      * @returns {Integer} <b>ClusterNodeGetEnumCount</b> returns the number of objects associated with the enumeration handle.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusternodegetenumcount
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternodegetenumcount
      * @since windowsserver2008
      */
     static ClusterNodeGetEnumCount(hNodeEnum) {
@@ -5981,12 +6340,12 @@ class Clustering {
     }
 
     /**
-     * Closes a node enumeration handle.
+     * Closes a node enumeration handle. (ClusterNodeCloseEnum)
      * @param {HNODEENUM} hNodeEnum Handle to the node enumerator to close. This is a handle originally returned by the  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodeopenenum">ClusterNodeOpenEnum</a> function.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      *      If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusternodecloseenum
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternodecloseenum
      * @since windowsserver2008
      */
     static ClusterNodeCloseEnum(hNodeEnum) {
@@ -5996,6 +6355,17 @@ class Clustering {
 
     /**
      * Enumerates the network interfaces or groups installed on a node, returning the name of each with each call.
+     * @remarks
+     * To use <b>ClusterNodeEnum</b>, applications first open a 
+     *      node enumeration handle by calling 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodeopenenum">ClusterNodeOpenEnum</a> with the 
+     *      <i>dwType</i> parameter set to <b>CLUSTER_NODE_ENUM_NETINTERFACES</b>. 
+     *      For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/enumerating-objects">Enumerating Objects</a>.
+     * 
+     * Note that the <i>lpcchName</i> parameter refers to a count of characters and not a count of 
+     *      bytes, and that the returned size does not include the terminating <b>NULL</b> in the count. 
+     *      For more information on sizing buffers, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
      * @param {HNODEENUM} hNodeEnum Handle to an existing enumeration object originally returned by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodeopenenum">ClusterNodeOpenEnum</a> function.
      * @param {Integer} dwIndex Index used to identify the next entry to be enumerated. This parameter should be zero for the first call to 
@@ -6057,7 +6427,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusternodeenum
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternodeenum
      * @since windowsserver2008
      */
     static ClusterNodeEnum(hNodeEnum, dwIndex, lpdwType, lpszName, lpcchName) {
@@ -6079,7 +6449,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *       <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, including the following value.
+     *       <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, including the following value.
      * 
      * <table>
      * <tr>
@@ -6098,7 +6468,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-evictclusternodeex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-evictclusternodeex
      * @since windowsserver2008
      */
     static EvictClusterNodeEx(hNode, dwTimeOut, phrCleanupStatus) {
@@ -6127,14 +6497,16 @@ class Clustering {
 
     /**
      * Opens the root of the cluster database subtree for a resource type.
+     * @remarks
+     * The  <b>GetClusterResourceTypeKey</b> function returns a handle to a cluster database key representing the subtree root for the resource type pointed to by <i>lpszTypeName</i> in the cluster identified by <i>hCluster</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterResourceTypeKey</b> when they are done with it.
      * @param {HCLUSTER} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
      * @param {PWSTR} lpszTypeName Pointer to a NULL-terminated Unicode string specifying the name of a resource type (the registered type name, not the display name).
      * @param {Integer} samDesired Access mask that describes the security access needed for the opened key.
      * @returns {HKEY} If the operation succeeds, the function returns a registry key handle for the resource type.
      * 
      * If the operation fails, 
-     * the function returns <b>NULL</b>. For more information about the error, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusterresourcetypekey
+     * the function returns <b>NULL</b>. For more information about the error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterresourcetypekey
      * @since windowsserver2008
      */
     static GetClusterResourceTypeKey(hCluster, lpszTypeName, samDesired) {
@@ -6143,22 +6515,28 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\GetClusterResourceTypeKey", "ptr", hCluster, "ptr", lpszTypeName, "uint", samDesired, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
      * Adds a group to a cluster and returns a handle to the newly added group.
+     * @remarks
+     * Do not call  <b>CreateClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
+     * 
+     * The <b>CreateClusterGroup</b> function calls the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclustergroupex">CreateClusterGroupEx</a> function with a <b>NULL</b> CLUSTER_CREATE_GROUP_INFO. The new group is created with a group type of ClusGroupTypeUnknown.
      * @param {HCLUSTER} hCluster Handle to the target cluster.
      * @param {PWSTR} lpszGroupName Pointer to a null-terminated Unicode string containing the name of the group to be added to the cluster identified by <i>hCluster</i>. If there is not a group by this name,  <b>CreateClusterGroup</b> creates it.
      * @returns {HGROUP} If the operation succeeds, 
      * the function returns a group handle.
      * 
      * If the operation fails, 
-     * the function returns <b>NULL</b>. For more information about the error, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-createclustergroup
+     * the function returns <b>NULL</b>. For more information about the error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-createclustergroup
      * @since windowsserver2008
      */
     static CreateClusterGroup(hCluster, lpszGroupName) {
@@ -6167,14 +6545,15 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CreateClusterGroup", "ptr", hCluster, "ptr", lpszGroupName, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Opens a failover cluster group and returns a handle to it.
+     * Opens a failover cluster group and returns a handle to it. (OpenClusterGroup)
      * @param {HCLUSTER} hCluster Handle to a cluster that includes the group to open.
      * @param {PWSTR} lpszGroupName Name of the group to open.
      * @returns {HGROUP} <table>
@@ -6190,7 +6569,7 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The operation was not successful. For information about the error, call the function 
-     *         <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * </td>
      * </tr>
@@ -6199,7 +6578,7 @@ class Clustering {
      * 
      * If the operation was successful, 
      *        <b>OpenClusterGroup</b> returns a group handle.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-openclustergroup
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclustergroup
      * @since windowsserver2008
      */
     static OpenClusterGroup(hCluster, lpszGroupName) {
@@ -6208,14 +6587,15 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\OpenClusterGroup", "ptr", hCluster, "ptr", lpszGroupName, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Opens a failover cluster group and returns a handle to it.
+     * Opens a failover cluster group and returns a handle to it. (OpenClusterGroupEx)
      * @param {HCLUSTER} hCluster Handle to a cluster that includes the group to open.
      * @param {PWSTR} lpszGroupName Name of the group to open.
      * @param {Integer} dwDesiredAccess The requested access privileges. This may be any combination of <b>GENERIC_READ</b> 
@@ -6243,8 +6623,8 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The operation was not successful. For more information about the error, call the 
-     *         <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. If the target server does not 
-     *         support the <a href="/windows/desktop/api/clusapi/nf-clusapi-openclustergroupex">OpenClusterGroupEx</a> function (for 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. If the target server does not 
+     *         support the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclustergroupex">OpenClusterGroupEx</a> function (for 
      *         example if the target server is running Windows Server 2008 or earlier) then the 
      *         <b>GetLastError</b> function will return 
      *         <b>RPC_S_PROCNUM_OUT_OF_RANGE</b> (1745).
@@ -6252,7 +6632,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-openclustergroupex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclustergroupex
      * @since windowsserver2008
      */
     static OpenClusterGroupEx(hCluster, lpszGroupName, dwDesiredAccess, lpdwGrantedAccess) {
@@ -6263,26 +6643,20 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\OpenClusterGroupEx", "ptr", hCluster, "ptr", lpszGroupName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Requests that a node temporarily suspends its cluster activity.
-     * @param {HNODE} hNode A handle to the node to suspend.
-     * @param {BOOL} bDrainNode <b>TRUE</b> to drain the node; otherwise <b>FALSE</b>.
-     * @param {Integer} dwPauseFlags One of the following flags:
-     * - CLUSAPI_NODE_PAUSE_REMAIN_ON_PAUSED_NODE_ON_MOVE_ERROR  0x00000001
-     * - CLUSAPI_NODE_AVOID_PLACEMENT                            0x00000002
-     * - CLUSAPI_NODE_PAUSE_RETRY_DRAIN_ON_FAILURE  0x00000004
-     * @param {HNODE} hNodeDrainTarget The node drain topic.
-     * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
-     * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-pauseclusternodeex
+     * @param {HNODE} hNode 
+     * @param {BOOL} bDrainNode 
+     * @param {Integer} dwPauseFlags 
+     * @param {HNODE} hNodeDrainTarget 
+     * @returns {Integer} 
      * @since windowsserver2012
      */
     static PauseClusterNodeEx(hNode, bDrainNode, dwPauseFlags, hNodeDrainTarget) {
@@ -6314,8 +6688,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-resumeclusternodeex
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-resumeclusternodeex
      * @since windowsserver2012
      */
     static ResumeClusterNodeEx(hNode, eResumeFailbackType, dwResumeFlagsReserved) {
@@ -6340,12 +6714,14 @@ class Clustering {
 
     /**
      * Creates a new cluster group with the options specified in the CLUSTER_CREATE_GROUP_INFO structure in a single operation.
+     * @remarks
+     * The <b>CLUSTER_CREATE_GROUP_INFO</b> structure enables additional properties for group creation.  Currently, only the group type can be specified, which  enables the group type to be set when the group is created.
      * @param {HCLUSTER} hCluster The handle to the cluster in which the group will be created.
      * @param {PWSTR} lpszGroupName The name of the new cluster group.
      * @param {Pointer<CLUSTER_CREATE_GROUP_INFO>} pGroupInfo The additional information used to create the group.
      * @returns {HGROUP} If the operation is successful, the function returns a handle to the newly created group.
      * If the operation fails, the function returns <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-createclustergroupex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-createclustergroupex
      * @since windowsserver2012
      */
     static CreateClusterGroupEx(hCluster, lpszGroupName, pGroupInfo) {
@@ -6357,6 +6733,8 @@ class Clustering {
 
     /**
      * Opens a handle to the group enumeration.
+     * @remarks
+     * The <b>ClusterGroupOpenEnumEx</b> function connects to the cluster service via remote procedure call (RPC) and gathers all of the data to handle the entire enumeration.  After the RPC call completes, the data is maintained locally.  The <b>HGROUPENUMEX</b> handle contains all of the data required to satisfy the enumeration.  Additional calls to <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clustergroupenumex">ClusterGroupEnumEx</a>   or <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clustergroupgetenumcountex">ClusterGroupGetEnumCountEx</a> do not connect to the cluster.
      * @param {HCLUSTER} hCluster The handle to the cluster on which the enumeration will be performed.
      * @param {Pointer} lpszProperties A pointer to a list of names of common properties.
      * @param {Integer} cbProperties The size, in bytes, of the <b>lpszProperties</b> field.
@@ -6366,7 +6744,7 @@ class Clustering {
      * @returns {HGROUPENUMEX} If the operation is successful, the function returns a handle to the enumeration.
      * 
      * If the operation fails, the function returns <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clustergroupopenenumex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupopenenumex
      * @since windowsserver2012
      */
     static ClusterGroupOpenEnumEx(hCluster, lpszProperties, cbProperties, lpszRoProperties, cbRoProperties, dwFlags) {
@@ -6376,9 +6754,11 @@ class Clustering {
 
     /**
      * Returns the number of elements in the enumeration.
+     * @remarks
+     * The <b>ClusterGroupGetEnumCountEx</b> function doesn't connect to the cluster, because <i>hGroupEnumEx</i> handle already contains the enumeration data.
      * @param {HGROUPENUMEX} hGroupEnumEx The handle to the enumeration from which the number of entries will be returned.
      * @returns {Integer} The number of items in the enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clustergroupgetenumcountex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupgetenumcountex
      * @since windowsserver2012
      */
     static ClusterGroupGetEnumCountEx(hGroupEnumEx) {
@@ -6388,6 +6768,8 @@ class Clustering {
 
     /**
      * Retrieves an item in the enumeration.
+     * @remarks
+     * The <b>ClusterGroupEnumEx</b> function doesn't connect to the cluster, because the <i>hGroupEnumEx</i> already contains the enumeration data.  The data is copied into the buffer but no data is retrieved from the cluster.
      * @param {HGROUPENUMEX} hGroupEnumEx The handle to the enumeration from which the item will be retrieved.
      * @param {Integer} dwIndex The zero-based index of the item in the enumeration.
      * @param {Pointer<CLUSTER_GROUP_ENUM_ITEM>} pItem A pointer to the buffer to be filled.
@@ -6433,7 +6815,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clustergroupenumex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupenumex
      * @since windowsserver2012
      */
     static ClusterGroupEnumEx(hGroupEnumEx, dwIndex, pItem, cbItem) {
@@ -6445,9 +6827,14 @@ class Clustering {
 
     /**
      * Closes the enumeration and frees any memory held by the hGroupEnumEx handle.
+     * @remarks
+     * Any additional calls using the <i>hGroupEnumEx</i> will fail.  Do not use the 
+     *     <i>hGroupEnumEx</i> handle after the 
+     *     <b>ClusterGroupCloseEnumEx</b> function is 
+     *     called.
      * @param {HGROUPENUMEX} hGroupEnumEx The handle to the enumeration that will be freed.
      * @returns {Integer} ERROR_SUCCESS is returned when the enumeration handle is freed.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clustergroupcloseenumex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupcloseenumex
      * @since windowsserver2012
      */
     static ClusterGroupCloseEnumEx(hGroupEnumEx) {
@@ -6466,16 +6853,17 @@ class Clustering {
      * @returns {HRESENUMEX} If the operation succeeds, the function returns an enumeration handle.
      * 
      * If the operation fails, the function returns <b>NULL</b>. For more information about the 
-     *        error, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterresourceopenenumex
+     *        error, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourceopenenumex
      * @since windowsserver2012
      */
     static ClusterResourceOpenEnumEx(hCluster, lpszProperties, cbProperties, lpszRoProperties, cbRoProperties, dwFlags) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\ClusterResourceOpenEnumEx", "ptr", hCluster, "ptr", lpszProperties, "uint", cbProperties, "ptr", lpszRoProperties, "uint", cbRoProperties, "uint", dwFlags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -6485,7 +6873,7 @@ class Clustering {
      * @param {HRESENUMEX} hResourceEnumEx The handle to a resource enumeration. This handle is obtained from 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourceopenenumex">ClusterResourceOpenEnumEx</a> function. A valid handle is required. This parameter cannot be <b>NULL</b>.
      * @returns {Integer} The number of objects that are associated with the enumeration handle.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterresourcegetenumcountex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcegetenumcountex
      * @since windowsserver2012
      */
     static ClusterResourceGetEnumCountEx(hResourceEnumEx) {
@@ -6553,7 +6941,7 @@ class Clustering {
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -6562,7 +6950,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterresourceenumex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourceenumex
      * @since windowsserver2012
      */
     static ClusterResourceEnumEx(hResourceEnumEx, dwIndex, pItem, cbItem) {
@@ -6577,8 +6965,8 @@ class Clustering {
      * @param {HRESENUMEX} hResourceEnumEx The handle to a resource enumeration  to  close.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      *      If the operation fails, 
-     * the function returns a different <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterresourcecloseenumex
+     * the function returns a different <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcecloseenumex
      * @since windowsserver2012
      */
     static ClusterResourceCloseEnumEx(hResourceEnumEx) {
@@ -6587,7 +6975,7 @@ class Clustering {
     }
 
     /**
-     * Brings a group online.
+     * Brings a group online. (OnlineClusterGroupEx)
      * @param {HGROUP} hGroup A handle to the group to be brought online.
      * @param {HNODE} hDestinationNode A handle to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> that is to host the group.
      * @param {Integer} dwOnlineFlags A flag that specifies settings for the resource that is to be brought online.
@@ -6596,7 +6984,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
      * 
      * <table>
      * <tr>
@@ -6626,7 +7014,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-onlineclustergroupex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-onlineclustergroupex
      * @since windowsserver2012
      */
     static OnlineClusterGroupEx(hGroup, hDestinationNode, dwOnlineFlags, lpInBuffer, cbInBufferSize) {
@@ -6636,6 +7024,19 @@ class Clustering {
 
     /**
      * Extends the OfflineClusterGroup method.
+     * @remarks
+     * <b>OfflineClusterGroupEx</b> fails immediately with 
+     *     error <b>ERROR_CLUSTER_RESOURCE_LOCKED_STATUS</b> if the 
+     *     <b>CLUSAPI_OFFLINE_GROUP_IGNORE_RESOURCE_LOCKED_STATUS</b> flag is not set and any resource in 
+     *     the group has indicated that it is “locked” in its current state.
+     * 
+     * Similar to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-moveclustergroupex">MoveClusterGroupEx</a>, if 
+     *     <b>OfflineClusterGroupEx</b> returns 
+     *     <b>ERROR_IO_PENDING</b>, then the cluster service will attempt to bring the group to the 
+     *     offline state.
+     * 
+     * <b>OfflineClusterGroupEx</b> requires that the client 
+     *     be granted Full access in the cluster security descriptor.
      * @param {HGROUP} hGroup The handle to a cluster group.
      * @param {Integer} dwOfflineFlags Flags that influence the offline policy. Along with 0x0, the following is an acceptable value: 
      *       <b>CLUSAPI_GROUP_OFFLINE_IGNORE_RESOURCE_LOCKED_STATUS</b> (0x00000001): disregard if a 
@@ -6652,7 +7053,7 @@ class Clustering {
      *       <b>ERROR_IO_PENDING</b> if the offline command has been accepted and is in progress. 
      *       <b>OfflineClusterGroupEx</b> returns a nonzero error 
      *       code if the offline command was rejected immediately with no changes to group state.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-offlineclustergroupex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-offlineclustergroupex
      * @since windowsserver2012
      */
     static OfflineClusterGroupEx(hGroup, dwOfflineFlags, lpInBuffer, cbInBufferSize) {
@@ -6696,7 +7097,7 @@ class Clustering {
     }
 
     /**
-     * Brings an offline or failed resource online.
+     * Brings an offline or failed resource online. (OnlineClusterResourceEx)
      * @param {HRESOURCE} hResource The handle to the resource to bring online.
      * @param {Integer} dwOnlineFlags A flag that specifies settings for the resource that is to be brought online.
      * @param {Pointer} lpInBuffer A pointer to the input buffer that receives instructions for the operation. The <i>lpInBuffer</i>  parameter is formatted as a property list.
@@ -6704,7 +7105,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
      * 
      * <table>
      * <tr>
@@ -6718,12 +7119,12 @@ class Clustering {
      * </dl>
      * </td>
      * <td width="60%">
-     * The resource or one of the resources that  it depends on has returned <b>ERROR_IO_PENDING</b> from its  <a href="/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_routine">Online</a> entry point function.
+     * The resource or one of the resources that  it depends on has returned <b>ERROR_IO_PENDING</b> from its  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_routine">Online</a> entry point function.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-onlineclusterresourceex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-onlineclusterresourceex
      * @since windowsserver2012
      */
     static OnlineClusterResourceEx(hResource, dwOnlineFlags, lpInBuffer, cbInBufferSize) {
@@ -6749,6 +7150,19 @@ class Clustering {
 
     /**
      * Extends the OfflineClusterResource method.
+     * @remarks
+     * <b>OfflineClusterResourceEx</b> fails immediately 
+     *     with error <b>ERROR_CLUSTER_RESOURCE_LOCKED_STATUS</b> if the 
+     *     <b>CLUSAPI_RESOURCE_OFFLINE_IGNORE_RESOURCE_LOCKED_STATUS</b> flag is not set and the resource 
+     *     has indicated that it is “locked” in its current state.
+     * 
+     * Similar to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-moveclustergroupex">MoveClusterGroupEx</a>, if 
+     *     <b>OfflineClusterResourceEx</b> returns 
+     *     <b>ERROR_IO_PENDING</b>, then the cluster service will attempt to bring the resource to the 
+     *     offline state.
+     * 
+     * <b>OfflineClusterResourceEx</b> requires that the 
+     *     client be granted Full access in the cluster security descriptor.
      * @param {HRESOURCE} hResource The handle to a cluster resource.
      * @param {Integer} dwOfflineFlags Flags that influence the offline policy.
      * @param {Pointer} lpInBuffer Contains instructions for the offline operation that are targeted at the specific resource. 
@@ -6763,7 +7177,7 @@ class Clustering {
      *       <b>ERROR_IO_PENDING</b> if the offline command has been accepted and is in progress. 
      *       <b>OfflineClusterResourceEx</b> returns a nonzero 
      *       error code if the offline command was rejected immediately with no changes to resource state.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-offlineclusterresourceex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-offlineclusterresourceex
      * @since windowsserver2012
      */
     static OfflineClusterResourceEx(hResource, dwOfflineFlags, lpInBuffer, cbInBufferSize) {
@@ -6789,13 +7203,31 @@ class Clustering {
 
     /**
      * Extends the existing MoveClusterGroup method with the addition of flags and a buffer.
+     * @remarks
+     * <b>MoveClusterGroupEx</b> fails immediately with error <b>ERROR_CLUSTER_RESOURCE_LOCKED_STATUS</b> if the <b>CLUSAPI_GROUP_MOVE_IGNORE_RESOURCE_STATUS</b> flag is not set and any resource in the group is online and has indicated that it is "locked" in its current state.
+     * 
+     * After <b>MoveClusterGroupEx</b> returns <b>ERROR_IO_PENDING</b>, there are a number of possible outcomes, including:
+     * 
+     * <ul>
+     * <li>The move operation could succeed, and the group could reach its persistent state on the target node.</li>
+     * <li>The move operation could fail, in that the group cannot reach its persistent state on the target node. If <i>dwMoveFlags</i> does not include <b>CLUSAPI_GROUP_MOVE_RETURN_TO_SOURCE_NODE_ON_ERROR</b>, then the cluster will take appropriate action (according to configured policies) to bring the group to its persistent state, perhaps on other nodes in the cluster. If <i>dwMoveFlags</i> includes <b>CLUSAPI_GROUP_MOVE_RETURN_TO_SOURCE_NODE_ON_ERROR</b>, then the cluster will attempt to bring the group to its persistent state on the source node. If this fails, then the cluster will take appropriate action (according to configured policies) to bring the group to its persistent state, perhaps on other nodes in the cluster.</li>
+     * <li>The move operation could be queued if a resource indicates that it cannot move immediately and the <b>CLUSAPI_GROUP_MOVE_QUEUE_ENABLED</b> flag is set.</li>
+     * <li>The move operation could be rejected by a resource in the group, thus returning the group to its persistent state on the source node without incrementing any failure counts or triggering any failure policies. This cannot occur if the <b>CLUSAPI_GROUP_MOVE_IGNORE_RESOURCE_STATUS</b> flag is set.</li>
+     * </ul>
+     * For a live migration of a virtual machine, perform these steps:
+     * 
+     * <ol>
+     * <li>In the <i>dwMoveFlags</i> parameter, set the <b>CLUSAPI_GROUP_MOVE_RETURN_TO_SOURCE_NODE_ON_ERROR</b>, <b>CLUSAPI_GROUP_MOVE_QUEUE_ENABLED</b>, and  <b>CLUSAPI_GROUP_MOVE_HIGH_PRIORITY_START</b> flags.</li>
+     * <li>In the <i>lpInBuffer</i> parameter, add to the property list a resource type named "Virtual Machine" or "Virtual Machine Configuration" that specifies a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_property_format">CLUSTER_PROPERTY_FORMAT</a> enumeration value of <b>CLUSPROP_FORMAT_DWORD</b> (which represents the property's data format) and a property value of <b>VmResdllContextLiveMigration</b> (from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ne-resapi-vm_resdll_context">VM_RESDLL_CONTEXT</a> enumeration of possible virtual machine actions).</li>
+     * </ol>
+     * <b>MoveClusterGroupEx</b> requires that the client be granted Full access in the cluster security descriptor.
      * @param {HGROUP} hGroup The handle to a cluster group.
      * @param {HNODE} hDestinationNode The handle to a cluster node, indicating the node to which the group should be moved. This parameter is optional. If left <b>NULL</b>, the cluster will move the group to the most suitable node, according to failover policies configured for the cluster and for this particular group.
      * @param {Integer} dwMoveFlags A bitwise combination of the flags that influence the failover policy with respect to this move operation.
      * @param {Pointer} lpInBuffer A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a> that contains move operation instructions for specific resources within the group. The instructions are contained in property values. Resources in the group search the property list for property names that they support for move operations and then interpret the instructions in the associated property value. The properties supported by a resource in a <b>MoveClusterGroupEx</b> operation are not related to the private properties associated with a resource.
      * @param {Integer} cbInBufferSize The size of <i>lpInBuffer</i>, in bytes.
      * @returns {Integer} <b>MoveClusterGroupEx</b> returns <b>ERROR_IO_PENDING</b> if the move command has been accepted and is in progress. <b>MoveClusterGroupEx</b> returns a nonzero error code if the move command was rejected immediately with no changes to group state. For instance, this would happen if <i>hDestinationNode</i> is not Up at the time of the move request.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-moveclustergroupex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-moveclustergroupex
      * @since windowsserver2012
      */
     static MoveClusterGroupEx(hGroup, hDestinationNode, dwMoveFlags, lpInBuffer, cbInBufferSize) {
@@ -6822,6 +7254,13 @@ class Clustering {
 
     /**
      * Enables a client to cancel a MoveClusterGroup or MoveClusterGroupEx operation that is pending for a group. The group is then returned to its persistent state.
+     * @remarks
+     * <b>CancelClusterGroupOperation</b> attempts to 
+     *     cancel a pending move operation on a cluster group that was issued through a 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-moveclustergroup">MoveClusterGroup</a> or 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-moveclustergroupex">MoveClusterGroupEx</a> call that returned 
+     *     <b>ERROR_IO_PENDING</b> and is still in progress. The call attempts to cancel the pending move 
+     *     operation and bring the group to its persistent state.
      * @param {HGROUP} hGroup The handle to a cluster group.
      * @param {Integer} dwCancelFlags_RESERVED This parameter is reserved for future use and must be set to zero.
      * @returns {Integer} <b>CancelClusterGroupOperation</b> returns 
@@ -6833,7 +7272,7 @@ class Clustering {
      * <b>CancelClusterGroupOperation</b> returns a 
      *       different nonzero error code if there was a failure issuing the cancellation for the move group operation on the 
      *       designated group.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-cancelclustergroupoperation
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-cancelclustergroupoperation
      * @since windowsserver2012
      */
     static CancelClusterGroupOperation(hGroup, dwCancelFlags_RESERVED) {
@@ -6842,11 +7281,10 @@ class Clustering {
     }
 
     /**
-     * Restarts a cluster resource.
-     * @param {HRESOURCE} hResource A handle to  the cluster resource.
-     * @param {Integer} dwFlags TBD
-     * @returns {Integer} TBD
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-restartclusterresource
+     * 
+     * @param {HRESOURCE} hResource 
+     * @param {Integer} dwFlags 
+     * @returns {Integer} 
      * @since windowsserver2012
      */
     static RestartClusterResource(hResource, dwFlags) {
@@ -6894,46 +7332,63 @@ class Clustering {
      * </dl>
      * </td>
      * <td width="60%">
-     * The operation was not successful. For more information about the error, call the function  <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * The operation was not successful. For more information about the error, call the function  <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-closeclustergroup
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-closeclustergroup
      * @since windowsserver2008
      */
     static CloseClusterGroup(hGroup) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CloseClusterGroup", "ptr", hGroup, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Returns a handle to the cluster associated with a group.
+     * @remarks
+     * For <i>hGroup</i> to be a valid handle, there must necessarily be an open cluster handle (see  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclustergroup">OpenClusterGroup</a>).  <b>GetClusterFromGroup</b> returns another instance of the handle from which <i>hGroup</i> was obtained.
+     * 
+     * Be sure to call  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closecluster">CloseCluster</a> on the handle returned from  <b>GetClusterFromGroup</b> before the handle goes out of scope. Closing this handle does not invalidate <i>hGroup</i> or the cluster handle from which <i>hGroup</i> was obtained.
      * @param {HGROUP} hGroup Handle to the group.
      * @returns {HCLUSTER} If the operation succeeds, the function returns a handle to the cluster that owns the group.
      * 
      * If the operation fails, 
-     * the function returns <b>NULL</b>. For more information about the error, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusterfromgroup
+     * the function returns <b>NULL</b>. For more information about the error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterfromgroup
      * @since windowsserver2008
      */
     static GetClusterFromGroup(hGroup) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\GetClusterFromGroup", "ptr", hGroup, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Returns the current state of a group.
+     * @remarks
+     * Note that <i>lpcchName</i> refers to a count of characters and not a count of bytes, and 
+     *      that the returned size does not include the terminating <b>NULL</b> in the count. For more 
+     *      information on sizing buffers, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
+     * 
+     * Do not call <b>GetClusterGroupState</b> from any 
+     *      resource DLL entry point function. 
+     *      <b>GetClusterGroupState</b> can safely be called from a 
+     *      worker thread. For more information, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HGROUP} hGroup Handle to the group for which state information should be returned.
      * @param {PWSTR} lpszNodeName Pointer to a null-terminated Unicode string containing the name of the node that currently owns the group.
      * @param {Pointer<Integer>} lpcchNodeName Pointer to the size of the <i>lpszNodeName</i> buffer as a count of characters. On input, 
@@ -6957,7 +7412,7 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The operation was not successful. For more information about the error, call the function 
-     *          <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     *          <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * </td>
      * </tr>
@@ -6969,7 +7424,7 @@ class Clustering {
      * </dl>
      * </td>
      * <td width="60%">
-     * All of the resources in the group are <a href="/previous-versions/windows/desktop/mscs/o-gly">online</a>.
+     * All of the resources in the group are <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/o-gly">online</a>.
      * 
      * </td>
      * </tr>
@@ -6981,7 +7436,7 @@ class Clustering {
      * </dl>
      * </td>
      * <td width="60%">
-     * All of the resources in the group are <a href="/previous-versions/windows/desktop/mscs/o-gly">offline</a> or 
+     * All of the resources in the group are <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/o-gly">offline</a> or 
      *          there are no resources in the group.
      * 
      * </td>
@@ -6994,8 +7449,8 @@ class Clustering {
      * </dl>
      * </td>
      * <td width="60%">
-     * At least one <a href="/previous-versions/windows/desktop/mscs/resources">resource</a> in the group has failed (set a state 
-     *          of <b>ClusterResourceFailed</b> from the <a href="/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_state">CLUSTER_RESOURCE_STATE</a> enumeration).
+     * At least one <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resource</a> in the group has failed (set a state 
+     *          of <b>ClusterResourceFailed</b> from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_state">CLUSTER_RESOURCE_STATE</a> enumeration).
      * 
      * </td>
      * </tr>
@@ -7008,8 +7463,8 @@ class Clustering {
      * </td>
      * <td width="60%">
      * At least one resource in the group is online. No resources are 
-     *          <a href="/previous-versions/windows/desktop/mscs/p-gly">pending</a> or 
-     *          <a href="/previous-versions/windows/desktop/mscs/f-gly">failed</a>.
+     *          <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/p-gly">pending</a> or 
+     *          <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/f-gly">failed</a>.
      * 
      * </td>
      * </tr>
@@ -7026,7 +7481,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclustergroupstate
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclustergroupstate
      * @since windowsserver2008
      */
     static GetClusterGroupState(hGroup, lpszNodeName, lpcchNodeName) {
@@ -7037,21 +7492,30 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\GetClusterGroupState", "ptr", hGroup, "ptr", lpszNodeName, lpcchNodeNameMarshal, lpcchNodeName, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Sets the name for a group.
+     * @remarks
+     * <b>SetClusterGroupName</b> changes the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups-name">Name</a> common property of the group identified by 
+     *     <i>hGroup</i>. This is the only way that Name, a read-only property, can be changed.
+     * 
+     * Do not call <b>SetClusterGroupName</b> from a 
+     *     resource DLL. For more information, see 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HGROUP} hGroup Handle to the group to name.
      * @param {PWSTR} lpszGroupName Pointer to the new name for the group identified by <i>hGroup</i>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-setclustergroupname
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setclustergroupname
      * @since windowsserver2008
      */
     static SetClusterGroupName(hGroup, lpszGroupName) {
@@ -7063,14 +7527,18 @@ class Clustering {
 
     /**
      * Sets the preferred node list for a group.
+     * @remarks
+     * Do not call  <b>SetClusterGroupNodeList</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
+     * 
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {HGROUP} hGroup Handle to the group to be assigned the list of nodes.
      * @param {Integer} NodeCount Count of nodes in the list identified by <i>NodeList</i>.
      * @param {Pointer<HNODE>} NodeList Array of handles to nodes, in order by preference, with the first node being the most preferred and the last node the least preferred. The number of nodes in the <i>NodeList</i> array is controlled by the <i>NodeCount</i> parameter.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-setclustergroupnodelist
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setclustergroupnodelist
      * @since windowsserver2008
      */
     static SetClusterGroupNodeList(hGroup, NodeCount, NodeList) {
@@ -7113,13 +7581,21 @@ class Clustering {
     }
 
     /**
-     * Brings a group online.
+     * Brings a group online. (OnlineClusterGroup)
+     * @remarks
+     * If the group cannot be brought online on the node identified by the <i>hDestinationNode</i> parameter, the  <b>OnlineClusterGroup</b> function fails.
+     * 
+     * If the <i>hDestinationNode</i> parameter is set to <b>NULL</b>,  <b>OnlineClusterGroup</b> brings the group online on the current node.
+     * 
+     * Do not call  <b>OnlineClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
+     * 
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {HGROUP} hGroup Handle to the group to be brought online.
      * @param {HNODE} hDestinationNode Handle to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> where the group identified by <i>hGroup</i> should be brought online or <b>NULL</b>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
      * 
      * <table>
      * <tr>
@@ -7149,7 +7625,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-onlineclustergroup
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-onlineclustergroup
      * @since windowsserver2008
      */
     static OnlineClusterGroup(hGroup, hDestinationNode) {
@@ -7159,12 +7635,26 @@ class Clustering {
 
     /**
      * Moves a group and all of its resources from one node to another.
+     * @remarks
+     * The return value from the  <b>MoveClusterGroup</b> function does not imply anything about the state of the group or any of its resources. The return value only indicates whether the change of ownership was successful. After returning from  <b>MoveClusterGroup</b>, the cluster always attempts to return the group to the state it was before the move.
+     * 
+     * If you want your application to ensure a particular state for a resource or a group after a move:
+     * 
+     * <ol>
+     * <li>Check the state prior to the move. The cluster will attempt to restore that state after the move.</li>
+     * <li>Poll for the state after the move and adjust as necessary. Or create a notification port (see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/receiving-cluster-events">Receiving Cluster Events</a>) and wait for a <b>CLUSTER_CHANGE_GROUP_STATE</b> event.</li>
+     * </ol>
+     * When <i>hDestinationNode</i> is set to <b>NULL</b>,  <b>MoveClusterGroup</b> attempts to move the group to the best possible node. If there is no node available that can accept the group, the function fails.  <b>MoveClusterGroup</b> also fails if  <b>MoveClusterGroup</b> determines that the group cannot be brought online on the node identified by the <i>hDestinationNode</i> parameter.
+     * 
+     * Do not call  <b>MoveClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
+     * 
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {HGROUP} hGroup Handle to the group to be moved.
      * @param {HNODE} hDestinationNode Handle to the node where the moved group should be brought back online or <b>NULL</b>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is one of the possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is one of the possible error codes.
      * 
      * <table>
      * <tr>
@@ -7183,7 +7673,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-moveclustergroup
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-moveclustergroup
      * @since windowsserver2008
      */
     static MoveClusterGroup(hGroup, hDestinationNode) {
@@ -7193,11 +7683,13 @@ class Clustering {
 
     /**
      * Takes a group offline.
+     * @remarks
+     * Do not call  <b>OfflineClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HGROUP} hGroup Handle to the group to be taken offline.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is one of the possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is one of the possible error codes.
      * 
      * <table>
      * <tr>
@@ -7216,7 +7708,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-offlineclustergroup
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-offlineclustergroup
      * @since windowsserver2008
      */
     static OfflineClusterGroup(hGroup) {
@@ -7226,12 +7718,28 @@ class Clustering {
 
     /**
      * Removes an offline and empty group from a cluster.
+     * @remarks
+     * The <b>PCLUSAPI_DELETE_CLUSTER_GROUP</b> type defines a pointer to this function.
+     * 
+     * Because the <b>DeleteClusterGroup</b> function only 
+     *      removes groups that are empty, a group must not have any 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resources</a> if it is to be successfully deleted. To delete a group 
+     *      with resources, use the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-destroyclustergroup">DestroyClusterGroup</a> 
+     *      function.
+     * 
+     * <b>DeleteClusterGroup</b> does not close the group 
+     *      handle specified by <i>hGroup</i>. To avoid memory leaks, be sure to close this handle with 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closeclustergroup">CloseClusterGroup</a>.
+     * 
+     * Do not call <b>DeleteClusterGroup</b> from a resource 
+     *      DLL. For more information, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HGROUP} hGroup Handle to the group to be removed. You must close this handle separately.
-     * @returns {Integer} This function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. If the 
+     * @returns {Integer} This function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If the 
      *        operation completes successfully the function returns <b>ERROR_SUCCESS</b> (0). Any other 
      *        returned system error code would indicate that the 
      *        operation failed.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-deleteclustergroup
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-deleteclustergroup
      * @since windowsserver2008
      */
     static DeleteClusterGroup(hGroup) {
@@ -7241,12 +7749,22 @@ class Clustering {
 
     /**
      * Deletes the specified group from a cluster.
+     * @remarks
+     * The <b>PCLUSAPI_DESTROY_CLUSTER_GROUP</b> type defines a pointer to this function.
+     * 
+     * <b>DestroyClusterGroup</b> does not close the group 
+     *      handle specified by the <i>hGroup</i> parameter. To avoid memory leaks, be sure to close this handle with 
+     *      the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closeclustergroup">CloseClusterGroup</a> function.
+     * 
+     * Do not call <b>DestroyClusterGroup</b> from a resource 
+     *      DLL. For more information, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HGROUP} hGroup This parameter takes a handle to the cluster group to be destroyed.
-     * @returns {Integer} This function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. If the 
+     * @returns {Integer} This function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If the 
      *        operation completes successfully the function returns <b>ERROR_SUCCESS</b> (0). Any other 
      *        returned system error code would indicate that the 
      *        operation failed.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-destroyclustergroup
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-destroyclustergroup
      * @since windowsserver2008
      */
     static DestroyClusterGroup(hGroup) {
@@ -7282,6 +7800,12 @@ class Clustering {
 
     /**
      * Opens an enumerator for iterating through a group's resources and/or the nodes that are included in its list of preferred owners.
+     * @remarks
+     * Do not call <b>ClusterGroupOpenEnum</b> from any 
+     *      resource DLL entry point function. 
+     *      <b>ClusterGroupOpenEnum</b> can safely be called from a 
+     *      worker thread. For more information, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HGROUP} hGroup A handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">group</a> to be enumerated.
      * @param {Integer} dwType A bitmask that describes the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-objects">cluster objects</a> to be 
      *        enumerated. The following are valid values of the 
@@ -7289,19 +7813,20 @@ class Clustering {
      * @returns {HGROUPENUM} If the operation succeeds, 
      *        <b>ClusterGroupOpenEnum</b> returns a handle to an 
      *        enumerator that can be passed to the 
-     *        <a href="/windows/desktop/api/clusapi/nf-clusapi-clustergroupenum">ClusterGroupEnum</a> function.
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clustergroupenum">ClusterGroupEnum</a> function.
      * 
      * If the operation fails, the function returns <b>NULL</b>. For more information about the 
-     *        error, call the function <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clustergroupopenenum
+     *        error, call the function <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupopenenum
      * @since windowsserver2008
      */
     static ClusterGroupOpenEnum(hGroup, dwType) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\ClusterGroupOpenEnum", "ptr", hGroup, "uint", dwType, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7313,7 +7838,7 @@ class Clustering {
      *       required. This parameter cannot be <b>NULL</b>.
      * @returns {Integer} <b>ClusterGroupGetEnumCount</b> returns the 
      *        number of objects associated with the enumeration handle.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clustergroupgetenumcount
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupgetenumcount
      * @since windowsserver2008
      */
     static ClusterGroupGetEnumCount(hGroupEnum) {
@@ -7323,6 +7848,16 @@ class Clustering {
 
     /**
      * Enumerates the resources in a group or the nodes that are the preferred owners of a group, returning the name of the resource or node with each call.
+     * @remarks
+     * Note that <i>lpcchName</i> refers to a count of characters and not a count of bytes, and 
+     *      that the returned size does not include the terminating <b>NULL</b> in the count. For more 
+     *      information on sizing buffers, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
+     * 
+     * Do not call <b>ClusterGroupEnum</b> from any resource DLL 
+     *      entry point function. <b>ClusterGroupEnum</b> can safely be 
+     *      called from a worker thread. For more information, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HGROUPENUM} hGroupEnum A group enumeration handle returned by the 
      *        <a href="https://docs.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupopenenum">ClusterGroupOpenEnum</a> function.
      * @param {Integer} dwIndex The index of the resource or node to return. This parameter should be zero for the first call to 
@@ -7389,8 +7924,8 @@ class Clustering {
      * If the operation was not successful due to a problem other than those described with the 
      *        <b>ERROR_NO_MORE_ITEMS</b> or <b>ERROR_MORE_DATA</b> values, 
      *        <b>ClusterGroupEnum</b> returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clustergroupenum
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupenum
      * @since windowsserver2008
      */
     static ClusterGroupEnum(hGroupEnum, dwIndex, lpdwType, lpszResourceName, lpcchName) {
@@ -7409,8 +7944,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clustergroupcloseenum
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupcloseenum
      * @since windowsserver2008
      */
     static ClusterGroupCloseEnum(hGroupEnum) {
@@ -7420,6 +7955,10 @@ class Clustering {
 
     /**
      * Creates a resource in a cluster.
+     * @remarks
+     * Do not call <b>CreateClusterResource</b> from a 
+     *     resource DLL. For more information, see 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HGROUP} hGroup Handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">group</a> that should receive the resource.
      * @param {PWSTR} lpszResourceName Pointer to a null-terminated Unicode string containing the name of the new resource. The specified name 
      *       must be unique within the cluster.
@@ -7428,8 +7967,8 @@ class Clustering {
      * @returns {HRESOURCE} If the operation succeeds, the function returns a resource handle.
      * 
      * If the operation fails, the function returns <b>NULL</b>. For more information about the 
-     *        error, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-createclusterresource
+     *        error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-createclusterresource
      * @since windowsserver2008
      */
     static CreateClusterResource(hGroup, lpszResourceName, lpszResourceType, dwFlags) {
@@ -7439,8 +7978,9 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CreateClusterResource", "ptr", hGroup, "ptr", lpszResourceName, "ptr", lpszResourceType, "uint", dwFlags, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7464,7 +8004,7 @@ class Clustering {
     }
 
     /**
-     * Opens a resource and returns a handle to it.
+     * Opens a resource and returns a handle to it. (OpenClusterResource)
      * @param {HCLUSTER} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
      * @param {PWSTR} lpszResourceName Pointer to a null-terminated Unicode string containing the name of the resource to be opened.
      * 
@@ -7488,12 +8028,12 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The operation was not successful. For information about the error, call the function 
-     *         <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-openclusterresource
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclusterresource
      * @since windowsserver2008
      */
     static OpenClusterResource(hCluster, lpszResourceName) {
@@ -7502,14 +8042,15 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\OpenClusterResource", "ptr", hCluster, "ptr", lpszResourceName, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Opens a resource and returns a handle to it.
+     * Opens a resource and returns a handle to it. (OpenClusterResourceEx)
      * @param {HCLUSTER} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
      * @param {PWSTR} lpszResourceName Pointer to a null-terminated Unicode string containing the name of the resource to be opened.
      * 
@@ -7542,8 +8083,8 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The operation was not successful. For more information about the error, call the 
-     *         <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. If the target server does not 
-     *         support the <a href="/windows/desktop/api/clusapi/nf-clusapi-openclusterresourceex">OpenClusterResourceEx</a> function 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. If the target server does not 
+     *         support the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterresourceex">OpenClusterResourceEx</a> function 
      *         (for example if the target server is running Windows Server 2008 or earlier) then the 
      *         <b>GetLastError</b> function will return 
      *         <b>RPC_S_PROCNUM_OUT_OF_RANGE</b> (1745).
@@ -7551,7 +8092,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-openclusterresourceex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclusterresourceex
      * @since windowsserver2008
      */
     static OpenClusterResourceEx(hCluster, lpszResourceName, dwDesiredAccess, lpdwGrantedAccess) {
@@ -7562,8 +8103,9 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\OpenClusterResourceEx", "ptr", hCluster, "ptr", lpszResourceName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -7594,51 +8136,61 @@ class Clustering {
      * </dl>
      * </td>
      * <td width="60%">
-     * The operation was not successful. For information about the error, call the function  <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * The operation was not successful. For information about the error, call the function  <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-closeclusterresource
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-closeclusterresource
      * @since windowsserver2008
      */
     static CloseClusterResource(hResource) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CloseClusterResource", "ptr", hResource, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Returns a handle to the cluster associated with a resource.
+     * @remarks
+     * For <i>hResource</i> to be a valid handle, there must necessarily be an open cluster handle (see  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterresource">OpenClusterResource</a>).  <b>GetClusterFromResource</b> returns another instance of the handle from which <i>hResource</i> was obtained.
+     * 
+     * Be sure to call  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closecluster">CloseCluster</a> on the handle returned from  <b>GetClusterFromResource</b> before the handle goes out of scope. Closing this handle does not invalidate <i>hResource</i> or the cluster handle from which <i>hResource</i> was obtained.
      * @param {HRESOURCE} hResource Handle to the resource.
      * @returns {HCLUSTER} If the operation succeeds, the function returns a handle to the cluster that owns the resource.
      * 
      * If the operation fails, 
-     * the function returns <b>NULL</b>. For more information about the error, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusterfromresource
+     * the function returns <b>NULL</b>. For more information about the error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterfromresource
      * @since windowsserver2008
      */
     static GetClusterFromResource(hResource) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\GetClusterFromResource", "ptr", hResource, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Removes an offline resource from a cluster.
+     * @remarks
+     * <b>DeleteClusterResource</b> does not close the resource handle specified by <i>hResource</i>. To avoid memory leaks, be sure to close this handle with  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
+     * 
+     * Do not call  <b>DeleteClusterResource</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HRESOURCE} hResource Handle to an offline resource. You must close this handle separately.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of these values.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of these values.
      * 
      * <table>
      * <tr>
@@ -7668,7 +8220,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-deleteclusterresource
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-deleteclusterresource
      * @since windowsserver2008
      */
     static DeleteClusterResource(hResource) {
@@ -7691,6 +8243,12 @@ class Clustering {
 
     /**
      * Returns the current state of a resource.
+     * @remarks
+     * Do not call <b>GetClusterResourceState</b> from 
+     *      any resource DLL entry point function. 
+     *      <b>GetClusterResourceState</b> can safely be called 
+     *      from a worker thread. For more information, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HRESOURCE} hResource Handle specifying the resource for which state information should be returned.
      * @param {PWSTR} lpszNodeName Pointer to a buffer that receives the name of the specified resource's current owner node as a 
      *        <b>NULL</b>-terminated Unicode string. Pass <b>NULL</b> if the node name 
@@ -7710,7 +8268,7 @@ class Clustering {
      *        resulting name, excluding the terminating <b>NULL</b>.
      * @returns {Integer} <b>GetClusterResourceState</b> returns the 
      *        current state of the resource enumerated from the 
-     *        <a href="/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_state">CLUSTER_RESOURCE_STATE</a> enumeration, which can be 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_state">CLUSTER_RESOURCE_STATE</a> enumeration, which can be 
      *        represented by one of the following values.
      * 
      * <table>
@@ -7815,12 +8373,12 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The operation was not successful. For more information about the error, call the function 
-     *          <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     *          <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusterresourcestate
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterresourcestate
      * @since windowsserver2008
      */
     static GetClusterResourceState(hResource, lpszNodeName, lpcchNodeName, lpszGroupName, lpcchGroupName) {
@@ -7833,22 +8391,32 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\GetClusterResourceState", "ptr", hResource, "ptr", lpszNodeName, lpcchNodeNameMarshal, lpcchNodeName, "ptr", lpszGroupName, lpcchGroupNameMarshal, lpcchGroupName, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Sets the name for a resource.
+     * @remarks
+     * <b>SetClusterResourceName</b> changes the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources-name">Name</a> common property of the resource identified by 
+     *     <i>hResource</i>. This is the only way that 
+     *     <b>Name</b>, a read-only property, can be changed.
+     * 
+     * Do not call <b>SetClusterResourceName</b> from a 
+     *     resource DLL. For more information, see 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HRESOURCE} hResource Handle to a resource to rename.
      * @param {PWSTR} lpszResourceName Pointer to the new name for the resource identified by <i>hResource</i>. Resource names 
      *       are not case sensitive. A resource name must be unique within the cluster.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-setclusterresourcename
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setclusterresourcename
      * @since windowsserver2008
      */
     static SetClusterResourceName(hResource, lpszResourceName) {
@@ -7875,12 +8443,16 @@ class Clustering {
 
     /**
      * Initiates a resource failure.
+     * @remarks
+     * The resource identified by <i>hResource</i> is treated as inoperable, causing the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> to initiate the same  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/failover">failover</a> process that would result if the resource had actually failed. Applications call the  <b>FailClusterResource</b> function to test their policies for restarting resources and  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">groups</a>.
+     * 
+     * Do not call  <b>FailClusterResource</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HRESOURCE} hResource Handle to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resource</a> that is the target of the failure.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-failclusterresource
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-failclusterresource
      * @since windowsserver2008
      */
     static FailClusterResource(hResource) {
@@ -7902,12 +8474,14 @@ class Clustering {
     }
 
     /**
-     * Brings an offline or failed resource online.
+     * Brings an offline or failed resource online. (OnlineClusterResource)
+     * @remarks
+     * Do not call  <b>OnlineClusterResource</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HRESOURCE} hResource Handle to the resource to be brought online.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
      * 
      * <table>
      * <tr>
@@ -7921,12 +8495,12 @@ class Clustering {
      * </dl>
      * </td>
      * <td width="60%">
-     * The resource or one of the resources it depends on has returned <b>ERROR_IO_PENDING</b> from its  <a href="/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_routine">Online</a> entry point function.
+     * The resource or one of the resources it depends on has returned <b>ERROR_IO_PENDING</b> from its  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_routine">Online</a> entry point function.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-onlineclusterresource
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-onlineclusterresource
      * @since windowsserver2008
      */
     static OnlineClusterResource(hResource) {
@@ -7936,11 +8510,15 @@ class Clustering {
 
     /**
      * Takes a resource offline.
+     * @remarks
+     * When calling <b>OfflineClusterResource</b> to offline a failed resource, it returns <b>ERROR_SUCCESS</b> instead of <b>ERROR_RESOURCE_FAILED</b>, and the resource will transition to the offline state.
+     * 
+     * Do not call  <b>OfflineClusterResource</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HRESOURCE} hResource Handle to the resource to be taken offline.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns one of the following 
-     *       <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     *       <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -7955,7 +8533,7 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The resource or one of the resources it depends on has returned <b>ERROR_IO_PENDING</b> from its 
-     *         <a href="/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a> entry point function.
+     *         <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a> entry point function.
      * 
      * </td>
      * </tr>
@@ -7973,7 +8551,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-offlineclusterresource
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-offlineclusterresource
      * @since windowsserver2008
      */
     static OfflineClusterResource(hResource) {
@@ -7983,14 +8561,34 @@ class Clustering {
 
     /**
      * Moves a resource from one group to another.
+     * @remarks
+     * With the <b>ChangeClusterResourceGroup</b> 
+     *     function, both the group that a resource currently belongs to and its new group must be owned by the same 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> regardless of the resource's state.
+     * 
+     * Do not call <b>ChangeClusterResourceGroup</b> 
+     *     from a resource DLL. For more information, see 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>. 
+     *     If the resource identified by <i>hResource</i> has 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-dependencies">dependencies</a>, all of the resources in its dependency 
+     *     tree are moved to the group identified by <i>hGroup</i>. For example, in the situation shown 
+     *     in the following diagram, changing resource B to group 2 will move the entire dependency tree (resources A, X, and 
+     *     Y) .
+     * 
+     * :::image type="content" source="./images/resmove.png" border="false" alt-text="Diagram showing the tree of dependencies between resources in a Cluster Resource Group, before and after a resource is moved to another group.":::
+     * 
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and 
+     *     can have additional destructive effects. For information on how LPC and RPC handles are created, see 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {HRESOURCE} hResource Handle of the resource to be moved.
      * @param {HGROUP} hGroup Handle of the group that should receive the resource identified by 
      *       <i>hResource</i>.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, it returns one of the 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-changeclusterresourcegroup
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-changeclusterresourcegroup
      * @since windowsserver2008
      */
     static ChangeClusterResourceGroup(hResource, hGroup) {
@@ -8027,6 +8625,11 @@ class Clustering {
 
     /**
      * Adds a node to the list of possible nodes that a resource can run on.
+     * @remarks
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and 
+     *     can have additional destructive effects. For information on how LPC and RPC handles are created, see 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {HRESOURCE} hResource Handle to a resource that will add a node to its possible owners list.
      * @param {HNODE} hNode Handle to the node to be added to the list of potential host nodes belonging to the resource identified by 
      *       <i>hResource</i>.
@@ -8034,8 +8637,8 @@ class Clustering {
      * 
      * If the operation fails, 
      *        <b>AddClusterResourceNode</b> returns one of the 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-addclusterresourcenode
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-addclusterresourcenode
      * @since windowsserver2008
      */
     static AddClusterResourceNode(hResource, hNode) {
@@ -8045,13 +8648,17 @@ class Clustering {
 
     /**
      * Removes a node from the list of nodes that can host a resource.
+     * @remarks
+     * Do not call  <b>RemoveClusterResourceNode</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
+     * 
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {HRESOURCE} hResource Handle to the target resource.
      * @param {HNODE} hNode Handle to the node that should be removed from the list of potential host nodes belonging to the resource identified by <i>hResource</i>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-removeclusterresourcenode
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-removeclusterresourcenode
      * @since windowsserver2008
      */
     static RemoveClusterResourceNode(hResource, hNode) {
@@ -8089,6 +8696,33 @@ class Clustering {
 
     /**
      * Creates a dependency relationship between two resources.
+     * @remarks
+     * A dependency relationship created by the 
+     *      <b>AddClusterResourceDependency</b> function 
+     *      affects how resources are moved from one <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> to another after a 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-failure">failure</a>. It determines the order in which resources are 
+     *      taken offline and brought back online.
+     * 
+     * Resources in a dependency relationship must be moved together. The dependent resource must be brought online 
+     *      after the resource upon which it depends.
+     * 
+     * The two resources identified by <i>hResource</i> and <i>hDependsOn</i> 
+     *      must be in the same group.
+     * 
+     * Do not call 
+     *      <b>AddClusterResourceDependency</b> if 
+     *      <i>hResource</i> is already online. The call fails with an 
+     *      <b>ERROR_RESOURCE_ONLINE</b> error. Note that this behavior has changed with Windows Server 2008.  You can call <b>AddClusterResourceDependency</b> and modify resource dependencies without requiring the resource to be brought offline.
+     * 
+     * Do not call 
+     *      <b>AddClusterResourceDependency</b> from a 
+     *      resource DLL. For more information, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
+     * 
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and 
+     *      can have additional destructive effects. For information on how LPC and RPC handles are created, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {HRESOURCE} hResource Handle to the dependent resource.
      * @param {HRESOURCE} hDependsOn Handle to the resource that the resource identified by <i>hResource</i> should depend 
      *        on.
@@ -8096,7 +8730,7 @@ class Clustering {
      * 
      * If the operation fails, 
      *        <b>AddClusterResourceDependency</b> returns 
-     *        one of the <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>. The following are 
+     *        one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>. The following are 
      *        possible return values.
      * 
      * <table>
@@ -8177,7 +8811,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-addclusterresourcedependency
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-addclusterresourcedependency
      * @since windowsserver2008
      */
     static AddClusterResourceDependency(hResource, hDependsOn) {
@@ -8187,13 +8821,17 @@ class Clustering {
 
     /**
      * Removes a dependency relationship between two resources.
+     * @remarks
+     * Do not call  <b>RemoveClusterResourceDependency</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
+     * 
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {HRESOURCE} hResource Handle to the dependent resource.
      * @param {HRESOURCE} hDependsOn Handle to the resource that the resource identified by <i>hResource</i> currently depends on.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-removeclusterresourcedependency
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-removeclusterresourcedependency
      * @since windowsserver2008
      */
     static RemoveClusterResourceDependency(hResource, hDependsOn) {
@@ -8231,10 +8869,37 @@ class Clustering {
 
     /**
      * Specifies the dependency expression to be associated with the resource referred to by hResource. Any existing dependency relationships for the resource will be overwritten.
+     * @remarks
+     * The system only supports groups of <b>OR</b> expressions that are combined by using <b>AND</b>. The dependency expressions are 
+     *     described by this BNF grammar.
+     * 
+     * 
+     * ``` syntax
+     * expression:
+     *       expression_part
+     *     | expression and expression_part
+     * 
+     * expression_part:
+     *         resource
+     *     | ( or_expression )
+     * 
+     * or_expression:
+     *         resource
+     *     | or_expression or resource
+     * 
+     * 
+     * resource:
+     *     [resourceID]
+     *     | [resourceName]
+     * ```
+     * 
+     * This gives us expressions of the general form:<b>( [</b><i>id</i><b>] or [</b><i>id</i><b>] ... ) and ( [</b><i>id</i><b>] or [</b><i>id</i><b>] ... ) and ...</b>
+     * 
+     * For example: ([a904e1b7-95dd-47f0-9b2e-f1007d92699b] or [ae6fcf48-c42f-4960-a61a-7f1044067668]) and ([c471abc6-e454-482e-8be4-fae084cf799b] or [de976488-82cb-4950-8ce0-1b45e868e058])
      * @param {HRESOURCE} hResource Handle to the resource.
      * @param {PWSTR} lpszDependencyExpression Address of Unicode string containing the dependency expression.
      * @returns {Integer} <b>ERROR_SUCCESS</b> (0) if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-setclusterresourcedependencyexpression
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setclusterresourcedependencyexpression
      * @since windowsserver2008
      */
     static SetClusterResourceDependencyExpression(hResource, lpszDependencyExpression) {
@@ -8251,7 +8916,7 @@ class Clustering {
      * @param {Pointer<Integer>} lpcchDependencyExpression Size in characters of the buffer pointed to by the <i>lpszDependencyExpression</i> 
      *       parameter.
      * @returns {Integer} <b>ERROR_SUCCESS</b> (0) if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusterresourcedependencyexpression
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterresourcedependencyexpression
      * @since windowsserver2008
      */
     static GetClusterResourceDependencyExpression(hResource, lpszDependencyExpression, lpcchDependencyExpression) {
@@ -8265,13 +8930,15 @@ class Clustering {
 
     /**
      * Adds storage to Cluster Shared Volumes.
+     * @remarks
+     * The system crash dump path cannot reside on any cluster shared volumes that use BitLocker encryption.
      * @param {HRESOURCE} hResource Handle to the physical disk resource to add to Cluster Shared Volumes.
      * @returns {Integer} If the operation succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
      *        <b>AddResourceToClusterSharedVolumes</b> 
-     *        returns one of the <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-addresourcetoclustersharedvolumes
+     *        returns one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-addresourcetoclustersharedvolumes
      * @since windowsserver2008
      */
     static AddResourceToClusterSharedVolumes(hResource) {
@@ -8286,8 +8953,8 @@ class Clustering {
      * 
      * If the operation fails, 
      *        <b>RemoveResourceFromClusterSharedVolumes</b> 
-     *        returns one of the <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-removeresourcefromclustersharedvolumes
+     *        returns one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-removeresourcefromclustersharedvolumes
      * @since windowsserver2008
      */
     static RemoveResourceFromClusterSharedVolumes(hResource) {
@@ -8302,8 +8969,8 @@ class Clustering {
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, 
-     * it returns one of the <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-isfileonclustersharedvolume
+     * it returns one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-isfileonclustersharedvolume
      * @since windowsserver2008
      */
     static IsFileOnClusterSharedVolume(lpszPathName, pbFileIsOnSharedVolume) {
@@ -8323,8 +8990,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns a resource handle.
      * 
      * If the operation fails, the function returns <b>NULL</b>. For more information about the 
-     *        error, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clustersharedvolumesetsnapshotstate
+     *        error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustersharedvolumesetsnapshotstate
      * @since windowsserver2008
      */
     static ClusterSharedVolumeSetSnapshotState(guidSnapshotSet, lpszVolumeName, state) {
@@ -8333,14 +9000,25 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\ClusterSharedVolumeSetSnapshotState", "ptr", guidSnapshotSet, "ptr", lpszVolumeName, "int", state, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Determines if one resource can be dependent upon another resource.
+     * @remarks
+     * With the  <b>CanResourceBeDependent</b> function, for the resource identified by <i>hResource</i> to be dependent on the resource identified by <i>hResourceDependent</i>, the following must be true:
+     * 
+     * <ul>
+     * <li>Both resources must be members of the same  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">group</a>.</li>
+     * <li>The resource identified by <i>hResourceDependent</i> cannot depend on the resource identified by <i>hResource</i>, either directly or indirectly.</li>
+     * </ul>
+     * Do not call  <b>CanResourceBeDependent</b> from any resource DLL entry point function.  <b>CanResourceBeDependent</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
+     * 
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {HRESOURCE} hResource Handle to the resource in question.
      * @param {HRESOURCE} hResourceDependent Handle to the resource upon which the resource identified by <i>hResource</i> may depend.
      * @returns {BOOL} <table>
@@ -8371,7 +9049,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-canresourcebedependent
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-canresourcebedependent
      * @since windowsserver2008
      */
     static CanResourceBeDependent(hResource, hResourceDependent) {
@@ -8381,6 +9059,20 @@ class Clustering {
 
     /**
      * Initiates an operation affecting a resource. The operation performed depends on the control code passed to the dwControlCode parameter.
+     * @remarks
+     * When <b>ClusterResourceControl</b> returns 
+     *      <b>ERROR_MORE_DATA</b>, set <i>cbOutBufferSize</i> to the number of bytes 
+     *      pointed to by <i>lpBytesReturned</i>, and call the function again.
+     * 
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and 
+     *      can have additional destructive effects. For information on how LPC and RPC handles are created, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/lpc-and-rpc-handles">LPC and RPC Handles</a> and 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
+     * 
+     * The <b>ClusterResourceControl</b> function is one 
+     *      of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information 
+     *      on control codes and control code functions, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
      * @param {HRESOURCE} hResource Handle to the resource to be affected.
      * @param {HNODE} hHostNode Optional handle to the node to perform the operation. If <b>NULL</b>, the node that owns 
      *        the resource identified by <i>hResource</i> performs the operation.
@@ -8682,9 +9374,9 @@ class Clustering {
      * </td>
      * <td width="60%">
      * Applies only to 
-     *          <a href="/previous-versions/windows/desktop/mscs/clusctl-resource-set-common-properties">CLUSCTL_RESOURCE_SET_COMMON_PROPERTIES</a> 
+     *          <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-set-common-properties">CLUSCTL_RESOURCE_SET_COMMON_PROPERTIES</a> 
      *          and 
-     *          <a href="/previous-versions/windows/desktop/mscs/clusctl-resource-set-private-properties">CLUSCTL_RESOURCE_SET_PRIVATE_PROPERTIES</a>. 
+     *          <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-set-private-properties">CLUSCTL_RESOURCE_SET_PRIVATE_PROPERTIES</a>. 
      *          Indicates that the properties were successfully stored but have not yet been applied to the resource. The new 
      *          properties will take effect after the resource is taken offline and brought online again.
      * 
@@ -8706,7 +9398,7 @@ class Clustering {
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -8717,7 +9409,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterresourcecontrol
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcecontrol
      * @since windowsserver2008
      */
     static ClusterResourceControl(hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
@@ -8729,6 +9421,20 @@ class Clustering {
 
     /**
      * Initiates an operation affecting a resource.
+     * @remarks
+     * When <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterresourcecontrol">ClusterResourceControl</a> returns 
+     *      <b>ERROR_MORE_DATA</b>, set <i>cbOutBufferSize</i> to the number of bytes 
+     *      pointed to by <i>lpBytesReturned</i>, and call the function again.
+     * 
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and 
+     *      can have additional destructive effects. For information on how LPC and RPC handles are created, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/lpc-and-rpc-handles">LPC and RPC Handles</a> and 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
+     * 
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterresourcecontrol">ClusterResourceControl</a> function is one 
+     *      of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information 
+     *      on control codes and control code functions, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
      * @param {HRESOURCE} hResource Handle to the resource to be affected.
      * @param {HNODE} hHostNode Optional handle to the node to perform the operation. If <b>NULL</b>, the node that owns 
      *        the resource identified by <i>hResource</i> performs the operation.
@@ -8792,9 +9498,9 @@ class Clustering {
      * </td>
      * <td width="60%">
      * Applies only to 
-     *          <a href="/previous-versions/windows/desktop/mscs/clusctl-resource-set-common-properties">CLUSCTL_RESOURCE_SET_COMMON_PROPERTIES</a> 
+     *          <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-set-common-properties">CLUSCTL_RESOURCE_SET_COMMON_PROPERTIES</a> 
      *          and 
-     *          <a href="/previous-versions/windows/desktop/mscs/clusctl-resource-set-private-properties">CLUSCTL_RESOURCE_SET_PRIVATE_PROPERTIES</a>. 
+     *          <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-set-private-properties">CLUSCTL_RESOURCE_SET_PRIVATE_PROPERTIES</a>. 
      *          Indicates that the properties were successfully stored but have not yet been applied to the resource. The new 
      *          properties will take effect after the resource is taken offline and brought online again.
      * 
@@ -8816,7 +9522,7 @@ class Clustering {
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -8827,7 +9533,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterresourcecontrolasuser
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcecontrolasuser
      * @since windowsserver2016
      */
     static ClusterResourceControlAsUser(hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
@@ -8839,6 +9545,20 @@ class Clustering {
 
     /**
      * Initiates an operation affecting a resource type. The operation performed depends on the control code passed to the dwControlCode parameter.
+     * @remarks
+     * When <b>ClusterResourceTypeControl</b> returns 
+     *      <b>ERROR_MORE_DATA</b>, set <i>nOutBufferSize</i> to the number of bytes 
+     *      pointed to by <i>lpBytesReturned</i>, and call the function again.
+     * 
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and 
+     *      can have additional destructive effects. For information on how LPC and RPC handles are created, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/lpc-and-rpc-handles">LPC and RPC Handles</a> and 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
+     * 
+     * <b>ClusterResourceTypeControl</b> is one of the 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information on 
+     *      control codes and control code functions, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
      * @param {HCLUSTER} hCluster Handle to the cluster containing the resource type identified in 
      *        <i>lpszResourceTypeName</i>.
      * @param {PWSTR} lpszResourceTypeName Pointer to a <b>NULL</b>-terminated Unicode string containing the name of the resource 
@@ -8975,7 +9695,7 @@ class Clustering {
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -8985,7 +9705,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterresourcetypecontrol
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcetypecontrol
      * @since windowsserver2008
      */
     static ClusterResourceTypeControl(hCluster, lpszResourceTypeName, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
@@ -8999,6 +9719,21 @@ class Clustering {
 
     /**
      * Initiates an operation affecting a resource type.
+     * @remarks
+     * When <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterresourcetypecontrol">ClusterResourceTypeControl</a> returns 
+     *      <b>ERROR_MORE_DATA</b>, set <i>nOutBufferSize</i> to the number of bytes 
+     *      pointed to by <i>lpBytesReturned</i>, and call the function again.
+     * 
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and 
+     *      can have additional destructive effects. For information on how LPC and RPC handles are created, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/lpc-and-rpc-handles">LPC and RPC Handles</a> and 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterresourcetypecontrol">ClusterResourceTypeControl</a> is one of the 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information on 
+     *      control codes and control code functions, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
      * @param {HCLUSTER} hCluster Handle to the cluster containing the resource type identified in 
      *        <i>lpszResourceTypeName</i>.
      * @param {PWSTR} lpszResourceTypeName Pointer to a <b>NULL</b>-terminated Unicode string containing the name of the resource 
@@ -9060,7 +9795,7 @@ class Clustering {
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -9070,7 +9805,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterresourcetypecontrolasuser
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcetypecontrolasuser
      * @since windowsserver2016
      */
     static ClusterResourceTypeControlAsUser(hCluster, lpszResourceTypeName, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
@@ -9084,6 +9819,20 @@ class Clustering {
 
     /**
      * Initiates an operation that affects a group. The operation performed depends on the control code passed to the dwControlCode parameter.
+     * @remarks
+     * If <b>ClusterGroupControl</b> returns 
+     *      <b>ERROR_MORE_DATA</b>, set <i>nOutBufferSize</i> to the number of bytes 
+     *      pointed to by <i>lpBytesReturned</i> and call the function again.
+     * 
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and 
+     *      can have additional destructive effects. For information on how LPC and RPC handles are created, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/lpc-and-rpc-handles">LPC and RPC Handles</a> and 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
+     * 
+     * <b>ClusterGroupControl</b> is one of the 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information on 
+     *      control codes and control code functions, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
      * @param {HGROUP} hGroup Handle to the group to be affected.
      * @param {HNODE} hHostNode If non-<b>NULL</b>, handle to the node to perform the operation represented by the control 
      *        code. If <b>NULL</b>, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> that owns the 
@@ -9198,7 +9947,7 @@ class Clustering {
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -9209,7 +9958,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clustergroupcontrol
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupcontrol
      * @since windowsserver2008
      */
     static ClusterGroupControl(hGroup, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
@@ -9335,6 +10084,20 @@ class Clustering {
 
     /**
      * Initiates an operation that affects a node. The operation performed depends on the control code passed to the dwControlCode parameter.
+     * @remarks
+     * If <b>ClusterNodeControl</b> returns 
+     *      <b>ERROR_MORE_DATA</b>, set <i>nOutBufferSize</i> to the number of bytes 
+     *      pointed to by <i>lpBytesReturned</i> and call the function again.
+     * 
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and 
+     *      can have additional destructive effects. For information on how LPC and RPC handles are created, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/lpc-and-rpc-handles">LPC and RPC Handles</a> and 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
+     * 
+     * <b>ClusterNodeControl</b> is one of the 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information on 
+     *      control codes and control code functions, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
      * @param {HNODE} hNode Handle to the node to be affected.
      * @param {HNODE} hHostNode If non-<b>NULL</b>, handle to the node that will perform the operation instead of the node 
      *        specified in <i>hNode</i>. If <b>NULL</b>, the node that handles the call 
@@ -9445,7 +10208,7 @@ class Clustering {
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -9456,7 +10219,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusternodecontrol
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternodecontrol
      * @since windowsserver2008
      */
     static ClusterNodeControl(hNode, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
@@ -9490,6 +10253,13 @@ class Clustering {
 
     /**
      * Retrieves the Name private property of the Network Name resource on which a resource is dependent.
+     * @remarks
+     * Do not call 
+     *     <b>GetClusterResourceNetworkName</b> from any 
+     *     resource DLL entry point function. 
+     *     <b>GetClusterResourceNetworkName</b> can safely 
+     *     be called from a worker thread. For more information, see 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HRESOURCE} hResource Handle to the dependent resource.
      * @param {PWSTR} lpBuffer Buffer containing a null-terminated Unicode string that contains the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-names-name">Name</a> private property of the Network Name 
@@ -9500,8 +10270,8 @@ class Clustering {
      * @returns {BOOL} If the operation succeeds, the function returns <b>TRUE</b>.
      * 
      * If the operation fails, the function returns <b>FALSE</b>. For more information about the 
-     *        error, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusterresourcenetworkname
+     *        error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterresourcenetworkname
      * @since windowsserver2008
      */
     static GetClusterResourceNetworkName(hResource, lpBuffer, nSize) {
@@ -9512,14 +10282,21 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\GetClusterResourceNetworkName", "ptr", hResource, "ptr", lpBuffer, nSizeMarshal, nSize, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Opens an enumerator for iterating through a resource's dependencies and nodes.
+     * @remarks
+     * Do not call <b>ClusterResourceOpenEnum</b> from 
+     *      any resource DLL entry point function. 
+     *      <b>ClusterResourceOpenEnum</b> can safely be called 
+     *      from a worker thread. For more information, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HRESOURCE} hResource A handle to a resource.
      * @param {Integer} dwType A bitmask that describes the type of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-objects">cluster objects</a> 
      *        to be enumerated.
@@ -9530,16 +10307,17 @@ class Clustering {
      * @returns {HRESENUM} If the operation succeeds, the function returns an enumeration handle.
      * 
      * If the operation fails, the function returns <b>NULL</b>. For more information about the 
-     *        error, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterresourceopenenum
+     *        error, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourceopenenum
      * @since windowsserver2008
      */
     static ClusterResourceOpenEnum(hResource, dwType) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\ClusterResourceOpenEnum", "ptr", hResource, "uint", dwType, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9548,7 +10326,7 @@ class Clustering {
      * Returns the number of cluster objects associated with a resource enumeration handle.
      * @param {HRESENUM} hResEnum Handle to a resource enumeration. This handle is obtained from  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourceopenenum">ClusterResourceOpenEnum</a>. A valid handle is required. This parameter cannot be <b>NULL</b>.
      * @returns {Integer} <b>ClusterResourceGetEnumCount</b> returns the number of objects associated with the enumeration handle.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterresourcegetenumcount
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcegetenumcount
      * @since windowsserver2008
      */
     static ClusterResourceGetEnumCount(hResEnum) {
@@ -9558,6 +10336,16 @@ class Clustering {
 
     /**
      * Enumerates a resource's dependent resources, nodes, or both.
+     * @remarks
+     * Note that <i>lpcchName</i> refers to a count of characters and not a count of bytes, and 
+     *      that the returned size does not include the terminating null character in the count. For more information on 
+     *      sizing buffers, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
+     * 
+     * Do not call <b>ClusterResourceEnum</b> from any 
+     *      resource DLL entry point function. 
+     *      <b>ClusterResourceEnum</b> can safely be called from a 
+     *      worker thread. For more information, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HRESENUM} hResEnum A resource enumeration handle returned from 
      *        the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourceopenenum">ClusterResourceOpenEnum</a> function.
      * @param {Integer} dwIndex The index of the resource or node object to return. This parameter should be zero for the first call to the 
@@ -9621,7 +10409,7 @@ class Clustering {
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -9630,7 +10418,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterresourceenum
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourceenum
      * @since windowsserver2008
      */
     static ClusterResourceEnum(hResEnum, dwIndex, lpdwType, lpszName, lpcchName) {
@@ -9648,8 +10436,8 @@ class Clustering {
      * @param {HRESENUM} hResEnum A resource enumeration handle to be closed.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      *      If the operation fails, 
-     * the function returns a different <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterresourcecloseenum
+     * the function returns a different <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcecloseenum
      * @since windowsserver2008
      */
     static ClusterResourceCloseEnum(hResEnum) {
@@ -9659,6 +10447,8 @@ class Clustering {
 
     /**
      * Creates a resource type in a cluster.
+     * @remarks
+     * The  <b>CreateClusterResourceType</b> function only defines the resource type in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a> and registers the resource type with the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a>. To complete the process of installing a new resource type in a cluster, developers must install the resource DLLs and  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-administrator">Cluster Administrator</a> extension DLLs for the new types on each  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> in the cluster. Also, if Cluster Administrator will be used on systems that are not member nodes, the extension DLLs must also be installed on those systems.
      * @param {HCLUSTER} hCluster Handle to the cluster to receive the new resource type.
      * @param {PWSTR} lpszResourceTypeName Pointer to a null-terminated Unicode string containing the name of the new resource type. The specified name must be unique within the cluster.
      * @param {PWSTR} lpszDisplayName Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/display-names">display name</a> for the new resource type. While the content of <i>lpszResourceTypeName</i> should uniquely identify the resource type on all clusters, the content of <i>lpszDisplayName</i> should be a localized friendly name for the resource suitable for displaying to administrators.
@@ -9668,8 +10458,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-createclusterresourcetype
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-createclusterresourcetype
      * @since windowsserver2008
      */
     static CreateClusterResourceType(hCluster, lpszResourceTypeName, lpszDisplayName, lpszResourceTypeDll, dwLooksAlivePollInterval, dwIsAlivePollInterval) {
@@ -9683,13 +10473,17 @@ class Clustering {
 
     /**
      * Removes a resource type from a cluster.
+     * @remarks
+     * The  <b>DeleteClusterResourceType</b> function only removes the resource type with the name pointed to by <i>lpszResourceTypeName</i> from the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a> and then unregisters it with the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a>. The caller must delete the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-dlls">resource DLL</a> for the resource type from each  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> in the cluster.
+     * 
+     * The caller must also delete any  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resources</a> of this type before calling  <b>DeleteClusterResourceType</b> to delete the type. If any resources of the specified type still exist when  <b>DeleteClusterResourceType</b> is called, the function fails.
      * @param {HCLUSTER} hCluster Handle to the cluster containing the resource type to be removed.
      * @param {PWSTR} lpszResourceTypeName Pointer to a null-terminated Unicode string containing the name of the resource type to be removed.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-deleteclusterresourcetype
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-deleteclusterresourcetype
      * @since windowsserver2008
      */
     static DeleteClusterResourceType(hCluster, lpszResourceTypeName) {
@@ -9742,11 +10536,11 @@ class Clustering {
      * @param {Integer} dwType Bitmask describing the type of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-objects">cluster objects</a> to be 
      *        enumerated. The following values of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_type_enum">CLUSTER_RESOURCE_TYPE_ENUM</a> enumeration are valid.
      * @returns {HRESTYPEENUM} If the operation succeeds, the function returns an enumeration handle which can be used in subsequent calls 
-     *        to <a href="/windows/desktop/api/clusapi/nf-clusapi-clusterresourcetypeenum">ClusterResourceTypeEnum</a>.
+     *        to <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourcetypeenum">ClusterResourceTypeEnum</a>.
      * 
      * If the operation fails, the function returns <b>NULL</b>. For more information about the 
-     *       error, call the function <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterresourcetypeopenenum
+     *       error, call the function <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcetypeopenenum
      * @since windowsserver2008
      */
     static ClusterResourceTypeOpenEnum(hCluster, lpszResourceTypeName, dwType) {
@@ -9755,8 +10549,9 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\ClusterResourceTypeOpenEnum", "ptr", hCluster, "ptr", lpszResourceTypeName, "uint", dwType, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9765,7 +10560,7 @@ class Clustering {
      * Returns the number of cluster objects associated with a resource_type enumeration handle.
      * @param {HRESTYPEENUM} hResTypeEnum Handle to a resource type enumeration. This handle is obtained from  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourcetypeopenenum">ClusterResourceTypeOpenEnum</a>. A valid handle is required. This parameter cannot be <b>NULL</b>.
      * @returns {Integer} <b>ClusterResourceTypeGetEnumCount</b> returns the number of objects associated with the enumeration handle.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterresourcetypegetenumcount
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcetypegetenumcount
      * @since windowsserver2008
      */
     static ClusterResourceTypeGetEnumCount(hResTypeEnum) {
@@ -9775,6 +10570,10 @@ class Clustering {
 
     /**
      * Enumerates a resource type's possible owner nodes or resources.
+     * @remarks
+     * Note that <i>lpcchName</i> refers to a count of characters and not a count of bytes, and 
+     *      that the returned size does not include the terminating <b>NULL</b> in the count. For more information on sizing 
+     *      buffers, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
      * @param {HRESTYPEENUM} hResTypeEnum Resource type enumeration handle returned from 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourcetypeopenenum">ClusterResourceTypeOpenEnum</a>.
      * @param {Integer} dwIndex Index of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resource</a> or node object to return. This 
@@ -9838,7 +10637,7 @@ class Clustering {
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -9847,7 +10646,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterresourcetypeenum
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcetypeenum
      * @since windowsserver2008
      */
     static ClusterResourceTypeEnum(hResTypeEnum, dwIndex, lpdwType, lpszName, lpcchName) {
@@ -9866,8 +10665,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterresourcetypecloseenum
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcetypecloseenum
      * @since windowsserver2008
      */
     static ClusterResourceTypeCloseEnum(hResTypeEnum) {
@@ -9876,7 +10675,7 @@ class Clustering {
     }
 
     /**
-     * Opens a connection to a network and returns a handle to it.
+     * Opens a connection to a network and returns a handle to it. (OpenClusterNetwork)
      * @param {HCLUSTER} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
      * @param {PWSTR} lpszNetworkName Pointer to the name of an existing network.
      * @returns {HNETWORK} <table>
@@ -9892,7 +10691,7 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The operation was not successful. For more information about the error, call the function 
-     *         <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * </td>
      * </tr>
@@ -9901,7 +10700,7 @@ class Clustering {
      * 
      * If the operation was successful, 
      *        <b>OpenClusterNetwork</b> returns a network handle.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-openclusternetwork
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclusternetwork
      * @since windowsserver2008
      */
     static OpenClusterNetwork(hCluster, lpszNetworkName) {
@@ -9910,14 +10709,15 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\OpenClusterNetwork", "ptr", hCluster, "ptr", lpszNetworkName, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Opens a connection to a network and returns a handle to it.
+     * Opens a connection to a network and returns a handle to it. (OpenClusterNetworkEx)
      * @param {HCLUSTER} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
      * @param {PWSTR} lpszNetworkName Pointer to the name of an existing network.
      * @param {Integer} dwDesiredAccess The requested access privileges. This may be any combination of <b>GENERIC_READ</b> 
@@ -9946,8 +10746,8 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The operation was not successful. For more information about the error, call the 
-     *         <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. If the target server does not 
-     *         support the <a href="/windows/desktop/api/clusapi/nf-clusapi-openclusternetworkex">OpenClusterNetworkEx</a> function 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. If the target server does not 
+     *         support the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusternetworkex">OpenClusterNetworkEx</a> function 
      *         (for example if the target server is running Windows Server 2008 or earlier) then the 
      *         <b>GetLastError</b> function will return 
      *         <b>RPC_S_PROCNUM_OUT_OF_RANGE</b> (1745).
@@ -9955,7 +10755,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-openclusternetworkex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclusternetworkex
      * @since windowsserver2008
      */
     static OpenClusterNetworkEx(hCluster, lpszNetworkName, dwDesiredAccess, lpdwGrantedAccess) {
@@ -9966,8 +10766,9 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\OpenClusterNetworkEx", "ptr", hCluster, "ptr", lpszNetworkName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -9998,46 +10799,62 @@ class Clustering {
      * </dl>
      * </td>
      * <td width="60%">
-     * The operation was not successful; call the function  <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for more information.
+     * The operation was not successful; call the function  <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for more information.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-closeclusternetwork
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-closeclusternetwork
      * @since windowsserver2008
      */
     static CloseClusterNetwork(hNetwork) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CloseClusterNetwork", "ptr", hNetwork, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Returns a handle to the cluster associated with a network.
+     * @remarks
+     * For <i>hNetwork</i> to be a valid handle, there must necessarily be an open cluster handle (see  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusternetwork">OpenClusterNetwork</a>).  <b>GetClusterFromNetwork</b> returns another instance of the handle from which <i>hNetwork</i> was obtained.
+     * 
+     * Be sure to call  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closecluster">CloseCluster</a> on the handle returned from  <b>GetClusterFromNetwork</b> before the handle goes out of scope. Closing this handle does not invalidate <i>hNetwork</i> or the cluster handle from which <i>hNetwork</i> was obtained.
      * @param {HNETWORK} hNetwork Handle to the network.
      * @returns {HCLUSTER} If the operation succeeds, the function returns a handle to the cluster that owns the network.
      * 
      * If the operation fails, 
-     * the function returns <b>NULL</b>. For more information about the error, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusterfromnetwork
+     * the function returns <b>NULL</b>. For more information about the error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterfromnetwork
      * @since windowsserver2008
      */
     static GetClusterFromNetwork(hNetwork) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\GetClusterFromNetwork", "ptr", hNetwork, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Opens an enumerator for iterating through objects on a network.
+     * @remarks
+     * Applications call the <b>ClusterNetworkOpenEnum</b> 
+     *      function to create a particular type of enumerator. 
+     *      <b>ClusterNetworkOpenEnum</b> can create enumerators 
+     *      for iterating through all of the objects on a network or only the network interface objects. 
+     *      <b>ClusterNetworkOpenEnum</b> returns a handle that 
+     *      can be passed to <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternetworkenum">ClusterNetworkEnum</a> to access each 
+     *      of the objects to be enumerated and to 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternetworkcloseenum">ClusterNetworkCloseEnum</a> to release the 
+     *      enumerator.
      * @param {HNETWORK} hNetwork A handle to a network.
      * @param {Integer} dwType 
      * @returns {HNETWORKENUM} If the operation was successful, 
@@ -10046,16 +10863,17 @@ class Clustering {
      * 
      * If the operation fails, the function returns <b>NULL</b>. For 
      *         more information about the error, call the function 
-     *         <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusternetworkopenenum
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternetworkopenenum
      * @since windowsserver2008
      */
     static ClusterNetworkOpenEnum(hNetwork, dwType) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\ClusterNetworkOpenEnum", "ptr", hNetwork, "uint", dwType, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10067,7 +10885,7 @@ class Clustering {
      *       required. This parameter cannot be <b>NULL</b>.
      * @returns {Integer} <b>ClusterNetworkGetEnumCount</b> returns the 
      *        number of objects associated with the enumeration handle.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusternetworkgetenumcount
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternetworkgetenumcount
      * @since windowsserver2008
      */
     static ClusterNetworkGetEnumCount(hNetworkEnum) {
@@ -10077,6 +10895,24 @@ class Clustering {
 
     /**
      * Enumerates cluster objects on a network, returning the name of one object with each call.
+     * @remarks
+     * The <b>ClusterNetworkEnum</b> function is typically 
+     *      used to iterate through a collection of objects of one or more types belonging to a network object. If, for 
+     *      example, an application wants to enumerate all of the 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-interfaces">network interface</a> objects on a network, it 
+     *      calls <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternetworkopenenum">ClusterNetworkOpenEnum</a> to 
+     *      open a network enumerator that can process network interface objects. The <i>dwType</i> 
+     *      parameter is set to <b>CLUSTER_NETWORK_ENUM_NETINTERFACES</b> to specify network interfaces 
+     *      as the object type to be enumerated. With the handle that 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternetworkopenenum">ClusterNetworkOpenEnum</a> returns, 
+     *      the application calls <b>ClusterNetworkEnum</b> 
+     *      repeatedly to retrieve each of the objects. The <i>lpdwType</i> parameter points to the type 
+     *      of object that is retrieved.
+     * 
+     * Note that <i>lpcchName</i> refers to a count of characters and not a count of bytes, and 
+     *      that the returned size does not include the terminating <b>NULL</b> in the count. For more 
+     *      information on sizing buffers, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
      * @param {HNETWORKENUM} hNetworkEnum A handle to an existing enumeration object originally returned by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternetworkopenenum">ClusterNetworkOpenEnum</a> function.
      * @param {Integer} dwIndex The index used to identify the next entry to be enumerated. This parameter should be zero for the first call 
@@ -10138,7 +10974,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusternetworkenum
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternetworkenum
      * @since windowsserver2008
      */
     static ClusterNetworkEnum(hNetworkEnum, dwIndex, lpdwType, lpszName, lpcchName) {
@@ -10157,8 +10993,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusternetworkcloseenum
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternetworkcloseenum
      * @since windowsserver2008
      */
     static ClusterNetworkCloseEnum(hNetworkEnum) {
@@ -10171,7 +11007,7 @@ class Clustering {
      * @param {HNETWORK} hNetwork Handle to the network for which state information should be returned.
      * @returns {Integer} <b>GetClusterNetworkState</b> returns the current 
      *        state of the network, which is represented by one of the following values enumerated by the 
-     *        <a href="/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_network_state">CLUSTER_NETWORK_STATE</a> enumeration.
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_network_state">CLUSTER_NETWORK_STATE</a> enumeration.
      * 
      * <table>
      * <tr>
@@ -10199,7 +11035,7 @@ class Clustering {
      * </dl>
      * </td>
      * <td width="60%">
-     * The network is not operational; none of the <a href="/previous-versions/windows/desktop/mscs/nodes">nodes</a> on the 
+     * The network is not operational; none of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">nodes</a> on the 
      *         network can communicate.
      * 
      * </td>
@@ -10238,33 +11074,36 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The operation was not successful. For more information about the error, call the function 
-     *         <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusternetworkstate
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternetworkstate
      * @since windowsserver2008
      */
     static GetClusterNetworkState(hNetwork) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\GetClusterNetworkState", "ptr", hNetwork, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Sets the name for a network.
+     * @remarks
+     * <b>SetClusterNetworkName</b> changes the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/networks-name">Name</a> common property of the network identified by <i>hNetwork</i>. This is the only way that  <b>Name</b>, a read-only property, can be changed.
      * @param {HNETWORK} hNetwork Handle to a network to name.
      * @param {PWSTR} lpszName Pointer to a null-terminated Unicode string containing the new network name.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-setclusternetworkname
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setclusternetworkname
      * @since windowsserver2008
      */
     static SetClusterNetworkName(hNetwork, lpszName) {
@@ -10291,13 +11130,15 @@ class Clustering {
 
     /**
      * Returns the identifier of a network.
+     * @remarks
+     * Note that <i>lpcchNetworkID</i> refers to a count of characters and not a count of bytes, and that the returned size does not include the terminating <b>NULL</b> in the count. For more information on sizing buffers, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
      * @param {HNETWORK} hNetwork Handle to a network.
      * @param {PWSTR} lpszNetworkId Pointer to the identifier of the network associated with <i>hNetwork</i>, including the null-terminating character.
      * @param {Pointer<Integer>} lpcchName Pointer to the size of the <i>lpszNetworkID</i> buffer as a count of characters. On input, specify the maximum number of characters the buffer can hold, including the terminating <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding the terminating <b>NULL</b>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is one of the possible values.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is one of the possible values.
      * 
      * <table>
      * <tr>
@@ -10316,7 +11157,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusternetworkid
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternetworkid
      * @since windowsserver2008
      */
     static GetClusterNetworkId(hNetwork, lpszNetworkId, lpcchName) {
@@ -10330,6 +11171,20 @@ class Clustering {
 
     /**
      * Initiates an operation on a network. The operation performed depends on the control code passed to the dwControlCode parameter.
+     * @remarks
+     * If <b>ClusterNetworkControl</b> returns 
+     *      <b>ERROR_MORE_DATA</b>, set <i>nOutBufferSize</i> to the number of bytes 
+     *      pointed to by <i>lpBytesReturned</i>, and call the function again.
+     * 
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and 
+     *      can have additional destructive effects. For information on how LPC and RPC handles are created, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/lpc-and-rpc-handles">LPC and RPC Handles</a> and 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
+     * 
+     * <b>ClusterNetworkControl</b> is one of the 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information on 
+     *      control codes and control code functions, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
      * @param {HNETWORK} hNetwork Handle to the network to be affected by the operation.
      * @param {HNODE} hHostNode If non-<b>NULL</b>, handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> 
      *        hosting the affected network. If <b>NULL</b>, the local node performs the operation. 
@@ -10441,7 +11296,7 @@ class Clustering {
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -10451,7 +11306,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusternetworkcontrol
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternetworkcontrol
      * @since windowsserver2008
      */
     static ClusterNetworkControl(hNetwork, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
@@ -10484,7 +11339,7 @@ class Clustering {
     }
 
     /**
-     * Opens a handle to a network interface.
+     * Opens a handle to a network interface. (OpenClusterNetInterface)
      * @param {HCLUSTER} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
      * @param {PWSTR} lpszInterfaceName Pointer to a null-terminated Unicode string containing the name of the network interface to open.
      * @returns {HNETINTERFACE} If the operation was successful, 
@@ -10504,12 +11359,12 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The operation was not successful. For more information about the error, call the function 
-     *         <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-openclusternetinterface
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclusternetinterface
      * @since windowsserver2008
      */
     static OpenClusterNetInterface(hCluster, lpszInterfaceName) {
@@ -10518,14 +11373,15 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\OpenClusterNetInterface", "ptr", hCluster, "ptr", lpszInterfaceName, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Opens a handle to a network interface.
+     * Opens a handle to a network interface. (OpenClusterNetInterfaceEx)
      * @param {HCLUSTER} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
      * @param {PWSTR} lpszInterfaceName Pointer to a null-terminated Unicode string containing the name of the network interface to open.
      * @param {Integer} dwDesiredAccess The requested access privileges. This may be any combination of <b>GENERIC_READ</b> 
@@ -10554,8 +11410,8 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The operation was not successful. For more information about the error, call the 
-     *         <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. If the target server does not 
-     *         support the <a href="/windows/desktop/api/clusapi/nf-clusapi-openclusternetinterfaceex">OpenClusterNetInterfaceEx</a> 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. If the target server does not 
+     *         support the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusternetinterfaceex">OpenClusterNetInterfaceEx</a> 
      *         function (for example if the target server is running Windows Server 2008 or earlier) then the 
      *         <b>GetLastError</b> function will return 
      *         <b>RPC_S_PROCNUM_OUT_OF_RANGE</b> (1745).
@@ -10563,7 +11419,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-openclusternetinterfaceex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-openclusternetinterfaceex
      * @since windowsserver2008
      */
     static OpenClusterNetInterfaceEx(hCluster, lpszInterfaceName, dwDesiredAccess, lpdwGrantedAccess) {
@@ -10574,14 +11430,17 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\OpenClusterNetInterfaceEx", "ptr", hCluster, "ptr", lpszInterfaceName, "uint", dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Returns the name of a node's interface to a network in a cluster.
+     * @remarks
+     * Note that <i>lpcchInterfaceName</i> refers to a count of characters and not a count of bytes, and that the returned size does not include the terminating <b>NULL</b> in the count. For more information on sizing buffers, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
      * @param {HCLUSTER} hCluster Handle to a cluster.
      * @param {PWSTR} lpszNodeName Pointer to a null-terminated Unicode string containing the name of the node in the cluster.
      * @param {PWSTR} lpszNetworkName Pointer to a null-terminated Unicode string containing the name of the network.
@@ -10590,7 +11449,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is one of the possible values.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is one of the possible values.
      * 
      * <table>
      * <tr>
@@ -10609,7 +11468,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusternetinterface
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternetinterface
      * @since windowsserver2008
      */
     static GetClusterNetInterface(hCluster, lpszNodeName, lpszNetworkName, lpszInterfaceName, lpcchInterfaceName) {
@@ -10649,40 +11508,46 @@ class Clustering {
      * </dl>
      * </td>
      * <td width="60%">
-     * The operation was not successful; call the function  <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for more information.
+     * The operation was not successful; call the function  <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for more information.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-closeclusternetinterface
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-closeclusternetinterface
      * @since windowsserver2008
      */
     static CloseClusterNetInterface(hNetInterface) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CloseClusterNetInterface", "ptr", hNetInterface, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Returns a handle to the cluster associated with a network interface.
+     * @remarks
+     * For <i>hNetInterface</i> to be a valid handle, there must necessarily be an open cluster handle (see  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusternetinterface">OpenClusterNetInterface</a>).  <b>GetClusterFromNetInterface</b> returns another instance of the handle from which <i>hNetInterface</i> was obtained.
+     * 
+     * Be sure to call  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closecluster">CloseCluster</a> on the handle returned from  <b>GetClusterFromNetInterface</b> before the handle goes out of scope. Closing this handle does not invalidate <i>hNetInterface</i> or the cluster handle from which <i>hNetInterface</i> was obtained.
      * @param {HNETINTERFACE} hNetInterface Handle to the network interface.
      * @returns {HCLUSTER} If the operation succeeds, the function returns a handle to the cluster that owns the network interface.
      * 
      * If the operation fails, 
-     * the function returns <b>NULL</b>. For more information about the error, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusterfromnetinterface
+     * the function returns <b>NULL</b>. For more information about the error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterfromnetinterface
      * @since windowsserver2008
      */
     static GetClusterFromNetInterface(hNetInterface) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\GetClusterFromNetInterface", "ptr", hNetInterface, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -10692,7 +11557,7 @@ class Clustering {
      * @param {HNETINTERFACE} hNetInterface Handle to the network interface for which state information should be returned.
      * @returns {Integer} <b>GetClusterNetInterfaceState</b> returns 
      *        the current state of the network interface, which is represented by one of the following values enumerated by 
-     *        the <a href="/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_netinterface_state">CLUSTER_NETINTERFACE_STATE</a> 
+     *        the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_netinterface_state">CLUSTER_NETINTERFACE_STATE</a> 
      *        enumeration.
      * 
      * <table>
@@ -10757,26 +11622,41 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The operation was not successful. For more information about the error, call the function 
-     *         <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusternetinterfacestate
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternetinterfacestate
      * @since windowsserver2008
      */
     static GetClusterNetInterfaceState(hNetInterface) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\GetClusterNetInterfaceState", "ptr", hNetInterface, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Initiates an operation that affects a network interface. The operation performed depends on the control code passed to the dwControlCode parameter.
+     * @remarks
+     * If <b>ClusterNetInterfaceControl</b> returns 
+     *      <b>ERROR_MORE_DATA</b>, set <i>nOutBufferSize</i> to the number of bytes 
+     *      pointed to by <i>lpBytesReturned</i> and call the function again.
+     * 
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and 
+     *      can have additional destructive effects. For information on how LPC and RPC handles are created, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/lpc-and-rpc-handles">LPC and RPC Handles</a> and 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
+     * 
+     * <b>ClusterNetInterfaceControl</b> is one of 
+     *      the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information on 
+     *      control codes and control code functions, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
      * @param {HNETINTERFACE} hNetInterface Handle to the network interface to be affected.
      * @param {HNODE} hHostNode If non-<b>NULL</b>, handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> that 
      *        owns the network interface to be affected. If <b>NULL</b>, the local node performs the 
@@ -10894,7 +11774,7 @@ class Clustering {
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -10904,7 +11784,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusternetinterfacecontrol
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternetinterfacecontrol
      * @since windowsserver2008
      */
     static ClusterNetInterfaceControl(hNetInterface, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
@@ -10938,6 +11818,12 @@ class Clustering {
 
     /**
      * Opens the root of the cluster database subtree for a cluster.
+     * @remarks
+     * The <b>GetClusterKey</b> function returns a handle to a 
+     *     cluster database key representing the cluster database subtree root for the cluster identified by 
+     *     <i>hCluster</i>. Callers should call 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle 
+     *     retrieved by <b>GetClusterKey</b> when they are done with it.
      * @param {HCLUSTER} hCluster Handle to a cluster.
      * @param {Integer} samDesired Access mask that describes the security access needed for the new key. For more information and possible 
      *       values, see 
@@ -10945,127 +11831,177 @@ class Clustering {
      * @returns {HKEY} If the operation succeeds, the function returns a database key handle for the cluster.
      * 
      * If the operation fails, the function returns <b>NULL</b>. For more information about the error, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusterkey
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterkey
      * @since windowsserver2008
      */
     static GetClusterKey(hCluster, samDesired) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\GetClusterKey", "ptr", hCluster, "uint", samDesired, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
      * Opens the root of the cluster database subtree for a group.
+     * @remarks
+     * The  <b>GetClusterGroupKey</b> function returns a handle to a cluster database key representing the subtree root for the group identified by <i>hGroup</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterGroupKey</b> when they are done with it.
      * @param {HGROUP} hGroup Handle to a group.
      * @param {Integer} samDesired Access mask that describes the security access needed for the key.
      * @returns {HKEY} If the operation succeeds, the function returns a database key handle for the group.
      * 
      * If the operation fails, 
-     * the function returns <b>NULL</b>. For more information about the error, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclustergroupkey
+     * the function returns <b>NULL</b>. For more information about the error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclustergroupkey
      * @since windowsserver2008
      */
     static GetClusterGroupKey(hGroup, samDesired) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\GetClusterGroupKey", "ptr", hGroup, "uint", samDesired, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
      * Opens the root of the cluster database subtree for a resource.
+     * @remarks
+     * The  <b>GetClusterResourceKey</b> function returns a handle to a cluster database key representing the subtree root for the resource identified by <i>hResource</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterResourceKey</b> when they are done with it.
      * @param {HRESOURCE} hResource Handle to a resource.
      * @param {Integer} samDesired Access mask that describes the security access needed for the opened key.
      * @returns {HKEY} If the operation succeeds, the function returns a registry key handle for the resource.
      * 
      * If the operation fails, 
-     * the function returns <b>NULL</b>. For more information about the error, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusterresourcekey
+     * the function returns <b>NULL</b>. For more information about the error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterresourcekey
      * @since windowsserver2008
      */
     static GetClusterResourceKey(hResource, samDesired) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\GetClusterResourceKey", "ptr", hResource, "uint", samDesired, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
      * Opens the root of the cluster database subtree for a node.
+     * @remarks
+     * The  <b>GetClusterNodeKey</b> function returns a handle to a cluster database key representing the subtree root for the node identified by <i>hNode</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterNodeKey</b> when they are done with it.
      * @param {HNODE} hNode Handle to a node.
      * @param {Integer} samDesired Access mask that describes the security access needed for the key.
      * @returns {HKEY} If the operation succeeds, the function returns a registry key handle for the node.
      * 
      * If the operation fails, 
-     * the function returns <b>NULL</b>. For more information about the error, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusternodekey
+     * the function returns <b>NULL</b>. For more information about the error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternodekey
      * @since windowsserver2008
      */
     static GetClusterNodeKey(hNode, samDesired) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\GetClusterNodeKey", "ptr", hNode, "uint", samDesired, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
      * Opens the root of the cluster database subtree for a network.
+     * @remarks
+     * The  <b>GetClusterNetworkKey</b> function returns a handle to a cluster database key representing the subtree root for the network identified by <i>hNetwork</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterNetworkKey</b> when they are done with it.
      * @param {HNETWORK} hNetwork Handle to a network.
      * @param {Integer} samDesired Access mask that describes the security access needed for the new key.
      * @returns {HKEY} If the operation succeeds, the function returns a registry key handle for the network.
      * 
      * If the operation fails, 
-     * the function returns <b>NULL</b>. For more information about the error, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusternetworkkey
+     * the function returns <b>NULL</b>. For more information about the error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternetworkkey
      * @since windowsserver2008
      */
     static GetClusterNetworkKey(hNetwork, samDesired) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\GetClusterNetworkKey", "ptr", hNetwork, "uint", samDesired, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
      * Opens the root of the cluster database subtree for a network interface object.
+     * @remarks
+     * The  <b>GetClusterNetInterfaceKey</b> function returns a handle to a cluster database key representing the subtree root for the network interface identified by <i>hNetInterface</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterNetInterfaceKey</b> when they are done with it.
      * @param {HNETINTERFACE} hNetInterface Handle to a network interface.
      * @param {Integer} samDesired Access mask that describes the security access needed for the key.
      * @returns {HKEY} If the operation succeeds, the function returns a registry key handle for the network interface.
      * 
      * If the operation fails, 
-     * the function returns <b>NULL</b>. For more information about the error, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusternetinterfacekey
+     * the function returns <b>NULL</b>. For more information about the error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternetinterfacekey
      * @since windowsserver2008
      */
     static GetClusterNetInterfaceKey(hNetInterface, samDesired) {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\GetClusterNetInterfaceKey", "ptr", hNetInterface, "uint", samDesired, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
-        return HKEY({Value: result}, True)
+        resultHandle := HKEY({Value: result}, True)
+        return resultHandle
     }
 
     /**
      * Creates a specified cluster database key. If the key already exists in the database, ClusterRegCreateKey opens it without making changes.
+     * @remarks
+     * Callers should call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close 
+     *      the key handle created by the <b>ClusterRegCreateKey</b> 
+     *      function when they are done with it.
+     * 
+     * Do not call <b>ClusterRegCreateKey</b> from the 
+     *      following resource DLL entry point functions:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pclose_routine">Close</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_routine">Online</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a>
+     * </li>
+     * </ul>
+     * <b>ClusterRegCreateKey</b> can be safely called from 
+     *      any other resource DLL entry point function or from a worker thread. For more information, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HKEY} hKey Handle to an open cluster database key. This parameter cannot be <b>NULL</b>.
      * @param {PWSTR} lpszSubKey Pointer to a null-terminated Unicode string specifying the name of the subkey to be created or opened. The 
      *        <i>lpszSubKey</i> parameter must point to a subkey that:
@@ -11094,8 +12030,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregcreatekey
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregcreatekey
      * @since windowsserver2008
      */
     static ClusterRegCreateKey(hKey, lpszSubKey, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition) {
@@ -11133,6 +12069,8 @@ class Clustering {
 
     /**
      * Opens an existing cluster database key.
+     * @remarks
+     * Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle opened by  <b>ClusterRegOpenKey</b> when they are done with it.
      * @param {HKEY} hKey Handle to a currently open key. This parameter cannot be <b>NULL</b>.
      * @param {PWSTR} lpszSubKey Pointer to a null-terminated Unicode string specifying the name of the subkey to be created or opened. The <i>lpszSubKey</i> parameter must point to a subkey that:
      * 
@@ -11147,8 +12085,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregopenkey
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregopenkey
      * @since windowsserver2008
      */
     static ClusterRegOpenKey(hKey, lpszSubKey, samDesired, phkResult) {
@@ -11161,6 +12099,33 @@ class Clustering {
 
     /**
      * Deletes a cluster database key.
+     * @remarks
+     * The <b>ClusterRegDeleteKey</b> function cannot delete 
+     *     a key that has one or more subkeys.
+     * 
+     * Do not call <b>ClusterRegDeleteKey</b> from the 
+     *     following resource DLL entry point functions:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pclose_routine">Close</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_routine">Online</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a>
+     * </li>
+     * </ul>
+     * <b>ClusterRegDeleteKey</b> can be safely called from 
+     *     any other resource DLL entry point function or from a worker thread. For more information, see 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HKEY} hKey Handle to a currently open key.
      * @param {PWSTR} lpszSubKey Pointer to a null-terminated Unicode string specifying the name of the key to delete. The key pointed to by 
      *       <i>lpszSubKey</i> cannot have subkeys; 
@@ -11169,8 +12134,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b> (0).
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregdeletekey
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregdeletekey
      * @since windowsserver2008
      */
     static ClusterRegDeleteKey(hKey, lpszSubKey) {
@@ -11203,8 +12168,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregclosekey
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregclosekey
      * @since windowsserver2008
      */
     static ClusterRegCloseKey(hKey) {
@@ -11216,6 +12181,15 @@ class Clustering {
 
     /**
      * Enumerates the subkeys of an open cluster database key.
+     * @remarks
+     * The <b>ClusterRegEnumKey</b> function retrieves 
+     *      information about one subkey each time it is called.
+     * 
+     * Because <b>ClusterRegEnumKey</b> enumerates keys from 
+     *      the root of the database on the node on which the application is running when <i>hKey</i> is 
+     *      set to <b>NULL</b>, 
+     *      <b>ClusterRegEnumKey</b> fails if the node is not part of 
+     *      a cluster.
      * @param {HKEY} hKey <b>HKEY</b> specifying a currently open key.
      * @param {Integer} dwIndex Index used to identify the next subkey to be enumerated. This parameter should be zero for the first call to 
      *        <b>ClusterRegEnumKey</b> and then incremented for 
@@ -11279,7 +12253,7 @@ class Clustering {
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -11288,7 +12262,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregenumkey
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregenumkey
      * @since windowsserver2008
      */
     static ClusterRegEnumKey(hKey, dwIndex, lpszName, lpcchName, lpftLastWriteTime) {
@@ -11303,6 +12277,33 @@ class Clustering {
 
     /**
      * Sets a value for a cluster database key.
+     * @remarks
+     * Do not call <b>ClusterRegSetValue</b> from the 
+     *      following resource DLL entry point functions:
+     * 
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pclose_routine">Close</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_routine">Online</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a>
+     * </li>
+     * </ul>
+     * 
+     * 
+     * <b>ClusterRegSetValue</b> can be safely called from any 
+     *      other resource DLL entry point function or from a worker thread. For more information, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HKEY} hKey Handle to a cluster database key.
      * @param {PWSTR} lpszValueName Pointer to a null-terminated Unicode string containing the name of the value to set. If a value with this 
      *        name is not already present in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resource</a>, 
@@ -11316,8 +12317,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *       <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregsetvalue
+     *       <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregsetvalue
      * @since windowsserver2008
      */
     static ClusterRegSetValue(hKey, lpszValueName, dwType, lpData, cbData) {
@@ -11329,21 +12330,46 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\ClusterRegSetValue", "ptr", hKey, "ptr", lpszValueName, "uint", dwType, lpDataMarshal, lpData, "uint", cbData, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Removes a named value from a cluster database key.
+     * @remarks
+     * Do not call <b>ClusterRegDeleteValue</b> from the 
+     *      following resource DLL entry point functions:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pclose_routine">Close</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_routine">Online</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a>
+     * </li>
+     * </ul>
+     * <b>ClusterRegDeleteValue</b> can be safely called 
+     *      from any other resource DLL entry point function or from a worker thread. For more information, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HKEY} hKey Handle to a currently open key.
      * @param {PWSTR} lpszValueName Pointer to a null-terminated Unicode string containing the name of the value to be removed.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregdeletevalue
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregdeletevalue
      * @since windowsserver2008
      */
     static ClusterRegDeleteValue(hKey, lpszValueName) {
@@ -11393,6 +12419,15 @@ class Clustering {
 
     /**
      * Returns the name, type, and data components associated with a value for an open cluster database key.
+     * @remarks
+     * If <i>lpbData</i> is <b>NULL</b>, the 
+     *      <b>ClusterRegQueryValue</b> function returns <b>ERROR_SUCCESS</b> 
+     *      and stores the size of the value's data in the content of <i>lpbData</i>. This information 
+     *      allows the caller to correctly allocate a buffer to hold the data.
+     * 
+     * If <i>lpdwValueType</i> is set to <b>REG_SZ</b>, 
+     *      <b>REG_MULTI_SZ</b> or <b>REG_EXPAND_SZ</b>, then 
+     *      <i>lpbData</i> also includes a <b>NULL</b> terminator.
      * @param {HKEY} hKey Handle of the cluster database key to query.
      * @param {PWSTR} lpszValueName Pointer to a null-terminated Unicode string containing the name of the value to be queried.
      * @param {Pointer<Integer>} lpdwValueType Pointer to the key's value type. This parameter can be <b>NULL</b> if the type is not 
@@ -11433,13 +12468,13 @@ class Clustering {
      * </td>
      * <td width="60%">
      * The buffer pointed to by <i>lpbData</i> is not large enough to hold the data for the 
-     *          value. <a href="/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregqueryvalue">ClusterRegQueryValue</a> stores the 
+     *          value. <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregqueryvalue">ClusterRegQueryValue</a> stores the 
      *          required size in the content of <i>lpbData</i>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregqueryvalue
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregqueryvalue
      * @since windowsserver2008
      */
     static ClusterRegQueryValue(hKey, lpszValueName, lpdwValueType, lpData, lpcbData) {
@@ -11524,7 +12559,7 @@ class Clustering {
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System error code</a></b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -11533,7 +12568,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregenumvalue
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregenumvalue
      * @since windowsserver2008
      */
     static ClusterRegEnumValue(hKey, dwIndex, lpszValueName, lpcchValueName, lpdwType, lpData, lpcbData) {
@@ -11561,8 +12596,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregqueryinfokey
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregqueryinfokey
      * @since windowsserver2008
      */
     static ClusterRegQueryInfoKey(hKey, lpcSubKeys, lpcchMaxSubKeyLen, lpcValues, lpcchMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime) {
@@ -11588,8 +12623,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterreggetkeysecurity
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterreggetkeysecurity
      * @since windowsserver2008
      */
     static ClusterRegGetKeySecurity(hKey, RequestedInformation, pSecurityDescriptor, lpcbSecurityDescriptor) {
@@ -11603,6 +12638,34 @@ class Clustering {
 
     /**
      * Sets the security attributes for a cluster database key.
+     * @remarks
+     * The <b>ClusterRegSetKeySecurity</b> function 
+     *      generates a <b>CLUSTER_CHANGE_REGISTRY_ATTRIBUTES</b> event for all registered notification 
+     *      ports.
+     * 
+     * Do not call <b>ClusterRegSetKeySecurity</b> from 
+     *      the following resource DLL entry point functions:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pclose_routine">Close</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_routine">Online</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a>
+     * </li>
+     * </ul>
+     * <b>ClusterRegSetKeySecurity</b> can be safely 
+     *      called from any other resource DLL entry point function or from a worker thread. For more information, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HKEY} hKey Handle to a cluster database key.
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that 
      *        indicates the content of the security descriptor pointed to by 
@@ -11612,8 +12675,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b> (0).
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregsetkeysecurity
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregsetkeysecurity
      * @since windowsserver2008
      */
     static ClusterRegSetKeySecurity(hKey, SecurityInformation, pSecurityDescriptor) {
@@ -11646,7 +12709,7 @@ class Clustering {
      * @param {HCLUSTER} hCluster A handle to the cluster to synchronize with the cluster database.
      * @param {Integer} flags This parameter is reserved for future use.
      * @returns {Integer} If the operation succeeds, returns <b>ERROR_SUCCESS</b> (0); otherwise, returns a system error code.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregsyncdatabase
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregsyncdatabase
      * @since windowsserver2012
      */
     static ClusterRegSyncDatabase(hCluster, flags) {
@@ -11656,11 +12719,15 @@ class Clustering {
 
     /**
      * Creates a batch that will execute commands on a cluster registry key.
+     * @remarks
+     * The key should not be closed until the batch has been submitted for execution.
+     * 
+     * The <b>PCLUSTER_REG_CREATE_BATCH</b> type defines a pointer to this function.
      * @param {HKEY} hKey The handle of the opened cluster registry key.  All the operations on the batch are relative to this cluster 
      *        registry key.
      * @param {Pointer<HREGBATCH>} pHREGBATCH The pointer to the handle of the created batch.
      * @returns {Integer} The function returns one of the following 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -11717,7 +12784,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregcreatebatch
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregcreatebatch
      * @since windowsserver2008
      */
     static ClusterRegCreateBatch(hKey, pHREGBATCH) {
@@ -11731,6 +12798,8 @@ class Clustering {
 
     /**
      * Adds a command to a batch that will be executed on a cluster registry key.
+     * @remarks
+     * The <b>PCLUSTER_REG_BATCH_ADD_COMMAND</b> type defines a pointer to this function.
      * @param {HREGBATCH} hRegBatch The handle of the batch to which a command will be added.
      * @param {Integer} dwCommand A command supported by this API that is taken from the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ne-clusapi-cluster_reg_command">CLUSTER_REG_COMMAND</a> enumeration.  The possible 
@@ -11747,7 +12816,7 @@ class Clustering {
      * @param {Integer} cbData The count, in bytes, of the data relative to the command issued by <i>dwCommand</i>. The 
      *        value of this parameter is 0 for all but the <b>CLUSREG_SET_VALUE</b> command.
      * @returns {Integer} The function returns one of the following 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -11830,7 +12899,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregbatchaddcommand
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregbatchaddcommand
      * @since windowsserver2008
      */
     static ClusterRegBatchAddCommand(hRegBatch, dwCommand, wzName, dwOptions, lpData, cbData) {
@@ -11841,7 +12910,12 @@ class Clustering {
     }
 
     /**
-     * Executes or ignores the batch created by the ClusterRegCreateBatch function.
+     * Executes or ignores the batch created by the ClusterRegCreateBatch function. (ClusterRegCloseBatch)
+     * @remarks
+     * If a failure has occurred before any command was executed, the <i>failedCommandNumber</i> 
+     *      parameter is set to –1.
+     * 
+     * The <b>PCLUSTER_REG_CLOSE_BATCH</b> type defines a pointer to this function.
      * @param {HREGBATCH} hRegBatch The handle of the  cluster registry key opened by 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregcreatebatch">ClusterRegCreateBatch</a>. After the completion 
      *        of <b>ClusterRegCloseBatch</b>, this handle is no 
@@ -11851,7 +12925,7 @@ class Clustering {
      *        a <i>failedCommandNumber</i> argument. The first command in the batch has number 0, the 
      *        second has number 1, and so on.
      * @returns {Integer} The function returns one of the following 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -11884,7 +12958,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregclosebatch
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregclosebatch
      * @since windowsserver2008
      */
     static ClusterRegCloseBatch(hRegBatch, bCommit, failedCommandNumber) {
@@ -11895,7 +12969,10 @@ class Clustering {
     }
 
     /**
-     * Executes or ignores the batch created by the ClusterRegCreateBatch function.
+     * Executes or ignores the batch created by the ClusterRegCreateBatch function. (ClusterRegCloseBatchEx)
+     * @remarks
+     * If a failure has occurred before any command was executed, the <i>failedCommandNumber</i> 
+     *      parameter is set to –1.
      * @param {HREGBATCH} hRegBatch The handle of the  cluster registry key opened by 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregcreatebatch">ClusterRegCreateBatch</a>. After the completion 
      *        of <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregclosebatch">ClusterRegCloseBatch</a>, this handle is no 
@@ -11905,7 +12982,7 @@ class Clustering {
      *        a <i>failedCommandNumber</i> argument. The first command in the batch has number 0, the 
      *        second has number 1, and so on.
      * @returns {Integer} The function returns one of the following 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -11938,7 +13015,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregclosebatchex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregclosebatchex
      * @since windowsserver2012
      */
     static ClusterRegCloseBatchEx(hRegBatch, flags, failedCommandNumber) {
@@ -11950,12 +13027,15 @@ class Clustering {
 
     /**
      * Reads a command from a batch notification.
+     * @remarks
+     * The <b>PCLUSTER_REG_GET_BATCH_NOTIFICATION</b> type defines a pointer to this 
+     *      function.
      * @param {HREGBATCHNOTIFICATION} hBatchNotification A handle to the batch notification.
      * @param {Pointer<CLUSTER_BATCH_COMMAND>} pBatchCommand Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ns-clusapi-cluster_batch_command">CLUSTER_BATCH_COMMAND</a> structure 
      *        that will be filled with information about the command on successful return.
      * @returns {Integer} The function returns one of the following 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregbatchreadcommand
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregbatchreadcommand
      * @since windowsserver2008
      */
     static ClusterRegBatchReadCommand(hBatchNotification, pBatchCommand) {
@@ -11965,9 +13045,12 @@ class Clustering {
 
     /**
      * Frees the memory associated with the batch notification.
+     * @remarks
+     * The <b>PCLUSTER_REG_BATCH_CLOSE_NOTIFICATION</b> type defines a pointer to this 
+     *      function.
      * @param {HREGBATCHNOTIFICATION} hBatchNotification A handle to the batch notification.
      * @returns {Integer} The function returns one of the following 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -12000,7 +13083,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregbatchclosenotification
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregbatchclosenotification
      * @since windowsserver2008
      */
     static ClusterRegBatchCloseNotification(hBatchNotification) {
@@ -12010,6 +13093,9 @@ class Clustering {
 
     /**
      * Creates a subscription to a batch notification port.
+     * @remarks
+     * The <b>PCLUSTER_REG_CREATE_BATCH_NOTIFY_PORT</b> type defines a pointer to this 
+     *      function.
      * @param {HKEY} hKey A cluster registry key. Any updates performed at this key or keys below it will be posted to a notification 
      *        port.
      * @param {Pointer<HREGBATCHPORT>} phBatchNotifyPort A handle to a batch notification port that allows subsequent reading batch notifications via the 
@@ -12018,8 +13104,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b> (0).
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregcreatebatchnotifyport
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregcreatebatchnotifyport
      * @since windowsserver2008
      */
     static ClusterRegCreateBatchNotifyPort(hKey, phBatchNotifyPort) {
@@ -12033,11 +13119,14 @@ class Clustering {
 
     /**
      * Closes a subscription to a batch notification port created by the ClusterRegCreateBatchNotifyPort function.
+     * @remarks
+     * The <b>PCLUSTER_REG_CLOSE_BATCH_NOTIFY_PORT</b> type defines a pointer to this 
+     *      function.
      * @param {HREGBATCHPORT} hBatchNotifyPort A handle to the batch notification port created earlier via the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregcreatebatchnotifyport">ClusterRegCreateBatchNotifyPort</a> 
      *        function.
      * @returns {Integer} The function returns one of the following 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -12069,7 +13158,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregclosebatchnotifyport
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregclosebatchnotifyport
      * @since windowsserver2008
      */
     static ClusterRegCloseBatchNotifyPort(hBatchNotifyPort) {
@@ -12079,6 +13168,11 @@ class Clustering {
 
     /**
      * Fetches the batch notification.
+     * @remarks
+     * The <b>PCLUSTER_REG_GET_BATCH_NOTIFICATION</b> type defines a pointer to this 
+     *      function.
+     * 
+     * Only the functions from the batch function group, such as <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregbatchaddcommand">ClusterRegBatchAddCommand</a>,  will generate a registry change notification. A registry change that does not use one of the batch function commands will not generate a batch notification.
      * @param {HREGBATCHPORT} hBatchNotify The handle to the batch notification port opened earlier via the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregcreatebatchnotifyport">ClusterRegCreateBatchNotifyPort</a> 
      *        function.
@@ -12087,7 +13181,7 @@ class Clustering {
      *        <b>ClusterRegGetBatchNotification</b> or 
      *        since the batch notification port was opened.
      * @returns {Integer} The function returns one of the following 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -12143,7 +13237,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterreggetbatchnotification
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterreggetbatchnotification
      * @since windowsserver2008
      */
     static ClusterRegGetBatchNotification(hBatchNotify, phBatchNotification) {
@@ -12155,10 +13249,14 @@ class Clustering {
 
     /**
      * Creates a handle to the read batch that executes read commands on the cluster registry key.
+     * @remarks
+     * Add commands to the batch by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregreadbatchaddcommand">ClusterRegReadBatchAddCommand</a>  function. Execute the batch by calling the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatch">ClusterRegCloseReadBatch</a> function.
+     * 
+     * Do not close the key until the read batch has been submitted for execution.
      * @param {HKEY} hKey The handle to the opened cluster registry key. All of the operations on the batch are relative to this cluster registry key.
      * @param {Pointer<HREGREADBATCH>} phRegReadBatch A pointer to the handle of the created read batch.
      * @returns {Integer} The function returns one of the following 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -12190,7 +13288,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregcreatereadbatch
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregcreatereadbatch
      * @since windowsserver2012
      */
     static ClusterRegCreateReadBatch(hKey, phRegReadBatch) {
@@ -12204,11 +13302,13 @@ class Clustering {
 
     /**
      * Adds a read command to a batch that executes on a cluster registry key.
+     * @remarks
+     * Additional calls to the <b>ClusterRegReadBatchAddCommand</b> function add additional read commands to the batch.
      * @param {HREGREADBATCH} hRegReadBatch The handle of the read batch to which a command will be added. Create a batch by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregcreatereadbatch">ClusterRegCreateReadBatch</a> function.
      * @param {PWSTR} wzSubkeyName The name of the key relative to the cluster registry key. If this name is <b>NULL</b>, the read is performed on the cluster registry key represented in the <i>hRegReadBatch</i> parameter.
      * @param {PWSTR} wzValueName The name of the registry value to be read. If this name is <b>NULL</b>, the content of the default value is returned.
      * @returns {Integer} The function returns one of the following 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -12252,7 +13352,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregreadbatchaddcommand
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregreadbatchaddcommand
      * @since windowsserver2012
      */
     static ClusterRegReadBatchAddCommand(hRegReadBatch, wzSubkeyName, wzValueName) {
@@ -12264,11 +13364,13 @@ class Clustering {
     }
 
     /**
-     * Executes a read batch and returns results from the read batch executions.
+     * Executes a read batch and returns results from the read batch executions. (ClusterRegCloseReadBatch)
+     * @remarks
+     * Create the read batch by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregcreatereadbatch">ClusterRegCreateReadBatch</a> function.
      * @param {HREGREADBATCH} hRegReadBatch The handle of the read batch. After the <b>ClusterRegCloseReadBatch</b> function completes, this handle is no longer valid, and memory associated with it is freed.
      * @param {Pointer<HREGREADBATCHREPLY>} phRegReadBatchReply A pointer to the handle of the created read batch result. You must close this handle later by calling the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatchreply">ClusterRegCloseReadBatchReply</a> function.
      * @returns {Integer} The function returns one of the following 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -12312,7 +13414,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregclosereadbatch
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregclosereadbatch
      * @since windowsserver2012
      */
     static ClusterRegCloseReadBatch(hRegReadBatch, phRegReadBatchReply) {
@@ -12323,12 +13425,12 @@ class Clustering {
     }
 
     /**
-     * Executes a read batch and returns results from the read batch executions.
+     * Executes a read batch and returns results from the read batch executions. (ClusterRegCloseReadBatchEx)
      * @param {HREGREADBATCH} hRegReadBatch The handle of the read batch. After the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatch">ClusterRegCloseReadBatch</a> function completes, this handle is no longer valid, and memory associated with it is freed.
      * @param {Integer} flags The flags for the operation.
      * @param {Pointer<HREGREADBATCHREPLY>} phRegReadBatchReply A pointer to the handle of the created read batch result. You must close this handle later by calling the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatchreply">ClusterRegCloseReadBatchReply</a> function.
      * @returns {Integer} The function returns one of the following 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -12372,7 +13474,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregclosereadbatchex
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregclosereadbatchex
      * @since windowsserver2016
      */
     static ClusterRegCloseReadBatchEx(hRegReadBatch, flags, phRegReadBatchReply) {
@@ -12384,10 +13486,12 @@ class Clustering {
 
     /**
      * Reads the next command from a read batch result.
+     * @remarks
+     * The number of records in the read batch results is equal to the number of commands in the read batch. Also, the results are in the same order as the commands that were added to the read batch.
      * @param {HREGREADBATCHREPLY} hRegReadBatchReply A handle to a read batch result that was created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatch">ClusterRegCloseReadBatch</a> function.  You must close this handle later by calling the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatchreply">ClusterRegCloseReadBatchReply</a> function.
      * @param {Pointer<CLUSTER_READ_BATCH_COMMAND>} pBatchCommand A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ns-clusapi-cluster_read_batch_command">CLUSTER_READ_BATCH_COMMAND</a> structure that contains information about the read command.
      * @returns {Integer} The function returns one of the following 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -12431,7 +13535,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregreadbatchreplynextcommand
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregreadbatchreplynextcommand
      * @since windowsserver2012
      */
     static ClusterRegReadBatchReplyNextCommand(hRegReadBatchReply, pBatchCommand) {
@@ -12441,9 +13545,11 @@ class Clustering {
 
     /**
      * Closes a read batch result handle and frees the memory associated with it.
+     * @remarks
+     * Call the <b>ClusterRegCloseReadBatchReply</b> function to close a read batch result that was created by the  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatch">ClusterRegCloseReadBatch</a> function.
      * @param {HREGREADBATCHREPLY} hRegReadBatchReply A handle to a read batch result that was created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatch">ClusterRegCloseReadBatch</a> function.
      * @returns {Integer} The function returns one of the following 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
      * <table>
      * <tr>
@@ -12475,7 +13581,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clusterregclosereadbatchreply
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregclosereadbatchreply
      * @since windowsserver2012
      */
     static ClusterRegCloseReadBatchReply(hRegReadBatchReply) {
@@ -12498,8 +13604,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *       <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-clustersetaccountaccess
+     *       <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustersetaccountaccess
      * @since windowsserver2016
      */
     static ClusterSetAccountAccess(hCluster, szAccountSID, dwAccess, dwControlType) {
@@ -12511,6 +13617,30 @@ class Clustering {
 
     /**
      * Creates and starts a cluster.
+     * @remarks
+     * The <b>PCLUSAPI_CREATE_CLUSTER</b> type defines a pointer to this function and can be 
+     *     used with the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> function to call this 
+     *     function.
+     * 
+     * After the <b>CreateCluster</b> function successfully 
+     *     completes, at least 30 seconds should be allowed before the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-addclusternode">AddClusterNode</a> function is called to add additional 
+     *     nodes.
+     * 
+     * The <b>CreateCluster</b> function successfully completes 
+     *     after cluster quorum has been achieved. One or more cluster nodes could be in a 
+     *     <b>ClusterNodeDown</b> or <b>ClusterNodeJoining</b> state for a few 
+     *     seconds.
+     * 
+     * Before calling the <b>CreateCluster</b> function, 
+     *     the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializeex">CoInitializeEx</a> function must be called specifying 
+     *     both <b>COINIT_MULTITHREADED</b> and <b>COINIT_DISABLE_OLE1DDE</b> for 
+     *     the <i>dwCoInit</i> parameter, as shown in the following code.
+     * 
+     * 
+     * ``` syntax
+     * CoInitializeEx( NULL, COINIT_MULTITHREADED | COINIT_DISABLE_OLE1DDE );
+     * ```
      * @param {Pointer<CREATE_CLUSTER_CONFIG>} pConfig Address of a <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ns-clusapi-create_cluster_config">CREATE_CLUSTER_CONFIG</a> 
      *       structure containing configuration information about the cluster to be created.
      * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback Address of callback function that matches the 
@@ -12519,8 +13649,8 @@ class Clustering {
      * @param {Pointer<Void>} pvCallbackArg Argument for the callback function.
      * @returns {HCLUSTER} Handle to the newly created cluster or <b>NULL</b>. A non <b>NULL</b> 
      *       value does not indicate complete success (all nodes will have been added, but not all 
-     *       <a href="/previous-versions/windows/desktop/mscs/ip-address">IP Address</a> or 
-     *       <a href="/previous-versions/windows/desktop/mscs/network-name">Network Name</a> resources may have been created. The parameters 
+     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ip-address">IP Address</a> or 
+     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-name">Network Name</a> resources may have been created. The parameters 
      *       passed to the function pointed to by the <i>pfnProgressCallback</i> parameter should be 
      *       checked.
      * 
@@ -12537,12 +13667,12 @@ class Clustering {
      * </td>
      * <td width="60%">
      * Less than a majority of nodes were successfully created. For more information about the error, call the 
-     *         function <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     *         function <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-createcluster
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-createcluster
      * @since windowsserver2008
      */
     static CreateCluster(pConfig, pfnProgressCallback, pvCallbackArg) {
@@ -12551,8 +13681,9 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\CreateCluster", "ptr", pConfig, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12564,7 +13695,7 @@ class Clustering {
      * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nc-clusapi-pcluster_setup_progress_callback">ClusterSetupProgressCallback</a> callback function that receives the status of updates to the cluster.
      * @param {Pointer<Void>} pvCallbackArg Callback function arguments for the <i>pfnProgressCallback</i> parameter.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>. If the operation fails, the function returns a system error code.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-createclusternameaccount
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-createclusternameaccount
      * @since windowsserver2016
      */
     static CreateClusterNameAccount(hCluster, pConfig, pfnProgressCallback, pvCallbackArg) {
@@ -12679,7 +13810,7 @@ class Clustering {
      * @param {PWSTR} resTypeName A pointer to a null-terminated Unicode string that contains the name of the resource type.
      * @param {Pointer} dwNotifyKey The notification key that is returned from the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-getclusternotifyv2">GetClusterNotifyV2</a> function when the event occurs.
      * @returns {Integer} <b>ERROR_SUCCESS</b> if the operation is successful; otherwise, a system error code.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-registerclusterresourcetypenotifyv2
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-registerclusterresourcetypenotifyv2
      * @since windowsserver2016
      */
     static RegisterClusterResourceTypeNotifyV2(hChange, hCluster, Flags, resTypeName, dwNotifyKey) {
@@ -12691,6 +13822,11 @@ class Clustering {
 
     /**
      * Adds a node to an existing cluster.
+     * @remarks
+     * After the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createcluster">CreateCluster</a> function successfully 
+     *      completes, at least 30 seconds should be allowed before the 
+     *      <b>AddClusterNode</b> function is called to add additional 
+     *      nodes.
      * @param {HCLUSTER} hCluster Handle to a cluster, returned by the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a> or 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createcluster">CreateCluster</a> function.
      * @param {PWSTR} lpszNodeName Name of the computer to add to the cluster.
@@ -12700,8 +13836,8 @@ class Clustering {
      * @param {Pointer<Void>} pvCallbackArg Argument for the callback function.
      * @returns {HNODE} Handle to the new node or <b>NULL</b> to indicate that the node was not successfully added 
      *        to the cluster. For more information about the error, call the 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-addclusternode
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-addclusternode
      * @since windowsserver2008
      */
     static AddClusterNode(hCluster, lpszNodeName, pfnProgressCallback, pvCallbackArg) {
@@ -12712,8 +13848,9 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\AddClusterNode", "ptr", hCluster, "ptr", lpszNodeName, "ptr", pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -12774,6 +13911,10 @@ class Clustering {
 
     /**
      * Removes a cluster.
+     * @remarks
+     * It is possible for multiple steps to fail when removing a cluster with 
+     *     <b>DestroyCluster</b>, but only one error code can be 
+     *     returned. The cluster error log should be reviewed if an error is returned.
      * @param {HCLUSTER} hCluster Handle to a cluster, returned by the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createcluster">CreateCluster</a> function.
      * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback Address of callback function that matches the 
@@ -12783,8 +13924,8 @@ class Clustering {
      * @param {BOOL} fdeleteVirtualComputerObjects If <b>TRUE</b>, then delete the virtual computer objects associated with the cluster 
      *       from the directory.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the cluster was completely removed or a 
-     *       <a href="/windows/desktop/Debug/system-error-codes">system error code</a> for the last failed operation.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-destroycluster
+     *       <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> for the last failed operation.
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-destroycluster
      * @since windowsserver2008
      */
     static DestroyCluster(hCluster, pfnProgressCallback, pvCallbackArg, fdeleteVirtualComputerObjects) {
@@ -12795,10 +13936,9 @@ class Clustering {
     }
 
     /**
-     * TBD.
-     * @param {Pointer<CLUSTER_HEALTH_FAULT>} clusterHealthFault TBD
-     * @returns {Integer} TBD
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-initializeclusterhealthfault
+     * 
+     * @param {Pointer<CLUSTER_HEALTH_FAULT>} clusterHealthFault 
+     * @returns {Integer} 
      * @since windowsserver2016
      */
     static InitializeClusterHealthFault(clusterHealthFault) {
@@ -12807,10 +13947,9 @@ class Clustering {
     }
 
     /**
-     * TBD.
-     * @param {Pointer<CLUSTER_HEALTH_FAULT_ARRAY>} clusterHealthFaultArray TBD
-     * @returns {Integer} TBD
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-initializeclusterhealthfaultarray
+     * 
+     * @param {Pointer<CLUSTER_HEALTH_FAULT_ARRAY>} clusterHealthFaultArray 
+     * @returns {Integer} 
      * @since windowsserver2016
      */
     static InitializeClusterHealthFaultArray(clusterHealthFaultArray) {
@@ -12819,10 +13958,9 @@ class Clustering {
     }
 
     /**
-     * TBD.
-     * @param {Pointer<CLUSTER_HEALTH_FAULT>} clusterHealthFault TBD
-     * @returns {Integer} TBD
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-freeclusterhealthfault
+     * 
+     * @param {Pointer<CLUSTER_HEALTH_FAULT>} clusterHealthFault 
+     * @returns {Integer} 
      * @since windowsserver2016
      */
     static FreeClusterHealthFault(clusterHealthFault) {
@@ -12831,10 +13969,9 @@ class Clustering {
     }
 
     /**
-     * TBD.
-     * @param {Pointer<CLUSTER_HEALTH_FAULT_ARRAY>} clusterHealthFaultArray TBD
-     * @returns {Integer} TBD
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-freeclusterhealthfaultarray
+     * 
+     * @param {Pointer<CLUSTER_HEALTH_FAULT_ARRAY>} clusterHealthFaultArray 
+     * @returns {Integer} 
      * @since windowsserver2016
      */
     static FreeClusterHealthFaultArray(clusterHealthFaultArray) {
@@ -12843,12 +13980,11 @@ class Clustering {
     }
 
     /**
-     * TBD.
-     * @param {HCLUSTER} hCluster TBD
-     * @param {Pointer<CLUSTER_HEALTH_FAULT_ARRAY>} objects TBD
-     * @param {Integer} flags TBD
-     * @returns {Integer} TBD
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-clusgetclusterhealthfaults
+     * 
+     * @param {HCLUSTER} hCluster 
+     * @param {Pointer<CLUSTER_HEALTH_FAULT_ARRAY>} objects 
+     * @param {Integer} flags 
+     * @returns {Integer} 
      * @since windowsserver2016
      */
     static ClusGetClusterHealthFaults(hCluster, objects, flags) {
@@ -12857,12 +13993,11 @@ class Clustering {
     }
 
     /**
-     * TBD.
-     * @param {HCLUSTER} hCluster TBD
-     * @param {PWSTR} id TBD
-     * @param {Integer} flags TBD
-     * @returns {Integer} TBD
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-clusremoveclusterhealthfault
+     * 
+     * @param {HCLUSTER} hCluster 
+     * @param {PWSTR} id 
+     * @param {Integer} flags 
+     * @returns {Integer} 
      * @since windowsserver2016
      */
     static ClusRemoveClusterHealthFault(hCluster, id, flags) {
@@ -12873,12 +14008,11 @@ class Clustering {
     }
 
     /**
-     * TBD.
-     * @param {HCLUSTER} hCluster TBD
-     * @param {Pointer<CLUSTER_HEALTH_FAULT>} failure TBD
+     * 
+     * @param {HCLUSTER} hCluster 
+     * @param {Pointer<CLUSTER_HEALTH_FAULT>} failure 
      * @param {Integer} param2 
-     * @returns {Integer} TBD
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-clusaddclusterhealthfault
+     * @returns {Integer} 
      * @since windowsserver2016
      */
     static ClusAddClusterHealthFault(hCluster, failure, param2) {
@@ -12888,12 +14022,14 @@ class Clustering {
 
     /**
      * Starts a service. The PRESUTIL_START_RESOURCE_SERVICE type defines a pointer to this function.
+     * @remarks
+     * The  <b>ResUtilStartResourceService</b> utility function encapsulates the necessary calls to the service control manager, providing a convenient way to start services in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>. Using  <b>ResUtilStartResourceService</b> is optional. If the service to be started requires specific access restrictions or other special handling, use the service control manager functions instead.
      * @param {PWSTR} pszServiceName Null-terminated Unicode string containing the name of the service to start.
      * @param {Pointer<SC_HANDLE>} phServiceHandle Optional pointer to a handle in which the handle to the started service is returned. This handle must be closed either by a call to the cluster utility function  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilstopservice">ResUtilStopService</a> or the function  <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-closeservicehandle">CloseServiceHandle</a>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
      * 
      * <table>
      * <tr>
@@ -12912,7 +14048,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilstartresourceservice
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilstartresourceservice
      * @since windowsserver2008
      */
     static ResUtilStartResourceService(pszServiceName, phServiceHandle) {
@@ -12928,7 +14064,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
      * 
      * <table>
      * <tr>
@@ -12947,7 +14083,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilverifyresourceservice
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilverifyresourceservice
      * @since windowsserver2008
      */
     static ResUtilVerifyResourceService(pszServiceName) {
@@ -12963,7 +14099,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
      * 
      * <table>
      * <tr>
@@ -12982,7 +14118,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilstopresourceservice
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilstopresourceservice
      * @since windowsserver2008
      */
     static ResUtilStopResourceService(pszServiceName) {
@@ -12998,7 +14134,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
      * 
      * <table>
      * <tr>
@@ -13017,7 +14153,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilverifyservice
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilverifyservice
      * @since windowsserver2008
      */
     static ResUtilVerifyService(hServiceHandle) {
@@ -13029,11 +14165,13 @@ class Clustering {
 
     /**
      * Stops a service identified by a handle. The PRESUTIL_STOP_SERVICE type defines a pointer to this function.
+     * @remarks
+     * The  <b>ResUtilStopService</b> utility function closes the handle specified in <i>hServiceHandle</i> when it stops the service.
      * @param {SC_HANDLE} hServiceHandle Handle of the service to stop.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
      * 
      * <table>
      * <tr>
@@ -13052,7 +14190,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilstopservice
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilstopservice
      * @since windowsserver2008
      */
     static ResUtilStopService(hServiceHandle) {
@@ -13064,12 +14202,14 @@ class Clustering {
 
     /**
      * Creates every directory specified in a path, skipping directories that already exist. The PRESUTIL_CREATE_DIRECTORY_TREE type defines a pointer to this function.
+     * @remarks
+     * If the path only contains a drive specification (L"c:\\"),  <b>ResUtilCreateDirectoryTree</b> will return <b>ERROR_SUCCESS</b> but take no action.
      * @param {PWSTR} pszPath Pointer to a null-terminated Unicode string specifying a path. The string can end with a trailing backslash.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilcreatedirectorytree
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilcreatedirectorytree
      * @since windowsserver2008
      */
     static ResUtilCreateDirectoryTree(pszPath) {
@@ -13086,7 +14226,7 @@ class Clustering {
      * 
      * If the operation fails, 
      * the function returns <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilispathvalid
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilispathvalid
      * @since windowsserver2008
      */
     static ResUtilIsPathValid(pszPath) {
@@ -13106,7 +14246,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
      * 
      * <table>
      * <tr>
@@ -13147,7 +14287,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilenumproperties
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilenumproperties
      * @since windowsserver2008
      */
     static ResUtilEnumProperties(pPropertyTable, pszOutProperties, cbOutPropertiesSize, pcbBytesReturned, pcbRequired) {
@@ -13168,7 +14308,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
      * 
      * <table>
      * <tr>
@@ -13209,7 +14349,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilenumprivateproperties
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilenumprivateproperties
      * @since windowsserver2008
      */
     static ResUtilEnumPrivateProperties(hkeyClusterKey, pszOutProperties, cbOutPropertiesSize, pcbBytesReturned, pcbRequired) {
@@ -13233,7 +14373,7 @@ class Clustering {
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
      * 
      * <table>
      * <tr>
@@ -13274,7 +14414,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetproperties
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetproperties
      * @since windowsserver2008
      */
     static ResUtilGetProperties(hkeyClusterKey, pPropertyTable, pOutPropertyList, cbOutPropertyListSize, pcbBytesReturned, pcbRequired) {
@@ -13289,6 +14429,13 @@ class Clustering {
 
     /**
      * Returns a property list that includes all of the default and unknown properties for a cluster object. The PRESUTIL_GET_ALL_PROPERTIES type defines a pointer to this function.
+     * @remarks
+     * The  <b>ResUtilGetAllProperties</b> utility function makes an entry in the property list for each property that is:
+     * 
+     * <ul>
+     * <li>Included in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-tables">property table</a>.</li>
+     * <li>Included in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a> below the key identified by the <i>ClusterKey</i> parameter, regardless of whether the property is included in the property table.</li>
+     * </ul>
      * @param {HKEY} hkeyClusterKey Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a> key that identifies the location of the properties to retrieve.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures that describe the properties to retrieve.
      * @param {Pointer} pOutPropertyList Pointer to an output buffer in which to return the property list.
@@ -13298,7 +14445,7 @@ class Clustering {
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
      * 
      * <table>
      * <tr>
@@ -13339,7 +14486,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetallproperties
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetallproperties
      * @since windowsserver2008
      */
     static ResUtilGetAllProperties(hkeyClusterKey, pPropertyTable, pOutPropertyList, cbOutPropertyListSize, pcbBytesReturned, pcbRequired) {
@@ -13362,7 +14509,7 @@ class Clustering {
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
      * 
      * <table>
      * <tr>
@@ -13403,7 +14550,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetprivateproperties
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetprivateproperties
      * @since windowsserver2008
      */
     static ResUtilGetPrivateProperties(hkeyClusterKey, pOutPropertyList, cbOutPropertyListSize, pcbBytesReturned, pcbRequired) {
@@ -13425,7 +14572,7 @@ class Clustering {
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
      * 
      * <table>
      * <tr>
@@ -13455,7 +14602,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetpropertysize
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetpropertysize
      * @since windowsserver2008
      */
     static ResUtilGetPropertySize(hkeyClusterKey, pPropertyTableItem, pcbOutPropertyListSize, pnPropertyCount) {
@@ -13477,7 +14624,7 @@ class Clustering {
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
      * 
      * <table>
      * <tr>
@@ -13496,7 +14643,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetproperty
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetproperty
      * @since windowsserver2008
      */
     static ResUtilGetProperty(hkeyClusterKey, pPropertyTableItem, pOutPropertyItem, pcbOutPropertyItemSize) {
@@ -13518,7 +14665,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
      * 
      * <table>
      * <tr>
@@ -13559,7 +14706,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilverifypropertytable
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilverifypropertytable
      * @since windowsserver2008
      */
     static ResUtilVerifyPropertyTable(pPropertyTable, bAllowUnknownProperties, pInPropertyList, cbInPropertyListSize, pOutParams) {
@@ -13573,6 +14720,34 @@ class Clustering {
 
     /**
      * Sets properties in the cluster database based on a property list from a property table..
+     * @remarks
+     * If a value specified in the property table already exists in the cluster database, the value is not written. 
+     *     For information on forcing all values to be written, see 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilsetpropertytableex">ResUtilSetPropertyTableEx</a>.
+     * 
+     * Do not call <b>ResUtilSetPropertyTable</b> from the following resource DLL entry 
+     *     point functions.
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pclose_routine">Close</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_routine">Online</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a>
+     * </li>
+     * </ul>
+     * <b>ResUtilSetPropertyTable</b> can be safely called from any other resource DLL 
+     *     entry point function or from a worker thread. For more information, see 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HKEY} hkeyClusterKey Cluster database key identifying the location of the properties to set.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures describing the 
@@ -13587,7 +14762,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error 
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error 
      *        codes.
      * 
      * <table>
@@ -13639,12 +14814,12 @@ class Clustering {
      * <td width="60%">
      * The syntax, format, or type of a property in the property table pointed to by 
      *         <i>pPropertyTable</i> is incorrect, or a property is 
-     *         <a href="/previous-versions/windows/desktop/mscs/read-only-properties">read-only</a> and cannot be set.
+     *         <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/read-only-properties">read-only</a> and cannot be set.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilsetpropertytable
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilsetpropertytable
      * @since windowsserver2008
      */
     static ResUtilSetPropertyTable(hkeyClusterKey, pPropertyTable, bAllowUnknownProperties, pInPropertyList, cbInPropertyListSize, pOutParams) {
@@ -13660,6 +14835,27 @@ class Clustering {
 
     /**
      * Sets properties in the cluster database based on a property list from a property table.
+     * @remarks
+     * Do not call  <b>ResUtilSetPropertyTableEx</b> from the following resource DLL entry point functions:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pclose_routine">Close</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_routine">Online</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a>
+     * </li>
+     * </ul>
+     * <b>ResUtilSetPropertyTableEx</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HKEY} hkeyClusterKey Cluster database key identifying the location of the properties to set.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures describing the properties to set.
      * @param {Pointer<Void>} Reserved Reserved.
@@ -13671,7 +14867,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
      * 
      * <table>
      * <tr>
@@ -13723,7 +14919,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilsetpropertytableex
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilsetpropertytableex
      * @since windowsserver2008
      */
     static ResUtilSetPropertyTableEx(hkeyClusterKey, pPropertyTable, Reserved, bAllowUnknownProperties, pInPropertyList, cbInPropertyListSize, bForceWrite, pOutParams) {
@@ -13738,7 +14934,30 @@ class Clustering {
     }
 
     /**
-     * Sets properties in the cluster database from a parameter block.
+     * Sets properties in the cluster database from a parameter block. (ResUtilSetPropertyParameterBlock)
+     * @remarks
+     * If a value specified in the parameter block already exists in the cluster database, the value is not written. To force all values to be written, see  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilsetpropertyparameterblockex">ResUtilSetPropertyParameterBlockEx</a>.
+     * 
+     * Do not call  <b>ResUtilSetPropertyParameterBlock</b> from the following resource DLL entry point functions:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pclose_routine">Close</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_routine">Online</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a>
+     * </li>
+     * </ul>
+     * <b>ResUtilSetPropertyParameterBlock</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HKEY} hkeyClusterKey Cluster database key identifying the location for the properties to set.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures describing the properties to set.
      * @param {Pointer<Void>} Reserved Reserved.
@@ -13749,7 +14968,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
      * 
      * <table>
      * <tr>
@@ -13779,7 +14998,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilsetpropertyparameterblock
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilsetpropertyparameterblock
      * @since windowsserver2008
      */
     static ResUtilSetPropertyParameterBlock(hkeyClusterKey, pPropertyTable, Reserved, pInParams, pInPropertyList, cbInPropertyListSize, pOutParams) {
@@ -13795,7 +15014,28 @@ class Clustering {
     }
 
     /**
-     * Sets properties in the cluster database from a parameter block.
+     * Sets properties in the cluster database from a parameter block. (ResUtilSetPropertyParameterBlockEx)
+     * @remarks
+     * Do not call  <b>ResUtilSetPropertyParameterBlockEx</b> from the following resource DLL entry point functions:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pclose_routine">Close</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_routine">Online</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a>
+     * </li>
+     * </ul>
+     * <b>ResUtilSetPropertyParameterBlockEx</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HKEY} hkeyClusterKey Cluster database key identifying the location for the properties to set.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures describing the properties to set.
      * @param {Pointer<Void>} Reserved Reserved.
@@ -13807,7 +15047,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
      * 
      * <table>
      * <tr>
@@ -13821,7 +15061,7 @@ class Clustering {
      * </dl>
      * </td>
      * <td width="60%">
-     * The syntax, format, or type of a property in the property table pointed to by <i>pPropertyTable</i> is incorrect, or a property is  <a href="/previous-versions/windows/desktop/mscs/read-only-properties">read-only</a> and cannot be updated.
+     * The syntax, format, or type of a property in the property table pointed to by <i>pPropertyTable</i> is incorrect, or a property is  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/read-only-properties">read-only</a> and cannot be updated.
      * 
      * </td>
      * </tr>
@@ -13837,7 +15077,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilsetpropertyparameterblockex
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilsetpropertyparameterblockex
      * @since windowsserver2008
      */
     static ResUtilSetPropertyParameterBlockEx(hkeyClusterKey, pPropertyTable, Reserved, pInParams, pInPropertyList, cbInPropertyListSize, bForceWrite, pOutParams) {
@@ -13854,6 +15094,31 @@ class Clustering {
 
     /**
      * Stores a cluster object's unknown properties in the cluster database.
+     * @remarks
+     * <b>ResUtilSetUnknownProperties</b> only sets the properties listed in <i>pInPropertyList</i> that are NOT listed in <i>pPropertyTable</i>.
+     * 
+     * Use the  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutiladdunknownproperties">ResUtilAddUnknownProperties</a> to create the property list and  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetallproperties">ResUtilGetAllProperties</a> to retrieve  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/unknown-properties">unknown properties</a>.
+     * 
+     * Do not call  <b>ResUtilSetUnknownProperties</b> from the following resource DLL entry point functions:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pclose_routine">Close</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_routine">Online</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a>
+     * </li>
+     * </ul>
+     * <b>ResUtilSetUnknownProperties</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HKEY} hkeyClusterKey <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">Cluster database</a> key identifying the location of the properties to set.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-tables">property table</a> specifying properties that should NOT be set by this function.
      * @param {Pointer} pInPropertyList Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a>. Any properties that appear in this list and that do NOT appear in <i>pInPropertyList</i> are set.
@@ -13861,8 +15126,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilsetunknownproperties
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilsetunknownproperties
      * @since windowsserver2008
      */
     static ResUtilSetUnknownProperties(hkeyClusterKey, pPropertyTable, pInPropertyList, cbInPropertyListSize) {
@@ -13874,6 +15139,8 @@ class Clustering {
 
     /**
      * Retrieves properties specified by a property table from the cluster database and returns them in a parameter block.
+     * @remarks
+     * With the  <b>ResUtilGetPropertiesToParameterBlock</b> utility function, the property table pointed to by <i>pPropertyTable</i> can include default values.
      * @param {HKEY} hkeyClusterKey Pointer to the cluster database key that identifies the location of the properties to retrieve.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures that describes the properties to process.
      * @param {Pointer<Integer>} pOutParams Pointer to the output parameter block to fill.
@@ -13882,7 +15149,7 @@ class Clustering {
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
      * 
      * <table>
      * <tr>
@@ -13912,7 +15179,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetpropertiestoparameterblock
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetpropertiestoparameterblock
      * @since windowsserver2008
      */
     static ResUtilGetPropertiesToParameterBlock(hkeyClusterKey, pPropertyTable, pOutParams, bCheckForRequiredProperties, pszNameOfPropInError) {
@@ -13927,6 +15194,10 @@ class Clustering {
 
     /**
      * Constructs a property list from a property table and a parameter block.
+     * @remarks
+     * In this function, the property table determines the order in which the properties appear in the property list, as well as the name and format of each property. The function reads the property table to determine the name and format of each property.
+     * 
+     * The parameter block provides the property values.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to a property table describing the properties that will be included in the resulting property list.
      * @param {Pointer} pOutPropertyList Pointer to an output buffer that receives the property list.
      * @param {Pointer<Integer>} pcbOutPropertyListSize Pointer to the size of the output buffer in bytes.
@@ -13936,7 +15207,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error 
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error 
      *        codes.
      * 
      * <table>
@@ -13978,7 +15249,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilpropertylistfromparameterblock
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilpropertylistfromparameterblock
      * @since windowsserver2008
      */
     static ResUtilPropertyListFromParameterBlock(pPropertyTable, pOutPropertyList, pcbOutPropertyListSize, pInParams, pcbBytesReturned, pcbRequired) {
@@ -13993,14 +15264,16 @@ class Clustering {
 
     /**
      * Performs a member-wise copy of the data from one parameter block to another.
+     * @remarks
+     * <b>ResUtilDupParameterBlock</b> copies data only for parameter block members referenced in the <i>pPropertyTable</i> input parameter. If a variable in the input parameter block is a pointer, memory for the data is allocated with the function  <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a>. You should deallocate this memory by calling either  <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> for each pointer variable in the output parameter block or  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilfreeparameterblock">ResUtilFreeParameterBlock</a>. Make sure that you deallocate memory whether  <b>ResUtilDupParameterBlock</b> succeeds or fails. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-parameter-blocks">Using Parameter Blocks</a> and  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-lists-and-tables">Using Lists and Tables</a>.
      * @param {Pointer<Integer>} pOutParams Pointer to the duplicated parameter block.
      * @param {Pointer<Integer>} pInParams Pointer to the original parameter block.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures describing properties in the original parameter block.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutildupparameterblock
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutildupparameterblock
      * @since windowsserver2008
      */
     static ResUtilDupParameterBlock(pOutParams, pInParams, pPropertyTable) {
@@ -14014,7 +15287,6 @@ class Clustering {
     /**
      * Deallocates memory that has been allocated for a parameter block by ResUtilDupParameterBlock.
      * @remarks
-     * 
      * The  <b>ResUtilFreeParameterBlock</b> utility function deallocates any memory allocated to each member of <i>pOutParams</i>, subject to the following limitations:
      * 
      * <ul>
@@ -14022,13 +15294,11 @@ class Clustering {
      * <li>It will not deallocate memory that is pointed to by any member of <i>pInParams</i>.</li>
      * </ul>
      * Do not use this function with parameter blocks that have not been allocated with  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutildupparameterblock">ResUtilDupParameterBlock</a>.
-     * 
-     * 
      * @param {Pointer<Integer>} pOutParams Pointer to the parameter block to deallocate.
      * @param {Pointer<Integer>} pInParams Pointer to the parameter block to use as a reference.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures describing the properties in the input parameter block.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilfreeparameterblock
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilfreeparameterblock
      * @since windowsserver2008
      */
     static ResUtilFreeParameterBlock(pOutParams, pInParams, pPropertyTable) {
@@ -14040,6 +15310,12 @@ class Clustering {
 
     /**
      * Retrieves a set of unknown properties from the cluster database and appends them to the end of a property list.
+     * @remarks
+     * The relationships between the input and output parameters of  <b>ResUtilAddUnknownProperties</b> are illustrated in the following diagram:
+     * 
+     * :::image type="content" source="./images/resutil.png" border="false" alt-text="Diagram showing input and output parameters listed separately in two buffers. Two unknown properties have been added to the output parameter list.":::
+     * 
+     * The  <b>ResUtilAddUnknownProperties</b> utility function enumerates the properties stored in the cluster database (under <i>hkeyClusterKey</i>) and looks for corresponding properties in the property table (<i>pPropertyTable</i>). Each property that is listed in the cluster database but not listed in the property table is added to the property list (<i>pOutPropertyList</i>).
      * @param {HKEY} hkeyClusterKey Pointer to the cluster database key that identifies the location for the properties to read.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-tables">property table</a> describing the common and private properties of an object. Any properties found in the cluster database that are not in this property table are added to the property list.
      * @param {Pointer<Void>} pOutPropertyList Pointer to a buffer in which to receive the returned properties. On input, the buffer can contain an existing property list, or it can be empty. On output, the retrieved properties will be appended to the end of the existing list, or, if the buffer is empty, will return as a new property list.
@@ -14049,7 +15325,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
      * 
      * <table>
      * <tr>
@@ -14068,7 +15344,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutiladdunknownproperties
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutiladdunknownproperties
      * @since windowsserver2008
      */
     static ResUtilAddUnknownProperties(hkeyClusterKey, pPropertyTable, pOutPropertyList, pcbOutPropertyListSize, pcbBytesReturned, pcbRequired) {
@@ -14084,13 +15360,36 @@ class Clustering {
 
     /**
      * Sets the private properties of a cluster object.
+     * @remarks
+     * The properties that are set in the  <b>ResUtilSetPrivatePropertyList</b> utility function are placed in the portion of the cluster database below the specified key for the object exactly as specified by the names in the property list. If the name of a property contains backslash characters (\\), each string preceding a backslash character is interpreted as a subkey name, and the last string following the last backslash character is interpreted as the value name.
+     * 
+     * Do not call  <b>ResUtilSetPrivatePropertyList</b> from the following resource DLL entry point functions:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pclose_routine">Close</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_routine">Online</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a>
+     * </li>
+     * </ul>
+     * <b>ResUtilSetPrivatePropertyList</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HKEY} hkeyClusterKey <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">Cluster database</a> key identifying the location of the properties to set.
      * @param {Pointer} pInPropertyList Pointer to an input buffer containing a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a> with the names and values of the properties to set.
      * @param {Integer} cbInPropertyListSize Pointer to the size in bytes of the input buffer pointed to by <i>pInPropertyList</i>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
      * 
      * <table>
      * <tr>
@@ -14142,7 +15441,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilsetprivatepropertylist
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilsetprivatepropertylist
      * @since windowsserver2008
      */
     static ResUtilSetPrivatePropertyList(hkeyClusterKey, pInPropertyList, cbInPropertyListSize) {
@@ -14159,8 +15458,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilverifyprivatepropertylist
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilverifyprivatepropertylist
      * @since windowsserver2008
      */
     static ResUtilVerifyPrivatePropertyList(pInPropertyList, cbInPropertyListSize) {
@@ -14170,12 +15469,14 @@ class Clustering {
 
     /**
      * Duplicates a null-terminated Unicode string.
+     * @remarks
+     * With the  <b>ResUtilDupString</b> utility function, after using the returned string, callers should deallocate the buffer by calling the function  <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>.
      * @param {PWSTR} pszInString Pointer to the string to duplicate.
      * @returns {PWSTR} If the operation succeeds, the function returns a pointer to a buffer containing the duplicate string.
      * 
      * If the operation fails, 
-     * the function returns <b>NULL</b>. For more information, call the function  <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutildupstring
+     * the function returns <b>NULL</b>. For more information, call the function  <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutildupstring
      * @since windowsserver2008
      */
     static ResUtilDupString(pszInString) {
@@ -14184,14 +15485,17 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("RESUTILS.dll\ResUtilDupString", "ptr", pszInString, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Returns a binary value from the cluster database.
+     * @remarks
+     * The  <b>ResUtilGetBinaryValue</b> utility function takes care of allocating the necessary memory for the value and then calls the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-api">Cluster API</a> function  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregqueryvalue">ClusterRegQueryValue</a>. When you are finished with the allocated memory, you must call the function  <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> to release it.
      * @param {HKEY} hkeyClusterKey Key in the cluster database that identifies the location of the value to retrieve.
      * @param {PWSTR} pszValueName Pointer to a null-terminated Unicode string containing the name of the value to retrieve.
      * @param {Pointer<Pointer<Integer>>} ppbOutValue Address of the pointer to the retrieved value.
@@ -14199,7 +15503,7 @@ class Clustering {
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
      * 
      * <table>
      * <tr>
@@ -14218,7 +15522,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetbinaryvalue
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetbinaryvalue
      * @since windowsserver2008
      */
     static ResUtilGetBinaryValue(hkeyClusterKey, pszValueName, ppbOutValue, pcbOutValueSize) {
@@ -14234,14 +15538,18 @@ class Clustering {
 
     /**
      * Returns a string value from the cluster database.
+     * @remarks
+     * The  <b>ResUtilGetSzValue</b> utility function allocates the necessary memory for the string parameter value before calling the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-api">Cluster API</a> function  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregqueryvalue">ClusterRegQueryValue</a> to access the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a>. When you are finished with this memory, you must call the function  <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> to release it.
+     * 
+     * <b>ResUtilGetSzValue</b> also supports expandable and multiple string formats.
      * @param {HKEY} hkeyClusterKey Key identifying the location of the value in the cluster database.
      * @param {PWSTR} pszValueName A null-terminated Unicode string containing the name of the value to retrieve.
      * @returns {PWSTR} If the operation succeeds, 
      * the function returns a pointer to a buffer containing the string value.
      * 
      * If the operation fails, 
-     * the function returns <b>NULL</b>. For more information, call the function  <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetszvalue
+     * the function returns <b>NULL</b>. For more information, call the function  <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetszvalue
      * @since windowsserver2008
      */
     static ResUtilGetSzValue(hkeyClusterKey, pszValueName) {
@@ -14251,14 +15559,17 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("RESUTILS.dll\ResUtilGetSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Returns a numeric value from the cluster database.
+     * @remarks
+     * The  <b>ResUtilGetDwordValue</b> utility function calls the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-api">Cluster API</a> function  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregqueryvalue">ClusterRegQueryValue</a> to retrieve the value.
      * @param {HKEY} hkeyClusterKey Key identifying the location of the numeric value in the cluster database.
      * @param {PWSTR} pszValueName Pointer to a null-terminated Unicode string containing the name of the value to retrieve.
      * @param {Pointer<Integer>} pdwOutValue Pointer to the retrieved value.
@@ -14266,7 +15577,7 @@ class Clustering {
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
      * 
      * <table>
      * <tr>
@@ -14285,7 +15596,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetdwordvalue
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetdwordvalue
      * @since windowsserver2008
      */
     static ResUtilGetDwordValue(hkeyClusterKey, pszValueName, pdwOutValue, dwDefaultValue) {
@@ -14299,13 +15610,12 @@ class Clustering {
     }
 
     /**
-     * TBD.
-     * @param {HKEY} hkeyClusterKey TBD
-     * @param {PWSTR} pszValueName TBD
-     * @param {Pointer<Integer>} pqwOutValue TBD
-     * @param {Integer} qwDefaultValue TBD
+     * 
+     * @param {HKEY} hkeyClusterKey 
+     * @param {PWSTR} pszValueName 
+     * @param {Pointer<Integer>} pqwOutValue 
+     * @param {Integer} qwDefaultValue 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetqwordvalue
      * @since windowsserver2008
      */
     static ResUtilGetQwordValue(hkeyClusterKey, pszValueName, pqwOutValue, qwDefaultValue) {
@@ -14320,6 +15630,29 @@ class Clustering {
 
     /**
      * Sets a binary value in the cluster database.
+     * @remarks
+     * The  <b>ResUtilSetBinaryValue</b> utility function allocates memory for the <i>ppbOutValue</i> pointer using the function  <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a>, calls the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-api">Cluster API</a> function  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregsetvalue">ClusterRegSetValue</a>, and then copies the new value to this buffer. If the pointer is not <b>NULL</b>,  <b>ResUtilSetBinaryValue</b> also deallocates it. As callers of this function, you are responsible for deallocating the buffer using the function  <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>.
+     * 
+     * Do not call  <b>ResUtilSetBinaryValue</b> from the following resource DLL entry point functions:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pclose_routine">Close</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_routine">Online</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a>
+     * </li>
+     * </ul>
+     * <b>ResUtilSetBinaryValue</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HKEY} hkeyClusterKey Key identifying the location of the binary value in the cluster database.
      * @param {PWSTR} pszValueName A null-terminated Unicode string containing the name of the value to update.
      * @param {Pointer} pbNewValue Pointer to the new binary value.
@@ -14329,7 +15662,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
      * 
      * <table>
      * <tr>
@@ -14348,7 +15681,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilsetbinaryvalue
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilsetbinaryvalue
      * @since windowsserver2008
      */
     static ResUtilSetBinaryValue(hkeyClusterKey, pszValueName, pbNewValue, cbNewValueSize, ppbOutValue, pcbOutValueSize) {
@@ -14363,6 +15696,31 @@ class Clustering {
 
     /**
      * Sets a string value in the cluster database. The PRESUTIL_SET_SZ_VALUE type defines a pointer to this function.
+     * @remarks
+     * The  <b>ResUtilSetSzValue</b> utility function allocates memory for the new value and calls the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-api">Cluster API</a> function  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregsetvalue">ClusterRegSetValue</a>. If necessary, a previous value is deallocated. The new value is copied to the content of <i>ppszOutValue</i>.
+     * 
+     * Be sure to call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>ppszOutValue</i> to avoid memory leaks.
+     * 
+     * Do not call  <b>ResUtilSetSzValue</b> from the following resource DLL entry point functions:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pclose_routine">Close</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_routine">Online</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a>
+     * </li>
+     * </ul>
+     * <b>ResUtilSetSzValue</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HKEY} hkeyClusterKey Key identifying the location of the string value in the cluster database.
      * @param {PWSTR} pszValueName Null-terminated Unicode string containing the name of the value to update.
      * @param {PWSTR} pszNewValue Pointer to the new string value.
@@ -14370,7 +15728,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
      * 
      * <table>
      * <tr>
@@ -14389,7 +15747,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilsetszvalue
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilsetszvalue
      * @since windowsserver2008
      */
     static ResUtilSetSzValue(hkeyClusterKey, pszValueName, pszNewValue, ppszOutString) {
@@ -14405,6 +15763,33 @@ class Clustering {
 
     /**
      * Sets an expandable string value in the cluster database. The PRESUTIL_SET_EXPAND_SZ_VALUE type defines a pointer to this function.
+     * @remarks
+     * The  <b>ResUtilSetExpandSzValue</b> utility function allocates memory for the new value and calls the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-api">Cluster API</a> function  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregsetvalue">ClusterRegSetValue</a>.
+     * 
+     * An expandable string value contains data that represents a null-terminated Unicode string containing unexpanded references to environment variables such as "%SystemRoot%".
+     * 
+     * Be sure to call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>ppszOutValue</i> to avoid memory leaks.
+     * 
+     * Do not call  <b>ResUtilSetExpandSzValue</b> from the following resource DLL entry point functions:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pclose_routine">Close</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_routine">Online</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a>
+     * </li>
+     * </ul>
+     * <b>ResUtilSetExpandSzValue</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HKEY} hkeyClusterKey Key identifying the location of the expandable string value in the cluster database.
      * @param {PWSTR} pszValueName null-terminated Unicode string containing the name of the value to update.
      * @param {PWSTR} pszNewValue Pointer to the new expandable string value.
@@ -14412,7 +15797,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
      * 
      * <table>
      * <tr>
@@ -14431,7 +15816,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilsetexpandszvalue
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilsetexpandszvalue
      * @since windowsserver2008
      */
     static ResUtilSetExpandSzValue(hkeyClusterKey, pszValueName, pszNewValue, ppszOutString) {
@@ -14447,6 +15832,33 @@ class Clustering {
 
     /**
      * Sets a multiple string value in the cluster database. The PRESUTIL_SET_MULTI_SZ_VALUE type defines a pointer to this function.
+     * @remarks
+     * The  <b>ResUtilSetMultiSzValue</b> utility function allocates memory for the new value and calls the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-api">Cluster API</a> function  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregsetvalue">ClusterRegSetValue</a>.
+     * 
+     * A multiple string value is a large string containing smaller, contiguous, null-terminated Unicode strings and ending with an extra null character after the last string.
+     * 
+     * Be sure to call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>ppszOutValue</i> to avoid memory leaks.
+     * 
+     * Do not call  <b>ResUtilSetMultiSzValue</b> from the following resource DLL entry point functions:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pclose_routine">Close</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_routine">Online</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a>
+     * </li>
+     * </ul>
+     * <b>ResUtilSetMultiSzValue</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HKEY} hkeyClusterKey Key identifying the location of the multiple string value in the cluster database.
      * @param {PWSTR} pszValueName Null-terminated Unicode string containing the name of the value to update.
      * @param {Pointer} pszNewValue Pointer to the new multiple string value.
@@ -14456,7 +15868,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error code.
      * 
      * <table>
      * <tr>
@@ -14475,7 +15887,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilsetmultiszvalue
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilsetmultiszvalue
      * @since windowsserver2008
      */
     static ResUtilSetMultiSzValue(hkeyClusterKey, pszValueName, pszNewValue, cbNewValueSize, ppszOutValue, pcbOutValueSize) {
@@ -14491,6 +15903,29 @@ class Clustering {
 
     /**
      * Sets a numeric value in the cluster database. The PRESUTIL_SET_DWORD_VALUE type defines a pointer to this function.
+     * @remarks
+     * The  <b>ResUtilSetDwordValue</b> utility function updates the cluster database by calling the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-api">Cluster API</a> function  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregsetvalue">ClusterRegSetValue</a>.
+     * 
+     * Do not call  <b>ResUtilSetDwordValue</b> from the following resource DLL entry point functions:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pclose_routine">Close</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-poffline_routine">Offline</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-ponline_routine">Online</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pterminate_routine">Terminate</a>
+     * </li>
+     * </ul>
+     * <b>ResUtilSetDwordValue</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HKEY} hkeyClusterKey Key identifying the location of the numeric value in the cluster database.
      * @param {PWSTR} pszValueName A null-terminated Unicode string containing the name of the value to update.
      * @param {Integer} dwNewValue New <b>DWORD</b> value.
@@ -14498,8 +15933,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilsetdwordvalue
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilsetdwordvalue
      * @since windowsserver2008
      */
     static ResUtilSetDwordValue(hkeyClusterKey, pszValueName, dwNewValue, pdwOutValue) {
@@ -14519,7 +15954,7 @@ class Clustering {
      * @param {Integer} qwNewValue 
      * @param {Pointer<Integer>} pqwOutValue 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilsetqwordvalue
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilsetqwordvalue
      * @since windowsserver2008
      */
     static ResUtilSetQwordValue(hkeyClusterKey, pszValueName, qwNewValue, pqwOutValue) {
@@ -14541,7 +15976,7 @@ class Clustering {
      * @param {Integer} valueSize The size of the new value, in bytes.
      * @param {Integer} flags The flags that specify settings for the operation.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation succeeds; otherwise, returns a system error code.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilsetvalueex
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilsetvalueex
      * @since windowsserver2012
      */
     static ResUtilSetValueEx(hkeyClusterKey, valueName, valueType, valueData, valueSize, flags) {
@@ -14567,7 +16002,7 @@ class Clustering {
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error 
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error 
      *        code.
      * 
      * <table>
@@ -14587,7 +16022,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetbinaryproperty
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetbinaryproperty
      * @since windowsserver2008
      */
     static ResUtilGetBinaryProperty(ppbOutValue, pcbOutValueSize, pValueStruct, pbOldValue, cbOldValueSize, ppPropertyList, pcbPropertyListSize) {
@@ -14612,7 +16047,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error 
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error 
      *        code.
      * 
      * <table>
@@ -14632,7 +16067,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetszproperty
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetszproperty
      * @since windowsserver2008
      */
     static ResUtilGetSzProperty(ppszOutValue, pValueStruct, pszOldValue, ppPropertyList, pcbPropertyListSize) {
@@ -14660,7 +16095,7 @@ class Clustering {
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *       <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error 
+     *       <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error 
      *       code.
      * 
      * <table>
@@ -14680,7 +16115,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetmultiszproperty
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetmultiszproperty
      * @since windowsserver2008
      */
     static ResUtilGetMultiSzProperty(ppszOutValue, pcbOutValueSize, pValueStruct, pszOldValue, cbOldValueSize, ppPropertyList, pcbPropertyListSize) {
@@ -14694,6 +16129,11 @@ class Clustering {
 
     /**
      * Retrieves a DWORD property from a property list and advances a pointer to the next property in the list. The PRESUTIL_GET_DWORD_PROPERTY type defines a pointer to this function.
+     * @remarks
+     * The <b>ResUtilGetDwordProperty</b> utility function verifies that the value returned 
+     *     in <i>pdwOutValue</i> is within the range specified by <i>dwMinimum</i> and 
+     *     <i>dwMaximum</i>. If <i>dwMinimum</i> and 
+     *     <i>dwMaximum</i> are both set to 0, no range checking is done.
      * @param {Pointer<Integer>} pdwOutValue Address of a pointer in which the <b>DWORD</b> value from the property list will be 
      *       returned.
      * @param {Pointer<CLUSPROP_DWORD>} pValueStruct Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa368375(v=vs.85)">CLUSPROP_DWORD</a> structure specifying 
@@ -14708,7 +16148,7 @@ class Clustering {
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error 
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error 
      *        code.
      * 
      * <table>
@@ -14728,7 +16168,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetdwordproperty
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetdwordproperty
      * @since windowsserver2008
      */
     static ResUtilGetDwordProperty(pdwOutValue, pValueStruct, dwOldValue, dwMinimum, dwMaximum, ppPropertyList, pcbPropertyListSize) {
@@ -14741,16 +16181,15 @@ class Clustering {
     }
 
     /**
-     * TBD. The PRESUTIL_GET_LONG_PROPERTY type defines a pointer to this function.
-     * @param {Pointer<Integer>} plOutValue TBD
-     * @param {Pointer<CLUSPROP_LONG>} pValueStruct TBD
-     * @param {Integer} lOldValue TBD
-     * @param {Integer} lMinimum TBD
-     * @param {Integer} lMaximum TBD
-     * @param {Pointer<Pointer<Integer>>} ppPropertyList TBD
-     * @param {Pointer<Integer>} pcbPropertyListSize TBD
+     * 
+     * @param {Pointer<Integer>} plOutValue 
+     * @param {Pointer<CLUSPROP_LONG>} pValueStruct 
+     * @param {Integer} lOldValue 
+     * @param {Integer} lMinimum 
+     * @param {Integer} lMaximum 
+     * @param {Pointer<Pointer<Integer>>} ppPropertyList 
+     * @param {Pointer<Integer>} pcbPropertyListSize 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetlongproperty
      * @since windowsserver2008
      */
     static ResUtilGetLongProperty(plOutValue, pValueStruct, lOldValue, lMinimum, lMaximum, ppPropertyList, pcbPropertyListSize) {
@@ -14772,7 +16211,7 @@ class Clustering {
      * @param {Pointer<Pointer<Integer>>} ppPropertyList 
      * @param {Pointer<Integer>} pcbPropertyListSize 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetfiletimeproperty
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetfiletimeproperty
      * @since windowsserver2008
      */
     static ResUtilGetFileTimeProperty(pftOutValue, pValueStruct, ftOldValue, ftMinimum, ftMaximum, ppPropertyList, pcbPropertyListSize) {
@@ -14785,20 +16224,33 @@ class Clustering {
 
     /**
      * Adjusts environment data for a resource so that the resource uses a cluster network name to identify its location.
+     * @remarks
+     * The  <b>ResUtilGetEnvironmentWithNetName</b> function appends environment variables to the current environment block. Pass the returned environment block to  <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a> when starting the resource to achieve the following effects:
+     * 
+     * <ul>
+     * <li>Clients and the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> can locate the resource by using the name of the Network Name resource.</li>
+     * <li>If the resource calls <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getcomputernamea">GetComputerName</a>, <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getcomputernameexa">GetComputerNameEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/wsipv6ok/nf-wsipv6ok-gethostbyname">gethostbyname</a>, the network name will be returned regardless of which node is currently hosting the resource.</li>
+     * </ul>
+     * If the resource identified by <i>hResource</i> is not dependent on a Network Name resource,  <b>ResUtilGetEnvironmentWithNetName</b> returns <b>NULL</b>.
+     * 
+     * Use  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilfreeenvironment">ResUtilFreeEnvironment</a> to destroy the environment block.
+     * 
+     * Do not call  <b>ResUtilGetEnvironmentWithNetName</b> from any resource DLL entry point function.  <b>ResUtilGetEnvironmentWithNetName</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HRESOURCE} hResource Handle to a resource that depends on a Network Name resource.
      * @returns {Pointer<Void>} If the operations succeeds, the function returns a pointer to the environment block.
      * 
      * If the operation fails, 
-     * the function returns <b>NULL</b>. For more information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetenvironmentwithnetname
+     * the function returns <b>NULL</b>. For more information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetenvironmentwithnetname
      * @since windowsserver2008
      */
     static ResUtilGetEnvironmentWithNetName(hResource) {
         A_LastError := 0
 
         result := DllCall("RESUTILS.dll\ResUtilGetEnvironmentWithNetName", "ptr", hResource, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -14807,7 +16259,7 @@ class Clustering {
      * Destroys the environment variable block created with ResUtilGetEnvironmentWithNetName. The PRESUTIL_FREE_ENVIRONMENT type defines a pointer to this function.
      * @param {Pointer<Void>} lpEnvironment Pointer to the environment variable block returned from  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetenvironmentwithnetname">ResUtilGetEnvironmentWithNetName</a>.
      * @returns {Integer} This function has no return values.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilfreeenvironment
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilfreeenvironment
      * @since windowsserver2008
      */
     static ResUtilFreeEnvironment(lpEnvironment) {
@@ -14820,11 +16272,11 @@ class Clustering {
     /**
      * Expands strings containing unexpanded references to environment variables. The PRESUTIL_EXPAND_ENVIRONMENT_STRINGS type defines a pointer to this function.
      * @param {PWSTR} pszSrc Pointer to a null-terminated Unicode string containing unexpanded references to environment variables (an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/e-gly">expandable string</a>).
-     * @returns {PWSTR} If the operation succeeds, the function returns a pointer to the expanded string (REG_EXPAND_SZ). The function allocates the necessary memory with <a href="/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a>. To prevent memory leaks, be sure to release the memory with <a href="/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>.
+     * @returns {PWSTR} If the operation succeeds, the function returns a pointer to the expanded string (REG_EXPAND_SZ). The function allocates the necessary memory with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a>. To prevent memory leaks, be sure to release the memory with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>.
      * 
      * If the operation fails, the function returns <b>NULL</b>.
-     *      For more information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilexpandenvironmentstrings
+     *      For more information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilexpandenvironmentstrings
      * @since windowsserver2008
      */
     static ResUtilExpandEnvironmentStrings(pszSrc) {
@@ -14833,14 +16285,21 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("RESUTILS.dll\ResUtilExpandEnvironmentStrings", "ptr", pszSrc, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Adjusts the environment data for a service so that the service uses a cluster network name to identify its location. This function must be called from a resource DLL. The PRESUTIL_SET_RESOURCE_SERVICE_ENVIRONMENT type defines a pointer to this function.
+     * @remarks
+     * <b>ResUtilSetResourceServiceEnvironment</b> calls  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetenvironmentwithnetname">ResUtilGetEnvironmentWithNetName</a> and stores the resulting environment block in a registry entry for the service. For more information about the effects of the environment block, see  <b>ResUtilGetEnvironmentWithNetName</b>.
+     * 
+     * If your resource DLL manages a service, create a worker thread and use  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilsetresourceservicestartparameters">ResUtilSetResourceServiceStartParameters</a> and  <b>ResUtilSetResourceServiceEnvironment</b> when bringing the service online.
+     * 
+     * Do not call  <b>ResUtilSetResourceServiceEnvironment</b> from any resource DLL entry point function.  <b>ResUtilSetResourceServiceEnvironment</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {PWSTR} pszServiceName Pointer a null-terminated Unicode string containing the name of the service.
      * @param {HRESOURCE} hResource Resource handle for the service obtained from  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterresource">OpenClusterResource</a>.
      * @param {Pointer<PLOG_EVENT_ROUTINE>} pfnLogEvent Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-plog_event_routine">LogEvent</a> entry point function of the resource DLL managing the service.
@@ -14848,8 +16307,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilsetresourceserviceenvironment
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilsetresourceserviceenvironment
      * @since windowsserver2008
      */
     static ResUtilSetResourceServiceEnvironment(pszServiceName, hResource, pfnLogEvent, hResourceHandle) {
@@ -14867,8 +16326,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilremoveresourceserviceenvironment
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilremoveresourceserviceenvironment
      * @since windowsserver2008
      */
     static ResUtilRemoveResourceServiceEnvironment(pszServiceName, pfnLogEvent, hResourceHandle) {
@@ -14880,6 +16339,10 @@ class Clustering {
 
     /**
      * Adjusts the start parameters of a specified service so that it will operate correctly as a cluster resource. It must be called from a resource DLL. The PRESUTIL_SET_RESOURCE_SERVICE_START_PARAMETERS type defines a pointer to this function.
+     * @remarks
+     * <b>ResUtilSetResourceServiceStartParameters</b> verifies that the service is not disabled, changes the service configuration to manual start and prevents the service from restarting in response to failure. This allows the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> and the resource DLL to control the service.
+     * 
+     * If your resource DLL manages a service, use  <b>ResUtilSetResourceServiceStartParameters</b> and  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilsetresourceserviceenvironment">ResUtilSetResourceServiceEnvironment</a> before bringing the service online.
      * @param {PWSTR} pszServiceName Pointer to a null-terminated Unicode string specifying the name of the service.
      * @param {SC_HANDLE} schSCMHandle Handle to the Service Control Manager (SCM) or <b>NULL</b>. If <b>NULL</b>, the function will attempt to open a handle to the SCM.
      * @param {Pointer<SC_HANDLE>} phService On input, a <b>NULL</b> service handle. On output, handle to the specified service if the call was successful, otherwise <b>NULL</b>.
@@ -14888,8 +16351,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilsetresourceservicestartparameters
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilsetresourceservicestartparameters
      * @since windowsserver2008
      */
     static ResUtilSetResourceServiceStartParameters(pszServiceName, schSCMHandle, phService, pfnLogEvent, hResourceHandle) {
@@ -14902,6 +16365,8 @@ class Clustering {
 
     /**
      * Locates a string property in a property list. The PRESUTIL_FIND_SZ_PROPERTY type defines a pointer to this function.
+     * @remarks
+     * If  <b>ResUtilFindSzProperty</b> is successful, *<i>pszPropertyValue</i> points to a copy of the data stored in <i>pPropertyList</i>. Be sure to call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>pszPropertyValue</i> to prevent memory leaks.
      * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size in bytes of the data included in <i>pPropertyList</i>.
      * @param {PWSTR} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
@@ -14909,7 +16374,7 @@ class Clustering {
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
      * 
      * <table>
      * <tr>
@@ -14950,7 +16415,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilfindszproperty
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilfindszproperty
      * @since windowsserver2008
      */
     static ResUtilFindSzProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pszPropertyValue) {
@@ -14964,6 +16429,8 @@ class Clustering {
 
     /**
      * Locates an expandable string property in a property list. The PRESUTIL_FIND_EXPAND_SZ_PROPERTY type defines a pointer to this function.
+     * @remarks
+     * If  <b>ResUtilFindExpandSzProperty</b> is successful, *<i>pszPropertyValue</i> points to a copy of the data stored in <i>pPropertyList</i>. Be sure to call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>pszPropertyValue</i> to prevent memory leaks.
      * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size in bytes of the data included in <i>pPropertyList</i>.
      * @param {PWSTR} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
@@ -14971,7 +16438,7 @@ class Clustering {
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
      * 
      * <table>
      * <tr>
@@ -15012,7 +16479,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilfindexpandszproperty
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilfindexpandszproperty
      * @since windowsserver2008
      */
     static ResUtilFindExpandSzProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pszPropertyValue) {
@@ -15026,6 +16493,8 @@ class Clustering {
 
     /**
      * Locates an expanded string property value in a property list. The PRESUTIL_FIND_EXPANDED_SZ_PROPERTY type defines a pointer to this function.
+     * @remarks
+     * If  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilfindexpandszproperty">ResUtilFindExpandSzProperty</a> is successful, *<i>pszPropertyValue</i> points to a copy of the data stored in <i>pPropertyList</i>. Be sure to call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>pszPropertyValue</i> to prevent memory leaks.
      * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size in bytes of the data included in <i>pPropertyList</i>.
      * @param {PWSTR} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
@@ -15033,7 +16502,7 @@ class Clustering {
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
      * 
      * <table>
      * <tr>
@@ -15074,7 +16543,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilfindexpandedszproperty
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilfindexpandedszproperty
      * @since windowsserver2008
      */
     static ResUtilFindExpandedSzProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pszPropertyValue) {
@@ -15088,6 +16557,8 @@ class Clustering {
 
     /**
      * Locates an unsigned long property value in a property list. The PRESUTIL_FIND_DWORD_PROPERTY type defines a pointer to this function.
+     * @remarks
+     * If the operation is successful, <i>pdwPropertyValue</i> points directly into the property list buffer. Be careful not to disturb the formatting of the property list when using <i>pdwPropertyValue</i>.
      * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size in bytes of the data included in <i>pPropertyList</i>.
      * @param {PWSTR} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
@@ -15095,7 +16566,7 @@ class Clustering {
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
      * 
      * <table>
      * <tr>
@@ -15125,7 +16596,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilfinddwordproperty
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilfinddwordproperty
      * @since windowsserver2008
      */
     static ResUtilFindDwordProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pdwPropertyValue) {
@@ -15139,6 +16610,8 @@ class Clustering {
 
     /**
      * Locates a specified binary property in a property list and can also return the value of the property. The PRESUTIL_FIND_BINARY_PROPERTY type defines a pointer to this function.
+     * @remarks
+     * If  <b>ResUtilFindBinaryProperty</b> is successful, *<i>pbPropertyValue</i> points to a copy of the data stored in <i>pPropertyList</i>. Be sure to call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>pbPropertyValue</i> to prevent memory leaks.
      * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size, in bytes, of the property list specified by <i>pPropertyList</i>.
      * @param {PWSTR} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the property to locate.
@@ -15147,7 +16620,7 @@ class Clustering {
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
      * 
      * <table>
      * <tr>
@@ -15188,7 +16661,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilfindbinaryproperty
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilfindbinaryproperty
      * @since windowsserver2008
      */
     static ResUtilFindBinaryProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pbPropertyValue, pcbPropertyValueSize) {
@@ -15203,6 +16676,8 @@ class Clustering {
 
     /**
      * Locates a multiple string property in a property list. The PRESUTIL_FIND_MULTI_SZ_PROPERTY type defines a pointer to this function.
+     * @remarks
+     * If  <b>ResUtilFindMultiSzProperty</b> is successful, *<i>pbPropertyValue</i> points to a copy of the data stored in <i>pPropertyList</i>. Be sure to call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>pbPropertyValue</i> to prevent memory leaks.
      * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size in bytes of the data included in <i>pPropertyList</i>.
      * @param {PWSTR} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
@@ -15211,7 +16686,7 @@ class Clustering {
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
      * 
      * <table>
      * <tr>
@@ -15252,7 +16727,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilfindmultiszproperty
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilfindmultiszproperty
      * @since windowsserver2008
      */
     static ResUtilFindMultiSzProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pszPropertyValue, pcbPropertyValueSize) {
@@ -15267,6 +16742,8 @@ class Clustering {
 
     /**
      * Locates a signed long property value in a property list. The PRESUTIL_FIND_LONG_PROPERTY type defines a pointer to this function.
+     * @remarks
+     * If the operation is successful, <i>plPropertyValue</i> points directly into the property list buffer. Be careful not to disturb the formatting of the property list when using <i>plPropertyValue</i>.
      * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size in bytes of the data included in <i>pPropertyList</i>.
      * @param {PWSTR} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
@@ -15274,7 +16751,7 @@ class Clustering {
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error codes.
      * 
      * <table>
      * <tr>
@@ -15304,7 +16781,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilfindlongproperty
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilfindlongproperty
      * @since windowsserver2008
      */
     static ResUtilFindLongProperty(pPropertyList, cbPropertyListSize, pszPropertyName, plPropertyValue) {
@@ -15325,9 +16802,9 @@ class Clustering {
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error 
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following is a possible error 
      *        code.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilfindulargeintegerproperty
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilfindulargeintegerproperty
      * @since windowsserver2016
      */
     static ResUtilFindULargeIntegerProperty(pPropertyList, cbPropertyListSize, pszPropertyName, plPropertyValue) {
@@ -15346,7 +16823,7 @@ class Clustering {
      * @param {PWSTR} pszPropertyName 
      * @param {Pointer<FILETIME>} pftPropertyValue 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilfindfiletimeproperty
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilfindfiletimeproperty
      * @since windowsserver2008
      */
     static ResUtilFindFileTimeProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pftPropertyValue) {
@@ -15365,8 +16842,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-clusworkercreate
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-clusworkercreate
      * @since windowsserver2008
      */
     static ClusWorkerCreate(lpWorker, lpStartAddress, lpParameter) {
@@ -15378,6 +16855,12 @@ class Clustering {
 
     /**
      * Determines whether a worker thread should exit as soon as possible. The PCLUSAPIClusWorkerCheckTerminate type defines a pointer to this function.
+     * @remarks
+     * The <b>ClusWorkerCheckTerminate</b> utility 
+     *      function checks the <b>Terminate</b> member of the 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/resapi/ns-resapi-clus_worker">CLUS_WORKER</a> structure to determine whether the thread 
+     *      pointed to by Worker should exit. The <b>Terminate</b> member is used to prevent problems from occurring when multiple threads call 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-clusworkerterminate">ClusWorkerTerminate</a> on the same worker thread.
      * @param {Pointer<CLUS_WORKER>} lpWorker Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-clus_worker">CLUS_WORKER</a> structure describing the 
      *        thread to check.
      * @returns {BOOL} <b>ClusWorkerCheckTerminate</b> returns one of 
@@ -15413,7 +16896,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-clusworkercheckterminate
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-clusworkercheckterminate
      * @since windowsserver2008
      */
     static ClusWorkerCheckTerminate(lpWorker) {
@@ -15422,24 +16905,21 @@ class Clustering {
     }
 
     /**
-     * Waits for a worker thread to terminate up to the specified timeout.
+     * Waits for a worker thread to terminate up to the specified timeout. (ClusWorkerTerminate)
      * @remarks
-     * 
      * This function has no return values.
      * 
      * The **ClusWorkerTerminate** utility function checks the *hThread* and *Terminate* members of the **CLUS_WORKER** structure pointed to by *lpWorker*. If *hThread* is not NULL and *Terminate* is set to FALSE, indicating that this is your first call to **ClusWorkerTerminate**, the function waits for the thread to exit before returning. Otherwise, if you have called **ClusWorkerTerminate** previously, indicated by *Terminate* being set to TRUE, the function may return before the thread has terminated.
-     * 
-     * 
      * @param {Pointer<CLUS_WORKER>} lpWorker Pointer to a [CLUS_WORKER](ns-resapi-clus_worker.md) structure describing the thread to terminate.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-clusworkerterminate
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-clusworkerterminate
      */
     static ClusWorkerTerminate(lpWorker) {
         DllCall("RESUTILS.dll\ClusWorkerTerminate", "ptr", lpWorker)
     }
 
     /**
-     * Waits for a worker thread to terminate up to the specified timeout.
+     * Waits for a worker thread to terminate up to the specified timeout. (ClusWorkerTerminateEx)
      * @param {Pointer<CLUS_WORKER>} ClusWorker Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-clus_worker">CLUS_WORKER</a> structure describing the 
      *        worker thread to terminate.
      * @param {Integer} TimeoutInMilliseconds The timeout in milliseconds.
@@ -15474,7 +16954,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-clusworkerterminateex
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-clusworkerterminateex
      * @since windowsserver2016
      */
     static ClusWorkerTerminateEx(ClusWorker, TimeoutInMilliseconds, WaitOnly) {
@@ -15519,8 +16999,8 @@ class Clustering {
      * </table>
      *  
      * 
-     * Returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a> on failure.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-clusworkersterminate
+     * Returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> on failure.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-clusworkersterminate
      * @since windowsserver2016
      */
     static ClusWorkersTerminate(ClusWorkers, ClusWorkersCount, TimeoutInMilliseconds, WaitOnly) {
@@ -15532,13 +17012,17 @@ class Clustering {
 
     /**
      * Tests whether two resource handles represent the same resource. The PRESUTIL_RESOURCES_EQUAL type defines a pointer to this function.
+     * @remarks
+     * The  <b>ResUtilResourcesEqual</b> utility function compares the two resources by retrieving their names. To retrieve the names,  <b>ResUtilResourcesEqual</b> passes the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-get-name">CLUSCTL_RESOURCE_GET_NAME</a> control code to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterresourcecontrol">ClusterResourceControl</a> function. If the names are the same, the resources are equal.
+     * 
+     * Do not pass LPC and RPC handles in the same function call. If you do, the call will raise an RPC exception and can result in additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {HRESOURCE} hSelf Handle to one of the resources.
      * @param {HRESOURCE} hResource Handle to the other resource.
      * @returns {BOOL} If the resources are equal, the function returns <b>TRUE</b>.
      * 
      * If the resources are not equal, 
      * the function returns <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilresourcesequal
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilresourcesequal
      * @since windowsserver2008
      */
     static ResUtilResourcesEqual(hSelf, hResource) {
@@ -15548,13 +17032,15 @@ class Clustering {
 
     /**
      * Tests whether a resource type matches the resource type name of a specified resource. The PRESUTIL_RESOURCE_TYPES_EQUAL type defines a pointer to this function.
+     * @remarks
+     * The  <b>ResUtilResourceTypesEqual</b> utility function compares the resource type name pointed to by <i>lpszResourceTypeName</i> with the resource type name of the resource identified by <i>hResource</i>. To perform the comparison,  <b>ResUtilResourceTypesEqual</b> passes the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-get-resource-type">CLUSCTL_RESOURCE_GET_RESOURCE_TYPE</a> control code to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterresourcecontrol">ClusterResourceControl</a> function to retrieve the resource type. If the two resource type names are the same, the resource types are equal. Note that  <b>ResUtilResourceTypesEqual</b> compares the resource type name and not the resource type  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/display-names">display name</a>.
      * @param {PWSTR} lpszResourceTypeName Pointer to the resource type name to test.
      * @param {HRESOURCE} hResource Handle of the resource to test.
      * @returns {BOOL} If the resource types are equal, the function returns <b>TRUE</b>.
      * 
      * If the resource types are not equal, 
      * the function returns <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilresourcetypesequal
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilresourcetypesequal
      * @since windowsserver2008
      */
     static ResUtilResourceTypesEqual(lpszResourceTypeName, hResource) {
@@ -15572,7 +17058,7 @@ class Clustering {
      * 
      * If the resource classes are not equal, 
      * the function returns <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilisresourceclassequal
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilisresourceclassequal
      * @since windowsserver2008
      */
     static ResUtilIsResourceClassEqual(prci, hResource) {
@@ -15582,6 +17068,34 @@ class Clustering {
 
     /**
      * Enumerates all of the resources in the local cluster and initiates a user-defined operation for each resource. The PRESUTIL_ENUM_RESOURCES type defines a pointer to this function.
+     * @remarks
+     * <b>ResUtilEnumResources</b> is a convenient and 
+     *      easy-to-use alternative to the 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourceenum">ClusterResourceEnum</a> function.
+     * 
+     * <b>ResUtilEnumResources</b> must be run on a cluster 
+     *      node because it only connects to the local cluster. The 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilenumresourcesex">ResUtilEnumResourcesEx</a> function allows you to 
+     *      specify a remote cluster.
+     * 
+     * The following example uses 
+     *       <b>ResUtilEnumResources</b> to list the names and 
+     *       states of all resources in the cluster.
+     * 
+     * 
+     * ```cpp
+     * //////////////////////////////////////////////////////////////////////
+     * //  ClusDocEx_EnumDemo.cpp
+     * //
+     * //  Uses the ResUtilEnumResources function to list the names and 
+     * //  states of all cluster resources.
+     * //
+     * //  To compile and run this example you will need two other examples 
+     * //  from the documentation:  ClusDocEx.h (see "ClusDocEx.h") and 
+     * //  ClusDocEx_GetControlCodeOutput.cpp (see "Getting Information with 
+     * //  Control Codes").
+     * // 
+     * //////////////////////////////////////////////////////////////////////
      * @param {HRESOURCE} hSelf Optional handle to a cluster resource. The callback function is not invoked for a resource identified by 
      *        <i>hSelf</i>.
      * @param {PWSTR} lpszResTypeName Optional pointer to a name of a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-types">resource type</a> that 
@@ -15592,11 +17106,14 @@ class Clustering {
      *        callback function (note that parameter names are not part of the definition; they have been added here for 
      *        clarity):
      * 
-     * <pre class="syntax" xml:space="preserve"><code>DWORD (*LPRESOURCE_CALLBACK)( 
+     * 
+     * ``` syntax
+     * DWORD (*LPRESOURCE_CALLBACK)( 
      *   HRESOURCE hSelf, 
      *   HRESOURCE hEnum, 
      *   PVOID pParameter 
-     * );</code></pre>
+     * );
+     * ```
      * @param {Pointer<Void>} pParameter A generic buffer that allows you to pass any kind of data to the callback function. 
      *        <b>ResUtilEnumResources</b> does not use this 
      *        parameter at all, it merely passes the pointer to the callback function. Whether you can pass 
@@ -15606,7 +17123,7 @@ class Clustering {
      * 
      * If the operation fails, the function immediately halts the enumeration and returns the value returned by the 
      *        callback function.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilenumresources
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilenumresources
      * @since windowsserver2008
      */
     static ResUtilEnumResources(hSelf, lpszResTypeName, pResCallBack, pParameter) {
@@ -15620,6 +17137,10 @@ class Clustering {
 
     /**
      * Enumerates all of the resources in a specified cluster and initiates a user-defined operation for each resource. The PRESUTIL_ENUM_RESOURCES_EX type defines a pointer to this function.
+     * @remarks
+     * <b>ResUtilEnumResourcesEx</b> is a convenient and 
+     *      easy-to-use alternative to the 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourceenum">ClusterResourceEnum</a> function.
      * @param {HCLUSTER} hCluster A handle to the cluster that contains  the resources to enumerate.
      * @param {HRESOURCE} hSelf An optional handle to a cluster resource. The callback function is not invoked for a resource that is  identified by 
      *        <i>hSelf</i>.
@@ -15631,12 +17152,15 @@ class Clustering {
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-lpresource_callback_ex">ResourceCallbackEx</a> callback function.  Note 
      *        that parameter names are not part of the definition; they have been added here for clarity.
      * 
-     * <pre class="syntax" xml:space="preserve"><code>DWORD (*LPRESOURCE_CALLBACK_EX)( 
+     * 
+     * ``` syntax
+     * DWORD (*LPRESOURCE_CALLBACK_EX)( 
      *   HCLUSTER hCluster,
      *   HRESOURCE hSelf, 
      *   HRESOURCE hEnum, 
      *   PVOID pParameter 
-     * );</code></pre>
+     * );
+     * ```
      * @param {Pointer<Void>} pParameter A generic buffer that  enables you to pass any kind of data to the callback function. 
      *        <b>ResUtilEnumResourcesEx</b> does not use this 
      *        parameter at all; it merely passes the pointer to the callback function. Whether  you can pass 
@@ -15645,7 +17169,7 @@ class Clustering {
      * 
      * If the operation fails, the function immediately halts the enumeration and returns the value that is returned by the 
      *        callback function.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilenumresourcesex
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilenumresourcesex
      * @since windowsserver2008
      */
     static ResUtilEnumResourcesEx(hCluster, hSelf, lpszResTypeName, pResCallBack, pParameter) {
@@ -15659,13 +17183,45 @@ class Clustering {
 
     /**
      * Enumerates the dependencies of a specified resource and returns a handle to a dependency of a specified type. The PRESUTIL_GET_RESOURCE_DEPENDENCY type defines a pointer to this function.
+     * @remarks
+     * The  <b>ResUtilGetResourceDependency</b>,  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetresourcedependencybyname">ResUtilGetResourceDependencyByName</a>, and  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetresourcenamedependency">ResUtilGetResourceNameDependency</a> functions are very similar in that they all provide access to dependencies of a particular resource type. The following table summarizes the differences between the functions.
+     * 
+     * <table>
+     * <tr>
+     * <th>Function</th>
+     * <th>How the dependent resource is specified</th>
+     * <th>Requires cluster handle</th>
+     * </tr>
+     * <tr>
+     * <td><b>ResUtilGetResourceDependency</b></td>
+     * <td>Resource handle</td>
+     * <td>No</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetresourcedependencybyname">ResUtilGetResourceDependencyByName</a>
+     * </td>
+     * <td>Resource handle</td>
+     * <td>Yes</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetresourcenamedependency">ResUtilGetResourceNameDependency</a>
+     * </td>
+     * <td>Resource name</td>
+     * <td>No</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Do not call  <b>ResUtilGetResourceDependency</b> from any resource DLL entry point function.  <b>ResUtilGetResourceDependency</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HANDLE} hSelf Handle to the dependent resource. This resource depends on one or more resources.
      * @param {PWSTR} lpszResourceType Null-terminated Unicode string specifying the resource type of the dependency to return.
      * @returns {HRESOURCE} If the operation succeeds, 
-     * the function returns a handle to one of the resources on which the resource specified by <i>hSelf</i> depends. The caller is responsible for closing the handle by calling  <a href="/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
+     * the function returns a handle to one of the resources on which the resource specified by <i>hSelf</i> depends. The caller is responsible for closing the handle by calling  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
      * 
-     * If the operation fails, the function returns <b>NULL</b>. For more information, call the   <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetresourcedependency
+     * If the operation fails, the function returns <b>NULL</b>. For more information, call the   <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetresourcedependency
      * @since windowsserver2008
      */
     static ResUtilGetResourceDependency(hSelf, lpszResourceType) {
@@ -15675,21 +17231,72 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("RESUTILS.dll\ResUtilGetResourceDependency", "ptr", hSelf, "ptr", lpszResourceType, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Enumerates the dependencies of a specified resource in a specified cluster and returns a handle to a dependency of a specified type. The PRESUTIL_GET_RESOURCE_DEPENDENCY_BY_NAME type defines a pointer to this function.
+     * @remarks
+     * The  <b>ResUtilGetResourceDependencyByName</b>,  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetresourcedependency">ResUtilGetResourceDependency</a>, and  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetresourcenamedependency">ResUtilGetResourceNameDependency</a> functions are very similar in that they all provide access to dependencies of a particular resource type. The following list summarizes the differences between the functions.
+     * 
+     * <table>
+     * <tr>
+     * <th>Function</th>
+     * <th>How the dependent resource is specified</th>
+     * <th>Requires cluster handle</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetresourcedependency">ResUtilGetResourceDependency</a>
+     * </td>
+     * <td>
+     * Resource handle
+     * 
+     * </td>
+     * <td>
+     * No
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td><b>ResUtilGetResourceDependencyByName</b></td>
+     * <td>
+     * Resource handle
+     * 
+     * </td>
+     * <td>
+     * Yes
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetresourcenamedependency">ResUtilGetResourceNameDependency</a>
+     * </td>
+     * <td>
+     * Resource name
+     * 
+     * </td>
+     * <td>
+     * No
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Do not call  <b>ResUtilGetResourceDependencyByName</b> from any resource DLL entry point function.  <b>ResUtilGetResourceDependencyByName</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HCLUSTER} hCluster Handle to the cluster to which the resource belongs.
      * @param {HANDLE} hSelf Handle to the dependent resource. This resource depends on one or more resources.
      * @param {PWSTR} lpszResourceType NULL-terminated Unicode string specifying the resource type of the dependency to return.
      * @param {BOOL} bRecurse Determines the scope of the search. If <b>TRUE</b>, the function checks the entire dependency tree under the dependent resource. If <b>FALSE</b>, the function checks only the resources on which the dependent resource directly depends.
-     * @returns {HRESOURCE} If the operation succeeds, the function returns a handle to one of the resources on which the resource specified by <i>hSelf</i> depends. The caller is responsible for closing the handle by calling  <a href="/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
+     * @returns {HRESOURCE} If the operation succeeds, the function returns a handle to one of the resources on which the resource specified by <i>hSelf</i> depends. The caller is responsible for closing the handle by calling  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
      * 
-     * If the operation fails, the function returns <b>NULL</b>. For more information, call the   <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * If the operation fails, the function returns <b>NULL</b>. For more information, call the   <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * <table>
      * <tr>
@@ -15711,12 +17318,12 @@ class Clustering {
      * </dl>
      * </td>
      * <td width="60%">
-     * The operation was not successful. For more information, call the function  <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * The operation was not successful. For more information, call the function  <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetresourcedependencybyname
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetresourcedependencybyname
      * @since windowsserver2008
      */
     static ResUtilGetResourceDependencyByName(hCluster, hSelf, lpszResourceType, bRecurse) {
@@ -15726,23 +17333,26 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("RESUTILS.dll\ResUtilGetResourceDependencyByName", "ptr", hCluster, "ptr", hSelf, "ptr", lpszResourceType, "int", bRecurse, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Enumerates the dependencies of a specified resource in a specified cluster and returns a handle to a dependency that matches a specified resource class. The PRESUTIL_GET_RESOURCE_DEPENDENCY_BY_CLASS type defines a pointer to this function.
+     * @remarks
+     * Do not call  <b>ResUtilGetResourceDependencyByClass</b> from any resource DLL entry point function.  <b>ResUtilGetResourceDependencyByClass</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HCLUSTER} hCluster Handle to the cluster to which the resource belongs.
      * @param {HANDLE} hSelf Handle to the dependent resource. This resource depends on one or more resources.
      * @param {Pointer<CLUS_RESOURCE_CLASS_INFO>} prci Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clus_resource_class_info">CLUS_RESOURCE_CLASS_INFO</a> structure describing the resource class of the dependency to return.
      * @param {BOOL} bRecurse Determines the scope of the search. If <b>TRUE</b>, the function checks the entire dependency tree under the dependent resource. If <b>FALSE</b>, the function checks only the resources on which the dependent resource directly depends.
      * @returns {HRESOURCE} If the operation succeeds, 
-     * the function returns a handle to one of the resources on which the resource specified by <i>hSelf</i> depends. The caller is responsible for closing the handle by calling  <a href="/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
+     * the function returns a handle to one of the resources on which the resource specified by <i>hSelf</i> depends. The caller is responsible for closing the handle by calling  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
      * 
-     * If the operation fails, the function returns <b>NULL</b>. For more information, call the   <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetresourcedependencybyclass
+     * If the operation fails, the function returns <b>NULL</b>. For more information, call the   <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetresourcedependencybyclass
      * @since windowsserver2008
      */
     static ResUtilGetResourceDependencyByClass(hCluster, hSelf, prci, bRecurse) {
@@ -15751,22 +17361,55 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("RESUTILS.dll\ResUtilGetResourceDependencyByClass", "ptr", hCluster, "ptr", hSelf, "ptr", prci, "int", bRecurse, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Enumerates the dependencies of a specified resource in the local cluster and returns a handle to a dependency of a specified resource type. The PRESUTIL_GET_RESOURCE_NAME_DEPENDENCY type defines a pointer to this function.
+     * @remarks
+     * The  <b>ResUtilGetResourceNameDependency</b>,  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetresourcedependency">ResUtilGetResourceDependency</a>, and  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetresourcedependencybyname">ResUtilGetResourceDependencyByName</a> functions are very similar in that they all provide access to dependencies of a particular resource type. The following table summarizes the differences between the functions.
+     * 
+     * <table>
+     * <tr>
+     * <th>Function</th>
+     * <th>How the dependent resource is specified</th>
+     * <th>Requires cluster handle</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetresourcedependency">ResUtilGetResourceDependency</a>
+     * </td>
+     * <td>Resource handle</td>
+     * <td>No</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetresourcedependencybyname">ResUtilGetResourceDependencyByName</a>
+     * </td>
+     * <td>Resource handle</td>
+     * <td>Yes</td>
+     * </tr>
+     * <tr>
+     * <td><b>ResUtilGetResourceNameDependency</b></td>
+     * <td>Resource name</td>
+     * <td>No</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Do not call  <b>ResUtilGetResourceNameDependency</b> from any resource DLL entry point function.  <b>ResUtilGetResourceNameDependency</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {PWSTR} lpszResourceName Null-terminated Unicode string specifying the name of the dependent resource. This resource depends on one or more resources.
      * @param {PWSTR} lpszResourceType Null-terminated Unicode string specifying the resource type of the dependency to return.
      * @returns {HRESOURCE} If the operation succeeds, 
-     * the function returns a handle to one of the resources on which the resource specified by <i>lpszResourceName</i> depends. The caller is responsible for closing the handle by calling  <a href="/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
+     * the function returns a handle to one of the resources on which the resource specified by <i>lpszResourceName</i> depends. The caller is responsible for closing the handle by calling  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
      * 
      * If the operation fails, 
-     * the function returns <b>NULL</b>. For more information, call the function  <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetresourcenamedependency
+     * the function returns <b>NULL</b>. For more information, call the function  <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetresourcenamedependency
      * @since windowsserver2008
      */
     static ResUtilGetResourceNameDependency(lpszResourceName, lpszResourceType) {
@@ -15776,14 +17419,31 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("RESUTILS.dll\ResUtilGetResourceNameDependency", "ptr", lpszResourceName, "ptr", lpszResourceType, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Retrieves the private properties of the first IP Address dependency found for a specified resource. The PRESUTIL_GET_RESOURCE_DEPENDENTIP_ADDRESS_PROPS type defines a pointer to this function.
+     * @remarks
+     * Do not call 
+     *     <b>ResUtilGetResourceDependentIPAddressProps</b> 
+     *     from any resource DLL entry point function. 
+     *     <b>ResUtilGetResourceDependentIPAddressProps</b> 
+     *     can safely be called from a worker thread. For more information, see 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
+     * 
+     * The 
+     *     <b>ResUtilGetResourceDependentIPAddressProps</b> 
+     *     function returns only the private properties for the first IPv4 resource that the resource directly depends on. The 
+     *     function does not examine indirect dependencies (such as a resource that depends on a 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-name">network Name</a> resource that in turn depends on an 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ip-address">IP Address</a> resource), 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ipv6-address">IPv6 Address</a> resources, or 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ipv6-tunnel-address">IPv6 Tunnel Address</a> resources.
      * @param {HRESOURCE} hResource Handle to the resource to query for dependencies.
      * @param {PWSTR} pszAddress Output buffer for returning the value of the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ip-addresses-address">Address</a> private property.
@@ -15805,7 +17465,7 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b> (0).
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error 
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error 
      *        codes.
      * 
      * <table>
@@ -15850,7 +17510,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetresourcedependentipaddressprops
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetresourcedependentipaddressprops
      * @since windowsserver2008
      */
     static ResUtilGetResourceDependentIPAddressProps(hResource, pszAddress, pcchAddress, pszSubnetMask, pcchSubnetMask, pszNetwork, pcchNetwork) {
@@ -15868,6 +17528,14 @@ class Clustering {
 
     /**
      * Retrieves the drive letter associated with a Physical Disk dependency of a resource. The PRESUTIL_FIND_DEPENDENT_DISK_RESOURCE_DRIVE_LETTER type defines a pointer to this function.
+     * @remarks
+     * Do not call this function from a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-dlls">resource DLL</a>. It will 
+     *      cause a deadlock. You should have your resource extension call this function and write the results out as a 
+     *      private property that your resource DLL can then read.
+     * 
+     * If the resource identified by hResource depends on more than one Physical Disk resource, 
+     *      <b>ResUtilFindDependentDiskResourceDriveLetter</b> 
+     *      returns the drive letter of the first Physical Disk dependency that is enumerated for the resource.
      * @param {HCLUSTER} hCluster Cluster handle.
      * @param {HRESOURCE} hResource Handle to the resource to query for dependencies.
      * @param {PWSTR} pszDriveLetter Buffer in which to store the drive letter.
@@ -15877,7 +17545,7 @@ class Clustering {
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b> (0).
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error 
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. The following are possible error 
      *        codes.
      * 
      * <table>
@@ -15920,7 +17588,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilfinddependentdiskresourcedriveletter
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilfinddependentdiskresourcedriveletter
      * @since windowsserver2008
      */
     static ResUtilFindDependentDiskResourceDriveLetter(hCluster, hResource, pszDriveLetter, pcchDriveLetter) {
@@ -15931,14 +17599,19 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("RESUTILS.dll\ResUtilFindDependentDiskResourceDriveLetter", "ptr", hCluster, "ptr", hResource, "ptr", pszDriveLetter, pcchDriveLetterMarshal, pcchDriveLetter, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Attempts to terminate the process of a service being managed as a cluster resource by a resource DLL. The PRESUTIL_TERMINATE_SERVICE_PROCESS_FROM_RES_DLL type defines a pointer to this function.
+     * @remarks
+     * You should only call 
+     *     <b>ResUtilTerminateServiceProcessFromResDll</b> 
+     *     when terminating a resource or when taking a resource offline.
      * @param {Integer} dwServicePid The process ID of the service process to terminate.
      * @param {BOOL} bOffline Indicates whether the resource is being taken offline or is being terminated. Specify 
      *        <b>TRUE</b> if calling from the Offline entry point or from a worker thread created to take 
@@ -15959,13 +17632,13 @@ class Clustering {
      * 
      * If the 
      *        operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
      * 
      * Note that 
      *        <b>ResUtilTerminateServiceProcessFromResDll</b> 
      *        uses <i>pfnLogEvent</i> and <i>hResourceHandle</i> to write to your 
      *        resource DLL's event log, which may help troubleshoot failures.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilterminateserviceprocessfromresdll
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilterminateserviceprocessfromresdll
      * @since windowsserver2008
      */
     static ResUtilTerminateServiceProcessFromResDll(dwServicePid, bOffline, pdwResourceState, pfnLogEvent, hResourceHandle) {
@@ -15988,7 +17661,7 @@ class Clustering {
      *        hold the resulting data, <i>pcbRequired</i> points to the required buffer size (in 
      *        bytes).
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation was successful.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetpropertyformats
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetpropertyformats
      * @since windowsserver2008
      */
     static ResUtilGetPropertyFormats(pPropertyTable, pOutPropertyFormatList, cbPropertyFormatListSize, pcbBytesReturned, pcbRequired) {
@@ -16011,8 +17684,8 @@ class Clustering {
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetcoreclusterresources
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetcoreclusterresources
      * @since windowsserver2008
      */
     static ResUtilGetCoreClusterResources(hCluster, phClusterNameResource, phClusterIPAddressResource, phClusterQuorumResource) {
@@ -16035,8 +17708,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetresourcename
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetresourcename
      * @since windowsserver2008
      */
     static ResUtilGetResourceName(hResource, pszResourceName, pcchResourceNameInOut) {
@@ -16052,7 +17725,7 @@ class Clustering {
      * Determines whether or not a specific role has been assigned to a cluster.
      * @param {HCLUSTER} hCluster The handle of the queried cluster.
      * @param {Integer} eClusterRole The role the cluster was queried about.  The possible values for this parameter are enumerators from the <a href="https://docs.microsoft.com/windows/desktop/api/resapi/ne-resapi-cluster_role">CLUSTER_ROLE</a> enumeration.  The following values are valid.
-     * @returns {Integer} The possible return values for this function are enumerators from the  <a href="/windows/desktop/api/resapi/ne-resapi-cluster_role_state">CLUSTER_ROLE_STATE</a> enumeration.  The following values are valid.
+     * @returns {Integer} The possible return values for this function are enumerators from the  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/ne-resapi-cluster_role_state">CLUSTER_ROLE_STATE</a> enumeration.  The following values are valid.
      * 
      * <table>
      * <tr>
@@ -16067,7 +17740,7 @@ class Clustering {
      * </dl>
      * </td>
      * <td width="60%">
-     * It is unknown whether or not the role is clustered.  If this value is returned then an error has occurred.  For more information call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * It is unknown whether or not the role is clustered.  If this value is returned then an error has occurred.  For more information call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * </td>
      * </tr>
@@ -16096,24 +17769,53 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetclusterrolestate
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetclusterrolestate
      * @since windowsserver2008
      */
     static ResUtilGetClusterRoleState(hCluster, eClusterRole) {
         A_LastError := 0
 
         result := DllCall("RESUTILS.dll\ResUtilGetClusterRoleState", "ptr", hCluster, "int", eClusterRole, "int")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Determines whether a path is on a cluster shared volume.
+     * @remarks
+     * The 
+     *     <b>ClusterIsPathOnSharedVolume</b> 
+     *     function must be called from a node of the cluster.
+     * 
+     * The following table explains the possible return values based on the type of cluster node that owns the CSV and the type of user account that calls this function.
+     * 
+     * <table>
+     * <tr>
+     * <th></th>
+     * <th colspan="2">User Account Type</th>
+     * </tr>
+     * <tr>
+     * <th>CSV Ownership</th>
+     * <td>Local</td>
+     * <td>Domain</td>
+     * </tr>
+     * <tr>
+     * <td>Local Cluster Node</td>
+     * <td><b>TRUE</b></td>
+     * <td><b>TRUE</b></td>
+     * </tr>
+     * <tr>
+     * <td>Other Cluster Node</td>
+     * <td><b>FALSE</b></td>
+     * <td><b>TRUE</b></td>
+     * </tr>
+     * </table>
      * @param {PWSTR} lpszPathName A pointer to the input path string.
      * @returns {BOOL} <b>TRUE</b> if the path is on a CSV and this function is called from a domain account, or if the path is on a CSV that is owned by a local cluster node; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-clusterispathonsharedvolume
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-clusterispathonsharedvolume
      * @since windowsserver2008
      */
     static ClusterIsPathOnSharedVolume(lpszPathName) {
@@ -16125,6 +17827,58 @@ class Clustering {
 
     /**
      * ClusterGetVolumePathName may be altered or unavailable. Instead, use GetVolumePathName.
+     * @remarks
+     * The following examples may help. In these examples "Filename.Ext" does exist but 
+     *      "Path\that\does\not\exist" does not.
+     * 
+     * <ul>
+     * <li>
+     * Input: "C:\ClusterStorage\Volume31\Filename.Ext"
+     * 
+     * Output: "C:\ClusterStorage\Volume31\"
+     * 
+     * </li>
+     * <li>
+     * Input: "\\?\C:\ClusterStorage\Volume31\Filename.Ext"
+     * 
+     * Output: "\\?\C:\ClusterStorage\Volume31\"
+     * 
+     * </li>
+     * <li>
+     * Input: "C:\ClusterStorage\Volume31\Path\that\does\not\exist"
+     * 
+     * Output: "C:\ClusterStorage\Volume31\"
+     * 
+     * </li>
+     * <li>
+     * Input: 
+     *        "\\?\Volume{deadbeef-895e-4a1d-9d64-9b82fa068d76}\ClusterStorage\Volume31\Filename.Ext"
+     * 
+     * Output: "\\?\Volume{deadbeef-895e-4a1d-9d64-9b82fa068d76}\ClusterStorage\Volume31\"
+     * 
+     * </li>
+     * <li>
+     * Input: 
+     *        "\\?\GLOBALROOT\Device\Harddisk0\Partition1\ClusterStorage\Volume31\Filename.Ext"
+     * 
+     * Output: "\\?\GLOBALROOT\Device\Harddisk0\Partition1\ClusterStorage\Volume31\"
+     * 
+     * </li>
+     * <li>
+     * Input: 
+     *        "\\?\GLOBALROOT\Device\HarddiskVolume1\ClusterStorage\Volume31\Filename.Ext"
+     * 
+     * Output: "\\?\GLOBALROOT\Device\HarddiskVolume1\ClusterStorage\Volume31\"
+     * 
+     * </li>
+     * </ul>
+     * <b>Windows Server 2008 R2:  </b>The initial release of ResApi.h containing the 
+     *       <b>ClusterGetVolumePathName</b> function used 
+     *       <b>TCHAR</b>-based data types instead of <b>WCHAR</b>-based 
+     *       data types. The UNICODE preprocessor define must be set before ResApi.h is included.
+     * 
+     * 
+     * ```cpp
      * @param {PWSTR} lpszFileName A pointer to the input path string. Both absolute and relative file and directory names, for example 
      *        "..", are acceptable in this path.
      * 
@@ -16139,8 +17893,8 @@ class Clustering {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-clustergetvolumepathname
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-clustergetvolumepathname
      * @since windowsserver2008
      */
     static ClusterGetVolumePathName(lpszFileName, lpszVolumePathName, cchBufferLength) {
@@ -16150,16 +17904,93 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("RESUTILS.dll\ClusterGetVolumePathName", "ptr", lpszFileName, "ptr", lpszVolumePathName, "uint", cchBufferLength, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * ClusterGetVolumeNameForVolumeMountPoint may be altered or unavailable. Instead, use GetVolumeNameForVolumeMountPoint.
+     * @remarks
+     * The following examples may help. In these examples "Filename.Ext" does exist but 
+     *      "File\that\does\not\exist" and "Directory\that\does\not\exist\" do not.
+     * 
+     * <ul>
+     * <li>
+     * Input: "C:\ClusterStorage\Volume31\"
+     * 
+     * Output: "\\?\Volume{deadbeef-895e-4a1d-9d64-9b82fa068d76}\"
+     * 
+     * </li>
+     * <li>
+     * Input: "C:\ClusterStorage\Volume31\"
+     * 
+     * Output: Function fails and sets a last error of <b>ERROR_CSV_VOLUME_NOT_LOCAL</b> 
+     *        (5951).
+     * 
+     * <div class="alert"><b>Note</b>  The CSV volume specified for input is not locally mounted for direct I/O.</div>
+     * <div> </div>
+     * </li>
+     * <li>
+     * Input: "\\?\C:\ClusterStorage\Volume31\Filename.Ext"
+     * 
+     * Output: Function fails and sets a last error of <b>ERROR_INVALID_PARAMETER</b> (87).
+     * 
+     * </li>
+     * <li>
+     * Input: "C:\ClusterStorage\Volume31\File\that\does\not\exist"
+     * 
+     * Output: Function fails and sets a last error of <b>ERROR_INVALID_NAME</b> (123).
+     * 
+     * </li>
+     * <li>
+     * Input: "C:\ClusterStorage\Volume31\Directory\that\does\not\exist\"
+     * 
+     * Output: Function fails and sets a last error of <b>ERROR_INVALID_NAME</b> (123).
+     * 
+     * </li>
+     * <li>
+     * Input: "\\?\Volume{deadbeef-895e-4a1d-9d64-9b82fa068d76}\"
+     * 
+     * Output: "\\?\Volume{deadbeef-895e-4a1d-9d64-9b82fa068d76}\"
+     * 
+     * </li>
+     * <li>
+     * Input: "\\?\Volume{de8b99bb-895e-4a1d-9d64-9b82fa068d76}\ClusterStorage\Volume31\"
+     * 
+     * Output: "\\?\Volume{deadbeef-895e-4a1d-9d64-9b82fa068d76}\"
+     * 
+     * <div class="alert"><b>Note</b>  The volume in the output is a CSV and  is different from the system volume that 
+     *        was part of the input.</div>
+     * <div> </div>
+     * </li>
+     * <li>
+     * Input: 
+     *        "\\?\GLOBALROOT\Device\Harddisk0\Partition1\ClusterStorage\Volume31\"
+     * 
+     * Output: "\\?\Volume{deadbeef-895e-4a1d-9d64-9b82fa068d76}\"
+     * 
+     * </li>
+     * <li>
+     * Input: 
+     *        "\\?\GLOBALROOT\Device\HarddiskVolume1\ClusterStorage\Volume31\"
+     * 
+     * Output: "\\?\Volume{deadbeef-895e-4a1d-9d64-9b82fa068d76}\"
+     * 
+     * </li>
+     * </ul>
+     * <b>Windows Server 2008 R2:  </b>The initial release of ResApi.h containing the 
+     *       <b>ClusterGetVolumeNameForVolumeMountPoint</b> 
+     *       function used <b>TCHAR</b>-based data types instead of 
+     *       <b>WCHAR</b>-based data types. The UNICODE preprocessor define must be set before ResApi.h 
+     *       is included.
+     * 
+     * 
+     * ```cpp
      * @param {PWSTR} lpszVolumeMountPoint A pointer to a string that contains the path of a mounted folder (for example, "Y:\MountX\") or a drive 
-     *       letter (for example, "X:\"). The string must end with a trailing backslash (\\).
+     *       letter (for example, "X:\\"). The string must end with a trailing backslash (\\).
      * @param {PWSTR} lpszVolumeName A pointer to a string that receives the volume <b>GUID</b> path. This path is of the form 
      *       "\\?\Volume{<i>GUID</i>}\" where <i>GUID</i> is a 
      *       <b>GUID</b> that identifies the volume. If there is more than one volume 
@@ -16173,9 +18004,9 @@ class Clustering {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the input CSV is not locally mounted 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the input CSV is not locally mounted 
      *        the call will fail with an <b>ERROR_CSV_VOLUME_NOT_LOCAL</b> (5951) error.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-clustergetvolumenameforvolumemountpoint
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-clustergetvolumenameforvolumemountpoint
      * @since windowsserver2008
      */
     static ClusterGetVolumeNameForVolumeMountPoint(lpszVolumeMountPoint, lpszVolumeName, cchBufferLength) {
@@ -16185,14 +18016,19 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("RESUTILS.dll\ClusterGetVolumeNameForVolumeMountPoint", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, "uint", cchBufferLength, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * ClusterPrepareSharedVolumeForBackup may be altered or unavailable.
+     * @remarks
+     * The 
+     *     <b>ClusterPrepareSharedVolumeForBackup</b> 
+     *     function must be called from a node of the cluster.
      * @param {PWSTR} lpszFileName Path to a directory or file on a cluster shared volume.
      * @param {PWSTR} lpszVolumePathName Address of buffer that will receive the CSV reparse point.
      * @param {Pointer<Integer>} lpcchVolumePathName Address of a <b>DWORD</b> that on input contains the size of the buffer (in 
@@ -16209,8 +18045,8 @@ class Clustering {
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, it returns one of the 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-clusterpreparesharedvolumeforbackup
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-clusterpreparesharedvolumeforbackup
      * @since windowsserver2008
      */
     static ClusterPrepareSharedVolumeForBackup(lpszFileName, lpszVolumePathName, lpcchVolumePathName, lpszVolumeName, lpcchVolumeName) {
@@ -16227,14 +18063,38 @@ class Clustering {
 
     /**
      * Clears the backup state for the cluster shared volume.
+     * @remarks
+     * The 
+     *     <b>ClusterClearBackupStateForSharedVolume</b> 
+     *     function must be called from a node of the cluster.
+     * 
+     * Normally, when a backup job completes, the CSV "Backup in Progress" state (set by 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-clusterpreparesharedvolumeforbackup">ClusterPrepareSharedVolumeForBackup</a>) 
+     *     is automatically cleared—meaning that the CSV volume is unpinned from this Cluster node and 
+     *     direct I/O is re-enabled. If the backup process is terminated after the call to 
+     *     <b>ClusterPrepareSharedVolumeForBackup</b> 
+     *     and before the snapshot creation process is complete, CSV will wait 30 minutes before it will clear the 
+     *     "Backup in Progress" state. If the requester is able to safely determine that no other backups 
+     *     are active on this CSV, 
+     *     <b>ClusterClearBackupStateForSharedVolume</b> 
+     *     may be called to clear the "Backup in Progress" state of the CSV volume.
+     * 
+     * <div class="alert"><b>Note</b>  When the 
+     *      <b>ClusterClearBackupStateForSharedVolume</b> 
+     *      function is called for a particular CSV volume, the Backup State for that CSV is cleared without regard to other 
+     *      backups that could be active on any node within the Cluster. To avoid corruption of an in-progress backup, 
+     *      extreme care must be taken to ensure that there are no other backups active for this CSV volume before 
+     *      calling 
+     *      <b>ClusterClearBackupStateForSharedVolume</b>.</div>
+     * <div> </div>
      * @param {PWSTR} lpszVolumePathName Path to a file on a CSV. If the path is not a CSV path, 
      *       <b>ClusterClearBackupStateForSharedVolume</b> 
      *       will return <b>ERROR_INVALID_PARAMETER</b> (87).
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b> (0).
      * 
      * If the function fails, it returns one of the 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-clusterclearbackupstateforsharedvolume
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-clusterclearbackupstateforsharedvolume
      * @since windowsserver2008
      */
     static ClusterClearBackupStateForSharedVolume(lpszVolumePathName) {
@@ -16246,6 +18106,10 @@ class Clustering {
 
     /**
      * Adjusts the start parameters of a specified service so that it operates correctly as a cluster resource. It must be called from a resource DLL. The PRESUTIL_SET_RESOURCE_SERVICE_START_PARAMETERS_EX type defines a pointer to this function.
+     * @remarks
+     * <b>ResUtilSetResourceServiceStartParametersEx</b> verifies that the service is not disabled, changes the service configuration to manual start, and prevents the service from restarting in response to failure. This  enables  the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> and the resource DLL to control the service.
+     * 
+     * If your resource DLL manages a service, use  <b>ResUtilSetResourceServiceStartParametersEx</b> and  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilsetresourceserviceenvironment">ResUtilSetResourceServiceEnvironment</a> before you  bring the service online.
      * @param {PWSTR} pszServiceName A pointer to a null-terminated Unicode string that specifies  the name of the service.
      * @param {SC_HANDLE} schSCMHandle A handle to the Service Control Manager (SCM) or <b>NULL</b>. If <b>NULL</b>, the function  attempts to open a handle to the SCM.
      * @param {Pointer<SC_HANDLE>} phService On input, a <b>NULL</b> service handle. On output, handle to the specified service if the call was successful; otherwise <b>NULL</b>.
@@ -16255,8 +18119,8 @@ class Clustering {
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
-     * the function returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilsetresourceservicestartparametersex
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilsetresourceservicestartparametersex
      * @since windowsserver2012
      */
     static ResUtilSetResourceServiceStartParametersEx(pszServiceName, schSCMHandle, phService, dwDesiredAccess, pfnLogEvent, hResourceHandle) {
@@ -16280,22 +18144,25 @@ class Clustering {
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-lpresource_callback_ex">ResourceCallbackEx</a> callback function (note 
      *        that parameter names are not part of the definition; they have been added here for clarity):
      * 
-     * <pre class="syntax" xml:space="preserve"><code>DWORD (*LPRESOURCE_CALLBACK_EX)( 
+     * 
+     * ``` syntax
+     * DWORD (*LPRESOURCE_CALLBACK_EX)( 
      *   HCLUSTER hCluster,
      *   HRESOURCE hSelf, 
      *   HRESOURCE hEnum, 
      *   PVOID pParameter 
-     * );</code></pre>
+     * );
+     * ```
      * @param {Pointer<Void>} pParameter A generic buffer that allows you to pass any kind of data to the callback function. 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilenumresourcesex">ResUtilEnumResourcesEx</a> does not use this 
      *        parameter at all, it merely passes the pointer to the callback function. Whether or not you can pass 
      *        <b>NULL</b> for the parameter depends on how the callback function is implemented.
-     * @param {Integer} dwDesiredAccess The requested access privileges. This may be any combination of <b>GENERIC_READ</b> (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or M<b>AXIMUM_ALLOWED</b> (0x02000000). If this value is zero (0), an undefined error may be returned. Using <b>GENERIC_ALL</b> is the same as calling <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilenumresourcesex">ResUtilEnumResourcesEx</a>.
+     * @param {Integer} dwDesiredAccess The requested access privileges. This may be any combination of <b>GENERIC_READ</b> (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> (0x02000000). If this value is zero (0), an undefined error may be returned. Using <b>GENERIC_ALL</b> is the same as calling <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilenumresourcesex">ResUtilEnumResourcesEx</a>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function immediately halts the enumeration and returns the value returned by the 
      *        callback function.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilenumresourcesex2
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilenumresourcesex2
      * @since windowsserver2012
      */
     static ResUtilEnumResourcesEx2(hCluster, hSelf, lpszResTypeName, pResCallBack, pParameter, dwDesiredAccess) {
@@ -16314,10 +18181,10 @@ class Clustering {
      * @param {Integer} dwDesiredAccess The requested access privileges. This  might be any combination of <b>GENERIC_READ</b> (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> (0x02000000). If this value is zero (0), an undefined error  might be returned. Using <b>GENERIC_ALL</b> is the same as calling <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetresourcedependency">ResUtilGetResourceDependency</a>.
      * @returns {HRESOURCE} If the operation succeeds, 
      * the function returns a handle to one of the resources on which the resource that is   specified by <i>hSelf</i> depends. The caller is responsible for closing the handle by calling 
-     * the <a href="/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a> function.
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a> function.
      * 
-     * If the operation fails, the function returns <b>NULL</b>. For more information, call the   <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetresourcedependencyex
+     * If the operation fails, the function returns <b>NULL</b>. For more information, call the   <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetresourcedependencyex
      * @since windowsserver2012
      */
     static ResUtilGetResourceDependencyEx(hSelf, lpszResourceType, dwDesiredAccess) {
@@ -16327,8 +18194,9 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("RESUTILS.dll\ResUtilGetResourceDependencyEx", "ptr", hSelf, "ptr", lpszResourceType, "uint", dwDesiredAccess, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16340,9 +18208,9 @@ class Clustering {
      * @param {PWSTR} lpszResourceType A null-terminated Unicode string that specifies  the resource type of the dependency to return.
      * @param {BOOL} bRecurse Determines the scope of the search. If <b>TRUE</b>, the function checks the entire dependency tree under the dependent resource. If <b>FALSE</b>, the function checks only the resources on which the dependent resource directly depends.
      * @param {Integer} dwDesiredAccess The requested access privileges. This  might be any combination of <b>GENERIC_READ</b> (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> (0x02000000). If this value is zero (0), an undefined error  might be returned. Using <b>GENERIC_ALL</b> is the same as calling <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetresourcedependencybyname">ResUtilGetResourceDependencyByName</a>.
-     * @returns {HRESOURCE} If the operation succeeds, the function returns a handle to one of the resources on which the resource that is specified by <i>hSelf</i> depends. The caller is responsible for closing the handle by calling  <a href="/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
+     * @returns {HRESOURCE} If the operation succeeds, the function returns a handle to one of the resources on which the resource that is specified by <i>hSelf</i> depends. The caller is responsible for closing the handle by calling  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
      * 
-     * If the operation fails, the function returns <b>NULL</b>. For more information, call the   <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * If the operation fails, the function returns <b>NULL</b>. For more information, call the   <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * <table>
      * <tr>
@@ -16364,12 +18232,12 @@ class Clustering {
      * </dl>
      * </td>
      * <td width="60%">
-     * The operation was not successful. For more information, call the function  <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * The operation was not successful. For more information, call the function  <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetresourcedependencybynameex
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetresourcedependencybynameex
      * @since windowsserver2012
      */
     static ResUtilGetResourceDependencyByNameEx(hCluster, hSelf, lpszResourceType, bRecurse, dwDesiredAccess) {
@@ -16379,8 +18247,9 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("RESUTILS.dll\ResUtilGetResourceDependencyByNameEx", "ptr", hCluster, "ptr", hSelf, "ptr", lpszResourceType, "int", bRecurse, "uint", dwDesiredAccess, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16393,10 +18262,10 @@ class Clustering {
      * @param {BOOL} bRecurse Determines the scope of the search. If <b>TRUE</b>, the function checks the entire dependency tree under the dependent resource. If <b>FALSE</b>, the function checks only the resources on which the dependent resource directly depends.
      * @param {Integer} dwDesiredAccess The requested access privileges. This  might be any combination of <b>GENERIC_READ</b> (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> (0x02000000). If this value is zero (0), an undefined error  might be returned. Using <b>GENERIC_ALL</b> is the same as calling <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetresourcedependencybyclass">ResUtilGetResourceDependencyByClass</a>.
      * @returns {HRESOURCE} If the operation succeeds, 
-     * the function returns a handle to one of the resources on which the resource that is specified by <i>hSelf</i> depends. The caller is responsible for closing the handle by calling  <a href="/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
+     * the function returns a handle to one of the resources on which the resource that is specified by <i>hSelf</i> depends. The caller is responsible for closing the handle by calling  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
      * 
-     * If the operation fails, the function returns <b>NULL</b>. For more information, call the   <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetresourcedependencybyclassex
+     * If the operation fails, the function returns <b>NULL</b>. For more information, call the   <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetresourcedependencybyclassex
      * @since windowsserver2012
      */
     static ResUtilGetResourceDependencyByClassEx(hCluster, hSelf, prci, bRecurse, dwDesiredAccess) {
@@ -16405,8 +18274,9 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("RESUTILS.dll\ResUtilGetResourceDependencyByClassEx", "ptr", hCluster, "ptr", hSelf, "ptr", prci, "int", bRecurse, "uint", dwDesiredAccess, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16417,11 +18287,11 @@ class Clustering {
      * @param {PWSTR} lpszResourceType A null-terminated Unicode string that specifies  the resource type of the dependency to return.
      * @param {Integer} dwDesiredAccess The requested access privileges. This  might be any combination of <b>GENERIC_READ</b> (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> (0x02000000). If this value is zero (0), an undefined error  might be returned. Using <b>GENERIC_ALL</b> is the same as calling <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetresourcenamedependency">ResUtilGetResourceNameDependency</a>.
      * @returns {HRESOURCE} If the operation succeeds, 
-     * the function returns a handle to one of the resources on which the resource that is  specified by <i>lpszResourceName</i> depends. The caller is responsible for closing the handle by calling  <a href="/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
+     * the function returns a handle to one of the resources on which the resource that is  specified by <i>lpszResourceName</i> depends. The caller is responsible for closing the handle by calling  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
      * 
      * If the operation fails, 
-     * the function returns <b>NULL</b>. For more information, call the function  <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetresourcenamedependencyex
+     * the function returns <b>NULL</b>. For more information, call the function  <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetresourcenamedependencyex
      * @since windowsserver2012
      */
     static ResUtilGetResourceNameDependencyEx(lpszResourceName, lpszResourceType, dwDesiredAccess) {
@@ -16431,8 +18301,9 @@ class Clustering {
         A_LastError := 0
 
         result := DllCall("RESUTILS.dll\ResUtilGetResourceNameDependencyEx", "ptr", lpszResourceName, "ptr", lpszResourceType, "uint", dwDesiredAccess, "ptr")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -16444,12 +18315,12 @@ class Clustering {
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-name">Network Name</a> resource for the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>, which stores the cluster name.
      * @param {Pointer<HRESOURCE>} phClusterQuorumResourceOut Not used.
-     * @param {Integer} dwDesiredAccess The requested access privileges. This  might be any combination of <b>GENERIC_READ</b> (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or M<b>AXIMUM_ALLOWED</b> (0x02000000). If this value is zero (0), an undefined error  might be returned. Using <b>GENERIC_ALL</b> is the same as calling <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetcoreclusterresources">ResUtilGetCoreClusterResources</a>.
+     * @param {Integer} dwDesiredAccess The requested access privileges. This  might be any combination of <b>GENERIC_READ</b> (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> (0x02000000). If this value is zero (0), an undefined error  might be returned. Using <b>GENERIC_ALL</b> is the same as calling <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetcoreclusterresources">ResUtilGetCoreClusterResources</a>.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetcoreclusterresourcesex
+     *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetcoreclusterresourcesex
      * @since windowsserver2012
      */
     static ResUtilGetCoreClusterResourcesEx(hClusterIn, phClusterNameResourceOut, phClusterQuorumResourceOut, dwDesiredAccess) {
@@ -16466,8 +18337,8 @@ class Clustering {
      * @param {Pointer<Integer>} lpszProvider A pointer to a null-terminated Unicode string that contains the name of the CSP.
      * @param {Integer} dwType A bitmask that specifies the CSP type.
      * @param {Integer} dwFlags The flags that specify the settings for the operation. This parameter can be set to the default value "0", or <b>CLUS_CREATE_CRYPT_CONTAINER_NOT_FOUND</b> (0x0001).
-     * @returns {HCLUSCRYPTPROVIDER} If the operation completes successfully, this function returns a <a href="/previous-versions/windows/desktop/legacy/dn823545(v=vs.85)">HCLUSCRYPTPROVIDER</a> structure containing a handle to the CSP.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-openclustercryptprovider
+     * @returns {HCLUSCRYPTPROVIDER} If the operation completes successfully, this function returns a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dn823545(v=vs.85)">HCLUSCRYPTPROVIDER</a> structure containing a handle to the CSP.
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-openclustercryptprovider
      * @since windowsserver2012
      */
     static OpenClusterCryptProvider(lpszResource, lpszProvider, dwType, dwFlags) {
@@ -16502,7 +18373,7 @@ class Clustering {
      * Closes a handle to a Cryptographic Service Provider (CSP). The PCLOSE_CLUSTER_CRYPT_PROVIDER type defines a pointer to this function.
      * @param {HCLUSCRYPTPROVIDER} hClusCryptProvider A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dn823545(v=vs.85)">HCLUSCRYPTPROVIDER</a> structure that contains a handle to a CSP.
      * @returns {Integer} If the operation completes successfully, this function returns <b>ERROR_SUCCESS</b>; otherwise, it returns a system error code.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-closeclustercryptprovider
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-closeclustercryptprovider
      * @since windowsserver2012
      */
     static CloseClusterCryptProvider(hClusCryptProvider) {
@@ -16518,7 +18389,7 @@ class Clustering {
      * @param {Pointer<Pointer<Integer>>} ppData A pointer to a buffer that receives the encrypted data.
      * @param {Pointer<Integer>} pcbData The total number of bytes in the data pointed to by the <i>pcbData</i> parameter.
      * @returns {Integer} If the operation completes successfully, this function returns <b>ERROR_SUCCESS</b>; otherwise, it returns a system error code.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-clusterencrypt
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-clusterencrypt
      * @since windowsserver2012
      */
     static ClusterEncrypt(hClusCryptProvider, pData, cbData, ppData, pcbData) {
@@ -16538,7 +18409,7 @@ class Clustering {
      * @param {Pointer<Pointer<Integer>>} ppCryptOutput A pointer to a buffer that receives the decrypted data.
      * @param {Pointer<Integer>} pcbCryptOutput The total number of bytes in the data pointed to by the <i>ppCryptOutput</i> parameter.
      * @returns {Integer} If the operation completes successfully, this function returns <b>ERROR_SUCCESS</b>; otherwise, it returns a system error code.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-clusterdecrypt
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-clusterdecrypt
      * @since windowsserver2012
      */
     static ClusterDecrypt(hClusCryptProvider, pCryptInput, cbCryptInput, ppCryptOutput, pcbCryptOutput) {
@@ -16551,10 +18422,9 @@ class Clustering {
     }
 
     /**
-     * TBD.
-     * @param {Pointer<Void>} pCryptInfo TBD
-     * @returns {Integer} If the operation completes successfully, this function returns <b>ERROR_SUCCESS</b>; otherwise, it returns a system error code.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-freeclustercrypt
+     * 
+     * @param {Pointer<Void>} pCryptInfo 
+     * @returns {Integer} 
      * @since windowsserver2012
      */
     static FreeClusterCrypt(pCryptInfo) {
@@ -16583,7 +18453,7 @@ class Clustering {
      * @param {Pointer<PaxosTagCStruct>} left The <a href="https://docs.microsoft.com/windows/desktop/api/resapi/ns-resapi-paxostagcstruct">PaxosTagCStruct</a> structure that represents the first Paxos tag to use in the comparison.
      * @param {Pointer<PaxosTagCStruct>} right The <a href="https://docs.microsoft.com/windows/desktop/api/resapi/ns-resapi-paxostagcstruct">PaxosTagCStruct</a> structure that represents the second  Paxos tag to use in the comparison.
      * @returns {BOOL} <b>TRUE</b> if the Paxos tags have the same values; otherwise <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilpaxoscomparer
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilpaxoscomparer
      * @since windowsserver2016
      */
     static ResUtilPaxosComparer(left, right) {
@@ -16596,7 +18466,7 @@ class Clustering {
      * @param {Pointer<PaxosTagCStruct>} left The <a href="https://docs.microsoft.com/windows/desktop/api/resapi/ns-resapi-paxostagcstruct">PaxosTagCStruct</a> structure that represents the first Paxos tag to use in the comparison.
      * @param {Pointer<PaxosTagCStruct>} right The <a href="https://docs.microsoft.com/windows/desktop/api/resapi/ns-resapi-paxostagcstruct">PaxosTagCStruct</a> structure that represents the 2nd  Paxos tag to use in the comparison.
      * @returns {BOOL} <b>TRUE</b> if the cluster configuration of the first Paxos tag is older than the that of the second Paxos tag; otherwise <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilleftpaxosislessthanright
+     * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilleftpaxosislessthanright
      * @since windowsserver2016
      */
     static ResUtilLeftPaxosIsLessThanRight(left, right) {
@@ -16755,6 +18625,15 @@ class Clustering {
 
     /**
      * Registers the AppInstance ID for a process.
+     * @remarks
+     * The <b>RegisterAppInstance</b> function issues an 
+     *      <b>IOCTL_CCF_REGISTER_APPINSTANCE</b> call to the CCF mini-filter. The function 
+     *      passes the <i>AppInstance</i> <b>GUID</b>, the 
+     *      process handle, and the tagged child processes to the CCF cache that maps the process handle to the 
+     *      <i>AppInstanceId</i>.
+     * 
+     * The issued IOCTL for tagging another process checks if the current process has 
+     *      <b>PROCESS_TERMINATE</b> access to the target process.
      * @param {HANDLE} ProcessHandle A process handle for the current process or a remote process to be tagged with the 
      *       <i>AppInstanceId</i>. To tag a remote process, the handle must have 
      *       <b>PROCESS_TERMINATE</b> access to that process.
@@ -16821,13 +18700,13 @@ class Clustering {
      * <td width="60%">
      * Another <i>AppInstance</i><b>GUID</b> is provided for the same 
      *         process, which means that the 
-     *         <a href="/windows/desktop/api/smbclnt/nf-smbclnt-registerappinstance">RegisterAppInstance</a> function was called twice 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/smbclnt/nf-smbclnt-registerappinstance">RegisterAppInstance</a> function was called twice 
      *         or the application was registered twice.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//smbclnt/nf-smbclnt-registerappinstance
+     * @see https://learn.microsoft.com/windows/win32/api/smbclnt/nf-smbclnt-registerappinstance
      * @since windowsserver2012
      */
     static RegisterAppInstance(ProcessHandle, AppInstanceId, ChildrenInheritAppInstance) {
@@ -16925,7 +18804,7 @@ class Clustering {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//smbclnt/nf-smbclnt-setappinstancecsvflags
+     * @see https://learn.microsoft.com/windows/win32/api/smbclnt/nf-smbclnt-setappinstancecsvflags
      * @since windowsserver2016
      */
     static SetAppInstanceCsvFlags(ProcessHandle, Mask, Flags) {

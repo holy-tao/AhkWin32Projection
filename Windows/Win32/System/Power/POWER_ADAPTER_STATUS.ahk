@@ -8,7 +8,7 @@
  */
 class POWER_ADAPTER_STATUS extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -37,7 +37,7 @@ class POWER_ADAPTER_STATUS extends Win32Struct
     PowerState{
         get {
             if(!this.HasProp("__PowerState"))
-                this.__PowerState := POWER_ADAPTER_POWER_STATES(8, this)
+                this.__PowerState := POWER_ADAPTER_POWER_STATES(4, this)
             return this.__PowerState
         }
     }
@@ -46,6 +46,14 @@ class POWER_ADAPTER_STATUS extends Win32Struct
      * @type {Integer}
      */
     PeakPower {
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MaxOutputPower {
         get => NumGet(this, 16, "uint")
         set => NumPut("uint", value, this, 16)
     }
@@ -53,7 +61,7 @@ class POWER_ADAPTER_STATUS extends Win32Struct
     /**
      * @type {Integer}
      */
-    MaxOutputPower {
+    MaxInputPower {
         get => NumGet(this, 20, "uint")
         set => NumPut("uint", value, this, 20)
     }
@@ -61,7 +69,7 @@ class POWER_ADAPTER_STATUS extends Win32Struct
     /**
      * @type {Integer}
      */
-    MaxInputPower {
+    RecStartTime {
         get => NumGet(this, 24, "uint")
         set => NumPut("uint", value, this, 24)
     }
@@ -69,16 +77,8 @@ class POWER_ADAPTER_STATUS extends Win32Struct
     /**
      * @type {Integer}
      */
-    RecStartTime {
+    RecEndTime {
         get => NumGet(this, 32, "uint")
         set => NumPut("uint", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    RecEndTime {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
     }
 }

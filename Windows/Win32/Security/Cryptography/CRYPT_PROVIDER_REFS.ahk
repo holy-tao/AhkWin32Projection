@@ -3,7 +3,7 @@
 
 /**
  * Contains a collection of provider references.
- * @see https://docs.microsoft.com/windows/win32/api//bcrypt/ns-bcrypt-crypt_provider_refs
+ * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-crypt_provider_refs
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

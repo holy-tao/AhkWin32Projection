@@ -8,9 +8,9 @@
  */
 class DMUS_WAVE extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -42,7 +42,7 @@ class DMUS_WAVE extends Win32Struct
     WaveformatEx{
         get {
             if(!this.HasProp("__WaveformatEx"))
-                this.__WaveformatEx := WAVEFORMATEX(16, this)
+                this.__WaveformatEx := WAVEFORMATEX(12, this)
             return this.__WaveformatEx
         }
     }

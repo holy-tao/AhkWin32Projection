@@ -3,7 +3,7 @@
 
 /**
  * The DD_SYNCSURFACEDATA structure contains the surface information.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_syncsurfacedata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_syncsurfacedata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

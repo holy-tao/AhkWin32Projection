@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Which resources are supported for a given format and given device (see ID3D11Device::CheckFormatSupport and ID3D11Device::CheckFeatureSupport).
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_format_support
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_format_support
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_FORMAT_SUPPORT{
+class D3D11_FORMAT_SUPPORT extends Win32Enum{
 
     /**
      * Buffer resources supported.

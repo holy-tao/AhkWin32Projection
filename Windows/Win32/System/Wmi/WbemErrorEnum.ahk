@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Define the errors that may be returned by Scripting API for WMI calls.
- * @see https://docs.microsoft.com/windows/win32/api//wbemdisp/ne-wbemdisp-wbemerrorenum
+ * @see https://learn.microsoft.com/windows/win32/api/wbemdisp/ne-wbemdisp-wbemerrorenum
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class WbemErrorEnum{
+class WbemErrorEnum extends Win32Enum{
 
     /**
      * The call was successful.
@@ -515,7 +516,7 @@ class WbemErrorEnum{
     static wbemErrUpdateTypeMismatch => -2147217326
 
     /**
-     * An attempt was made in a derived class to override a non-overrideable qualifier.
+     * An attempt was made in a derived class to override a non-overridable qualifier.
      * @type {Integer (Int32)}
      */
     static wbemErrUpdateOverrideNotAllowed => -2147217325

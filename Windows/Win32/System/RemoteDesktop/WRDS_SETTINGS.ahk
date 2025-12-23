@@ -5,15 +5,15 @@
 
 /**
  * Contains policy-related setting information for a remote session.
- * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ns-wtsdefs-wrds_settings
+ * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wrds_settings
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
 class WRDS_SETTINGS extends Win32Struct
 {
-    static sizeof => 136
+    static sizeof => 132
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The category of settings contained (machine group policy, user group policy, or user security accounts manager).

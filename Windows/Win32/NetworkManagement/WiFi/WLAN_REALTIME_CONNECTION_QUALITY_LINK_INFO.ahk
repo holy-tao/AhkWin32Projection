@@ -10,7 +10,7 @@ class WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO extends Win32Struct
 {
     static sizeof => 272
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

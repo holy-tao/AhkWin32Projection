@@ -3,7 +3,7 @@
 
 /**
  * The base type for all the different kinds of XML nodes. An XML node is unit of data in XML.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_xml_node
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_node
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

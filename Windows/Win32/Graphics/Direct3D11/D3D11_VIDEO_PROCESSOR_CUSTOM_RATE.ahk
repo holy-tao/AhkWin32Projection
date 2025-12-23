@@ -3,21 +3,18 @@
 #Include ..\Dxgi\Common\DXGI_RATIONAL.ahk
 
 /**
- * Specifies a custom rate for frame-rate conversion or inverse telecine (IVTC).
+ * Specifies a custom rate for frame-rate conversion or inverse telecine (IVTC). (D3D11_VIDEO_PROCESSOR_CUSTOM_RATE)
  * @remarks
- * 
  * The <b>CustomRate</b> member gives the rate conversion factor, while the remaining members define the pattern of input and output samples.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_video_processor_custom_rate
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_video_processor_custom_rate
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
 class D3D11_VIDEO_PROCESSOR_CUSTOM_RATE extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The ratio of the output frame rate to the input frame rate, expressed as a <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ns-dxgicommon-dxgi_rational">DXGI_RATIONAL</a> structure that holds a rational number.

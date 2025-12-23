@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates whether to create a new context based on the current context or to create a new context based solely upon the information in CServiceConfig.
  * @remarks
- * 
  * The different values of this enumeration can be used to establish the default configurations for the various services provided through <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a>. The default inheritance configuration for <b>CServiceConfig</b> is CSC_Ignore. It is often useful to use CSC_Ignore when calling <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-cocreateactivity">CoCreateActivity</a>, while CSC_Inherit is useful when augmenting an existing context, such as when calling <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-coenterservicedomain">CoEnterServiceDomain</a>.
  * 
  * Calling <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-iserviceinheritanceconfig-containingcontexttreatment">IServiceInheritanceConfig::ContainingContextTreatment</a> overwrites any previous configuration settings of the <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> object with the following defaults.
@@ -108,13 +108,11 @@
  * <td>CSC_NoTransaction</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/ne-comsvcs-csc_inheritanceconfig
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-csc_inheritanceconfig
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
-class CSC_InheritanceConfig{
+class CSC_InheritanceConfig extends Win32Enum{
 
     /**
      * The new context is created from the existing context.

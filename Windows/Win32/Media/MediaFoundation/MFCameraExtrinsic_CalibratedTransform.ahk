@@ -6,16 +6,13 @@
 /**
  * A transform describing the location of a camera relative to other cameras or an established external reference.
  * @remarks
- * 
  * The <b>Position</b> value should be expressed in real-world coordinates in units of meters. The coordinate system of both position and orientation should be right-handed Cartesian as shown in the following diagram. 
  * 
  * <img alt="Right-handed Cartesian coordinate system" src="images/MFCameraExtrinsic_Diagram.png"/>
  * <div class="alert"><b>Important</b>
  *   <p class="note">The <b>Position</b> and <b>Orientation</b> have different interpretations for stand-alone sensor groups, and for Windows Mixed Reality devices.
  * </div>
- *   
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-mfcameraextrinsic_calibratedtransform
+ * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mfcameraextrinsic_calibratedtransform
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -53,7 +50,7 @@ class MFCameraExtrinsic_CalibratedTransform extends Win32Struct
     Orientation{
         get {
             if(!this.HasProp("__Orientation"))
-                this.__Orientation := MF_QUATERNION(24, this)
+                this.__Orientation := MF_QUATERNION(20, this)
             return this.__Orientation
         }
     }

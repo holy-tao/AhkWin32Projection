@@ -5,7 +5,7 @@
 
 /**
  * Represents a time span formatted as the text &quot;[+|-][d?.]HH:mm:ss[.fffffff]&quot; d is a series of digits representing the day.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_xml_timespan_text
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_timespan_text
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

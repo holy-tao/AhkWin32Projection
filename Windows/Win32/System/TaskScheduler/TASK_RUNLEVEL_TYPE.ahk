@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines LUA elevation flags that specify with what privilege level the task will be run.
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/ne-taskschd-task_runlevel_type
+ * @see https://learn.microsoft.com/windows/win32/api/taskschd/ne-taskschd-task_runlevel_type
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
-class TASK_RUNLEVEL_TYPE{
+class TASK_RUNLEVEL_TYPE extends Win32Enum{
 
     /**
      * Tasks will be run with the least privileges.

@@ -3,7 +3,7 @@
 
 /**
  * Contains information on the revocation status of the certificate.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_revocation_status
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_revocation_status
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

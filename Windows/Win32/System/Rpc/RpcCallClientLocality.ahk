@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the set of possible RPC client localities.
- * @see https://docs.microsoft.com/windows/win32/api//rpcasync/ne-rpcasync-rpccallclientlocality
+ * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ne-rpcasync-rpccallclientlocality
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */
-class RpcCallClientLocality{
+class RpcCallClientLocality extends Win32Enum{
 
     /**
      * The RPC client locality is invalid.

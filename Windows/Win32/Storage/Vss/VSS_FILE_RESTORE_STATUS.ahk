@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of statuses of a file restore operation.
  * @remarks
- * 
  * If any files managed by a component or, if it defines a component set, any of its subcomponents cannot be 
  *     restored, the value of <b>VSS_FILE_RESTORE_STATUS</b> 
  *     must indicate an error.
@@ -28,13 +28,11 @@
  *     selectable component with calls to 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-getfilerestorestatus">IVssComponent::GetFileRestoreStatus</a>. If
  *     this method is called for a component that was not selected, the value returned is undefined.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vswriter/ne-vswriter-vss_file_restore_status
+ * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_file_restore_status
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_FILE_RESTORE_STATUS{
+class VSS_FILE_RESTORE_STATUS extends Win32Enum{
 
     /**
      * The restore state is undefined. 

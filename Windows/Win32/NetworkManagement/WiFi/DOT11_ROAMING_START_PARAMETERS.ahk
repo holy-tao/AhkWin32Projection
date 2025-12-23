@@ -9,9 +9,9 @@
  */
 class DOT11_ROAMING_START_PARAMETERS extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 52
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {NDIS_OBJECT_HEADER}
@@ -41,7 +41,7 @@ class DOT11_ROAMING_START_PARAMETERS extends Win32Struct
     AdhocSSID{
         get {
             if(!this.HasProp("__AdhocSSID"))
-                this.__AdhocSSID := DOT11_SSID(16, this)
+                this.__AdhocSSID := DOT11_SSID(12, this)
             return this.__AdhocSSID
         }
     }
@@ -50,7 +50,7 @@ class DOT11_ROAMING_START_PARAMETERS extends Win32Struct
      * @type {Integer}
      */
     uRoamingReason {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 }

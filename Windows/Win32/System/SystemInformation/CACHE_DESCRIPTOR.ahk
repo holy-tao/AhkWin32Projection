@@ -3,7 +3,7 @@
 
 /**
  * Describes the cache attributes.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-cache_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-cache_descriptor
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  */

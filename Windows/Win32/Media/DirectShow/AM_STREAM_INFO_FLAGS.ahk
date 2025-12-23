@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The AM_STREAM_INFO_FLAGS enumeration defines flags that indicate a pin's stream-control status.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-am_stream_info_flags
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-am_stream_info_flags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class AM_STREAM_INFO_FLAGS{
+class AM_STREAM_INFO_FLAGS extends Win32Enum{
 
     /**
      * Indicates that the pin's start time is set.

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines flags for the setting or testing the media type on a Media Foundation transform (MFT).
- * @see https://docs.microsoft.com/windows/win32/api//mftransform/ne-mftransform-_mft_set_type_flags
+ * @see https://learn.microsoft.com/windows/win32/api/mftransform/ne-mftransform-_mft_set_type_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class _MFT_SET_TYPE_FLAGS{
+class _MFT_SET_TYPE_FLAGS extends Win32Enum{
 
     /**
      * Test the proposed media type, but do not set it.

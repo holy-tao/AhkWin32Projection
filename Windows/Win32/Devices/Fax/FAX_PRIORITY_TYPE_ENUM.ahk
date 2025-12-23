@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The FAX_PRIORITY_TYPE_ENUM enumeration defines the types of priorities for outbound faxes.
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/ne-faxcomex-fax_priority_type_enum
+ * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_priority_type_enum
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
-class FAX_PRIORITY_TYPE_ENUM{
+class FAX_PRIORITY_TYPE_ENUM extends Win32Enum{
 
     /**
      * The fax will be sent with a low priority. All faxes that have a normal or a high priority will be sent before a fax that has a low priority.

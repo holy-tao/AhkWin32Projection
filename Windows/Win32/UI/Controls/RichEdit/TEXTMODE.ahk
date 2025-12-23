@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the text mode of a rich edit control. The EM_SETTEXTMODE and EM_GETTEXTMODE messages use this enumeration type.
- * @see https://docs.microsoft.com/windows/win32/api//richedit/ne-richedit-textmode
+ * @see https://learn.microsoft.com/windows/win32/api/richedit/ne-richedit-textmode
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
-class TEXTMODE{
+class TEXTMODE extends Win32Enum{
 
     /**
      * Indicates plain-text mode, in which the control is similar to a standard edit control. For more information about plain-text mode, see the Remarks section of <a href="https://msdn.microsoft.com/d6741234-0ef3-4cd2-8817-6c852f1b500d">EM_SETTEXTMODE</a>.

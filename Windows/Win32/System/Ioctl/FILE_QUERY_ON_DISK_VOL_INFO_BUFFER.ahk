@@ -3,7 +3,7 @@
 
 /**
  * Receives the volume information from a call to FSCTL_QUERY_ON_DISK_VOLUME_INFO.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-file_query_on_disk_vol_info_buffer
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_query_on_disk_vol_info_buffer
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

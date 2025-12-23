@@ -6,7 +6,6 @@
 /**
  * Specifies completion notification settings for I/O control calls made to a registered namespace.
  * @remarks
- * 
  * The <b>WSACOMPLETION</b> structure enables callbacks to be provided in any of the following formats, based on the value provided in <b>Type</b>:
  * 
  * <table>
@@ -38,9 +37,7 @@
  *  
  * 
  * For a blocking function, set the <b>WSACOMPLETION</b> structure to null.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsock2/ns-winsock2-wsacompletion
+ * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsacompletion
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
@@ -49,6 +46,158 @@ class WSACOMPLETION extends Win32Struct
     static sizeof => 32
 
     static packingSize => 8
+
+    class _Parameters_e__Union extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        class _WindowMessage extends Win32Struct {
+            static sizeof => 24
+            static packingSize => 8
+    
+            /**
+             * @type {HWND}
+             */
+            hWnd{
+                get {
+                    if(!this.HasProp("__hWnd"))
+                        this.__hWnd := HWND(0, this)
+                    return this.__hWnd
+                }
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uMsg {
+                get => NumGet(this, 8, "uint")
+                set => NumPut("uint", value, this, 8)
+            }
+        
+            /**
+             * @type {WPARAM}
+             */
+            context {
+                get => NumGet(this, 16, "ptr")
+                set => NumPut("ptr", value, this, 16)
+            }
+        
+        }
+    
+        class _Event extends Win32Struct {
+            static sizeof => 8
+            static packingSize => 8
+    
+            /**
+             * @type {Pointer<OVERLAPPED>}
+             */
+            lpOverlapped {
+                get => NumGet(this, 0, "ptr")
+                set => NumPut("ptr", value, this, 0)
+            }
+        
+        }
+    
+        class _Apc extends Win32Struct {
+            static sizeof => 16
+            static packingSize => 8
+    
+            /**
+             * @type {Pointer<OVERLAPPED>}
+             */
+            lpOverlapped {
+                get => NumGet(this, 0, "ptr")
+                set => NumPut("ptr", value, this, 0)
+            }
+        
+            /**
+             * @type {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>}
+             */
+            lpfnCompletionProc {
+                get => NumGet(this, 8, "ptr")
+                set => NumPut("ptr", value, this, 8)
+            }
+        
+        }
+    
+        class _Port extends Win32Struct {
+            static sizeof => 24
+            static packingSize => 8
+    
+            /**
+             * @type {Pointer<OVERLAPPED>}
+             */
+            lpOverlapped {
+                get => NumGet(this, 0, "ptr")
+                set => NumPut("ptr", value, this, 0)
+            }
+        
+            /**
+             * @type {HANDLE}
+             */
+            hPort{
+                get {
+                    if(!this.HasProp("__hPort"))
+                        this.__hPort := HANDLE(8, this)
+                    return this.__hPort
+                }
+            }
+        
+            /**
+             * @type {Pointer}
+             */
+            Key {
+                get => NumGet(this, 16, "ptr")
+                set => NumPut("ptr", value, this, 16)
+            }
+        
+        }
+    
+        /**
+         * @type {_WindowMessage}
+         */
+        WindowMessage{
+            get {
+                if(!this.HasProp("__WindowMessage"))
+                    this.__WindowMessage := %this.__Class%._WindowMessage(0, this)
+                return this.__WindowMessage
+            }
+        }
+    
+        /**
+         * @type {_Event}
+         */
+        Event{
+            get {
+                if(!this.HasProp("__Event"))
+                    this.__Event := %this.__Class%._Event(0, this)
+                return this.__Event
+            }
+        }
+    
+        /**
+         * @type {_Apc}
+         */
+        Apc{
+            get {
+                if(!this.HasProp("__Apc"))
+                    this.__Apc := %this.__Class%._Apc(0, this)
+                return this.__Apc
+            }
+        }
+    
+        /**
+         * @type {_Port}
+         */
+        Port{
+            get {
+                if(!this.HasProp("__Port"))
+                    this.__Port := %this.__Class%._Port(0, this)
+                return this.__Port
+            }
+        }
+    
+    }
 
     /**
      * Type: <b>WSACOMPLETIONTYPE</b>
@@ -61,149 +210,15 @@ class WSACOMPLETION extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
-    class _WindowMessage extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {HWND}
-         */
-        hWnd{
-            get {
-                if(!this.HasProp("__hWnd"))
-                    this.__hWnd := HWND(0, this)
-                return this.__hWnd
-            }
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uMsg {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
-    
-        /**
-         * @type {WPARAM}
-         */
-        context {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
-    
-    }
-
-    class _Event extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {Pointer<OVERLAPPED>}
-         */
-        lpOverlapped {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-    
-    }
-
-    class _Apc extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {Pointer<OVERLAPPED>}
-         */
-        lpOverlapped {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-    
-        /**
-         * @type {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>}
-         */
-        lpfnCompletionProc {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
-    
-    }
-
-    class _Port extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {Pointer<OVERLAPPED>}
-         */
-        lpOverlapped {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-    
-        /**
-         * @type {HANDLE}
-         */
-        hPort{
-            get {
-                if(!this.HasProp("__hPort"))
-                    this.__hPort := HANDLE(8, this)
-                return this.__hPort
-            }
-        }
-    
-        /**
-         * @type {Pointer}
-         */
-        Key {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
-    
-    }
-
     /**
-     * @type {_WindowMessage}
+     * The parameters required to complete the callback. The structures within the Parameters union specify information required for completing the callback of each given type. For example, the <b>WindowMessage</b> structure must be filled  when <b>Type</b> is set to NSP_NOTIFY_HWND.
+     * @type {_Parameters_e__Union}
      */
-    WindowMessage{
+    Parameters{
         get {
-            if(!this.HasProp("__WindowMessage"))
-                this.__WindowMessage := %this.__Class%._WindowMessage(8, this)
-            return this.__WindowMessage
-        }
-    }
-
-    /**
-     * @type {_Event}
-     */
-    Event{
-        get {
-            if(!this.HasProp("__Event"))
-                this.__Event := %this.__Class%._Event(8, this)
-            return this.__Event
-        }
-    }
-
-    /**
-     * @type {_Apc}
-     */
-    Apc{
-        get {
-            if(!this.HasProp("__Apc"))
-                this.__Apc := %this.__Class%._Apc(8, this)
-            return this.__Apc
-        }
-    }
-
-    /**
-     * @type {_Port}
-     */
-    Port{
-        get {
-            if(!this.HasProp("__Port"))
-                this.__Port := %this.__Class%._Port(8, this)
-            return this.__Port
+            if(!this.HasProp("__Parameters"))
+                this.__Parameters := %this.__Class%._Parameters_e__Union(8, this)
+            return this.__Parameters
         }
     }
 }

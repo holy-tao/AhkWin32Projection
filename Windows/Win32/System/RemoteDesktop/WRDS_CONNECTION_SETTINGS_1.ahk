@@ -8,14 +8,14 @@
 #Include .\WRDS_LISTENER_SETTINGS.ahk
 
 /**
- * Contains connection setting information for a remote session.
- * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ns-wtsdefs-wrds_connection_settings_1
+ * Contains connection setting information for a remote session. (WRDS_CONNECTION_SETTINGS_1)
+ * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wrds_connection_settings_1
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
 class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 {
-    static sizeof => 3776
+    static sizeof => 3752
 
     static packingSize => 8
 
@@ -559,7 +559,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
     ClientSockAddress{
         get {
             if(!this.HasProp("__ClientSockAddress"))
-                this.__ClientSockAddress := WTS_SOCKADDR(3504, this)
+                this.__ClientSockAddress := WTS_SOCKADDR(3500, this)
             return this.__ClientSockAddress
         }
     }
@@ -571,7 +571,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
     ClientTimeZone{
         get {
             if(!this.HasProp("__ClientTimeZone"))
-                this.__ClientTimeZone := WTS_TIME_ZONE_INFORMATION(3544, this)
+                this.__ClientTimeZone := WTS_TIME_ZONE_INFORMATION(3532, this)
             return this.__ClientTimeZone
         }
     }
@@ -583,7 +583,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
     WRdsListenerSettings{
         get {
             if(!this.HasProp("__WRdsListenerSettings"))
-                this.__WRdsListenerSettings := WRDS_LISTENER_SETTINGS(3728, this)
+                this.__WRdsListenerSettings := WRDS_LISTENER_SETTINGS(3704, this)
             return this.__WRdsListenerSettings
         }
     }
@@ -593,8 +593,8 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
      * @type {Pointer<Guid>}
      */
     EventLogActivityId {
-        get => NumGet(this, 3752, "ptr")
-        set => NumPut("ptr", value, this, 3752)
+        get => NumGet(this, 3728, "ptr")
+        set => NumPut("ptr", value, this, 3728)
     }
 
     /**
@@ -602,8 +602,8 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
      * @type {Integer}
      */
     ContextSize {
-        get => NumGet(this, 3760, "uint")
-        set => NumPut("uint", value, this, 3760)
+        get => NumGet(this, 3736, "uint")
+        set => NumPut("uint", value, this, 3736)
     }
 
     /**
@@ -611,7 +611,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
      * @type {Pointer<Integer>}
      */
     ContextData {
-        get => NumGet(this, 3768, "ptr")
-        set => NumPut("ptr", value, this, 3768)
+        get => NumGet(this, 3744, "ptr")
+        set => NumPut("ptr", value, this, 3744)
     }
 }

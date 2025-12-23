@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines how the Task Scheduler handles existing instances of the task when it starts a new instance of the task.
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/ne-taskschd-task_instances_policy
+ * @see https://learn.microsoft.com/windows/win32/api/taskschd/ne-taskschd-task_instances_policy
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
-class TASK_INSTANCES_POLICY{
+class TASK_INSTANCES_POLICY extends Win32Enum{
 
     /**
      * Starts new instance while an existing instance is running.

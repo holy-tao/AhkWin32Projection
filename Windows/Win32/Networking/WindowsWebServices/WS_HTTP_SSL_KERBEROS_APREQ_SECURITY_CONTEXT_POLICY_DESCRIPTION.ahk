@@ -10,7 +10,7 @@
 
 /**
  * Describes the policy specifying security context message binding over http channel binding, with SSL transport security. The bootstrap channel uses http channel binding with SSL transport security and KERBEROS AP_REQ message security.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_http_ssl_kerberos_apreq_security_context_policy_description
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_http_ssl_kerberos_apreq_security_context_policy_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

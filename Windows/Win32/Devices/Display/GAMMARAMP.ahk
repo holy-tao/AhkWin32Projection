@@ -3,7 +3,7 @@
 
 /**
  * The GAMMARAMP structure is used by DrvIcmSetDeviceGammaRamp to set the hardware gamma ramp of a particular display device.
- * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-gammaramp
+ * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-gammaramp
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

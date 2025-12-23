@@ -4,15 +4,15 @@
 
 /**
  * The EMRRESTOREDC structure contains members for the RestoreDC enhanced metafile record.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrrestoredc
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrrestoredc
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
 class EMRRESTOREDC extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.

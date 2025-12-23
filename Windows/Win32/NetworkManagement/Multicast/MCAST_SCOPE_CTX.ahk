@@ -4,15 +4,15 @@
 
 /**
  * The MCAST_SCOPE_CTX structure defines the scope context for programmatic interaction with multicast addresses. The MCAST_SCOPE_CTX structure is used by various MADCAP functions as a handle for allocating, renewing, or releasing MADCAP addresses.
- * @see https://docs.microsoft.com/windows/win32/api//madcapcl/ns-madcapcl-mcast_scope_ctx
+ * @see https://learn.microsoft.com/windows/win32/api/madcapcl/ns-madcapcl-mcast_scope_ctx
  * @namespace Windows.Win32.NetworkManagement.Multicast
  * @version v4.0.30319
  */
 class MCAST_SCOPE_CTX extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Identifier for the multicast scope, in the form of an 
@@ -35,7 +35,7 @@ class MCAST_SCOPE_CTX extends Win32Struct
     Interface{
         get {
             if(!this.HasProp("__Interface"))
-                this.__Interface := IPNG_ADDRESS(24, this)
+                this.__Interface := IPNG_ADDRESS(20, this)
             return this.__Interface
         }
     }
@@ -48,7 +48,7 @@ class MCAST_SCOPE_CTX extends Win32Struct
     ServerID{
         get {
             if(!this.HasProp("__ServerID"))
-                this.__ServerID := IPNG_ADDRESS(48, this)
+                this.__ServerID := IPNG_ADDRESS(40, this)
             return this.__ServerID
         }
     }

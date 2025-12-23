@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains flags affecting the behavior of the ModifyVhdSet function.
- * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ne-virtdisk-modify_vhdset_flag
+ * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-modify_vhdset_flag
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */
-class MODIFY_VHDSET_FLAG{
+class MODIFY_VHDSET_FLAG extends Win32BitflagEnum{
 
     /**
      * No flag specified.

@@ -5,11 +5,8 @@
 /**
  * Provides data for calls to ID3D12VideoDevice::CheckFeatureSupport when the feature specified is D3D12_FEATURE_VIDEO_MOTION_ESTIMATOR. Retrieves the motion estimation capabilities for a video encoder.
  * @remarks
- * 
  * When the format is not supported with motion estimation, *BlockSizeFlags* will be set to [D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE_FLAG_NONE](ne-d3d12video-d3d12_video_motion_estimator_search_block_size_flags.md), *PrecisionFlags* will be set to [D3D12_VIDEO_MOTION_ESTIMATOR_VECTOR_PRECISION_FLAG_NONE](ne-d3d12video-d3d12_video_motion_estimator_vector_precision_flags.md), and the *SizeRange* will be set to all zeros.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_feature_data_video_motion_estimator
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_motion_estimator
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -17,7 +14,7 @@ class D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * In multi-adapter operation, identifies the physical adapter of the device this operation applies to.

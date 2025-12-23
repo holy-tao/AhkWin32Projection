@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies headphone mode for a Dolby Digital audio stream. This enumeration is used with the AVEncDDHeadphoneMode property.
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencddheadphonemode
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencddheadphonemode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVEncDDHeadphoneMode{
+class eAVEncDDHeadphoneMode extends Win32Enum{
 
     /**
      * Headphone mode is not indicated.

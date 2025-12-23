@@ -4,7 +4,6 @@
 /**
  * Contains information about a memory region.
  * @remarks
- * 
  * The <b>WIN32_MEMORY_REGION_INFORMATION</b> structure contains information about a single memory allocation. In contrast, the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-memory_basic_information">MEMORY_BASIC_INFORMATION</a> structure that is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-virtualquery">VirtualQuery</a> function describes a contiguous run of pages within a single allocation that all have the same type, state, and protection. The mapping between <b>WIN32_MEMORY_REGION_INFORMATION</b> fields and memory type values returned by <b>VirtualQuery</b> is as follows:
  * 
  * <table>
@@ -33,9 +32,7 @@
  * <td>MEM_MAPPED</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//memoryapi/ns-memoryapi-win32_memory_region_information
+ * @see https://learn.microsoft.com/windows/win32/api/memoryapi/ns-memoryapi-win32_memory_region_information
  * @namespace Windows.Win32.System.Memory
  * @version v4.0.30319
  */

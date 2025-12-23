@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that specify server and client actions during enrollment.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-x509certificatetemplateenrollmentflag
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509certificatetemplateenrollmentflag
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class X509CertificateTemplateEnrollmentFlag{
+class X509CertificateTemplateEnrollmentFlag extends Win32Enum{
 
     /**
      * Instructs the client and server to include a Secure/Multipurpose Internet Mail Extensions (S/MIME) extension in the certificate request and issued certificate.

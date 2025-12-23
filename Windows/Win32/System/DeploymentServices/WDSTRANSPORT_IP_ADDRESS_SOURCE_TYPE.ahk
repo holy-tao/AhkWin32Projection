@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the source from which the WDS multicast provider obtains a multicast address for a new session.
- * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/ne-wdstptmgmt-wdstransport_ip_address_source_type
+ * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_ip_address_source_type
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */
-class WDSTRANSPORT_IP_ADDRESS_SOURCE_TYPE{
+class WDSTRANSPORT_IP_ADDRESS_SOURCE_TYPE extends Win32Enum{
 
     /**
      * Default value that indicates that the IP address source is not known.

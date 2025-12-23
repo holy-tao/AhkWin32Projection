@@ -4,15 +4,15 @@
 
 /**
  * Contains a part of the TCP_REQUEST_QUERY_INFORMATION_EX structure that is used with the IOCTL_TCP_QUERY_INFORMATION_EX control code to specify the kind of information being requested from the TCP driver.
- * @see https://docs.microsoft.com/windows/win32/api//tdiinfo/ns-tdiinfo-tdiobjectid
+ * @see https://learn.microsoft.com/windows/win32/api/tdiinfo/ns-tdiinfo-tdiobjectid
  * @namespace Windows.Win32.System.WindowsProgramming
  * @version v4.0.30319
  */
 class TDIObjectID extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * This is a <a href="https://docs.microsoft.com/windows/desktop/api/tdiinfo/ns-tdiinfo-tdientityid">TDIEntityID</a> structure.

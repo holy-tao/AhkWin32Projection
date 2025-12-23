@@ -3,7 +3,7 @@
 
 /**
  * Contains the arguments passed to a method or property.
- * @see https://docs.microsoft.com/windows/win32/api//oaidl/ns-oaidl-dispparams
+ * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-dispparams
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -15,6 +15,8 @@ class DISPPARAMS extends Win32Struct
 
     /**
      * An array of arguments.
+     * 
+     * **Note**: these arguments appear in reverse order
      * @type {Pointer<VARIANT>}
      */
     rgvarg {

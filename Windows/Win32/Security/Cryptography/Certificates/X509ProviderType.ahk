@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of cryptographic provider.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-x509providertype
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509providertype
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class X509ProviderType{
+class X509ProviderType extends Win32Enum{
 
     /**
      * No provider is identified.

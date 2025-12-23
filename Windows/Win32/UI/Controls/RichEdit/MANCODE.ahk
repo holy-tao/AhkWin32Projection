@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents mathematical alphanumeric codes.
- * @see https://docs.microsoft.com/windows/win32/api//tom/ne-tom-mancode
+ * @see https://learn.microsoft.com/windows/win32/api/tom/ne-tom-mancode
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
-class MANCODE{
+class MANCODE extends Win32Enum{
 
     /**
      * Bold

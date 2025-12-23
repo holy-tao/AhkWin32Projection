@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the status of the cache for a media file or entry.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mfnetsource_cache_state
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfnetsource_cache_state
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFNETSOURCE_CACHE_STATE{
+class MFNETSOURCE_CACHE_STATE extends Win32Enum{
 
     /**
      * The cache for a file or entry does not exist.

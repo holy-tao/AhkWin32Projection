@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the types of credential to be marshaled by CredMarshalCredential or unmarshaled by CredUnmarshalCredential.
- * @see https://docs.microsoft.com/windows/win32/api//wincred/ne-wincred-cred_marshal_type
+ * @see https://learn.microsoft.com/windows/win32/api/wincred/ne-wincred-cred_marshal_type
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319
  */
-class CRED_MARSHAL_TYPE{
+class CRED_MARSHAL_TYPE extends Win32Enum{
 
     /**
      * Specifies that the credential is a certificate reference described by a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-cert_credential_info">CERT_CREDENTIAL_INFO</a> structure.

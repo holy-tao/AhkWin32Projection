@@ -5,17 +5,17 @@
 /**
  * The DWRITE_FONT_METRICS1 structure specifies the metrics that are applicable to all glyphs within the font face.
  * @remarks
- * 
  * <b>DWRITE_FONT_METRICS1</b> inherits from <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_font_metrics">DWRITE_FONT_METRICS</a>:
  * 
- * <pre class="syntax" xml:space="preserve"><code>
+ * 
+ * ``` syntax
+ * 
  * struct DWRITE_FONT_METRICS1 : public DWRITE_FONT_METRICS
  * {
  * ...
- * };</code></pre>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/ns-dwrite_1-dwrite_font_metrics1
+ * };
+ * ```
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_font_metrics1
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -23,7 +23,7 @@ class DWRITE_FONT_METRICS1 extends Win32Struct
 {
     static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {DWRITE_FONT_METRICS}

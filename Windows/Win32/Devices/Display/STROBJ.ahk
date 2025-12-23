@@ -5,11 +5,8 @@
 /**
  * The STROBJ class, or text string object, contains an enumeration of glyph handles and positions for the device driver.
  * @remarks
- * 
  * A driver can call <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-strobj_venumstart">STROBJ_vEnumStart</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-strobj_benum">STROBJ_bEnum</a> to obtain identities and positions of glyphs in the string. If <i>pgp</i> is not <b>NULL</b>, it points to a GLYPHPOS array describing the whole string and only a single call to <b>STROBJ_bEnum</b> is required. If <i>pgp</i> is <b>NULL</b>, <b>STROBJ_bEnum</b> will have to be called repeatedly in a loop to obtain all the string's glyph positions.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-strobj
+ * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-strobj
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
@@ -53,7 +50,7 @@ class STROBJ extends Win32Struct
     rclBkGround{
         get {
             if(!this.HasProp("__rclBkGround"))
-                this.__rclBkGround := RECTL(16, this)
+                this.__rclBkGround := RECTL(12, this)
             return this.__rclBkGround
         }
     }
@@ -68,7 +65,7 @@ class STROBJ extends Win32Struct
     }
 
     /**
-     * Pointer to the original Unicode string or <b>cGlyphs</b> characters. Contrary to its name, this string is not usually null-terminated. Also, this string is not always valid, such as in journalling with printer fonts, in which case this parameter will be <b>NULL</b>.
+     * Pointer to the original Unicode string or <b>cGlyphs</b> characters. Contrary to its name, this string is not usually null-terminated. Also, this string is not always valid, such as in journaling with printer fonts, in which case this parameter will be <b>NULL</b>.
      * @type {PWSTR}
      */
     pwszOrg {

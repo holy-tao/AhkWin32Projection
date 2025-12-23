@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MBN_SMS_STATUS_FLAG enumerated type indicates the status of a device's SMS message store.
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ne-mbnapi-mbn_sms_status_flag
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_sms_status_flag
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
-class MBN_SMS_STATUS_FLAG{
+class MBN_SMS_STATUS_FLAG extends Win32Enum{
 
     /**
      * There is no SMS status information to report.

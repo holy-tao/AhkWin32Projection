@@ -3,7 +3,7 @@
 
 /**
  * The Sources structure contains a Video Present Network (VidPN) topology.
- * @see https://docs.microsoft.com/windows/win32/api//cloneviewhelper/ns-cloneviewhelper-sources
+ * @see https://learn.microsoft.com/windows/win32/api/cloneviewhelper/ns-cloneviewhelper-sources
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

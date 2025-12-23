@@ -10,7 +10,6 @@
 /**
  * Describes the subresources of a texture that are accessible from a depth-stencil view.
  * @remarks
- * 
  * These are valid formats for a depth-stencil view:
  *         
  * 
@@ -25,17 +24,15 @@
  *         
  * 
  * Pass a depth-stencil-view description into <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createdepthstencilview">ID3D12Device::CreateDepthStencilView</a> to create a depth-stencil view.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_depth_stencil_view_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_depth_stencil_view_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
 class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>-typed value that specifies the viewing format.  For allowable formats, see Remarks.
@@ -72,7 +69,7 @@ class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     Texture1D{
         get {
             if(!this.HasProp("__Texture1D"))
-                this.__Texture1D := D3D12_TEX1D_DSV(16, this)
+                this.__Texture1D := D3D12_TEX1D_DSV(12, this)
             return this.__Texture1D
         }
     }
@@ -83,7 +80,7 @@ class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     Texture1DArray{
         get {
             if(!this.HasProp("__Texture1DArray"))
-                this.__Texture1DArray := D3D12_TEX1D_ARRAY_DSV(16, this)
+                this.__Texture1DArray := D3D12_TEX1D_ARRAY_DSV(12, this)
             return this.__Texture1DArray
         }
     }
@@ -94,7 +91,7 @@ class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     Texture2D{
         get {
             if(!this.HasProp("__Texture2D"))
-                this.__Texture2D := D3D12_TEX2D_DSV(16, this)
+                this.__Texture2D := D3D12_TEX2D_DSV(12, this)
             return this.__Texture2D
         }
     }
@@ -105,7 +102,7 @@ class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     Texture2DArray{
         get {
             if(!this.HasProp("__Texture2DArray"))
-                this.__Texture2DArray := D3D12_TEX2D_ARRAY_DSV(16, this)
+                this.__Texture2DArray := D3D12_TEX2D_ARRAY_DSV(12, this)
             return this.__Texture2DArray
         }
     }
@@ -116,7 +113,7 @@ class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     Texture2DMS{
         get {
             if(!this.HasProp("__Texture2DMS"))
-                this.__Texture2DMS := D3D12_TEX2DMS_DSV(16, this)
+                this.__Texture2DMS := D3D12_TEX2DMS_DSV(12, this)
             return this.__Texture2DMS
         }
     }
@@ -127,7 +124,7 @@ class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     Texture2DMSArray{
         get {
             if(!this.HasProp("__Texture2DMSArray"))
-                this.__Texture2DMSArray := D3D12_TEX2DMS_ARRAY_DSV(16, this)
+                this.__Texture2DMSArray := D3D12_TEX2DMS_ARRAY_DSV(12, this)
             return this.__Texture2DMSArray
         }
     }

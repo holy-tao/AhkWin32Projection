@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * For stereo 3D video, specifies whether the data in frame 0 or frame 1 is flipped, either horizontally or vertically.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_video_processor_stereo_flip_mode
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_video_processor_stereo_flip_mode
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_VIDEO_PROCESSOR_STEREO_FLIP_MODE{
+class D3D11_VIDEO_PROCESSOR_STEREO_FLIP_MODE extends Win32Enum{
 
     /**
      * Neither frame is flipped.

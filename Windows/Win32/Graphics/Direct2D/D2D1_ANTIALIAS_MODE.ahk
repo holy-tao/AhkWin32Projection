@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how the edges of nontext primitives are rendered.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/ne-d2d1-d2d1_antialias_mode
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_antialias_mode
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_ANTIALIAS_MODE{
+class D2D1_ANTIALIAS_MODE extends Win32Enum{
 
     /**
      * Edges are antialiased using the Direct2D per-primitive method of high-quality antialiasing.

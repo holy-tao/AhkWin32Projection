@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies variable flags.
- * @see https://docs.microsoft.com/windows/win32/api//oaidl/ne-oaidl-varflags
+ * @see https://learn.microsoft.com/windows/win32/api/oaidl/ne-oaidl-varflags
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class VARFLAGS{
+class VARFLAGS extends Win32Enum{
 
     /**
      * Assignment to the variable should not be allowed.

@@ -6,16 +6,15 @@
  * Specifies output stream arguments for the output passed to ID3D12VideoProcessCommandList::ProcessFrames.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_video_process_output_stream_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_process_output_stream_desc
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
 class D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A [DXGI_FORMAT](/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format) structure specifying the format of the output resources.

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Used by the AutoFailbackType group common property to specify whether the group should be failed back to the node identified as its preferred owner when that node comes back online following a failover.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_group_autofailback_type
+ * AutoFailbackType group common property uses CLUSTER_GROUP_AUTOFAILBACK_TYPE to specify if the group should fail back to the node owner after coming back online.
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_group_autofailback_type
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_GROUP_AUTOFAILBACK_TYPE{
+class CLUSTER_GROUP_AUTOFAILBACK_TYPE extends Win32Enum{
 
     /**
      * Prevents <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/failback">failback</a>.

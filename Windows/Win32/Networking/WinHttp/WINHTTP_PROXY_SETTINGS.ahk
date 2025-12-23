@@ -8,7 +8,7 @@
  */
 class WINHTTP_PROXY_SETTINGS extends Win32Struct
 {
-    static sizeof => 120
+    static sizeof => 112
 
     static packingSize => 8
 
@@ -106,7 +106,7 @@ class WINHTTP_PROXY_SETTINGS extends Win32Struct
     ftLastKnownDetectTime{
         get {
             if(!this.HasProp("__ftLastKnownDetectTime"))
-                this.__ftLastKnownDetectTime := FILETIME(80, this)
+                this.__ftLastKnownDetectTime := FILETIME(76, this)
             return this.__ftLastKnownDetectTime
         }
     }
@@ -115,31 +115,31 @@ class WINHTTP_PROXY_SETTINGS extends Win32Struct
      * @type {Integer}
      */
     dwDetectedInterfaceIpCount {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 
     /**
      * @type {Pointer<Integer>}
      */
     pdwDetectedInterfaceIp {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * @type {Integer}
      */
     cNetworkKeys {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
      * @type {Pointer<WINHTTP_PROXY_NETWORKING_KEY>}
      */
     pNetworkKeys {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 }

@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.XboxController
  * @version v4.0.30319
  */
-class XINPUT_CAPABILITIES_FLAGS{
+class XINPUT_CAPABILITIES_FLAGS extends Win32BitflagEnum{
 
     /**
      * @type {Integer (UInt16)}

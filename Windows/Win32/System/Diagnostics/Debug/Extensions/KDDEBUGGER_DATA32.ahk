@@ -9,9 +9,9 @@
  */
 class KDDEBUGGER_DATA32 extends Win32Struct
 {
-    static sizeof => 272
+    static sizeof => 268
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {DBGKD_DEBUG_DATA_HEADER32}

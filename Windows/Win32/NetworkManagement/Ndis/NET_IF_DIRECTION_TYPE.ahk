@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The NET_IF_ACCESS_TYPE enumeration type specifies the NDIS network interface direction type.
- * @see https://docs.microsoft.com/windows/win32/api//ifdef/ne-ifdef-net_if_direction_type
+ * @see https://learn.microsoft.com/windows/win32/api/ifdef/ne-ifdef-net_if_direction_type
  * @namespace Windows.Win32.NetworkManagement.Ndis
  * @version v4.0.30319
  */
-class NET_IF_DIRECTION_TYPE{
+class NET_IF_DIRECTION_TYPE extends Win32Enum{
 
     /**
      * Indicates the send and receive direction type. This direction type indicates that the NDIS network

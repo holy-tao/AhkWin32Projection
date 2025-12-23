@@ -1,12 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * The WpdAttributeForm enumeration type describes how a property stores its values.
+ * @remarks
+ * This enumeration is used by the [WPD\_PROPERTY\_ATTRIBUTE\_FORM](attributes.md) property to describe how a property's data is stored.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpdattributeform
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */
-class WpdAttributeForm{
+class WpdAttributeForm extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

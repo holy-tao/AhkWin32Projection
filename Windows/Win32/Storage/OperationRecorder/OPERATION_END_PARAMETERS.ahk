@@ -3,7 +3,7 @@
 
 /**
  * This structure is used by the OperationEnd function.
- * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-operation_end_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-operation_end_parameters
  * @namespace Windows.Win32.Storage.OperationRecorder
  * @version v4.0.30319
  */

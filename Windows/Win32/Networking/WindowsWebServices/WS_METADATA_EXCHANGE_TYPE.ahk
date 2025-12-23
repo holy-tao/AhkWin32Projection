@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Information about enabling and disabling types of metadata exchange.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_metadata_exchange_type
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_metadata_exchange_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_METADATA_EXCHANGE_TYPE{
+class WS_METADATA_EXCHANGE_TYPE extends Win32Enum{
 
     /**
      * Disables WS-MetadataExchange/HTTP GET servicing on the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_service_endpoint">endpoint</a>.  

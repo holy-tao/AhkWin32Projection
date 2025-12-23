@@ -4,15 +4,15 @@
 
 /**
  * The SCROLLBARINFO structure contains scroll bar information.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-scrollbarinfo
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-scrollbarinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */
 class SCROLLBARINFO extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -34,7 +34,7 @@ class SCROLLBARINFO extends Win32Struct
     rcScrollBar{
         get {
             if(!this.HasProp("__rcScrollBar"))
-                this.__rcScrollBar := RECT(8, this)
+                this.__rcScrollBar := RECT(4, this)
             return this.__rcScrollBar
         }
     }
@@ -46,8 +46,8 @@ class SCROLLBARINFO extends Win32Struct
      * @type {Integer}
      */
     dxyLineButton {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -57,8 +57,8 @@ class SCROLLBARINFO extends Win32Struct
      * @type {Integer}
      */
     xyThumbTop {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -68,8 +68,8 @@ class SCROLLBARINFO extends Win32Struct
      * @type {Integer}
      */
     xyThumbBottom {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -79,8 +79,8 @@ class SCROLLBARINFO extends Win32Struct
      * @type {Integer}
      */
     reserved {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
@@ -174,13 +174,13 @@ class SCROLLBARINFO extends Win32Struct
     rgstate{
         get {
             if(!this.HasProp("__rgstateProxyArray"))
-                this.__rgstateProxyArray := Win32FixedArray(this.ptr + 40, 6, Primitive, "uint")
+                this.__rgstateProxyArray := Win32FixedArray(this.ptr + 36, 6, Primitive, "uint")
             return this.__rgstateProxyArray
         }
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 64
+        this.cbSize := 60
     }
 }

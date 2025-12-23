@@ -7,11 +7,8 @@
 /**
  * Describes the slot of a root signature version 1.0.
  * @remarks
- * 
  * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_signature_desc">D3D12_ROOT_SIGNATURE_DESC</a> can contain descriptor tables and inline constants. More capable hardware could support inline descriptors in the root signature as well. The number of bind slots in the root signature are most efficient if kept below a certain size, and can have an upper bound as well.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_root_parameter
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_root_parameter
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -68,7 +65,7 @@ class D3D12_ROOT_PARAMETER extends Win32Struct
      * @type {Integer}
      */
     ShaderVisibility {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 }

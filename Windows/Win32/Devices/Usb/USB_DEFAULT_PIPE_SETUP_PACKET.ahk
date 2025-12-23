@@ -8,13 +8,13 @@
  */
 class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 14
 
-    static packingSize => 4
+    static packingSize => 2
 
     class _wValue extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 4
+        static sizeof => 4
+        static packingSize => 1
 
         /**
          * @type {Integer}
@@ -43,8 +43,8 @@ class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
     }
 
     class _wIndex extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 4
+        static sizeof => 4
+        static packingSize => 1
 
         /**
          * @type {Integer}
@@ -97,7 +97,7 @@ class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
     wValue{
         get {
             if(!this.HasProp("__wValue"))
-                this.__wValue := %this.__Class%._wValue(4, this)
+                this.__wValue := %this.__Class%._wValue(3, this)
             return this.__wValue
         }
     }
@@ -108,7 +108,7 @@ class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
     wIndex{
         get {
             if(!this.HasProp("__wIndex"))
-                this.__wIndex := %this.__Class%._wIndex(8, this)
+                this.__wIndex := %this.__Class%._wIndex(7, this)
             return this.__wIndex
         }
     }

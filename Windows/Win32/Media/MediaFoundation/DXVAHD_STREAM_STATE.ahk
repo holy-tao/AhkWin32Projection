@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies state parameters for an input stream to a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) video processor.
- * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ne-dxvahd-dxvahd_stream_state
+ * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ne-dxvahd-dxvahd_stream_state
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class DXVAHD_STREAM_STATE{
+class DXVAHD_STREAM_STATE extends Win32Enum{
 
     /**
      * Specifies the video format of the input stream. The state data is a  <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_stream_state_d3dformat_data">DXVAHD_STREAM_STATE_D3DFORMAT_DATA</a> structure.

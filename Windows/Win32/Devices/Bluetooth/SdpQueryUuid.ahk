@@ -4,7 +4,7 @@
 
 /**
  * The SdpQueryUuid structure facilitates searching for UUIDs.
- * @see https://docs.microsoft.com/windows/win32/api//bthsdpdef/ns-bthsdpdef-sdpqueryuuid
+ * @see https://learn.microsoft.com/windows/win32/api/bthsdpdef/ns-bthsdpdef-sdpqueryuuid
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

@@ -6,11 +6,8 @@
 /**
  * The WMVIDEOINFOHEADER2 structure describes the bitmap and color information for a video image, including interlace, copy protection, and aspect ratio.
  * @remarks
- * 
  * This structure is identical to the <b>VIDEOINFOHEADER2</b> structure defined in Dvdmedia.h. For more information, see the DirectShow documentation in the DirectX SDK.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ns-wmsdkidl-wmvideoinfoheader2
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmvideoinfoheader2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

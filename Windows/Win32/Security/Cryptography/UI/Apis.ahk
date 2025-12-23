@@ -463,7 +463,7 @@ class UI {
      * @param {Integer} dwFlags Currently not used and should be set to 0.
      * @param {Pointer<Void>} pvReserved Reserved for future use.
      * @returns {BOOL} This function returns <b>TRUE</b> on success and <b>FALSE</b> on failure.
-     * @see https://docs.microsoft.com/windows/win32/api//cryptuiapi/nf-cryptuiapi-cryptuidlgviewcontext
+     * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-cryptuidlgviewcontext
      * @since windows5.1.2600
      */
     static CryptUIDlgViewContext(dwContextType, pvContext, hwnd, pwszTitle, dwFlags, pvReserved) {
@@ -557,8 +557,8 @@ class UI {
      * </table>
      * @param {Integer} dwFlags Currently not used and should be set to 0.
      * @param {Pointer<Void>} pvReserved Reserved for future use.
-     * @returns {Pointer<CERT_CONTEXT>} Returns a pointer to the selected certificate context. If no certificate was selected, <b>NULL</b> is returned. When you have finished using the certificate, free the certificate context by calling the <a href="/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatecontext">CertFreeCertificateContext</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//cryptuiapi/nf-cryptuiapi-cryptuidlgselectcertificatefromstore
+     * @returns {Pointer<CERT_CONTEXT>} Returns a pointer to the selected certificate context. If no certificate was selected, <b>NULL</b> is returned. When you have finished using the certificate, free the certificate context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatecontext">CertFreeCertificateContext</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-cryptuidlgselectcertificatefromstore
      * @since windows5.1.2600
      */
     static CryptUIDlgSelectCertificateFromStore(hCertStore, hwnd, pwszTitle, pwszDisplayString, dwDontUseColumn, dwFlags, pvReserved) {
@@ -575,13 +575,81 @@ class UI {
 
     /**
      * A helper function used to retrieve a serialized certificate BLOB from a CERT_SELECTUI_INPUT structure.
+     * @remarks
+     * The returned serialized BLOB is passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforwindowscredentialsa">CredUIPromptForWindowsCredentials</a> function in the <i>pvInAuthBuffer</i> parameter to allow a user to select a certificate by using the credential selection UI.
+     * 
+     * The certificates that are serialized in the BLOB returned in the buffer pointed to by the <i>ppOutBuffer</i>  parameter of this function are dependent on the values  of the <b>hStore</b> and <b>prgpChain</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptuiapi/ns-cryptuiapi-cert_selectui_input">CERT_SELECTUI_INPUT</a> structure. 
+     * 
+     * <table>
+     * <tr>
+     * <th><b>hStore</b></th>
+     * <th><b>prgpChain</b></th>
+     * <th>Certificates serialized</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * not <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * The certificates pointed to by the <b>prgpChain</b> member are serialized.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * not <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * The certificates specified by the <b>hStore</b> member are serialized.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * An empty BLOB is returned.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * not <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * not <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * The call fails and the function returns <b>E_INVALIDARG</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {Pointer<CERT_SELECTUI_INPUT>} pcsi A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptuiapi/ns-cryptuiapi-cert_selectui_input">CERT_SELECTUI_INPUT</a> structure that contains the certificate store and certificate context chain information.
      * @param {Pointer<Pointer<Void>>} ppOutBuffer The address of a pointer to a buffer that receives the serialized certificates BLOB.
      * @param {Pointer<Integer>} pulOutBufferSize A pointer to a <b>ULONG</b> to receive the size, in bytes, of the BLOB received in the buffer pointed to by the <i>ppOutBuffer</i> parameter.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>. 
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. 	If both <b>hStore</b> and <b>prgpChain</b> parameters are not <b>NULL</b>, return <b>E_INVALIDARG</b>. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//cryptuiapi/nf-cryptuiapi-certselectiongetserializedblob
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. 	If both <b>hStore</b> and <b>prgpChain</b> parameters are not <b>NULL</b>, return <b>E_INVALIDARG</b>. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-certselectiongetserializedblob
      * @since windows6.1
      */
     static CertSelectionGetSerializedBlob(pcsi, ppOutBuffer, pulOutBufferSize) {
@@ -589,8 +657,9 @@ class UI {
         pulOutBufferSizeMarshal := pulOutBufferSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("CRYPTUI.dll\CertSelectionGetSerializedBlob", "ptr", pcsi, ppOutBufferMarshal, ppOutBuffer, pulOutBufferSizeMarshal, pulOutBufferSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -599,7 +668,7 @@ class UI {
      * Displays a dialog box that allows the user to manage certificates.
      * @param {Pointer<CRYPTUI_CERT_MGR_STRUCT>} pCryptUICertMgr A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptuiapi/ns-cryptuiapi-cryptui_cert_mgr_struct">CRYPTUI_CERT_MGR_STRUCT</a> structure that contains information about how to create the dialog box.
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE.</b>
-     * @see https://docs.microsoft.com/windows/win32/api//cryptuiapi/nf-cryptuiapi-cryptuidlgcertmgr
+     * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-cryptuidlgcertmgr
      * @since windows5.1.2600
      */
     static CryptUIDlgCertMgr(pCryptUICertMgr) {
@@ -635,7 +704,7 @@ class UI {
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero.
-     * @see https://docs.microsoft.com/windows/win32/api//cryptuiapi/nf-cryptuiapi-cryptuiwizdigitalsign
+     * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-cryptuiwizdigitalsign
      * @since windows5.1.2600
      */
     static CryptUIWizDigitalSign(dwFlags, hwndParent, pwszWizardTitle, pDigitalSignInfo, ppSignContext) {
@@ -654,7 +723,7 @@ class UI {
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero.
-     * @see https://docs.microsoft.com/windows/win32/api//cryptuiapi/nf-cryptuiapi-cryptuiwizfreedigitalsigncontext
+     * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-cryptuiwizfreedigitalsigncontext
      * @since windows5.1.2600
      */
     static CryptUIWizFreeDigitalSignContext(pSignContext) {
@@ -663,14 +732,17 @@ class UI {
     }
 
     /**
-     * Presents a dialog box that displays a specified certificate.
+     * Presents a dialog box that displays a specified certificate. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The cryptuiapi.h header defines CryptUIDlgViewCertificate as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<CRYPTUI_VIEWCERTIFICATE_STRUCTW>} pCertViewInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_viewcertificate_structa">CRYPTUI_VIEWCERTIFICATE_STRUCT</a> structure that contains information about the certificate to view.
      * @param {Pointer<BOOL>} pfPropertiesChanged Indicates whether any certificate properties were modified by the caller.
      * @returns {BOOL} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>). For extended error information, call the 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//cryptuiapi/nf-cryptuiapi-cryptuidlgviewcertificatew
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-cryptuidlgviewcertificatew
      * @since windows5.1.2600
      */
     static CryptUIDlgViewCertificateW(pCertViewInfo, pfPropertiesChanged) {
@@ -679,21 +751,25 @@ class UI {
         A_LastError := 0
 
         result := DllCall("CRYPTUI.dll\CryptUIDlgViewCertificateW", "ptr", pCertViewInfo, pfPropertiesChangedMarshal, pfPropertiesChanged, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Presents a dialog box that displays a specified certificate.
+     * Presents a dialog box that displays a specified certificate. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The cryptuiapi.h header defines CryptUIDlgViewCertificate as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<CRYPTUI_VIEWCERTIFICATE_STRUCTA>} pCertViewInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_viewcertificate_structa">CRYPTUI_VIEWCERTIFICATE_STRUCT</a> structure that contains information about the certificate to view.
      * @param {Pointer<BOOL>} pfPropertiesChanged Indicates whether any certificate properties were modified by the caller.
      * @returns {BOOL} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>). For extended error information, call the 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//cryptuiapi/nf-cryptuiapi-cryptuidlgviewcertificatea
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-cryptuidlgviewcertificatea
      * @since windows5.1.2600
      */
     static CryptUIDlgViewCertificateA(pCertViewInfo, pfPropertiesChanged) {
@@ -702,8 +778,9 @@ class UI {
         A_LastError := 0
 
         result := DllCall("CRYPTUI.dll\CryptUIDlgViewCertificateA", "ptr", pCertViewInfo, pfPropertiesChangedMarshal, pfPropertiesChanged, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -720,8 +797,8 @@ class UI {
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. For extended error information, call 
-     * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//cryptuiapi/nf-cryptuiapi-cryptuiwizexport
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-cryptuiwizexport
      * @since windows5.1.2600
      */
     static CryptUIWizExport(dwFlags, hwndParent, pwszWizardTitle, pExportInfo, pvoid) {
@@ -733,14 +810,31 @@ class UI {
         A_LastError := 0
 
         result := DllCall("CRYPTUI.dll\CryptUIWizExport", "uint", dwFlags, "ptr", hwndParent, "ptr", pwszWizardTitle, "ptr", pExportInfo, pvoidMarshal, pvoid, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Imports a certificate, a certificate trust list (CTL), a certificate revocation list (CRL), or a certificate store to a certificate store.
+     * @remarks
+     * If none of following three flags are set in <i>dwFlags</i>, import of any type of content is allowed:
+     * 
+     * <ul>
+     * <li>CRYPTUI_WIZ_IMPORT_ALLOW_CERT</li>
+     * <li>CRYPTUI_WIZ_IMPORT_ALLOW_CRL</li>
+     * <li>CRYPTUI_WIZ_IMPORT_ALLOW_CTL</li>
+     * </ul>
+     * The <b>CRYPTUI_WIZ_IMPORT_TO_LOCALMACHINE</b> and <b>CRYPTUI_WIZ_IMPORT_TO_CURRENTUSER</b> flags are used to force the content of a PFX <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> into either the local machine store or the current user store.
+     * If neither of these flags are set and <i>hDestCertStore</i> is <b>NULL</b>:
+     * 
+     * <ul>
+     * <li>The private key in the PFX <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> will be forced to be imported into the current user store.</li>
+     * <li>And if <b>CRYPTUI_WIZ_NO_UI</b> is not set, the wizard prompts the user to select a certificate 
+     * store from among the current user certificate stores.</li>
+     * </ul>
      * @param {Integer} dwFlags 
      * @param {HWND} hwndParent The handle of the window to use as the parent of the dialog box that  this function creates. This parameter is ignored if the <b>CRYPTUI_WIZ_NO_UI</b> flag is set in <i>dwFlags</i>.
      * @param {PWSTR} pwszWizardTitle A pointer to a null-terminated Unicode string that contains the title to use in the dialog box that this function creates. This parameter is ignored if the <b>CRYPTUI_WIZ_NO_UI</b> flag is set in <i>dwFlags</i>.
@@ -749,8 +843,8 @@ class UI {
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. For extended error information, call 
-     * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//cryptuiapi/nf-cryptuiapi-cryptuiwizimport
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-cryptuiwizimport
      * @since windows5.1.2600
      */
     static CryptUIWizImport(dwFlags, hwndParent, pwszWizardTitle, pImportSrc, hDestCertStore) {
@@ -761,8 +855,9 @@ class UI {
         A_LastError := 0
 
         result := DllCall("CRYPTUI.dll\CryptUIWizImport", "uint", dwFlags, "ptr", hwndParent, "ptr", pwszWizardTitle, "ptr", pImportSrc, "ptr", hDestCertStore, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

@@ -5,18 +5,21 @@
 #Include .\XFORM.ahk
 
 /**
- * 
+ * The EMRTRANSPARENTBLT structure contains members for the TransparentBLT enhanced metafile record.
+ * @remarks
+ * This structure is to be used during metafile playback.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrtransparentblt
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
 class EMRTRANSPARENTBLT extends Win32Struct
 {
-    static sizeof => 112
+    static sizeof => 108
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
+     * The base structure for all record types.
      * @type {EMR}
      */
     emr{
@@ -28,6 +31,7 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
+     * Inclusive bounds, in device units.
      * @type {RECTL}
      */
     rclBounds{
@@ -39,6 +43,7 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
+     * Logical x coordinate of the upper-left corner of the destination rectangle.
      * @type {Integer}
      */
     xDest {
@@ -47,6 +52,7 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
+     * Logical y coordinate of the upper-left corner of the destination rectangle.
      * @type {Integer}
      */
     yDest {
@@ -55,6 +61,7 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
+     * Logical width of the destination rectangle.
      * @type {Integer}
      */
     cxDest {
@@ -63,6 +70,7 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
+     * Logical height of the destination rectangle.
      * @type {Integer}
      */
     cyDest {
@@ -71,6 +79,7 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
+     * Stores the transparent color.
      * @type {Integer}
      */
     dwRop {
@@ -79,6 +88,7 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
+     * Logical x coordinate of the upper-left corner of the source rectangle.
      * @type {Integer}
      */
     xSrc {
@@ -87,6 +97,7 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
+     * Logical y coordinate of the upper-left corner of the source rectangle.
      * @type {Integer}
      */
     ySrc {
@@ -95,77 +106,86 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
+     * World-space to page-space transformation of the source device context.
      * @type {XFORM}
      */
     xformSrc{
         get {
             if(!this.HasProp("__xformSrc"))
-                this.__xformSrc := XFORM(56, this)
+                this.__xformSrc := XFORM(52, this)
             return this.__xformSrc
         }
     }
 
     /**
+     * Background color (the RGB value) of the source device context. To make a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @type {COLORREF}
      */
     crBkColorSrc {
+        get => NumGet(this, 76, "uint")
+        set => NumPut("uint", value, this, 76)
+    }
+
+    /**
+     * Source bitmap information color table usage (DIB_RGB_COLORS).
+     * @type {Integer}
+     */
+    iUsageSrc {
         get => NumGet(this, 80, "uint")
         set => NumPut("uint", value, this, 80)
     }
 
     /**
+     * Offset to the source <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure.
      * @type {Integer}
      */
-    iUsageSrc {
+    offBmiSrc {
         get => NumGet(this, 84, "uint")
         set => NumPut("uint", value, this, 84)
     }
 
     /**
+     * Size of the source <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure.
      * @type {Integer}
      */
-    offBmiSrc {
+    cbBmiSrc {
         get => NumGet(this, 88, "uint")
         set => NumPut("uint", value, this, 88)
     }
 
     /**
+     * Offset to the source bitmap bits.
      * @type {Integer}
      */
-    cbBmiSrc {
+    offBitsSrc {
         get => NumGet(this, 92, "uint")
         set => NumPut("uint", value, this, 92)
     }
 
     /**
+     * Size of the source bitmap bits.
      * @type {Integer}
      */
-    offBitsSrc {
+    cbBitsSrc {
         get => NumGet(this, 96, "uint")
         set => NumPut("uint", value, this, 96)
     }
 
     /**
-     * @type {Integer}
-     */
-    cbBitsSrc {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
-
-    /**
+     * Width of the source rectangle, in logical units.
      * @type {Integer}
      */
     cxSrc {
-        get => NumGet(this, 104, "int")
-        set => NumPut("int", value, this, 104)
+        get => NumGet(this, 100, "int")
+        set => NumPut("int", value, this, 100)
     }
 
     /**
+     * Height of the source rectangle, in logical units.
      * @type {Integer}
      */
     cySrc {
-        get => NumGet(this, 108, "int")
-        set => NumPut("int", value, this, 108)
+        get => NumGet(this, 104, "int")
+        set => NumPut("int", value, this, 104)
     }
 }

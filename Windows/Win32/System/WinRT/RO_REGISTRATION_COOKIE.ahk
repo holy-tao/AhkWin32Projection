@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Represents activation factories that are registered by calling the RoRegisterActivationFactories function.
+ * @remarks
+ * The [**RoRegisterActivationFactories**](/windows/win32/api/roapi/nf-roapi-roregisteractivationfactories) function returns a **RO\_REGISTRATION\_COOKIE** when a activatable class factories are registered with the Windows Runtime. The [**RoRevokeActivationFactories**](/windows/win32/api/roapi/nf-roapi-rorevokeactivationfactories) function uses the cookie to remove the class factories.
  * @see https://learn.microsoft.com/windows/win32/WinRT/ro-registration-cookie
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319

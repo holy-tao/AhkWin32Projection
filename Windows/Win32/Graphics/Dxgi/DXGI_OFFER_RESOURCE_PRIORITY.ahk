@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the importance of a resource’s content when you call the IDXGIDevice2::OfferResources method to offer the resource.
  * @remarks
- * 
  * Priority determines how likely the operating system is to discard an offered resource.  Resources offered with lower priority are discarded first.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi1_2/ne-dxgi1_2-dxgi_offer_resource_priority
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ne-dxgi1_2-dxgi_offer_resource_priority
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
-class DXGI_OFFER_RESOURCE_PRIORITY{
+class DXGI_OFFER_RESOURCE_PRIORITY extends Win32Enum{
 
     /**
      * The resource is low priority. The operating system discards a low priority resource before other offered resources with higher priority. It is a good programming practice to mark a resource as low priority if it has no useful content.

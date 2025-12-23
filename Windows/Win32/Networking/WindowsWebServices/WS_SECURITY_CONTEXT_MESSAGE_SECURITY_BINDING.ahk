@@ -4,7 +4,7 @@
 
 /**
  * The security binding subtype for specifying the use of a security context token negotiated between the client and server using WS-SecureConversation.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_security_context_message_security_binding
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_context_message_security_binding
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

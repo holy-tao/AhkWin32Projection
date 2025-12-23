@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values that indicate how a notification should be processed.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-notificationprocessing
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-notificationprocessing
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
-class NotificationProcessing{
+class NotificationProcessing extends Win32Enum{
 
     /**
      * These notifications should be presented to the user as soon as possible and 

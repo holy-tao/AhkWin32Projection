@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the behavior of a live source filter.
  * @remarks
- * 
  * If no flags are set (the default case), the source filter is assumed to be live and not to perform any rate matching on its own.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-_am_pushsource_flags
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-_am_pushsource_flags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class _AM_PUSHSOURCE_FLAGS{
+class _AM_PUSHSOURCE_FLAGS extends Win32Enum{
 
     /**
      * The filter uses its own rate-matching mechanism; the renderer should therefore not attempt to match rates with this filter.

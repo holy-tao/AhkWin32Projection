@@ -3,7 +3,7 @@
 
 /**
  * The MENUBUTTONDATA structure contains values used to create buttons on a toolbar.
- * @see https://docs.microsoft.com/windows/win32/api//mmc/ns-mmc-menubuttondata
+ * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-menubuttondata
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

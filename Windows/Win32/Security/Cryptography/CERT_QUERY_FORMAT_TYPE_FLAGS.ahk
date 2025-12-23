@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
-class CERT_QUERY_FORMAT_TYPE_FLAGS{
+class CERT_QUERY_FORMAT_TYPE_FLAGS extends Win32Enum{
 
     /**
      * @type {Integer (UInt32)}

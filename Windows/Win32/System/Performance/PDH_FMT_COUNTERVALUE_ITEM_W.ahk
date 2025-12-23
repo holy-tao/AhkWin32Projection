@@ -3,8 +3,8 @@
 #Include .\PDH_FMT_COUNTERVALUE.ahk
 
 /**
- * The PDH_FMT_COUNTERVALUE_ITEM structure contains the instance name and formatted value of a counter.
- * @see https://docs.microsoft.com/windows/win32/api//pdh/ns-pdh-pdh_fmt_countervalue_item_w
+ * The PDH_FMT_COUNTERVALUE_ITEM structure contains the instance name and formatted value of a counter. (Unicode)
+ * @see https://learn.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_fmt_countervalue_item_w
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  * @charset Unicode

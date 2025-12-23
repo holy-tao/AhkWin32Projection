@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Elements of the TF_DA_LINESTYLE enumeration specify the underline style of a display attribute in the TF_DA_COLOR structure.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/ne-msctf-tf_da_linestyle
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/ne-msctf-tf_da_linestyle
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
-class TF_DA_LINESTYLE{
+class TF_DA_LINESTYLE extends Win32Enum{
 
     /**
      * The text is not underlined.

@@ -3,9 +3,8 @@
 #Include Common\DXGI_SAMPLE_DESC.ahk
 
 /**
- * Describes a swap chain.
+ * Describes a swap chain. (DXGI_SWAP_CHAIN_DESC1)
  * @remarks
- * 
  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforhwnd">CreateSwapChainForHwnd</a>,  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcorewindow">CreateSwapChainForCoreWindow</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcomposition">CreateSwapChainForComposition</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_3/nf-dxgi1_3-idxgifactorymedia-createswapchainforcompositionsurfacehandle">CreateSwapChainForCompositionSurfaceHandle</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-getdesc1">GetDesc1</a> methods.
  * 
  * <div class="alert"><b>Note</b>  You cannot cast a 
@@ -19,6 +18,7 @@
  * 
  * For a <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-flip-model">flip-model</a> swap chain (that is, a swap 
  *      chain that has the 
+ *      <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ne-dxgi-dxgi_swap_effect">DXGI_SWAP_EFFECT_FLIP_DISCARD</a> or 
  *      <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ne-dxgi-dxgi_swap_effect">DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL</a> 
  *      value set in the <b>SwapEffect</b> member), you must set the 
  *      <b>Format</b> member to 
@@ -32,9 +32,7 @@
  *      sample antialiasing (MSAA) is not supported; you must set the <b>BufferCount</b> member to 
  *      from two to sixteen. For more info about flip-model swap chain, see 
  *      DXGI Flip Model.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi1_2/ns-dxgi1_2-dxgi_swap_chain_desc1
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ns-dxgi1_2-dxgi_swap_chain_desc1
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
@@ -42,7 +40,7 @@ class DXGI_SWAP_CHAIN_DESC1 extends Win32Struct
 {
     static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A value that describes the resolution width. If you specify the width as zero when you call the 

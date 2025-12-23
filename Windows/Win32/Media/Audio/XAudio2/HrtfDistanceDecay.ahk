@@ -3,7 +3,7 @@
 
 /**
  * Describes a distance-based decay behavior.
- * @see https://docs.microsoft.com/windows/win32/api//hrtfapoapi/ns-hrtfapoapi-hrtfdistancedecay
+ * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/ns-hrtfapoapi-hrtfdistancedecay
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319
  */

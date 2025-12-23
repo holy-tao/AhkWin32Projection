@@ -4,15 +4,15 @@
 
 /**
  * Defines a regions of interest.
- * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-roi_area
+ * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-roi_area
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
 class ROI_AREA extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The bounds of the region.

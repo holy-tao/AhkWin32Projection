@@ -5,7 +5,7 @@
 
 /**
  * Represents a fault code.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_fault_code
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_fault_code
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

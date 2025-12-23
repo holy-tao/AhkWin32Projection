@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the result of a call to ID3D12Device5::CheckDriverMatchingIdentifier which queries whether serialized data is compatible with the current device and driver version.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_driver_matching_identifier_status
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_driver_matching_identifier_status
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS{
+class D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS extends Win32Enum{
 
     /**
      * Serialized data is compatible with the current device/driver.

@@ -3,7 +3,7 @@
 
 /**
  * Contains extended package information used for NEGO2 negotiations.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ns-ntsecpkg-secpkg_nego2_info
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_nego2_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

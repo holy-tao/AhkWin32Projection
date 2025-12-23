@@ -4,7 +4,7 @@
 
 /**
  * Contains the priority of a DFS root target or link target.
- * @see https://docs.microsoft.com/windows/win32/api//lmdfs/ns-lmdfs-dfs_info_104
+ * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_104
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319
  */
@@ -12,7 +12,7 @@ class DFS_INFO_104 extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmdfs/ns-lmdfs-dfs_target_priority">DFS_TARGET_PRIORITY</a> structure that contains the specific priority class and rank of a DFS target.

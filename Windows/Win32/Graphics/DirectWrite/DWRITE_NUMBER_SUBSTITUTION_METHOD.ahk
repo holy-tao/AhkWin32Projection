@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how to apply number substitution on digits and related punctuation.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_number_substitution_method
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_number_substitution_method
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_NUMBER_SUBSTITUTION_METHOD{
+class DWRITE_NUMBER_SUBSTITUTION_METHOD extends Win32Enum{
 
     /**
      * Specifies that the substitution method should be determined based on the LOCALE_IDIGITSUBSTITUTION value of the specified text culture.

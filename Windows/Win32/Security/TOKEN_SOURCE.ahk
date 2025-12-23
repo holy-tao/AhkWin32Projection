@@ -4,7 +4,7 @@
 
 /**
  * Identifies the source of an access token.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-token_source
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_source
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */
@@ -12,7 +12,7 @@ class TOKEN_SOURCE extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies an 8-byte character string used to identify the source of an access token. This is used to distinguish between such sources as Session Manager, LAN Manager, and RPC Server. A string, rather than a constant, is used to identify the source so users and developers can make extensions to the system, such as by adding other networks, that act as the source of access tokens.

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify protected resource session support.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_protected_resource_session_support_flags
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_protected_resource_session_support_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAGS{
+class D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAGS extends Win32BitflagEnum{
 
     /**
      * Indicates that protected resource sessions are not supported.

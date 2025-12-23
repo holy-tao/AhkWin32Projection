@@ -6,9 +6,8 @@
 #Include ..\..\Foundation\POINT.ahk
 
 /**
- * The OUTLINETEXTMETRIC structure contains metrics describing a TrueType font.
+ * The OUTLINETEXTMETRIC structure contains metrics describing a TrueType font. (Unicode)
  * @remarks
- * 
  * The sizes returned in <b>OUTLINETEXTMETRIC</b> are specified in logical units; that is, they depend on the current mapping mode of the specified display context.
  * 
  * Note, <b>OUTLINETEXTMETRIC</b> is defined using the current pack setting. To avoid problems, make sure that the application is built using the platform default packing. For example, 32-bit Windows uses a default of 8-byte packing. For more information, see the MSDN topic "C-Compiler Packing Issues".
@@ -19,16 +18,14 @@
  * 
  * > [!NOTE]
  * > The wingdi.h header defines OUTLINETEXTMETRIC as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-outlinetextmetricw
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-outlinetextmetricw
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  * @charset Unicode
  */
 class OUTLINETEXTMETRICW extends Win32Struct
 {
-    static sizeof => 240
+    static sizeof => 232
 
     static packingSize => 8
 
@@ -48,7 +45,7 @@ class OUTLINETEXTMETRICW extends Win32Struct
     otmTextMetrics{
         get {
             if(!this.HasProp("__otmTextMetrics"))
-                this.__otmTextMetrics := TEXTMETRICW(8, this)
+                this.__otmTextMetrics := TEXTMETRICW(4, this)
             return this.__otmTextMetrics
         }
     }
@@ -58,8 +55,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {Integer}
      */
     otmFiller {
-        get => NumGet(this, 68, "char")
-        set => NumPut("char", value, this, 68)
+        get => NumGet(this, 64, "char")
+        set => NumPut("char", value, this, 64)
     }
 
     /**
@@ -69,7 +66,7 @@ class OUTLINETEXTMETRICW extends Win32Struct
     otmPanoseNumber{
         get {
             if(!this.HasProp("__otmPanoseNumber"))
-                this.__otmPanoseNumber := PANOSE(72, this)
+                this.__otmPanoseNumber := PANOSE(65, this)
             return this.__otmPanoseNumber
         }
     }
@@ -110,8 +107,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {Integer}
      */
     otmfsSelection {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
+        get => NumGet(this, 76, "uint")
+        set => NumPut("uint", value, this, 76)
     }
 
     /**
@@ -119,8 +116,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {Integer}
      */
     otmfsType {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
@@ -128,8 +125,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {Integer}
      */
     otmsCharSlopeRise {
-        get => NumGet(this, 92, "int")
-        set => NumPut("int", value, this, 92)
+        get => NumGet(this, 84, "int")
+        set => NumPut("int", value, this, 84)
     }
 
     /**
@@ -137,8 +134,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {Integer}
      */
     otmsCharSlopeRun {
-        get => NumGet(this, 96, "int")
-        set => NumPut("int", value, this, 96)
+        get => NumGet(this, 88, "int")
+        set => NumPut("int", value, this, 88)
     }
 
     /**
@@ -146,8 +143,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {Integer}
      */
     otmItalicAngle {
-        get => NumGet(this, 100, "int")
-        set => NumPut("int", value, this, 100)
+        get => NumGet(this, 92, "int")
+        set => NumPut("int", value, this, 92)
     }
 
     /**
@@ -155,8 +152,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {Integer}
      */
     otmEMSquare {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
@@ -164,8 +161,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {Integer}
      */
     otmAscent {
-        get => NumGet(this, 108, "int")
-        set => NumPut("int", value, this, 108)
+        get => NumGet(this, 100, "int")
+        set => NumPut("int", value, this, 100)
     }
 
     /**
@@ -173,8 +170,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {Integer}
      */
     otmDescent {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
+        get => NumGet(this, 104, "int")
+        set => NumPut("int", value, this, 104)
     }
 
     /**
@@ -182,8 +179,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {Integer}
      */
     otmLineGap {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
+        get => NumGet(this, 108, "uint")
+        set => NumPut("uint", value, this, 108)
     }
 
     /**
@@ -191,8 +188,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {Integer}
      */
     otmsCapEmHeight {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
     }
 
     /**
@@ -200,8 +197,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {Integer}
      */
     otmsXHeight {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
+        get => NumGet(this, 116, "uint")
+        set => NumPut("uint", value, this, 116)
     }
 
     /**
@@ -211,7 +208,7 @@ class OUTLINETEXTMETRICW extends Win32Struct
     otmrcFontBox{
         get {
             if(!this.HasProp("__otmrcFontBox"))
-                this.__otmrcFontBox := RECT(128, this)
+                this.__otmrcFontBox := RECT(120, this)
             return this.__otmrcFontBox
         }
     }
@@ -221,8 +218,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {Integer}
      */
     otmMacAscent {
-        get => NumGet(this, 144, "int")
-        set => NumPut("int", value, this, 144)
+        get => NumGet(this, 136, "int")
+        set => NumPut("int", value, this, 136)
     }
 
     /**
@@ -230,8 +227,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {Integer}
      */
     otmMacDescent {
-        get => NumGet(this, 148, "int")
-        set => NumPut("int", value, this, 148)
+        get => NumGet(this, 140, "int")
+        set => NumPut("int", value, this, 140)
     }
 
     /**
@@ -239,8 +236,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {Integer}
      */
     otmMacLineGap {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
+        get => NumGet(this, 144, "uint")
+        set => NumPut("uint", value, this, 144)
     }
 
     /**
@@ -248,8 +245,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {Integer}
      */
     otmusMinimumPPEM {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
+        get => NumGet(this, 148, "uint")
+        set => NumPut("uint", value, this, 148)
     }
 
     /**
@@ -259,7 +256,7 @@ class OUTLINETEXTMETRICW extends Win32Struct
     otmptSubscriptSize{
         get {
             if(!this.HasProp("__otmptSubscriptSize"))
-                this.__otmptSubscriptSize := POINT(160, this)
+                this.__otmptSubscriptSize := POINT(152, this)
             return this.__otmptSubscriptSize
         }
     }
@@ -271,7 +268,7 @@ class OUTLINETEXTMETRICW extends Win32Struct
     otmptSubscriptOffset{
         get {
             if(!this.HasProp("__otmptSubscriptOffset"))
-                this.__otmptSubscriptOffset := POINT(168, this)
+                this.__otmptSubscriptOffset := POINT(160, this)
             return this.__otmptSubscriptOffset
         }
     }
@@ -283,7 +280,7 @@ class OUTLINETEXTMETRICW extends Win32Struct
     otmptSuperscriptSize{
         get {
             if(!this.HasProp("__otmptSuperscriptSize"))
-                this.__otmptSuperscriptSize := POINT(176, this)
+                this.__otmptSuperscriptSize := POINT(168, this)
             return this.__otmptSuperscriptSize
         }
     }
@@ -295,7 +292,7 @@ class OUTLINETEXTMETRICW extends Win32Struct
     otmptSuperscriptOffset{
         get {
             if(!this.HasProp("__otmptSuperscriptOffset"))
-                this.__otmptSuperscriptOffset := POINT(184, this)
+                this.__otmptSuperscriptOffset := POINT(176, this)
             return this.__otmptSuperscriptOffset
         }
     }
@@ -305,8 +302,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {Integer}
      */
     otmsStrikeoutSize {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
+        get => NumGet(this, 184, "uint")
+        set => NumPut("uint", value, this, 184)
     }
 
     /**
@@ -314,8 +311,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {Integer}
      */
     otmsStrikeoutPosition {
-        get => NumGet(this, 196, "int")
-        set => NumPut("int", value, this, 196)
+        get => NumGet(this, 188, "int")
+        set => NumPut("int", value, this, 188)
     }
 
     /**
@@ -323,8 +320,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {Integer}
      */
     otmsUnderscoreSize {
-        get => NumGet(this, 200, "int")
-        set => NumPut("int", value, this, 200)
+        get => NumGet(this, 192, "int")
+        set => NumPut("int", value, this, 192)
     }
 
     /**
@@ -332,8 +329,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {Integer}
      */
     otmsUnderscorePosition {
-        get => NumGet(this, 204, "int")
-        set => NumPut("int", value, this, 204)
+        get => NumGet(this, 196, "int")
+        set => NumPut("int", value, this, 196)
     }
 
     /**
@@ -341,8 +338,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {PSTR}
      */
     otmpFamilyName {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
+        get => NumGet(this, 200, "ptr")
+        set => NumPut("ptr", value, this, 200)
     }
 
     /**
@@ -350,8 +347,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {PSTR}
      */
     otmpFaceName {
-        get => NumGet(this, 216, "ptr")
-        set => NumPut("ptr", value, this, 216)
+        get => NumGet(this, 208, "ptr")
+        set => NumPut("ptr", value, this, 208)
     }
 
     /**
@@ -359,8 +356,8 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {PSTR}
      */
     otmpStyleName {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
+        get => NumGet(this, 216, "ptr")
+        set => NumPut("ptr", value, this, 216)
     }
 
     /**
@@ -368,7 +365,7 @@ class OUTLINETEXTMETRICW extends Win32Struct
      * @type {PSTR}
      */
     otmpFullName {
-        get => NumGet(this, 232, "ptr")
-        set => NumPut("ptr", value, this, 232)
+        get => NumGet(this, 224, "ptr")
+        set => NumPut("ptr", value, this, 224)
     }
 }

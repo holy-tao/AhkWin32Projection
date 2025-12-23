@@ -6,15 +6,15 @@
 
 /**
  * Represents a pinhole camera intrinsic model for a specified resolution.
- * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-mfpinholecameraintrinsic_intrinsicmodel
+ * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mfpinholecameraintrinsic_intrinsicmodel
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
 class MFPinholeCameraIntrinsic_IntrinsicModel extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The width for the pinhole camera intrinsic model, in pixels.

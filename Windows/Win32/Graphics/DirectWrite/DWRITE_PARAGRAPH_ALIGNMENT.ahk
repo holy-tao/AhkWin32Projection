@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the alignment of paragraph text along the flow direction axis, relative to the top and bottom of the flow's layout box.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_paragraph_alignment
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_paragraph_alignment
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_PARAGRAPH_ALIGNMENT{
+class DWRITE_PARAGRAPH_ALIGNMENT extends Win32Enum{
 
     /**
      * The top of the text flow is aligned to the top edge of the layout box.

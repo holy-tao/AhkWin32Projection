@@ -4,7 +4,6 @@
 /**
  * Used to implement external caching of connections.
  * @remarks
- * 
  * Use the <b>LDAP_REFERRAL_CALLBACK</b> structure to implement a mechanism for caching connections. The structure contains three callback functions which you implement in your client code.
  * 
  * <b>QUERYFORCONNECTION</b>: If a connection is available, this function should return a pointer to the connection to use in <i>ConnectionToUse</i>. If no connection is available, the function should set <i>ConnectionToUse</i> to <b>NULL</b>. The signature for this callback function is as follows.
@@ -85,7 +84,7 @@
  * Pointer to a null-terminated string that contains the name of the referred-to server; that is the server to which a connection must be made.
  * 
  * </li>
- * <li><i>PortNumber</i>Port on the referred-to server, to which a connection must be made.
+ * <li><i>PortNumber</i> Port on the referred-to server, to which a connection must be made.
  * 
  * </li>
  * <li>
@@ -119,9 +118,7 @@
  * 
  * </li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winldap/ns-winldap-ldap_referral_callback
+ * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_referral_callback
  * @namespace Windows.Win32.Networking.Ldap
  * @version v4.0.30319
  */

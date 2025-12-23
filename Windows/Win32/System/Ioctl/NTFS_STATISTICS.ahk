@@ -4,28 +4,25 @@
 /**
  * Contains statistical information from the NTFS file system.
  * @remarks
- * 
  * The MFT, MFT mirror, root index, user index, bitmap, and MFT bitmap are counted as metadata files. The log 
  *     file is not counted as a metadata file.
  * 
  * The number of read and write operations measured is the number of paging operations.
  * 
  * For additional statistics that are only available with Windows 10, use <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-ntfs_statistics_ex">NTFS_STATISTICS_EX</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-ntfs_statistics
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-ntfs_statistics
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
 class NTFS_STATISTICS extends Win32Struct
 {
-    static sizeof => 224
+    static sizeof => 216
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _MftWritesUserLevel extends Win32Struct {
-        static sizeof => 224
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 2
 
         /**
          * @type {Integer}
@@ -62,8 +59,8 @@ class NTFS_STATISTICS extends Win32Struct
     }
 
     class _Mft2WritesUserLevel extends Win32Struct {
-        static sizeof => 224
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 2
 
         /**
          * @type {Integer}
@@ -100,8 +97,8 @@ class NTFS_STATISTICS extends Win32Struct
     }
 
     class _BitmapWritesUserLevel extends Win32Struct {
-        static sizeof => 224
-        static packingSize => 8
+        static sizeof => 6
+        static packingSize => 2
 
         /**
          * @type {Integer}
@@ -130,8 +127,8 @@ class NTFS_STATISTICS extends Win32Struct
     }
 
     class _MftBitmapWritesUserLevel extends Win32Struct {
-        static sizeof => 224
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 2
 
         /**
          * @type {Integer}
@@ -168,8 +165,8 @@ class NTFS_STATISTICS extends Win32Struct
     }
 
     class _Allocate extends Win32Struct {
-        static sizeof => 224
-        static packingSize => 8
+        static sizeof => 40
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -584,7 +581,7 @@ class NTFS_STATISTICS extends Win32Struct
     MftBitmapWritesUserLevel{
         get {
             if(!this.HasProp("__MftBitmapWritesUserLevel"))
-                this.__MftBitmapWritesUserLevel := %this.__Class%._MftBitmapWritesUserLevel(136, this)
+                this.__MftBitmapWritesUserLevel := %this.__Class%._MftBitmapWritesUserLevel(130, this)
             return this.__MftBitmapWritesUserLevel
         }
     }
@@ -594,8 +591,8 @@ class NTFS_STATISTICS extends Win32Struct
      * @type {Integer}
      */
     UserIndexReads {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
+        get => NumGet(this, 140, "uint")
+        set => NumPut("uint", value, this, 140)
     }
 
     /**
@@ -603,8 +600,8 @@ class NTFS_STATISTICS extends Win32Struct
      * @type {Integer}
      */
     UserIndexReadBytes {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
+        get => NumGet(this, 144, "uint")
+        set => NumPut("uint", value, this, 144)
     }
 
     /**
@@ -612,8 +609,8 @@ class NTFS_STATISTICS extends Win32Struct
      * @type {Integer}
      */
     UserIndexWrites {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
+        get => NumGet(this, 148, "uint")
+        set => NumPut("uint", value, this, 148)
     }
 
     /**
@@ -621,8 +618,8 @@ class NTFS_STATISTICS extends Win32Struct
      * @type {Integer}
      */
     UserIndexWriteBytes {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
+        get => NumGet(this, 152, "uint")
+        set => NumPut("uint", value, this, 152)
     }
 
     /**
@@ -630,8 +627,8 @@ class NTFS_STATISTICS extends Win32Struct
      * @type {Integer}
      */
     LogFileReads {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
+        get => NumGet(this, 156, "uint")
+        set => NumPut("uint", value, this, 156)
     }
 
     /**
@@ -639,8 +636,8 @@ class NTFS_STATISTICS extends Win32Struct
      * @type {Integer}
      */
     LogFileReadBytes {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
+        get => NumGet(this, 160, "uint")
+        set => NumPut("uint", value, this, 160)
     }
 
     /**
@@ -648,8 +645,8 @@ class NTFS_STATISTICS extends Win32Struct
      * @type {Integer}
      */
     LogFileWrites {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
+        get => NumGet(this, 164, "uint")
+        set => NumPut("uint", value, this, 164)
     }
 
     /**
@@ -657,8 +654,8 @@ class NTFS_STATISTICS extends Win32Struct
      * @type {Integer}
      */
     LogFileWriteBytes {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
+        get => NumGet(this, 168, "uint")
+        set => NumPut("uint", value, this, 168)
     }
 
     /**
@@ -668,7 +665,7 @@ class NTFS_STATISTICS extends Win32Struct
     Allocate{
         get {
             if(!this.HasProp("__Allocate"))
-                this.__Allocate := %this.__Class%._Allocate(176, this)
+                this.__Allocate := %this.__Class%._Allocate(172, this)
             return this.__Allocate
         }
     }
@@ -680,7 +677,7 @@ class NTFS_STATISTICS extends Win32Struct
      * @type {Integer}
      */
     DiskResourcesExhausted {
-        get => NumGet(this, 216, "uint")
-        set => NumPut("uint", value, this, 216)
+        get => NumGet(this, 212, "uint")
+        set => NumPut("uint", value, this, 212)
     }
 }

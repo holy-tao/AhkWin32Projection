@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * A policy allowing a sync provider to control when the platform should clear the in-sync state on a placeholder file or directory.
- * @see https://docs.microsoft.com/windows/win32/api//cfapi/ne-cfapi-cf_insync_policy
+ * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_insync_policy
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
-class CF_INSYNC_POLICY{
+class CF_INSYNC_POLICY extends Win32BitflagEnum{
 
     /**
      * The default in-sync policy.

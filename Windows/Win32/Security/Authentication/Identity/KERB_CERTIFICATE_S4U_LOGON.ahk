@@ -4,7 +4,7 @@
 
 /**
  * Contains information about the certificate for a service for user (S4U) logon.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_certificate_s4u_logon
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_certificate_s4u_logon
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

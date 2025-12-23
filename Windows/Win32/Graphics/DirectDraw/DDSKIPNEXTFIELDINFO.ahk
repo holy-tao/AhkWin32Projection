@@ -3,7 +3,7 @@
 
 /**
  * The DDSKIPNEXTFIELDINFO structure contains the skip information for the video port extensions (VPE) object.
- * @see https://docs.microsoft.com/windows/win32/api//dxmini/ns-dxmini-ddskipnextfieldinfo
+ * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddskipnextfieldinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

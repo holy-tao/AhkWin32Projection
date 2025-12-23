@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the type of logging that is performed.
  * @remarks
- * 
  * The log files are named based on the rollover type and logging format as shown in  the following table.
  * 
  * 
@@ -129,13 +129,11 @@
  * 
  * 
  * For more information about the log file formats, see <a href="https://docs.microsoft.com/previous-versions/iis/6.0-sdk/ms525807(v=vs.90)">IIS Log File Formats</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//http/ne-http-http_logging_type
+ * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_logging_type
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */
-class HTTP_LOGGING_TYPE{
+class HTTP_LOGGING_TYPE extends Win32Enum{
 
     /**
      * The log format is W3C style extended logging. Applications choose the fields that are logged in the  <b>Fields</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_logging_info">HTTP_LOGGING_INFO</a> structure.

@@ -3,7 +3,7 @@
 
 /**
  * Defines column information. Used by members of the IColumnManager interface.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ns-shobjidl_core-cm_columninfo
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-cm_columninfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

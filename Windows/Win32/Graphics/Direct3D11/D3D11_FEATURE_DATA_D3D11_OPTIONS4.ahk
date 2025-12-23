@@ -4,13 +4,10 @@
 /**
  * Describes Direct3D 11.4 feature options in the current graphics driver.
  * @remarks
- * 
  * Use this structure with the D3D11_FEATURE_D3D11_OPTIONS4 member of <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_feature">D3D11_FEATURE</a>. 
  * 
  * Refer to the section on NV12 in <a href="https://docs.microsoft.com/windows/desktop/direct3d11/direct3d-11-4-features">Direct3D 11.4 Features</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11_4/ns-d3d11_4-d3d11_feature_data_d3d11_options4
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/ns-d3d11_4-d3d11_feature_data_d3d11_options4
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

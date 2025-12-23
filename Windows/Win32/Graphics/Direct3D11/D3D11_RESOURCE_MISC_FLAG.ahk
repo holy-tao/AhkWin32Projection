@@ -1,22 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies options for resources.
  * @remarks
- * 
  * This enumeration is used in <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_buffer_desc">D3D11_BUFFER_DESC</a>, <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_texture1d_desc">D3D11_TEXTURE1D_DESC</a>, <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_texture2d_desc">D3D11_TEXTURE2D_DESC</a>, <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_texture3d_desc">D3D11_TEXTURE3D_DESC</a>. 
  * 
  * These flags can be combined by bitwise OR.
- *         
  * 
  * The <b>D3D11_RESOURCE_MISC_FLAG</b> cannot be used when creating resources with <b>D3D11_CPU_ACCESS</b> flags.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_resource_misc_flag
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_resource_misc_flag
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_RESOURCE_MISC_FLAG{
+class D3D11_RESOURCE_MISC_FLAG extends Win32BitflagEnum{
 
     /**
      * Enables MIP map generation by using <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-generatemips">ID3D11DeviceContext::GenerateMips</a> on a texture resource. The resource must be created with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_bind_flag">bind flags</a> that specify that the resource is a render target and a shader resource.
@@ -238,11 +235,13 @@ class D3D11_RESOURCE_MISC_FLAG{
     static D3D11_RESOURCE_MISC_HW_PROTECTED => 524288
 
     /**
+     * Enables the resource to work with the [displayable surfaces](/windows/win32/direct3d11/displayable-surfaces) feature. You must use **D3D11_RESOURCE_MISC_SHARED_DISPLAYABLE** in combination with both **D3D11_RESOURCE_MISC_SHARED** and **D3D11_RESOURCE_MISC_SHARED_NTHANDLE**.
      * @type {Integer (Int32)}
      */
     static D3D11_RESOURCE_MISC_SHARED_DISPLAYABLE => 1048576
 
     /**
+     * TBD
      * @type {Integer (Int32)}
      */
     static D3D11_RESOURCE_MISC_SHARED_EXCLUSIVE_WRITER => 2097152

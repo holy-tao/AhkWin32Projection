@@ -6,15 +6,15 @@
 
 /**
  * Defines the attributes of a wireless connection.
- * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-wlan_connection_attributes
+ * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_connection_attributes
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
 class WLAN_CONNECTION_ATTRIBUTES extends Win32Struct
 {
-    static sizeof => 608
+    static sizeof => 604
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_interface_state-r1">WLAN_INTERFACE_STATE</a> value that indicates the state of the interface.
@@ -66,7 +66,7 @@ class WLAN_CONNECTION_ATTRIBUTES extends Win32Struct
     wlanSecurityAttributes{
         get {
             if(!this.HasProp("__wlanSecurityAttributes"))
-                this.__wlanSecurityAttributes := WLAN_SECURITY_ATTRIBUTES(592, this)
+                this.__wlanSecurityAttributes := WLAN_SECURITY_ATTRIBUTES(588, this)
             return this.__wlanSecurityAttributes
         }
     }

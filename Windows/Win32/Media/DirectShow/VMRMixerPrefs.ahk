@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The VMRMixerPrefs enumeration contains flags that specify decimation, filtering, and color space information that will be used when the video image is created on the DirectDraw surface.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-vmrmixerprefs
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-vmrmixerprefs
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class VMRMixerPrefs{
+class VMRMixerPrefs extends Win32Enum{
 
     /**
      * No decimation. The video will be rendered onto the surface in its native size.

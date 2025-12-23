@@ -5,7 +5,7 @@
 
 /**
  * Contains information about the movement of the mouse over a button control.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmbchotitem
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmbchotitem
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

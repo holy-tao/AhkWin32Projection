@@ -16,7 +16,7 @@
  */
 class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
 {
-    static sizeof => 1864
+    static sizeof => 1848
 
     static packingSize => 8
 
@@ -144,7 +144,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     ddHELCaps{
         get {
             if(!this.HasProp("__ddHELCaps"))
-                this.__ddHELCaps := DDCORECAPS(432, this)
+                this.__ddHELCaps := DDCORECAPS(428, this)
             return this.__ddHELCaps
         }
     }
@@ -155,7 +155,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     dwUnused2{
         get {
             if(!this.HasProp("__dwUnused2ProxyArray"))
-                this.__dwUnused2ProxyArray := Win32FixedArray(this.ptr + 748, 50, Primitive, "uint")
+                this.__dwUnused2ProxyArray := Win32FixedArray(this.ptr + 744, 50, Primitive, "uint")
             return this.__dwUnused2ProxyArray
         }
     }
@@ -166,7 +166,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     ddckCKDestOverlay{
         get {
             if(!this.HasProp("__ddckCKDestOverlay"))
-                this.__ddckCKDestOverlay := DDCOLORKEY(952, this)
+                this.__ddckCKDestOverlay := DDCOLORKEY(944, this)
             return this.__ddckCKDestOverlay
         }
     }
@@ -177,7 +177,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     ddckCKSrcOverlay{
         get {
             if(!this.HasProp("__ddckCKSrcOverlay"))
-                this.__ddckCKSrcOverlay := DDCOLORKEY(960, this)
+                this.__ddckCKSrcOverlay := DDCOLORKEY(952, this)
             return this.__ddckCKSrcOverlay
         }
     }
@@ -188,7 +188,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     vmiData{
         get {
             if(!this.HasProp("__vmiData"))
-                this.__vmiData := VIDMEMINFO(968, this)
+                this.__vmiData := VIDMEMINFO(960, this)
             return this.__vmiData
         }
     }
@@ -197,64 +197,64 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
      * @type {Pointer<Void>}
      */
     lpDriverHandle {
-        get => NumGet(this, 1056, "ptr")
-        set => NumPut("ptr", value, this, 1056)
+        get => NumGet(this, 1048, "ptr")
+        set => NumPut("ptr", value, this, 1048)
     }
 
     /**
      * @type {Pointer<DDRAWI_DIRECTDRAW_LCL>}
      */
     lpExclusiveOwner {
-        get => NumGet(this, 1064, "ptr")
-        set => NumPut("ptr", value, this, 1064)
+        get => NumGet(this, 1056, "ptr")
+        set => NumPut("ptr", value, this, 1056)
     }
 
     /**
      * @type {Integer}
      */
     dwModeIndex {
-        get => NumGet(this, 1072, "uint")
-        set => NumPut("uint", value, this, 1072)
+        get => NumGet(this, 1064, "uint")
+        set => NumPut("uint", value, this, 1064)
     }
 
     /**
      * @type {Integer}
      */
     dwModeIndexOrig {
-        get => NumGet(this, 1076, "uint")
-        set => NumPut("uint", value, this, 1076)
+        get => NumGet(this, 1068, "uint")
+        set => NumPut("uint", value, this, 1068)
     }
 
     /**
      * @type {Integer}
      */
     dwNumFourCC {
-        get => NumGet(this, 1080, "uint")
-        set => NumPut("uint", value, this, 1080)
+        get => NumGet(this, 1072, "uint")
+        set => NumPut("uint", value, this, 1072)
     }
 
     /**
      * @type {Pointer<Integer>}
      */
     lpdwFourCC {
-        get => NumGet(this, 1088, "ptr")
-        set => NumPut("ptr", value, this, 1088)
+        get => NumGet(this, 1080, "ptr")
+        set => NumPut("ptr", value, this, 1080)
     }
 
     /**
      * @type {Integer}
      */
     dwNumModes {
-        get => NumGet(this, 1096, "uint")
-        set => NumPut("uint", value, this, 1096)
+        get => NumGet(this, 1088, "uint")
+        set => NumPut("uint", value, this, 1088)
     }
 
     /**
      * @type {Pointer<DDHALMODEINFO>}
      */
     lpModeInfo {
-        get => NumGet(this, 1104, "ptr")
-        set => NumPut("ptr", value, this, 1104)
+        get => NumGet(this, 1096, "ptr")
+        set => NumPut("ptr", value, this, 1096)
     }
 
     /**
@@ -263,7 +263,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     plProcessList{
         get {
             if(!this.HasProp("__plProcessList"))
-                this.__plProcessList := PROCESS_LIST(1112, this)
+                this.__plProcessList := PROCESS_LIST(1104, this)
             return this.__plProcessList
         }
     }
@@ -272,56 +272,56 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
      * @type {Integer}
      */
     dwSurfaceLockCount {
-        get => NumGet(this, 1136, "uint")
-        set => NumPut("uint", value, this, 1136)
+        get => NumGet(this, 1128, "uint")
+        set => NumPut("uint", value, this, 1128)
     }
 
     /**
      * @type {Integer}
      */
     dwAliasedLockCnt {
-        get => NumGet(this, 1140, "uint")
-        set => NumPut("uint", value, this, 1140)
+        get => NumGet(this, 1132, "uint")
+        set => NumPut("uint", value, this, 1132)
     }
 
     /**
      * @type {Pointer}
      */
     dwReserved3 {
-        get => NumGet(this, 1144, "ptr")
-        set => NumPut("ptr", value, this, 1144)
+        get => NumGet(this, 1136, "ptr")
+        set => NumPut("ptr", value, this, 1136)
     }
 
     /**
      * @type {Pointer}
      */
     hDD {
-        get => NumGet(this, 1152, "ptr")
-        set => NumPut("ptr", value, this, 1152)
+        get => NumGet(this, 1144, "ptr")
+        set => NumPut("ptr", value, this, 1144)
     }
 
     /**
      * @type {String}
      */
     cObsolete {
-        get => StrGet(this.ptr + 1160, 11, "UTF-16")
-        set => StrPut(value, this.ptr + 1160, 11, "UTF-16")
+        get => StrGet(this.ptr + 1152, 11, "UTF-16")
+        set => StrPut(value, this.ptr + 1152, 11, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     dwReserved1 {
-        get => NumGet(this, 1184, "uint")
-        set => NumPut("uint", value, this, 1184)
+        get => NumGet(this, 1176, "uint")
+        set => NumPut("uint", value, this, 1176)
     }
 
     /**
      * @type {Integer}
      */
     dwReserved2 {
-        get => NumGet(this, 1188, "uint")
-        set => NumPut("uint", value, this, 1188)
+        get => NumGet(this, 1180, "uint")
+        set => NumPut("uint", value, this, 1180)
     }
 
     /**
@@ -330,7 +330,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     dbnOverlayRoot{
         get {
             if(!this.HasProp("__dbnOverlayRoot"))
-                this.__dbnOverlayRoot := DBLNODE(1192, this)
+                this.__dbnOverlayRoot := DBLNODE(1184, this)
             return this.__dbnOverlayRoot
         }
     }
@@ -339,14 +339,30 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
      * @type {Pointer<Integer>}
      */
     lpwPDeviceFlags {
-        get => NumGet(this, 1224, "ptr")
-        set => NumPut("ptr", value, this, 1224)
+        get => NumGet(this, 1216, "ptr")
+        set => NumPut("ptr", value, this, 1216)
     }
 
     /**
      * @type {Integer}
      */
     dwPDevice {
+        get => NumGet(this, 1224, "uint")
+        set => NumPut("uint", value, this, 1224)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dwWin16LockCnt {
+        get => NumGet(this, 1228, "uint")
+        set => NumPut("uint", value, this, 1228)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dwUnused3 {
         get => NumGet(this, 1232, "uint")
         set => NumPut("uint", value, this, 1232)
     }
@@ -354,7 +370,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     /**
      * @type {Integer}
      */
-    dwWin16LockCnt {
+    hInstance {
         get => NumGet(this, 1236, "uint")
         set => NumPut("uint", value, this, 1236)
     }
@@ -362,7 +378,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     /**
      * @type {Integer}
      */
-    dwUnused3 {
+    dwEvent16 {
         get => NumGet(this, 1240, "uint")
         set => NumPut("uint", value, this, 1240)
     }
@@ -370,41 +386,25 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     /**
      * @type {Integer}
      */
-    hInstance {
+    dwSaveNumModes {
         get => NumGet(this, 1244, "uint")
         set => NumPut("uint", value, this, 1244)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwEvent16 {
-        get => NumGet(this, 1248, "uint")
-        set => NumPut("uint", value, this, 1248)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwSaveNumModes {
-        get => NumGet(this, 1252, "uint")
-        set => NumPut("uint", value, this, 1252)
     }
 
     /**
      * @type {Pointer}
      */
     lpD3DGlobalDriverData {
-        get => NumGet(this, 1256, "ptr")
-        set => NumPut("ptr", value, this, 1256)
+        get => NumGet(this, 1248, "ptr")
+        set => NumPut("ptr", value, this, 1248)
     }
 
     /**
      * @type {Pointer}
      */
     lpD3DHALCallbacks {
-        get => NumGet(this, 1264, "ptr")
-        set => NumPut("ptr", value, this, 1264)
+        get => NumGet(this, 1256, "ptr")
+        set => NumPut("ptr", value, this, 1256)
     }
 
     /**
@@ -413,7 +413,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     ddBothCaps{
         get {
             if(!this.HasProp("__ddBothCaps"))
-                this.__ddBothCaps := DDCORECAPS(1272, this)
+                this.__ddBothCaps := DDCORECAPS(1264, this)
             return this.__ddBothCaps
         }
     }
@@ -422,24 +422,24 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
      * @type {Pointer<DDVIDEOPORTCAPS>}
      */
     lpDDVideoPortCaps {
-        get => NumGet(this, 1592, "ptr")
-        set => NumPut("ptr", value, this, 1592)
+        get => NumGet(this, 1584, "ptr")
+        set => NumPut("ptr", value, this, 1584)
     }
 
     /**
      * @type {Pointer<DDRAWI_DDVIDEOPORT_INT>}
      */
     dvpList {
-        get => NumGet(this, 1600, "ptr")
-        set => NumPut("ptr", value, this, 1600)
+        get => NumGet(this, 1592, "ptr")
+        set => NumPut("ptr", value, this, 1592)
     }
 
     /**
      * @type {Pointer}
      */
     lpD3DHALCallbacks2 {
-        get => NumGet(this, 1608, "ptr")
-        set => NumPut("ptr", value, this, 1608)
+        get => NumGet(this, 1600, "ptr")
+        set => NumPut("ptr", value, this, 1600)
     }
 
     /**
@@ -448,7 +448,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     rectDevice{
         get {
             if(!this.HasProp("__rectDevice"))
-                this.__rectDevice := RECT(1616, this)
+                this.__rectDevice := RECT(1608, this)
             return this.__rectDevice
         }
     }
@@ -457,30 +457,38 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
      * @type {Integer}
      */
     cMonitors {
-        get => NumGet(this, 1632, "uint")
-        set => NumPut("uint", value, this, 1632)
+        get => NumGet(this, 1624, "uint")
+        set => NumPut("uint", value, this, 1624)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     gpbmiSrc {
-        get => NumGet(this, 1640, "ptr")
-        set => NumPut("ptr", value, this, 1640)
+        get => NumGet(this, 1632, "ptr")
+        set => NumPut("ptr", value, this, 1632)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     gpbmiDest {
-        get => NumGet(this, 1648, "ptr")
-        set => NumPut("ptr", value, this, 1648)
+        get => NumGet(this, 1640, "ptr")
+        set => NumPut("ptr", value, this, 1640)
     }
 
     /**
      * @type {Pointer<HEAPALIASINFO>}
      */
     phaiHeapAliases {
+        get => NumGet(this, 1648, "ptr")
+        set => NumPut("ptr", value, this, 1648)
+    }
+
+    /**
+     * @type {Pointer}
+     */
+    hKernelHandle {
         get => NumGet(this, 1656, "ptr")
         set => NumPut("ptr", value, this, 1656)
     }
@@ -488,23 +496,23 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     /**
      * @type {Pointer}
      */
-    hKernelHandle {
+    pfnNotifyProc {
         get => NumGet(this, 1664, "ptr")
         set => NumPut("ptr", value, this, 1664)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    pfnNotifyProc {
-        get => NumGet(this, 1672, "ptr")
-        set => NumPut("ptr", value, this, 1672)
     }
 
     /**
      * @type {Pointer<DDKERNELCAPS>}
      */
     lpDDKernelCaps {
+        get => NumGet(this, 1672, "ptr")
+        set => NumPut("ptr", value, this, 1672)
+    }
+
+    /**
+     * @type {Pointer<DDNONLOCALVIDMEMCAPS>}
+     */
+    lpddNLVCaps {
         get => NumGet(this, 1680, "ptr")
         set => NumPut("ptr", value, this, 1680)
     }
@@ -512,7 +520,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     /**
      * @type {Pointer<DDNONLOCALVIDMEMCAPS>}
      */
-    lpddNLVCaps {
+    lpddNLVHELCaps {
         get => NumGet(this, 1688, "ptr")
         set => NumPut("ptr", value, this, 1688)
     }
@@ -520,33 +528,25 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     /**
      * @type {Pointer<DDNONLOCALVIDMEMCAPS>}
      */
-    lpddNLVHELCaps {
+    lpddNLVBothCaps {
         get => NumGet(this, 1696, "ptr")
         set => NumPut("ptr", value, this, 1696)
-    }
-
-    /**
-     * @type {Pointer<DDNONLOCALVIDMEMCAPS>}
-     */
-    lpddNLVBothCaps {
-        get => NumGet(this, 1704, "ptr")
-        set => NumPut("ptr", value, this, 1704)
     }
 
     /**
      * @type {Pointer}
      */
     lpD3DExtendedCaps {
-        get => NumGet(this, 1712, "ptr")
-        set => NumPut("ptr", value, this, 1712)
+        get => NumGet(this, 1704, "ptr")
+        set => NumPut("ptr", value, this, 1704)
     }
 
     /**
      * @type {Integer}
      */
     dwDOSBoxEvent {
-        get => NumGet(this, 1720, "uint")
-        set => NumPut("uint", value, this, 1720)
+        get => NumGet(this, 1712, "uint")
+        set => NumPut("uint", value, this, 1712)
     }
 
     /**
@@ -555,7 +555,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     rectDesktop{
         get {
             if(!this.HasProp("__rectDesktop"))
-                this.__rectDesktop := RECT(1728, this)
+                this.__rectDesktop := RECT(1716, this)
             return this.__rectDesktop
         }
     }
@@ -564,48 +564,48 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
      * @type {String}
      */
     cDriverName {
-        get => StrGet(this.ptr + 1744, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 1744, 31, "UTF-16")
+        get => StrGet(this.ptr + 1732, 31, "UTF-16")
+        set => StrPut(value, this.ptr + 1732, 31, "UTF-16")
     }
 
     /**
      * @type {Pointer}
      */
     lpD3DHALCallbacks3 {
-        get => NumGet(this, 1808, "ptr")
-        set => NumPut("ptr", value, this, 1808)
+        get => NumGet(this, 1800, "ptr")
+        set => NumPut("ptr", value, this, 1800)
     }
 
     /**
      * @type {Integer}
      */
     dwNumZPixelFormats {
-        get => NumGet(this, 1816, "uint")
-        set => NumPut("uint", value, this, 1816)
+        get => NumGet(this, 1808, "uint")
+        set => NumPut("uint", value, this, 1808)
     }
 
     /**
      * @type {Pointer<DDPIXELFORMAT>}
      */
     lpZPixelFormats {
-        get => NumGet(this, 1824, "ptr")
-        set => NumPut("ptr", value, this, 1824)
+        get => NumGet(this, 1816, "ptr")
+        set => NumPut("ptr", value, this, 1816)
     }
 
     /**
      * @type {Pointer<DDRAWI_DDMOTIONCOMP_INT>}
      */
     mcList {
-        get => NumGet(this, 1832, "ptr")
-        set => NumPut("ptr", value, this, 1832)
+        get => NumGet(this, 1824, "ptr")
+        set => NumPut("ptr", value, this, 1824)
     }
 
     /**
      * @type {Integer}
      */
     hDDVxd {
-        get => NumGet(this, 1840, "uint")
-        set => NumPut("uint", value, this, 1840)
+        get => NumGet(this, 1832, "uint")
+        set => NumPut("uint", value, this, 1832)
     }
 
     /**
@@ -614,7 +614,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     ddsCapsMore{
         get {
             if(!this.HasProp("__ddsCapsMore"))
-                this.__ddsCapsMore := DDSCAPSEX(1848, this)
+                this.__ddsCapsMore := DDSCAPSEX(1836, this)
             return this.__ddsCapsMore
         }
     }

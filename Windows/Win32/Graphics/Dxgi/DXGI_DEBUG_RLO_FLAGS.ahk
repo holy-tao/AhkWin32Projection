@@ -1,22 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Flags used with ReportLiveObjects to specify the amount of info to report about an object's lifetime.
  * @remarks
- * 
  * Use this enumeration with <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/nf-dxgidebug-idxgidebug-reportliveobjects">IDXGIDebug::ReportLiveObjects</a>.
  *         
  * 
  * <div class="alert"><b>Note</b>  This API requires the Windows Software Development Kit (SDK) for Windows 8.
  *       </div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgidebug/ne-dxgidebug-dxgi_debug_rlo_flags
+ * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/ne-dxgidebug-dxgi_debug_rlo_flags
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
-class DXGI_DEBUG_RLO_FLAGS{
+class DXGI_DEBUG_RLO_FLAGS extends Win32BitflagEnum{
 
     /**
      * A flag that specifies to obtain a summary about an object's lifetime.

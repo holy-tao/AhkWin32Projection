@@ -4,7 +4,6 @@
 /**
  * Defines a shader macro.
  * @remarks
- * 
  * You can use shader macros in your shaders. The <b>D3D_SHADER_MACRO</b> structure defines a single shader macro as shown in the following example:
  * 
  * 
@@ -31,9 +30,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3dx11createasyncshaderpreprocessprocessor">D3DX11CreateAsyncShaderPreprocessProcessor</a>
  * </li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3dcommon/ns-d3dcommon-d3d_shader_macro
+ * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/ns-d3dcommon-d3d_shader_macro
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */

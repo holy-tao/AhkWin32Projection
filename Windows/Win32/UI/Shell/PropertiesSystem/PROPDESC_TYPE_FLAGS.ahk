@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes attributes of the typeInfo element in the property's .propdesc file.
  * @remarks
- * 
  * These values are defined in propsys.h and propsys.idl.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//propsys/ne-propsys-propdesc_type_flags
+ * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-propdesc_type_flags
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
-class PROPDESC_TYPE_FLAGS{
+class PROPDESC_TYPE_FLAGS extends Win32BitflagEnum{
 
     /**
      * The property uses the default values for all attributes.

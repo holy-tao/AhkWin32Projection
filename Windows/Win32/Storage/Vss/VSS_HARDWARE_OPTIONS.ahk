@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines shadow copy LUN flags.
- * @see https://docs.microsoft.com/windows/win32/api//vss/ne-vss-vss_hardware_options
+ * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_hardware_options
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_HARDWARE_OPTIONS{
+class VSS_HARDWARE_OPTIONS extends Win32Enum{
 
     /**
      * The shadow copy LUN will be masked from the host.

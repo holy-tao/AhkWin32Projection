@@ -2,13 +2,11 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains information that is used to initialize the standard Object Properties dialog box.
+ * Contains information that is used to initialize the standard Object Properties dialog box. (Unicode)
  * @remarks
- * 
  * > [!NOTE]
  * > The oledlg.h header defines OLEUIOBJECTPROPS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//oledlg/ns-oledlg-oleuiobjectpropsw
+ * @see https://learn.microsoft.com/windows/win32/api/oledlg/ns-oledlg-oleuiobjectpropsw
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  * @charset Unicode

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains property values for a given template.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-enrollmenttemplateproperty
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-enrollmenttemplateproperty
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class EnrollmentTemplateProperty{
+class EnrollmentTemplateProperty extends Win32Enum{
 
     /**
      * A <b>VT_BSTR</b> value that contains the common name of the template in Active Directory.

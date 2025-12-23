@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * The AppPolicyLifecycleManagement enumeration indicates whether a process is lifecycle-managed or not.
- * @see https://docs.microsoft.com/windows/win32/api//appmodel/ne-appmodel-apppolicylifecyclemanagement
+ * @see https://learn.microsoft.com/windows/win32/api/appmodel/ne-appmodel-apppolicylifecyclemanagement
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
-class AppPolicyLifecycleManagement{
+class AppPolicyLifecycleManagement extends Win32Enum{
 
     /**
      * Indicates that the process's lifecycle is not managed.

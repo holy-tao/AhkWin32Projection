@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies expected resource use during rendering. The usage directly reflects whether a resource is accessible by the CPU and/or the GPU.
  * @remarks
- * 
  * An application identifies the way a resource is intended to be used (its usage) in a resource description. There are several structures for creating resources including: <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-cd3d10_texture1d_desc">D3D10_TEXTURE1D_DESC</a>, <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-cd3d10_texture2d_desc">D3D10_TEXTURE2D_DESC</a>, <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-cd3d10_texture3d_desc">D3D10_TEXTURE3D_DESC</a>, <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-cd3d10_buffer_desc">D3D10_BUFFER_DESC</a>, and <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3dx10-image-load-info">D3DX10_IMAGE_LOAD_INFO</a>.
  * 
  * <table>
@@ -105,13 +105,11 @@
  * <li>3 - If bound as an input and an output using different views, each view must use different <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">subresources</a>.</li>
  * <li>4 - The resource can only be created with a single <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">subresource</a>. The resource cannot be a texture array. The resource cannot be a mipmap chain.</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10/ne-d3d10-d3d10_usage
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_usage
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
-class D3D10_USAGE{
+class D3D10_USAGE extends Win32Enum{
 
     /**
      * A resource that requires read and write access by the GPU. This is likely to be the most common usage choice.

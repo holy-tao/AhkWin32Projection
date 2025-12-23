@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the status of the user.
  * @remarks
- * 
  * <b>UserUnloaded</b>, <b>UserUnregistered</b>, and <b>UnknownStatus</b> should not appear in typical use.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/ne-wcmconfig-wcmuserstatus
+ * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmuserstatus
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  * @version v4.0.30319
  */
-class WcmUserStatus{
+class WcmUserStatus extends Win32Enum{
 
     /**
      * Indicates a problem with the store.

@@ -1,22 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Determines how the performance counter data is graphed, for example, as a line graph or a histogram.
  * @remarks
- * 
  * The following enumeration values were introduced in Windows Vista.
  * 
  * <ul>
  * <li><b>sysmonChartArea</b></li>
  * <li><b>sysmonChartStackedArea</b></li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//isysmon/ne-isysmon-displaytypeconstants
+ * @see https://learn.microsoft.com/windows/win32/api/isysmon/ne-isysmon-displaytypeconstants
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
-class DisplayTypeConstants{
+class DisplayTypeConstants extends Win32Enum{
 
     /**
      * Counter values are displayed in a line graph. Each marker on the line graph represents a data value.

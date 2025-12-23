@@ -48,7 +48,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS1 extends Win32Struct
     EncodedPictureEffectiveResolution{
         get {
             if(!this.HasProp("__EncodedPictureEffectiveResolution"))
-                this.__EncodedPictureEffectiveResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(32, this)
+                this.__EncodedPictureEffectiveResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(28, this)
             return this.__EncodedPictureEffectiveResolution
         }
     }

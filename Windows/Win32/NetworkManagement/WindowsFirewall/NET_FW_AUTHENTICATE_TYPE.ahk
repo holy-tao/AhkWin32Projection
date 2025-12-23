@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of authentication which must occur in order for traffic to be allowed.
- * @see https://docs.microsoft.com/windows/win32/api//icftypes/ne-icftypes-net_fw_authenticate_type
+ * @see https://learn.microsoft.com/windows/win32/api/icftypes/ne-icftypes-net_fw_authenticate_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
-class NET_FW_AUTHENTICATE_TYPE{
+class NET_FW_AUTHENTICATE_TYPE extends Win32Enum{
 
     /**
      * No security check is performed.

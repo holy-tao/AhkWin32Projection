@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of Windows Imaging Component (WIC) component.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wiccomponenttype
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wiccomponenttype
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICComponentType{
+class WICComponentType extends Win32Enum{
 
     /**
      * A WIC decoder.

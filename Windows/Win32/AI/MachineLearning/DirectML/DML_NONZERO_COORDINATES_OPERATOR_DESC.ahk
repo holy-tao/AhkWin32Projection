@@ -5,8 +5,7 @@
  * Computes the N-dimensional coordinates of all non-zero elements of the input tensor.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_nonzero_coordinates_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_nonzero_coordinates_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

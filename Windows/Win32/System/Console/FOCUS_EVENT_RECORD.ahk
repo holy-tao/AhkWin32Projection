@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Describes a focus event in a console INPUT\_RECORD structure. These events are used internally and should be ignored.
  * @see https://learn.microsoft.com/windows/console/focus-event-record-str
  * @namespace Windows.Win32.System.Console
  * @version v4.0.30319
@@ -14,6 +14,7 @@ class FOCUS_EVENT_RECORD extends Win32Struct
     static packingSize => 4
 
     /**
+     * Reserved.
      * @type {BOOL}
      */
     bSetFocus {

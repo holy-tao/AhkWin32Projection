@@ -33,7 +33,11 @@
 #Include .\WMDM_PROP_VALUES_ENUM.ahk
 
 /**
+ * The WMDM\_PROP\_DESC structure describes valid values of a property in a particular property configuration.
+ * @remarks
+ * The **WMDM\_PROP\_DESC** structure contains a property description that consists of a property name and its valid values in a particular configuration.
  * 
+ * The caller is required to free the memory used by **ValidValuesRange** or **EnumeratedValues**. For an example of how to do this, see [**WMDM\_FORMAT\_CAPABILITY**](wmdm-format-capability.md).
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-prop-desc
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
@@ -44,7 +48,36 @@ class WMDM_PROP_DESC extends Win32Struct
 
     static packingSize => 8
 
+    class _ValidValues_e__Union extends Win32Struct {
+        static sizeof => 72
+        static packingSize => 8
+
+        /**
+         * @type {WMDM_PROP_VALUES_RANGE}
+         */
+        ValidValuesRange{
+            get {
+                if(!this.HasProp("__ValidValuesRange"))
+                    this.__ValidValuesRange := WMDM_PROP_VALUES_RANGE(0, this)
+                return this.__ValidValuesRange
+            }
+        }
+    
+        /**
+         * @type {WMDM_PROP_VALUES_ENUM}
+         */
+        EnumeratedValidValues{
+            get {
+                if(!this.HasProp("__EnumeratedValidValues"))
+                    this.__EnumeratedValidValues := WMDM_PROP_VALUES_ENUM(0, this)
+                return this.__EnumeratedValidValues
+            }
+        }
+    
+    }
+
     /**
+     * Name of the property. The application must free this memory when it is done using it.
      * @type {PWSTR}
      */
     pwszPropName {
@@ -53,6 +86,7 @@ class WMDM_PROP_DESC extends Win32Struct
     }
 
     /**
+     * An [**WMDM\_ENUM\_PROP\_VALID\_VALUES\_FORM**](wmdm-enum-prop-valid-values-form.md) enumeration value describing the type of values, such as a range or list. The value of this enumeration determines which member variable is used.
      * @type {Integer}
      */
     ValidValuesForm {
@@ -61,24 +95,14 @@ class WMDM_PROP_DESC extends Win32Struct
     }
 
     /**
-     * @type {WMDM_PROP_VALUES_RANGE}
+     * Holds the valid values of the property in a particular property configuration. This member holds one of three items: the enumeration value WMDM\_ENUM\_PROP\_VALID\_VALUES\_ANY; the member **ValidValuesRange**; or the member **EnumeratedValidValues**. The value or member is indicated by **ValidValuesForm**.
+     * @type {_ValidValues_e__Union}
      */
-    ValidValuesRange{
+    ValidValues{
         get {
-            if(!this.HasProp("__ValidValuesRange"))
-                this.__ValidValuesRange := WMDM_PROP_VALUES_RANGE(16, this)
-            return this.__ValidValuesRange
-        }
-    }
-
-    /**
-     * @type {WMDM_PROP_VALUES_ENUM}
-     */
-    EnumeratedValidValues{
-        get {
-            if(!this.HasProp("__EnumeratedValidValues"))
-                this.__EnumeratedValidValues := WMDM_PROP_VALUES_ENUM(16, this)
-            return this.__EnumeratedValidValues
+            if(!this.HasProp("__ValidValues"))
+                this.__ValidValues := %this.__Class%._ValidValues_e__Union(16, this)
+            return this.__ValidValues
         }
     }
 }

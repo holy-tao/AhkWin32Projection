@@ -5,7 +5,6 @@
 /**
  * Describes the syntax and length of a data value used in a value list. The CLUSPROP_VALUE structure is used as a generic header in all of the structures that describe data of a particular type, such as CLUSPROP_BINARY and CLUSPROP_SZ.
  * @remarks
- * 
  * The <b>CLUSPROP_VALUE</b> structure is used to describe the 
  *      format, type, and length of a data value in the following structures:
  * 
@@ -62,17 +61,15 @@
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_word">CLUSPROP_WORD</a>
  * </li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clusprop_value
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_value
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
 class CLUSPROP_VALUE extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_syntax">CLUSPROP_SYNTAX</a> union that describes a 

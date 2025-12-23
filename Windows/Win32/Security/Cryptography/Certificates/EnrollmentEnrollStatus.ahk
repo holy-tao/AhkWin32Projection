@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the enrollment status of a certificate request.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-enrollmentenrollstatus
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-enrollmentenrollstatus
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class EnrollmentEnrollStatus{
+class EnrollmentEnrollStatus extends Win32Enum{
 
     /**
      * The enrollment succeeded, and the certificate has been issued.

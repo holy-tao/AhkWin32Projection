@@ -8,9 +8,9 @@
  */
 class XACTSTATS extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -74,7 +74,7 @@ class XACTSTATS extends Win32Struct
     timeTransactionsUp{
         get {
             if(!this.HasProp("__timeTransactionsUp"))
-                this.__timeTransactionsUp := FILETIME(32, this)
+                this.__timeTransactionsUp := FILETIME(28, this)
             return this.__timeTransactionsUp
         }
     }

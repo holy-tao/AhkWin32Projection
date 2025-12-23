@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes whether an item that matches the search criteria of a rowset is currently in that rowset.
  * @remarks
- * 
  * This enumeration is used by <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nn-searchapi-irowsetevents">IRowsetEvents</a> to describe the state of rows in a rowset held by a client.
  * 
  * Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-searchevents">SearchEvents code sample</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//searchapi/ne-searchapi-rowsetevent_itemstate
+ * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
-class ROWSETEVENT_ITEMSTATE{
+class ROWSETEVENT_ITEMSTATE extends Win32Enum{
 
     /**
      * The item is definitely not in the rowset.

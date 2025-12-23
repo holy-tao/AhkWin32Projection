@@ -3,7 +3,7 @@
 
 /**
  * The INSTALLSPEC structure specifies a group policy application by its user-friendly name and group policy GUID or by its file name extension. The Spec member of the INSTALLDATA structure provides this information to the InstallApplication function.
- * @see https://docs.microsoft.com/windows/win32/api//appmgmt/ns-appmgmt-installspec
+ * @see https://learn.microsoft.com/windows/win32/api/appmgmt/ns-appmgmt-installspec
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -14,7 +14,7 @@ class INSTALLSPEC extends Win32Struct
     static packingSize => 8
 
     class _AppName extends Win32Struct {
-        static sizeof => 48
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -36,7 +36,7 @@ class INSTALLSPEC extends Win32Struct
     }
 
     class _COMClass extends Win32Struct {
-        static sizeof => 48
+        static sizeof => 16
         static packingSize => 8
 
         /**

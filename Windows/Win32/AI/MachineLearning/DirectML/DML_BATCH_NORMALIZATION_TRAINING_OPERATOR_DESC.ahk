@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * The DML_BATCH_NORMALIZATION_TRAINING_OPERATOR_DESC structure (directml.h) performs a batch normalization on the input.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_batch_normalization_training_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
@@ -14,6 +16,9 @@ class DML_BATCH_NORMALIZATION_TRAINING_OPERATOR_DESC extends Win32Struct
     static packingSize => 8
 
     /**
+     * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
+     * 
+     * A tensor containing the Input data.
      * @type {Pointer<DML_TENSOR_DESC>}
      */
     InputTensor {
@@ -22,6 +27,9 @@ class DML_BATCH_NORMALIZATION_TRAINING_OPERATOR_DESC extends Win32Struct
     }
 
     /**
+     * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
+     * 
+     * A tensor containing the Scale data.
      * @type {Pointer<DML_TENSOR_DESC>}
      */
     ScaleTensor {
@@ -30,6 +38,9 @@ class DML_BATCH_NORMALIZATION_TRAINING_OPERATOR_DESC extends Win32Struct
     }
 
     /**
+     * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
+     * 
+     * A tensor containing the Bias  data.
      * @type {Pointer<DML_TENSOR_DESC>}
      */
     BiasTensor {
@@ -38,6 +49,9 @@ class DML_BATCH_NORMALIZATION_TRAINING_OPERATOR_DESC extends Win32Struct
     }
 
     /**
+     * Type: \_Maybenull\_ **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
+     * 
+     * An optional tensor containing data that is added to the result prior to FusedActivation, if any.
      * @type {Pointer<DML_TENSOR_DESC>}
      */
     FusedAddTensor {
@@ -46,6 +60,9 @@ class DML_BATCH_NORMALIZATION_TRAINING_OPERATOR_DESC extends Win32Struct
     }
 
     /**
+     * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
+     * 
+     * A tensor to write the results to.
      * @type {Pointer<DML_TENSOR_DESC>}
      */
     OutputTensor {
@@ -54,6 +71,9 @@ class DML_BATCH_NORMALIZATION_TRAINING_OPERATOR_DESC extends Win32Struct
     }
 
     /**
+     * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
+     * 
+     * A tensor to write the mean of the input to.
      * @type {Pointer<DML_TENSOR_DESC>}
      */
     OutputMeanTensor {
@@ -62,6 +82,9 @@ class DML_BATCH_NORMALIZATION_TRAINING_OPERATOR_DESC extends Win32Struct
     }
 
     /**
+     * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
+     * 
+     * A tensor to write the variance of the input to.
      * @type {Pointer<DML_TENSOR_DESC>}
      */
     OutputVarianceTensor {
@@ -70,6 +93,9 @@ class DML_BATCH_NORMALIZATION_TRAINING_OPERATOR_DESC extends Win32Struct
     }
 
     /**
+     * Type: [**FLOAT**](/windows/desktop/winprog/windows-data-types)
+     * 
+     * The epsilon value to use to avoid division by zero.
      * @type {Float}
      */
     Epsilon {
@@ -78,6 +104,9 @@ class DML_BATCH_NORMALIZATION_TRAINING_OPERATOR_DESC extends Win32Struct
     }
 
     /**
+     * Type: \_Maybenull\_ **const [DML_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_operator_desc)\***
+     * 
+     * An optional fused activation layer to apply after the normalization. For more info, see [Using fused operators for improved performance](/windows/ai/directml/dml-fused-activations).
      * @type {Pointer<DML_OPERATOR_DESC>}
      */
     FusedActivation {

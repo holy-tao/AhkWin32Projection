@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The CALL_MEDIA_EVENT_CAUSE enum is used by ITCallMediaEvent::get_Cause method to return a description of what caused a media event, such as a device timeout.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-call_media_event_cause
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-call_media_event_cause
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class CALL_MEDIA_EVENT_CAUSE{
+class CALL_MEDIA_EVENT_CAUSE extends Win32Enum{
 
     /**
      * Call media is unknown.

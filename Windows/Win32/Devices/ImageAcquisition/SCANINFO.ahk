@@ -10,7 +10,7 @@
  */
 class SCANINFO extends Win32Struct
 {
-    static sizeof => 320
+    static sizeof => 312
 
     static packingSize => 8
 
@@ -76,7 +76,7 @@ class SCANINFO extends Win32Struct
     IntensityRange{
         get {
             if(!this.HasProp("__IntensityRange"))
-                this.__IntensityRange := RANGEVALUE(32, this)
+                this.__IntensityRange := RANGEVALUE(28, this)
             return this.__IntensityRange
         }
     }
@@ -87,7 +87,7 @@ class SCANINFO extends Win32Struct
     ContrastRange{
         get {
             if(!this.HasProp("__ContrastRange"))
-                this.__ContrastRange := RANGEVALUE(48, this)
+                this.__ContrastRange := RANGEVALUE(40, this)
             return this.__ContrastRange
         }
     }
@@ -96,6 +96,22 @@ class SCANINFO extends Win32Struct
      * @type {Integer}
      */
     SupportedCompressionType {
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SupportedDataTypes {
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    WidthPixels {
         get => NumGet(this, 60, "int")
         set => NumPut("int", value, this, 60)
     }
@@ -103,7 +119,7 @@ class SCANINFO extends Win32Struct
     /**
      * @type {Integer}
      */
-    SupportedDataTypes {
+    WidthBytes {
         get => NumGet(this, 64, "int")
         set => NumPut("int", value, this, 64)
     }
@@ -111,7 +127,7 @@ class SCANINFO extends Win32Struct
     /**
      * @type {Integer}
      */
-    WidthPixels {
+    Lines {
         get => NumGet(this, 68, "int")
         set => NumPut("int", value, this, 68)
     }
@@ -119,7 +135,7 @@ class SCANINFO extends Win32Struct
     /**
      * @type {Integer}
      */
-    WidthBytes {
+    DataType {
         get => NumGet(this, 72, "int")
         set => NumPut("int", value, this, 72)
     }
@@ -127,7 +143,7 @@ class SCANINFO extends Win32Struct
     /**
      * @type {Integer}
      */
-    Lines {
+    PixelBits {
         get => NumGet(this, 76, "int")
         set => NumPut("int", value, this, 76)
     }
@@ -135,7 +151,7 @@ class SCANINFO extends Win32Struct
     /**
      * @type {Integer}
      */
-    DataType {
+    Intensity {
         get => NumGet(this, 80, "int")
         set => NumPut("int", value, this, 80)
     }
@@ -143,7 +159,7 @@ class SCANINFO extends Win32Struct
     /**
      * @type {Integer}
      */
-    PixelBits {
+    Contrast {
         get => NumGet(this, 84, "int")
         set => NumPut("int", value, this, 84)
     }
@@ -151,7 +167,7 @@ class SCANINFO extends Win32Struct
     /**
      * @type {Integer}
      */
-    Intensity {
+    Xresolution {
         get => NumGet(this, 88, "int")
         set => NumPut("int", value, this, 88)
     }
@@ -159,25 +175,9 @@ class SCANINFO extends Win32Struct
     /**
      * @type {Integer}
      */
-    Contrast {
+    Yresolution {
         get => NumGet(this, 92, "int")
         set => NumPut("int", value, this, 92)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Xresolution {
-        get => NumGet(this, 96, "int")
-        set => NumPut("int", value, this, 96)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Yresolution {
-        get => NumGet(this, 100, "int")
-        set => NumPut("int", value, this, 100)
     }
 
     /**
@@ -186,7 +186,7 @@ class SCANINFO extends Win32Struct
     Window{
         get {
             if(!this.HasProp("__Window"))
-                this.__Window := SCANWINDOW(104, this)
+                this.__Window := SCANWINDOW(96, this)
             return this.__Window
         }
     }
@@ -195,6 +195,22 @@ class SCANINFO extends Win32Struct
      * @type {Integer}
      */
     DitherPattern {
+        get => NumGet(this, 112, "int")
+        set => NumPut("int", value, this, 112)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Negative {
+        get => NumGet(this, 116, "int")
+        set => NumPut("int", value, this, 116)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Mirror {
         get => NumGet(this, 120, "int")
         set => NumPut("int", value, this, 120)
     }
@@ -202,7 +218,7 @@ class SCANINFO extends Win32Struct
     /**
      * @type {Integer}
      */
-    Negative {
+    AutoBack {
         get => NumGet(this, 124, "int")
         set => NumPut("int", value, this, 124)
     }
@@ -210,7 +226,7 @@ class SCANINFO extends Win32Struct
     /**
      * @type {Integer}
      */
-    Mirror {
+    ColorDitherPattern {
         get => NumGet(this, 128, "int")
         set => NumPut("int", value, this, 128)
     }
@@ -218,7 +234,7 @@ class SCANINFO extends Win32Struct
     /**
      * @type {Integer}
      */
-    AutoBack {
+    ToneMap {
         get => NumGet(this, 132, "int")
         set => NumPut("int", value, this, 132)
     }
@@ -226,7 +242,7 @@ class SCANINFO extends Win32Struct
     /**
      * @type {Integer}
      */
-    ColorDitherPattern {
+    Compression {
         get => NumGet(this, 136, "int")
         set => NumPut("int", value, this, 136)
     }
@@ -234,7 +250,7 @@ class SCANINFO extends Win32Struct
     /**
      * @type {Integer}
      */
-    ToneMap {
+    RawDataFormat {
         get => NumGet(this, 140, "int")
         set => NumPut("int", value, this, 140)
     }
@@ -242,7 +258,7 @@ class SCANINFO extends Win32Struct
     /**
      * @type {Integer}
      */
-    Compression {
+    RawPixelOrder {
         get => NumGet(this, 144, "int")
         set => NumPut("int", value, this, 144)
     }
@@ -250,7 +266,7 @@ class SCANINFO extends Win32Struct
     /**
      * @type {Integer}
      */
-    RawDataFormat {
+    bNeedDataAlignment {
         get => NumGet(this, 148, "int")
         set => NumPut("int", value, this, 148)
     }
@@ -258,7 +274,7 @@ class SCANINFO extends Win32Struct
     /**
      * @type {Integer}
      */
-    RawPixelOrder {
+    DelayBetweenRead {
         get => NumGet(this, 152, "int")
         set => NumPut("int", value, this, 152)
     }
@@ -266,25 +282,9 @@ class SCANINFO extends Win32Struct
     /**
      * @type {Integer}
      */
-    bNeedDataAlignment {
+    MaxBufferSize {
         get => NumGet(this, 156, "int")
         set => NumPut("int", value, this, 156)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DelayBetweenRead {
-        get => NumGet(this, 160, "int")
-        set => NumPut("int", value, this, 160)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MaxBufferSize {
-        get => NumGet(this, 164, "int")
-        set => NumPut("int", value, this, 164)
     }
 
     /**
@@ -293,7 +293,7 @@ class SCANINFO extends Win32Struct
     DeviceIOHandles{
         get {
             if(!this.HasProp("__DeviceIOHandlesProxyArray"))
-                this.__DeviceIOHandlesProxyArray := Win32FixedArray(this.ptr + 168, 16, HANDLE, "")
+                this.__DeviceIOHandlesProxyArray := Win32FixedArray(this.ptr + 160, 16, HANDLE, "")
             return this.__DeviceIOHandlesProxyArray
         }
     }
@@ -304,7 +304,7 @@ class SCANINFO extends Win32Struct
     lReserved{
         get {
             if(!this.HasProp("__lReservedProxyArray"))
-                this.__lReservedProxyArray := Win32FixedArray(this.ptr + 296, 4, Primitive, "int")
+                this.__lReservedProxyArray := Win32FixedArray(this.ptr + 288, 4, Primitive, "int")
             return this.__lReservedProxyArray
         }
     }
@@ -313,7 +313,7 @@ class SCANINFO extends Win32Struct
      * @type {Pointer<Void>}
      */
     pMicroDriverContext {
-        get => NumGet(this, 312, "ptr")
-        set => NumPut("ptr", value, this, 312)
+        get => NumGet(this, 304, "ptr")
+        set => NumPut("ptr", value, this, 304)
     }
 }

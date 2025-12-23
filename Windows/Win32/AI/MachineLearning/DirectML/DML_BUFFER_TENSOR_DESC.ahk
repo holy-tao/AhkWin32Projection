@@ -3,7 +3,7 @@
 
 /**
  * Describes a tensor that will be stored in a Direct3D 12 buffer resource.
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_buffer_tensor_desc
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_buffer_tensor_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
@@ -75,7 +75,7 @@ class DML_BUFFER_TENSOR_DESC extends Win32Struct
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a></b>
      * 
-     * Defines a minimum size in bytes for the buffer that will contain this tensor. <i>TotalTensorSizeInBytes</i> must be at least as large as the minimum implied size given the sizes, strides, and data type of the tensor. You can calculate the minimum implied size by calling the [DMLCalcBufferTensorSize](/windows/desktop/direct3d12/dml-helper-functions#dmlcalcbuffertensorsize) utility free function.
+     * Defines a minimum size in bytes for the buffer that will contain this tensor. <i>TotalTensorSizeInBytes</i> must be at least as large as the minimum implied size given the sizes, strides, and data type of the tensor. You can calculate the minimum implied size by calling the [DMLCalcBufferTensorSize](/windows/ai/directml/dml-helper-functions#dmlcalcbuffertensorsize) utility free function.
      * 
      * Providing a <i>TotalTensorSizeInBytes</i> that is larger than the minimum implied size may enable additional optimizations by allowing DirectML to elide bounds checking in some cases if the <i>TotalTensorSizeInBytes</i> defines sufficient padding beyond the end of the tensor data.
      * 

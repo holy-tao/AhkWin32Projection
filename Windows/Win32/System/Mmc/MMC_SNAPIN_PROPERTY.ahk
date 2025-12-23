@@ -7,7 +7,7 @@
 
 /**
  * The MMC_SNAPIN_PROPERTY structure is introduced in MMC 2.0.
- * @see https://docs.microsoft.com/windows/win32/api//mmcobj/ns-mmcobj-mmc_snapin_property
+ * @see https://learn.microsoft.com/windows/win32/api/mmcobj/ns-mmcobj-mmc_snapin_property
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

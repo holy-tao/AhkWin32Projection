@@ -1,13 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The type of WS_XML_NODE structure.
  * @remarks
- * 
  * The BNF for node types within a document is:
  *       
  * 
- * <pre class="syntax" xml:space="preserve"><code>
+ * 
+ * ``` syntax
+ * 
  * Xml := StartInput Whitespace Element Whitespace EndInput
  * Whitespace := (Text | Comment)* // Text is whitespace only
  * Element := StartElement ElementContent EndElement
@@ -18,13 +20,13 @@
  * Comment := WS_XML_NODE_TYPE_COMMENT
  * CData := WS_XML_NODE_TYPE_CDATA Text* WS_XML_NODE_TYPE_END_CDATA
  * StartInput := WS_XML_NODE_TYPE_BOF
- * EndInput := WS_XML_NODE_TYPE_EOF</code></pre>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_xml_node_type
+ * EndInput := WS_XML_NODE_TYPE_EOF
+ * ```
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_node_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_XML_NODE_TYPE{
+class WS_XML_NODE_TYPE extends Win32Enum{
 
     /**
      * A start element. (e.g. &lt;a:purchaseOrder xmlns:a="http://tempuri.org" id="5"&gt;)

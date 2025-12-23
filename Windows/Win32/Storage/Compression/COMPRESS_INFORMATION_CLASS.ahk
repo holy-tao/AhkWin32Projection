@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of this enumeration identify the type of information class being set or retrieved.
- * @see https://docs.microsoft.com/windows/win32/api//compressapi/ne-compressapi-compress_information_class
+ * @see https://learn.microsoft.com/windows/win32/api/compressapi/ne-compressapi-compress_information_class
  * @namespace Windows.Win32.Storage.Compression
  * @version v4.0.30319
  */
-class COMPRESS_INFORMATION_CLASS{
+class COMPRESS_INFORMATION_CLASS extends Win32Enum{
 
     /**
      * Invalid information class

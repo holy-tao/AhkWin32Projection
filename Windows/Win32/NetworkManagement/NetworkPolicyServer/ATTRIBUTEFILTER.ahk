@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The usage cases for the NPS dictionary attributes.
- * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-attributefilter
+ * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-attributefilter
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class ATTRIBUTEFILTER{
+class ATTRIBUTEFILTER extends Win32Enum{
 
     /**
      * 

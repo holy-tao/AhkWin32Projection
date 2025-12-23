@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DRT_MATCH_TYPE enumeration defines the exactness of a search result returned by DrtGetSearchResult after initiating a search with the DrtStartSearch API.
- * @see https://docs.microsoft.com/windows/win32/api//drt/ne-drt-drt_match_type
+ * @see https://learn.microsoft.com/windows/win32/api/drt/ne-drt-drt_match_type
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
-class DRT_MATCH_TYPE{
+class DRT_MATCH_TYPE extends Win32Enum{
 
     /**
      * The node  found is publishing the target key or is publishing a key within the specified range.

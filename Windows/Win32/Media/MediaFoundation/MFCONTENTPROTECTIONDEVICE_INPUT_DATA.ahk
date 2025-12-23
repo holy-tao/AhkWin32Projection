@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the data that you want to provide as input to a protection system function.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ns-mfidl-mfcontentprotectiondevice_input_data
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mfcontentprotectiondevice_input_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

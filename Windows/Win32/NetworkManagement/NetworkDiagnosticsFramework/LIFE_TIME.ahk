@@ -3,7 +3,7 @@
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
- * 
+ * The LIFE_TIME structure contains a start time and an end time.
  * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-life_time
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
@@ -12,9 +12,12 @@ class LIFE_TIME extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
+     * Type: <b>FILETIME</b>
+     * 
+     * The time the problem instance began.
      * @type {FILETIME}
      */
     startTime{
@@ -26,6 +29,9 @@ class LIFE_TIME extends Win32Struct
     }
 
     /**
+     * Type: <b>FILETIME</b>
+     * 
+     * The time the problem instance ended.
      * @type {FILETIME}
      */
     endTime{

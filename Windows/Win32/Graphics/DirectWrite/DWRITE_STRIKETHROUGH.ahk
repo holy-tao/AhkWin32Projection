@@ -3,7 +3,7 @@
 
 /**
  * Contains information regarding the size and placement of strikethroughs.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/ns-dwrite-dwrite_strikethrough
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_strikethrough
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

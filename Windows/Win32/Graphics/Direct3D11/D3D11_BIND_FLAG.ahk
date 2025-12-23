@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Identifies how to bind a resource to the pipeline.
+ * Identifies how to bind a resource to the pipeline. (D3D11_BIND_FLAG)
  * @remarks
- * 
- * In general, binding flags can be combined using a logical OR (except the constant-buffer flag); however, you should use a single flag to allow the device to optimize the resource usage.
+ * In general, binding flags can be combined using a bitwise OR (except the constant-buffer flag); however, you should use a single flag to allow the device to optimize the resource usage.
  * 
  * This enumeration is used by a:
  * 
@@ -17,13 +17,11 @@
  * 
  * <div class="alert"><b>Note</b>  The Direct3D 11.1 runtime, which is available starting with Windows 8, enables  mapping dynamic constant buffers and shader resource views (SRVs) of dynamic buffers with <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_map">D3D11_MAP_WRITE_NO_OVERWRITE</a>.  The Direct3D 11 and earlier runtimes limited mapping to vertex or index buffers. To determine if a Direct3D device supports these features, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-checkfeaturesupport">ID3D11Device::CheckFeatureSupport</a> with <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_feature">D3D11_FEATURE_D3D11_OPTIONS</a>. <b>CheckFeatureSupport</b> fills members of a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_feature_data_d3d11_options">D3D11_FEATURE_DATA_D3D11_OPTIONS</a> structure with the device's features. The relevant members here are <b>MapNoOverwriteOnDynamicConstantBuffer</b> and <b>MapNoOverwriteOnDynamicBufferSRV</b>.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_bind_flag
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_bind_flag
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_BIND_FLAG{
+class D3D11_BIND_FLAG extends Win32BitflagEnum{
 
     /**
      * Bind a buffer as a vertex buffer to the input-assembler stage.

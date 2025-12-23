@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the Portable Network Graphics (PNG) filters available for compression optimization.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicpngfilteroption
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicpngfilteroption
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICPngFilterOption{
+class WICPngFilterOption extends Win32Enum{
 
     /**
      * Indicates an unspecified PNG filter. This enables WIC to algorithmically choose the best filtering option for the image.

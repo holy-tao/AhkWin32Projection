@@ -4,16 +4,13 @@
 /**
  * Describes the format of a variable data block contained in a report that the EnclaveGetAttestationReport function generates.
  * @remarks
- * 
  * An enclave attestation report includes zero or  variable data blocks. These variable data blocks consist of the following items:
  * 
  * <ul>
  * <li>A <b>VBS_ENCLAVE_REPORT_VARDATA_HEADER</b> structure that describes the format of the variable data block. </li>
  * <li>The data described by the <b>VBS_ENCLAVE_REPORT_VARDATA_HEADER</b> structure. If the value of the <b>DataType</b> member of the <b>VBS_ENCLAVE_REPORT_VARDATA_HEADER</b> structure is  <b>VBS_ENCLAVE_VARDATA_MODULE</b>, this data is a <a href="https://docs.microsoft.com/windows/desktop/api/ntenclv/ns-ntenclv-vbs_enclave_report_module">VBS_ENCLAVE_REPORT_MODULE</a> structure.</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ntenclv/ns-ntenclv-vbs_enclave_report_vardata_header
+ * @see https://learn.microsoft.com/windows/win32/api/ntenclv/ns-ntenclv-vbs_enclave_report_vardata_header
  * @namespace Windows.Win32.System.Environment
  * @version v4.0.30319
  */

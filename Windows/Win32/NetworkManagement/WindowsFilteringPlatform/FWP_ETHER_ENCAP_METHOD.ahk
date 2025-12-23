@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the method of encapsulating Ethernet II and SNAP traffic. Reserved.
  * @remarks
- * 
  * This enumeration is reserved.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fwptypes/ne-fwptypes-fwp_ether_encap_method
+ * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ne-fwptypes-fwp_ether_encap_method
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class FWP_ETHER_ENCAP_METHOD{
+class FWP_ETHER_ENCAP_METHOD extends Win32Enum{
 
     /**
      * Specifies Ethernet V2 encapsulation.

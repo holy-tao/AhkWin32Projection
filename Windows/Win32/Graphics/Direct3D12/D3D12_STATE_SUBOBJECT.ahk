@@ -3,7 +3,7 @@
 
 /**
  * Represents a subobject within a state object description. Use with [D3D12_STATE_OBJECT_DESC](/windows/win32/api/d3d12/ns-d3d12-d3d12_state_object_desc).
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_state_subobject
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_state_subobject
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
 
 /**
  * Represents an individual block of data either in memory, in a file, or in the HTTP Server API response-fragment cache.
- * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_data_chunk
+ * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_data_chunk
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */
@@ -26,7 +26,7 @@ class HTTP_DATA_CHUNK extends Win32Struct
     }
 
     class _FromMemory extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -76,7 +76,7 @@ class HTTP_DATA_CHUNK extends Win32Struct
     }
 
     class _FromFragmentCache extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -123,7 +123,7 @@ class HTTP_DATA_CHUNK extends Win32Struct
     }
 
     class _Trailers extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -145,8 +145,8 @@ class HTTP_DATA_CHUNK extends Win32Struct
     }
 
     class _FromWinHttpFastForwarding extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+        static sizeof => 16
+        static packingSize => 1
 
         /**
          * @type {HTTP_WINHTTP_FAST_FORWARDING_DATA}

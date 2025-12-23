@@ -6,7 +6,7 @@
 
 /**
  * Contains information used in handling the RBN_AUTOSIZE notification codes.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmrbautosize
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmrbautosize
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -52,7 +52,7 @@ class NMRBAUTOSIZE extends Win32Struct
     rcTarget{
         get {
             if(!this.HasProp("__rcTarget"))
-                this.__rcTarget := RECT(32, this)
+                this.__rcTarget := RECT(28, this)
             return this.__rcTarget
         }
     }
@@ -67,7 +67,7 @@ class NMRBAUTOSIZE extends Win32Struct
     rcActual{
         get {
             if(!this.HasProp("__rcActual"))
-                this.__rcActual := RECT(48, this)
+                this.__rcActual := RECT(44, this)
             return this.__rcActual
         }
     }

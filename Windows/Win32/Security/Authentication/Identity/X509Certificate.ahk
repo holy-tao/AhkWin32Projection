@@ -4,7 +4,7 @@
 
 /**
  * Represents an X.509 certificate.
- * @see https://docs.microsoft.com/windows/win32/api//schannel/ns-schannel-x509certificate
+ * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-x509certificate
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

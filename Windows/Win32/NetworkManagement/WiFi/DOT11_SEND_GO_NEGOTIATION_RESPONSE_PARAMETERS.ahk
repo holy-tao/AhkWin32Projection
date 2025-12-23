@@ -12,7 +12,7 @@
  */
 class DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 96
 
     static packingSize => 8
 
@@ -126,23 +126,23 @@ class DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS extends Win32Struct
      * @type {BOOLEAN}
      */
     bUseGroupID {
-        get => NumGet(this, 88, "char")
-        set => NumPut("char", value, this, 88)
+        get => NumGet(this, 84, "char")
+        set => NumPut("char", value, this, 84)
     }
 
     /**
      * @type {Integer}
      */
     uIEsOffset {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
      * @type {Integer}
      */
     uIEsLength {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+        get => NumGet(this, 92, "uint")
+        set => NumPut("uint", value, this, 92)
     }
 }

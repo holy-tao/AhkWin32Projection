@@ -9,9 +9,9 @@
  */
 class DISPLAYCONFIG_SET_WCG_STATE extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {DISPLAYCONFIG_DEVICE_INFO_HEADER}
@@ -31,8 +31,8 @@ class DISPLAYCONFIG_SET_WCG_STATE extends Win32Struct
      * @type {Integer}
      */
     _bitfield {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -55,7 +55,7 @@ class DISPLAYCONFIG_SET_WCG_STATE extends Win32Struct
      * @type {Integer}
      */
     value {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 }

@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The NL_NEIGHBOR_STATE enumeration type defines the state of a network layer neighbor IP address, as described in RFC 2461, section 7.3.2.
  * @remarks
- * 
  * For more information about RFC 2461, section 7.3.2, see the 
  *     <a href="https://www.ietf.org/rfc/rfc2461.txt">Neighbor Discovery for IP Version 6
  *     (IPv6)</a> memo from Network Working Group.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//nldef/ne-nldef-nl_neighbor_state
+ * @see https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_neighbor_state
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
-class NL_NEIGHBOR_STATE{
+class NL_NEIGHBOR_STATE extends Win32Enum{
 
     /**
      * The IP address is unreachable.

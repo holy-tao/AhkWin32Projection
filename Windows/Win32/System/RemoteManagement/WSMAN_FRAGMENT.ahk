@@ -3,7 +3,7 @@
 
 /**
  * WSMAN_FRAGMENT is reserved for future use.
- * @see https://docs.microsoft.com/windows/win32/api//wsman/ns-wsman-wsman_fragment
+ * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_fragment
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */

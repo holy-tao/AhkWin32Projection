@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values that indicate the type of information to set or query in a Policy object.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ne-ntsecapi-policy_information_class
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-policy_information_class
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
-class POLICY_INFORMATION_CLASS{
+class POLICY_INFORMATION_CLASS extends Win32Enum{
 
     /**
      * This value is obsolete.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the interpolation mode to be used when a bitmap is composed with any transform where the pixels in the bitmap don't line up exactly one-to-one with pixels on screen.
  * @remarks
- * 
  * The default interpolation mode for a visual is <b>DCOMPOSITION_BITMAP_INTERPOLATION_MODE_INHERIT</b>. If all visuals in a visual tree specify this mode, the default for all visuals is nearest neighbor sampling, which is the fastest mode.
  * 
  * A single visual can have any combination of visual properties. However, if a 
@@ -20,13 +20,11 @@
  * <li><c>SetBitmapInterpolationMode(DCOMPOSITION_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR)</c></li>
  * </ul>
  * If you want a visual to be drawn with antialiasing, use <b>DCOMPOSITION_BITMAP_INTERPOLATION_MODE_LINEAR</b> for the content of the visual, and <a href="https://docs.microsoft.com/windows/desktop/api/dcomptypes/ne-dcomptypes-dcomposition_border_mode">DCOMPOSITION_BORDER_MODE_SOFT</a> for the edges.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dcomptypes/ne-dcomptypes-dcomposition_bitmap_interpolation_mode
+ * @see https://learn.microsoft.com/windows/win32/api/dcomptypes/ne-dcomptypes-dcomposition_bitmap_interpolation_mode
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */
-class DCOMPOSITION_BITMAP_INTERPOLATION_MODE{
+class DCOMPOSITION_BITMAP_INTERPOLATION_MODE extends Win32Enum{
 
     /**
      * Bitmaps are interpolated by using nearest-neighbor sampling.

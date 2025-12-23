@@ -8,9 +8,9 @@
  */
 class DOT11_ERP_PHY_ATTRIBUTES extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {DOT11_HRDSSS_PHY_ATTRIBUTES}

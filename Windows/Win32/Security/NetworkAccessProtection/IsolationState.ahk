@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the isolation state of a connection.
- * @see https://docs.microsoft.com/windows/win32/api//naptypes/ne-naptypes-isolationstate
+ * @see https://learn.microsoft.com/windows/win32/api/naptypes/ne-naptypes-isolationstate
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319
  */
-class IsolationState{
+class IsolationState extends Win32Enum{
 
     /**
      * The connection isolation state is not restricted.

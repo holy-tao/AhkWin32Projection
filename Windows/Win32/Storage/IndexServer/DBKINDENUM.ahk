@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DBKINDENUM enumerated type specifies the combination of GUID, property number, or property name to use to identify a database object.
- * @see https://docs.microsoft.com/windows/win32/api//oledbguid/ne-oledbguid-dbkindenum
+ * @see https://learn.microsoft.com/windows/win32/api/oledbguid/ne-oledbguid-dbkindenum
  * @namespace Windows.Win32.Storage.IndexServer
  * @version v4.0.30319
  */
-class DBKINDENUM{
+class DBKINDENUM extends Win32Enum{
 
     /**
      * 

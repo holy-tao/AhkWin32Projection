@@ -7,8 +7,7 @@
  * Retrieves support information for video decoding.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_feature_data_video_decode_support
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_decode_support
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -73,7 +72,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct
     FrameRate{
         get {
             if(!this.HasProp("__FrameRate"))
-                this.__FrameRate := DXGI_RATIONAL(40, this)
+                this.__FrameRate := DXGI_RATIONAL(36, this)
             return this.__FrameRate
         }
     }
@@ -83,8 +82,8 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct
      * @type {Integer}
      */
     BitRate {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -92,17 +91,17 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct
      * @type {Integer}
      */
     SupportFlags {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
-     * A combination of values from the [D3D12\_VIDEO\_DECODE\_CONFIGURATION\_FLAGS](ne-d3d12video-d3d12_video_decode_configuration_flags.md) eumeration describing the video decode configuration. This value is populated by the call to **ID3D12Device::CheckFeatureSupport**.
+     * A combination of values from the [D3D12\_VIDEO\_DECODE\_CONFIGURATION\_FLAGS](ne-d3d12video-d3d12_video_decode_configuration_flags.md) enumeration describing the video decode configuration. This value is populated by the call to **ID3D12Device::CheckFeatureSupport**.
      * @type {Integer}
      */
     ConfigurationFlags {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -110,7 +109,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct
      * @type {Integer}
      */
     DecodeTier {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 }

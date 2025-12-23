@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Provides predefined status codes to represent the progress of the TPM virtual smart card manager.
  * @remarks
- * 
  * These status codes are sent from the TPM virtual smart card manager COM server to the caller through the status callback interface, <a href="https://docs.microsoft.com/windows/desktop/api/tpmvscmgr/nn-tpmvscmgr-itpmvirtualsmartcardmanagerstatuscallback">ITpmVirtualSmartCardManagerStatusCallback</a>. Status callback interface implementations must interpret the status codes based on their predefined meanings and, if applicable, load localized message strings and update the user interface.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tpmvscmgr/ne-tpmvscmgr-tpmvscmgr_status
+ * @see https://learn.microsoft.com/windows/win32/api/tpmvscmgr/ne-tpmvscmgr-tpmvscmgr_status
  * @namespace Windows.Win32.Security.Tpm
  * @version v4.0.30319
  */
-class TPMVSCMGR_STATUS{
+class TPMVSCMGR_STATUS extends Win32Enum{
 
     /**
      * Initializing the virtual smart card 	manager.

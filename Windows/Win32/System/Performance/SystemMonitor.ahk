@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * This class contains the methods and properties used to configure the System Monitor control.
  * @see https://learn.microsoft.com/windows/win32/SysMon/systemmonitor
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319

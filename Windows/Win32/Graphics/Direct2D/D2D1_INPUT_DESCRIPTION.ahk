@@ -3,7 +3,7 @@
 
 /**
  * Describes the options that transforms may set on input textures.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/ns-d2d1effectauthor-d2d1_input_description
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_input_description
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

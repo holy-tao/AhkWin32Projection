@@ -3,7 +3,7 @@
 
 /**
  * Provides identification and authentication information to network providers.
- * @see https://docs.microsoft.com/windows/win32/api//winwlx/ns-winwlx-wlx_mpr_notify_info
+ * @see https://learn.microsoft.com/windows/win32/api/winwlx/ns-winwlx-wlx_mpr_notify_info
  * @namespace Windows.Win32.Security.WinWlx
  * @version v4.0.30319
  */

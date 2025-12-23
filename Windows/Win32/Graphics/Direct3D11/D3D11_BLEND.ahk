@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Blend factors, which modulate values for the pixel shader and render target.
  * @remarks
- * 
  * Blend operations are specified in a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_blend_desc">blend description</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_blend
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_blend
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_BLEND{
+class D3D11_BLEND extends Win32Enum{
 
     /**
      * The blend factor is (0, 0, 0, 0). No pre-blend operation.

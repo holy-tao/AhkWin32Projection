@@ -5,7 +5,6 @@
 /**
  * Specifies whether the output is downsampled in a blit operation, when using Microsoft DirectX Video Acceleration High Definition (DXVA-HD).
  * @remarks
- * 
  * If the <b>Enable</b> member is <b>TRUE</b>, the device downsamples the composed target rectangle  to the size given in the <b>Size</b> member, and then scales it back to the size of the target rectangle.
  * 
  * The width and height of <b>Size</b> must be greater than zero. If the size is larger than the target rectangle, downsampling does not occur.
@@ -15,17 +14,15 @@
  * If the device does not support downsampling, the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nf-dxvahd-idxvahd_videoprocessor-setvideoprocessbltstate">IDXVAHD_VideoProcessor::SetVideoProcessBltState</a> method fails for this state.
  * 
  * Downsampling is sometimes used to reduce the quality of premium content when other forms of content protection are not available.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ns-dxvahd-dxvahd_blt_state_constriction_data
+ * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_blt_state_constriction_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
 class DXVAHD_BLT_STATE_CONSTRICTION_DATA extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * If <b>TRUE</b>, downsampling is enabled<b></b>. Otherwise, downsampling is disabled and the <b>Size</b> member is ignored. The default state value is <b>FALSE</b> (downsampling is disabled).
@@ -43,7 +40,7 @@ class DXVAHD_BLT_STATE_CONSTRICTION_DATA extends Win32Struct
     Size{
         get {
             if(!this.HasProp("__Size"))
-                this.__Size := SIZE(8, this)
+                this.__Size := SIZE(4, this)
             return this.__Size
         }
     }

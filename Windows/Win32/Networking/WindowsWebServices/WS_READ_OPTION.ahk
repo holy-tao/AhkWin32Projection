@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether a value is required, and how the value should be allocated.
  * @remarks
- * 
- * Each <b>WS_READ_OPTION</b> discusses when a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-heap">WS_HEAP</a>object must be specified.  Depending on the function, it may still be
+ * Each <b>WS_READ_OPTION</b> discusses when a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-heap">WS_HEAP</a> object must be specified.  Depending on the function, it may still be
  *                 possible to pass a <b>NULL</b> heap parameter in this case; see the documentation
  *                 for the specific function for details on whether a default heap is used
  *                 if the heap parameter is <b>NULL</b>.
@@ -41,12 +41,11 @@
  * </ul>
  * </li>
  * </ul>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_read_option
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_read_option
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_READ_OPTION{
+class WS_READ_OPTION extends Win32Enum{
 
     /**
      * The option specifies that the value must exist in the XML content.
@@ -87,7 +86,7 @@ class WS_READ_OPTION{
      * The option specifies that the value must exist in the XML content.
      *                 
      * 
-     * The deserialized value is always allocated on the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-heap">WS_HEAP</a>, regardless of it's size.
+     * The deserialized value is always allocated on the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-heap">WS_HEAP</a>, regardless of its size.
      *                     The pointer to the deserialized value is returned.  When using this option,
      *                     the caller should pass the address of a pointer, and size of a pointer,
      *                     regardless of the type being deserialized.
@@ -104,7 +103,7 @@ class WS_READ_OPTION{
      * The option specifies that the value need not exist in the XML content.
      *                 
      * 
-     * The deserialized value is always allocated on the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-heap">WS_HEAP</a>, regardless of it's size.
+     * The deserialized value is always allocated on the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-heap">WS_HEAP</a>, regardless of its size.
      *                     The pointer to the deserialized value is returned.  When using this option,
      *                     the caller should pass the address of a pointer, and size of a pointer,
      *                     regardless of the type being deserialized.
@@ -124,7 +123,7 @@ class WS_READ_OPTION{
      * The option specifies that the value may be nil or missing in the XML content.
      *                 
      * 
-     * The deserialized value is always allocated on the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-heap">WS_HEAP</a>, regardless of it's size.
+     * The deserialized value is always allocated on the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-heap">WS_HEAP</a>, regardless of its size.
      *                     The pointer to the deserialized value is returned.  When using this option,
      *                     the caller should pass the address of a pointer, and size of a pointer,
      *                     regardless of the type being deserialized.
@@ -140,7 +139,7 @@ class WS_READ_OPTION{
      *                 
      * 
      * This option is not supported in combination with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type_mapping">WS_TYPE_MAPPING</a> in APIs
-     *                 that read XML, inlcuding <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadtype">WsReadType</a> and <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadelement">WsReadElement</a> calls.
+     *                 that read XML, including <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadtype">WsReadType</a> and <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadelement">WsReadElement</a> calls.
      * @type {Integer (Int32)}
      */
     static WS_READ_NILLABLE_POINTER => 4
@@ -157,7 +156,7 @@ class WS_READ_OPTION{
      *                 
      * 
      * This option is not supported in combination with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type_mapping">WS_TYPE_MAPPING</a> in APIs
-     *                 that read XML, inlcuding <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadtype">WsReadType</a> and <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadelement">WsReadElement</a> calls.
+     *                 that read XML, including <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadtype">WsReadType</a> and <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadelement">WsReadElement</a> calls.
      *               
      * 
      * This option is only supported for the following types, listed below,

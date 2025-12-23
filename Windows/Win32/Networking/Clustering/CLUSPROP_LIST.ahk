@@ -7,18 +7,16 @@
 /**
  * Accesses the beginning of a property list.
  * @remarks
- * 
  * For information about property lists, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">Property Lists</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clusprop_list
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_list
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
 class CLUSPROP_LIST extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Number of properties in the property list.
@@ -36,7 +34,7 @@ class CLUSPROP_LIST extends Win32Struct
     PropertyName{
         get {
             if(!this.HasProp("__PropertyName"))
-                this.__PropertyName := CLUSPROP_SZ(8, this)
+                this.__PropertyName := CLUSPROP_SZ(4, this)
             return this.__PropertyName
         }
     }

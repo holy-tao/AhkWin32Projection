@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The WMDMID structure describes serial numbers and group IDs.
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdmid
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
@@ -14,6 +14,7 @@ class WMDMID extends Win32Struct
     static packingSize => 4
 
     /**
+     * Size of the **WMDMID** structure, in bytes.
      * @type {Integer}
      */
     cbSize {
@@ -22,6 +23,7 @@ class WMDMID extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     dwVendorID {
@@ -41,6 +43,7 @@ class WMDMID extends Win32Struct
     }
 
     /**
+     * Actual length of the serial number returned, in bytes.
      * @type {Integer}
      */
     SerialNumberLength {

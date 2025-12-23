@@ -5,22 +5,19 @@
 /**
  * Describes a video stream for a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) video processor.
  * @remarks
- * 
  * Frame rates are expressed as ratios. For example, 30 frames per second (fps) is expressed as 30:1, and 29.97 fps is expressed as 30000/1001. For interlaced content, a frame consists of two fields, so that the frame rate is half the field rate.
  *       
  * 
  *  If the application will composite two or more input streams, use the largest stream for the values of <b>InputWidth</b> and <b>InputHeight</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ns-dxvahd-dxvahd_content_desc
+ * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_content_desc
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
 class DXVAHD_CONTENT_DESC extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ne-dxvahd-dxvahd_frame_format">DXVAHD_FRAME_FORMAT</a> enumeration that describes how the video stream is interlaced.
@@ -38,7 +35,7 @@ class DXVAHD_CONTENT_DESC extends Win32Struct
     InputFrameRate{
         get {
             if(!this.HasProp("__InputFrameRate"))
-                this.__InputFrameRate := DXVAHD_RATIONAL(8, this)
+                this.__InputFrameRate := DXVAHD_RATIONAL(4, this)
             return this.__InputFrameRate
         }
     }
@@ -48,8 +45,8 @@ class DXVAHD_CONTENT_DESC extends Win32Struct
      * @type {Integer}
      */
     InputWidth {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
@@ -57,8 +54,8 @@ class DXVAHD_CONTENT_DESC extends Win32Struct
      * @type {Integer}
      */
     InputHeight {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -68,7 +65,7 @@ class DXVAHD_CONTENT_DESC extends Win32Struct
     OutputFrameRate{
         get {
             if(!this.HasProp("__OutputFrameRate"))
-                this.__OutputFrameRate := DXVAHD_RATIONAL(24, this)
+                this.__OutputFrameRate := DXVAHD_RATIONAL(20, this)
             return this.__OutputFrameRate
         }
     }
@@ -78,8 +75,8 @@ class DXVAHD_CONTENT_DESC extends Win32Struct
      * @type {Integer}
      */
     OutputWidth {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -87,7 +84,7 @@ class DXVAHD_CONTENT_DESC extends Win32Struct
      * @type {Integer}
      */
     OutputHeight {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

@@ -3,7 +3,7 @@
 
 /**
  * The PPP_CCP_INFO structure contains information that describes the results of a Compression Control Protocol (CCP) negotiation.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-ppp_ccp_info
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_ccp_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

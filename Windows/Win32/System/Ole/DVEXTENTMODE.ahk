@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates whether the sizing mode is content or integral sizing.
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/ne-ocidl-dvextentmode
+ * @see https://learn.microsoft.com/windows/win32/api/ocidl/ne-ocidl-dvextentmode
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
-class DVEXTENTMODE{
+class DVEXTENTMODE extends Win32Enum{
 
     /**
      * Indicates that the container will ask the object how big it wants to be to exactly fit its content, for example, in snap-to-size operations.

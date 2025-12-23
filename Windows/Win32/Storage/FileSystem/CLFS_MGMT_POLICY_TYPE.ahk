@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The CLFS_MGMT_POLICY_TYPE enumeration lists the valid policy types.
- * @see https://docs.microsoft.com/windows/win32/api//clfsmgmt/ne-clfsmgmt-clfs_mgmt_policy_type
+ * @see https://learn.microsoft.com/windows/win32/api/clfsmgmt/ne-clfsmgmt-clfs_mgmt_policy_type
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
-class CLFS_MGMT_POLICY_TYPE{
+class CLFS_MGMT_POLICY_TYPE extends Win32Enum{
 
     /**
      * Specifies the maximum size of the log.

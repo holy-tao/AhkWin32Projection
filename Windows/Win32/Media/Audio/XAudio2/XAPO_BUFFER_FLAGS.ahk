@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the contents of a stream buffer.
  * @remarks
- * 
  * This metadata can be used to implement optimizations that require knowledge of a stream buffer's contents. For example, XAPOs that always produce silent output from silent input can check the flag on the input stream buffer to determine if any signal processing is necessary. If silent, the XAPO can simply set the flag on the output stream buffer to silent and return, thus averting the work of processing silent data.
  * 
  * 
@@ -18,13 +18,11 @@
  * 
  * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xapo/ne-xapo-xapo_buffer_flags
+ * @see https://learn.microsoft.com/windows/win32/api/xapo/ne-xapo-xapo_buffer_flags
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319
  */
-class XAPO_BUFFER_FLAGS{
+class XAPO_BUFFER_FLAGS extends Win32Enum{
 
     /**
      * Stream buffer contains only silent samples.

@@ -4,15 +4,15 @@
 
 /**
  * Receives information about a band object. This structure is used with the deprecated IDeskBand::GetBandInfo method.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ns-shobjidl_core-deskbandinfo
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-deskbandinfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
 class DESKBANDINFO extends Win32Struct
 {
-    static sizeof => 560
+    static sizeof => 556
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>DWORD</b>
@@ -24,37 +24,37 @@ class DESKBANDINFO extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162807(v=vs.85)">POINTL</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a></b>
      * 
-     * A <a href="https://docs.microsoft.com/previous-versions/dd162807(v=vs.85)">POINTL</a> structure that receives the minimum size of the band object. The minimum width is given in the <b>POINTL</b> structure's <b>x</b> member and the minimum height is given in the <b>y</b> member.
+     * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a> structure that receives the minimum size of the band object. The minimum width is given in the <b>POINTL</b> structure's <b>x</b> member and the minimum height is given in the <b>y</b> member.
      * @type {POINTL}
      */
     ptMinSize{
         get {
             if(!this.HasProp("__ptMinSize"))
-                this.__ptMinSize := POINTL(8, this)
+                this.__ptMinSize := POINTL(4, this)
             return this.__ptMinSize
         }
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162807(v=vs.85)">POINTL</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a></b>
      * 
-     * A <a href="https://docs.microsoft.com/previous-versions/dd162807(v=vs.85)">POINTL</a> structure that receives the maximum size of the band object. The maximum height is given in the <b>POINTL</b> structure's <b>y</b> member and the <b>x</b> member is ignored. If the band object has no limit for its maximum height, (LONG)-1 should be used.
+     * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a> structure that receives the maximum size of the band object. The maximum height is given in the <b>POINTL</b> structure's <b>y</b> member and the <b>x</b> member is ignored. If the band object has no limit for its maximum height, (LONG)-1 should be used.
      * @type {POINTL}
      */
     ptMaxSize{
         get {
             if(!this.HasProp("__ptMaxSize"))
-                this.__ptMaxSize := POINTL(16, this)
+                this.__ptMaxSize := POINTL(12, this)
             return this.__ptMaxSize
         }
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162807(v=vs.85)">POINTL</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a></b>
      * 
-     * A <a href="https://docs.microsoft.com/previous-versions/dd162807(v=vs.85)">POINTL</a> structure that receives the sizing step value (increment) in which the band object is resized. The vertical step value is given in the <b>POINTL</b> structure's <b>y</b> member and the <b>x</b> member is ignored.
+     * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a> structure that receives the sizing step value (increment) in which the band object is resized. The vertical step value is given in the <b>POINTL</b> structure's <b>y</b> member and the <b>x</b> member is ignored.
      * 
      * The <b>dwModeFlags</b> member must contain the DBIMF_VARIABLEHEIGHT flag; otherwise, <b>ptIntegral</b> is ignored.
      * @type {POINTL}
@@ -62,21 +62,21 @@ class DESKBANDINFO extends Win32Struct
     ptIntegral{
         get {
             if(!this.HasProp("__ptIntegral"))
-                this.__ptIntegral := POINTL(24, this)
+                this.__ptIntegral := POINTL(20, this)
             return this.__ptIntegral
         }
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162807(v=vs.85)">POINTL</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a></b>
      * 
-     * A <a href="https://docs.microsoft.com/previous-versions/dd162807(v=vs.85)">POINTL</a> structure that receives the ideal size of the band object. The ideal width is given in the <b>POINTL</b> structure's <b>x</b> member and the ideal height is given in the <b>y</b> member. The band container attempts to use these values, but the band is not guaranteed to be this size.
+     * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a> structure that receives the ideal size of the band object. The ideal width is given in the <b>POINTL</b> structure's <b>x</b> member and the ideal height is given in the <b>y</b> member. The band container attempts to use these values, but the band is not guaranteed to be this size.
      * @type {POINTL}
      */
     ptActual{
         get {
             if(!this.HasProp("__ptActual"))
-                this.__ptActual := POINTL(32, this)
+                this.__ptActual := POINTL(28, this)
             return this.__ptActual
         }
     }
@@ -88,8 +88,8 @@ class DESKBANDINFO extends Win32Struct
      * @type {String}
      */
     wszTitle {
-        get => StrGet(this.ptr + 40, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 40, 255, "UTF-16")
+        get => StrGet(this.ptr + 36, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 36, 255, "UTF-16")
     }
 
     /**
@@ -97,8 +97,8 @@ class DESKBANDINFO extends Win32Struct
      * @type {Integer}
      */
     dwModeFlags {
-        get => NumGet(this, 552, "uint")
-        set => NumPut("uint", value, this, 552)
+        get => NumGet(this, 548, "uint")
+        set => NumPut("uint", value, this, 548)
     }
 
     /**
@@ -108,7 +108,7 @@ class DESKBANDINFO extends Win32Struct
      * @type {COLORREF}
      */
     crBkgnd {
-        get => NumGet(this, 556, "uint")
-        set => NumPut("uint", value, this, 556)
+        get => NumGet(this, 552, "uint")
+        set => NumPut("uint", value, this, 552)
     }
 }

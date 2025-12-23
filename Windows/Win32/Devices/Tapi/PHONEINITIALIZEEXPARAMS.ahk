@@ -5,20 +5,45 @@
 /**
  * The PHONEINITIALIZEEXPARAMS structure contains parameters used to establish the association between an application and TAPI; for example, the application's selected event notification mechanism. The phoneInitializeEx function uses this structure.
  * @remarks
- * 
  * See 
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-phoneinitializeexa">phoneInitializeEx</a> for further information on these options.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-phoneinitializeexparams
+ * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-phoneinitializeexparams
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
 class PHONEINITIALIZEEXPARAMS extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
+
+    class _Handles_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 1
+
+        /**
+         * @type {HANDLE}
+         */
+        hEvent{
+            get {
+                if(!this.HasProp("__hEvent"))
+                    this.__hEvent := HANDLE(0, this)
+                return this.__hEvent
+            }
+        }
+    
+        /**
+         * @type {HANDLE}
+         */
+        hCompletionPort{
+            get {
+                if(!this.HasProp("__hCompletionPort"))
+                    this.__hCompletionPort := HANDLE(0, this)
+                return this.__hCompletionPort
+            }
+        }
+    
+    }
 
     /**
      * Total size allocated to this data structure, in bytes.
@@ -58,24 +83,14 @@ class PHONEINITIALIZEEXPARAMS extends Win32Struct
     }
 
     /**
-     * @type {HANDLE}
+     * 
+     * @type {_Handles_e__Union}
      */
-    hEvent{
+    Handles{
         get {
-            if(!this.HasProp("__hEvent"))
-                this.__hEvent := HANDLE(16, this)
-            return this.__hEvent
-        }
-    }
-
-    /**
-     * @type {HANDLE}
-     */
-    hCompletionPort{
-        get {
-            if(!this.HasProp("__hCompletionPort"))
-                this.__hCompletionPort := HANDLE(16, this)
-            return this.__hCompletionPort
+            if(!this.HasProp("__Handles"))
+                this.__Handles := %this.__Class%._Handles_e__Union(16, this)
+            return this.__Handles
         }
     }
 

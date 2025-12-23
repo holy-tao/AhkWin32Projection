@@ -3,7 +3,7 @@
 
 /**
  * The DD_GETVPORTFIELDDATA structure contains the information required for the driver to determine whether the current field of an interlaced signal is even or odd.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_getvportfielddata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_getvportfielddata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

@@ -4,11 +4,8 @@
 /**
  * Contains information about hyphenation in a Microsoft Rich Edit control.
  * @remarks
- * 
  * This structure is used with the <a href="https://msdn.microsoft.com/70ccb698-e440-493b-8f38-2bf7f32e4b26">EM_GETHYPHENATEINFO</a> and <a href="https://msdn.microsoft.com/67126cb8-ab50-49a9-b32f-2245debf2fe3">EM_SETHYPHENATEINFO</a> messages.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-hyphenateinfo
+ * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-hyphenateinfo
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

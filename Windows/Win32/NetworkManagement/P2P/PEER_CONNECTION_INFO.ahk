@@ -7,13 +7,13 @@
 
 /**
  * The PEER_CONNECTION_INFO structure contains information about a connection. This structure is returned when you are enumerating peer graphing or grouping connections.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_connection_info
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_connection_info
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
 class PEER_CONNECTION_INFO extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -64,7 +64,7 @@ class PEER_CONNECTION_INFO extends Win32Struct
 
     /**
      * Specifies the address of a remote node. The address is contained in a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_address">PEER_ADDRESS</a> structure.
-     * @deprecated
+     * @deprecated 
      * @type {PEER_ADDRESS}
      */
     address{

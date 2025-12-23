@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines a set of flags used by all callback functions.
- * @see https://docs.microsoft.com/windows/win32/api//wsman/ne-wsman-wsmancallbackflags
+ * @see https://learn.microsoft.com/windows/win32/api/wsman/ne-wsman-wsmancallbackflags
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */
-class WSManCallbackFlags{
+class WSManCallbackFlags extends Win32Enum{
 
     /**
      * Indicates the end of a single step of a multi-step operation. This flag is used for optimization purposes if the shell cannot be determined.

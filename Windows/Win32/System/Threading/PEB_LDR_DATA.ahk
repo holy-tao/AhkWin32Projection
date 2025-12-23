@@ -5,16 +5,21 @@
 /**
  * Contains information about the loaded modules for the process.
  * @remarks
- * 
  * The <b>LIST_ENTRY</b> structure is defined as follows: 
  * 
- * <pre class="syntax" xml:space="preserve"><code>typedef struct _LIST_ENTRY {
+ * 
+ * ``` syntax
+ * typedef struct _LIST_ENTRY {
  *    struct _LIST_ENTRY *Flink;
  *    struct _LIST_ENTRY *Blink;
- * } LIST_ENTRY, *PLIST_ENTRY, *RESTRICTED_POINTER PRLIST_ENTRY;</code></pre>
+ * } LIST_ENTRY, *PLIST_ENTRY, *RESTRICTED_POINTER PRLIST_ENTRY;
+ * ```
+ * 
  * The <b>LDR_DATA_TABLE_ENTRY</b> structure is defined as follows: 
  * 
- * <pre class="syntax" xml:space="preserve"><code>typedef struct _LDR_DATA_TABLE_ENTRY {
+ * 
+ * ``` syntax
+ * typedef struct _LDR_DATA_TABLE_ENTRY {
  *     PVOID Reserved1[2];
  *     LIST_ENTRY InMemoryOrderLinks;
  *     PVOID Reserved2[2];
@@ -30,10 +35,9 @@
  *     };
  *     ULONG TimeDateStamp;
  * } LDR_DATA_TABLE_ENTRY, *PLDR_DATA_TABLE_ENTRY;
- * </code></pre>
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winternl/ns-winternl-peb_ldr_data
+ * ```
+ * @see https://learn.microsoft.com/windows/win32/api/winternl/ns-winternl-peb_ldr_data
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

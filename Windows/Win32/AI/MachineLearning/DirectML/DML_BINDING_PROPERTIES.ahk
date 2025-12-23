@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the binding requirements of a particular compiled operator, or operator initializer. This struct is retrieved from IDMLDispatchable::GetBindingProperties.
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_binding_properties
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_binding_properties
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

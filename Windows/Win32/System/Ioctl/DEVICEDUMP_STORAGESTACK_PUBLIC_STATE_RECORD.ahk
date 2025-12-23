@@ -11,6 +11,87 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct
 
     static packingSize => 8
 
+    class _StackSpecific_e__Union extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        class _ExternalStack extends Win32Struct {
+            static sizeof => 4
+            static packingSize => 4
+    
+            /**
+             * @type {Integer}
+             */
+            dwReserved {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+        }
+    
+        class _AtaPort extends Win32Struct {
+            static sizeof => 4
+            static packingSize => 4
+    
+            /**
+             * @type {Integer}
+             */
+            dwAtaPortSpecific {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+        }
+    
+        class _StorPort extends Win32Struct {
+            static sizeof => 4
+            static packingSize => 4
+    
+            /**
+             * @type {Integer}
+             */
+            SrbTag {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+        }
+    
+        /**
+         * @type {_ExternalStack}
+         */
+        ExternalStack{
+            get {
+                if(!this.HasProp("__ExternalStack"))
+                    this.__ExternalStack := %this.__Class%._ExternalStack(0, this)
+                return this.__ExternalStack
+            }
+        }
+    
+        /**
+         * @type {_AtaPort}
+         */
+        AtaPort{
+            get {
+                if(!this.HasProp("__AtaPort"))
+                    this.__AtaPort := %this.__Class%._AtaPort(0, this)
+                return this.__AtaPort
+            }
+        }
+    
+        /**
+         * @type {_StorPort}
+         */
+        StorPort{
+            get {
+                if(!this.HasProp("__StorPort"))
+                    this.__StorPort := %this.__Class%._StorPort(0, this)
+                return this.__StorPort
+            }
+        }
+    
+    }
+
     /**
      * @type {Array<Byte>}
      */
@@ -65,78 +146,14 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct
         set => NumPut("uint", value, this, 52)
     }
 
-    class _ExternalStack extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
-        /**
-         * @type {Integer}
-         */
-        dwReserved {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    
-    }
-
-    class _AtaPort extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
-        /**
-         * @type {Integer}
-         */
-        dwAtaPortSpecific {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    
-    }
-
-    class _StorPort extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
-        /**
-         * @type {Integer}
-         */
-        SrbTag {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    
-    }
-
     /**
-     * @type {_ExternalStack}
+     * @type {_StackSpecific_e__Union}
      */
-    ExternalStack{
+    StackSpecific{
         get {
-            if(!this.HasProp("__ExternalStack"))
-                this.__ExternalStack := %this.__Class%._ExternalStack(56, this)
-            return this.__ExternalStack
-        }
-    }
-
-    /**
-     * @type {_AtaPort}
-     */
-    AtaPort{
-        get {
-            if(!this.HasProp("__AtaPort"))
-                this.__AtaPort := %this.__Class%._AtaPort(56, this)
-            return this.__AtaPort
-        }
-    }
-
-    /**
-     * @type {_StorPort}
-     */
-    StorPort{
-        get {
-            if(!this.HasProp("__StorPort"))
-                this.__StorPort := %this.__Class%._StorPort(56, this)
-            return this.__StorPort
+            if(!this.HasProp("__StackSpecific"))
+                this.__StackSpecific := %this.__Class%._StackSpecific_e__Union(56, this)
+            return this.__StackSpecific
         }
     }
 }

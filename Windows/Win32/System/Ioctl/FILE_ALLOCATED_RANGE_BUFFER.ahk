@@ -3,7 +3,7 @@
 
 /**
  * Indicates a range of bytes in a file.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-file_allocated_range_buffer
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_allocated_range_buffer
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Represents a class property (element) in a class's declaration.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_propertydecl
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_propertydecl
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

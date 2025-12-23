@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes a monitor's color temperature.
- * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_color_temperature
+ * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_color_temperature
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
-class MC_COLOR_TEMPERATURE{
+class MC_COLOR_TEMPERATURE extends Win32Enum{
 
     /**
      * Unknown temperature.

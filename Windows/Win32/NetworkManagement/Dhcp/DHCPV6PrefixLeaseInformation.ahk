@@ -4,10 +4,8 @@
 /**
  * Information about a prefix lease.
  * @remarks
- * 
  * In a prefix delegation scenario, the validation of lease lifetime values (specific status codes, <b>T1</b>, <b>T2</b>, <b>MaxLeaseExpirationTime</b>, and <b>LastRenewalTime</b>) are performed by the calling API, rather than the application consuming the data, as the latter might interpret these values differently.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dhcpv6csdk/ns-dhcpv6csdk-dhcpv6prefixleaseinformation
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6prefixleaseinformation
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */
@@ -128,7 +126,7 @@ class DHCPV6PrefixLeaseInformation extends Win32Struct
      * </dl>
      * </td>
      * <td width="60%">
-     * The DHCPv6 server does not have a prefix availble to offer the requesting client.
+     * The DHCPv6 server does not have a prefix available to offer the requesting client.
      * 
      * </td>
      * </tr>

@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values for the operating system architecture that the boot image supports.
  * @remarks
- * 
  * Other values not defined here may exist. Consumers of this enumeration should not presume this list to be the only set of valid values.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/ne-imapi2fs-platformid
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/ne-imapi2fs-platformid
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
-class PlatformId{
+class PlatformId extends Win32Enum{
 
     /**
      * Intel Pentium™ series of chip sets. This entry implies a Windows  operating system.

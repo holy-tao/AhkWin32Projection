@@ -4,19 +4,16 @@
 /**
  * Describes an indirect argument (an indirect parameter), for use with a command signature.
  * @remarks
- * 
  * Use this structure with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_command_signature_desc">D3D12_COMMAND_SIGNATURE_DESC</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_indirect_argument_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_indirect_argument_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
 class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A single <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_indirect_argument_type">D3D12_INDIRECT_ARGUMENT_TYPE</a> enumeration constant.
@@ -28,8 +25,8 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     }
 
     class _VertexBuffer extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -43,7 +40,7 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
 
     class _Constant extends Win32Struct {
         static sizeof => 12
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -72,8 +69,8 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     }
 
     class _ConstantBufferView extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -86,8 +83,8 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     }
 
     class _ShaderResourceView extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -100,8 +97,8 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     }
 
     class _UnorderedAccessView extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -114,8 +111,8 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     }
 
     class _IncrementingConstant extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -141,7 +138,7 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     VertexBuffer{
         get {
             if(!this.HasProp("__VertexBuffer"))
-                this.__VertexBuffer := %this.__Class%._VertexBuffer(8, this)
+                this.__VertexBuffer := %this.__Class%._VertexBuffer(4, this)
             return this.__VertexBuffer
         }
     }
@@ -152,7 +149,7 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     Constant{
         get {
             if(!this.HasProp("__Constant"))
-                this.__Constant := %this.__Class%._Constant(8, this)
+                this.__Constant := %this.__Class%._Constant(4, this)
             return this.__Constant
         }
     }
@@ -163,7 +160,7 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     ConstantBufferView{
         get {
             if(!this.HasProp("__ConstantBufferView"))
-                this.__ConstantBufferView := %this.__Class%._ConstantBufferView(8, this)
+                this.__ConstantBufferView := %this.__Class%._ConstantBufferView(4, this)
             return this.__ConstantBufferView
         }
     }
@@ -174,7 +171,7 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     ShaderResourceView{
         get {
             if(!this.HasProp("__ShaderResourceView"))
-                this.__ShaderResourceView := %this.__Class%._ShaderResourceView(8, this)
+                this.__ShaderResourceView := %this.__Class%._ShaderResourceView(4, this)
             return this.__ShaderResourceView
         }
     }
@@ -185,7 +182,7 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     UnorderedAccessView{
         get {
             if(!this.HasProp("__UnorderedAccessView"))
-                this.__UnorderedAccessView := %this.__Class%._UnorderedAccessView(8, this)
+                this.__UnorderedAccessView := %this.__Class%._UnorderedAccessView(4, this)
             return this.__UnorderedAccessView
         }
     }
@@ -196,7 +193,7 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     IncrementingConstant{
         get {
             if(!this.HasProp("__IncrementingConstant"))
-                this.__IncrementingConstant := %this.__Class%._IncrementingConstant(8, this)
+                this.__IncrementingConstant := %this.__Class%._IncrementingConstant(4, this)
             return this.__IncrementingConstant
         }
     }

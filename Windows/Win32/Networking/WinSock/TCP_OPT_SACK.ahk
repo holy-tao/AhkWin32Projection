@@ -12,8 +12,8 @@ class TCP_OPT_SACK extends Win32Struct
     static packingSize => 8
 
     class tcp_opt_sack_block extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}

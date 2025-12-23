@@ -5,7 +5,7 @@
 
 /**
  * Contains information for a specific module.
- * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ns-minidumpapiset-minidump_module
+ * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_module
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */
@@ -81,7 +81,7 @@ class MINIDUMP_MODULE extends Win32Struct
     CvRecord{
         get {
             if(!this.HasProp("__CvRecord"))
-                this.__CvRecord := MINIDUMP_LOCATION_DESCRIPTOR(80, this)
+                this.__CvRecord := MINIDUMP_LOCATION_DESCRIPTOR(76, this)
             return this.__CvRecord
         }
     }
@@ -93,7 +93,7 @@ class MINIDUMP_MODULE extends Win32Struct
     MiscRecord{
         get {
             if(!this.HasProp("__MiscRecord"))
-                this.__MiscRecord := MINIDUMP_LOCATION_DESCRIPTOR(88, this)
+                this.__MiscRecord := MINIDUMP_LOCATION_DESCRIPTOR(84, this)
             return this.__MiscRecord
         }
     }

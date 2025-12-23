@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the display and encoding characteristics of a distinguished name or relative distinguished name (RDN).
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-x500nameflags
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x500nameflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class X500NameFlags{
+class X500NameFlags extends Win32Enum{
 
     /**
      * Display characteristics are not identified.
@@ -48,7 +49,9 @@ class X500NameFlags{
     /**
      * OIDs are treated in the same manner as that used to convert XCN_CERT_X500_NAME_ST values except that they are formatted as a sequence of XML elements. This is shown in the following example.
      * 
-     * <pre class="syntax" xml:space="preserve"><code>
+     * 
+     * ``` syntax
+     * 
      * &lt;CN&gt;cart.contoso.com&lt;/CN&gt;
      * &lt;OU&gt;Terms of use at www.verisign.com/rpa (c)00&lt;/OU&gt;
      * &lt;OU rDNAttribute="true"&gt;IT Operations&lt;/OU&gt;
@@ -59,7 +62,9 @@ class X500NameFlags{
      * &lt;RDN oid="1.2.3.4" type="string"&gt;name&lt;/RDN&gt;
      * &lt;RDN rDNAttribute="true" oid="1.2.1.3" type="encoded"&gt;0500&lt;/RDN&gt;
      * &lt;RDN oid="1.2.1.4" type="encoded"&gt;020135&lt;/RDN&gt;
-     * &lt;RDN oid="1.2.2.5.3" type="octet"&gt;01FF7F&lt;/RDN&gt;</code></pre>
+     * &lt;RDN oid="1.2.2.5.3" type="octet"&gt;01FF7F&lt;/RDN&gt;
+     * ```
+     * 
      * The Unicode XML markup characters are escaped in the following manner. Characters greater than 0x7F are escaped by using character references (L"&amp;#xXXXX;").
      * <ul>
      * <li>&amp; becomes L"&amp;amp;"</li>

@@ -3,7 +3,7 @@
 
 /**
  * The HistogramDataHeader structure describes the blob format for the MF_CAPTURE_METADATA_HISTOGRAM attribute.
- * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-histogramdataheader
+ * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-histogramdataheader
  * @namespace Windows.Win32.Media.Streaming
  * @version v4.0.30319
  */

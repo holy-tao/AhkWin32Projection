@@ -5,7 +5,7 @@
 
 /**
  * The AMVACompBufferInfo structure describes the allocated surfaces and compressed buffer information.
- * @see https://docs.microsoft.com/windows/win32/api//amva/ns-amva-amvacompbufferinfo
+ * @see https://learn.microsoft.com/windows/win32/api/amva/ns-amva-amvacompbufferinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -13,7 +13,7 @@ class AMVACompBufferInfo extends Win32Struct
 {
     static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Number of buffers requested for compressed data.

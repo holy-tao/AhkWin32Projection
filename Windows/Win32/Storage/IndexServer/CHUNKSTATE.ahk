@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether the current chunk is a text-type property or a value-type property.
- * @see https://docs.microsoft.com/windows/win32/api//filter/ne-filter-chunkstate
+ * @see https://learn.microsoft.com/windows/win32/api/filter/ne-filter-chunkstate
  * @namespace Windows.Win32.Storage.IndexServer
  * @version v4.0.30319
  */
-class CHUNKSTATE{
+class CHUNKSTATE extends Win32Enum{
 
     /**
      * The current chunk is a text-type property.

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * This identifies a type of extension within the extensions field of the WS_ENDPOINT_ADDRESS.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_endpoint_address_extension_type
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_endpoint_address_extension_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_ENDPOINT_ADDRESS_EXTENSION_TYPE{
+class WS_ENDPOINT_ADDRESS_EXTENSION_TYPE extends Win32Enum{
 
     /**
      * The address that metadata can be downloaded from the endpoint.

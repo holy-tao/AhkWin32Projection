@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DISPLAYCONFIG_SCALING enumeration specifies the scaling transformation applied to content displayed on a video present network (VidPN) present path.
  * @remarks
- * 
  * For more information about scaling, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/scaling-the-desktop-image">Scaling the Desktop Image</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ne-wingdi-displayconfig_scaling
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ne-wingdi-displayconfig_scaling
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
-class DISPLAYCONFIG_SCALING{
+class DISPLAYCONFIG_SCALING extends Win32Enum{
 
     /**
      * Indicates the identity transformation; the source content is presented with no change. This transformation is available only if the path's source mode has the same spatial resolution as the path's target mode.

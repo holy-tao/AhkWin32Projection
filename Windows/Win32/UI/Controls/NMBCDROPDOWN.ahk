@@ -6,7 +6,7 @@
 
 /**
  * Contains information about a BCN_DROPDOWN notification.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmbcdropdown
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmbcdropdown
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

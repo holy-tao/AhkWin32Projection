@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Represents the objects in the Shell. Methods are provided to control the Shell and to execute commands within the Shell. There are also methods to obtain other Shell-related objects.
  * @see https://learn.microsoft.com/windows/win32/shell/shell
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

@@ -4,7 +4,6 @@
 /**
  * Defines an event payload filter predicate that describes how to filter on a single field in a trace session.
  * @remarks
- * 
  * On Windows 8.1,Windows Server 2012 R2, and later, event payload filters can be used by the <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletraceex2">EnableTraceEx2</a> function and the <a href="https://docs.microsoft.com/windows/desktop/ETW/enable-trace-parameters">ENABLE_TRACE_PARAMETERS</a> and <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/ns-evntprov-event_filter_descriptor">EVENT_FILTER_DESCRIPTOR</a> structures to filter on the specific content of the event in a logger session. 
  * 
  * The <b>PAYLOAD_FILTER_PREDICATE</b> structure is used with the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhcreatepayloadfilter">TdhCreatePayloadFilter</a> function to create a single payload filter for a single payload to be used with the <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletraceex2">EnableTraceEx2</a> function.  A single payload filter can also be aggregated with other single payload filters using the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhaggregatepayloadfilters">TdhAggregatePayloadFilters</a> function.
@@ -18,10 +17,7 @@
  * All string comparisons are case-insensitive.  The string in the <b>Value</b> member is UNICODE, but it will be converted to ANSI if the type specified in the manifest is ANSI.  
  * 
  * A <b>Fieldname</b> member that contains a <b>GUID</b> can only be compared when the <b>CompareOp</b> member contains either the  <b>PAYLOADFIELD_IS</b> or <b>PAYLOADFIELD_ISNOT</b> for the payload operator. The string that represents a <b>GUID</b> in the <b>Value</b> member must contain the curly brackets ({00000000-0000-0000-0000-000000000000}, for example).
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tdh/ns-tdh-payload_filter_predicate
+ * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-payload_filter_predicate
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
@@ -41,9 +37,9 @@ class PAYLOAD_FILTER_PREDICATE extends Win32Struct
     }
 
     /**
-     * The payload operator to use for the comparison. 
+     * The payload operator to use for the comparison.
      * 
-     * This member can be one of the values for the <b>PAYLOAD_OPERATOR</b> enumeration defined in the <i>Tdh.h</i> header file. 
+     * This member can be one of the values for the [**PAYLOAD_OPERATOR**](ne-tdh-payload_operator.md) enumeration defined in the *Tdh.h* header file. 
      * 
      * <table>
      * <tr>

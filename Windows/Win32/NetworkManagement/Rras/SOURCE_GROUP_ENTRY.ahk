@@ -3,7 +3,7 @@
 
 /**
  * The SOURCE_GROUP_ENTRY structure describes the entry returned by the group enumeration function MgmGroupEnumerationGetNext.
- * @see https://docs.microsoft.com/windows/win32/api//mgm/ns-mgm-source_group_entry
+ * @see https://learn.microsoft.com/windows/win32/api/mgm/ns-mgm-source_group_entry
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

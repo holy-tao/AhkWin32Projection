@@ -10,7 +10,7 @@ class DIPROPCALPOV extends Win32Struct
 {
     static sizeof => 56
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {DIPROPHEADER}

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * This topic applies to Windows XP or later.
- * @see https://docs.microsoft.com/windows/win32/api//msvidctl/ne-msvidctl-displaysizelist
+ * @see https://learn.microsoft.com/windows/win32/api/msvidctl/ne-msvidctl-displaysizelist
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
-class DisplaySizeList{
+class DisplaySizeList extends Win32Enum{
 
     /**
      * Display the video rectangle at the native size.

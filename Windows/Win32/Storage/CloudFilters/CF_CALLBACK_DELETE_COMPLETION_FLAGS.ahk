@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Callback flags for notifying a sync provider that a placeholder was successfully deleted.
- * @see https://docs.microsoft.com/windows/win32/api//cfapi/ne-cfapi-cf_callback_delete_completion_flags
+ * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_callback_delete_completion_flags
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */
-class CF_CALLBACK_DELETE_COMPLETION_FLAGS{
+class CF_CALLBACK_DELETE_COMPLETION_FLAGS extends Win32BitflagEnum{
 
     /**
      * No delete completion flag.

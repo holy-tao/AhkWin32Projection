@@ -1,12 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Defines per-stage texture-blending operations.
+ * @remarks
+ * The members of this type are used when setting color or alpha operations by using the D3DTSS\_COLOROP or D3DTSS\_ALPHAOP values with the [**IDirect3DDevice9::SetTextureStageState**](/windows/win32/api/d3d9helper/nf-d3d9helper-idirect3ddevice9-settexturestagestate) method.
  * 
+ * In the above formulas, S<sub>RGBA</sub> is the RGBA color produced by a texture operation, and Arg1, Arg2, and Arg3 represent the complete RGBA color of the texture arguments. Individual components of an argument are shown with subscripts. For example, the alpha component for argument 1 would be shown as Arg1<sub>A</sub>.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dtextureop
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */
-class D3DTEXTUREOP{
+class D3DTEXTUREOP extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

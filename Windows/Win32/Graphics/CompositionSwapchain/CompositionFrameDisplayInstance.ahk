@@ -4,6 +4,8 @@
 #Include .\PresentationTransform.ahk
 
 /**
+ * Represents a single instance of the content shown on a single output.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/presentation/ns-presentation-compositionframedisplayinstance
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
@@ -11,9 +13,9 @@
  */
 class CompositionFrameDisplayInstance extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {LUID}
@@ -54,6 +56,9 @@ class CompositionFrameDisplayInstance extends Win32Struct
     }
 
     /**
+     * Type: **[CompositionFrameInstanceKind](ne-presentation-compositionframeinstancekind.md)**
+     * 
+     * The kind of instance.
      * @type {Integer}
      */
     instanceKind {
@@ -62,29 +67,38 @@ class CompositionFrameDisplayInstance extends Win32Struct
     }
 
     /**
+     * Type: **[PresentationTransform](../presentationtypes/ns-presentationtypes-presentationtransform.md)**
+     * 
+     * The accumulated transform on screen of displayed content, including all transforms of ancestor visuals, if applicable.
      * @type {PresentationTransform}
      */
     finalTransform{
         get {
             if(!this.HasProp("__finalTransform"))
-                this.__finalTransform := PresentationTransform(32, this)
+                this.__finalTransform := PresentationTransform(28, this)
             return this.__finalTransform
         }
     }
 
     /**
+     * Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
+     * 
+     * `TRUE` if a copy took place to display this instance due to the destination being a different adapter than the allocation's adapter; otherwise, `FALSE`.
      * @type {Integer}
      */
     requiredCrossAdapterCopy {
-        get => NumGet(this, 56, "char")
-        set => NumPut("char", value, this, 56)
+        get => NumGet(this, 52, "char")
+        set => NumPut("char", value, this, 52)
     }
 
     /**
+     * Type: **[DXGI_COLOR_SPACE_TYPE](/windows/win32/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type)**
+     * 
+     * The color space type of the output this instance was shown on.
      * @type {Integer}
      */
     colorSpace {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 }

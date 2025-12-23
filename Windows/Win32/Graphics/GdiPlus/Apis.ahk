@@ -1550,22 +1550,11 @@ class GdiPlus {
     }
 
     /**
-     * The GdiplusStartup function initializes Windows GDI+. Call GdiplusStartup before making any other GDI+ calls, and call GdiplusShutdown when you have finished using GDI+.
-     * @param {Pointer<Pointer>} token Type: [out] <b>ULONG_PTR token*</b>
      * 
-     * Pointer to a <b>ULONG_PTR</b> that receives a token. Pass the token to <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusinit/nf-gdiplusinit-gdiplusshutdown">GdiplusShutdown</a> when you have finished using GDI+.
-     * @param {Pointer<GdiplusStartupInput>} input Type: [in] <b>const <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusinit/ns-gdiplusinit-gdiplusstartupinput">GdiplusStartupInput</a>*</b>
-     * 
-     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusinit/ns-gdiplusinit-gdiplusstartupinput">GdiplusStartupInput</a> structure that contains the GDI+ version, a pointer to a debug callback function, a Boolean value that specifies whether to suppress the background thread, and a Boolean value that specifies whether to suppress external image codecs.
-     * @param {Pointer<GdiplusStartupOutput>} output Type: [out] <b><a href="https://docs.microsoft.com/windows/desktop/api/gdiplusinit/ns-gdiplusinit-gdiplusstartupoutput">GdiplusStartupOutput</a>*</b>
-     * 
-     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusinit/ns-gdiplusinit-gdiplusstartupoutput">GdiplusStartupOutput</a> structure that receives a pointer to a notification hook function and a pointer to a notification unhook function. If the <b>SuppressBackgroundThread</b> data member of the <i>input</i> parameter is <b>FALSE</b>, then this parameter can be <b>NULL</b>.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/api/gdiplustypes/ne-gdiplustypes-status">Status</a></b>
-     * 
-     * If the function succeeds, it returns <b>Ok</b>, which is an element of the <a href="/windows/desktop/api/gdiplustypes/ne-gdiplustypes-status">Status</a> enumeration.
-     * 
-     * If the function fails, it returns one of the other elements of the <a href="/windows/desktop/api/gdiplustypes/ne-gdiplustypes-status">Status</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//gdiplusinit/nf-gdiplusinit-gdiplusstartup
+     * @param {Pointer<Pointer>} token 
+     * @param {Pointer<GdiplusStartupInput>} input 
+     * @param {Pointer<GdiplusStartupOutput>} output 
+     * @returns {Integer} 
      * @since windows5.1.2600
      */
     static GdiplusStartup(token, input, output) {
@@ -1576,20 +1565,9 @@ class GdiPlus {
     }
 
     /**
-     * The GdiplusShutdown function cleans up resources used by Windows GDI+. Each call to GdiplusStartup should be paired with a call to GdiplusShutdown.
-     * @remarks
      * 
-     * You must call <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusinit/nf-gdiplusinit-gdiplusstartup">GdiplusStartup</a> before you create any GDI+ objects, and you must delete all of your GDI+ objects (or have them go out of scope) before you call <b>GdiplusShutdown</b>.
-     * 
-     * <div class="alert"><b>Note</b>  For Windows 7 and earlier, if GDI+ can't create a font family, it substitutes the generic Sans Serif family and client-side caches the pointer for the generic family. Because calls to <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusinit/nf-gdiplusinit-gdiplusstartup">GdiplusStartup</a> and <b>GdiplusShutdown</b> are not aware of this caching, the operating system retains the pointer for the generic family object past the object's lifetime, which causes the operating system to crash. For Windows 8 and later, GDI+ returns a sentinel value for the generic family object that remains constant across calls to <b>GdiplusStartup</b> and <b>GdiplusShutdown</b> so the operating system doesn't retain the pointer for the generic family object past the object's lifetime.</div>
-     * <div> </div>
-     * 
-     * 
-     * @param {Pointer} token Type: [in] <b>ULONG_PTR</b>
-     * 
-     * Token returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusinit/nf-gdiplusinit-gdiplusstartup">GdiplusStartup</a>.
+     * @param {Pointer} token 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//gdiplusinit/nf-gdiplusinit-gdiplusshutdown
      * @since windows5.1.2600
      */
     static GdiplusShutdown(token) {
@@ -2123,7 +2101,7 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpPath>} path 
-     * @param {PWSTR} string 
+     * @param {PWSTR} string_R 
      * @param {Integer} length 
      * @param {Pointer<GpFontFamily>} family 
      * @param {Integer} style 
@@ -2132,17 +2110,17 @@ class GdiPlus {
      * @param {Pointer<GpStringFormat>} format 
      * @returns {Integer} 
      */
-    static GdipAddPathString(path, string, length, family, style, emSize, layoutRect, format) {
-        string := string is String ? StrPtr(string) : string
+    static GdipAddPathString(path, string_R, length, family, style, emSize, layoutRect, format) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
 
-        result := DllCall("gdiplus.dll\GdipAddPathString", "ptr", path, "ptr", string, "int", length, "ptr", family, "int", style, "float", emSize, "ptr", layoutRect, "ptr", format, "int")
+        result := DllCall("gdiplus.dll\GdipAddPathString", "ptr", path, "ptr", string_R, "int", length, "ptr", family, "int", style, "float", emSize, "ptr", layoutRect, "ptr", format, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpPath>} path 
-     * @param {PWSTR} string 
+     * @param {PWSTR} string_R 
      * @param {Integer} length 
      * @param {Pointer<GpFontFamily>} family 
      * @param {Integer} style 
@@ -2151,10 +2129,10 @@ class GdiPlus {
      * @param {Pointer<GpStringFormat>} format 
      * @returns {Integer} 
      */
-    static GdipAddPathStringI(path, string, length, family, style, emSize, layoutRect, format) {
-        string := string is String ? StrPtr(string) : string
+    static GdipAddPathStringI(path, string_R, length, family, style, emSize, layoutRect, format) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
 
-        result := DllCall("gdiplus.dll\GdipAddPathStringI", "ptr", path, "ptr", string, "int", length, "ptr", family, "int", style, "float", emSize, "ptr", layoutRect, "ptr", format, "int")
+        result := DllCall("gdiplus.dll\GdipAddPathStringI", "ptr", path, "ptr", string_R, "int", length, "ptr", family, "int", style, "float", emSize, "ptr", layoutRect, "ptr", format, "int")
         return result
     }
 
@@ -3347,16 +3325,16 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpRegion>} region 
-     * @param {Pointer<Integer>} buffer 
+     * @param {Pointer<Integer>} buffer_R 
      * @param {Integer} bufferSize 
      * @param {Pointer<Integer>} sizeFilled 
      * @returns {Integer} 
      */
-    static GdipGetRegionData(region, buffer, bufferSize, sizeFilled) {
-        bufferMarshal := buffer is VarRef ? "char*" : "ptr"
+    static GdipGetRegionData(region, buffer_R, bufferSize, sizeFilled) {
+        buffer_RMarshal := buffer_R is VarRef ? "char*" : "ptr"
         sizeFilledMarshal := sizeFilled is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipGetRegionData", "ptr", region, bufferMarshal, buffer, "uint", bufferSize, sizeFilledMarshal, sizeFilled, "int")
+        result := DllCall("gdiplus.dll\GdipGetRegionData", "ptr", region, buffer_RMarshal, buffer_R, "uint", bufferSize, sizeFilledMarshal, sizeFilled, "int")
         return result
     }
 
@@ -5884,11 +5862,11 @@ class GdiPlus {
      * @param {Pointer<GpImage>} image 
      * @param {Pointer<Guid>} clsidEncoder 
      * @param {Integer} size 
-     * @param {Pointer<EncoderParameters>} buffer 
+     * @param {Pointer<EncoderParameters>} buffer_R 
      * @returns {Integer} 
      */
-    static GdipGetEncoderParameterList(image, clsidEncoder, size, buffer) {
-        result := DllCall("gdiplus.dll\GdipGetEncoderParameterList", "ptr", image, "ptr", clsidEncoder, "uint", size, "ptr", buffer, "int")
+    static GdipGetEncoderParameterList(image, clsidEncoder, size, buffer_R) {
+        result := DllCall("gdiplus.dll\GdipGetEncoderParameterList", "ptr", image, "ptr", clsidEncoder, "uint", size, "ptr", buffer_R, "int")
         return result
     }
 
@@ -6036,11 +6014,11 @@ class GdiPlus {
      * @param {Pointer<GpImage>} image 
      * @param {Integer} propId 
      * @param {Integer} propSize 
-     * @param {Pointer<PropertyItem>} buffer 
+     * @param {Pointer<PropertyItem>} buffer_R 
      * @returns {Integer} 
      */
-    static GdipGetPropertyItem(image, propId, propSize, buffer) {
-        result := DllCall("gdiplus.dll\GdipGetPropertyItem", "ptr", image, "uint", propId, "uint", propSize, "ptr", buffer, "int")
+    static GdipGetPropertyItem(image, propId, propSize, buffer_R) {
+        result := DllCall("gdiplus.dll\GdipGetPropertyItem", "ptr", image, "uint", propId, "uint", propSize, "ptr", buffer_R, "int")
         return result
     }
 
@@ -7267,7 +7245,8 @@ class GdiPlus {
      */
     static GdipCreateHalftonePalette() {
         result := DllCall("gdiplus.dll\GdipCreateHalftonePalette", "ptr")
-        return HPALETTE({Value: result}, True)
+        resultHandle := HPALETTE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -9619,7 +9598,7 @@ class GdiPlus {
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {PWSTR} string 
+     * @param {PWSTR} string_R 
      * @param {Integer} length 
      * @param {Pointer<GpFont>} font 
      * @param {Pointer<RectF>} layoutRect 
@@ -9627,17 +9606,17 @@ class GdiPlus {
      * @param {Pointer<GpBrush>} brush 
      * @returns {Integer} 
      */
-    static GdipDrawString(graphics, string, length, font, layoutRect, stringFormat, brush) {
-        string := string is String ? StrPtr(string) : string
+    static GdipDrawString(graphics, string_R, length, font, layoutRect, stringFormat, brush) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
 
-        result := DllCall("gdiplus.dll\GdipDrawString", "ptr", graphics, "ptr", string, "int", length, "ptr", font, "ptr", layoutRect, "ptr", stringFormat, "ptr", brush, "int")
+        result := DllCall("gdiplus.dll\GdipDrawString", "ptr", graphics, "ptr", string_R, "int", length, "ptr", font, "ptr", layoutRect, "ptr", stringFormat, "ptr", brush, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {PWSTR} string 
+     * @param {PWSTR} string_R 
      * @param {Integer} length 
      * @param {Pointer<GpFont>} font 
      * @param {Pointer<RectF>} layoutRect 
@@ -9647,20 +9626,20 @@ class GdiPlus {
      * @param {Pointer<Integer>} linesFilled 
      * @returns {Integer} 
      */
-    static GdipMeasureString(graphics, string, length, font, layoutRect, stringFormat, boundingBox, codepointsFitted, linesFilled) {
-        string := string is String ? StrPtr(string) : string
+    static GdipMeasureString(graphics, string_R, length, font, layoutRect, stringFormat, boundingBox, codepointsFitted, linesFilled) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
 
         codepointsFittedMarshal := codepointsFitted is VarRef ? "int*" : "ptr"
         linesFilledMarshal := linesFilled is VarRef ? "int*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipMeasureString", "ptr", graphics, "ptr", string, "int", length, "ptr", font, "ptr", layoutRect, "ptr", stringFormat, "ptr", boundingBox, codepointsFittedMarshal, codepointsFitted, linesFilledMarshal, linesFilled, "int")
+        result := DllCall("gdiplus.dll\GdipMeasureString", "ptr", graphics, "ptr", string_R, "int", length, "ptr", font, "ptr", layoutRect, "ptr", stringFormat, "ptr", boundingBox, codepointsFittedMarshal, codepointsFitted, linesFilledMarshal, linesFilled, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<GpGraphics>} graphics 
-     * @param {PWSTR} string 
+     * @param {PWSTR} string_R 
      * @param {Integer} length 
      * @param {Pointer<GpFont>} font 
      * @param {Pointer<RectF>} layoutRect 
@@ -9669,12 +9648,12 @@ class GdiPlus {
      * @param {Pointer<Pointer<GpRegion>>} regions 
      * @returns {Integer} 
      */
-    static GdipMeasureCharacterRanges(graphics, string, length, font, layoutRect, stringFormat, regionCount, regions) {
-        string := string is String ? StrPtr(string) : string
+    static GdipMeasureCharacterRanges(graphics, string_R, length, font, layoutRect, stringFormat, regionCount, regions) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
 
         regionsMarshal := regions is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("gdiplus.dll\GdipMeasureCharacterRanges", "ptr", graphics, "ptr", string, "int", length, "ptr", font, "ptr", layoutRect, "ptr", stringFormat, "int", regionCount, regionsMarshal, regions, "int")
+        result := DllCall("gdiplus.dll\GdipMeasureCharacterRanges", "ptr", graphics, "ptr", string_R, "int", length, "ptr", font, "ptr", layoutRect, "ptr", stringFormat, "int", regionCount, regionsMarshal, regions, "int")
         return result
     }
 

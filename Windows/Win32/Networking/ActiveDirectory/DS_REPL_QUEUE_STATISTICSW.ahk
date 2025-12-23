@@ -5,19 +5,16 @@
 /**
  * Used to contain replication queue statistics.
  * @remarks
- * 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms676274(v=vs.85)">DS_REPL_QUEUE_STATISTICSW_BLOB</a> is an alias for this structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ns-ntdsapi-ds_repl_queue_statisticsw
+ * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_queue_statisticsw
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
 class DS_REPL_QUEUE_STATISTICSW extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 52
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date and time that the currently running operation started.
@@ -47,7 +44,7 @@ class DS_REPL_QUEUE_STATISTICSW extends Win32Struct
     ftimeOldestSync{
         get {
             if(!this.HasProp("__ftimeOldestSync"))
-                this.__ftimeOldestSync := FILETIME(16, this)
+                this.__ftimeOldestSync := FILETIME(12, this)
             return this.__ftimeOldestSync
         }
     }
@@ -59,7 +56,7 @@ class DS_REPL_QUEUE_STATISTICSW extends Win32Struct
     ftimeOldestAdd{
         get {
             if(!this.HasProp("__ftimeOldestAdd"))
-                this.__ftimeOldestAdd := FILETIME(24, this)
+                this.__ftimeOldestAdd := FILETIME(20, this)
             return this.__ftimeOldestAdd
         }
     }
@@ -71,7 +68,7 @@ class DS_REPL_QUEUE_STATISTICSW extends Win32Struct
     ftimeOldestMod{
         get {
             if(!this.HasProp("__ftimeOldestMod"))
-                this.__ftimeOldestMod := FILETIME(32, this)
+                this.__ftimeOldestMod := FILETIME(28, this)
             return this.__ftimeOldestMod
         }
     }
@@ -83,7 +80,7 @@ class DS_REPL_QUEUE_STATISTICSW extends Win32Struct
     ftimeOldestDel{
         get {
             if(!this.HasProp("__ftimeOldestDel"))
-                this.__ftimeOldestDel := FILETIME(40, this)
+                this.__ftimeOldestDel := FILETIME(36, this)
             return this.__ftimeOldestDel
         }
     }
@@ -95,7 +92,7 @@ class DS_REPL_QUEUE_STATISTICSW extends Win32Struct
     ftimeOldestUpdRefs{
         get {
             if(!this.HasProp("__ftimeOldestUpdRefs"))
-                this.__ftimeOldestUpdRefs := FILETIME(48, this)
+                this.__ftimeOldestUpdRefs := FILETIME(44, this)
             return this.__ftimeOldestUpdRefs
         }
     }

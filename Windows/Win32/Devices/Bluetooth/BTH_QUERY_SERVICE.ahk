@@ -7,14 +7,11 @@
 /**
  * The BTH_QUERY_SERVICE structure is used to query a Bluetooth service.
  * @remarks
- * 
  * The <b>pRange</b> member is an open-ended array specifying a sparse set of attributes to return from the query. It is an application's responsibility to provide a nonoverlapping array that is sorted in ascending order of attribute ID, without duplicates.
  * 
  * See 
  * <a href="https://www.bluetooth.com/">www.bluetooth.com</a> for more information about the Bluetooth specification.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ws2bth/ns-ws2bth-bth_query_service
+ * @see https://learn.microsoft.com/windows/win32/api/ws2bth/ns-ws2bth-bth_query_service
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

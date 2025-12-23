@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Whether messages that are sent or received are streamed or buffered.
  * @remarks
- * 
  * This value is specified for a channel using the 
  *                 <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_property_id">WS_CHANNEL_PROPERTY_TRANSFER_MODE</a> channel property.
  *             
@@ -11,19 +11,18 @@
  * The streaming programming model can be used regardless of which 
  *                 transfer mode is used.  In the case where streaming is not used, the calls
  *                 to the calls to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfillbody">WsFillBody</a> and <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsflushbody">WsFlushBody</a> are NOPs.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_transfer_mode
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_transfer_mode
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_TRANSFER_MODE{
+class WS_TRANSFER_MODE extends Win32Enum{
 
     /**
      * Setting this flag means messages are delivered in chunks.  The start of the message
      *                     (opening tag, headers, and opening body tag) will be returned to the application
      *                     when <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadmessagestart">WsReadMessageStart</a> completes.  It is up to the application to call
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfillbody">WsFillBody</a> before reading each chunk of the message body.  The end of
-     *                     the message (closing body and envelope tags) will be read when <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadmessageend">WsReadMessageEnd</a>is called.
+     *                     the message (closing body and envelope tags) will be read when <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadmessageend">WsReadMessageEnd</a> is called.
      *                 
      * 
      * Not setting this flag means the entire message is read and buffered
@@ -34,7 +33,7 @@ class WS_TRANSFER_MODE{
 
     /**
      * Setting this flag means messages are transmitted in chunks.  The start of the message (opening
-     *                     envelope tag, headers, and opening body tag) will be transmitted when <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wswritemessagestart">WsWriteMessageStart</a>is called.  It is up to the application to call <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsflushbody">WsFlushBody</a> after writing each chunk 
+     *                     envelope tag, headers, and opening body tag) will be transmitted when <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wswritemessagestart">WsWriteMessageStart</a> is called.  It is up to the application to call <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsflushbody">WsFlushBody</a> after writing each chunk 
      *                     of the message body to cause the chunk to be transmitted.
      *                     Any remaining body data will be transmitted when <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wswritemessageend">WsWriteMessageEnd</a> is called, along with
      *                     the end of the message (closing body and envelope tags).

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * The structure containing the credential with SALT values.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_cred_with_hmac_secret_salt
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -14,6 +16,7 @@ class WEBAUTHN_CRED_WITH_HMAC_SECRET_SALT extends Win32Struct
     static packingSize => 8
 
     /**
+     * The size of **pbCredID**.
      * @type {Integer}
      */
     cbCredID {
@@ -22,6 +25,7 @@ class WEBAUTHN_CRED_WITH_HMAC_SECRET_SALT extends Win32Struct
     }
 
     /**
+     * The credential Id.
      * @type {Pointer<Integer>}
      */
     pbCredID {
@@ -30,6 +34,7 @@ class WEBAUTHN_CRED_WITH_HMAC_SECRET_SALT extends Win32Struct
     }
 
     /**
+     * PRF Values for the credential.
      * @type {Pointer<WEBAUTHN_HMAC_SECRET_SALT>}
      */
     pHmacSecretSalt {

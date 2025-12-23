@@ -8,7 +8,6 @@
 /**
  * Describes a resource that is a required dependency of another resource. This union is used as a value in the value list returned from a CLUSCTL_RESOURCE_GET_REQUIRED_DEPENDENCIES or CLUSCTL_RESOURCE_TYPE_GET_REQUIRED_DEPENDENCIES control code operation.
  * @remarks
- * 
  * The <b>CLUSPROP_REQUIRED_DEPENDENCY</b> 
  *      structure describes mandatory dependencies. For example, a 
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/print-spooler">Print Spooler</a> resource has required dependencies on a 
@@ -23,18 +22,15 @@
  *      with the <b>ResClass</b> member set to <b>CLUS_RESCLASS_STORAGE</b>, and 
  *      a second <b>CLUSPROP_REQUIRED_DEPENDENCY</b> 
  *      structure with the <b>ResTypeName</b> member set to "Network Name".
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clusprop_required_dependency
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_required_dependency
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
 class CLUSPROP_REQUIRED_DEPENDENCY extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_value">CLUSPROP_VALUE</a> structure describing whether the data 

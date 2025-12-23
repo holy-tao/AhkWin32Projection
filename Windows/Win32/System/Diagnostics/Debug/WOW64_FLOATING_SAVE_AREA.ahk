@@ -3,7 +3,7 @@
 
 /**
  * Represents the 80387 save area on WOW64.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-wow64_floating_save_area
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-wow64_floating_save_area
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

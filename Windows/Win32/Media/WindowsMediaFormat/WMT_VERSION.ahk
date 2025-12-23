@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WMT_VERSION enumeration type defines the versions of the Windows Media Format SDK.
  * @remarks
- * 
  * The version assigned to a profile does not directly relate to the codecs used in the profile's individual streams. However, it is recommended that you use codecs of the same version as the profile. Unless you have specific requirements to the contrary, you should always use the latest version.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ne-wmsdkidl-wmt_version
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_version
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
-class WMT_VERSION{
+class WMT_VERSION extends Win32Enum{
 
     /**
      * Compatible with version 4 of the Windows Media Format SDK.

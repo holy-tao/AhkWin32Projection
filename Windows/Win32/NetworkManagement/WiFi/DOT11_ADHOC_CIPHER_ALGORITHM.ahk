@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a cipher algorithm used to encrypt and decrypt information on an ad hoc network.
  * @remarks
- * 
  * Authentication and cipher algorithms are used in pairs. The following table shows valid algorithm pairs for use on an ad hoc network.
  * 
  * <table>
@@ -28,13 +28,11 @@
  * <td>DOT11_ADHOC_CIPHER_ALGO_CCMP</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//adhoc/ne-adhoc-dot11_adhoc_cipher_algorithm
+ * @see https://learn.microsoft.com/windows/win32/api/adhoc/ne-adhoc-dot11_adhoc_cipher_algorithm
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
-class DOT11_ADHOC_CIPHER_ALGORITHM{
+class DOT11_ADHOC_CIPHER_ALGORITHM extends Win32Enum{
 
     /**
      * The cipher algorithm specified is invalid.

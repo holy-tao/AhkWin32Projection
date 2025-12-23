@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents types of applications tracked by the tracker server.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/ne-comsvcs-complus_apptype
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-complus_apptype
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
-class COMPLUS_APPTYPE{
+class COMPLUS_APPTYPE extends Win32Enum{
 
     /**
      * This value is not used.

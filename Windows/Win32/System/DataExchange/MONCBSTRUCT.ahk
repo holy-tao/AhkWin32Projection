@@ -9,13 +9,13 @@
 
 /**
  * Contains information about the current Dynamic Data Exchange (DDE) transaction. A DDE debugging application can use this structure when monitoring transactions that the system passes to the DDE callback functions of other applications.
- * @see https://docs.microsoft.com/windows/win32/api//ddeml/ns-ddeml-moncbstruct
+ * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-moncbstruct
  * @namespace Windows.Win32.System.DataExchange
  * @version v4.0.30319
  */
 class MONCBSTRUCT extends Win32Struct
 {
-    static sizeof => 160
+    static sizeof => 152
 
     static packingSize => 8
 
@@ -187,8 +187,8 @@ class MONCBSTRUCT extends Win32Struct
      * @type {Integer}
      */
     cbData {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
+        get => NumGet(this, 116, "uint")
+        set => NumPut("uint", value, this, 116)
     }
 
     /**
@@ -200,7 +200,7 @@ class MONCBSTRUCT extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 124, 8, Primitive, "uint")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 120, 8, Primitive, "uint")
             return this.__DataProxyArray
         }
     }

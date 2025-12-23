@@ -5,7 +5,7 @@
 
 /**
  * Used for enabling clients to bypass Point-to-Point (PPP) authentication during Secure Socket Tunneling Protocol (SSTP) connection establishment.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-auth_validation_ex
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-auth_validation_ex
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

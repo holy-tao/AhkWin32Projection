@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * Holds application package information.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_packageinfoa
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -15,6 +17,7 @@ class SecPkgContext_PackageInfoA extends Win32Struct
     static packingSize => 8
 
     /**
+     * The package information.
      * @type {Pointer<SecPkgInfoA>}
      */
     PackageInfo {

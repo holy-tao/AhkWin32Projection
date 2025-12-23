@@ -9,9 +9,37 @@
  */
 class AAL_PARAMETERS_IE extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
+
+    class _AALSpecificParameters_e__Union extends Win32Struct {
+        static sizeof => 12
+        static packingSize => 4
+
+        /**
+         * @type {AAL5_PARAMETERS}
+         */
+        AAL5Parameters{
+            get {
+                if(!this.HasProp("__AAL5Parameters"))
+                    this.__AAL5Parameters := AAL5_PARAMETERS(0, this)
+                return this.__AAL5Parameters
+            }
+        }
+    
+        /**
+         * @type {AALUSER_PARAMETERS}
+         */
+        AALUserParameters{
+            get {
+                if(!this.HasProp("__AALUserParameters"))
+                    this.__AALUserParameters := AALUSER_PARAMETERS(0, this)
+                return this.__AALUserParameters
+            }
+        }
+    
+    }
 
     /**
      * @type {Integer}
@@ -22,24 +50,13 @@ class AAL_PARAMETERS_IE extends Win32Struct
     }
 
     /**
-     * @type {AAL5_PARAMETERS}
+     * @type {_AALSpecificParameters_e__Union}
      */
-    AAL5Parameters{
+    AALSpecificParameters{
         get {
-            if(!this.HasProp("__AAL5Parameters"))
-                this.__AAL5Parameters := AAL5_PARAMETERS(8, this)
-            return this.__AAL5Parameters
-        }
-    }
-
-    /**
-     * @type {AALUSER_PARAMETERS}
-     */
-    AALUserParameters{
-        get {
-            if(!this.HasProp("__AALUserParameters"))
-                this.__AALUserParameters := AALUSER_PARAMETERS(8, this)
-            return this.__AALUserParameters
+            if(!this.HasProp("__AALSpecificParameters"))
+                this.__AALSpecificParameters := %this.__Class%._AALSpecificParameters_e__Union(4, this)
+            return this.__AALSpecificParameters
         }
     }
 }

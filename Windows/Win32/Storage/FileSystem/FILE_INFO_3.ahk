@@ -3,7 +3,7 @@
 
 /**
  * Contains the identification number and other pertinent information about files, devices, and pipes.
- * @see https://docs.microsoft.com/windows/win32/api//lmshare/ns-lmshare-file_info_3
+ * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-file_info_3
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Indicates the state of the cluster.
+ * The NODE_CLUSTER_STATE enumeration (msclus.h) indicates the state of the cluster.
  * @remarks
- * 
  * The following constants are defined in ClusAPI.h.
  * 
  * <table>
@@ -42,13 +42,11 @@
  * </td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-node_cluster_state
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-node_cluster_state
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class NODE_CLUSTER_STATE{
+class NODE_CLUSTER_STATE extends Win32Enum{
 
     /**
      * The Cluster service is not installed on the node.

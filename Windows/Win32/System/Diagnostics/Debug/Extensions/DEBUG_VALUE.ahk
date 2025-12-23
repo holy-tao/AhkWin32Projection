@@ -12,8 +12,8 @@ class DEBUG_VALUE extends Win32Struct
     static packingSize => 8
 
     class _I64Parts32 extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -34,7 +34,7 @@ class DEBUG_VALUE extends Win32Struct
     }
 
     class _F128Parts64 extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 16
         static packingSize => 8
 
         /**

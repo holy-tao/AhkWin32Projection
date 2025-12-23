@@ -4,15 +4,15 @@
 
 /**
  * Describes image brush features.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/ns-d2d1_1-d2d1_image_brush_properties
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ns-d2d1_1-d2d1_image_brush_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
 class D2D1_IMAGE_BRUSH_PROPERTIES extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a></b>

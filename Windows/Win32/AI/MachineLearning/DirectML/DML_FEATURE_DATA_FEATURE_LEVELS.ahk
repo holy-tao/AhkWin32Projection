@@ -3,7 +3,7 @@
 
 /**
  * Provides detail about the feature levels supported by a DirectML device.
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_feature_data_feature_levels
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_feature_data_feature_levels
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
@@ -14,9 +14,9 @@ class DML_FEATURE_DATA_FEATURE_LEVELS extends Win32Struct
     static packingSize => 4
 
     /**
-     * Type: **[DML_FEATURE_LEVEL](/windows/win32/direct3d12/ne-directml-dml_feature_level)**
+     * Type: **[DML_FEATURE_LEVEL](/windows/win32/api/directml/ne-directml-dml_feature_level)**
      * 
-     * The highest feature level supplied in the query structure's *RequestedFeatureLevels* (see [DML_FEATURE_DATA_FEATURE_LEVELS](/windows/win32/direct3d12/ns-directml-dml_feature_data_feature_levels)) that is supported by this device.
+     * The highest feature level supplied in the query structure's *RequestedFeatureLevels* (see [DML_FEATURE_DATA_FEATURE_LEVELS](/windows/win32/api/directml/ns-directml-dml_feature_data_feature_levels)) that is supported by this device.
      * 
      * > [!NOTE]
      * > Because this feature query only ever returns one of the values supplied in *RequestedFeatureLevels*, it's possible that the device supports an even higher feature level than the one returned by this query.

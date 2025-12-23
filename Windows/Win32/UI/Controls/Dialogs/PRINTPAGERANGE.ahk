@@ -3,7 +3,7 @@
 
 /**
  * Represents a range of pages in a print job. A print job can have more than one page range. This information is supplied in the PRINTDLGEX structure when calling the PrintDlgEx function.
- * @see https://docs.microsoft.com/windows/win32/api//commdlg/ns-commdlg-printpagerange
+ * @see https://learn.microsoft.com/windows/win32/api/commdlg/ns-commdlg-printpagerange
  * @namespace Windows.Win32.UI.Controls.Dialogs
  * @version v4.0.30319
  */

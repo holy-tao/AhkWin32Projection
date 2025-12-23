@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a modem's configuration.
- * @see https://docs.microsoft.com/windows/win32/api//mcx/ns-mcx-modemsettings
+ * @see https://learn.microsoft.com/windows/win32/api/mcx/ns-mcx-modemsettings
  * @namespace Windows.Win32.Devices.Communication
  * @version v4.0.30319
  */

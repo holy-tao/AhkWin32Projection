@@ -5,7 +5,7 @@
 
 /**
  * The MPEG_CONTEXT structure identifies the source of an MPEG-2 data stream.
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ns-mpeg2structs-mpeg_context
+ * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-mpeg_context
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -14,6 +14,34 @@ class MPEG_CONTEXT extends Win32Struct
     static sizeof => 8
 
     static packingSize => 4
+
+    class _U_e__Union extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {MPEG_BCS_DEMUX}
+         */
+        Demux{
+            get {
+                if(!this.HasProp("__Demux"))
+                    this.__Demux := MPEG_BCS_DEMUX(0, this)
+                return this.__Demux
+            }
+        }
+    
+        /**
+         * @type {MPEG_WINSOCK}
+         */
+        Winsock{
+            get {
+                if(!this.HasProp("__Winsock"))
+                    this.__Winsock := MPEG_WINSOCK(0, this)
+                return this.__Winsock
+            }
+        }
+    
+    }
 
     /**
      * Specifies the source type, as an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ne-mpeg2structs-mpeg_context_type">MPEG_CONTEXT_TYPE</a> value. Currently, the value must be MPEG_CONTEXT_BCS_DEMUX.
@@ -25,24 +53,14 @@ class MPEG_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {MPEG_BCS_DEMUX}
+     * A union that contains the following members.
+     * @type {_U_e__Union}
      */
-    Demux{
+    U{
         get {
-            if(!this.HasProp("__Demux"))
-                this.__Demux := MPEG_BCS_DEMUX(4, this)
-            return this.__Demux
-        }
-    }
-
-    /**
-     * @type {MPEG_WINSOCK}
-     */
-    Winsock{
-        get {
-            if(!this.HasProp("__Winsock"))
-                this.__Winsock := MPEG_WINSOCK(4, this)
-            return this.__Winsock
+            if(!this.HasProp("__U"))
+                this.__U := %this.__Class%._U_e__Union(4, this)
+            return this.__U
         }
     }
 }

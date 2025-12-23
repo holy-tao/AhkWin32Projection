@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Specifies the type of profile.
- * @see https://docs.microsoft.com/windows/win32/api//icftypes/ne-icftypes-net_fw_profile_type
+ * Specifies the type of profile. (NET_FW_PROFILE_TYPE)
+ * @see https://learn.microsoft.com/windows/win32/api/icftypes/ne-icftypes-net_fw_profile_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
-class NET_FW_PROFILE_TYPE{
+class NET_FW_PROFILE_TYPE extends Win32Enum{
 
     /**
      * Profile type is domain.

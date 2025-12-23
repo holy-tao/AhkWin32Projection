@@ -5,7 +5,6 @@
 /**
  * This defines parameters that you can use to override the default parameters normally used when encoding an image.
  * @remarks
- * 
  * If this parameter is not passed to the encoding API, the encoder uses these settings.
  * 
  * <ul>
@@ -15,9 +14,7 @@
  * </ul>
  * <div class="alert"><b>Note</b>  The parameters as specified can't result in a scale. The encoder can use a larger portion of the input image based on the passed in DPI and the pixel width and height.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ns-wincodec-wicimageparameters
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicimageparameters
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -25,7 +22,7 @@ class WICImageParameters extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The pixel format to which the image is processed before it is written to the encoder.

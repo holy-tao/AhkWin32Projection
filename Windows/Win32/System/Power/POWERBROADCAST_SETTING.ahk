@@ -3,7 +3,7 @@
 
 /**
  * Sent with a power setting event and contains data about the specific change.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-powerbroadcast_setting
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-powerbroadcast_setting
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

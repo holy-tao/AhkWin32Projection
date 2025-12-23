@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the color primaries of the video. This enumeration is used with the AVEncVideoInputColorPrimaries and AVEncVideoOutputColorPrimaries properties.
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencvideocolorprimaries
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencvideocolorprimaries
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVEncVideoColorPrimaries{
+class eAVEncVideoColorPrimaries extends Win32Enum{
 
     /**
      * Use the same primaries as the input video. This flag applies to the <b>AVEncVideoOutputColorPrimaries</b> property only.

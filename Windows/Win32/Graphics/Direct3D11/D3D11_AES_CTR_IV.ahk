@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains an initialization vector (IV) for 128-bit Advanced Encryption Standard CTR mode (AES-CTR) block cipher encryption.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_aes_ctr_iv
+ * Contains an initialization vector (IV) for 128-bit Advanced Encryption Standard CTR mode (AES-CTR) block cipher encryption. (D3D11_AES_CTR_IV)
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_aes_ctr_iv
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

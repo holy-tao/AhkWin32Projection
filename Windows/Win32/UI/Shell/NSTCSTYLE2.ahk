@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by methods of the INameSpaceTreeControl2 to specify extended display styles in a Shell namespace treeview.
  * @remarks
- * 
  * The value NSTCS2_ALLMASK can be used to mask for the NSTCS2_INTERRUPTNOTIFICATIONS, NSTCS2_SHOWNULLSPACEMENU, and NSTCS2_DISPLAYPADDING values.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/ne-shobjidl-nstcstyle2
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl/ne-shobjidl-nstcstyle2
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class NSTCSTYLE2{
+class NSTCSTYLE2 extends Win32BitflagEnum{
 
     /**
      * 

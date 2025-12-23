@@ -3,7 +3,7 @@
 
 /**
  * Contains I/O accounting information for a process or a job object.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-io_counters
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-io_counters
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

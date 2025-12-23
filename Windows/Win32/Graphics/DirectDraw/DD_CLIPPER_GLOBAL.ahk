@@ -3,7 +3,7 @@
 
 /**
  * The DD_CLIPPER_GLOBAL structure contains the global DirectDrawClipper data that can be shared between object instances.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_clipper_global
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_clipper_global
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

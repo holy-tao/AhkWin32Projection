@@ -8,9 +8,9 @@
  */
 class KSDS3D_BUFFER_ALL extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {DS3DVECTOR}
@@ -29,7 +29,7 @@ class KSDS3D_BUFFER_ALL extends Win32Struct
     Velocity{
         get {
             if(!this.HasProp("__Velocity"))
-                this.__Velocity := DS3DVECTOR(16, this)
+                this.__Velocity := DS3DVECTOR(12, this)
             return this.__Velocity
         }
     }
@@ -38,16 +38,16 @@ class KSDS3D_BUFFER_ALL extends Win32Struct
      * @type {Integer}
      */
     InsideConeAngle {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     OutsideConeAngle {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -56,7 +56,7 @@ class KSDS3D_BUFFER_ALL extends Win32Struct
     ConeOrientation{
         get {
             if(!this.HasProp("__ConeOrientation"))
-                this.__ConeOrientation := DS3DVECTOR(40, this)
+                this.__ConeOrientation := DS3DVECTOR(32, this)
             return this.__ConeOrientation
         }
     }
@@ -65,31 +65,31 @@ class KSDS3D_BUFFER_ALL extends Win32Struct
      * @type {Integer}
      */
     ConeOutsideVolume {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
      * @type {Float}
      */
     MinDistance {
-        get => NumGet(this, 56, "float")
-        set => NumPut("float", value, this, 56)
+        get => NumGet(this, 48, "float")
+        set => NumPut("float", value, this, 48)
     }
 
     /**
      * @type {Float}
      */
     MaxDistance {
-        get => NumGet(this, 60, "float")
-        set => NumPut("float", value, this, 60)
+        get => NumGet(this, 52, "float")
+        set => NumPut("float", value, this, 52)
     }
 
     /**
      * @type {Integer}
      */
     Mode {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 }

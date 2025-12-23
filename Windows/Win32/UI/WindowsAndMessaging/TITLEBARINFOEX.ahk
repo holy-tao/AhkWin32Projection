@@ -4,7 +4,7 @@
 
 /**
  * Expands on the information described in the TITLEBARINFO structure by including the coordinates of each element of the title bar.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-titlebarinfoex
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-titlebarinfoex
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class TITLEBARINFOEX extends Win32Struct
     rcTitleBar{
         get {
             if(!this.HasProp("__rcTitleBar"))
-                this.__rcTitleBar := RECT(8, this)
+                this.__rcTitleBar := RECT(4, this)
             return this.__rcTitleBar
         }
     }
@@ -79,7 +79,7 @@ class TITLEBARINFOEX extends Win32Struct
     rgstate{
         get {
             if(!this.HasProp("__rgstateProxyArray"))
-                this.__rgstateProxyArray := Win32FixedArray(this.ptr + 24, 6, Primitive, "uint")
+                this.__rgstateProxyArray := Win32FixedArray(this.ptr + 20, 6, Primitive, "uint")
             return this.__rgstateProxyArray
         }
     }

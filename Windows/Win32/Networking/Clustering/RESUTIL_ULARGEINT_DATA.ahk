@@ -3,7 +3,7 @@
 
 /**
  * Describes the default, maximum, and minimum values allowed for an unsigned large integer.
- * @see https://docs.microsoft.com/windows/win32/api//resapi/ns-resapi-resutil_ulargeint_data
+ * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-resutil_ulargeint_data
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

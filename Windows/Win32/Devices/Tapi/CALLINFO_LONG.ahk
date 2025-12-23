@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The CALLINFO_LONG enum is used by ITCallInfo methods that set and get call information of type LONG.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-callinfo_long
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-callinfo_long
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class CALLINFO_LONG{
+class CALLINFO_LONG extends Win32Enum{
 
     /**
      * The 

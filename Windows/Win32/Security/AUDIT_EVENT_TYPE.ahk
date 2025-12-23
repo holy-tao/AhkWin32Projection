@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32Enum.ahk
 
 /**
  * Defines values that indicate the type of object being audited. The AccessCheckByTypeAndAuditAlarm and AccessCheckByTypeResultListAndAuditAlarm functions use these values.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-audit_event_type
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-audit_event_type
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */
-class AUDIT_EVENT_TYPE{
+class AUDIT_EVENT_TYPE extends Win32Enum{
 
     /**
      * Indicates an object that generates audit messages only if the system administrator has enabled auditing access to files and objects.

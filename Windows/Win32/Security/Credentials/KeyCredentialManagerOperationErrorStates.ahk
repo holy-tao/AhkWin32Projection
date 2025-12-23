@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Enumeration of Error states returned by the function KeyCredentialManagerGetOperationErrorStates as flags.
- * @see https://docs.microsoft.com/windows/win32/api//keycredmgr/ne-keycredmgr-keycredentialmanageroperationerrorstates
+ * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/ne-keycredmgr-keycredentialmanageroperationerrorstates
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319
  */
-class KeyCredentialManagerOperationErrorStates{
+class KeyCredentialManagerOperationErrorStates extends Win32BitflagEnum{
 
     /**
      * No Error  equivalent to ERROR_SUCCESS.

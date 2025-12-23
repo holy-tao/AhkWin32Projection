@@ -7,15 +7,15 @@
 
 /**
  * Stores various IKE, AuthIP, and IKEv2 statistics.
- * @see https://docs.microsoft.com/windows/win32/api//iketypes/ns-iketypes-ikeext_statistics1
+ * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_statistics1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
 class IKEEXT_STATISTICS1 extends Win32Struct
 {
-    static sizeof => 1664
+    static sizeof => 1660
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Statistics specific to IKE.

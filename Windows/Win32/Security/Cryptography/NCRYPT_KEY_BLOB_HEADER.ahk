@@ -3,7 +3,7 @@
 
 /**
  * Contains a key BLOB.
- * @see https://docs.microsoft.com/windows/win32/api//ncrypt/ns-ncrypt-ncrypt_key_blob_header
+ * @see https://learn.microsoft.com/windows/win32/api/ncrypt/ns-ncrypt-ncrypt_key_blob_header
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

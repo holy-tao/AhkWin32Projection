@@ -3,7 +3,7 @@
 #Include .\IN6_ADDR.ahk
 
 /**
- * 
+ * The sockaddr_in6_old (ws2ipdef.h) structure varies depending on the protocol selected.
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-sockaddr_in6_old
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
@@ -12,9 +12,10 @@ class sockaddr_in6_old extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
+     * 
      * @type {Integer}
      */
     sin6_family {
@@ -23,6 +24,7 @@ class sockaddr_in6_old extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     sin6_port {
@@ -31,6 +33,7 @@ class sockaddr_in6_old extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     sin6_flowinfo {
@@ -39,6 +42,7 @@ class sockaddr_in6_old extends Win32Struct
     }
 
     /**
+     * 
      * @type {IN6_ADDR}
      */
     sin6_addr{

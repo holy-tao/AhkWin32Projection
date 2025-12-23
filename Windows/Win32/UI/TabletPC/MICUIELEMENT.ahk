@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the user interface (UI) elements of a math input control (MIC).
  * @remarks
- * 
  * This enumeration is used in custom painting.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//micaut/ne-micaut-micuielement
+ * @see https://learn.microsoft.com/windows/win32/api/micaut/ne-micaut-micuielement
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class MICUIELEMENT{
+class MICUIELEMENT extends Win32Enum{
 
     /**
      * The <b>Write</b> button.

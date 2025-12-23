@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of structure contained in the WRdsConnectionSetting member of the WRDS_CONNECTION_SETTINGS structure.
- * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ne-wtsdefs-wrds_connection_setting_level
+ * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ne-wtsdefs-wrds_connection_setting_level
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class WRDS_CONNECTION_SETTING_LEVEL{
+class WRDS_CONNECTION_SETTING_LEVEL extends Win32Enum{
 
     /**
      * The type of structure is not defined.

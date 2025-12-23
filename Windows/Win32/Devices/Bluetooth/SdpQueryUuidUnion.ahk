@@ -3,7 +3,7 @@
 
 /**
  * The SdpQueryUuidUnion union contains the UUID on which to perform an SDP query. Used in conjunction with the SdpQueryUuid structure.
- * @see https://docs.microsoft.com/windows/win32/api//bthsdpdef/ns-bthsdpdef-sdpqueryuuidunion
+ * @see https://learn.microsoft.com/windows/win32/api/bthsdpdef/ns-bthsdpdef-sdpqueryuuidunion
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

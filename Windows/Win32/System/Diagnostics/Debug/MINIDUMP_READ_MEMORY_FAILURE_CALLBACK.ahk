@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a failed memory read operation.
- * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ns-minidumpapiset-minidump_read_memory_failure_callback
+ * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_read_memory_failure_callback
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

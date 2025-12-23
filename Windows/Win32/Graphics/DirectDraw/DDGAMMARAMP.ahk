@@ -3,7 +3,7 @@
 
 /**
  * The DDGAMMARAMP structure contains red, green, and blue ramp data for the IDirectDrawGammaControl::GetGammaRamp and IDirectDrawGammaControl::SetGammaRamp methods.
- * @see https://docs.microsoft.com/windows/win32/api//ddraw/ns-ddraw-ddgammaramp
+ * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddgammaramp
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

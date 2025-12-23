@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by THUMBBUTTON to control specific states and behaviors of the button.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-thumbbuttonflags
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-thumbbuttonflags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class THUMBBUTTONFLAGS{
+class THUMBBUTTONFLAGS extends Win32BitflagEnum{
 
     /**
      * The button is active and available to the user.

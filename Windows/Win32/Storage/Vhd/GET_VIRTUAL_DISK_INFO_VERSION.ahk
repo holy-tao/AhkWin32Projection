@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains the kinds of virtual hard disk (VHD) information that you can retrieve.
- * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ne-virtdisk-get_virtual_disk_info_version
+ * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-get_virtual_disk_info_version
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */
-class GET_VIRTUAL_DISK_INFO_VERSION{
+class GET_VIRTUAL_DISK_INFO_VERSION extends Win32Enum{
 
     /**
      * Reserved. This value should not be used.

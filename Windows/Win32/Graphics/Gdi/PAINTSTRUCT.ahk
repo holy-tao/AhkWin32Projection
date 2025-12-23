@@ -5,7 +5,7 @@
 
 /**
  * The PAINTSTRUCT structure contains information for an application. This information can be used to paint the client area of a window owned by that application.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-paintstruct
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-paintstruct
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
@@ -43,7 +43,7 @@ class PAINTSTRUCT extends Win32Struct
     rcPaint{
         get {
             if(!this.HasProp("__rcPaint"))
-                this.__rcPaint := RECT(16, this)
+                this.__rcPaint := RECT(12, this)
             return this.__rcPaint
         }
     }
@@ -53,8 +53,8 @@ class PAINTSTRUCT extends Win32Struct
      * @type {BOOL}
      */
     fRestore {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -62,8 +62,8 @@ class PAINTSTRUCT extends Win32Struct
      * @type {BOOL}
      */
     fIncUpdate {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
@@ -73,7 +73,7 @@ class PAINTSTRUCT extends Win32Struct
     rgbReserved{
         get {
             if(!this.HasProp("__rgbReservedProxyArray"))
-                this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 40, 32, Primitive, "char")
+                this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 36, 32, Primitive, "char")
             return this.__rgbReservedProxyArray
         }
     }

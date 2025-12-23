@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of encryption algorithm used for encrypting the Internet Key Exchange (IKE) and Authenticated Internet Protocol (AuthIP) messages.
- * @see https://docs.microsoft.com/windows/win32/api//iketypes/ne-iketypes-ikeext_cipher_type
+ * @see https://learn.microsoft.com/windows/win32/api/iketypes/ne-iketypes-ikeext_cipher_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class IKEEXT_CIPHER_TYPE{
+class IKEEXT_CIPHER_TYPE extends Win32Enum{
 
     /**
      * Specifies DES encryption.

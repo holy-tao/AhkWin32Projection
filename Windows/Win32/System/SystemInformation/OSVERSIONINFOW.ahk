@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains operating system version information.
+ * Contains operating system version information. (Unicode)
  * @remarks
- * 
  * Relying on version information is not the best way to test for a feature. Instead, refer to the documentation for the feature of interest. For more information on common techniques for feature detection, see 
  * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/operating-system-version">Operating System Version</a>.
  * 
@@ -125,11 +124,7 @@
  * </td>
  * </tr>
  * </table>
- *  
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-osversioninfow
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-osversioninfow
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  * @charset Unicode

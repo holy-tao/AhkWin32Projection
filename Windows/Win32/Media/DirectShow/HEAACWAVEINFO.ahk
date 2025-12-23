@@ -5,7 +5,6 @@
 /**
  * Contains format data for an Advanced Audio Coding (AAC) or High-Efficiency Advanced Audio Coding (HE-AAC) stream.
  * @remarks
- * 
  * This format structure is used to describe MPEG-2 AAC and MPEG-4 HE-AAC streams, including HE-AAC version 1 and HE-AAC version 2.
  * 
  * The <b>WAVEFORMATEX</b> structure defined in the <b>wfx</b> member contains the following values.
@@ -50,8 +49,7 @@
  * <td>Specifies the size, in bytes, of the format data after the <b>WAVEFORMATEX</b> structure.</td>
  * </tr>
  * </table>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mmreg/ns-mmreg-heaacwaveinfo
+ * @see https://learn.microsoft.com/windows/win32/api/mmreg/ns-mmreg-heaacwaveinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -59,7 +57,7 @@ class HEAACWAVEINFO extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <b>WAVEFORMATEX</b> structure that describes the core AAC stream,

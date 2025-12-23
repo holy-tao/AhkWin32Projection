@@ -3,7 +3,7 @@
 
 /**
  * Defines the raw input data coming from the specified Human Interface Device (HID).
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-rid_device_info_hid
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rid_device_info_hid
  * @namespace Windows.Win32.UI.Input
  * @version v4.0.30319
  */

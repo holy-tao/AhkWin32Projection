@@ -3,14 +3,14 @@
 #Include ..\..\Foundation\HWND.ahk
 
 /**
- * The MIXERCONTROLDETAILS structure refers to control-detail structures, retrieving or setting state information of an audio mixer control.
- * @see https://docs.microsoft.com/windows/win32/api//mmeapi/ns-mmeapi-mixercontroldetails
+ * The MIXERCONTROLDETAILS structure refers to control-detail structures, retrieving or setting state information of an audio mixer control. (MIXERCONTROLDETAILS)
+ * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-mixercontroldetails
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
 class MIXERCONTROLDETAILS extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -90,7 +90,7 @@ class MIXERCONTROLDETAILS extends Win32Struct
     hwndOwner{
         get {
             if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(16, this)
+                this.__hwndOwner := HWND(12, this)
             return this.__hwndOwner
         }
     }
@@ -99,8 +99,8 @@ class MIXERCONTROLDETAILS extends Win32Struct
      * @type {Integer}
      */
     cMultipleItems {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
@@ -155,8 +155,8 @@ class MIXERCONTROLDETAILS extends Win32Struct
      * @type {Integer}
      */
     cbDetails {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -175,7 +175,7 @@ class MIXERCONTROLDETAILS extends Win32Struct
      * @type {Pointer<Void>}
      */
     paDetails {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

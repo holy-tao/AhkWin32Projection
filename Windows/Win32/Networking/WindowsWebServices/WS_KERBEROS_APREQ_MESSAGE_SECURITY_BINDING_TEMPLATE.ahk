@@ -4,7 +4,7 @@
 
 /**
  * The security binding template for specifying the use of the Kerberos AP_REQ ticket as a direct (i.e., without establishing a session) security token with WS-Security.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_kerberos_apreq_message_security_binding_template
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_kerberos_apreq_message_security_binding_template
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

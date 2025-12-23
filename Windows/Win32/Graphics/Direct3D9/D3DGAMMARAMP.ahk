@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Contains red, green, and blue ramp data.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dgammaramp
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
@@ -14,6 +14,10 @@ class D3DGAMMARAMP extends Win32Struct
     static packingSize => 2
 
     /**
+     * Type: **[**WORD**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Array of 256 WORD element that describes the red gamma ramp.
      * @type {Array<UInt16>}
      */
     red{
@@ -25,6 +29,10 @@ class D3DGAMMARAMP extends Win32Struct
     }
 
     /**
+     * Type: **[**WORD**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Array of 256 WORD element that describes the green gamma ramp.
      * @type {Array<UInt16>}
      */
     green{
@@ -36,6 +44,10 @@ class D3DGAMMARAMP extends Win32Struct
     }
 
     /**
+     * Type: **[**WORD**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Array of 256 WORD element that describes the blue gamma ramp.
      * @type {Array<UInt16>}
      */
     blue{

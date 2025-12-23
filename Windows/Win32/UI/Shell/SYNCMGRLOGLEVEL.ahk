@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The SYNCMGRLOGLEVEL enumeration values specify an error level for use in the ISyncMgrSynchronizeCallback::LogError method.
- * @see https://docs.microsoft.com/windows/win32/api//mobsync/ne-mobsync-syncmgrloglevel
+ * @see https://learn.microsoft.com/windows/win32/api/mobsync/ne-mobsync-syncmgrloglevel
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SYNCMGRLOGLEVEL{
+class SYNCMGRLOGLEVEL extends Win32Enum{
 
     /**
      * An information message was logged.

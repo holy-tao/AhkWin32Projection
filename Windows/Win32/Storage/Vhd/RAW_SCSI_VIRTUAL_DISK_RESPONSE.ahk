@@ -3,15 +3,15 @@
 
 /**
  * Contains raw SCSI virtual disk response parameters.
- * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ns-virtdisk-raw_scsi_virtual_disk_response
+ * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-raw_scsi_virtual_disk_response
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */
 class RAW_SCSI_VIRTUAL_DISK_RESPONSE extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A [RAW_SCSI_VIRTUAL_DISK_PARAMETERS](./ns-virtdisk-raw_scsi_virtual_disk_parameters.md) structure being passed to or from the VHD functions.
@@ -24,7 +24,7 @@ class RAW_SCSI_VIRTUAL_DISK_RESPONSE extends Win32Struct
 
     class _Version1 extends Win32Struct {
         static sizeof => 8
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -58,7 +58,7 @@ class RAW_SCSI_VIRTUAL_DISK_RESPONSE extends Win32Struct
     Version1{
         get {
             if(!this.HasProp("__Version1"))
-                this.__Version1 := %this.__Class%._Version1(8, this)
+                this.__Version1 := %this.__Class%._Version1(4, this)
             return this.__Version1
         }
     }

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the buffer validation flags for the APO_CONNECTION_PROPERTY structure associated with each APO connection.
  * @remarks
- * 
  * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client applications.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//audioapotypes/ne-audioapotypes-apo_buffer_flags
+ * @see https://learn.microsoft.com/windows/win32/api/audioapotypes/ne-audioapotypes-apo_buffer_flags
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
  */
-class APO_BUFFER_FLAGS{
+class APO_BUFFER_FLAGS extends Win32Enum{
 
     /**
      * There is no valid data in  the connection

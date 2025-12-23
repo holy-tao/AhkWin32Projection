@@ -3,7 +3,7 @@
 
 /**
  * Used with the SFVM_GETBUTTONINFO notification to specify the number of buttons to add to the toolbar, as well as how they're added.
- * @see https://docs.microsoft.com/windows/win32/api//shlobj/ns-shlobj-tbinfo
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj/ns-shlobj-tbinfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

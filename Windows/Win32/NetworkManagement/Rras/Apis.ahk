@@ -3617,7 +3617,73 @@ class Rras {
 
 ;@region Methods
     /**
-     * The RasDial function establishes a RAS connection between a RAS client and a RAS server. The connection data includes callback and user-authentication information.
+     * The RasDial function establishes a RAS connection between a RAS client and a RAS server. The connection data includes callback and user-authentication information. (ANSI)
+     * @remarks
+     * Errors that occur after the immediate return can be detected by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetconnectstatusa">RasGetConnectStatus</a>. Data is available until an application calls 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rashangupa">RasHangUp</a> to hang up the connection.
+     * 
+     * An application must eventually call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rashangupa">RasHangUp</a> whenever a non-<b>NULL</b> connection handle is stored into *<i>lphRasConn</i>. This applies even if 
+     * <b>RasDial</b> returns a nonzero (error) value.
+     * 
+     * An application can safely call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rashangupa">RasHangUp</a> from a 
+     * <b>RasDial</b> notifier callback function. If this is done, however, the hang-up does not occur until the routine returns.
+     * 
+     * If the structure pointed to by <i>lpRasDialExtensions</i> enables <b>RDEOPT_PausedStates</b>, the 
+     * <b>RasDial</b> function pauses whenever it enters a state in which the <b>RASCS_PAUSED</b> bit is set to one. To restart 
+     * <b>RasDial</b> from such a paused state, call 
+     * <b>RasDial</b> again, passing the connection handle returned from the original 
+     * <b>RasDial</b> call in <i>*lphRasConn</i>. The same notifier used in the original 
+     * <b>RasDial</b> call must be used when restarting from a paused state.
+     * 
+     * The <i>lpvNotifier</i> parameter is a handle to a window to receive progress notification messages. In a progress notification message, <i>wParam</i> is the equivalent of the <i>rasconnstate</i> parameter of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rasdialfunc">RasDialFunc</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rasdialfunc1">RasDialFunc1</a>, and <i>lParam</i> is the equivalent of the <i>dwError</i> parameter of 
+     * <b>RasDialFunc</b> and 
+     * <b>RasDialFunc1</b>. 
+     * 
+     * 
+     * 
+     * 
+     * The progress notification message uses a system registered message code. You can obtain the value of this message code as follows:
+     * 
+     * 
+     * ```cpp
+     * UINT unMsg = RegisterWindowMessageA( RASDIALEVENT );
+     * if (unMsg == 0)
+     *     unMsg = WM_RASDIALEVENT;
+     * 
+     * ```
+     * 
+     * 
+     * RAS supports referenced connections. If the entry being dialed is already connected, 
+     * <b>RasDial</b>  returns <b>SUCCESS</b> and the connection is referenced. To disconnect the connection, each 
+     * <b>RasDial</b> on the connection should be matched by a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rashangupa">RasHangUp</a>.
+     * 
+     * Because some phone-book entries require Extensible Authentication Protocol (EAP) for authentication, the caller should call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgeteapuseridentitya">RasGetEapUserIdentity</a> before calling 
+     * <b>RasDial</b>. If 
+     * <b>RasGetEapUserIdentity</b> returns <b>ERROR_INVALID_FUNCTION_FOR_ENTRY</b>, the phone-book entry does not require EAP. However, if 
+     * <b>RasGetEapUserIdentity</b> returns NO_ERROR, the caller should copy the EAP identity information from 
+     * <b>RasGetEapUserIdentity</b> into the <b>RasEapInfo</b> member of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377029(v=vs.85)">RASDIALEXTENSIONS</a>, and the <b>szUserName</b> member of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a>. See 
+     * <b>RasGetEapUserIdentity</b> for more information. If the phone-book entry requires EAP, the <b>dwfOptions</b> member of the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure for the entry contains the <b>RASEO_RequireEAP</b> flag.
+     * 
+     * To specify that 
+     * <b>RasDial</b> should enter a <b>RASCS_CallbackSetByCaller</b> state, set <i>lpRasDialParams</i>-&gt;<b>szCallbackNumber</b> to "*" on the initial call to 
+     * <b>RasDial</b>. When the notification handler is called with this state, set the callback number to a number supplied by the user.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasDial as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<RASDIALEXTENSIONS>} param0 
      * @param {PSTR} param1 
      * @param {Pointer<RASDIALPARAMSA>} param2 
@@ -3626,8 +3692,8 @@ class Rras {
      * @param {Pointer<HRASCONN>} param5 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b> and a handle to the RAS connection is returned in the variable pointed to by <i>lphRasConn</i>.
      * 
-     * If the function fails, the return value is from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasdiala
+     * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasdiala
      * @since windows5.0
      */
     static RasDialA(param0, param1, param2, param3, param4, param5) {
@@ -3640,7 +3706,73 @@ class Rras {
     }
 
     /**
-     * The RasDial function establishes a RAS connection between a RAS client and a RAS server. The connection data includes callback and user-authentication information.
+     * The RasDial function establishes a RAS connection between a RAS client and a RAS server. The connection data includes callback and user-authentication information. (Unicode)
+     * @remarks
+     * Errors that occur after the immediate return can be detected by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetconnectstatusa">RasGetConnectStatus</a>. Data is available until an application calls 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rashangupa">RasHangUp</a> to hang up the connection.
+     * 
+     * An application must eventually call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rashangupa">RasHangUp</a> whenever a non-<b>NULL</b> connection handle is stored into *<i>lphRasConn</i>. This applies even if 
+     * <b>RasDial</b> returns a nonzero (error) value.
+     * 
+     * An application can safely call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rashangupa">RasHangUp</a> from a 
+     * <b>RasDial</b> notifier callback function. If this is done, however, the hang-up does not occur until the routine returns.
+     * 
+     * If the structure pointed to by <i>lpRasDialExtensions</i> enables <b>RDEOPT_PausedStates</b>, the 
+     * <b>RasDial</b> function pauses whenever it enters a state in which the <b>RASCS_PAUSED</b> bit is set to one. To restart 
+     * <b>RasDial</b> from such a paused state, call 
+     * <b>RasDial</b> again, passing the connection handle returned from the original 
+     * <b>RasDial</b> call in <i>*lphRasConn</i>. The same notifier used in the original 
+     * <b>RasDial</b> call must be used when restarting from a paused state.
+     * 
+     * The <i>lpvNotifier</i> parameter is a handle to a window to receive progress notification messages. In a progress notification message, <i>wParam</i> is the equivalent of the <i>rasconnstate</i> parameter of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rasdialfunc">RasDialFunc</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rasdialfunc1">RasDialFunc1</a>, and <i>lParam</i> is the equivalent of the <i>dwError</i> parameter of 
+     * <b>RasDialFunc</b> and 
+     * <b>RasDialFunc1</b>. 
+     * 
+     * 
+     * 
+     * 
+     * The progress notification message uses a system registered message code. You can obtain the value of this message code as follows:
+     * 
+     * 
+     * ```cpp
+     * UINT unMsg = RegisterWindowMessageA( RASDIALEVENT );
+     * if (unMsg == 0)
+     *     unMsg = WM_RASDIALEVENT;
+     * 
+     * ```
+     * 
+     * 
+     * RAS supports referenced connections. If the entry being dialed is already connected, 
+     * <b>RasDial</b>  returns <b>SUCCESS</b> and the connection is referenced. To disconnect the connection, each 
+     * <b>RasDial</b> on the connection should be matched by a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rashangupa">RasHangUp</a>.
+     * 
+     * Because some phone-book entries require Extensible Authentication Protocol (EAP) for authentication, the caller should call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgeteapuseridentitya">RasGetEapUserIdentity</a> before calling 
+     * <b>RasDial</b>. If 
+     * <b>RasGetEapUserIdentity</b> returns <b>ERROR_INVALID_FUNCTION_FOR_ENTRY</b>, the phone-book entry does not require EAP. However, if 
+     * <b>RasGetEapUserIdentity</b> returns NO_ERROR, the caller should copy the EAP identity information from 
+     * <b>RasGetEapUserIdentity</b> into the <b>RasEapInfo</b> member of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377029(v=vs.85)">RASDIALEXTENSIONS</a>, and the <b>szUserName</b> member of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a>. See 
+     * <b>RasGetEapUserIdentity</b> for more information. If the phone-book entry requires EAP, the <b>dwfOptions</b> member of the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure for the entry contains the <b>RASEO_RequireEAP</b> flag.
+     * 
+     * To specify that 
+     * <b>RasDial</b> should enter a <b>RASCS_CallbackSetByCaller</b> state, set <i>lpRasDialParams</i>-&gt;<b>szCallbackNumber</b> to "*" on the initial call to 
+     * <b>RasDial</b>. When the notification handler is called with this state, set the callback number to a number supplied by the user.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasDial as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<RASDIALEXTENSIONS>} param0 
      * @param {PWSTR} param1 
      * @param {Pointer<RASDIALPARAMSW>} param2 
@@ -3649,8 +3781,8 @@ class Rras {
      * @param {Pointer<HRASCONN>} param5 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b> and a handle to the RAS connection is returned in the variable pointed to by <i>lphRasConn</i>.
      * 
-     * If the function fails, the return value is from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasdialw
+     * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasdialw
      * @since windows5.0
      */
     static RasDialW(param0, param1, param2, param3, param4, param5) {
@@ -3663,13 +3795,20 @@ class Rras {
     }
 
     /**
-     * The RasEnumConnections function lists all active RAS connections. It returns each connection's handle and phone-book entry name.
+     * The RasEnumConnections function lists all active RAS connections. It returns each connection's handle and phone-book entry name. (ANSI)
+     * @remarks
+     * If a connection was made without specifying a phone-book entry name, the information returned for that connection gives the connection phone number preceded by ".".
+     * 
+     * The following code sample code uses <b>RasEnumConnections</b> to enumerates the active RAS connections.
+     * 
+     * 
+     * ```cpp
      * @param {Pointer<RASCONNA>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Integer>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -3683,12 +3822,12 @@ class Rras {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <i>lprasconn</i> buffer is not large enough. The <i>lpcb</i>parameter is less than the <b>dwSize</b> member in the <i>lprasconn</i>parameter which is should be set prior to calling the function. The function returns the required buffer size in the variable pointed to by <i>lpcb</i>.
+     * The <i>lprasconn</i> buffer is not large enough. The <i>lpcb</i> parameter is less than the <b>dwSize</b> member in the <i>lprasconn</i> parameter which is should be set prior to calling the function. The function returns the required buffer size in the variable pointed to by <i>lpcb</i>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasenumconnectionsa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasenumconnectionsa
      * @since windows5.0
      */
     static RasEnumConnectionsA(param0, param1, param2) {
@@ -3700,13 +3839,20 @@ class Rras {
     }
 
     /**
-     * The RasEnumConnections function lists all active RAS connections. It returns each connection's handle and phone-book entry name.
+     * The RasEnumConnections function lists all active RAS connections. It returns each connection's handle and phone-book entry name. (Unicode)
+     * @remarks
+     * If a connection was made without specifying a phone-book entry name, the information returned for that connection gives the connection phone number preceded by ".".
+     * 
+     * The following code sample code uses <b>RasEnumConnections</b> to enumerates the active RAS connections.
+     * 
+     * 
+     * ```cpp
      * @param {Pointer<RASCONNW>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Integer>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -3720,12 +3866,12 @@ class Rras {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <i>lprasconn</i> buffer is not large enough. The <i>lpcb</i>parameter is less than the <b>dwSize</b> member in the <i>lprasconn</i>parameter which is should be set prior to calling the function. The function returns the required buffer size in the variable pointed to by <i>lpcb</i>.
+     * The <i>lprasconn</i> buffer is not large enough. The <i>lpcb</i> parameter is less than the <b>dwSize</b> member in the <i>lprasconn</i> parameter which is should be set prior to calling the function. The function returns the required buffer size in the variable pointed to by <i>lpcb</i>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasenumconnectionsw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasenumconnectionsw
      * @since windows5.0
      */
     static RasEnumConnectionsW(param0, param1, param2) {
@@ -3737,7 +3883,15 @@ class Rras {
     }
 
     /**
-     * The RasEnumEntries function lists all entry names in a remote access phone book.
+     * The RasEnumEntries function lists all entry names in a remote access phone book. (ANSI)
+     * @remarks
+     * The following sample code enumerates the RAS phone-book entries on Windows Vista and later versions of Windows. The code initially calls 
+     * <b>RasEnumEntries</b> to obtain the size of the buffer to pass in. The code then calls 
+     * <b>RasEnumEntries</b> again, to enumerate the entries. Note that for the second call, the code sets the <b>dwSize</b> member of the first 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> structure in the buffer to sizeof(<b>RASENTRYNAME</b>) to specify the structure version.
+     * 
+     * 
+     * ```cpp
      * @param {PSTR} param0 
      * @param {PSTR} param1 
      * @param {Pointer<RASENTRYNAMEA>} param2 
@@ -3745,7 +3899,7 @@ class Rras {
      * @param {Pointer<Integer>} param4 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -3759,7 +3913,7 @@ class Rras {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <i>lprasentryname</i> buffer is not large enough. The <i>lpcb</i>parameter is less than the <b>dwSize</b> member in the <i>lprasentryname</i>parameter which should be set prior to calling the function. The function returns the required buffer size in the variable pointed to by <i>lpcb</i>.
+     * The <i>lprasentryname</i> buffer is not large enough. The <i>lpcb</i> parameter is less than the <b>dwSize</b> member in the <i>lprasentryname</i> parameter which should be set prior to calling the function. The function returns the required buffer size in the variable pointed to by <i>lpcb</i>.
      * 
      * <b>Windows Vista or later:  </b>The <i>lprasentryname</i> buffer may be set to <b>NULL</b> and the variable pointed to by <i>lpcb</i> may be set to zero. The function will return the required buffer size in the variable pointed to by <i>lpcb</i>.
      * 
@@ -3773,9 +3927,9 @@ class Rras {
      * </td>
      * <td width="60%">
      * The value of <b>dwSize</b> in the 
-     * <a href="/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> structure pointed to by <i>lprasentryname</i>, specifies a version of the structure that is not supported on the current platform. For example, on Windows 95, 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> structure pointed to by <i>lprasentryname</i>, specifies a version of the structure that is not supported on the current platform. For example, on Windows 95, 
      * <b>RasEnumEntries</b> returns this error if <b>dwSize</b> indicates that 
-     * <a href="/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> includes the <b>dwFlags</b> and <b>szPhonebookPath</b> members, since these members are not supported on Windows 95 (they are supported only on Windows 2000 and later).
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> includes the <b>dwFlags</b> and <b>szPhonebookPath</b> members, since these members are not supported on Windows 95 (they are supported only on Windows 2000 and later).
      * 
      * </td>
      * </tr>
@@ -3791,7 +3945,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasenumentriesa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasenumentriesa
      * @since windows5.0
      */
     static RasEnumEntriesA(param0, param1, param2, param3, param4) {
@@ -3806,7 +3960,15 @@ class Rras {
     }
 
     /**
-     * The RasEnumEntries function lists all entry names in a remote access phone book.
+     * The RasEnumEntries function lists all entry names in a remote access phone book. (Unicode)
+     * @remarks
+     * The following sample code enumerates the RAS phone-book entries on Windows Vista and later versions of Windows. The code initially calls 
+     * <b>RasEnumEntries</b> to obtain the size of the buffer to pass in. The code then calls 
+     * <b>RasEnumEntries</b> again, to enumerate the entries. Note that for the second call, the code sets the <b>dwSize</b> member of the first 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> structure in the buffer to sizeof(<b>RASENTRYNAME</b>) to specify the structure version.
+     * 
+     * 
+     * ```cpp
      * @param {PWSTR} param0 
      * @param {PWSTR} param1 
      * @param {Pointer<RASENTRYNAMEW>} param2 
@@ -3814,7 +3976,7 @@ class Rras {
      * @param {Pointer<Integer>} param4 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -3828,7 +3990,7 @@ class Rras {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <i>lprasentryname</i> buffer is not large enough. The <i>lpcb</i>parameter is less than the <b>dwSize</b> member in the <i>lprasentryname</i>parameter which should be set prior to calling the function. The function returns the required buffer size in the variable pointed to by <i>lpcb</i>.
+     * The <i>lprasentryname</i> buffer is not large enough. The <i>lpcb</i> parameter is less than the <b>dwSize</b> member in the <i>lprasentryname</i> parameter which should be set prior to calling the function. The function returns the required buffer size in the variable pointed to by <i>lpcb</i>.
      * 
      * <b>Windows Vista or later:  </b>The <i>lprasentryname</i> buffer may be set to <b>NULL</b> and the variable pointed to by <i>lpcb</i> may be set to zero. The function will return the required buffer size in the variable pointed to by <i>lpcb</i>.
      * 
@@ -3842,9 +4004,9 @@ class Rras {
      * </td>
      * <td width="60%">
      * The value of <b>dwSize</b> in the 
-     * <a href="/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> structure pointed to by <i>lprasentryname</i>, specifies a version of the structure that is not supported on the current platform. For example, on Windows 95, 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> structure pointed to by <i>lprasentryname</i>, specifies a version of the structure that is not supported on the current platform. For example, on Windows 95, 
      * <b>RasEnumEntries</b> returns this error if <b>dwSize</b> indicates that 
-     * <a href="/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> includes the <b>dwFlags</b> and <b>szPhonebookPath</b> members, since these members are not supported on Windows 95 (they are supported only on Windows 2000 and later).
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377267(v=vs.85)">RASENTRYNAME</a> includes the <b>dwFlags</b> and <b>szPhonebookPath</b> members, since these members are not supported on Windows 95 (they are supported only on Windows 2000 and later).
      * 
      * </td>
      * </tr>
@@ -3860,7 +4022,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasenumentriesw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasenumentriesw
      * @since windows5.0
      */
     static RasEnumEntriesW(param0, param1, param2, param3, param4) {
@@ -3875,12 +4037,26 @@ class Rras {
     }
 
     /**
-     * The RasGetConnectStatus function retrieves information on the current status of the specified remote access connection. An application can use this call to determine when an asynchronous RasDial call is complete.
+     * The RasGetConnectStatus function retrieves information on the current status of the specified remote access connection. An application can use this call to determine when an asynchronous RasDial call is complete. (ANSI)
+     * @remarks
+     * The return value for 
+     * <b>RasGetConnectStatus</b> is not necessarily equal to the value of the <b>dwError</b> member of the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376728(v=vs.85)">RASCONNSTATUS</a> structure returned by 
+     * <b>RasGetConnectStatus</b>. The return value of 
+     * <b>RasGetConnectStatus</b> indicates errors that occur during the 
+     * <b>RasGetConnectStatus</b> function call, whereas the <b>dwError</b> member indicates errors that prevented the connection from being established.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasGetConnectStatus as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HRASCONN} param0 
      * @param {Pointer<RASCONNSTATUSA>} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -3899,7 +4075,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetconnectstatusa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetconnectstatusa
      * @since windows5.0
      */
     static RasGetConnectStatusA(param0, param1) {
@@ -3910,12 +4086,26 @@ class Rras {
     }
 
     /**
-     * The RasGetConnectStatus function retrieves information on the current status of the specified remote access connection. An application can use this call to determine when an asynchronous RasDial call is complete.
+     * The RasGetConnectStatus function retrieves information on the current status of the specified remote access connection. An application can use this call to determine when an asynchronous RasDial call is complete. (Unicode)
+     * @remarks
+     * The return value for 
+     * <b>RasGetConnectStatus</b> is not necessarily equal to the value of the <b>dwError</b> member of the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376728(v=vs.85)">RASCONNSTATUS</a> structure returned by 
+     * <b>RasGetConnectStatus</b>. The return value of 
+     * <b>RasGetConnectStatus</b> indicates errors that occur during the 
+     * <b>RasGetConnectStatus</b> function call, whereas the <b>dwError</b> member indicates errors that prevented the connection from being established.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasGetConnectStatus as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HRASCONN} param0 
      * @param {Pointer<RASCONNSTATUSW>} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -3934,7 +4124,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetconnectstatusw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetconnectstatusw
      * @since windows5.0
      */
     static RasGetConnectStatusW(param0, param1) {
@@ -3945,13 +4135,17 @@ class Rras {
     }
 
     /**
-     * The RasGetErrorString function obtains an error message string for a specified RAS error value.
+     * The RasGetErrorString function obtains an error message string for a specified RAS error value. (ANSI)
+     * @remarks
+     * There is no way to determine in advance the exact size in characters of an error message, and thus the size of buffer required. Error messages will generally be 80 characters or fewer in size; a buffer size of 512 characters will always be adequate. A buffer of insufficient size causes the 
+     * <b>RasGetErrorString</b> function to fail, returning <b>ERROR_INSUFFICIENT_BUFFER</b>. Note that buffer sizes are specified in characters, not bytes; thus, the Unicode version of 
+     * <b>RasGetErrorString</b> requires at least a  1024 byte buffer to guarantee that every error message  fits.
      * @param {Integer} ResourceId Specifies the error value of interest. These are values returned by one of the RAS functions: those listed in the RasError.h header file.
      * @param {PSTR} lpszString Pointer to a buffer that receives the error string. This parameter must not be <b>NULL</b>.
      * @param {Integer} InBufSize Specifies the size, in characters, of the buffer pointed to by <i>lpszErrorString</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h. There is no <a href="/previous-versions/windows/desktop/wab/-wab-iabcontainer-getlasterror">GetLastError</a> information set by the 
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h. There is no <a href="https://docs.microsoft.com/previous-versions/windows/desktop/wab/-wab-iabcontainer-getlasterror">GetLastError</a> information set by the 
      * <b>RasGetErrorString</b> function.
      * 
      * <table>
@@ -3971,7 +4165,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgeterrorstringa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgeterrorstringa
      * @since windows5.0
      */
     static RasGetErrorStringA(ResourceId, lpszString, InBufSize) {
@@ -3982,13 +4176,17 @@ class Rras {
     }
 
     /**
-     * The RasGetErrorString function obtains an error message string for a specified RAS error value.
+     * The RasGetErrorString function obtains an error message string for a specified RAS error value. (Unicode)
+     * @remarks
+     * There is no way to determine in advance the exact size in characters of an error message, and thus the size of buffer required. Error messages will generally be 80 characters or fewer in size; a buffer size of 512 characters will always be adequate. A buffer of insufficient size causes the 
+     * <b>RasGetErrorString</b> function to fail, returning <b>ERROR_INSUFFICIENT_BUFFER</b>. Note that buffer sizes are specified in characters, not bytes; thus, the Unicode version of 
+     * <b>RasGetErrorString</b> requires at least a  1024 byte buffer to guarantee that every error message  fits.
      * @param {Integer} ResourceId Specifies the error value of interest. These are values returned by one of the RAS functions: those listed in the RasError.h header file.
      * @param {PWSTR} lpszString Pointer to a buffer that receives the error string. This parameter must not be <b>NULL</b>.
      * @param {Integer} InBufSize Specifies the size, in characters, of the buffer pointed to by <i>lpszErrorString</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h. There is no <a href="/previous-versions/windows/desktop/wab/-wab-iabcontainer-getlasterror">GetLastError</a> information set by the 
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h. There is no <a href="https://docs.microsoft.com/previous-versions/windows/desktop/wab/-wab-iabcontainer-getlasterror">GetLastError</a> information set by the 
      * <b>RasGetErrorString</b> function.
      * 
      * <table>
@@ -4008,7 +4206,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgeterrorstringw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgeterrorstringw
      * @since windows5.0
      */
     static RasGetErrorStringW(ResourceId, lpszString, InBufSize) {
@@ -4019,11 +4217,37 @@ class Rras {
     }
 
     /**
-     * The RasHangUp function terminates a remote access connection. The connection is specified with a RAS connection handle. The function releases all RASAPI32.DLL resources associated with the handle.
+     * The RasHangUp function terminates a remote access connection. The connection is specified with a RAS connection handle. The function releases all RASAPI32.DLL resources associated with the handle. (ANSI)
+     * @remarks
+     * The connection is terminated even if the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> call has not yet been completed.
+     * 
+     * After this call, the <i>hrasconn</i> handle can no longer be used.
+     * 
+     * An application should not call 
+     * <b>RasHangUp</b> and then immediately exit. The connection state machine needs time to properly terminate. If the system prematurely terminates the state machine, the state machine can fail to properly close a port, leaving the port in an inconsistent state. Also, an immediate attempt to use the same connection may fail leaving the connection unusable. A simple way to avoid these problems is to call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-sleep">Sleep</a>(3000) after returning from 
+     * <b>RasHangUp</b>; after that pause, the application can exit. A more responsive way to avoid these problems is, after returning from 
+     * <b>RasHangUp</b>, to call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetconnectstatusa">RasGetConnectStatus</a>(<i>hrasconn</i>) and <b>Sleep</b>(0) in a loop until 
+     * <b>RasGetConnectStatus</b> returns <b>ERROR_INVALID_HANDLE</b>.
+     * 
+     * You can call 
+     * <b>RasHangUp</b> on the handle returned by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetsubentryhandlea">RasGetSubEntryHandle</a> to terminate a single link in a multi-link connection. However, in this case, you cannot use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetconnectstatusa">RasGetConnectStatus</a> to determine if the link terminated; 
+     * <b>RasGetConnectStatus</b> may not return <b>ERROR_INVALID_HANDLE</b> even though the link terminated successfully.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasHangUp as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HRASCONN} param0 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -4042,7 +4266,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rashangupa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rashangupa
      * @since windows5.0
      */
     static RasHangUpA(param0) {
@@ -4053,11 +4277,37 @@ class Rras {
     }
 
     /**
-     * The RasHangUp function terminates a remote access connection. The connection is specified with a RAS connection handle. The function releases all RASAPI32.DLL resources associated with the handle.
+     * The RasHangUp function terminates a remote access connection. The connection is specified with a RAS connection handle. The function releases all RASAPI32.DLL resources associated with the handle. (Unicode)
+     * @remarks
+     * The connection is terminated even if the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> call has not yet been completed.
+     * 
+     * After this call, the <i>hrasconn</i> handle can no longer be used.
+     * 
+     * An application should not call 
+     * <b>RasHangUp</b> and then immediately exit. The connection state machine needs time to properly terminate. If the system prematurely terminates the state machine, the state machine can fail to properly close a port, leaving the port in an inconsistent state. Also, an immediate attempt to use the same connection may fail leaving the connection unusable. A simple way to avoid these problems is to call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-sleep">Sleep</a>(3000) after returning from 
+     * <b>RasHangUp</b>; after that pause, the application can exit. A more responsive way to avoid these problems is, after returning from 
+     * <b>RasHangUp</b>, to call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetconnectstatusa">RasGetConnectStatus</a>(<i>hrasconn</i>) and <b>Sleep</b>(0) in a loop until 
+     * <b>RasGetConnectStatus</b> returns <b>ERROR_INVALID_HANDLE</b>.
+     * 
+     * You can call 
+     * <b>RasHangUp</b> on the handle returned by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetsubentryhandlea">RasGetSubEntryHandle</a> to terminate a single link in a multi-link connection. However, in this case, you cannot use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetconnectstatusa">RasGetConnectStatus</a> to determine if the link terminated; 
+     * <b>RasGetConnectStatus</b> may not return <b>ERROR_INVALID_HANDLE</b> even though the link terminated successfully.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasHangUp as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HRASCONN} param0 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -4076,7 +4326,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rashangupw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rashangupw
      * @since windows5.0
      */
     static RasHangUpW(param0) {
@@ -4088,13 +4338,29 @@ class Rras {
 
     /**
      * The RasGetProjectionInfo function obtains information about a remote access projection operation for a specified remote access component protocol.
+     * @remarks
+     * Remote access projection is the process whereby a remote access server and a remote client negotiate network protocol-specific information. A remote access server uses this network protocol-specific information to represent a remote client on the network.
+     * 
+     * Remote access projection information is not available until the operating system has executed the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376727(v=vs.85)">RASCS_Projected</a> state on the remote access connection. If 
+     * <b>RasGetProjectionInfo</b> is called prior to the <b>RASCS_Projected</b> state, it returns <b>ERROR_PROJECTION_NOT_COMPLETE</b>.
+     * 
+     * The NetBEUI protocol and authentication message blocks (AMB) are only supported on Windows 2000 and earlier versions of Windows.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasGetProjectionInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HRASCONN} param0 
      * @param {Integer} param1 
      * @param {Pointer<Void>} param2 
      * @param {Pointer<Integer>} param3 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -4157,7 +4423,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetprojectioninfoa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetprojectioninfoa
      * @since windows5.0
      */
     static RasGetProjectionInfoA(param0, param1, param2, param3) {
@@ -4172,13 +4438,29 @@ class Rras {
 
     /**
      * The RasGetProjectionInfo function obtains information about a remote access projection operation for a specified remote access component protocol.
+     * @remarks
+     * Remote access projection is the process whereby a remote access server and a remote client negotiate network protocol-specific information. A remote access server uses this network protocol-specific information to represent a remote client on the network.
+     * 
+     * Remote access projection information is not available until the operating system has executed the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376727(v=vs.85)">RASCS_Projected</a> state on the remote access connection. If 
+     * <b>RasGetProjectionInfo</b> is called prior to the <b>RASCS_Projected</b> state, it returns <b>ERROR_PROJECTION_NOT_COMPLETE</b>.
+     * 
+     * The NetBEUI protocol and authentication message blocks (AMB) are only supported on Windows 2000 and earlier versions of Windows.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasGetProjectionInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HRASCONN} param0 
      * @param {Integer} param1 
      * @param {Pointer<Void>} param2 
      * @param {Pointer<Integer>} param3 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -4241,7 +4523,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetprojectioninfow
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetprojectioninfow
      * @since windows5.0
      */
     static RasGetProjectionInfoW(param0, param1, param2, param3) {
@@ -4255,12 +4537,26 @@ class Rras {
     }
 
     /**
-     * The RasCreatePhonebookEntry function creates a new phone-book entry. The function displays a dialog box in which the user types information for the phone-book entry.
+     * The RasCreatePhonebookEntry function creates a new phone-book entry. The function displays a dialog box in which the user types information for the phone-book entry. (ANSI)
+     * @remarks
+     * When calling <a href="https://docs.microsoft.com/windows/desktop/api/rasdlg/nf-rasdlg-rasdialdlga">RasDialDlg</a>, set each member of the <b>RASDIALDLG</b> structure passed to <i>lpInfo</i> to zero except:
+     * 
+     * <ul>
+     * <li><i>dwSize</i> = sizeof(<b>RASDIALDLG</b>)</li>
+     * <li><i>hwndOwner</i>  = the <i>hwnd</i> parameter above</li>
+     * <li><i>dwFlags</i> = <b>RASEDFLAG_NewEntry</b></li>
+     * </ul>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasCreatePhonebookEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} param0 
      * @param {PSTR} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -4279,7 +4575,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rascreatephonebookentrya
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rascreatephonebookentrya
      * @since windows5.0
      */
     static RasCreatePhonebookEntryA(param0, param1) {
@@ -4291,12 +4587,26 @@ class Rras {
     }
 
     /**
-     * The RasCreatePhonebookEntry function creates a new phone-book entry. The function displays a dialog box in which the user types information for the phone-book entry.
+     * The RasCreatePhonebookEntry function creates a new phone-book entry. The function displays a dialog box in which the user types information for the phone-book entry. (Unicode)
+     * @remarks
+     * When calling <a href="https://docs.microsoft.com/windows/desktop/api/rasdlg/nf-rasdlg-rasdialdlga">RasDialDlg</a>, set each member of the <b>RASDIALDLG</b> structure passed to <i>lpInfo</i> to zero except:
+     * 
+     * <ul>
+     * <li><i>dwSize</i> = sizeof(<b>RASDIALDLG</b>)</li>
+     * <li><i>hwndOwner</i>  = the <i>hwnd</i> parameter above</li>
+     * <li><i>dwFlags</i> = <b>RASEDFLAG_NewEntry</b></li>
+     * </ul>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasCreatePhonebookEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} param0 
      * @param {PWSTR} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -4315,7 +4625,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rascreatephonebookentryw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rascreatephonebookentryw
      * @since windows5.0
      */
     static RasCreatePhonebookEntryW(param0, param1) {
@@ -4327,13 +4637,26 @@ class Rras {
     }
 
     /**
-     * The RasEditPhonebookEntry function edits an existing phone-book entry. The function displays a dialog box in which the user can modify the existing information.
+     * The RasEditPhonebookEntry function edits an existing phone-book entry. The function displays a dialog box in which the user can modify the existing information. (ANSI)
+     * @remarks
+     * When calling <a href="https://docs.microsoft.com/windows/desktop/api/rasdlg/nf-rasdlg-rasentrydlga">RasEntryDlg</a>, set each member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377260(v=vs.85)">RASENTRYDLG</a> structure passed to <i>lpinfo</i> to zero except:
+     * 
+     * <ul>
+     * <li><i>dwSize</i> = sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377260(v=vs.85)">RASENTRYDLG</a>)</li>
+     * <li><i>hwndOwner</i>  = the <i>hwnd</i> parameter above</li>
+     * </ul>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasEditPhonebookEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} param0 
      * @param {PSTR} param1 
      * @param {PSTR} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -4374,7 +4697,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-raseditphonebookentrya
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-raseditphonebookentrya
      * @since windows5.0
      */
     static RasEditPhonebookEntryA(param0, param1, param2) {
@@ -4387,13 +4710,26 @@ class Rras {
     }
 
     /**
-     * The RasEditPhonebookEntry function edits an existing phone-book entry. The function displays a dialog box in which the user can modify the existing information.
+     * The RasEditPhonebookEntry function edits an existing phone-book entry. The function displays a dialog box in which the user can modify the existing information. (Unicode)
+     * @remarks
+     * When calling <a href="https://docs.microsoft.com/windows/desktop/api/rasdlg/nf-rasdlg-rasentrydlga">RasEntryDlg</a>, set each member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377260(v=vs.85)">RASENTRYDLG</a> structure passed to <i>lpinfo</i> to zero except:
+     * 
+     * <ul>
+     * <li><i>dwSize</i> = sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377260(v=vs.85)">RASENTRYDLG</a>)</li>
+     * <li><i>hwndOwner</i>  = the <i>hwnd</i> parameter above</li>
+     * </ul>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasEditPhonebookEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} param0 
      * @param {PWSTR} param1 
      * @param {PWSTR} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -4434,7 +4770,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-raseditphonebookentryw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-raseditphonebookentryw
      * @since windows5.0
      */
     static RasEditPhonebookEntryW(param0, param1, param2) {
@@ -4447,13 +4783,30 @@ class Rras {
     }
 
     /**
-     * The RasSetEntryDialParams function changes the connection information saved by the last successful call to the RasDial or RasSetEntryDialParams function for a specified phone-book entry.
+     * The RasSetEntryDialParams function changes the connection information saved by the last successful call to the RasDial or RasSetEntryDialParams function for a specified phone-book entry. (ANSI)
+     * @remarks
+     * To create a new phone-book entry, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetentrypropertiesa">RasSetEntryProperties</a> function.
+     * 
+     * <b>Windows XP or later:  </b>Do not use the 
+     * <b>RasSetEntryDialParams</b> function. To set the credentials for a phone-book entry, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetcredentialsa">RasSetCredentials</a> function. Set the non-credential members of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> (for example <b>szCallbackNumber</b>, <b>dwSubEntry</b>, or <b>dwCallbackId</b>) directly in the 
+     * <b>RASDIALPARAMS</b> structure passed as a parameter to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasSetEntryDialParams as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} param0 
      * @param {Pointer<RASDIALPARAMSA>} param1 
      * @param {BOOL} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -4494,7 +4847,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rassetentrydialparamsa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetentrydialparamsa
      * @since windows5.0
      */
     static RasSetEntryDialParamsA(param0, param1, param2) {
@@ -4505,13 +4858,30 @@ class Rras {
     }
 
     /**
-     * The RasSetEntryDialParams function changes the connection information saved by the last successful call to the RasDial or RasSetEntryDialParams function for a specified phone-book entry.
+     * The RasSetEntryDialParams function changes the connection information saved by the last successful call to the RasDial or RasSetEntryDialParams function for a specified phone-book entry. (Unicode)
+     * @remarks
+     * To create a new phone-book entry, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetentrypropertiesa">RasSetEntryProperties</a> function.
+     * 
+     * <b>Windows XP or later:  </b>Do not use the 
+     * <b>RasSetEntryDialParams</b> function. To set the credentials for a phone-book entry, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetcredentialsa">RasSetCredentials</a> function. Set the non-credential members of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> (for example <b>szCallbackNumber</b>, <b>dwSubEntry</b>, or <b>dwCallbackId</b>) directly in the 
+     * <b>RASDIALPARAMS</b> structure passed as a parameter to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasSetEntryDialParams as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} param0 
      * @param {Pointer<RASDIALPARAMSW>} param1 
      * @param {BOOL} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -4552,7 +4922,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rassetentrydialparamsw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetentrydialparamsw
      * @since windows5.0
      */
     static RasSetEntryDialParamsW(param0, param1, param2) {
@@ -4563,13 +4933,16 @@ class Rras {
     }
 
     /**
-     * The RasGetEntryDialParams function retrieves the connection information saved by the last successful call to the RasDial or RasSetEntryDialParams function for a specified phone-book entry.
+     * The RasGetEntryDialParams function retrieves the connection information saved by the last successful call to the RasDial or RasSetEntryDialParams function for a specified phone-book entry. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasGetEntryDialParams as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} param0 
      * @param {Pointer<RASDIALPARAMSA>} param1 
      * @param {Pointer<BOOL>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -4610,7 +4983,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetentrydialparamsa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetentrydialparamsa
      * @since windows5.0
      */
     static RasGetEntryDialParamsA(param0, param1, param2) {
@@ -4623,13 +4996,16 @@ class Rras {
     }
 
     /**
-     * The RasGetEntryDialParams function retrieves the connection information saved by the last successful call to the RasDial or RasSetEntryDialParams function for a specified phone-book entry.
+     * The RasGetEntryDialParams function retrieves the connection information saved by the last successful call to the RasDial or RasSetEntryDialParams function for a specified phone-book entry. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasGetEntryDialParams as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} param0 
      * @param {Pointer<RASDIALPARAMSW>} param1 
      * @param {Pointer<BOOL>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -4670,7 +5046,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetentrydialparamsw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetentrydialparamsw
      * @since windows5.0
      */
     static RasGetEntryDialParamsW(param0, param1, param2) {
@@ -4683,13 +5059,20 @@ class Rras {
     }
 
     /**
-     * The RasEnumDevices function returns the name and type of all available RAS-capable devices.
+     * The RasEnumDevices function returns the name and type of all available RAS-capable devices. (ANSI)
+     * @remarks
+     * The following sample code enumerates the devices on the current machine. The code initially calls 
+     * <b>RasEnumDevices</b> with a <i>lpRasDevInfo</i> parameter of <b>NULL</b>, to obtain the size of the buffer that should be passed in. The code also sets the <b>dwSize</b> member of the first 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377001(v=vs.85)">RASDEVINFO</a> structure to sizeof(<b>RASDEVINFO</b>) to specify the version of the structure.
+     * 
+     * 
+     * ```cpp
      * @param {Pointer<RASDEVINFOA>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Integer>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -4703,7 +5086,7 @@ class Rras {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <i>lpRasDevInfo</i> buffer is not large enough. The <i>lpcb</i>parameter is less than the <b>dwSize</b> member in the <i>lpRasDevInfo</i>parameter which should be set prior to calling the function. The function returns the required buffer size in the variable pointed to by <i>lpcb</i>.
+     * The <i>lpRasDevInfo</i> buffer is not large enough. The <i>lpcb</i> parameter is less than the <b>dwSize</b> member in the <i>lpRasDevInfo</i> parameter which should be set prior to calling the function. The function returns the required buffer size in the variable pointed to by <i>lpcb</i>.
      * 
      * </td>
      * </tr>
@@ -4714,7 +5097,7 @@ class Rras {
      * </dl>
      * </td>
      * <td width="60%">
-     * Indicates insufficient memory. The <i>lpRasDevInfo</i>parameter is non-<b>NULL</b>, the <i>lpcb</i>parameter is non-<b>NULL</b> and an internal memory allocation failed. This is possibly due to a low-memory condition.
+     * Indicates insufficient memory. The <i>lpRasDevInfo</i> parameter is non-<b>NULL</b>, the <i>lpcb</i> parameter is non-<b>NULL</b> and an internal memory allocation failed. This is possibly due to a low-memory condition.
      * 
      * </td>
      * </tr>
@@ -4725,7 +5108,7 @@ class Rras {
      * </dl>
      * </td>
      * <td width="60%">
-     * Indicates an invalid parameter value. The <i>lpcb</i>parameter is <b>NULL</b> or the <i>lpcDevices</i> parameter is <b>NULL</b>.
+     * Indicates an invalid parameter value. The <i>lpcb</i> parameter is <b>NULL</b> or the <i>lpcDevices</i> parameter is <b>NULL</b>.
      * 
      * </td>
      * </tr>
@@ -4736,13 +5119,13 @@ class Rras {
      * </dl>
      * </td>
      * <td width="60%">
-     * The address or buffer specified by <i>lpRasDevInfo</i> is invalid. The <b>dwSize</b>member of the 
-     * 								<i>lpRasDevInfo</i>  parameter does not equal sizeof(<a href="/previous-versions/windows/desktop/legacy/aa377001(v=vs.85)">RASDEVINFO</a>).
+     * The address or buffer specified by <i>lpRasDevInfo</i> is invalid. The <b>dwSize</b> member of the 
+     * 								<i>lpRasDevInfo</i>  parameter does not equal sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377001(v=vs.85)">RASDEVINFO</a>).
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasenumdevicesa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasenumdevicesa
      * @since windows5.0
      */
     static RasEnumDevicesA(param0, param1, param2) {
@@ -4754,13 +5137,20 @@ class Rras {
     }
 
     /**
-     * The RasEnumDevices function returns the name and type of all available RAS-capable devices.
+     * The RasEnumDevices function returns the name and type of all available RAS-capable devices. (Unicode)
+     * @remarks
+     * The following sample code enumerates the devices on the current machine. The code initially calls 
+     * <b>RasEnumDevices</b> with a <i>lpRasDevInfo</i> parameter of <b>NULL</b>, to obtain the size of the buffer that should be passed in. The code also sets the <b>dwSize</b> member of the first 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377001(v=vs.85)">RASDEVINFO</a> structure to sizeof(<b>RASDEVINFO</b>) to specify the version of the structure.
+     * 
+     * 
+     * ```cpp
      * @param {Pointer<RASDEVINFOW>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Integer>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -4774,7 +5164,7 @@ class Rras {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <i>lpRasDevInfo</i> buffer is not large enough. The <i>lpcb</i>parameter is less than the <b>dwSize</b> member in the <i>lpRasDevInfo</i>parameter which should be set prior to calling the function. The function returns the required buffer size in the variable pointed to by <i>lpcb</i>.
+     * The <i>lpRasDevInfo</i> buffer is not large enough. The <i>lpcb</i> parameter is less than the <b>dwSize</b> member in the <i>lpRasDevInfo</i> parameter which should be set prior to calling the function. The function returns the required buffer size in the variable pointed to by <i>lpcb</i>.
      * 
      * </td>
      * </tr>
@@ -4785,7 +5175,7 @@ class Rras {
      * </dl>
      * </td>
      * <td width="60%">
-     * Indicates insufficient memory. The <i>lpRasDevInfo</i>parameter is non-<b>NULL</b>, the <i>lpcb</i>parameter is non-<b>NULL</b> and an internal memory allocation failed. This is possibly due to a low-memory condition.
+     * Indicates insufficient memory. The <i>lpRasDevInfo</i> parameter is non-<b>NULL</b>, the <i>lpcb</i> parameter is non-<b>NULL</b> and an internal memory allocation failed. This is possibly due to a low-memory condition.
      * 
      * </td>
      * </tr>
@@ -4796,7 +5186,7 @@ class Rras {
      * </dl>
      * </td>
      * <td width="60%">
-     * Indicates an invalid parameter value. The <i>lpcb</i>parameter is <b>NULL</b> or the <i>lpcDevices</i> parameter is <b>NULL</b>.
+     * Indicates an invalid parameter value. The <i>lpcb</i> parameter is <b>NULL</b> or the <i>lpcDevices</i> parameter is <b>NULL</b>.
      * 
      * </td>
      * </tr>
@@ -4807,13 +5197,13 @@ class Rras {
      * </dl>
      * </td>
      * <td width="60%">
-     * The address or buffer specified by <i>lpRasDevInfo</i> is invalid. The <b>dwSize</b>member of the 
-     * 								<i>lpRasDevInfo</i>  parameter does not equal sizeof(<a href="/previous-versions/windows/desktop/legacy/aa377001(v=vs.85)">RASDEVINFO</a>).
+     * The address or buffer specified by <i>lpRasDevInfo</i> is invalid. The <b>dwSize</b> member of the 
+     * 								<i>lpRasDevInfo</i>  parameter does not equal sizeof(<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377001(v=vs.85)">RASDEVINFO</a>).
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasenumdevicesw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasenumdevicesw
      * @since windows5.0
      */
     static RasEnumDevicesW(param0, param1, param2) {
@@ -4825,12 +5215,24 @@ class Rras {
     }
 
     /**
-     * The RasGetCountryInfo function retrieves country/region-specific dialing information from the Windows Telephony list of countries/regions.
+     * The RasGetCountryInfo function retrieves country/region-specific dialing information from the Windows Telephony list of countries/regions. (ANSI)
+     * @remarks
+     * To enumerate information for all countries/regions in the Windows Telephony list, set the <b>dwCountryId</b> member of the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376731(v=vs.85)">RASCTRYINFO</a> structure to 1 in the initial 
+     * <b>RasGetCountryInfo</b> call. This causes the function to return information for the first country/region in the list. The value returned in the <b>dwNextCountryID</b> member is the country/region identifier of the next country/region in the list. Use this value in repeated calls to 
+     * <b>RasGetCountryInfo</b> until <b>dwNextCountryID</b> returns zero, indicating the last country/region in the list.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasGetCountryInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<RASCTRYINFO>} param0 
      * @param {Pointer<Integer>} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -4882,7 +5284,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetcountryinfoa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetcountryinfoa
      * @since windows5.0
      */
     static RasGetCountryInfoA(param0, param1) {
@@ -4893,12 +5295,24 @@ class Rras {
     }
 
     /**
-     * The RasGetCountryInfo function retrieves country/region-specific dialing information from the Windows Telephony list of countries/regions.
+     * The RasGetCountryInfo function retrieves country/region-specific dialing information from the Windows Telephony list of countries/regions. (Unicode)
+     * @remarks
+     * To enumerate information for all countries/regions in the Windows Telephony list, set the <b>dwCountryId</b> member of the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376731(v=vs.85)">RASCTRYINFO</a> structure to 1 in the initial 
+     * <b>RasGetCountryInfo</b> call. This causes the function to return information for the first country/region in the list. The value returned in the <b>dwNextCountryID</b> member is the country/region identifier of the next country/region in the list. Use this value in repeated calls to 
+     * <b>RasGetCountryInfo</b> until <b>dwNextCountryID</b> returns zero, indicating the last country/region in the list.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasGetCountryInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<RASCTRYINFO>} param0 
      * @param {Pointer<Integer>} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -4950,7 +5364,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetcountryinfow
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetcountryinfow
      * @since windows5.0
      */
     static RasGetCountryInfoW(param0, param1) {
@@ -4961,7 +5375,10 @@ class Rras {
     }
 
     /**
-     * The RasGetEntryProperties function retrieves the properties of a phone-book entry.
+     * The RasGetEntryProperties function retrieves the properties of a phone-book entry. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasGetEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} param0 
      * @param {PSTR} param1 
      * @param {Pointer<RASENTRYA>} param2 
@@ -4970,7 +5387,7 @@ class Rras {
      * @param {Pointer<Integer>} param5 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -5033,7 +5450,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetentrypropertiesa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetentrypropertiesa
      * @since windows5.0
      */
     static RasGetEntryPropertiesA(param0, param1, param2, param3, param4, param5) {
@@ -5049,7 +5466,10 @@ class Rras {
     }
 
     /**
-     * The RasGetEntryProperties function retrieves the properties of a phone-book entry.
+     * The RasGetEntryProperties function retrieves the properties of a phone-book entry. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasGetEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} param0 
      * @param {PWSTR} param1 
      * @param {Pointer<RASENTRYW>} param2 
@@ -5058,7 +5478,7 @@ class Rras {
      * @param {Pointer<Integer>} param5 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -5121,7 +5541,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetentrypropertiesw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetentrypropertiesw
      * @since windows5.0
      */
     static RasGetEntryPropertiesW(param0, param1, param2, param3, param4, param5) {
@@ -5137,7 +5557,30 @@ class Rras {
     }
 
     /**
-     * The RasSetEntryProperties function changes the connection information for an entry in the phone book or creates a new phone-book entry.
+     * The RasSetEntryProperties function changes the connection information for an entry in the phone book or creates a new phone-book entry. (ANSI)
+     * @remarks
+     * When setting properties for an all-users connection, if the calling application specifies a 
+     *     non-<b>NULL</b> value for the phone-book parameter, <i>lpszPhonebook</i>, 
+     *     the phone-book file must be located in the phone-book directory beneath the all-users application data path. To 
+     *     obtain the correct location for the phone-book file, first call 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetfolderpatha">SHGetFolderPath</a> with a 
+     *     <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL</a> value of <b>CSIDL_COMMON_APPDATA</b>. 
+     *     <b>SHGetFolderPath</b> returns the all-users 
+     *     application data path. Append the following string to this path:
+     * 
+     * Microsoft\Network\Connections\Pbk
+     * 
+     * The combined path is the correct location for the phone-book file.
+     * 
+     * <div class="alert"><b>Note</b>  Specifying a non-<b>NULL</b> value for the <i>lpszPhonebook</i> 
+     *     parameter may not be supported in versions of Windows later than Windows XP.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasSetEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} param0 
      * @param {PSTR} param1 
      * @param {Pointer<RASENTRYA>} param2 
@@ -5147,7 +5590,7 @@ class Rras {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from 
-     *        <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> 
+     *        <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> 
      *        or WinError.h.
      * 
      * <table>
@@ -5195,7 +5638,7 @@ class Rras {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure pointed to by the 
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure pointed to by the 
      *         <i>lpRasEntry</i> parameter does not contain adequate information, or the specified entry 
      *         does not exist in the phone book. See the description for <i>lpRasEntry</i> to see what 
      *         information is required.
@@ -5203,7 +5646,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rassetentrypropertiesa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetentrypropertiesa
      * @since windows5.0
      */
     static RasSetEntryPropertiesA(param0, param1, param2, param3, param4, param5) {
@@ -5217,7 +5660,30 @@ class Rras {
     }
 
     /**
-     * The RasSetEntryProperties function changes the connection information for an entry in the phone book or creates a new phone-book entry.
+     * The RasSetEntryProperties function changes the connection information for an entry in the phone book or creates a new phone-book entry. (Unicode)
+     * @remarks
+     * When setting properties for an all-users connection, if the calling application specifies a 
+     *     non-<b>NULL</b> value for the phone-book parameter, <i>lpszPhonebook</i>, 
+     *     the phone-book file must be located in the phone-book directory beneath the all-users application data path. To 
+     *     obtain the correct location for the phone-book file, first call 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetfolderpatha">SHGetFolderPath</a> with a 
+     *     <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL</a> value of <b>CSIDL_COMMON_APPDATA</b>. 
+     *     <b>SHGetFolderPath</b> returns the all-users 
+     *     application data path. Append the following string to this path:
+     * 
+     * Microsoft\Network\Connections\Pbk
+     * 
+     * The combined path is the correct location for the phone-book file.
+     * 
+     * <div class="alert"><b>Note</b>  Specifying a non-<b>NULL</b> value for the <i>lpszPhonebook</i> 
+     *     parameter may not be supported in versions of Windows later than Windows XP.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasSetEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} param0 
      * @param {PWSTR} param1 
      * @param {Pointer<RASENTRYW>} param2 
@@ -5227,7 +5693,7 @@ class Rras {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from 
-     *        <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> 
+     *        <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> 
      *        or WinError.h.
      * 
      * <table>
@@ -5275,7 +5741,7 @@ class Rras {
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure pointed to by the 
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure pointed to by the 
      *         <i>lpRasEntry</i> parameter does not contain adequate information, or the specified entry 
      *         does not exist in the phone book. See the description for <i>lpRasEntry</i> to see what 
      *         information is required.
@@ -5283,7 +5749,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rassetentrypropertiesw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetentrypropertiesw
      * @since windows5.0
      */
     static RasSetEntryPropertiesW(param0, param1, param2, param3, param4, param5) {
@@ -5297,13 +5763,27 @@ class Rras {
     }
 
     /**
-     * The RasRenameEntry function changes the name of an entry in a phone book.
+     * The RasRenameEntry function changes the name of an entry in a phone book. (ANSI)
+     * @remarks
+     * The 
+     * <b>RasRenameEntry</b> function allows entry names that would not be accepted by the dial-up networking user interface. The entry names specified in 
+     * <b>RasRenameEntry</b> can consist of any string that adheres to the following conditions:
+     * 
+     * <ol>
+     * <li>The string cannot have a length greater than RAS_MaxEntryName (as defined in Ras.h).</li>
+     * <li>The string cannot consist entirely of space or tab characters.</li>
+     * <li>The first character in the string cannot be a period character (".").</li>
+     * </ol>
+     * The following code sample renames the phone-book entry with the name specified by <i>pszOldName</i> to the new name specified by <i>pszNewName</i>.
+     * 
+     * 
+     * ```cpp
      * @param {PSTR} param0 
      * @param {PSTR} param1 
      * @param {PSTR} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -5355,7 +5835,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasrenameentrya
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasrenameentrya
      * @since windows5.0
      */
     static RasRenameEntryA(param0, param1, param2) {
@@ -5368,13 +5848,27 @@ class Rras {
     }
 
     /**
-     * The RasRenameEntry function changes the name of an entry in a phone book.
+     * The RasRenameEntry function changes the name of an entry in a phone book. (Unicode)
+     * @remarks
+     * The 
+     * <b>RasRenameEntry</b> function allows entry names that would not be accepted by the dial-up networking user interface. The entry names specified in 
+     * <b>RasRenameEntry</b> can consist of any string that adheres to the following conditions:
+     * 
+     * <ol>
+     * <li>The string cannot have a length greater than RAS_MaxEntryName (as defined in Ras.h).</li>
+     * <li>The string cannot consist entirely of space or tab characters.</li>
+     * <li>The first character in the string cannot be a period character (".").</li>
+     * </ol>
+     * The following code sample renames the phone-book entry with the name specified by <i>pszOldName</i> to the new name specified by <i>pszNewName</i>.
+     * 
+     * 
+     * ```cpp
      * @param {PWSTR} param0 
      * @param {PWSTR} param1 
      * @param {PWSTR} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -5426,7 +5920,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasrenameentryw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasrenameentryw
      * @since windows5.0
      */
     static RasRenameEntryW(param0, param1, param2) {
@@ -5439,12 +5933,17 @@ class Rras {
     }
 
     /**
-     * The RasDeleteEntry function deletes an entry from a phone book.
+     * The RasDeleteEntry function deletes an entry from a phone book. (ANSI)
+     * @remarks
+     * The following sample code deletes the phone-book entry specified by the variable <i>lpszEntry</i>.
+     * 
+     * 
+     * ```cpp
      * @param {PSTR} param0 
      * @param {PSTR} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -5475,7 +5974,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasdeleteentrya
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasdeleteentrya
      * @since windows5.0
      */
     static RasDeleteEntryA(param0, param1) {
@@ -5487,12 +5986,17 @@ class Rras {
     }
 
     /**
-     * The RasDeleteEntry function deletes an entry from a phone book.
+     * The RasDeleteEntry function deletes an entry from a phone book. (Unicode)
+     * @remarks
+     * The following sample code deletes the phone-book entry specified by the variable <i>lpszEntry</i>.
+     * 
+     * 
+     * ```cpp
      * @param {PWSTR} param0 
      * @param {PWSTR} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -5523,7 +6027,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasdeleteentryw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasdeleteentryw
      * @since windows5.0
      */
     static RasDeleteEntryW(param0, param1) {
@@ -5535,12 +6039,17 @@ class Rras {
     }
 
     /**
-     * The RasValidateEntryName function validates the format of a connection entry name. The name must contain at least one non-white-space alphanumeric character.
+     * The RasValidateEntryName function validates the format of a connection entry name. The name must contain at least one non-white-space alphanumeric character. (ANSI)
+     * @remarks
+     * The following sample code validates the phone-book entry specified by the variable <i>lpszEntry</i>.
+     * 
+     * 
+     * ```cpp
      * @param {PSTR} param0 
      * @param {PSTR} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -5581,7 +6090,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasvalidateentrynamea
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasvalidateentrynamea
      * @since windows5.0
      */
     static RasValidateEntryNameA(param0, param1) {
@@ -5593,10 +6102,57 @@ class Rras {
     }
 
     /**
+     * The RasValidateEntryName function validates the format of a connection entry name. The name must contain at least one non-white-space alphanumeric character. (Unicode)
+     * @remarks
+     * The following sample code validates the phone-book entry specified by the variable <i>lpszEntry</i>.
      * 
+     * 
+     * ```cpp
      * @param {PWSTR} param0 
      * @param {PWSTR} param1 
-     * @returns {Integer} 
+     * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
+     * 
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_ALREADY_EXISTS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The entry name already exists in the specified phonebook.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_CANNOT_FIND_PHONEBOOK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified phonebook doesn't exist.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_NAME</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The format of the specified entry name is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasvalidateentrynamew
      * @since windows5.0
      */
@@ -5609,14 +6165,27 @@ class Rras {
     }
 
     /**
-     * The RasConnectionNotification function specifies an event object that the system sets to the signaled state when a RAS connection is created or terminated.
+     * The RasConnectionNotification function specifies an event object that the system sets to the signaled state when a RAS connection is created or terminated. (ANSI)
+     * @remarks
+     * To determine when the event object is signaled, use any of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/Sync/wait-functions">wait functions</a>.
+     * 
+     * When the event is signaled, use other RAS functions, such as 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a>, to get more information about the RAS connection that was created or terminated.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasConnectionNotification as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HRASCONN} param0 
      * @param {HANDLE} param1 
      * @param {Integer} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is a non-zero error code from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasconnectionnotificationa
+     * If the function fails, the return value is a non-zero error code from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasconnectionnotificationa
      * @since windows5.0
      */
     static RasConnectionNotificationA(param0, param1, param2) {
@@ -5628,14 +6197,27 @@ class Rras {
     }
 
     /**
-     * The RasConnectionNotification function specifies an event object that the system sets to the signaled state when a RAS connection is created or terminated.
+     * The RasConnectionNotification function specifies an event object that the system sets to the signaled state when a RAS connection is created or terminated. (Unicode)
+     * @remarks
+     * To determine when the event object is signaled, use any of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/Sync/wait-functions">wait functions</a>.
+     * 
+     * When the event is signaled, use other RAS functions, such as 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a>, to get more information about the RAS connection that was created or terminated.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasConnectionNotification as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HRASCONN} param0 
      * @param {HANDLE} param1 
      * @param {Integer} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is a non-zero error code from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasconnectionnotificationw
+     * If the function fails, the return value is a non-zero error code from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasconnectionnotificationw
      * @since windows5.0
      */
     static RasConnectionNotificationW(param0, param1, param2) {
@@ -5647,13 +6229,32 @@ class Rras {
     }
 
     /**
-     * The RasGetSubEntryHandle function retrieves a connection handle for a specified subentry of a multilink connection.
+     * The RasGetSubEntryHandle function retrieves a connection handle for a specified subentry of a multilink connection. (ANSI)
+     * @remarks
+     * The connection handle specified in the <i>hRasConn</i> parameter refers to the entire multilink connection, but the connection handle returned in the <i>*lphRasConn</i> parameter refers only to the subentry connection. Use the subentry connection handle in any function that accepts an <i>hRasConn</i> parameter, including the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rashangupa">RasHangUp</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetconnectstatusa">RasGetConnectStatus</a>, and 
+     * <a href="https://docs.microsoft.com/windows/win32/api/ras/nf-ras-rasgetprojectioninfoex">RasGetProjectionInfoEx</a> functions. The projection information returned by 
+     * <b>RasGetProjectionInfo</b> for a multilink entry is the same for the each of the subentry connection handles as it is for the main connection handle.
+     * 
+     * You can call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rashangupa">RasHangUp</a> on the handle returned by 
+     * <b>RasGetSubEntryHandle</b> to terminate a single link in a multi-link connection. However, you cannot use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetconnectstatusa">RasGetConnectStatus</a> to determine if the link terminated; 
+     * <b>RasGetConnectStatus</b> may not return ERROR_INVALID_HANDLE even though the link terminated successfully.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasGetSubEntryHandle as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HRASCONN} param0 
      * @param {Integer} param1 
      * @param {Pointer<HRASCONN>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -5694,7 +6295,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetsubentryhandlea
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetsubentryhandlea
      * @since windows5.0
      */
     static RasGetSubEntryHandleA(param0, param1, param2) {
@@ -5705,13 +6306,32 @@ class Rras {
     }
 
     /**
-     * The RasGetSubEntryHandle function retrieves a connection handle for a specified subentry of a multilink connection.
+     * The RasGetSubEntryHandle function retrieves a connection handle for a specified subentry of a multilink connection. (Unicode)
+     * @remarks
+     * The connection handle specified in the <i>hRasConn</i> parameter refers to the entire multilink connection, but the connection handle returned in the <i>*lphRasConn</i> parameter refers only to the subentry connection. Use the subentry connection handle in any function that accepts an <i>hRasConn</i> parameter, including the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rashangupa">RasHangUp</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetconnectstatusa">RasGetConnectStatus</a>, and 
+     * <a href="https://docs.microsoft.com/windows/win32/api/ras/nf-ras-rasgetprojectioninfoex">RasGetProjectionInfoEx</a> functions. The projection information returned by 
+     * <b>RasGetProjectionInfo</b> for a multilink entry is the same for the each of the subentry connection handles as it is for the main connection handle.
+     * 
+     * You can call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rashangupa">RasHangUp</a> on the handle returned by 
+     * <b>RasGetSubEntryHandle</b> to terminate a single link in a multi-link connection. However, you cannot use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetconnectstatusa">RasGetConnectStatus</a> to determine if the link terminated; 
+     * <b>RasGetConnectStatus</b> may not return ERROR_INVALID_HANDLE even though the link terminated successfully.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasGetSubEntryHandle as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HRASCONN} param0 
      * @param {Integer} param1 
      * @param {Pointer<HRASCONN>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -5752,7 +6372,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetsubentryhandlew
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetsubentryhandlew
      * @since windows5.0
      */
     static RasGetSubEntryHandleW(param0, param1, param2) {
@@ -5763,13 +6383,44 @@ class Rras {
     }
 
     /**
-     * The RasGetCredentials function retrieves the user credentials associated with a specified RAS phone-book entry.
+     * The RasGetCredentials function retrieves the user credentials associated with a specified RAS phone-book entry. (ANSI)
+     * @remarks
+     * The 
+     * <b>RasGetCredentials</b> function retrieves the credentials of the last user in order to connect using the specified phone-book entry, or the credentials subsequently specified in a call to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetcredentialsa">RasSetCredentials</a> function for the phone-book entry.
+     * 
+     *  This function is the preferred way of securely retrieving the credentials associated with a RAS phone-book entry. 
+     * <b>RasGetCredentials</b> supersedes the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrydialparamsa">RasGetEntryDialParams</a> function, which may not be supported in future releases of Windows.
+     * 
+     * <b>RasGetCredentials</b> does not return the actual password. Instead, the <b>szPassword</b> member of the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure contains a handle to the saved password. Substitute this handle for the saved password in subsequent calls to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetcredentialsa">RasSetCredentials</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a>. When presented with this handle, 
+     * <b>RasDial</b>  retrieves and uses the saved password. The value of this handle may change in future versions of the operating system; do not develop code that depends on the contents or format of this value.
+     * 
+     * The <b>dwMask</b> member of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> contains the RASCM_Password flag if the system has saved a password for the specified entry. If the system has no password saved for this entry, <b>dwMask</b> does not contain RASCM_Password.
+     * 
+     * <b>Windows 2000/NT:  </b>This feature is not supported.
+     * 
+     * If the <b>dwMask</b> of the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure contains the RASCM_DefaultCreds flag, the credentials returned are the default credentials for an all-user connection.
+     * 
+     * To retrieve a pre-shared key, use the RASCM_PreSharedKey flag in the RASCREDENTIALS.dwMask field.
+     * 
+     * <b>Windows 2000/NT:  </b>This feature is not supported.
+     * 
+     * The following sample code creates the "RasEntryName" phone book entry, sets its credentials using <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetcredentialsa">RasSetCredentials</a>, and then retrieves those credentials using <b>RasGetCredentials</b>.
+     * 
+     * 
+     * ```cpp
      * @param {PSTR} param0 
      * @param {PSTR} param1 
      * @param {Pointer<RASCREDENTIALSA>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -5817,12 +6468,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * The <b>dwSize</b> member of the 
-     * <a href="/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure is an unrecognized value.
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure is an unrecognized value.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetcredentialsa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetcredentialsa
      * @since windows5.0
      */
     static RasGetCredentialsA(param0, param1, param2) {
@@ -5834,13 +6485,44 @@ class Rras {
     }
 
     /**
-     * The RasGetCredentials function retrieves the user credentials associated with a specified RAS phone-book entry.
+     * The RasGetCredentials function retrieves the user credentials associated with a specified RAS phone-book entry. (Unicode)
+     * @remarks
+     * The 
+     * <b>RasGetCredentials</b> function retrieves the credentials of the last user in order to connect using the specified phone-book entry, or the credentials subsequently specified in a call to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetcredentialsa">RasSetCredentials</a> function for the phone-book entry.
+     * 
+     *  This function is the preferred way of securely retrieving the credentials associated with a RAS phone-book entry. 
+     * <b>RasGetCredentials</b> supersedes the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrydialparamsa">RasGetEntryDialParams</a> function, which may not be supported in future releases of Windows.
+     * 
+     * <b>RasGetCredentials</b> does not return the actual password. Instead, the <b>szPassword</b> member of the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure contains a handle to the saved password. Substitute this handle for the saved password in subsequent calls to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetcredentialsa">RasSetCredentials</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a>. When presented with this handle, 
+     * <b>RasDial</b>  retrieves and uses the saved password. The value of this handle may change in future versions of the operating system; do not develop code that depends on the contents or format of this value.
+     * 
+     * The <b>dwMask</b> member of 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> contains the RASCM_Password flag if the system has saved a password for the specified entry. If the system has no password saved for this entry, <b>dwMask</b> does not contain RASCM_Password.
+     * 
+     * <b>Windows 2000/NT:  </b>This feature is not supported.
+     * 
+     * If the <b>dwMask</b> of the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure contains the RASCM_DefaultCreds flag, the credentials returned are the default credentials for an all-user connection.
+     * 
+     * To retrieve a pre-shared key, use the RASCM_PreSharedKey flag in the RASCREDENTIALS.dwMask field.
+     * 
+     * <b>Windows 2000/NT:  </b>This feature is not supported.
+     * 
+     * The following sample code creates the "RasEntryName" phone book entry, sets its credentials using <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetcredentialsa">RasSetCredentials</a>, and then retrieves those credentials using <b>RasGetCredentials</b>.
+     * 
+     * 
+     * ```cpp
      * @param {PWSTR} param0 
      * @param {PWSTR} param1 
      * @param {Pointer<RASCREDENTIALSW>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -5888,12 +6570,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * The <b>dwSize</b> member of the 
-     * <a href="/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure is an unrecognized value.
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure is an unrecognized value.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetcredentialsw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetcredentialsw
      * @since windows5.0
      */
     static RasGetCredentialsW(param0, param1, param2) {
@@ -5905,7 +6587,65 @@ class Rras {
     }
 
     /**
-     * Sets the user credentials associated with a specified RAS phone-book entry.
+     * Sets the user credentials associated with a specified RAS phone-book entry. (ANSI)
+     * @remarks
+     * The <b>RasSetCredentials</b> function sets the user 
+     *     credentials associated with a specified RAS phone-book entry. The credentials stored with a phone-book entry are 
+     *     the credentials of the last user to successfully connect by using the specified phone-book entry, or the 
+     *     credentials subsequently specified in a call to the 
+     *     <b>RasSetCredentials</b> or 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetentrydialparamsa">RasSetEntryDialParams</a> function for the 
+     *     phone-book entry.
+     * 
+     * The <b>RasSetCredentials</b> function is the preferred 
+     *     way of securely storing credentials with a phone-book entry. 
+     *     <b>RasSetCredentials</b> supersedes the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetentrydialparamsa">RasSetEntryDialParams</a> function, which may not be 
+     *     supported in future releases of the Windows operating system.
+     * 
+     * A password handle is "****************" (16 asterisks). If you call 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetcredentialsa">RasGetCredentials</a> and receive 16 *s back in the 
+     *     password field, you have a stored password and, for security reasons, it will not be given  back to you in plain 
+     *     text.  If the <b>szPassword</b> member of the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure contains the password handle 
+     *     (16 *s) returned by <b>RasGetCredentials</b> or 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrydialparamsa">RasGetEntryDialParams</a>,  the next call to 
+     *     <b>RasSetCredentials</b> will not change the saved 
+     *     password.
+     * 
+     * To set the default credentials for an all-user connection, set the 
+     *     <b>RASCM_DefaultCreds</b> flag in the <b>dwMask</b> member of the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure pointed to by 
+     *     the <i>lpCredentials</i> parameter. If you attempt to set default credentials for a per-user 
+     *     connection, <b>RasSetCredentials</b> returns 
+     *     <b>ERROR_ACCESS_DENIED</b>. 
+     * 
+     * When setting credentials for an all-users connection, if 
+     *     the calling application specifies a non-NULL value for the phone-book parameter, 
+     *     <i>lpszPhonebook</i>, the phone-book file must be located in the phone-book directory beneath 
+     *     the all-users application data path. To obtain the correct location for the phone-book file, first call 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetfolderpatha">SHGetFolderPath</a> with a 
+     *     <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL</a> value of <b>CSIDL_COMMON_APPDATA</b>. 
+     *     <b>SHGetFolderPath</b> returns the all-users 
+     *     application data path. Append the following string to this path:
+     * 
+     * Microsoft\Network\Connections\Pbk
+     * 
+     * The combined path is the correct location for the phone-book file.
+     * 
+     * <div class="alert"><b>Note</b>  Specifying a non-NULL value for the <i>lpszPhonebook</i> parameter may not be supported in 
+     *     later versions of the Windows operating system.</div>
+     * <div> </div>
+     * To set a pre-shared key, use the <b>RASCM_PreSharedKey</b> flag in the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a>.<b>dwMask</b> 
+     *     field.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasSetCredentials as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} param0 
      * @param {PSTR} param1 
      * @param {Pointer<RASCREDENTIALSA>} param2 
@@ -5913,7 +6653,7 @@ class Rras {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from 
-     *        <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> 
+     *        <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> 
      *        or WinError.h.
      * 
      * <table>
@@ -5963,7 +6703,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rassetcredentialsa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetcredentialsa
      * @since windows5.0
      */
     static RasSetCredentialsA(param0, param1, param2, param3) {
@@ -5975,7 +6715,65 @@ class Rras {
     }
 
     /**
-     * Sets the user credentials associated with a specified RAS phone-book entry.
+     * Sets the user credentials associated with a specified RAS phone-book entry. (Unicode)
+     * @remarks
+     * The <b>RasSetCredentials</b> function sets the user 
+     *     credentials associated with a specified RAS phone-book entry. The credentials stored with a phone-book entry are 
+     *     the credentials of the last user to successfully connect by using the specified phone-book entry, or the 
+     *     credentials subsequently specified in a call to the 
+     *     <b>RasSetCredentials</b> or 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetentrydialparamsa">RasSetEntryDialParams</a> function for the 
+     *     phone-book entry.
+     * 
+     * The <b>RasSetCredentials</b> function is the preferred 
+     *     way of securely storing credentials with a phone-book entry. 
+     *     <b>RasSetCredentials</b> supersedes the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetentrydialparamsa">RasSetEntryDialParams</a> function, which may not be 
+     *     supported in future releases of the Windows operating system.
+     * 
+     * A password handle is "****************" (16 asterisks). If you call 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetcredentialsa">RasGetCredentials</a> and receive 16 *s back in the 
+     *     password field, you have a stored password and, for security reasons, it will not be given  back to you in plain 
+     *     text.  If the <b>szPassword</b> member of the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure contains the password handle 
+     *     (16 *s) returned by <b>RasGetCredentials</b> or 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrydialparamsa">RasGetEntryDialParams</a>,  the next call to 
+     *     <b>RasSetCredentials</b> will not change the saved 
+     *     password.
+     * 
+     * To set the default credentials for an all-user connection, set the 
+     *     <b>RASCM_DefaultCreds</b> flag in the <b>dwMask</b> member of the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a> structure pointed to by 
+     *     the <i>lpCredentials</i> parameter. If you attempt to set default credentials for a per-user 
+     *     connection, <b>RasSetCredentials</b> returns 
+     *     <b>ERROR_ACCESS_DENIED</b>. 
+     * 
+     * When setting credentials for an all-users connection, if 
+     *     the calling application specifies a non-NULL value for the phone-book parameter, 
+     *     <i>lpszPhonebook</i>, the phone-book file must be located in the phone-book directory beneath 
+     *     the all-users application data path. To obtain the correct location for the phone-book file, first call 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetfolderpatha">SHGetFolderPath</a> with a 
+     *     <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL</a> value of <b>CSIDL_COMMON_APPDATA</b>. 
+     *     <b>SHGetFolderPath</b> returns the all-users 
+     *     application data path. Append the following string to this path:
+     * 
+     * Microsoft\Network\Connections\Pbk
+     * 
+     * The combined path is the correct location for the phone-book file.
+     * 
+     * <div class="alert"><b>Note</b>  Specifying a non-NULL value for the <i>lpszPhonebook</i> parameter may not be supported in 
+     *     later versions of the Windows operating system.</div>
+     * <div> </div>
+     * To set a pre-shared key, use the <b>RASCM_PreSharedKey</b> flag in the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376730(v=vs.85)">RASCREDENTIALS</a>.<b>dwMask</b> 
+     *     field.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasSetCredentials as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} param0 
      * @param {PWSTR} param1 
      * @param {Pointer<RASCREDENTIALSW>} param2 
@@ -5983,7 +6781,7 @@ class Rras {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from 
-     *        <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> 
+     *        <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> 
      *        or WinError.h.
      * 
      * <table>
@@ -6033,7 +6831,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rassetcredentialsw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetcredentialsw
      * @since windows5.0
      */
     static RasSetCredentialsW(param0, param1, param2, param3) {
@@ -6045,7 +6843,20 @@ class Rras {
     }
 
     /**
-     * The RasGetSubEntryProperties function retrieves information about a subentry for a specified phone-book entry.
+     * The RasGetSubEntryProperties function retrieves information about a subentry for a specified phone-book entry. (ANSI)
+     * @remarks
+     * A RAS phone-book entry can have zero or more subentries, each minimally consisting of a device and a phone number. A phone-book entry with multiple subentries can be configured to dial the first available or all subentries when the entry is dialed.
+     * 
+     * Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrypropertiesa">RasGetEntryProperties</a> function to retrieve a 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure containing information about the subentries of a phone-book entry. The <b>dwSubEntries</b> member indicates the number of subentries and the <b>dwDialMode</b> member indicates the dialing configuration.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasGetSubEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} param0 
      * @param {PSTR} param1 
      * @param {Integer} param2 
@@ -6055,7 +6866,7 @@ class Rras {
      * @param {Pointer<Integer>} param6 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -6118,7 +6929,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetsubentrypropertiesa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetsubentrypropertiesa
      * @since windows5.0
      */
     static RasGetSubEntryPropertiesA(param0, param1, param2, param3, param4, param5, param6) {
@@ -6134,7 +6945,20 @@ class Rras {
     }
 
     /**
-     * The RasGetSubEntryProperties function retrieves information about a subentry for a specified phone-book entry.
+     * The RasGetSubEntryProperties function retrieves information about a subentry for a specified phone-book entry. (Unicode)
+     * @remarks
+     * A RAS phone-book entry can have zero or more subentries, each minimally consisting of a device and a phone number. A phone-book entry with multiple subentries can be configured to dial the first available or all subentries when the entry is dialed.
+     * 
+     * Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrypropertiesa">RasGetEntryProperties</a> function to retrieve a 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure containing information about the subentries of a phone-book entry. The <b>dwSubEntries</b> member indicates the number of subentries and the <b>dwDialMode</b> member indicates the dialing configuration.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasGetSubEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} param0 
      * @param {PWSTR} param1 
      * @param {Integer} param2 
@@ -6144,7 +6968,7 @@ class Rras {
      * @param {Pointer<Integer>} param6 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -6207,7 +7031,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetsubentrypropertiesw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetsubentrypropertiesw
      * @since windows5.0
      */
     static RasGetSubEntryPropertiesW(param0, param1, param2, param3, param4, param5, param6) {
@@ -6223,7 +7047,20 @@ class Rras {
     }
 
     /**
-     * The RasSetSubEntryProperties function creates a new subentry or modifies an existing subentry of a specified phone-book entry.
+     * The RasSetSubEntryProperties function creates a new subentry or modifies an existing subentry of a specified phone-book entry. (ANSI)
+     * @remarks
+     * A RAS phone-book entry can have zero or more subentries, each minimally consisting of a device and a phone number. A phone-book entry with multiple subentries can be configured to dial either the first available subentry or all subentries when the entry is dialed.
+     * 
+     * Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrypropertiesa">RasGetEntryProperties</a> function to retrieve the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure containing information about the subentries of a phone-book entry. The <b>dwSubEntries</b> member indicates the number of subentries and the <b>dwDialMode</b> member indicates the dialing configuration.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasSetSubEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} param0 
      * @param {PSTR} param1 
      * @param {Integer} param2 
@@ -6233,7 +7070,7 @@ class Rras {
      * @param {Integer} param6 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -6285,7 +7122,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rassetsubentrypropertiesa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetsubentrypropertiesa
      * @since windows5.0
      */
     static RasSetSubEntryPropertiesA(param0, param1, param2, param3, param4, param5, param6) {
@@ -6299,7 +7136,20 @@ class Rras {
     }
 
     /**
-     * The RasSetSubEntryProperties function creates a new subentry or modifies an existing subentry of a specified phone-book entry.
+     * The RasSetSubEntryProperties function creates a new subentry or modifies an existing subentry of a specified phone-book entry. (Unicode)
+     * @remarks
+     * A RAS phone-book entry can have zero or more subentries, each minimally consisting of a device and a phone number. A phone-book entry with multiple subentries can be configured to dial either the first available subentry or all subentries when the entry is dialed.
+     * 
+     * Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrypropertiesa">RasGetEntryProperties</a> function to retrieve the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377274(v=vs.85)">RASENTRY</a> structure containing information about the subentries of a phone-book entry. The <b>dwSubEntries</b> member indicates the number of subentries and the <b>dwDialMode</b> member indicates the dialing configuration.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasSetSubEntryProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} param0 
      * @param {PWSTR} param1 
      * @param {Integer} param2 
@@ -6309,7 +7159,7 @@ class Rras {
      * @param {Integer} param6 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -6361,7 +7211,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rassetsubentrypropertiesw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetsubentrypropertiesw
      * @since windows5.0
      */
     static RasSetSubEntryPropertiesW(param0, param1, param2, param3, param4, param5, param6) {
@@ -6375,7 +7225,50 @@ class Rras {
     }
 
     /**
-     * The RasGetAutodialAddress function retrieves information about all the AutoDial entries associated with a network address in the AutoDial mapping database.
+     * The RasGetAutodialAddress function retrieves information about all the AutoDial entries associated with a network address in the AutoDial mapping database. (ANSI)
+     * @remarks
+     * The Remote Access Service (RAS) supports default Internet connections. RAS supports a default Internet connection that is global to the local computer, and in addition, supports a default Internet connection for each user.
+     * 
+     * The name of the global default Internet connection is stored in the registry below the following registry key:
+     * 
+     * 
+     * <pre><b>HKEY_LOCAL_MACHINE</b>
+     *    <b>Software</b>
+     *       <b>Microsoft</b>
+     *          <b>Ras Autodial</b>
+     *             <b>Default</b></pre>
+     * 
+     * 
+     * The value that stores the name of the connection is: 
+     * 			
+     * 
+     * <b>DefaultInternet</b>
+     * 
+     * This value is of type <b>REG_SZ</b>.
+     * 
+     * The global default Internet connection must be configured as a <b>For all users</b> connection in the <b>Connections Folder</b> user interface.
+     * 
+     * The name of the per-user default Internet connection is stored in the registry below the following registry key: 
+     * 			
+     * 
+     * 
+     * <b>HKEY_CURRENT_USER</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Ras Autodial</b>&#92;<b>Default</b>
+     * 
+     * 
+     * 
+     * The value that stores the name of the connection is: 
+     * 			
+     * 
+     * <b>DefaultInternet</b>
+     * 
+     * This value is of type <b>REG_SZ</b>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasGetAutodialAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<RASAUTODIALENTRYA>} param2 
@@ -6383,7 +7276,7 @@ class Rras {
      * @param {Pointer<Integer>} param4 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -6398,7 +7291,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * The <b>dwSize</b> member of the 
-     * <a href="/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structure is an invalid value.
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structure is an invalid value.
      * 
      * </td>
      * </tr>
@@ -6414,7 +7307,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetautodialaddressa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetautodialaddressa
      * @since windows5.0
      */
     static RasGetAutodialAddressA(param0, param1, param2, param3, param4) {
@@ -6429,7 +7322,50 @@ class Rras {
     }
 
     /**
-     * The RasGetAutodialAddress function retrieves information about all the AutoDial entries associated with a network address in the AutoDial mapping database.
+     * The RasGetAutodialAddress function retrieves information about all the AutoDial entries associated with a network address in the AutoDial mapping database. (Unicode)
+     * @remarks
+     * The Remote Access Service (RAS) supports default Internet connections. RAS supports a default Internet connection that is global to the local computer, and in addition, supports a default Internet connection for each user.
+     * 
+     * The name of the global default Internet connection is stored in the registry below the following registry key:
+     * 
+     * 
+     * <pre><b>HKEY_LOCAL_MACHINE</b>
+     *    <b>Software</b>
+     *       <b>Microsoft</b>
+     *          <b>Ras Autodial</b>
+     *             <b>Default</b></pre>
+     * 
+     * 
+     * The value that stores the name of the connection is: 
+     * 			
+     * 
+     * <b>DefaultInternet</b>
+     * 
+     * This value is of type <b>REG_SZ</b>.
+     * 
+     * The global default Internet connection must be configured as a <b>For all users</b> connection in the <b>Connections Folder</b> user interface.
+     * 
+     * The name of the per-user default Internet connection is stored in the registry below the following registry key: 
+     * 			
+     * 
+     * 
+     * <b>HKEY_CURRENT_USER</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Ras Autodial</b>&#92;<b>Default</b>
+     * 
+     * 
+     * 
+     * The value that stores the name of the connection is: 
+     * 			
+     * 
+     * <b>DefaultInternet</b>
+     * 
+     * This value is of type <b>REG_SZ</b>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasGetAutodialAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<RASAUTODIALENTRYW>} param2 
@@ -6437,7 +7373,7 @@ class Rras {
      * @param {Pointer<Integer>} param4 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -6452,7 +7388,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * The <b>dwSize</b> member of the 
-     * <a href="/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structure is an invalid value.
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structure is an invalid value.
      * 
      * </td>
      * </tr>
@@ -6468,7 +7404,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetautodialaddressw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetautodialaddressw
      * @since windows5.0
      */
     static RasGetAutodialAddressW(param0, param1, param2, param3, param4) {
@@ -6483,7 +7419,36 @@ class Rras {
     }
 
     /**
-     * The RasSetAutodialAddress function can add an address to the AutoDial mapping database. Alternatively, the function can delete or modify the data associated with an existing address in the database.
+     * The RasSetAutodialAddress function can add an address to the AutoDial mapping database. Alternatively, the function can delete or modify the data associated with an existing address in the database. (ANSI)
+     * @remarks
+     * An address in the AutoDial mapping database can have any number of associated 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> entries. Each entry specifies AutoDial information for a particular TAPI dialing location.
+     * 
+     * If the address specified by the <i>lpszAddress</i> parameter is an existing address in the database and the <i>lpAutoDialEntries</i> parameter is not <b>NULL</b>, the 
+     * <b>RasSetAutodialAddress</b> function modifies the set of AutoDial entries associated with the address. If an entry in the <i>lpAutoDialEntries</i> array specifies a dialing location for which the address already has an entry, the function replaces the existing entry with the new entry. Otherwise, the function simply adds the <i>lpAutoDialEntries</i> entries to the set of entries for the address.
+     * 
+     * If the <i>lpszAddress</i> address exists in the database, <i>lpAutoDialEntries</i> is <b>NULL</b>, and <i>lpAutoDialEntries</i> is zero, 
+     * <b>RasSetAutodialAddress</b> deletes the address from the database.
+     * 
+     * If the <i>lpszAddress</i> address does not exist in the database, 
+     * <b>RasSetAutodialAddress</b> adds the address to the database. The <i>lpAutoDialEntries</i> parameter specifies the AutoDial entries to associate with the new address.
+     * 
+     *  RAS supports a default Internet connection that is global to the local computer and  supports a default Internet connection for each user.
+     * 
+     * When the <i>lpszAddress</i> parameter is <b>NULL</b>, and the <i>lpAutoDialEntries</i> parameter specifies a connection name with one entry, <b>RasSetAutodialAddress</b> sets the connection as the default internet connection.  The connection name specified in  <i>lpAutoDialEntries</i> should already exist.  If it does not, <b>ERROR_CANNOT_FIND_PHONEBOOK_ENTRY</b> will be returned.
+     * 
+     * When the <i>lpszAddress</i> parameter is a zero-length string and the <i>lpAutoDialEntries</i> parameter specifies an empty connection name with one entry, <b>RasSetAutodialAddress</b> deletes the default internet connection.
+     * 
+     * On non-domain client machines, if a user wants to set a connection as the default internet connection and specifies a "for-all-users" connection in the <b>szEntry</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structure, then the default internet connection is set globally on the local computer.  In all other cases the default internet connection is set for each user of the machine individually.
+     * 
+     * It is possible to have two connections that have the same name if one is configured as a "for-all-users" connection and the other is configured as a "for-me-only" connection. If the <i>lpAutoDialEntries</i> parameter specifies a connection name that corresponds to both a global and a per-user connection, the per-user connection is set.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasSetAutodialAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} param0 
      * @param {Integer} param1 
      * @param {Pointer<RASAUTODIALENTRYA>} param2 
@@ -6491,7 +7456,7 @@ class Rras {
      * @param {Integer} param4 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -6506,7 +7471,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * The <b>dwSize</b> member of the 
-     * <a href="/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structure is an invalid value.
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structure is an invalid value.
      * 
      * </td>
      * </tr>
@@ -6533,7 +7498,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rassetautodialaddressa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetautodialaddressa
      * @since windows5.0
      */
     static RasSetAutodialAddressA(param0, param1, param2, param3, param4) {
@@ -6544,7 +7509,36 @@ class Rras {
     }
 
     /**
-     * The RasSetAutodialAddress function can add an address to the AutoDial mapping database. Alternatively, the function can delete or modify the data associated with an existing address in the database.
+     * The RasSetAutodialAddress function can add an address to the AutoDial mapping database. Alternatively, the function can delete or modify the data associated with an existing address in the database. (Unicode)
+     * @remarks
+     * An address in the AutoDial mapping database can have any number of associated 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> entries. Each entry specifies AutoDial information for a particular TAPI dialing location.
+     * 
+     * If the address specified by the <i>lpszAddress</i> parameter is an existing address in the database and the <i>lpAutoDialEntries</i> parameter is not <b>NULL</b>, the 
+     * <b>RasSetAutodialAddress</b> function modifies the set of AutoDial entries associated with the address. If an entry in the <i>lpAutoDialEntries</i> array specifies a dialing location for which the address already has an entry, the function replaces the existing entry with the new entry. Otherwise, the function simply adds the <i>lpAutoDialEntries</i> entries to the set of entries for the address.
+     * 
+     * If the <i>lpszAddress</i> address exists in the database, <i>lpAutoDialEntries</i> is <b>NULL</b>, and <i>lpAutoDialEntries</i> is zero, 
+     * <b>RasSetAutodialAddress</b> deletes the address from the database.
+     * 
+     * If the <i>lpszAddress</i> address does not exist in the database, 
+     * <b>RasSetAutodialAddress</b> adds the address to the database. The <i>lpAutoDialEntries</i> parameter specifies the AutoDial entries to associate with the new address.
+     * 
+     *  RAS supports a default Internet connection that is global to the local computer and  supports a default Internet connection for each user.
+     * 
+     * When the <i>lpszAddress</i> parameter is <b>NULL</b>, and the <i>lpAutoDialEntries</i> parameter specifies a connection name with one entry, <b>RasSetAutodialAddress</b> sets the connection as the default internet connection.  The connection name specified in  <i>lpAutoDialEntries</i> should already exist.  If it does not, <b>ERROR_CANNOT_FIND_PHONEBOOK_ENTRY</b> will be returned.
+     * 
+     * When the <i>lpszAddress</i> parameter is a zero-length string and the <i>lpAutoDialEntries</i> parameter specifies an empty connection name with one entry, <b>RasSetAutodialAddress</b> deletes the default internet connection.
+     * 
+     * On non-domain client machines, if a user wants to set a connection as the default internet connection and specifies a "for-all-users" connection in the <b>szEntry</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structure, then the default internet connection is set globally on the local computer.  In all other cases the default internet connection is set for each user of the machine individually.
+     * 
+     * It is possible to have two connections that have the same name if one is configured as a "for-all-users" connection and the other is configured as a "for-me-only" connection. If the <i>lpAutoDialEntries</i> parameter specifies a connection name that corresponds to both a global and a per-user connection, the per-user connection is set.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasSetAutodialAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} param0 
      * @param {Integer} param1 
      * @param {Pointer<RASAUTODIALENTRYW>} param2 
@@ -6552,7 +7546,7 @@ class Rras {
      * @param {Integer} param4 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -6567,7 +7561,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * The <b>dwSize</b> member of the 
-     * <a href="/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structure is an invalid value.
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376721(v=vs.85)">RASAUTODIALENTRY</a> structure is an invalid value.
      * 
      * </td>
      * </tr>
@@ -6594,7 +7588,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rassetautodialaddressw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetautodialaddressw
      * @since windows5.0
      */
     static RasSetAutodialAddressW(param0, param1, param2, param3, param4) {
@@ -6605,7 +7599,12 @@ class Rras {
     }
 
     /**
-     * The RasEnumAutodialAddresses function returns a list of all addresses in the AutoDial mapping database.
+     * The RasEnumAutodialAddresses function returns a list of all addresses in the AutoDial mapping database. (ANSI)
+     * @remarks
+     * The following code sample code uses <b>RasEnumAutodialAddresses</b> to enumerate the Autodial mapping database.
+     * 
+     * 
+     * ```cpp
      * @param {Pointer} lppRasAutodialAddresses Pointer to an array of string pointers, with additional space for the storage of the strings themselves at the end of the buffer. 
      * 
      * 
@@ -6628,7 +7627,7 @@ class Rras {
      * @param {Pointer<Integer>} lpdwcRasAutodialAddresses Pointer to a variable that receives the number of address strings returned in the <i>lppAddresses</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -6658,7 +7657,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasenumautodialaddressesa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasenumautodialaddressesa
      * @since windows5.0
      */
     static RasEnumAutodialAddressesA(lppRasAutodialAddresses, lpdwcbRasAutodialAddresses, lpdwcRasAutodialAddresses) {
@@ -6670,7 +7669,12 @@ class Rras {
     }
 
     /**
-     * The RasEnumAutodialAddresses function returns a list of all addresses in the AutoDial mapping database.
+     * The RasEnumAutodialAddresses function returns a list of all addresses in the AutoDial mapping database. (Unicode)
+     * @remarks
+     * The following code sample code uses <b>RasEnumAutodialAddresses</b> to enumerate the Autodial mapping database.
+     * 
+     * 
+     * ```cpp
      * @param {Pointer} lppRasAutodialAddresses Pointer to an array of string pointers, with additional space for the storage of the strings themselves at the end of the buffer. 
      * 
      * 
@@ -6693,7 +7697,7 @@ class Rras {
      * @param {Pointer<Integer>} lpdwcRasAutodialAddresses Pointer to a variable that receives the number of address strings returned in the <i>lppAddresses</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -6723,7 +7727,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasenumautodialaddressesw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasenumautodialaddressesw
      * @since windows5.0
      */
     static RasEnumAutodialAddressesW(lppRasAutodialAddresses, lpdwcbRasAutodialAddresses, lpdwcRasAutodialAddresses) {
@@ -6735,13 +7739,16 @@ class Rras {
     }
 
     /**
-     * The RasGetAutodialEnable function indicates whether the AutoDial feature is enabled for a specified TAPI dialing location.
+     * The RasGetAutodialEnable function indicates whether the AutoDial feature is enabled for a specified TAPI dialing location. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasGetAutodialEnable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} param0 
      * @param {Pointer<BOOL>} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetautodialenablea
+     * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetautodialenablea
      * @since windows5.0
      */
     static RasGetAutodialEnableA(param0, param1) {
@@ -6752,13 +7759,16 @@ class Rras {
     }
 
     /**
-     * The RasGetAutodialEnable function indicates whether the AutoDial feature is enabled for a specified TAPI dialing location.
+     * The RasGetAutodialEnable function indicates whether the AutoDial feature is enabled for a specified TAPI dialing location. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasGetAutodialEnable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} param0 
      * @param {Pointer<BOOL>} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetautodialenablew
+     * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetautodialenablew
      * @since windows5.0
      */
     static RasGetAutodialEnableW(param0, param1) {
@@ -6769,13 +7779,16 @@ class Rras {
     }
 
     /**
-     * The RasSetAutodialEnable function enables or disables the AutoDial feature for a specified TAPI dialing location.
+     * The RasSetAutodialEnable function enables or disables the AutoDial feature for a specified TAPI dialing location. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasSetAutodialEnable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} param0 
      * @param {BOOL} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is a non-zero error code from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rassetautodialenablea
+     * If the function fails, the return value is a non-zero error code from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetautodialenablea
      * @since windows5.0
      */
     static RasSetAutodialEnableA(param0, param1) {
@@ -6784,13 +7797,16 @@ class Rras {
     }
 
     /**
-     * The RasSetAutodialEnable function enables or disables the AutoDial feature for a specified TAPI dialing location.
+     * The RasSetAutodialEnable function enables or disables the AutoDial feature for a specified TAPI dialing location. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasSetAutodialEnable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} param0 
      * @param {BOOL} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is a non-zero error code from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rassetautodialenablew
+     * If the function fails, the return value is a non-zero error code from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetautodialenablew
      * @since windows5.0
      */
     static RasSetAutodialEnableW(param0, param1) {
@@ -6799,13 +7815,16 @@ class Rras {
     }
 
     /**
-     * The RasGetAutodialParam function retrieves the value of an AutoDial parameter.
+     * The RasGetAutodialParam function retrieves the value of an AutoDial parameter. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasGetAutodialParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} param0 
      * @param {Pointer<Void>} param1 
      * @param {Pointer<Integer>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -6835,7 +7854,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetautodialparama
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetautodialparama
      * @since windows5.0
      */
     static RasGetAutodialParamA(param0, param1, param2) {
@@ -6847,13 +7866,16 @@ class Rras {
     }
 
     /**
-     * The RasGetAutodialParam function retrieves the value of an AutoDial parameter.
+     * The RasGetAutodialParam function retrieves the value of an AutoDial parameter. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasGetAutodialParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} param0 
      * @param {Pointer<Void>} param1 
      * @param {Pointer<Integer>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -6883,7 +7905,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetautodialparamw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetautodialparamw
      * @since windows5.0
      */
     static RasGetAutodialParamW(param0, param1, param2) {
@@ -6895,13 +7917,16 @@ class Rras {
     }
 
     /**
-     * The RasSetAutodialParam function sets the value of an AutoDial parameter.
+     * The RasSetAutodialParam function sets the value of an AutoDial parameter. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasSetAutodialParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} param0 
      * @param {Pointer<Void>} param1 
      * @param {Integer} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -6931,7 +7956,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rassetautodialparama
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetautodialparama
      * @since windows5.0
      */
     static RasSetAutodialParamA(param0, param1, param2) {
@@ -6942,13 +7967,16 @@ class Rras {
     }
 
     /**
-     * The RasSetAutodialParam function sets the value of an AutoDial parameter.
+     * The RasSetAutodialParam function sets the value of an AutoDial parameter. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasSetAutodialParam as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} param0 
      * @param {Pointer<Void>} param1 
      * @param {Integer} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -6978,7 +8006,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rassetautodialparamw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetautodialparamw
      * @since windows5.0
      */
     static RasSetAutodialParamW(param0, param1, param2) {
@@ -7008,7 +8036,7 @@ class Rras {
      * @param {HWND} param3 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -7034,7 +8062,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * The value of the <b>dwSize</b> member of the 
-     * <a href="/previous-versions/windows/desktop/legacy/aa377029(v=vs.85)">RASDIALEXTENSIONS</a> structure specifies a version of the structure that isn't supported by the operating system in use.
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377029(v=vs.85)">RASDIALEXTENSIONS</a> structure specifies a version of the structure that isn't supported by the operating system in use.
      * 
      * </td>
      * </tr>
@@ -7046,12 +8074,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasinvokeeapui
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasinvokeeapui
      * @since windows5.0
      */
     static RasInvokeEapUI(param0, param1, param2, param3) {
@@ -7080,7 +8108,7 @@ class Rras {
      * This parameter cannot be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -7095,7 +8123,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * At least one of the following is true: the <i>hRasConn</i> parameter is zero, the <i>dwSubEntry</i> parameter is zero, the <i>lpStatistics</i> parameter is <b>NULL</b>, or the value specified by the <b>dwSize</b> member of the 
-     * <a href="/windows/desktop/api/ras/ns-ras-ras_stats">RAS_STATS</a> structure specifies a version of the structure that is not supported by the operating system in use.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/ns-ras-ras_stats">RAS_STATS</a> structure specifies a version of the structure that is not supported by the operating system in use.
      * 
      * </td>
      * </tr>
@@ -7118,12 +8146,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetlinkstatistics
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetlinkstatistics
      * @since windows5.0
      */
     static RasGetLinkStatistics(hRasConn, dwSubEntry, lpStatistics) {
@@ -7147,7 +8175,7 @@ class Rras {
      * This parameter cannot be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -7162,7 +8190,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * At least one of the following is true: the <i>hRasConn</i> parameter is zero, the <i>lpStatistics</i> parameter is <b>NULL</b>, or the value specified by the <b>dwSize</b> member of the 
-     * <a href="/windows/desktop/api/ras/ns-ras-ras_stats">RAS_STATS</a> structure specifies a version of the structure that is not supported by the operating system in use.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/ns-ras-ras_stats">RAS_STATS</a> structure specifies a version of the structure that is not supported by the operating system in use.
      * 
      * </td>
      * </tr>
@@ -7185,12 +8213,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetconnectionstatistics
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetconnectionstatistics
      * @since windows5.0
      */
     static RasGetConnectionStatistics(hRasConn, lpStatistics) {
@@ -7208,7 +8236,7 @@ class Rras {
      * @param {Integer} dwSubEntry Specifies the subentry that corresponds to the link for which to clear statistics.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -7267,12 +8295,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasclearlinkstatistics
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasclearlinkstatistics
      * @since windows5.0
      */
     static RasClearLinkStatistics(hRasConn, dwSubEntry) {
@@ -7289,7 +8317,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> to obtain this handle.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -7326,12 +8354,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasclearconnectionstatistics
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasclearconnectionstatistics
      * @since windows5.0
      */
     static RasClearConnectionStatistics(hRasConn) {
@@ -7342,7 +8370,10 @@ class Rras {
     }
 
     /**
-     * Use the RasGetEapUserData function to retrieve user-specific Extensible Authentication Protocol (EAP) information for the specified phone-book entry.
+     * Use the RasGetEapUserData function to retrieve user-specific Extensible Authentication Protocol (EAP) information for the specified phone-book entry. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasGetEapUserData as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hToken Handle to a primary or impersonation access token that represents the user for which to retrieve data. This parameter can be <b>NULL</b> if the function is called from a process already running in the user's context.
      * @param {PSTR} pszPhonebook Pointer to a null-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
      * @param {PSTR} pszEntry Pointer to a null-terminated string that specifies an existing entry name.
@@ -7356,7 +8387,7 @@ class Rras {
      * If the buffer specified by the <i>pbEapData</i> parameter is not large enough, <i>pdwSizeofEapData</i> receives, on output, the required size.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -7393,7 +8424,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/ras/nf-ras-rasgeteapuserdataa">RasGetEapUserData</a> was unable to open the specified phone-book file.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgeteapuserdataa">RasGetEapUserData</a> was unable to open the specified phone-book file.
      * 
      * </td>
      * </tr>
@@ -7405,7 +8436,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/ras/nf-ras-rasgeteapuserdataa">RasGetEapUserData</a> was unable to find the specified entry in the phone book.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgeteapuserdataa">RasGetEapUserData</a> was unable to find the specified entry in the phone book.
      * 
      * </td>
      * </tr>
@@ -7417,12 +8448,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgeteapuserdataa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgeteapuserdataa
      * @since windows5.0
      */
     static RasGetEapUserDataA(hToken, pszPhonebook, pszEntry, pbEapData, pdwSizeofEapData) {
@@ -7438,7 +8469,10 @@ class Rras {
     }
 
     /**
-     * Use the RasGetEapUserData function to retrieve user-specific Extensible Authentication Protocol (EAP) information for the specified phone-book entry.
+     * Use the RasGetEapUserData function to retrieve user-specific Extensible Authentication Protocol (EAP) information for the specified phone-book entry. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasGetEapUserData as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hToken Handle to a primary or impersonation access token that represents the user for which to retrieve data. This parameter can be <b>NULL</b> if the function is called from a process already running in the user's context.
      * @param {PWSTR} pszPhonebook Pointer to a null-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
      * @param {PWSTR} pszEntry Pointer to a null-terminated string that specifies an existing entry name.
@@ -7452,7 +8486,7 @@ class Rras {
      * If the buffer specified by the <i>pbEapData</i> parameter is not large enough, <i>pdwSizeofEapData</i> receives, on output, the required size.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -7489,7 +8523,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/ras/nf-ras-rasgeteapuserdataa">RasGetEapUserData</a> was unable to open the specified phone-book file.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgeteapuserdataa">RasGetEapUserData</a> was unable to open the specified phone-book file.
      * 
      * </td>
      * </tr>
@@ -7501,7 +8535,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/ras/nf-ras-rasgeteapuserdataa">RasGetEapUserData</a> was unable to find the specified entry in the phone book.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgeteapuserdataa">RasGetEapUserData</a> was unable to find the specified entry in the phone book.
      * 
      * </td>
      * </tr>
@@ -7513,12 +8547,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgeteapuserdataw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgeteapuserdataw
      * @since windows5.0
      */
     static RasGetEapUserDataW(hToken, pszPhonebook, pszEntry, pbEapData, pdwSizeofEapData) {
@@ -7534,7 +8568,10 @@ class Rras {
     }
 
     /**
-     * Use the RasSetEapUserData function to store user-specific Extensible Authentication Protocol (EAP) information for the specified phone-book entry in the registry.
+     * Use the RasSetEapUserData function to store user-specific Extensible Authentication Protocol (EAP) information for the specified phone-book entry in the registry. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasSetEapUserData as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hToken Handle to a primary or impersonation access token that represents the user for which to store data. This parameter can be <b>NULL</b> if the function is called from a process already running in the user's context.
      * @param {PSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
      * @param {PSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
@@ -7542,7 +8579,7 @@ class Rras {
      * @param {Integer} dwSizeofEapData Specifies the size of the data pointed to by the <i>pbEapData</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -7590,12 +8627,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasseteapuserdataa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasseteapuserdataa
      * @since windows5.0
      */
     static RasSetEapUserDataA(hToken, pszPhonebook, pszEntry, pbEapData, dwSizeofEapData) {
@@ -7610,7 +8647,10 @@ class Rras {
     }
 
     /**
-     * Use the RasSetEapUserData function to store user-specific Extensible Authentication Protocol (EAP) information for the specified phone-book entry in the registry.
+     * Use the RasSetEapUserData function to store user-specific Extensible Authentication Protocol (EAP) information for the specified phone-book entry in the registry. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasSetEapUserData as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hToken Handle to a primary or impersonation access token that represents the user for which to store data. This parameter can be <b>NULL</b> if the function is called from a process already running in the user's context.
      * @param {PWSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
      * @param {PWSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
@@ -7618,7 +8658,7 @@ class Rras {
      * @param {Integer} dwSizeofEapData Specifies the size of the data pointed to by the <i>pbEapData</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -7666,12 +8706,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasseteapuserdataw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasseteapuserdataw
      * @since windows5.0
      */
     static RasSetEapUserDataW(hToken, pszPhonebook, pszEntry, pbEapData, dwSizeofEapData) {
@@ -7686,7 +8726,10 @@ class Rras {
     }
 
     /**
-     * Use the RasGetCustomAuthData function to retrieve connection-specific authentication information. This information is not specific to a particular user.
+     * Use the RasGetCustomAuthData function to retrieve connection-specific authentication information. This information is not specific to a particular user. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasGetCustomAuthData as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
      * @param {PSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
      * @param {Pointer} pbCustomAuthData Pointer to a buffer that receives the authentication data. The caller should allocate the memory for this buffer. If the buffer is not large enough, 
@@ -7699,7 +8742,7 @@ class Rras {
      * If the buffer specified by the <i>pbCustomAuthData</i> parameter is not large enough, <i>pdwSizeofEapData</i> receives, on output, the required size.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -7736,7 +8779,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/ras/nf-ras-rasgeteapuserdataa">RasGetEapUserData</a> was unable to open the specified phone-book file.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgeteapuserdataa">RasGetEapUserData</a> was unable to open the specified phone-book file.
      * 
      * </td>
      * </tr>
@@ -7748,7 +8791,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/ras/nf-ras-rasgeteapuserdataa">RasGetEapUserData</a> was unable to find the specified entry in the phone book.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgeteapuserdataa">RasGetEapUserData</a> was unable to find the specified entry in the phone book.
      * 
      * </td>
      * </tr>
@@ -7760,12 +8803,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetcustomauthdataa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetcustomauthdataa
      * @since windows5.0
      */
     static RasGetCustomAuthDataA(pszPhonebook, pszEntry, pbCustomAuthData, pdwSizeofCustomAuthData) {
@@ -7779,7 +8822,10 @@ class Rras {
     }
 
     /**
-     * Use the RasGetCustomAuthData function to retrieve connection-specific authentication information. This information is not specific to a particular user.
+     * Use the RasGetCustomAuthData function to retrieve connection-specific authentication information. This information is not specific to a particular user. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasGetCustomAuthData as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
      * @param {PWSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
      * @param {Pointer} pbCustomAuthData Pointer to a buffer that receives the authentication data. The caller should allocate the memory for this buffer. If the buffer is not large enough, 
@@ -7792,7 +8838,7 @@ class Rras {
      * If the buffer specified by the <i>pbCustomAuthData</i> parameter is not large enough, <i>pdwSizeofEapData</i> receives, on output, the required size.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -7829,7 +8875,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/ras/nf-ras-rasgeteapuserdataa">RasGetEapUserData</a> was unable to open the specified phone-book file.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgeteapuserdataa">RasGetEapUserData</a> was unable to open the specified phone-book file.
      * 
      * </td>
      * </tr>
@@ -7841,7 +8887,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/ras/nf-ras-rasgeteapuserdataa">RasGetEapUserData</a> was unable to find the specified entry in the phone book.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgeteapuserdataa">RasGetEapUserData</a> was unable to find the specified entry in the phone book.
      * 
      * </td>
      * </tr>
@@ -7853,12 +8899,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetcustomauthdataw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetcustomauthdataw
      * @since windows5.0
      */
     static RasGetCustomAuthDataW(pszPhonebook, pszEntry, pbCustomAuthData, pdwSizeofCustomAuthData) {
@@ -7872,14 +8918,17 @@ class Rras {
     }
 
     /**
-     * Use the RasSetCustomAuthData function to set connection-specific authentication information. This information should not be specific to a particular user.
+     * Use the RasSetCustomAuthData function to set connection-specific authentication information. This information should not be specific to a particular user. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasSetCustomAuthData as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
      * @param {PSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
      * @param {Pointer} pbCustomAuthData Pointer to a buffer that specifies the new authentication data.
      * @param {Integer} dwSizeofCustomAuthData Specifies the size of the data pointed to by the <i>pbCustomAuthData</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -7905,7 +8954,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/ras/nf-ras-rasseteapuserdataa">RasSetEapUserData</a> was unable to open the specified phone-book file.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasseteapuserdataa">RasSetEapUserData</a> was unable to open the specified phone-book file.
      * 
      * </td>
      * </tr>
@@ -7917,7 +8966,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/ras/nf-ras-rasseteapuserdataa">RasSetEapUserData</a> was unable to find the specified entry in the phone book.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasseteapuserdataa">RasSetEapUserData</a> was unable to find the specified entry in the phone book.
      * 
      * </td>
      * </tr>
@@ -7929,12 +8978,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rassetcustomauthdataa
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetcustomauthdataa
      * @since windows5.0
      */
     static RasSetCustomAuthDataA(pszPhonebook, pszEntry, pbCustomAuthData, dwSizeofCustomAuthData) {
@@ -7946,14 +8995,17 @@ class Rras {
     }
 
     /**
-     * Use the RasSetCustomAuthData function to set connection-specific authentication information. This information should not be specific to a particular user.
+     * Use the RasSetCustomAuthData function to set connection-specific authentication information. This information should not be specific to a particular user. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasSetCustomAuthData as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
      * @param {PWSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
      * @param {Pointer} pbCustomAuthData Pointer to a buffer that specifies the new authentication data.
      * @param {Integer} dwSizeofCustomAuthData Specifies the size of the data pointed to by the <i>pbCustomAuthData</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -7979,7 +9031,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/ras/nf-ras-rasseteapuserdataa">RasSetEapUserData</a> was unable to open the specified phone-book file.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasseteapuserdataa">RasSetEapUserData</a> was unable to open the specified phone-book file.
      * 
      * </td>
      * </tr>
@@ -7991,7 +9043,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/ras/nf-ras-rasseteapuserdataa">RasSetEapUserData</a> was unable to find the specified entry in the phone book.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasseteapuserdataa">RasSetEapUserData</a> was unable to find the specified entry in the phone book.
      * 
      * </td>
      * </tr>
@@ -8003,12 +9055,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rassetcustomauthdataw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetcustomauthdataw
      * @since windows5.0
      */
     static RasSetCustomAuthDataW(pszPhonebook, pszEntry, pbCustomAuthData, dwSizeofCustomAuthData) {
@@ -8020,7 +9072,27 @@ class Rras {
     }
 
     /**
-     * The RasGetEapUserIdentity function retrieves identity information for the current user. Use this information to call RasDial with a phone-book entry that requires Extensible Authentication Protocol (EAP).
+     * The RasGetEapUserIdentity function retrieves identity information for the current user. Use this information to call RasDial with a phone-book entry that requires Extensible Authentication Protocol (EAP). (Unicode)
+     * @remarks
+     * <b>RasGetEapUserIdentity</b> calls the RAS function 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgeteapuserdataa">RasGetEapUserData</a> and the EAP function 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/raseapif/nf-raseapif-raseapgetidentity">RasEapGetIdentity</a>. <b>RasEapGetIdentity</b> is implemented by the authentication protocol.
+     * 
+     * If the function succeeds, that is the return value is NO_ERROR, the caller should copy the EAP identity information from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377247(v=vs.85)">RASEAPUSERIDENTITY</a> structure pointed to by 
+     * the <i>ppRasEapUserIdentity</i> parameter to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> and 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377029(v=vs.85)">RASDIALEXTENSIONS</a> structures used in the call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a>.
+     * 
+     * If the remote access application being developed has a graphical user interface, the caller of 
+     * <b>RasGetEapUserIdentity</b> should not specify the RASEAPF_NonInteractive flag. If the application has a command-line user interface, the caller may want to specify the RASEAPF_NonInteractive flag to prevent the authentication protocol from displaying a graphical user interface.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasGetEapUserIdentity as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the system phone book.
      * @param {PWSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
      * @param {Integer} dwFlags Specifies zero or more of the following flags that qualify the authentication process.
@@ -8069,7 +9141,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasfreeeapuseridentitya">RasFreeEapUserIdentity</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -8106,7 +9178,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * Either the authentication method for this phone-book entry is not EAP, or the authentication method is EAP but the protocol uses the standard Windows NT/Windows 2000 credentials dialog to obtain user identity information. In either case, the caller does not need to pass EAP identity information to 
-     * <a href="/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a>.
      * 
      * </td>
      * </tr>
@@ -8129,12 +9201,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgeteapuseridentityw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgeteapuseridentityw
      * @since windows5.0
      */
     static RasGetEapUserIdentityW(pszPhonebook, pszEntry, dwFlags, hwnd, ppRasEapUserIdentity) {
@@ -8149,7 +9221,27 @@ class Rras {
     }
 
     /**
-     * The RasGetEapUserIdentity function retrieves identity information for the current user. Use this information to call RasDial with a phone-book entry that requires Extensible Authentication Protocol (EAP).
+     * The RasGetEapUserIdentity function retrieves identity information for the current user. Use this information to call RasDial with a phone-book entry that requires Extensible Authentication Protocol (EAP). (ANSI)
+     * @remarks
+     * <b>RasGetEapUserIdentity</b> calls the RAS function 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgeteapuserdataa">RasGetEapUserData</a> and the EAP function 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/raseapif/nf-raseapif-raseapgetidentity">RasEapGetIdentity</a>. <b>RasEapGetIdentity</b> is implemented by the authentication protocol.
+     * 
+     * If the function succeeds, that is the return value is NO_ERROR, the caller should copy the EAP identity information from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377247(v=vs.85)">RASEAPUSERIDENTITY</a> structure pointed to by 
+     * the <i>ppRasEapUserIdentity</i> parameter to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377238(v=vs.85)">RASDIALPARAMS</a> and 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377029(v=vs.85)">RASDIALEXTENSIONS</a> structures used in the call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a>.
+     * 
+     * If the remote access application being developed has a graphical user interface, the caller of 
+     * <b>RasGetEapUserIdentity</b> should not specify the RASEAPF_NonInteractive flag. If the application has a command-line user interface, the caller may want to specify the RASEAPF_NonInteractive flag to prevent the authentication protocol from displaying a graphical user interface.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ras.h header defines RasGetEapUserIdentity as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the system phone book.
      * @param {PSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
      * @param {Integer} dwFlags Specifies zero or more of the following flags that qualify the authentication process.
@@ -8198,7 +9290,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasfreeeapuseridentitya">RasFreeEapUserIdentity</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -8235,7 +9327,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * Either the authentication method for this phone-book entry is not EAP, or the authentication method is EAP but the protocol uses the standard Windows NT/Windows 2000 credentials dialog to obtain user identity information. In either case, the caller does not need to pass EAP identity information to 
-     * <a href="/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a>.
      * 
      * </td>
      * </tr>
@@ -8258,12 +9350,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgeteapuseridentitya
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgeteapuseridentitya
      * @since windows5.0
      */
     static RasGetEapUserIdentityA(pszPhonebook, pszEntry, dwFlags, hwnd, ppRasEapUserIdentity) {
@@ -8278,9 +9370,8 @@ class Rras {
     }
 
     /**
-     * Use the RasFreeEapUserIdentity function to free the memory buffer returned by RasGetEapUserIdentity.
+     * Use the RasFreeEapUserIdentity function to free the memory buffer returned by RasGetEapUserIdentity. (Unicode)
      * @remarks
-     * 
      * <b>RasFreeEapUserIdentity</b> can be called with the <i>pRasEapUserIdentity</i> parameter equal to <b>NULL</b>.
      * 
      * 
@@ -8289,14 +9380,12 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasFreeEapUserIdentity as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * 
-     * 
      * @param {Pointer<RASEAPUSERIDENTITYW>} pRasEapUserIdentity Pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377247(v=vs.85)">RASEAPUSERIDENTITY</a> structure returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgeteapuseridentitya">RasGetEapUserIdentity</a> function. 
      * <b>RasFreeEapUserIdentity</b> frees the memory occupied by this structure.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasfreeeapuseridentityw
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasfreeeapuseridentityw
      * @since windows5.0
      */
     static RasFreeEapUserIdentityW(pRasEapUserIdentity) {
@@ -8304,9 +9393,8 @@ class Rras {
     }
 
     /**
-     * Use the RasFreeEapUserIdentity function to free the memory buffer returned by RasGetEapUserIdentity.
+     * Use the RasFreeEapUserIdentity function to free the memory buffer returned by RasGetEapUserIdentity. (ANSI)
      * @remarks
-     * 
      * <b>RasFreeEapUserIdentity</b> can be called with the <i>pRasEapUserIdentity</i> parameter equal to <b>NULL</b>.
      * 
      * 
@@ -8315,14 +9403,12 @@ class Rras {
      * 
      * > [!NOTE]
      * > The ras.h header defines RasFreeEapUserIdentity as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * 
-     * 
      * @param {Pointer<RASEAPUSERIDENTITYA>} pRasEapUserIdentity Pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377247(v=vs.85)">RASEAPUSERIDENTITY</a> structure returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgeteapuseridentitya">RasGetEapUserIdentity</a> function. 
      * <b>RasFreeEapUserIdentity</b> frees the memory occupied by this structure.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasfreeeapuseridentitya
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasfreeeapuseridentitya
      * @since windows5.0
      */
     static RasFreeEapUserIdentityA(pRasEapUserIdentity) {
@@ -8330,14 +9416,17 @@ class Rras {
     }
 
     /**
-     * The RasDeleteSubEntry function deletes the specified subentry from the specified phone-book entry.
+     * The RasDeleteSubEntry function deletes the specified subentry from the specified phone-book entry. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasDeleteSubEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file.
      * @param {PSTR} pszEntry Pointer to a <b>null</b>-terminated string that contains the name of an existing entry from which a subentry is to be deleted.
      * @param {Integer} dwSubentryId TBD
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasdeletesubentrya
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasdeletesubentrya
      * @since windows5.1.2600
      */
     static RasDeleteSubEntryA(pszPhonebook, pszEntry, dwSubentryId) {
@@ -8349,14 +9438,17 @@ class Rras {
     }
 
     /**
-     * The RasDeleteSubEntry function deletes the specified subentry from the specified phone-book entry.
+     * The RasDeleteSubEntry function deletes the specified subentry from the specified phone-book entry. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ras.h header defines RasDeleteSubEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file.
      * @param {PWSTR} pszEntry Pointer to a <b>null</b>-terminated string that contains the name of an existing entry from which a subentry is to be deleted.
      * @param {Integer} dwSubEntryId Specifies the one-based index of the subentry.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasdeletesubentryw
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasdeletesubentryw
      * @since windows5.1.2600
      */
     static RasDeleteSubEntryW(pszPhonebook, pszEntry, dwSubEntryId) {
@@ -8369,14 +9461,16 @@ class Rras {
 
     /**
      * The RasUpdateConnection function updates the tunnel endpoints of an Internet Key Exchange version 2 (IKEv2) connection.
+     * @remarks
+     * Note that 32-bit applications that call <b>RasUpdateConnection</b> will fail when run on a 64-bit machine. The workaround is to write a 64-bit version of the application for 64-bit machines.
      * @param {HRASCONN} hrasconn A handle to the IKEv2 RAS connection for which the tunnel endpoints are to be changed. This can be a handle returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function.
      * @param {Pointer<RASUPDATECONN>} lprasupdateconn A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd408110(v=vs.85)">RASUPDATECONN</a> structure that contains the new tunnel endpoints  for the RAS connection specified by <i>hrasconn</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the error codes from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasupdateconnection
+     * If the function fails, the return value is one of the error codes from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasupdateconnection
      * @since windows6.1
      */
     static RasUpdateConnection(hrasconn, lprasupdateconn) {
@@ -8388,6 +9482,11 @@ class Rras {
 
     /**
      * Obtains information about Point-to-Point Protocol (PPP) or Internet Key Exchange version 2 (IKEv2) remote access projection operations for all RAS connections on the local client.
+     * @remarks
+     * Remote access projection is the process whereby a remote access server and a remote client negotiate network protocol-specific information. A remote access server uses this network protocol-specific information to represent a remote client on the network.
+     * 
+     * Remote access projection information is not available until the operating system has executed the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376727(v=vs.85)">RASCS_Projected</a> state on the remote access connection. If 
+     * <b>RasGetProjectionInfoEx</b> is called prior to the <b>RASCS_Projected</b> state, it returns <b>ERROR_PROJECTION_NOT_COMPLETE</b>.
      * @param {HRASCONN} hrasconn A handle to the RAS connection for which the tunnel endpoints are to be changed. This can be a handle returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function.
@@ -8396,7 +9495,7 @@ class Rras {
      * 					<i>pRasProjection</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * <table>
      * <tr>
@@ -8459,7 +9558,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ras/nf-ras-rasgetprojectioninfoex
+     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetprojectioninfoex
      * @since windows6.1
      */
     static RasGetProjectionInfoEx(hrasconn, pRasProjection, lpdwSize) {
@@ -8472,7 +9571,10 @@ class Rras {
     }
 
     /**
-     * The RasPhonebookDlg function displays the main Dial-Up Networking dialog box.
+     * The RasPhonebookDlg function displays the main Dial-Up Networking dialog box. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The rasdlg.h header defines RasPhonebookDlg as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
      * @param {PSTR} lpszEntry Pointer to a <b>null</b>-terminated string that specifies the name of the phone-book entry to highlight initially. If this parameter is <b>NULL</b>, or if the specified entry does not exist, the dialog box highlights the first entry in the alphabetic list.
      * @param {Pointer<RASPBDLGA>} lpInfo Pointer to the 
@@ -8488,13 +9590,13 @@ class Rras {
      * @returns {BOOL} If the user selects the <b>Connect</b> button and the function establishes a connection, the return value is <b>TRUE</b>. Otherwise, the function returns <b>FALSE</b>.
      * 
      *  If an error occurs, the <b>dwError</b> member of the 
-     * <a href="/previous-versions/windows/desktop/legacy/aa377607(v=vs.85)">RASPBDLG</a> structure returns a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377607(v=vs.85)">RASPBDLG</a> structure returns a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * The following sample code brings up the <b>Dial-Up Networking</b> dialog. The dialog  displays dialing information for the first entry from the default phonebook file.
      * 
      * 
      * ```cpp
-     * @see https://docs.microsoft.com/windows/win32/api//rasdlg/nf-rasdlg-rasphonebookdlga
+     * @see https://learn.microsoft.com/windows/win32/api/rasdlg/nf-rasdlg-rasphonebookdlga
      * @since windows5.0
      */
     static RasPhonebookDlgA(lpszPhonebook, lpszEntry, lpInfo) {
@@ -8506,7 +9608,10 @@ class Rras {
     }
 
     /**
-     * The RasPhonebookDlg function displays the main Dial-Up Networking dialog box.
+     * The RasPhonebookDlg function displays the main Dial-Up Networking dialog box. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The rasdlg.h header defines RasPhonebookDlg as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
      * @param {PWSTR} lpszEntry Pointer to a <b>null</b>-terminated string that specifies the name of the phone-book entry to highlight initially. If this parameter is <b>NULL</b>, or if the specified entry does not exist, the dialog box highlights the first entry in the alphabetic list.
      * @param {Pointer<RASPBDLGW>} lpInfo Pointer to the 
@@ -8522,13 +9627,13 @@ class Rras {
      * @returns {BOOL} If the user selects the <b>Connect</b> button and the function establishes a connection, the return value is <b>TRUE</b>. Otherwise, the function returns <b>FALSE</b>.
      * 
      *  If an error occurs, the <b>dwError</b> member of the 
-     * <a href="/previous-versions/windows/desktop/legacy/aa377607(v=vs.85)">RASPBDLG</a> structure returns a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377607(v=vs.85)">RASPBDLG</a> structure returns a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
      * 
      * The following sample code brings up the <b>Dial-Up Networking</b> dialog. The dialog  displays dialing information for the first entry from the default phonebook file.
      * 
      * 
      * ```cpp
-     * @see https://docs.microsoft.com/windows/win32/api//rasdlg/nf-rasdlg-rasphonebookdlgw
+     * @see https://learn.microsoft.com/windows/win32/api/rasdlg/nf-rasdlg-rasphonebookdlgw
      * @since windows5.0
      */
     static RasPhonebookDlgW(lpszPhonebook, lpszEntry, lpInfo) {
@@ -8540,7 +9645,17 @@ class Rras {
     }
 
     /**
-     * The RasEntryDlg function displays modal property sheets that allow a user to manipulate phone-book entries.
+     * The RasEntryDlg function displays modal property sheets that allow a user to manipulate phone-book entries. (ANSI)
+     * @remarks
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rascreatephonebookentrya">RasCreatePhonebookEntry</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-raseditphonebookentrya">RasEditPhonebookEntry</a> functions call the 
+     * <b>RasEntryDlg</b> function.
+     * 
+     * The following sample code brings up a property sheet to create a new entry. The <i>lpszEntry</i> variable specifies the default name for the new entry.
+     * 
+     * 
+     * ```cpp
      * @param {PSTR} lpszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
      * @param {PSTR} lpszEntry Pointer to a <b>null</b>-terminated string that specifies the name of the phone-book entry to edit, copy, or create. 
      * 
@@ -8550,7 +9665,7 @@ class Rras {
      * If you are editing or copying an entry, this parameter is the name of an existing phone-book entry. If you are copying an entry, set the <b>RASEDFLAG_CloneEntry</b> flag in the <b>dwFlags</b> member of the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377023(v=vs.85)">RASENTRYDLG</a> structure.
      * 
-     * <div class="alert"><b>Note</b>  The R<b>RASEDFLAG_CloneEntry</b> flag has been deprecated, as of 
+     * <div class="alert"><b>Note</b>  The <b>RASEDFLAG_CloneEntry</b> flag has been deprecated, as of 
      *   Windows Vista and Windows Server 2008. It may be altered or unavailable in subsequent versions. Instead, copy an entry by calling <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrypropertiesa">RasGetEntryProperties</a> to get the entry and then calling <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetentrypropertiesa">RasSetEntryProperties</a> to save the entry with a new name.</div>
      * <div> </div>
      * If you are creating an entry, this parameter is a default new entry name that the user can change. If this parameter is <b>NULL</b>, the function provides a default name. If you are creating an entry, set the <b>RASEDFLAG_NewEntry</b> flag in the <b>dwFlags</b> member of the 
@@ -8560,8 +9675,8 @@ class Rras {
      * @returns {BOOL} If the user creates, copies, or edits a phone-book entry, the return value is <b>TRUE</b>. Otherwise, the function returns <b>FALSE</b>.
      * 
      *  If an error occurs, <b>RasEntryDlg</b> sets the <b>dwError</b> member of the 
-     * <a href="/previous-versions/windows/desktop/legacy/aa377260(v=vs.85)">RASENTRYDLG</a> structure to a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//rasdlg/nf-rasdlg-rasentrydlga
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377260(v=vs.85)">RASENTRYDLG</a> structure to a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * @see https://learn.microsoft.com/windows/win32/api/rasdlg/nf-rasdlg-rasentrydlga
      * @since windows5.0
      */
     static RasEntryDlgA(lpszPhonebook, lpszEntry, lpInfo) {
@@ -8573,7 +9688,17 @@ class Rras {
     }
 
     /**
-     * The RasEntryDlg function displays modal property sheets that allow a user to manipulate phone-book entries.
+     * The RasEntryDlg function displays modal property sheets that allow a user to manipulate phone-book entries. (Unicode)
+     * @remarks
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rascreatephonebookentrya">RasCreatePhonebookEntry</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-raseditphonebookentrya">RasEditPhonebookEntry</a> functions call the 
+     * <b>RasEntryDlg</b> function.
+     * 
+     * The following sample code brings up a property sheet to create a new entry. The <i>lpszEntry</i> variable specifies the default name for the new entry.
+     * 
+     * 
+     * ```cpp
      * @param {PWSTR} lpszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
      * @param {PWSTR} lpszEntry Pointer to a <b>null</b>-terminated string that specifies the name of the phone-book entry to edit, copy, or create. 
      * 
@@ -8583,7 +9708,7 @@ class Rras {
      * If you are editing or copying an entry, this parameter is the name of an existing phone-book entry. If you are copying an entry, set the <b>RASEDFLAG_CloneEntry</b> flag in the <b>dwFlags</b> member of the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377023(v=vs.85)">RASENTRYDLG</a> structure.
      * 
-     * <div class="alert"><b>Note</b>  The R<b>RASEDFLAG_CloneEntry</b> flag has been deprecated, as of 
+     * <div class="alert"><b>Note</b>  The <b>RASEDFLAG_CloneEntry</b> flag has been deprecated, as of 
      *   Windows Vista and Windows Server 2008. It may be altered or unavailable in subsequent versions. Instead, copy an entry by calling <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgetentrypropertiesa">RasGetEntryProperties</a> to get the entry and then calling <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetentrypropertiesa">RasSetEntryProperties</a> to save the entry with a new name.</div>
      * <div> </div>
      * If you are creating an entry, this parameter is a default new entry name that the user can change. If this parameter is <b>NULL</b>, the function provides a default name. If you are creating an entry, set the <b>RASEDFLAG_NewEntry</b> flag in the <b>dwFlags</b> member of the 
@@ -8593,8 +9718,8 @@ class Rras {
      * @returns {BOOL} If the user creates, copies, or edits a phone-book entry, the return value is <b>TRUE</b>. Otherwise, the function returns <b>FALSE</b>.
      * 
      *  If an error occurs, <b>RasEntryDlg</b> sets the <b>dwError</b> member of the 
-     * <a href="/previous-versions/windows/desktop/legacy/aa377260(v=vs.85)">RASENTRYDLG</a> structure to a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//rasdlg/nf-rasdlg-rasentrydlgw
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377260(v=vs.85)">RASENTRYDLG</a> structure to a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * @see https://learn.microsoft.com/windows/win32/api/rasdlg/nf-rasdlg-rasentrydlgw
      * @since windows5.0
      */
     static RasEntryDlgW(lpszPhonebook, lpszEntry, lpInfo) {
@@ -8606,7 +9731,23 @@ class Rras {
     }
 
     /**
-     * The RasDialDlg function establishes a RAS connection using a specified phone-book entry and the credentials of the logged-on user. The function displays a stream of dialog boxes that indicate the state of the connection operation.
+     * The RasDialDlg function establishes a RAS connection using a specified phone-book entry and the credentials of the logged-on user. The function displays a stream of dialog boxes that indicate the state of the connection operation. (ANSI)
+     * @remarks
+     * The 
+     * <b>RasDialDlg</b> function displays a series of dialog boxes that are similar to the dialog boxes the main <b>Dial-Up Networking</b> dialog box displays when the user selects the <b>Dial</b> button. Use the 
+     * <b>RasDialDlg</b> function to display a standard user interface for a connection operation without presenting the main phone-book dialog box. For example, the RAS AutoDial service uses this function to establish a connection using the phone-book entry associated with a remote address.
+     * 
+     * The 
+     * <b>RasDialDlg</b> function displays dialog boxes during the connection operation to provide feedback to the user about the progress of the operation. For example, the dialog boxes might indicate when the operation is dialing, when it is authenticating the user's credentials on the remote server, and so on. The dialog boxes also provide a <b>Cancel</b> button for the user to terminate the operation.
+     * 
+     * <b>RasDialDlg</b> returns when the connection is established, or when the user cancels the operation.
+     * 
+     * The following sample code dials the entry in the default phone-book specified by the variable <i>lpszEntry</i>.
+     * 
+     * <div class="alert"><b>Note</b>  This simple sample is intended to run on Windows Vista and later versions of Windows. Please be aware the call to sizeof(RASENTRY) will return a different value depending on what version of the operating system the code is being run. Please take steps to ensure this is handled appropriately.</div>
+     * <div> </div>
+     * 
+     * ```cpp
      * @param {PSTR} lpszPhonebook Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
      * @param {PSTR} lpszEntry Pointer to a null-terminated string that specifies the name of the phone-book entry to dial.
      * @param {PSTR} lpszPhoneNumber Pointer to a null-terminated string that specifies a phone number that overrides the numbers stored in the phone-book entry. If this parameter is <b>NULL</b>, 
@@ -8616,8 +9757,8 @@ class Rras {
      * @returns {BOOL} If the function establishes a RAS connection, the return value is <b>TRUE</b>. Otherwise, the function should return <b>FALSE</b>.
      * 
      * If an error occurs, <b>RasDialDlg</b> should set the <b>dwError</b> member of the 
-     * <a href="/previous-versions/windows/desktop/legacy/aa377023(v=vs.85)">RASDIALDLG</a> structure to a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//rasdlg/nf-rasdlg-rasdialdlga
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377023(v=vs.85)">RASDIALDLG</a> structure to a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * @see https://learn.microsoft.com/windows/win32/api/rasdlg/nf-rasdlg-rasdialdlga
      * @since windows5.0
      */
     static RasDialDlgA(lpszPhonebook, lpszEntry, lpszPhoneNumber, lpInfo) {
@@ -8630,7 +9771,23 @@ class Rras {
     }
 
     /**
-     * The RasDialDlg function establishes a RAS connection using a specified phone-book entry and the credentials of the logged-on user. The function displays a stream of dialog boxes that indicate the state of the connection operation.
+     * The RasDialDlg function establishes a RAS connection using a specified phone-book entry and the credentials of the logged-on user. The function displays a stream of dialog boxes that indicate the state of the connection operation. (Unicode)
+     * @remarks
+     * The 
+     * <b>RasDialDlg</b> function displays a series of dialog boxes that are similar to the dialog boxes the main <b>Dial-Up Networking</b> dialog box displays when the user selects the <b>Dial</b> button. Use the 
+     * <b>RasDialDlg</b> function to display a standard user interface for a connection operation without presenting the main phone-book dialog box. For example, the RAS AutoDial service uses this function to establish a connection using the phone-book entry associated with a remote address.
+     * 
+     * The 
+     * <b>RasDialDlg</b> function displays dialog boxes during the connection operation to provide feedback to the user about the progress of the operation. For example, the dialog boxes might indicate when the operation is dialing, when it is authenticating the user's credentials on the remote server, and so on. The dialog boxes also provide a <b>Cancel</b> button for the user to terminate the operation.
+     * 
+     * <b>RasDialDlg</b> returns when the connection is established, or when the user cancels the operation.
+     * 
+     * The following sample code dials the entry in the default phone-book specified by the variable <i>lpszEntry</i>.
+     * 
+     * <div class="alert"><b>Note</b>  This simple sample is intended to run on Windows Vista and later versions of Windows. Please be aware the call to sizeof(RASENTRY) will return a different value depending on what version of the operating system the code is being run. Please take steps to ensure this is handled appropriately.</div>
+     * <div> </div>
+     * 
+     * ```cpp
      * @param {PWSTR} lpszPhonebook Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
      * @param {PWSTR} lpszEntry Pointer to a null-terminated string that specifies the name of the phone-book entry to dial.
      * @param {PWSTR} lpszPhoneNumber Pointer to a null-terminated string that specifies a phone number that overrides the numbers stored in the phone-book entry. If this parameter is <b>NULL</b>, 
@@ -8640,8 +9797,8 @@ class Rras {
      * @returns {BOOL} If the function establishes a RAS connection, the return value is <b>TRUE</b>. Otherwise, the function should return <b>FALSE</b>.
      * 
      * If an error occurs, <b>RasDialDlg</b> should set the <b>dwError</b> member of the 
-     * <a href="/previous-versions/windows/desktop/legacy/aa377023(v=vs.85)">RASDIALDLG</a> structure to a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//rasdlg/nf-rasdlg-rasdialdlgw
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377023(v=vs.85)">RASDIALDLG</a> structure to a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
+     * @see https://learn.microsoft.com/windows/win32/api/rasdlg/nf-rasdlg-rasdialdlgw
      * @since windows5.0
      */
     static RasDialDlgW(lpszPhonebook, lpszEntry, lpszPhoneNumber, lpInfo) {
@@ -8655,6 +9812,8 @@ class Rras {
 
     /**
      * The MprAdminConnectionEnumEx function enumerates the active connections for a specified RRAS server.
+     * @remarks
+     * The caller should free the memory pointed to by <i>ppRasConn</i> by calling the function <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminbufferfree">MprAdminBufferFree</a>.
      * @param {Pointer} hRasServer A handle to the RAS server on which connections are enumerated. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {Pointer<MPRAPI_OBJECT_HEADER>} pObjectHeader A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mprapi_object_header">MPRAPI_OBJECT_HEADER</a>   structure that specifies the structure version received by <i>ppRasConn</i>.
@@ -8728,7 +9887,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminconnectionenumex
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminconnectionenumex
      * @since windows6.1
      */
     static MprAdminConnectionEnumEx(hRasServer, pObjectHeader, dwPreferedMaxLen, lpdwEntriesRead, lpdwTotalEntries, ppRasConn, lpdwResumeHandle) {
@@ -8743,6 +9902,8 @@ class Rras {
 
     /**
      * Retrieves the connection information for a specific connection on a specified RRAS server.
+     * @remarks
+     * The caller should free the memory pointed to by <i>pRasConnection</i> by calling the function <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminbufferfree">MprAdminBufferFree</a>.
      * @param {Pointer} hRasServer A handle to the computer from which the connection information is retrieved. To obtain this handle, call <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {HANDLE} hRasConnection A handle to the connection to retrieve data about. To obtain this handle, call <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminconnectionenum">MprAdminConnectionEnum</a>.
      * @param {Pointer<RAS_CONNECTION_EX>} pRasConnection A pointer, on output, to  a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_ex">RAS_CONNECTION_EX</a> structure that contains the connection information for the RRAS server in <i>hRasServer</i>.
@@ -8802,7 +9963,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminconnectiongetinfoex
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminconnectiongetinfoex
      * @since windows6.1
      */
     static MprAdminConnectionGetInfoEx(hRasServer, hRasConnection, pRasConnection) {
@@ -8861,7 +10022,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminservergetinfoex
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminservergetinfoex
      * @since windowsserver2008
      */
     static MprAdminServerGetInfoEx(hMprServer, pServerInfo) {
@@ -8917,7 +10078,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminserversetinfoex
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminserversetinfoex
      * @since windowsserver2008
      */
     static MprAdminServerSetInfoEx(hMprServer, pServerInfo) {
@@ -8982,12 +10143,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfigservergetinfoex
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigservergetinfoex
      * @since windowsserver2008
      */
     static MprConfigServerGetInfoEx(hMprConfig, pServerInfo) {
@@ -8999,6 +10160,8 @@ class Rras {
 
     /**
      * The MprConfigServerSetInfoEx function sets port information on a specified RRAS server.
+     * @remarks
+     * These changes to a server configuration are persistent, but have no effect on a RRAS server until it is restarted.
      * @param {HANDLE} hMprConfig A handle to the router configuration. Obtain this handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {Pointer<MPR_SERVER_SET_CONFIG_EX1>} pSetServerConfig A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_server_set_config_ex0">MPR_SERVER_SET_CONFIG_EX</a> structure that contains the port information being set on the server in <i>hMprServer</i>.
@@ -9052,12 +10215,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfigserversetinfoex
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigserversetinfoex
      * @since windowsserver2008
      */
     static MprConfigServerSetInfoEx(hMprConfig, pSetServerConfig) {
@@ -9155,7 +10318,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminisserviceinitialized
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminisserviceinitialized
      * @since windowsserver2008
      */
     static MprAdminIsServiceInitialized(lpwsServerName, fIsServiceInitialized) {
@@ -9169,6 +10332,12 @@ class Rras {
 
     /**
      * Sets the tunnel specific custom configuration for a specified demand dial interface on a specified server.
+     * @remarks
+     * If you need to delete the custom configuration for IKEv2 tunnel of an interface, call the  <b>MprAdminInterfaceSetCustomInfoEx</b> function with the <b>dwFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_if_custominfoex0">MPR_IF_CUSTOMINFOEX</a>   structure set to zero.
+     * 
+     * If you need to delete the IKEv2 main mode and quick mode policy configuration for an interface, set the <b>customPolicy</b> parameter of the <b>customIkev2Config</b> member in <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_if_custominfoex0">MPR_IF_CUSTOMINFOEX</a>   structure to <b>NULL</b>.
+     * 
+     * If you need to delete the certificate configured to be used during IKEv2 main mode SA negotiation, set the <b>cbData</b> member of <b>certificateName</b> in <b>customIkev2Config</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_if_custominfoex0">MPR_IF_CUSTOMINFOEX</a>   structure to 0.
      * @param {Pointer} hMprServer The handle to the router to query. This handle is obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a> function.
      * @param {HANDLE} hInterface The handle to the interface.  This handle is  obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a> function or the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacegethandle">MprAdminInterfaceGetHandle</a> function.
      * @param {Pointer<MPR_IF_CUSTOMINFOEX2>} pCustomInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_if_custominfoex0">MPR_IF_CUSTOMINFOEX</a>  structure that contains tunnel specific custom configuration.
@@ -9224,7 +10393,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfacesetcustominfoex
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacesetcustominfoex
      * @since windowsserver2012
      */
     static MprAdminInterfaceSetCustomInfoEx(hMprServer, hInterface, pCustomInfo) {
@@ -9291,7 +10460,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfacegetcustominfoex
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacegetcustominfoex
      * @since windowsserver2012
      */
     static MprAdminInterfaceGetCustomInfoEx(hMprServer, hInterface, pCustomInfo) {
@@ -9352,7 +10521,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfiginterfacegetcustominfoex
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacegetcustominfoex
      * @since windowsserver2012
      */
     static MprConfigInterfaceGetCustomInfoEx(hMprConfig, hRouterInterface, pCustomInfo) {
@@ -9404,7 +10573,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfiginterfacesetcustominfoex
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacesetcustominfoex
      * @since windowsserver2012
      */
     static MprConfigInterfaceSetCustomInfoEx(hMprConfig, hRouterInterface, pCustomInfo) {
@@ -9417,6 +10586,11 @@ class Rras {
 
     /**
      * The MprAdminConnectionEnum function enumerates all active connections.
+     * @remarks
+     * This function is available on Windows NT 4.0 if the RRAS redistributable is installed. However, the version of Mprapi.dll that ships with the RRAS redistributable exports the function as <b>RasAdminConnectionEnum</b> rather than 
+     * <b>MprAdminConnectionEnum</b>. Therefore, when using the RRAS redistributable, use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> to access this function.
      * @param {Pointer} hRasServer Handle to the RAS server on which connections are enumerated. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is returned in the <i>lplpbBuffer</i> parameter. Acceptable values for <i>dwLevel</i> include 0, 1, 2, and 3, as listed in the following table.
@@ -9533,7 +10707,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminconnectionenum
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminconnectionenum
      * @since windows5.0
      */
     static MprAdminConnectionEnum(hRasServer, dwLevel, lplpbBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
@@ -9548,6 +10722,12 @@ class Rras {
 
     /**
      * Enumerates all active ports in a specific connection, or all ports available for use or currently used by RAS.
+     * @remarks
+     * If the RRAS redistributable is installed, this function is available on Windows NT 4.0. However, the version of Mprapi.dll that is provided with the RRAS redistributable exports the function as 
+     * <b>RasAdminPortEnum</b> rather than 
+     * <b>MprAdminPortEnum</b>. Therefore, when using the RRAS redistributable, use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> to access this function.
      * @param {Pointer} hRasServer A handle to the RAS server whose ports are to be enumerated. To obtain this handle, call <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is returned in the <i>lplpbBuffer</i> parameter. Must be zero.
      * @param {HANDLE} hRasConnection A handle to a connection for which the active ports are enumerated. If this parameter is <b>INVALID_HANDLE_VALUE</b>, all the ports in use or available for use by RRAS are enumerated. To obtain this handle, call 
@@ -9645,7 +10825,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminportenum
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminportenum
      * @since windows5.0
      */
     static MprAdminPortEnum(hRasServer, dwLevel, hRasConnection, lplpbBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
@@ -9662,6 +10842,11 @@ class Rras {
 
     /**
      * Retrieves data about a specific connection.
+     * @remarks
+     * This function is available on Windows NT 4.0 if the RRAS redistributable is installed. However, the version of Mprapi.dll included in the RRAS redistributable exports the function as <b>RasAdminConnectionGetInfo</b> rather than 
+     * <b>MprAdminConnectionGetInfo</b>. Therefore, when using the RRAS redistributable, use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> to access this function.
      * @param {Pointer} hRasServer A handle to the computer from which the connection information is retrieved. To obtain this handle, call <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is returned in the <i>lplpbBuffer</i> parameter. Acceptable values for <i>dwLevel</i> include 0, 1, 2, and 3, as listed in the following table.
      * 
@@ -9763,7 +10948,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminconnectiongetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminconnectiongetinfo
      * @since windows5.0
      */
     static MprAdminConnectionGetInfo(hRasServer, dwLevel, hRasConnection, lplpbBuffer) {
@@ -9777,6 +10962,12 @@ class Rras {
 
     /**
      * The MprAdminPortGetInfo function gets information for a specific port.
+     * @remarks
+     * This function is available on Windows NT 4.0 if the RRAS redistributable is installed. However, the version of Mprapi.dll that ships with the RRAS redistributable exports the function as 
+     * <b>RasAdminPortGetInfo</b> rather than 
+     * <b>MprAdminPortGetInfo</b>. Therefore, when using the RRAS redistributable, use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> to access this function.
      * @param {Pointer} hRasServer Handle to the RAS server computer on which to collect port information. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is returned in the <i>lplpbBuffer</i> parameter. Acceptable values for <i>dwLevel</i> include 0 and 1 as listed in the following table.
@@ -9883,7 +11074,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminportgetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminportgetinfo
      * @since windows5.0
      */
     static MprAdminPortGetInfo(hRasServer, dwLevel, hPort, lplpbBuffer) {
@@ -9897,6 +11088,11 @@ class Rras {
 
     /**
      * The MprAdminConnectionClearStats function resets the statistics counters for the specified connection.
+     * @remarks
+     * This function is available on Windows NT 4.0 if the RRAS redistributable is installed. However, the version of Mprapi.dll that ships with the RRAS redistributable exports the function as <b>RasAdminConnectionClearStats</b> rather than 
+     * <b>MprAdminConnectionClearStats</b>. Therefore, when using the RRAS redistributable, use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> to access this function.
      * @param {Pointer} hRasServer Handle to the Remote Access Server on which to execute 
      * <b>MprAdminConnectionClearStats</b>. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
@@ -9971,7 +11167,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminconnectionclearstats
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminconnectionclearstats
      * @since windows5.0
      */
     static MprAdminConnectionClearStats(hRasServer, hRasConnection) {
@@ -9983,6 +11179,11 @@ class Rras {
 
     /**
      * The MprAdminPortClearStats function resets the statistics for the specified port.
+     * @remarks
+     * This function is available on Windows NT Server 4.0 if the RRAS redistributable is installed. However, the version of Mprapi.dll that ships with the RRAS redistributable exports the function as <b>RasAdminPortClearStats</b> rather than 
+     * <b>MprAdminPortClearStats</b>. Therefore, when using the RRAS redistributable, use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> to access this function.
      * @param {Pointer} hRasServer Handle to the RAS server on which to clear the statistics for the specified port. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {HANDLE} hPort Handle to the port for which statistics are reset. Obtain this handle by calling 
@@ -10045,7 +11246,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminportclearstats
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminportclearstats
      * @since windows5.0
      */
     static MprAdminPortClearStats(hRasServer, hPort) {
@@ -10057,6 +11258,11 @@ class Rras {
 
     /**
      * The MprAdminPortReset function resets the communication device attached to the specified port.
+     * @remarks
+     * This function is available on Windows NT 4.0 if the RRAS redistributable is installed. However, the version of Mprapi.dll that ships with the RRAS redistributable exports the function as <b>RasAdminPortReset</b> rather than 
+     * <b>MprAdminPortReset</b>. Therefore, when using the RRAS redistributable, use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> to access this function.
      * @param {Pointer} hRasServer Handle to the RAS server on which to reset the specified port. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {HANDLE} hPort Handle to the port to be reset. Obtain this handle by calling 
@@ -10119,7 +11325,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminportreset
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminportreset
      * @since windows5.0
      */
     static MprAdminPortReset(hRasServer, hPort) {
@@ -10131,6 +11337,12 @@ class Rras {
 
     /**
      * The MprAdminPortDisconnect function disconnects a connection on a specific port.
+     * @remarks
+     * This function is available on Windows NT Server 4.0 if the RRAS redistributable is installed. However, the version of Mprapi.dll that ships with the RRAS redistributable exports the function as 
+     * <b>RasAdminPortDisconnect</b> rather than 
+     * <b>MprAdminPortDisconnect</b>. Therefore, when using the RRAS redistributable, use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> to access this function.
      * @param {Pointer} hRasServer Handle to the RAS server on which to disconnect the port. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {HANDLE} hPort Handle to the port to disconnect. Obtain this handle by calling 
@@ -10193,7 +11405,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminportdisconnect
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminportdisconnect
      * @since windows5.0
      */
     static MprAdminPortDisconnect(hRasServer, hPort) {
@@ -10205,6 +11417,9 @@ class Rras {
 
     /**
      * The MprAdminConnectionRemoveQuarantine function removes quarantine filters on a dialed-in RAS client if the filters were applied as a result of Internet Authentication Service (IAS) policies.
+     * @remarks
+     * If <a href="https://docs.microsoft.com/previous-versions/ms688288(v=vs.85)">Internet Authentication Service (IAS)</a> policies configure regular filters, then these filters are added to the RAS client interface as a result of calling 
+     * <b>MprAdminConnectionRemoveQuarantine</b>.
      * @param {HANDLE} hRasServer Handle to the RAS server that services the connection. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {HANDLE} hRasConnection Handle to connection for the RAS client for which to remove the quarantine filters. Obtain this handle by calling 
@@ -10259,7 +11474,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminconnectionremovequarantine
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminconnectionremovequarantine
      * @since windows6.0.6000
      */
     static MprAdminConnectionRemoveQuarantine(hRasServer, hRasConnection, fIsIpAddress) {
@@ -10272,6 +11487,12 @@ class Rras {
 
     /**
      * The MprAdminUserGetInfo function retrieves all RAS information for a particular user.
+     * @remarks
+     * This function is available on Windows NT 4.0 if the RRAS redistributable is installed. However, the version of Mprapi.dll that ships with the RRAS redistributable exports the function as 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/rasadminusergetinfo">RasAdminUserGetInfo</a> rather than 
+     * <b>MprAdminUserGetInfo</b>. Therefore, when using the RRAS redistributable, use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> to access this function.
      * @param {PWSTR} lpszServer Pointer to a Unicode string that specifies the name of the server  with the master User Accounts Subsystem (UAS). If the remote access server is part of a domain, the computer with the UAS is either the primary domain controller or the backup domain controller. If the remote access server is not part of a domain, then the server itself  stores the UAS. In either case, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmingetpdcserver">MprAdminGetPDCServer</a> function to obtain the value for this parameter. 
      * 
@@ -10345,7 +11566,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminusergetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminusergetinfo
      * @since windows5.0
      */
     static MprAdminUserGetInfo(lpszServer, lpszUser, dwLevel, lpbBuffer) {
@@ -10360,6 +11581,12 @@ class Rras {
 
     /**
      * The MprAdminUserSetInfo function sets RAS information for the specified user.
+     * @remarks
+     * This function is available on Windows NT 4.0 if the RRAS redistributable is installed. However, the version of Mprapi.dll that ships with the RRAS redistributable exports the function as 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/rasadminusersetinfo">RasAdminUserSetInfo</a> rather than 
+     * <b>MprAdminUserSetInfo</b>. Therefore, when using the RRAS redistributable, use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> to access this function.
      * @param {PWSTR} lpszServer Pointer to a Unicode string that specifies the name of the server  with the master User Accounts Subsystem (UAS). If the remote access server is part of a domain, the computer with the UAS is either the primary domain controller or the backup domain controller. If the remote access server is not part of a domain, then the server itself  stores the UAS. In either case, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmingetpdcserver">MprAdminGetPDCServer</a> function to obtain the value for this parameter. 
      * 
@@ -10433,7 +11660,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminusersetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminusersetinfo
      * @since windows5.0
      */
     static MprAdminUserSetInfo(lpszServer, lpszUser, dwLevel, lpbBuffer) {
@@ -10507,7 +11734,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminsendusermessage
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminsendusermessage
      * @since windows5.0
      */
     static MprAdminSendUserMessage(hMprServer, hConnection, lpwszMessage) {
@@ -10520,6 +11747,20 @@ class Rras {
 
     /**
      * The MprAdminGetPDCServer function retrieves the name of the server with the master User Accounts Subsystem (UAS) from either a domain name or a server name. Either the domain name parameter or the server name parameter may be NULL, but not both.
+     * @remarks
+     * The 
+     * <b>MprAdminGetPDCServer</b> function can obtain the name of the server with the user accounts database given the name of the RAS server, or the name of the domain in which the RAS server resides. To get the server name, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getcomputernamea">GetComputerName</a> function
+     * 
+     * If the server name specified by <i>lpszServer</i> is part of a domain, The server returned by 
+     * <b>MprAdminGetPDCServer</b> will be either the primary domain controller or a backup domain controller.
+     * 
+     * If the server name specified by <i>lpszServer</i> is a stand-alone Windows NT/Windows 2000 server (that is, the server or workstation does not participate in a domain), then the server name itself is returned in the <i>lpszUserAccountServer</i> buffer.
+     * 
+     * You can then use the name of the user account server in a call to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netquerydisplayinformation">NetQueryDisplayInformation</a> function to enumerate the users in the user account database. You can also use the server name in calls to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminusergetinfo">MprAdminUserGetInfo</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminusersetinfo">MprAdminUserSetInfo</a> functions to get and set RAS privileges for a specified user account.
      * @param {PWSTR} lpszDomain Pointer to a null-terminated Unicode string that specifies the name of the domain to which the RAS server belongs. This parameter can be <b>NULL</b> if you are running your RAS administration application on a Windows NT/Windows 2000 server that is not participating in a domain. If this parameter is <b>NULL</b>, the <i>lpwsServerName</i> parameter must not be <b>NULL</b>.
      * @param {PWSTR} lpszServer Pointer to a null-terminated Unicode string that specifies the name of the Windows NT/Windows 2000 RAS server. Specify the name with leading "\\" characters, in the form: <b>\\servername</b>. This parameter can be <b>NULL</b> if the <i>lpwsDomain</i> parameter is not <b>NULL</b>.
      * @param {PWSTR} lpszPDCServer Pointer to a buffer that receives a null-terminated Unicode string that contains the name of a domain controller that has the user account database. The buffer should be big enough to hold the server name (UNCLEN +1). The function prefixes the returned server name with leading "\\" characters, in the form: <b>\\servername</b>.
@@ -10559,7 +11800,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmingetpdcserver
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmingetpdcserver
      * @since windows5.0
      */
     static MprAdminGetPDCServer(lpszDomain, lpszServer, lpszPDCServer) {
@@ -10573,6 +11814,8 @@ class Rras {
 
     /**
      * The MprAdminIsServiceRunning function checks whether the RRAS service is running on a specified server if the calling process has access.
+     * @remarks
+     * This function returns <b>FALSE</b> if the RRAS service is running, but the calling process does not have  sufficient privileges to access the service. If the access rights of the calling process on the server are unknown, it is recommended that <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a> is called prior to calling this function. Doing so will determine  if the process has the required access rights to the server.
      * @param {PWSTR} lpwsServerName A pointer to a <b>null</b>-terminated Unicode string that specifies the name of the server to query. If this parameter is <b>NULL</b>, the function queries the local machine.
      * @returns {BOOL} The return value is one of the following Boolean values.
      * 
@@ -10604,7 +11847,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminisservicerunning
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminisservicerunning
      * @since windowsserver2000
      */
     static MprAdminIsServiceRunning(lpwsServerName) {
@@ -10616,6 +11859,8 @@ class Rras {
 
     /**
      * The MprAdminServerConnect function establishes a connection to a router for the purpose of administering that router.
+     * @remarks
+     * <b>MprAdminIsServiceRunning</b> must be used to determine the status of the RRAS service on the remote server. <b>MprAdminServerConnect</b> does not query the RRAS service when establishing a connection.
      * @param {PWSTR} lpwsServerName A pointer to a <b>null</b>-terminated Unicode string that specifies the name of the remote server. If this parameter is <b>NULL</b>, the function returns a handle to the local machine.
      * @param {Pointer<Pointer>} phMprServer A pointer to a <b>HANDLE</b> variable that receives a handle to the server. Use this handle in subsequent calls to administer the server.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
@@ -10661,7 +11906,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminserverconnect
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminserverconnect
      * @since windowsserver2000
      */
     static MprAdminServerConnect(lpwsServerName, phMprServer) {
@@ -10678,7 +11923,7 @@ class Rras {
      * @param {Pointer} hMprServer Handle to the router from which to disconnect. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminserverdisconnect
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminserverdisconnect
      * @since windowsserver2000
      */
     static MprAdminServerDisconnect(hMprServer) {
@@ -10687,6 +11932,8 @@ class Rras {
 
     /**
      * The MprAdminServerGetCredentials function retrieves the pre-shared key for the specified server.
+     * @remarks
+     * The server maintains a single pre-shared key for all users.
      * @param {Pointer} hMprServer Handle to a Windows server. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminmibserverconnect">MprAdminMIBServerConnect</a>.
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is returned in the <i>lplpbBuffer</i> parameter. Must be zero.
@@ -10742,12 +11989,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminservergetcredentials
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminservergetcredentials
      * @since windowsserver2003
      */
     static MprAdminServerGetCredentials(hMprServer, dwLevel, lplpbBuffer) {
@@ -10759,6 +12006,11 @@ class Rras {
 
     /**
      * The MprAdminServerSetCredentials functions sets the pre-shared key for the specified server.
+     * @remarks
+     * The server maintains a single pre-shared key for all users.
+     * 
+     * To delete the pre-shared key, call 
+     * <b>MprAdminServerSetCredentials</b> with the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_credentialsex_1">MPR_CREDENTIALSEX_1</a><b>dwSize</b> member set to zero.
      * @param {Pointer} hMprServer Handle to a Windows server. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminmibserverconnect">MprAdminMIBServerConnect</a>.
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is structured in the <i>lpbBuffer</i> parameter. Must be zero.
@@ -10813,12 +12065,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminserversetcredentials
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminserversetcredentials
      * @since windowsserver2003
      */
     static MprAdminServerSetCredentials(hMprServer, dwLevel, lpbBuffer) {
@@ -10852,7 +12104,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminbufferfree
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminbufferfree
      * @since windowsserver2000
      */
     static MprAdminBufferFree(pBuffer) {
@@ -10903,7 +12155,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmingeterrorstring
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmingeterrorstring
      * @since windowsserver2000
      */
     static MprAdminGetErrorString(dwError, lplpwsErrorString) {
@@ -10988,7 +12240,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminservergetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminservergetinfo
      * @since windowsserver2000
      */
     static MprAdminServerGetInfo(hMprServer, dwLevel, lplpbBuffer) {
@@ -11000,6 +12252,8 @@ class Rras {
 
     /**
      * The MprAdminServerSetInfo function is used to set the number of ports for L2TP, PPTP, and SSTP devices when the RRAS service is running.
+     * @remarks
+     * This function is used to set the port count for L2TP, PPTP, and SSTP ports and enable or disable RRAS when the service is running. These values are persistent, meaning that you do not have to follow this call with a call to <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserversetinfo">MprConfigServerSetInfo</a>. Note that this function is asynchronous, so you might not see the affect of the changes immediately.
      * @param {Pointer} hMprServer Handle to the router to query. Obtain this handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is structured in the <i>lpbBuffer</i> parameter. Acceptable values for <i>dwLevel</i> include 1 and 2 as listed in the following table.
      * 
@@ -11049,7 +12303,7 @@ class Rras {
      * </dl>
      * </td>
      * <td width="60%">
-     * A system reboot is required for such a change to take affect. Change the port count using the <a href="/windows/desktop/api/mprapi/nf-mprapi-mprconfigserversetinfo">MprConfigServerSetInfo</a> call and reboot.
+     * A system reboot is required for such a change to take affect. Change the port count using the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserversetinfo">MprConfigServerSetInfo</a> call and reboot.
      * 
      * </td>
      * </tr>
@@ -11060,7 +12314,7 @@ class Rras {
      * </dl>
      * </td>
      * <td width="60%">
-     * If you try to set the number of ports to more than the system supported limits as defined on the <a href="/windows/desktop/api/mprapi/ns-mprapi-mpr_server_1">MPR_SERVER_1</a> and <a href="/windows/desktop/api/mprapi/ns-mprapi-mpr_server_2">MPR_SERVER_2</a> topics.
+     * If you try to set the number of ports to more than the system supported limits as defined on the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_server_1">MPR_SERVER_1</a> and <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_server_2">MPR_SERVER_2</a> topics.
      * 
      * Returns this error if you try to set the number of PPTP ports to 0.
      * 
@@ -11110,12 +12364,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminserversetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminserversetinfo
      * @since windowsserver2003
      */
     static MprAdminServerSetInfo(hMprServer, dwLevel, lpbBuffer) {
@@ -11184,7 +12438,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminestablishdomainrasserver
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminestablishdomainrasserver
      * @since windowsserver2003
      */
     static MprAdminEstablishDomainRasServer(pszDomain, pszMachine, bEnable) {
@@ -11197,6 +12451,8 @@ class Rras {
 
     /**
      * The MprAdminIsDomainRasServer function returns information regarding whether the given machine is registered as the remote access server in the domain.
+     * @remarks
+     * This function must be executed only on a machine joined to a domain.
      * @param {PWSTR} pszDomain The domain  in which you want to query the remote access server.
      * @param {PWSTR} pszMachine The name of the remote access server.
      * @param {Pointer<BOOL>} pbIsRasServer Returns <b>TRUE</b> if the machine is registered in the domain, otherwise it returns <b>FALSE</b>.
@@ -11254,7 +12510,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminisdomainrasserver
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminisdomainrasserver
      * @since windowsserver2003
      */
     static MprAdminIsDomainRasServer(pszDomain, pszMachine, pbIsRasServer) {
@@ -11376,7 +12632,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmintransportcreate
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmintransportcreate
      * @since windowsserver2000
      */
     static MprAdminTransportCreate(hMprServer, dwTransportId, lpwsTransportName, pGlobalInfo, dwGlobalInfoSize, pClientInterfaceInfo, dwClientInterfaceInfoSize, lpwsDLLPath) {
@@ -11491,7 +12747,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmintransportsetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmintransportsetinfo
      * @since windowsserver2000
      */
     static MprAdminTransportSetInfo(hMprServer, dwTransportId, pGlobalInfo, dwGlobalInfoSize, pClientInterfaceInfo, dwClientInterfaceInfoSize) {
@@ -11504,6 +12760,8 @@ class Rras {
 
     /**
      * The MprAdminTransportGetInfo function retrieves global information, default client interface information, or both, for a specified transport.
+     * @remarks
+     * The <i>ppGlobalInfo</i> and <i>ppClientInterfaceInfo</i> parameters cannot both be <b>NULL</b>.
      * @param {Pointer} hMprServer Handle to the router from which information is being retrieved. This handle is obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {Integer} dwTransportId A <b>DWORD</b> value that describes the transport type to retrieve. Acceptable values for <i>dwTransportId</i> are listed in the following table.
@@ -11615,7 +12873,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmintransportgetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmintransportgetinfo
      * @since windowsserver2000
      */
     static MprAdminTransportGetInfo(hMprServer, dwTransportId, ppGlobalInfo, lpdwGlobalInfoSize, ppClientInterfaceInfo, lpdwClientInterfaceInfoSize) {
@@ -11668,7 +12926,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmindeviceenum
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmindeviceenum
      * @since windowsserver2000
      */
     static MprAdminDeviceEnum(hMprServer, dwLevel, lplpbBuffer, lpdwTotalEntries) {
@@ -11745,7 +13003,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfacegethandle
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacegethandle
      * @since windowsserver2000
      */
     static MprAdminInterfaceGetHandle(hMprServer, lpwsInterfaceName, phInterface, fIncludeClientInterfaces) {
@@ -11757,6 +13015,16 @@ class Rras {
 
     /**
      * The MprAdminInterfaceCreate function creates an interface on a specified server.
+     * @remarks
+     * The 
+     * <b>MprAdminInterfaceCreate</b> function supports the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_2">MPR_INTERFACE_2</a> structure. However, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacecreate">MprConfigInterfaceCreate</a> does not. In order to create a demand-dial interface that is persistent after a reboot, call 
+     * <b>MprAdminInterfaceCreate</b> with 
+     * <b>MPR_INTERFACE_2</b>, then call 
+     * <b>MprConfigInterfaceCreate</b> with 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_0">MPR_INTERFACE_0</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_1">MPR_INTERFACE_1</a>.
      * @param {Pointer} hMprServer Handle to the  router on which to execute this call. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is structured in the <i>lpBuffer</i> parameter. Acceptable values for <i>dwLevel</i> include 0, 1, 2, and 3, as listed in the following table.
@@ -11860,7 +13128,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfacecreate
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacecreate
      * @since windowsserver2000
      */
     static MprAdminInterfaceCreate(hMprServer, dwLevel, lpbBuffer, phInterface) {
@@ -11992,7 +13260,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfacegetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacegetinfo
      * @since windowsserver2000
      */
     static MprAdminInterfaceGetInfo(hMprServer, hInterface, dwLevel, lplpbBuffer) {
@@ -12006,6 +13274,16 @@ class Rras {
 
     /**
      * The MprAdminInterfaceSetInfo function sets information for a specified interface on a specified server.
+     * @remarks
+     * The 
+     * <b>MprAdminInterfaceSetInfo</b> function supports the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_2">MPR_INTERFACE_2</a> structure. However, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacesetinfo">MprConfigInterfaceSetInfo</a> does not. In order to make persistent changes to a demand-dial interface, call 
+     * <b>MprAdminInterfaceSetInfo</b> with 
+     * <b>MPR_INTERFACE_2</b>, then call 
+     * <b>MprConfigInterfaceSetInfo</b> with 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_0">MPR_INTERFACE_0</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_1">MPR_INTERFACE_1</a>.
      * @param {Pointer} hMprServer Handle to the  router to query. This handle is obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {HANDLE} hInterface Handle to the interface obtained by a previous call to 
@@ -12110,7 +13388,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfacesetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacesetinfo
      * @since windowsserver2000
      */
     static MprAdminInterfaceSetInfo(hMprServer, hInterface, dwLevel, lpbBuffer) {
@@ -12175,7 +13453,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfacedelete
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacedelete
      * @since windowsserver2000
      */
     static MprAdminInterfaceDelete(hMprServer, hInterface) {
@@ -12285,7 +13563,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfacedevicegetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacedevicegetinfo
      * @since windowsserver2000
      */
     static MprAdminInterfaceDeviceGetInfo(hMprServer, hInterface, dwIndex, dwLevel, lplpBuffer) {
@@ -12391,7 +13669,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfacedevicesetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacedevicesetinfo
      * @since windowsserver2000
      */
     static MprAdminInterfaceDeviceSetInfo(hMprServer, hInterface, dwIndex, dwLevel, lpbBuffer) {
@@ -12502,7 +13780,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfacetransportremove
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacetransportremove
      * @since windowsserver2000
      */
     static MprAdminInterfaceTransportRemove(hMprServer, hInterface, dwTransportId) {
@@ -12514,6 +13792,8 @@ class Rras {
 
     /**
      * The MprAdminInterfaceTransportAdd function adds a transport (for example, IP or IPX) to a specified interface.
+     * @remarks
+     * The <i>dwTransportId</i> parameter also specifies the router manager because a router uses a different router manager for each transport.
      * @param {Pointer} hMprServer Handle to the router on which information is being added. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {HANDLE} hInterface Handle to the interface on which the transport is being added. This handle is obtained by a previous call to 
@@ -12603,7 +13883,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfacetransportadd
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacetransportadd
      * @since windowsserver2000
      */
     static MprAdminInterfaceTransportAdd(hMprServer, hInterface, dwTransportId, pInterfaceInfo, dwInterfaceInfoSize) {
@@ -12723,7 +14003,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfacetransportgetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacetransportgetinfo
      * @since windowsserver2000
      */
     static MprAdminInterfaceTransportGetInfo(hMprServer, hInterface, dwTransportId, ppInterfaceInfo, lpdwInterfaceInfoSize) {
@@ -12838,7 +14118,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfacetransportsetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacetransportsetinfo
      * @since windowsserver2000
      */
     static MprAdminInterfaceTransportSetInfo(hMprServer, hInterface, dwTransportId, pInterfaceInfo, dwInterfaceInfoSize) {
@@ -12920,7 +14200,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfaceenum
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfaceenum
      * @since windowsserver2000
      */
     static MprAdminInterfaceEnum(hMprServer, dwLevel, lplpbBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
@@ -12935,6 +14215,15 @@ class Rras {
 
     /**
      * Use MprAdminInterfaceSetCredentials function to set the domain, user name, and password that will be used for dialing out on the specified demand-dial interface.
+     * @remarks
+     * The <i>lpwsUserName</i>, <i>lpwsPassword</i>, and <i>lpwsDomainName</i> parameters are optional. If the calling application specifies <b>NULL</b> for all three parameters, 
+     * <b>MprAdminInterfaceSetCredentials</b> removes all credential information for this interface.
+     * 
+     * The constants UNLEN, PWLEN, and DNLEN are the maximum lengths for the user name, password, and domain name. These constants are defined in Lmcons.h.
+     * 
+     * Note that the order of the parameters in 
+     * <b>MprAdminInterfaceSetCredentials</b> is different from 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacegetcredentials">MprAdminInterfaceGetCredentials</a>.
      * @param {PWSTR} lpwsServer Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the router on which to execute this call. 
      * 
      * 
@@ -13007,7 +14296,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
@@ -13016,7 +14305,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfacesetcredentials
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacesetcredentials
      * @since windowsserver2000
      */
     static MprAdminInterfaceSetCredentials(lpwsServer, lpwsInterfaceName, lpwsUserName, lpwsDomainName, lpwsPassword) {
@@ -13032,6 +14321,15 @@ class Rras {
 
     /**
      * Use the MprAdminInterfaceGetCredentials function to retrieve the domain, user name, and password for dialing out on the specified demand-dial interface.
+     * @remarks
+     * The <i>lpwsUserName</i>, <i>lpwsPassword</i>, and <i>lpwsDomainName</i> parameters are optional. If the calling application specifies <b>NULL</b> for all three parameters, 
+     * <b>MprAdminInterfaceGetCredentials</b> returns NO_ERROR and the domain, user name, and password are not returned.
+     * 
+     * The constants UNLEN, PWLEN, and DNLEN are the maximum lengths for the user name, password, and domain name. These constants are defined in lmcons.h.
+     * 
+     * Note that the order of the parameters in 
+     * <b>MprAdminInterfaceGetCredentials</b> is different from 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacesetcredentials">MprAdminInterfaceSetCredentials</a>.
      * @param {PWSTR} lpwsServer Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the router on which to execute this call. 
      * 
      * 
@@ -13109,12 +14407,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfacegetcredentials
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacegetcredentials
      * @since windowsserver2000
      */
     static MprAdminInterfaceGetCredentials(lpwsServer, lpwsInterfaceName, lpwsUserName, lpwsPassword, lpwsDomainName) {
@@ -13130,6 +14428,9 @@ class Rras {
 
     /**
      * Use the MprAdminInterfaceSetCredentialsEx function to set extended credentials information for an interface. Use this function to set credentials information used for Extensible Authentication Protocols (EAPs).
+     * @remarks
+     * To a delete a pre-shared key, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacesetcredentials">MprAdminInterfaceSetCredentials</a> with the <b>dwSize</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_credentialsex_1">MPR_CREDENTIALSEX_1</a> structure set to zero.
      * @param {Pointer} hMprServer Handle to a  router. This handle is obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {HANDLE} hInterface Handle to the interface. This handle is obtained from a previous call to 
@@ -13219,7 +14520,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfacesetcredentialsex
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacesetcredentialsex
      * @since windowsserver2000
      */
     static MprAdminInterfaceSetCredentialsEx(hMprServer, hInterface, dwLevel, lpbBuffer) {
@@ -13327,7 +14628,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfacegetcredentialsex
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacegetcredentialsex
      * @since windowsserver2000
      */
     static MprAdminInterfaceGetCredentialsEx(hMprServer, hInterface, dwLevel, lplpbBuffer) {
@@ -13341,6 +14642,36 @@ class Rras {
 
     /**
      * The MprAdminInterfaceConnect function creates a connection to the specified WAN interface.
+     * @remarks
+     * The following table summarizes the relationship between <i>hEvent</i> and <i>fBlocking</i>.
+     * 
+     * <table>
+     * <tr>
+     * <th>hEvent</th>
+     * <th>fBlocking</th>
+     * <th>Result</th>
+     * </tr>
+     * <tr>
+     * <td>Event Handle</td>
+     * <td>Ignored</td>
+     * <td>The call returns immediately. A return value of PENDING indicates that the attempt was initiated successfully. Wait on <i>hEvent</i>. When <i>hEvent</i> is signaled, use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacegetinfo">MprAdminInterfaceGetInfo</a> to determine the success or failure of the connection attempt.</td>
+     * </tr>
+     * <tr>
+     * <td><b>NULL</b></td>
+     * <td><b>TRUE</b></td>
+     * <td>The call does not return until the connection attempt has completed.</td>
+     * </tr>
+     * <tr>
+     * <td><b>NULL</b></td>
+     * <td><b>FALSE</b></td>
+     * <td>The call returns immediately. A return value of PENDING indicates that the attempt was initiated successfully.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * <div> </div>
      * @param {Pointer} hMprServer Handle to the router on which to execute this call. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {HANDLE} hInterface Handle to the interface. This handle is obtained from a previous call to 
@@ -13456,7 +14787,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * The interface is in the process of connecting. The calling application must wait on the <i>hEvent</i> handle, if one was specified. After the event is signaled, you can obtain the state of the connection and any associated error by calling 
-     * <a href="/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacegetinfo">MprAdminInterfaceGetInfo</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacegetinfo">MprAdminInterfaceGetInfo</a>.
      * 
      * </td>
      * </tr>
@@ -13465,7 +14796,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfaceconnect
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfaceconnect
      * @since windowsserver2000
      */
     static MprAdminInterfaceConnect(hMprServer, hInterface, hEvent, fSynchronous) {
@@ -13543,12 +14874,12 @@ class Rras {
      * 
      * 
      * 
-     * <a href="/windows/desktop/RRAS/router-management-reference">Router Management Reference</a>, 
-     * <a href="/windows/desktop/RRAS/router-administration-functions">Router Administration Functions</a>, 
-     * <a href="/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a>, 
-     * <a href="/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfaceconnect">MprAdminInterfaceConnect</a>, 
-     * <a href="/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfacedisconnect
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/router-management-reference">Router Management Reference</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/router-administration-functions">Router Administration Functions</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfaceconnect">MprAdminInterfaceConnect</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacedisconnect
      * @since windowsserver2000
      */
     static MprAdminInterfaceDisconnect(hMprServer, hInterface) {
@@ -13560,6 +14891,8 @@ class Rras {
 
     /**
      * The MprAdminInterfaceUpdateRoutes function requests a specified router manager to update its routing information for a specified interface.
+     * @remarks
+     * The <i>dwTransportId</i> parameter specifies both a transport protocol and a unique router manager because the router uses a different router manager for each transport.
      * @param {Pointer} hMprServer Handle to the router on which information is being updated. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {HANDLE} hInterface Handle to the interface being updated. Obtain this handle by calling 
@@ -13676,12 +15009,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * The interface is in the process of updating routing information. The calling application must wait on the event object specified by <i>hEvent</i>. After the event is signaled, the status of the update operation can be obtained by calling 
-     * <a href="/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacequeryupdateresult">MprAdminInterfaceQueryUpdateResult</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacequeryupdateresult">MprAdminInterfaceQueryUpdateResult</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfaceupdateroutes
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfaceupdateroutes
      * @since windowsserver2000
      */
     static MprAdminInterfaceUpdateRoutes(hMprServer, hInterface, dwProtocolId, hEvent) {
@@ -13694,6 +15027,8 @@ class Rras {
 
     /**
      * The MprAdminInterfaceQueryUpdateResult function returns the result of the last request to a specified router manager to update its routes for an interface. For more information, see MprAdminInterfaceUpdateRoutes.
+     * @remarks
+     * The <i>dwProtocolId</i> parameter specifies both a transport and a router manager, since the router maintains a router manager for each transport.
      * @param {Pointer} hMprServer Handle to the router from which information is being retrieved. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {HANDLE} hInterface Handle to the interface. This handle is obtained from a previous call to 
@@ -13804,7 +15139,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfacequeryupdateresult
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacequeryupdateresult
      * @since windowsserver2000
      */
     static MprAdminInterfaceQueryUpdateResult(hMprServer, hInterface, dwProtocolId, lpdwUpdateResult) {
@@ -13916,7 +15251,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
@@ -13925,7 +15260,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradmininterfaceupdatephonebookinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfaceupdatephonebookinfo
      * @since windowsserver2000
      */
     static MprAdminInterfaceUpdatePhonebookInfo(hMprServer, hInterface) {
@@ -13937,6 +15272,10 @@ class Rras {
 
     /**
      * The MprAdminRegisterConnectionNotification function registers an event object with the Demand Dial Manager (DDM) so that, if an interface connects or disconnects, the event is signaled.
+     * @remarks
+     * The event is signaled when an interface connects or disconnects. When an event is signaled, the calling application can determine which interface is affected by using a function such as 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminconnectionenum">MprAdminConnectionEnum</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfaceenum">MprAdminInterfaceEnum</a>.
      * @param {Pointer} hMprServer Handle to the router on which to execute this call. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {HANDLE} hEventNotification Handle to an event object. This event is signaled whenever an interface connects or disconnects.
@@ -13990,7 +15329,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
@@ -13999,7 +15338,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminregisterconnectionnotification
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminregisterconnectionnotification
      * @since windowsserver2000
      */
     static MprAdminRegisterConnectionNotification(hMprServer, hEventNotification) {
@@ -14064,7 +15403,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
@@ -14073,7 +15412,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminderegisterconnectionnotification
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminderegisterconnectionnotification
      * @since windowsserver2000
      */
     static MprAdminDeregisterConnectionNotification(hMprServer, hEventNotification) {
@@ -14088,7 +15427,7 @@ class Rras {
      * @param {PWSTR} lpwsServerName Pointer to a Unicode string that specifies the name of the remote server. If the caller specifies <b>NULL</b> for this parameter, the function returns a handle to the local server.
      * @param {Pointer<Pointer>} phMibServer Pointer to a handle variable. This variable receives a handle to the server.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminmibserverconnect
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminmibserverconnect
      * @since windowsserver2000
      */
     static MprAdminMIBServerConnect(lpwsServerName, phMibServer) {
@@ -14105,7 +15444,7 @@ class Rras {
      * @param {Pointer} hMibServer Handle to the router from which to disconnect. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminmibserverconnect">MprAdminMIBServerConnect</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminmibserverdisconnect
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminmibserverdisconnect
      * @since windowsserver2000
      */
     static MprAdminMIBServerDisconnect(hMibServer) {
@@ -14114,6 +15453,8 @@ class Rras {
 
     /**
      * The MprAdminMIBEntryCreate function creates an entry for one of the variables exported by a routing protocol or router manager.
+     * @remarks
+     * Do not pass in <b>NULL</b> for the <i>lpEntry</i> parameter because the resulting behavior is undefined.
      * @param {Pointer} hMibServer Handle to the router on which to execute this call. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminmibserverconnect">MprAdminMIBServerConnect</a>.
      * @param {Integer} dwPid Receives the router manager that exported the variable.
@@ -14175,7 +15516,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminmibentrycreate
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminmibentrycreate
      * @since windowsserver2000
      */
     static MprAdminMIBEntryCreate(hMibServer, dwPid, dwRoutingPid, lpEntry, dwEntrySize) {
@@ -14187,6 +15528,8 @@ class Rras {
 
     /**
      * The MprAdminMIBEntryDelete function deletes an entry for one of the variables exported by a routing protocol or router manager.
+     * @remarks
+     * Do not pass in <b>NULL</b> for the <i>lpEntry</i> parameter because the resulting behavior is undefined.
      * @param {Pointer} hMibServer Handle to the router on which to execute this call. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminmibserverconnect">MprAdminMIBServerConnect</a>.
      * @param {Integer} dwProtocolId Specifies the router manager that exported the variable.
@@ -14237,7 +15580,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminmibentrydelete
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminmibentrydelete
      * @since windowsserver2000
      */
     static MprAdminMIBEntryDelete(hMibServer, dwProtocolId, dwRoutingPid, lpEntry, dwEntrySize) {
@@ -14249,6 +15592,8 @@ class Rras {
 
     /**
      * The MprAdminMIBEntrySet function sets the value of one of the variables exported by a routing protocol or router manager.
+     * @remarks
+     * Do not pass in <b>NULL</b> for the <i>lpEntry</i> parameter because the resulting behavior is undefined.
      * @param {Pointer} hMibServer Handle to the router on which to execute this call. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminmibserverconnect">MprAdminMIBServerConnect</a>.
      * @param {Integer} dwProtocolId Specifies the 
@@ -14301,7 +15646,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminmibentryset
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminmibentryset
      * @since windowsserver2000
      */
     static MprAdminMIBEntrySet(hMibServer, dwProtocolId, dwRoutingPid, lpEntry, dwEntrySize) {
@@ -14313,6 +15658,8 @@ class Rras {
 
     /**
      * The MprAdminMIBEntryGet function retrieves the value of one of the variables exported by a routing protocol or router manager.
+     * @remarks
+     * Do not pass in <b>NULL</b> for the <i>lpInEntry</i> parameter because the resulting behavior is undefined.
      * @param {Pointer} hMibServer Handle to the router on which to execute this call. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminmibserverconnect">MprAdminMIBServerConnect</a>.
      * @param {Integer} dwProtocolId Specifies the 
@@ -14380,7 +15727,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminmibentryget
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminmibentryget
      * @since windowsserver2000
      */
     static MprAdminMIBEntryGet(hMibServer, dwProtocolId, dwRoutingPid, lpInEntry, dwInEntrySize, lplpOutEntry, lpOutEntrySize) {
@@ -14394,6 +15741,8 @@ class Rras {
 
     /**
      * The MprAdminMIBEntryGetFirst function retrieves the first variable of some set of variables exported by a protocol or router manager. The module that services the call defines first.
+     * @remarks
+     * Do not pass in <b>NULL</b> for the <i>lpInEntry</i> parameter because the resulting behavior is undefined.
      * @param {Pointer} hMibServer Handle to the router on which to execute this call. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminmibserverconnect">MprAdminMIBServerConnect</a>.
      * @param {Integer} dwProtocolId Specifies the 
@@ -14461,7 +15810,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminmibentrygetfirst
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminmibentrygetfirst
      * @since windowsserver2000
      */
     static MprAdminMIBEntryGetFirst(hMibServer, dwProtocolId, dwRoutingPid, lpInEntry, dwInEntrySize, lplpOutEntry, lpOutEntrySize) {
@@ -14475,6 +15824,8 @@ class Rras {
 
     /**
      * The MprAdminMIBEntryGetNext function retrieves the next variable of some set of variables exported by a protocol or router manager. The module that services the call defines next.
+     * @remarks
+     * Do not pass in <b>NULL</b> for the <i>lpInEntry</i> parameter because the resulting behavior is undefined.
      * @param {Pointer} hMibServer Handle to the router on which to execute this call. This handle is obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminmibserverconnect">MprAdminMIBServerConnect</a>.
      * @param {Integer} dwProtocolId Specifies the 
@@ -14542,7 +15893,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminmibentrygetnext
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminmibentrygetnext
      * @since windowsserver2000
      */
     static MprAdminMIBEntryGetNext(hMibServer, dwProtocolId, dwRoutingPid, lpInEntry, dwInEntrySize, lplpOutEntry, lpOutEntrySize) {
@@ -14582,7 +15933,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminmibbufferfree
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminmibbufferfree
      * @since windowsserver2000
      */
     static MprAdminMIBBufferFree(pBuffer) {
@@ -14594,6 +15945,32 @@ class Rras {
 
     /**
      * The MprConfigServerInstall function configures Routing and Remote Access Service with a default configuration.
+     * @remarks
+     * The 
+     * <b>MprConfigServerInstall</b> function performs the following tasks:
+     * 
+     * <ul>
+     * <li>Resets the current Router Manager and Interface keys.</li>
+     * <li>Initializes RAS structures for IP.</li>
+     * <li>Sets the router type to include: 
+     * 
+     * 
+     * ROUTER_TYPE_RAS
+     * 
+     * ROUTER_TYPE_WAN
+     * 
+     * ROUTER_TYPE_LAN
+     * 
+     * </li>
+     * <li>Sets the error logging level and authorization settings to defaults.</li>
+     * <li>Sets the devices for Routing and RAS.</li>
+     * <li>Adds the RRAS snap-in to the computer management console.</li>
+     * <li>Deletes the router phone book.</li>
+     * <li>Registers the router in the domain.</li>
+     * <li>Writes out the <b>router is configured</b> registry key.</li>
+     * </ul>
+     * The 
+     * <b>MprConfigServerInstall</b> function does not start Routing and RAS or  set the service start type for Routing and RAS.
      * @param {Integer} dwLevel This parameter is reserved for future use, and should be zero.
      * @param {Pointer<Void>} pBuffer This parameter is reserved for future use, and should be <b>NULL</b>.
      * @returns {Integer} If the functions succeeds, the return value is ERROR_SUCCESS.
@@ -14624,7 +16001,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfigserverinstall
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigserverinstall
      * @since windowsserver2000
      */
     static MprConfigServerInstall(dwLevel, pBuffer) {
@@ -14677,7 +16054,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
@@ -14686,7 +16063,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfigserverconnect
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigserverconnect
      * @since windowsserver2000
      */
     static MprConfigServerConnect(lpwsServerName, phMprConfig) {
@@ -14701,7 +16078,7 @@ class Rras {
      * @param {HANDLE} hMprConfig Handle to a router configuration obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfigserverdisconnect
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigserverdisconnect
      * @since windowsserver2000
      */
     static MprConfigServerDisconnect(hMprConfig) {
@@ -14738,7 +16115,7 @@ class Rras {
      * where X stands for Server, 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/interface">Interface</a>, Transport, or InterfaceTransport.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfigbufferfree
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigbufferfree
      * @since windowsserver2000
      */
     static MprConfigBufferFree(pBuffer) {
@@ -14828,12 +16205,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfigservergetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigservergetinfo
      * @since windowsserver2000
      */
     static MprConfigServerGetInfo(hMprConfig, dwLevel, lplpbBuffer) {
@@ -14847,6 +16224,8 @@ class Rras {
 
     /**
      * The MprConfigServerSetInfo function is used to set the port count for L2TP, PPTP, and SSTP ports and enable or disable RRAS on them in the registry when the RRAS service is not running so that it is picked up next time the system restarts.
+     * @remarks
+     * These changes to a server configuration are persistent, but have no effect on a RRAS server until it is restarted.
      * @param {Pointer} hMprServer Handle to the router configuration. Obtain this handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is structured in the <i>lpbBuffer</i> parameter. Acceptable values for <i>dwLevel</i> include 1 and 2 as listed in the following table.
      * 
@@ -14896,7 +16275,7 @@ class Rras {
      * </dl>
      * </td>
      * <td width="60%">
-     * A system reboot is required for such a change to take affect. Change the port count using the <a href="/windows/desktop/api/mprapi/nf-mprapi-mprconfigserversetinfo">MprConfigServerSetInfo</a> call and reboot.
+     * A system reboot is required for such a change to take affect. Change the port count using the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserversetinfo">MprConfigServerSetInfo</a> call and reboot.
      * 
      * </td>
      * </tr>
@@ -14907,7 +16286,7 @@ class Rras {
      * </dl>
      * </td>
      * <td width="60%">
-     * If you try to set the number of ports to more than the system supported limits as defined on the <a href="/windows/desktop/api/mprapi/ns-mprapi-mpr_server_1">MPR_SERVER_1</a> and <a href="/windows/desktop/api/mprapi/ns-mprapi-mpr_server_2">MPR_SERVER_2</a> topics.
+     * If you try to set the number of ports to more than the system supported limits as defined on the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_server_1">MPR_SERVER_1</a> and <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_server_2">MPR_SERVER_2</a> topics.
      * 
      * Returns this error if you try to set the number of PPTP ports to 0.
      * 
@@ -14946,12 +16325,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfigserversetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigserversetinfo
      * @since windowsserver2003
      */
     static MprConfigServerSetInfo(hMprServer, dwLevel, lpbBuffer) {
@@ -15005,7 +16384,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
@@ -15014,7 +16393,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfigserverbackup
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigserverbackup
      * @since windowsserver2000
      */
     static MprConfigServerBackup(hMprConfig, lpwsPath) {
@@ -15069,7 +16448,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
@@ -15078,7 +16457,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfigserverrestore
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigserverrestore
      * @since windowsserver2000
      */
     static MprConfigServerRestore(hMprConfig, lpwsPath) {
@@ -15091,6 +16470,10 @@ class Rras {
 
     /**
      * The MprConfigTransportCreate function adds the specified transport to the list of transport protocols present in the specified router configuration.
+     * @remarks
+     * If the specified transport already exists, 
+     * <b>MprConfigTransportCreate</b> does the equivalent of an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigtransportsetinfo">MprConfigTransportSetInfo</a> call using the supplied parameter values.
      * @param {HANDLE} hMprConfig Handle to the router configuration to which to add the transport. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {Integer} dwTransportId A <b>DWORD</b> value that describes the transport to add to the configuration. This parameter also identifies the router manager for the transport. Acceptable values for <i>dwTransportId</i> are listed in the following table.
@@ -15180,12 +16563,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfigtransportcreate
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigtransportcreate
      * @since windowsserver2000
      */
     static MprConfigTransportCreate(hMprConfig, dwTransportId, lpwsTransportName, pGlobalInfo, dwGlobalInfoSize, pClientInterfaceInfo, dwClientInterfaceInfoSize, lpwsDLLPath, phRouterTransport) {
@@ -15243,7 +16626,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
@@ -15252,7 +16635,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfigtransportdelete
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigtransportdelete
      * @since windowsserver2000
      */
     static MprConfigTransportDelete(hMprConfig, hRouterTransport) {
@@ -15347,12 +16730,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfigtransportgethandle
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigtransportgethandle
      * @since windowsserver2000
      */
     static MprConfigTransportGetHandle(hMprConfig, dwTransportId, phRouterTransport) {
@@ -15364,6 +16747,21 @@ class Rras {
 
     /**
      * The MprConfigTransportSetInfo function changes the configuration for the specified transport protocol in the specified router configuration.
+     * @remarks
+     * Use 
+     * <b>MprConfigTransportSetInfo</b> to set the transport's global information, default interface information, or the name of the router manager DLL for the transport.
+     * 
+     * <b>MprConfigTransportSetInfo</b> attempts to set the items in the order in which they appear in the parameter list:
+     * 
+     * <ol>
+     * <li>Global information.</li>
+     * <li>Default interface information for client routers.</li>
+     * <li>Router manager DLL name.</li>
+     * </ol>
+     * If 
+     * <b>MprConfigTransportSetInfo</b> is unable to set any one of the items, it returns immediately without attempting to set the remaining items.
+     * 
+     * If the <i>pGlobalInfo</i>, <i>pClientInterfaceInfo</i>, and <i>lpwsDLLPath</i> parameters are all <b>NULL</b>, the function does nothing, returning a value of NO_ERROR.
      * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {HANDLE} hRouterTransport Handle to the transport protocol configuration being updated. Obtain this handle by calling 
@@ -15431,7 +16829,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
@@ -15440,7 +16838,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfigtransportsetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigtransportsetinfo
      * @since windowsserver2000
      */
     static MprConfigTransportSetInfo(hMprConfig, hRouterTransport, pGlobalInfo, dwGlobalInfoSize, pClientInterfaceInfo, dwClientInterfaceInfoSize, lpwsDLLPath) {
@@ -15454,6 +16852,8 @@ class Rras {
 
     /**
      * The MprConfigTransportGetInfo function retrieves the configuration for the specified transport protocol from the router.
+     * @remarks
+     * If the <i>pGlobalInfo</i>, <i>pClientInterfaceInfo</i>, and <i>lpwsDLLPath</i> parameters are all <b>NULL</b>, the function does nothing and returns a value of NO_ERROR.
      * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {HANDLE} hRouterTransport Handle to the transport protocol configuration being retrieved. Obtain this handle by calling 
@@ -15559,12 +16959,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfigtransportgetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigtransportgetinfo
      * @since windowsserver2000
      */
     static MprConfigTransportGetInfo(hMprConfig, hRouterTransport, ppGlobalInfo, lpdwGlobalInfoSize, ppClientInterfaceInfo, lpdwClientInterfaceInfoSize, lplpwsDLLPath) {
@@ -15635,7 +17035,7 @@ class Rras {
      * <li><i>dwLevel</i> is not zero.</li>
      * <li><i>lplpBuffer</i> is <b>NULL</b>.</li>
      * <li><i>dwPrefMaxLen</i> is smaller than the size of a single 
-     * <a href="/windows/desktop/api/mprapi/ns-mprapi-mpr_transport_0">MPR_TRANSPORT_0</a> structure.</li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_transport_0">MPR_TRANSPORT_0</a> structure.</li>
      * <li><i>lpdwEntriesRead</i> is <b>NULL</b>.</li>
      * <li><i>lpdwTotalEntries</i> is <b>NULL</b>.</li>
      * </ul>
@@ -15671,12 +17071,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfigtransportenum
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigtransportenum
      * @since windowsserver2000
      */
     static MprConfigTransportEnum(hMprConfig, dwLevel, lplpBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
@@ -15693,6 +17093,16 @@ class Rras {
 
     /**
      * The MprConfigInterfaceCreate function creates a router interface in the specified router configuration.
+     * @remarks
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a> function supports the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_2">MPR_INTERFACE_2</a> structure. However, 
+     * <b>MprConfigInterfaceCreate</b> does not. In order to create a demand-dial interface that is persistent after a reboot, call 
+     * <b>MprAdminInterfaceCreate</b> with 
+     * <b>MPR_INTERFACE_2</b>, then call 
+     * <b>MprConfigInterfaceCreate</b> with 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_0">MPR_INTERFACE_0</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_1">MPR_INTERFACE_1</a>.
      * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is structured in the <i>lpbBuffer</i> parameter. Acceptable values for <i>dwLevel</i> include 0, 1, 2, and 3, as listed in the following table.
@@ -15779,12 +17189,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfiginterfacecreate
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacecreate
      * @since windowsserver2000
      */
     static MprConfigInterfaceCreate(hMprConfig, dwLevel, lpbBuffer, phRouterInterface) {
@@ -15843,7 +17253,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
@@ -15852,7 +17262,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfiginterfacedelete
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacedelete
      * @since windowsserver2000
      */
     static MprConfigInterfaceDelete(hMprConfig, hRouterInterface) {
@@ -15919,7 +17329,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
@@ -15928,7 +17338,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfiginterfacegethandle
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacegethandle
      * @since windowsserver2000
      */
     static MprConfigInterfaceGetHandle(hMprConfig, lpwsInterfaceName, phRouterInterface) {
@@ -16040,7 +17450,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfiginterfacegetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacegetinfo
      * @since windowsserver2000
      */
     static MprConfigInterfaceGetInfo(hMprConfig, hRouterInterface, dwLevel, lplpBuffer, lpdwBufferSize) {
@@ -16056,6 +17466,16 @@ class Rras {
 
     /**
      * The MprConfigInterfaceSetInfo function sets the configuration for the specified interface.
+     * @remarks
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacesetinfo">MprAdminInterfaceSetInfo</a> function supports the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_2">MPR_INTERFACE_2</a> structure. However, 
+     * <b>MprConfigInterfaceSetInfo</b> does not. In order to make persistent changes to a demand-dial interface, call 
+     * <b>MprAdminInterfaceSetInfo</b> with 
+     * <b>MPR_INTERFACE_2</b>, then call 
+     * <b>MprConfigInterfaceSetInfo</b> with 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_0">MPR_INTERFACE_0</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_1">MPR_INTERFACE_1</a>.
      * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {HANDLE} hRouterInterface Handle to the interface configuration being updated. Obtain this handle by calling 
@@ -16122,7 +17542,7 @@ class Rras {
      * <li><i>dwLevel</i> is not 0, 1, 2, or 3.</li>
      * <li><i>lpBuffer</i> is <b>NULL</b>.</li>
      * </ul>
-     * Also returns this error code if the interface is of type <a href="/windows/desktop/api/mprapi/ne-mprapi-router_interface_type">ROUTER_IF_TYPE_DEDICATED</a> or <b>ROUTER_IF_TYPE_INTERNAL</b> and the interface is enabled.
+     * Also returns this error code if the interface is of type <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ne-mprapi-router_interface_type">ROUTER_IF_TYPE_DEDICATED</a> or <b>ROUTER_IF_TYPE_INTERNAL</b> and the interface is enabled.
      * 
      * </td>
      * </tr>
@@ -16145,12 +17565,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfiginterfacesetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacesetinfo
      * @since windowsserver2000
      */
     static MprConfigInterfaceSetInfo(hMprConfig, hRouterInterface, dwLevel, lpbBuffer) {
@@ -16216,7 +17636,7 @@ class Rras {
      * <li><i>dwLevel</i> is not zero.</li>
      * <li><i>lplpBuffer</i> is <b>NULL</b>.</li>
      * <li><i>dwPrefMaxLen</i> is smaller than the size of a single 
-     * <a href="/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_0">MPR_INTERFACE_0</a> structure.</li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_0">MPR_INTERFACE_0</a> structure.</li>
      * <li><i>lpdwEntriesRead</i> is <b>NULL</b>.</li>
      * <li><i>lpdwTotalEntries</i> is <b>NULL</b>.</li>
      * </ul>
@@ -16252,12 +17672,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfiginterfaceenum
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfaceenum
      * @since windowsserver2000
      */
     static MprConfigInterfaceEnum(hMprConfig, dwLevel, lplpBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
@@ -16274,6 +17694,12 @@ class Rras {
 
     /**
      * The MprConfigInterfaceTransportAdd function adds a transport protocol to an interface configuration on the router.
+     * @remarks
+     * In addition to specifying a transport, the <i>dwTransportId</i> parameter also specifies a router manager, because a router maintains a unique router manager for each transport.
+     * 
+     * If the specified transport already exists, 
+     * <b>MprConfigInterfaceTransportAdd</b> does the equivalent of an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacetransportsetinfo">MprConfigInterfaceTransportSetInfo</a> call using the specified parameter values.
      * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {HANDLE} hRouterInterface Handle to the interface configuration to which the specified transport is added. Obtain this handle by calling 
@@ -16363,12 +17789,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfiginterfacetransportadd
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacetransportadd
      * @since windowsserver2000
      */
     static MprConfigInterfaceTransportAdd(hMprConfig, hRouterInterface, dwTransportId, lpwsTransportName, pInterfaceInfo, dwInterfaceInfoSize, phRouterIfTransport) {
@@ -16428,7 +17854,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
@@ -16437,7 +17863,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfiginterfacetransportremove
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacetransportremove
      * @since windowsserver2000
      */
     static MprConfigInterfaceTransportRemove(hMprConfig, hRouterInterface, hRouterIfTransport) {
@@ -16545,12 +17971,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfiginterfacetransportgethandle
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacetransportgethandle
      * @since windowsserver2000
      */
     static MprConfigInterfaceTransportGetHandle(hMprConfig, hRouterInterface, dwTransportId, phRouterIfTransport) {
@@ -16563,6 +17989,9 @@ class Rras {
 
     /**
      * The MprConfigInterfaceTransportGetInfo function retrieves the configuration information for the specified client on the specified interface.
+     * @remarks
+     * If the <i>ppInterfaceInfo</i> parameter is <b>NULL</b>, 
+     * <b>MprConfigInterfaceTransportGetInfo</b> does nothing and returns immediately with a value of NO_ERROR.
      * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {HANDLE} hRouterInterface Handle to the interface configuration from which to retrieve the specified client information. Obtain this handle by calling 
@@ -16648,7 +18077,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
@@ -16657,7 +18086,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfiginterfacetransportgetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacetransportgetinfo
      * @since windowsserver2000
      */
     static MprConfigInterfaceTransportGetInfo(hMprConfig, hRouterInterface, hRouterIfTransport, ppInterfaceInfo, lpdwInterfaceInfoSize) {
@@ -16674,6 +18103,9 @@ class Rras {
 
     /**
      * The MprConfigInterfaceTransportSetInfo function updates the configuration information for the client on the specified interface and transport protocol.
+     * @remarks
+     * If the <i>pInterfaceInfo</i> parameter is <b>NULL</b>, 
+     * <b>MprConfigInterfaceTransportSetInfo</b> does nothing and returns immediately with a value of NO_ERROR.
      * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {HANDLE} hRouterInterface Handle to the interface configuration in which to update the information. Obtain this handle by calling 
@@ -16743,12 +18175,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfiginterfacetransportsetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacetransportsetinfo
      * @since windowsserver2000
      */
     static MprConfigInterfaceTransportSetInfo(hMprConfig, hRouterInterface, hRouterIfTransport, pInterfaceInfo, dwInterfaceInfoSize) {
@@ -16817,7 +18249,7 @@ class Rras {
      * <li><i>dwLevel</i> is not zero.</li>
      * <li><i>lplpBuffer</i> is <b>NULL</b>.</li>
      * <li><i>dwPrefMaxLen</i> is smaller than the size of a single 
-     * <a href="/windows/desktop/api/mprapi/ns-mprapi-mpr_transport_0">MPR_IFTRANSPORT_0</a> structure.</li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_transport_0">MPR_IFTRANSPORT_0</a> structure.</li>
      * <li><i>lpdwEntriesRead</i> is <b>NULL</b>.</li>
      * <li><i>lpdwTotalEntries</i> is <b>NULL</b>.</li>
      * </ul>
@@ -16853,12 +18285,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the system error message that corresponds to the error code returned.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfiginterfacetransportenum
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacetransportenum
      * @since windowsserver2000
      */
     static MprConfigInterfaceTransportEnum(hMprConfig, hRouterInterface, dwLevel, lplpBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
@@ -16876,6 +18308,9 @@ class Rras {
 
     /**
      * The MprConfigGetFriendlyName function returns the friendly name for an interface that corresponds to the specified GUID name.
+     * @remarks
+     * For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecBP/avoiding-buffer-overruns">Avoiding Buffer Overruns</a>.
      * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {PWSTR} pszGuidName Pointer to a <b>null</b>-terminated Unicode string that specifies the GUID name for the interface.
@@ -16928,7 +18363,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfiggetfriendlyname
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiggetfriendlyname
      * @since windowsserver2000
      */
     static MprConfigGetFriendlyName(hMprConfig, pszGuidName, pszBuffer, dwBufferSize) {
@@ -16993,7 +18428,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfiggetguidname
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiggetguidname
      * @since windowsserver2000
      */
     static MprConfigGetGuidName(hMprConfig, pszFriendlyName, pszBuffer, dwBufferSize) {
@@ -17060,7 +18495,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfigfiltergetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigfiltergetinfo
      * @since windowsserver2008
      */
     static MprConfigFilterGetInfo(hMprConfig, dwLevel, dwTransportId, lpBuffer) {
@@ -17127,7 +18562,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfigfiltersetinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigfiltersetinfo
      * @since windowsserver2008
      */
     static MprConfigFilterSetInfo(hMprConfig, dwLevel, dwTransportId, lpBuffer) {
@@ -17182,7 +18617,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * The call failed. Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the error message that corresponds to the returned error code.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the error message that corresponds to the returned error code.
      * 
      * </td>
      * </tr>
@@ -17191,7 +18626,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprinfocreate
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprinfocreate
      * @since windowsserver2000
      */
     static MprInfoCreate(dwVersion, lplpNewHeader) {
@@ -17232,7 +18667,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * The call failed. Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the error message that corresponds to the returned error code.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the error message that corresponds to the returned error code.
      * 
      * </td>
      * </tr>
@@ -17241,7 +18676,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprinfodelete
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprinfodelete
      * @since windowsserver2000
      */
     static MprInfoDelete(lpHeader) {
@@ -17283,7 +18718,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the error message that corresponds to the returned error code.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the error message that corresponds to the returned error code.
      * 
      * </td>
      * </tr>
@@ -17292,7 +18727,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprinforemoveall
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprinforemoveall
      * @since windowsserver2000
      */
     static MprInfoRemoveAll(lpHeader, lplpNewHeader) {
@@ -17346,7 +18781,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * The call failed. Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the error message that corresponds to the returned error code.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the error message that corresponds to the returned error code.
      * 
      * </td>
      * </tr>
@@ -17355,7 +18790,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprinfoduplicate
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprinfoduplicate
      * @since windowsserver2000
      */
     static MprInfoDuplicate(lpHeader, lplpNewHeader) {
@@ -17368,6 +18803,9 @@ class Rras {
 
     /**
      * The MprInfoBlockAdd function creates a new header that is identical to an existing header with the addition of a new block.
+     * @remarks
+     * After adding an information block, obtain the new size of the information header by call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprinfoblockquerysize">MprInfoBlockQuerySize</a>.
      * @param {Pointer<Void>} lpHeader Pointer to the header in which to add the new block.
      * @param {Integer} dwInfoType Specifies the type of block to add. The types available depend on the transport: 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/ip-information-types-for-router-information-blocks">IPv4</a>, <a href="https://docs.microsoft.com/windows/desktop/RRAS/ipv6-information-types-for-router-information-blocks">IPv6</a>, or <a href="https://docs.microsoft.com/windows/desktop/RRAS/ipx-information-types-for-router-information-blocks">IPX</a>.
@@ -17405,12 +18843,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * The call failed. Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the error message that corresponds to the returned error code.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the error message that corresponds to the returned error code.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprinfoblockadd
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprinfoblockadd
      * @since windowsserver2000
      */
     static MprInfoBlockAdd(lpHeader, dwInfoType, dwItemSize, dwItemCount, lpItemData, lplpNewHeader) {
@@ -17424,6 +18862,9 @@ class Rras {
 
     /**
      * The MprInfoBlockRemove function creates a new header that is identical to an existing header with a specified block removed.
+     * @remarks
+     * After removing an information block, obtain the new size of the information header by call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprinfoblockquerysize">MprInfoBlockQuerySize</a>.
      * @param {Pointer<Void>} lpHeader Pointer to the header from which the block should be removed.
      * @param {Integer} dwInfoType Specifies the type of block to be removed. The types available depend on the transport: 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/ip-information-types-for-router-information-blocks">IP</a> or 
@@ -17457,7 +18898,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * The memory allocation required for successful execution of 
-     * <a href="/windows/desktop/api/mprapi/nf-mprapi-mprinfoblockremove">MprInfoBlockRemove</a> could not be completed.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprinfoblockremove">MprInfoBlockRemove</a> could not be completed.
      * 
      * </td>
      * </tr>
@@ -17469,12 +18910,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * The call failed. Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the error message that corresponds to the returned error code.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the error message that corresponds to the returned error code.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprinfoblockremove
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprinfoblockremove
      * @since windowsserver2000
      */
     static MprInfoBlockRemove(lpHeader, dwInfoType, lplpNewHeader) {
@@ -17523,12 +18964,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * The call failed. Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the error message that corresponds to the returned error code.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the error message that corresponds to the returned error code.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprinfoblockset
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprinfoblockset
      * @since windowsserver2000
      */
     static MprInfoBlockSet(lpHeader, dwInfoType, dwItemSize, dwItemCount, lpItemData, lplpNewHeader) {
@@ -17588,12 +19029,12 @@ class Rras {
      * </td>
      * <td width="60%">
      * The call failed. Use 
-     * <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the error message that corresponds to the returned error code.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to retrieve the error message that corresponds to the returned error code.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprinfoblockfind
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprinfoblockfind
      * @since windowsserver2000
      */
     static MprInfoBlockFind(lpHeader, dwInfoType, lpdwItemSize, lpdwItemCount, lplpItemData) {
@@ -17610,7 +19051,7 @@ class Rras {
      * The MprInfoBlockQuerySize function returns the returns the size of the information header.
      * @param {Pointer<Void>} lpHeader Pointer to the information header for which to return the size.
      * @returns {Integer} <b>MprInfoBlockQuerySize</b> returns the size of the information header.
-     * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprinfoblockquerysize
+     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprinfoblockquerysize
      * @since windowsserver2000
      */
     static MprInfoBlockQuerySize(lpHeader) {
@@ -17622,6 +19063,10 @@ class Rras {
 
     /**
      * The MgmRegisterMProtocol function is used by clients to register with the multicast group manager.
+     * @remarks
+     * Registering a protocol is the first operation any multicast routing protocol should perform. After registration, a routing protocol should take ownership of the appropriate interfaces before adding or deleting group memberships.
+     * 
+     * Only one routing protocol may take ownership of an interface at any given time. Multiple routing protocols may be registered with the multicast group manager, each protocol owning different interfaces.
      * @param {Pointer<ROUTING_PROTOCOL_CONFIG>} prpiInfo Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/ns-mgm-routing_protocol_config">ROUTING_PROTOCOL_CONFIG</a> structure that contains pointers to callbacks into the client.
      * @param {Integer} dwProtocolId Specifies the ID of the client. The ID is unique for each client.
@@ -17679,7 +19124,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mgm/nf-mgm-mgmregistermprotocol
+     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmregistermprotocol
      * @since windowsserver2000
      */
     static MgmRegisterMProtocol(prpiInfo, dwProtocolId, dwComponentId, phProtocol) {
@@ -17689,6 +19134,9 @@ class Rras {
 
     /**
      * The MgmDeRegisterMProtocol function deregisters a client handle obtained from a call to MgmRegisterMProtocol.
+     * @remarks
+     * A multicast routing protocol must not call this function until it has released ownership of all the interfaces the protocol owns by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmreleaseinterfaceownership">MgmReleaseInterfaceOwnership</a>.
      * @param {HANDLE} hProtocol Handle to the protocol obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmregistermprotocol">MgmRegisterMProtocol</a>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
@@ -17727,7 +19175,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mgm/nf-mgm-mgmderegistermprotocol
+     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmderegistermprotocol
      * @since windowsserver2000
      */
     static MgmDeRegisterMProtocol(hProtocol) {
@@ -17739,6 +19187,8 @@ class Rras {
 
     /**
      * The MgmTakeInterfaceOwnership function is called by a client (such as a routing protocol) when it is enabled on an interface.
+     * @remarks
+     * A client must take ownership of an interface only after registering itself with the multicast group manager, but before it adds group membership entries.
      * @param {HANDLE} hProtocol Handle to the protocol obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmregistermprotocol">MgmRegisterMProtocol</a>.
      * @param {Integer} dwIfIndex Specifies the index of the interface of which to take ownership.
@@ -17806,7 +19256,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mgm/nf-mgm-mgmtakeinterfaceownership
+     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmtakeinterfaceownership
      * @since windowsserver2000
      */
     static MgmTakeInterfaceOwnership(hProtocol, dwIfIndex, dwIfNextHopAddr) {
@@ -17818,6 +19268,9 @@ class Rras {
 
     /**
      * The MgmReleaseInterfaceOwnership function is used by a client to relinquish ownership of an interface. When this function is called, all MFEs maintained by the multicast group manager on behalf of the client and for the specified interface are deleted.
+     * @remarks
+     * A client must release ownership of all the interfaces it owns before deregistering itself with the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmderegistermprotocol">MgmDeRegisterMProtocol</a> function.
      * @param {HANDLE} hProtocol Handle to the protocol obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmregistermprotocol">MgmRegisterMProtocol</a>.
      * @param {Integer} dwIfIndex Specifies the index of the interface to release.
@@ -17863,7 +19316,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mgm/nf-mgm-mgmreleaseinterfaceownership
+     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmreleaseinterfaceownership
      * @since windowsserver2000
      */
     static MgmReleaseInterfaceOwnership(hProtocol, dwIfIndex, dwIfNextHopAddr) {
@@ -17930,7 +19383,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mgm/nf-mgm-mgmgetprotocoloninterface
+     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmgetprotocoloninterface
      * @since windowsserver2000
      */
     static MgmGetProtocolOnInterface(dwIfIndex, dwIfNextHopAddr, pdwIfProtocolId, pdwIfComponentId) {
@@ -17943,6 +19396,11 @@ class Rras {
 
     /**
      * The MgmAddGroupMembershipEntry function notifies the multicast group manager that there are new receivers for the specified groups on the specified interface.
+     * @remarks
+     * This version of the MGM API supports only wildcard sources or specific sources, not a range of sources. The same restriction applies to groups, that is, no group ranges are permitted.
+     * 
+     * When this function is called, the multicast group manager may invoke the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nc-mgm-pmgm_join_alert_callback">PMGM_JOIN_ALERT_CALLBACK</a> callback to notify other routing protocols that there are new receivers for the specified group.
      * @param {HANDLE} hProtocol Handle to the protocol obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmregistermprotocol">MgmRegisterMProtocol</a>.
      * @param {Integer} dwSourceAddr Specifies the source address from which to receive multicast data. Specify zero to receive data from all sources (a wildcard receiver for a group); otherwise, specify the IP address of the source or source network. 
@@ -18053,7 +19511,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mgm/nf-mgm-mgmaddgroupmembershipentry
+     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmaddgroupmembershipentry
      * @since windowsserver2000
      */
     static MgmAddGroupMembershipEntry(hProtocol, dwSourceAddr, dwSourceMask, dwGroupAddr, dwGroupMask, dwIfIndex, dwIfNextHopIPAddr, dwFlags) {
@@ -18065,6 +19523,11 @@ class Rras {
 
     /**
      * The MgmDeleteGroupMembershipEntry function notifies the multicast group manager that there are no more receivers present for the specified groups on the specified interface.
+     * @remarks
+     * This version of the MGM API supports only wildcard sources or specific sources, not a range of sources. The same restriction applies to groups (that is, no group ranges are permitted).
+     * 
+     * When this function is called, the multicast group manager may invoke the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nc-mgm-pmgm_prune_alert_callback">PMGM_PRUNE_ALERT_CALLBACK</a> callback to notify other routing protocols that no more receivers are present for the specified group.
      * @param {HANDLE} hProtocol Handle to the protocol obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmregistermprotocol">MgmRegisterMProtocol</a>.
      * @param {Integer} dwSourceAddr Specifies the source address from which to stop receiving multicast data. Specify zero to stop receiving data from all sources (a wildcard receiver for a group); otherwise, specify the IP address of the source or source network. 
@@ -18175,7 +19638,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mgm/nf-mgm-mgmdeletegroupmembershipentry
+     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmdeletegroupmembershipentry
      * @since windowsserver2000
      */
     static MgmDeleteGroupMembershipEntry(hProtocol, dwSourceAddr, dwSourceMask, dwGroupAddr, dwGroupMask, dwIfIndex, dwIfNextHopIPAddr, dwFlags) {
@@ -18246,7 +19709,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mgm/nf-mgm-mgmgetmfe
+     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmgetmfe
      * @since windowsserver2000
      */
     static MgmGetMfe(pimm, pdwBufferSize, pbBuffer) {
@@ -18259,6 +19722,20 @@ class Rras {
 
     /**
      * The MgmGetFirstMfe function retrieves MFEs starting at the beginning of the MFE list.
+     * @remarks
+     * This function is used to begin sequential retrieval of MFEs; use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmgetnextmfe">MgmGetNextMfe</a> to continue the retrieval process.
+     * 
+     * In general, to retrieve MFEs, first call 
+     * <b>MgmGetFirstMfe</b>. Then, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmgetnextmfe">MgmGetNextMfe</a> one or more times, until there are no more MFEs to return. Each call to 
+     * <b>MgmGetNextMfe</b> should begin after the last MFE returned by the previous call to 
+     * <b>MgmGetNextMfe</b> (or the initial call to 
+     * <b>MgmGetFirstMfe</b>). To do this, the client specifies the last source and group in the buffer returned by a previous call.
+     * 
+     * <div class="alert"><b>Note</b>  The minimum size of the buffer pointed to by <i>pbBuffer</i> is not fixed; it is different for each MFE. Use the 
+     * sizeof(<a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipmcast_mfe">MIB_IPMCAST_MFE</a>) macro to determine the size of each MFE returned in the buffer.</div>
+     * <div> </div>
      * @param {Pointer<Integer>} pdwBufferSize On input, <i>pdwBufferSize</i> is a pointer to a <b>DWORD</b>-sized memory location containing the size, in bytes, of <i>pbBuffer</i>. 
      * 
      * 
@@ -18336,7 +19813,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mgm/nf-mgm-mgmgetfirstmfe
+     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmgetfirstmfe
      * @since windowsserver2000
      */
     static MgmGetFirstMfe(pdwBufferSize, pbBuffer, pdwNumEntries) {
@@ -18350,6 +19827,20 @@ class Rras {
 
     /**
      * The MgmGetNextMfe function retrieves one or more MFEs.
+     * @remarks
+     * This function is used to continue the sequential retrieval of MFEs; use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmgetfirstmfe">MgmGetFirstMfe</a> to start the retrieval process.
+     * 
+     * In general, to retrieve MFEs, first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmgetfirstmfe">MgmGetFirstMfe</a>. Then, call 
+     * <b>MgmGetNextMfe</b> one or more times, until there are no more MFEs to return. Each call to 
+     * <b>MgmGetNextMfe</b> should begin after the last MFE returned by the previous call to 
+     * <b>MgmGetNextMfe</b> (or the initial call to 
+     * <b>MgmGetFirstMfe</b>). To do this, the client specifies the last source and group in the buffer returned by a previous call.
+     * 
+     * <div class="alert"><b>Note</b>  The minimum size of the buffer pointed to by <i>pbBuffer</i> is not fixed; it is different for each MFE. Use the 
+     * sizeof(<a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipmcast_mfe">MIB_IPMCAST_MFE</a>) macro to determine the size of each MFE returned in the buffer.</div>
+     * <div> </div>
      * @param {Pointer<MIB_IPMCAST_MFE>} pimmStart Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipmcast_mfe">MIB_IPMCAST_MFE</a> structure that specifies from where to begin retrieving MFEs. The <b>dwSource</b> and <b>dwGroup</b> members of the 
      * <b>MIB_IPMCAST_MFE</b> structure identify an MFE. Specify the source and group of the last MFE that was returned by the previous call to 
@@ -18428,7 +19919,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mgm/nf-mgm-mgmgetnextmfe
+     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmgetnextmfe
      * @since windowsserver2000
      */
     static MgmGetNextMfe(pimmStart, pdwBufferSize, pbBuffer, pdwNumEntries) {
@@ -18442,6 +19933,8 @@ class Rras {
 
     /**
      * The MgmGetMfeStats function retrieves the statistics for a specific MFE. The statistics returned include the packets received, bytes received, and the packets forwarded on each outgoing interface.
+     * @remarks
+     * The MFE statistics are returned in either an <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipmcast_mfe_stats">MIB_IPMCAST_MFE_STATS</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipmcast_mfe_stats_ex_xp">MIB_IPMCAST_MFE_STATS_EX</a> structure determined by the <i>dwFlags</i> parameter.
      * @param {Pointer<MIB_IPMCAST_MFE>} pimm Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipmcast_mfe">MIB_IPMCAST_MFE</a> structure that specifies the MFE for which to retrieve statistics. The information to be returned is indicated by the <b>dwSource</b> and <b>dwGroup</b> members of the 
      * <b>MIB_IPMCAST_MFE</b> structure.
@@ -18528,7 +20021,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mgm/nf-mgm-mgmgetmfestats
+     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmgetmfestats
      * @since windowsserver2000
      */
     static MgmGetMfeStats(pimm, pdwBufferSize, pbBuffer, dwFlags) {
@@ -18541,6 +20034,22 @@ class Rras {
 
     /**
      * The MgmGetFirstMfeStats function retrieves MFE statistics starting at the beginning of the MFE list.
+     * @remarks
+     * This function is used to begin sequential retrieval of MFE statistics; use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmgetnextmfestats">MgmGetNextMfeStats</a> to continue the retrieval process.
+     * 
+     * In general, to retrieve MFE statistics, first call 
+     * <b>MgmGetFirstMfeStats</b>. Then, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmgetnextmfestats">MgmGetNextMfeStats</a> one or more times, until there are no more MFEs to return. Each call to 
+     * <b>MgmGetNextMfeStats</b> should begin after the last MFE returned by the previous call to 
+     * <b>MgmGetNextMfeStats</b> (or the initial call to 
+     * <b>MgmGetFirstMfeStats</b>) To do this, the client specifies the last source and group in the buffer returned by a previous call.
+     * 
+     * The MFE statistics are returned in either an <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipmcast_mfe_stats">MIB_IPMCAST_MFE_STATS</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipmcast_mfe_stats_ex_xp">MIB_IPMCAST_MFE_STATS_EX</a> structure determined by the <i>dwFlags</i> parameter.
+     * 
+     * <div class="alert"><b>Note</b>  The minimum size of the buffer pointed to by <i>pbBuffer</i> is not fixed; it is different for each set of MFE statistics. Use the 
+     * <b>sizeof</b> macro to determine the size of each set of statistics returned in the buffer.</div>
+     * <div> </div>
      * @param {Pointer<Integer>} pdwBufferSize On input, <i>pdwBufferSize</i> is a pointer to a <b>DWORD</b>-sized memory location containing the size, in bytes, of <i>pbBuffer</i>. 
      * 
      * 
@@ -18642,7 +20151,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mgm/nf-mgm-mgmgetfirstmfestats
+     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmgetfirstmfestats
      * @since windowsserver2000
      */
     static MgmGetFirstMfeStats(pdwBufferSize, pbBuffer, pdwNumEntries, dwFlags) {
@@ -18656,6 +20165,22 @@ class Rras {
 
     /**
      * The MgmGetNextMfeStats function retrieves one or more sets of MFE statistics.
+     * @remarks
+     * This function is used to continue the sequential retrieval of MFE statistics; use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmgetfirstmfestats">MgmGetFirstMfeStats</a> to start the retrieval process.
+     * 
+     * In general, to retrieve MFE statistics, first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmgetfirstmfestats">MgmGetFirstMfeStats</a>. Then, call 
+     * <b>MgmGetNextMfeStats</b> one or more times, until there are no more MFEs to return. Each call to 
+     * <b>MgmGetNextMfeStats</b> should begin after the last MFE returned by the previous call to 
+     * <b>MgmGetNextMfeStats</b> (or the initial call to 
+     * <b>MgmGetFirstMfeStats</b>) To do this, the client specifies the last source and group in the buffer returned by a previous call.
+     * 
+     * The MFE statistics are returned in either an <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipmcast_mfe_stats">MIB_IPMCAST_MFE_STATS</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipmcast_mfe_stats_ex_xp">MIB_IPMCAST_MFE_STATS_EX</a> structure determined by the <i>dwFlags</i> parameter.
+     * 
+     * <div class="alert"><b>Note</b>  The minimum size of the buffer pointed to by <i>pbBuffer</i> is not fixed; it is different for each set of MFE statistics. Use the 
+     * <b>sizeof</b> macro to determine the size of each set of statistics returned in the buffer.</div>
+     * <div> </div>
      * @param {Pointer<MIB_IPMCAST_MFE>} pimmStart Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipmcast_mfe">MIB_IPMCAST_MFE</a> structure that specifies from where to begin retrieving MFE statistics. The <b>dwSource</b> and <b>dwGroup</b> members of the 
      * <b>MIB_IPMCAST_MFE</b> structure identify an MFE. Specify the source and group of the last MFE that was returned by the previous call to 
@@ -18762,7 +20287,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mgm/nf-mgm-mgmgetnextmfestats
+     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmgetnextmfestats
      * @since windowsserver2000
      */
     static MgmGetNextMfeStats(pimmStart, pdwBufferSize, pbBuffer, pdwNumEntries, dwFlags) {
@@ -18858,7 +20383,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mgm/nf-mgm-mgmgroupenumerationstart
+     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmgroupenumerationstart
      * @since windowsserver2000
      */
     static MgmGroupEnumerationStart(hProtocol, metEnumType, phEnumHandle) {
@@ -18971,7 +20496,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mgm/nf-mgm-mgmgroupenumerationgetnext
+     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmgroupenumerationgetnext
      * @since windowsserver2000
      */
     static MgmGroupEnumerationGetNext(hEnum, pdwBufferSize, pbBuffer, pdwNumEntries) {
@@ -19024,7 +20549,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//mgm/nf-mgm-mgmgroupenumerationend
+     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmgroupenumerationend
      * @since windowsserver2000
      */
     static MgmGroupEnumerationEnd(hEnum) {
@@ -19064,6 +20589,9 @@ class Rras {
 
     /**
      * The RtmRegisterEntity function registers a client with an instance of the routing table manager for a specific address family.
+     * @remarks
+     * For sample code using this function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/register-with-the-routing-table-manager">Register With the Routing Table Manager</a>.
      * @param {Pointer<RTM_ENTITY_INFO>} RtmEntityInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_entity_info">RTM_ENTITY_INFO</a> structure. This structure contains information that identifies the client to the routing table manager, such as the routing table manager instance and address family with which to register.
      * @param {Pointer<RTM_ENTITY_EXPORT_METHODS>} ExportMethods Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_entity_export_methods">RTM_ENTITY_EXPORT_METHODS</a> structure that contains a list of methods exported by the client. This parameter is optional and can be set to <b>NULL</b> if the calling client has no methods to export.
@@ -19165,7 +20693,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmregisterentity
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmregisterentity
      * @since windowsserver2000
      */
     static RtmRegisterEntity(RtmEntityInfo, ExportMethods, EventCallback, ReserveOpaquePointer, RtmRegProfile, RtmRegHandle) {
@@ -19177,6 +20705,14 @@ class Rras {
 
     /**
      * The RtmDeregisterEntity function unregisters a client from a routing table manager instance and address family.
+     * @remarks
+     * Before calling this function, the client must ensure that all locks, handles, and information structures are released with the appropriate functions.
+     * 
+     * When the client calls 
+     * <b>RtmDeregisterEntity</b>, the handle that was returned by a previous call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a> is released. The client must not call any RTMv2 functions after releasing this handle.
+     * 
+     * If the client does call any functions that access the routing table manager after the client has unregistered, the client's process may be terminated.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
@@ -19204,7 +20740,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmderegisterentity
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmderegisterentity
      * @since windowsserver2000
      */
     static RtmDeregisterEntity(RtmRegHandle) {
@@ -19214,6 +20750,19 @@ class Rras {
 
     /**
      * The RtmGetRegisteredEntities function returns information about all clients that have registered with the specified instance of the routing table manager and specified address family.
+     * @remarks
+     * If <b>ERROR_INSUFFICIENT_BUFFER</b> is returned, there may be some data in <i>EntityHandles</i>. The <i>NumEntities</i> parameter specifies how many entities were actually returned.
+     * 
+     * The 
+     * <b>RtmGetRegisteredEntities</b> function can be used by routing protocols to verify which other protocols are running for that address family and routing table manager instance. Based on the information returned, a client can then perform protocol-specific processing.
+     * 
+     * The RTMv2 API supports only one instance of the routing table manager.
+     * 
+     * When the entities are no longer required, release them by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmreleaseentities">RtmReleaseEntities</a>.
+     * 
+     * For sample code using this function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/enumerate-the-registered-entities">Enumerate the Registered Entities</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer<Integer>} NumEntities On input, <i>NumEntities</i> is a pointer to a <b>UINT</b> value, which specifies the maximum number of clients that can be received by <i>EntityInfos</i>. On output, <i>NumEntities</i> receives the actual number of clients received by <i>EntityInfos</i>.
@@ -19251,7 +20800,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmgetregisteredentities
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetregisteredentities
      * @since windowsserver2000
      */
     static RtmGetRegisteredEntities(RtmRegHandle, NumEntities, EntityHandles, EntityInfos) {
@@ -19294,7 +20843,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmreleaseentities
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmreleaseentities
      * @since windowsserver2000
      */
     static RtmReleaseEntities(RtmRegHandle, NumEntities, EntityHandles) {
@@ -19306,6 +20855,14 @@ class Rras {
 
     /**
      * The RtmLockDestination function locks or unlocks a destination in the routing table. Use this function to protect a destination while changing opaque pointers.
+     * @remarks
+     * This function also locks the associated routes. Avoid locking destinations for long periods of time, because no other client can access the destination and associated routes until the lock is released.
+     * 
+     * A client can also use this function when reading information for a destination, while preventing changes during the client's read operation. In this case, consider using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmgetdestinfo">RtmGetDestInfo</a> instead.
+     * 
+     * For sample code using this function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/update-a-route-in-place-using-rtmupdateandunlockroute">Update a Route In Place Using RtmUpdateAndUnlockRoute</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} DestHandle Handle to the destination to lock.
@@ -19347,7 +20904,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmlockdestination
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmlockdestination
      * @since windowsserver2000
      */
     static RtmLockDestination(RtmRegHandle, DestHandle, Exclusive, LockDest) {
@@ -19357,6 +20914,9 @@ class Rras {
 
     /**
      * The RtmGetOpaqueInformationPointer function returns a pointer to the opaque information field in a destination that is reserved for this client.
+     * @remarks
+     * For sample code using this function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/access-the-opaque-pointer-in-a-destination">Access the Opaque Pointer in a Destination</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} DestHandle Handle to the destination.
@@ -19402,7 +20962,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmgetopaqueinformationpointer
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetopaqueinformationpointer
      * @since windowsserver2000
      */
     static RtmGetOpaqueInformationPointer(RtmRegHandle, DestHandle, OpaqueInfoPointer) {
@@ -19414,6 +20974,18 @@ class Rras {
 
     /**
      * The RtmGetEntityMethods function queries the specified client to determine which methods are available for another client to invoke.
+     * @remarks
+     * Do not call another client's method directly, always use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtminvokemethod">RtmInvokeMethod</a>. The routing table manager performs error checking when using 
+     * <b>RtmInvokeMethod</b> to ensure that the client is not unregistering or already unregistered.
+     * 
+     * If ERROR_INSUFFICIENT_BUFFER is returned, there may be some data in <i>ExptMethods</i>; <i>NumMethods</i> specifies how many methods actually fit in the buffer.
+     * 
+     * When the entity handle is no longer required, release it by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmreleaseentities">RtmReleaseEntities</a>.
+     * 
+     * For sample code using this function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/obtain-and-call-the-exported-methods-for-a-client">Obtain and Call the Exported Methods for a Client</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} EntityHandle Handle to the client for which to obtain methods.
@@ -19446,7 +21018,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmgetentitymethods
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetentitymethods
      * @since windowsserver2000
      */
     static RtmGetEntityMethods(RtmRegHandle, EntityHandle, NumMethods, ExptMethods) {
@@ -19459,6 +21031,9 @@ class Rras {
 
     /**
      * The RtmInvokeMethod function invokes a method exported by another client.
+     * @remarks
+     * For sample code using this function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/obtain-and-call-the-exported-methods-for-a-client">Obtain and Call the Exported Methods for a Client</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} EntityHandle Handle to the client whose methods are being invoked.
@@ -19497,7 +21072,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtminvokemethod
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtminvokemethod
      * @since windowsserver2000
      */
     static RtmInvokeMethod(RtmRegHandle, EntityHandle, Input, OutputSize, Output) {
@@ -19509,6 +21084,14 @@ class Rras {
 
     /**
      * The RtmBlockMethods function blocks or unblocks the execution of methods for a specified destination, route, or next hop, or for all destinations, routes, and next hops.
+     * @remarks
+     * Currently, this function does not support blocking methods for a specific destination, route, or next hop.
+     * 
+     * Methods are typically blocked when client-specific data in the route is being changed; a client blocks methods, rearranges data, and then unblocks methods.
+     * 
+     * Clients should only block methods for a short period of time. If a second client calls 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtminvokemethod">RtmInvokeMethod</a> and the first client's methods are blocked, 
+     * <b>RtmInvokeMethod</b> does not return until methods are unblocked and the function call is completed.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {HANDLE} TargetHandle Handle to a destination, route, or next hop for which to block methods. This parameter is optional and can be set to <b>NULL</b> to block methods for all targets.
@@ -19607,7 +21190,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmblockmethods
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmblockmethods
      * @since windowsserver2000
      */
     static RtmBlockMethods(RtmRegHandle, TargetHandle, TargetType, BlockingFlag) {
@@ -19654,7 +21237,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmgetentityinfo
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetentityinfo
      * @since windowsserver2000
      */
     static RtmGetEntityInfo(RtmRegHandle, EntityHandle, EntityInfo) {
@@ -19664,6 +21247,13 @@ class Rras {
 
     /**
      * The RtmGetDestInfo function returns information about a destination.
+     * @remarks
+     * The  structure pointed to by <i>DestInfo</i> is a variable-sized structure. If the client specifies more than one view with <i>TargetViews</i>, the size of <i>DestInfo</i> increases for each view. Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtm_size_of_dest_info">RTM_SIZE_OF_DEST_INFO</a> macro to determine how large a <i>DestInfo</i> structure to allocate before calling this function. Use the value specified for <i>TargetViews</i> as a parameter to 
+     * <b>RTM_SIZE_OF_DEST_INFO</b>.
+     * 
+     * Use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmreleasedestinfo">RtmReleaseDestInfo</a> to release the <i>DestInfo</i> buffer.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} DestHandle Handle to the destination for which to return information.
@@ -19706,7 +21296,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmgetdestinfo
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetdestinfo
      * @since windowsserver2000
      */
     static RtmGetDestInfo(RtmRegHandle, DestHandle, ProtocolId, TargetViews, DestInfo) {
@@ -19716,6 +21306,9 @@ class Rras {
 
     /**
      * The RtmGetRouteInfo function returns information for the specified route.
+     * @remarks
+     * When the routes are no longer required, release them by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmreleaserouteinfo">RtmReleaseRouteInfo</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} RouteHandle Handle to the route to find.
@@ -19757,7 +21350,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmgetrouteinfo
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetrouteinfo
      * @since windowsserver2000
      */
     static RtmGetRouteInfo(RtmRegHandle, RouteHandle, RouteInfo, DestAddress) {
@@ -19767,6 +21360,9 @@ class Rras {
 
     /**
      * The RtmGetNextHopInfo function returns information about the specified next hop.
+     * @remarks
+     * When the next hop handle is no longer required, release it by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmdeletenexthop">RtmDeleteNextHop</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} NextHopHandle Handle to the next hop.
@@ -19802,7 +21398,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmgetnexthopinfo
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetnexthopinfo
      * @since windowsserver2000
      */
     static RtmGetNextHopInfo(RtmRegHandle, NextHopHandle, NextHopInfo) {
@@ -19841,7 +21437,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmreleaseentityinfo
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmreleaseentityinfo
      * @since windowsserver2000
      */
     static RtmReleaseEntityInfo(RtmRegHandle, EntityInfo) {
@@ -19880,7 +21476,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmreleasedestinfo
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmreleasedestinfo
      * @since windowsserver2000
      */
     static RtmReleaseDestInfo(RtmRegHandle, DestInfo) {
@@ -19920,7 +21516,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmreleaserouteinfo
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmreleaserouteinfo
      * @since windowsserver2000
      */
     static RtmReleaseRouteInfo(RtmRegHandle, RouteInfo) {
@@ -19960,7 +21556,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmreleasenexthopinfo
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmreleasenexthopinfo
      * @since windowsserver2000
      */
     static RtmReleaseNextHopInfo(RtmRegHandle, NextHopInfo) {
@@ -19970,6 +21566,21 @@ class Rras {
 
     /**
      * The RtmAddRouteToDest function adds a new route to the routing table or updates an existing route in the routing table. If the best route changes, a change notification is generated.
+     * @remarks
+     * Two routes are considered equal if the following values are equal:
+     * 
+     * <ul>
+     * <li>The destination network</li>
+     * <li>The owner of the route</li>
+     * <li>The neighbor that supplied the route</li>
+     * </ul>
+     * When a client is updating a route, it is more efficient to pass a handle to the route to update in the <i>RouteHandle</i> parameter, because the routing table manager does not have to perform a search for the route in the routing table.
+     * 
+     * If a handle was returned, release the handle when it is no longer required by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmreleaseroutes">RtmReleaseRoutes</a>.
+     * 
+     * For sample code using this function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/add-and-update-routes-using-rtmaddroutetodest">Add and Update Routes Using RtmAddRouteToDest</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer<Pointer>} RouteHandle If the client has a handle (updating a route): On input, <i>RouteHandle</i> is a pointer to the route handle. On output, <i>RouteHandle</i> is unchanged. 
@@ -20087,7 +21698,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmaddroutetodest
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmaddroutetodest
      * @since windowsserver2000
      */
     static RtmAddRouteToDest(RtmRegHandle, RouteHandle, DestAddress, RouteInfo, TimeToLive, RouteListHandle, NotifyType, NotifyHandle, ChangeFlags) {
@@ -20100,6 +21711,10 @@ class Rras {
 
     /**
      * The RtmDeleteRouteToDest function deletes a route from the routing table and updates the best-route information for the corresponding destination, if the best route changed. If the best route changes, a change notification is generated.
+     * @remarks
+     * The <i>RouteHandle</i> should not subsequently be released by a client if the client has already called 
+     * <b>RtmDeleteRouteToDest</b> using that handle. The 
+     * <b>RtmDeleteRouteToDest</b> function deletes the route and releases the handle.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} RouteHandle Handle to the route to delete.
@@ -20156,7 +21771,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmdeleteroutetodest
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmdeleteroutetodest
      * @since windowsserver2000
      */
     static RtmDeleteRouteToDest(RtmRegHandle, RouteHandle, ChangeFlags) {
@@ -20168,6 +21783,11 @@ class Rras {
 
     /**
      * The RtmHoldDestination function marks a destination to be put in the hold-down state for a certain amount of time. A hold down only happens if the last route for the destination in any view is deleted.
+     * @remarks
+     * All routes in a hold-down state are held for all views for a single, maximum hold-down time, regardless of the <i>HoldTime</i> specified.
+     * 
+     * For sample code using this function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/use-the-route-hold-down-state">Use the Route Hold-Down State</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} DestHandle Handle to the destination to mark for holding.
@@ -20209,7 +21829,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmholddestination
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmholddestination
      * @since windowsserver2000
      */
     static RtmHoldDestination(RtmRegHandle, DestHandle, TargetViews, HoldTime) {
@@ -20219,6 +21839,8 @@ class Rras {
 
     /**
      * The RtmGetRoutePointer function obtains a direct pointer to a route that allows the owner of the route read access.
+     * @remarks
+     * The pointer that was returned points to the public part of the route.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} RouteHandle Handle to the route.
@@ -20264,7 +21886,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmgetroutepointer
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetroutepointer
      * @since windowsserver2000
      */
     static RtmGetRoutePointer(RtmRegHandle, RouteHandle, RoutePointer) {
@@ -20276,6 +21898,18 @@ class Rras {
 
     /**
      * The RtmLockRoute function locks or unlocks a route in the routing table. This protects the route while a client makes the necessary changes to the opaque route pointers owned by the client.
+     * @remarks
+     * Do not call any other RTMv2 functions until the route is unlocked by a call to 
+     * <b>RtmLockRoute</b> and the <i>LockRoute</i> parameter is set to <b>FALSE</b>, or a call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmupdateandunlockroute">RtmUpdateAndUnlockRoute</a>.
+     * 
+     * Currently, this function locks the entire destination, not just the route.
+     * 
+     * Clients can only change the <b>Neighbour</b>, <b>PrefInfo</b>, <b>BelongsToViews</b>, <b>EntitySpecificInfo</b>, and <b>NextHopsList</b> members of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_route_info">RTM_ROUTE_INFO</a> structure.
+     * 
+     * If any of these values are changed, the client must call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmupdateandunlockroute">RtmUpdateAndUnlockRoute</a> to notify the routing table manager of the changes.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} RouteHandle Handle to the route to lock.
@@ -20323,7 +21957,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmlockroute
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmlockroute
      * @since windowsserver2000
      */
     static RtmLockRoute(RtmRegHandle, RouteHandle, Exclusive, LockRoute, RoutePointer) {
@@ -20335,6 +21969,14 @@ class Rras {
 
     /**
      * The RtmUpdateAndUnlockRoute function updates the position of the route in the set of routes for a destination, and adjusts the best route information for the destination.
+     * @remarks
+     * Before calling this function, the client should lock the route using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmlockroute">RtmLockRoute</a>, which returns a pointer to the route. Then, the client can update the route information using the pointer. Finally, the client should call 
+     * <b>RtmUpdateAndUnlockRoute</b>. If the function executes successfully, the route is unlocked. If the call failed, the client must unlock the route by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmlockroute">RtmLockRoute</a> with the <i>LockRoute</i> parameter set to <b>FALSE</b>.
+     * 
+     * For sample code using this function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/update-a-route-in-place-using-rtmupdateandunlockroute">Update a Route In Place Using RtmUpdateAndUnlockRoute</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} RouteHandle Handle to the route to change.
@@ -20364,7 +22006,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmupdateandunlockroute
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmupdateandunlockroute
      * @since windowsserver2000
      */
     static RtmUpdateAndUnlockRoute(RtmRegHandle, RouteHandle, TimeToLive, RouteListHandle, NotifyType, NotifyHandle, ChangeFlags) {
@@ -20376,6 +22018,10 @@ class Rras {
 
     /**
      * The RtmGetExactMatchDestination function searches the routing table for a destination that exactly matches the specified network address and subnet mask. If an exact match is found, the information for that destination is returned.
+     * @remarks
+     * The <i>DestInfo</i> structure is a variable-sized structure. If the client specifies more than one view with <i>TargetViews</i>, the size of <i>DestInfo</i> increases for each view. Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtm_size_of_dest_info">RTM_SIZE_OF_DEST_INFO</a> macro to determine how large a <i>DestInfo</i> structure to allocate before calling this function. Use the value specified for <i>TargetViews</i> as a parameter to 
+     * <b>RTM_SIZE_OF_DEST_INFO</b>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer<RTM_NET_ADDRESS>} DestAddress Pointer to the destination network address.
@@ -20418,7 +22064,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmgetexactmatchdestination
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetexactmatchdestination
      * @since windowsserver2000
      */
     static RtmGetExactMatchDestination(RtmRegHandle, DestAddress, ProtocolId, TargetViews, DestInfo) {
@@ -20428,6 +22074,13 @@ class Rras {
 
     /**
      * The RtmGetMostSpecificDestination function searches the routing table for a destination with the exact match for a specified network address and subnet mask; if the exact match is not found, the best prefix is matched.
+     * @remarks
+     * The <i>DestInfo</i> structure is a variable-sized structure. If the client specifies more than one view with <i>TargetViews</i>, the size of <i>DestInfo</i> increases for each view. Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtm_size_of_dest_info">RTM_SIZE_OF_DEST_INFO</a> macro to determine how much memory to allocate for the <i>DestInfo</i> structure before calling this function. Use the value specified for <i>TargetViews</i> as a parameter to 
+     * <b>RTM_SIZE_OF_DEST_INFO</b>.
+     * 
+     * For sample code using this function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/search-for-routes-using-rtmgetmostspecificdestination-and-rtmgetlessspecificdestination">Search for Routes Using a Prefix Tree</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer<RTM_NET_ADDRESS>} DestAddress Pointer to the destination network address.
@@ -20481,7 +22134,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmgetmostspecificdestination
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetmostspecificdestination
      * @since windowsserver2000
      */
     static RtmGetMostSpecificDestination(RtmRegHandle, DestAddress, ProtocolId, TargetViews, DestInfo) {
@@ -20491,6 +22144,32 @@ class Rras {
 
     /**
      * The RtmGetLessSpecificDestination function searches the routing table for a destination with the next-best-match (longest) prefix, given a destination prefix. The requested destination information is returned.
+     * @remarks
+     * The <i>DestInfo</i> parameter is a variable-sized 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_dest_info">RTM_DEST_INFO</a> structure. If the client specifies more than one view using <i>TargetViews</i>, the size of <i>DestInfo</i> increases for each view. Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtm_size_of_dest_info">RTM_SIZE_OF_DEST_INFO</a> macro to determine how much memory to allocate for the <i>DestInfo</i> structure before calling this function. Use the value specified for <i>TargetViews</i> as a parameter to 
+     * <b>RTM_SIZE_OF_DEST_INFO</b>.
+     * 
+     * The 
+     * <b>RtmGetLessSpecificDestination</b> function is used after a call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmgetmostspecificdestination">RtmGetMostSpecificDestination</a> to return the next-best match for a destination. This call is also used after a prior call to 
+     * <b>RtmGetLessSpecificDestination</b> to return the next successive less-specific match. Clients can use this function to "walk up" the prefix tree for a destination.
+     * 
+     * This call is also used after calls to functions that return an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_dest_info">RTM_DEST_INFO</a> structure, such as 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmgetdestinfo">RtmGetDestInfo</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmgetchangeddests">RtmGetChangedDests</a>.
+     * 
+     * The 
+     * <b>RtmGetLessSpecificDestination</b> function returns matches until it reaches the default route, if it exists. Once the default route is found, 
+     * <b>RtmGetLessSpecificDestination</b> returns ERROR_NOT_FOUND.
+     * 
+     * One common use for the 
+     * <b>RtmGetLessSpecificDestination</b> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmgetmostspecificdestination">RtmGetMostSpecificDestination</a> functions, is to retrieve each of the matching destinations.
+     * 
+     * For sample code using this function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/search-for-routes-using-rtmgetmostspecificdestination-and-rtmgetlessspecificdestination">Search for Routes Using a Prefix Tree</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} DestHandle Handle to the destination.
@@ -20544,7 +22223,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmgetlessspecificdestination
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetlessspecificdestination
      * @since windowsserver2000
      */
     static RtmGetLessSpecificDestination(RtmRegHandle, DestHandle, ProtocolId, TargetViews, DestInfo) {
@@ -20554,6 +22233,19 @@ class Rras {
 
     /**
      * The RtmGetExactMatchRoute function searches the routing table for a route that exactly matches the specified route.
+     * @remarks
+     * Consider using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmgetexactmatchdestination">RtmGetExactMatchDestination</a> if you have no route-matching criteria specified in the <i>MatchingFlags</i> parameter.
+     * 
+     * The following members of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_route_info">RTM_ROUTE_INFO</a> structure that is passed in the <i>RouteInfo</i> parameter are used to match a route:
+     * 
+     * <ul>
+     * <li><b>Neighbour</b></li>
+     * <li><b>NextHopsList</b></li>
+     * <li><b>PrefInfo</b></li>
+     * <li><b>RouteOwner</b></li>
+     * </ul>
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer<RTM_NET_ADDRESS>} DestAddress Pointer to the destination network address.
@@ -20679,7 +22371,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmgetexactmatchroute
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetexactmatchroute
      * @since windowsserver2000
      */
     static RtmGetExactMatchRoute(RtmRegHandle, DestAddress, MatchingFlags, RouteInfo, InterfaceIndex, TargetViews, RouteHandle) {
@@ -20720,7 +22412,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmisbestroute
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmisbestroute
      * @since windowsserver2000
      */
     static RtmIsBestRoute(RtmRegHandle, RouteHandle, BestInViews) {
@@ -20732,6 +22424,11 @@ class Rras {
 
     /**
      * The RtmAddNextHop function adds a new next-hop entry or updates an existing next-hop entry to a client's next-hop list.
+     * @remarks
+     * If <i>NextHopHandle</i> points to a non-<b>NULL</b> handle, the next hop specified by the handle is updated. Otherwise, a search is made for the address specified by <i>NextHopInfo</i>. If a next hop is found, it is updated. If no match is found, a new next hop is added.
+     * 
+     * If a handle was returned, release the handle when it is no longer required by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmreleasenexthops">RtmReleaseNextHops</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer<RTM_NEXTHOP_INFO>} NextHopInfo 
@@ -20785,7 +22482,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmaddnexthop
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmaddnexthop
      * @since windowsserver2000
      */
     static RtmAddNextHop(RtmRegHandle, NextHopInfo, NextHopHandle, ChangeFlags) {
@@ -20798,6 +22495,8 @@ class Rras {
 
     /**
      * The RtmFindNextHop function finds a specific next hop in a client's next-hop list.
+     * @remarks
+     * The <i>NextHopPointer</i> is valid as long as the client has not released <i>NextHopHandle</i>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer<RTM_NEXTHOP_INFO>} NextHopInfo Pointer to an 
@@ -20850,7 +22549,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmfindnexthop
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmfindnexthop
      * @since windowsserver2000
      */
     static RtmFindNextHop(RtmRegHandle, NextHopInfo, NextHopHandle, NextHopPointer) {
@@ -20863,6 +22562,9 @@ class Rras {
 
     /**
      * The RtmDeleteNextHop function deletes a next hop from the next-hop list.
+     * @remarks
+     * If a client specifies a <i>NextHopHandle</i>, the client should not subsequently release the handle using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmreleasenexthops">RtmReleaseNextHops</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} NextHopHandle Handle to the next hop to delete. This parameter is optional and can be set to <b>NULL</b>; if it is <b>NULL</b>, the values in <i>NextHopInfo</i> are used to identify the next hop to delete.
@@ -20914,7 +22616,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmdeletenexthop
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmdeletenexthop
      * @since windowsserver2000
      */
     static RtmDeleteNextHop(RtmRegHandle, NextHopHandle, NextHopInfo) {
@@ -20924,6 +22626,11 @@ class Rras {
 
     /**
      * The RtmGetNextHopPointer function obtains a direct pointer to the specified next hop. The pointer allows the next-hop owner direct read access to the routing table manager's RTM_NEXTHOP_INFO structure.
+     * @remarks
+     * Clients should only use this pointer for read-only access.
+     * 
+     * When the next hop handle is no longer required, release it by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmreleasenexthopinfo">RtmReleaseNextHopInfo</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} NextHopHandle Handle to the next hop.
@@ -20964,7 +22671,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmgetnexthoppointer
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetnexthoppointer
      * @since windowsserver2000
      */
     static RtmGetNextHopPointer(RtmRegHandle, NextHopHandle, NextHopPointer) {
@@ -20976,6 +22683,8 @@ class Rras {
 
     /**
      * The RtmLockNextHop function locks or unlocks a next hop. This function should be called by the next hop's owner to lock the next hop before making changes to the next hop. A pointer to the next hop is returned.
+     * @remarks
+     * Clients cannot change the <b>NextHopAddress</b> and <b>InterfaceIndex</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_nexthop_info">RTM_NEXTHOP_INFO</a> structure; these values are used to uniquely identify a next hop.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} NextHopHandle Handle to the next hop to lock or unlock.
@@ -21023,7 +22732,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmlocknexthop
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmlocknexthop
      * @since windowsserver2000
      */
     static RtmLockNextHop(RtmRegHandle, NextHopHandle, Exclusive, LockNextHop, NextHopPointer) {
@@ -21035,6 +22744,14 @@ class Rras {
 
     /**
      * The RtmCreateDestEnum function starts an enumeration of the destinations in the routing table. A client can enumerate destinations for one or more views, or for all views.
+     * @remarks
+     * If <i>EnumFlags</i> contains RTM_ENUM_RANGE, use <i>NetAddress</i> to specify the range of the routing table to enumerate. For example, if a client sets <i>NetAddress</i> to 10/8, destinations in the range 10.0.0.0/8 to 10.255.255.255/32 are returned.
+     * 
+     * When the enumeration handle is no longer required, release it by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmdeleteenumhandle">RtmDeleteEnumHandle</a>.
+     * 
+     * For sample code using this function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/enumerate-all-destinations">Enumerate All Destinations</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Integer} TargetViews Specifies the set of views to use when creating the enumeration. The following flags are used. 
@@ -21206,7 +22923,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmcreatedestenum
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmcreatedestenum
      * @since windowsserver2000
      */
     static RtmCreateDestEnum(RtmRegHandle, TargetViews, EnumFlags, NetAddress, ProtocolId, RtmEnumHandle) {
@@ -21218,6 +22935,16 @@ class Rras {
 
     /**
      * The RtmGetEnumDests function retrieves the next set of destinations in the specified enumeration.
+     * @remarks
+     * The structure pointed to by <i>DestInfos</i>  is a variable-sized structure. If the client specifies more than one view with <i>TargetViews</i>, the size of <i>DestInfos</i> increases for each view. Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtm_size_of_dest_info">RTM_SIZE_OF_DEST_INFO</a> macro to determine how large a <i>DestInfos</i> structure to allocate before calling this function. Use the value specified for <i>TargetViews</i> as a parameter to 
+     * <b>RTM_SIZE_OF_DEST_INFO</b>.
+     * 
+     * When the destinations are no longer required, release them by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmreleasedests">RtmReleaseDests</a>.
+     * 
+     * For sample code using this function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/enumerate-all-destinations">Enumerate All Destinations</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} EnumHandle Handle to the destination enumeration.
@@ -21246,7 +22973,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * The value pointed to by <i>NumRoutes</i> is larger than the maximum number of routes a client is allowed to retrieve with one call. Check 
-     * <a href="/windows/desktop/api/rtmv2/ns-rtmv2-rtm_regn_profile">RTM_REGN_PROFILE</a> for the maximum number of destinations that the client is allowed to retrieve with one call.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_regn_profile">RTM_REGN_PROFILE</a> for the maximum number of destinations that the client is allowed to retrieve with one call.
      * 
      * </td>
      * </tr>
@@ -21266,7 +22993,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmgetenumdests
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetenumdests
      * @since windowsserver2000
      */
     static RtmGetEnumDests(RtmRegHandle, EnumHandle, NumDests, DestInfos) {
@@ -21278,6 +23005,16 @@ class Rras {
 
     /**
      * The RtmReleaseDests function releases the destination handles.
+     * @remarks
+     * Do not use this function to release 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_dest_info">RTM_DEST_INFO</a> structures obtained from a call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmgetchangeddests">RtmGetChangedDests</a>. Use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmreleasechangeddests">RtmReleaseChangedDests</a> instead.
+     * 
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_dest_info">RTM_DEST_INFO</a> structure is a variable-sized structure. If a destination contains information for more than one view, the size of 
+     * <b>RTM_DEST_INFO</b> increases for each view. Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtm_size_of_dest_info">RTM_SIZE_OF_DEST_INFO</a> macro to determine how large a <i>DestInfos</i> buffer to allocate before calling this function.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Integer} NumDests Specifies the number of destinations in <i>DestInfos</i>.
@@ -21305,7 +23042,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmreleasedests
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmreleasedests
      * @since windowsserver2000
      */
     static RtmReleaseDests(RtmRegHandle, NumDests, DestInfos) {
@@ -21315,6 +23052,14 @@ class Rras {
 
     /**
      * The RtmCreateRouteEnum function creates an enumeration of the routes for a particular destination or range of destinations in the routing table. A client can enumerate routes for one or more views, or for all views.
+     * @remarks
+     * If <i>EnumFlags</i> contains RTM_ENUM_RANGE, use <i>NetAddress</i> to specify the range of the routing table to enumerate. For example, if a client sets <i>NetAddress</i> to 10/8, destinations in the range 10.0.0.0/8 to 10.255.255.255/32 are returned.
+     * 
+     * When the enumeration handle is no longer required, release it by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmdeleteenumhandle">RtmDeleteEnumHandle</a>.
+     * 
+     * For sample code using this function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/enumerate-all-routes">Enumerate All Routes</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} DestHandle Handle to the destination for which to enumerate routes. This parameter is optional, and can be set to <b>NULL</b>; specifying <b>NULL</b> enumerates all routes for all destinations. Specify <b>NULL</b> if <i>EnumFlags</i> contains RTM_ENUM_START.
@@ -21568,7 +23313,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmcreaterouteenum
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmcreaterouteenum
      * @since windowsserver2000
      */
     static RtmCreateRouteEnum(RtmRegHandle, DestHandle, TargetViews, EnumFlags, StartDest, MatchingFlags, CriteriaRoute, CriteriaInterface, RtmEnumHandle) {
@@ -21580,6 +23325,12 @@ class Rras {
 
     /**
      * The RtmGetEnumRoutes function retrieves the next set of routes in the specified enumeration.
+     * @remarks
+     * When the routes are no longer required, release them by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmreleaseroutes">RtmReleaseRoutes</a>.
+     * 
+     * For sample code using this function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/enumerate-all-routes">Enumerate All Routes</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} EnumHandle Handle to the route enumeration.
@@ -21613,7 +23364,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * The value pointed to by <i>NumRoutes</i> is larger than the maximum number of routes a client is allowed to retrieve with one call. Check 
-     * <a href="/windows/desktop/api/rtmv2/ns-rtmv2-rtm_regn_profile">RTM_REGN_PROFILE</a> for the maximum number of routes that the client is allowed to retrieve with one call.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_regn_profile">RTM_REGN_PROFILE</a> for the maximum number of routes that the client is allowed to retrieve with one call.
      * 
      * </td>
      * </tr>
@@ -21644,7 +23395,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmgetenumroutes
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetenumroutes
      * @since windowsserver2000
      */
     static RtmGetEnumRoutes(RtmRegHandle, EnumHandle, NumRoutes, RouteHandles) {
@@ -21687,7 +23438,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmreleaseroutes
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmreleaseroutes
      * @since windowsserver2000
      */
     static RtmReleaseRoutes(RtmRegHandle, NumRoutes, RouteHandles) {
@@ -21699,6 +23450,11 @@ class Rras {
 
     /**
      * The RtmCreateNextHopEnum enumerates the next hops in the next-hop list.
+     * @remarks
+     * If <i>EnumFlags</i> contains RTM_ENUM_RANGE, use <i>NetAddress</i> to specify the range of the routing table to enumerate. For example, if a client sets <i>NetAddress</i> to 10/8, next hops in the range 10.0.0.0/8 to 10.255.255.255/32 are returned.
+     * 
+     * When the enumeration handle is no longer required, release it by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmdeleteenumhandle">RtmDeleteEnumHandle</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Integer} EnumFlags Specifies which next hops to include in the enumeration. The following flags are used. 
@@ -21788,7 +23544,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmcreatenexthopenum
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmcreatenexthopenum
      * @since windowsserver2000
      */
     static RtmCreateNextHopEnum(RtmRegHandle, EnumFlags, NetAddress, RtmEnumHandle) {
@@ -21800,6 +23556,9 @@ class Rras {
 
     /**
      * The RtmGetEnumNextHops function retrieves the next set of next hops in the specified enumeration.
+     * @remarks
+     * When the next hops are no longer required, release them by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmreleasenexthops">RtmReleaseNextHops</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} EnumHandle Handle to the next-hop enumeration.
@@ -21833,7 +23592,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * The value pointed to by <i>NumRoutes</i> is larger than the maximum number of routes a client is allowed to retrieve with one call. Check 
-     * <a href="/windows/desktop/api/rtmv2/ns-rtmv2-rtm_regn_profile">RTM_REGN_PROFILE</a> for the maximum number of next hops that the client is allowed to retrieve with one call.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_regn_profile">RTM_REGN_PROFILE</a> for the maximum number of next hops that the client is allowed to retrieve with one call.
      * 
      * </td>
      * </tr>
@@ -21853,7 +23612,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmgetenumnexthops
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetenumnexthops
      * @since windowsserver2000
      */
     static RtmGetEnumNextHops(RtmRegHandle, EnumHandle, NumNextHops, NextHopHandles) {
@@ -21896,7 +23655,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmreleasenexthops
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmreleasenexthops
      * @since windowsserver2000
      */
     static RtmReleaseNextHops(RtmRegHandle, NumNextHops, NextHopHandles) {
@@ -21936,7 +23695,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmdeleteenumhandle
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmdeleteenumhandle
      * @since windowsserver2000
      */
     static RtmDeleteEnumHandle(RtmRegHandle, EnumHandle) {
@@ -21946,6 +23705,17 @@ class Rras {
 
     /**
      * The RtmRegisterForChangeNotification function informs the routing table manager that the client should receive change notifications for the specified types of changes.
+     * @remarks
+     * A client calls 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmmarkdestforchangenotification">RtmMarkDestForChangeNotification</a> when it is registering for changes to a specific destination.
+     * 
+     * The routing table manager uses the 
+     * <a href="https://docs.microsoft.com/windows/win32/api/rtmv2/nc-rtmv2-_event_callback">RTM_EVENT_CALLBACK</a> callback, specified when the client called 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>, to notify the client when changes have occurred; the client must call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmgetchangeddests">RtmGetChangedDests</a> to receive the actual change information.
+     * 
+     * For sample code using this function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/register-for-change-notification">Register For Change Notification</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Integer} TargetViews Specifies the views in which to register for change notification.
@@ -22062,7 +23832,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmregisterforchangenotification
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmregisterforchangenotification
      * @since windowsserver2000
      */
     static RtmRegisterForChangeNotification(RtmRegHandle, TargetViews, NotifyFlags, NotifyContext, NotifyHandle) {
@@ -22075,6 +23845,19 @@ class Rras {
 
     /**
      * The RtmGetChangedDests function returns a set of destinations with changed information.
+     * @remarks
+     * A client is notified of changes by an 
+     * <a href="https://docs.microsoft.com/windows/win32/api/rtmv2/nc-rtmv2-_event_callback">RTM_EVENT_CALLBACK</a>. The 
+     * <b>RTM_EVENT_CALLBACK</b> is only used to notify the client, not deliver the changes. After a change notification is received, the client must call 
+     * <b>RtmGetChangedDests</b> repeatedly to retrieve all the changes.
+     * 
+     * If two or more changes to the same destination have occurred since the notification, only the latest change is returned.
+     * 
+     * When a client no longer needs the handles in <i>ChangedDests</i>, the client must use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmreleasechangeddests">RtmReleaseChangedDests</a> to release the handles.
+     * 
+     * For sample code using this function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/use-the-event-notification-callback">Use the Event Notification Callback</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} NotifyHandle Handle to a change notification obtained from a previous call to 
@@ -22128,7 +23911,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmgetchangeddests
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetchangeddests
      * @since windowsserver2000
      */
     static RtmGetChangedDests(RtmRegHandle, NotifyHandle, NumDests, ChangedDests) {
@@ -22140,6 +23923,15 @@ class Rras {
 
     /**
      * The RtmReleaseChangedDests function releases the changed destination handles.
+     * @remarks
+     * Always use this function to release changed 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_dest_info">RTM_DEST_INFO</a> structures obtained from a call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmgetchangeddests">RtmGetChangedDests</a>.
+     * 
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_dest_info">RTM_DEST_INFO</a> structure is a variable-sized structure. If a destination contains information for more than one view, the size of 
+     * <b>RTM_DEST_INFO</b> increases for each view. Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtm_size_of_dest_info">RTM_SIZE_OF_DEST_INFO</a> macro to determine how large a <i>ChangedDests</i> buffer to allocate before calling this function.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} NotifyHandle Handle to a change notification, obtained from a previous call to 
@@ -22173,7 +23965,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmreleasechangeddests
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmreleasechangeddests
      * @since windowsserver2000
      */
     static RtmReleaseChangedDests(RtmRegHandle, NotifyHandle, NumDests, ChangedDests) {
@@ -22183,6 +23975,9 @@ class Rras {
 
     /**
      * The RtmIgnoreChangedDests function skips the next change for each destination if it has already occurred.
+     * @remarks
+     * When the destinations are no longer required, release them by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmreleasechangeddests">RtmReleaseChangedDests</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} NotifyHandle Handle to a change notification.
@@ -22209,7 +24004,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmignorechangeddests
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmignorechangeddests
      * @since windowsserver2000
      */
     static RtmIgnoreChangedDests(RtmRegHandle, NotifyHandle, NumDests, ChangedDests) {
@@ -22221,6 +24016,10 @@ class Rras {
 
     /**
      * The RtmGetChangeStatus function checks whether there are pending changes that have not been retrieved with RtmGetChangedDests.
+     * @remarks
+     * This function can be used to make portions of the client code more efficient. For example, a client may postpone some operation if there are changes that the client has not yet processed.
+     * 
+     * This function can also be used to monitor change notification in another thread.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} NotifyHandle Handle to a change notification.
@@ -22256,7 +24055,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmgetchangestatus
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetchangestatus
      * @since windowsserver2000
      */
     static RtmGetChangeStatus(RtmRegHandle, NotifyHandle, DestHandle, ChangeStatus) {
@@ -22299,7 +24098,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmmarkdestforchangenotification
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmmarkdestforchangenotification
      * @since windowsserver2000
      */
     static RtmMarkDestForChangeNotification(RtmRegHandle, NotifyHandle, DestHandle, MarkDest) {
@@ -22336,7 +24135,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmismarkedforchangenotification
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmismarkedforchangenotification
      * @since windowsserver2000
      */
     static RtmIsMarkedForChangeNotification(RtmRegHandle, NotifyHandle, DestHandle, DestMarked) {
@@ -22377,7 +24176,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmderegisterfromchangenotification
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmderegisterfromchangenotification
      * @since windowsserver2000
      */
     static RtmDeregisterFromChangeNotification(RtmRegHandle, NotifyHandle) {
@@ -22387,6 +24186,9 @@ class Rras {
 
     /**
      * The RtmCreateRouteList function creates a list in which the caller can keep a copy of the routes it owns.
+     * @remarks
+     * For sample code using this function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/use-a-client-specific-route-list">Use a Client-Specific Route List</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer<Pointer>} RouteListHandle On input, <i>RouteListHandle</i> is a pointer to <b>NULL</b>. 
@@ -22420,7 +24222,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmcreateroutelist
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmcreateroutelist
      * @since windowsserver2000
      */
     static RtmCreateRouteList(RtmRegHandle, RouteListHandle) {
@@ -22432,6 +24234,12 @@ class Rras {
 
     /**
      * The RtmInsertInRouteList function inserts the specified set of routes into the client's route list. If a route is already in another list, the route is removed from the old list and inserted into the new one.
+     * @remarks
+     * When the routes are no longer required, release them by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmreleaseroutes">RtmReleaseRoutes</a>.
+     * 
+     * For sample code using this function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/use-a-client-specific-route-list">Use a Client-Specific Route List</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} RouteListHandle Handle to the route list to which to add routes. Specify <b>NULL</b> to remove the specified routes from their old lists.
@@ -22458,7 +24266,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtminsertinroutelist
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtminsertinroutelist
      * @since windowsserver2000
      */
     static RtmInsertInRouteList(RtmRegHandle, RouteListHandle, NumRoutes, RouteHandles) {
@@ -22470,6 +24278,12 @@ class Rras {
 
     /**
      * The RtmCreateRouteListEnum function creates an enumeration of routes on the specified route list.
+     * @remarks
+     * When the enumeration handle is no longer required, release it by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmdeleteenumhandle">RtmDeleteEnumHandle</a>.
+     * 
+     * For sample code using this function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/use-a-client-specific-route-list">Use a Client-Specific Route List</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} RouteListHandle Handle to the route list to enumerate that is obtained from a previous call to 
@@ -22505,7 +24319,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmcreateroutelistenum
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmcreateroutelistenum
      * @since windowsserver2000
      */
     static RtmCreateRouteListEnum(RtmRegHandle, RouteListHandle, RtmEnumHandle) {
@@ -22517,6 +24331,13 @@ class Rras {
 
     /**
      * The RtmGetListEnumRoutes function enumerates a set of routes in a specified route list.
+     * @remarks
+     * Call this function repeatedly to retrieve all routes.
+     * 
+     * There are no more routes to enumerate when the routing table manager returns zero in <i>NumRoutes</i>.
+     * 
+     * For sample code using this function, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/RRAS/use-a-client-specific-route-list">Use a Client-Specific Route List</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} EnumHandle Handle to the route list to enumerate.
@@ -22550,7 +24371,7 @@ class Rras {
      * </td>
      * <td width="60%">
      * The value pointed to by <i>NumRoutes</i> is larger than the maximum number of routes a client is allowed to retrieve with one call. Check 
-     * <a href="/windows/desktop/api/rtmv2/ns-rtmv2-rtm_regn_profile">RTM_REGN_PROFILE</a> for the maximum number of routes that the client is allowed to retrieve with one call.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_regn_profile">RTM_REGN_PROFILE</a> for the maximum number of routes that the client is allowed to retrieve with one call.
      * 
      * </td>
      * </tr>
@@ -22559,7 +24380,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmgetlistenumroutes
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetlistenumroutes
      * @since windowsserver2000
      */
     static RtmGetListEnumRoutes(RtmRegHandle, EnumHandle, NumRoutes, RouteHandles) {
@@ -22572,6 +24393,8 @@ class Rras {
 
     /**
      * The RtmDeleteRouteList function removes all routes from a client-specific route list, then frees any resources allocated to the list.
+     * @remarks
+     * This function also releases the handle to the route list.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} RouteListHandle Handle to the route list to delete.
@@ -22600,7 +24423,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmdeleteroutelist
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmdeleteroutelist
      * @since windowsserver2000
      */
     static RtmDeleteRouteList(RtmRegHandle, RouteListHandle) {
@@ -22610,6 +24433,11 @@ class Rras {
 
     /**
      * The RtmReferenceHandles function increases the reference count for objects pointed to by one or more handles that the routing manager used to access those objects.
+     * @remarks
+     * A client must always call this function when caching a handle returned by the routing table manager. This notifies the routing table manager that it should not destroy the object the handle refers to until the handle is released by the client.
+     * 
+     * When a client must release the handle, the client must call the appropriate release function, based on the type of handle. For example, to release a route, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmreleaseroutes">RtmReleaseRoutes</a>.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Integer} NumHandles Specifies the number of handles in <i>RtmHandles</i>.
@@ -22639,7 +24467,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//rtmv2/nf-rtmv2-rtmreferencehandles
+     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmreferencehandles
      * @since windowsserver2000
      */
     static RtmReferenceHandles(RtmRegHandle, NumHandles, RtmHandles) {

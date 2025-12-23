@@ -4,7 +4,6 @@
 /**
  * Provides access to subresource data in a 3D texture.
  * @remarks
- * 
  * This structure is used to access subresource data when calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10texture3d-map">ID3D10Texture3D::Map</a>. To access data, you must cast the <b>pData</b> pointer; see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_mapped_texture2d">D3D10_MAPPED_TEXTURE2D</a> for an example.
  * 
  * To illustrate pitch for an uncompressed texture, assume a 3D texture with mipmap levels, as shown in the following illustration.
@@ -24,9 +23,7 @@
  * <img alt="Illustration of the row pitch and depth pitch in memory" src="./images/d3d10_3d_texture_memory.png"/>
  * 
  * Use row pitch to advance a pointer between rows within a single 2D texture plane; use depth pitch to advance a pointer between 2D texture planes.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10/ns-d3d10-d3d10_mapped_texture3d
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_mapped_texture3d
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

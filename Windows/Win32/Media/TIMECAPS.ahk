@@ -3,7 +3,7 @@
 
 /**
  * The TIMECAPS structure contains information about the resolution of the timer.
- * @see https://docs.microsoft.com/windows/win32/api//timeapi/ns-timeapi-timecaps
+ * @see https://learn.microsoft.com/windows/win32/api/timeapi/ns-timeapi-timecaps
  * @namespace Windows.Win32.Media
  * @version v4.0.30319
  */

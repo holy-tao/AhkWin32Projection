@@ -5,11 +5,8 @@
 /**
  * The LM_OWF_PASSWORD stores the Lan Manage (LM) one-way function (OWF) of a user's password.
  * @remarks
- * 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/cc325731(v=vs.85)">NT_OWF_PASSWORD</a> is an alias for this structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mschapp/ns-mschapp-lm_owf_password
+ * @see https://learn.microsoft.com/windows/win32/api/mschapp/ns-mschapp-lm_owf_password
  * @namespace Windows.Win32.System.PasswordManagement
  * @version v4.0.30319
  */

@@ -5,13 +5,11 @@
 /**
  * Passed to the CopyFile2ProgressRoutine callback function with information about a pending copy operation.
  * @remarks
- * 
  * To compile an application that uses the 
  *     <b>COPYFILE2_MESSAGE</b> structure, define the 
  *     <b>_WIN32_WINNT</b> macro as 0x0601 or later. For more information, see 
  *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-copyfile2_message
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-copyfile2_message
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
@@ -20,6 +18,474 @@ class COPYFILE2_MESSAGE extends Win32Struct
     static sizeof => 80
 
     static packingSize => 8
+
+    class _Info_e__Union extends Win32Struct {
+        static sizeof => 72
+        static packingSize => 8
+
+        class _ChunkStarted extends Win32Struct {
+            static sizeof => 56
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            dwStreamNumber {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            dwReserved {
+                get => NumGet(this, 4, "uint")
+                set => NumPut("uint", value, this, 4)
+            }
+        
+            /**
+             * @type {HANDLE}
+             */
+            hSourceFile{
+                get {
+                    if(!this.HasProp("__hSourceFile"))
+                        this.__hSourceFile := HANDLE(8, this)
+                    return this.__hSourceFile
+                }
+            }
+        
+            /**
+             * @type {HANDLE}
+             */
+            hDestinationFile{
+                get {
+                    if(!this.HasProp("__hDestinationFile"))
+                        this.__hDestinationFile := HANDLE(16, this)
+                    return this.__hDestinationFile
+                }
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uliChunkNumber {
+                get => NumGet(this, 24, "uint")
+                set => NumPut("uint", value, this, 24)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uliChunkSize {
+                get => NumGet(this, 32, "uint")
+                set => NumPut("uint", value, this, 32)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uliStreamSize {
+                get => NumGet(this, 40, "uint")
+                set => NumPut("uint", value, this, 40)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uliTotalFileSize {
+                get => NumGet(this, 48, "uint")
+                set => NumPut("uint", value, this, 48)
+            }
+        
+        }
+    
+        class _ChunkFinished extends Win32Struct {
+            static sizeof => 72
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            dwStreamNumber {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            dwFlags {
+                get => NumGet(this, 4, "uint")
+                set => NumPut("uint", value, this, 4)
+            }
+        
+            /**
+             * @type {HANDLE}
+             */
+            hSourceFile{
+                get {
+                    if(!this.HasProp("__hSourceFile"))
+                        this.__hSourceFile := HANDLE(8, this)
+                    return this.__hSourceFile
+                }
+            }
+        
+            /**
+             * @type {HANDLE}
+             */
+            hDestinationFile{
+                get {
+                    if(!this.HasProp("__hDestinationFile"))
+                        this.__hDestinationFile := HANDLE(16, this)
+                    return this.__hDestinationFile
+                }
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uliChunkNumber {
+                get => NumGet(this, 24, "uint")
+                set => NumPut("uint", value, this, 24)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uliChunkSize {
+                get => NumGet(this, 32, "uint")
+                set => NumPut("uint", value, this, 32)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uliStreamSize {
+                get => NumGet(this, 40, "uint")
+                set => NumPut("uint", value, this, 40)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uliStreamBytesTransferred {
+                get => NumGet(this, 48, "uint")
+                set => NumPut("uint", value, this, 48)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uliTotalFileSize {
+                get => NumGet(this, 56, "uint")
+                set => NumPut("uint", value, this, 56)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uliTotalBytesTransferred {
+                get => NumGet(this, 64, "uint")
+                set => NumPut("uint", value, this, 64)
+            }
+        
+        }
+    
+        class _StreamStarted extends Win32Struct {
+            static sizeof => 40
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            dwStreamNumber {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            dwReserved {
+                get => NumGet(this, 4, "uint")
+                set => NumPut("uint", value, this, 4)
+            }
+        
+            /**
+             * @type {HANDLE}
+             */
+            hSourceFile{
+                get {
+                    if(!this.HasProp("__hSourceFile"))
+                        this.__hSourceFile := HANDLE(8, this)
+                    return this.__hSourceFile
+                }
+            }
+        
+            /**
+             * @type {HANDLE}
+             */
+            hDestinationFile{
+                get {
+                    if(!this.HasProp("__hDestinationFile"))
+                        this.__hDestinationFile := HANDLE(16, this)
+                    return this.__hDestinationFile
+                }
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uliStreamSize {
+                get => NumGet(this, 24, "uint")
+                set => NumPut("uint", value, this, 24)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uliTotalFileSize {
+                get => NumGet(this, 32, "uint")
+                set => NumPut("uint", value, this, 32)
+            }
+        
+        }
+    
+        class _StreamFinished extends Win32Struct {
+            static sizeof => 56
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            dwStreamNumber {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            dwReserved {
+                get => NumGet(this, 4, "uint")
+                set => NumPut("uint", value, this, 4)
+            }
+        
+            /**
+             * @type {HANDLE}
+             */
+            hSourceFile{
+                get {
+                    if(!this.HasProp("__hSourceFile"))
+                        this.__hSourceFile := HANDLE(8, this)
+                    return this.__hSourceFile
+                }
+            }
+        
+            /**
+             * @type {HANDLE}
+             */
+            hDestinationFile{
+                get {
+                    if(!this.HasProp("__hDestinationFile"))
+                        this.__hDestinationFile := HANDLE(16, this)
+                    return this.__hDestinationFile
+                }
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uliStreamSize {
+                get => NumGet(this, 24, "uint")
+                set => NumPut("uint", value, this, 24)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uliStreamBytesTransferred {
+                get => NumGet(this, 32, "uint")
+                set => NumPut("uint", value, this, 32)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uliTotalFileSize {
+                get => NumGet(this, 40, "uint")
+                set => NumPut("uint", value, this, 40)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uliTotalBytesTransferred {
+                get => NumGet(this, 48, "uint")
+                set => NumPut("uint", value, this, 48)
+            }
+        
+        }
+    
+        class _PollContinue extends Win32Struct {
+            static sizeof => 4
+            static packingSize => 4
+    
+            /**
+             * @type {Integer}
+             */
+            dwReserved {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+        }
+    
+        class _Error extends Win32Struct {
+            static sizeof => 56
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            CopyPhase {
+                get => NumGet(this, 0, "int")
+                set => NumPut("int", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            dwStreamNumber {
+                get => NumGet(this, 4, "uint")
+                set => NumPut("uint", value, this, 4)
+            }
+        
+            /**
+             * @type {HRESULT}
+             */
+            hrFailure {
+                get => NumGet(this, 8, "int")
+                set => NumPut("int", value, this, 8)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            dwReserved {
+                get => NumGet(this, 12, "uint")
+                set => NumPut("uint", value, this, 12)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uliChunkNumber {
+                get => NumGet(this, 16, "uint")
+                set => NumPut("uint", value, this, 16)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uliStreamSize {
+                get => NumGet(this, 24, "uint")
+                set => NumPut("uint", value, this, 24)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uliStreamBytesTransferred {
+                get => NumGet(this, 32, "uint")
+                set => NumPut("uint", value, this, 32)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uliTotalFileSize {
+                get => NumGet(this, 40, "uint")
+                set => NumPut("uint", value, this, 40)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            uliTotalBytesTransferred {
+                get => NumGet(this, 48, "uint")
+                set => NumPut("uint", value, this, 48)
+            }
+        
+        }
+    
+        /**
+         * @type {_ChunkStarted}
+         */
+        ChunkStarted{
+            get {
+                if(!this.HasProp("__ChunkStarted"))
+                    this.__ChunkStarted := %this.__Class%._ChunkStarted(0, this)
+                return this.__ChunkStarted
+            }
+        }
+    
+        /**
+         * @type {_ChunkFinished}
+         */
+        ChunkFinished{
+            get {
+                if(!this.HasProp("__ChunkFinished"))
+                    this.__ChunkFinished := %this.__Class%._ChunkFinished(0, this)
+                return this.__ChunkFinished
+            }
+        }
+    
+        /**
+         * @type {_StreamStarted}
+         */
+        StreamStarted{
+            get {
+                if(!this.HasProp("__StreamStarted"))
+                    this.__StreamStarted := %this.__Class%._StreamStarted(0, this)
+                return this.__StreamStarted
+            }
+        }
+    
+        /**
+         * @type {_StreamFinished}
+         */
+        StreamFinished{
+            get {
+                if(!this.HasProp("__StreamFinished"))
+                    this.__StreamFinished := %this.__Class%._StreamFinished(0, this)
+                return this.__StreamFinished
+            }
+        }
+    
+        /**
+         * @type {_PollContinue}
+         */
+        PollContinue{
+            get {
+                if(!this.HasProp("__PollContinue"))
+                    this.__PollContinue := %this.__Class%._PollContinue(0, this)
+                return this.__PollContinue
+            }
+        }
+    
+        /**
+         * @type {_Error}
+         */
+        Error{
+            get {
+                if(!this.HasProp("__Error"))
+                    this.__Error := %this.__Class%._Error(0, this)
+                return this.__Error
+            }
+        }
+    
+    }
 
     /**
      * Value from the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ne-winbase-copyfile2_message_type">COPYFILE2_MESSAGE_TYPE</a> 
@@ -127,465 +593,15 @@ class COPYFILE2_MESSAGE extends Win32Struct
         set => NumPut("uint", value, this, 4)
     }
 
-    class _ChunkStarted extends Win32Struct {
-        static sizeof => 72
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        dwStreamNumber {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        dwReserved {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-    
-        /**
-         * @type {HANDLE}
-         */
-        hSourceFile{
-            get {
-                if(!this.HasProp("__hSourceFile"))
-                    this.__hSourceFile := HANDLE(8, this)
-                return this.__hSourceFile
-            }
-        }
-    
-        /**
-         * @type {HANDLE}
-         */
-        hDestinationFile{
-            get {
-                if(!this.HasProp("__hDestinationFile"))
-                    this.__hDestinationFile := HANDLE(16, this)
-                return this.__hDestinationFile
-            }
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uliChunkNumber {
-            get => NumGet(this, 24, "uint")
-            set => NumPut("uint", value, this, 24)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uliChunkSize {
-            get => NumGet(this, 32, "uint")
-            set => NumPut("uint", value, this, 32)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uliStreamSize {
-            get => NumGet(this, 40, "uint")
-            set => NumPut("uint", value, this, 40)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uliTotalFileSize {
-            get => NumGet(this, 48, "uint")
-            set => NumPut("uint", value, this, 48)
-        }
-    
-    }
-
-    class _ChunkFinished extends Win32Struct {
-        static sizeof => 72
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        dwStreamNumber {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        dwFlags {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-    
-        /**
-         * @type {HANDLE}
-         */
-        hSourceFile{
-            get {
-                if(!this.HasProp("__hSourceFile"))
-                    this.__hSourceFile := HANDLE(8, this)
-                return this.__hSourceFile
-            }
-        }
-    
-        /**
-         * @type {HANDLE}
-         */
-        hDestinationFile{
-            get {
-                if(!this.HasProp("__hDestinationFile"))
-                    this.__hDestinationFile := HANDLE(16, this)
-                return this.__hDestinationFile
-            }
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uliChunkNumber {
-            get => NumGet(this, 24, "uint")
-            set => NumPut("uint", value, this, 24)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uliChunkSize {
-            get => NumGet(this, 32, "uint")
-            set => NumPut("uint", value, this, 32)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uliStreamSize {
-            get => NumGet(this, 40, "uint")
-            set => NumPut("uint", value, this, 40)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uliStreamBytesTransferred {
-            get => NumGet(this, 48, "uint")
-            set => NumPut("uint", value, this, 48)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uliTotalFileSize {
-            get => NumGet(this, 56, "uint")
-            set => NumPut("uint", value, this, 56)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uliTotalBytesTransferred {
-            get => NumGet(this, 64, "uint")
-            set => NumPut("uint", value, this, 64)
-        }
-    
-    }
-
-    class _StreamStarted extends Win32Struct {
-        static sizeof => 72
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        dwStreamNumber {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        dwReserved {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-    
-        /**
-         * @type {HANDLE}
-         */
-        hSourceFile{
-            get {
-                if(!this.HasProp("__hSourceFile"))
-                    this.__hSourceFile := HANDLE(8, this)
-                return this.__hSourceFile
-            }
-        }
-    
-        /**
-         * @type {HANDLE}
-         */
-        hDestinationFile{
-            get {
-                if(!this.HasProp("__hDestinationFile"))
-                    this.__hDestinationFile := HANDLE(16, this)
-                return this.__hDestinationFile
-            }
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uliStreamSize {
-            get => NumGet(this, 24, "uint")
-            set => NumPut("uint", value, this, 24)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uliTotalFileSize {
-            get => NumGet(this, 32, "uint")
-            set => NumPut("uint", value, this, 32)
-        }
-    
-    }
-
-    class _StreamFinished extends Win32Struct {
-        static sizeof => 72
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        dwStreamNumber {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        dwReserved {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-    
-        /**
-         * @type {HANDLE}
-         */
-        hSourceFile{
-            get {
-                if(!this.HasProp("__hSourceFile"))
-                    this.__hSourceFile := HANDLE(8, this)
-                return this.__hSourceFile
-            }
-        }
-    
-        /**
-         * @type {HANDLE}
-         */
-        hDestinationFile{
-            get {
-                if(!this.HasProp("__hDestinationFile"))
-                    this.__hDestinationFile := HANDLE(16, this)
-                return this.__hDestinationFile
-            }
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uliStreamSize {
-            get => NumGet(this, 24, "uint")
-            set => NumPut("uint", value, this, 24)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uliStreamBytesTransferred {
-            get => NumGet(this, 32, "uint")
-            set => NumPut("uint", value, this, 32)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uliTotalFileSize {
-            get => NumGet(this, 40, "uint")
-            set => NumPut("uint", value, this, 40)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uliTotalBytesTransferred {
-            get => NumGet(this, 48, "uint")
-            set => NumPut("uint", value, this, 48)
-        }
-    
-    }
-
-    class _PollContinue extends Win32Struct {
-        static sizeof => 72
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        dwReserved {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    
-    }
-
-    class _Error extends Win32Struct {
-        static sizeof => 72
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        CopyPhase {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        dwStreamNumber {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-    
-        /**
-         * @type {HRESULT}
-         */
-        hrFailure {
-            get => NumGet(this, 8, "int")
-            set => NumPut("int", value, this, 8)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        dwReserved {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uliChunkNumber {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uliStreamSize {
-            get => NumGet(this, 24, "uint")
-            set => NumPut("uint", value, this, 24)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uliStreamBytesTransferred {
-            get => NumGet(this, 32, "uint")
-            set => NumPut("uint", value, this, 32)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uliTotalFileSize {
-            get => NumGet(this, 40, "uint")
-            set => NumPut("uint", value, this, 40)
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        uliTotalBytesTransferred {
-            get => NumGet(this, 48, "uint")
-            set => NumPut("uint", value, this, 48)
-        }
-    
-    }
-
     /**
-     * @type {_ChunkStarted}
+     * 
+     * @type {_Info_e__Union}
      */
-    ChunkStarted{
+    Info{
         get {
-            if(!this.HasProp("__ChunkStarted"))
-                this.__ChunkStarted := %this.__Class%._ChunkStarted(8, this)
-            return this.__ChunkStarted
-        }
-    }
-
-    /**
-     * @type {_ChunkFinished}
-     */
-    ChunkFinished{
-        get {
-            if(!this.HasProp("__ChunkFinished"))
-                this.__ChunkFinished := %this.__Class%._ChunkFinished(8, this)
-            return this.__ChunkFinished
-        }
-    }
-
-    /**
-     * @type {_StreamStarted}
-     */
-    StreamStarted{
-        get {
-            if(!this.HasProp("__StreamStarted"))
-                this.__StreamStarted := %this.__Class%._StreamStarted(8, this)
-            return this.__StreamStarted
-        }
-    }
-
-    /**
-     * @type {_StreamFinished}
-     */
-    StreamFinished{
-        get {
-            if(!this.HasProp("__StreamFinished"))
-                this.__StreamFinished := %this.__Class%._StreamFinished(8, this)
-            return this.__StreamFinished
-        }
-    }
-
-    /**
-     * @type {_PollContinue}
-     */
-    PollContinue{
-        get {
-            if(!this.HasProp("__PollContinue"))
-                this.__PollContinue := %this.__Class%._PollContinue(8, this)
-            return this.__PollContinue
-        }
-    }
-
-    /**
-     * @type {_Error}
-     */
-    Error{
-        get {
-            if(!this.HasProp("__Error"))
-                this.__Error := %this.__Class%._Error(8, this)
-            return this.__Error
+            if(!this.HasProp("__Info"))
+                this.__Info := %this.__Class%._Info_e__Union(8, this)
+            return this.__Info
         }
     }
 }

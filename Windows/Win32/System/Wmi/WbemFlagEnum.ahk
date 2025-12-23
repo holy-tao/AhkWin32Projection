@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that are used by SWbemServices.ExecQuery, SWbemServices.ExecQueryAsync, SWbemServices.SubclassesOf, and SWbemServices.InstancesOf.
- * @see https://docs.microsoft.com/windows/win32/api//wbemdisp/ne-wbemdisp-wbemflagenum
+ * @see https://learn.microsoft.com/windows/win32/api/wbemdisp/ne-wbemdisp-wbemflagenum
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class WbemFlagEnum{
+class WbemFlagEnum extends Win32Enum{
 
     /**
      * Causes the call to return immediately.

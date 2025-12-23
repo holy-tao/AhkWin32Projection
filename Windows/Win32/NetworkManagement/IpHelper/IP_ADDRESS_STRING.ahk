@@ -4,11 +4,8 @@
 /**
  * Stores an IPv4 address in dotted decimal notation.
  * @remarks
- * 
  * The <b>IP_ADDRESS_STRING</b> structure is used as  a parameter in  the  <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_addr_string">IP_ADDR_STRING</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iptypes/ns-iptypes-ip_address_string
+ * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_address_string
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

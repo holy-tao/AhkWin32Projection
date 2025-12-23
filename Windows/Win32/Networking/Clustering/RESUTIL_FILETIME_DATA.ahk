@@ -4,7 +4,7 @@
 
 /**
  * Describes the default, maximum, and minimum values allowed for a FILETIME.
- * @see https://docs.microsoft.com/windows/win32/api//resapi/ns-resapi-resutil_filetime_data
+ * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-resutil_filetime_data
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -12,7 +12,7 @@ class RESUTIL_FILETIME_DATA extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * 

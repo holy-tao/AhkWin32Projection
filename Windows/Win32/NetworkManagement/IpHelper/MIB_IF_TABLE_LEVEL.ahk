@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MIB_IF_TABLE_LEVEL enumeration type defines the level of interface information to retrieve.
  * @remarks
- * 
  * The MIB_IF_TABLE_LEVEL enumeration type is used with the 
  *     <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff552528(v=vs.85)">GetIfTable2Ex</a> function to specify the level
  *     of interface information to retrieve.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//netioapi/ne-netioapi-mib_if_table_level
+ * @see https://learn.microsoft.com/windows/win32/api/netioapi/ne-netioapi-mib_if_table_level
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */
-class MIB_IF_TABLE_LEVEL{
+class MIB_IF_TABLE_LEVEL extends Win32Enum{
 
     /**
      * The values of statistics and state that are returned in members of the 

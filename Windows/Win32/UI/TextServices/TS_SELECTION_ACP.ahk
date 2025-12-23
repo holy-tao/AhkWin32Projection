@@ -4,7 +4,7 @@
 
 /**
  * The TS_SELECTION_ACP structure contains ACP-based text selection data.
- * @see https://docs.microsoft.com/windows/win32/api//textstor/ns-textstor-ts_selection_acp
+ * @see https://learn.microsoft.com/windows/win32/api/textstor/ns-textstor-ts_selection_acp
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -12,7 +12,7 @@ class TS_SELECTION_ACP extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Contains the start position of the selection.

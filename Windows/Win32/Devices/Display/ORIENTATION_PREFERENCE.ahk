@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the screen orientation preference for a desktop app process.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ne-winuser-orientation_preference
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ne-winuser-orientation_preference
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
-class ORIENTATION_PREFERENCE{
+class ORIENTATION_PREFERENCE extends Win32BitflagEnum{
 
     /**
      * The process has no device orientation preferences. The system may choose any available setting.

@@ -3,7 +3,7 @@
 
 /**
  * Defines an individual environment variable by using a name and value pair.
- * @see https://docs.microsoft.com/windows/win32/api//wsman/ns-wsman-wsman_environment_variable
+ * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_environment_variable
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */

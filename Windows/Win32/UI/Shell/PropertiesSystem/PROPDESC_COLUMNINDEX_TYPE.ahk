@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates whether or how a property can be indexed.
  * @remarks
- * 
  * Windows Search builds indexes for the values found in the property store to efficiently support filtering, sorting, and grouping over indexed properties. There are two kinds of indexes: an individual value index that indexes an item by single values, and a vector index that indexes all the vector values of a row as a single index entry.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//propsys/ne-propsys-propdesc_columnindex_type
+ * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-propdesc_columnindex_type
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
-class PROPDESC_COLUMNINDEX_TYPE{
+class PROPDESC_COLUMNINDEX_TYPE extends Win32Enum{
 
     /**
      * Never generate any index on this property.

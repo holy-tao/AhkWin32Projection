@@ -5,13 +5,13 @@
 
 /**
  * Describes the exact timestamp capabilities that a network adapter supports.
- * @see https://docs.microsoft.com/windows/win32/api//iphlpapi/ns-iphlpapi-interface_timestamp_capabilities
+ * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/ns-iphlpapi-interface_timestamp_capabilities
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */
 class INTERFACE_TIMESTAMP_CAPABILITIES extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -46,7 +46,7 @@ class INTERFACE_TIMESTAMP_CAPABILITIES extends Win32Struct
     HardwareCapabilities{
         get {
             if(!this.HasProp("__HardwareCapabilities"))
-                this.__HardwareCapabilities := INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES(16, this)
+                this.__HardwareCapabilities := INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES(9, this)
             return this.__HardwareCapabilities
         }
     }
@@ -60,7 +60,7 @@ class INTERFACE_TIMESTAMP_CAPABILITIES extends Win32Struct
     SoftwareCapabilities{
         get {
             if(!this.HasProp("__SoftwareCapabilities"))
-                this.__SoftwareCapabilities := INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES(27, this)
+                this.__SoftwareCapabilities := INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES(20, this)
             return this.__SoftwareCapabilities
         }
     }

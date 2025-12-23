@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates information about the features accessed during an instant messaging interaction.
- * @see https://docs.microsoft.com/windows/win32/api//wpcevent/ne-wpcevent-wpcflag_im_feature
+ * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpcflag_im_feature
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
-class WPCFLAG_IM_FEATURE{
+class WPCFLAG_IM_FEATURE extends Win32Enum{
 
     /**
      * No instant messaging features were used.

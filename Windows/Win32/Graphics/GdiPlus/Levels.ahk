@@ -3,8 +3,6 @@
 #Include .\Effect.ahk
 
 /**
- * The Levels class encompasses three bitmap adjustments:\_highlight, midtone, and shadow.
- * @see https://docs.microsoft.com/windows/win32/api//gdipluseffects/nl-gdipluseffects-levels
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

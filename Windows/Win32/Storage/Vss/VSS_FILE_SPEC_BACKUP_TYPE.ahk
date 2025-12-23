@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by writers to indicate their support of certain backup operations.
  * @remarks
- * 
  * When a writer sets a backup-required value of the 
  *     <b>VSS_FILE_SPEC_BACKUP_TYPE</b> enumeration, it is 
  *     indicating that the requester perform the backup in such a way that, when the backup is restored, the current 
@@ -48,13 +48,11 @@
  * Requesters or writers can recover a file set's file specification backup type by using the 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsswmfiledesc-getbackuptypemask">IVssWMFiledesc::GetBackupTypeMask</a> 
  *     method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vss/ne-vss-vss_file_spec_backup_type
+ * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_file_spec_backup_type
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_FILE_SPEC_BACKUP_TYPE{
+class VSS_FILE_SPEC_BACKUP_TYPE extends Win32Enum{
 
     /**
      * A file set tagged with this value must be involved in all types of backup operations. 

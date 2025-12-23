@@ -12,13 +12,13 @@
 
 /**
  * Describes bindings (fixed for the duration of the render pass) to one or more render target views (RTVs), as well as their beginning and ending access characteristics.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_render_pass_render_target_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_render_pass_render_target_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
 class D3D12_RENDER_PASS_RENDER_TARGET_DESC extends Win32Struct
 {
-    static sizeof => 96
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -53,7 +53,7 @@ class D3D12_RENDER_PASS_RENDER_TARGET_DESC extends Win32Struct
     EndingAccess{
         get {
             if(!this.HasProp("__EndingAccess"))
-                this.__EndingAccess := D3D12_RENDER_PASS_ENDING_ACCESS(40, this)
+                this.__EndingAccess := D3D12_RENDER_PASS_ENDING_ACCESS(32, this)
             return this.__EndingAccess
         }
     }

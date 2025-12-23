@@ -5,7 +5,7 @@
 
 /**
  * A buffer of metadata for the placeholder file or directory.
- * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/ns-projectedfslib-prj_placeholder_info
+ * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ns-projectedfslib-prj_placeholder_info
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  * @version v4.0.30319
  */
@@ -16,8 +16,8 @@ class PRJ_PLACEHOLDER_INFO extends Win32Struct
     static packingSize => 8
 
     class _EaInformation extends Win32Struct {
-        static sizeof => 344
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -38,8 +38,8 @@ class PRJ_PLACEHOLDER_INFO extends Win32Struct
     }
 
     class _SecurityInformation extends Win32Struct {
-        static sizeof => 344
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -60,8 +60,8 @@ class PRJ_PLACEHOLDER_INFO extends Win32Struct
     }
 
     class _StreamsInformation extends Win32Struct {
-        static sizeof => 344
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}

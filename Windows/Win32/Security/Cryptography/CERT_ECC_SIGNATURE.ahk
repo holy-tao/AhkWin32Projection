@@ -5,10 +5,8 @@
 /**
  * Contains the r and s values for an Elliptic Curve Digital Signature Algorithm (ECDSA) signature.
  * @remarks
- * 
  * Before encoding, a leading zero byte will be inserted for the <b>r</b> and <b>s</b> members. After decoding, a leading zero byte will be removed from the <b>r</b> and <b>s</b> members if the leading zero is present.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_ecc_signature
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_ecc_signature
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

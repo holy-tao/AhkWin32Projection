@@ -3,7 +3,7 @@
 
 /**
  * Contains pointers to the functions called by a client-side DLL to access virtual channels.
- * @see https://docs.microsoft.com/windows/win32/api//cchannel/ns-cchannel-channel_entry_points
+ * @see https://learn.microsoft.com/windows/win32/api/cchannel/ns-cchannel-channel_entry_points
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

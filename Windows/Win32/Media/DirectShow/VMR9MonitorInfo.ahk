@@ -6,11 +6,8 @@
 /**
  * The VMR9MonitorInfo structure is used with the VMR-9 in the IVMRMonitorConfig9::GetAvailableMonitors method to set and retrieve information about monitors on the system.
  * @remarks
- * 
  * This structure is used to configure monitors on multi-monitor systems.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vmr9/ns-vmr9-vmr9monitorinfo
+ * @see https://learn.microsoft.com/windows/win32/api/vmr9/ns-vmr9-vmr9monitorinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -36,7 +33,7 @@ class VMR9MonitorInfo extends Win32Struct
     rcMonitor{
         get {
             if(!this.HasProp("__rcMonitor"))
-                this.__rcMonitor := RECT(8, this)
+                this.__rcMonitor := RECT(4, this)
             return this.__rcMonitor
         }
     }

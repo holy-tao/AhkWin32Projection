@@ -4,7 +4,7 @@
 
 /**
  * Contains information for all tiers of a specific volume.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-fsctl_query_storage_classes_output
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-fsctl_query_storage_classes_output
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

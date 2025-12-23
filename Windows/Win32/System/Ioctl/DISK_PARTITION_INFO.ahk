@@ -3,7 +3,7 @@
 
 /**
  * Contains the disk partition information.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-disk_partition_info
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_partition_info
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class DISK_PARTITION_INFO extends Win32Struct
 
     class _Mbr extends Win32Struct {
         static sizeof => 8
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}

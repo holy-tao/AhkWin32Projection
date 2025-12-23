@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * Stores the certificate request context.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_certificate_request_context
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -14,6 +16,7 @@ class SEC_CERTIFICATE_REQUEST_CONTEXT extends Win32Struct
     static packingSize => 1
 
     /**
+     * The size (in bytes) of the **rgCertificateRequestContext** array.
      * @type {Integer}
      */
     cbCertificateRequestContext {
@@ -22,6 +25,7 @@ class SEC_CERTIFICATE_REQUEST_CONTEXT extends Win32Struct
     }
 
     /**
+     * The TLS 1.3 certificate request context.
      * @type {Array<Byte>}
      */
     rgCertificateRequestContext{

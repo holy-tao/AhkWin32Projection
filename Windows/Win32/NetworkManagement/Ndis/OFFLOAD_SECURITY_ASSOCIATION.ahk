@@ -8,9 +8,9 @@
  */
 class OFFLOAD_SECURITY_ASSOCIATION extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -45,7 +45,7 @@ class OFFLOAD_SECURITY_ASSOCIATION extends Win32Struct
     ConfAlgo{
         get {
             if(!this.HasProp("__ConfAlgo"))
-                this.__ConfAlgo := OFFLOAD_ALGO_INFO(24, this)
+                this.__ConfAlgo := OFFLOAD_ALGO_INFO(20, this)
             return this.__ConfAlgo
         }
     }
@@ -56,7 +56,7 @@ class OFFLOAD_SECURITY_ASSOCIATION extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__Reserved"))
-                this.__Reserved := OFFLOAD_ALGO_INFO(40, this)
+                this.__Reserved := OFFLOAD_ALGO_INFO(32, this)
             return this.__Reserved
         }
     }

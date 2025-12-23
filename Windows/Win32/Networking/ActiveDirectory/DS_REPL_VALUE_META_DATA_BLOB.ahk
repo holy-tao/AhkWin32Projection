@@ -4,7 +4,7 @@
 
 /**
  * Used to contain attribute value replication metadata.
- * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ns-ntdsapi-ds_repl_value_meta_data_blob
+ * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_value_meta_data_blob
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -90,7 +90,7 @@ class DS_REPL_VALUE_META_DATA_BLOB extends Win32Struct
     ftimeLastOriginatingChange{
         get {
             if(!this.HasProp("__ftimeLastOriginatingChange"))
-                this.__ftimeLastOriginatingChange := FILETIME(40, this)
+                this.__ftimeLastOriginatingChange := FILETIME(36, this)
             return this.__ftimeLastOriginatingChange
         }
     }

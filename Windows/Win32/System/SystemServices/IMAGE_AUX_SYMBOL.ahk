@@ -8,14 +8,128 @@
  */
 class IMAGE_AUX_SYMBOL extends Win32Struct
 {
-    static sizeof => 120
+    static sizeof => 100
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _Sym extends Win32Struct {
-        static sizeof => 120
-        static packingSize => 8
+        static sizeof => 20
+        static packingSize => 4
 
+        class _Misc_e__Union extends Win32Struct {
+            static sizeof => 4
+            static packingSize => 2
+    
+            class _LnSz extends Win32Struct {
+                static sizeof => 4
+                static packingSize => 2
+        
+                /**
+                 * @type {Integer}
+                 */
+                Linenumber {
+                    get => NumGet(this, 0, "ushort")
+                    set => NumPut("ushort", value, this, 0)
+                }
+            
+                /**
+                 * @type {Integer}
+                 */
+                Size {
+                    get => NumGet(this, 2, "ushort")
+                    set => NumPut("ushort", value, this, 2)
+                }
+            
+            }
+        
+            /**
+             * @type {_LnSz}
+             */
+            LnSz{
+                get {
+                    if(!this.HasProp("__LnSz"))
+                        this.__LnSz := %this.__Class%._LnSz(0, this)
+                    return this.__LnSz
+                }
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            TotalSize {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+        }
+    
+        class _FcnAry_e__Union extends Win32Struct {
+            static sizeof => 8
+            static packingSize => 4
+    
+            class _Function extends Win32Struct {
+                static sizeof => 8
+                static packingSize => 4
+        
+                /**
+                 * @type {Integer}
+                 */
+                PointerToLinenumber {
+                    get => NumGet(this, 0, "uint")
+                    set => NumPut("uint", value, this, 0)
+                }
+            
+                /**
+                 * @type {Integer}
+                 */
+                PointerToNextFunction {
+                    get => NumGet(this, 4, "uint")
+                    set => NumPut("uint", value, this, 4)
+                }
+            
+            }
+        
+            class _Array extends Win32Struct {
+                static sizeof => 8
+                static packingSize => 2
+        
+                /**
+                 * @type {Array<UInt16>}
+                 */
+                Dimension{
+                    get {
+                        if(!this.HasProp("__DimensionProxyArray"))
+                            this.__DimensionProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "ushort")
+                        return this.__DimensionProxyArray
+                    }
+                }
+            
+            }
+        
+            /**
+             * @type {_Function}
+             */
+            Function{
+                get {
+                    if(!this.HasProp("__Function"))
+                        this.__Function := %this.__Class%._Function(0, this)
+                    return this.__Function
+                }
+            }
+        
+            /**
+             * @type {_Array}
+             */
+            Array{
+                get {
+                    if(!this.HasProp("__Array"))
+                        this.__Array := %this.__Class%._Array(0, this)
+                    return this.__Array
+                }
+            }
+        
+        }
+    
         /**
          * @type {Integer}
          */
@@ -24,105 +138,25 @@ class IMAGE_AUX_SYMBOL extends Win32Struct
             set => NumPut("uint", value, this, 0)
         }
     
-        class _LnSz extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 2
-    
-            /**
-             * @type {Integer}
-             */
-            Linenumber {
-                get => NumGet(this, 0, "ushort")
-                set => NumPut("ushort", value, this, 0)
-            }
-        
-            /**
-             * @type {Integer}
-             */
-            Size {
-                get => NumGet(this, 2, "ushort")
-                set => NumPut("ushort", value, this, 2)
-            }
-        
-        }
-    
         /**
-         * @type {_LnSz}
+         * @type {_Misc_e__Union}
          */
-        LnSz{
+        Misc{
             get {
-                if(!this.HasProp("__LnSz"))
-                    this.__LnSz := %this.__Class%._LnSz(4, this)
-                return this.__LnSz
+                if(!this.HasProp("__Misc"))
+                    this.__Misc := %this.__Class%._Misc_e__Union(4, this)
+                return this.__Misc
             }
         }
     
         /**
-         * @type {Integer}
+         * @type {_FcnAry_e__Union}
          */
-        TotalSize {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-    
-        class _Function extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 8
-    
-            /**
-             * @type {Integer}
-             */
-            PointerToLinenumber {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
-        
-            /**
-             * @type {Integer}
-             */
-            PointerToNextFunction {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
-        
-        }
-    
-        class _Array extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 8
-    
-            /**
-             * @type {Array<UInt16>}
-             */
-            Dimension{
-                get {
-                    if(!this.HasProp("__DimensionProxyArray"))
-                        this.__DimensionProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "ushort")
-                    return this.__DimensionProxyArray
-                }
-            }
-        
-        }
-    
-        /**
-         * @type {_Function}
-         */
-        Function{
+        FcnAry{
             get {
-                if(!this.HasProp("__Function"))
-                    this.__Function := %this.__Class%._Function(8, this)
-                return this.__Function
-            }
-        }
-    
-        /**
-         * @type {_Array}
-         */
-        Array{
-            get {
-                if(!this.HasProp("__Array"))
-                    this.__Array := %this.__Class%._Array(8, this)
-                return this.__Array
+                if(!this.HasProp("__FcnAry"))
+                    this.__FcnAry := %this.__Class%._FcnAry_e__Union(8, this)
+                return this.__FcnAry
             }
         }
     
@@ -137,8 +171,8 @@ class IMAGE_AUX_SYMBOL extends Win32Struct
     }
 
     class _File extends Win32Struct {
-        static sizeof => 120
-        static packingSize => 8
+        static sizeof => 18
+        static packingSize => 1
 
         /**
          * @type {Array<Byte>}
@@ -154,8 +188,8 @@ class IMAGE_AUX_SYMBOL extends Win32Struct
     }
 
     class _Section extends Win32Struct {
-        static sizeof => 120
-        static packingSize => 8
+        static sizeof => 20
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -224,8 +258,8 @@ class IMAGE_AUX_SYMBOL extends Win32Struct
     }
 
     class _CRC extends Win32Struct {
-        static sizeof => 120
-        static packingSize => 8
+        static sizeof => 20
+        static packingSize => 4
 
         /**
          * @type {Integer}

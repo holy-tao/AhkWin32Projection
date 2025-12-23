@@ -2,13 +2,11 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Used with the DsEnumerateDomainTrusts function to contain trust data for a domain.
+ * Used with the DsEnumerateDomainTrusts function to contain trust data for a domain. (Unicode)
  * @remarks
- * 
  * > [!NOTE]
  * > The dsgetdc.h header defines DS_DOMAIN_TRUSTS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/ns-dsgetdc-ds_domain_trustsw
+ * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/ns-dsgetdc-ds_domain_trustsw
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  * @charset Unicode

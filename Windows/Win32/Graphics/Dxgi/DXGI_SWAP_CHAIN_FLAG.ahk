@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Options for swap-chain behavior.
  * @remarks
- * 
  * This enumeration is used by the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_swap_chain_desc">DXGI_SWAP_CHAIN_DESC</a> structure and the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiswapchain-resizetarget">IDXGISwapChain::ResizeTarget</a> method.
  * 
  * This enumeration is also used by the  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ns-dxgi1_2-dxgi_swap_chain_desc1">DXGI_SWAP_CHAIN_DESC1</a> structure.
@@ -13,13 +13,11 @@
  * Swap chains that you create with the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforhwnd">IDXGIFactory2::CreateSwapChainForHwnd</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcorewindow">IDXGIFactory2::CreateSwapChainForCoreWindow</a>, and  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcomposition">IDXGIFactory2::CreateSwapChainForComposition</a> methods are not protected if <b>DXGI_SWAP_CHAIN_FLAG_DISPLAY_ONLY</b> is not set and are protected if <b>DXGI_SWAP_CHAIN_FLAG_DISPLAY_ONLY</b> is set. When swap chains are protected, screen scraping is prevented and, in full-screen mode, presented content is not accessible through the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nn-dxgi1_2-idxgioutputduplication">desktop duplication APIs</a>.
  * 
  * When you call <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiswapchain-resizebuffers">IDXGISwapChain::ResizeBuffers</a> to change the swap chain's back buffer, you can reset or change all <b>DXGI_SWAP_CHAIN_FLAG</b> flags.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi/ne-dxgi-dxgi_swap_chain_flag
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi/ne-dxgi-dxgi_swap_chain_flag
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
-class DXGI_SWAP_CHAIN_FLAG{
+class DXGI_SWAP_CHAIN_FLAG extends Win32BitflagEnum{
 
     /**
      * Set this flag to turn off automatic image rotation; that is, do not perform a rotation when transferring the contents of the front buffer to the monitor. 
@@ -128,6 +126,9 @@ class DXGI_SWAP_CHAIN_FLAG{
      * Tearing support is a requirement to enable displays that support variable refresh rates to function properly when the application presents a swap chain tied to a full screen borderless window.  Win32 apps can already achieve tearing in fullscreen exclusive mode by calling <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiswapchain-setfullscreenstate">SetFullscreenState</a>(TRUE), but the recommended approach for Win32 developers is to use this tearing flag instead. This flag requires the use of a <b>DXGI_SWAP_EFFECT_FLIP_*</b> swap effect.
      * 
      * To check for hardware support of this feature, refer to <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/nf-dxgi1_5-idxgifactory5-checkfeaturesupport">IDXGIFactory5::CheckFeatureSupport</a>. For usage information refer to <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiswapchain-present">IDXGISwapChain::Present</a> and the <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-present">DXGI_PRESENT</a> flags.
+     * 
+     * > [!NOTE]
+     * > [**IDXGISwapChain::ResizeBuffers**](/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-resizebuffers) can't be used to add or remove this flag.
      * @type {Integer (Int32)}
      */
     static DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING => 2048

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the NAPPROPERTIES enumeration type specify properties for Network Access Policies (NAP).
- * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-napproperties
+ * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-napproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class NAPPROPERTIES{
+class NAPPROPERTIES extends Win32Enum{
 
     /**
      * The network access policies collection.

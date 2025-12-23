@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The REPAIR_STATUS enumeration describes the result of a helper class attempting a repair option.
- * @see https://docs.microsoft.com/windows/win32/api//ndhelper/ne-ndhelper-repair_status
+ * @see https://learn.microsoft.com/windows/win32/api/ndhelper/ne-ndhelper-repair_status
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */
-class REPAIR_STATUS{
+class REPAIR_STATUS extends Win32Enum{
 
     /**
      * The helper class does not have a repair option implemented.

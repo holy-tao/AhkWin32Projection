@@ -12,7 +12,7 @@
  */
 class ALLOCATOR_PROPERTIES_EX extends Win32Struct
 {
-    static sizeof => 304
+    static sizeof => 248
 
     static packingSize => 8
 
@@ -78,7 +78,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct
     Input{
         get {
             if(!this.HasProp("__Input"))
-                this.__Input := PIPE_TERMINATION(40, this)
+                this.__Input := PIPE_TERMINATION(36, this)
             return this.__Input
         }
     }
@@ -89,7 +89,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct
     Output{
         get {
             if(!this.HasProp("__Output"))
-                this.__Output := PIPE_TERMINATION(112, this)
+                this.__Output := PIPE_TERMINATION(92, this)
             return this.__Output
         }
     }
@@ -98,40 +98,40 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct
      * @type {Integer}
      */
     Strategy {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
+        get => NumGet(this, 148, "uint")
+        set => NumPut("uint", value, this, 148)
     }
 
     /**
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 188, "uint")
-        set => NumPut("uint", value, this, 188)
+        get => NumGet(this, 152, "uint")
+        set => NumPut("uint", value, this, 152)
     }
 
     /**
      * @type {Integer}
      */
     Weight {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
+        get => NumGet(this, 156, "uint")
+        set => NumPut("uint", value, this, 156)
     }
 
     /**
      * @type {Integer}
      */
     LogicalMemoryType {
-        get => NumGet(this, 196, "int")
-        set => NumPut("int", value, this, 196)
+        get => NumGet(this, 160, "int")
+        set => NumPut("int", value, this, 160)
     }
 
     /**
      * @type {Integer}
      */
     AllocatorPlace {
-        get => NumGet(this, 200, "int")
-        set => NumPut("int", value, this, 200)
+        get => NumGet(this, 164, "int")
+        set => NumPut("int", value, this, 164)
     }
 
     /**
@@ -140,7 +140,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct
     Dimensions{
         get {
             if(!this.HasProp("__Dimensions"))
-                this.__Dimensions := PIPE_DIMENSIONS(208, this)
+                this.__Dimensions := PIPE_DIMENSIONS(168, this)
             return this.__Dimensions
         }
     }
@@ -151,7 +151,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct
     PhysicalRange{
         get {
             if(!this.HasProp("__PhysicalRange"))
-                this.__PhysicalRange := KS_FRAMING_RANGE(256, this)
+                this.__PhysicalRange := KS_FRAMING_RANGE(204, this)
             return this.__PhysicalRange
         }
     }
@@ -160,39 +160,39 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct
      * @type {IKsAllocatorEx}
      */
     PrevSegment {
-        get => NumGet(this, 272, "ptr")
-        set => NumPut("ptr", value, this, 272)
+        get => NumGet(this, 216, "ptr")
+        set => NumPut("ptr", value, this, 216)
     }
 
     /**
      * @type {Integer}
      */
     CountNextSegments {
-        get => NumGet(this, 280, "uint")
-        set => NumPut("uint", value, this, 280)
+        get => NumGet(this, 224, "uint")
+        set => NumPut("uint", value, this, 224)
     }
 
     /**
      * @type {Pointer<IKsAllocatorEx>}
      */
     NextSegments {
-        get => NumGet(this, 288, "ptr")
-        set => NumPut("ptr", value, this, 288)
+        get => NumGet(this, 232, "ptr")
+        set => NumPut("ptr", value, this, 232)
     }
 
     /**
      * @type {Integer}
      */
     InsideFactors {
-        get => NumGet(this, 296, "uint")
-        set => NumPut("uint", value, this, 296)
+        get => NumGet(this, 240, "uint")
+        set => NumPut("uint", value, this, 240)
     }
 
     /**
      * @type {Integer}
      */
     NumberPins {
-        get => NumGet(this, 300, "uint")
-        set => NumPut("uint", value, this, 300)
+        get => NumGet(this, 244, "uint")
+        set => NumPut("uint", value, this, 244)
     }
 }

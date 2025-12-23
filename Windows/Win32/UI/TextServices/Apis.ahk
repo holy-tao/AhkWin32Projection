@@ -2232,6 +2232,8 @@ class TextServices {
 
     /**
      * The InitLocalMsCtfMonitor function initializes TextServicesFramework on the current desktop and prepares the floating language bar, if necessary. This function must be called on the app's desktop.
+     * @remarks
+     * If this function was successful, <a href="https://docs.microsoft.com/windows/desktop/api/msctfmonitorapi/nf-msctfmonitorapi-uninitlocalmsctfmonitor">UninitLocalMsCtfMonitor</a> needs to be called before the caller thread is terminated or the desktop is switched.
      * @param {Integer} dwFlags This is a combination of the following flags:
      * 
      * <table>
@@ -2274,13 +2276,14 @@ class TextServices {
      * <td>An unspecified error occurred.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctfmonitorapi/nf-msctfmonitorapi-initlocalmsctfmonitor
+     * @see https://learn.microsoft.com/windows/win32/api/msctfmonitorapi/nf-msctfmonitorapi-initlocalmsctfmonitor
      * @since windows6.0.6000
      */
     static InitLocalMsCtfMonitor(dwFlags) {
         result := DllCall("MsCtfMonitor.dll\InitLocalMsCtfMonitor", "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -2297,13 +2300,14 @@ class TextServices {
      * <td>The function was successful.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctfmonitorapi/nf-msctfmonitorapi-uninitlocalmsctfmonitor
+     * @see https://learn.microsoft.com/windows/win32/api/msctfmonitorapi/nf-msctfmonitorapi-uninitlocalmsctfmonitor
      * @since windows6.0.6000
      */
     static UninitLocalMsCtfMonitor() {
         result := DllCall("MsCtfMonitor.dll\UninitLocalMsCtfMonitor", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

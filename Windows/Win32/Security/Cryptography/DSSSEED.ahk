@@ -3,7 +3,7 @@
 
 /**
  * Holds the seed and counter values that can be used to verify the primes of the DSS public key.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-dssseed
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-dssseed
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

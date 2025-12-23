@@ -5,7 +5,6 @@
 /**
  * Defines information about a LUN or disk. Applications can use this structure to uniquely identify a LUN at all times.
  * @remarks
- * 
  * The <b>VDS_LUN_INFORMATION</b> structure includes 
  *     fields from the SCSI Inquiry Data and Vital Product Data pages 0x80 and 0x83. The 
  *     <b>GetIdentificationData</b> method on both the 
@@ -16,9 +15,7 @@
  *     method to determine whether a given provider owns a specified LUN.
  * 
  * To get the LUN object, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-getobject">IVdsService::GetObject</a> method. You can then use the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdslun-getproperties">IVdsLun::GetProperties</a> method to get the LUN properties.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vdslun/ns-vdslun-vds_lun_information
+ * @see https://learn.microsoft.com/windows/win32/api/vdslun/ns-vdslun-vds_lun_information
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

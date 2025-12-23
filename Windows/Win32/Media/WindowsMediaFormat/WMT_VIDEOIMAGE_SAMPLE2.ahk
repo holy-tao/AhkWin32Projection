@@ -4,11 +4,8 @@
 /**
  * The WMT_VIDEOIMAGE_SAMPLE2 structure describes a sample for a Video Image stream.
  * @remarks
- * 
  * When creating an input Video Image sample, the values for the current image describe the image attached to the sample. The values for the previous image describe the image that was the current image in the previous sample. Normally, the previous image is discarded when you pass in a new image. (The old current image becomes the new previous image and the image passed in with the sample becomes the new current image.) If, when passing a new image, you want to discard the old current image and keep the old previous image, you can set the <b>bKeepPrevImage</b> member to <b>TRUE</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ns-wmsdkidl-wmt_videoimage_sample2
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmt_videoimage_sample2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

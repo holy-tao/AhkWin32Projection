@@ -4,27 +4,24 @@
 /**
  * The contents of the XPS_COLOR structure when the colorType is XPS_COLOR_TYPE_CONTEXT.
  * @remarks
- * 
  * For information about how to interpret or apply the values in this structure's members, see the <a href="https://www.ecma-international.org/activities/XML%20Paper%20Specification/XPS%20Standard%20WD%201.6.pdf">XML Paper Specification</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/ns-xpsobjectmodel-xps_color
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_color
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
 class XPS_COLOR extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 4
 
     class XPS_COLOR_VALUE extends Win32Struct {
-        static sizeof => 72
-        static packingSize => 8
+        static sizeof => 60
+        static packingSize => 4
 
         class _sRGB extends Win32Struct {
-            static sizeof => 64
-            static packingSize => 8
+            static sizeof => 4
+            static packingSize => 1
     
             /**
              * @type {Integer}
@@ -61,8 +58,8 @@ class XPS_COLOR extends Win32Struct
         }
     
         class _scRGB extends Win32Struct {
-            static sizeof => 64
-            static packingSize => 8
+            static sizeof => 16
+            static packingSize => 4
     
             /**
              * @type {Float}
@@ -99,8 +96,8 @@ class XPS_COLOR extends Win32Struct
         }
     
         class _context extends Win32Struct {
-            static sizeof => 64
-            static packingSize => 8
+            static sizeof => 40
+            static packingSize => 4
     
             /**
              * @type {Integer}
@@ -174,7 +171,7 @@ class XPS_COLOR extends Win32Struct
     value{
         get {
             if(!this.HasProp("__value"))
-                this.__value := %this.__Class%.XPS_COLOR_VALUE(8, this)
+                this.__value := %this.__Class%.XPS_COLOR_VALUE(4, this)
             return this.__value
         }
     }

@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the SIM that is used by the EAP method for authentication.
- * @see https://docs.microsoft.com/windows/win32/api//eaptypes/ns-eaptypes-eapsimcredential
+ * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eapsimcredential
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

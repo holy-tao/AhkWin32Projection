@@ -3,7 +3,7 @@
 
 /**
  * Contains the list of common names corresponding to the SID structures returned by ISecurityInformation2::LookupSids.
- * @see https://docs.microsoft.com/windows/win32/api//aclui/ns-aclui-sid_info
+ * @see https://learn.microsoft.com/windows/win32/api/aclui/ns-aclui-sid_info
  * @namespace Windows.Win32.Security.Authorization.UI
  * @version v4.0.30319
  */

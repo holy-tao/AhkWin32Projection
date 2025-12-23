@@ -4,16 +4,16 @@
 #Include .\CLUSPROP_VALUE.ahk
 
 /**
- * 
+ * Describes a numeric value identifying the physical drive of a disk.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_dword
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
 class CLUSPROP_DWORD extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {CLUSPROP_VALUE}
@@ -27,10 +27,11 @@ class CLUSPROP_DWORD extends Win32Struct
     }
 
     /**
+     * Numeric value identifying the physical drive of the disk. Valid values begin at zero.
      * @type {Integer}
      */
     dw {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 }

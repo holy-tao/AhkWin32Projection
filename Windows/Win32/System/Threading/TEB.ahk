@@ -4,7 +4,6 @@
 /**
  * The Thread Environment Block (TEB structure) describes the state of a thread.
  * @remarks
- * 
  * The definition of this structure may change from one version of Windows to the next. Do not assume a maximum size for this structure. To see the members of this structure, refer to winternal.h.
  * 
  * You should not directly access this structure. To access the values of the <b>TlsSlots</b> and <b>TlsExpansionSlots</b>  members, call <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-tlsgetvalue">TlsGetValue</a>. To access the value of the <b>ReservedForOle</b> member, call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetcontexttoken">CoGetContextToken</a>.
@@ -29,9 +28,7 @@
  * <td>Windows Server 2012 R2</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winternl/ns-winternl-teb
+ * @see https://learn.microsoft.com/windows/win32/api/winternl/ns-winternl-teb
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

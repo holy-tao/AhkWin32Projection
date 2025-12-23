@@ -7,15 +7,15 @@
 
 /**
  * The EMREXTCREATEFONTINDIRECTW structure contains members for the CreateFontIndirect enhanced metafile record.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrextcreatefontindirectw
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrextcreatefontindirectw
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
 class EMREXTCREATEFONTINDIRECTW extends Win32Struct
 {
-    static sizeof => 344
+    static sizeof => 332
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.
@@ -45,7 +45,7 @@ class EMREXTCREATEFONTINDIRECTW extends Win32Struct
     elfw{
         get {
             if(!this.HasProp("__elfw"))
-                this.__elfw := EXTLOGFONTW(16, this)
+                this.__elfw := EXTLOGFONTW(12, this)
             return this.__elfw
         }
     }

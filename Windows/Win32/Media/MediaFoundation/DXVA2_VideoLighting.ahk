@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the intended lighting conditions for viewing video content.
  * @remarks
- * 
  * This enumeration is equivalent to the <b>DXVA_VideoLighting</b> enumeration used in DXVA 1.0.
  * 
  * If you are using the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface to describe the video format, the video lighting is specified in the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-lighting-attribute">MF_MT_VIDEO_LIGHTING</a> attribute.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxva2api/ne-dxva2api-dxva2_videolighting
+ * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ne-dxva2api-dxva2_videolighting
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class DXVA2_VideoLighting{
+class DXVA2_VideoLighting extends Win32Enum{
 
     /**
      * Bitmask to validate flag values. This value is not a valid flag.

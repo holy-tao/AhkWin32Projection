@@ -11,7 +11,7 @@ class USBUSER_SEND_ONE_PACKET extends Win32Struct
 {
     static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {USBUSER_REQUEST_HEADER}

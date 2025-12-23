@@ -3,7 +3,7 @@
 
 /**
  * The APO_REG_PROPERTIES structure is used by IAudioProcessingObject::GetRegistrationProperties for returning the registration properties of an audio processing object (APO).
- * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/ns-audioenginebaseapo-apo_reg_properties
+ * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/ns-audioenginebaseapo-apo_reg_properties
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
  */

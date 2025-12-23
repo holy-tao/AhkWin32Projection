@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates whether the URL is from a trusted source.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mf_url_trust_status
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_url_trust_status
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_URL_TRUST_STATUS{
+class MF_URL_TRUST_STATUS extends Win32Enum{
 
     /**
      * The validity of the URL cannot be guaranteed because it is not signed. The application should warn the user.

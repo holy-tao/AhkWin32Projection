@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the state of an interaction.
- * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/ne-interactioncontext-interaction_flags
+ * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ne-interactioncontext-interaction_flags
  * @namespace Windows.Win32.UI.InteractionContext
  * @version v4.0.30319
  */
-class INTERACTION_FLAGS{
+class INTERACTION_FLAGS extends Win32BitflagEnum{
 
     /**
      * No flags set.

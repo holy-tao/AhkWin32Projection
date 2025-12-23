@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Discriminator for the union in the FILE_ID_DESCRIPTOR structure.
- * @see https://docs.microsoft.com/windows/win32/api//winbase/ne-winbase-file_id_type
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/ne-winbase-file_id_type
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
-class FILE_ID_TYPE{
+class FILE_ID_TYPE extends Win32Enum{
 
     /**
      * Use the <b>FileId</b> member of the union.

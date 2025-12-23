@@ -9,9 +9,9 @@
  */
 class DISPLAYCONFIG_GET_ADVANCED_COLOR_INFO_2 extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {DISPLAYCONFIG_DEVICE_INFO_HEADER}
@@ -38,8 +38,8 @@ class DISPLAYCONFIG_GET_ADVANCED_COLOR_INFO_2 extends Win32Struct
      * @type {Integer}
      */
     _bitfield {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -118,31 +118,31 @@ class DISPLAYCONFIG_GET_ADVANCED_COLOR_INFO_2 extends Win32Struct
      * @type {Integer}
      */
     value {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
      * @type {Integer}
      */
     colorEncoding {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     bitsPerColorChannel {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
      * @type {Integer}
      */
     activeColorMode {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 }

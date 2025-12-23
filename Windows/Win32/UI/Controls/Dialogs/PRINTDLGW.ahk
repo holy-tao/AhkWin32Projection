@@ -6,9 +6,8 @@
 #Include ..\..\..\Foundation\HINSTANCE.ahk
 
 /**
- * Contains information that the PrintDlg function uses to initialize the Print Dialog Box. After the user closes the dialog box, the system uses this structure to return information about the user's selections.
+ * Contains information that the PrintDlg function uses to initialize the Print Dialog Box. After the user closes the dialog box, the system uses this structure to return information about the user's selections. (Unicode)
  * @remarks
- * 
  * If both 
  * 				<b>hDevMode</b> and <b>hDevNames</b> are <b>NULL</b>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms646940(v=vs.85)">PrintDlg</a> initializes the dialog box using the current default printer. To initialize the dialog box for a different printer, use the <b>wDeviceOffset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-devnames">DEVNAMES</a> structure to specify the name of the printer. 
  * 
@@ -22,9 +21,7 @@
  * 
  * > [!NOTE]
  * > The commdlg.h header defines PRINTDLG as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//commdlg/ns-commdlg-printdlgw
+ * @see https://learn.microsoft.com/windows/win32/api/commdlg/ns-commdlg-printdlgw
  * @namespace Windows.Win32.UI.Controls.Dialogs
  * @version v4.0.30319
  * @charset Unicode

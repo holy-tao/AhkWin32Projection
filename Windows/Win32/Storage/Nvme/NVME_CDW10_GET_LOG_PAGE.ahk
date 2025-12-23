@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * The NVME_CDW10_GET_LOG_PAGE structure contains parameters for the Get Log Page command that returns a data buffer containing the requested log page.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw10_get_log_page
  * @namespace Windows.Win32.Storage.Nvme
@@ -59,6 +61,7 @@ class NVME_CDW10_GET_LOG_PAGE extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     AsUlong {

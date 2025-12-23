@@ -9,7 +9,7 @@
 
 /**
  * Contains specific information for the connection that includes:\_the user name, domain, and Globally Unique Identifier (GUID) associated with the connection, its Network Access Protection (NAP) quarantine state, its packet statistics, as well as its Point-to-Point(PPP) and Internet Key Exchange version 2 (IKEv2) related information.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-ras_connection_ex
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_connection_ex
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */
@@ -122,7 +122,7 @@ class RAS_CONNECTION_EX extends Win32Struct
     probationTime{
         get {
             if(!this.HasProp("__probationTime"))
-                this.__probationTime := FILETIME(1128, this)
+                this.__probationTime := FILETIME(1124, this)
             return this.__probationTime
         }
     }
@@ -132,8 +132,8 @@ class RAS_CONNECTION_EX extends Win32Struct
      * @type {Integer}
      */
     dwBytesXmited {
-        get => NumGet(this, 1136, "uint")
-        set => NumPut("uint", value, this, 1136)
+        get => NumGet(this, 1132, "uint")
+        set => NumPut("uint", value, this, 1132)
     }
 
     /**
@@ -141,8 +141,8 @@ class RAS_CONNECTION_EX extends Win32Struct
      * @type {Integer}
      */
     dwBytesRcved {
-        get => NumGet(this, 1140, "uint")
-        set => NumPut("uint", value, this, 1140)
+        get => NumGet(this, 1136, "uint")
+        set => NumPut("uint", value, this, 1136)
     }
 
     /**
@@ -150,8 +150,8 @@ class RAS_CONNECTION_EX extends Win32Struct
      * @type {Integer}
      */
     dwFramesXmited {
-        get => NumGet(this, 1144, "uint")
-        set => NumPut("uint", value, this, 1144)
+        get => NumGet(this, 1140, "uint")
+        set => NumPut("uint", value, this, 1140)
     }
 
     /**
@@ -159,8 +159,8 @@ class RAS_CONNECTION_EX extends Win32Struct
      * @type {Integer}
      */
     dwFramesRcved {
-        get => NumGet(this, 1148, "uint")
-        set => NumPut("uint", value, this, 1148)
+        get => NumGet(this, 1144, "uint")
+        set => NumPut("uint", value, this, 1144)
     }
 
     /**
@@ -168,8 +168,8 @@ class RAS_CONNECTION_EX extends Win32Struct
      * @type {Integer}
      */
     dwCrcErr {
-        get => NumGet(this, 1152, "uint")
-        set => NumPut("uint", value, this, 1152)
+        get => NumGet(this, 1148, "uint")
+        set => NumPut("uint", value, this, 1148)
     }
 
     /**
@@ -177,8 +177,8 @@ class RAS_CONNECTION_EX extends Win32Struct
      * @type {Integer}
      */
     dwTimeoutErr {
-        get => NumGet(this, 1156, "uint")
-        set => NumPut("uint", value, this, 1156)
+        get => NumGet(this, 1152, "uint")
+        set => NumPut("uint", value, this, 1152)
     }
 
     /**
@@ -186,8 +186,8 @@ class RAS_CONNECTION_EX extends Win32Struct
      * @type {Integer}
      */
     dwAlignmentErr {
-        get => NumGet(this, 1160, "uint")
-        set => NumPut("uint", value, this, 1160)
+        get => NumGet(this, 1156, "uint")
+        set => NumPut("uint", value, this, 1156)
     }
 
     /**
@@ -195,8 +195,8 @@ class RAS_CONNECTION_EX extends Win32Struct
      * @type {Integer}
      */
     dwHardwareOverrunErr {
-        get => NumGet(this, 1164, "uint")
-        set => NumPut("uint", value, this, 1164)
+        get => NumGet(this, 1160, "uint")
+        set => NumPut("uint", value, this, 1160)
     }
 
     /**
@@ -204,8 +204,8 @@ class RAS_CONNECTION_EX extends Win32Struct
      * @type {Integer}
      */
     dwFramingErr {
-        get => NumGet(this, 1168, "uint")
-        set => NumPut("uint", value, this, 1168)
+        get => NumGet(this, 1164, "uint")
+        set => NumPut("uint", value, this, 1164)
     }
 
     /**
@@ -213,8 +213,8 @@ class RAS_CONNECTION_EX extends Win32Struct
      * @type {Integer}
      */
     dwBufferOverrunErr {
-        get => NumGet(this, 1172, "uint")
-        set => NumPut("uint", value, this, 1172)
+        get => NumGet(this, 1168, "uint")
+        set => NumPut("uint", value, this, 1168)
     }
 
     /**
@@ -222,8 +222,8 @@ class RAS_CONNECTION_EX extends Win32Struct
      * @type {Integer}
      */
     dwCompressionRatioIn {
-        get => NumGet(this, 1176, "uint")
-        set => NumPut("uint", value, this, 1176)
+        get => NumGet(this, 1172, "uint")
+        set => NumPut("uint", value, this, 1172)
     }
 
     /**
@@ -231,17 +231,17 @@ class RAS_CONNECTION_EX extends Win32Struct
      * @type {Integer}
      */
     dwCompressionRatioOut {
-        get => NumGet(this, 1180, "uint")
-        set => NumPut("uint", value, this, 1180)
+        get => NumGet(this, 1176, "uint")
+        set => NumPut("uint", value, this, 1176)
     }
 
     /**
-     * A value that specifies the number of IKEv2 Mobility and Multihoming Protocol (MOBIKE) switches that have occurred on the connection as defined in <a href="https://www.ietf.org/rfc/rfc4555.txt">RFC4555</a>. <b>dwNumSwitchOvers</b>is only valid if <b>dwConnectionFlags</b> is <b>RAS_FLAGS_IKEV2_CONNECTION</b>.
+     * A value that specifies the number of IKEv2 Mobility and Multihoming Protocol (MOBIKE) switches that have occurred on the connection as defined in <a href="https://www.ietf.org/rfc/rfc4555.txt">RFC4555</a>. <b>dwNumSwitchOvers</b> is only valid if <b>dwConnectionFlags</b> is <b>RAS_FLAGS_IKEV2_CONNECTION</b>.
      * @type {Integer}
      */
     dwNumSwitchOvers {
-        get => NumGet(this, 1184, "uint")
-        set => NumPut("uint", value, this, 1184)
+        get => NumGet(this, 1180, "uint")
+        set => NumPut("uint", value, this, 1180)
     }
 
     /**
@@ -249,8 +249,8 @@ class RAS_CONNECTION_EX extends Win32Struct
      * @type {String}
      */
     wszRemoteEndpointAddress {
-        get => StrGet(this.ptr + 1188, 64, "UTF-16")
-        set => StrPut(value, this.ptr + 1188, 64, "UTF-16")
+        get => StrGet(this.ptr + 1184, 64, "UTF-16")
+        set => StrPut(value, this.ptr + 1184, 64, "UTF-16")
     }
 
     /**
@@ -258,8 +258,8 @@ class RAS_CONNECTION_EX extends Win32Struct
      * @type {String}
      */
     wszLocalEndpointAddress {
-        get => StrGet(this.ptr + 1318, 64, "UTF-16")
-        set => StrPut(value, this.ptr + 1318, 64, "UTF-16")
+        get => StrGet(this.ptr + 1314, 64, "UTF-16")
+        set => StrPut(value, this.ptr + 1314, 64, "UTF-16")
     }
 
     /**

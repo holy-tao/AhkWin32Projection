@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the nominal range for a video source. This enumeration is used with the AVEncInputVideoSystem property.
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencinputvideosystem
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencinputvideosystem
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVEncInputVideoSystem{
+class eAVEncInputVideoSystem extends Win32Enum{
 
     /**
      * The video system is not specified.

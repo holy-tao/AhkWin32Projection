@@ -8,9 +8,9 @@
  */
 class DWRITE_PAINT_COLOR extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {DWRITE_COLOR_F}

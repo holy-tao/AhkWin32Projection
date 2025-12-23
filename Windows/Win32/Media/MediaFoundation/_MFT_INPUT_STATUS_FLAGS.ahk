@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the status of an input stream on a Media Foundation transform (MFT).
- * @see https://docs.microsoft.com/windows/win32/api//mftransform/ne-mftransform-_mft_input_status_flags
+ * @see https://learn.microsoft.com/windows/win32/api/mftransform/ne-mftransform-_mft_input_status_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class _MFT_INPUT_STATUS_FLAGS{
+class _MFT_INPUT_STATUS_FLAGS extends Win32Enum{
 
     /**
      * The input stream can receive more data at this time. To deliver more input data, call <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-processinput">IMFTransform::ProcessInput</a>.

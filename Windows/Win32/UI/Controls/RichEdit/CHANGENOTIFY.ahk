@@ -3,7 +3,7 @@
 
 /**
  * Contains information that is associated with an EN_CHANGE notification code. A windowless rich edit control sends this notification to its host window when the content of the control changes.
- * @see https://docs.microsoft.com/windows/win32/api//textserv/ns-textserv-changenotify
+ * @see https://learn.microsoft.com/windows/win32/api/textserv/ns-textserv-changenotify
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

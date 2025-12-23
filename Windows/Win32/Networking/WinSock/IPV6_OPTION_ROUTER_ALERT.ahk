@@ -10,7 +10,7 @@ class IPV6_OPTION_ROUTER_ALERT extends Win32Struct
 {
     static sizeof => 4
 
-    static packingSize => 2
+    static packingSize => 1
 
     /**
      * @type {IPV6_OPTION_HEADER}

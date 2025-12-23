@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Snmp
  * @version v4.0.30319
  */
-class SNMP_ERROR{
+class SNMP_ERROR extends Win32Enum{
 
     /**
      * @type {Integer (UInt32)}

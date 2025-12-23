@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the source of the default association for a file name extension. Used by methods of the IApplicationAssociationRegistration interface.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-associationlevel
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-associationlevel
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class ASSOCIATIONLEVEL{
+class ASSOCIATIONLEVEL extends Win32Enum{
 
     /**
      * The machine-level default application association.

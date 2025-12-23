@@ -10,7 +10,7 @@ class RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_CONFIRM extends Win32Struct
 {
     static sizeof => 4
 
-    static packingSize => 4
+    static packingSize => 2
 
     /**
      * @type {RFX_GFX_MSG_HEADER}

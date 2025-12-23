@@ -3,7 +3,7 @@
 
 /**
  * DMUS_VOICE_STATE is not supported and may be altered or unavailable in the future.
- * @see https://docs.microsoft.com/windows/win32/api//dmusics/ns-dmusics-dmus_voice_state
+ * @see https://learn.microsoft.com/windows/win32/api/dmusics/ns-dmusics-dmus_voice_state
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  * @version v4.0.30319
  */

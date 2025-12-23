@@ -4,14 +4,10 @@
 /**
  * Contains information about the current state of both physical and virtual memory, including extended memory.
  * @remarks
- * 
  * <b>MEMORYSTATUSEX</b> reflects the state of memory at the time of the call. It also reflects the size of the paging file at that time. The operating system can enlarge the paging file up to the maximum size set by the administrator.
  * 
- * The physical memory sizes returned include the memory from all nodes. 
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/ns-sysinfoapi-memorystatusex
+ * The physical memory sizes returned include the memory from all nodes.
+ * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/ns-sysinfoapi-memorystatusex
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  */

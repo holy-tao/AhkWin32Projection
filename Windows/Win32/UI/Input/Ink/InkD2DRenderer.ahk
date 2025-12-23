@@ -2,7 +2,7 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Implements the IInkD2DRenderer interface.
  * @see https://learn.microsoft.com/windows/win32/input_ink/inkd2drenderer
  * @namespace Windows.Win32.UI.Input.Ink
  * @version v4.0.30319

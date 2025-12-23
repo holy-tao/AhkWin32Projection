@@ -3,7 +3,7 @@
 
 /**
  * Describes the position of the tape.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-tape_get_position
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-tape_get_position
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

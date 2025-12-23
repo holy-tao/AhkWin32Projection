@@ -3,7 +3,9 @@
 
 /**
  * Defines a security attribute that can be associated with a token or authorization context.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-claim_security_attribute_v1
+ * @remarks
+ * The field value type indicates that the value can be an octet string or a SID. However, the [Directory Services documentation for claims entries](/openspecs/windows_protocols/ms-adts/252d7e10-eaf8-44e9-8b8d-205b384f5782) specifies that effective possible data types for claims are limited to Int64, UInt64, UnicodeString, and Boolean.
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-claim_security_attribute_v1
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */
@@ -12,6 +14,52 @@ class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct
     static sizeof => 32
 
     static packingSize => 8
+
+    class _Values_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Integer>}
+         */
+        pInt64 {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Integer>}
+         */
+        pUint64 {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<PWSTR>}
+         */
+        ppString {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE>}
+         */
+        pFqbn {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE>}
+         */
+        pOctetString {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
 
     /**
      * A pointer to a string of Unicode characters that contains the name of the security attribute. This string must be at least 4 bytes in length.
@@ -132,42 +180,14 @@ class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Integer>}
+     * An array of security attribute values of the type specified in the <b>ValueType</b> member.
+     * @type {_Values_e__Union}
      */
-    pInt64 {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pUint64 {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<PWSTR>}
-     */
-    ppString {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE>}
-     */
-    pFqbn {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE>}
-     */
-    pOctetString {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    Values{
+        get {
+            if(!this.HasProp("__Values"))
+                this.__Values := %this.__Class%._Values_e__Union(24, this)
+            return this.__Values
+        }
     }
 }

@@ -5,11 +5,8 @@
 /**
  * Contains parameters used to describe a property page to a property frame. A property page fills a caller-provided structure in the IPropertyPage::GetPageInfo method.
  * @remarks
- * 
  * The <b>pszTitle</b>, <b>pszDocString</b>, and the <b>pszHelpFile</b> members specified in this structure should contain text sensitive to the locale obtained through <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipropertypagesite-getlocaleid">IPropertyPageSite::GetLocaleID</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/ns-ocidl-proppageinfo
+ * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-proppageinfo
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

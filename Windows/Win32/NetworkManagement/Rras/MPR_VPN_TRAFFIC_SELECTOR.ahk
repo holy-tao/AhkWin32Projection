@@ -10,9 +10,9 @@
  */
 class MPR_VPN_TRAFFIC_SELECTOR extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 52
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -60,7 +60,7 @@ class MPR_VPN_TRAFFIC_SELECTOR extends Win32Struct
     addrStart{
         get {
             if(!this.HasProp("__addrStart"))
-                this.__addrStart := VPN_TS_IP_ADDRESS(16, this)
+                this.__addrStart := VPN_TS_IP_ADDRESS(12, this)
             return this.__addrStart
         }
     }
@@ -71,7 +71,7 @@ class MPR_VPN_TRAFFIC_SELECTOR extends Win32Struct
     addrEnd{
         get {
             if(!this.HasProp("__addrEnd"))
-                this.__addrEnd := VPN_TS_IP_ADDRESS(40, this)
+                this.__addrEnd := VPN_TS_IP_ADDRESS(32, this)
             return this.__addrEnd
         }
     }

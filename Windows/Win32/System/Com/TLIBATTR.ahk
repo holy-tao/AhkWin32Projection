@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a type library. Information from this structure is used to identify the type library and to provide national language support for member names.
- * @see https://docs.microsoft.com/windows/win32/api//oaidl/ns-oaidl-tlibattr
+ * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-tlibattr
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

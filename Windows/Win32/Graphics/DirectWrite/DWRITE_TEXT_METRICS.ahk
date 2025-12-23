@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains the metrics associated with text after layout.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/ns-dwrite-dwrite_text_metrics
+ * Contains the metrics associated with text after layout. (DWRITE_TEXT_METRICS)
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_text_metrics
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

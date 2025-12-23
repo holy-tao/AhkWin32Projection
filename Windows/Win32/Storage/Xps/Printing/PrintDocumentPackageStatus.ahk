@@ -3,7 +3,7 @@
 
 /**
  * Defines a payload to be used by the PackageStatusUpdated method. This structure is a generic version of XPS_JOB_STATUS.
- * @see https://docs.microsoft.com/windows/win32/api//documenttarget/ns-documenttarget-printdocumentpackagestatus
+ * @see https://learn.microsoft.com/windows/win32/api/documenttarget/ns-documenttarget-printdocumentpackagestatus
  * @namespace Windows.Win32.Storage.Xps.Printing
  * @version v4.0.30319
  */

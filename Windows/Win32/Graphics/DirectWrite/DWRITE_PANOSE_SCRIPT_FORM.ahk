@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DWRITE_PANOSE_SCRIPT_FORM enumeration contains values that specify the general look of the character face, with consideration of its slope and tails.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/ne-dwrite_1-dwrite_panose_script_form
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_panose_script_form
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_PANOSE_SCRIPT_FORM{
+class DWRITE_PANOSE_SCRIPT_FORM extends Win32Enum{
 
     /**
      * Any script form.

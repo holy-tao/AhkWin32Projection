@@ -14,11 +14,8 @@
 /**
  * The LINEPROXYREQUEST structure contains parameter values of the application making the proxy request. Multiple TAPI call center functions generate a LINE_PROXYREQUEST message that references a LINEPROXYREQUEST structure.
  * @remarks
- * 
  * An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-lineproxyrequest
+ * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineproxyrequest
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -97,8 +94,8 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _SetAgentGroup extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+        static sizeof => 28
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -114,7 +111,7 @@ class LINEPROXYREQUEST extends Win32Struct
         GroupList{
             get {
                 if(!this.HasProp("__GroupList"))
-                    this.__GroupList := LINEAGENTGROUPLIST(8, this)
+                    this.__GroupList := LINEAGENTGROUPLIST(4, this)
                 return this.__GroupList
             }
         }
@@ -122,8 +119,8 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _SetAgentState extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+        static sizeof => 12
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -152,8 +149,8 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _SetAgentActivity extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -174,7 +171,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetAgentCaps extends Win32Struct {
-        static sizeof => 96
+        static sizeof => 72
         static packingSize => 8
 
         /**
@@ -199,8 +196,8 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetAgentStatus extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+        static sizeof => 60
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -216,7 +213,7 @@ class LINEPROXYREQUEST extends Win32Struct
         AgentStatus{
             get {
                 if(!this.HasProp("__AgentStatus"))
-                    this.__AgentStatus := LINEAGENTSTATUS(8, this)
+                    this.__AgentStatus := LINEAGENTSTATUS(4, this)
                 return this.__AgentStatus
             }
         }
@@ -224,8 +221,8 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _AgentSpecific extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+        static sizeof => 16
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -265,8 +262,8 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetAgentActivityList extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+        static sizeof => 28
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -282,7 +279,7 @@ class LINEPROXYREQUEST extends Win32Struct
         ActivityList{
             get {
                 if(!this.HasProp("__ActivityList"))
-                    this.__ActivityList := LINEAGENTACTIVITYLIST(8, this)
+                    this.__ActivityList := LINEAGENTACTIVITYLIST(4, this)
                 return this.__ActivityList
             }
         }
@@ -290,8 +287,8 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetAgentGroupList extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+        static sizeof => 28
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -307,7 +304,7 @@ class LINEPROXYREQUEST extends Win32Struct
         GroupList{
             get {
                 if(!this.HasProp("__GroupList"))
-                    this.__GroupList := LINEAGENTGROUPLIST(8, this)
+                    this.__GroupList := LINEAGENTGROUPLIST(4, this)
                 return this.__GroupList
             }
         }
@@ -315,8 +312,8 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _CreateAgent extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+        static sizeof => 20
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -361,8 +358,8 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _SetAgentStateEx extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+        static sizeof => 12
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -391,8 +388,8 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _SetAgentMeasurementPeriod extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -413,7 +410,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetAgentInfo extends Win32Struct {
-        static sizeof => 96
+        static sizeof => 72
         static packingSize => 8
 
         /**
@@ -438,7 +435,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _CreateAgentSession extends Win32Struct {
-        static sizeof => 96
+        static sizeof => 32
         static packingSize => 8
 
         /**
@@ -492,8 +489,8 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetAgentSessionList extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+        static sizeof => 28
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -509,7 +506,7 @@ class LINEPROXYREQUEST extends Win32Struct
         SessionList{
             get {
                 if(!this.HasProp("__SessionList"))
-                    this.__SessionList := LINEAGENTSESSIONLIST(8, this)
+                    this.__SessionList := LINEAGENTSESSIONLIST(4, this)
                 return this.__SessionList
             }
         }
@@ -542,8 +539,8 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _SetAgentSessionState extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+        static sizeof => 12
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -572,7 +569,7 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetQueueList extends Win32Struct {
-        static sizeof => 96
+        static sizeof => 32
         static packingSize => 8
 
         /**
@@ -597,8 +594,8 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _SetQueueMeasurementPeriod extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -619,8 +616,8 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetQueueInfo extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+        static sizeof => 56
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -636,7 +633,7 @@ class LINEPROXYREQUEST extends Win32Struct
         QueueInfo{
             get {
                 if(!this.HasProp("__QueueInfo"))
-                    this.__QueueInfo := LINEQUEUEINFO(8, this)
+                    this.__QueueInfo := LINEQUEUEINFO(4, this)
                 return this.__QueueInfo
             }
         }
@@ -644,8 +641,8 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetGroupList extends Win32Struct {
-        static sizeof => 96
-        static packingSize => 8
+        static sizeof => 24
+        static packingSize => 4
 
         /**
          * @type {LINEAGENTGROUPLIST}

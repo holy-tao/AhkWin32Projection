@@ -3,14 +3,10 @@
 #Include ..\..\..\Foundation\HMODULE.ahk
 
 /**
- * Describes an entry from a list of the modules belonging to the specified process.
+ * The MODULEENTRY32W (Unicode) structure (tlhelp32.h) describes an entry from a list of the modules belonging to the specified process.
  * @remarks
- * 
  * The <b>modBaseAddr</b> and <b>hModule</b> members are valid only in the context of the process specified by <i>th32ProcessID</i>.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tlhelp32/ns-tlhelp32-moduleentry32w
+ * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/ns-tlhelp32-moduleentry32w
  * @namespace Windows.Win32.System.Diagnostics.ToolHelp
  * @version v4.0.30319
  * @charset Unicode

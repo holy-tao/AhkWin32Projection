@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * The SECPKG_EXTENDED_INFORMATION_CLASS enumeration describes the type of information to set or get for a security package.This enumeration is used by the SpGetExtendedInformation and SpSetExtendedInformation functions.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ne-ntsecpkg-secpkg_extended_information_class
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ne-ntsecpkg-secpkg_extended_information_class
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
-class SECPKG_EXTENDED_INFORMATION_CLASS{
+class SECPKG_EXTENDED_INFORMATION_CLASS extends Win32Enum{
 
     /**
      * GSS OID information used to identify the security package in GSS-compatible negotiations.

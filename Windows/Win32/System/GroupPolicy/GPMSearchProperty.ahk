@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The property of the search criteria.
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/ne-gpmgmt-gpmsearchproperty
+ * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/ne-gpmgmt-gpmsearchproperty
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
-class GPMSearchProperty{
+class GPMSearchProperty extends Win32Enum{
 
     /**
      * The specified level of permission for a Group Policy Object.

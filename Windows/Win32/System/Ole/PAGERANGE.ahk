@@ -3,7 +3,7 @@
 
 /**
  * Specifies a range of pages.
- * @see https://docs.microsoft.com/windows/win32/api//docobj/ns-docobj-pagerange
+ * @see https://learn.microsoft.com/windows/win32/api/docobj/ns-docobj-pagerange
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

@@ -10,13 +10,13 @@
 
 /**
  * Contains different levels of settings for a remote desktop connection.
- * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ns-wtsdefs-wrds_connection_setting
+ * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wrds_connection_setting
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
 class WRDS_CONNECTION_SETTING extends Win32Struct
 {
-    static sizeof => 3776
+    static sizeof => 3752
 
     static packingSize => 8
 

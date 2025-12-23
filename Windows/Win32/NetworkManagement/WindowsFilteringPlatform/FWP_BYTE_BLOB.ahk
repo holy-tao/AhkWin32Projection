@@ -3,7 +3,7 @@
 
 /**
  * Stores an array containing a variable number of bytes.
- * @see https://docs.microsoft.com/windows/win32/api//fwptypes/ns-fwptypes-fwp_byte_blob
+ * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ns-fwptypes-fwp_byte_blob
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

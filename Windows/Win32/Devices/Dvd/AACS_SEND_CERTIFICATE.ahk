@@ -8,9 +8,9 @@
  */
 class AACS_SEND_CERTIFICATE extends Win32Struct
 {
-    static sizeof => 120
+    static sizeof => 116
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class AACS_SEND_CERTIFICATE extends Win32Struct
     Certificate{
         get {
             if(!this.HasProp("__Certificate"))
-                this.__Certificate := AACS_CERTIFICATE(8, this)
+                this.__Certificate := AACS_CERTIFICATE(4, this)
             return this.__Certificate
         }
     }

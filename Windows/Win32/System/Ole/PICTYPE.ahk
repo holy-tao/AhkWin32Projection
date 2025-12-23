@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * Describe the type of a picture object as returned by IPicture get\_Type, as well as to describe the type of picture in the picType member of the PICTDESC structure that is passed to OleCreatePictureIndirect.
  * @see https://learn.microsoft.com/windows/win32/com/pictype-constants
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
-class PICTYPE{
+class PICTYPE extends Win32Enum{
 
     /**
      * @type {Integer (Int16)}

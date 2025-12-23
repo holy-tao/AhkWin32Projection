@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */
-class SECURITY_DESCRIPTOR_CONTROL{
+class SECURITY_DESCRIPTOR_CONTROL extends Win32BitflagEnum{
 
     /**
      * @type {Integer (UInt16)}

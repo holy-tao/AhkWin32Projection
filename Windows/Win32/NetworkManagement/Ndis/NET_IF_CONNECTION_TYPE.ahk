@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The NET_IF_CONNECTION_TYPE enumeration type specifies the NDIS network interface connection type.
- * @see https://docs.microsoft.com/windows/win32/api//ifdef/ne-ifdef-net_if_connection_type
+ * @see https://learn.microsoft.com/windows/win32/api/ifdef/ne-ifdef-net_if_connection_type
  * @namespace Windows.Win32.NetworkManagement.Ndis
  * @version v4.0.30319
  */
-class NET_IF_CONNECTION_TYPE{
+class NET_IF_CONNECTION_TYPE extends Win32Enum{
 
     /**
      * Specifies the dedicated connection type. The connection comes up automatically when media sense is

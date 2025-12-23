@@ -3,7 +3,7 @@
 
 /**
  * Specifies IPv4 address and mask in host order.
- * @see https://docs.microsoft.com/windows/win32/api//fwptypes/ns-fwptypes-fwp_v4_addr_and_mask
+ * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ns-fwptypes-fwp_v4_addr_and_mask
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

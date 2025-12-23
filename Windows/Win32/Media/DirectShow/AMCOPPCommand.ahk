@@ -4,7 +4,6 @@
 /**
  * The AMCOPPCommand structure contains a Certified Output Protection Protocol (COPP) command.
  * @remarks
- * 
  * The following COPP commands are defined.
  * 
  * <table>
@@ -21,9 +20,7 @@
  *  
  * 
  * For more information, see the Windows DDK documentation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-amcoppcommand
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-amcoppcommand
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

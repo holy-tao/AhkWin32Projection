@@ -5,7 +5,7 @@
 
 /**
  * The PEER_RECORD structure contains the record object that an application uses.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_record
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_record
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
@@ -157,7 +157,7 @@ class PEER_RECORD extends Win32Struct
 
     /**
      * Specifies the security data contained in a  <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_data">PEER_DATA</a> structure. The Graphing API uses this member, and provides  the security provider with a place to store security data, for example, a signature.  The Grouping API cannot modify this member.
-     * @deprecated
+     * @deprecated 
      * @type {PEER_DATA}
      */
     securityData{
@@ -170,7 +170,7 @@ class PEER_RECORD extends Win32Struct
 
     /**
      * Specifies the actual data that this record contains.
-     * @deprecated
+     * @deprecated 
      * @type {PEER_DATA}
      */
     data{

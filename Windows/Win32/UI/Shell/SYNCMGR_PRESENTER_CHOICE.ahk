@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes what choice a user makes about a sync manager conflict resolution. Used by ISyncMgrConflictPresenter.
- * @see https://docs.microsoft.com/windows/win32/api//syncmgr/ne-syncmgr-syncmgr_presenter_choice
+ * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ne-syncmgr-syncmgr_presenter_choice
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SYNCMGR_PRESENTER_CHOICE{
+class SYNCMGR_PRESENTER_CHOICE extends Win32Enum{
 
     /**
      * The user is skipping this conflict, or conflict resolution is being canceled.

@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Describes the blend state for a render target.
+ * Describes the blend state for a render target. (D3D12_RENDER_TARGET_BLEND_DESC)
  * @remarks
- * 
  * > [!NOTE]
  * > It's not valid for *LogicOpEnable* and *BlendEnable* to both be **TRUE**.
  * 
@@ -60,9 +59,7 @@
  * <td>D3D12_COLOR_WRITE_ENABLE_ALL</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_render_target_blend_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_render_target_blend_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

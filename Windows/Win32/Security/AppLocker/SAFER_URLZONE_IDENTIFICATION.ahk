@@ -5,7 +5,7 @@
 
 /**
  * Represents a URL zone identification rule.
- * @see https://docs.microsoft.com/windows/win32/api//winsafer/ns-winsafer-safer_urlzone_identification
+ * @see https://learn.microsoft.com/windows/win32/api/winsafer/ns-winsafer-safer_urlzone_identification
  * @namespace Windows.Win32.Security.AppLocker
  * @version v4.0.30319
  */

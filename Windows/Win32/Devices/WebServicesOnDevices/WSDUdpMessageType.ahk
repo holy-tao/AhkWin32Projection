@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the type of UDP message.
- * @see https://docs.microsoft.com/windows/win32/api//wsdbase/ne-wsdbase-wsdudpmessagetype
+ * @see https://learn.microsoft.com/windows/win32/api/wsdbase/ne-wsdbase-wsdudpmessagetype
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
-class WSDUdpMessageType{
+class WSDUdpMessageType extends Win32Enum{
 
     /**
      * The message is a one-way UDP message without a corresponding response. Hello and Bye messages are one-way messages.

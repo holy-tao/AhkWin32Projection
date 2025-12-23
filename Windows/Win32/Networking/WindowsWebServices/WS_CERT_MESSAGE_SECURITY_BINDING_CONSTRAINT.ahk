@@ -4,7 +4,7 @@
 
 /**
  * A security binding constraint that can be used with WS_XML_TOKEN_MESSAGE_SECURITY_BINDING.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_cert_message_security_binding_constraint
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_cert_message_security_binding_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

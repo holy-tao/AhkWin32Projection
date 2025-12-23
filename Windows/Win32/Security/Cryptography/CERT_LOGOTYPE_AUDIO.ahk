@@ -4,7 +4,7 @@
 
 /**
  * Contains information about an audio logotype.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_logotype_audio
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_logotype_audio
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

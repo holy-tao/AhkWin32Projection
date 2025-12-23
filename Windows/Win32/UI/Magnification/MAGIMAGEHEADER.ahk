@@ -3,7 +3,7 @@
 
 /**
  * Describes an image format.
- * @see https://docs.microsoft.com/windows/win32/api//magnification/ns-magnification-magimageheader
+ * @see https://learn.microsoft.com/windows/win32/api/magnification/ns-magnification-magimageheader
  * @namespace Windows.Win32.UI.Magnification
  * @version v4.0.30319
  */

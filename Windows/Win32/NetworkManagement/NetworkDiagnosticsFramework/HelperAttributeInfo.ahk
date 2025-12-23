@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The HelperAttributeInfo structure contains the name of the helper attribute and its type.
  * @see https://learn.microsoft.com/windows/win32/api/ndhelper/ns-ndhelper-helperattributeinfo
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
@@ -14,6 +14,9 @@ class HelperAttributeInfo extends Win32Struct
     static packingSize => 8
 
     /**
+     * Type: <b>[string] LPWSTR</b>
+     * 
+     * Pointer to a null-terminated string that contains the name of the helper attribute.
      * @type {PWSTR}
      */
     pwszName {
@@ -22,6 +25,9 @@ class HelperAttributeInfo extends Win32Struct
     }
 
     /**
+     * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ne-ndattrib-attribute_type">ATTRIBUTE_TYPE</a></b>
+     * 
+     * The type of helper attribute.
      * @type {Integer}
      */
     type {

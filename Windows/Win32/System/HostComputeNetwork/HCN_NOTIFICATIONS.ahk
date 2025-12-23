@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * HCN_NOTIFICATIONS
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HCN_NOTIFICATIONS
  * @namespace Windows.Win32.System.HostComputeNetwork
  * @version v4.0.30319
  */
-class HCN_NOTIFICATIONS{
+class HCN_NOTIFICATIONS extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

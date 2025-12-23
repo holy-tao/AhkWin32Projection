@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of keying module.
- * @see https://docs.microsoft.com/windows/win32/api//iketypes/ne-iketypes-ikeext_key_module_type
+ * @see https://learn.microsoft.com/windows/win32/api/iketypes/ne-iketypes-ikeext_key_module_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class IKEEXT_KEY_MODULE_TYPE{
+class IKEEXT_KEY_MODULE_TYPE extends Win32Enum{
 
     /**
      * Specifies Internet Key Exchange (IKE) keying module.

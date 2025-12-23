@@ -4,7 +4,7 @@
 
 /**
  * Represents an unsigned 64 bit integer.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_xml_uint64_text
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_uint64_text
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

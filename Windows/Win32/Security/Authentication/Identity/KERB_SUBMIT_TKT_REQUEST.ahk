@@ -9,9 +9,9 @@
  */
 class KERB_SUBMIT_TKT_REQUEST extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -27,7 +27,7 @@ class KERB_SUBMIT_TKT_REQUEST extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(8, this)
+                this.__LogonId := LUID(4, this)
             return this.__LogonId
         }
     }
@@ -36,8 +36,8 @@ class KERB_SUBMIT_TKT_REQUEST extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
@@ -46,7 +46,7 @@ class KERB_SUBMIT_TKT_REQUEST extends Win32Struct
     Key{
         get {
             if(!this.HasProp("__Key"))
-                this.__Key := KERB_CRYPTO_KEY32(24, this)
+                this.__Key := KERB_CRYPTO_KEY32(16, this)
             return this.__Key
         }
     }
@@ -55,15 +55,15 @@ class KERB_SUBMIT_TKT_REQUEST extends Win32Struct
      * @type {Integer}
      */
     KerbCredSize {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
      * @type {Integer}
      */
     KerbCredOffset {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

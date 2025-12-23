@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The NL_ROUTE_PROTOCOL enumeration type defines the routing mechanism that an IP route was added with, as described in RFC 4292.
  * @remarks
- * 
  * For more information about RFC 4292, see the 
  *     <a href="https://www.ietf.org/rfc/rfc4292.txt">IP Forwarding Table MIB</a> memo by the
  *     Network Working Group.
@@ -12,12 +12,11 @@
  *     Nldef.h header is automatically included by the 
  *     Netioapi.h header file. Your driver should never use the 
  *     Nldef.h header file directly.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//nldef/ne-nldef-nl_route_protocol
+ * @see https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_route_protocol
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
-class NL_ROUTE_PROTOCOL{
+class NL_ROUTE_PROTOCOL extends Win32Enum{
 
     /**
      * Reserved for system use. Do not use this value in your driver.

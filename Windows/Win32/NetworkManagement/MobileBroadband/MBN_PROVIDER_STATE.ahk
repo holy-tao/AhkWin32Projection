@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MBN_PROVIDER_STATE enumerated type specifies the various states with which a provider entry can be tagged.
  * @remarks
- * 
  * The following table provides the valid combinations of values for different operations.
  * 
  * <table>
@@ -36,13 +36,11 @@
  * <td>MBN_PROVIDER_STATE_FORBIDDEN</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ne-mbnapi-mbn_provider_state
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_provider_state
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
-class MBN_PROVIDER_STATE{
+class MBN_PROVIDER_STATE extends Win32Enum{
 
     /**
      * Unknown provider state.

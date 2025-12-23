@@ -8,7 +8,7 @@
 
 /**
  * Contains parameters to create a picture object through the OleCreatePictureIndirect function.
- * @see https://docs.microsoft.com/windows/win32/api//olectl/ns-olectl-pictdesc
+ * @see https://learn.microsoft.com/windows/win32/api/olectl/ns-olectl-pictdesc
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -98,7 +98,7 @@ class PICTDESC extends Win32Struct
     }
 
     class _icon extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 8
         static packingSize => 8
 
         /**
@@ -115,7 +115,7 @@ class PICTDESC extends Win32Struct
     }
 
     class _emf extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 8
         static packingSize => 8
 
         /**

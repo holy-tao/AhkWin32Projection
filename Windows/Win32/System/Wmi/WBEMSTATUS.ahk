@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains error and status codes returned by methods in the WMI API.
- * @see https://docs.microsoft.com/windows/win32/api//wbemcli/ne-wbemcli-wbemstatus
+ * @see https://learn.microsoft.com/windows/win32/api/wbemcli/ne-wbemcli-wbemstatus
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class WBEMSTATUS{
+class WBEMSTATUS extends Win32Enum{
 
     /**
      * 

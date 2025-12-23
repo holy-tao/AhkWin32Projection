@@ -5,11 +5,8 @@
 /**
  * The MCAST_LEASE_REQUEST structure defines the request, renew, or release parameters for a given multicast scope. In the MCAST_API_VERSION_1 implementation, only one IP address may be allocated at a time.
  * @remarks
- * 
  * In MCAST_API_VERSION_1 version, <b>MaxLeaseStartTime</b>, <b>MinLeaseDuration</b>, and <b>MinAddrCount</b> members are ignored. Clients should still set appropriate values for these members, however, to take advantage of their implementation in future updates.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//madcapcl/ns-madcapcl-mcast_lease_request
+ * @see https://learn.microsoft.com/windows/win32/api/madcapcl/ns-madcapcl-mcast_lease_request
  * @namespace Windows.Win32.NetworkManagement.Multicast
  * @version v4.0.30319
  */

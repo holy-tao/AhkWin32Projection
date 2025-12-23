@@ -3,7 +3,7 @@
 
 /**
  * The SCESVC_CALLBACK_INFO structure contains an opaque database handle and callback function pointers to query, set, and free information.
- * @see https://docs.microsoft.com/windows/win32/api//scesvc/ns-scesvc-scesvc_callback_info
+ * @see https://learn.microsoft.com/windows/win32/api/scesvc/ns-scesvc-scesvc_callback_info
  * @namespace Windows.Win32.Security.ConfigurationSnapin
  * @version v4.0.30319
  */

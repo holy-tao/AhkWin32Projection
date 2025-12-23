@@ -10,7 +10,7 @@ class ATM_CALLING_PARTY_NUMBER_IE extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {ATM_ADDRESS}

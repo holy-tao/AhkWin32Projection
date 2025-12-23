@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The CALL_STATE_EVENT_CAUSE enum is returned by the ITCallStateEvent::get_Cause method.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-call_state_event_cause
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-call_state_event_cause
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class CALL_STATE_EVENT_CAUSE{
+class CALL_STATE_EVENT_CAUSE extends Win32Enum{
 
     /**
      * No call event has occurred.

@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains the constituent parts of a URL. This structure is used with the InternetCrackUrl and InternetCreateUrl functions.
+ * Contains the constituent parts of a URL. This structure is used with the InternetCrackUrl and InternetCreateUrl functions. (Unicode)
  * @remarks
- * 
  * For 
  * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetcrackurla">InternetCrackUrl</a>, if a pointer member and its corresponding length member are both zero, that component is not returned. If the pointer member is <b>NULL</b> but the length member is not zero, both the pointer and length members are returned. If both pointer and corresponding length members are nonzero, the pointer member points to a buffer where the component is copied. The component can be un-escaped, depending on the 
  * <i>dwFlags</i> parameter of 
@@ -21,9 +20,7 @@
  * 
  * > [!NOTE]
  * > The wininet.h header defines URL_COMPONENTS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wininet/ns-wininet-url_componentsw
+ * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-url_componentsw
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
  * @charset Unicode

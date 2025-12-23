@@ -4,11 +4,8 @@
 /**
  * The FD_XFORM structure describes an arbitrary two-dimensional font transform.
  * @remarks
- * 
  * This structure is used typically to hold notional-to-device-space font transformations.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-fd_xform
+ * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-fd_xform
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the MPEG-2 profile. This enumeration is used with the AVEncMPVProfile property.
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencmpvprofile
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencmpvprofile
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVEncMPVProfile{
+class eAVEncMPVProfile extends Win32Enum{
 
     /**
      * The profile is not known.

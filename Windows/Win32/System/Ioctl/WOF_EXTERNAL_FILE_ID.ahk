@@ -10,7 +10,7 @@ class WOF_EXTERNAL_FILE_ID extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 1
 
     /**
      * @type {FILE_ID_128}

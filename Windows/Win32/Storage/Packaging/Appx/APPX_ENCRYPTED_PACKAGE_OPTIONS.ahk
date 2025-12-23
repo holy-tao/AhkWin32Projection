@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Encrypted app package options.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/ne-appxpackaging-appx_encrypted_package_options
+ * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ne-appxpackaging-appx_encrypted_package_options
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
-class APPX_ENCRYPTED_PACKAGE_OPTIONS{
+class APPX_ENCRYPTED_PACKAGE_OPTIONS extends Win32BitflagEnum{
 
     /**
      * No options.

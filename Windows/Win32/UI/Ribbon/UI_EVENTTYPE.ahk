@@ -1,21 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the types of events associated with a Ribbon.
  * @remarks
- * 
  * <b>UI_EVENTTYPE_TabActivated</b> is fired for both core tabs and contextual tabs; the <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-ribbon">Ribbon</a> event system does not distinguish between the two.
  * 
  * <b>UI_EVENTTYPE_MenuOpened</b> and <b>UI_EVENTTYPE_MenuClosed</b> are fired when either a regular menu or a gallery menu is opened or closed.
  * 
  * No event is fired when the <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-quickaccesstoolbar">QuickAccessToolbar</a> menu is opened or closed.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiribbon/ne-uiribbon-ui_eventtype
+ * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ne-uiribbon-ui_eventtype
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
-class UI_EVENTTYPE{
+class UI_EVENTTYPE extends Win32Enum{
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-applicationmenu">ApplicationMenu</a> opened.

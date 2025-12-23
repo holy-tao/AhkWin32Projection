@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Enumerates the data types returned from the ISettingsItem::GetDataType method.
- * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/ne-wcmconfig-wcmdatatype
+ * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmdatatype
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  * @version v4.0.30319
  */
-class WcmDataType{
+class WcmDataType extends Win32Enum{
 
     /**
      * Corresponds to a byte.

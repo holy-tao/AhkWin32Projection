@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Resource statistics gathered by the D3DDEVINFO\_ResourceManager when using the asynchronous query mechanism.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dresourcestats
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
@@ -14,6 +14,10 @@ class D3DRESOURCESTATS extends Win32Struct
     static packingSize => 4
 
     /**
+     * Type: **[**BOOL**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Indicates if thrashing is occurring.
      * @type {BOOL}
      */
     bThrashing {
@@ -22,6 +26,10 @@ class D3DRESOURCESTATS extends Win32Struct
     }
 
     /**
+     * Type: **[**DWORD**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Approximate number of bytes downloaded by the resource manager.
      * @type {Integer}
      */
     ApproxBytesDownloaded {
@@ -30,6 +38,10 @@ class D3DRESOURCESTATS extends Win32Struct
     }
 
     /**
+     * Type: **[**DWORD**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Number of objects evicted.
      * @type {Integer}
      */
     NumEvicts {
@@ -38,6 +50,10 @@ class D3DRESOURCESTATS extends Win32Struct
     }
 
     /**
+     * Type: **[**DWORD**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Number of objects created in video memory.
      * @type {Integer}
      */
     NumVidCreates {
@@ -46,6 +62,10 @@ class D3DRESOURCESTATS extends Win32Struct
     }
 
     /**
+     * Type: **[**DWORD**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Priority of last object evicted.
      * @type {Integer}
      */
     LastPri {
@@ -54,6 +74,10 @@ class D3DRESOURCESTATS extends Win32Struct
     }
 
     /**
+     * Type: **[**DWORD**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Number of objects set to the device.
      * @type {Integer}
      */
     NumUsed {
@@ -62,6 +86,10 @@ class D3DRESOURCESTATS extends Win32Struct
     }
 
     /**
+     * Type: **[**DWORD**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Number of objects set to the device, which are already in video memory.
      * @type {Integer}
      */
     NumUsedInVidMem {
@@ -70,6 +98,10 @@ class D3DRESOURCESTATS extends Win32Struct
     }
 
     /**
+     * Type: **[**DWORD**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Number of objects in video memory.
      * @type {Integer}
      */
     WorkingSet {
@@ -78,6 +110,10 @@ class D3DRESOURCESTATS extends Win32Struct
     }
 
     /**
+     * Type: **[**DWORD**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Number of bytes in video memory.
      * @type {Integer}
      */
     WorkingSetBytes {
@@ -86,6 +122,10 @@ class D3DRESOURCESTATS extends Win32Struct
     }
 
     /**
+     * Type: **[**DWORD**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Total number of managed objects.
      * @type {Integer}
      */
     TotalManaged {
@@ -94,6 +134,10 @@ class D3DRESOURCESTATS extends Win32Struct
     }
 
     /**
+     * Type: **[**DWORD**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Total number of bytes of managed objects.
      * @type {Integer}
      */
     TotalBytes {

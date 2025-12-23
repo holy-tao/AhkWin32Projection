@@ -12,13 +12,13 @@
 
 /**
  * The DISPLAYCONFIG_MODE_INFO structure contains either source mode or target mode information.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-displayconfig_mode_info
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_mode_info
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
 class DISPLAYCONFIG_MODE_INFO extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 72
 
     static packingSize => 8
 

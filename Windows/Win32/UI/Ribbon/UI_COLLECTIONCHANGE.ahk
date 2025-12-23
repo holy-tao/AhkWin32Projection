@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies values that identify the types of changes that can be made to a collection.
- * @see https://docs.microsoft.com/windows/win32/api//uiribbon/ne-uiribbon-ui_collectionchange
+ * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ne-uiribbon-ui_collectionchange
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
-class UI_COLLECTIONCHANGE{
+class UI_COLLECTIONCHANGE extends Win32Enum{
 
     /**
      * Insert an item into the collection.

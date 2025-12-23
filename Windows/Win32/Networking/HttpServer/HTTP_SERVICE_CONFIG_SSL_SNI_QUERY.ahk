@@ -5,7 +5,7 @@
 
 /**
  * Used to specify a particular Secure Sockets Layer (SSL) Server Name Indication (SNI) certificate record to query in the SSL SNI store.
- * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_service_config_ssl_sni_query
+ * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_ssl_sni_query
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

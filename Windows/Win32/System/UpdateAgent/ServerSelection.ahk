@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the update services that Windows Update can operate against.
- * @see https://docs.microsoft.com/windows/win32/api//wuapicommon/ne-wuapicommon-serverselection
+ * @see https://learn.microsoft.com/windows/win32/api/wuapicommon/ne-wuapicommon-serverselection
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
-class ServerSelection{
+class ServerSelection extends Win32Enum{
 
     /**
      * Used only by <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatesearcher">IUpdateSearcher</a>. Indicates that the search call should search the default server.

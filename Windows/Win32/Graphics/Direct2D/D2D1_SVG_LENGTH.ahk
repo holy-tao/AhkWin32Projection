@@ -3,7 +3,7 @@
 
 /**
  * Represents an SVG length.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/ns-d2d1svg-d2d1_svg_length
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/ns-d2d1svg-d2d1_svg_length
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

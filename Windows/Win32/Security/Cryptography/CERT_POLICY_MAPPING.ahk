@@ -3,7 +3,7 @@
 
 /**
  * Contains a mapping between issuer domain and subject domain policy OIDs.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_policy_mapping
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_policy_mapping
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

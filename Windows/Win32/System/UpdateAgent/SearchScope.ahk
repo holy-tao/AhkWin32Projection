@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the variety of updates that should be returned by the search:\_per-machine updates, per-user updates, or both.
  * @remarks
- * 
  * In versions of the Windows Update Agent that do not support per-user updates (versions that do not support the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatesearcher3">IUpdateSearcher3</a> interface), searches will always return only per-machine updates.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/ne-wuapi-searchscope
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-searchscope
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
-class SearchScope{
+class SearchScope extends Win32Enum{
 
     /**
      * Search by using the default scope (the scope that Automatic Updates would use when searching for updates). This is currently equivalent to search ScopeMachineOnly.

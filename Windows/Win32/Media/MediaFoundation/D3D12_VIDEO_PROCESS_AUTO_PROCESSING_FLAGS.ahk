@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the automatic processing features that a video processor can support.
  * @remarks
- * 
  * This enumeration is used by the [D3D12\_FEATURE\_DATA\_VIDEO\_PROCESS\_SUPPORT](ns-d3d12video-d3d12_feature_data_video_process_support.md) structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ne-d3d12video-d3d12_video_process_auto_processing_flags
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_process_auto_processing_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAGS{
+class D3D12_VIDEO_PROCESS_AUTO_PROCESSING_FLAGS extends Win32BitflagEnum{
 
     /**
      * No automatic processing features are supported.

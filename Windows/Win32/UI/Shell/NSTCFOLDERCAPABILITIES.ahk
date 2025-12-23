@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the state of a tree item. These values are used by methods of the INameSpaceTreeControlFolderCapabilities interface.
  * @remarks
- * 
  * The <b>NSTCFOLDERCAPABILITIES</b> type is defined in Shobjidl.h beginning in Windows 7.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-nstcfoldercapabilities
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-nstcfoldercapabilities
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class NSTCFOLDERCAPABILITIES{
+class NSTCFOLDERCAPABILITIES extends Win32BitflagEnum{
 
     /**
      * The property does not exist. Filtering is not supported.

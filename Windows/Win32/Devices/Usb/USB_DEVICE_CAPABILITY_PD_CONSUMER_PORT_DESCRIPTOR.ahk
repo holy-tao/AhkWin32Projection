@@ -11,6 +11,57 @@ class USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR extends Win32Struct
 
     static packingSize => 4
 
+    class _bmCapabilities_e__Union extends Win32Struct {
+        static sizeof => 2
+        static packingSize => 1
+
+        /**
+         * @type {Integer}
+         */
+        AsUshort {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * This bitfield backs the following members:
+         * - BatteryCharging
+         * - USBPowerDelivery
+         * - USBTypeCCurrent
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        BatteryCharging {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        USBPowerDelivery {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        USBTypeCCurrent {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -44,48 +95,14 @@ class USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_bmCapabilities_e__Union}
      */
-    AsUshort {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - BatteryCharging
-     * - USBPowerDelivery
-     * - USBTypeCCurrent
-     * - Reserved
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    BatteryCharging {
-        get => (this._bitfield >> 0) & 0x1
-        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    USBPowerDelivery {
-        get => (this._bitfield >> 1) & 0x1
-        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    USBTypeCCurrent {
-        get => (this._bitfield >> 2) & 0x1
-        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+    bmCapabilities{
+        get {
+            if(!this.HasProp("__bmCapabilities"))
+                this.__bmCapabilities := %this.__Class%._bmCapabilities_e__Union(4, this)
+            return this.__bmCapabilities
+        }
     }
 
     /**

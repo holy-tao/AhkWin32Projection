@@ -5,8 +5,7 @@
  * Defines the combination of a pixel format and color space for a resource content description.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_video_format
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_format
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

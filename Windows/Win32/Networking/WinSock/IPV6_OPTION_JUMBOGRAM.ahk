@@ -10,7 +10,7 @@ class IPV6_OPTION_JUMBOGRAM extends Win32Struct
 {
     static sizeof => 6
 
-    static packingSize => 2
+    static packingSize => 1
 
     /**
      * @type {IPV6_OPTION_HEADER}

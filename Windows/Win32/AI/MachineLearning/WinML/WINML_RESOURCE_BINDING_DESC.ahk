@@ -3,7 +3,7 @@
 
 /**
  * Contains description properties of the resource binding.
- * @see https://docs.microsoft.com/windows/win32/api//winml/ns-winml-winml_resource_binding_desc
+ * @see https://learn.microsoft.com/windows/win32/api/winml/ns-winml-winml_resource_binding_desc
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  * @version v4.0.30319
  */

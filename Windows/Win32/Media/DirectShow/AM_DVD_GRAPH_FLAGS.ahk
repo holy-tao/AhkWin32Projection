@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The AM_DVD_GRAPH_FLAGS enumeration specifies how the DVD Navigator builds a DVD playback graph. These flags are used with the IDvdGraphBuilder::RenderDvdVideoVolume method.
  * @remarks
- * 
  * Do not combine more than one of the following flags:
  * 
  * <ul>
@@ -15,13 +15,11 @@
  * If you have already selected a video renderer by calling <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdgraphbuilder-getdvdinterface">IDvdGraphBuilder::GetDvdInterface</a>, do not set the <b>AM_DVD_VMR9_ONLY</b> or <b>AM_DVD_EVR_ONLY</b> flag.
  * 
  * To use the VMR-9, the decoder's <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamdecodercaps-getdecodercaps">IAMDecoderCaps::GetDecoderCaps</a> method must return the <b>AM_GETDECODERCAP_QUERY_VMR9_SUPPORT</b> flag. To use the EVR, the decoder's <b>GetDecoderCaps</b> method must return the <b>AM_GETDECODERCAP_QUERY_EVR_SUPPORT</b> flag.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-am_dvd_graph_flags
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-am_dvd_graph_flags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class AM_DVD_GRAPH_FLAGS{
+class AM_DVD_GRAPH_FLAGS extends Win32Enum{
 
     /**
      * Use a hardware decoder if possible. If none is available, use a software decoder. This is the default setting. Hardware DVD decoders are registered under the CLSID_DVDHWDecodersCategory filter category. See <a href="https://docs.microsoft.com/windows/desktop/DirectShow/filter-categories">Filter Categories</a>.

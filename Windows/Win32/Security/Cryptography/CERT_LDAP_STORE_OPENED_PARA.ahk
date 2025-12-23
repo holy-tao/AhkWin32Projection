@@ -3,7 +3,7 @@
 
 /**
  * Used with the CertOpenStore function when the CERT_STORE_PROV_LDAP provider is specified by using the CERT_LDAP_STORE_OPENED_FLAG flag to specify both the existing LDAP session to use to perform the query as well as the LDAP query string.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_ldap_store_opened_para
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_ldap_store_opened_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Defines the format of the Winlogon version 1.1 function dispatch passed to your GINA DLL in the WlxInitialize call.
- * @see https://docs.microsoft.com/windows/win32/api//winwlx/ns-winwlx-wlx_dispatch_version_1_1
+ * @see https://learn.microsoft.com/windows/win32/api/winwlx/ns-winwlx-wlx_dispatch_version_1_1
  * @namespace Windows.Win32.Security.WinWlx
  * @version v4.0.30319
  */

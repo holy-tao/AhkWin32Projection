@@ -2,19 +2,32 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * The EVENT_TRACE_HEADER structure contains standard event tracing information common to all events.
+ * The EVENT_TRACE_HEADER structure contains standard event tracing information common to all events written by TraceEvent.
  * @remarks
+ * Be sure to initialize the memory for this structure to zero before setting any
+ * members.
  * 
- * Be sure to initialize the memory for this structure to zero before setting any members.
+ * You can use the **KernelTime** and **UserTime** members to determine the CPU
+ * cost in units for a set of instructions (the values indicate the CPU usage
+ * charged to that thread at the time of logging). For example, if Event A and
+ * Event B are consecutively logged by the same thread and they have CPU usage
+ * numbers 150 and 175, then the activity that was performed by that thread between
+ * events A and B cost 25 CPU time units (175 – 150).
  * 
- * You can use the <b>KernelTime</b> and <b>UserTime</b> members to determine the CPU cost in units for a set of instructions (the values indicate the CPU usage charged to that thread at the time of logging). For example, if Event A and Event B are consecutively logged by the same thread and they have CPU usage numbers 150 and 175, then the activity that was performed by that thread between events A and B cost 25 CPU time units (175 – 150).
+ * The **TimerResolution** of the
+ * [TRACE_LOGFILE_HEADER](/windows/win32/api/evntrace/ns-evntrace-trace_logfile_header) structure
+ * contains the resolution of the CPU usage timer in 100-nanosecond units. You can
+ * use the timer resolution with the kernel time and user time values to determine
+ * the amount of CPU time that the set of instructions used. For example, if the
+ * timer resolution is 156,250, then 25 CPU time units is 0.39 seconds (156,250 \*
+ * 25 \* 100 / 1,000,000,000). This is the amount of CPU time (not elapsed wall
+ * clock time) used by the set of instructions between events A and B.
  * 
- * The <b>TimerResolution</b> of the <a href="https://docs.microsoft.com/windows/desktop/ETW/trace-logfile-header">TRACE_LOGFILE_HEADER</a> structure contains the resolution of the CPU usage timer in 100-nanosecond units. You can use the timer resolution with the kernel time and user time values to determine the amount of CPU time that the set of instructions used. For example, if the timer resolution is 156,250, then 25 CPU time units is 0.39 seconds (156,250 * 25 * 100 / 1,000,000,000). This is the amount of CPU time (not elapsed wall clock time) used by the set of instructions between events A and B. 
- * 
- * Note, however, that the CPU usage timer resolution is typically very low (around 10 or more milliseconds). Therefore, CPU usage numbers cannot be used to account for CPU time usage among threads with high accuracy. Rather, they are suitable for long term, statistical type of analysis.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//evntrace/ns-evntrace-event_trace_header
+ * Note, however, that the CPU usage timer resolution is typically very low (around
+ * 10 or more milliseconds). Therefore, CPU usage numbers cannot be used to account
+ * for CPU time usage among threads with high accuracy. Rather, they are suitable
+ * for long term, statistical type of analysis.
+ * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-event_trace_header
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
@@ -25,10 +38,11 @@ class EVENT_TRACE_HEADER extends Win32Struct
     static packingSize => 8
 
     /**
-     * Total number of bytes of the event. <b>Size</b> includes the size of the 
-     * header structure, plus the size of any event-specific data appended to the header. 
+     * Total number of bytes of the event. **Size** includes the size of the header
+     * structure, plus the size of any event-specific data appended to the header.
      * 
-     * On input, the size must be less than the size of the event tracing session's buffer minus 72 (0x48).
+     * On input, the size must be less than the size of the event tracing session's
+     * buffer minus 72 (0x48).
      * 
      * On output, do not use this number in calculations.
      * @type {Integer}
@@ -64,7 +78,7 @@ class EVENT_TRACE_HEADER extends Win32Struct
 
     class _Class extends Win32Struct {
         static sizeof => 4
-        static packingSize => 4
+        static packingSize => 2
 
         /**
          * @type {Integer}
@@ -112,12 +126,9 @@ class EVENT_TRACE_HEADER extends Win32Struct
     }
 
     /**
-     * On output, identifies the thread that generated the event. 
+     * On output, identifies the thread that generated the event.
      * 
-     * 
-     * 
-     * 
-     * Note that on Windows 2000, <b>ThreadId</b> was a <b>ULONGLONG</b> value.
+     * Note that on Windows 2000, **ThreadId** was a **ULONGLONG** value.
      * @type {Integer}
      */
     ThreadId {
@@ -126,9 +137,9 @@ class EVENT_TRACE_HEADER extends Win32Struct
     }
 
     /**
-     * On output, identifies  the process that generated the event.
+     * On output, identifies the process that generated the event.
      * 
-     * <b>Windows 2000:  </b>This member is not supported.
+     * **Windows 2000:** This member is not supported.
      * @type {Integer}
      */
     ProcessId {
@@ -137,7 +148,13 @@ class EVENT_TRACE_HEADER extends Win32Struct
     }
 
     /**
-     * On output, contains the time that the event occurred. The resolution is system time unless the <b>ProcessTraceMode</b> member of <a href="https://docs.microsoft.com/windows/desktop/ETW/event-trace-logfile">EVENT_TRACE_LOGFILE</a> contains the PROCESS_TRACE_MODE_RAW_TIMESTAMP flag, in which case the resolution depends on the value of the <b>Wnode.ClientContext</b> member of <a href="https://docs.microsoft.com/windows/desktop/ETW/event-trace-properties">EVENT_TRACE_PROPERTIES</a> at the time the controller created the session.
+     * On output, contains the time that the event occurred. The resolution is system
+     * time unless the **ProcessTraceMode** member of
+     * [EVENT_TRACE_LOGFILE](/windows/win32/api/evntrace/ns-evntrace-event_trace_logfilea)
+     * contains the `PROCESS_TRACE_MODE_RAW_TIMESTAMP` flag, in which case the
+     * resolution depends on the value of the **Wnode.ClientContext** member of
+     * [EVENT_TRACE_PROPERTIES](/windows/win32/api/evntrace/ns-evntrace-event_trace_properties)
+     * at the time the controller created the session.
      * @type {Integer}
      */
     TimeStamp {

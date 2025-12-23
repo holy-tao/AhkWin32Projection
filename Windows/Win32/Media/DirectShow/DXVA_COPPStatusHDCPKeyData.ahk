@@ -3,7 +3,7 @@
 
 /**
  * Contains the result from an HDCP Key Data query in Certified Output Protection Protocol (COPP). This query returns the device's HDCP key selection vector (KSV).
- * @see https://docs.microsoft.com/windows/win32/api//dxva9typ/ns-dxva9typ-dxva_coppstatushdcpkeydata
+ * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ns-dxva9typ-dxva_coppstatushdcpkeydata
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

@@ -3,9 +3,8 @@
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
- * The NTMS_OPREQUESTINFORMATION structure defines the properties specific to operator-request system control for RSM.
+ * The NTMS_OPREQUESTINFORMATION structure defines the properties specific to operator-request system control for RSM. (Unicode)
  * @remarks
- * 
  * The 
  * <b>NTMS_OPREQUESTINFORMATION</b> structure is included in the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/ntmsapi/ns-ntmsapi-ntms_objectinformationa">NTMS_OBJECTINFORMATION</a> structure.
@@ -16,9 +15,7 @@
  * 
  * > [!NOTE]
  * > The ntmsapi.h header defines NTMS_OPREQUESTINFORMATION as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ntmsapi/ns-ntmsapi-ntms_oprequestinformationw
+ * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_oprequestinformationw
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  * @charset Unicode
@@ -45,7 +42,7 @@ class NTMS_OPREQUESTINFORMATIONW extends Win32Struct
     Submitted{
         get {
             if(!this.HasProp("__Submitted"))
-                this.__Submitted := SYSTEMTIME(8, this)
+                this.__Submitted := SYSTEMTIME(4, this)
             return this.__Submitted
         }
     }
@@ -55,8 +52,8 @@ class NTMS_OPREQUESTINFORMATIONW extends Win32Struct
      * @type {Integer}
      */
     State {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -64,8 +61,8 @@ class NTMS_OPREQUESTINFORMATIONW extends Win32Struct
      * @type {String}
      */
     szMessage {
-        get => StrGet(this.ptr + 28, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 28, 255, "UTF-16")
+        get => StrGet(this.ptr + 24, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 24, 255, "UTF-16")
     }
 
     /**
@@ -73,8 +70,8 @@ class NTMS_OPREQUESTINFORMATIONW extends Win32Struct
      * @type {Integer}
      */
     Arg1Type {
-        get => NumGet(this, 540, "uint")
-        set => NumPut("uint", value, this, 540)
+        get => NumGet(this, 536, "uint")
+        set => NumPut("uint", value, this, 536)
     }
 
     /**

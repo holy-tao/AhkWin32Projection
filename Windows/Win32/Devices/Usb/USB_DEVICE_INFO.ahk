@@ -40,7 +40,7 @@ class USB_DEVICE_INFO extends Win32Struct
     DeviceDescriptor{
         get {
             if(!this.HasProp("__DeviceDescriptor"))
-                this.__DeviceDescriptor := USB_DEVICE_DESCRIPTOR(8, this)
+                this.__DeviceDescriptor := USB_DEVICE_DESCRIPTOR(6, this)
             return this.__DeviceDescriptor
         }
     }
@@ -49,8 +49,8 @@ class USB_DEVICE_INFO extends Win32Struct
      * @type {Integer}
      */
     CurrentConfigurationValue {
-        get => NumGet(this, 26, "char")
-        set => NumPut("char", value, this, 26)
+        get => NumGet(this, 24, "char")
+        set => NumPut("char", value, this, 24)
     }
 
     /**

@@ -3012,11 +3012,20 @@ class Ime {
 
 ;@region Methods
     /**
-     * Installs an IME.
+     * The ImmInstallIMEA (ANSI) function (immdev.h) installs an IME.
+     * @remarks
+     * This function is intended to be used by IME setup applications only.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmInstallIME as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszIMEFileName Pointer to a null-terminated string that specifies the full path of the IME.
      * @param {PSTR} lpszLayoutText Pointer to a null-terminated string that specifies the name of the IME and the associated layout text.
      * @returns {HKL} Returns the input locale identifier for the IME.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-imminstallimea
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-imminstallimea
      * @since windows5.1.2600
      */
     static ImmInstallIMEA(lpszIMEFileName, lpszLayoutText) {
@@ -3024,15 +3033,25 @@ class Ime {
         lpszLayoutText := lpszLayoutText is String ? StrPtr(lpszLayoutText) : lpszLayoutText
 
         result := DllCall("IMM32.dll\ImmInstallIMEA", "ptr", lpszIMEFileName, "ptr", lpszLayoutText, "ptr")
-        return HKL({Value: result}, True)
+        resultHandle := HKL({Value: result}, True)
+        return resultHandle
     }
 
     /**
-     * Installs an IME.
+     * The ImmInstallIMEW (Unicode) function (immdev.h) installs an IME.
+     * @remarks
+     * This function is intended to be used by IME setup applications only.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmInstallIME as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszIMEFileName Pointer to a null-terminated string that specifies the full path of the IME.
      * @param {PWSTR} lpszLayoutText Pointer to a null-terminated string that specifies the name of the IME and the associated layout text.
      * @returns {HKL} Returns the input locale identifier for the IME.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-imminstallimew
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-imminstallimew
      * @since windows5.1.2600
      */
     static ImmInstallIMEW(lpszIMEFileName, lpszLayoutText) {
@@ -3040,32 +3059,39 @@ class Ime {
         lpszLayoutText := lpszLayoutText is String ? StrPtr(lpszLayoutText) : lpszLayoutText
 
         result := DllCall("IMM32.dll\ImmInstallIMEW", "ptr", lpszIMEFileName, "ptr", lpszLayoutText, "ptr")
-        return HKL({Value: result}, True)
+        resultHandle := HKL({Value: result}, True)
+        return resultHandle
     }
 
     /**
-     * Retrieves the default window handle to the IME class.
+     * The ImmGetDefaultIMEWnd function (immdev.h) retrieves the default window handle to the IME class.
+     * @remarks
+     * The operating system creates a default IME window for every thread. The window is created based on the IME class. The application can send the <a href="https://docs.microsoft.com/windows/desktop/Intl/wm-ime-control">WM_IME_CONTROL</a> message to this window.
      * @param {HWND} param0 
      * @returns {HWND} Returns the default window handle to the IME class if successful, or <b>NULL</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetdefaultimewnd
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetdefaultimewnd
      * @since windows5.1.2600
      */
     static ImmGetDefaultIMEWnd(param0) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("IMM32.dll\ImmGetDefaultIMEWnd", "ptr", param0, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
-     * Copies the description of the IME to the specified buffer.
+     * The ImmGetDescriptionA (ANSI) function (immdev.h) copies the description of the IME to the specified buffer.
+     * @remarks
+     * > [!NOTE]
+     * > The immdev.h header defines ImmGetDescription as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HKL} param0 
      * @param {PSTR} lpszDescription Pointer to a buffer in which the function retrieves the null-terminated string describing the IME.
      * @param {Integer} uBufLen Size, in characters, of the output buffer. The application sets this parameter to 0 if the function is to return the buffer size needed for the complete description, excluding the terminating null character.
      * 
      * <b>Windows NT, Windows 2000, Windows XP:</b> The size of the buffer is in Unicode characters, each consisting of two bytes. If the parameter is set to 0, the function returns the size of the buffer required in Unicode characters, excluding the Unicode terminating null character.
      * @returns {Integer} Returns the number of characters copied to the output buffer. If the application sets the <i>uBufLen</i> parameter to 0, the function returns the size of the buffer required to receive the description. Neither value includes the terminating null character. For Unicode, the function returns the number of Unicode characters, not including the Unicode terminating null character.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetdescriptiona
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetdescriptiona
      * @since windows5.1.2600
      */
     static ImmGetDescriptionA(param0, lpszDescription, uBufLen) {
@@ -3077,14 +3103,17 @@ class Ime {
     }
 
     /**
-     * Copies the description of the IME to the specified buffer.
+     * The ImmGetDescriptionW (Unicode) function (immdev.h) copies the description of the IME to the specified buffer.
+     * @remarks
+     * > [!NOTE]
+     * > The immdev.h header defines ImmGetDescription as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HKL} param0 
      * @param {PWSTR} lpszDescription Pointer to a buffer in which the function retrieves the null-terminated string describing the IME.
      * @param {Integer} uBufLen Size, in characters, of the output buffer. The application sets this parameter to 0 if the function is to return the buffer size needed for the complete description, excluding the terminating null character.
      * 
      * <b>Windows NT, Windows 2000, Windows XP:</b> The size of the buffer is in Unicode characters, each consisting of two bytes. If the parameter is set to 0, the function returns the size of the buffer required in Unicode characters, excluding the Unicode terminating null character.
      * @returns {Integer} Returns the number of characters copied to the output buffer. If the application sets the <i>uBufLen</i> parameter to 0, the function returns the size of the buffer required to receive the description. Neither value includes the terminating null character. For Unicode, the function returns the number of Unicode characters, not including the Unicode terminating null character.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetdescriptionw
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetdescriptionw
      * @since windows5.1.2600
      */
     static ImmGetDescriptionW(param0, lpszDescription, uBufLen) {
@@ -3096,14 +3125,24 @@ class Ime {
     }
 
     /**
-     * Retrieves the file name of the IME associated with the specified input locale.
+     * The ImmGetIMEFileNameA (ANSI) function (immdev.h) retrieves the file name of the IME associated with the specified input locale.
+     * @remarks
+     * In the registry, the operating system stores the file name as the "IME name value" in the registry key HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Keyboard Layouts\HKL.
+     *       
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmGetIMEFileName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HKL} param0 
      * @param {PSTR} lpszFileName Pointer to a buffer in which the function retrieves the file name. This parameter contains <b>NULL</b> when <i>uBufLen</i> is set to <b>NULL</b>.
      * @param {Integer} uBufLen Size, in bytes, of the output buffer. The application specifies 0 if the function is to return the buffer size needed to receive the file name, not including the terminating null character. For Unicode, <i>uBufLen</i> specifies the size in Unicode characters, not including the terminating null character.
      * @returns {Integer} Returns the number of bytes in the file name copied to the output buffer. If the application sets <i>uBufLen</i> to 0, the function returns the size of the buffer required for the file name. In either case, the terminating null character is not included.
      * 
      * For Unicode, the function returns the number of Unicode characters copied into the output buffer, not including the Unicode terminating null character.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetimefilenamea
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetimefilenamea
      * @since windows5.1.2600
      */
     static ImmGetIMEFileNameA(param0, lpszFileName, uBufLen) {
@@ -3115,14 +3154,24 @@ class Ime {
     }
 
     /**
-     * Retrieves the file name of the IME associated with the specified input locale.
+     * The ImmGetIMEFileNameW (Unicode) function (immdev.h) retrieves the file name of the IME associated with the specified input locale.
+     * @remarks
+     * In the registry, the operating system stores the file name as the "IME name value" in the registry key HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Keyboard Layouts\HKL.
+     *       
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmGetIMEFileName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HKL} param0 
      * @param {PWSTR} lpszFileName Pointer to a buffer in which the function retrieves the file name. This parameter contains <b>NULL</b> when <i>uBufLen</i> is set to <b>NULL</b>.
      * @param {Integer} uBufLen Size, in bytes, of the output buffer. The application specifies 0 if the function is to return the buffer size needed to receive the file name, not including the terminating null character. For Unicode, <i>uBufLen</i> specifies the size in Unicode characters, not including the terminating null character.
      * @returns {Integer} Returns the number of bytes in the file name copied to the output buffer. If the application sets <i>uBufLen</i> to 0, the function returns the size of the buffer required for the file name. In either case, the terminating null character is not included.
      * 
      * For Unicode, the function returns the number of Unicode characters copied into the output buffer, not including the Unicode terminating null character.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetimefilenamew
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetimefilenamew
      * @since windows5.1.2600
      */
     static ImmGetIMEFileNameW(param0, lpszFileName, uBufLen) {
@@ -3134,7 +3183,7 @@ class Ime {
     }
 
     /**
-     * Retrieves the property and capabilities of the IME associated with the specified input locale.
+     * The ImmGetProperty function (immdev.h) retrieves the property and capabilities of the IME associated with the specified input locale.
      * @param {HKL} param0 
      * @param {Integer} param1 
      * @returns {Integer} Returns the property or capability value, depending on the value of the <i>dwIndex</i> parameter. If <i>dwIndex</i> is set to IGP_PROPERTY, the function returns one or more of the following values:
@@ -3166,7 +3215,7 @@ class Ime {
      * </tr>
      * <tr>
      * <td>IME_PROP_ACCEPT_WIDE_VKEY</td>
-     * <td>If set, the IME processes the injected Unicode that came from the <a href="/windows/desktop/api/winuser/nf-winuser-sendinput">SendInput</a> function by using VK_PACKET. If clear, the IME might not process the injected Unicode, and might send the injected Unicode to the application directly.</td>
+     * <td>If set, the IME processes the injected Unicode that came from the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-sendinput">SendInput</a> function by using VK_PACKET. If clear, the IME might not process the injected Unicode, and might send the injected Unicode to the application directly.</td>
      * </tr>
      * </table>
      *  
@@ -3180,7 +3229,7 @@ class Ime {
      * </tr>
      * <tr>
      * <td>UI_CAP_2700</td>
-     * <td>Support text escapement values of 0 or 2700. For more information, see the <b>lfEscapement</b> member of the <a href="/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure.</td>
+     * <td>Support text escapement values of 0 or 2700. For more information, see the <b>lfEscapement</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure.</td>
      * </tr>
      * <tr>
      * <td>UI_CAP_ROT90</td>
@@ -3202,15 +3251,15 @@ class Ime {
      * </tr>
      * <tr>
      * <td>SCS_CAP_COMPSTR</td>
-     * <td>Create the composition string by calling the <a href="/windows/desktop/api/imm/nf-imm-immsetcompositionstringa">ImmSetCompositionString</a> function with the SCS_SETSTR value.</td>
+     * <td>Create the composition string by calling the <a href="https://docs.microsoft.com/windows/desktop/api/imm/nf-imm-immsetcompositionstringa">ImmSetCompositionString</a> function with the SCS_SETSTR value.</td>
      * </tr>
      * <tr>
      * <td>SCS_CAP_MAKEREAD</td>
-     * <td>Create the reading string from corresponding composition string when using the <a href="/windows/desktop/api/imm/nf-imm-immsetcompositionstringa">ImmSetCompositionString</a> function with SCS_SETSTR and without setting <i>lpRead</i>.</td>
+     * <td>Create the reading string from corresponding composition string when using the <a href="https://docs.microsoft.com/windows/desktop/api/imm/nf-imm-immsetcompositionstringa">ImmSetCompositionString</a> function with SCS_SETSTR and without setting <i>lpRead</i>.</td>
      * </tr>
      * <tr>
      * <td>SCS_CAP_SETRECONVERTSTRING:</td>
-     * <td>This IME can support reconversion. Use <a href="/windows/desktop/api/imm/nf-imm-immsetcompositionstringa">ImmSetCompositionString</a> to do reconversion.</td>
+     * <td>This IME can support reconversion. Use <a href="https://docs.microsoft.com/windows/desktop/api/imm/nf-imm-immsetcompositionstringa">ImmSetCompositionString</a> to do reconversion.</td>
      * </tr>
      * </table>
      *  
@@ -3249,7 +3298,7 @@ class Ime {
      * <td>The IME was created for Windows Me/98/95.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetproperty
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetproperty
      * @since windows5.1.2600
      */
     static ImmGetProperty(param0, param1) {
@@ -3260,10 +3309,10 @@ class Ime {
     }
 
     /**
-     * Determines if the specified input locale has an IME.
+     * The ImmIsIME function (immdev.h) determines if the specified input locale has an IME.
      * @param {HKL} param0 
      * @returns {BOOL} Returns a nonzero value if the specified locale has an IME, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immisime
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immisime
      * @since windows5.1.2600
      */
     static ImmIsIME(param0) {
@@ -3274,11 +3323,11 @@ class Ime {
     }
 
     /**
-     * Simulates the specified IME hot key, causing the same response as if the user presses the hot key in the specified window.
+     * The ImmSimulateHotKey function (immdev.h) simulates the specified IME hot key, causing the same response as if the user presses the hot key in the specified window.
      * @param {HWND} param0 
      * @param {Integer} param1 
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immsimulatehotkey
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immsimulatehotkey
      * @since windows5.1.2600
      */
     static ImmSimulateHotKey(param0, param1) {
@@ -3289,21 +3338,24 @@ class Ime {
     }
 
     /**
-     * Creates a new input context, allocating memory for the context and initializing it. An application calls this function to prepare its own input context.
+     * The ImmCreateContext function (immdev.h) creates a new input context, allocating memory for the context and initializing it.
      * @returns {HIMC} Returns the handle to the new input context if successful, or <b>NULL</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immcreatecontext
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immcreatecontext
      * @since windows5.1.2600
      */
     static ImmCreateContext() {
         result := DllCall("IMM32.dll\ImmCreateContext", "ptr")
-        return HIMC({Value: result}, True)
+        resultHandle := HIMC({Value: result}, True)
+        return resultHandle
     }
 
     /**
-     * Releases the input context and frees associated memory.
+     * The ImmDestroyContext function (immdev.h) releases the input context and frees associated memory.
+     * @remarks
+     * Any application that creates an input context by using the <a href="https://docs.microsoft.com/windows/desktop/api/imm/nf-imm-immcreatecontext">ImmCreateContext</a> function must call this function to free the context before it terminates. However, before calling <b>ImmDestroyContext</b>, the application must remove the input context from any association with windows in the thread by using the <a href="https://docs.microsoft.com/windows/desktop/api/imm/nf-imm-immassociatecontext">ImmAssociateContext</a> function.
      * @param {HIMC} param0 
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immdestroycontext
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immdestroycontext
      * @since windows5.1.2600
      */
     static ImmDestroyContext(param0) {
@@ -3314,25 +3366,30 @@ class Ime {
     }
 
     /**
-     * Returns the input context associated with the specified window.
+     * The ImmGetContext function (immdev.h) returns the input context associated with the specified window.
+     * @remarks
+     * An application should routinely use this function to retrieve the current input context before attempting to access information in the context.
+     * 
+     * The application must call <a href="https://docs.microsoft.com/windows/desktop/api/imm/nf-imm-immreleasecontext">ImmReleaseContext</a> when it is finished with the input context.
      * @param {HWND} param0 
      * @returns {HIMC} Returns the handle to the input context.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetcontext
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetcontext
      * @since windows5.1.2600
      */
     static ImmGetContext(param0) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("IMM32.dll\ImmGetContext", "ptr", param0, "ptr")
-        return HIMC({Value: result}, True)
+        resultHandle := HIMC({Value: result}, True)
+        return resultHandle
     }
 
     /**
-     * Releases the input context and unlocks the memory associated in the input context. An application must call this function for each call to the ImmGetContext function.
+     * The ImmReleaseContext function (immdev.h) releases the input context and unlocks the memory associated in the input context.
      * @param {HWND} param0 
      * @param {HIMC} param1 
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immreleasecontext
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immreleasecontext
      * @since windows5.1.2600
      */
     static ImmReleaseContext(param0, param1) {
@@ -3344,11 +3401,13 @@ class Ime {
     }
 
     /**
-     * Associates the specified input context with the specified window. By default, the operating system associates the default input context with each window as it is created.
+     * The ImmAssociateContext function (immdev.h) associates the specified input context with the specified window.
+     * @remarks
+     * When associating an input context with a window, an application must remove the association before destroying the input context. One way to do this is to save the handle and reassociate it to the default input context with the window.
      * @param {HWND} param0 
      * @param {HIMC} param1 
      * @returns {HIMC} Returns the handle to the input context previously associated with the window.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immassociatecontext
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immassociatecontext
      * @since windows5.1.2600
      */
     static ImmAssociateContext(param0, param1) {
@@ -3356,16 +3415,21 @@ class Ime {
         param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
 
         result := DllCall("IMM32.dll\ImmAssociateContext", "ptr", param0, "ptr", param1, "ptr")
-        return HIMC({Value: result}, True)
+        resultHandle := HIMC({Value: result}, True)
+        return resultHandle
     }
 
     /**
-     * Changes the association between the input method context and the specified window or its children.
+     * The ImmAssociateContextEx function (immdev.h) changes the association between the input method context and the specified window or its children.
+     * @remarks
+     * If the application calls this function with IACE_CHILDREN, the operating system associates the specified input method context with child windows of the window indicated by <i>hWnd</i>. It associates the input method context only with child windows of the thread that creates <i>hWnd</i>. Any child window that is created after this function has been called will not be affected. Instead, the default input method context will be associated with it.
+     * 
+     * If the application calls this function with IACE_DEFAULT, the operating system restores the default input method context for the window. In this case, the <i>hIMC</i> parameter is ignored.
      * @param {HWND} param0 
      * @param {HIMC} param1 
      * @param {Integer} param2 
      * @returns {BOOL} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immassociatecontextex
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immassociatecontextex
      * @since windows5.1.2600
      */
     static ImmAssociateContextEx(param0, param1, param2) {
@@ -3377,7 +3441,18 @@ class Ime {
     }
 
     /**
-     * Retrieves information about the composition string.
+     * The ImmGetCompositionStringA (ANSI) function (immdev.h) retrieves information about the composition string.
+     * @remarks
+     * An application calls this function in response to the <a href="https://docs.microsoft.com/windows/desktop/Intl/wm-ime-composition">WM_IME_COMPOSITION</a> or <a href="https://docs.microsoft.com/windows/desktop/Intl/wm-ime-startcomposition">WM_IME_STARTCOMPOSITION</a> message. The IMM removes the information when the application calls the <a href="https://docs.microsoft.com/windows/desktop/api/imm/nf-imm-immreleasecontext">ImmReleaseContext</a> function.
+     * 
+     * <div class="alert"><b>Note</b>  You must write code to handle both full-width Hiragana and half-width Katakana if your application is used with the Soft Input Panel (SIP).</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmGetCompositionString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
      * @param {Integer} param1 
      * @param {Pointer} lpBuf Pointer to a buffer in which the function retrieves the composition string information.
@@ -3391,7 +3466,7 @@ class Ime {
      * <li>IMM_ERROR_NODATA. Composition data is not ready in the input context.</li>
      * <li>IMM_ERROR_GENERAL. General error detected by IME.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetcompositionstringa
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetcompositionstringa
      * @since windows5.1.2600
      */
     static ImmGetCompositionStringA(param0, param1, lpBuf, dwBufLen) {
@@ -3402,7 +3477,18 @@ class Ime {
     }
 
     /**
-     * Retrieves information about the composition string.
+     * The ImmGetCompositionStringW (Unicode) function (immdev.h) retrieves information about the composition string.
+     * @remarks
+     * An application calls this function in response to the <a href="https://docs.microsoft.com/windows/desktop/Intl/wm-ime-composition">WM_IME_COMPOSITION</a> or <a href="https://docs.microsoft.com/windows/desktop/Intl/wm-ime-startcomposition">WM_IME_STARTCOMPOSITION</a> message. The IMM removes the information when the application calls the <a href="https://docs.microsoft.com/windows/desktop/api/imm/nf-imm-immreleasecontext">ImmReleaseContext</a> function.
+     * 
+     * <div class="alert"><b>Note</b>  You must write code to handle both full-width Hiragana and half-width Katakana if your application is used with the Soft Input Panel (SIP).</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmGetCompositionString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
      * @param {Integer} param1 
      * @param {Pointer} lpBuf Pointer to a buffer in which the function retrieves the composition string information.
@@ -3416,7 +3502,7 @@ class Ime {
      * <li>IMM_ERROR_NODATA. Composition data is not ready in the input context.</li>
      * <li>IMM_ERROR_GENERAL. General error detected by IME.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetcompositionstringw
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetcompositionstringw
      * @since windows5.1.2600
      */
     static ImmGetCompositionStringW(param0, param1, lpBuf, dwBufLen) {
@@ -3427,7 +3513,30 @@ class Ime {
     }
 
     /**
-     * Sets the characters, attributes, and clauses of the composition and reading strings.
+     * The ImmSetCompositionStringA (ANSI) function (immdev.h) sets the characters, attributes, and clauses of the composition and reading strings.
+     * @remarks
+     * The application can set <i>lpComp</i>, <i>lpRead</i>, or both. If the application does not specify a value for <i>lpComp</i>, it must set this parameter to <b>NULL</b> and set <i>dwCompLen</i> to 0.
+     * 
+     * When the application is changing attributes, all characters in a clause must have the same attribute. Converted characters must have the attribute ATTR_CONVERTED or ATTR_TARGET_CONVERTED. Unconverted characters must have the attribute ATTR_INPUT or ATTR_TARGET_NOTCONVERTED.
+     * 
+     * When the application is changing clause information, it can change only the target clause, just affecting one boundary at a time. The target clause has the attribute ATTR_TARGET_CONVERTED or ATTR_TARGET_NOTCONVERTED.
+     * 
+     * For additional information about attributes (ATTR_* values), see <a href="https://docs.microsoft.com/windows/desktop/Intl/composition-string">Composition String</a>.
+     * 
+     * When the IME completes the changes, it sends a <a href="https://docs.microsoft.com/windows/desktop/Intl/wm-ime-composition">WM_IME_COMPOSITION</a> message to the application to notify it of the changes.
+     * 
+     * <b>Windows Me/98, Windows 2000, Windows XP:</b> The SCS_*CONVERTSTRING values are used for reconversion. They can only be used for an IME that has the SCS_CAP_SETRECONVERTSTRING property. The application uses these values as follows:
+     * 
+     * <ol>
+     * <li>Call <b>ImmSetCompositionString</b> with SCS_QUERYRECONVERTSTRING, so that IME adjusts the <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-reconvertstring">RECONVERTSTRING</a> structure for the reconversion.</li>
+     * <li>Call <b>ImmSetCompositionString</b> with SCS_SETRECONVERTSTRING, so that IME generates a new composition string. After this, <i>lpComp</i> and <i>lpRead</i> indicate a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-reconvertstring">RECONVERTSTRING</a> structure that contains the updated composition and reading string. Use the value of <i>lpRead</i> only when the selected IME has SCS_CAP_MAKEREAD set.</li>
+     * </ol>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmSetCompositionString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
      * @param {Integer} dwIndex 
      * @param {Pointer} lpComp Pointer to a buffer containing the information to set for the composition string, as specified by the value of <i>dwIndex</i>.
@@ -3435,7 +3544,7 @@ class Ime {
      * @param {Pointer} lpRead Pointer to a buffer containing the information to set for the reading string, as specified by the value of <i>dwIndex</i>. The application can set this parameter to <b>NULL</b>.
      * @param {Integer} dwReadLen Size, in bytes, of the information buffer for the reading string, even if SCS_SETSTR is specified and the buffer contains a Unicode string.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immsetcompositionstringa
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immsetcompositionstringa
      * @since windows5.1.2600
      */
     static ImmSetCompositionStringA(param0, dwIndex, lpComp, dwCompLen, lpRead, dwReadLen) {
@@ -3446,7 +3555,30 @@ class Ime {
     }
 
     /**
-     * Sets the characters, attributes, and clauses of the composition and reading strings.
+     * The ImmSetCompositionStringW (Unicode) function (immdev.h) sets the characters, attributes, and clauses of the composition and reading strings.
+     * @remarks
+     * The application can set <i>lpComp</i>, <i>lpRead</i>, or both. If the application does not specify a value for <i>lpComp</i>, it must set this parameter to <b>NULL</b> and set <i>dwCompLen</i> to 0.
+     * 
+     * When the application is changing attributes, all characters in a clause must have the same attribute. Converted characters must have the attribute ATTR_CONVERTED or ATTR_TARGET_CONVERTED. Unconverted characters must have the attribute ATTR_INPUT or ATTR_TARGET_NOTCONVERTED.
+     * 
+     * When the application is changing clause information, it can change only the target clause, just affecting one boundary at a time. The target clause has the attribute ATTR_TARGET_CONVERTED or ATTR_TARGET_NOTCONVERTED.
+     * 
+     * For additional information about attributes (ATTR_* values), see <a href="https://docs.microsoft.com/windows/desktop/Intl/composition-string">Composition String</a>.
+     * 
+     * When the IME completes the changes, it sends a <a href="https://docs.microsoft.com/windows/desktop/Intl/wm-ime-composition">WM_IME_COMPOSITION</a> message to the application to notify it of the changes.
+     * 
+     * <b>Windows Me/98, Windows 2000, Windows XP:</b> The SCS_*CONVERTSTRING values are used for reconversion. They can only be used for an IME that has the SCS_CAP_SETRECONVERTSTRING property. The application uses these values as follows:
+     * 
+     * <ol>
+     * <li>Call <b>ImmSetCompositionString</b> with SCS_QUERYRECONVERTSTRING, so that IME adjusts the <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-reconvertstring">RECONVERTSTRING</a> structure for the reconversion.</li>
+     * <li>Call <b>ImmSetCompositionString</b> with SCS_SETRECONVERTSTRING, so that IME generates a new composition string. After this, <i>lpComp</i> and <i>lpRead</i> indicate a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-reconvertstring">RECONVERTSTRING</a> structure that contains the updated composition and reading string. Use the value of <i>lpRead</i> only when the selected IME has SCS_CAP_MAKEREAD set.</li>
+     * </ol>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmSetCompositionString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
      * @param {Integer} dwIndex 
      * @param {Pointer} lpComp Pointer to a buffer containing the information to set for the composition string, as specified by the value of <i>dwIndex</i>.
@@ -3454,7 +3586,7 @@ class Ime {
      * @param {Pointer} lpRead Pointer to a buffer containing the information to set for the reading string, as specified by the value of <i>dwIndex</i>. The application can set this parameter to <b>NULL</b>.
      * @param {Integer} dwReadLen Size, in bytes, of the information buffer for the reading string, even if SCS_SETSTR is specified and the buffer contains a Unicode string.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immsetcompositionstringw
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immsetcompositionstringw
      * @since windows5.1.2600
      */
     static ImmSetCompositionStringW(param0, dwIndex, lpComp, dwCompLen, lpRead, dwReadLen) {
@@ -3465,11 +3597,20 @@ class Ime {
     }
 
     /**
-     * Retrieves the size of the candidate lists.
+     * The ImmGetCandidateListCountA (ANSI) function (immdev.h) retrieves the size of the candidate lists.
+     * @remarks
+     * Applications typically call this function in response to an <a href="https://docs.microsoft.com/windows/desktop/Intl/imn-opencandidate">IMN_OPENCANDIDATE</a> or <a href="https://docs.microsoft.com/windows/desktop/Intl/imn-changecandidate">IMN_CHANGECANDIDATE</a> command.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmGetCandidateListCount as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
      * @param {Pointer<Integer>} lpdwListCount Pointer to the buffer in which this function retrieves the size of the candidate lists.
      * @returns {Integer} Returns the number of bytes required for all candidate lists if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetcandidatelistcounta
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetcandidatelistcounta
      * @since windows5.1.2600
      */
     static ImmGetCandidateListCountA(param0, lpdwListCount) {
@@ -3482,11 +3623,20 @@ class Ime {
     }
 
     /**
-     * Retrieves the size of the candidate lists.
+     * The ImmGetCandidateListCountW (Unicode) function (immdev.h) retrieves the size of the candidate lists.
+     * @remarks
+     * Applications typically call this function in response to an <a href="https://docs.microsoft.com/windows/desktop/Intl/imn-opencandidate">IMN_OPENCANDIDATE</a> or <a href="https://docs.microsoft.com/windows/desktop/Intl/imn-changecandidate">IMN_CHANGECANDIDATE</a> command.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmGetCandidateListCount as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
      * @param {Pointer<Integer>} lpdwListCount Pointer to the buffer in which this function retrieves the size of the candidate lists.
      * @returns {Integer} Returns the number of bytes required for all candidate lists if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetcandidatelistcountw
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetcandidatelistcountw
      * @since windows5.1.2600
      */
     static ImmGetCandidateListCountW(param0, lpdwListCount) {
@@ -3499,7 +3649,10 @@ class Ime {
     }
 
     /**
-     * Retrieves a candidate list.
+     * The ImmGetCandidateListA (ANSI) function (immdev.h) retrieves a candidate list.
+     * @remarks
+     * > [!NOTE]
+     * > The immdev.h header defines ImmGetCandidateList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
      * @param {Integer} deIndex Zero-based index of the candidate list.
      * @param {Pointer} lpCandList Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-candidatelist">CANDIDATELIST</a> structure in which the function retrieves the candidate list.
@@ -3507,7 +3660,7 @@ class Ime {
      * @returns {Integer} Returns the number of bytes copied to the candidate list buffer if successful. If the application has supplied 0 for the <i>dwBufLen</i> parameter, the function returns the size required for the candidate list buffer.
      * 
      * The function returns 0 if it does not succeed.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetcandidatelista
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetcandidatelista
      * @since windows5.1.2600
      */
     static ImmGetCandidateListA(param0, deIndex, lpCandList, dwBufLen) {
@@ -3518,7 +3671,10 @@ class Ime {
     }
 
     /**
-     * Retrieves a candidate list.
+     * The ImmGetCandidateListW (Unicode) function (immdev.h) retrieves a candidate list.
+     * @remarks
+     * > [!NOTE]
+     * > The immdev.h header defines ImmGetCandidateList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
      * @param {Integer} deIndex Zero-based index of the candidate list.
      * @param {Pointer} lpCandList Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-candidatelist">CANDIDATELIST</a> structure in which the function retrieves the candidate list.
@@ -3526,7 +3682,7 @@ class Ime {
      * @returns {Integer} Returns the number of bytes copied to the candidate list buffer if successful. If the application has supplied 0 for the <i>dwBufLen</i> parameter, the function returns the size required for the candidate list buffer.
      * 
      * The function returns 0 if it does not succeed.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetcandidatelistw
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetcandidatelistw
      * @since windows5.1.2600
      */
     static ImmGetCandidateListW(param0, deIndex, lpCandList, dwBufLen) {
@@ -3537,7 +3693,16 @@ class Ime {
     }
 
     /**
-     * Retrieves information about errors. Applications use the information for user notifications.
+     * The ImmGetGuideLineA (ANSI) function (immdev.h) retrieves information about errors. Applications use the information for user notifications.
+     * @remarks
+     * Applications typically call this function after receiving an <a href="https://docs.microsoft.com/windows/desktop/Intl/imn-guideline">IMN_GUIDELINE</a> command.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmGetGuideLine as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
      * @param {Integer} dwIndex 
      * @param {Pointer} lpBuf Pointer to a buffer in which the function retrieves the error message string. This parameter contains <b>NULL</b> if <i>dwIndex</i> is not GGL_STRING or GGL_PRIVATE or if <i>dwBufLen</i> is set to 0.
@@ -3629,7 +3794,7 @@ class Ime {
      * </tr>
      * <tr>
      * <td>GL_ID_REVERSECONVERSION</td>
-     * <td>Information about reverse conversion is available by calling <b>ImmGetGuideLine</b>, specifying GGL_PRIVATE. The information retrieved is in <a href="/windows/desktop/api/imm/ns-imm-candidatelist">CANDIDATELIST</a> format.</td>
+     * <td>Information about reverse conversion is available by calling <b>ImmGetGuideLine</b>, specifying GGL_PRIVATE. The information retrieved is in <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-candidatelist">CANDIDATELIST</a> format.</td>
      * </tr>
      * </table>
      *  
@@ -3637,7 +3802,7 @@ class Ime {
      * If <i>dwIndex</i> is GGL_STRING, the return value is the number of bytes of the string copied to the buffer. However, if <i>dwBufLen</i> is 0, the return value is the buffer size needed to receive the string, not including the terminating null character. For Unicode, if <i>dwBufLen</i> is 0, the return value is the size, in bytes not including the Unicode terminating null character.
      * 
      * If <i>dwIndex</i> is GGL_PRIVATE, the return value is the number of bytes of information copied to the buffer. If <i>dwIndex</i> is GGL_PRIVATE and <i>dwBufLen</i> is 0, the return value is the buffer size needed to receive the information.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetguidelinea
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetguidelinea
      * @since windows5.1.2600
      */
     static ImmGetGuideLineA(param0, dwIndex, lpBuf, dwBufLen) {
@@ -3648,7 +3813,16 @@ class Ime {
     }
 
     /**
-     * Retrieves information about errors. Applications use the information for user notifications.
+     * The ImmGetGuideLineW (Unicode) function (immdev.h) retrieves information about errors. Applications use the information for user notifications.
+     * @remarks
+     * Applications typically call this function after receiving an <a href="https://docs.microsoft.com/windows/desktop/Intl/imn-guideline">IMN_GUIDELINE</a> command.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmGetGuideLine as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
      * @param {Integer} dwIndex 
      * @param {Pointer} lpBuf Pointer to a buffer in which the function retrieves the error message string. This parameter contains <b>NULL</b> if <i>dwIndex</i> is not GGL_STRING or GGL_PRIVATE or if <i>dwBufLen</i> is set to 0.
@@ -3740,7 +3914,7 @@ class Ime {
      * </tr>
      * <tr>
      * <td>GL_ID_REVERSECONVERSION</td>
-     * <td>Information about reverse conversion is available by calling <b>ImmGetGuideLine</b>, specifying GGL_PRIVATE. The information retrieved is in <a href="/windows/desktop/api/imm/ns-imm-candidatelist">CANDIDATELIST</a> format.</td>
+     * <td>Information about reverse conversion is available by calling <b>ImmGetGuideLine</b>, specifying GGL_PRIVATE. The information retrieved is in <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-candidatelist">CANDIDATELIST</a> format.</td>
      * </tr>
      * </table>
      *  
@@ -3748,7 +3922,7 @@ class Ime {
      * If <i>dwIndex</i> is GGL_STRING, the return value is the number of bytes of the string copied to the buffer. However, if <i>dwBufLen</i> is 0, the return value is the buffer size needed to receive the string, not including the terminating null character. For Unicode, if <i>dwBufLen</i> is 0, the return value is the size, in bytes not including the Unicode terminating null character.
      * 
      * If <i>dwIndex</i> is GGL_PRIVATE, the return value is the number of bytes of information copied to the buffer. If <i>dwIndex</i> is GGL_PRIVATE and <i>dwBufLen</i> is 0, the return value is the buffer size needed to receive the information.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetguidelinew
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetguidelinew
      * @since windows5.1.2600
      */
     static ImmGetGuideLineW(param0, dwIndex, lpBuf, dwBufLen) {
@@ -3759,12 +3933,14 @@ class Ime {
     }
 
     /**
-     * Retrieves the current conversion status.
+     * The ImmGetConversionStatus function (immdev.h) retrieves the current conversion status.
+     * @remarks
+     * Conversion and sentence mode values are set only if the IME supports those modes.
      * @param {HIMC} param0 
      * @param {Pointer<Integer>} lpfdwConversion Pointer to a variable in which the function retrieves a combination of conversion mode values. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/ime-conversion-mode-values">IME Conversion Mode Values</a>.
      * @param {Pointer<Integer>} lpfdwSentence Pointer to a variable in which the function retrieves a sentence mode value. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/ime-sentence-mode-values">IME Sentence Mode Values</a>.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetconversionstatus
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetconversionstatus
      * @since windows5.1.2600
      */
     static ImmGetConversionStatus(param0, lpfdwConversion, lpfdwSentence) {
@@ -3778,12 +3954,18 @@ class Ime {
     }
 
     /**
-     * Sets the current conversion status.
+     * The ImmSetConversionStatus function (immdev.h) sets the current conversion status.
+     * @remarks
+     * This function sends the <a href="https://docs.microsoft.com/windows/desktop/Intl/imn-setconversionmode">IMN_SETCONVERSIONMODE</a> and <a href="https://docs.microsoft.com/windows/desktop/Intl/imn-setsentencemode">IMN_SETSENTENCEMODE</a> commands to the application.
+     * 
+     * <div class="alert"><b>Note</b>  <b>Beginning with Windows 8:</b> By default, the input switch is set per user instead of per thread. 
+     * The Microsoft IME (Japanese) respects the mode globally, and therefore  <b>ImmSetConversionStatus</b> fails when getting focus.</div>
+     * <div> </div>
      * @param {HIMC} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immsetconversionstatus
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immsetconversionstatus
      * @since windows5.1.2600
      */
     static ImmSetConversionStatus(param0, param1, param2) {
@@ -3794,10 +3976,10 @@ class Ime {
     }
 
     /**
-     * Determines whether the IME is open or closed.
+     * The ImmGetOpenStatus function (immdev.h) determines whether the IME is open or closed.
      * @param {HIMC} param0 
      * @returns {BOOL} Returns a nonzero value if the IME is open, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetopenstatus
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetopenstatus
      * @since windows5.1.2600
      */
     static ImmGetOpenStatus(param0) {
@@ -3808,11 +3990,13 @@ class Ime {
     }
 
     /**
-     * Opens or closes the IME.
+     * The ImmSetOpenStatus function (immdev.h) opens or closes the IME.
+     * @remarks
+     * This function causes an <a href="https://docs.microsoft.com/windows/desktop/Intl/imn-setopenstatus">IMN_SETOPENSTATUS</a> command to be sent to the application.
      * @param {HIMC} param0 
      * @param {BOOL} param1 
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immsetopenstatus
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immsetopenstatus
      * @since windows5.1.2600
      */
     static ImmSetOpenStatus(param0, param1) {
@@ -3823,11 +4007,14 @@ class Ime {
     }
 
     /**
-     * Retrieves information about the logical font currently used to display characters in the composition window.
+     * The ImmGetCompositionFontA (ANSI) function (immdev.h) retrieves information about the logical font currently used to display characters in the composition window.
+     * @remarks
+     * > [!NOTE]
+     * > The immdev.h header defines ImmGetCompositionFont as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
      * @param {Pointer<LOGFONTA>} lplf Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure in which this function retrieves the font information.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetcompositionfonta
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetcompositionfonta
      * @since windows5.1.2600
      */
     static ImmGetCompositionFontA(param0, lplf) {
@@ -3838,11 +4025,14 @@ class Ime {
     }
 
     /**
-     * Retrieves information about the logical font currently used to display characters in the composition window.
+     * The ImmGetCompositionFontW (Unicode) function (immdev.h) retrieves information about the logical font currently used to display characters in the composition window.
+     * @remarks
+     * > [!NOTE]
+     * > The immdev.h header defines ImmGetCompositionFont as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
      * @param {Pointer<LOGFONTW>} lplf Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure in which this function retrieves the font information.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetcompositionfontw
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetcompositionfontw
      * @since windows5.1.2600
      */
     static ImmGetCompositionFontW(param0, lplf) {
@@ -3853,11 +4043,20 @@ class Ime {
     }
 
     /**
-     * Sets the logical font to use to display characters in the composition window.
+     * The ImmSetCompositionFontA (ANSI) function (immdev.h) sets the logical font to use to display characters in the composition window.
+     * @remarks
+     * This function causes a <a href="https://docs.microsoft.com/windows/desktop/Intl/imn-setcompositionfont">IMN_SETCOMPOSITIONFONT</a> command to be sent to an application. Even if the application never uses the composition window, it must set the appropriate font to ensure that characters are displayed properly. This is especially true for vertical writing.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmSetCompositionFont as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
      * @param {Pointer<LOGFONTA>} lplf Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure containing the font information to set.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immsetcompositionfonta
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immsetcompositionfonta
      * @since windows5.1.2600
      */
     static ImmSetCompositionFontA(param0, lplf) {
@@ -3868,11 +4067,20 @@ class Ime {
     }
 
     /**
-     * Sets the logical font to use to display characters in the composition window.
+     * The ImmSetCompositionFontW (Unicode) function (immdev.h) sets the logical font to use to display characters in the composition window.
+     * @remarks
+     * This function causes a <a href="https://docs.microsoft.com/windows/desktop/Intl/imn-setcompositionfont">IMN_SETCOMPOSITIONFONT</a> command to be sent to an application. Even if the application never uses the composition window, it must set the appropriate font to ensure that characters are displayed properly. This is especially true for vertical writing.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmSetCompositionFont as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
      * @param {Pointer<LOGFONTW>} lplf Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure containing the font information to set.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immsetcompositionfontw
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immsetcompositionfontw
      * @since windows5.1.2600
      */
     static ImmSetCompositionFontW(param0, lplf) {
@@ -3883,13 +4091,16 @@ class Ime {
     }
 
     /**
-     * Displays the configuration dialog box for the IME of the specified input locale identifier.
+     * The ImmConfigureIMEA (ANSI) function (immdev.h) displays the configuration dialog box for the IME of the specified input locale identifier.
+     * @remarks
+     * > [!NOTE]
+     * > The immdev.h header defines ImmConfigureIME as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HKL} param0 
      * @param {HWND} param1 
      * @param {Integer} param2 
      * @param {Pointer<Void>} param3 
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immconfigureimea
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immconfigureimea
      * @since windows5.1.2600
      */
     static ImmConfigureIMEA(param0, param1, param2, param3) {
@@ -3903,13 +4114,16 @@ class Ime {
     }
 
     /**
-     * Displays the configuration dialog box for the IME of the specified input locale identifier.
+     * The ImmConfigureIMEW (Unicode) function (immdev.h) displays the configuration dialog box for the IME of the specified input locale identifier.
+     * @remarks
+     * > [!NOTE]
+     * > The immdev.h header defines ImmConfigureIME as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HKL} param0 
      * @param {HWND} param1 
      * @param {Integer} param2 
      * @param {Pointer<Void>} param3 
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immconfigureimew
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immconfigureimew
      * @since windows5.1.2600
      */
     static ImmConfigureIMEW(param0, param1, param2, param3) {
@@ -3923,13 +4137,33 @@ class Ime {
     }
 
     /**
-     * Accesses capabilities of particular IMEs that are not available through other IME API functions. This function is used mainly for country-specific operations.
+     * The ImmEscapeA (ANSI) function (immdev.h) accesses capabilities of particular IMEs that are not available through other IME API functions.
+     * @remarks
+     * When <i>uEscape</i> is set to IME_ESC_QUERY_SUPPORT, <i>lpData</i> indicates the buffer containing the IME escape value. For example, to see if the current IME supports IME_ESC_GETHELPFILENAME, your application uses the following call:
+     * 
+     * 
+     * ```cpp
+     * DWORD dwEsc = IME_ESC_GETHELPFILENAME;
+     * LRESULT lRet = ImmEscape(hKL,
+     *                          hIMC,
+     *                          IME_ESC_QUERY_SUPPORT,
+     *                          (LPVOID)&dwEsc);
+     * 
+     * ```
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmEscape as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HKL} param0 
      * @param {HIMC} param1 
      * @param {Integer} param2 
      * @param {Pointer<Void>} param3 
      * @returns {LRESULT} Returns an operation-specific value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immescapea
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immescapea
      * @since windows5.1.2600
      */
     static ImmEscapeA(param0, param1, param2, param3) {
@@ -3943,13 +4177,33 @@ class Ime {
     }
 
     /**
-     * Accesses capabilities of particular IMEs that are not available through other IME API functions. This function is used mainly for country-specific operations.
+     * The ImmEscapeW (Unicode) function (immdev.h) accesses capabilities of particular IMEs that are not available through other IME API functions.
+     * @remarks
+     * When <i>uEscape</i> is set to IME_ESC_QUERY_SUPPORT, <i>lpData</i> indicates the buffer containing the IME escape value. For example, to see if the current IME supports IME_ESC_GETHELPFILENAME, your application uses the following call:
+     * 
+     * 
+     * ```cpp
+     * DWORD dwEsc = IME_ESC_GETHELPFILENAME;
+     * LRESULT lRet = ImmEscape(hKL,
+     *                          hIMC,
+     *                          IME_ESC_QUERY_SUPPORT,
+     *                          (LPVOID)&dwEsc);
+     * 
+     * ```
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmEscape as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HKL} param0 
      * @param {HIMC} param1 
      * @param {Integer} param2 
      * @param {Pointer<Void>} param3 
      * @returns {LRESULT} Returns an operation-specific value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immescapew
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immescapew
      * @since windows5.1.2600
      */
     static ImmEscapeW(param0, param1, param2, param3) {
@@ -3963,7 +4217,10 @@ class Ime {
     }
 
     /**
-     * Retrieves the conversion result list of characters or words without generating any IME-related messages.
+     * The ImmGetConversionListA (ANSI) function (immdev.h) retrieves the conversion result list of characters or words without generating any IME-related messages.
+     * @remarks
+     * > [!NOTE]
+     * > The immdev.h header defines ImmGetConversionList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HKL} param0 
      * @param {HIMC} param1 
      * @param {PSTR} lpSrc Pointer to a null-terminated character string specifying the source of the list.
@@ -3971,7 +4228,7 @@ class Ime {
      * @param {Integer} dwBufLen Size, in bytes, of the output buffer. The application sets this parameter to 0 if the function is to return the buffer size required for the complete conversion result list.
      * @param {Integer} uFlag 
      * @returns {Integer} Returns the number of bytes copied to the output buffer. If the application sets the <i>dwBufLen</i> parameter to 0, the function returns the size, in bytes, of the required output buffer.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetconversionlista
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetconversionlista
      * @since windows5.1.2600
      */
     static ImmGetConversionListA(param0, param1, lpSrc, lpDst, dwBufLen, uFlag) {
@@ -3984,7 +4241,10 @@ class Ime {
     }
 
     /**
-     * Retrieves the conversion result list of characters or words without generating any IME-related messages.
+     * The ImmGetConversionListW (Unicode) function (immdev.h) retrieves the conversion result list of characters or words without generating any IME-related messages.
+     * @remarks
+     * > [!NOTE]
+     * > The immdev.h header defines ImmGetConversionList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HKL} param0 
      * @param {HIMC} param1 
      * @param {PWSTR} lpSrc Pointer to a null-terminated character string specifying the source of the list.
@@ -3992,7 +4252,7 @@ class Ime {
      * @param {Integer} dwBufLen Size, in bytes, of the output buffer. The application sets this parameter to 0 if the function is to return the buffer size required for the complete conversion result list.
      * @param {Integer} uFlag 
      * @returns {Integer} Returns the number of bytes copied to the output buffer. If the application sets the <i>dwBufLen</i> parameter to 0, the function returns the size, in bytes, of the required output buffer.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetconversionlistw
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetconversionlistw
      * @since windows5.1.2600
      */
     static ImmGetConversionListW(param0, param1, lpSrc, lpDst, dwBufLen, uFlag) {
@@ -4005,13 +4265,13 @@ class Ime {
     }
 
     /**
-     * Notifies the IME about changes to the status of the input context.
+     * The ImmNotifyIME function (immdev.h) notifies the IME about changes to the status of the input context.
      * @param {HIMC} param0 
      * @param {Integer} dwAction 
      * @param {Integer} dwIndex 
      * @param {Integer} dwValue Index of a candidate string. The application can set this parameter or ignore it, depending on the value of the <i>dwAction</i> parameter.
      * @returns {BOOL} Returns nonzero if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immnotifyime
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immnotifyime
      * @since windows5.1.2600
      */
     static ImmNotifyIME(param0, dwAction, dwIndex, dwValue) {
@@ -4022,11 +4282,11 @@ class Ime {
     }
 
     /**
-     * Retrieves the position of the status window.
+     * The ImmGetStatusWindowPos function (immdev.h) retrieves the position of the status window.
      * @param {HIMC} param0 
-     * @param {Pointer<POINT>} lpptPos Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure in which the function retrieves the position coordinates. These are screen coordinates, relative to the upper left corner of the screen.
+     * @param {Pointer<POINT>} lpptPos Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure in which the function retrieves the position coordinates. These are screen coordinates, relative to the upper left corner of the screen.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetstatuswindowpos
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetstatuswindowpos
      * @since windows5.1.2600
      */
     static ImmGetStatusWindowPos(param0, lpptPos) {
@@ -4037,11 +4297,13 @@ class Ime {
     }
 
     /**
-     * Sets the position of the status window.
+     * The ImmSetStatusWindowPos function (immdev.h) sets the position of the status window.
+     * @remarks
+     * This function causes an <a href="https://docs.microsoft.com/windows/desktop/Intl/imn-setstatuswindowpos">IMN_SETSTATUSWINDOWPOS</a> command to be sent to the application.
      * @param {HIMC} param0 
-     * @param {Pointer<POINT>} lpptPos Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure containing the new position of the status window, in screen coordinates relative to the upper left corner of the display screen.
+     * @param {Pointer<POINT>} lpptPos Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure containing the new position of the status window, in screen coordinates relative to the upper left corner of the display screen.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immsetstatuswindowpos
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immsetstatuswindowpos
      * @since windows5.1.2600
      */
     static ImmSetStatusWindowPos(param0, lpptPos) {
@@ -4052,11 +4314,11 @@ class Ime {
     }
 
     /**
-     * Retrieves information about the composition window.
+     * The ImmGetCompositionWindow function (immdev.h) retrieves information about the composition window.
      * @param {HIMC} param0 
      * @param {Pointer<COMPOSITIONFORM>} lpCompForm Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-compositionform">COMPOSITIONFORM</a> structure in which the function retrieves information about the composition window.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetcompositionwindow
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetcompositionwindow
      * @since windows5.1.2600
      */
     static ImmGetCompositionWindow(param0, lpCompForm) {
@@ -4067,11 +4329,13 @@ class Ime {
     }
 
     /**
-     * Sets the position of the composition window.
+     * The ImmSetCompositionWindow function (immdev.h) sets the position of the composition window.
+     * @remarks
+     * This function causes an <a href="https://docs.microsoft.com/windows/desktop/Intl/imn-setcompositionwindow">IMN_SETCOMPOSITIONWINDOW</a> command to be sent to the application.
      * @param {HIMC} param0 
      * @param {Pointer<COMPOSITIONFORM>} lpCompForm Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-compositionform">COMPOSITIONFORM</a> structure that contains the new position and other related information about the composition window.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immsetcompositionwindow
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immsetcompositionwindow
      * @since windows5.1.2600
      */
     static ImmSetCompositionWindow(param0, lpCompForm) {
@@ -4082,12 +4346,12 @@ class Ime {
     }
 
     /**
-     * Retrieves information about the candidates window.
+     * The ImmGetCandidateWindow function (immdev.h) retrieves information about the candidates window.
      * @param {HIMC} param0 
      * @param {Integer} param1 
      * @param {Pointer<CANDIDATEFORM>} lpCandidate Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-candidateform">CANDIDATEFORM</a> structure in which this function retrieves information about the candidates window.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetcandidatewindow
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetcandidatewindow
      * @since windows5.1.2600
      */
     static ImmGetCandidateWindow(param0, param1, lpCandidate) {
@@ -4098,11 +4362,13 @@ class Ime {
     }
 
     /**
-     * Sets information about the candidates window.
+     * The ImmSetCandidateWindow function (immdev.h) sets information about the candidates window.
+     * @remarks
+     * This function causes an <a href="https://docs.microsoft.com/windows/desktop/Intl/imn-setcandidatepos">IMN_SETCANDIDATEPOS</a> command to be sent. Both the IME and the application call this function.
      * @param {HIMC} param0 
      * @param {Pointer<CANDIDATEFORM>} lpCandidate Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-candidateform">CANDIDATEFORM</a> structure that contains information about the candidates window.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immsetcandidatewindow
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immsetcandidatewindow
      * @since windows5.1.2600
      */
     static ImmSetCandidateWindow(param0, lpCandidate) {
@@ -4113,13 +4379,24 @@ class Ime {
     }
 
     /**
-     * Checks for messages intended for the IME window and sends those messages to the window.
+     * The ImmIsUIMessageA (ANSI) function (immdev.h) checks for messages intended for the IME window and sends those messages to the window.
+     * @remarks
+     * An application typically uses this function to display a composition string or candidate list specified by the IME. If <i>hWndIME</i> is <b>NULL</b>, the function determines if the message is a user interface message.
+     * 
+     * <b>Windows Me/98:</b> This function has only an ANSI version. To receive Unicode characters from a Unicode-based IME, the application should use <a href="https://docs.microsoft.com/windows/desktop/api/imm/nf-imm-immgetcompositionstringa">ImmGetCompositionString</a>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmIsUIMessage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} param0 
      * @param {Integer} param1 
      * @param {WPARAM} param2 
      * @param {LPARAM} param3 
      * @returns {BOOL} Returns a nonzero value if the message is processed by the IME window, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immisuimessagea
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immisuimessagea
      * @since windows5.1.2600
      */
     static ImmIsUIMessageA(param0, param1, param2, param3) {
@@ -4130,13 +4407,24 @@ class Ime {
     }
 
     /**
-     * Checks for messages intended for the IME window and sends those messages to the window.
+     * The ImmIsUIMessageW (Unicode) function (immdev.h) checks for messages intended for the IME window and sends those messages to the window.
+     * @remarks
+     * An application typically uses this function to display a composition string or candidate list specified by the IME. If <i>hWndIME</i> is <b>NULL</b>, the function determines if the message is a user interface message.
+     * 
+     * <b>Windows Me/98:</b> This function has only an ANSI version. To receive Unicode characters from a Unicode-based IME, the application should use <a href="https://docs.microsoft.com/windows/desktop/api/imm/nf-imm-immgetcompositionstringa">ImmGetCompositionString</a>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmIsUIMessage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} param0 
      * @param {Integer} param1 
      * @param {WPARAM} param2 
      * @param {LPARAM} param3 
      * @returns {BOOL} Returns a nonzero value if the message is processed by the IME window, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immisuimessagew
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immisuimessagew
      * @since windows5.1.2600
      */
     static ImmIsUIMessageW(param0, param1, param2, param3) {
@@ -4147,10 +4435,16 @@ class Ime {
     }
 
     /**
-     * Retrieves the original virtual key value associated with a key input message that the IME has already processed.
+     * The ImmGetVirtualKey function (immdev.h) retrieves the original virtual key value associated with a key input message that the IME has already processed.
+     * @remarks
+     * Although the IME sets the virtual key value to VK_PROCESSKEY after processing a key input message, an application can recover the original virtual key value with the <b>ImmGetVirtualKey</b> function. This function is used only for key input messages containing the VK_PROCESSKEY value. Applications can only get the original virtual key by using this function after receiving 
+     * 
+     * the <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a> (VK_PROCESSKEY) message, and before <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-translatemessage">TranslateMessage</a> is called in its own 
+     * 
+     * message loop.
      * @param {HWND} param0 
-     * @returns {Integer} If <a href="/windows/desktop/api/winuser/nf-winuser-translatemessage">TranslateMessage</a> has been called by the application, <b>ImmGetVirtualKey</b> returns VK_PROCESSKEY; otherwise, it returns the virtual key.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetvirtualkey
+     * @returns {Integer} If <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-translatemessage">TranslateMessage</a> has been called by the application, <b>ImmGetVirtualKey</b> returns VK_PROCESSKEY; otherwise, it returns the virtual key.
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetvirtualkey
      * @since windows5.1.2600
      */
     static ImmGetVirtualKey(param0) {
@@ -4161,13 +4455,18 @@ class Ime {
     }
 
     /**
-     * Registers a string with the dictionary of the IME associated with the specified input locale.
+     * The ImmRegisterWordA (ANSI) function (immdev.h) registers a string with the dictionary of the IME associated with the specified input locale.
+     * @remarks
+     * An IME independent software vendor (ISV) can define private styles for an IME in the IME_REGWORD_STYLE_USER_FIRST and IME_REGWORD_STYLE_USER_LAST values. For example:
+     * 
+     * 
+     * ```cpp
      * @param {HKL} param0 
      * @param {PSTR} lpszReading Pointer to a null-terminated reading string associated with the string to register.
      * @param {Integer} param2 
      * @param {PSTR} lpszRegister Pointer to the null-terminated string to register.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immregisterworda
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immregisterworda
      * @since windows5.1.2600
      */
     static ImmRegisterWordA(param0, lpszReading, param2, lpszRegister) {
@@ -4180,13 +4479,18 @@ class Ime {
     }
 
     /**
-     * Registers a string with the dictionary of the IME associated with the specified input locale.
+     * The ImmRegisterWordW (Unicode) function (immdev.h) registers a string with the dictionary of the IME associated with the specified input locale.
+     * @remarks
+     * An IME independent software vendor (ISV) can define private styles for an IME in the IME_REGWORD_STYLE_USER_FIRST and IME_REGWORD_STYLE_USER_LAST values. For example:
+     * 
+     * 
+     * ```cpp
      * @param {HKL} param0 
      * @param {PWSTR} lpszReading Pointer to a null-terminated reading string associated with the string to register.
      * @param {Integer} param2 
      * @param {PWSTR} lpszRegister Pointer to the null-terminated string to register.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immregisterwordw
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immregisterwordw
      * @since windows5.1.2600
      */
     static ImmRegisterWordW(param0, lpszReading, param2, lpszRegister) {
@@ -4199,13 +4503,16 @@ class Ime {
     }
 
     /**
-     * Removes a register string from the dictionary of the IME associated with the specified input locale.
+     * The ImmUnregisterWordA (ANSI) function (immdev.h) removes a register string from the dictionary of the IME associated with the specified input locale.
+     * @remarks
+     * > [!NOTE]
+     * > The immdev.h header defines ImmUnregisterWord as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HKL} param0 
      * @param {PSTR} lpszReading Pointer to a null-terminated reading string associated with the string to remove.
      * @param {Integer} param2 
      * @param {PSTR} lpszUnregister Pointer to a null-terminated string specifying the register string to remove.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immunregisterworda
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immunregisterworda
      * @since windows5.1.2600
      */
     static ImmUnregisterWordA(param0, lpszReading, param2, lpszUnregister) {
@@ -4218,13 +4525,16 @@ class Ime {
     }
 
     /**
-     * Removes a register string from the dictionary of the IME associated with the specified input locale.
+     * The ImmUnregisterWordW (Unicode) function (immdev.h) removes a register string from the dictionary of the IME associated with the specified input locale.
+     * @remarks
+     * > [!NOTE]
+     * > The immdev.h header defines ImmUnregisterWord as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HKL} param0 
      * @param {PWSTR} lpszReading Pointer to a null-terminated reading string associated with the string to remove.
      * @param {Integer} param2 
      * @param {PWSTR} lpszUnregister Pointer to a null-terminated string specifying the register string to remove.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immunregisterwordw
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immunregisterwordw
      * @since windows5.1.2600
      */
     static ImmUnregisterWordW(param0, lpszReading, param2, lpszUnregister) {
@@ -4237,12 +4547,15 @@ class Ime {
     }
 
     /**
-     * Retrieves a list of the styles supported by the IME associated with the specified input locale.
+     * The ImmGetRegisterWordStyleA (ANSI) function (immdev.h) retrieves a list of the styles supported by the IME associated with the specified input locale.
+     * @remarks
+     * > [!NOTE]
+     * > The immdev.h header defines ImmGetRegisterWordStyle as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HKL} param0 
      * @param {Integer} nItem Maximum number of styles that the output buffer can hold. The application sets this parameter to 0 if the function is to count the number of styles available in the IME.
      * @param {Pointer<STYLEBUFA>} lpStyleBuf Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-stylebufa">STYLEBUF</a> structure in which the function retrieves the style information.
      * @returns {Integer} Returns the number of styles copied to the buffer. If the application sets the <i>nItem</i> parameter to 0, the return value is the number of styles available in the IME.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetregisterwordstylea
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetregisterwordstylea
      * @since windows5.1.2600
      */
     static ImmGetRegisterWordStyleA(param0, nItem, lpStyleBuf) {
@@ -4253,12 +4566,15 @@ class Ime {
     }
 
     /**
-     * Retrieves a list of the styles supported by the IME associated with the specified input locale.
+     * The ImmGetRegisterWordStyleW (Unicode) function (immdev.h) retrieves a list of the styles supported by the IME associated with the specified input locale.
+     * @remarks
+     * > [!NOTE]
+     * > The immdev.h header defines ImmGetRegisterWordStyle as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HKL} param0 
      * @param {Integer} nItem Maximum number of styles that the output buffer can hold. The application sets this parameter to 0 if the function is to count the number of styles available in the IME.
      * @param {Pointer<STYLEBUFW>} lpStyleBuf Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-stylebufa">STYLEBUF</a> structure in which the function retrieves the style information.
      * @returns {Integer} Returns the number of styles copied to the buffer. If the application sets the <i>nItem</i> parameter to 0, the return value is the number of styles available in the IME.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetregisterwordstylew
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetregisterwordstylew
      * @since windows5.1.2600
      */
     static ImmGetRegisterWordStyleW(param0, nItem, lpStyleBuf) {
@@ -4269,7 +4585,12 @@ class Ime {
     }
 
     /**
-     * Enumerates the register strings having the specified reading string, style, and register string.
+     * The ImmEnumRegisterWordA (ANSI) function (immdev.h) enumerates the register strings having the specified reading string, style, and register string.
+     * @remarks
+     * If <i>dwStyle</i> is set to 0 and both <i>lpszReading</i> and <i>lpszRegister</i> are set to <b>NULL</b>, this function enumerates all register strings in the IME dictionary.
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmEnumRegisterWord as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HKL} param0 
      * @param {Pointer<REGISTERWORDENUMPROCA>} param1 
      * @param {PSTR} lpszReading Pointer to the reading string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all available reading strings that match the <i>dwStyle</i> and <i>lpszRegister</i> settings.
@@ -4277,7 +4598,7 @@ class Ime {
      * @param {PSTR} lpszRegister Pointer to the register string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all register strings that match the <i>lpszReading</i> and <i>dwStyle</i> settings.
      * @param {Pointer<Void>} param5 
      * @returns {Integer} Returns the last value returned by the callback function, with the meaning defined by the application. The function returns 0 if it cannot enumerate the register strings.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immenumregisterworda
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immenumregisterworda
      * @since windows5.1.2600
      */
     static ImmEnumRegisterWordA(param0, param1, lpszReading, param3, lpszRegister, param5) {
@@ -4292,7 +4613,12 @@ class Ime {
     }
 
     /**
-     * Enumerates the register strings having the specified reading string, style, and register string.
+     * The ImmEnumRegisterWordW (Unicode) function (immdev.h) enumerates the register strings having the specified reading string, style, and register string.
+     * @remarks
+     * If <i>dwStyle</i> is set to 0 and both <i>lpszReading</i> and <i>lpszRegister</i> are set to <b>NULL</b>, this function enumerates all register strings in the IME dictionary.
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmEnumRegisterWord as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HKL} param0 
      * @param {Pointer<REGISTERWORDENUMPROCW>} param1 
      * @param {PWSTR} lpszReading Pointer to the reading string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all available reading strings that match the <i>dwStyle</i> and <i>lpszRegister</i> settings.
@@ -4300,7 +4626,7 @@ class Ime {
      * @param {PWSTR} lpszRegister Pointer to the register string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all register strings that match the <i>lpszReading</i> and <i>dwStyle</i> settings.
      * @param {Pointer<Void>} param5 
      * @returns {Integer} Returns the last value returned by the callback function, with the meaning defined by the application. The function returns 0 if it cannot enumerate the register strings.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immenumregisterwordw
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immenumregisterwordw
      * @since windows5.1.2600
      */
     static ImmEnumRegisterWordW(param0, param1, lpszReading, param3, lpszRegister, param5) {
@@ -4315,10 +4641,17 @@ class Ime {
     }
 
     /**
-     * Disables the IME for a thread or for all threads in a process.
+     * The ImmDisableIME function (immdev.h) disables the IME for a thread or for all threads in a process.
+     * @remarks
+     * The application must call this function before the first top-level window in the thread receives the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-create">WM_CREATE</a> message. Thus, the application must call this function in one of the following places:
+     * 
+     * <ul>
+     * <li>Any time before calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a> to create the first top-level window</li>
+     * <li>In the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-nccreate">WM_NCCREATE</a> handler for first top-level window</li>
+     * </ul>
      * @param {Integer} param0 
      * @returns {BOOL} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immdisableime
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immdisableime
      * @since windows5.1.2600
      */
     static ImmDisableIME(param0) {
@@ -4327,12 +4660,14 @@ class Ime {
     }
 
     /**
-     * Retrieves the input context for the specified thread.
+     * The ImmEnumInputContext function (immdev.h) retrieves the input context for the specified thread.
+     * @remarks
+     * This function calls the application callback function for each enumerated input context, and passes the specified <i>lParam</i> value.
      * @param {Integer} idThread 
      * @param {Pointer<IMCENUMPROC>} lpfn Pointer to the enumeration callback function. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/imm/nc-imm-imcenumproc">EnumInputContext</a>.
      * @param {LPARAM} lParam Application-supplied data. The function passes this data to the callback function.
      * @returns {BOOL} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immenuminputcontext
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immenuminputcontext
      * @since windows5.1.2600
      */
     static ImmEnumInputContext(idThread, lpfn, lParam) {
@@ -4341,7 +4676,10 @@ class Ime {
     }
 
     /**
-     * Retrieves the menu items that are registered in the IME menu of a specified input context.
+     * The ImmGetImeMenuItemsA (ANSI) function (immdev.h) retrieves the menu items that are registered in the IME menu of a specified input context.
+     * @remarks
+     * > [!NOTE]
+     * > The immdev.h header defines ImmGetImeMenuItems as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
@@ -4349,7 +4687,7 @@ class Ime {
      * @param {Pointer} lpImeMenu Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structures in which the function retrieves information about the menu items. This parameter contains <b>NULL</b> if the function retrieves the number of registered menu items.
      * @param {Integer} dwSize Size of the buffer to receive the <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structure.
      * @returns {Integer} Returns the number of menu items copied into <i>lpImeMenu</i>. If <i>lpImeMenu</i> specifies <b>NULL</b>, the function returns the number of registered menu items in the specified input context.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetimemenuitemsa
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetimemenuitemsa
      * @since windows5.1.2600
      */
     static ImmGetImeMenuItemsA(param0, param1, param2, lpImeParentMenu, lpImeMenu, dwSize) {
@@ -4360,7 +4698,10 @@ class Ime {
     }
 
     /**
-     * Retrieves the menu items that are registered in the IME menu of a specified input context.
+     * The ImmGetImeMenuItemsW (Unicode) function (immdev.h) retrieves the menu items that are registered in the IME menu of a specified input context.
+     * @remarks
+     * > [!NOTE]
+     * > The immdev.h header defines ImmGetImeMenuItems as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
@@ -4368,7 +4709,7 @@ class Ime {
      * @param {Pointer} lpImeMenu Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structures in which the function retrieves information about the menu items. This parameter contains <b>NULL</b> if the function retrieves the number of registered menu items.
      * @param {Integer} dwSize Size of the buffer to receive the <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structure.
      * @returns {Integer} Returns the number of menu items copied into <i>lpImeMenu</i>. If <i>lpImeMenu</i> specifies <b>NULL</b>, the function returns the number of registered menu items in the specified input context.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetimemenuitemsw
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immgetimemenuitemsw
      * @since windows5.1.2600
      */
     static ImmGetImeMenuItemsW(param0, param1, param2, lpImeParentMenu, lpImeMenu, dwSize) {
@@ -4379,10 +4720,14 @@ class Ime {
     }
 
     /**
-     * ImmDisableTextFrameService is no longer available for use as of Windows Vista.
+     * The ImmDisableTextFrameService function (immdev.h) is no longer available for use as of Windows Vista.
+     * @remarks
+     * An application calls this function if it has a thread that is incompatible with TSF.
+     * 
+     * Note that TSF functionality is provided to applications that are not specifically written to use TSF, Input Method Manager (IMM32), or Active Input Method Manager (AIMM 1.2). Although an application can be written to use TSF, IMM32, and AIMM 1.2, there can be specific controls within the application that do not use these technologies. TSF support is provided to these specific controls as well. This TSF feature is available beginning with Windows XP when all of these dynamic-link libraries (DLLs) are loaded: system modules User32.dll, Imm32.dll, and Win32k.sys, and TSF modules Msctf.dll and Msimtf.dll.
      * @param {Integer} idThread Identifier of the thread for which to disable the text service. The thread must be in the same process as the application. The application sets this parameter to 0 to disable the service for the current thread. The application sets the parameter to –1 to disable the service for all threads in the current process.
      * @returns {BOOL} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immdisabletextframeservice
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immdisabletextframeservice
      * @since windows5.1.2600
      */
     static ImmDisableTextFrameService(idThread) {
@@ -4391,8 +4736,17 @@ class Ime {
     }
 
     /**
+     * The ImmDisableLegacyIME function (immdev.h) indicates that this thread is a Windows Store app UI thread.
+     * @remarks
+     * Windows Store app brokers such as explorer.exe should call this function in Windows Store app UI threads to ensure that only IMEs that are compatible with  Windows Store apps are made available.  Those Windows Store app threads that don't require IME input should call <a href="https://docs.microsoft.com/windows/desktop/api/imm/nf-imm-immdisableime">ImmDisableIME</a> to disable IMM entirely for that thread.
      * 
-     * @returns {BOOL} 
+     * The app must call this function before the first top-level window in the thread receives the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-create">WM_CREATE</a> message. Thus, the app must call this function in one of the following places:
+     * 
+     * <ul>
+     * <li>Any time before  <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a> is called to create the first top-level window.</li>
+     * <li>In the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-nccreate">WM_NCCREATE</a> handler for the first top-level window.</li>
+     * </ul>
+     * @returns {BOOL} Returns <b>TRUE</b> if successful;   otherwise, <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immdisablelegacyime
      * @since windows8.0
      */
@@ -4445,12 +4799,21 @@ class Ime {
     }
 
     /**
-     * Generates a WM_IME_REQUEST message.
+     * Generates a WM_IME_REQUEST message. (ANSI)
+     * @remarks
+     * IME must use this function instead of sending the <a href="https://docs.microsoft.com/windows/desktop/Intl/wm-ime-request">WM_IME_REQUEST</a> message to the application in a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/oe/oe-ihttpmailtransport-sendmessage">SendMessage</a>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmRequestMessage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
      * @param {WPARAM} param1 
      * @param {LPARAM} param2 
      * @returns {LRESULT} Returns an operation-specific value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//immdev/nf-immdev-immrequestmessagea
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immrequestmessagea
      * @since windows5.1.2600
      */
     static ImmRequestMessageA(param0, param1, param2) {
@@ -4461,12 +4824,21 @@ class Ime {
     }
 
     /**
-     * Generates a WM_IME_REQUEST message.
+     * Generates a WM_IME_REQUEST message. (Unicode)
+     * @remarks
+     * IME must use this function instead of sending the <a href="https://docs.microsoft.com/windows/desktop/Intl/wm-ime-request">WM_IME_REQUEST</a> message to the application in a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/oe/oe-ihttpmailtransport-sendmessage">SendMessage</a>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The immdev.h header defines ImmRequestMessage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HIMC} param0 
      * @param {WPARAM} param1 
      * @param {LPARAM} param2 
      * @returns {LRESULT} Returns an operation-specific value if successful, or 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//immdev/nf-immdev-immrequestmessagew
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immrequestmessagew
      * @since windows5.1.2600
      */
     static ImmRequestMessageW(param0, param1, param2) {
@@ -4488,7 +4860,8 @@ class Ime {
         param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
 
         result := DllCall("IMM32.dll\ImmCreateSoftKeyboard", "uint", param0, "ptr", param1, "int", param2, "int", param3, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -4559,7 +4932,8 @@ class Ime {
      */
     static ImmCreateIMCC(param0) {
         result := DllCall("IMM32.dll\ImmCreateIMCC", "uint", param0, "ptr")
-        return HIMCC({Value: result}, True)
+        resultHandle := HIMCC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -4571,7 +4945,8 @@ class Ime {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("IMM32.dll\ImmDestroyIMCC", "ptr", param0, "ptr")
-        return HIMCC({Value: result}, True)
+        resultHandle := HIMCC({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -4620,7 +4995,8 @@ class Ime {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("IMM32.dll\ImmReSizeIMCC", "ptr", param0, "uint", param1, "ptr")
-        return HIMCC({Value: result}, True)
+        resultHandle := HIMCC({Value: result}, True)
+        return resultHandle
     }
 
     /**

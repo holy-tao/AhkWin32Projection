@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The BCRYPT_HASH_OPERATION_TYPE enumeration specifies the hash operation type.
- * @see https://docs.microsoft.com/windows/win32/api//bcrypt/ne-bcrypt-bcrypt_hash_operation_type
+ * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ne-bcrypt-bcrypt_hash_operation_type
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
-class BCRYPT_HASH_OPERATION_TYPE{
+class BCRYPT_HASH_OPERATION_TYPE extends Win32Enum{
 
     /**
      * Equivalent to calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcrypthashdata">BCryptHashData</a> function.

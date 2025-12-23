@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of volume shadow copy protection levels.
  * @remarks
- * 
  * When a volume is in shadow copy protection mode, requesters must set shadow copy storage area (diff area) associations using the <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-adddiffarea">IVssDifferentialSoftwareSnapshotMgmt::AddDiffArea</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/ne-vsmgmt-vss_protection_level
+ * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/ne-vsmgmt-vss_protection_level
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_PROTECTION_LEVEL{
+class VSS_PROTECTION_LEVEL extends Win32Enum{
 
     /**
      * Specifies that I/O to the original volume must be maintained at the expense of shadow copies. This is the default protection level. Shadow copies might be deleted if both of the following conditions occur:

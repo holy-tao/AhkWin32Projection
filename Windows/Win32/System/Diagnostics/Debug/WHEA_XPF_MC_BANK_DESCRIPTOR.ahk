@@ -42,7 +42,7 @@ class WHEA_XPF_MC_BANK_DESCRIPTOR extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := XPF_MC_BANK_FLAGS(4, this)
+                this.__Flags := XPF_MC_BANK_FLAGS(3, this)
             return this.__Flags
         }
     }

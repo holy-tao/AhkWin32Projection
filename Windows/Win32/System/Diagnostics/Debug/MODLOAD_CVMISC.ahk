@@ -3,7 +3,7 @@
 
 /**
  * Contains CodeView and Misc records.
- * @see https://docs.microsoft.com/windows/win32/api//dbghelp/ns-dbghelp-modload_cvmisc
+ * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-modload_cvmisc
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

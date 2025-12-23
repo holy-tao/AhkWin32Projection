@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The VSS_SNAPSHOT_COMPATIBILITY enumeration indicates which volume control or file I/O operations are disabled for the volume that has been shadow copied.
- * @see https://docs.microsoft.com/windows/win32/api//vss/ne-vss-vss_snapshot_compatibility
+ * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_snapshot_compatibility
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_SNAPSHOT_COMPATIBILITY{
+class VSS_SNAPSHOT_COMPATIBILITY extends Win32Enum{
 
     /**
      * The provider managing the shadow copies for a specified volume does not support defragmentation operations 

@@ -15,7 +15,7 @@
  */
 class USB_PORT_EXT_STATUS_AND_CHANGE extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 40
 
     static packingSize => 1
 
@@ -44,7 +44,7 @@ class USB_PORT_EXT_STATUS_AND_CHANGE extends Win32Struct
     PortExtStatus{
         get {
             if(!this.HasProp("__PortExtStatus"))
-                this.__PortExtStatus := USB_PORT_EXT_STATUS(40, this)
+                this.__PortExtStatus := USB_PORT_EXT_STATUS(24, this)
             return this.__PortExtStatus
         }
     }

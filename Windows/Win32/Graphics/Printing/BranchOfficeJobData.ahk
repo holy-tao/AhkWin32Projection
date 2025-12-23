@@ -16,6 +16,67 @@ class BranchOfficeJobData extends Win32Struct
 
     static packingSize => 8
 
+    class _JobInfo_e__Union extends Win32Struct {
+        static sizeof => 88
+        static packingSize => 8
+
+        /**
+         * @type {BranchOfficeJobDataPrinted}
+         */
+        LogJobPrinted{
+            get {
+                if(!this.HasProp("__LogJobPrinted"))
+                    this.__LogJobPrinted := BranchOfficeJobDataPrinted(0, this)
+                return this.__LogJobPrinted
+            }
+        }
+    
+        /**
+         * @type {BranchOfficeJobDataRendered}
+         */
+        LogJobRendered{
+            get {
+                if(!this.HasProp("__LogJobRendered"))
+                    this.__LogJobRendered := BranchOfficeJobDataRendered(0, this)
+                return this.__LogJobRendered
+            }
+        }
+    
+        /**
+         * @type {BranchOfficeJobDataError}
+         */
+        LogJobError{
+            get {
+                if(!this.HasProp("__LogJobError"))
+                    this.__LogJobError := BranchOfficeJobDataError(0, this)
+                return this.__LogJobError
+            }
+        }
+    
+        /**
+         * @type {BranchOfficeJobDataPipelineFailed}
+         */
+        LogPipelineFailed{
+            get {
+                if(!this.HasProp("__LogPipelineFailed"))
+                    this.__LogPipelineFailed := BranchOfficeJobDataPipelineFailed(0, this)
+                return this.__LogPipelineFailed
+            }
+        }
+    
+        /**
+         * @type {BranchOfficeLogOfflineFileFull}
+         */
+        LogOfflineFileFull{
+            get {
+                if(!this.HasProp("__LogOfflineFileFull"))
+                    this.__LogOfflineFileFull := BranchOfficeLogOfflineFileFull(0, this)
+                return this.__LogOfflineFileFull
+            }
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -33,57 +94,13 @@ class BranchOfficeJobData extends Win32Struct
     }
 
     /**
-     * @type {BranchOfficeJobDataPrinted}
+     * @type {_JobInfo_e__Union}
      */
-    LogJobPrinted{
+    JobInfo{
         get {
-            if(!this.HasProp("__LogJobPrinted"))
-                this.__LogJobPrinted := BranchOfficeJobDataPrinted(8, this)
-            return this.__LogJobPrinted
-        }
-    }
-
-    /**
-     * @type {BranchOfficeJobDataRendered}
-     */
-    LogJobRendered{
-        get {
-            if(!this.HasProp("__LogJobRendered"))
-                this.__LogJobRendered := BranchOfficeJobDataRendered(8, this)
-            return this.__LogJobRendered
-        }
-    }
-
-    /**
-     * @type {BranchOfficeJobDataError}
-     */
-    LogJobError{
-        get {
-            if(!this.HasProp("__LogJobError"))
-                this.__LogJobError := BranchOfficeJobDataError(8, this)
-            return this.__LogJobError
-        }
-    }
-
-    /**
-     * @type {BranchOfficeJobDataPipelineFailed}
-     */
-    LogPipelineFailed{
-        get {
-            if(!this.HasProp("__LogPipelineFailed"))
-                this.__LogPipelineFailed := BranchOfficeJobDataPipelineFailed(8, this)
-            return this.__LogPipelineFailed
-        }
-    }
-
-    /**
-     * @type {BranchOfficeLogOfflineFileFull}
-     */
-    LogOfflineFileFull{
-        get {
-            if(!this.HasProp("__LogOfflineFileFull"))
-                this.__LogOfflineFileFull := BranchOfficeLogOfflineFileFull(8, this)
-            return this.__LogOfflineFileFull
+            if(!this.HasProp("__JobInfo"))
+                this.__JobInfo := %this.__Class%._JobInfo_e__Union(8, this)
+            return this.__JobInfo
         }
     }
 }

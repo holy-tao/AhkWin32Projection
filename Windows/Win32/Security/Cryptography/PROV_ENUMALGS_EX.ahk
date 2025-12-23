@@ -3,7 +3,7 @@
 
 /**
  * Used with the CryptGetProvParam function when the PP_ENUMALGS_EX parameter is retrieved to contain information about an algorithm supported by a cryptographic service provider (CSP).
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-prov_enumalgs_ex
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-prov_enumalgs_ex
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the response when a credential provider attempts to serialize credentials.
- * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/ne-credentialprovider-credential_provider_get_serialization_response
+ * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_get_serialization_response
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class CREDENTIAL_PROVIDER_GET_SERIALIZATION_RESPONSE{
+class CREDENTIAL_PROVIDER_GET_SERIALIZATION_RESPONSE extends Win32Enum{
 
     /**
      * No credential was serialized because more information is needed. One example of this would be if a credential requires both a PIN and an answer to a secret question, but the user has only provided the PIN. This signals the caller should be given a chance to alter its response.

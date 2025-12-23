@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The NL_ROUTER_DISCOVERY_BEHAVIOR enumeration type defines the router discovery behavior, as described in RFC 2461.
  * @remarks
- * 
  * For more information about RFC 2461, see the 
  *     <a href="https://www.ietf.org/rfc/rfc2461.txt">Neighbor Discovery for IP Version 6
  *     (IPv6)</a> memo by the Network Working Group.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//nldef/ne-nldef-nl_router_discovery_behavior
+ * @see https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_router_discovery_behavior
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
-class NL_ROUTER_DISCOVERY_BEHAVIOR{
+class NL_ROUTER_DISCOVERY_BEHAVIOR extends Win32Enum{
 
     /**
      * Router discovery is disabled.

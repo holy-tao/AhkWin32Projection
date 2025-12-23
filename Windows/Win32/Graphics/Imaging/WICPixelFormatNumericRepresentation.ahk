@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify a primitive type for numeric representation of a WIC pixel format.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicpixelformatnumericrepresentation
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicpixelformatnumericrepresentation
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICPixelFormatNumericRepresentation{
+class WICPixelFormatNumericRepresentation extends Win32Enum{
 
     /**
      * The format is not specified.

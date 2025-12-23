@@ -12,7 +12,7 @@ class SLIST_HEADER extends Win32Struct
     static packingSize => 8
 
     class _HeaderX64 extends Win32Struct {
-        static sizeof => 32
+        static sizeof => 16
         static packingSize => 8
 
         /**

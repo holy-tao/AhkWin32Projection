@@ -6,15 +6,15 @@
 
 /**
  * Contains power policy settings that are unique to each power scheme.
- * @see https://docs.microsoft.com/windows/win32/api//powrprof/ns-powrprof-power_policy
+ * @see https://learn.microsoft.com/windows/win32/api/powrprof/ns-powrprof-power_policy
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */
 class POWER_POLICY extends Win32Struct
 {
-    static sizeof => 160
+    static sizeof => 144
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A 
@@ -37,7 +37,7 @@ class POWER_POLICY extends Win32Struct
     mach{
         get {
             if(!this.HasProp("__mach"))
-                this.__mach := MACHINE_POWER_POLICY(88, this)
+                this.__mach := MACHINE_POWER_POLICY(80, this)
             return this.__mach
         }
     }

@@ -4,11 +4,8 @@
 /**
  * Describes the subresources from an array of multi sampled 2D textures to use in a render-target view.
  * @remarks
- * 
  * Use this structure with a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_render_target_view_desc">D3D12_RENDER_TARGET_VIEW_DESC</a> structure to view the resource as an array of multi sampled 2D textures.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_tex2dms_array_rtv
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_tex2dms_array_rtv
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

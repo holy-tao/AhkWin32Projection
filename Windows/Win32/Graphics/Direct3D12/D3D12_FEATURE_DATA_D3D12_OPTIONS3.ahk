@@ -3,7 +3,7 @@
 
 /**
  * Indicates the level of support that the adapter provides for timestamp queries, format-casting, immediate write, view instancing, and barycentrics.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_feature_data_d3d12_options3
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options3
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

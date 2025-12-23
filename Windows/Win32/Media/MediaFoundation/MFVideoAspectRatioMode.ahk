@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the aspect-ratio mode.
- * @see https://docs.microsoft.com/windows/win32/api//evr/ne-evr-mfvideoaspectratiomode
+ * @see https://learn.microsoft.com/windows/win32/api/evr/ne-evr-mfvideoaspectratiomode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFVideoAspectRatioMode{
+class MFVideoAspectRatioMode extends Win32Enum{
 
     /**
      * Do not maintain the aspect ratio of the video. Stretch the video to fit the output rectangle.

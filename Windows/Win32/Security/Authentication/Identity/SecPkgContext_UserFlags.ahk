@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * Holds the user flags.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_userflags
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -14,6 +16,7 @@ class SecPkgContext_UserFlags extends Win32Struct
     static packingSize => 4
 
     /**
+     * A set of flags that indicate the user's capabilities.
      * @type {Integer}
      */
     UserFlags {

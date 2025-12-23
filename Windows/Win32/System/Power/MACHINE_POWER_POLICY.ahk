@@ -5,19 +5,16 @@
 /**
  * Contains computer power policy settings that are unique to each power scheme on the computer.
  * @remarks
- * 
  * <b>DozeS4TimeoutAc</b> and <b>DozeS4TimeoutDc</b>  correspond to the <b>DozeS4Timeout</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_power_policy">SYSTEM_POWER_POLICY</a>. These values are merged from the machine power policy to the system power policy when the <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-setactivepwrscheme">SetActivePwrScheme</a> function is called to apply a power scheme.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//powrprof/ns-powrprof-machine_power_policy
+ * @see https://learn.microsoft.com/windows/win32/api/powrprof/ns-powrprof-machine_power_policy
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */
 class MACHINE_POWER_POLICY extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The current structure revision level. Set this value by calling <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-getcurrentpowerpolicies">GetCurrentPowerPolicies</a> or  <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-readpwrscheme">ReadPwrScheme</a> before using a <b>MACHINE_POWER_POLICY</b> structure to set power policy.
@@ -157,7 +154,7 @@ class MACHINE_POWER_POLICY extends Win32Struct
     OverThrottledDc{
         get {
             if(!this.HasProp("__OverThrottledDc"))
-                this.__OverThrottledDc := POWER_ACTION_POLICY(56, this)
+                this.__OverThrottledDc := POWER_ACTION_POLICY(52, this)
             return this.__OverThrottledDc
         }
     }

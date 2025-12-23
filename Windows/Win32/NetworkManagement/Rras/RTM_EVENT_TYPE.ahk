@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The RTM_EVENT_TYPE enumeration enumerates the events that the routing table manager can notify the client about using the RTM_EVENT_CALLBACK callback.
- * @see https://docs.microsoft.com/windows/win32/api//rtmv2/ne-rtmv2-rtm_event_type
+ * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ne-rtmv2-rtm_event_type
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */
-class RTM_EVENT_TYPE{
+class RTM_EVENT_TYPE extends Win32Enum{
 
     /**
      * A client has just registered with the routing table manager.

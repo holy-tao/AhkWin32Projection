@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how memory gets routed by a shader resource view (SRV).
  * @remarks
- * 
  * This enum allows the SRV to select how memory gets routed to the four return components in a shader after a memory fetch. The options for each shader component [0..3] (corresponding to RGBA) are: component 0..3 from the SRV fetch result or force 0 or force 1.        
  * 
  * The default 1:1 mapping can be indicated by specifying **D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING**, otherwise an arbitrary mapping can be specified using the macro **D3D12_ENCODE_SHADER_4_COMPONENT_MAPPING**.
@@ -13,12 +13,11 @@
  * Note the following defines.
  * 
  * ```cpp
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_shader_component_mapping
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_shader_component_mapping
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_SHADER_COMPONENT_MAPPING{
+class D3D12_SHADER_COMPONENT_MAPPING extends Win32Enum{
 
     /**
      * Indicates return component 0 (red).

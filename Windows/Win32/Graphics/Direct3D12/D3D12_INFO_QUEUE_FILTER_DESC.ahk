@@ -2,13 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Allow or deny certain types of messages to pass through a filter.
+ * Allow or deny certain types of messages to pass through a filter. (D3D12_INFO_QUEUE_FILTER_DESC)
  * @remarks
- * 
  * For use with an <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12infoqueue">ID3D12InfoQueue</a> Interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/ns-d3d12sdklayers-d3d12_info_queue_filter_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/ns-d3d12sdklayers-d3d12_info_queue_filter_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

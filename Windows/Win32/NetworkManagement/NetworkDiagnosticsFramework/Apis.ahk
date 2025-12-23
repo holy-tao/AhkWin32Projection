@@ -175,16 +175,17 @@ class NetworkDiagnosticsFramework {
      * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
      * 
      * A handle to the Network Diagnostics Framework incident.
-     * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreateincident
-     * @deprecated
+     * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreateincident
+     * @deprecated NdfCreateIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
      */
     static NdfCreateIncident(helperClassName, celt, attributes) {
         helperClassName := helperClassName is String ? StrPtr(helperClassName) : helperClassName
 
         result := DllCall("NDFAPI.dll\NdfCreateIncident", "ptr", helperClassName, "uint", celt, "ptr", attributes, "ptr*", &handle := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return handle
     }
@@ -209,8 +210,8 @@ class NetworkDiagnosticsFramework {
      * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreatewinsockincident
-     * @deprecated
+     * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreatewinsockincident
+     * @deprecated NdfCreateWinSockIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
      */
     static NdfCreateWinSockIncident(sock, host, port, appId, userId) {
@@ -219,36 +220,38 @@ class NetworkDiagnosticsFramework {
         appId := appId is String ? StrPtr(appId) : appId
 
         result := DllCall("NDFAPI.dll\NdfCreateWinSockIncident", "ptr", sock, "ptr", host, "ushort", port, "ptr", appId, "ptr", userId, "ptr*", &handle := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return handle
     }
 
     /**
-     * Diagnoses web connectivity problems.
+     * Diagnoses web connectivity problems. (NdfCreateWebIncident)
      * @param {PWSTR} url Type: <b>LPCWSTR</b>
      * 
      * The URL with which there is a connectivity issue.
      * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreatewebincident
-     * @deprecated
+     * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreatewebincident
+     * @deprecated NdfCreateWebIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
      */
     static NdfCreateWebIncident(url) {
         url := url is String ? StrPtr(url) : url
 
         result := DllCall("NDFAPI.dll\NdfCreateWebIncident", "ptr", url, "ptr*", &handle := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return handle
     }
 
     /**
-     * Diagnoses web connectivity problems.
+     * Diagnoses web connectivity problems. (NdfCreateWebIncidentEx)
      * @param {PWSTR} url Type: <b>LPCWSTR</b>
      * 
      * The URL with which there is a connectivity issue.
@@ -261,8 +264,8 @@ class NetworkDiagnosticsFramework {
      * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreatewebincidentex
-     * @deprecated
+     * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreatewebincidentex
+     * @deprecated NdfCreateWebIncidentEx is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
      */
     static NdfCreateWebIncidentEx(url, useWinHTTP, moduleName) {
@@ -270,8 +273,9 @@ class NetworkDiagnosticsFramework {
         moduleName := moduleName is String ? StrPtr(moduleName) : moduleName
 
         result := DllCall("NDFAPI.dll\NdfCreateWebIncidentEx", "ptr", url, "int", useWinHTTP, "ptr", moduleName, "ptr*", &handle := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return handle
     }
@@ -284,16 +288,17 @@ class NetworkDiagnosticsFramework {
      * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreatesharingincident
-     * @deprecated
+     * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreatesharingincident
+     * @deprecated NdfCreateSharingIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
      */
     static NdfCreateSharingIncident(UNCPath) {
         UNCPath := UNCPath is String ? StrPtr(UNCPath) : UNCPath
 
         result := DllCall("NDFAPI.dll\NdfCreateSharingIncident", "ptr", UNCPath, "ptr*", &handle := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return handle
     }
@@ -311,16 +316,17 @@ class NetworkDiagnosticsFramework {
      * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreatednsincident
-     * @deprecated
+     * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreatednsincident
+     * @deprecated NdfCreateDNSIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
      */
     static NdfCreateDNSIncident(hostname, queryType) {
         hostname := hostname is String ? StrPtr(hostname) : hostname
 
         result := DllCall("NDFAPI.dll\NdfCreateDNSIncident", "ptr", hostname, "ushort", queryType, "ptr*", &handle := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return handle
     }
@@ -330,14 +336,15 @@ class NetworkDiagnosticsFramework {
      * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreateconnectivityincident
-     * @deprecated
+     * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreateconnectivityincident
+     * @deprecated NdfCreateConnectivityIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
      */
     static NdfCreateConnectivityIncident() {
         result := DllCall("NDFAPI.dll\NdfCreateConnectivityIncident", "ptr*", &handle := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return handle
     }
@@ -352,20 +359,26 @@ class NetworkDiagnosticsFramework {
      * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreatenetconnectionincident
-     * @deprecated
+     * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreatenetconnectionincident
+     * @deprecated NdfCreateNetConnectionIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows8.0
      */
     static NdfCreateNetConnectionIncident(id) {
         result := DllCall("NDFAPI.dll\NdfCreateNetConnectionIncident", "ptr*", &handle := 0, "ptr", id, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return handle
     }
 
     /**
      * Creates a session to diagnose issues with the Peer Name Resolution Protocol (PNRP) service.
+     * @remarks
+     * The level of diagnosis performed depends on the parameters supplied. The availability of the PNRP service and the availability of the IPv6 networking class will be diagnosed, and additional diagnosis will be performed if certain parameters are supplied.<ul>
+     * <li>If <i>peername</i> is specified, NDF will validate the availability of that peer in the PNRP network.</li>
+     * <li>If <i>diagnosePublish</i> is specified, NDF will validate the ability to publish a name in PNRP.</li>
+     * </ul>
      * @param {PWSTR} cloudname Type: <b>LPCWSTR</b>
      * 
      * The name of the cloud to be diagnosed.
@@ -381,8 +394,8 @@ class NetworkDiagnosticsFramework {
      * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreatepnrpincident
-     * @deprecated
+     * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreatepnrpincident
+     * @deprecated NdfCreatePnrpIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.1
      */
     static NdfCreatePnrpIncident(cloudname, peername, diagnosePublish, appId) {
@@ -391,14 +404,24 @@ class NetworkDiagnosticsFramework {
         appId := appId is String ? StrPtr(appId) : appId
 
         result := DllCall("NDFAPI.dll\NdfCreatePnrpIncident", "ptr", cloudname, "ptr", peername, "int", diagnosePublish, "ptr", appId, "ptr*", &handle := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return handle
     }
 
     /**
      * Creates a session to diagnose peer-to-peer grouping functionality issues.
+     * @remarks
+     * The level of diagnosis performed depends on the parameters supplied.<ul>
+     * <li>If no parameters are specified, NDF will validate the grouping service status, the status of peer-to-peer services (PNRP and Identity Manager), and Windows clock synchronization.</li>
+     * <li>If <i>CloudName</i> is specified, NDF will validate grouping functionality in that cloud.</li>
+     * <li>If <i>GroupName</i> is specified, NDF will validate that the name can be resolved in PNRP (or invoke the PNRP helper class if the name cannot be resolved) and validate the firewall settings for grouping.</li>
+     * <li>If <i>Identity</i> is specified, NDF will validate PNRP's ability to register the <i>GroupName</i> with this Identity. If this fails, the PNRP helper class will be invoked.</li>
+     * <li>If <i>Invitation</i> is specified, the <i>GroupName</i> will be derived from the Invitation (if a <i>GroupName</i> was not also specified) and NDF will validate the invitation's format and status.</li>
+     * <li>If <i>Addresses</i> is specified, NDF will validate whether Windows can connect to up to three of these addresses.</li>
+     * </ul>
      * @param {PWSTR} CloudName Type: <b>LPCWSTR</b>
      * 
      * The name of the Peer Name Resolution Protocol (PNRP) cloud where the group is created. If  <b>NULL</b>, the session will  not attempt to diagnose issues related to PNRP.
@@ -420,8 +443,8 @@ class NetworkDiagnosticsFramework {
      * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreategroupingincident
-     * @deprecated
+     * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreategroupingincident
+     * @deprecated NdfCreateGroupingIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.1
      */
     static NdfCreateGroupingIncident(CloudName, GroupName, Identity, Invitation, Addresses, appId) {
@@ -432,8 +455,9 @@ class NetworkDiagnosticsFramework {
         appId := appId is String ? StrPtr(appId) : appId
 
         result := DllCall("NDFAPI.dll\NdfCreateGroupingIncident", "ptr", CloudName, "ptr", GroupName, "ptr", Identity, "ptr", Invitation, "ptr", Addresses, "ptr", appId, "ptr*", &handle := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return handle
     }
@@ -478,8 +502,8 @@ class NetworkDiagnosticsFramework {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfexecutediagnosis
-     * @deprecated
+     * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfexecutediagnosis
+     * @deprecated NdfExecuteDiagnosis is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
      */
     static NdfExecuteDiagnosis(handle, hwnd) {
@@ -488,8 +512,9 @@ class NetworkDiagnosticsFramework {
         handleMarshal := handle is VarRef ? "ptr" : "ptr"
 
         result := DllCall("NDFAPI.dll\NdfExecuteDiagnosis", handleMarshal, handle, "ptr", hwnd, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -520,22 +545,54 @@ class NetworkDiagnosticsFramework {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcloseincident
-     * @deprecated
+     * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcloseincident
+     * @deprecated NdfCloseIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
      */
     static NdfCloseIncident(handle) {
         handleMarshal := handle is VarRef ? "ptr" : "ptr"
 
         result := DllCall("NDFAPI.dll\NdfCloseIncident", handleMarshal, handle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Diagnoses the root cause of an incident without displaying a user interface.
+     * @remarks
+     * This function is intended for use with scenarios where no user interface is shown, or where the standard Windows experience is not being used (as with Media Center and  embedded applications). <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfexecutediagnosis">NdfExecuteDiagnosis</a> will launch the diagnostics user interface, and should be used in scenarios using the standard Windows experience. You can call either <b>NdfExecuteDiagnosis</b> or <b>NdfDiagnoseIncident</b>, but not both.
+     * 
+     * Before using this API, an application must call an incident creation function such as <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfcreatewebincident">NdfCreateWebIncident</a> to begin the NDF diagnostics process. The application then calls <b>NdfDiagnoseIncident</b> to diagnose the issue. If the diagnostics process identifies some possible repairs, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfrepairincident">NdfRepairIncident</a> to repair the problem without displaying a user interface. <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfcancelincident">NdfCancelIncident</a> can optionally be called from a separate thread if the application wants to cancel an ongoing <b>NdfDiagnoseIncident</b> call. Finally, the application calls <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfcloseincident">NdfCloseIncident</a>.
+     * 
+     * The following table shows some examples of root causes and their corresponding repairs.<table>
+     * <tr>
+     * <td>Root cause  GUID</td>
+     * <td>Repair GUID</td>
+     * <td>Root cause description</td>
+     * <td>Repair description</td>
+     * </tr>
+     * <tr>
+     * <td>{4DA030B8-86E5-4b6a-A879-2FFF8443B527}</td>
+     * <td>{1296DFF0-D04E-4be1-A512-90F04DDFA3E6}</td>
+     * <td>A network cable is not properly plugged in or may be broken.</td>
+     * <td>Plug an Ethernet cable into this computer.\nAn Ethernet cable looks like a telephone cable but with larger connectors on the ends. Plug this cable into the opening on the back or side of the computer.\nMake sure the other end of the cable is plugged into the router. If that does not help, try using a different cable.</td>
+     * </tr>
+     * <tr>
+     * <td>{60372FD2-AD60-45c2-BD83-6B827FC438DF}</td>
+     * <td>{07d37f7b-fa5e-4443-bda7-ab107b29afb6}</td>
+     * <td>The %InterfaceName% adapter is disabled.</td>
+     * <td>Enable the %FriendlyInterfaceName% adapter.</td>
+     * </tr>
+     * <tr>
+     * <td>{245A9D66-AE9C-4518-A5B4-655752B0A5BD}</td>
+     * <td>{07d37f7b-fa5e-4443-bda7-ab107b29afb9}</td>
+     * <td>%InterfaceName%"" doesn't have a valid IP configuration.</td>
+     * <td>Reset the ""%InterfaceName%"" adapter.\nThis can sometimes resolve an intermittent problem.</td>
+     * </tr>
+     * </table>
      * @param {Pointer<Void>} Handle Type: <b>NDFHANDLE</b>
      * 
      * A handle to the Network Diagnostics Framework incident.
@@ -627,8 +684,8 @@ class NetworkDiagnosticsFramework {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfdiagnoseincident
-     * @deprecated
+     * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfdiagnoseincident
+     * @deprecated NdfDiagnoseIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.1
      */
     static NdfDiagnoseIncident(Handle, RootCauseCount, RootCauses, dwWait, dwFlags) {
@@ -637,14 +694,19 @@ class NetworkDiagnosticsFramework {
         RootCausesMarshal := RootCauses is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("NDFAPI.dll\NdfDiagnoseIncident", HandleMarshal, Handle, RootCauseCountMarshal, RootCauseCount, RootCausesMarshal, RootCauses, "uint", dwWait, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Repairs an incident without displaying a user interface.
+     * @remarks
+     * <b>NdfRepairIncident</b> can only be called when <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfdiagnoseincident">NdfDiagnoseIncident</a> is used for diagnostics. This is typically the case in scenarios where no user interface is shown, or where the standard Windows experience is not being used (as with Media Center and embedded applications). <b>NdfRepairIncident</b> should not be called when <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfexecutediagnosis">NdfExecuteDiagnosis</a> is used.
+     * 
+     * Before using this API, an application must call an incident creation function such as <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfcreatewebincident">NdfCreateWebIncident</a> to begin the NDF diagnostics process. The application then calls <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfdiagnoseincident">NdfDiagnoseIncident</a> to diagnose the issue. If the diagnostics process identifies some possible repairs, the application can call <b>NdfRepairIncident</b> to repair the problem without displaying a user interface. <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfcancelincident">NdfCancelIncident</a> can optionally be called from a separate thread if the application wants to cancel an ongoing <b>NdfRepairIncident</b> call. Finally, the application calls <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfcloseincident">NdfCloseIncident</a>.
      * @param {Pointer<Void>} Handle Type: <b>NDFHANDLE</b>
      * 
      * Handle to the Network Diagnostics Framework incident. This handle should match the handle passed to <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfdiagnoseincident">NdfDiagnoseIncident</a>.
@@ -681,7 +743,7 @@ class NetworkDiagnosticsFramework {
      * </dl>
      * </td>
      * <td width="60%">
-     * The repair executed successfully, but NDF validation still found a connectivity problem. If this value is returned, the session should be closed by calling <a href="/windows/desktop/api/ndfapi/nf-ndfapi-ndfcloseincident">NdfCloseIncident</a> and another session should be created to continue the diagnosis.
+     * The repair executed successfully, but NDF validation still found a connectivity problem. If this value is returned, the session should be closed by calling <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfcloseincident">NdfCloseIncident</a> and another session should be created to continue the diagnosis.
      * 
      * </td>
      * </tr>
@@ -711,22 +773,30 @@ class NetworkDiagnosticsFramework {
      *  
      * 
      * Other failure codes are returned if the repair failed to execute. In that case, the client can call <b>NdfRepairIncident</b> again with a different repair.
-     * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfrepairincident
-     * @deprecated
+     * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfrepairincident
+     * @deprecated NdfRepairIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.1
      */
     static NdfRepairIncident(Handle, RepairEx, dwWait) {
         HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
 
         result := DllCall("NDFAPI.dll\NdfRepairIncident", HandleMarshal, Handle, "ptr", RepairEx, "uint", dwWait, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Used to cancel unneeded functions which have been previously called on an existing incident.
+     * @remarks
+     * Before using this API, an application must call an incident creation function such as <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfcreatewebincident">NdfCreateWebIncident</a>.
+     * 
+     * <b>NdfCancelIncident</b> is primarily used to cancel calls to functions such as <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfdiagnoseincident">NdfDiagnoseIncident</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfrepairincident">NdfRepairIncident</a> which have been previously called, but are no longer needed. When <b>NdfCancelIncident</b> is called, NDF will stop the diagnosis/repair as soon as possible rather than calling the other functions (unless results have already been returned from those functions, in which case <b>NdfCancelIncident</b> will have no effect).
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfcloseincident">NdfCloseIncident</a> should be used to close an incident once it has been resolved, as <b>NdfCancelIncident</b> does not actually close the incident itself.
      * @param {Pointer<Void>} Handle Type: <b>NDFHANDLE</b>
      * 
      * Handle to the Network Diagnostics Framework incident. This handle should match the handle of an existing incident.
@@ -754,38 +824,44 @@ class NetworkDiagnosticsFramework {
      *  
      * 
      *  Any result other than S_OK should be interpreted as an error.
-     * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcancelincident
-     * @deprecated
+     * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcancelincident
+     * @deprecated NdfCancelIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.1
      */
     static NdfCancelIncident(Handle) {
         HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
 
         result := DllCall("NDFAPI.dll\NdfCancelIncident", HandleMarshal, Handle, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Used to retrieve the path containing an Event Trace Log (ETL) file that contains Event Tracing for Windows (ETW) events from a diagnostic session.
+     * @remarks
+     * This function cannot be called on an incident which has already been closed.
+     * 
+     * ETL files contain information such as which components were diagnosed, component configuration information, and diagnosis results. For more information about ETL files, see <a href="https://docs.microsoft.com/windows/desktop/NDF/network-tracing-in-windows-7">Network Tracing in Windows 7</a>.
      * @param {Pointer<Void>} Handle Type: <b>NDFHANDLE</b>
      * 
      * Handle to a Network Diagnostics Framework incident. This handle should match the handle of an existing incident.
      * @returns {PWSTR} Type: <b>LPCWSTR*</b>
      * 
      * The location of the trace file.
-     * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfgettracefile
-     * @deprecated
+     * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfgettracefile
+     * @deprecated NdfGetTraceFile is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.1
      */
     static NdfGetTraceFile(Handle) {
         HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
 
         result := DllCall("NDFAPI.dll\NdfGetTraceFile", HandleMarshal, Handle, "ptr*", &TraceFileLocation := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return TraceFileLocation
     }

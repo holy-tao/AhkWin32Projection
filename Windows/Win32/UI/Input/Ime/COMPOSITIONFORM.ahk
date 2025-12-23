@@ -4,21 +4,18 @@
 #Include ..\..\..\Foundation\RECT.ahk
 
 /**
- * Contains style and position information for a composition window.
+ * The COMPOSITIONFORM structure (immdev.h) contains style and position information for a composition window.
  * @remarks
- * 
  * Some IME windows adjust the composition window position specified by the system or the application. The CFS_FORCE_POSITION directs the IME window to skip this adjustment.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imm/ns-imm-compositionform
+ * @see https://learn.microsoft.com/windows/win32/api/immdev/ns-immdev-compositionform
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */
 class COMPOSITIONFORM extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * 
@@ -30,13 +27,13 @@ class COMPOSITIONFORM extends Win32Struct
     }
 
     /**
-     * A <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure containing the coordinates of the upper left corner of the composition window.
+     * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure containing the coordinates of the upper left corner of the composition window.
      * @type {POINT}
      */
     ptCurrentPos{
         get {
             if(!this.HasProp("__ptCurrentPos"))
-                this.__ptCurrentPos := POINT(8, this)
+                this.__ptCurrentPos := POINT(4, this)
             return this.__ptCurrentPos
         }
     }
@@ -48,7 +45,7 @@ class COMPOSITIONFORM extends Win32Struct
     rcArea{
         get {
             if(!this.HasProp("__rcArea"))
-                this.__rcArea := RECT(16, this)
+                this.__rcArea := RECT(12, this)
             return this.__rcArea
         }
     }

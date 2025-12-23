@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how the decoder reproduces dual mono audio. This enumeration is used with the AVDecAudioDualMonoReproMode property.
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavdecaudiodualmonorepromode
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavdecaudiodualmonorepromode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVDecAudioDualMonoReproMode{
+class eAVDecAudioDualMonoReproMode extends Win32Enum{
 
     /**
      * Output channel 1 (Ch1) to the left speaker and channel 2 (Ch2) to the right speaker.

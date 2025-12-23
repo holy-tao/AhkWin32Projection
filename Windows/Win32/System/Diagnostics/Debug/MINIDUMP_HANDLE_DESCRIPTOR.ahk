@@ -4,12 +4,9 @@
 /**
  * Contains the state of an individual system handle at the time the minidump was written.
  * @remarks
- * 
  * The first descriptor in the handle data stream follows the header, 
  * <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_handle_data_stream">MINIDUMP_HANDLE_DATA_STREAM</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ns-minidumpapiset-minidump_handle_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_handle_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

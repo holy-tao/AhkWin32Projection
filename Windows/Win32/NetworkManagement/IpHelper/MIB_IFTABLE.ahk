@@ -5,7 +5,6 @@
 /**
  * Contains a table of interface entries.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getiftable">GetIfTable</a> function enumerates the interface entries on a local system and returns this information in a <b>MIB_IFTABLE</b> structure. 
  * 
  * 
@@ -15,9 +14,7 @@
  * 
  * 
  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>MIB_IFTABLE</b> structure is defined in the <i>Ifmib.h</i> header file not in the <i>Iprtrmib.h</i> header file. Note that the <i>Ifmib.h</i> header file is automatically included in <i>Ipmib.h</i> header file. This file is automatically included in the <i>Iprtrmib.h</i> header file which is automatically included in the <i>Iphlpapi.h</i> header file. The <i>Ifmib.h</i> header file should never be used directly.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ifmib/ns-ifmib-mib_iftable
+ * @see https://learn.microsoft.com/windows/win32/api/ifmib/ns-ifmib-mib_iftable
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

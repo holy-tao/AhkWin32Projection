@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The PointF class encapsulates a point in a 2-D coordinate system.
- * @see https://docs.microsoft.com/windows/win32/api//gdiplustypes/nl-gdiplustypes-pointf
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

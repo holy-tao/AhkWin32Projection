@@ -4,16 +4,13 @@
 /**
  * Describes a memory range.
  * @remarks
- * 
  * <b>End</b> is one-past-the-end.
  *         When <b>Begin</b> equals <b>End</b>, the range is empty.
  *         The size of the range is (<b>End</b> - <b>Begin</b>).
  *       
  * 
  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-map">Map</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-unmap">Unmap</a> methods.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_range
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_range
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

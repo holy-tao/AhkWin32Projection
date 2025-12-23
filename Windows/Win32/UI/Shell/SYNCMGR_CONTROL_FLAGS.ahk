@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how an operation requested on certain methods of ISyncMgrControl should be performed.
- * @see https://docs.microsoft.com/windows/win32/api//syncmgr/ne-syncmgr-syncmgr_control_flags
+ * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ne-syncmgr-syncmgr_control_flags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SYNCMGR_CONTROL_FLAGS{
+class SYNCMGR_CONTROL_FLAGS extends Win32Enum{
 
     /**
      * Perform the operation not using any of the other flags in this enumeration.

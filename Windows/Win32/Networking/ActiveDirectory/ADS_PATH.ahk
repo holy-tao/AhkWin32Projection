@@ -4,11 +4,8 @@
 /**
  * The ADS_PATH structure is an ADSI representation of the Path attribute syntax.
  * @remarks
- * 
  * The <b>Path</b> attribute in represents a file system path.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/ns-iads-ads_path
+ * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_path
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

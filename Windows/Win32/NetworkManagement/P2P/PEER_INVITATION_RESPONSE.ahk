@@ -3,7 +3,7 @@
 
 /**
  * The PEER_INVITATION_RESPONSE structure contains a response to an invitation to join a peer collaboration activity.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_invitation_response
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_invitation_response
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
@@ -15,7 +15,7 @@ class PEER_INVITATION_RESPONSE extends Win32Struct
 
     /**
      * [PEER_INVITATION_RESPONSE_TYPE](./ne-p2p-peer_invitation_response_type.md) enumeration value that specifies the action the peer takes in response to the invitation.
-     * @deprecated
+     * @deprecated 
      * @type {Integer}
      */
     action {

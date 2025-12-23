@@ -4,11 +4,8 @@
 /**
  * Contains an object identifier and user-defined metadata associated with the object identifier.
  * @remarks
- * 
  * Object identifiers are used  to track  files and directories. They are invisible to most applications and should never be modified by applications. Modifying an object identifier can result in the loss of data from portions of a file, up to and including entire volumes of data.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-file_objectid_buffer
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_objectid_buffer
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
@@ -16,7 +13,7 @@ class FILE_OBJECTID_BUFFER extends Win32Struct
 {
     static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 1
 
     /**
      * The identifier that uniquely identifies the file or directory within the volume on which it resides.

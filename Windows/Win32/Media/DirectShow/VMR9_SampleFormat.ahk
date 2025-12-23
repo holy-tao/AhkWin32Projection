@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The VMR9_SampleFormat enumeration type describes the interlacing of a video stream.
- * @see https://docs.microsoft.com/windows/win32/api//vmr9/ne-vmr9-vmr9_sampleformat
+ * @see https://learn.microsoft.com/windows/win32/api/vmr9/ne-vmr9-vmr9_sampleformat
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class VMR9_SampleFormat{
+class VMR9_SampleFormat extends Win32Enum{
 
     /**
      * Reserved; do not use.

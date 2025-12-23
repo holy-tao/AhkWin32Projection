@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MMC_PROPERTY_ACTION enumeration specifies the operations that can occur to a property contained in an MMC_SNAPIN_PROPERTY structure.
- * @see https://docs.microsoft.com/windows/win32/api//mmcobj/ne-mmcobj-mmc_property_action
+ * @see https://learn.microsoft.com/windows/win32/api/mmcobj/ne-mmcobj-mmc_property_action
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
-class MMC_PROPERTY_ACTION{
+class MMC_PROPERTY_ACTION extends Win32Enum{
 
     /**
      * The property is being deleted.

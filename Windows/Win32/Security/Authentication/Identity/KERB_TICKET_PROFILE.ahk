@@ -6,7 +6,7 @@
 
 /**
  * The KERB_TICKET_PROFILE structure contains information about an interactive logon profile. This structure is returned by LsaLogonUser.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_ticket_profile
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_ticket_profile
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

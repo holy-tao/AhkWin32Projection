@@ -4,6 +4,8 @@
 #Include .\D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT.ahk
 
 /**
+ * Retrieves the picture control support for the specified codec and profile.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_codec_picture_control_support
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -16,6 +18,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT extends Win
     static packingSize => 8
 
     /**
+     * In multi-adapter operation, this indicates which physical adapter of the device this operation applies to.
      * @type {Integer}
      */
     NodeIndex {
@@ -24,6 +27,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT extends Win
     }
 
     /**
+     * A member of the [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) enumeration specifying the codec for which picture control support is being queried.
      * @type {Integer}
      */
     Codec {
@@ -32,6 +36,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT extends Win
     }
 
     /**
+     * A [D3D12_VIDEO_ENCODER_PROFILE_DESC](ns-d3d12video-d3d12_video_encoder_profile_desc.md) structure specifying the profile for which picture control support is being queried.
      * @type {D3D12_VIDEO_ENCODER_PROFILE_DESC}
      */
     Profile{
@@ -43,6 +48,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT extends Win
     }
 
     /**
+     * Gets a boolean value indicating if the provided values are supported.
      * @type {BOOL}
      */
     IsSupported {
@@ -51,6 +57,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT extends Win
     }
 
     /**
+     * Receives a [D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT](ns-d3d12video-d3d12_video_encoder_codec_picture_control_support.md) structure representing the picture control support for the provided values.
      * @type {D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT}
      */
     PictureSupport{

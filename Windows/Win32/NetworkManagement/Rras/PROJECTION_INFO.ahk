@@ -5,7 +5,7 @@
 
 /**
  * Is used in the RAS_CONNECTION_EX structure as a placeholder for the PPP_PROJECTION_INFO and IKEV2_PROJECTION_INFO structures.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-projection_info
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-projection_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

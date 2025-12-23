@@ -10,9 +10,9 @@
  */
 class SOCKADDR_ATM extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 76
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -28,7 +28,7 @@ class SOCKADDR_ATM extends Win32Struct
     satm_number{
         get {
             if(!this.HasProp("__satm_number"))
-                this.__satm_number := ATM_ADDRESS(8, this)
+                this.__satm_number := ATM_ADDRESS(4, this)
             return this.__satm_number
         }
     }
@@ -39,7 +39,7 @@ class SOCKADDR_ATM extends Win32Struct
     satm_blli{
         get {
             if(!this.HasProp("__satm_blli"))
-                this.__satm_blli := ATM_BLLI(40, this)
+                this.__satm_blli := ATM_BLLI(32, this)
             return this.__satm_blli
         }
     }
@@ -50,7 +50,7 @@ class SOCKADDR_ATM extends Win32Struct
     satm_bhli{
         get {
             if(!this.HasProp("__satm_bhli"))
-                this.__satm_bhli := ATM_BHLI(72, this)
+                this.__satm_bhli := ATM_BHLI(60, this)
             return this.__satm_bhli
         }
     }

@@ -6,7 +6,7 @@
 
 /**
  * Contains information used to retrieve a ticket.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_retrieve_tkt_request
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_retrieve_tkt_request
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
@@ -32,7 +32,7 @@ class KERB_RETRIEVE_TKT_REQUEST extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(8, this)
+                this.__LogonId := LUID(4, this)
             return this.__LogonId
         }
     }

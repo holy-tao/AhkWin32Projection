@@ -3,7 +3,7 @@
 
 /**
  * Specifies the number of frames to step.
- * @see https://docs.microsoft.com/windows/win32/api//amvideo/ns-amvideo-am_framestep_step
+ * @see https://learn.microsoft.com/windows/win32/api/amvideo/ns-amvideo-am_framestep_step
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

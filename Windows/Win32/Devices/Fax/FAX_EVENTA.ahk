@@ -3,9 +3,8 @@
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
- * The FAX_EVENT structure represents the contents of an I/O completion packet. The fax server sends the completion packet to notify a fax client application of an asynchronous fax server event.
+ * The FAX_EVENT structure represents the contents of an I/O completion packet. The fax server sends the completion packet to notify a fax client application of an asynchronous fax server event. (ANSI)
  * @remarks
- * 
  * After a fax client application receives the <b>FEI_FAXSVC_ENDED</b> message from the fax service, it will no longer receive fax events. To resume receiving fax events, the application must call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxinitializeeventqueue">FaxInitializeEventQueue</a> function again when the fax service restarts. The application can determine if the fax service is running by using the service control manager.
  * 
  * If the application receives events using notification messages, it can use the <b>FEI_NEVENTS</b> event. If the message is between the application's base window message and the base window message + <b>FEI_NEVENTS</b>, then the application can process the message as a fax window message. An application specifies the base window message using the <i>MessageStart</i> parameter to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxinitializeeventqueue">FaxInitializeEventQueue</a> function; the base window message must be greater than the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-user">WM_USER</a> message. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxclose">FaxClose</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-enabling-an-application-to-receive-notifications-of-fax-events">Enabling an Application to Receive Notifications of Fax Events</a>.
@@ -16,18 +15,16 @@
  * 
  * > [!NOTE]
  * > The winfax.h header defines FAX_EVENT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winfax/ns-winfax-fax_eventa
+ * @see https://learn.microsoft.com/windows/win32/api/winfax/ns-winfax-fax_eventa
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  * @charset ANSI
  */
 class FAX_EVENTA extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>DWORD</b>
@@ -49,7 +46,7 @@ class FAX_EVENTA extends Win32Struct
     TimeStamp{
         get {
             if(!this.HasProp("__TimeStamp"))
-                this.__TimeStamp := FILETIME(8, this)
+                this.__TimeStamp := FILETIME(4, this)
             return this.__TimeStamp
         }
     }
@@ -61,8 +58,8 @@ class FAX_EVENTA extends Win32Struct
      * @type {Integer}
      */
     DeviceId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
@@ -72,8 +69,8 @@ class FAX_EVENTA extends Win32Struct
      * @type {Integer}
      */
     EventId {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -83,7 +80,7 @@ class FAX_EVENTA extends Win32Struct
      * @type {Integer}
      */
     JobId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 }

@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MBN_SMS_CDMA_ENCODING enumerated type specifies character encoding types for CDMA.
  * @remarks
- * 
  * The encodings are defined in section 4.5.2 of the 3GPP2 specification C.S0015-B "Short Message Service (SM) for Wideband Spread Spectrum Systems".
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ne-mbnapi-mbn_sms_cdma_encoding
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_sms_cdma_encoding
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
-class MBN_SMS_CDMA_ENCODING{
+class MBN_SMS_CDMA_ENCODING extends Win32Enum{
 
     /**
      * Octet encoding.

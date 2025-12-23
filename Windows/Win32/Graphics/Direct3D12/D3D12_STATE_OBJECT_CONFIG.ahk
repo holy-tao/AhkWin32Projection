@@ -4,10 +4,8 @@
 /**
  * Defines general properties of a state object.
  * @remarks
- * 
  * The presence of this subobject in a state object is optional.  If present, all exports in the state object must be associated with the same subobject (or one with a matching definition).  This consistency requirement does not apply across existing collections that are included in a larger state object.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_state_object_config
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_state_object_config
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

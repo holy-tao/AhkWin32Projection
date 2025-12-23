@@ -6,7 +6,7 @@
 #Include .\D3DAUTHENTICATEDCHANNEL_PROTECTION_FLAGS.ahk
 
 /**
- * 
+ * Contains the response to a D3DAUTHENTICATEDQUERY\_PROTECTION query.
  * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-queryprotection-output
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
@@ -18,6 +18,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYPROTECTION_OUTPUT extends Win32Struct
     static packingSize => 8
 
     /**
+     * A [**D3DAUTHENTICATEDCHANNEL\_QUERY\_OUTPUT**](d3dauthenticatedchannel-query-output.md) structure that contains a Message Authentication Code (MAC) and other data.
      * @type {D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT}
      */
     Output{
@@ -29,6 +30,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYPROTECTION_OUTPUT extends Win32Struct
     }
 
     /**
+     * A [**D3DAUTHENTICATEDCHANNEL\_PROTECTION\_FLAGS**](d3dauthenticatedchannel-protection-flags.md) structure that specifies the protection level.
      * @type {D3DAUTHENTICATEDCHANNEL_PROTECTION_FLAGS}
      */
     ProtectionFlags{

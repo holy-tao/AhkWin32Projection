@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that specify client actions regarding a private key.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-x509certificatetemplateprivatekeyflag
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509certificatetemplateprivatekeyflag
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class X509CertificateTemplatePrivateKeyFlag{
+class X509CertificateTemplatePrivateKeyFlag extends Win32Enum{
 
     /**
      * Instructs the client to create a key archival certificate request.

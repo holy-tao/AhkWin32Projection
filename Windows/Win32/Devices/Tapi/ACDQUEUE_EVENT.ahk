@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The ACDQUEUE_EVENT enum describes ACD queue events. The ITQueueEvent::get_Event method returns a member of this enum to indicate the type of ACD queue event that occurred.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/ne-tapi3cc-acdqueue_event
+ * The ACDQUEUE_EVENT enumeration (tapi3cc.h) describes ACD queue events.
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/ne-tapi3cc-acdqueue_event
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class ACDQUEUE_EVENT{
+class ACDQUEUE_EVENT extends Win32Enum{
 
     /**
      * A new ACD queue has been added.

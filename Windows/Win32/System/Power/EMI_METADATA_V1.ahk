@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The EMI_METADATA structure provides metadata about a device that supports the Energy Metering Interface (EMI) interface, such as the hardware model and hardware revision.
+ * @remarks
+ * This structure is returned through a successful completion of an <a href="https://docs.microsoft.com/windows/desktop/api/emi/ni-emi-ioctl_emi_get_metadata">IOCTL_EMI_GET_METADATA</a> IOCTL request.
  * @see https://learn.microsoft.com/windows/win32/api/emi/ns-emi-emi_metadata_v1
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
@@ -14,6 +16,7 @@ class EMI_METADATA_V1 extends Win32Struct
     static packingSize => 4
 
     /**
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/emi/ne-emi-emi_measurement_unit">EMI_MEASUREMENT_UNIT</a> that specifies the unit of energy measurements that can be obtained from the device by calling <a href="https://docs.microsoft.com/windows/desktop/api/emi/ni-emi-ioctl_emi_get_measurement">IOCTL_EMI_GET_MEASUREMENT</a>. In devices that support <b>EMI_VERSION_V1</b>, the only supported unit is <b>EmiMeasurementUnitPicowattHours</b>.
      * @type {Integer}
      */
     MeasurementUnit {
@@ -22,6 +25,7 @@ class EMI_METADATA_V1 extends Win32Struct
     }
 
     /**
+     * A null-terminated, Unicode string that contains the name of the OEM.
      * @type {String}
      */
     HardwareOEM {
@@ -30,6 +34,7 @@ class EMI_METADATA_V1 extends Win32Struct
     }
 
     /**
+     * A null-terminated, Unicode string that specifies the device model.
      * @type {String}
      */
     HardwareModel {
@@ -38,6 +43,7 @@ class EMI_METADATA_V1 extends Win32Struct
     }
 
     /**
+     * A value that specifies the current revision of the device.
      * @type {Integer}
      */
     HardwareRevision {
@@ -46,6 +52,7 @@ class EMI_METADATA_V1 extends Win32Struct
     }
 
     /**
+     * The size of <b>MeteredHardwareName</b> in bytes, including the null terminator.
      * @type {Integer}
      */
     MeteredHardwareNameSize {
@@ -54,6 +61,7 @@ class EMI_METADATA_V1 extends Win32Struct
     }
 
     /**
+     * A null-terminated, Unicode string that specifies the metered hardware name.
      * @type {String}
      */
     MeteredHardwareName {

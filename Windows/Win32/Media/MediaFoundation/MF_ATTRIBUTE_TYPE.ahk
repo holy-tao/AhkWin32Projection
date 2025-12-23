@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the data type for a key/value pair.
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ne-mfobjects-mf_attribute_type
+ * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mf_attribute_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_ATTRIBUTE_TYPE{
+class MF_ATTRIBUTE_TYPE extends Win32Enum{
 
     /**
      * Unsigned 32-bit integer.

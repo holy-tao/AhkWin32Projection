@@ -3,6 +3,8 @@
 #Include .\NVME_CONTEXT_ATTRIBUTES.ahk
 
 /**
+ * Contains parameters that define a collection of contiguous logical blocks specified by a starting LBA and number of logical blocks.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_lba_range
  * @namespace Windows.Win32.Storage.Nvme
@@ -15,6 +17,9 @@ class NVME_LBA_RANGE extends Win32Struct
     static packingSize => 8
 
     /**
+     * A [NVME_CONTEXT_ATTRIBUTES](ns-nvme-nvme_context_attributes.md) structure that specifies context attributes for the logical block range.
+     * 
+     * The use of this information is optional and the controller is not required to perform any specific action.
      * @type {NVME_CONTEXT_ATTRIBUTES}
      */
     Attributes{
@@ -26,6 +31,7 @@ class NVME_LBA_RANGE extends Win32Struct
     }
 
     /**
+     * Specifies the length of the LBA range in logical blocks.
      * @type {Integer}
      */
     LogicalBlockCount {
@@ -34,6 +40,7 @@ class NVME_LBA_RANGE extends Win32Struct
     }
 
     /**
+     * Specifies the starting logical block in the range.
      * @type {Integer}
      */
     StartingLBA {

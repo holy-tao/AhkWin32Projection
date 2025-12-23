@@ -6,23 +6,20 @@
 /**
  * The DISPLAYCONFIG_PATH_TARGET_INFO structure contains target information for a single path.
  * @remarks
- * 
  * A DISPLAYCONFIG_PATH_TARGET_INFO structure is specified in the <b>targetInfo</b> member of a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_path_info">DISPLAYCONFIG_PATH_INFO</a> structure.
  * 
  * A target corresponds to the number of possible video outputs on a display adapter. This number, however, does not equate to the number of physical connectors on the display adapter. Each connector exposes a number of targets that includes backward compatibility with older connector technology. For example, a DVI connector exposes a DVI target, as well as a VGA target. A DisplayPort connector, which was introduced in 2006, exposes DisplayPort, HDMI, DVI, legacy TV, and VGA targets.
  * 
  * The <b>statusFlags</b> member is set when you call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-querydisplayconfig">QueryDisplayConfig</a> function.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-displayconfig_path_target_info
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_path_target_info
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
 class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The identifier of the adapter that the path is on.
@@ -114,7 +111,7 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
     refreshRate{
         get {
             if(!this.HasProp("__refreshRate"))
-                this.__refreshRate := DISPLAYCONFIG_RATIONAL(32, this)
+                this.__refreshRate := DISPLAYCONFIG_RATIONAL(28, this)
             return this.__refreshRate
         }
     }
@@ -124,8 +121,8 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
      * @type {Integer}
      */
     scanLineOrdering {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
@@ -135,16 +132,86 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
      * @type {BOOL}
      */
     targetAvailable {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
      * A bitwise OR of flag values that indicates the status of the target. The following values are supported:
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="DISPLAYCONFIG_TARGET_IN_USE"></a><a id="displayconfig_target_in_use"></a><dl>
+     * <dt><b>DISPLAYCONFIG_TARGET_IN_USE</b></dt>
+     * <dt>0x00000001</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Target is in use on an active path.
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="DISPLAYCONFIG_TARGET_FORCIBLE"></a><a id="displayconfig_target_forcible"></a><dl>
+     * <dt><b>DISPLAYCONFIG_TARGET_FORCIBLE</b></dt>
+     * <dt>0x00000002</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The output can be forced on this target even if a monitor is not detected.
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_BOOT"></a><a id="displayconfig_target_forced_availability_boot"></a><dl>
+     * <dt><b>DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_BOOT</b></dt>
+     * <dt>0x00000004</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Output is currently being forced in a boot-persistent manner.
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_PATH"></a><a id="displayconfig_target_forced_availability_path"></a><dl>
+     * <dt><b>DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_PATH</b></dt>
+     * <dt>0x00000008</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Output is currently being forced in a path-persistent manner.
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_SYSTEM"></a><a id="displayconfig_target_forced_availability_system"></a><dl>
+     * <dt><b>DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_SYSTEM</b></dt>
+     * <dt>0x00000010</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Output is currently being forced in a nonpersistent manner.
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="DISPLAYCONFIG_TARGET_IS_HMD"></a><a id="displayconfig_target_is_hmd"></a><dl>
+     * <dt><b>DISPLAYCONFIG_TARGET_IS_HMD</b></dt>
+     * <dt>0x00000020</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The output is a head-mounted display (HMD). Such a path is only returned from QueryDisplayConfig using the QDC_INCLUDE_HMD flag.
+     * 
+     * Supported starting in the Windows 10 Creators Update (Version 1703).
+     * </td>
+     * </tr>
+     * </table>
      * @type {Integer}
      */
     statusFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WMPLibraryType enumeration type defines the possible library types to which Windows Media Player can connect.
  * @remarks
- * 
  * Windows Media Player 10 Mobile: This enumeration is not supported.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmp/ne-wmp-wmplibrarytype
+ * @see https://learn.microsoft.com/windows/win32/api/wmp/ne-wmp-wmplibrarytype
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
-class WMPLibraryType{
+class WMPLibraryType extends Win32Enum{
 
     /**
      * Not a valid library type.

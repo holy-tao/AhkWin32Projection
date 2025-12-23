@@ -4,18 +4,21 @@
 #Include .\DDSCAPS2.ahk
 
 /**
- * 
+ * The DDCAPS_DX6 structure (ddraw.h) represents the capabilities of the hardware exposed through the DirectDraw object.
+ * @remarks
+ * For backward compatibility, the Ddraw.h header file contains multiple definitions of the DDCAPS structure. The version that passes the preprocessor is determined by the value of the DIRECTDRAW_VERSION constant.
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddcaps_dx6
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */
 class DDCAPS_DX6 extends Win32Struct
 {
-    static sizeof => 384
+    static sizeof => 380
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
+     * Size of the structure, in bytes. This member must be initialized before the structure is used.
      * @type {Integer}
      */
     dwSize {
@@ -24,6 +27,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * This value consists of one or more of the following flags that specify hardware and driver capabilities:
      * @type {Integer}
      */
     dwCaps {
@@ -32,6 +36,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * This value consists of one or more of the following flags that specify more hardware and driver capabilities:
      * @type {Integer}
      */
     dwCaps2 {
@@ -40,6 +45,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * This value consists of one or more of the following flags that specify color-key capabilities:
      * @type {Integer}
      */
     dwCKeyCaps {
@@ -48,6 +54,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * This value consists of one or more of the following flags that specify driver stretching and effects capabilities:
      * @type {Integer}
      */
     dwFXCaps {
@@ -56,6 +63,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * This value consists of one or more of the following flags that specify driver alpha capabilities:
      * @type {Integer}
      */
     dwFXAlphaCaps {
@@ -64,6 +72,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * This value consists of one or more of the following flags that specify palette capabilities:
      * @type {Integer}
      */
     dwPalCaps {
@@ -72,6 +81,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * This value consists of one or more of the following flags that specify stereo-vision capabilities:
      * @type {Integer}
      */
     dwSVCaps {
@@ -80,6 +90,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * DDBD_2, DDBD_4, or DDBD_8. (Indicate 2, 4, or 8 bits per pixel.)
      * @type {Integer}
      */
     dwAlphaBltConstBitDepths {
@@ -88,6 +99,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * DDBD_1, DDBD_2, DDBD_4, or DDBD_8. (Indicate 1, 2, 4, or 8 bits per pixel.)
      * @type {Integer}
      */
     dwAlphaBltPixelBitDepths {
@@ -96,6 +108,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * DDBD_1, DDBD_2, DDBD_4, or DDBD_8. (Indicate 1, 2, 4, or 8 bits per pixel.)
      * @type {Integer}
      */
     dwAlphaBltSurfaceBitDepths {
@@ -104,6 +117,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * DDBD_2, DDBD_4, or DDBD_8. (Indicate 2, 4, or 8 bits per pixel.)
      * @type {Integer}
      */
     dwAlphaOverlayConstBitDepths {
@@ -112,6 +126,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * DDBD_1, DDBD_2, DDBD_4, or DDBD_8. (Indicate 1, 2, 4, or 8 bits per pixel.)
      * @type {Integer}
      */
     dwAlphaOverlayPixelBitDepths {
@@ -120,6 +135,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * DDBD_1, DDBD_2, DDBD_4, or DDBD_8. (Indicate 1, 2, 4, or 8 bits per pixel.)
      * @type {Integer}
      */
     dwAlphaOverlaySurfaceBitDepths {
@@ -128,6 +144,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * DDBD_8, DDBD_16, DDBD_24, or DDBD_32. (Indicate 8, 16, 24, or 32 bits per pixel.) This member is obsolete for DirectX 6.0 and later. Use the <b>IDirect3D7::EnumZBufferFormats</b> to retrieve information about supported depth buffer formats.
      * @type {Integer}
      */
     dwZBufferBitDepths {
@@ -136,6 +153,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Total amount of display memory on the device, in bytes, minus memory reserved for the primary surface and any private data structures reserved by the driver. (This value is the same as the total video memory reported by the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdraw7-getavailablevidmem">IDirectDraw7::GetAvailableVidMem</a> method.)
      * @type {Integer}
      */
     dwVidMemTotal {
@@ -144,6 +162,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Free display memory. This value equals the value in <b>dwVidMemTotal</b>, minus any memory currently allocated by the application for surfaces. Unlike the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdraw7-getavailablevidmem">IDirectDraw7::GetAvailableVidMem</a> method, which reports the memory available for a particular type of surface (such as a texture), this value reflects the memory available for any type of surface.
      * @type {Integer}
      */
     dwVidMemFree {
@@ -152,6 +171,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Maximum number of visible overlays or overlay sprites.
      * @type {Integer}
      */
     dwMaxVisibleOverlays {
@@ -160,6 +180,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Current number of visible overlays or overlay sprites.
      * @type {Integer}
      */
     dwCurrVisibleOverlays {
@@ -168,6 +189,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Number of FourCC codes.
      * @type {Integer}
      */
     dwNumFourCCCodes {
@@ -176,6 +198,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Source-rectangle alignment for an overlay surface, in pixels.
      * @type {Integer}
      */
     dwAlignBoundarySrc {
@@ -184,6 +207,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Source-rectangle size alignment for an overlay surface, in pixels. Overlay source rectangles must have a pixel width that is a multiple of this value.
      * @type {Integer}
      */
     dwAlignSizeSrc {
@@ -192,6 +216,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Destination-rectangle alignment for an overlay surface, in pixels.
      * @type {Integer}
      */
     dwAlignBoundaryDest {
@@ -200,6 +225,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Destination-rectangle size alignment for an overlay surface, in pixels. Overlay destination rectangles must have a pixel width that is a multiple of this value.
      * @type {Integer}
      */
     dwAlignSizeDest {
@@ -208,6 +234,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Stride alignment.
      * @type {Integer}
      */
     dwAlignStrideAlign {
@@ -216,6 +243,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Raster operations supported.
      * @type {Array<UInt32>}
      */
     dwRops{
@@ -227,6 +255,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Obsolete. Prior to DirectX 6.0, this member contained general surface capabilities, which are now contained in the <b>ddsCaps</b> member (a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550292(v=vs.85)">DDSCAPS2</a> structure).
      * @type {DDSCAPS}
      */
     ddsOldCaps{
@@ -238,6 +267,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Minimum overlay stretch factor, multiplied by 1000. For example, 1.3 = 1300.
      * @type {Integer}
      */
     dwMinOverlayStretch {
@@ -246,6 +276,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Maximum overlay stretch factor, multiplied by 1000. For example, 1.3 = 1300.
      * @type {Integer}
      */
     dwMaxOverlayStretch {
@@ -254,6 +285,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Obsolete; do not use.
      * @type {Integer}
      */
     dwMinLiveVideoStretch {
@@ -262,6 +294,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Obsolete; do not use.
      * @type {Integer}
      */
     dwMaxLiveVideoStretch {
@@ -270,6 +303,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Obsolete; do not use.
      * @type {Integer}
      */
     dwMinHwCodecStretch {
@@ -278,6 +312,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Obsolete; do not use.
      * @type {Integer}
      */
     dwMaxHwCodecStretch {
@@ -286,6 +321,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Reserved
      * @type {Integer}
      */
     dwReserved1 {
@@ -294,6 +330,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Reserved
      * @type {Integer}
      */
     dwReserved2 {
@@ -302,6 +339,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Reserved
      * @type {Integer}
      */
     dwReserved3 {
@@ -310,6 +348,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Driver-specific capabilities for bitblts from system memory to display memory. Valid flags are identical to the bitblt-related flags that are used with the <b>dwCaps</b> member.
      * @type {Integer}
      */
     dwSVBCaps {
@@ -318,6 +357,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Driver color-key capabilities for bitblts from system memory to display memory. Valid flags are identical to the bitblt-related flags that are used with the <b>dwCKeyCaps</b> member.
      * @type {Integer}
      */
     dwSVBCKeyCaps {
@@ -326,6 +366,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Driver FX capabilities for bitblts from system memory to display memory. Valid flags are identical to the bitblt-related flags that are used with the <b>dwFXCaps</b> member.
      * @type {Integer}
      */
     dwSVBFXCaps {
@@ -334,6 +375,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Raster operations supported for bitblts from system memory to display memory.
      * @type {Array<UInt32>}
      */
     dwSVBRops{
@@ -345,6 +387,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Driver-specific capabilities for bitblts from display memory to system memory. Valid flags are identical to the bitblt-related flags that are used with the <b>dwCaps</b> member.
      * @type {Integer}
      */
     dwVSBCaps {
@@ -353,6 +396,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Driver color-key capabilities for bitblts from display memory to system memory. Valid flags are identical to the bitblt-related flags that are used with the <b>dwCKeyCaps</b> member.
      * @type {Integer}
      */
     dwVSBCKeyCaps {
@@ -361,6 +405,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Driver FX capabilities for bitblts from display memory to system memory. Valid flags are identical to the bitblt-related flags used with the <b>dwFXCaps</b> member.
      * @type {Integer}
      */
     dwVSBFXCaps {
@@ -369,6 +414,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Raster operations supported for bitblts from display memory to system memory.
      * @type {Array<UInt32>}
      */
     dwVSBRops{
@@ -380,6 +426,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Driver-specific capabilities for bitblts from system memory to system memory. Valid flags are identical to the bitblt-related flags used with the <b>dwCaps</b> member.
      * @type {Integer}
      */
     dwSSBCaps {
@@ -388,6 +435,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Driver color-key capabilities for bitblts from system memory to system memory. Valid flags are identical to the bitblt-related flags used with the <b>dwCKeyCaps</b> member.
      * @type {Integer}
      */
     dwSSBCKeyCaps {
@@ -396,6 +444,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Driver FX capabilities for bitblts from system memory to system memory. Valid flags are identical to the bitblt-related flags used with the <b>dwFXCaps</b> member.
      * @type {Integer}
      */
     dwSSBFXCaps {
@@ -404,6 +453,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Raster operations supported for bitblts from system memory to system memory.
      * @type {Array<UInt32>}
      */
     dwSSBRops{
@@ -415,6 +465,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Maximum number of live video ports.
      * @type {Integer}
      */
     dwMaxVideoPorts {
@@ -423,6 +474,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Current number of live video ports.
      * @type {Integer}
      */
     dwCurrVideoPorts {
@@ -431,6 +483,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * More driver-specific capabilities for bitblts from system memory to video memory. Valid flags are identical to the bitblt-related flags used with the <b>dwCaps2</b> member.
      * @type {Integer}
      */
     dwSVBCaps2 {
@@ -439,6 +492,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Driver-specific capabilities for bitblts from nonlocal to local video memory. Valid flags are identical to the bitblt-related flags used with the <b>dwCaps</b> member.
      * @type {Integer}
      */
     dwNLVBCaps {
@@ -447,6 +501,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * More driver-specific capabilities for bitblts from nonlocal to local video memory. Valid flags are identical to the bitblt-related flags used with the <b>dwCaps2</b> member.
      * @type {Integer}
      */
     dwNLVBCaps2 {
@@ -455,6 +510,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Driver color-key capabilities for bitblts form nonlocal to local video memory. Valid flags are identical to the bitblt-related flags used with the <b>dwCKeyCaps</b> member.
      * @type {Integer}
      */
     dwNLVBCKeyCaps {
@@ -463,6 +519,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Driver FX capabilities for bitblts from nonlocal to local video memory. Valid flags are identical to the bitblt-related flags used with the <b>dwFXCaps</b> member.
      * @type {Integer}
      */
     dwNLVBFXCaps {
@@ -471,6 +528,7 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * Raster operations supported for bitblts from nonlocal to local video memory.
      * @type {Array<UInt32>}
      */
     dwNLVBRops{
@@ -482,12 +540,13 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
+     * A <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550292(v=vs.85)">DDSCAPS2</a> structure that contains general surface capabilities.
      * @type {DDSCAPS2}
      */
     ddsCaps{
         get {
             if(!this.HasProp("__ddsCaps"))
-                this.__ddsCaps := DDSCAPS2(368, this)
+                this.__ddsCaps := DDSCAPS2(364, this)
             return this.__ddsCaps
         }
     }

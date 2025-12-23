@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of RDC-specific error codes.
- * @see https://docs.microsoft.com/windows/win32/api//msrdc/ne-msrdc-rdc_errorcode
+ * @see https://learn.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdc_errorcode
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */
-class RDC_ErrorCode{
+class RDC_ErrorCode extends Win32Enum{
 
     /**
      * The operation was completed successfully.

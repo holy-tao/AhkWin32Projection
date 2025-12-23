@@ -3,7 +3,7 @@
 
 /**
  * The DD_DESTROYPALETTEDATA structure contains information necessary to destroy the specified palette.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_destroypalettedata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_destroypalettedata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Defines a set of valid load balance policies for a path.
+ * The VDS_LOADBALANCE_POLICY_ENUM enumeration (vdshwprv.h) defines a set of valid load balance policies for a path.
  * @remarks
- * 
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_LOADBALANCE_POLICY_ENUM</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_LOADBALANCE_POLICY_ENUM</b> enumeration constant.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_loadbalance_policy_enum
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_loadbalance_policy_enum
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_LOADBALANCE_POLICY_ENUM{
+class VDS_LOADBALANCE_POLICY_ENUM extends Win32Enum{
 
     /**
      * The policy is unknown.

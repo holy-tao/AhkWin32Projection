@@ -4,11 +4,8 @@
 /**
  * Contains information about the power status of the system.
  * @remarks
- * 
  * The system is only capable of estimating <b>BatteryFullLifeTime</b> based on calculations on <b>BatteryLifeTime</b> and <b>BatteryLifePercent</b>. Without smart battery subsystems, this value may not be accurate enough to be useful.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-system_power_status
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-system_power_status
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

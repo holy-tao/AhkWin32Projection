@@ -3,7 +3,7 @@
 
 /**
  * Contains the version information about the miniversion that is created.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-txfs_get_metadata_info_out
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_get_metadata_info_out
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
@@ -14,7 +14,7 @@ class TXFS_GET_METADATA_INFO_OUT extends Win32Struct
     static packingSize => 8
 
     class _TxfFileId extends Win32Struct {
-        static sizeof => 40
+        static sizeof => 16
         static packingSize => 8
 
         /**

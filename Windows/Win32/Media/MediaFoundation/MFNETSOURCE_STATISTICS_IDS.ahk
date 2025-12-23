@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines statistics collected by the network source.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mfnetsource_statistics_ids
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfnetsource_statistics_ids
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFNETSOURCE_STATISTICS_IDS{
+class MFNETSOURCE_STATISTICS_IDS extends Win32Enum{
 
     /**
      * The number of packets received (<b>LONG</b>, <b>VT_I4</b>).

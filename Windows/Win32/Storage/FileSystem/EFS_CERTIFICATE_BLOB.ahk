@@ -3,7 +3,7 @@
 
 /**
  * Contains a certificate.
- * @see https://docs.microsoft.com/windows/win32/api//winefs/ns-winefs-efs_certificate_blob
+ * @see https://learn.microsoft.com/windows/win32/api/winefs/ns-winefs-efs_certificate_blob
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

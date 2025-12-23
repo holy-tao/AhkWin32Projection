@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The RADIUS_REJECT_REASON_CODE enumeration defines the possible RADIUS packet reject codes.
- * @see https://docs.microsoft.com/windows/win32/api//authif/ne-authif-radius_reject_reason_code
+ * @see https://learn.microsoft.com/windows/win32/api/authif/ne-authif-radius_reject_reason_code
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class RADIUS_REJECT_REASON_CODE{
+class RADIUS_REJECT_REASON_CODE extends Win32Enum{
 
     /**
      * Reason code undefined.

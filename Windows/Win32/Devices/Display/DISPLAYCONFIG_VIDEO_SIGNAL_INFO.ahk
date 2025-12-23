@@ -5,7 +5,7 @@
 
 /**
  * The DISPLAYCONFIG_VIDEO_SIGNAL_INFO structure contains information about the video signal for a display.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-displayconfig_video_signal_info
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_video_signal_info
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

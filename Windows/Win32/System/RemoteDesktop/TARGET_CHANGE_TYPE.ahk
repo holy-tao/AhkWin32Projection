@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of change that occurred in a target.
- * @see https://docs.microsoft.com/windows/win32/api//sessdirpublictypes/ne-sessdirpublictypes-target_change_type
+ * @see https://learn.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-target_change_type
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class TARGET_CHANGE_TYPE{
+class TARGET_CHANGE_TYPE extends Win32Enum{
 
     /**
      * Unspecified change in the target.

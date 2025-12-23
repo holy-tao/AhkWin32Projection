@@ -5,14 +5,14 @@
 #Include .\IPSEC_SA_BUNDLE0.ahk
 
 /**
- * Is used to store information returned when enumerating IPsec security associations (SAs).
- * @see https://docs.microsoft.com/windows/win32/api//ipsectypes/ns-ipsectypes-ipsec_sa_details0
+ * Is used to store information returned when enumerating IPsec security associations (SAs). (IPSEC_SA_DETAILS0)
+ * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_sa_details0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
 class IPSEC_SA_DETAILS0 extends Win32Struct
 {
-    static sizeof => 184
+    static sizeof => 168
 
     static packingSize => 8
 
@@ -53,7 +53,7 @@ class IPSEC_SA_DETAILS0 extends Win32Struct
     saBundle{
         get {
             if(!this.HasProp("__saBundle"))
-                this.__saBundle := IPSEC_SA_BUNDLE0(72, this)
+                this.__saBundle := IPSEC_SA_BUNDLE0(64, this)
             return this.__saBundle
         }
     }
@@ -62,8 +62,8 @@ class IPSEC_SA_DETAILS0 extends Win32Struct
      * @type {Pointer<IPSEC_V4_UDP_ENCAPSULATION0>}
      */
     udpEncapsulation {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**
@@ -71,7 +71,7 @@ class IPSEC_SA_DETAILS0 extends Win32Struct
      * @type {Pointer<FWPM_FILTER0>}
      */
     transportFilter {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
+        get => NumGet(this, 160, "ptr")
+        set => NumPut("ptr", value, this, 160)
     }
 }

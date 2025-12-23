@@ -3,7 +3,7 @@
 
 /**
  * Contains virtual disk open request parameters.
- * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ns-virtdisk-open_virtual_disk_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-open_virtual_disk_parameters
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */
@@ -55,8 +55,8 @@ class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     class _Version1 extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -69,7 +69,7 @@ class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     class _Version2 extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 16
         static packingSize => 8
 
         /**

@@ -3,7 +3,7 @@
 
 /**
  * Specifies a text name or status string for a single command identifier.
- * @see https://docs.microsoft.com/windows/win32/api//docobj/ns-docobj-olecmdtext
+ * @see https://learn.microsoft.com/windows/win32/api/docobj/ns-docobj-olecmdtext
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

@@ -3,8 +3,8 @@
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
- * Contains information about a smart card logon session.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_smart_card_logon
+ * Contains information about a smart card logon session. (KERB_SMART_CARD_LOGON)
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_smart_card_logon
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

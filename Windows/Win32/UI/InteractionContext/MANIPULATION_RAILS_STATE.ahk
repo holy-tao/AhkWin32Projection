@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the rail states for an interaction.
- * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/ne-interactioncontext-manipulation_rails_state
+ * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ne-interactioncontext-manipulation_rails_state
  * @namespace Windows.Win32.UI.InteractionContext
  * @version v4.0.30319
  */
-class MANIPULATION_RAILS_STATE{
+class MANIPULATION_RAILS_STATE extends Win32Enum{
 
     /**
      * Rail state not defined yet.

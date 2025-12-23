@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DNS_SECTION enumeration is used in record flags, and as an index into DNS wire message header section counts.
- * @see https://docs.microsoft.com/windows/win32/api//windns/ne-windns-dns_section
+ * @see https://learn.microsoft.com/windows/win32/api/windns/ne-windns-dns_section
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */
-class DNS_SECTION{
+class DNS_SECTION extends Win32Enum{
 
     /**
      * The DNS section specified is a DNS question.

@@ -3,7 +3,7 @@
 
 /**
  * The DD_WAITFORVPORTSYNCDATA structure contains the information required for the driver to synchronize the video port extensions (VPE) object.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_waitforvportsyncdata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_waitforvportsyncdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

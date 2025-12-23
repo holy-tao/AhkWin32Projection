@@ -9,9 +9,9 @@
  */
 class HLBWINFO extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -64,6 +64,6 @@ class HLBWINFO extends Win32Struct
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 64
+        this.cbSize := 60
     }
 }

@@ -7,16 +7,16 @@
 
 /**
  * The EMRCREATECOLORSPACE structure contains members for the CreateColorSpace enhanced metafile record.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrcreatecolorspace
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrcreatecolorspace
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  * @charset ANSI
  */
 class EMRCREATECOLORSPACE extends Win32Struct
 {
-    static sizeof => 360
+    static sizeof => 340
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.
@@ -46,7 +46,7 @@ class EMRCREATECOLORSPACE extends Win32Struct
     lcs{
         get {
             if(!this.HasProp("__lcs"))
-                this.__lcs := LOGCOLORSPACEA(16, this)
+                this.__lcs := LOGCOLORSPACEA(12, this)
             return this.__lcs
         }
     }

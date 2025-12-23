@@ -3,8 +3,6 @@
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
- * Contains information about a resource that is being brought online or taken offline. This structure is used as a parameter to the callback function SetResourceStatusEx.
- * @see https://docs.microsoft.com/windows/win32/api//resapi/ns-resapi-resource_status_ex
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -15,7 +13,6 @@ class RESOURCE_STATUS_EX extends Win32Struct
     static packingSize => 8
 
     /**
-     * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_state">CLUSTER_RESOURCE_STATE</a> enumeration value that describes the state of the resource.
      * @type {Integer}
      */
     ResourceState {
@@ -24,8 +21,6 @@ class RESOURCE_STATUS_EX extends Win32Struct
     }
 
     /**
-     * A value set by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-dlls">resource DLL</a> to flag a status 
-     *       report as new.
      * @type {Integer}
      */
     CheckPoint {
@@ -34,7 +29,6 @@ class RESOURCE_STATUS_EX extends Win32Struct
     }
 
     /**
-     * A handle to an event that indicates when the resource has failed.
      * @type {HANDLE}
      */
     EventHandle{
@@ -46,7 +40,6 @@ class RESOURCE_STATUS_EX extends Win32Struct
     }
 
     /**
-     * TBD
      * @type {Integer}
      */
     ApplicationSpecificErrorCode {
@@ -55,7 +48,6 @@ class RESOURCE_STATUS_EX extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Flags {
@@ -64,9 +56,6 @@ class RESOURCE_STATUS_EX extends Win32Struct
     }
 
     /**
-     * This member is not being used at this time.
-     * 
-     * <b>Windows Server 2012:  </b>This member was added in Windows Server 2012 R2.
      * @type {Integer}
      */
     WaitHint {

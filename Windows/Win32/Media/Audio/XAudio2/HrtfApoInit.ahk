@@ -3,7 +3,7 @@
 
 /**
  * Specifies parameters used to initialize HRTF spatial audio.
- * @see https://docs.microsoft.com/windows/win32/api//hrtfapoapi/ns-hrtfapoapi-hrtfapoinit
+ * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/ns-hrtfapoapi-hrtfapoinit
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319
  */

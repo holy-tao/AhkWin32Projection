@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the calling convention used by a member function described in the METHODDATA structure.
- * @see https://docs.microsoft.com/windows/win32/api//oaidl/ne-oaidl-callconv
+ * @see https://learn.microsoft.com/windows/win32/api/oaidl/ne-oaidl-callconv
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class CALLCONV{
+class CALLCONV extends Win32Enum{
 
     /**
      * 

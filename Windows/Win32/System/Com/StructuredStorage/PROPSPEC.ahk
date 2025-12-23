@@ -4,11 +4,8 @@
 /**
  * The PROPSPEC structure is used by many of the methods of IPropertyStorage to specify a property either by its property identifier (ID) or the associated string name.
  * @remarks
- * 
  * String names are optional and can be assigned to a set of properties when the property is created with a call to <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nf-propidl-ipropertystorage-writemultiple">IPropertyStorage::WriteMultiple</a> or later with a call to <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nf-propidl-ipropertystorage-writepropertynames">IPropertyStorage::WritePropertyNames</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//propidlbase/ns-propidlbase-propspec
+ * @see https://learn.microsoft.com/windows/win32/api/propidlbase/ns-propidlbase-propspec
  * @namespace Windows.Win32.System.Com.StructuredStorage
  * @version v4.0.30319
  */

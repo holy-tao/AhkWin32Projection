@@ -9,9 +9,9 @@
  */
 class RFX_GFX_MSG_DESKTOP_RESEND_REQUEST extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {RFX_GFX_MSG_HEADER}
@@ -30,7 +30,7 @@ class RFX_GFX_MSG_DESKTOP_RESEND_REQUEST extends Win32Struct
     RedrawRect{
         get {
             if(!this.HasProp("__RedrawRect"))
-                this.__RedrawRect := RFX_GFX_RECT(8, this)
+                this.__RedrawRect := RFX_GFX_RECT(4, this)
             return this.__RedrawRect
         }
     }

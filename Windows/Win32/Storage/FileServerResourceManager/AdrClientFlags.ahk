@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Enumerates flags for indicating why an access denied remediation (ADR) client operation could not be performed.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-adrclientflags
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-adrclientflags
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
-class AdrClientFlags{
+class AdrClientFlags extends Win32Enum{
 
     /**
      * No ADR client flags are specified.

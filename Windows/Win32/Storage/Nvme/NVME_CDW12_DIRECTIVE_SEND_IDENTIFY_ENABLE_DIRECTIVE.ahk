@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains parameters for specifying and enabling directives in the Directive Send command.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw12_directive_send_identify_enable_directive
  * @namespace Windows.Win32.Storage.Nvme
@@ -59,6 +61,7 @@ class NVME_CDW12_DIRECTIVE_SEND_IDENTIFY_ENABLE_DIRECTIVE extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     AsUlong {

@@ -4,7 +4,7 @@
 /**
  * @namespace Windows.Win32.System.SystemServices
  * @version v4.0.30319
- * @deprecated
+ * @deprecated struct PACKEDEVENTINFO is deprecated and might not work on all platforms. For more info, see MSDN.
  */
 class PACKEDEVENTINFO extends Win32Struct
 {

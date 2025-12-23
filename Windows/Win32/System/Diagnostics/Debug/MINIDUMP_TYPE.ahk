@@ -1,21 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the type of information that will be written to the minidump file by the MiniDumpWriteDump function.
- * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/ne-minidumpapiset-minidump_type
+ * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ne-minidumpapiset-minidump_type
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */
-class MINIDUMP_TYPE{
+class MINIDUMP_TYPE extends Win32BitflagEnum{
 
     /**
-     * Include just the information necessary to capture stack traces for all existing threads in a process.
+     * `0x00000000`. Include just the information necessary to capture stack traces for all existing threads in a process.
      * @type {Integer (Int32)}
      */
     static MiniDumpNormal => 0
 
     /**
-     * Include the data sections from all loaded modules. This results in the inclusion of global variables, which 
+     * `0x00000001`. Include the data sections from all loaded modules. This results in the inclusion of global variables, which 
      *       can make the minidump file significantly larger. For per-module control, use the 
      *       <b>ModuleWriteDataSeg</b> enumeration value from 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ne-minidumpapiset-module_write_flags">MODULE_WRITE_FLAGS</a>.
@@ -24,7 +25,7 @@ class MINIDUMP_TYPE{
     static MiniDumpWithDataSegs => 1
 
     /**
-     * Include all accessible memory in the process. The raw memory data is included at the end, so that the 
+     * `0x00000002`. Include all accessible memory in the process. The raw memory data is included at the end, so that the 
      *       initial structures can be mapped directly without the raw memory information. This option can result in a very 
      *       large file.
      * @type {Integer (Int32)}
@@ -32,21 +33,21 @@ class MINIDUMP_TYPE{
     static MiniDumpWithFullMemory => 2
 
     /**
-     * Include high-level information about the operating system handles that are active when the minidump is 
+     * `0x00000004`. Include high-level information about the operating system handles that are active when the minidump is 
      *       made.
      * @type {Integer (Int32)}
      */
     static MiniDumpWithHandleData => 4
 
     /**
-     * Stack and backing store memory written to the minidump file should be filtered to remove all but the 
+     * `0x00000008`. Stack and backing store memory written to the minidump file should be filtered to remove all but the 
      *       pointer values necessary to reconstruct a stack trace.
      * @type {Integer (Int32)}
      */
     static MiniDumpFilterMemory => 8
 
     /**
-     * Stack and backing store memory should be scanned for pointer references to modules in the module list. If a 
+     * `0x00000010`. Stack and backing store memory should be scanned for pointer references to modules in the module list. If a 
      *       module is referenced by stack or backing store memory, the <b>ModuleWriteFlags</b> member of 
      *       the <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_callback_output">MINIDUMP_CALLBACK_OUTPUT</a> structure is 
      *       set to <b>ModuleReferencedByMemory</b>.
@@ -55,7 +56,7 @@ class MINIDUMP_TYPE{
     static MiniDumpScanMemory => 16
 
     /**
-     * Include information from the list of modules that were recently unloaded, if this information is maintained 
+     * `0x00000020`. Include information from the list of modules that were recently unloaded, if this information is maintained 
      *       by the operating system.
      *       
      * 
@@ -68,7 +69,7 @@ class MINIDUMP_TYPE{
     static MiniDumpWithUnloadedModules => 32
 
     /**
-     * Include pages with data referenced by locals or other stack memory. This option can increase the size of 
+     * `0x00000040`. Include pages with data referenced by locals or other stack memory. This option can increase the size of 
      *       the minidump file significantly.
      *       
      * 
@@ -78,7 +79,7 @@ class MINIDUMP_TYPE{
     static MiniDumpWithIndirectlyReferencedMemory => 64
 
     /**
-     * Filter module paths for information such as user names or important directories. This option may prevent 
+     * `0x00000080`. Filter module paths for information such as user names or important directories. This option may prevent 
      *       the system from locating the image file and should be used only in special situations.
      *       
      * 
@@ -88,7 +89,7 @@ class MINIDUMP_TYPE{
     static MiniDumpFilterModulePaths => 128
 
     /**
-     * Include complete per-process and per-thread information from the operating system.
+     * `0x00000100`. Include complete per-process and per-thread information from the operating system.
      *       
      * 
      * <b>DbgHelp 5.1:  </b>This value is not supported.
@@ -97,7 +98,7 @@ class MINIDUMP_TYPE{
     static MiniDumpWithProcessThreadData => 256
 
     /**
-     * Scan the virtual address space for <b>PAGE_READWRITE</b> memory to be included.
+     * `0x00000200`. Scan the virtual address space for <b>PAGE_READWRITE</b> memory to be included.
      *       
      * 
      * <b>DbgHelp 5.1:  </b>This value is not supported.
@@ -106,7 +107,7 @@ class MINIDUMP_TYPE{
     static MiniDumpWithPrivateReadWriteMemory => 512
 
     /**
-     * Reduce the data that is dumped by eliminating memory regions that are not essential to meet criteria  
+     * `0x00000400`. Reduce the data that is dumped by eliminating memory regions that are not essential to meet criteria  
      *       specified for the dump. This can avoid dumping  memory that may contain data that is private to the user. 
      *       However, it is not a guarantee that no private information will be present.
      *       
@@ -117,7 +118,7 @@ class MINIDUMP_TYPE{
     static MiniDumpWithoutOptionalData => 1024
 
     /**
-     * Include memory region information. For more information, see 
+     * `0x00000800`. Include memory region information. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_memory_info_list">MINIDUMP_MEMORY_INFO_LIST</a>.
      *       
      * 
@@ -127,7 +128,7 @@ class MINIDUMP_TYPE{
     static MiniDumpWithFullMemoryInfo => 2048
 
     /**
-     * Include thread state information. For more information, see 
+     * `0x00001000`. Include thread state information. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_thread_info_list">MINIDUMP_THREAD_INFO_LIST</a>.
      *       
      * 
@@ -137,7 +138,7 @@ class MINIDUMP_TYPE{
     static MiniDumpWithThreadInfo => 4096
 
     /**
-     * Include all code and code-related sections from loaded modules to capture executable content. For 
+     * `0x00002000`. Include all code and code-related sections from loaded modules to capture executable content. For 
      *       per-module control, use the <b>ModuleWriteCodeSegs</b> enumeration value from 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ne-minidumpapiset-module_write_flags">MODULE_WRITE_FLAGS</a>.
      *       
@@ -148,20 +149,20 @@ class MINIDUMP_TYPE{
     static MiniDumpWithCodeSegs => 8192
 
     /**
-     * Turns off secondary auxiliary-supported memory gathering.
+     * `0x00004000`. Turns off secondary auxiliary-supported memory gathering.
      * @type {Integer (Int32)}
      */
     static MiniDumpWithoutAuxiliaryState => 16384
 
     /**
-     * Requests that auxiliary data providers include their state in the dump image; the state data that is 
+     * `0x00008000`. Requests that auxiliary data providers include their state in the dump image; the state data that is 
      *       included is provider dependent. This option can result in a large dump image.
      * @type {Integer (Int32)}
      */
     static MiniDumpWithFullAuxiliaryState => 32768
 
     /**
-     * Scans the virtual address space for <b>PAGE_WRITECOPY</b> memory to be included.
+     * `0x00010000`. Scans the virtual address space for <b>PAGE_WRITECOPY</b> memory to be included.
      *       
      * 
      * <b>Prior to DbgHelp 6.1:  </b>This value is not supported.
@@ -170,7 +171,7 @@ class MINIDUMP_TYPE{
     static MiniDumpWithPrivateWriteCopyMemory => 65536
 
     /**
-     * If you specify <b>MiniDumpWithFullMemory</b>, the 
+     * `0x00020000`. If you specify <b>MiniDumpWithFullMemory</b>, the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/nf-minidumpapiset-minidumpwritedump">MiniDumpWriteDump</a> function will fail if the 
      *        function cannot read the memory regions; however, if you include 
      *        <b>MiniDumpIgnoreInaccessibleMemory</b>, the 
@@ -184,7 +185,7 @@ class MINIDUMP_TYPE{
     static MiniDumpIgnoreInaccessibleMemory => 131072
 
     /**
-     * Adds security token related data. This will make the "!token" extension work when 
+     * `0x00040000`. Adds security token related data. This will make the "!token" extension work when 
      *       processing a user-mode dump.
      *       
      * 
@@ -194,7 +195,7 @@ class MINIDUMP_TYPE{
     static MiniDumpWithTokenInformation => 262144
 
     /**
-     * Adds module header related data.
+     * `0x00080000`. Adds module header related data.
      *       
      * 
      * <b>Prior to DbgHelp 6.1:  </b>This value is not supported.
@@ -203,7 +204,7 @@ class MINIDUMP_TYPE{
     static MiniDumpWithModuleHeaders => 524288
 
     /**
-     * Adds filter triage related data.
+     * `0x00100000`. Adds filter triage related data.
      *       
      * 
      * <b>Prior to DbgHelp 6.1:  </b>This value is not supported.
@@ -212,7 +213,7 @@ class MINIDUMP_TYPE{
     static MiniDumpFilterTriage => 1048576
 
     /**
-     * Adds AVX crash state context registers.
+     * `0x00200000`. Adds AVX crash state context registers.
      * 
      * <b>Prior to DbgHelp 6.1:  </b>This value is not supported.
      * @type {Integer (Int32)}
@@ -220,7 +221,7 @@ class MINIDUMP_TYPE{
     static MiniDumpWithAvxXStateContext => 2097152
 
     /**
-     * Adds Intel Processor Trace related data. 
+     * `0x00400000`. Adds Intel Processor Trace related data. 
      * 
      * <b>Prior to DbgHelp 6.1:  </b>This value is not supported.
      * @type {Integer (Int32)}
@@ -228,7 +229,7 @@ class MINIDUMP_TYPE{
     static MiniDumpWithIptTrace => 4194304
 
     /**
-     * Scans inaccessible partial memory pages.
+     * `0x00800000`. Scans inaccessible partial memory pages.
      * 
      * <b>Prior to DbgHelp 6.1:  </b>This value is not supported.
      * @type {Integer (Int32)}
@@ -241,7 +242,7 @@ class MINIDUMP_TYPE{
     static MiniDumpFilterWriteCombinedMemory => 16777216
 
     /**
-     * Indicates which flags are valid.
+     * `0x00ffffff`. Indicates which flags are valid.
      * @type {Integer (Int32)}
      */
     static MiniDumpValidTypeFlags => 33554431

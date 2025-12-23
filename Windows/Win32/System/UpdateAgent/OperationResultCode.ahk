@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the possible results of a download, install, uninstall, or verification operation on an update.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/ne-wuapi-operationresultcode
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-operationresultcode
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
-class OperationResultCode{
+class OperationResultCode extends Win32Enum{
 
     /**
      * The operation is not started.

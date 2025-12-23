@@ -6,15 +6,15 @@
 
 /**
  * The EMRBITBLT structure contains members for the BitBlt enhanced metafile record. Note that graphics device interface (GDI) converts the device-dependent bitmap into a device-independent bitmap (DIB) before storing it in the metafile record.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrbitblt
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrbitblt
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
 class EMRBITBLT extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 100
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.
@@ -110,7 +110,7 @@ class EMRBITBLT extends Win32Struct
     xformSrc{
         get {
             if(!this.HasProp("__xformSrc"))
-                this.__xformSrc := XFORM(56, this)
+                this.__xformSrc := XFORM(52, this)
             return this.__xformSrc
         }
     }
@@ -120,8 +120,8 @@ class EMRBITBLT extends Win32Struct
      * @type {COLORREF}
      */
     crBkColorSrc {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 76, "uint")
+        set => NumPut("uint", value, this, 76)
     }
 
     /**
@@ -129,8 +129,8 @@ class EMRBITBLT extends Win32Struct
      * @type {Integer}
      */
     iUsageSrc {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
@@ -138,8 +138,8 @@ class EMRBITBLT extends Win32Struct
      * @type {Integer}
      */
     offBmiSrc {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 
     /**
@@ -147,8 +147,8 @@ class EMRBITBLT extends Win32Struct
      * @type {Integer}
      */
     cbBmiSrc {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
@@ -156,8 +156,8 @@ class EMRBITBLT extends Win32Struct
      * @type {Integer}
      */
     offBitsSrc {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+        get => NumGet(this, 92, "uint")
+        set => NumPut("uint", value, this, 92)
     }
 
     /**
@@ -165,7 +165,7 @@ class EMRBITBLT extends Win32Struct
      * @type {Integer}
      */
     cbBitsSrc {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 }

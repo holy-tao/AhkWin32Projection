@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Returned by GetThemePropertyOrigin to specify where a property was found.
- * @see https://docs.microsoft.com/windows/win32/api//uxtheme/ne-uxtheme-propertyorigin
+ * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ne-uxtheme-propertyorigin
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
-class PROPERTYORIGIN{
+class PROPERTYORIGIN extends Win32Enum{
 
     /**
      * Property was found in the state section.

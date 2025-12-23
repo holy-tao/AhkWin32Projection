@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The DWRITE_PANOSE_FINIALS enumeration contains values that specify how character ends and miniscule ascenders are treated.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/ne-dwrite_1-dwrite_panose_finials
+ * The DWRITE_PANOSE_FINIALS enumeration contains values that specify how character ends and minuscule ascenders are treated.
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_panose_finials
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_PANOSE_FINIALS{
+class DWRITE_PANOSE_FINIALS extends Win32Enum{
 
     /**
      * Any finials.

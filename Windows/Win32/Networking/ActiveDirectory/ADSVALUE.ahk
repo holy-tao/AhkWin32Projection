@@ -12,11 +12,8 @@
 /**
  * Contains a value specified as an ADSI data type.
  * @remarks
- * 
  * Members of the <b>ADSVALUE</b> structure specify the data type of attributes. For more information and a code example, see  <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_attr_info">ADS_ATTR_INFO</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/ns-iads-adsvalue
+ * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-adsvalue
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

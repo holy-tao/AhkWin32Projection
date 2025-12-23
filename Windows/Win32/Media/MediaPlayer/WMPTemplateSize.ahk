@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Note  This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The WMPTemplateSize enumeration represents HTML template sizes.
- * @see https://docs.microsoft.com/windows/win32/api//contentpartner/ne-contentpartner-wmptemplatesize
+ * @see https://learn.microsoft.com/windows/win32/api/contentpartner/ne-contentpartner-wmptemplatesize
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
-class WMPTemplateSize{
+class WMPTemplateSize extends Win32Enum{
 
     /**
      * Small template; height is fixed at 100 pixels.

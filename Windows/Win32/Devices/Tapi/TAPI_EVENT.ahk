@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used to notify an application that a change has occurred in the TAPI object.
  * @remarks
- * 
  * Call the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-ittapi-put_eventfilter">ITTAPI::put_EventFilter</a> method and set the event filter mask to enable receiving events. If <b>ITTAPI::put_EventFilter</b> is not called, the application cannot receive events.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-tapi_event
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-tapi_event
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class TAPI_EVENT{
+class TAPI_EVENT extends Win32Enum{
 
     /**
      * Change is in TAPI object itself. For more information, see 

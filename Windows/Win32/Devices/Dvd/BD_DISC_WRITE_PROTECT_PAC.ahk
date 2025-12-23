@@ -8,9 +8,9 @@
  */
 class BD_DISC_WRITE_PROTECT_PAC extends Win32Struct
 {
-    static sizeof => 432
+    static sizeof => 428
 
-    static packingSize => 8
+    static packingSize => 1
 
     /**
      * @type {BD_PAC_HEADER}

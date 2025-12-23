@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The AGENT_EVENT enum describes agent events. The ITAgentEvent::get_Event method returns a member of this enum to indicate the type of agent event that occurred.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/ne-tapi3cc-agent_event
+ * The AGENT_EVENT enumeration (tapi3cc.h) describes agent events.
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/ne-tapi3cc-agent_event
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class AGENT_EVENT{
+class AGENT_EVENT extends Win32Enum{
 
     /**
      * The agent is unable to handle calls.

@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the fill mode to use when rendering triangles.
  * @remarks
- * 
  * Fill mode is specified in a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_rasterizer_desc">D3D12_RASTERIZER_DESC</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_fill_mode
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_fill_mode
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_FILL_MODE{
+class D3D12_FILL_MODE extends Win32Enum{
 
     /**
      * Draw lines connecting the vertices. Adjacent vertices are not drawn.

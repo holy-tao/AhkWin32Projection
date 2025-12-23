@@ -3536,6 +3536,12 @@ class ActiveDirectory {
 ;@region Methods
     /**
      * Binds to an object given its path and a specified interface identifier.
+     * @remarks
+     * A C/C++ client calls the <b>ADsGetObject</b> helper function to bind to an ADSI object. It is equivalent to a Visual Basic client calling the <a href="https://docs.microsoft.com/windows/desktop/ADSI/binding-with-getobject-and-adsgetobject">GetObject</a> function. They both take an ADsPath as input and returns a pointer to the requested interface. By default the binding uses ADS_SECURE_AUTHENTICATION option with the security context of the calling thread. However, if the authentication fails, the secure bind is downgraded to an anonymous bind, for example, a simple bind without user credentials. To securely bind to an ADSI object, use the <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-adsopenobject">ADsOpenObject</a> function instead of the  <b>ADsGetObject</b> function.
+     * 
+     * For a code example that shows how to use <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-adsopenobject">ADsOpenObject</a>, see <a href="https://docs.microsoft.com/windows/desktop/ADSI/binding-with-getobject-and-adsgetobject">Binding With GetObject and ADsGetObject</a>.
+     * 
+     * It is possible to bind to an ADSI object with a user credential different from that of the currently logged-on user. To perform this operation, use the   <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-adsopenobject">ADsOpenObject</a> function.
      * @param {PWSTR} lpszPathName Type: <b>LPCWSTR</b>
      * 
      * The null-terminated Unicode string that specifies the path  used to bind to the object in the underlying directory service. For more information and code examples for binding strings for this parameter, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/ldap-adspath">LDAP ADsPath</a> and  <a href="https://docs.microsoft.com/windows/desktop/ADSI/winnt-adspath">WinNT ADsPath</a>.
@@ -3549,8 +3555,8 @@ class ActiveDirectory {
      * 
      * This method supports the standard <b>HRESULT</b> return values, as well as the following.
      * 
-     * For more information about other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//adshlp/nf-adshlp-adsgetobject
+     * For more information about other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-adsgetobject
      * @since windows6.0.6000
      */
     static ADsGetObject(lpszPathName, riid, ppObject) {
@@ -3559,52 +3565,90 @@ class ActiveDirectory {
         ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ACTIVEDS.dll\ADsGetObject", "ptr", lpszPathName, "ptr", riid, ppObjectMarshal, ppObject, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * The ADsBuildEnumerator function creates an enumerator object for the specified ADSI container object.
+     * @remarks
+     * The <b>ADsBuildEnumerator</b> helper function wraps the calls used to retrieve the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface on the enumerator object.
+     * 
+     * <p class="proch"><b> To enumerate the available objects in a container</b>
+     * 
+     * <ol>
+     * <li>Call the <b>ADsBuildEnumerator</b> function to create an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> object that will enumerate the contents of the container.</li>
+     * <li>Call the <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-adsenumeratenext">ADsEnumerateNext</a> function as many times as necessary to retrieve the items from the enumerator object.</li>
+     * <li>Call the <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-adsfreeenumerator">ADSFreeEnumerator</a> function to release the enumerator object when it is no longer required.</li>
+     * </ol>
+     * If the server supports paged searches and the client has specified a page size that exceeds the maximum search results allowed by the server, the <b>ADsBuildEnumerator</b> function will forward errors and results from the server to the user.
      * @param {IADsContainer} pADsContainer Type: <b>IADsContainer*</b>
      * 
      * Pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscontainer">IADsContainer</a> interface for the object to enumerate.
      * @returns {IEnumVARIANT} Type: <b>IEnumVARIANT**</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface pointer that receives the enumerator object created for the specified container object.
-     * @see https://docs.microsoft.com/windows/win32/api//adshlp/nf-adshlp-adsbuildenumerator
+     * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-adsbuildenumerator
      * @since windows6.0.6000
      */
     static ADsBuildEnumerator(pADsContainer) {
         result := DllCall("ACTIVEDS.dll\ADsBuildEnumerator", "ptr", pADsContainer, "ptr*", &ppEnumVariant := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IEnumVARIANT(ppEnumVariant)
     }
 
     /**
      * Frees an enumerator object created with the ADsBuildEnumerator function.
+     * @remarks
+     * The general process for enumerating objects in a container is as follows.
+     * 
+     * First, create an enumerator object on that container.
+     * 
+     * Second, retrieve the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface pointer.
+     * 
+     * Third, call the <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-adsenumeratenext">ADsEnumerateNext</a> function to return an enumerated set of elements from the enumerator object.
+     * 
+     * Fourth, call the <b>ADSFreeEnumerator</b> function to free the enumerator object.
+     * 
+     * For more information and a code example, see <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-adsbuildenumerator">ADsBuildEnumerator</a>.
      * @param {IEnumVARIANT} pEnumVariant Type: <b>IEnumVARIANT*</b>
      * 
      * Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface on the enumerator object to be freed.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This method supports standard return values, as well as the following.
-     * @see https://docs.microsoft.com/windows/win32/api//adshlp/nf-adshlp-adsfreeenumerator
+     * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-adsfreeenumerator
      * @since windows6.0.6000
      */
     static ADsFreeEnumerator(pEnumVariant) {
         result := DllCall("ACTIVEDS.dll\ADsFreeEnumerator", "ptr", pEnumVariant, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * The ADsEnumerateNext function enumerates through a specified number of elements from the current cursor position of the enumerator.
+     * @remarks
+     * The general process to enumerate objects in a container involves the following:
+     * 
+     * First, create an enumerator object on that container.
+     * 
+     * Second, retrieve the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface pointer.
+     * 
+     * Third, call the <b>ADsEnumerateNext</b> function to return an enumerated set of elements from the enumerator object.
+     * 
+     * Fourth, call the <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-adsfreeenumerator">ADSFreeEnumerator</a> function to free the enumerator object.
+     * 
+     * For more information and a code example, see the  <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-adsbuildenumerator">ADsBuildEnumerator</a> topic.
      * @param {IEnumVARIANT} pEnumVariant Type: <b>IEnumVARIANT*</b>
      * 
      * Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface on the enumerator object.
@@ -3621,22 +3665,25 @@ class ActiveDirectory {
      * 
      * This method supports the standard return values.
      * 
-     * For more information about other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//adshlp/nf-adshlp-adsenumeratenext
+     * For more information about other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-adsenumeratenext
      * @since windows6.0.6000
      */
     static ADsEnumerateNext(pEnumVariant, cElements, pvar, pcElementsFetched) {
         pcElementsFetchedMarshal := pcElementsFetched is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ACTIVEDS.dll\ADsEnumerateNext", "ptr", pEnumVariant, "uint", cElements, "ptr", pvar, pcElementsFetchedMarshal, pcElementsFetched, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * The ADsBuildVarArrayStr function builds a variant array from an array of Unicode strings.
+     * @remarks
+     * To support Automation, use the <b>ADsBuildVarArrayStr</b> function to convert Unicode strings to a variant array of strings.
      * @param {Pointer<PWSTR>} lppPathNames Type: <b>LPWSTR*</b>
      * 
      * Array of null-terminated Unicode strings.
@@ -3650,22 +3697,37 @@ class ActiveDirectory {
      * 
      * This method supports the standard return values, as well as the following.
      * 
-     * For more information about other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//adshlp/nf-adshlp-adsbuildvararraystr
+     * For more information about other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-adsbuildvararraystr
      * @since windows6.0.6000
      */
     static ADsBuildVarArrayStr(lppPathNames, dwPathNames, pVar) {
         lppPathNamesMarshal := lppPathNames is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ACTIVEDS.dll\ADsBuildVarArrayStr", lppPathNamesMarshal, lppPathNames, "uint", dwPathNames, "ptr", pVar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * The ADsBuildVarArrayInt function builds a variant array of integers from an array of DWORD values.
+     * @remarks
+     * Use the <b>ADsBuildVarArrayInt</b> function to convert the integer array into a variant array of the integers. The following code example shows how to do this.
+     * 
+     * 
+     * ```cpp
+     * DWORD dwArray[]={0,1,2,3,4};
+     * long nLength = sizeof(dwArray)/sizeof(DWORD);
+     * VARIANT varArray[nLength];
+     * HRESULT hr = ADsBuildVarArrayInt(dwArray, nLength, varArray);
+     * if (hr = E_FAIL) exit(1);
+     *  
+     * // Resume work with the data in varArray.
+     * . . .
+     * ```
      * @param {Pointer<Integer>} lpdwObjectTypes Type: <b>LPDWORD</b>
      * 
      * Array of <b>DWORD</b> values.
@@ -3679,28 +3741,90 @@ class ActiveDirectory {
      * 
      * This method supports standard return values.
      * 
-     * For more information about other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//adshlp/nf-adshlp-adsbuildvararrayint
+     * For more information about other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-adsbuildvararrayint
      * @since windows6.0.6000
      */
     static ADsBuildVarArrayInt(lpdwObjectTypes, dwObjectTypes, pVar) {
         lpdwObjectTypesMarshal := lpdwObjectTypes is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ACTIVEDS.dll\ADsBuildVarArrayInt", lpdwObjectTypesMarshal, lpdwObjectTypes, "uint", dwObjectTypes, "ptr", pVar, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Binds to an ADSI object using explicit user name and password credentials.
+     * @remarks
+     * This function should not be used just to validate user credentials.
+     * 
+     * A C/C++ client calls the <b>ADsOpenObject</b> helper function to bind to an ADSI object, using the user name and password supplied as credentials for the appropriate directory service. If <i>lpszUsername</i> and <i>lpszPassword</i> are <b>NULL</b> and <b>ADS_SECURE_AUTHENTICATION</b> is set, ADSI binds to the object using the security context of the calling thread, which is either the security context of the user account under which the application is running or of the client user account that the calling thread impersonates.
+     * 
+     * The  credentials passed to the <b>ADsOpenObject</b> function are used only with the particular object bound to and do not affect the security context of the calling thread. This means that, in the example below, the call to <b>ADsOpenObject</b> will use different credentials than the call to <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-adsgetobject">ADsGetObject</a>.
+     * 
+     * 
+     * ```cpp
+     * HRESULT hr;
+     * IADs *padsRoot1;
+     * IADs *padsRoot2;
+     * 
+     * hr = ADsOpenObject(L"LDAP://rootDSE",
+     *     pwszUsername,
+     *     pwszPassword,
+     *     ADS_SECURE_AUTHENTICATION,
+     *     IID_IADs,
+     *     (LPVOID*)&padsRoot1);
+     * 
+     * hr = ADsGetObject(L"LDAP://rootDSE",
+     *     IID_IADs,
+     *     (LPVOID*)&padsRoot2);
+     * 
+     * ```
+     * 
+     * 
+     * To work with the WinNT: provider, you can pass in <i>lpszUsername</i> as one of the following strings:
+     * 
+     * <ul>
+     * <li>The name of a user account, that is, "jeffsmith".</li>
+     * <li>The Windows style user name, that is, "Fabrikam\jeffsmith".</li>
+     * </ul>
+     * With the LDAP provider for Active Directory, you may pass in <i>lpszUsername</i> as one of the following strings:
+     * 
+     * <ul>
+     * <li>The name of a user account, such as "jeffsmith". To use a user name by itself, you must set only the <b>ADS_SECURE_AUTHENTICATION</b> flag in the <i>dwReserved</i> parameter.</li>
+     * <li>The user path from a previous version of Windows, such as "Fabrikam\jeffsmith".</li>
+     * <li>Distinguished Name, such as "CN=Jeff Smith,OU=Sales,DC=Fabrikam,DC=Com". To use a DN, the <i>dwReserved</i> parameter must be zero or it must include the <b>ADS_USE_SSL</b> flag.</li>
+     * <li>User Principal Name (UPN), such as "jeffsmith@Fabrikam.com". To use a UPN, assign the appropriate UPN value for the <b>userPrincipalName</b> attribute of the target user object.</li>
+     * </ul>
+     * If Kerberos authentication is required for the successful completion of a specific directory request using the LDAP provider, the <i>lpszPathName</i> binding string must use either a serverless ADsPath, such as "LDAP://CN=Jeff Smith,CN=admin,DC=Fabrikam,DC=com", or it must use an ADsPath with a fully qualified DNS server name, such as "LDAP://central3.corp.Fabrikam.com/CN=Jeff Smith,CN=admin,DC=Fabrikam,DC=com". Binding to the server using a flat NETBIOS name or a short DNS name, for example, using the short name "central3" instead of "central3.corp.Fabrikam.com", may or may not yield Kerberos authentication.
+     * 
+     * The following code example shows how to bind to a directory service object with the requested user credentials.
+     * 
+     * 
+     * ```cpp
+     * IADs *pObject;
+     * LPWSTR szUsername = NULL;
+     * LPWSTR szPassword = NULL
+     * HRESULT hr;
+     * 
+     * // Insert code to securely retrieve the user name and password.
+     * 
+     * hr = ADsOpenObject(L"LDAP://CN=Jeff,DC=Fabrikam,DC=com",
+     *                    "jeffsmith",
+     *                    "etercespot",
+     *                    ADS_SECURE_AUTHENTICATION, 
+     *                    IID_IADs,
+     *                    (void**) &pObject);
+     * ```
      * @param {PWSTR} lpszPathName Type: <b>LPCWSTR</b>
      * 
      * The null-terminated Unicode string that specifies the ADsPath of the ADSI object. For more information and code examples of binding strings for this parameter, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/ldap-adspath">LDAP ADsPath</a> and  <a href="https://docs.microsoft.com/windows/desktop/ADSI/winnt-adspath">WinNT ADsPath</a>.
      * @param {PWSTR} lpszUserName Type: <b>LPCWSTR</b>
      * 
-     * The null-terminated Unicode string that specifies the user name to supply to the directory service to use for credentials. This string should always be in the format "&lt;domain&gt;\&lt;user name&gt;" to avoid ambiguity. For example, if DomainA and DomainB have a trust relationship and both domains have a user with the name "user1", it is not possible to predict which domain <b>ADsOpenObject</b> will use to validate "user1".
+     * The null-terminated Unicode string that specifies the user name to supply to the directory service to use for credentials. This string should always be in the format "&lt;domain\\&gt;&lt;user name&gt;" to avoid ambiguity. For example, if DomainA and DomainB have a trust relationship and both domains have a user with the name "user1", it is not possible to predict which domain <b>ADsOpenObject</b> will use to validate "user1".
      * @param {PWSTR} lpszPassword Type: <b>LPCWSTR</b>
      * 
      * The null-terminated Unicode string that specifies the password to supply to the directory service to use for credentials.
@@ -3717,8 +3841,8 @@ class ActiveDirectory {
      * 
      * This method supports the standard <b>HRESULT</b> return values, including the following.
      * 
-     * For more information, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//adshlp/nf-adshlp-adsopenobject
+     * For more information, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-adsopenobject
      * @since windows6.0.6000
      */
     static ADsOpenObject(lpszPathName, lpszUserName, lpszPassword, dwReserved, riid, ppObject) {
@@ -3729,14 +3853,65 @@ class ActiveDirectory {
         ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("ACTIVEDS.dll\ADsOpenObject", "ptr", lpszPathName, "ptr", lpszUserName, "ptr", lpszPassword, "uint", dwReserved, "ptr", riid, ppObjectMarshal, ppObject, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * The ADsGetLastError function retrieves the calling thread's last-error code value.
+     * @remarks
+     * ADSI errors fall into two types according to the values of their facility code. The standard ADSI error codes have a facility code value of 0x5 and the extended ADSI error codes assume that of FACILITY_WIN32. The error values of the standard and extended ADSI error codes are of the forms of 0x80005xxx and 0x8007xxxx, respectively. Use the HRESULT_FACILITY(hr) macro to determine the ADSI error type.
+     *    
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  The WinNT ADSI provider does not support <b>ADsGetLastError</b>.</div>
+     * <div> </div>
+     * The following code example shows how to get Win32 error codes and their descriptions using <b>ADsGetLastError</b>.
+     * 
+     * 
+     * ```cpp
+     * if (FAILED(hr))
+     * {
+     *     wprintf(L"An error occurred.\n  HRESULT: %x\n",hr);
+     *     // If facility is Win32, get the Win32 error 
+     *     if (HRESULT_FACILITY(hr)==FACILITY_WIN32)
+     *     {
+     *         DWORD dwLastError;
+     *         WCHAR szErrorBuf[MAX_PATH];
+     *         WCHAR szNameBuf[MAX_PATH];
+     *         // Get extended error value.
+     *         HRESULT hr_return =S_OK;
+     *         hr_return = ADsGetLastError( &dwLastError,
+     *                                        szErrorBuf,
+     *                                        MAX_PATH,
+     *                                        szNameBuf,
+     *                                        MAX_PATH);
+     *         if (SUCCEEDED(hr_return))
+     *         {
+     *              wprintf(L"Error Code: %d\n Error Text: %ws\n Provider: %ws\n", dwLastError, szErrorBuf, szNameBuf);
+     *         }
+     *     }
+     * }
+     * ```
+     * 
+     * 
+     * If hr is 80071392, the code example returns the following.
+     * 
+     * 
+     * ```cpp
+     * An error occurred.
+     *     HRESULT: 80071392
+     *     Error Code: 8305
+     *     Error Text: 00002071: UpdErr: DSID-030502F1, problem 6005 (ENTRY_EXISTS), data 0
+     *     Provider: LDAP Provider
+     * ```
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  The WinNT ADSI provider does not support <b>ADsGetLastError</b>.</div>
+     * <div> </div>
      * @param {Pointer<Integer>} lpError Type: <b>LPDWORD</b>
      * 
      * Pointer to the location that receives the error code.
@@ -3755,7 +3930,7 @@ class ActiveDirectory {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This method supports standard return values, as well as the following.
-     * @see https://docs.microsoft.com/windows/win32/api//adshlp/nf-adshlp-adsgetlasterror
+     * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-adsgetlasterror
      * @since windows6.0.6000
      */
     static ADsGetLastError(lpError, lpErrorBuf, dwErrorBufLen, lpNameBuf, dwNameBufLen) {
@@ -3767,11 +3942,9 @@ class ActiveDirectory {
         A_LastError := 0
 
         result := DllCall("ACTIVEDS.dll\ADsGetLastError", lpErrorMarshal, lpError, "ptr", lpErrorBuf, "uint", dwErrorBufLen, "ptr", lpNameBuf, "uint", dwNameBufLen, "int")
-        if(A_LastError)
-            throw OSError()
-
-        if(result != 0)
-            throw OSError(result)
+        if(A_LastError || result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3779,7 +3952,6 @@ class ActiveDirectory {
     /**
      * The ADsSetLastError sets the last-error code value for the calling thread.
      * @remarks
-     * 
      * In a custom implementation of an ADSI provider, for example, an LDAP provider, you can set an operation error message as follows.
      * 
      * 
@@ -3829,8 +4001,6 @@ class ActiveDirectory {
      * Error Text: ERROR_DS_OPERATIONS_ERROR
      * Provider: LDAP Provider
      * ```
-     * 
-     * 
      * @param {Integer} dwErr Type: <b>DWORD</b>
      * 
      * The error code that occurred. If this is an error defined by Windows, <i>pszError</i> is ignored. If this is ERROR_EXTENDED_ERROR, it indicates the provider has a network-specific error to report.
@@ -3841,7 +4011,7 @@ class ActiveDirectory {
      * 
      * The null-terminated Unicode string that names the ADSI provider that raised the error.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//adshlp/nf-adshlp-adssetlasterror
+     * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-adssetlasterror
      * @since windows6.0.6000
      */
     static ADsSetLastError(dwErr, pszError, pszProvider) {
@@ -3853,15 +4023,19 @@ class ActiveDirectory {
 
     /**
      * Allocates a block of memory of the specified size.
+     * @remarks
+     * The memory block returned by <b>AllocADsMem</b> is initialized to zero.
+     * 
+     * For more information and a code example that shows how to use the <b>AllocADsMem</b> function, see <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-reallocadsmem">ReallocADsMem</a>.
      * @param {Integer} cb Type: <b>DWORD</b>
      * 
      * Contains the size, in bytes, to be allocated.
      * @returns {Pointer<Void>} Type: <b>LPVOID</b>
      * 
-     * When successful, the function returns a non-<b>NULL</b> pointer to the allocated memory. The caller must free this memory when it is no longer required by passing the returned pointer to <a href="/windows/desktop/api/adshlp/nf-adshlp-freeadsmem">FreeADsMem</a>.
+     * When successful, the function returns a non-<b>NULL</b> pointer to the allocated memory. The caller must free this memory when it is no longer required by passing the returned pointer to <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-freeadsmem">FreeADsMem</a>.
      * 
-     * Returns <b>NULL</b> if not successful. Call  <a href="/windows/desktop/api/adshlp/nf-adshlp-adsgetlasterror">ADsGetLastError</a> to obtain extended error status. For more information about error code values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//adshlp/nf-adshlp-allocadsmem
+     * Returns <b>NULL</b> if not successful. Call  <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-adsgetlasterror">ADsGetLastError</a> to obtain extended error status. For more information about error code values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-allocadsmem
      * @since windows6.0.6000
      */
     static AllocADsMem(cb) {
@@ -3871,13 +4045,17 @@ class ActiveDirectory {
 
     /**
      * Frees the memory allocated by AllocADsMem or ReallocADsMem.
+     * @remarks
+     * Do not use this  function to free memory allocated with the <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-allocadsstr">AllocADsStr</a> or <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-reallocadsstr">ReallocADsStr</a> function. Use the  <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-freeadsstr">FreeADsStr</a> function to free memory allocated with these functions.
+     * 
+     * For more information and  a code example that shows how to use the <b>FreeADsMem</b> function, see <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-reallocadsmem">ReallocADsMem</a>.
      * @param {Pointer<Void>} pMem Type: <b>LPVOID</b>
      * 
      * Pointer to the memory to be freed. This memory must have been allocated with the <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-allocadsmem">AllocADsMem</a> or <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-reallocadsmem">ReallocADsMem</a> function.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The function returns <b>TRUE</b> if successful, otherwise it returns <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//adshlp/nf-adshlp-freeadsmem
+     * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-freeadsmem
      * @since windows6.0.6000
      */
     static FreeADsMem(pMem) {
@@ -3889,6 +4067,8 @@ class ActiveDirectory {
 
     /**
      * Reallocates and copies an existing memory block.
+     * @remarks
+     * If <i>cbNew</i> is less than <i>cbOld</i>, the existing memory is truncated to fit the new memory size.
      * @param {Pointer<Void>} pOldMem Type: <b>LPVOID</b>
      * 
      * Pointer to the memory to copy. <b>ReallocADsMem</b> will free this memory with <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-freeadsmem">FreeADsMem</a> after it has been copied. If additional memory cannot be allocated, this memory is not freed. This memory must have been allocated with the <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-allocadsmem">AllocADsMem</a>, <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-allocadsstr">AllocADsStr</a>, <b>ReallocADsMem</b>, or <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-reallocadsstr">ReallocADsStr</a> function.
@@ -3903,7 +4083,7 @@ class ActiveDirectory {
      * @returns {Pointer<Void>} Type: <b>LPVOID</b>
      * 
      * When successful, the function returns a pointer to the new allocated memory. Otherwise it returns <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//adshlp/nf-adshlp-reallocadsmem
+     * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-reallocadsmem
      * @since windows6.0.6000
      */
     static ReallocADsMem(pOldMem, cbOld, cbNew) {
@@ -3915,15 +4095,17 @@ class ActiveDirectory {
 
     /**
      * Allocates memory for and copies a specified string.
+     * @remarks
+     * For more information and a code example that shows how to use the <b>AllocADsStr</b> function, see <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-reallocadsstr">ReallocADsStr</a>.
      * @param {PWSTR} pStr Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode string to be copied.
      * @returns {PWSTR} Type: <b>LPWSTR</b>
      * 
-     * When successful, the function returns a non-<b>NULL</b> pointer to the allocated memory. The string in <i>pStr</i> is copied to this buffer and null-terminated. The caller must  free this memory when it is no longer required by passing the returned pointer to <a href="/windows/desktop/api/adshlp/nf-adshlp-freeadsstr">FreeADsStr</a>.
+     * When successful, the function returns a non-<b>NULL</b> pointer to the allocated memory. The string in <i>pStr</i> is copied to this buffer and null-terminated. The caller must  free this memory when it is no longer required by passing the returned pointer to <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-freeadsstr">FreeADsStr</a>.
      * 
-     * Returns <b>NULL</b> if not successful. Call  <a href="/windows/desktop/api/adshlp/nf-adshlp-adsgetlasterror">ADsGetLastError</a> to obtain the extended error status. For more information about error code values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//adshlp/nf-adshlp-allocadsstr
+     * Returns <b>NULL</b> if not successful. Call  <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-adsgetlasterror">ADsGetLastError</a> to obtain the extended error status. For more information about error code values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-allocadsstr
      * @since windows6.0.6000
      */
     static AllocADsStr(pStr) {
@@ -3935,6 +4117,16 @@ class ActiveDirectory {
 
     /**
      * Frees the memory of a string allocated by AllocADsStr or ReallocADsStr.
+     * @remarks
+     * Do not use this function to free memory allocated with the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-allocadsmem">AllocADsMem</a> or 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-reallocadsmem">ReallocADsMem</a> function. Use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-freeadsmem">FreeADsMem</a> function  to free memory allocated with these 
+     *     functions.
+     * 
+     * For more information and a code example that shows how to use the 
+     *     <b>FreeADsStr</b> function, see 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-reallocadsstr">ReallocADsStr</a>.
      * @param {PWSTR} pStr Type: <b>LPWSTR</b>
      * 
      * Pointer to the string to be freed. This string must have been allocated with the 
@@ -3944,7 +4136,7 @@ class ActiveDirectory {
      * 
      * The function returns <b>TRUE</b> if the memory is freed. Otherwise, it returns 
      *       <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//adshlp/nf-adshlp-freeadsstr
+     * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-freeadsstr
      * @since windows6.0.6000
      */
     static FreeADsStr(pStr) {
@@ -3967,7 +4159,7 @@ class ActiveDirectory {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The function returns <b>TRUE</b> if  successful, otherwise <b>FALSE</b> is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//adshlp/nf-adshlp-reallocadsstr
+     * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-reallocadsstr
      * @since windows6.0.6000
      */
     static ReallocADsStr(ppStr, pStr) {
@@ -3981,6 +4173,10 @@ class ActiveDirectory {
 
     /**
      * The ADsEncodeBinaryData function converts a binary large object (BLOB) to the Unicode format suitable to be embedded in a search filter.
+     * @remarks
+     * In ADSI, search filters must be Unicode strings. Sometimes, a filter contains data that is normally represented by an opaque BLOB of data. For example, you may want to include an object security identifier in a search filter, which is of binary data. In this case, you must first call the <b>ADsEncodeBinaryData</b> function to convert the binary data to the Unicode string format. When the data is no longer required, call the  <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-freeadsmem">FreeADsMem</a> function to free the converted Unicode string; that is, <i>ppszDestData</i>.
+     * 
+     * The <b>ADsEncodeBinaryData</b> function does not encode byte values that represent alpha-numeric characters. It will, instead, place the character into the string without encoding it. This results in the string containing a mixture of encoded and unencoded characters. For example, if the binary data is 0x05|0x1A|0x1B|0x43|0x32, the encoded string will contain "\05\1A\1BC2". This has no effect on the filter and the search filters will work correctly with these types of strings.
      * @param {Pointer<Integer>} pbSrcData Type: <b>PBYTE</b>
      * 
      * BLOB to be converted.
@@ -3990,15 +4186,16 @@ class ActiveDirectory {
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * Pointer to a null-terminated Unicode string that receives the converted data.
-     * @see https://docs.microsoft.com/windows/win32/api//adshlp/nf-adshlp-adsencodebinarydata
+     * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-adsencodebinarydata
      * @since windows6.0.6000
      */
     static ADsEncodeBinaryData(pbSrcData, dwSrcLen) {
         pbSrcDataMarshal := pbSrcData is VarRef ? "char*" : "ptr"
 
         result := DllCall("ACTIVEDS.dll\ADsEncodeBinaryData", pbSrcDataMarshal, pbSrcData, "uint", dwSrcLen, "ptr*", &ppszDestData := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppszDestData
     }
@@ -4017,8 +4214,9 @@ class ActiveDirectory {
         pdwDestLenMarshal := pdwDestLen is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ACTIVEDS.dll\ADsDecodeBinaryData", "ptr", szSrcData, ppbDestDataMarshal, ppbDestData, pdwDestLenMarshal, pdwDestLen, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4036,8 +4234,9 @@ class ActiveDirectory {
         pdwNumValuesMarshal := pdwNumValues is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ACTIVEDS.dll\PropVariantToAdsType", "ptr", pVariant, "uint", dwNumVariant, ppAdsValuesMarshal, ppAdsValues, pdwNumValuesMarshal, pdwNumValues, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4051,8 +4250,9 @@ class ActiveDirectory {
      */
     static AdsTypeToPropVariant(pAdsValues, dwNumValues, pVariant) {
         result := DllCall("ACTIVEDS.dll\AdsTypeToPropVariant", "ptr", pAdsValues, "uint", dwNumValues, "ptr", pVariant, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4069,6 +4269,8 @@ class ActiveDirectory {
 
     /**
      * Converts a binary security descriptor to an IADsSecurityDescriptor object.
+     * @remarks
+     * This function is used for legacy applications that must  manually convert security descriptors to binary security descriptors. For new applications, use the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadssecurityutility">IADsSecurityUtility</a> interface, which does this conversion automatically.
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor Type: <b>PSECURITY_DESCRIPTOR</b>
      * 
      * Address of a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure to convert.
@@ -4091,8 +4293,8 @@ class ActiveDirectory {
      * 
      * This method supports  standard return values, as well as the following:
      * 
-     * If the operation fails, an ADSI error code is returned. For more information, see <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//adshlp/nf-adshlp-binarysdtosecuritydescriptor
+     * If the operation fails, an ADSI error code is returned. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-binarysdtosecuritydescriptor
      * @since windows6.0.6000
      */
     static BinarySDToSecurityDescriptor(pSecurityDescriptor, pVarsec, pszServerName, userName, passWord, dwFlags) {
@@ -4102,14 +4304,17 @@ class ActiveDirectory {
         passWord := passWord is String ? StrPtr(passWord) : passWord
 
         result := DllCall("ACTIVEDS.dll\BinarySDToSecurityDescriptor", "ptr", pSecurityDescriptor, "ptr", pVarsec, "ptr", pszServerName, "ptr", userName, "ptr", passWord, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Converts an IADsSecurityDescriptor object to the binary security descriptor format.
+     * @remarks
+     * This function is used for legacy applications to manually convert security descriptors to binary security descriptors. For new applications, use <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadssecurityutility">IADsSecurityUtility</a>, which performs this conversion automatically.
      * @param {VARIANT} vVarSecDes Type: <b>VARIANT</b>
      * 
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> that contains the security descriptor to convert. The <b>VARIANT</b> must contain a <b>VT_DISPATCH</b> that contains an <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadssecuritydescriptor">IADsSecurityDescriptor</a> object.
@@ -4134,7 +4339,7 @@ class ActiveDirectory {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This method supports the standard return values, as well as the following.
-     * @see https://docs.microsoft.com/windows/win32/api//adshlp/nf-adshlp-securitydescriptortobinarysd
+     * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-securitydescriptortobinarysd
      * @since windows6.0.6000
      */
     static SecurityDescriptorToBinarySD(vVarSecDes, ppSecurityDescriptor, pdwSDLength, pszServerName, userName, passWord, dwFlags) {
@@ -4145,17 +4350,36 @@ class ActiveDirectory {
         pdwSDLengthMarshal := pdwSDLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("ACTIVEDS.dll\SecurityDescriptorToBinarySD", "ptr", vVarSecDes, "ptr", ppSecurityDescriptor, pdwSDLengthMarshal, pdwSDLength, "ptr", pszServerName, "ptr", userName, "ptr", passWord, "uint", dwFlags, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Displays a dialog box used to browse for container objects in Active Directory Domain Services.
+     * Displays a dialog box used to browse for container objects in Active Directory Domain Services. (Unicode)
+     * @remarks
+     * The dialog box displays a container picker which is either populated with containers from a particular root or which uses trusted domains. If it uses trusted domains, it can use either the domain that the user is currently logged on to, or it can use an alternate domain specified by the application using the <b>pszRoot</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/ns-dsclient-dsbrowseinfoa">DSBROWSEINFO</a> structure. If the user clicks the <b>OK</b> pushbutton or double-clicks an object, <b>IDOK</b> is returned and <b>pszPath</b> contains the ADsPath of the selected object. If the user cancels the dialog box, <b>DsBrowseForContainer</b> returns <b>IDCANCEL</b>.
+     * 
+     * The <b>pszRoot</b> member contains an ADsPath, which requires the  following form.
+     * 
+     * 
+     * ```cpp
+     * LDAP://fabrikam.com/CN=Users,DC=Fabrikam,DC=com
+     * ```
+     * 
+     * 
+     * <b>DsBrowseForContainer</b> uses this path as the root of the tree.  The <b>pszRoot</b> member can also be used to specify a domain that has a trust with the domain that the user is logged on to, so that the user can browse the <b>Users</b> container of the alternate  domain. If the <b>pszPath</b> member contains a path, the dialog will navigate from <b>pszRoot</b> through the containers until it reaches the object specified by <b>pszPath</b>.
+     * 
+     * The <b>DsBrowseForContainer</b> function supports a callback function as specified in the <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/ns-dsclient-dsbrowseinfoa">DSBROWSEINFO</a> structure. The callback function can be used to filter, modify, or otherwise update the view based on selection change, and so on. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nc-shlobj_core-bffcallback">BFFCallBack</a>.
+     * 
+     * <div class="alert"><b>Important</b>  Beginning with Windows Server 2003, the ANSI version of this function (<b>DsBrowseForContainerA</b>) is not implemented and always returns -1.</div>
+     * <div> </div>
      * @param {Pointer<DSBROWSEINFOW>} pInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/ns-dsclient-dsbrowseinfoa">DSBROWSEINFO</a> structure that contains data about  initializing the container browser dialog and receives data about the selected object.
      * @returns {Integer} The function returns one of the following values.
-     * @see https://docs.microsoft.com/windows/win32/api//dsclient/nf-dsclient-dsbrowseforcontainerw
+     * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-dsbrowseforcontainerw
      * @since windows6.0.6000
      */
     static DsBrowseForContainerW(pInfo) {
@@ -4164,10 +4388,28 @@ class ActiveDirectory {
     }
 
     /**
-     * Displays a dialog box used to browse for container objects in Active Directory Domain Services.
+     * Displays a dialog box used to browse for container objects in Active Directory Domain Services. (ANSI)
+     * @remarks
+     * The dialog box displays a container picker which is either populated with containers from a particular root or which uses trusted domains. If it uses trusted domains, it can use either the domain that the user is currently logged on to, or it can use an alternate domain specified by the application using the <b>pszRoot</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/ns-dsclient-dsbrowseinfoa">DSBROWSEINFO</a> structure. If the user clicks the <b>OK</b> pushbutton or double-clicks an object, <b>IDOK</b> is returned and <b>pszPath</b> contains the ADsPath of the selected object. If the user cancels the dialog box, <b>DsBrowseForContainer</b> returns <b>IDCANCEL</b>.
+     * 
+     * The <b>pszRoot</b> member contains an ADsPath, which requires the  following form.
+     * 
+     * 
+     * ```cpp
+     * LDAP://fabrikam.com/CN=Users,DC=Fabrikam,DC=com
+     * ```
+     * 
+     * 
+     * <b>DsBrowseForContainer</b> uses this path as the root of the tree.  The <b>pszRoot</b> member can also be used to specify a domain that has a trust with the domain that the user is logged on to, so that the user can browse the <b>Users</b> container of the alternate  domain. If the <b>pszPath</b> member contains a path, the dialog will navigate from <b>pszRoot</b> through the containers until it reaches the object specified by <b>pszPath</b>.
+     * 
+     * The <b>DsBrowseForContainer</b> function supports a callback function as specified in the <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/ns-dsclient-dsbrowseinfoa">DSBROWSEINFO</a> structure. The callback function can be used to filter, modify, or otherwise update the view based on selection change, and so on. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nc-shlobj_core-bffcallback">BFFCallBack</a>.
+     * 
+     * <div class="alert"><b>Important</b>  Beginning with Windows Server 2003, the ANSI version of this function (<b>DsBrowseForContainerA</b>) is not implemented and always returns -1.</div>
+     * <div> </div>
      * @param {Pointer<DSBROWSEINFOA>} pInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/ns-dsclient-dsbrowseinfoa">DSBROWSEINFO</a> structure that contains data about  initializing the container browser dialog and receives data about the selected object.
      * @returns {Integer} The function returns one of the following values.
-     * @see https://docs.microsoft.com/windows/win32/api//dsclient/nf-dsclient-dsbrowseforcontainera
+     * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-dsbrowseforcontainera
      * @since windows6.0.6000
      */
     static DsBrowseForContainerA(pInfo) {
@@ -4181,24 +4423,27 @@ class ActiveDirectory {
      * @param {PWSTR} pszObjectClass Pointer to a null-terminated Unicode string that contains the name of the object class to retrieve the icon for. Examples of the object class name are "user" and "container".
      * @param {Integer} cxImage Contains the desired width, in pixels, of the icon. This function retrieves the icon that most closely matches this width.
      * @param {Integer} cyImage Contains the desired height, in pixels, of the icon. This function retrieves the icon that most closely matches this height.
-     * @returns {HICON} Returns a handle to the icon if successful or <b>NULL</b> otherwise. The caller must destroy this icon when it is no longer required by passing this handle to <a href="/windows/desktop/api/winuser/nf-winuser-destroyicon">DestroyIcon</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//dsclient/nf-dsclient-dsgeticon
+     * @returns {HICON} Returns a handle to the icon if successful or <b>NULL</b> otherwise. The caller must destroy this icon when it is no longer required by passing this handle to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroyicon">DestroyIcon</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-dsgeticon
      * @since windows6.0.6000
      */
     static DsGetIcon(dwFlags, pszObjectClass, cxImage, cyImage) {
         pszObjectClass := pszObjectClass is String ? StrPtr(pszObjectClass) : pszObjectClass
 
         result := DllCall("dsuiext.dll\DsGetIcon", "uint", dwFlags, "ptr", pszObjectClass, "int", cxImage, "int", cyImage, "ptr")
-        return HICON({Value: result}, True)
+        resultHandle := HICON({Value: result}, True)
+        return resultHandle
     }
 
     /**
      * Retrieves the localized name for an object class.
+     * @remarks
+     * If no friendly name is set in the display specifiers for the object class, this function returns the name passed in <i>pszObjectClass</i>.
      * @param {PWSTR} pszObjectClass Pointer to a null-terminated Unicode string that contains the name of the object class to obtain the name of. Examples of the object class name are "user" and "container".
      * @param {PWSTR} pszBuffer Pointer to a wide character buffer that receives the name string. This buffer must be at least <i>cchBuffer</i> wide characters in length.
      * @param {Integer} cchBuffer Contains the size of the <i>pszBuffer</i> buffer, in wide characters, including the terminating <b>NULL</b> character. If the name exceeds this number of characters, the name is truncated.
      * @returns {HRESULT} Returns a standard  <b>HRESULT</b> value, including the following.
-     * @see https://docs.microsoft.com/windows/win32/api//dsclient/nf-dsclient-dsgetfriendlyclassname
+     * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-dsgetfriendlyclassname
      * @since windows6.0.6000
      */
     static DsGetFriendlyClassName(pszObjectClass, pszBuffer, cchBuffer) {
@@ -4206,37 +4451,47 @@ class ActiveDirectory {
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
         result := DllCall("dsuiext.dll\DsGetFriendlyClassName", "ptr", pszObjectClass, "ptr", pszBuffer, "uint", cchBuffer, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * The ADsPropCreateNotifyObj function is used to create, or obtain, a notification object for use by an Active Directory Domain Services property sheet extension.
+     * @remarks
+     * The <b>ADsPropCreateNotifyObj</b> function is used in the implementation of an Active Directory Domain Services property sheet extension. The extension must first request the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/cfstr-dsobjectnames-clipboard-format">CFSTR_DSOBJECTNAMES</a> data from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface passed to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellextinit-initialize">IShellExtInit::Initialize</a> by calling <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-getdata">IDataObject::GetData</a>. This provides the data object and object name required to call <b>ADsPropCreateNotifyObj</b>.
+     * 
+     * When the notification object is no longer required, a <a href="https://docs.microsoft.com/windows/desktop/AD/wm-adsprop-notify-exit">WM_ADSPROP_NOTIFY_EXIT</a> message is sent to the notification object. This causes the notification object to destroy itself. When the <b>WM_ADSPROP_NOTIFY_EXIT</b> message is sent, the notification object handle should be considered invalid.
      * @param {IDataObject} pAppThdDataObj A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> object that represents the directory object that the property page applies to. This is the <b>IDataObject</b> passed to the property page <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellextinit-initialize">IShellExtInit::Initialize</a> method.
      * @param {PWSTR} pwzADsObjName The Active Directory Domain Services object name obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-getdata">IDataObject::GetData</a> method for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/cfstr-dsobjectnames-clipboard-format">CFSTR_DSOBJECTNAMES</a> clipboard format on the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> represented by <i>pAppThdDataObj</i>.
      * @param {Pointer<HWND>} phNotifyObj Pointer to an <b>HWND</b> value that receives the handle of the notification object.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an OLE-defined error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//adsprop/nf-adsprop-adspropcreatenotifyobj
+     * @see https://learn.microsoft.com/windows/win32/api/adsprop/nf-adsprop-adspropcreatenotifyobj
      * @since windows6.0.6000
      */
     static ADsPropCreateNotifyObj(pAppThdDataObj, pwzADsObjName, phNotifyObj) {
         pwzADsObjName := pwzADsObjName is String ? StrPtr(pwzADsObjName) : pwzADsObjName
 
         result := DllCall("dsprop.dll\ADsPropCreateNotifyObj", "ptr", pAppThdDataObj, "ptr", pwzADsObjName, "ptr", phNotifyObj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Used to obtain directory object data that an Active Directory Domain Services property sheet extension applies to.
+     * @remarks
+     * The memory  for the <b>pwzCN</b> and <b>pWritableAttrs</b> members is allocated by the <b>ADsPropGetInitInfo</b> function. This memory is freed by the system after all property sheet objects are destroyed. The reference count for the interface pointer in <b>pDsObj</b> is not incremented by calling <b>ADsPropGetInitInfo</b>, so the interface must not be released by the caller.
+     * 
+     * For multiple-selection property sheets, the system only binds to the first object in the <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/ns-dsclient-dsobject">DSOBJECT</a> array. Because of this, <b>ADsPropGetInitInfo</b> only supplies the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-idirectoryobject">IDirectoryObject</a> and writable attributes for the first object in the array. The other objects in the array are not bound to.
      * @param {HWND} hNotifyObj The handle of the notification object. To obtain this handle, call <a href="https://docs.microsoft.com/windows/desktop/api/adsprop/nf-adsprop-adspropcreatenotifyobj">ADsPropCreateNotifyObj</a>.
      * @param {Pointer<ADSPROPINITPARAMS>} pInitParams Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/adsprop/ns-adsprop-adspropinitparams">ADSPROPINITPARAMS</a> structure that receives the directory object data. The <b>dwSize</b> member of this structure must be entered before calling this function.
      * @returns {BOOL} Returns nonzero if successful or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//adsprop/nf-adsprop-adspropgetinitinfo
+     * @see https://learn.microsoft.com/windows/win32/api/adsprop/nf-adsprop-adspropgetinitinfo
      * @since windows6.0.6000
      */
     static ADsPropGetInitInfo(hNotifyObj, pInitParams) {
@@ -4247,12 +4502,16 @@ class ActiveDirectory {
     }
 
     /**
-     * Used to notify the notification object of the property page window handle.
+     * Used to notify the notification object of the property page window handle. (ADsPropSetHwndWithTitle)
+     * @remarks
+     * An Active Directory Domain Services property sheet extension normally calls this function while processing the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message.
+     * 
+     * If the property sheet extension uses the <a href="https://docs.microsoft.com/windows/desktop/api/adsprop/nf-adsprop-adspropshowerrordialog">ADsPropShowErrorDialog</a> function, the extension should use <b>ADsPropSetHwndWithTitle</b> rather than <a href="https://docs.microsoft.com/windows/desktop/api/adsprop/nf-adsprop-adspropsethwnd">ADsPropSetHwnd</a>.
      * @param {HWND} hNotifyObj The handle of the notification object. To obtain this handle, call <a href="https://docs.microsoft.com/windows/desktop/api/adsprop/nf-adsprop-adspropcreatenotifyobj">ADsPropCreateNotifyObj</a>.
      * @param {HWND} hPage A window handle of the property page.
      * @param {Pointer<Integer>} ptzTitle Pointer to a NULL-terminated string that contains the property page title.
      * @returns {BOOL} Returns zero if the notification object does not exist or nonzero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//adsprop/nf-adsprop-adspropsethwndwithtitle
+     * @see https://learn.microsoft.com/windows/win32/api/adsprop/nf-adsprop-adspropsethwndwithtitle
      * @since windows6.0.6000
      */
     static ADsPropSetHwndWithTitle(hNotifyObj, hPage, ptzTitle) {
@@ -4266,11 +4525,15 @@ class ActiveDirectory {
     }
 
     /**
-     * Used to notify the notification object of the property page window handle.
+     * Used to notify the notification object of the property page window handle. (ADsPropSetHwnd)
+     * @remarks
+     * An Active Directory Domain Services property sheet extension normally calls this function while processing the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message.
+     * 
+     * If the property sheet extension uses the <a href="https://docs.microsoft.com/windows/desktop/api/adsprop/nf-adsprop-adspropshowerrordialog">ADsPropShowErrorDialog</a> function, the extension should use <a href="https://docs.microsoft.com/windows/desktop/api/adsprop/nf-adsprop-adspropsethwndwithtitle">ADsPropSetHwndWithTitle</a> rather than <b>ADsPropSetHwnd</b>.
      * @param {HWND} hNotifyObj The handle of the notification object. To obtain this handle, call <a href="https://docs.microsoft.com/windows/desktop/api/adsprop/nf-adsprop-adspropcreatenotifyobj">ADsPropCreateNotifyObj</a>.
      * @param {HWND} hPage A window handle of the property page.
      * @returns {BOOL} Returns zero if the notification object does not exist or nonzero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//adsprop/nf-adsprop-adspropsethwnd
+     * @see https://learn.microsoft.com/windows/win32/api/adsprop/nf-adsprop-adspropsethwnd
      * @since windows6.0.6000
      */
     static ADsPropSetHwnd(hNotifyObj, hPage) {
@@ -4283,10 +4546,16 @@ class ActiveDirectory {
 
     /**
      * The ADsPropCheckIfWritable function determines if an attribute can be written.
+     * @remarks
+     * During initialization, a property sheet extension should determine if the attributes it can change can be written by using <b>ADsPropCheckIfWritable</b>. If an attribute cannot be written, it should be displayed as read-only and the ability to change the attribute value should be removed.
+     * 
+     * It is possible for a user to be  granted write permission, but not read permission for an attribute. In this case, the attribute read operation fails and it is possible that the attribute could be overwritten. Consequently, it is not recommended to grant a user write permission, but revoke read permission on an attribute.
+     * 
+     * Do not use this function to verify the write permission for attributes in a multi-select property sheet. It is likely that each directory object will have a different set of writable attribute permissions. The property sheet extension should rely on the server returning an error when attempting to write to a specific object in a selected group to determine if write permissions for that object are denied.
      * @param {PWSTR} pwzAttr Pointer to a NULL-terminated <b>WCHAR</b> buffer that contains the name of the attribute.
      * @param {Pointer<ADS_ATTR_INFO>} pWritableAttrs Pointer to the array of <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_attr_info">ADS_ATTR_INFO</a> structures returned by <a href="https://docs.microsoft.com/windows/desktop/api/adsprop/nf-adsprop-adspropgetinitinfo">ADsPropGetInitInfo</a>.
      * @returns {BOOL} Returns nonzero if the attribute is found in the writable-attribute list or zero otherwise. Also returns zero if <i>pWritableAttrs</i> is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//adsprop/nf-adsprop-adspropcheckifwritable
+     * @see https://learn.microsoft.com/windows/win32/api/adsprop/nf-adsprop-adspropcheckifwritable
      * @since windows6.0.6000
      */
     static ADsPropCheckIfWritable(pwzAttr, pWritableAttrs) {
@@ -4298,10 +4567,12 @@ class ActiveDirectory {
 
     /**
      * The ADsPropSendErrorMessage function adds an error message to a list of error messages displayed by calling the ADsPropShowErrorDialog function.
+     * @remarks
+     * The error messages added by the <b>ADsPropSendErrorMessage</b> function are accumulated until  <a href="https://docs.microsoft.com/windows/desktop/api/adsprop/nf-adsprop-adspropshowerrordialog">ADsPropShowErrorDialog</a> is called.  <b>ADsPropShowErrorDialog</b> combines and displays the accumulated  error messages. When the error dialog is dismissed, the accumulated error messages are deleted.
      * @param {HWND} hNotifyObj The handle of the notification object. To obtain this handle, call <a href="https://docs.microsoft.com/windows/desktop/api/adsprop/nf-adsprop-adspropcreatenotifyobj">ADsPropCreateNotifyObj</a>.
      * @param {Pointer<ADSPROPERROR>} pError Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/adsprop/ns-adsprop-adsproperror">ADSPROPERROR</a> structure which contains data about the error message.
      * @returns {BOOL} Returns nonzero if successful or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//adsprop/nf-adsprop-adspropsenderrormessage
+     * @see https://learn.microsoft.com/windows/win32/api/adsprop/nf-adsprop-adspropsenderrormessage
      * @since windows6.0.6000
      */
     static ADsPropSendErrorMessage(hNotifyObj, pError) {
@@ -4313,10 +4584,12 @@ class ActiveDirectory {
 
     /**
      * The ADsPropShowErrorDialog function displays a dialog box that contains the error messages accumulated through calls to the ADsPropSendErrorMessage function or the WM_ADSPROP_NOTIFY_ERROR.
+     * @remarks
+     * The error messages added by the <a href="https://docs.microsoft.com/windows/desktop/api/adsprop/nf-adsprop-adspropsenderrormessage">ADsPropSendErrorMessage</a> function are accumulated until  <b>ADsPropShowErrorDialog</b> is called.  <b>ADsPropShowErrorDialog</b> combines and displays the accumulated  error messages. When the error dialog is dismissed, the accumulated error messages are deleted.
      * @param {HWND} hNotifyObj The handle of the notification object. To obtain this handle, call <a href="https://docs.microsoft.com/windows/desktop/api/adsprop/nf-adsprop-adspropcreatenotifyobj">ADsPropCreateNotifyObj</a>.
      * @param {HWND} hPage The window handle of the property page.
      * @returns {BOOL} Returns zero if the notification object does not exist or nonzero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//adsprop/nf-adsprop-adspropshowerrordialog
+     * @see https://learn.microsoft.com/windows/win32/api/adsprop/nf-adsprop-adspropshowerrordialog
      * @since windows6.0.6000
      */
     static ADsPropShowErrorDialog(hNotifyObj, hPage) {
@@ -4328,7 +4601,65 @@ class ActiveDirectory {
     }
 
     /**
-     * Constructs a service principal name (SPN) that identifies a service instance.
+     * Constructs a service principal name (SPN) that identifies a service instance. (Unicode)
+     * @remarks
+     * The format of the SPN produced by the <b>DsMakeSpn</b> function depends on the input parameters. There are two basic formats. Both formats begin with the <i>ServiceClass</i> string followed by a host computer name and an optional <i>InstancePort</i> component.
+     * 
+     * <div class="alert"><b>Note</b>  This format is used by host-based services.</div>
+     * <div> </div>
+     * <p class="proch"><b>To produce an SPN with the "&lt;ServiceClass&gt;/&lt;host&gt;" format</b>
+     * 
+     * <ol>
+     * <li>Set the <i>ServiceName</i> parameter to the DNS name of the host computer for the service instance. This is the host component of the SPN.</li>
+     * <li>Set the <i>InstanceName</i> and <i>Referrer</i> parameters to <b>NULL</b>.</li>
+     * <li>
+     * Set the <i>InstancePort</i> parameter to zero. If <i>InstancePort</i> is nonzero, the SPN has the following format:
+     * 
+     * 
+     * ```cpp
+     * <service class>/<host>:<instance port>/<referrer>
+     * ```
+     * 
+     * 
+     * </li>
+     * </ol>
+     * <div class="alert"><b>Note</b>  This format is used by replicable services.</div>
+     * <div> </div>
+     * <p class="proch"><b>To produce an SPN with the "&lt;ServiceClass&gt;/&lt;host&gt;:&lt;InstancePort&gt;" format</b>
+     * 
+     * <ol>
+     * <li>Set the <i>InstanceName</i> parameter to the DNS name of the host computer for the service instance. This is the host component.</li>
+     * <li>Set the <i>ServiceName</i> parameter to a string that identifies an instance of the service. For example, it could be the distinguished name of the service connection point for this service instance.</li>
+     * <li>Set the <i>Referrer</i> parameter to <b>NULL</b>.</li>
+     * <li>
+     * Set the <i>InstancePort</i> parameter to zero. If <i>InstancePort</i> is nonzero, the SPN has the following format:
+     * 
+     * 
+     * ```cpp
+     * <service class>/<host>:<instance port>/<service name>
+     * ```
+     * 
+     * 
+     * </li>
+     * </ol>
+     * The <i>Referrer</i> parameter is used only if the <i>ServiceName</i> parameter specifies the IP address of the service's host computer. In this case, <i>Referrer</i> specifies the DNS name of the computer that gave the IP address as a referral. The SPN has the following format:
+     * 
+     * 
+     * ```cpp
+     * <service class>/<host>:<instance port>/<referrer>
+     * ```
+     * 
+     * 
+     * where the host component is the <i>InstanceName</i> string or the <i>ServiceName</i> string if <i>InstanceName</i> is <b>NULL</b>, and the <i>InstancePort</i> component is optional.
+     * 
+     * String parameters cannot include the forward slash (/) character, as it is used to separate the components of the SPN.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The dsparse.h header defines DsMakeSpn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} ServiceClass Pointer to a constant null-terminated string that specifies the class of the service. This parameter can be any string unique to that service; either the protocol name, for example, ldap, or the string form of a GUID are acceptable.
      * @param {PWSTR} ServiceName Pointer to a constant null-terminated string that specifies the DNS name, NetBIOS name, or distinguished name (DN). This parameter must be non-<b>NULL</b>.
      * 
@@ -4345,7 +4676,7 @@ class ActiveDirectory {
      * The <i>pcSpnLength</i> parameter also receives the actual length of the SPN created, including the terminating null character.
      * @param {PWSTR} pszSpn Pointer to a null-terminated string that receives the constructed SPN. This buffer should be the length specified by <i>pcSpnLength</i>. The <i>pszSpn</i> parameter may be <b>NULL</b> to request the final buffer size in advance.
      * @returns {Integer} If the function returns an SPN, the return value is <b>ERROR_SUCCESS</b>. If the function fails, the return value can be one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//dsparse/nf-dsparse-dsmakespnw
+     * @see https://learn.microsoft.com/windows/win32/api/dsparse/nf-dsparse-dsmakespnw
      * @since windows6.0.6000
      */
     static DsMakeSpnW(ServiceClass, ServiceName, InstanceName, InstancePort, Referrer, pcSpnLength, pszSpn) {
@@ -4362,7 +4693,65 @@ class ActiveDirectory {
     }
 
     /**
-     * Constructs a service principal name (SPN) that identifies a service instance.
+     * Constructs a service principal name (SPN) that identifies a service instance. (ANSI)
+     * @remarks
+     * The format of the SPN produced by the <b>DsMakeSpn</b> function depends on the input parameters. There are two basic formats. Both formats begin with the <i>ServiceClass</i> string followed by a host computer name and an optional <i>InstancePort</i> component.
+     * 
+     * <div class="alert"><b>Note</b>  This format is used by host-based services.</div>
+     * <div> </div>
+     * <p class="proch"><b>To produce an SPN with the "&lt;ServiceClass&gt;/&lt;host&gt;" format</b>
+     * 
+     * <ol>
+     * <li>Set the <i>ServiceName</i> parameter to the DNS name of the host computer for the service instance. This is the host component of the SPN.</li>
+     * <li>Set the <i>InstanceName</i> and <i>Referrer</i> parameters to <b>NULL</b>.</li>
+     * <li>
+     * Set the <i>InstancePort</i> parameter to zero. If <i>InstancePort</i> is nonzero, the SPN has the following format:
+     * 
+     * 
+     * ```cpp
+     * <service class>/<host>:<instance port>/<referrer>
+     * ```
+     * 
+     * 
+     * </li>
+     * </ol>
+     * <div class="alert"><b>Note</b>  This format is used by replicable services.</div>
+     * <div> </div>
+     * <p class="proch"><b>To produce an SPN with the "&lt;ServiceClass&gt;/&lt;host&gt;:&lt;InstancePort&gt;" format</b>
+     * 
+     * <ol>
+     * <li>Set the <i>InstanceName</i> parameter to the DNS name of the host computer for the service instance. This is the host component.</li>
+     * <li>Set the <i>ServiceName</i> parameter to a string that identifies an instance of the service. For example, it could be the distinguished name of the service connection point for this service instance.</li>
+     * <li>Set the <i>Referrer</i> parameter to <b>NULL</b>.</li>
+     * <li>
+     * Set the <i>InstancePort</i> parameter to zero. If <i>InstancePort</i> is nonzero, the SPN has the following format:
+     * 
+     * 
+     * ```cpp
+     * <service class>/<host>:<instance port>/<service name>
+     * ```
+     * 
+     * 
+     * </li>
+     * </ol>
+     * The <i>Referrer</i> parameter is used only if the <i>ServiceName</i> parameter specifies the IP address of the service's host computer. In this case, <i>Referrer</i> specifies the DNS name of the computer that gave the IP address as a referral. The SPN has the following format:
+     * 
+     * 
+     * ```cpp
+     * <service class>/<host>:<instance port>/<referrer>
+     * ```
+     * 
+     * 
+     * where the host component is the <i>InstanceName</i> string or the <i>ServiceName</i> string if <i>InstanceName</i> is <b>NULL</b>, and the <i>InstancePort</i> component is optional.
+     * 
+     * String parameters cannot include the forward slash (/) character, as it is used to separate the components of the SPN.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The dsparse.h header defines DsMakeSpn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} ServiceClass Pointer to a constant null-terminated string that specifies the class of the service. This parameter can be any string unique to that service; either the protocol name, for example, ldap, or the string form of a GUID are acceptable.
      * @param {PSTR} ServiceName Pointer to a constant null-terminated string that specifies the DNS name, NetBIOS name, or distinguished name (DN). This parameter must be non-<b>NULL</b>.
      * 
@@ -4379,7 +4768,7 @@ class ActiveDirectory {
      * The <i>pcSpnLength</i> parameter also receives the actual length of the SPN created, including the terminating null character.
      * @param {PSTR} pszSpn Pointer to a null-terminated string that receives the constructed SPN. This buffer should be the length specified by <i>pcSpnLength</i>. The <i>pszSpn</i> parameter may be <b>NULL</b> to request the final buffer size in advance.
      * @returns {Integer} If the function returns an SPN, the return value is <b>ERROR_SUCCESS</b>. If the function fails, the return value can be one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//dsparse/nf-dsparse-dsmakespna
+     * @see https://learn.microsoft.com/windows/win32/api/dsparse/nf-dsparse-dsmakespna
      * @since windows6.0.6000
      */
     static DsMakeSpnA(ServiceClass, ServiceName, InstanceName, InstancePort, Referrer, pcSpnLength, pszSpn) {
@@ -4396,7 +4785,10 @@ class ActiveDirectory {
     }
 
     /**
-     * Parses a service principal name (SPN) into its component strings.
+     * Parses a service principal name (SPN) into its component strings. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The dsparse.h header defines DsCrackSpn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pszSpn Pointer to a constant null-terminated string that contains the SPN to parse. The SPN has the following format, in which the &lt;service class&gt; and &lt;instance name&gt; components must be present and the &lt;port number&gt; and &lt;service name&gt; components are optional. The &lt;port number&gt; component must be a numeric string value.
      * 
      * 
@@ -4423,7 +4815,7 @@ class ActiveDirectory {
      * @param {PSTR} InstanceName Pointer to a <b>TCHAR</b> buffer that receives a null-terminated string containing the &lt;instance name&gt; component of the SPN. This buffer must be at least <i>*pcInstanceName </i> <b>TCHARs</b> in size. This parameter may be  <b>NULL</b> if the instance name is not required.
      * @param {Pointer<Integer>} pInstancePort Pointer to a <b>DWORD</b> value that receives the integer value of the &lt;port number&gt; component of the SPN. If the SPN does not contain a &lt;port number&gt; component, this parameter receives zero. This parameter may be  <b>NULL</b> if the port number is not required.
      * @returns {Integer} Returns a Win32 error code, including the following.
-     * @see https://docs.microsoft.com/windows/win32/api//dsparse/nf-dsparse-dscrackspna
+     * @see https://learn.microsoft.com/windows/win32/api/dsparse/nf-dsparse-dscrackspna
      * @since windows6.0.6000
      */
     static DsCrackSpnA(pszSpn, pcServiceClass, ServiceClass, pcServiceName, ServiceName, pcInstanceName, InstanceName, pInstancePort) {
@@ -4442,7 +4834,10 @@ class ActiveDirectory {
     }
 
     /**
-     * Parses a service principal name (SPN) into its component strings.
+     * Parses a service principal name (SPN) into its component strings. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The dsparse.h header defines DsCrackSpn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pszSpn Pointer to a constant null-terminated string that contains the SPN to parse. The SPN has the following format, in which the &lt;service class&gt; and &lt;instance name&gt; components must be present and the &lt;port number&gt; and &lt;service name&gt; components are optional. The &lt;port number&gt; component must be a numeric string value.
      * 
      * 
@@ -4469,7 +4864,7 @@ class ActiveDirectory {
      * @param {PWSTR} InstanceName Pointer to a <b>TCHAR</b> buffer that receives a null-terminated string containing the &lt;instance name&gt; component of the SPN. This buffer must be at least <i>*pcInstanceName </i> <b>TCHARs</b> in size. This parameter may be  <b>NULL</b> if the instance name is not required.
      * @param {Pointer<Integer>} pInstancePort Pointer to a <b>DWORD</b> value that receives the integer value of the &lt;port number&gt; component of the SPN. If the SPN does not contain a &lt;port number&gt; component, this parameter receives zero. This parameter may be  <b>NULL</b> if the port number is not required.
      * @returns {Integer} Returns a Win32 error code, including the following.
-     * @see https://docs.microsoft.com/windows/win32/api//dsparse/nf-dsparse-dscrackspnw
+     * @see https://learn.microsoft.com/windows/win32/api/dsparse/nf-dsparse-dscrackspnw
      * @since windows6.0.6000
      */
     static DsCrackSpnW(pszSpn, pcServiceClass, ServiceClass, pcServiceName, ServiceName, pcInstanceName, InstanceName, pInstancePort) {
@@ -4488,7 +4883,22 @@ class ActiveDirectory {
     }
 
     /**
-     * Converts an RDN into a quoted RDN value, if the RDN value contains characters that require quotes.
+     * Converts an RDN into a quoted RDN value, if the RDN value contains characters that require quotes. (Unicode)
+     * @remarks
+     * Quotes are not added to the RDN if none are required. In this case, the output RDN value is the same as the input RDN value.
+     * 
+     * When quoting is required, the RDN is quoted in accordance with the specification "Lightweight Directory Access Protocol (v3): UTF-8 String Representation of Distinguished Names," RFC 2253.
+     * 
+     * The input and output RDN values are not <b>NULL</b>-terminated strings.
+     * 
+     * To revert changes made by this call, call the <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/nf-dsparse-dsunquoterdnvaluea">DsUnquoteRdnValue</a> function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The dsparse.h header defines DsQuoteRdnValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} cUnquotedRdnValueLength The number of characters in the <i>psUnquotedRdnValue</i> string.
      * @param {PWSTR} psUnquotedRdnValue The string that specifies the unquoted RDN value.
      * @param {Pointer<Integer>} pcQuotedRdnValueLength The maximum number of characters in the <i>psQuotedRdnValue</i> string.
@@ -4496,7 +4906,7 @@ class ActiveDirectory {
      * The following flags are the output for this parameter.
      * @param {PWSTR} psQuotedRdnValue The string that receives the converted, and perhaps quoted, RDN value.
      * @returns {Integer} The following list contains the possible values  returned for the <b>DsQuoteRdnValue</b> function.
-     * @see https://docs.microsoft.com/windows/win32/api//dsparse/nf-dsparse-dsquoterdnvaluew
+     * @see https://learn.microsoft.com/windows/win32/api/dsparse/nf-dsparse-dsquoterdnvaluew
      * @since windows6.0.6000
      */
     static DsQuoteRdnValueW(cUnquotedRdnValueLength, psUnquotedRdnValue, pcQuotedRdnValueLength, psQuotedRdnValue) {
@@ -4510,7 +4920,22 @@ class ActiveDirectory {
     }
 
     /**
-     * Converts an RDN into a quoted RDN value, if the RDN value contains characters that require quotes.
+     * Converts an RDN into a quoted RDN value, if the RDN value contains characters that require quotes. (ANSI)
+     * @remarks
+     * Quotes are not added to the RDN if none are required. In this case, the output RDN value is the same as the input RDN value.
+     * 
+     * When quoting is required, the RDN is quoted in accordance with the specification "Lightweight Directory Access Protocol (v3): UTF-8 String Representation of Distinguished Names," RFC 2253.
+     * 
+     * The input and output RDN values are not <b>NULL</b>-terminated strings.
+     * 
+     * To revert changes made by this call, call the <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/nf-dsparse-dsunquoterdnvaluea">DsUnquoteRdnValue</a> function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The dsparse.h header defines DsQuoteRdnValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} cUnquotedRdnValueLength The number of characters in the <i>psUnquotedRdnValue</i> string.
      * @param {PSTR} psUnquotedRdnValue The string that specifies the unquoted RDN value.
      * @param {Pointer<Integer>} pcQuotedRdnValueLength The maximum number of characters in the <i>psQuotedRdnValue</i> string.
@@ -4518,7 +4943,7 @@ class ActiveDirectory {
      * The following flags are the output for this parameter.
      * @param {PSTR} psQuotedRdnValue The string that receives the converted, and perhaps quoted, RDN value.
      * @returns {Integer} The following list contains the possible values  returned for the <b>DsQuoteRdnValue</b> function.
-     * @see https://docs.microsoft.com/windows/win32/api//dsparse/nf-dsparse-dsquoterdnvaluea
+     * @see https://learn.microsoft.com/windows/win32/api/dsparse/nf-dsparse-dsquoterdnvaluea
      * @since windows6.0.6000
      */
     static DsQuoteRdnValueA(cUnquotedRdnValueLength, psUnquotedRdnValue, pcQuotedRdnValueLength, psQuotedRdnValue) {
@@ -4532,7 +4957,39 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsUnquoteRdnValue function is a client call that converts a quoted RDN value back to an unquoted RDN value.
+     * The DsUnquoteRdnValue function is a client call that converts a quoted RDN value back to an unquoted RDN value. (Unicode)
+     * @remarks
+     * When <i>psQuotedRdnValue</i> is quoted:
+     * 
+     * <ul>
+     * <li>The leading and trailing quotes are removed.</li>
+     * <li>White space before the first quote is discarded.</li>
+     * <li>White space trailing the last quote is discarded.</li>
+     * <li>Escapes are removed and the character following the escape is kept.</li>
+     * </ul>
+     * The following actions are taken when <i>psQuotedRdnValue</i> is unquoted:
+     * 
+     * <ul>
+     * <li>The leading white space is discarded.</li>
+     * <li>The trailing white space is kept.</li>
+     * <li>Escaped non-special characters return an error.</li>
+     * <li>Unescaped special characters return an error.</li>
+     * <li>RDN values beginning with # (ignoring leading white space) are handled as a  BER value that has previously been converted to a string, and converted accordingly.</li>
+     * <li>Escaped hex digits (\89) are converted into a binary byte (0x89).</li>
+     * <li>Escapes are removed from escaped special characters.</li>
+     * </ul>
+     * The following actions are always taken:
+     * 
+     * <ul>
+     * <li>Escaped special characters are unescaped.</li>
+     * <li>The input and output RDN values are not null-terminated values.</li>
+     * </ul>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The dsparse.h header defines DsUnquoteRdnValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} cQuotedRdnValueLength The number of characters in the <i>psQuotedRdnValue</i> string.
      * @param {PWSTR} psQuotedRdnValue The RDN value that may be quoted and escaped.
      * @param {Pointer<Integer>} pcUnquotedRdnValueLength The input value for this argument is the maximum length, in characters, of <i>psQuotedRdnValue</i>.
@@ -4540,7 +4997,7 @@ class ActiveDirectory {
      * The output value for this argument includes the following flags.
      * @param {PWSTR} psUnquotedRdnValue The converted, unquoted RDN value.
      * @returns {Integer} The following list contains the possible values that are returned for the <b>DsUnquoteRdnValue</b> function.
-     * @see https://docs.microsoft.com/windows/win32/api//dsparse/nf-dsparse-dsunquoterdnvaluew
+     * @see https://learn.microsoft.com/windows/win32/api/dsparse/nf-dsparse-dsunquoterdnvaluew
      * @since windows6.0.6000
      */
     static DsUnquoteRdnValueW(cQuotedRdnValueLength, psQuotedRdnValue, pcUnquotedRdnValueLength, psUnquotedRdnValue) {
@@ -4554,7 +5011,39 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsUnquoteRdnValue function is a client call that converts a quoted RDN value back to an unquoted RDN value.
+     * The DsUnquoteRdnValue function is a client call that converts a quoted RDN value back to an unquoted RDN value. (ANSI)
+     * @remarks
+     * When <i>psQuotedRdnValue</i> is quoted:
+     * 
+     * <ul>
+     * <li>The leading and trailing quotes are removed.</li>
+     * <li>White space before the first quote is discarded.</li>
+     * <li>White space trailing the last quote is discarded.</li>
+     * <li>Escapes are removed and the character following the escape is kept.</li>
+     * </ul>
+     * The following actions are taken when <i>psQuotedRdnValue</i> is unquoted:
+     * 
+     * <ul>
+     * <li>The leading white space is discarded.</li>
+     * <li>The trailing white space is kept.</li>
+     * <li>Escaped non-special characters return an error.</li>
+     * <li>Unescaped special characters return an error.</li>
+     * <li>RDN values beginning with # (ignoring leading white space) are handled as a  BER value that has previously been converted to a string, and converted accordingly.</li>
+     * <li>Escaped hex digits (\89) are converted into a binary byte (0x89).</li>
+     * <li>Escapes are removed from escaped special characters.</li>
+     * </ul>
+     * The following actions are always taken:
+     * 
+     * <ul>
+     * <li>Escaped special characters are unescaped.</li>
+     * <li>The input and output RDN values are not null-terminated values.</li>
+     * </ul>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The dsparse.h header defines DsUnquoteRdnValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} cQuotedRdnValueLength The number of characters in the <i>psQuotedRdnValue</i> string.
      * @param {PSTR} psQuotedRdnValue The RDN value that may be quoted and escaped.
      * @param {Pointer<Integer>} pcUnquotedRdnValueLength The input value for this argument is the maximum length, in characters, of <i>psQuotedRdnValue</i>.
@@ -4562,7 +5051,7 @@ class ActiveDirectory {
      * The output value for this argument includes the following flags.
      * @param {PSTR} psUnquotedRdnValue The converted, unquoted RDN value.
      * @returns {Integer} The following list contains the possible values that are returned for the <b>DsUnquoteRdnValue</b> function.
-     * @see https://docs.microsoft.com/windows/win32/api//dsparse/nf-dsparse-dsunquoterdnvaluea
+     * @see https://learn.microsoft.com/windows/win32/api/dsparse/nf-dsparse-dsunquoterdnvaluea
      * @since windows6.0.6000
      */
     static DsUnquoteRdnValueA(cQuotedRdnValueLength, psQuotedRdnValue, pcUnquotedRdnValueLength, psUnquotedRdnValue) {
@@ -4584,7 +5073,7 @@ class ActiveDirectory {
      * @param {Pointer<PWSTR>} ppVal Pointer to a <b>LPCWCH</b> value that, if the function is successful, receives a pointer to the value in the relative distinguished name string. This pointer is within the <i>ppDN</i> string and is not null-terminated. The <i>pcVal</i> parameter receives the number of characters in the value. This parameter is undefined if <i>pcVal</i> receives zero.
      * @param {Pointer<Integer>} pcVal Pointer to a <b>DWORD</b> value that, if the function succeeds, receives the number of characters in the value string represented by the <i>ppVal</i> parameter. If this parameter receives zero, <i>ppVal</i> is undefined.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 error code otherwise. Possible error codes include the following values.
-     * @see https://docs.microsoft.com/windows/win32/api//dsparse/nf-dsparse-dsgetrdnw
+     * @see https://learn.microsoft.com/windows/win32/api/dsparse/nf-dsparse-dsgetrdnw
      * @since windows6.0.6000
      */
     static DsGetRdnW(ppDN, pcDN, ppKey, pcKey, ppVal, pcVal) {
@@ -4600,7 +5089,17 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsCrackUnquotedMangledRdn function unmangles (unencodes) a given relative distinguished name and returns both the decoded GUID and the mangling type used.
+     * The DsCrackUnquotedMangledRdn function unmangles (unencodes) a given relative distinguished name and returns both the decoded GUID and the mangling type used. (Unicode)
+     * @remarks
+     * This function attempts to
+     *     decode (unmangle)  an RDN that has been previously mangled due to a deletion or a naming conflict. If the relative distinguished name is mangled, the function returns <b>TRUE</b> and retrieves the GUID and mangle type, if requested.  If the relative distinguished name is not mangled, the function returns <b>FALSE</b>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The dsparse.h header defines DsCrackUnquotedMangledRdn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pszRDN Pointer to a string that contains the relative distinguished name (RDN) to translate. This string length is specified by the <i>cchRDN</i> parameter, so this string is not required to be null-terminated. This string must be in unquoted form. For more information about unquoted relative distinguished names, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/nf-dsparse-dsunquoterdnvaluea">DsUnquoteRdnValue</a>.
      * @param {Integer} cchRDN Contains the length, in characters, of the <i>pszRDN</i> string.
@@ -4608,7 +5107,7 @@ class ActiveDirectory {
      * @param {Pointer<Integer>} peDsMangleFor Pointer 
      * to a <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/ne-dsparse-ds_mangle_for">DS_MANGLE_FOR</a> value that receives the type of mangling used in the mangled relative distinguished name.  This parameter can be <b>NULL</b>.
      * @returns {BOOL} This function returns <b>TRUE</b> if the relative distinguished name is mangled or <b>FALSE</b> otherwise. If this function returns <b>FALSE</b>, neither <i>pGuid</i> or <i>peDsMangleFor</i> receive any data.
-     * @see https://docs.microsoft.com/windows/win32/api//dsparse/nf-dsparse-dscrackunquotedmangledrdnw
+     * @see https://learn.microsoft.com/windows/win32/api/dsparse/nf-dsparse-dscrackunquotedmangledrdnw
      * @since windows6.0.6000
      */
     static DsCrackUnquotedMangledRdnW(pszRDN, cchRDN, pGuid, peDsMangleFor) {
@@ -4621,7 +5120,17 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsCrackUnquotedMangledRdn function unmangles (unencodes) a given relative distinguished name and returns both the decoded GUID and the mangling type used.
+     * The DsCrackUnquotedMangledRdn function unmangles (unencodes) a given relative distinguished name and returns both the decoded GUID and the mangling type used. (ANSI)
+     * @remarks
+     * This function attempts to
+     *     decode (unmangle)  an RDN that has been previously mangled due to a deletion or a naming conflict. If the relative distinguished name is mangled, the function returns <b>TRUE</b> and retrieves the GUID and mangle type, if requested.  If the relative distinguished name is not mangled, the function returns <b>FALSE</b>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The dsparse.h header defines DsCrackUnquotedMangledRdn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pszRDN Pointer to a string that contains the relative distinguished name (RDN) to translate. This string length is specified by the <i>cchRDN</i> parameter, so this string is not required to be null-terminated. This string must be in unquoted form. For more information about unquoted relative distinguished names, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/nf-dsparse-dsunquoterdnvaluea">DsUnquoteRdnValue</a>.
      * @param {Integer} cchRDN Contains the length, in characters, of the <i>pszRDN</i> string.
@@ -4629,7 +5138,7 @@ class ActiveDirectory {
      * @param {Pointer<Integer>} peDsMangleFor Pointer 
      * to a <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/ne-dsparse-ds_mangle_for">DS_MANGLE_FOR</a> value that receives the type of mangling used in the mangled relative distinguished name.  This parameter can be <b>NULL</b>.
      * @returns {BOOL} This function returns <b>TRUE</b> if the relative distinguished name is mangled or <b>FALSE</b> otherwise. If this function returns <b>FALSE</b>, neither <i>pGuid</i> or <i>peDsMangleFor</i> receive any data.
-     * @see https://docs.microsoft.com/windows/win32/api//dsparse/nf-dsparse-dscrackunquotedmangledrdna
+     * @see https://learn.microsoft.com/windows/win32/api/dsparse/nf-dsparse-dscrackunquotedmangledrdna
      * @since windows6.0.6000
      */
     static DsCrackUnquotedMangledRdnA(pszRDN, cchRDN, pGuid, peDsMangleFor) {
@@ -4642,12 +5151,21 @@ class ActiveDirectory {
     }
 
     /**
-     * Determines if a given relative distinguished name value is a mangled name of the given type.
+     * Determines if a given relative distinguished name value is a mangled name of the given type. (Unicode)
+     * @remarks
+     * This function determines if the given relative distinguished name value is mangled and mangled in the given type.  The <i>pszRdn</i> parameter should only contain the value of the relative distinguished name and not the key.  The relative distinguished name value may be quoted or unquoted.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The dsparse.h header defines DsIsMangledRdnValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pszRdn Pointer to a null-terminated string that contains  the relative distinguished name  to determine if it is mangled. The <i>cRdn</i> parameter contains the number of characters in this string.
      * @param {Integer} cRdn Contains the number of characters in the <i>pszRdn</i> string.
      * @param {Integer} eDsMangleForDesired Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/ne-dsparse-ds_mangle_for">DS_MANGLE_FOR</a> values that specifies the type of name mangling to search for.
      * @returns {BOOL} Returns <b>TRUE</b> if the  relative distinguished name is mangled and the mangle type is the same as specified. Returns <b>FALSE</b> if the relative distinguished name is not mangled or the  mangle type is different than specified.
-     * @see https://docs.microsoft.com/windows/win32/api//dsparse/nf-dsparse-dsismangledrdnvaluew
+     * @see https://learn.microsoft.com/windows/win32/api/dsparse/nf-dsparse-dsismangledrdnvaluew
      * @since windows6.0.6000
      */
     static DsIsMangledRdnValueW(pszRdn, cRdn, eDsMangleForDesired) {
@@ -4658,12 +5176,21 @@ class ActiveDirectory {
     }
 
     /**
-     * Determines if a given relative distinguished name value is a mangled name of the given type.
+     * Determines if a given relative distinguished name value is a mangled name of the given type. (ANSI)
+     * @remarks
+     * This function determines if the given relative distinguished name value is mangled and mangled in the given type.  The <i>pszRdn</i> parameter should only contain the value of the relative distinguished name and not the key.  The relative distinguished name value may be quoted or unquoted.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The dsparse.h header defines DsIsMangledRdnValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pszRdn Pointer to a null-terminated string that contains  the relative distinguished name  to determine if it is mangled. The <i>cRdn</i> parameter contains the number of characters in this string.
      * @param {Integer} cRdn Contains the number of characters in the <i>pszRdn</i> string.
      * @param {Integer} eDsMangleForDesired Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/ne-dsparse-ds_mangle_for">DS_MANGLE_FOR</a> values that specifies the type of name mangling to search for.
      * @returns {BOOL} Returns <b>TRUE</b> if the  relative distinguished name is mangled and the mangle type is the same as specified. Returns <b>FALSE</b> if the relative distinguished name is not mangled or the  mangle type is different than specified.
-     * @see https://docs.microsoft.com/windows/win32/api//dsparse/nf-dsparse-dsismangledrdnvaluea
+     * @see https://learn.microsoft.com/windows/win32/api/dsparse/nf-dsparse-dsismangledrdnvaluea
      * @since windows6.0.6000
      */
     static DsIsMangledRdnValueA(pszRdn, cRdn, eDsMangleForDesired) {
@@ -4674,11 +5201,14 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsIsMangledDn function determines if the first relative distinguished name (RDN) in a distinguished name (DN) is a mangled name of a given type.
+     * The DsIsMangledDn function determines if the first relative distinguished name (RDN) in a distinguished name (DN) is a mangled name of a given type. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The dsparse.h header defines DsIsMangledDn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pszDn Pointer to a null-terminated string that contains the  distinguished name to retrieve the relative distinguished name from. This can also be a quoted distinguished name  as returned by other directory service functions.
      * @param {Integer} eDsMangleFor Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/ne-dsparse-ds_mangle_for">DS_MANGLE_FOR</a> values that specifies the type of name mangling to look for.
      * @returns {BOOL} Returns <b>TRUE</b> if the first relative distinguished name in <i>pszDn</i> is mangled in the manner specified by <i>eDsMangleFor</i> or <b>FALSE</b>  otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//dsparse/nf-dsparse-dsismangleddna
+     * @see https://learn.microsoft.com/windows/win32/api/dsparse/nf-dsparse-dsismangleddna
      * @since windows6.0.6000
      */
     static DsIsMangledDnA(pszDn, eDsMangleFor) {
@@ -4689,11 +5219,14 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsIsMangledDn function determines if the first relative distinguished name (RDN) in a distinguished name (DN) is a mangled name of a given type.
+     * The DsIsMangledDn function determines if the first relative distinguished name (RDN) in a distinguished name (DN) is a mangled name of a given type. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The dsparse.h header defines DsIsMangledDn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pszDn Pointer to a null-terminated string that contains the  distinguished name to retrieve the relative distinguished name from. This can also be a quoted distinguished name  as returned by other directory service functions.
      * @param {Integer} eDsMangleFor Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/ne-dsparse-ds_mangle_for">DS_MANGLE_FOR</a> values that specifies the type of name mangling to look for.
      * @returns {BOOL} Returns <b>TRUE</b> if the first relative distinguished name in <i>pszDn</i> is mangled in the manner specified by <i>eDsMangleFor</i> or <b>FALSE</b>  otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//dsparse/nf-dsparse-dsismangleddnw
+     * @see https://learn.microsoft.com/windows/win32/api/dsparse/nf-dsparse-dsismangleddnw
      * @since windows6.0.6000
      */
     static DsIsMangledDnW(pszDn, eDsMangleFor) {
@@ -4826,7 +5359,80 @@ class ActiveDirectory {
     }
 
     /**
-     * Binds to a domain controller.
+     * Binds to a domain controller. (Unicode)
+     * @remarks
+     * The behavior of the 
+     *     <b>DsBind</b> function is determined by the contents of the <i>DomainControllerName</i> and <i>DnsDomainName</i> parameters. The following list describes the behavior of this function based on the contents of these parameters.
+     * 
+     * <table>
+     * <tr>
+     * <th><i>DomainControllerName</i></th>
+     * <th><i>DnsDomainName</i></th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * <b>DsBind</b> will attempt to bind to a global catalog server in the forest of the local computer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * (value)
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * <b>DsBind</b> will attempt to bind to the domain controller specified by the  <i>DomainControllerName</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * (value)
+     * 
+     * </td>
+     * <td>
+     * <b>DsBind</b> will attempt to bind to any domain controller in the domain specified by <i>DnsDomainName</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * (value</p>)</td>
+     * <td>
+     * (value)
+     * 
+     * </td>
+     * <td>
+     * The <i>DomainControllerName</i> parameter takes precedence. <b>DsBind</b> will attempt to bind to the domain controller specified by the  <i>DomainControllerName</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsBind as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} DomainControllerName Pointer to a null-terminated string that contains the name of the domain controller to bind to. This name can be the name of the domain controller or the fully qualified DNS name of the domain controller. Either name type can, optionally, be preceded by two backslash characters. All of the following examples represent correctly formatted domain controller names:
      * 
      * <ul>
@@ -4839,7 +5445,7 @@ class ActiveDirectory {
      * @param {PWSTR} DnsDomainName Pointer to a null-terminated string that contains the fully qualified DNS name of the domain to bind to. This parameter can be <b>NULL</b>. For more  information, see Remarks.
      * @param {Pointer<HANDLE>} phDS Address of a <b>HANDLE</b> value that receives the binding handle. To close this handle, pass it to the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsunbinda">DsUnBind</a> function.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Windows or RPC error code otherwise. The following are the most common error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsbindw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsbindw
      * @since windows6.0.6000
      */
     static DsBindW(DomainControllerName, DnsDomainName, phDS) {
@@ -4851,7 +5457,80 @@ class ActiveDirectory {
     }
 
     /**
-     * Binds to a domain controller.
+     * Binds to a domain controller. (ANSI)
+     * @remarks
+     * The behavior of the 
+     *     <b>DsBind</b> function is determined by the contents of the <i>DomainControllerName</i> and <i>DnsDomainName</i> parameters. The following list describes the behavior of this function based on the contents of these parameters.
+     * 
+     * <table>
+     * <tr>
+     * <th><i>DomainControllerName</i></th>
+     * <th><i>DnsDomainName</i></th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * <b>DsBind</b> will attempt to bind to a global catalog server in the forest of the local computer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * (value)
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * <b>DsBind</b> will attempt to bind to the domain controller specified by the  <i>DomainControllerName</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * (value)
+     * 
+     * </td>
+     * <td>
+     * <b>DsBind</b> will attempt to bind to any domain controller in the domain specified by <i>DnsDomainName</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * (value</p>)</td>
+     * <td>
+     * (value)
+     * 
+     * </td>
+     * <td>
+     * The <i>DomainControllerName</i> parameter takes precedence. <b>DsBind</b> will attempt to bind to the domain controller specified by the  <i>DomainControllerName</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsBind as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} DomainControllerName Pointer to a null-terminated string that contains the name of the domain controller to bind to. This name can be the name of the domain controller or the fully qualified DNS name of the domain controller. Either name type can, optionally, be preceded by two backslash characters. All of the following examples represent correctly formatted domain controller names:
      * 
      * <ul>
@@ -4864,7 +5543,7 @@ class ActiveDirectory {
      * @param {PSTR} DnsDomainName Pointer to a null-terminated string that contains the fully qualified DNS name of the domain to bind to. This parameter can be <b>NULL</b>. For more  information, see Remarks.
      * @param {Pointer<HANDLE>} phDS Address of a <b>HANDLE</b> value that receives the binding handle. To close this handle, pass it to the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsunbinda">DsUnBind</a> function.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Windows or RPC error code otherwise. The following are the most common error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsbinda
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsbinda
      * @since windows6.0.6000
      */
     static DsBindA(DomainControllerName, DnsDomainName, phDS) {
@@ -4876,21 +5555,24 @@ class ActiveDirectory {
     }
 
     /**
-     * Binds to a domain controller using the specified credentials.
+     * Binds to a domain controller using the specified credentials. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsBindWithCred as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} DomainControllerName Pointer to a null-terminated string that contains the fully qualified DNS name of the domain to bind. For more information about this parameter, see the <i>DomainControllerName</i> description in the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DsBind</a> topic.
      * @param {PWSTR} DnsDomainName Pointer to a null-terminated string that contains the fully qualified DNS name of the domain to bind to. For more information about this parameter, see the <i>DnsDomainName</i> description in the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DsBind</a> topic.
      * 
      * This parameter is required to secure a Kerberos authentication.
      * @param {Pointer<Void>} AuthIdentity Contains an <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-auth-identity-handle">RPC_AUTH_IDENTITY_HANDLE</a> value that represents the credentials to be used for the bind. The 
      *     
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsmakepasswordcredentialsa">DsMakePasswordCredentials</a>function is used to obtain this value. If this parameter is <b>NULL</b>,
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsmakepasswordcredentialsa">DsMakePasswordCredentials</a> function is used to obtain this value. If this parameter is <b>NULL</b>,
      *     the credentials of the calling thread are used.
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsunbinda">DsUnBind</a> must be called before freeing this handle with the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreepasswordcredentials">DsFreePasswordCredentials</a> function.
      * @param {Pointer<HANDLE>} phDS Address of a <b>HANDLE</b> value that receives the binding handle. To close this handle, pass it to the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsunbinda">DsUnBind</a> function.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Windows or RPC error code otherwise. The following are the most common error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsbindwithcredw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsbindwithcredw
      * @since windows6.0.6000
      */
     static DsBindWithCredW(DomainControllerName, DnsDomainName, AuthIdentity, phDS) {
@@ -4904,21 +5586,24 @@ class ActiveDirectory {
     }
 
     /**
-     * Binds to a domain controller using the specified credentials.
+     * Binds to a domain controller using the specified credentials. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsBindWithCred as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} DomainControllerName Pointer to a null-terminated string that contains the fully qualified DNS name of the domain to bind. For more information about this parameter, see the <i>DomainControllerName</i> description in the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DsBind</a> topic.
      * @param {PSTR} DnsDomainName Pointer to a null-terminated string that contains the fully qualified DNS name of the domain to bind to. For more information about this parameter, see the <i>DnsDomainName</i> description in the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DsBind</a> topic.
      * 
      * This parameter is required to secure a Kerberos authentication.
      * @param {Pointer<Void>} AuthIdentity Contains an <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-auth-identity-handle">RPC_AUTH_IDENTITY_HANDLE</a> value that represents the credentials to be used for the bind. The 
      *     
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsmakepasswordcredentialsa">DsMakePasswordCredentials</a>function is used to obtain this value. If this parameter is <b>NULL</b>,
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsmakepasswordcredentialsa">DsMakePasswordCredentials</a> function is used to obtain this value. If this parameter is <b>NULL</b>,
      *     the credentials of the calling thread are used.
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsunbinda">DsUnBind</a> must be called before freeing this handle with the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreepasswordcredentials">DsFreePasswordCredentials</a> function.
      * @param {Pointer<HANDLE>} phDS Address of a <b>HANDLE</b> value that receives the binding handle. To close this handle, pass it to the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsunbinda">DsUnBind</a> function.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Windows or RPC error code otherwise. The following are the most common error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsbindwithcreda
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsbindwithcreda
      * @since windows6.0.6000
      */
     static DsBindWithCredA(DomainControllerName, DnsDomainName, AuthIdentity, phDS) {
@@ -4932,12 +5617,15 @@ class ActiveDirectory {
     }
 
     /**
-     * Binds to a domain controller using the specified credentials and a specific service principal name (SPN) for mutual authentication.
+     * Binds to a domain controller using the specified credentials and a specific service principal name (SPN) for mutual authentication. (DsBindWithSpnW)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsBindWithSpn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} DomainControllerName Pointer to a null-terminated string that contains the fully qualified DNS name of the domain to bind to. For more information, see the <i>DomainControllerName</i> description in the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DsBind</a> topic.
      * @param {PWSTR} DnsDomainName Pointer to a null-terminated string that contains the fully qualified DNS name of the domain to bind to. For more information, see the <i>DnsDomainName</i> description in the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DsBind</a> topic.
      * @param {Pointer<Void>} AuthIdentity Contains an <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-auth-identity-handle">RPC_AUTH_IDENTITY_HANDLE</a> value that represents the credentials to be used for the bind. The 
      *     
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsmakepasswordcredentialsa">DsMakePasswordCredentials</a>function is used to obtain this value. If this parameter is <b>NULL</b>,
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsmakepasswordcredentialsa">DsMakePasswordCredentials</a> function is used to obtain this value. If this parameter is <b>NULL</b>,
      *     the credentials of the calling thread are used.
      * 
      * 
@@ -4945,7 +5633,7 @@ class ActiveDirectory {
      * @param {PWSTR} ServicePrincipalName Pointer to a null-terminated string that specifies the Service Principal Name to assign to the client. Passing <b>NULL</b> in <i>ServicePrincipalName</i> is equivalent to a call to the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DsBindWithCred</a> function.
      * @param {Pointer<HANDLE>} phDS Address of a <b>HANDLE</b> value that receives the binding handle. To close this handle, pass it to the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsunbinda">DsUnBind</a> function.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Windows or RPC error code otherwise. The following are the most common error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsbindwithspnw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsbindwithspnw
      * @since windows6.0.6000
      */
     static DsBindWithSpnW(DomainControllerName, DnsDomainName, AuthIdentity, ServicePrincipalName, phDS) {
@@ -4960,12 +5648,15 @@ class ActiveDirectory {
     }
 
     /**
-     * Binds to a domain controller using the specified credentials and a specific service principal name (SPN) for mutual authentication.
+     * Binds to a domain controller using the specified credentials and a specific service principal name (SPN) for mutual authentication. (DsBindWithSpnA)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsBindWithSpn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} DomainControllerName Pointer to a null-terminated string that contains the fully qualified DNS name of the domain to bind to. For more information, see the <i>DomainControllerName</i> description in the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DsBind</a> topic.
      * @param {PSTR} DnsDomainName Pointer to a null-terminated string that contains the fully qualified DNS name of the domain to bind to. For more information, see the <i>DnsDomainName</i> description in the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DsBind</a> topic.
      * @param {Pointer<Void>} AuthIdentity Contains an <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-auth-identity-handle">RPC_AUTH_IDENTITY_HANDLE</a> value that represents the credentials to be used for the bind. The 
      *     
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsmakepasswordcredentialsa">DsMakePasswordCredentials</a>function is used to obtain this value. If this parameter is <b>NULL</b>,
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsmakepasswordcredentialsa">DsMakePasswordCredentials</a> function is used to obtain this value. If this parameter is <b>NULL</b>,
      *     the credentials of the calling thread are used.
      * 
      * 
@@ -4973,7 +5664,7 @@ class ActiveDirectory {
      * @param {PSTR} ServicePrincipalName Pointer to a null-terminated string that specifies the Service Principal Name to assign to the client. Passing <b>NULL</b> in <i>ServicePrincipalName</i> is equivalent to a call to the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DsBindWithCred</a> function.
      * @param {Pointer<HANDLE>} phDS Address of a <b>HANDLE</b> value that receives the binding handle. To close this handle, pass it to the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsunbinda">DsUnBind</a> function.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Windows or RPC error code otherwise. The following are the most common error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsbindwithspna
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsbindwithspna
      * @since windows6.0.6000
      */
     static DsBindWithSpnA(DomainControllerName, DnsDomainName, AuthIdentity, ServicePrincipalName, phDS) {
@@ -4988,12 +5679,15 @@ class ActiveDirectory {
     }
 
     /**
-     * Binds to a domain controller using the specified credentials and a specific service principal name (SPN) for mutual authentication.
+     * Binds to a domain controller using the specified credentials and a specific service principal name (SPN) for mutual authentication. (DsBindWithSpnExW)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsBindWithSpnEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} DomainControllerName Pointer to a null-terminated string that contains the fully qualified DNS name of the domain to bind. For more information, see the <i>DomainControllerName</i> description in the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DsBind</a> topic.
      * @param {PWSTR} DnsDomainName Pointer to a null-terminated string that contains the fully qualified DNS name of the domain to bind. For more information, see the <i>DnsDomainName</i> description in the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DsBind</a> topic.
      * @param {Pointer<Void>} AuthIdentity Contains an <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-auth-identity-handle">RPC_AUTH_IDENTITY_HANDLE</a> value that represents the credentials to be used for the bind. The 
      *     
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsmakepasswordcredentialsa">DsMakePasswordCredentials</a>function is used to obtain this value. If this parameter is <b>NULL</b>,
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsmakepasswordcredentialsa">DsMakePasswordCredentials</a> function is used to obtain this value. If this parameter is <b>NULL</b>,
      *     the credentials of the calling thread are used.
      * 
      * 
@@ -5002,7 +5696,7 @@ class ActiveDirectory {
      * @param {Integer} BindFlags Contains a set of flags that define the behavior of this function. This parameter can contain zero or a combination of the values listed in the following list.
      * @param {Pointer<HANDLE>} phDS Address of a <b>HANDLE</b> value that receives the binding handle. To close this handle, pass it to the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsunbinda">DsUnBind</a> function.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Windows or RPC error code otherwise. The following list lists common error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsbindwithspnexw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsbindwithspnexw
      * @since windows6.0.6000
      */
     static DsBindWithSpnExW(DomainControllerName, DnsDomainName, AuthIdentity, ServicePrincipalName, BindFlags, phDS) {
@@ -5017,12 +5711,15 @@ class ActiveDirectory {
     }
 
     /**
-     * Binds to a domain controller using the specified credentials and a specific service principal name (SPN) for mutual authentication.
+     * Binds to a domain controller using the specified credentials and a specific service principal name (SPN) for mutual authentication. (DsBindWithSpnExA)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsBindWithSpnEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} DomainControllerName Pointer to a null-terminated string that contains the fully qualified DNS name of the domain to bind. For more information, see the <i>DomainControllerName</i> description in the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DsBind</a> topic.
      * @param {PSTR} DnsDomainName Pointer to a null-terminated string that contains the fully qualified DNS name of the domain to bind. For more information, see the <i>DnsDomainName</i> description in the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DsBind</a> topic.
      * @param {Pointer<Void>} AuthIdentity Contains an <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-auth-identity-handle">RPC_AUTH_IDENTITY_HANDLE</a> value that represents the credentials to be used for the bind. The 
      *     
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsmakepasswordcredentialsa">DsMakePasswordCredentials</a>function is used to obtain this value. If this parameter is <b>NULL</b>,
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsmakepasswordcredentialsa">DsMakePasswordCredentials</a> function is used to obtain this value. If this parameter is <b>NULL</b>,
      *     the credentials of the calling thread are used.
      * 
      * 
@@ -5031,7 +5728,7 @@ class ActiveDirectory {
      * @param {Integer} BindFlags Contains a set of flags that define the behavior of this function. This parameter can contain zero or a combination of the values listed in the following list.
      * @param {Pointer<HANDLE>} phDS Address of a <b>HANDLE</b> value that receives the binding handle. To close this handle, pass it to the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsunbinda">DsUnBind</a> function.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Windows or RPC error code otherwise. The following list lists common error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsbindwithspnexa
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsbindwithspnexa
      * @since windows6.0.6000
      */
     static DsBindWithSpnExA(DomainControllerName, DnsDomainName, AuthIdentity, ServicePrincipalName, BindFlags, phDS) {
@@ -5046,7 +5743,117 @@ class ActiveDirectory {
     }
 
     /**
-     * Explicitly binds to any AD LDS or Active Directory instance.
+     * Explicitly binds to any AD LDS or Active Directory instance. (Unicode)
+     * @remarks
+     * The following list lists the required parameter values for binding to an instance.
+     * 
+     * <table>
+     * <tr>
+     * <th>Instance</th>
+     * <th><i>ServerName</i></th>
+     * <th><i>Annotation</i></th>
+     * <th><i>InstanceGuid</i></th>
+     * <th><i>DnsDomainName</i></th>
+     * </tr>
+     * <tr>
+     * <td>
+     * Active Directory by server
+     * 
+     * </td>
+     * <td>
+     * Server Name
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Active Directory by domain
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * DNS domain name
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * AD LDS by port
+     * 
+     * </td>
+     * <td>
+     * DNS Name of the computer with the AD LDS installation.
+     * 
+     * </td>
+     * <td>
+     * Port Number
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * AD LDS by <b>GUID</b>
+     * 
+     * </td>
+     * <td>
+     * DNS Name of the computer with the AD LDS installation.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * Instance <b>GUID</b>
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * <div class="alert"><b>Note</b>  For improved performance when binding to an AD LDS instance on a computer with several instances 
+     *      of AD LDS, bind by the Instance <b>GUID</b> instead of the port number.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsBindByInstance as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} ServerName Pointer to a null-terminated string that specifies the name of the instance. This parameter is required to 
      *       bind to an AD LDS instance. If this parameter is <b>NULL</b> when binding to an Active 
      *       Directory instance, then the <i>DnsDomainName</i> parameter must contain a value. If this 
@@ -5078,7 +5885,7 @@ class ActiveDirectory {
      *       call <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsunbinda">DsUnBind</a>.
      * @returns {Integer} Returns <b>NO_ERROR</b> if successful or an RPC or Win32 error otherwise. Possible error codes include those 
      *       listed in the  following list.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsbindbyinstancew
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsbindbyinstancew
      * @since windows6.0.6000
      */
     static DsBindByInstanceW(ServerName, Annotation, InstanceGuid, DnsDomainName, AuthIdentity, ServicePrincipalName, BindFlags, phDS) {
@@ -5094,7 +5901,117 @@ class ActiveDirectory {
     }
 
     /**
-     * Explicitly binds to any AD LDS or Active Directory instance.
+     * Explicitly binds to any AD LDS or Active Directory instance. (ANSI)
+     * @remarks
+     * The following list lists the required parameter values for binding to an instance.
+     * 
+     * <table>
+     * <tr>
+     * <th>Instance</th>
+     * <th><i>ServerName</i></th>
+     * <th><i>Annotation</i></th>
+     * <th><i>InstanceGuid</i></th>
+     * <th><i>DnsDomainName</i></th>
+     * </tr>
+     * <tr>
+     * <td>
+     * Active Directory by server
+     * 
+     * </td>
+     * <td>
+     * Server Name
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Active Directory by domain
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * DNS domain name
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * AD LDS by port
+     * 
+     * </td>
+     * <td>
+     * DNS Name of the computer with the AD LDS installation.
+     * 
+     * </td>
+     * <td>
+     * Port Number
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * AD LDS by <b>GUID</b>
+     * 
+     * </td>
+     * <td>
+     * DNS Name of the computer with the AD LDS installation.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * Instance <b>GUID</b>
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * <div class="alert"><b>Note</b>  For improved performance when binding to an AD LDS instance on a computer with several instances 
+     *      of AD LDS, bind by the Instance <b>GUID</b> instead of the port number.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsBindByInstance as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} ServerName Pointer to a null-terminated string that specifies the name of the instance. This parameter is required to 
      *       bind to an AD LDS instance. If this parameter is <b>NULL</b> when binding to an Active 
      *       Directory instance, then the <i>DnsDomainName</i> parameter must contain a value. If this 
@@ -5126,7 +6043,7 @@ class ActiveDirectory {
      *       call <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsunbinda">DsUnBind</a>.
      * @returns {Integer} Returns <b>NO_ERROR</b> if successful or an RPC or Win32 error otherwise. Possible error codes include those 
      *       listed in the  following list.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsbindbyinstancea
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsbindbyinstancea
      * @since windows6.0.6000
      */
     static DsBindByInstanceA(ServerName, Annotation, InstanceGuid, DnsDomainName, AuthIdentity, ServicePrincipalName, BindFlags, phDS) {
@@ -5142,12 +6059,15 @@ class ActiveDirectory {
     }
 
     /**
-     * Binds to the computer that holds the Inter-Site Topology Generator (ISTG) role in the domain of the local computer.
+     * Binds to the computer that holds the Inter-Site Topology Generator (ISTG) role in the domain of the local computer. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsBindToISTG as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} SiteName Pointer to a null-terminated string that contains the site name used when binding. If this parameter is <b>NULL</b>, the site of the nearest domain controller is used.
      * @param {Pointer<HANDLE>} phDS Address of a <b>HANDLE</b> value that receives the bind handle. To close this handle, call <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsunbinda">DsUnBind</a>.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 or RPC error code otherwise.
      *        The following are possible error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsbindtoistgw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsbindtoistgw
      * @since windows6.0.6000
      */
     static DsBindToISTGW(SiteName, phDS) {
@@ -5158,12 +6078,15 @@ class ActiveDirectory {
     }
 
     /**
-     * Binds to the computer that holds the Inter-Site Topology Generator (ISTG) role in the domain of the local computer.
+     * Binds to the computer that holds the Inter-Site Topology Generator (ISTG) role in the domain of the local computer. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsBindToISTG as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} SiteName Pointer to a null-terminated string that contains the site name used when binding. If this parameter is <b>NULL</b>, the site of the nearest domain controller is used.
      * @param {Pointer<HANDLE>} phDS Address of a <b>HANDLE</b> value that receives the bind handle. To close this handle, call <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsunbinda">DsUnBind</a>.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 or RPC error code otherwise.
      *        The following are possible error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsbindtoistga
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsbindtoistga
      * @since windows6.0.6000
      */
     static DsBindToISTGA(SiteName, phDS) {
@@ -5180,7 +6103,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {Integer} cTimeoutSecs Contains the new timeout value, in seconds.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 or RPC error code otherwise. The following is a  possible error code.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsbindingsettimeout
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsbindingsettimeout
      * @since windows6.0.6000
      */
     static DsBindingSetTimeout(hDS, cTimeoutSecs) {
@@ -5191,10 +6114,13 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsUnBind function finds an RPC session with a domain controller and unbinds a handle to the directory service (DS).
+     * The DsUnBind function finds an RPC session with a domain controller and unbinds a handle to the directory service (DS). (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsUnBind as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<HANDLE>} phDS Pointer to a bind handle to the directory service. This handle is provided by a call to <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DsBind</a>, <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DsBindWithCred</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithspna">DsBindWithSpn</a>.
      * @returns {Integer} <b>NO_ERROR</b>
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsunbindw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsunbindw
      * @since windows6.0.6000
      */
     static DsUnBindW(phDS) {
@@ -5203,10 +6129,13 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsUnBind function finds an RPC session with a domain controller and unbinds a handle to the directory service (DS).
+     * The DsUnBind function finds an RPC session with a domain controller and unbinds a handle to the directory service (DS). (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsUnBind as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<HANDLE>} phDS Pointer to a bind handle to the directory service. This handle is provided by a call to <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DsBind</a>, <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DsBindWithCred</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithspna">DsBindWithSpn</a>.
      * @returns {Integer} <b>NO_ERROR</b>
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsunbinda
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsunbinda
      * @since windows6.0.6000
      */
     static DsUnBindA(phDS) {
@@ -5215,14 +6144,31 @@ class ActiveDirectory {
     }
 
     /**
-     * Constructs a credential handle suitable for use with the DsBindWithCred function.
+     * Constructs a credential handle suitable for use with the DsBindWithCred function. (Unicode)
+     * @remarks
+     * A null, default credential handle is created if <i>User</i>, <i>Domain</i> and <i>Password</i> are all <b>NULL</b>. Otherwise, <i>User</i> must be present. The <i>Domain</i> parameter may be <b>NULL</b> when <i>User</i> is fully qualified, such as a user in UPN format; for example, "someone@fabrikam.com".
+     * 
+     * When the handle returned in <i>pAuthIdentity</i> is passed to <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DsBindWithCred</a>, <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsunbinda">DsUnBind</a> must be called before freeing the handle with <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreepasswordcredentials">DsFreePasswordCredentials</a>.  The normal sequence is:
+     * 
+     * <ol>
+     * <li>Call <b>DsMakePasswordCredentials</b> to obtain the credential handle.</li>
+     * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DsBindWithCred</a>, and pass the credential handle.</li>
+     * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsunbinda">DsUnbind</a> when the binding is no longer required.</li>
+     * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreepasswordcredentials">DsFreePasswordCredentials</a> to free the credential handle.</li>
+     * </ol>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsMakePasswordCredentials as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} User Pointer to a null-terminated string that contains the user name to use for the credentials.
      * @param {PWSTR} Domain Pointer to a null-terminated string that contains the domain that the user is a member of.
      * @param {PWSTR} Password Pointer to a null-terminated string that contains the password to use for the credentials.
      * @param {Pointer<Pointer<Void>>} pAuthIdentity Pointer to an <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-auth-identity-handle">RPC_AUTH_IDENTITY_HANDLE</a> value that receives the credential handle. This handle is used in a subsequent call to <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DsBindWithCred</a>.   This handle must be freed with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreepasswordcredentials">DsFreePasswordCredentials</a> function when it is no longer required.
      * @returns {Integer} Returns a Windows error code, including the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsmakepasswordcredentialsw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsmakepasswordcredentialsw
      * @since windows6.0.6000
      */
     static DsMakePasswordCredentialsW(User, Domain, Password, pAuthIdentity) {
@@ -5237,14 +6183,31 @@ class ActiveDirectory {
     }
 
     /**
-     * Constructs a credential handle suitable for use with the DsBindWithCred function.
+     * Constructs a credential handle suitable for use with the DsBindWithCred function. (ANSI)
+     * @remarks
+     * A null, default credential handle is created if <i>User</i>, <i>Domain</i> and <i>Password</i> are all <b>NULL</b>. Otherwise, <i>User</i> must be present. The <i>Domain</i> parameter may be <b>NULL</b> when <i>User</i> is fully qualified, such as a user in UPN format; for example, "someone@fabrikam.com".
+     * 
+     * When the handle returned in <i>pAuthIdentity</i> is passed to <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DsBindWithCred</a>, <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsunbinda">DsUnBind</a> must be called before freeing the handle with <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreepasswordcredentials">DsFreePasswordCredentials</a>.  The normal sequence is:
+     * 
+     * <ol>
+     * <li>Call <b>DsMakePasswordCredentials</b> to obtain the credential handle.</li>
+     * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DsBindWithCred</a>, and pass the credential handle.</li>
+     * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsunbinda">DsUnbind</a> when the binding is no longer required.</li>
+     * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreepasswordcredentials">DsFreePasswordCredentials</a> to free the credential handle.</li>
+     * </ol>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsMakePasswordCredentials as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} User Pointer to a null-terminated string that contains the user name to use for the credentials.
      * @param {PSTR} Domain Pointer to a null-terminated string that contains the domain that the user is a member of.
      * @param {PSTR} Password Pointer to a null-terminated string that contains the password to use for the credentials.
      * @param {Pointer<Pointer<Void>>} pAuthIdentity Pointer to an <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-auth-identity-handle">RPC_AUTH_IDENTITY_HANDLE</a> value that receives the credential handle. This handle is used in a subsequent call to <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DsBindWithCred</a>.   This handle must be freed with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreepasswordcredentials">DsFreePasswordCredentials</a> function when it is no longer required.
      * @returns {Integer} Returns a Windows error code, including the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsmakepasswordcredentialsa
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsmakepasswordcredentialsa
      * @since windows6.0.6000
      */
     static DsMakePasswordCredentialsA(User, Domain, Password, pAuthIdentity) {
@@ -5260,9 +6223,18 @@ class ActiveDirectory {
 
     /**
      * Frees memory allocated for a credentials structure by the DsMakePasswordCredentials function.
+     * @remarks
+     * When the handle  in <i>AuthIdentity</i> is passed to <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DsBindWithCred</a>, <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsunbinda">DsUnbind</a> must be called before freeing this handle. The normal sequence of events is:
+     * 
+     * <ol>
+     * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsmakepasswordcredentialsa">DsMakePasswordCredentials</a> to obtain the credential handle.</li>
+     * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DsBindWithCred</a>, passing the credential handle.</li>
+     * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsunbinda">DsUnbind</a> when the RPC connection is no longer required.</li>
+     * <li>Call <b>DsFreePasswordCredentials</b> to free the credential handle.</li>
+     * </ol>
      * @param {Pointer<Void>} AuthIdentity Handle of the credential structure to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsfreepasswordcredentials
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsfreepasswordcredentials
      * @since windows6.0.6000
      */
     static DsFreePasswordCredentials(AuthIdentity) {
@@ -5272,7 +6244,35 @@ class ActiveDirectory {
     }
 
     /**
-     * Converts an array of directory service object names from one format to another.
+     * Converts an array of directory service object names from one format to another. (Unicode)
+     * @remarks
+     * The success of the name conversion request depends on where the
+     *     client is bound. Clients bind to specific instances of the directory service
+     *     using some variant of <b>DsBind</b>. If bound to a
+     *     global catalog, the scope of the name mapping is the entire forest. If not bound to a global catalog, the scope of the name mapping is the domain not
+     *     covered by a global catalog for that domain controller. If not bound to a
+     *     global catalog and a name is not found, but the input name unambiguously
+     *     identifies its domain and this domain is in the forest, then the return data
+     *     identifies the DNS domain name for the domain of interest. Clients are expected
+     *     to use this data to bind to the correct domain controller or global
+     *     catalog and call <b>DsCrackNames</b> again with the new bind handle.
+     * 
+     * The return value from <b>DsCrackNames</b> indicates errors such as invalid
+     *     parameters or insufficient memory. However, problems in converting individual
+     *     names are reported in the <b>status</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_result_itema">DS_NAME_RESULT_ITEM</a> structure returned for each input name.
+     * 
+     * <div class="alert"><b>Note</b>  Do not confuse the values of the format elements of
+     *     the <i>formatOffered</i> parameter used by the
+     *     <b>DsCrackNames</b> function with the similarly
+     *     named format elements as defined in the <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_name_type_enum">ADS_NAME_TYPE_ENUM</a> enumeration used by the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsnametranslate">IADsNameTranslate</a> interface. The
+     *     two sets of element formats are not equivalent and are not interchangeable.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsCrackNames as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function. If <i>flags</i> contains
@@ -5293,7 +6293,7 @@ class ActiveDirectory {
      * @param {Pointer<Pointer<DS_NAME_RESULTW>>} ppResult Pointer to a <b>PDS_NAME_RESULT</b> value that receives a <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure
      *     that contains the converted names. The caller must free this memory, when it is no longer required, by calling <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a>.
      * @returns {Integer} Returns a Win32 error value, an RPC error value, or one of the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dscracknamesw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dscracknamesw
      * @since windows6.0.6000
      */
     static DsCrackNamesW(hDS, flags, formatOffered, formatDesired, cNames, rpNames, ppResult) {
@@ -5307,7 +6307,35 @@ class ActiveDirectory {
     }
 
     /**
-     * Converts an array of directory service object names from one format to another.
+     * Converts an array of directory service object names from one format to another. (ANSI)
+     * @remarks
+     * The success of the name conversion request depends on where the
+     *     client is bound. Clients bind to specific instances of the directory service
+     *     using some variant of <b>DsBind</b>. If bound to a
+     *     global catalog, the scope of the name mapping is the entire forest. If not bound to a global catalog, the scope of the name mapping is the domain not
+     *     covered by a global catalog for that domain controller. If not bound to a
+     *     global catalog and a name is not found, but the input name unambiguously
+     *     identifies its domain and this domain is in the forest, then the return data
+     *     identifies the DNS domain name for the domain of interest. Clients are expected
+     *     to use this data to bind to the correct domain controller or global
+     *     catalog and call <b>DsCrackNames</b> again with the new bind handle.
+     * 
+     * The return value from <b>DsCrackNames</b> indicates errors such as invalid
+     *     parameters or insufficient memory. However, problems in converting individual
+     *     names are reported in the <b>status</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_result_itema">DS_NAME_RESULT_ITEM</a> structure returned for each input name.
+     * 
+     * <div class="alert"><b>Note</b>  Do not confuse the values of the format elements of
+     *     the <i>formatOffered</i> parameter used by the
+     *     <b>DsCrackNames</b> function with the similarly
+     *     named format elements as defined in the <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_name_type_enum">ADS_NAME_TYPE_ENUM</a> enumeration used by the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsnametranslate">IADsNameTranslate</a> interface. The
+     *     two sets of element formats are not equivalent and are not interchangeable.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsCrackNames as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function. If <i>flags</i> contains
@@ -5328,7 +6356,7 @@ class ActiveDirectory {
      * @param {Pointer<Pointer<DS_NAME_RESULTA>>} ppResult Pointer to a <b>PDS_NAME_RESULT</b> value that receives a <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure
      *     that contains the converted names. The caller must free this memory, when it is no longer required, by calling <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a>.
      * @returns {Integer} Returns a Win32 error value, an RPC error value, or one of the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dscracknamesa
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dscracknamesa
      * @since windows6.0.6000
      */
     static DsCrackNamesA(hDS, flags, formatOffered, formatDesired, cNames, rpNames, ppResult) {
@@ -5342,15 +6370,13 @@ class ActiveDirectory {
     }
 
     /**
-     * Frees the memory held by a DS_NAME_RESULT structure.
+     * Frees the memory held by a DS_NAME_RESULT structure. (Unicode)
      * @remarks
-     * 
      * > [!NOTE]
      * > The ntdsapi.h header defines DsFreeNameResult as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * 
      * @param {Pointer<DS_NAME_RESULTW>} pResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsfreenameresultw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsfreenameresultw
      * @since windows6.0.6000
      */
     static DsFreeNameResultW(pResult) {
@@ -5358,15 +6384,13 @@ class ActiveDirectory {
     }
 
     /**
-     * Frees the memory held by a DS_NAME_RESULT structure.
+     * Frees the memory held by a DS_NAME_RESULT structure. (ANSI)
      * @remarks
-     * 
      * > [!NOTE]
      * > The ntdsapi.h header defines DsFreeNameResult as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * 
      * @param {Pointer<DS_NAME_RESULTA>} pResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsfreenameresulta
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsfreenameresulta
      * @since windows6.0.6000
      */
     static DsFreeNameResultA(pResult) {
@@ -5374,12 +6398,36 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsGetSpn function constructs an array of one or more service principal names (SPNs). Each name in the array identifies an instance of a service. These SPNs may be registered with the directory service (DS) using the DsWriteAccountSpn function.
+     * The DsGetSpn function constructs an array of one or more service principal names (SPNs). Each name in the array identifies an instance of a service. These SPNs may be registered with the directory service (DS) using the DsWriteAccountSpn function. (ANSI)
+     * @remarks
+     * <p class="proch"><b>To create SPNs for multiple instances of a replicated service running on multiple host computers</b>
+     * 
+     * <ol>
+     * <li>Set <i>cInstanceNames</i> to the number of instances.</li>
+     * <li>Specify the names of the host computers in the <i>pInstanceNames</i> array.</li>
+     * </ol>
+     * <p class="proch"><b>To create SPNs for multiple instances of a service running on the same host computer</b>
+     * 
+     * <ol>
+     * <li>Set the <i>cInstanceNames</i> to the number of instances.</li>
+     * <li>Set each entry in the <i>pInstanceNames</i> array to the DNS name of the host computer.</li>
+     * <li>Use the <i>pInstancePorts</i> parameter to specify an array of unique port numbers for each instance to disambiguate the SPNs.</li>
+     * </ol>
+     * String parameters cannot include the forward slash  (/), which is used to separate the components of the SPN.
+     * 
+     * An application with the appropriate privileges, which are usually those of a domain administrator, can call the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dswriteaccountspna">DsWriteAccountSpn</a> function to register one or more SPNs on the user or computer account where the service is running. Clients can then use the SPNs to authenticate the service.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsGetSpn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} ServiceType 
      * @param {PSTR} ServiceClass Pointer to a constant null-terminated string that specifies the class of the service; for example, http. Generally, this can be any string that is unique to the service.
      * @param {PSTR} ServiceName Pointer to a constant null-terminated string that specifies the DNS name or distinguished name (DN) of the service. <i>ServiceName</i> is not required for a host-based service. For more information, see the description of the <i>ServiceType</i> parameter for the possible values of <i>ServiceName</i>.
      * @param {Integer} InstancePort Specifies the port number of the service instance. If this value is zero, the SPN does not include a port number.
-     * @param {Integer} cInstanceNames Specifies the number of elements in the <i>pInstanceNames</i> and <i>pInstancePorts</i> arrays. If this value is zero, <i>pInstanceNames</i> must point to an array of <i>cInstanceNames</i> strings, and <i>pInstancePorts</i> can be either <b>NULL</b> or a pointer to an array of <i>cInstanceNames</i> port numbers. If this value is zero, <b>DsGetSpn</b> returns only one SPN in the <i>prpszSpn</i> array and <i>pInstanceNames</i> and <i>pInstancePorts</i> are ignored.
+     * @param {Integer} cInstanceNames Specifies the number of elements in the <i>pInstanceNames</i> and <i>pInstancePorts</i> arrays. If this value is not zero, <i>pInstanceNames</i> must point to an array of <i>cInstanceNames</i> strings, and <i>pInstancePorts</i> can be either <b>NULL</b> or a pointer to an array of <i>cInstanceNames</i> port numbers. If this value is zero, <b>DsGetSpn</b> returns only one SPN in the <i>prpszSpn</i> array and <i>pInstanceNames</i> and <i>pInstancePorts</i> are ignored.
      * @param {Pointer<PSTR>} pInstanceNames Pointer to an array of null-terminated strings that specify extra instance names (not used for host names). This parameter is ignored if <i>cInstanceNames</i> is zero. In that case, the <i>InstanceName</i> component of the SPN defaults to the fully qualified DNS name of the local computer or the NetBIOS name if <b>DS_SPN_NB_HOST</b> or <b>DS_SPN_NB_DOMAIN</b> is specified.
      * @param {Pointer<Integer>} pInstancePorts Pointer to an array of extra instance ports. If this value is non-<b>NULL</b>, it must point to an array of <i>cInstanceNames</i> port numbers. If this value is <b>NULL</b>, the SPNs do not include a port number. This parameter is ignored if <i>cInstanceNames</i> is zero.
      * @param {Pointer<Integer>} pcSpn Pointer to a variable that receives the number of SPNs contained in <i>prpszSpn</i>.
@@ -5388,7 +6436,7 @@ class ActiveDirectory {
      * @returns {Integer} If the function returns an array of SPNs, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value can be one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsgetspna
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsgetspna
      * @since windows6.0.6000
      */
     static DsGetSpnA(ServiceType, ServiceClass, ServiceName, InstancePort, cInstanceNames, pInstanceNames, pInstancePorts, pcSpn, prpszSpn) {
@@ -5405,7 +6453,31 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsGetSpn function constructs an array of one or more service principal names (SPNs). Each name in the array identifies an instance of a service. These SPNs may be registered with the directory service (DS) using the DsWriteAccountSpn function.
+     * The DsGetSpn function constructs an array of one or more service principal names (SPNs). Each name in the array identifies an instance of a service. These SPNs may be registered with the directory service (DS) using the DsWriteAccountSpn function. (Unicode)
+     * @remarks
+     * <p class="proch"><b>To create SPNs for multiple instances of a replicated service running on multiple host computers</b>
+     * 
+     * <ol>
+     * <li>Set <i>cInstanceNames</i> to the number of instances.</li>
+     * <li>Specify the names of the host computers in the <i>pInstanceNames</i> array.</li>
+     * </ol>
+     * <p class="proch"><b>To create SPNs for multiple instances of a service running on the same host computer</b>
+     * 
+     * <ol>
+     * <li>Set the <i>cInstanceNames</i> to the number of instances.</li>
+     * <li>Set each entry in the <i>pInstanceNames</i> array to the DNS name of the host computer.</li>
+     * <li>Use the <i>pInstancePorts</i> parameter to specify an array of unique port numbers for each instance to disambiguate the SPNs.</li>
+     * </ol>
+     * String parameters cannot include the forward slash  (/), which is used to separate the components of the SPN.
+     * 
+     * An application with the appropriate privileges, which are usually those of a domain administrator, can call the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dswriteaccountspna">DsWriteAccountSpn</a> function to register one or more SPNs on the user or computer account where the service is running. Clients can then use the SPNs to authenticate the service.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsGetSpn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} ServiceType 
      * @param {PWSTR} ServiceClass Pointer to a constant null-terminated string that specifies the class of the service; for example, http. Generally, this can be any string that is unique to the service.
      * @param {PWSTR} ServiceName Pointer to a constant null-terminated string that specifies the DNS name or distinguished name (DN) of the service. <i>ServiceName</i> is not required for a host-based service. For more information, see the description of the <i>ServiceType</i> parameter for the possible values of <i>ServiceName</i>.
@@ -5419,7 +6491,7 @@ class ActiveDirectory {
      * @returns {Integer} If the function returns an array of SPNs, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value can be one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsgetspnw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsgetspnw
      * @since windows6.0.6000
      */
     static DsGetSpnW(ServiceType, ServiceClass, ServiceName, InstancePort, cInstanceNames, pInstanceNames, pInstancePorts, pcSpn, prpszSpn) {
@@ -5436,16 +6508,14 @@ class ActiveDirectory {
     }
 
     /**
-     * Frees an array returned from the DsGetSpn function.
+     * Frees an array returned from the DsGetSpn function. (ANSI)
      * @remarks
-     * 
      * > [!NOTE]
      * > The ntdsapi.h header defines DsFreeSpnArray as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * 
      * @param {Integer} cSpn Specifies the number of elements contained in <i>rpszSpn</i>.
      * @param {Pointer<PSTR>} rpszSpn Pointer to an array returned from <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsgetspna">DsGetSpn</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsfreespnarraya
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsfreespnarraya
      * @since windows6.0.6000
      */
     static DsFreeSpnArrayA(cSpn, rpszSpn) {
@@ -5455,16 +6525,14 @@ class ActiveDirectory {
     }
 
     /**
-     * Frees an array returned from the DsGetSpn function.
+     * Frees an array returned from the DsGetSpn function. (Unicode)
      * @remarks
-     * 
      * > [!NOTE]
      * > The ntdsapi.h header defines DsFreeSpnArray as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * 
      * @param {Integer} cSpn Specifies the number of elements contained in <i>rpszSpn</i>.
      * @param {Pointer<PWSTR>} rpszSpn Pointer to an array returned from <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsgetspna">DsGetSpn</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsfreespnarrayw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsfreespnarrayw
      * @since windows6.0.6000
      */
     static DsFreeSpnArrayW(cSpn, rpszSpn) {
@@ -5474,7 +6542,56 @@ class ActiveDirectory {
     }
 
     /**
-     * Writes an array of service principal names (SPNs) to the servicePrincipalName attribute of a specified user or computer account object in Active Directory Domain Services.
+     * Writes an array of service principal names (SPNs) to the servicePrincipalName attribute of a specified user or computer account object in Active Directory Domain Services. (ANSI)
+     * @remarks
+     * The <b>DsWriteAccountSpn</b> function registers the SPNs for one or more instances of a service. SPNs are used by clients, in conjunction with a trusted authentication service, to authenticate the service. To protect against security attacks where an application or service fraudulently registers an SPN that identifies some other service, the default DACL on user and computer accounts allows only domain administrators to register SPNs in most cases.
+     * 
+     * One exception to this rule is that a service running under the LocalSystem account can call <b>DsWriteAccountSpn</b> to register a simple SPN of the form "ServiceClass/Host:Port" if the host specified in the SPN is the DNS or NetBIOS name of the computer on which the service is running.
+     * 
+     * Another exception is that the default DACL on computer accounts allows callers to register SPNs on themselves, subject to certain constraints.  For example, a computer account can have SPNs relative to its computername, of the form "host/&lt;computername&gt;".  Because the computername is contained in the SPN, the SPN is allowable.
+     * 
+     * None of the rules above apply if the DSA is configured to allow any SPN to be written. This reduces security, however, so it is not recommended.
+     * 
+     * SPNs passed to <b>DsWriteAccountSpn</b> are actually added to the <b>Service-Principal-Name</b> attribute of the computer object in <i>pszAccount</i>. This call is made using RPC to the domain controller where the account object is stored so it can securely enforce policy on what SPNs are allowed on the account. Using LDAP to write directly to the SPN property is not allowed; all writes must come through this RPC call. Reads using LDAP are allowed.
+     * 
+     * Permissions required to set SPNs
+     * 
+     * To write an arbitrary SPN on an account, the writer requires the "Write ServicePrincipalName"  right, which is not granted by default  to the person who created the account. That person  has the 'Write validated SPN" right(present only on machine accounts).
+     * 
+     * Below is a summary of rights per user on machine accounts:
+     * 
+     * <table>
+     * <tr>
+     * <th>User Type</th>
+     * <th>Rights</th>
+     * </tr>
+     * <tr>
+     * <td>Person creating the Account</td>
+     * <td>Write validated SPN</td>
+     * </tr>
+     * <tr>
+     * <td>Account Operators</td>
+     * <td>Write SPN and Write Validated SPN</td>
+     * </tr>
+     * <tr>
+     * <td>Authenticated Users</td>
+     * <td>None</td>
+     * </tr>
+     * <tr>
+     * <td>(self)</td>
+     * <td>Write Validated SPN</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * On user accounts there is no "Validated SPN" property or "Write SPN" right.  Rather, the  "Write public information" property set grants the ability to create arbitrary SPNs.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsWriteAccountSpn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -5483,7 +6600,7 @@ class ActiveDirectory {
      * @param {Integer} cSpn Specifies the number of SPNs in <i>rpszSpn</i>. If this value is zero, and <i>Operation</i> contains <b>DS_SPN_REPLACE_SPN_OP</b>, the function removes all values from the <b>servicePrincipalName</b> attribute of the specified account.
      * @param {Pointer<PSTR>} rpszSpn Pointer to an array of constant null-terminated strings that specify the SPNs to be added to or removed from the  account identified by the <i>pszAccount</i> parameter. The <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsgetspna">DsGetSpn</a> function is used to compose SPNs for a service.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32, RPC or directory service error if unsuccessful.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dswriteaccountspna
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dswriteaccountspna
      * @since windows6.0.6000
      */
     static DsWriteAccountSpnA(hDS, Operation, pszAccount, cSpn, rpszSpn) {
@@ -5497,7 +6614,56 @@ class ActiveDirectory {
     }
 
     /**
-     * Writes an array of service principal names (SPNs) to the servicePrincipalName attribute of a specified user or computer account object in Active Directory Domain Services.
+     * Writes an array of service principal names (SPNs) to the servicePrincipalName attribute of a specified user or computer account object in Active Directory Domain Services. (Unicode)
+     * @remarks
+     * The <b>DsWriteAccountSpn</b> function registers the SPNs for one or more instances of a service. SPNs are used by clients, in conjunction with a trusted authentication service, to authenticate the service. To protect against security attacks where an application or service fraudulently registers an SPN that identifies some other service, the default DACL on user and computer accounts allows only domain administrators to register SPNs in most cases.
+     * 
+     * One exception to this rule is that a service running under the LocalSystem account can call <b>DsWriteAccountSpn</b> to register a simple SPN of the form "ServiceClass/Host:Port" if the host specified in the SPN is the DNS or NetBIOS name of the computer on which the service is running.
+     * 
+     * Another exception is that the default DACL on computer accounts allows callers to register SPNs on themselves, subject to certain constraints.  For example, a computer account can have SPNs relative to its computername, of the form "host/&lt;computername&gt;".  Because the computername is contained in the SPN, the SPN is allowable.
+     * 
+     * None of the rules above apply if the DSA is configured to allow any SPN to be written. This reduces security, however, so it is not recommended.
+     * 
+     * SPNs passed to <b>DsWriteAccountSpn</b> are actually added to the <b>Service-Principal-Name</b> attribute of the computer object in <i>pszAccount</i>. This call is made using RPC to the domain controller where the account object is stored so it can securely enforce policy on what SPNs are allowed on the account. Using LDAP to write directly to the SPN property is not allowed; all writes must come through this RPC call. Reads using LDAP are allowed.
+     * 
+     * Permissions required to set SPNs
+     * 
+     * To write an arbitrary SPN on an account, the writer requires the "Write ServicePrincipalName"  right, which is not granted by default  to the person who created the account. That person  has the 'Write validated SPN" right(present only on machine accounts).
+     * 
+     * Below is a summary of rights per user on machine accounts:
+     * 
+     * <table>
+     * <tr>
+     * <th>User Type</th>
+     * <th>Rights</th>
+     * </tr>
+     * <tr>
+     * <td>Person creating the Account</td>
+     * <td>Write validated SPN</td>
+     * </tr>
+     * <tr>
+     * <td>Account Operators</td>
+     * <td>Write SPN and Write Validated SPN</td>
+     * </tr>
+     * <tr>
+     * <td>Authenticated Users</td>
+     * <td>None</td>
+     * </tr>
+     * <tr>
+     * <td>(self)</td>
+     * <td>Write Validated SPN</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * On user accounts there is no "Validated SPN" property or "Write SPN" right.  Rather, the  "Write public information" property set grants the ability to create arbitrary SPNs.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsWriteAccountSpn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -5506,7 +6672,7 @@ class ActiveDirectory {
      * @param {Integer} cSpn Specifies the number of SPNs in <i>rpszSpn</i>. If this value is zero, and <i>Operation</i> contains <b>DS_SPN_REPLACE_SPN_OP</b>, the function removes all values from the <b>servicePrincipalName</b> attribute of the specified account.
      * @param {Pointer<PWSTR>} rpszSpn Pointer to an array of constant null-terminated strings that specify the SPNs to be added to or removed from the  account identified by the <i>pszAccount</i> parameter. The <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsgetspna">DsGetSpn</a> function is used to compose SPNs for a service.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32, RPC or directory service error if unsuccessful.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dswriteaccountspnw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dswriteaccountspnw
      * @since windows6.0.6000
      */
     static DsWriteAccountSpnW(hDS, Operation, pszAccount, cSpn, rpszSpn) {
@@ -5520,7 +6686,27 @@ class ActiveDirectory {
     }
 
     /**
-     * Constructs a service principal name (SPN) that identifies a specific server to use for authentication.
+     * Constructs a service principal name (SPN) that identifies a specific server to use for authentication. (Unicode)
+     * @remarks
+     * When using this function, supply the service class and part of a DNS host name.
+     * 
+     * This function is a simplified version of the <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/nf-dsparse-dsmakespna">DsMakeSpn</a> function. The <i>ServiceName</i> is made canonical by resolving through DNS.
+     * 
+     * GUID-based DNS names are not supported. When constructed, the simplified SPN is as follows:
+     * 
+     * 
+     * ``` syntax
+     * ServiceClass / ServiceName / ServiceName
+     * ```
+     * 
+     * The instance name portion (second position) is always set to default. The port and referrer fields are not used.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsClientMakeSpnForTargetServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} ServiceClass Pointer to a null-terminated string that contains the class of the service as defined by the service. This can be any string unique to the service.
      * @param {PWSTR} ServiceName Pointer to a null-terminated string that contains the distinguished name service (DNS) host name. This can either be a fully qualified name or an IP address in the Internet standard  format.
      * 
@@ -5528,7 +6714,7 @@ class ActiveDirectory {
      * @param {Pointer<Integer>} pcSpnLength Pointer to a <b>DWORD</b> value that, on entry, contains the size of the <i>pszSpn</i> buffer, in characters. On output, this parameter receives the number of characters copied to the  <i>pszSpn</i> buffer, including the terminating <b>NULL</b>.
      * @param {PWSTR} pszSpn Pointer to a string buffer that receives the SPN.
      * @returns {Integer} This function returns standard Windows error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsclientmakespnfortargetserverw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsclientmakespnfortargetserverw
      * @since windows6.0.6000
      */
     static DsClientMakeSpnForTargetServerW(ServiceClass, ServiceName, pcSpnLength, pszSpn) {
@@ -5543,7 +6729,27 @@ class ActiveDirectory {
     }
 
     /**
-     * Constructs a service principal name (SPN) that identifies a specific server to use for authentication.
+     * Constructs a service principal name (SPN) that identifies a specific server to use for authentication. (ANSI)
+     * @remarks
+     * When using this function, supply the service class and part of a DNS host name.
+     * 
+     * This function is a simplified version of the <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/nf-dsparse-dsmakespna">DsMakeSpn</a> function. The <i>ServiceName</i> is made canonical by resolving through DNS.
+     * 
+     * GUID-based DNS names are not supported. When constructed, the simplified SPN is as follows:
+     * 
+     * 
+     * ``` syntax
+     * ServiceClass / ServiceName / ServiceName
+     * ```
+     * 
+     * The instance name portion (second position) is always set to default. The port and referrer fields are not used.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsClientMakeSpnForTargetServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} ServiceClass Pointer to a null-terminated string that contains the class of the service as defined by the service. This can be any string unique to the service.
      * @param {PSTR} ServiceName Pointer to a null-terminated string that contains the distinguished name service (DNS) host name. This can either be a fully qualified name or an IP address in the Internet standard  format.
      * 
@@ -5551,7 +6757,7 @@ class ActiveDirectory {
      * @param {Pointer<Integer>} pcSpnLength Pointer to a <b>DWORD</b> value that, on entry, contains the size of the <i>pszSpn</i> buffer, in characters. On output, this parameter receives the number of characters copied to the  <i>pszSpn</i> buffer, including the terminating <b>NULL</b>.
      * @param {PSTR} pszSpn Pointer to a string buffer that receives the SPN.
      * @returns {Integer} This function returns standard Windows error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsclientmakespnfortargetservera
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsclientmakespnfortargetservera
      * @since windows6.0.6000
      */
     static DsClientMakeSpnForTargetServerA(ServiceClass, ServiceName, pcSpnLength, pszSpn) {
@@ -5566,12 +6772,31 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsServerRegisterSpn function composes two SPNs for a host-based service.
+     * The DsServerRegisterSpn function composes two SPNs for a host-based service. (ANSI)
+     * @remarks
+     * The two SPNs composed by the <b>DsServerRegisterSpn</b> function have the following format:
+     * 
+     * 
+     * ```cpp
+     * <ServiceClass>/<host>
+     * ```
+     * 
+     * 
+     * In one SPN, the host computer is the fully qualified DNS name of the local computer. In the other SPN, the host component is the NetBIOS name of the local computer.
+     * 
+     * In most cases, the <b>DsServerRegisterSpn</b> caller must have domain administrator privileges to successfully modify the <b>servicePrincipalName</b> attribute of an account object. The exception to this rule is if the calling thread is running under the LocalSystem account, <b>DsServerRegisterSpn</b> is allowed if the <i>UserObjectDN</i> parameter is either <b>NULL</b> or specifies the distinguished name of the local computer account.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsServerRegisterSpn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} Operation 
      * @param {PSTR} ServiceClass Pointer to a constant null-terminated string specifying the class of the service. This parameter may be any string unique to that service; either the protocol name (for example, ldap) or the string form of a GUID will work.
      * @param {PSTR} UserObjectDN Pointer to a constant null-terminated string specifying the distinguished name of a user or computer account object to write the SPNs to. If this parameter is <b>NULL</b>, <b>DsServerRegisterSpn</b> writes to the account object of the primary or impersonated user associated with the calling thread. If the thread is running in the security context of the LocalSystem account, the function writes to the account object of the local computer.
      * @returns {Integer} If the function successfully registers one or more SPNs, it returns <b>ERROR_SUCCESS</b>. Modification is performed permissively, so that adding a value that already exists does not return an error.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsserverregisterspna
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsserverregisterspna
      * @since windows6.0.6000
      */
     static DsServerRegisterSpnA(Operation, ServiceClass, UserObjectDN) {
@@ -5583,12 +6808,31 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsServerRegisterSpn function composes two SPNs for a host-based service.
+     * The DsServerRegisterSpn function composes two SPNs for a host-based service. (Unicode)
+     * @remarks
+     * The two SPNs composed by the <b>DsServerRegisterSpn</b> function have the following format:
+     * 
+     * 
+     * ```cpp
+     * <ServiceClass>/<host>
+     * ```
+     * 
+     * 
+     * In one SPN, the host computer is the fully qualified DNS name of the local computer. In the other SPN, the host component is the NetBIOS name of the local computer.
+     * 
+     * In most cases, the <b>DsServerRegisterSpn</b> caller must have domain administrator privileges to successfully modify the <b>servicePrincipalName</b> attribute of an account object. The exception to this rule is if the calling thread is running under the LocalSystem account, <b>DsServerRegisterSpn</b> is allowed if the <i>UserObjectDN</i> parameter is either <b>NULL</b> or specifies the distinguished name of the local computer account.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsServerRegisterSpn as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} Operation 
      * @param {PWSTR} ServiceClass Pointer to a constant null-terminated string specifying the class of the service. This parameter may be any string unique to that service; either the protocol name (for example, ldap) or the string form of a GUID will work.
      * @param {PWSTR} UserObjectDN Pointer to a constant null-terminated string specifying the distinguished name of a user or computer account object to write the SPNs to. If this parameter is <b>NULL</b>, <b>DsServerRegisterSpn</b> writes to the account object of the primary or impersonated user associated with the calling thread. If the thread is running in the security context of the LocalSystem account, the function writes to the account object of the local computer.
      * @returns {Integer} If the function successfully registers one or more SPNs, it returns <b>ERROR_SUCCESS</b>. Modification is performed permissively, so that adding a value that already exists does not return an error.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsserverregisterspnw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsserverregisterspnw
      * @since windows6.0.6000
      */
     static DsServerRegisterSpnW(Operation, ServiceClass, UserObjectDN) {
@@ -5600,7 +6844,18 @@ class ActiveDirectory {
     }
 
     /**
-     * Synchronizes a destination naming context (NC) with one of its sources.
+     * Synchronizes a destination naming context (NC) with one of its sources. (ANSI)
+     * @remarks
+     * The server that <b>DsReplicaSync</b> executes on is called the destination. The destination naming context is brought up-to-date with respect to a source system, identified by the UUID of the source system NTDS Settings object. The destination system must already be configured so that the source system is one of the systems from which it receives replication data.
+     * 
+     * <div class="alert"><b>Note</b>  Forcing manual synchronization can prevent the directory service from properly prioritizing replication operations. For example, synchronizing a new user may preempt an urgent synchronization performed to provide access to a recently locked out user or to add a new trust password. If you call this API often, you can flood the network with requests, which can interfere with other replication operations. For this reason, it is strongly recommended that this function be used only for single-use scenarios rather than incorporating it into an application that would use it on a regular basis.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsReplicaSync as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -5610,7 +6865,7 @@ class ActiveDirectory {
      * @returns {Integer} If the function performs its operation successfully, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the standard Win32 API errors.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsreplicasynca
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicasynca
      * @since windows6.0.6000
      */
     static DsReplicaSyncA(hDS, NameContext, pUuidDsaSrc, Options) {
@@ -5622,7 +6877,18 @@ class ActiveDirectory {
     }
 
     /**
-     * Synchronizes a destination naming context (NC) with one of its sources.
+     * Synchronizes a destination naming context (NC) with one of its sources. (Unicode)
+     * @remarks
+     * The server that <b>DsReplicaSync</b> executes on is called the destination. The destination naming context is brought up-to-date with respect to a source system, identified by the UUID of the source system NTDS Settings object. The destination system must already be configured so that the source system is one of the systems from which it receives replication data.
+     * 
+     * <div class="alert"><b>Note</b>  Forcing manual synchronization can prevent the directory service from properly prioritizing replication operations. For example, synchronizing a new user may preempt an urgent synchronization performed to provide access to a recently locked out user or to add a new trust password. If you call this API often, you can flood the network with requests, which can interfere with other replication operations. For this reason, it is strongly recommended that this function be used only for single-use scenarios rather than incorporating it into an application that would use it on a regular basis.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsReplicaSync as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -5632,7 +6898,7 @@ class ActiveDirectory {
      * @returns {Integer} If the function performs its operation successfully, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the standard Win32 API errors.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsreplicasyncw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicasyncw
      * @since windows6.0.6000
      */
     static DsReplicaSyncW(hDS, NameContext, pUuidDsaSrc, Options) {
@@ -5644,7 +6910,10 @@ class ActiveDirectory {
     }
 
     /**
-     * Adds a replication source reference to a destination naming context.
+     * Adds a replication source reference to a destination naming context. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsReplicaAdd as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -5657,7 +6926,7 @@ class ActiveDirectory {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value can be one of the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsreplicaadda
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicaadda
      * @since windows6.0.6000
      */
     static DsReplicaAddA(hDS, NameContext, SourceDsaDn, TransportDn, SourceDsaAddress, pSchedule, Options) {
@@ -5672,7 +6941,10 @@ class ActiveDirectory {
     }
 
     /**
-     * Adds a replication source reference to a destination naming context.
+     * Adds a replication source reference to a destination naming context. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsReplicaAdd as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -5685,7 +6957,7 @@ class ActiveDirectory {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value can be one of the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsreplicaaddw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicaaddw
      * @since windows6.0.6000
      */
     static DsReplicaAddW(hDS, NameContext, SourceDsaDn, TransportDn, SourceDsaAddress, pSchedule, Options) {
@@ -5700,7 +6972,10 @@ class ActiveDirectory {
     }
 
     /**
-     * Removes a replication source reference from a destination naming context (NC).
+     * Removes a replication source reference from a destination naming context (NC). (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsReplicaDel as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -5710,7 +6985,7 @@ class ActiveDirectory {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is a standard Win32 API error or <b>ERROR_INVALID_PARAMETER</b> if a parameter is invalid.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsreplicadela
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicadela
      * @since windows6.0.6000
      */
     static DsReplicaDelA(hDS, NameContext, DsaSrc, Options) {
@@ -5723,7 +6998,10 @@ class ActiveDirectory {
     }
 
     /**
-     * Removes a replication source reference from a destination naming context (NC).
+     * Removes a replication source reference from a destination naming context (NC). (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsReplicaDel as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -5733,7 +7011,7 @@ class ActiveDirectory {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is a standard Win32 API error or <b>ERROR_INVALID_PARAMETER</b> if a parameter is invalid.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsreplicadelw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicadelw
      * @since windows6.0.6000
      */
     static DsReplicaDelW(hDS, NameContext, DsaSrc, Options) {
@@ -5746,7 +7024,10 @@ class ActiveDirectory {
     }
 
     /**
-     * Modifies an existing replication source reference for a destination naming context.
+     * Modifies an existing replication source reference for a destination naming context. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsReplicaModify as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -5759,7 +7040,7 @@ class ActiveDirectory {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value can be one of the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsreplicamodifya
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicamodifya
      * @since windows6.0.6000
      */
     static DsReplicaModifyA(hDS, NameContext, pUuidSourceDsa, SourceDsaAddress, pSchedule, ModifyFields, Options) {
@@ -5774,7 +7055,10 @@ class ActiveDirectory {
     }
 
     /**
-     * Modifies an existing replication source reference for a destination naming context.
+     * Modifies an existing replication source reference for a destination naming context. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsReplicaModify as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -5788,7 +7072,7 @@ class ActiveDirectory {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value can be one of the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsreplicamodifyw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicamodifyw
      * @since windows6.0.6000
      */
     static DsReplicaModifyW(hDS, NameContext, pUuidSourceDsa, SourceDsaAddress, pSchedule, ReplicaFlags, ModifyFields, Options) {
@@ -5803,7 +7087,16 @@ class ActiveDirectory {
     }
 
     /**
-     * Adds or removes a replication reference for a destination from a source naming context.
+     * Adds or removes a replication reference for a destination from a source naming context. (ANSI)
+     * @remarks
+     * If both <b>DS_REPUPD_ADD_REFERENCE</b> and <b>DS_REPUPD_DELETE_REFERENCE</b> are set in the <i>Options</i> parameter, a reference to the destination is added if one does not already exist on the server. If a reference to the destination already exists, the reference is updated.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsReplicaUpdateRefs as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -5814,7 +7107,7 @@ class ActiveDirectory {
      * @returns {Integer} If the function succeeds,  <b>ERROR_SUCCESS</b> is returned.
      * 
      * If the function fails, the return value can be one of the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsreplicaupdaterefsa
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicaupdaterefsa
      * @since windows6.0.6000
      */
     static DsReplicaUpdateRefsA(hDS, NameContext, DsaDest, pUuidDsaDest, Options) {
@@ -5827,7 +7120,16 @@ class ActiveDirectory {
     }
 
     /**
-     * Adds or removes a replication reference for a destination from a source naming context.
+     * Adds or removes a replication reference for a destination from a source naming context. (Unicode)
+     * @remarks
+     * If both <b>DS_REPUPD_ADD_REFERENCE</b> and <b>DS_REPUPD_DELETE_REFERENCE</b> are set in the <i>Options</i> parameter, a reference to the destination is added if one does not already exist on the server. If a reference to the destination already exists, the reference is updated.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsReplicaUpdateRefs as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -5838,7 +7140,7 @@ class ActiveDirectory {
      * @returns {Integer} If the function succeeds,  <b>ERROR_SUCCESS</b> is returned.
      * 
      * If the function fails, the return value can be one of the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsreplicaupdaterefsw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicaupdaterefsw
      * @since windows6.0.6000
      */
     static DsReplicaUpdateRefsW(hDS, NameContext, DsaDest, pUuidDsaDest, Options) {
@@ -5851,7 +7153,20 @@ class ActiveDirectory {
     }
 
     /**
-     * Synchronizes a server with all other servers, using transitive replication, as necessary.
+     * Synchronizes a server with all other servers, using transitive replication, as necessary. (ANSI)
+     * @remarks
+     * The <b>DsReplicaSyncAll</b> function attempts to bind to all servers before generating a topology to synchronize from. If a server cannot be contacted, the function excludes that server from the topology and attempts to work around it. Setting the <b>DS_REPSYNCALL_SKIP_INITIAL_CHECK</b> flag in <i>ulFlags</i> bypasses the initial binding.
+     * 
+     * If a server cannot be contacted, the <b>DsReplicaSyncAll</b> function attempts to route around it and replicate from as many servers as possible, unless <b>DS_REPSYNCALL_ABORT_IF_SERVER_UNAVAILABLE</b> is set in <i>ulFlags</i>.
+     * 
+     * The <b>DsReplicaSyncAll</b> function can use the callback function pointed to by <i>pFnCallBack</i> to keep an end user informed about the current status of the replication. Execution of the <b>DsReplicaSyncAll</b> function pauses when it calls the function pointed to by <i>pFnCallBack</i>. If the return value from the callback function is <b>TRUE</b>, replication continues; otherwise, the <b>DsReplicaSyncAll</b> function terminates replication.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsReplicaSyncAll as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -5864,7 +7179,7 @@ class ActiveDirectory {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is as follows.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsreplicasyncalla
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicasyncalla
      * @since windows6.0.6000
      */
     static DsReplicaSyncAllA(hDS, pszNameContext, ulFlags, pFnCallBack, pCallbackData, pErrors) {
@@ -5879,7 +7194,20 @@ class ActiveDirectory {
     }
 
     /**
-     * Synchronizes a server with all other servers, using transitive replication, as necessary.
+     * Synchronizes a server with all other servers, using transitive replication, as necessary. (Unicode)
+     * @remarks
+     * The <b>DsReplicaSyncAll</b> function attempts to bind to all servers before generating a topology to synchronize from. If a server cannot be contacted, the function excludes that server from the topology and attempts to work around it. Setting the <b>DS_REPSYNCALL_SKIP_INITIAL_CHECK</b> flag in <i>ulFlags</i> bypasses the initial binding.
+     * 
+     * If a server cannot be contacted, the <b>DsReplicaSyncAll</b> function attempts to route around it and replicate from as many servers as possible, unless <b>DS_REPSYNCALL_ABORT_IF_SERVER_UNAVAILABLE</b> is set in <i>ulFlags</i>.
+     * 
+     * The <b>DsReplicaSyncAll</b> function can use the callback function pointed to by <i>pFnCallBack</i> to keep an end user informed about the current status of the replication. Execution of the <b>DsReplicaSyncAll</b> function pauses when it calls the function pointed to by <i>pFnCallBack</i>. If the return value from the callback function is <b>TRUE</b>, replication continues; otherwise, the <b>DsReplicaSyncAll</b> function terminates replication.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsReplicaSyncAll as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -5892,7 +7220,7 @@ class ActiveDirectory {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is as follows.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsreplicasyncallw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicasyncallw
      * @since windows6.0.6000
      */
     static DsReplicaSyncAllW(hDS, pszNameContext, ulFlags, pFnCallBack, pCallbackData, pErrors) {
@@ -5907,7 +7235,10 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsRemoveDsServer function removes all traces of a directory service agent (DSA) from the global area of the directory service.
+     * The DsRemoveDsServer function removes all traces of a directory service agent (DSA) from the global area of the directory service. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsRemoveDsServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -5916,7 +7247,7 @@ class ActiveDirectory {
      * @param {Pointer<BOOL>} fLastDcInDomain Pointer to a Boolean value that receives <b>TRUE</b> if <i>ServerDN</i> is the last DC in <i>DomainDN</i> or <b>FALSE</b> otherwise. This parameter receives <b>FALSE</b> if <i>DomainDN</i> is <b>NULL</b>.
      * @param {BOOL} fCommit Contains a Boolean value that specifies if the domain controller should actually be removed. If this parameter is nonzero, <i>ServerDN</i> is removed. If this parameter is zero, the existence of <i>ServerDN</i> is checked and <i>fLastDcInDomain</i> is written, but the domain controller is not removed.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful  or a Win32 or RPC error code if unsuccessful. Possible error codes include the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsremovedsserverw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsremovedsserverw
      * @since windows6.0.6000
      */
     static DsRemoveDsServerW(hDs, ServerDN, DomainDN, fLastDcInDomain, fCommit) {
@@ -5931,7 +7262,10 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsRemoveDsServer function removes all traces of a directory service agent (DSA) from the global area of the directory service.
+     * The DsRemoveDsServer function removes all traces of a directory service agent (DSA) from the global area of the directory service. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsRemoveDsServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -5940,7 +7274,7 @@ class ActiveDirectory {
      * @param {Pointer<BOOL>} fLastDcInDomain Pointer to a Boolean value that receives <b>TRUE</b> if <i>ServerDN</i> is the last DC in <i>DomainDN</i> or <b>FALSE</b> otherwise. This parameter receives <b>FALSE</b> if <i>DomainDN</i> is <b>NULL</b>.
      * @param {BOOL} fCommit Contains a Boolean value that specifies if the domain controller should actually be removed. If this parameter is nonzero, <i>ServerDN</i> is removed. If this parameter is zero, the existence of <i>ServerDN</i> is checked and <i>fLastDcInDomain</i> is written, but the domain controller is not removed.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful  or a Win32 or RPC error code if unsuccessful. Possible error codes include the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsremovedsservera
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsremovedsservera
      * @since windows6.0.6000
      */
     static DsRemoveDsServerA(hDs, ServerDN, DomainDN, fLastDcInDomain, fCommit) {
@@ -5955,13 +7289,16 @@ class ActiveDirectory {
     }
 
     /**
-     * Removes all traces of a domain naming context from the global area of the directory service.
+     * Removes all traces of a domain naming context from the global area of the directory service. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsRemoveDsDomain as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {PWSTR} DomainDN Pointer to a null-terminated string that specifies the distinguished name of the naming context to remove from the directory service.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful  or a Win32 or RPC error code if unsuccessful. Possible error codes include the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsremovedsdomainw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsremovedsdomainw
      * @since windows6.0.6000
      */
     static DsRemoveDsDomainW(hDs, DomainDN) {
@@ -5973,13 +7310,16 @@ class ActiveDirectory {
     }
 
     /**
-     * Removes all traces of a domain naming context from the global area of the directory service.
+     * Removes all traces of a domain naming context from the global area of the directory service. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsRemoveDsDomain as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {PSTR} DomainDN Pointer to a null-terminated string that specifies the distinguished name of the naming context to remove from the directory service.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful  or a Win32 or RPC error code if unsuccessful. Possible error codes include the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsremovedsdomaina
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsremovedsdomaina
      * @since windows6.0.6000
      */
     static DsRemoveDsDomainA(hDs, DomainDN) {
@@ -5991,14 +7331,23 @@ class ActiveDirectory {
     }
 
     /**
-     * Lists all the sites in the enterprise forest.
+     * Lists all the sites in the enterprise forest. (ANSI)
+     * @remarks
+     * Individual name conversion errors are reported in the returned <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsListSites as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {Pointer<Pointer<DS_NAME_RESULTA>>} ppSites Pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure that receives the list of sites in the enterprise. The site name is returned in the distinguished name (DN) format. The returned structure must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a> function.
      * @returns {Integer} If the function returns a list of sites, the return value is <b>NO_ERROR</b>. If the function fails, the return value can be one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dslistsitesa
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dslistsitesa
      * @since windows6.0.6000
      */
     static DsListSitesA(hDs, ppSites) {
@@ -6011,14 +7360,23 @@ class ActiveDirectory {
     }
 
     /**
-     * Lists all the sites in the enterprise forest.
+     * Lists all the sites in the enterprise forest. (Unicode)
+     * @remarks
+     * Individual name conversion errors are reported in the returned <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsListSites as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {Pointer<Pointer<DS_NAME_RESULTW>>} ppSites Pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure that receives the list of sites in the enterprise. The site name is returned in the distinguished name (DN) format. The returned structure must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a> function.
      * @returns {Integer} If the function returns a list of sites, the return value is <b>NO_ERROR</b>. If the function fails, the return value can be one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dslistsitesw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dslistsitesw
      * @since windows6.0.6000
      */
     static DsListSitesW(hDs, ppSites) {
@@ -6031,7 +7389,16 @@ class ActiveDirectory {
     }
 
     /**
-     * Lists all the servers in a site.
+     * Lists all the servers in a site. (ANSI)
+     * @remarks
+     * Individual name conversion errors are reported in the returned <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsListServersInSite as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -6040,7 +7407,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure that receives the list of servers in the site. The returned structure must be freed using 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a> function.
      * @returns {Integer} If the function returns a list of servers, the return value is <b>NO_ERROR</b>. If the function fails, the return value can be one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dslistserversinsitea
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dslistserversinsitea
      * @since windows6.0.6000
      */
     static DsListServersInSiteA(hDs, site, ppServers) {
@@ -6054,7 +7421,16 @@ class ActiveDirectory {
     }
 
     /**
-     * Lists all the servers in a site.
+     * Lists all the servers in a site. (Unicode)
+     * @remarks
+     * Individual name conversion errors are reported in the returned <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsListServersInSite as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -6063,7 +7439,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure that receives the list of servers in the site. The returned structure must be freed using 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a> function.
      * @returns {Integer} If the function returns a list of servers, the return value is <b>NO_ERROR</b>. If the function fails, the return value can be one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dslistserversinsitew
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dslistserversinsitew
      * @since windows6.0.6000
      */
     static DsListServersInSiteW(hDs, site, ppServers) {
@@ -6077,7 +7453,16 @@ class ActiveDirectory {
     }
 
     /**
-     * Lists all the domains in a site.
+     * Lists all the domains in a site. (ANSI)
+     * @remarks
+     * Individual name conversion errors are reported in the returned <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsListDomainsInSite as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -6086,7 +7471,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure that receives the list of domains in the site. To free the returned structure, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a> function.
      * @returns {Integer} If the function returns a list of domains, the return value is <b>NO_ERROR</b>. If the function fails, the return value can be one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dslistdomainsinsitea
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dslistdomainsinsitea
      * @since windows6.0.6000
      */
     static DsListDomainsInSiteA(hDs, site, ppDomains) {
@@ -6100,7 +7485,16 @@ class ActiveDirectory {
     }
 
     /**
-     * Lists all the domains in a site.
+     * Lists all the domains in a site. (Unicode)
+     * @remarks
+     * Individual name conversion errors are reported in the returned <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsListDomainsInSite as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -6109,7 +7503,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure that receives the list of domains in the site. To free the returned structure, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a> function.
      * @returns {Integer} If the function returns a list of domains, the return value is <b>NO_ERROR</b>. If the function fails, the return value can be one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dslistdomainsinsitew
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dslistdomainsinsitew
      * @since windows6.0.6000
      */
     static DsListDomainsInSiteW(hDs, site, ppDomains) {
@@ -6123,7 +7517,16 @@ class ActiveDirectory {
     }
 
     /**
-     * Lists all the servers in a domain in a site.
+     * Lists all the servers in a domain in a site. (ANSI)
+     * @remarks
+     * Individual name conversion errors are reported in the returned <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsListServersForDomainInSite as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -6133,7 +7536,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure that receives the list of servers in the domain. The returned structure must be freed using 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a> function.
      * @returns {Integer} If the function returns a list of servers, the return value is <b>NO_ERROR</b>. If the function fails, the return value can be one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dslistserversfordomaininsitea
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dslistserversfordomaininsitea
      * @since windows6.0.6000
      */
     static DsListServersForDomainInSiteA(hDs, domain, site, ppServers) {
@@ -6148,7 +7551,16 @@ class ActiveDirectory {
     }
 
     /**
-     * Lists all the servers in a domain in a site.
+     * Lists all the servers in a domain in a site. (Unicode)
+     * @remarks
+     * Individual name conversion errors are reported in the returned <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsListServersForDomainInSite as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -6158,7 +7570,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure that receives the list of servers in the domain. The returned structure must be freed using 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a> function.
      * @returns {Integer} If the function returns a list of servers, the return value is <b>NO_ERROR</b>. If the function fails, the return value can be one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dslistserversfordomaininsitew
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dslistserversfordomaininsitew
      * @since windows6.0.6000
      */
     static DsListServersForDomainInSiteW(hDs, domain, site, ppServers) {
@@ -6173,7 +7585,16 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsListInfoForServer function lists miscellaneous data for a server.
+     * The DsListInfoForServer function lists miscellaneous data for a server. (ANSI)
+     * @remarks
+     * Individual name conversion errors are reported in the returned <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsListInfoForServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -6186,7 +7607,7 @@ class ActiveDirectory {
      * @returns {Integer} If the function returns server data, the return value is <b>NO_ERROR</b>.
      * 
      * If the function fails, the return value can be one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dslistinfoforservera
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dslistinfoforservera
      * @since windows6.0.6000
      */
     static DsListInfoForServerA(hDs, server, ppInfo) {
@@ -6200,7 +7621,16 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsListInfoForServer function lists miscellaneous data for a server.
+     * The DsListInfoForServer function lists miscellaneous data for a server. (Unicode)
+     * @remarks
+     * Individual name conversion errors are reported in the returned <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsListInfoForServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -6213,7 +7643,7 @@ class ActiveDirectory {
      * @returns {Integer} If the function returns server data, the return value is <b>NO_ERROR</b>.
      * 
      * If the function fails, the return value can be one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dslistinfoforserverw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dslistinfoforserverw
      * @since windows6.0.6000
      */
     static DsListInfoForServerW(hDs, server, ppInfo) {
@@ -6227,7 +7657,10 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsListRoles function lists roles recognized by the server.
+     * The DsListRoles function lists roles recognized by the server. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsListRoles as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -6240,8 +7673,8 @@ class ActiveDirectory {
      * 
      * If the function fails, the return value can be one of the following error codes.
      * 
-     * Individual name conversion errors are reported in the returned <a href="/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dslistrolesa
+     * Individual name conversion errors are reported in the returned <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure.
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dslistrolesa
      * @since windows6.0.6000
      */
     static DsListRolesA(hDs, ppRoles) {
@@ -6254,7 +7687,10 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsListRoles function lists roles recognized by the server.
+     * The DsListRoles function lists roles recognized by the server. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsListRoles as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -6267,8 +7703,8 @@ class ActiveDirectory {
      * 
      * If the function fails, the return value can be one of the following error codes.
      * 
-     * Individual name conversion errors are reported in the returned <a href="/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dslistrolesw
+     * Individual name conversion errors are reported in the returned <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure.
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dslistrolesw
      * @since windows6.0.6000
      */
     static DsListRolesW(hDs, ppRoles) {
@@ -6281,7 +7717,16 @@ class ActiveDirectory {
     }
 
     /**
-     * Gets the communication cost between one site and one or more other sites.
+     * Gets the communication cost between one site and one or more other sites. (Unicode)
+     * @remarks
+     * The cost values obtained by this function are only used to compare and have no meaning by themselves. For example, the cost for site 1 can be compared to the cost for site 2, but the cost for site 1 cannot be compared to a fixed value.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsQuerySitesByCost as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS A directory service handle.
      * @param {PWSTR} pwszFromSite Pointer to a null-terminated string that contains the relative distinguished name of the site the costs are measured from.
      * @param {Pointer<PWSTR>} rgwszToSites Contains an array of null-terminated string pointers that contain the relative distinguished names of the sites the costs are measured to.
@@ -6291,7 +7736,7 @@ class ActiveDirectory {
      * The caller must free this memory when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsquerysitesfree">DsQuerySitesFree</a>.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 or RPC error code otherwise.
      *        Possible error codes include values listed in the following list.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsquerysitesbycostw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsquerysitesbycostw
      * @since windows6.0.6000
      */
     static DsQuerySitesByCostW(hDS, pwszFromSite, rgwszToSites, cToSites, prgSiteInfo) {
@@ -6308,7 +7753,16 @@ class ActiveDirectory {
     }
 
     /**
-     * Gets the communication cost between one site and one or more other sites.
+     * Gets the communication cost between one site and one or more other sites. (ANSI)
+     * @remarks
+     * The cost values obtained by this function are only used to compare and have no meaning by themselves. For example, the cost for site 1 can be compared to the cost for site 2, but the cost for site 1 cannot be compared to a fixed value.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsQuerySitesByCost as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS A directory service handle.
      * @param {PSTR} pszFromSite Pointer to a null-terminated string that contains the relative distinguished name of the site the costs are measured from.
      * @param {Pointer<PSTR>} rgszToSites Contains an array of null-terminated string pointers that contain the relative distinguished names of the sites the costs are measured to.
@@ -6318,7 +7772,7 @@ class ActiveDirectory {
      * The caller must free this memory when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsquerysitesfree">DsQuerySitesFree</a>.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 or RPC error code otherwise.
      *        Possible error codes include values listed in the following list.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsquerysitesbycosta
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsquerysitesbycosta
      * @since windows6.0.6000
      */
     static DsQuerySitesByCostA(hDS, pszFromSite, rgszToSites, cToSites, prgSiteInfo) {
@@ -6338,7 +7792,7 @@ class ActiveDirectory {
      * Frees the memory allocated by the DsQuerySitesByCost function.
      * @param {Pointer<DS_SITE_COST_INFO>} rgSiteInfo Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_site_cost_info">DS_SITE_COST_INFO</a> structures allocated by a call to <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsquerysitesbycosta">DsQuerySitesByCost</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsquerysitesfree
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsquerysitesfree
      * @since windows6.0.6000
      */
     static DsQuerySitesFree(rgSiteInfo) {
@@ -6346,7 +7800,10 @@ class ActiveDirectory {
     }
 
     /**
-     * Converts GUIDs of directory service schema objects to their display names.
+     * Converts GUIDs of directory service schema objects to their display names. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsMapSchemaGuids as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -6356,7 +7813,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_schema_guid_mapa">DS_SCHEMA_GUID_MAP</a> structures that contain the display names of the objects in <i>rGuids</i>. This array must be deallocated using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreeschemaguidmapa">DsFreeSchemaGuidMap</a>.
      * @returns {Integer} Returns a standard error code that includes the following values.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsmapschemaguidsa
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsmapschemaguidsa
      * @since windows6.0.6000
      */
     static DsMapSchemaGuidsA(hDs, cGuids, rGuids, ppGuidMap) {
@@ -6369,10 +7826,13 @@ class ActiveDirectory {
     }
 
     /**
-     * Frees memory that the DsMapSchemaGuids function has allocated for a DS_SCHEMA_GUID_MAP structure.
+     * Frees memory that the DsMapSchemaGuids function has allocated for a DS_SCHEMA_GUID_MAP structure. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsFreeSchemaGuidMap as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<DS_SCHEMA_GUID_MAPA>} pGuidMap Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_schema_guid_mapa">DS_SCHEMA_GUID_MAP</a> structure to deallocate.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsfreeschemaguidmapa
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsfreeschemaguidmapa
      * @since windows6.0.6000
      */
     static DsFreeSchemaGuidMapA(pGuidMap) {
@@ -6380,7 +7840,10 @@ class ActiveDirectory {
     }
 
     /**
-     * Converts GUIDs of directory service schema objects to their display names.
+     * Converts GUIDs of directory service schema objects to their display names. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsMapSchemaGuids as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -6390,7 +7853,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_schema_guid_mapa">DS_SCHEMA_GUID_MAP</a> structures that contain the display names of the objects in <i>rGuids</i>. This array must be deallocated using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreeschemaguidmapa">DsFreeSchemaGuidMap</a>.
      * @returns {Integer} Returns a standard error code that includes the following values.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsmapschemaguidsw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsmapschemaguidsw
      * @since windows6.0.6000
      */
     static DsMapSchemaGuidsW(hDs, cGuids, rGuids, ppGuidMap) {
@@ -6403,10 +7866,13 @@ class ActiveDirectory {
     }
 
     /**
-     * Frees memory that the DsMapSchemaGuids function has allocated for a DS_SCHEMA_GUID_MAP structure.
+     * Frees memory that the DsMapSchemaGuids function has allocated for a DS_SCHEMA_GUID_MAP structure. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsFreeSchemaGuidMap as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<DS_SCHEMA_GUID_MAPW>} pGuidMap Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_schema_guid_mapa">DS_SCHEMA_GUID_MAP</a> structure to deallocate.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsfreeschemaguidmapw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsfreeschemaguidmapw
      * @since windows6.0.6000
      */
     static DsFreeSchemaGuidMapW(pGuidMap) {
@@ -6414,7 +7880,10 @@ class ActiveDirectory {
     }
 
     /**
-     * Retrieves data about the domain controllers in a domain.
+     * Retrieves data about the domain controllers in a domain. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsGetDomainControllerInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -6426,7 +7895,7 @@ class ActiveDirectory {
      * @returns {Integer} If the function returns domain controller data, the return value is <b>ERROR_SUCCESS</b>. If the caller does not have the privileges to access the server objects, the return value is <b>ERROR_SUCCESS</b>, but the <b>DS_DOMAIN_CONTROLLER_INFO</b> structures could be empty.
      * 
      * If the function fails, the return value can be one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsgetdomaincontrollerinfoa
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsgetdomaincontrollerinfoa
      * @since windows6.0.6000
      */
     static DsGetDomainControllerInfoA(hDs, DomainName, InfoLevel, pcOut, ppInfo) {
@@ -6441,7 +7910,10 @@ class ActiveDirectory {
     }
 
     /**
-     * Retrieves data about the domain controllers in a domain.
+     * Retrieves data about the domain controllers in a domain. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsGetDomainControllerInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -6453,7 +7925,7 @@ class ActiveDirectory {
      * @returns {Integer} If the function returns domain controller data, the return value is <b>ERROR_SUCCESS</b>. If the caller does not have the privileges to access the server objects, the return value is <b>ERROR_SUCCESS</b>, but the <b>DS_DOMAIN_CONTROLLER_INFO</b> structures could be empty.
      * 
      * If the function fails, the return value can be one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsgetdomaincontrollerinfow
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsgetdomaincontrollerinfow
      * @since windows6.0.6000
      */
     static DsGetDomainControllerInfoW(hDs, DomainName, InfoLevel, pcOut, ppInfo) {
@@ -6468,12 +7940,15 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsFreeDomainControllerInfo function frees memory that is allocated by DsGetDomainControllerInfo for data about the domain controllers in a domain.
+     * The DsFreeDomainControllerInfo function frees memory that is allocated by DsGetDomainControllerInfo for data about the domain controllers in a domain. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsFreeDomainControllerInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} InfoLevel 
      * @param {Integer} cInfo Indicates the number of items in <i>pInfo</i>.
      * @param {Pointer<Void>} pInfo Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_domain_controller_info_1a">DS_DOMAIN_CONTROLLER_INFO</a> structures to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsfreedomaincontrollerinfoa
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsfreedomaincontrollerinfoa
      * @since windows6.0.6000
      */
     static DsFreeDomainControllerInfoA(InfoLevel, cInfo, pInfo) {
@@ -6483,12 +7958,15 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsFreeDomainControllerInfo function frees memory that is allocated by DsGetDomainControllerInfo for data about the domain controllers in a domain.
+     * The DsFreeDomainControllerInfo function frees memory that is allocated by DsGetDomainControllerInfo for data about the domain controllers in a domain. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsFreeDomainControllerInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} InfoLevel 
      * @param {Integer} cInfo Indicates the number of items in <i>pInfo</i>.
      * @param {Pointer<Void>} pInfo Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_domain_controller_info_1a">DS_DOMAIN_CONTROLLER_INFO</a> structures to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsfreedomaincontrollerinfow
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsfreedomaincontrollerinfow
      * @since windows6.0.6000
      */
     static DsFreeDomainControllerInfoW(InfoLevel, cInfo, pInfo) {
@@ -6505,7 +7983,7 @@ class ActiveDirectory {
      * @param {Integer} TaskID Identifies the task that the KCC should execute. <b>DS_KCC_TASKID_UPDATE_TOPOLOGY</b> is the only currently supported value.
      * @param {Integer} dwFlags 
      * @returns {Integer} If the function performs its operation successfully, the return value is <b>ERROR_SUCCESS</b>. If the function fails, the return value can be one of the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsreplicaconsistencycheck
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicaconsistencycheck
      * @since windows6.0.6000
      */
     static DsReplicaConsistencyCheck(hDS, TaskID, dwFlags) {
@@ -6516,7 +7994,10 @@ class ActiveDirectory {
     }
 
     /**
-     * Verifies all objects for a naming context with a source.
+     * Verifies all objects for a naming context with a source. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsReplicaVerifyObjects as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithspna">DsBindWithSpn</a> function.
@@ -6524,7 +8005,7 @@ class ActiveDirectory {
      * @param {Pointer<Guid>} pUuidDsaSrc Pointer to a <b>UUID</b> value that contains the <b>objectGuid</b> of the directory system agent object.
      * @param {Integer} ulOptions Contains a set of flags that modify the behavior of the function. This can be zero or the following value.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 error otherwise. Possible error values include the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsreplicaverifyobjectsw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicaverifyobjectsw
      * @since windows6.0.6000
      */
     static DsReplicaVerifyObjectsW(hDS, NameContext, pUuidDsaSrc, ulOptions) {
@@ -6536,7 +8017,10 @@ class ActiveDirectory {
     }
 
     /**
-     * Verifies all objects for a naming context with a source.
+     * Verifies all objects for a naming context with a source. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsReplicaVerifyObjects as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithspna">DsBindWithSpn</a> function.
@@ -6544,7 +8028,7 @@ class ActiveDirectory {
      * @param {Pointer<Guid>} pUuidDsaSrc Pointer to a <b>UUID</b> value that contains the <b>objectGuid</b> of the directory system agent object.
      * @param {Integer} ulOptions Contains a set of flags that modify the behavior of the function. This can be zero or the following value.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 error otherwise. Possible error values include the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsreplicaverifyobjectsa
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicaverifyobjectsa
      * @since windows6.0.6000
      */
     static DsReplicaVerifyObjectsA(hDS, NameContext, pUuidDsaSrc, ulOptions) {
@@ -6573,7 +8057,7 @@ class ActiveDirectory {
      * The caller must free this memory when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicafreeinfo">DsReplicaFreeInfo</a>.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 or RPC error otherwise.
      *       The following are possible error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsreplicagetinfow
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicagetinfow
      * @since windows6.0.6000
      */
     static DsReplicaGetInfoW(hDS, InfoType, pszObject, puuidForSourceDsaObjGuid, ppInfo) {
@@ -6603,7 +8087,7 @@ class ActiveDirectory {
      * The caller must free this memory when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicafreeinfo">DsReplicaFreeInfo</a>.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 or RPC error otherwise.
      *       The following are possible error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsreplicagetinfo2w
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicagetinfo2w
      * @since windows6.0.6000
      */
     static DsReplicaGetInfo2W(hDS, InfoType, pszObject, puuidForSourceDsaObjGuid, pszAttributeName, pszValue, dwFlags, dwEnumerationContext, ppInfo) {
@@ -6623,7 +8107,7 @@ class ActiveDirectory {
      * @param {Integer} InfoType Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_repl_info_type">DS_REPL_INFO_TYPE</a> values that specifies the type of replication data structure  contained in <i>pInfo</i>. This must be the same value passed to the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicagetinfow">DsReplicaGetInfo</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicagetinfo2w">DsReplicaGetInfo2</a> function when the structure was allocated.
      * @param {Pointer<Void>} pInfo Pointer to the replication data structure allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicagetinfow">DsReplicaGetInfo</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicagetinfo2w">DsReplicaGetInfo2</a> functions.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsreplicafreeinfo
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsreplicafreeinfo
      * @since windows6.0.6000
      */
     static DsReplicaFreeInfo(InfoType, pInfo) {
@@ -6633,7 +8117,10 @@ class ActiveDirectory {
     }
 
     /**
-     * Retrieves the primary account security identifier (SID) of a security principal from one domain and adds it to the sIDHistory attribute of a security principal in another domain in a different forest.
+     * Retrieves the primary account security identifier (SID) of a security principal from one domain and adds it to the sIDHistory attribute of a security principal in another domain in a different forest. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsAddSidHistory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -6653,7 +8140,7 @@ class ActiveDirectory {
      * @param {PWSTR} DstDomain Pointer to a null-terminated string that specifies the name of the destination domain in which <i>DstPrincipal</i> resides. This name can either be a DNS name, for example, fabrikam.com, or a NetBIOS name, for example, Fabrikam. The destination domain must run Windows 2000 native mode.
      * @param {PWSTR} DstPrincipal Pointer to a null-terminated string that specifies the name of a security principal, user or group, in the destination domain. This domain-relative SAM name identifies the principal whose <b>sIDHistory</b> attribute is updated with the SID of the <i>SrcPrincipal</i>.
      * @returns {Integer} Returns a Win32 error codes including the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsaddsidhistoryw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsaddsidhistoryw
      * @since windows6.0.6000
      */
     static DsAddSidHistoryW(hDS, SrcDomain, SrcPrincipal, SrcDomainController, SrcDomainCreds, DstDomain, DstPrincipal) {
@@ -6673,7 +8160,10 @@ class ActiveDirectory {
     }
 
     /**
-     * Retrieves the primary account security identifier (SID) of a security principal from one domain and adds it to the sIDHistory attribute of a security principal in another domain in a different forest.
+     * Retrieves the primary account security identifier (SID) of a security principal from one domain and adds it to the sIDHistory attribute of a security principal in another domain in a different forest. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsAddSidHistory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
@@ -6693,7 +8183,7 @@ class ActiveDirectory {
      * @param {PSTR} DstDomain Pointer to a null-terminated string that specifies the name of the destination domain in which <i>DstPrincipal</i> resides. This name can either be a DNS name, for example, fabrikam.com, or a NetBIOS name, for example, Fabrikam. The destination domain must run Windows 2000 native mode.
      * @param {PSTR} DstPrincipal Pointer to a null-terminated string that specifies the name of a security principal, user or group, in the destination domain. This domain-relative SAM name identifies the principal whose <b>sIDHistory</b> attribute is updated with the SID of the <i>SrcPrincipal</i>.
      * @returns {Integer} Returns a Win32 error codes including the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsaddsidhistorya
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsaddsidhistorya
      * @since windows6.0.6000
      */
     static DsAddSidHistoryA(hDS, SrcDomain, SrcPrincipal, SrcDomainController, SrcDomainCreds, DstDomain, DstPrincipal) {
@@ -6713,14 +8203,41 @@ class ActiveDirectory {
     }
 
     /**
-     * Appends the objectSid and sidHistory attributes of SrcPrincipal to the sidHistory of DstPrincipal and then deletes SrcPrincipal, all in a single transaction.
+     * Appends the objectSid and sidHistory attributes of SrcPrincipal to the sidHistory of DstPrincipal and then deletes SrcPrincipal, all in a single transaction. (Unicode)
+     * @remarks
+     * With an operating system upgrade domain applications, which span both upgraded and non-upgraded domains, may have security principals inside and outside the forest for the same logical entity at the same time.
+     * 
+     * When all upgraded domains have joined the same forest, <b>DsInheritSecurityIdentity</b> eliminates the duplicate objects while ensuring that the remaining objects have all the security rights and privileges belonging to their respective deleted object.
+     * 
+     * A <b>DsInheritSecurityIdentity</b> implementation:
+     * 
+     * <ul>
+     * <li>Verifies that <i>SrcPrincipal</i> and <i>DstPrincipal</i> are in the same domain.</li>
+     * <li>Verifies that the domain is writable at the bind to the server.</li>
+     * <li>Verifies that auditing is enabled for the domain.</li>
+     * <li>Verifies that the caller is a member of the domain administrators for the domain.</li>
+     * <li>Verifies that the domain is in the native mode.</li>
+     * <li>Verifies that <i>SrcPrincipal</i> exists, that it is a security principal and has read its <b>objectSid</b> and <b>sidHistory</b> properties.</li>
+     * <li>Verifies that <i>DstPrincipal</i> exists, that it is a security principal, and has read certain properties required for auditing and verification.</li>
+     * <li>Deletes <i>SrcPrincipal</i> in the database only if the entire operation is committed at completion. This operation fails if the caller does not have delete rights or if <i>SrcPrincipal</i> has children.</li>
+     * <li>Fails the operation if the <b>objectSid</b> of <i>SrcPrincipal</i> or <i>DstPrincipal</i> is a well-known SID.</li>
+     * <li>Adds the <b>objectSid</b> and the <b>sidHistory</b> (if present) of <i>SrcPrincipal</i> to the <b>sidHistory</b> of <i>DstPrincipal</i>.</li>
+     * <li>Forces an audit event and fails the operation if the audit fails.</li>
+     * <li>Enters events into the Directory Service Log. Do not confuse this with the Security Audit Log.</li>
+     * </ul>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsInheritSecurityIdentity as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {PWSTR} SrcPrincipal Pointer to a null-terminated string that specifies the name of a security principal (user or group) in the source domain. This name is a domain-relative SAM name.
      * @param {PWSTR} DstPrincipal Pointer to a null-terminated string that specifies the name of a security principal (user or group) in the destination domain. This domain-relative SAM name identifies the principal whose <b>sidHistory</b> attribute will be updated with the SID of <i>SrcPrincipal</i>.
      * @returns {Integer} Returns a system or RPC error code including the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsinheritsecurityidentityw
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsinheritsecurityidentityw
      * @since windows6.0.6000
      */
     static DsInheritSecurityIdentityW(hDS, SrcPrincipal, DstPrincipal) {
@@ -6735,14 +8252,41 @@ class ActiveDirectory {
     }
 
     /**
-     * Appends the objectSid and sidHistory attributes of SrcPrincipal to the sidHistory of DstPrincipal and then deletes SrcPrincipal, all in a single transaction.
+     * Appends the objectSid and sidHistory attributes of SrcPrincipal to the sidHistory of DstPrincipal and then deletes SrcPrincipal, all in a single transaction. (ANSI)
+     * @remarks
+     * With an operating system upgrade domain applications, which span both upgraded and non-upgraded domains, may have security principals inside and outside the forest for the same logical entity at the same time.
+     * 
+     * When all upgraded domains have joined the same forest, <b>DsInheritSecurityIdentity</b> eliminates the duplicate objects while ensuring that the remaining objects have all the security rights and privileges belonging to their respective deleted object.
+     * 
+     * A <b>DsInheritSecurityIdentity</b> implementation:
+     * 
+     * <ul>
+     * <li>Verifies that <i>SrcPrincipal</i> and <i>DstPrincipal</i> are in the same domain.</li>
+     * <li>Verifies that the domain is writable at the bind to the server.</li>
+     * <li>Verifies that auditing is enabled for the domain.</li>
+     * <li>Verifies that the caller is a member of the domain administrators for the domain.</li>
+     * <li>Verifies that the domain is in the native mode.</li>
+     * <li>Verifies that <i>SrcPrincipal</i> exists, that it is a security principal and has read its <b>objectSid</b> and <b>sidHistory</b> properties.</li>
+     * <li>Verifies that <i>DstPrincipal</i> exists, that it is a security principal, and has read certain properties required for auditing and verification.</li>
+     * <li>Deletes <i>SrcPrincipal</i> in the database only if the entire operation is committed at completion. This operation fails if the caller does not have delete rights or if <i>SrcPrincipal</i> has children.</li>
+     * <li>Fails the operation if the <b>objectSid</b> of <i>SrcPrincipal</i> or <i>DstPrincipal</i> is a well-known SID.</li>
+     * <li>Adds the <b>objectSid</b> and the <b>sidHistory</b> (if present) of <i>SrcPrincipal</i> to the <b>sidHistory</b> of <i>DstPrincipal</i>.</li>
+     * <li>Forces an audit event and fails the operation if the audit fails.</li>
+     * <li>Enters events into the Directory Service Log. Do not confuse this with the Security Audit Log.</li>
+     * </ul>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The ntdsapi.h header defines DsInheritSecurityIdentity as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hDS Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {PSTR} SrcPrincipal Pointer to a null-terminated string that specifies the name of a security principal (user or group) in the source domain. This name is a domain-relative SAM name.
      * @param {PSTR} DstPrincipal Pointer to a null-terminated string that specifies the name of a security principal (user or group) in the destination domain. This domain-relative SAM name identifies the principal whose <b>sidHistory</b> attribute will be updated with the SID of <i>SrcPrincipal</i>.
      * @returns {Integer} Returns a system or RPC error code including the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsinheritsecurityidentitya
+     * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/nf-ntdsapi-dsinheritsecurityidentitya
      * @since windows6.0.6000
      */
     static DsInheritSecurityIdentityA(hDS, SrcPrincipal, DstPrincipal) {
@@ -6760,39 +8304,326 @@ class ActiveDirectory {
      * Retrieves state data for the computer.
      * @param {PWSTR} lpServer Pointer to null-terminated Unicode string that contains the name of the computer on which to call the function. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} InfoLevel Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/dsrole/ne-dsrole-dsrole_primary_domain_info_level">DSROLE_PRIMARY_DOMAIN_INFO_LEVEL</a> values that specify the type of data to retrieve. This parameter also determines the format of the data supplied in <i>Buffer</i>.
-     * @param {Pointer<Pointer<Integer>>} Buffer Pointer to the address of a buffer that receives the requested data. The format of this data depends on the value of the <i>InfoLevel</i> parameter.
-     * 
-     * The caller must free this memory when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/dsrole/nf-dsrole-dsrolefreememory">DsRoleFreeMemory</a>.
+     * @param {Pointer<Pointer<Integer>>} Buffer_R 
      * @returns {Integer} If the function is successful, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value can be one of the following values.
-     * @see https://docs.microsoft.com/windows/win32/api//dsrole/nf-dsrole-dsrolegetprimarydomaininformation
+     * @see https://learn.microsoft.com/windows/win32/api/dsrole/nf-dsrole-dsrolegetprimarydomaininformation
      * @since windows6.0.6000
      */
-    static DsRoleGetPrimaryDomainInformation(lpServer, InfoLevel, Buffer) {
+    static DsRoleGetPrimaryDomainInformation(lpServer, InfoLevel, Buffer_R) {
         lpServer := lpServer is String ? StrPtr(lpServer) : lpServer
 
-        BufferMarshal := Buffer is VarRef ? "ptr*" : "ptr"
+        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\DsRoleGetPrimaryDomainInformation", "ptr", lpServer, "int", InfoLevel, BufferMarshal, Buffer, "uint")
+        result := DllCall("NETAPI32.dll\DsRoleGetPrimaryDomainInformation", "ptr", lpServer, "int", InfoLevel, Buffer_RMarshal, Buffer_R, "uint")
         return result
     }
 
     /**
      * Frees memory allocated by the DsRoleGetPrimaryDomainInformation function.
-     * @param {Pointer<Void>} Buffer Pointer to the buffer to be freed.
+     * @param {Pointer<Void>} Buffer_R 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//dsrole/nf-dsrole-dsrolefreememory
+     * @see https://learn.microsoft.com/windows/win32/api/dsrole/nf-dsrole-dsrolefreememory
      * @since windows6.0.6000
      */
-    static DsRoleFreeMemory(Buffer) {
-        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+    static DsRoleFreeMemory(Buffer_R) {
+        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
 
-        DllCall("NETAPI32.dll\DsRoleFreeMemory", BufferMarshal, Buffer)
+        DllCall("NETAPI32.dll\DsRoleFreeMemory", Buffer_RMarshal, Buffer_R)
     }
 
     /**
-     * Returns the name of a domain controller in a specified domain.
+     * Returns the name of a domain controller in a specified domain. (ANSI)
+     * @remarks
+     * The <b>DsGetDcName</b> function is sent to the Netlogon service 
+     *     on the remote computer specified by <i>ComputerName</i>. If 
+     *     <i>ComputerName</i> is <b>NULL</b>, the function is processed on the local 
+     *     computer.
+     * 
+     * <b>DsGetDcName</b> does not verify that  the domain controller name 
+     *      returned is the name of an actual domain controller or global catalog. If mutual authentication is required, the 
+     *      caller must  perform the authentication.
+     * 
+     * <b>DsGetDcName</b> does not require any particular access to the 
+     *      specified domain. By default, this function does not ensure that the returned domain controller is currently 
+     *      available. Instead, the caller should attempt to use the returned domain controller. If the domain controller is 
+     *      not available, the caller should call the <b>DsGetDcName</b> 
+     *      function again, specifying the <b>DS_FORCE_REDISCOVERY</b> flag.
+     * 
+     * <h3><a id="Response_Time"></a><a id="response_time"></a><a id="RESPONSE_TIME"></a>Response Time</h3>
+     * When using <b>DsGetDcName</b> be aware of the following timing 
+     *       details:
+     * 
+     * <ul>
+     * <li>
+     * <b>DsGetDcName</b> makes network calls and can take from a few 
+     *          seconds  up to one minute, depending on network traffic, topology, DC load, and so on.
+     * 
+     * </li>
+     * <li>
+     * It is NOT recommended to call <b>DsGetDcName</b> from a UI or 
+     *         other timing critical thread.
+     * 
+     * </li>
+     * <li>
+     * The DC Locator does use optimized logic to provide the DC information as quickly as possible. It also uses 
+     *         cached information at the site to contact the closest DC.
+     * 
+     * </li>
+     * </ul>
+     * <h3><a id="Notes_on_Domain_Controller_Stickiness"></a><a id="notes_on_domain_controller_stickiness"></a><a id="NOTES_ON_DOMAIN_CONTROLLER_STICKINESS"></a>Notes on Domain Controller Stickiness</h3>
+     * In Active Directory Domain Services, the domain controller locator function is designed so that once a client 
+     *       finds a preferred  domain controller, the client will not look for another unless that domain controller stops 
+     *       responding or the client is restarted. This is referred to as "Domain Controller Stickiness." Because 
+     *       workstations typically operate for months without a problem or restart,   one unintended consequence of this 
+     *       behavior is that if a particular domain controller goes down for maintenance, all of the clients that were 
+     *       connected to it shift their connections to another domain controller.  But when the domain controller comes back 
+     *       up, no  clients ever reconnect to it because the clients do not restart very often.  This can cause 
+     *       load-balancing problems.
+     * 
+     * Previously, the most common solution to this problem was to deploy a script on each client machine that 
+     *       periodically called <b>DsGetDcName</b> using the 
+     *       <c>DS_FORCE_REDISCOVERY</c> flag. This was a somewhat cumbersome solution, so 
+     *       Windows Server 2008 and Windows Vista introduced a new mechanism that caused issues with  domain 
+     *       controller stickiness.
+     * 
+     * Whenever <b>DsGetDcName</b> retrieves a domain controller name 
+     *       from its cache, it checks to see if this cached entry is expired, and if so, discards that domain controller 
+     *       name and tries to rediscover a domain controller name. The life span of a cached entry is controlled by the 
+     *       value in the following registry keys
+     * 
+     * 
+     * <b>HKEY_LOCAL_MACHINE</b>&#92;<b>SYSTEM</b>&#92;<b>CurrentControlSet</b>&#92;<b>Services</b>&#92;<b>Netlogon</b>&#92;<b>Parameters</b>&#92;<b>ForceRediscoveryInterval</b>
+     * 
+     * 
+     * 
+     * and
+     * 
+     * 
+     * <b>HKEY_LOCAL_MACHINE</b>&#92;<b>Software</b>&#92;<b>Policies</b>&#92;<b>Microsoft</b>&#92;<b>Netlogon</b>&#92;<b>Parameters</b>&#92;<b>ForceRediscoveryInterval</b>
+     * 
+     * 
+     * 
+     * The values in these registry keys are of type <b>REG_DWORD</b>. They specify the length in 
+     *       seconds before <b>DsGetDcName</b> should try to rediscover the 
+     *       domain controller name. The default value is 43200 seconds (12 hours).  If the value of the 
+     *       <b>ForceRediscoveryInterval</b> registry entry is set to 0, the client always 
+     *   performs rediscovery. If the value is set to 4294967295, the cache never expires, and the cached domain controller 
+     *   continues to be used. We recommend that you do not set the 
+     *   <b>ForceRediscoveryInterval</b> registry entry to a value that is less than 3600 seconds 
+     *   (60 minutes).
+     * 
+     * <div class="alert"><b>Note</b>  The registry settings of <b>ForceRediscoveryInterval</b> are group policy 
+     *     enabled. If you disable the policy setting, Force Rediscovery will used by default for the machine at every 12 
+     *   hour interval. If you do not configure this policy setting, Force Rediscovery will used by default for the machine 
+     *   at every 12 hour interval, unless the local machine setting in the registry is a different value.</div>
+     * <div> </div>
+     * Note that if the <b>DS_BACKGROUND_ONLY</b> flag is specified, 
+     *       <b>DsGetDcName</b> will never try to rediscover the domain 
+     *       controller name, since the point of that flag is to force 
+     *       <b>DsGetDcName</b> to use the cached domain controller name even 
+     *       if it is expired.
+     * 
+     * <h3><a id="ETW_Tracing_in_DsGetDcName"></a><a id="etw_tracing_in_dsgetdcname"></a><a id="ETW_TRACING_IN_DSGETDCNAME"></a>ETW Tracing in DsGetDcName</h3>
+     * To turn on <a href="https://docs.microsoft.com/windows-hardware/drivers/hid/event-tracing">ETW Tracing</a> for 
+     *       <b>DsGetDcName</b>, create the following registry key:
+     * 
+     * 
+     * <b>HKEY_LOCAL_MACHINE</b>&#92;<b>System</b>&#92;<b>CurrentControlSet</b>&#92;<b>Services</b>&#92;<b>DCLocator</b>&#92;<b>Tracing</b>
+     * 
+     * 
+     * 
+     * The key will have a structure as follows:
+     * 
+     * 
+     * ```cpp
+     * String ProcessName
+     *   DWORD  PID <optional>
+     * ```
+     * 
+     * 
+     * <i>ProcessName</i> must be the full name including extension of the process that you want 
+     *       to get trace information for. <i>PID</i> is only required when multiple processes with the 
+     *       same name exist.  If it is defined, then only the process with that PID will be enabled for tracing.  It is not 
+     *       possible to trace only 2 out of 3 (or more) processes with the same name.  You can enable one instance or all 
+     *       instances (when multiple instances with the same process name exist and PID is not specified, all instances will 
+     *       be enabled for tracing).
+     * 
+     * For example, this would trace all instances of App1.exe and App2.exe, but only the instance of App3.exe that 
+     *       has a PID of 999:
+     * 
+     * 
+     * ``` syntax
+     * App1.exe 
+     * App2.exe
+     * App3.exe
+     *      PID 999
+     * ```
+     * 
+     * Run the following command to start the tracing session:
+     * 
+     * <b>tracelog.exe -start &lt;sessionname&gt; -guid #cfaa5446-c6c4-4f5c-866f-31c9b55b962d -f &lt;filename&gt; -flag &lt;traceFlags&gt;</b>
+     * 
+     * <i>sessionname</i> is the name given for the trace session. The 
+     *       <i>guid</i> for the DCLocator tracing provider is 
+     *       "cfaa5446-c6c4-4f5c-866f-31c9b55b962d". <i>filename</i> is the name of the 
+     *       log file to which the events are written. <i>traceFlags</i> is one or more of the following 
+     *       flags which signify which areas to trace:
+     * 
+     * <table>
+     * <tr>
+     * <th>Flag</th>
+     * <th>Hex Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>DCLOCATOR_MISC</b>
+     * 
+     * </td>
+     * <td>
+     * 0x00000002
+     * 
+     * </td>
+     * <td>
+     * Miscellaneous debugging
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>DCLOCATOR_MAILSLOT</b>
+     * 
+     * </td>
+     * <td>
+     * 0x00000010
+     * 
+     * </td>
+     * <td>
+     * Mailslot messages
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>DCLOCATOR_SITE</b>
+     * 
+     * </td>
+     * <td>
+     * 0x00000020
+     * 
+     * </td>
+     * <td>
+     * Sites
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>DCLOCATOR_CRITICAL</b>
+     * 
+     * </td>
+     * <td>
+     * 0x00000100
+     * 
+     * </td>
+     * <td>
+     * Important errors
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>DCLOCATOR_SESSION_SETUP</b>
+     * 
+     * </td>
+     * <td>
+     * 0x00000200
+     * 
+     * </td>
+     * <td>
+     * Trusted Domain Maintenance
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>DCLOCATOR_DNS</b>
+     * 
+     * </td>
+     * <td>
+     * 0x00004000
+     * 
+     * </td>
+     * <td>
+     * Name Registration
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>DCLOCATOR_DNS_MORE</b>
+     * 
+     * </td>
+     * <td>
+     * 0x00020000
+     * 
+     * </td>
+     * <td>
+     * Verbose Name Registration
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>DCLOCATOR_MAILBOX_TEXT</b>
+     * 
+     * </td>
+     * <td>
+     * 0x02000000
+     * 
+     * </td>
+     * <td>
+     * Verbose Mailbox Messages
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>DCLOCATOR_SITE_MORE</b>
+     * 
+     * </td>
+     * <td>
+     * 0x08000000
+     * 
+     * </td>
+     * <td>
+     * Verbose sites
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Run the following command to stop the trace session:
+     * 
+     * <b>tracelog.exe -stop &lt;sessionname&gt;</b>
+     * 
+     * <i>sessionname</i> is the same name as the name you used when starting the session.
+     * 
+     * <div class="alert"><b>Note</b>  The registry key for the process being traced must be present in the registry at the time the trace session 
+     *       is started. When the session starts, the process will verify whether or not it should be generating trace 
+     *       messages (based on the presence or absence of a registry key for that process name and optional PID). The 
+     *       process checks the registry only at the start of the session. Any changes in the registry occurring after that 
+     *       will not have any effect on tracing.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The dsgetdc.h header defines DsGetDcName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} ComputerName Pointer to a null-terminated string that specifies the name of the server to process this function. 
      *       Typically, this parameter is <b>NULL</b>, which indicates that the local computer is 
      *       used.
@@ -6837,7 +8668,7 @@ class ActiveDirectory {
      *        <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value can be one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsgetdcnamea
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsgetdcnamea
      * @since windows6.0.6000
      */
     static DsGetDcNameA(ComputerName, DomainName, DomainGuid, SiteName, Flags, DomainControllerInfo) {
@@ -6852,7 +8683,296 @@ class ActiveDirectory {
     }
 
     /**
-     * Returns the name of a domain controller in a specified domain.
+     * Returns the name of a domain controller in a specified domain. (Unicode)
+     * @remarks
+     * The <b>DsGetDcName</b> function is sent to the Netlogon service 
+     *     on the remote computer specified by <i>ComputerName</i>. If 
+     *     <i>ComputerName</i> is <b>NULL</b>, the function is processed on the local 
+     *     computer.
+     * 
+     * <b>DsGetDcName</b> does not verify that  the domain controller name 
+     *      returned is the name of an actual domain controller or global catalog. If mutual authentication is required, the 
+     *      caller must  perform the authentication.
+     * 
+     * <b>DsGetDcName</b> does not require any particular access to the 
+     *      specified domain. By default, this function does not ensure that the returned domain controller is currently 
+     *      available. Instead, the caller should attempt to use the returned domain controller. If the domain controller is 
+     *      not available, the caller should call the <b>DsGetDcName</b> 
+     *      function again, specifying the <b>DS_FORCE_REDISCOVERY</b> flag.
+     * 
+     * <h3><a id="Response_Time"></a><a id="response_time"></a><a id="RESPONSE_TIME"></a>Response Time</h3>
+     * When using <b>DsGetDcName</b> be aware of the following timing 
+     *       details:
+     * 
+     * <ul>
+     * <li>
+     * <b>DsGetDcName</b> makes network calls and can take from a few 
+     *          seconds  up to one minute, depending on network traffic, topology, DC load, and so on.
+     * 
+     * </li>
+     * <li>
+     * It is NOT recommended to call <b>DsGetDcName</b> from a UI or 
+     *         other timing critical thread.
+     * 
+     * </li>
+     * <li>
+     * The DC Locator does use optimized logic to provide the DC information as quickly as possible. It also uses 
+     *         cached information at the site to contact the closest DC.
+     * 
+     * </li>
+     * </ul>
+     * <h3><a id="Notes_on_Domain_Controller_Stickiness"></a><a id="notes_on_domain_controller_stickiness"></a><a id="NOTES_ON_DOMAIN_CONTROLLER_STICKINESS"></a>Notes on Domain Controller Stickiness</h3>
+     * In Active Directory Domain Services, the domain controller locator function is designed so that once a client 
+     *       finds a preferred  domain controller, the client will not look for another unless that domain controller stops 
+     *       responding or the client is restarted. This is referred to as "Domain Controller Stickiness." Because 
+     *       workstations typically operate for months without a problem or restart,   one unintended consequence of this 
+     *       behavior is that if a particular domain controller goes down for maintenance, all of the clients that were 
+     *       connected to it shift their connections to another domain controller.  But when the domain controller comes back 
+     *       up, no  clients ever reconnect to it because the clients do not restart very often.  This can cause 
+     *       load-balancing problems.
+     * 
+     * Previously, the most common solution to this problem was to deploy a script on each client machine that 
+     *       periodically called <b>DsGetDcName</b> using the 
+     *       <c>DS_FORCE_REDISCOVERY</c> flag. This was a somewhat cumbersome solution, so 
+     *       Windows Server 2008 and Windows Vista introduced a new mechanism that caused issues with  domain 
+     *       controller stickiness.
+     * 
+     * Whenever <b>DsGetDcName</b> retrieves a domain controller name 
+     *       from its cache, it checks to see if this cached entry is expired, and if so, discards that domain controller 
+     *       name and tries to rediscover a domain controller name. The life span of a cached entry is controlled by the 
+     *       value in the following registry keys
+     * 
+     * 
+     * <b>HKEY_LOCAL_MACHINE</b>&#92;<b>SYSTEM</b>&#92;<b>CurrentControlSet</b>&#92;<b>Services</b>&#92;<b>Netlogon</b>&#92;<b>Parameters</b>&#92;<b>ForceRediscoveryInterval</b>
+     * 
+     * 
+     * 
+     * and
+     * 
+     * 
+     * <b>HKEY_LOCAL_MACHINE</b>&#92;<b>Software</b>&#92;<b>Policies</b>&#92;<b>Microsoft</b>&#92;<b>Netlogon</b>&#92;<b>Parameters</b>&#92;<b>ForceRediscoveryInterval</b>
+     * 
+     * 
+     * 
+     * The values in these registry keys are of type <b>REG_DWORD</b>. They specify the length in 
+     *       seconds before <b>DsGetDcName</b> should try to rediscover the 
+     *       domain controller name. The default value is 43200 seconds (12 hours).  If the value of the 
+     *       <b>ForceRediscoveryInterval</b> registry entry is set to 0, the client always 
+     *   performs rediscovery. If the value is set to 4294967295, the cache never expires, and the cached domain controller 
+     *   continues to be used. We recommend that you do not set the 
+     *   <b>ForceRediscoveryInterval</b> registry entry to a value that is less than 3600 seconds 
+     *   (60 minutes).
+     * 
+     * <div class="alert"><b>Note</b>  The registry settings of <b>ForceRediscoveryInterval</b> are group policy 
+     *     enabled. If you disable the policy setting, Force Rediscovery will used by default for the machine at every 12 
+     *   hour interval. If you do not configure this policy setting, Force Rediscovery will used by default for the machine 
+     *   at every 12 hour interval, unless the local machine setting in the registry is a different value.</div>
+     * <div> </div>
+     * Note that if the <b>DS_BACKGROUND_ONLY</b> flag is specified, 
+     *       <b>DsGetDcName</b> will never try to rediscover the domain 
+     *       controller name, since the point of that flag is to force 
+     *       <b>DsGetDcName</b> to use the cached domain controller name even 
+     *       if it is expired.
+     * 
+     * <h3><a id="ETW_Tracing_in_DsGetDcName"></a><a id="etw_tracing_in_dsgetdcname"></a><a id="ETW_TRACING_IN_DSGETDCNAME"></a>ETW Tracing in DsGetDcName</h3>
+     * To turn on <a href="https://docs.microsoft.com/windows-hardware/drivers/hid/event-tracing">ETW Tracing</a> for 
+     *       <b>DsGetDcName</b>, create the following registry key:
+     * 
+     * 
+     * <b>HKEY_LOCAL_MACHINE</b>&#92;<b>System</b>&#92;<b>CurrentControlSet</b>&#92;<b>Services</b>&#92;<b>DCLocator</b>&#92;<b>Tracing</b>
+     * 
+     * 
+     * 
+     * The key will have a structure as follows:
+     * 
+     * 
+     * ```cpp
+     * String ProcessName
+     *   DWORD  PID <optional>
+     * ```
+     * 
+     * 
+     * <i>ProcessName</i> must be the full name including extension of the process that you want 
+     *       to get trace information for. <i>PID</i> is only required when multiple processes with the 
+     *       same name exist.  If it is defined, then only the process with that PID will be enabled for tracing.  It is not 
+     *       possible to trace only 2 out of 3 (or more) processes with the same name.  You can enable one instance or all 
+     *       instances (when multiple instances with the same process name exist and PID is not specified, all instances will 
+     *       be enabled for tracing).
+     * 
+     * For example, this would trace all instances of App1.exe and App2.exe, but only the instance of App3.exe that 
+     *       has a PID of 999:
+     * 
+     * 
+     * ``` syntax
+     * App1.exe 
+     * App2.exe
+     * App3.exe
+     *      PID 999
+     * ```
+     * 
+     * Run the following command to start the tracing session:
+     * 
+     * <b>tracelog.exe -start &lt;sessionname&gt; -guid #cfaa5446-c6c4-4f5c-866f-31c9b55b962d -f &lt;filename&gt; -flag &lt;traceFlags&gt;</b>
+     * 
+     * <i>sessionname</i> is the name given for the trace session. The 
+     *       <i>guid</i> for the DCLocator tracing provider is 
+     *       "cfaa5446-c6c4-4f5c-866f-31c9b55b962d". <i>filename</i> is the name of the 
+     *       log file to which the events are written. <i>traceFlags</i> is one or more of the following 
+     *       flags which signify which areas to trace:
+     * 
+     * <table>
+     * <tr>
+     * <th>Flag</th>
+     * <th>Hex Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>DCLOCATOR_MISC</b>
+     * 
+     * </td>
+     * <td>
+     * 0x00000002
+     * 
+     * </td>
+     * <td>
+     * Miscellaneous debugging
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>DCLOCATOR_MAILSLOT</b>
+     * 
+     * </td>
+     * <td>
+     * 0x00000010
+     * 
+     * </td>
+     * <td>
+     * Mailslot messages
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>DCLOCATOR_SITE</b>
+     * 
+     * </td>
+     * <td>
+     * 0x00000020
+     * 
+     * </td>
+     * <td>
+     * Sites
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>DCLOCATOR_CRITICAL</b>
+     * 
+     * </td>
+     * <td>
+     * 0x00000100
+     * 
+     * </td>
+     * <td>
+     * Important errors
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>DCLOCATOR_SESSION_SETUP</b>
+     * 
+     * </td>
+     * <td>
+     * 0x00000200
+     * 
+     * </td>
+     * <td>
+     * Trusted Domain Maintenance
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>DCLOCATOR_DNS</b>
+     * 
+     * </td>
+     * <td>
+     * 0x00004000
+     * 
+     * </td>
+     * <td>
+     * Name Registration
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>DCLOCATOR_DNS_MORE</b>
+     * 
+     * </td>
+     * <td>
+     * 0x00020000
+     * 
+     * </td>
+     * <td>
+     * Verbose Name Registration
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>DCLOCATOR_MAILBOX_TEXT</b>
+     * 
+     * </td>
+     * <td>
+     * 0x02000000
+     * 
+     * </td>
+     * <td>
+     * Verbose Mailbox Messages
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>DCLOCATOR_SITE_MORE</b>
+     * 
+     * </td>
+     * <td>
+     * 0x08000000
+     * 
+     * </td>
+     * <td>
+     * Verbose sites
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Run the following command to stop the trace session:
+     * 
+     * <b>tracelog.exe -stop &lt;sessionname&gt;</b>
+     * 
+     * <i>sessionname</i> is the same name as the name you used when starting the session.
+     * 
+     * <div class="alert"><b>Note</b>  The registry key for the process being traced must be present in the registry at the time the trace session 
+     *       is started. When the session starts, the process will verify whether or not it should be generating trace 
+     *       messages (based on the presence or absence of a registry key for that process name and optional PID). The 
+     *       process checks the registry only at the start of the session. Any changes in the registry occurring after that 
+     *       will not have any effect on tracing.</div>
+     * <div> </div>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The dsgetdc.h header defines DsGetDcName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} ComputerName Pointer to a null-terminated string that specifies the name of the server to process this function. 
      *       Typically, this parameter is <b>NULL</b>, which indicates that the local computer is 
      *       used.
@@ -6897,7 +9017,7 @@ class ActiveDirectory {
      *        <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value can be one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsgetdcnamew
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsgetdcnamew
      * @since windows6.0.6000
      */
     static DsGetDcNameW(ComputerName, DomainName, DomainGuid, SiteName, Flags, DomainControllerInfo) {
@@ -6912,14 +9032,23 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsGetSiteName function returns the name of the site where a computer resides.
+     * The DsGetSiteName function returns the name of the site where a computer resides. (ANSI)
+     * @remarks
+     * The <b>DsGetSiteName</b> function does not require any particular access to the specified domain. The function is sent to the "NetLogon" service on the computer specified by <i>ComputerName</i>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The dsgetdc.h header defines DsGetSiteName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} ComputerName Pointer to a null-terminated string that specifies the name of the server to send this function. A <b>NULL</b> implies the local computer.
      * @param {Pointer<PSTR>} SiteName Pointer to a variable that receives a pointer to a null-terminated string specifying the site location of this computer. This string is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.
      * @returns {Integer} If the function returns account information, the return value is <b>NO_ERROR</b>.
      * 
      * If the function fails, the return value can be one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsgetsitenamea
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsgetsitenamea
      * @since windows6.0.6000
      */
     static DsGetSiteNameA(ComputerName, SiteName) {
@@ -6932,14 +9061,23 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsGetSiteName function returns the name of the site where a computer resides.
+     * The DsGetSiteName function returns the name of the site where a computer resides. (Unicode)
+     * @remarks
+     * The <b>DsGetSiteName</b> function does not require any particular access to the specified domain. The function is sent to the "NetLogon" service on the computer specified by <i>ComputerName</i>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The dsgetdc.h header defines DsGetSiteName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} ComputerName Pointer to a null-terminated string that specifies the name of the server to send this function. A <b>NULL</b> implies the local computer.
      * @param {Pointer<PWSTR>} SiteName Pointer to a variable that receives a pointer to a null-terminated string specifying the site location of this computer. This string is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.
      * @returns {Integer} If the function returns account information, the return value is <b>NO_ERROR</b>.
      * 
      * If the function fails, the return value can be one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsgetsitenamew
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsgetsitenamew
      * @since windows6.0.6000
      */
     static DsGetSiteNameW(ComputerName, SiteName) {
@@ -6952,12 +9090,15 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsValidateSubnetName function validates a subnet name in the form xxx.xxx.xxx.xxx/YY.
+     * The DsValidateSubnetName function validates a subnet name in the form xxx.xxx.xxx.xxx/YY. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The dsgetdc.h header defines DsValidateSubnetName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} SubnetName Pointer to a null-terminated string that specifies the name of the subnet to validate.
      * @returns {Integer} If the function returns account information, the return value is <b>NO_ERROR</b>.
      * 
      * If the function fails, the return value is the following error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsvalidatesubnetnamew
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsvalidatesubnetnamew
      * @since windows6.0.6000
      */
     static DsValidateSubnetNameW(SubnetName) {
@@ -6968,12 +9109,15 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsValidateSubnetName function validates a subnet name in the form xxx.xxx.xxx.xxx/YY.
+     * The DsValidateSubnetName function validates a subnet name in the form xxx.xxx.xxx.xxx/YY. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The dsgetdc.h header defines DsValidateSubnetName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} SubnetName Pointer to a null-terminated string that specifies the name of the subnet to validate.
      * @returns {Integer} If the function returns account information, the return value is <b>NO_ERROR</b>.
      * 
      * If the function fails, the return value is the following error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsvalidatesubnetnamea
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsvalidatesubnetnamea
      * @since windows6.0.6000
      */
     static DsValidateSubnetNameA(SubnetName) {
@@ -6984,14 +9128,17 @@ class ActiveDirectory {
     }
 
     /**
-     * Obtains the site names corresponding to the specified addresses.
+     * Obtains the site names corresponding to the specified addresses. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The dsgetdc.h header defines DsAddressToSiteNames as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} ComputerName Pointer to a null-terminated string that specifies the name of the remote server to process this function. This parameter must be the name of a domain controller. A non-domain controller can call this function by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a> to find the domain controller.
      * @param {Integer} EntryCount Contains the number of elements in the <i>SocketAddresses</i> array.
      * @param {Pointer<SOCKET_ADDRESS>} SocketAddresses Contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-socket_address">SOCKET_ADDRESS</a> structures that contain the addresses to convert. Each address in this array must be of the type <b>AF_INET</b>. <i>EntryCount</i> contains the number of elements in this array.
      * @param {Pointer<Pointer<PWSTR>>} SiteNames Receives an array of null-terminated string pointers that contain the site names for the addresses. Each element in this array corresponds to the same element in the <i>SocketAddresses</i> array. An element is <b>NULL</b> if the corresponding address does not map to any known site or if the address entry is not of the proper form. The caller must free this array when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
      * @returns {Integer} Returns <b>NO_ERROR</b> if successful or a Win32 or RPC error otherwise. The following list lists possible error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsaddresstositenamesw
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsaddresstositenamesw
      * @since windows6.0.6000
      */
     static DsAddressToSiteNamesW(ComputerName, EntryCount, SocketAddresses, SiteNames) {
@@ -7004,14 +9151,17 @@ class ActiveDirectory {
     }
 
     /**
-     * Obtains the site names corresponding to the specified addresses.
+     * Obtains the site names corresponding to the specified addresses. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The dsgetdc.h header defines DsAddressToSiteNames as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} ComputerName Pointer to a null-terminated string that specifies the name of the remote server to process this function. This parameter must be the name of a domain controller. A non-domain controller can call this function by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a> to find the domain controller.
      * @param {Integer} EntryCount Contains the number of elements in the <i>SocketAddresses</i> array.
      * @param {Pointer<SOCKET_ADDRESS>} SocketAddresses Contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-socket_address">SOCKET_ADDRESS</a> structures that contain the addresses to convert. Each address in this array must be of the type <b>AF_INET</b>. <i>EntryCount</i> contains the number of elements in this array.
      * @param {Pointer<Pointer<PSTR>>} SiteNames Receives an array of null-terminated string pointers that contain the site names for the addresses. Each element in this array corresponds to the same element in the <i>SocketAddresses</i> array. An element is <b>NULL</b> if the corresponding address does not map to any known site or if the address entry is not of the proper form. The caller must free this array when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
      * @returns {Integer} Returns <b>NO_ERROR</b> if successful or a Win32 or RPC error otherwise. The following list lists possible error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsaddresstositenamesa
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsaddresstositenamesa
      * @since windows6.0.6000
      */
     static DsAddressToSiteNamesA(ComputerName, EntryCount, SocketAddresses, SiteNames) {
@@ -7024,7 +9174,10 @@ class ActiveDirectory {
     }
 
     /**
-     * Obtains the site and subnet names corresponding to the addresses specified.
+     * Obtains the site and subnet names corresponding to the addresses specified. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The dsgetdc.h header defines DsAddressToSiteNamesEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} ComputerName Pointer to a null-terminated string that specifies the name of the remote server to process this function. This parameter must be the name of a domain controller. A non-domain controller can call this function by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a> to find the domain controller.
      * @param {Integer} EntryCount Contains the number of elements in the <i>SocketAddresses</i> array.
@@ -7034,7 +9187,7 @@ class ActiveDirectory {
      *         corresponding address to site mapping. The latter will be the case when there is exactly
      *         one site in the enterprise with no subnet objects mapped to it. The caller must free this array when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
      * @returns {Integer} Returns <b>NO_ERROR</b> if successful or a Win32 or RPC error otherwise. The following are possible error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsaddresstositenamesexw
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsaddresstositenamesexw
      * @since windows6.0.6000
      */
     static DsAddressToSiteNamesExW(ComputerName, EntryCount, SocketAddresses, SiteNames, SubnetNames) {
@@ -7048,7 +9201,10 @@ class ActiveDirectory {
     }
 
     /**
-     * Obtains the site and subnet names corresponding to the addresses specified.
+     * Obtains the site and subnet names corresponding to the addresses specified. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The dsgetdc.h header defines DsAddressToSiteNamesEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} ComputerName Pointer to a null-terminated string that specifies the name of the remote server to process this function. This parameter must be the name of a domain controller. A non-domain controller can call this function by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a> to find the domain controller.
      * @param {Integer} EntryCount Contains the number of elements in the <i>SocketAddresses</i> array.
@@ -7058,7 +9214,7 @@ class ActiveDirectory {
      *         corresponding address to site mapping. The latter will be the case when there is exactly
      *         one site in the enterprise with no subnet objects mapped to it. The caller must free this array when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
      * @returns {Integer} Returns <b>NO_ERROR</b> if successful or a Win32 or RPC error otherwise. The following are possible error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsaddresstositenamesexa
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsaddresstositenamesexa
      * @since windows6.0.6000
      */
     static DsAddressToSiteNamesExA(ComputerName, EntryCount, SocketAddresses, SiteNames, SubnetNames) {
@@ -7072,7 +9228,10 @@ class ActiveDirectory {
     }
 
     /**
-     * Obtains domain trust data for a specified domain.
+     * Obtains domain trust data for a specified domain. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The dsgetdc.h header defines DsEnumerateDomainTrusts as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} ServerName Pointer to a null-terminated string that specifies the name of a computer in the domain to obtain the trust information for. If this parameter is <b>NULL</b>, the name of the local computer is used. The caller must be an authenticated user in this domain.
      * 
      * If this computer is a domain controller, this function returns the trust data immediately. If this computer is not a domain controller, this function  obtains the trust data  from cached data if the cached data is not expired. If the cached data is expired, this function obtains the trust data from a domain controller in the domain that this computer is a member of and updates the cache. The cached data automatically expires after five minutes.
@@ -7080,7 +9239,7 @@ class ActiveDirectory {
      * @param {Pointer<Pointer<DS_DOMAIN_TRUSTSW>>} Domains Pointer to a <b>PDS_DOMAIN_TRUSTS</b> value that receives an array of <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/ns-dsgetdc-ds_domain_trustsa">DS_DOMAIN_TRUSTS</a> structures. Each structure in this array contains trust data about a domain. The caller must free this memory when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
      * @param {Pointer<Integer>} DomainCount Pointer to a <b>ULONG</b> value that receives the number of elements returned in the <i>Domains</i> array.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 error code otherwise. Possible error codes include those listed in the following list.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsenumeratedomaintrustsw
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsenumeratedomaintrustsw
      * @since windows6.0.6000
      */
     static DsEnumerateDomainTrustsW(ServerName, Flags, Domains, DomainCount) {
@@ -7094,7 +9253,10 @@ class ActiveDirectory {
     }
 
     /**
-     * Obtains domain trust data for a specified domain.
+     * Obtains domain trust data for a specified domain. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The dsgetdc.h header defines DsEnumerateDomainTrusts as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} ServerName Pointer to a null-terminated string that specifies the name of a computer in the domain to obtain the trust information for. If this parameter is <b>NULL</b>, the name of the local computer is used. The caller must be an authenticated user in this domain.
      * 
      * If this computer is a domain controller, this function returns the trust data immediately. If this computer is not a domain controller, this function  obtains the trust data  from cached data if the cached data is not expired. If the cached data is expired, this function obtains the trust data from a domain controller in the domain that this computer is a member of and updates the cache. The cached data automatically expires after five minutes.
@@ -7102,7 +9264,7 @@ class ActiveDirectory {
      * @param {Pointer<Pointer<DS_DOMAIN_TRUSTSA>>} Domains Pointer to a <b>PDS_DOMAIN_TRUSTS</b> value that receives an array of <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/ns-dsgetdc-ds_domain_trustsa">DS_DOMAIN_TRUSTS</a> structures. Each structure in this array contains trust data about a domain. The caller must free this memory when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
      * @param {Pointer<Integer>} DomainCount Pointer to a <b>ULONG</b> value that receives the number of elements returned in the <i>Domains</i> array.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 error code otherwise. Possible error codes include those listed in the following list.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsenumeratedomaintrustsa
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsenumeratedomaintrustsa
      * @since windows6.0.6000
      */
     static DsEnumerateDomainTrustsA(ServerName, Flags, Domains, DomainCount) {
@@ -7128,11 +9290,11 @@ class ActiveDirectory {
      *         data for the domain hosted by <i>ServerName</i> is retrieved.
      * @param {Integer} Flags Contains a set of flags that modify the behavior of this function. This can be zero or the following value.
      * @param {Pointer<Pointer<LSA_FOREST_TRUST_INFORMATION>>} ForestTrustInfo Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-lsa_forest_trust_information">LSA_FOREST_TRUST_INFORMATION</a> structure pointer that receives the forest trust data that describes the namespaces claimed by the
-     *         domain specified by <i>TrustedDomainName</i>. The <b>Time</b>member of all returned records will be zero.
+     *         domain specified by <i>TrustedDomainName</i>. The <b>Time</b> member of all returned records will be zero.
      * 
      * The caller must free this structure when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
      * @returns {Integer} Returns <b>NO_ERROR</b> if successful or a Win32 error code otherwise. Possible error codes include the following.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsgetforesttrustinformationw
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsgetforesttrustinformationw
      * @since windows6.0.6000
      */
     static DsGetForestTrustInformationW(ServerName, TrustedDomainName, Flags, ForestTrustInfo) {
@@ -7156,7 +9318,7 @@ class ActiveDirectory {
      * 
      * The caller must free this structure when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
      * @returns {Integer} Returns <b>NO_ERROR</b> if successful or a Windows error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsmergeforesttrustinformationw
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsmergeforesttrustinformationw
      * @since windows6.0.6000
      */
     static DsMergeForestTrustInformationW(DomainName, NewForestTrustInfo, OldForestTrustInfo, MergedForestTrustInfo) {
@@ -7169,12 +9331,15 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsGetDcSiteCoverage function returns the site names of all sites covered by a domain controller.
+     * The DsGetDcSiteCoverage function returns the site names of all sites covered by a domain controller. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The dsgetdc.h header defines DsGetDcSiteCoverage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} ServerName The null-terminated string value that specifies the name of the remote domain controller.
      * @param {Pointer<Integer>} EntryCount Pointer to a <b>ULONG</b> value that receives  the number of sites covered by the domain controller.
      * @param {Pointer<Pointer<PWSTR>>} SiteNames Pointer to an array of pointers to null-terminated strings that receives the site names. To free the returned buffer, call the <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.
      * @returns {Integer} This function returns DSGETDCAPI DWORD.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsgetdcsitecoveragew
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsgetdcsitecoveragew
      * @since windows6.0.6000
      */
     static DsGetDcSiteCoverageW(ServerName, EntryCount, SiteNames) {
@@ -7188,12 +9353,15 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsGetDcSiteCoverage function returns the site names of all sites covered by a domain controller.
+     * The DsGetDcSiteCoverage function returns the site names of all sites covered by a domain controller. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The dsgetdc.h header defines DsGetDcSiteCoverage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} ServerName The null-terminated string value that specifies the name of the remote domain controller.
      * @param {Pointer<Integer>} EntryCount Pointer to a <b>ULONG</b> value that receives  the number of sites covered by the domain controller.
      * @param {Pointer<Pointer<PSTR>>} SiteNames Pointer to an array of pointers to null-terminated strings that receives the site names. To free the returned buffer, call the <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.
      * @returns {Integer} This function returns DSGETDCAPI DWORD.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsgetdcsitecoveragea
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsgetdcsitecoveragea
      * @since windows6.0.6000
      */
     static DsGetDcSiteCoverageA(ServerName, EntryCount, SiteNames) {
@@ -7207,14 +9375,23 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsDeregisterDnsHostRecords function deletes DNS entries, except for type A records registered by a domain controller. Only an administrator, account operator, or server operator may call this function.
+     * The DsDeregisterDnsHostRecords function deletes DNS entries, except for type A records registered by a domain controller. Only an administrator, account operator, or server operator may call this function. (Unicode)
+     * @remarks
+     * This function deregisters SRV and CNAME records only. It leaves type A records intact. Deletion of site specific records, for example, _ldap._tcp._&lt;SiteName&gt;._sites.dc._msdcs.&lt;DnsDomainName&gt;, is attempted for every site (&lt;SiteName&gt; in this example) in the enterprise of the domain controller on which the function is executed. Therefore, this function call could create a time-consuming run and may generate significant network traffic for enterprises with many sites.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The dsgetdc.h header defines DsDeregisterDnsHostRecords as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} ServerName The null-terminated string that specifies the name of the remote domain controller. Can be set to <b>NULL</b> if the calling application is running on the domain controller being updated.
      * @param {PWSTR} DnsDomainName The null-terminated string that specifies the DNS domain name of the domain occupied by the domain controller. It is unnecessary for this to be a domain hosted by this domain controller. If <b>NULL</b>, the <i>DnsHostName</i> with the leftmost label removed is specified.
      * @param {Pointer<Guid>} DomainGuid Pointer to the Domain GUID of the domain. If <b>NULL</b>, GUID specific names are not removed.
      * @param {Pointer<Guid>} DsaGuid Pointer to the GUID of the <b>NTDS-DSA</b> object to be deleted. If <b>NULL</b>, <b>NTDS-DSA</b> specific names are not removed.
      * @param {PWSTR} DnsHostName Pointer to the null-terminated string that specifies the DNS host name of the domain controller whose DNS records are being deleted.
      * @returns {Integer} This function returns DSGETDCAPI DWORD.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsderegisterdnshostrecordsw
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsderegisterdnshostrecordsw
      * @since windows6.0.6000
      */
     static DsDeregisterDnsHostRecordsW(ServerName, DnsDomainName, DomainGuid, DsaGuid, DnsHostName) {
@@ -7227,14 +9404,23 @@ class ActiveDirectory {
     }
 
     /**
-     * The DsDeregisterDnsHostRecords function deletes DNS entries, except for type A records registered by a domain controller. Only an administrator, account operator, or server operator may call this function.
+     * The DsDeregisterDnsHostRecords function deletes DNS entries, except for type A records registered by a domain controller. Only an administrator, account operator, or server operator may call this function. (ANSI)
+     * @remarks
+     * This function deregisters SRV and CNAME records only. It leaves type A records intact. Deletion of site specific records, for example, _ldap._tcp._&lt;SiteName&gt;._sites.dc._msdcs.&lt;DnsDomainName&gt;, is attempted for every site (&lt;SiteName&gt; in this example) in the enterprise of the domain controller on which the function is executed. Therefore, this function call could create a time-consuming run and may generate significant network traffic for enterprises with many sites.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The dsgetdc.h header defines DsDeregisterDnsHostRecords as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} ServerName The null-terminated string that specifies the name of the remote domain controller. Can be set to <b>NULL</b> if the calling application is running on the domain controller being updated.
      * @param {PSTR} DnsDomainName The null-terminated string that specifies the DNS domain name of the domain occupied by the domain controller. It is unnecessary for this to be a domain hosted by this domain controller. If <b>NULL</b>, the <i>DnsHostName</i> with the leftmost label removed is specified.
      * @param {Pointer<Guid>} DomainGuid Pointer to the Domain GUID of the domain. If <b>NULL</b>, GUID specific names are not removed.
      * @param {Pointer<Guid>} DsaGuid Pointer to the GUID of the <b>NTDS-DSA</b> object to be deleted. If <b>NULL</b>, <b>NTDS-DSA</b> specific names are not removed.
      * @param {PSTR} DnsHostName Pointer to the null-terminated string that specifies the DNS host name of the domain controller whose DNS records are being deleted.
      * @returns {Integer} This function returns DSGETDCAPI DWORD.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsderegisterdnshostrecordsa
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsderegisterdnshostrecordsa
      * @since windows6.0.6000
      */
     static DsDeregisterDnsHostRecordsA(ServerName, DnsDomainName, DomainGuid, DsaGuid, DnsHostName) {
@@ -7247,18 +9433,21 @@ class ActiveDirectory {
     }
 
     /**
-     * Opens a new domain controller enumeration operation.
+     * Opens a new domain controller enumeration operation. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The dsgetdc.h header defines DsGetDcOpen as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} DnsName Pointer to a null-terminated string that contains the domain naming system (DNS) name of the domain to enumerate the domain controllers for. This parameter cannot be <b>NULL</b>.
      * @param {Integer} OptionFlags 
      * @param {PWSTR} SiteName Pointer to a null-terminated string that contains the name of site the client is in. This parameter is optional and may be <b>NULL</b>.
      * @param {Pointer<Guid>} DomainGuid Pointer to a <b>GUID</b> value that contains the identifier of the domain specified by <i>DnsName</i>.
      *         This identifier is used to handle the case of a renamed domain.  If this
      *         value is specified and the domain specified in <i>DnsName</i> is renamed, this function attempts to enumerate domain controllers in the domain that contains the specified identifier. This parameter is optional and may be <b>NULL</b>.
-     * @param {PWSTR} DnsForestName Pointer to a null-terminated string that contains the name of the forest that contains the <i>DnsName</i> domain.  This value is used in conjunction with <i>DomainGuid</i>to enumerate the domain controllers if the  domain has been renamed. This parameter is optional and may be <b>NULL</b>.
+     * @param {PWSTR} DnsForestName Pointer to a null-terminated string that contains the name of the forest that contains the <i>DnsName</i> domain.  This value is used in conjunction with <i>DomainGuid</i> to enumerate the domain controllers if the  domain has been renamed. This parameter is optional and may be <b>NULL</b>.
      * @param {Integer} DcFlags 
      * @param {Pointer<HANDLE>} RetGetDcContext Pointer to a <b>HANDLE</b> value that receives the domain controller enumeration context handle. This handle is used with the <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnexta">DsGetDcNext</a> function to identify the domain controller enumeration operation. This handle is passed to <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcclosew">DsGetDcClose</a> to close the domain controller enumeration operation.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 or RPC error otherwise. Possible error values include the following.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsgetdcopenw
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsgetdcopenw
      * @since windows6.0.6000
      */
     static DsGetDcOpenW(DnsName, OptionFlags, SiteName, DomainGuid, DnsForestName, DcFlags, RetGetDcContext) {
@@ -7271,18 +9460,21 @@ class ActiveDirectory {
     }
 
     /**
-     * Opens a new domain controller enumeration operation.
+     * Opens a new domain controller enumeration operation. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The dsgetdc.h header defines DsGetDcOpen as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} DnsName Pointer to a null-terminated string that contains the domain naming system (DNS) name of the domain to enumerate the domain controllers for. This parameter cannot be <b>NULL</b>.
      * @param {Integer} OptionFlags 
      * @param {PSTR} SiteName Pointer to a null-terminated string that contains the name of site the client is in. This parameter is optional and may be <b>NULL</b>.
      * @param {Pointer<Guid>} DomainGuid Pointer to a <b>GUID</b> value that contains the identifier of the domain specified by <i>DnsName</i>.
      *         This identifier is used to handle the case of a renamed domain.  If this
      *         value is specified and the domain specified in <i>DnsName</i> is renamed, this function attempts to enumerate domain controllers in the domain that contains the specified identifier. This parameter is optional and may be <b>NULL</b>.
-     * @param {PSTR} DnsForestName Pointer to a null-terminated string that contains the name of the forest that contains the <i>DnsName</i> domain.  This value is used in conjunction with <i>DomainGuid</i>to enumerate the domain controllers if the  domain has been renamed. This parameter is optional and may be <b>NULL</b>.
+     * @param {PSTR} DnsForestName Pointer to a null-terminated string that contains the name of the forest that contains the <i>DnsName</i> domain.  This value is used in conjunction with <i>DomainGuid</i> to enumerate the domain controllers if the  domain has been renamed. This parameter is optional and may be <b>NULL</b>.
      * @param {Integer} DcFlags 
      * @param {Pointer<HANDLE>} RetGetDcContext Pointer to a <b>HANDLE</b> value that receives the domain controller enumeration context handle. This handle is used with the <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnexta">DsGetDcNext</a> function to identify the domain controller enumeration operation. This handle is passed to <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcclosew">DsGetDcClose</a> to close the domain controller enumeration operation.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 or RPC error otherwise. Possible error values include the following.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsgetdcopena
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsgetdcopena
      * @since windows6.0.6000
      */
     static DsGetDcOpenA(DnsName, OptionFlags, SiteName, DomainGuid, DnsForestName, DcFlags, RetGetDcContext) {
@@ -7295,7 +9487,27 @@ class ActiveDirectory {
     }
 
     /**
-     * Retrieves the next domain controller in a domain controller enumeration operation.
+     * Retrieves the next domain controller in a domain controller enumeration operation. (Unicode)
+     * @remarks
+     * To reset the enumeration, close the current enumeration by calling <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcclosew">DsGetDcClose</a> and then reopen the enumeration by calling <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcopena">DsGetDcOpen</a> again.
+     * 
+     * The DC returned by <b>DsGetDcNext</b> will not be a Read-only DC (RODC) because those DCs only register site-specific and CName records, and both <b>DsGetDcNext</b> and <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcopena">DsGetDcOpen</a> look for DNS SRV records.
+     * 
+     * The following procedure shows how to get a complete DC list from a computer running Windows Server 2008.
+     * 
+     * <p class="proch"><b>To obtain a complete list of domain controllers</b>
+     * 
+     * <ol>
+     * <li>Use <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a> to get a domain controller name.</li>
+     * <li>Use <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DsBind</a> to connect to that domain controller.</li>
+     * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsgetdomaincontrollerinfoa">DsGetDomainControllerInfo</a> with InfoLevel 3 (<b>DS_DOMAIN_CONTROLLER_INFO_3</b>) to get the complete list, including RODCs.</li>
+     * </ol>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The dsgetdc.h header defines DsGetDcNext as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} GetDcContextHandle Contains the domain controller enumeration context handle provided by the <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcopena">DsGetDcOpen</a> function.
      * @param {Pointer<Integer>} SockAddressCount Pointer to a <b>ULONG</b> value that receives the number of elements in the <i>SockAddresses</i> array.
      *         If this parameter is <b>NULL</b>, socket addresses are not retrieved.
@@ -7311,7 +9523,7 @@ class ActiveDirectory {
      * @param {Pointer<PWSTR>} DnsHostName Pointer to a string pointer that receives the DNS name of the domain controller.
      *         This parameter receives <b>NULL</b> if no host name is known. The caller must free this memory when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 or RPC error otherwise. Possible error values include the following.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsgetdcnextw
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsgetdcnextw
      * @since windows6.0.6000
      */
     static DsGetDcNextW(GetDcContextHandle, SockAddressCount, SockAddresses, DnsHostName) {
@@ -7326,7 +9538,27 @@ class ActiveDirectory {
     }
 
     /**
-     * Retrieves the next domain controller in a domain controller enumeration operation.
+     * Retrieves the next domain controller in a domain controller enumeration operation. (ANSI)
+     * @remarks
+     * To reset the enumeration, close the current enumeration by calling <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcclosew">DsGetDcClose</a> and then reopen the enumeration by calling <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcopena">DsGetDcOpen</a> again.
+     * 
+     * The DC returned by <b>DsGetDcNext</b> will not be a Read-only DC (RODC) because those DCs only register site-specific and CName records, and both <b>DsGetDcNext</b> and <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcopena">DsGetDcOpen</a> look for DNS SRV records.
+     * 
+     * The following procedure shows how to get a complete DC list from a computer running Windows Server 2008.
+     * 
+     * <p class="proch"><b>To obtain a complete list of domain controllers</b>
+     * 
+     * <ol>
+     * <li>Use <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a> to get a domain controller name.</li>
+     * <li>Use <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DsBind</a> to connect to that domain controller.</li>
+     * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsgetdomaincontrollerinfoa">DsGetDomainControllerInfo</a> with InfoLevel 3 (<b>DS_DOMAIN_CONTROLLER_INFO_3</b>) to get the complete list, including RODCs.</li>
+     * </ol>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The dsgetdc.h header defines DsGetDcNext as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} GetDcContextHandle Contains the domain controller enumeration context handle provided by the <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcopena">DsGetDcOpen</a> function.
      * @param {Pointer<Integer>} SockAddressCount Pointer to a <b>ULONG</b> value that receives the number of elements in the <i>SockAddresses</i> array.
      *         If this parameter is <b>NULL</b>, socket addresses are not retrieved.
@@ -7342,7 +9574,7 @@ class ActiveDirectory {
      * @param {Pointer<PSTR>} DnsHostName Pointer to a string pointer that receives the DNS name of the domain controller.
      *         This parameter receives <b>NULL</b> if no host name is known. The caller must free this memory when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 or RPC error otherwise. Possible error values include the following.
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsgetdcnexta
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsgetdcnexta
      * @since windows6.0.6000
      */
     static DsGetDcNextA(GetDcContextHandle, SockAddressCount, SockAddresses, DnsHostName) {
@@ -7358,9 +9590,11 @@ class ActiveDirectory {
 
     /**
      * Closes a domain controller enumeration operation.
+     * @remarks
+     * When this function is called, <i>GetDcContextHandle</i> is invalid and cannot be used.
      * @param {HANDLE} GetDcContextHandle Contains the domain controller enumeration context handle provided by the <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcopena">DsGetDcOpen</a> function.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsgetdcclosew
+     * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/nf-dsgetdc-dsgetdcclosew
      * @since windows6.0.6000
      */
     static DsGetDcCloseW(GetDcContextHandle) {

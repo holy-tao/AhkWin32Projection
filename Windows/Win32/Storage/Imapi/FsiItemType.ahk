@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values for the file system item that was found using the IFileSystemImage::Exists method.
- * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/ne-imapi2fs-fsiitemtype
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/ne-imapi2fs-fsiitemtype
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
-class FsiItemType{
+class FsiItemType extends Win32Enum{
 
     /**
      * The specified item was not found.

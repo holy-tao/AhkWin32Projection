@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify hints about a level of network connectivity.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//nldef/ne-nldef-nl_network_connectivity_level_hint
+ * @see https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_network_connectivity_level_hint
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
-class NL_NETWORK_CONNECTIVITY_LEVEL_HINT{
+class NL_NETWORK_CONNECTIVITY_LEVEL_HINT extends Win32Enum{
 
     /**
      * Specifies a hint for an unknown level of connectivity. There is a short window of time during Windows (or application container) boot when this value might be returned.

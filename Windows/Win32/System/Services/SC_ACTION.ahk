@@ -4,14 +4,11 @@
 /**
  * Represents an action that the service control manager can perform.
  * @remarks
- * 
  * This structure is used by the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-changeserviceconfig2a">ChangeServiceConfig2</a> and 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-queryserviceconfig2a">QueryServiceConfig2</a> functions, in the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-service_failure_actionsa">SERVICE_FAILURE_ACTIONS</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsvc/ns-winsvc-sc_action
+ * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-sc_action
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  */

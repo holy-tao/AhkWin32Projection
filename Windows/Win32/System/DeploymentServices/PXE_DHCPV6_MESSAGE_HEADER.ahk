@@ -3,7 +3,7 @@
 
 /**
  * Describes the fields in common between the PXE_DHCPV6_MESSAGE and PXE_DHCPV6_RELAY_MESSAGE structures.
- * @see https://docs.microsoft.com/windows/win32/api//wdspxe/ns-wdspxe-pxe_dhcpv6_message_header
+ * @see https://learn.microsoft.com/windows/win32/api/wdspxe/ns-wdspxe-pxe_dhcpv6_message_header
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

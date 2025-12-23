@@ -4,8 +4,8 @@
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
- * This structure is used by the WdsTransportProviderInitialize callback function.
- * @see https://docs.microsoft.com/windows/win32/api//wdstpdi/ns-wdstpdi-wds_transportprovider_init_params
+ * This structure is used by the WdsTransportProviderInitialize callback function. (WDS_TRANSPORTPROVIDER_INIT_PARAMS)
+ * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/ns-wdstpdi-wds_transportprovider_init_params
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

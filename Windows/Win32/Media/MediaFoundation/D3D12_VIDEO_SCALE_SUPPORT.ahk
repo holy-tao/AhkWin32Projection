@@ -5,20 +5,17 @@
 /**
  * Describes the supported scaling range of output sizes for a video scaler.
  * @remarks
- * 
  * By default, all possible output size combinations that exist between the maximum size and minimum size for the extent, inclusive, are supported.  *ScaleSupportFlags* may add additional restrictions to the supported scale sizes.  
  * When scaling is not supported, the minimum and maximum sizes should both be set to the input size and no flags should be specified.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_video_scale_support
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_scale_support
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
 class D3D12_VIDEO_SCALE_SUPPORT extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A [D3D12_VIDEO_SIZE_RANGE](ns-d3d12video-d3d12_video_size_range.md) structure describing the supported output size range for the scaler.

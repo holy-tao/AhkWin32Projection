@@ -3,7 +3,7 @@
 
 /**
  * Contains the data and metadata of files to write into the app package.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/ns-appxpackaging-appx_package_writer_payload_stream
+ * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ns-appxpackaging-appx_package_writer_payload_stream
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

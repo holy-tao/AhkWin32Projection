@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DMO_SET_TYPE_FLAGS enumeration defines flags for setting the media type on a stream.
  * @remarks
- * 
  * The DMO_SET_TYPEF_TEST_ONLY and DMO_SET_TYPEF_CLEAR flags are mutually exclusive. Do not set both flags.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mediaobj/ne-mediaobj-_dmo_set_type_flags
+ * @see https://learn.microsoft.com/windows/win32/api/mediaobj/ne-mediaobj-_dmo_set_type_flags
  * @namespace Windows.Win32.Media.DxMediaObjects
  * @version v4.0.30319
  */
-class _DMO_SET_TYPE_FLAGS{
+class _DMO_SET_TYPE_FLAGS extends Win32Enum{
 
     /**
      * Test the media type but do not set it.

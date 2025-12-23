@@ -6,11 +6,8 @@
 /**
  * The DSMCC_SECTION structure represents a DSM-CC section header. If a section contains a DSM-CC header, you can cast a SECTION pointer to a DSMCC_SECTION pointer. For more information, see the Remarks section in the SECTION reference.
  * @remarks
- * 
  * This structure extends the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ns-mpeg2structs-long_section">LONG_SECTION</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ns-mpeg2structs-dsmcc_section
+ * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-dsmcc_section
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -19,6 +16,56 @@ class DSMCC_SECTION extends Win32Struct
     static sizeof => 28
 
     static packingSize => 4
+
+    class _Header_e__Union extends Win32Struct {
+        static sizeof => 2
+        static packingSize => 1
+
+        /**
+         * @type {MPEG_HEADER_BITS_MIDL}
+         */
+        S{
+            get {
+                if(!this.HasProp("__S"))
+                    this.__S := MPEG_HEADER_BITS_MIDL(0, this)
+                return this.__S
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        W {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+    }
+
+    class _Version_e__Union extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 1
+
+        /**
+         * @type {MPEG_HEADER_VERSION_BITS_MIDL}
+         */
+        S{
+            get {
+                if(!this.HasProp("__S"))
+                    this.__S := MPEG_HEADER_VERSION_BITS_MIDL(0, this)
+                return this.__S
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        B {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+    }
 
     /**
      * Specifies the table identifier (TID) of the section.
@@ -30,22 +77,15 @@ class DSMCC_SECTION extends Win32Struct
     }
 
     /**
-     * @type {MPEG_HEADER_BITS_MIDL}
+     * A union that contains the following members.
+     * @type {_Header_e__Union}
      */
-    S{
+    Header{
         get {
-            if(!this.HasProp("__S"))
-                this.__S := MPEG_HEADER_BITS_MIDL(2, this)
-            return this.__S
+            if(!this.HasProp("__Header"))
+                this.__Header := %this.__Class%._Header_e__Union(1, this)
+            return this.__Header
         }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    W {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
     }
 
     /**
@@ -58,11 +98,15 @@ class DSMCC_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * A union that contains the following members.
+     * @type {_Version_e__Union}
      */
-    B {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
+    Version{
+        get {
+            if(!this.HasProp("__Version"))
+                this.__Version := %this.__Class%._Version_e__Union(6, this)
+            return this.__Version
+        }
     }
 
     /**

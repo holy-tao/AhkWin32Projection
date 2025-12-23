@@ -4,15 +4,15 @@
 
 /**
  * Defines the CF_HDROP clipboard format. The data that follows is a double null-terminated list of file names.
- * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-dropfiles
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-dropfiles
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
 class DROPFILES extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>DWORD</b>
@@ -26,7 +26,7 @@ class DROPFILES extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * The drop point. The coordinates depend on <b>fNC</b>.
      * @type {POINT}
@@ -34,7 +34,7 @@ class DROPFILES extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(8, this)
+                this.__pt := POINT(4, this)
             return this.__pt
         }
     }
@@ -46,8 +46,8 @@ class DROPFILES extends Win32Struct
      * @type {BOOL}
      */
     fNC {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 
     /**
@@ -57,7 +57,7 @@ class DROPFILES extends Win32Struct
      * @type {BOOL}
      */
     fWide {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 }

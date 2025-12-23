@@ -8,9 +8,9 @@
  */
 class VBICODECFILTERING_STATISTICS_NABTS extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 84
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {VBICODECFILTERING_STATISTICS_COMMON}

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * The TRUSTED_INFORMATION_CLASS enumeration type defines values that indicate the type of information to set or query for a trusted domain.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ne-ntsecapi-trusted_information_class
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-trusted_information_class
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
-class TRUSTED_INFORMATION_CLASS{
+class TRUSTED_INFORMATION_CLASS extends Win32Enum{
 
     /**
      * Query or set the name of a trusted domain. Use the 

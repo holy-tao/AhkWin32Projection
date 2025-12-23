@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The EndpointFormFactor enumeration defines constants that indicate the general physical attributes of an audio endpoint device.
  * @remarks
- * 
  * The constants in this enumeration are the values that can be assigned to the <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/pkey-audioendpoint-formfactor">PKEY_AudioEndpoint_FormFactor</a> property.
  * 
  * In digital pass-through mode, a digital interface transports blocks of non-PCM data through a connection without modifying them and without attempting to interpret their contents. For more information about digital pass-through mode, see the following documentation:
@@ -13,13 +13,11 @@
  * <li>The white paper titled "Audio Driver Support for the WMA Pro-over-S/PDIF Format" at the <a href="https://www.microsoft.com/whdc/device/audio/default.mspx">Audio Device Technologies for Windows</a> website.</li>
  * </ul>
  * For information about obtaining a description of the audio jack or connector through which an audio endpoint device connects to an audio adapter, see <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iksjackdescription-getjackdescription">IKsJackDescription::GetJackDescription</a> and <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iksjackdescription2-getjackdescription2">IKsJackDescription2::GetJackDescription2</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mmdeviceapi/ne-mmdeviceapi-endpointformfactor
+ * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-endpointformfactor
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
-class EndpointFormFactor{
+class EndpointFormFactor extends Win32Enum{
 
     /**
      * An audio endpoint device that the user accesses remotely through a network.

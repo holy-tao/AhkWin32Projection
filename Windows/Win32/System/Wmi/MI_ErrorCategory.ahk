@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * This enumeration defines error categories for the CIM extensions.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ne-mi-mi_errorcategory
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ne-mi-mi_errorcategory
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class MI_ErrorCategory{
+class MI_ErrorCategory extends Win32Enum{
 
     /**
      * Use only when not enough is known about the error to assign it to another error category. Avoid using this category if you have any information about the error, even if that information is incomplete.

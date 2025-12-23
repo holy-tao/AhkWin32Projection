@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Identifies the resource or group as a core resource.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-clus_flags
+ * CLUS_FLAGS (msclus.h) identifies the resource or group as a core resource.
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clus_flags
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUS_FLAGS{
+class CLUS_FLAGS extends Win32Enum{
 
     /**
      * Identifies <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/core-resources">core resources</a> or the cluster group that 

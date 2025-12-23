@@ -7,9 +7,9 @@
  */
 class HIDP_DATA extends Win32Struct
 {
-    static sizeof => 14
+    static sizeof => 12
 
-    static packingSize => 7
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -31,15 +31,15 @@ class HIDP_DATA extends Win32Struct
      * @type {Integer}
      */
     RawValue {
-        get => NumGet(this, 7, "uint")
-        set => NumPut("uint", value, this, 7)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
      * @type {BOOLEAN}
      */
     On {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
+        get => NumGet(this, 4, "char")
+        set => NumPut("char", value, this, 4)
     }
 }

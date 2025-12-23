@@ -4,7 +4,6 @@
 /**
  * The FLOWSPEC structure provides quality of service parameters to the RSVP SP.
  * @remarks
- * 
  * Many members of the 
  * <b>FLOWSPEC</b> structure can be set to default values by setting the member to QOS_NOT_SPECIFIED. Note that the members that can be set to default values differ depending on whether the 
  * <b>FLOWSPEC</b> is a receiving 
@@ -51,9 +50,7 @@
  * <dd>SERVICETYPE_NOCHANGE</dd>
  * <dd>SERVICETYPE_NOTRAFFIC</dd>
  * </dl>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//qos/ns-qos-flowspec
+ * @see https://learn.microsoft.com/windows/win32/api/qos/ns-qos-flowspec
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

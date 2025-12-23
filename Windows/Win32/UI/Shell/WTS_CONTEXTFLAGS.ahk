@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the context of a thumbnail extraction. Used by IThumbnailSettings::SetContext.
- * @see https://docs.microsoft.com/windows/win32/api//thumbcache/ne-thumbcache-wts_contextflags
+ * @see https://learn.microsoft.com/windows/win32/api/thumbcache/ne-thumbcache-wts_contextflags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class WTS_CONTEXTFLAGS{
+class WTS_CONTEXTFLAGS extends Win32BitflagEnum{
 
     /**
      * None of the following options are set. Set in response to <a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/ne-thumbcache-wts_flags">WTS_NONE</a>.

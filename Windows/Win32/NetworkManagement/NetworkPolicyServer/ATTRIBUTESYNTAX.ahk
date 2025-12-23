@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Each value from the ATTRIBUTESYNTAX enumeration type specifies a possible attribute syntax.
- * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-attributesyntax
+ * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-attributesyntax
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class ATTRIBUTESYNTAX{
+class ATTRIBUTESYNTAX extends Win32Enum{
 
     /**
      * The attribute is of type Boolean.

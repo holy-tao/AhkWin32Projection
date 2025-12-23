@@ -32,7 +32,7 @@ class COLORSPACE_TRANSFORM_SET_INPUT extends Win32Struct
     OutputWireFormatExpected{
         get {
             if(!this.HasProp("__OutputWireFormatExpected"))
-                this.__OutputWireFormatExpected := OUTPUT_WIRE_FORMAT(8, this)
+                this.__OutputWireFormatExpected := OUTPUT_WIRE_FORMAT(4, this)
             return this.__OutputWireFormatExpected
         }
     }

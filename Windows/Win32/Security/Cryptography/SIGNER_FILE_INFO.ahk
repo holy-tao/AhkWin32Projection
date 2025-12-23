@@ -3,7 +3,7 @@
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
- * 
+ * Specifies a file to sign.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-file-info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
@@ -15,6 +15,7 @@ class SIGNER_FILE_INFO extends Win32Struct
     static packingSize => 8
 
     /**
+     * The size, in bytes, of the structure.
      * @type {Integer}
      */
     cbSize {
@@ -23,6 +24,7 @@ class SIGNER_FILE_INFO extends Win32Struct
     }
 
     /**
+     * A pointer to a null-terminated string that contains the name of the file to sign.
      * @type {PWSTR}
      */
     pwszFileName {
@@ -31,6 +33,7 @@ class SIGNER_FILE_INFO extends Win32Struct
     }
 
     /**
+     * An open handle to the file specified by the **pwszFileName** member. If this member contains a valid handle, this handle is used to access the file. This member can be set to **NULL**.
      * @type {HANDLE}
      */
     hFile{

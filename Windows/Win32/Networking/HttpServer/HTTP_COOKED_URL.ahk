@@ -4,11 +4,8 @@
 /**
  * Contains a validated, canonical, UTF-16 Unicode-encoded URL request string together with pointers into it and element lengths.
  * @remarks
- * 
  * For example, if <b>pFullUrl</b> is "http://www.fabrikam.com/path1/path2/file.ext?n1=v1&amp;n2=v2", then <b>pHost</b> points to "www.fabrikam", <b>pAbsPath</b> points to "/path1/…" and <b>pQueryString</b> points to "?n1=v1…".
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_cooked_url
+ * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_cooked_url
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

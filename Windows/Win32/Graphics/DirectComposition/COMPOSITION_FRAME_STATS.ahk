@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Describes timing and composition statistics for a compositor frame.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/dcomptypes/ns-dcomptypes-composition_frame_stats
  * @namespace Windows.Win32.Graphics.DirectComposition
@@ -14,6 +16,9 @@ class COMPOSITION_FRAME_STATS extends Win32Struct
     static packingSize => 8
 
     /**
+     * Type: **[UINT64](/windows/win32/WinProg/windows-data-types)**
+     * 
+     * The time the frame started.
      * @type {Integer}
      */
     startTime {
@@ -22,6 +27,9 @@ class COMPOSITION_FRAME_STATS extends Win32Struct
     }
 
     /**
+     * Type: **[UINT64](/windows/win32/WinProg/windows-data-types)**
+     * 
+     * The frame's target time.
      * @type {Integer}
      */
     targetTime {
@@ -30,6 +38,9 @@ class COMPOSITION_FRAME_STATS extends Win32Struct
     }
 
     /**
+     * Type: **[UINT64](/windows/win32/WinProg/windows-data-types)**
+     * 
+     * The amount of time the frame took.
      * @type {Integer}
      */
     framePeriod {

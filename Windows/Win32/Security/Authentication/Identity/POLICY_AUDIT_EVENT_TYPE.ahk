@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * The POLICY_AUDIT_EVENT_TYPE enumeration defines values that indicate the types of events the system can audit.
  * @remarks
- * 
  * The <b>POLICY_AUDIT_EVENT_TYPE</b> enumeration may expand in future versions of Windows. Because of this, you should not compute the number of values in this enumeration directly. Instead, you should obtain the count of values by calling 
  * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaqueryinformationpolicy">LsaQueryInformationPolicy</a> with the <i>InformationClass</i> parameter set to PolicyAuditEventsInformation and extract the count from the <b>MaximumAuditEventCount</b> member of the returned 
  * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-policy_audit_events_info">POLICY_AUDIT_EVENTS_INFO</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ne-ntsecapi-policy_audit_event_type
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-policy_audit_event_type
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
-class POLICY_AUDIT_EVENT_TYPE{
+class POLICY_AUDIT_EVENT_TYPE extends Win32Enum{
 
     /**
      * Determines whether the operating system must audit any of the following attempts:

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether to display enrollment status information in a user interface.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-enrollmentdisplaystatus
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-enrollmentdisplaystatus
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class EnrollmentDisplayStatus{
+class EnrollmentDisplayStatus extends Win32Enum{
 
     /**
      * Status is not displayed.

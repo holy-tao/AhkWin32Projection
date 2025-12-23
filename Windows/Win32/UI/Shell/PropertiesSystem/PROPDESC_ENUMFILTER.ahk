@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the filtered list of property descriptions that is returned.
  * @remarks
- * 
  * These values are defined in propsys.h and propsys.idl.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//propsys/ne-propsys-propdesc_enumfilter
+ * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-propdesc_enumfilter
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
-class PROPDESC_ENUMFILTER{
+class PROPDESC_ENUMFILTER extends Win32Enum{
 
     /**
      * The list contains all property descriptions in the system.

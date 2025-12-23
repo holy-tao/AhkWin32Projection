@@ -10,9 +10,61 @@
  */
 class USBFN_NOTIFICATION extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
+
+    class _u_e__Union extends Win32Struct {
+        static sizeof => 14
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        BusSpeed {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {USB_DEFAULT_PIPE_SETUP_PACKET}
+         */
+        SetupPacket{
+            get {
+                if(!this.HasProp("__SetupPacket"))
+                    this.__SetupPacket := USB_DEFAULT_PIPE_SETUP_PACKET(0, this)
+                return this.__SetupPacket
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ConfigurationValue {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        PortType {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {ALTERNATE_INTERFACE}
+         */
+        AlternateInterface{
+            get {
+                if(!this.HasProp("__AlternateInterface"))
+                    this.__AlternateInterface := ALTERNATE_INTERFACE(0, this)
+                return this.__AlternateInterface
+            }
+        }
+    
+    }
 
     /**
      * @type {Integer}
@@ -23,48 +75,13 @@ class USBFN_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_u_e__Union}
      */
-    BusSpeed {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {USB_DEFAULT_PIPE_SETUP_PACKET}
-     */
-    SetupPacket{
+    u{
         get {
-            if(!this.HasProp("__SetupPacket"))
-                this.__SetupPacket := USB_DEFAULT_PIPE_SETUP_PACKET(8, this)
-            return this.__SetupPacket
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ConfigurationValue {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PortType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {ALTERNATE_INTERFACE}
-     */
-    AlternateInterface{
-        get {
-            if(!this.HasProp("__AlternateInterface"))
-                this.__AlternateInterface := ALTERNATE_INTERFACE(8, this)
-            return this.__AlternateInterface
+            if(!this.HasProp("__u"))
+                this.__u := %this.__Class%._u_e__Union(4, this)
+            return this.__u
         }
     }
 }

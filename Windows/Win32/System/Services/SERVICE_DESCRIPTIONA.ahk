@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains a service description.
+ * Contains a service description. (ANSI)
  * @remarks
- * 
  * A description of <b>NULL</b> indicates no service description exists. The service description is NULL when the service is created.
  * 
  * The description is simply a comment that explains the purpose of the service. For example, for the DHCP service, you could use the description "Provides internet addresses for computer on your network."
@@ -12,10 +11,7 @@
  * You can set the description using the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-changeserviceconfig2a">ChangeServiceConfig2</a> function. You can retrieve the description using the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-queryserviceconfig2a">QueryServiceConfig2</a> function. The description is also displayed by the Services snap-in.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsvc/ns-winsvc-service_descriptiona
+ * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_descriptiona
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  * @charset ANSI

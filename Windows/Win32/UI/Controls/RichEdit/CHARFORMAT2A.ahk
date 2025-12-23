@@ -3,11 +3,8 @@
 #Include .\CHARFORMATA.ahk
 
 /**
- * Contains information about character formatting in a rich edit control.
+ * Contains information about character formatting in a rich edit control. (CHARFORMAT2A)
  * @remarks
- * 
- * 
- * 
  * To turn off a formatting attribute, set the appropriate value in <b>dwMask</b> but do not set the corresponding value in <b>dwEffects</b>. For example, to turn off italics, set <b>CFM_ITALIC</b> but do not set <b>CFE_ITALIC</b>.
  * 
  * 
@@ -16,18 +13,16 @@
  * 
  * > [!NOTE]
  * > The richedit.h header defines CHARFORMAT2 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-charformat2a
+ * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-charformat2a
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  * @charset ANSI
  */
 class CHARFORMAT2A extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 84
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {CHARFORMATA}

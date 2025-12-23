@@ -3,9 +3,8 @@
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
- * Contains information about an entry in the Internet cache.
+ * Contains information about an entry in the Internet cache. (ANSI)
  * @remarks
- * 
  * There is no cache entry size limit, so applications that need to enumerate the cache must be prepared to allocate variable-sized buffers. For more information, see 
  * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-b-using-buffers">Using Buffers</a>.
  * 
@@ -17,9 +16,7 @@
  * 
  * > [!NOTE]
  * > The wininet.h header defines INTERNET_CACHE_ENTRY_INFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wininet/ns-wininet-internet_cache_entry_infoa
+ * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-internet_cache_entry_infoa
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
  * @charset ANSI
@@ -216,7 +213,7 @@ class INTERNET_CACHE_ENTRY_INFOA extends Win32Struct
     LastModifiedTime{
         get {
             if(!this.HasProp("__LastModifiedTime"))
-                this.__LastModifiedTime := FILETIME(48, this)
+                this.__LastModifiedTime := FILETIME(44, this)
             return this.__LastModifiedTime
         }
     }
@@ -228,7 +225,7 @@ class INTERNET_CACHE_ENTRY_INFOA extends Win32Struct
     ExpireTime{
         get {
             if(!this.HasProp("__ExpireTime"))
-                this.__ExpireTime := FILETIME(56, this)
+                this.__ExpireTime := FILETIME(52, this)
             return this.__ExpireTime
         }
     }
@@ -240,7 +237,7 @@ class INTERNET_CACHE_ENTRY_INFOA extends Win32Struct
     LastAccessTime{
         get {
             if(!this.HasProp("__LastAccessTime"))
-                this.__LastAccessTime := FILETIME(64, this)
+                this.__LastAccessTime := FILETIME(60, this)
             return this.__LastAccessTime
         }
     }
@@ -252,7 +249,7 @@ class INTERNET_CACHE_ENTRY_INFOA extends Win32Struct
     LastSyncTime{
         get {
             if(!this.HasProp("__LastSyncTime"))
-                this.__LastSyncTime := FILETIME(72, this)
+                this.__LastSyncTime := FILETIME(68, this)
             return this.__LastSyncTime
         }
     }

@@ -6,15 +6,15 @@
 
 /**
  * The PEER_ADDRESS structure specifies the information about the IP address.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_address
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_address
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
 class PEER_ADDRESS extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the size of this structure.
@@ -32,7 +32,7 @@ class PEER_ADDRESS extends Win32Struct
     sin6{
         get {
             if(!this.HasProp("__sin6"))
-                this.__sin6 := SOCKADDR_IN6(8, this)
+                this.__sin6 := SOCKADDR_IN6(4, this)
             return this.__sin6
         }
     }

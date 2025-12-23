@@ -2674,20 +2674,26 @@ class Accessibility {
 ;@region Methods
     /**
      * Returns a reference, similar to a handle, to the specified object. Servers return this reference when handling WM_GETOBJECT.
+     * @remarks
+     * Servers call this function only when handling the [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message. For an overview of how <b>LresultFromObject</b> is related to <b>WM_GETOBJECT</b>, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/how-wm-getobject-works">How WM_GETOBJECT Works</a>.
+     * 
+     * <b>LresultFromObject</b> increments the object's reference count. If you are not storing the interface pointer passed to the function (that is, you create a new interface pointer for the object each time [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) is received), call the object's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method to decrement the reference count back to one. Then the client calls <b>Release</b> and the object is destroyed. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/how-to-handle-wm-getobject">How to Handle WM_GETOBJECT</a>.
+     * 
+     * Each time a server processes [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) for a specific object, it calls <b>LresultFromObject</b> to obtain a new reference to the object. Servers do not save the reference returned from <b>LresultFromObject</b> from one instance of processing <b>WM_GETOBJECT</b> to use as the message's return value when processing subsequent <b>WM_GETOBJECT</b> messages for the same object. This causes the client to receive an error.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference identifier of the interface provided to the client. This parameter is IID_IAccessible.
      * @param {WPARAM} wParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WPARAM</a></b>
      * 
-     * Value sent by the associated <a href="https://docs.microsoft.com/windows/desktop/WinAuto/wm-getobject">WM_GETOBJECT</a> message in its <i>wParam</i> parameter.
+     * Value sent by the associated [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message in its <i>wParam</i> parameter.
      * @param {IUnknown} punk Type: <b>LPUNKNOWN</b>
      * 
-     * Address of the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface to the object that corresponds to the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/wm-getobject">WM_GETOBJECT</a> message.
-     * @returns {LRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">LRESULT</a></b>
+     * Address of the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface to the object that corresponds to the [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message.
+     * @returns {LRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LRESULT</a></b>
      * 
      * If successful, returns a positive value that is a reference to the object.
      * 
-     * If not successful, returns one of the values in the table that follows, or another standard <a href="/windows/desktop/WinAuto/return-values">COM error code</a>.
+     * If not successful, returns one of the values in the table that follows, or another standard <a href="https://docs.microsoft.com/windows/desktop/WinAuto/return-values">COM error code</a>.
      * 
      * <table>
      * <tr>
@@ -2739,7 +2745,7 @@ class Accessibility {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-lresultfromobject
+     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-lresultfromobject
      * @since windows5.0
      */
     static LresultFromObject(riid, wParam, punk) {
@@ -2757,17 +2763,18 @@ class Accessibility {
      * Reference identifier of the interface to be retrieved. This is IID_IAccessible.
      * @param {WPARAM} wParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WPARAM</a></b>
      * 
-     * Value sent by the associated <a href="https://docs.microsoft.com/windows/desktop/WinAuto/wm-getobject">WM_GETOBJECT</a> message in its <i>wParam</i> parameter.
+     * Value sent by the associated [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message in its <i>wParam</i> parameter.
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
-     * Receives the address of the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface on the object that corresponds to the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/wm-getobject">WM_GETOBJECT</a> message.
-     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-objectfromlresult
+     * Receives the address of the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface on the object that corresponds to the [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message.
+     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-objectfromlresult
      * @since windows5.1.2600
      */
     static ObjectFromLresult(lResult, riid, wParam) {
         result := DllCall("OLEACC.dll\ObjectFromLresult", "ptr", lResult, "ptr", riid, "ptr", wParam, "ptr*", &ppvObject := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObject
     }
@@ -2778,20 +2785,60 @@ class Accessibility {
      * @returns {HWND} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a>*</b>
      * 
      * Address of a variable that receives a handle to the window containing the object specified in <i>pacc</i>. If this value is <b>NULL</b> after the call, the object is not contained within a window; for example, the mouse pointer is not contained within a window.
-     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-windowfromaccessibleobject
+     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-windowfromaccessibleobject
      * @since windows5.0
      */
     static WindowFromAccessibleObject(param0) {
         phwnd := HWND()
         result := DllCall("OLEACC.dll\WindowFromAccessibleObject", "ptr", param0, "ptr", phwnd, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return phwnd
     }
 
     /**
      * Retrieves the address of the specified interface for the object associated with the specified window.
+     * @remarks
+     * Clients call this function to retrieve the address of an object's <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a>, <a href="https://docs.microsoft.com/windows/desktop/WinAuto/idispatch-interface">IDispatch</a>, <a href="https://docs.microsoft.com/windows/win32/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a>, <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>, or other supported interface pointer.
+     * 
+     * As with other <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> methods and functions, clients might receive errors for <b>IAccessible</b> interface pointers because of a user action. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/receiving-errors-for-iaccessible-interface-pointers">Receiving Errors for IAccessible Interface Pointers</a>.
+     * 
+     * Clients use this function to obtain access to the Microsoft Office 2000 native object model. The native object model provides clients with accessibility information about an Office application's document or client area that is not exposed by Microsoft Active Accessibility.
+     * 
+     * To obtain an <a href="https://docs.microsoft.com/windows/desktop/WinAuto/idispatch-interface">IDispatch</a> interface pointer to a class supported by the native object model, specify <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">OBJID_NATIVEOM</a> in <i>dwObjectID</i>. When using this object identifier, the <i>hwnd</i> parameter must match the following window class types.
+     * 
+     * <table>
+     * <tr>
+     * <th>Office application</th>
+     * <th>Window class</th>
+     * <th>IDispatch pointer to</th>
+     * </tr>
+     * <tr>
+     * <td>Word</td>
+     * <td>_WwG</td>
+     * <td>Window</td>
+     * </tr>
+     * <tr>
+     * <td>Excel</td>
+     * <td>EXCEL7</td>
+     * <td>Window</td>
+     * </tr>
+     * <tr>
+     * <td>PowerPoint</td>
+     * <td>paneClassDC</td>
+     * <td>DocumentWindow</td>
+     * </tr>
+     * <tr>
+     * <td>Command Bars</td>
+     * <td>MsoCommandBar</td>
+     * <td>CommandBar</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Note that the above window classes correspond to the innermost document window or pane window. For more information about the Office object model, see the <a href="https://docs.microsoft.com/previous-versions/office/developer/office2000/aa141393(v=office.10)">Microsoft Office 2000/Visual Basic Programmer's Guide</a>.
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Specifies the handle of a window for which an object is to be retrieved. To retrieve an interface pointer to the cursor or caret object, specify <b>NULL</b> and use the appropriate object ID in <i>dwObjectID</i>.
@@ -2804,21 +2851,30 @@ class Accessibility {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * Address of a pointer variable that receives the address of the specified interface.
-     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-accessibleobjectfromwindow
+     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-accessibleobjectfromwindow
      * @since windows5.0
      */
     static AccessibleObjectFromWindow(hwnd, dwId, riid) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("OLEACC.dll\AccessibleObjectFromWindow", "ptr", hwnd, "uint", dwId, "ptr", riid, "ptr*", &ppvObject := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObject
     }
 
     /**
      * Retrieves the address of the IAccessible interface for the object that generated the event that is currently being processed by the client's event hook function.
+     * @remarks
+     * Clients call this function within an event hook function to obtain an <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface pointer to either the object that generated the event or to the parent of the element that generated the event. The parameters sent to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-wineventproc">WinEventProc</a> callback function must be used for this function's <i>hwnd</i>, <i>dwObjectID</i>, and <i>dwChildID</i> parameters.
+     * 
+     * This function retrieves the lowest-level accessible object in the object hierarchy that is associated with an event. If the element that generated the event is not an accessible object (that is, does not support <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a>), then the function retrieves the <b>IAccessible</b> interface of the parent object. The parent object must provide information about the child element through the <b>IAccessible</b> interface.
+     * 
+     * As with other <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> methods and functions, clients might receive errors for <b>IAccessible</b> interface pointers because of a user action. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/receiving-errors-for-iaccessible-interface-pointers">Receiving Errors for IAccessible Interface Pointers</a>.
+     * 
+     * This function fails if called in response to <a href="https://docs.microsoft.com/windows/desktop/WinAuto/event-constants">EVENT_OBJECT_CREATE</a> because the object is not fully initialized. Similarly, clients should not call this in response to <a href="https://docs.microsoft.com/windows/desktop/WinAuto/event-constants">EVENT_OBJECT_DESTROY</a> because the object is no longer available and cannot respond. Clients watch for <a href="https://docs.microsoft.com/windows/desktop/WinAuto/event-constants">EVENT_OBJECT_SHOW</a> and <a href="https://docs.microsoft.com/windows/desktop/WinAuto/event-constants">EVENT_OBJECT_HIDE</a> events rather than for <b>EVENT_OBJECT_CREATE</b> and <b>EVENT_OBJECT_DESTROY</b>.
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Specifies the window handle of the window that generated the event. This value must be the window handle that is sent to the event hook function.
@@ -2834,37 +2890,73 @@ class Accessibility {
      * @returns {IAccessible} Type: <b>IAccessible**</b>
      * 
      * Address of a pointer variable that receives the address of an <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface. The interface is either for the object that generated the event, or for the parent of the element that generated the event.
-     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-accessibleobjectfromevent
+     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-accessibleobjectfromevent
      * @since windows5.0
      */
     static AccessibleObjectFromEvent(hwnd, dwId, dwChildId, pvarChild) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("OLEACC.dll\AccessibleObjectFromEvent", "ptr", hwnd, "uint", dwId, "uint", dwChildId, "ptr*", &ppacc := 0, "ptr", pvarChild, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IAccessible(ppacc)
     }
 
     /**
      * Retrieves the address of the IAccessible interface pointer for the object displayed at a specified point on the screen.
+     * @remarks
+     * This function retrieves the lowest-level accessible object in the object hierarchy at a given point. If the element at the point is not an accessible object (that is, does not support <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a>), then the function retrieves the <b>IAccessible</b> interface of the parent object. The parent object must provide information about the child element through the <b>IAccessible</b> interface. Call <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nf-oleacc-iaccessible-acchittest">IAccessible::accHitTest</a> to identify the child element at the specified screen coordinates.
+     * 
+     * As with other <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> methods and functions, clients might receive errors for <b>IAccessible</b> interface pointers because of a user action. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/receiving-errors-for-iaccessible-interface-pointers">Receiving Errors for IAccessible Interface Pointers</a>.
+     * 
+     * <h3><a id="Client_Example"></a><a id="client_example"></a><a id="CLIENT_EXAMPLE"></a>Client Example</h3>
+     * The following example function selects the item at a specified point on the screen. It is assumed that a single selection is wanted.
+     * 
+     * 
+     * ```cpp
+     * 
+     * HRESULT SelectItemAtPoint(POINT point)
+     * {
+     *     VARIANT varItem;
+     *     IAccessible* pAcc;
+     *     HRESULT hr = AccessibleObjectFromPoint(point, &pAcc, &varItem);
+     *     if ((hr == S_OK))
+     *     {
+     *         hr = pAcc->accSelect((SELFLAG_TAKEFOCUS | SELFLAG_TAKESELECTION), varItem);
+     *         VariantClear(&varItem);
+     *         pAcc->Release();
+     *     }
+     *     return hr;
+     * }
+     * 
+     * ```
      * @param {POINT} ptScreen Specifies, in physical screen coordinates, the point that is examined.
      * @param {Pointer<VARIANT>} pvarChild Address of a <a href="https://docs.microsoft.com/windows/desktop/WinAuto/variant-structure">VARIANT</a> structure that specifies whether the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface pointer that is returned in <i>ppacc</i> belongs to the object displayed at the specified point, or to the parent of the element at the specified point. The <b>vt</b> member of the <b>VARIANT</b> is always VT_I4. If the <b>lVal</b> member is CHILDID_SELF, then the <b>IAccessible</b> interface pointer at <i>ppacc</i> belongs to the object at the point. If the <b>lVal</b> member is not CHILDID_SELF, <i>ppacc</i> is the address of the <b>IAccessible</b> interface of the child element's parent object. Clients must call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-variantclear">VariantClear</a> on the retrieved <b>VARIANT</b> parameter when finished using it.
      * @returns {IAccessible} Address of a pointer variable that receives the address of the object's <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-accessibleobjectfrompoint
+     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-accessibleobjectfrompoint
      * @since windows5.0
      */
     static AccessibleObjectFromPoint(ptScreen, pvarChild) {
         result := DllCall("OLEACC.dll\AccessibleObjectFromPoint", "ptr", ptScreen, "ptr*", &ppacc := 0, "ptr", pvarChild, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IAccessible(ppacc)
     }
 
     /**
      * Retrieves the child ID or IDispatch of each child within an accessible container object.
+     * @remarks
+     * To retrieve information about all of the children in a container, the <i>iChildStart</i> parameter  must be zero (0), and <i>cChildren</i> must be the value returned by <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nf-oleacc-iaccessible-get_accchildcount">IAccessible::get_accChildCount</a>.
+     * 
+     * When calling this function to obtain information about the children of a user interface element, it is recommended that clients obtain information about all of the children. For example, <i>iChildStart</i> must be zero (0), and <i>cChildren</i> must be the value returned by <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nf-oleacc-iaccessible-get_accchildcount">IAccessible::get_accChildCount</a>.
+     * 
+     * If a child ID is returned for an element, then the container must provide information about the child element. To obtain information about the element, clients use the container's  <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface pointer and specify the obtained child ID in calls to the <b>IAccessible</b> properties.
+     * 
+     * Clients must call the <a href="https://docs.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method for any <a href="https://docs.microsoft.com/windows/desktop/WinAuto/idispatch-interface">IDispatch</a> interfaces retrieved by this function, and free the array when it is no longer required.
      * @param {IAccessible} paccContainer Type: <b>IAccessible*</b>
      * 
      * Pointer to the container object's <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface.
@@ -2880,19 +2972,23 @@ class Accessibility {
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a>*</b>
      * 
      * Address of a variable that receives the number of elements in the <i>rgvarChildren</i> array that is populated by the <b>AccessibleChildren</b> function. This value is the same as that of the <i>cChildren</i> parameter; however, if you request more children than exist, this value will be less than that of <i>cChildren</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-accessiblechildren
+     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-accessiblechildren
      * @since windows5.0
      */
     static AccessibleChildren(paccContainer, iChildStart, cChildren, rgvarChildren) {
         result := DllCall("OLEACC.dll\AccessibleChildren", "ptr", paccContainer, "int", iChildStart, "int", cChildren, "ptr", rgvarChildren, "int*", &pcObtained := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pcObtained
     }
 
     /**
-     * Retrieves the localized string that describes the object's role for the specified role value.
+     * Retrieves the localized string that describes the object's role for the specified role value. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The oleacc.h header defines GetRoleText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} lRole Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-roles">object role</a> constants.
@@ -2902,12 +2998,12 @@ class Accessibility {
      * @param {Integer} cchRoleMax Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The size of the buffer that is pointed to by the <i>lpszRole</i> parameter. For ANSI strings, this value is measured in bytes; for Unicode strings, it is measured in characters.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * If successful, and if <i>lpszRole</i> is non-<b>NULL</b>, the return value is the number of bytes (ANSI strings) or characters (Unicode strings) copied into the buffer, not including the terminating null character. If <i>lpszRole</i> is <b>NULL</b>, the return value represents the string's length, not including the null character.
      * 
-     * If the string resource does not exist, or if the <i>lpszRole</i> parameter is not a valid pointer, the return value is zero (0). To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-getroletexta
+     * If the string resource does not exist, or if the <i>lpszRole</i> parameter is not a valid pointer, the return value is zero (0). To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-getroletexta
      * @since windows5.0
      */
     static GetRoleTextA(lRole, lpszRole, cchRoleMax) {
@@ -2916,14 +3012,18 @@ class Accessibility {
         A_LastError := 0
 
         result := DllCall("OLEACC.dll\GetRoleTextA", "uint", lRole, "ptr", lpszRole, "uint", cchRoleMax, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Retrieves the localized string that describes the object's role for the specified role value.
+     * Retrieves the localized string that describes the object's role for the specified role value. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The oleacc.h header defines GetRoleText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} lRole Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-roles">object role</a> constants.
@@ -2933,12 +3033,12 @@ class Accessibility {
      * @param {Integer} cchRoleMax Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The size of the buffer that is pointed to by the <i>lpszRole</i> parameter. For ANSI strings, this value is measured in bytes; for Unicode strings, it is measured in characters.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * If successful, and if <i>lpszRole</i> is non-<b>NULL</b>, the return value is the number of bytes (ANSI strings) or characters (Unicode strings) copied into the buffer, not including the terminating null character. If <i>lpszRole</i> is <b>NULL</b>, the return value represents the string's length, not including the null character.
      * 
-     * If the string resource does not exist, or if the <i>lpszRole</i> parameter is not a valid pointer, the return value is zero (0). To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-getroletextw
+     * If the string resource does not exist, or if the <i>lpszRole</i> parameter is not a valid pointer, the return value is zero (0). To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-getroletextw
      * @since windows5.0
      */
     static GetRoleTextW(lRole, lpszRole, cchRoleMax) {
@@ -2947,14 +3047,23 @@ class Accessibility {
         A_LastError := 0
 
         result := DllCall("OLEACC.dll\GetRoleTextW", "uint", lRole, "ptr", lpszRole, "uint", cchRoleMax, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Retrieves a localized string that describes an object's state for a single predefined state bit flag. Because state values are a combination of one or more bit flags, clients call this function more than once to retrieve all state strings.
+     * Retrieves a localized string that describes an object's state for a single predefined state bit flag. Because state values are a combination of one or more bit flags, clients call this function more than once to retrieve all state strings. (ANSI)
+     * @remarks
+     * This function accepts only one state bit at a time, not a bitmask.
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The oleacc.h header defines GetStateText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} lStateBit Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-state-constants">object state constants</a>.
@@ -2964,12 +3073,12 @@ class Accessibility {
      * @param {Integer} cchState Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The size of the buffer that is pointed to by the <i>lpszStateBit</i> parameter. For ANSI strings, this value is measured in bytes; for Unicode strings, it is measured in characters.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * If successful, and if <i>lpszStateBit</i> is non-<b>NULL</b>, the return value is the number of bytes (ANSI strings) or characters (Unicode strings) that are copied into the buffer, not including the null-terminated character. If <i>lpszStateBit</i> is <b>NULL</b>, the return value represents the string's length, not including the null character.
      * 
-     * If the string resource does not exist, or if the <i>lpszStateBit</i> parameter is not a valid pointer, the return value is zero (0). To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-getstatetexta
+     * If the string resource does not exist, or if the <i>lpszStateBit</i> parameter is not a valid pointer, the return value is zero (0). To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-getstatetexta
      * @since windows5.0
      */
     static GetStateTextA(lStateBit, lpszState, cchState) {
@@ -2978,14 +3087,23 @@ class Accessibility {
         A_LastError := 0
 
         result := DllCall("OLEACC.dll\GetStateTextA", "uint", lStateBit, "ptr", lpszState, "uint", cchState, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Retrieves a localized string that describes an object's state for a single predefined state bit flag. Because state values are a combination of one or more bit flags, clients call this function more than once to retrieve all state strings.
+     * Retrieves a localized string that describes an object's state for a single predefined state bit flag. Because state values are a combination of one or more bit flags, clients call this function more than once to retrieve all state strings. (Unicode)
+     * @remarks
+     * This function accepts only one state bit at a time, not a bitmask.
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The oleacc.h header defines GetStateText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} lStateBit Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-state-constants">object state constants</a>.
@@ -2995,12 +3113,12 @@ class Accessibility {
      * @param {Integer} cchState Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The size of the buffer that is pointed to by the <i>lpszStateBit</i> parameter. For ANSI strings, this value is measured in bytes; for Unicode strings, it is measured in characters.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * If successful, and if <i>lpszStateBit</i> is non-<b>NULL</b>, the return value is the number of bytes (ANSI strings) or characters (Unicode strings) that are copied into the buffer, not including the null-terminated character. If <i>lpszStateBit</i> is <b>NULL</b>, the return value represents the string's length, not including the null character.
      * 
-     * If the string resource does not exist, or if the <i>lpszStateBit</i> parameter is not a valid pointer, the return value is zero (0). To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-getstatetextw
+     * If the string resource does not exist, or if the <i>lpszStateBit</i> parameter is not a valid pointer, the return value is zero (0). To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-getstatetextw
      * @since windows5.0
      */
     static GetStateTextW(lStateBit, lpszState, cchState) {
@@ -3009,8 +3127,9 @@ class Accessibility {
         A_LastError := 0
 
         result := DllCall("OLEACC.dll\GetStateTextW", "uint", lStateBit, "ptr", lpszState, "uint", cchState, "uint")
-        if(A_LastError)
-            throw OSError()
+        if(A_LastError) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3018,9 +3137,7 @@ class Accessibility {
     /**
      * Retrieves the version number and build number of the Microsoft Active Accessibility file Oleacc.dll.
      * @remarks
-     * 
      * This function provides an easy way to get the version and build numbers for Oleacc.dll. The <a href="https://docs.microsoft.com/windows/win32/api/winver/nf-winver-getfileversioninfosizea">GetFileVersionInfoSize</a>, <a href="https://docs.microsoft.com/windows/win32/api/winver/nf-winver-getfileversioninfoa">GetFileVersionInfo</a>, and <a href="https://docs.microsoft.com/windows/win32/api/winver/nf-winver-verqueryvaluea">VerQueryValue</a> functions can be used to retrieve the same information.
-     * 
      * @param {Pointer<Integer>} pVer Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
      * 
      * Address of a <b>DWORD</b> that receives the version number. The major version number is placed in the high word, and the minor version number is placed in the low word.
@@ -3028,7 +3145,7 @@ class Accessibility {
      * 
      * Address of a <b>DWORD</b> that receives the build number. The major build number is placed in the high word, and the minor build number is placed in the low word.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-getoleaccversioninfo
+     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-getoleaccversioninfo
      * @since windows5.0
      */
     static GetOleaccVersionInfo(pVer, pBuild) {
@@ -3040,6 +3157,10 @@ class Accessibility {
 
     /**
      * Creates an accessible object with the methods and properties of the specified type of system-provided user interface element.
+     * @remarks
+     * Server applications call this function when they contain a custom UI object that is similar to a system-provided object. Server developers can call <b>CreateStdAccessibleObject</b> to override the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> methods and properties as required to match their custom objects. Alternatively, server developers can use Dynamic Annotation to override specific properties without having to use difficult subclassing techniques that <b>CreateStdAccessibleObject</b> requires. Server developers should still use <b>CreateStdAccessibleObject</b> for structural changes, such as hiding a child element or creating a placeholder child element. This approach saves server developers the work of fully implementing all of the <b>IAccessible</b> properties and methods.
+     * 
+     * This function is similar to <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nf-oleacc-createstdaccessibleproxya">CreateStdAccessibleProxy</a>, except that <b>CreateStdAccessibleProxy</b> allows you to specify the class name as a parameter whereas <b>CreateStdAccessibleObject</b> uses the class name associated with the <i>hwnd</i> parameter.
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Window handle of the system-provided user interface element (a control) for which an accessible object is created.
@@ -3052,21 +3173,35 @@ class Accessibility {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * Address of a pointer variable that receives the address of the specified interface.
-     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-createstdaccessibleobject
+     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-createstdaccessibleobject
      * @since windows5.0
      */
     static CreateStdAccessibleObject(hwnd, idObject, riid) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("OLEACC.dll\CreateStdAccessibleObject", "ptr", hwnd, "int", idObject, "ptr", riid, "ptr*", &ppvObject := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObject
     }
 
     /**
-     * Creates an accessible object that has the properties and methods of the specified class of system-provided user interface element.
+     * Creates an accessible object that has the properties and methods of the specified class of system-provided user interface element. (ANSI)
+     * @remarks
+     * Server applications call this function when they contain a custom control that is similar to a system-provided control. Server applications can call <b>CreateStdAccessibleProxy</b> to override the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> methods and properties as required to match their custom controls. Alternatively, server developers can use Dynamic Annotation to override specific properties without having to use difficult subclassing techniques that were required with <b>CreateStdAccessibleProxy</b>. Server developers should still use <b>CreateStdAccessibleProxy</b> for structural changes, such as hiding a child element or creating a placeholder child element. This approach saves server developers the work of fully implementing all of the <b>IAccessible</b> properties and methods.
+     * 
+     * This function is similar to <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nf-oleacc-createstdaccessibleobject">CreateStdAccessibleObject</a>, except that <b>CreateStdAccessibleObject</b> always uses the class name associated with the <i>hwnd</i> whereas <b>CreateStdAccessibleProxy</b> allows you to specify the class name as a parameter.
+     * 
+     * Use <b>CreateStdAccessibleProxy</b> to create an accessible object for a user interface element that is superclassed. When a user interface element is superclassed, an application creates a custom control with a window class name different from the predefined control on which it is based. Because the class name associated with the <i>hwnd</i> parameter is the superclass window class name, specify the base class name (the system class name on which the superclassed control is based) in <i>pszClassName</i>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The oleacc.h header defines CreateStdAccessibleProxy as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Window handle of the system-provided user interface element (a control) for which an accessible object is created.
@@ -3082,7 +3217,7 @@ class Accessibility {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * Address of a pointer variable that receives the address of the specified interface.
-     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-createstdaccessibleproxya
+     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-createstdaccessibleproxya
      * @since windows5.0
      */
     static CreateStdAccessibleProxyA(hwnd, pClassName, idObject, riid) {
@@ -3090,14 +3225,28 @@ class Accessibility {
         pClassName := pClassName is String ? StrPtr(pClassName) : pClassName
 
         result := DllCall("OLEACC.dll\CreateStdAccessibleProxyA", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, "ptr*", &ppvObject := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObject
     }
 
     /**
-     * Creates an accessible object that has the properties and methods of the specified class of system-provided user interface element.
+     * Creates an accessible object that has the properties and methods of the specified class of system-provided user interface element. (Unicode)
+     * @remarks
+     * Server applications call this function when they contain a custom control that is similar to a system-provided control. Server applications can call <b>CreateStdAccessibleProxy</b> to override the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> methods and properties as required to match their custom controls. Alternatively, server developers can use Dynamic Annotation to override specific properties without having to use difficult subclassing techniques that were required with <b>CreateStdAccessibleProxy</b>. Server developers should still use <b>CreateStdAccessibleProxy</b> for structural changes, such as hiding a child element or creating a placeholder child element. This approach saves server developers the work of fully implementing all of the <b>IAccessible</b> properties and methods.
+     * 
+     * This function is similar to <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nf-oleacc-createstdaccessibleobject">CreateStdAccessibleObject</a>, except that <b>CreateStdAccessibleObject</b> always uses the class name associated with the <i>hwnd</i> whereas <b>CreateStdAccessibleProxy</b> allows you to specify the class name as a parameter.
+     * 
+     * Use <b>CreateStdAccessibleProxy</b> to create an accessible object for a user interface element that is superclassed. When a user interface element is superclassed, an application creates a custom control with a window class name different from the predefined control on which it is based. Because the class name associated with the <i>hwnd</i> parameter is the superclass window class name, specify the base class name (the system class name on which the superclassed control is based) in <i>pszClassName</i>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The oleacc.h header defines CreateStdAccessibleProxy as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Window handle of the system-provided user interface element (a control) for which an accessible object is created.
@@ -3113,7 +3262,7 @@ class Accessibility {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * Address of a pointer variable that receives the address of the specified interface.
-     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-createstdaccessibleproxyw
+     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-createstdaccessibleproxyw
      * @since windows5.0
      */
     static CreateStdAccessibleProxyW(hwnd, pClassName, idObject, riid) {
@@ -3121,14 +3270,19 @@ class Accessibility {
         pClassName := pClassName is String ? StrPtr(pClassName) : pClassName
 
         result := DllCall("OLEACC.dll\CreateStdAccessibleProxyW", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, "ptr*", &ppvObject := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppvObject
     }
 
     /**
      * Sets system values that indicate whether an assistive technology (AT) application's current state affects functionality that is typically provided by the system.
+     * @remarks
+     * Before it exits, an AT application should reset any system values that it previously set. 
+     * 
+     * This function requires the calling process to have UIAccess or higher privileges.  If the caller does not have the required privileges, the call to <b>AccSetRunningUtilityState</b> fails and returns <b>E_ACCESSDENIED</b>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-securityoverview">Security Considerations for Assistive Technologies</a> and <a href="https://docs.microsoft.com/cpp/build/reference/manifestuac-embeds-uac-information-in-manifest">/MANIFESTUAC (Embeds UAC information in manifest)</a>.
      * @param {HWND} hwndApp Type: <b>HWND</b>
      * 
      * The handle of the AT application window. This parameter must not be <b>NULL</b>.
@@ -3141,29 +3295,34 @@ class Accessibility {
      * 
      * If successful, returns S_OK.
      * 
-     * If not successful, returns a standard <a href="/windows/desktop/WinAuto/return-values">COM error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-accsetrunningutilitystate
+     * If not successful, returns a standard <a href="https://docs.microsoft.com/windows/desktop/WinAuto/return-values">COM error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-accsetrunningutilitystate
      * @since windows8.0
      */
     static AccSetRunningUtilityState(hwndApp, dwUtilityStateMask, dwUtilityState) {
         hwndApp := hwndApp is Win32Handle ? NumGet(hwndApp, "ptr") : hwndApp
 
         result := DllCall("OLEACC.dll\AccSetRunningUtilityState", "ptr", hwndApp, "uint", dwUtilityStateMask, "uint", dwUtilityState, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Allows an assistive technology (AT) application to notify the system that it is interacting with UI through a Windows Automation API (such as Microsoft UI Automation) as a result of a touch gesture from the user.
+     * @remarks
+     * This function requires the calling process to have UIAccess or higher privileges.  If the caller does not have the required privileges, the call to <b>AccNotifyTouchInteraction</b> fails and returns <b>E_ACCESSDENIED</b>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-securityoverview">Security Considerations for Assistive Technologies</a> and <a href="https://docs.microsoft.com/cpp/build/reference/manifestuac-embeds-uac-information-in-manifest">/MANIFESTUAC (Embeds UAC information in manifest)</a>.
+     * 
+     * When an AT is consuming touch data (such as when using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerpointerinputtarget">RegisterPointerInputTarget</a> function), the shell and applications that the AT interacts with through the Windows Automation API are not aware that the user is interacting through touch. For the system to expose touch-related functionality to the user, the AT must use <b>AccNotifyTouchInteraction</b> to notify the system that it is performing the interaction in response to user touch input.
      * @param {HWND} hwndApp A window that belongs to the AT process that is calling <b>AccNotifyTouchInteraction</b>.
      * @param {HWND} hwndTarget The nearest window of the automation element that the AT is targeting.
      * @param {POINT} ptTarget The center point of the automation element (or a point in the bounding rectangle of the element).
      * @returns {HRESULT} If successful, returns S_OK.
      * 
-     * If not successful, returns a standard <a href="/windows/desktop/WinAuto/return-values">COM error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-accnotifytouchinteraction
+     * If not successful, returns a standard <a href="https://docs.microsoft.com/windows/desktop/WinAuto/return-values">COM error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-accnotifytouchinteraction
      * @since windows8.0
      */
     static AccNotifyTouchInteraction(hwndApp, hwndTarget, ptTarget) {
@@ -3171,8 +3330,9 @@ class Accessibility {
         hwndTarget := hwndTarget is Win32Handle ? NumGet(hwndTarget, "ptr") : hwndTarget
 
         result := DllCall("OLEACC.dll\AccNotifyTouchInteraction", "ptr", hwndApp, "ptr", hwndTarget, "ptr", ptTarget, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3182,10 +3342,10 @@ class Accessibility {
      * @param {Pointer<BSTR>} pDescription Type: <b>BSTR*</b>
      * 
      * The address of a variable that receives the description of the error. This parameter is passed uninitialized.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if an error description can be reported; otherwise <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiageterrordescription
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiageterrordescription
      * @since windows5.1.2600
      */
     static UiaGetErrorDescription(pDescription) {
@@ -3202,16 +3362,17 @@ class Accessibility {
      * 
      * The address of a variable that receives the HUIANODE.
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiahuianodefromvariant
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiahuianodefromvariant
      * @since windows5.1.2600
      */
     static UiaHUiaNodeFromVariant(pvar, phnode) {
         result := DllCall("UIAutomationCore.dll\UiaHUiaNodeFromVariant", "ptr", pvar, "ptr", phnode, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3225,16 +3386,17 @@ class Accessibility {
      * 
      * The address of a variable that receives the control pattern object.
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiahpatternobjectfromvariant
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiahpatternobjectfromvariant
      * @since windows5.1.2600
      */
     static UiaHPatternObjectFromVariant(pvar, phobj) {
         result := DllCall("UIAutomationCore.dll\UiaHPatternObjectFromVariant", "ptr", pvar, "ptr", phobj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3248,16 +3410,17 @@ class Accessibility {
      * 
      * The address of a variable that receives the text range.
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiahtextrangefromvariant
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiahtextrangefromvariant
      * @since windows5.1.2600
      */
     static UiaHTextRangeFromVariant(pvar, phtextrange) {
         result := DllCall("UIAutomationCore.dll\UiaHTextRangeFromVariant", "ptr", pvar, "ptr", phtextrange, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3267,10 +3430,10 @@ class Accessibility {
      * @param {HUIANODE} hnode Type: <b>HUIANODE</b>
      * 
      * The node to be deleted.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if the node was successfully deleted; otherwise <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uianoderelease
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uianoderelease
      * @since windows5.1.2600
      */
     static UiaNodeRelease(hnode) {
@@ -3292,18 +3455,19 @@ class Accessibility {
      * 
      * Receives the value of the specified property, or the value returned by <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiagetreservednotsupportedvalue">UiaGetReservedNotSupportedValue</a> if the property is not supported.
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiagetpropertyvalue
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiagetpropertyvalue
      * @since windows5.1.2600
      */
     static UiaGetPropertyValue(hnode, propertyId, pValue) {
         hnode := hnode is Win32Handle ? NumGet(hnode, "ptr") : hnode
 
         result := DllCall("UIAutomationCore.dll\UiaGetPropertyValue", "ptr", hnode, "int", propertyId, "ptr", pValue, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3320,34 +3484,37 @@ class Accessibility {
      * 
      * The address of a variable that receives a handle to the control pattern.
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiagetpatternprovider
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiagetpatternprovider
      * @since windows5.1.2600
      */
     static UiaGetPatternProvider(hnode, patternId, phobj) {
         hnode := hnode is Win32Handle ? NumGet(hnode, "ptr") : hnode
 
         result := DllCall("UIAutomationCore.dll\UiaGetPatternProvider", "ptr", hnode, "int", patternId, "ptr", phobj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Retrieves the runtime identifier of a UI Automation node.
+     * @remarks
+     * The runtime identifier should be treated as an opaque value and used only for comparison.
      * @param {HUIANODE} hnode Type: <b>HUIANODE</b>
      * 
      * The node for which the identifier is being requested.
      * @param {Pointer<Pointer<SAFEARRAY>>} pruntimeId Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * The address of a variable that receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> that contains the runtime identifier of the type VT_I4. This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiagetruntimeid
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiagetruntimeid
      * @since windows5.1.2600
      */
     static UiaGetRuntimeId(hnode, pruntimeId) {
@@ -3356,8 +3523,9 @@ class Accessibility {
         pruntimeIdMarshal := pruntimeId is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("UIAutomationCore.dll\UiaGetRuntimeId", "ptr", hnode, pruntimeIdMarshal, pruntimeId, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3367,24 +3535,35 @@ class Accessibility {
      * @param {HUIANODE} hnode Type: <b>HUIANODE</b>
      * 
      * The element that receives focus.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiasetfocus
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiasetfocus
      * @since windows5.1.2600
      */
     static UiaSetFocus(hnode) {
         hnode := hnode is Win32Handle ? NumGet(hnode, "ptr") : hnode
 
         result := DllCall("UIAutomationCore.dll\UiaSetFocus", "ptr", hnode, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Navigates in the UI Automation tree, optionally retrieving cached information.
+     * @remarks
+     * The tree structure is described by a string where every character is either "p" or ")". 
+     * 			The first character in the string always represents the root node. 
+     * The string is <b>NULL</b> if no elements are returned by the function.
+     * 			
+     * 
+     * A "p" represents a node 
+     * 			(UI Automation element). When one "p" directly follows another, the second node is a child of the first.
+     * 			A ")" represents a step back up the tree. For example, "pp)p" represents a node followed
+     * 			by two child nodes that are siblings of one another. In "pp))p", the last node is a sibling of the first one.
      * @param {HUIANODE} hnode Type: <b>HUIANODE</b>
      * 
      * The element on which the navigation begins.
@@ -3404,10 +3583,10 @@ class Accessibility {
      * 
      * The address of a variable that receives the description of the tree structure. 
      * 				This parameter is passed uninitialized. See Remarks.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uianavigate
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uianavigate
      * @since windows5.1.2600
      */
     static UiaNavigate(hnode, direction, pCondition, pRequest, ppRequestedData, ppTreeStructure) {
@@ -3416,14 +3595,25 @@ class Accessibility {
         ppRequestedDataMarshal := ppRequestedData is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("UIAutomationCore.dll\UiaNavigate", "ptr", hnode, "int", direction, "ptr", pCondition, "ptr", pRequest, ppRequestedDataMarshal, ppRequestedData, "ptr", ppTreeStructure, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Updates the cache of property values and control patterns.
+     * @remarks
+     * The tree structure is described by a string where every character is either "p" or ")". 
+     * 			The first character in the string always represents the root node. 
+     * The string is <b>NULL</b> if no elements are returned by the function.
+     * 			
+     * 
+     * A "p" represents a node 
+     * 			(UI Automation element). When one "p" directly follows another, the second node is a child of the first.
+     * 			A ")" represents a step back up the tree. For example, "pp)p" represents a node followed
+     * 			by two child nodes that are siblings of one another. In "pp))p", the last node is a sibling of the first one.
      * @param {HUIANODE} hnode Type: <b>HUIANODE</b>
      * 
      * The element that updated information is being requested for.
@@ -3443,10 +3633,10 @@ class Accessibility {
      * 
      * A pointer to the description of the tree structure.
      * 				This parameter is passed uninitialized. See Remarks.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiagetupdatedcache
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiagetupdatedcache
      * @since windows5.1.2600
      */
     static UiaGetUpdatedCache(hnode, pRequest, normalizeState, pNormalizeCondition, ppRequestedData, ppTreeStructure) {
@@ -3455,14 +3645,25 @@ class Accessibility {
         ppRequestedDataMarshal := ppRequestedData is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("UIAutomationCore.dll\UiaGetUpdatedCache", "ptr", hnode, "ptr", pRequest, "int", normalizeState, "ptr", pNormalizeCondition, ppRequestedDataMarshal, ppRequestedData, "ptr", ppTreeStructure, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Retrieves one or more UI Automation nodes that match the search criteria.
+     * @remarks
+     * The tree structure is described by a string where every character is either "p" or ")". 
+     * 			The first character in the string always represents the root node. 
+     * The string is <b>NULL</b> if no elements are returned by the function.
+     * 			
+     * 
+     * A "p" represents a node 
+     * 			(UI Automation element). When one "p" directly follows another, the second node is a child of the first.
+     * 			A ")" represents a step back up the tree. For example, "pp)p" represents a node followed
+     * 			by two child nodes that are siblings of one another. In "pp))p", the last node is a sibling of the first one.
      * @param {HUIANODE} hnode Type: <b>HUIANODE</b>
      * 
      * The node to use as starting-point of the search.
@@ -3481,10 +3682,10 @@ class Accessibility {
      * @param {Pointer<Pointer<SAFEARRAY>>} ppTreeStructures Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * The address of a variable that receives a pointer to a SAFEARRAY containing the description of the tree structure. This parameter is passed uninitialized. See Remarks.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiafind
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiafind
      * @since windows5.1.2600
      */
     static UiaFind(hnode, pParams, pRequest, ppRequestedData, ppOffsets, ppTreeStructures) {
@@ -3495,14 +3696,27 @@ class Accessibility {
         ppTreeStructuresMarshal := ppTreeStructures is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("UIAutomationCore.dll\UiaFind", "ptr", hnode, "ptr", pParams, "ptr", pRequest, ppRequestedDataMarshal, ppRequestedData, ppOffsetsMarshal, ppOffsets, ppTreeStructuresMarshal, ppTreeStructures, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Retrieves the UI Automation node for the element at the specified point.
+     * @remarks
+     * The element returned will be the closest element in the UI Automation tree structure that matches the specified criteria.
+     * 
+     * The tree structure is described by a string where every character is either "p" or ")". 
+     * 			The first character in the string always represents the root node. 
+     * The string is <b>NULL</b> if no elements are returned by the function.
+     * 			
+     * 
+     * A "p" represents a node 
+     * 			(UI Automation element). When one "p" directly follows another, the second node is a child of the first.
+     * 			A ")" represents a step back up the tree. For example, "pp)p" represents a node followed
+     * 			by two child nodes that are siblings of one another. In "pp))p", the last node is a sibling of the first one.
      * @param {Float} x Type: <b>double</b>
      * 
      * The horizontal coordinate of the point.
@@ -3519,24 +3733,35 @@ class Accessibility {
      * 
      * The address of a variable that receives the description of the tree structure.
      * 				This parameter is passed uninitialized. See Remarks.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uianodefrompoint
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uianodefrompoint
      * @since windows5.1.2600
      */
     static UiaNodeFromPoint(x, y, pRequest, ppRequestedData, ppTreeStructure) {
         ppRequestedDataMarshal := ppRequestedData is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("UIAutomationCore.dll\UiaNodeFromPoint", "double", x, "double", y, "ptr", pRequest, ppRequestedDataMarshal, ppRequestedData, "ptr", ppTreeStructure, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Retrieves the UI Automation node for the UI element that currently has input focus.
+     * @remarks
+     * The tree structure is described by a string where every character is either "p" or ")". 
+     * 			The first character in the string always represents the root node. 
+     * The string is <b>NULL</b> if no elements are returned by the function.
+     * 			
+     * 
+     * A "p" represents a node 
+     * 			(UI Automation element). When one "p" directly follows another, the second node is a child of the first.
+     * 			A ")" represents a step back up the tree. For example, "pp)p" represents a node followed
+     * 			by two child nodes that are siblings of one another. In "pp))p", the last node is a sibling of the first one.
      * @param {Pointer<UiaCacheRequest>} pRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacacherequest">UiaCacheRequest</a>*</b>
      * 
      * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacacherequest">UiaCacheRequest</a> structure that contains information about data to be cached.
@@ -3548,18 +3773,19 @@ class Accessibility {
      * 
      * The address of a variable that receives the description of the tree structure. 
      * 				This parameter is passed uninitialized. See Remarks.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uianodefromfocus
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uianodefromfocus
      * @since windows5.1.2600
      */
     static UiaNodeFromFocus(pRequest, ppRequestedData, ppTreeStructure) {
         ppRequestedDataMarshal := ppRequestedData is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("UIAutomationCore.dll\UiaNodeFromFocus", "ptr", pRequest, ppRequestedDataMarshal, ppRequestedData, "ptr", ppTreeStructure, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3573,18 +3799,19 @@ class Accessibility {
      * 
      * The address of a variable that receives the handle of the node.
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uianodefromhandle
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uianodefromhandle
      * @since windows5.1.2600
      */
     static UiaNodeFromHandle(hwnd, phnode) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("UIAutomationCore.dll\UiaNodeFromHandle", "ptr", hwnd, "ptr", phnode, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3598,16 +3825,17 @@ class Accessibility {
      * 
      * The address of a variable that receives the UI Automation node for the raw element provider.
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uianodefromprovider
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uianodefromprovider
      * @since windows5.1.2600
      */
     static UiaNodeFromProvider(pProvider, phnode) {
         result := DllCall("UIAutomationCore.dll\UiaNodeFromProvider", "ptr", pProvider, "ptr", phnode, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3618,16 +3846,17 @@ class Accessibility {
      * 
      * The address of a variable that receives a handle to the root node.
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiagetrootnode
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiagetrootnode
      * @since windows5.1.2600
      */
     static UiaGetRootNode(phnode) {
         result := DllCall("UIAutomationCore.dll\UiaGetRootNode", "ptr", phnode, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3638,7 +3867,7 @@ class Accessibility {
      * 
      * The address of the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nc-uiautomationcoreapi-uiaprovidercallback">UiaProviderCallback</a> callback function that returns the provider.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiaregisterprovidercallback
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaregisterprovidercallback
      * @since windows5.1.2600
      */
     static UiaRegisterProviderCallback(pCallback) {
@@ -3658,7 +3887,7 @@ class Accessibility {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns an integer identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uialookupid
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uialookupid
      * @since windows5.1.2600
      */
     static UiaLookupId(type, pGuid) {
@@ -3672,13 +3901,14 @@ class Accessibility {
      * 
      * Receives the object representing the value.
      *     This parameter is passed uninitialized.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiagetreservednotsupportedvalue
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiagetreservednotsupportedvalue
      * @since windows5.1.2600
      */
     static UiaGetReservedNotSupportedValue() {
         result := DllCall("UIAutomationCore.dll\UiaGetReservedNotSupportedValue", "ptr*", &punkNotSupportedValue := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IUnknown(punkNotSupportedValue)
     }
@@ -3691,23 +3921,24 @@ class Accessibility {
      *     a reserved value specifying that 
      *     an attribute varies over a text range.
      *     This parameter is passed uninitialized.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiagetreservedmixedattributevalue
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiagetreservedmixedattributevalue
      * @since windows5.1.2600
      */
     static UiaGetReservedMixedAttributeValue() {
         result := DllCall("UIAutomationCore.dll\UiaGetReservedMixedAttributeValue", "ptr*", &punkMixedAttributeValue := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IUnknown(punkMixedAttributeValue)
     }
 
     /**
      * Gets a value that indicates whether any client application is subscribed to Microsoft UI Automation events.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if a client has subscribed to events; otherwise <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiaclientsarelistening
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaclientsarelistening
      * @since windows5.1.2600
      */
     static UiaClientsAreListening() {
@@ -3729,44 +3960,50 @@ class Accessibility {
      * @param {VARIANT} newValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinAuto/variant-structure">VARIANT</a></b>
      * 
      * The new value of the property.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiaraiseautomationpropertychangedevent
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaraiseautomationpropertychangedevent
      * @since windows5.1.2600
      */
     static UiaRaiseAutomationPropertyChangedEvent(pProvider, id, oldValue, newValue) {
         result := DllCall("UIAutomationCore.dll\UiaRaiseAutomationPropertyChangedEvent", "ptr", pProvider, "int", id, "ptr", oldValue, "ptr", newValue, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Notifies listeners of an event.
+     * @remarks
+     * This function increments the reference counter of the <i>pProvider</i> interface, and UI Automation decrements the reference counter when the event handers finish processing the event.
      * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The provider element where the event occurred.
      * @param {Integer} id Type: <b>EVENTID</b>
      * 
      * The identifier of the event to be raised. For a list of event IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">Event Identifiers</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiaraiseautomationevent
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaraiseautomationevent
      * @since windows5.1.2600
      */
     static UiaRaiseAutomationEvent(pProvider, id) {
         result := DllCall("UIAutomationCore.dll\UiaRaiseAutomationEvent", "ptr", pProvider, "int", id, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Called by a provider to notify the Microsoft UI Automation core that the tree structure has changed.
+     * @remarks
+     * An example of a change in the tree structure is child elements being added to or removed from a list box, or being expanded or collapsed in a tree view.
      * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The provider node where the tree change occurred.
@@ -3781,18 +4018,19 @@ class Accessibility {
      * @param {Integer} cRuntimeIdLen Type: <b>int</b>
      * 
      * Length of the array of integers.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiaraisestructurechangedevent
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaraisestructurechangedevent
      * @since windows5.1.2600
      */
     static UiaRaiseStructureChangedEvent(pProvider, structureChangeType, pRuntimeId, cRuntimeIdLen) {
         pRuntimeIdMarshal := pRuntimeId is VarRef ? "int*" : "ptr"
 
         result := DllCall("UIAutomationCore.dll\UiaRaiseStructureChangedEvent", "ptr", pProvider, "int", structureChangeType, pRuntimeIdMarshal, pRuntimeId, "int", cRuntimeIdLen, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3808,22 +4046,35 @@ class Accessibility {
      * @param {Float} percentComplete Type: <b>double</b>
      * 
      * The percentage of content that has been loaded.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiaraiseasynccontentloadedevent
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaraiseasynccontentloadedevent
      * @since windows5.1.2600
      */
     static UiaRaiseAsyncContentLoadedEvent(pProvider, asyncContentLoadedState, percentComplete) {
         result := DllCall("UIAutomationCore.dll\UiaRaiseAsyncContentLoadedEvent", "ptr", pProvider, "int", asyncContentLoadedState, "double", percentComplete, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Called by a provider to notify the Microsoft UI Automation core that a text control has programmatically changed text.
+     * Called by a provider to notify the Microsoft UI Automation core that a text control has programmatically changed text. (UiaRaiseTextEditTextChangedEvent)
+     * @remarks
+     * This is a helper function for providers that implement <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-itexteditprovider">ITextEditProvider</a> and are raising the pattern's required events. Follow the guidance given in <a href="https://docs.microsoft.com/windows/desktop/WinAuto/textedit-control-pattern">TextEdit Control Pattern</a> that describes when to raise the events and what payload the events should pass to UI Automation.
+     * 
+     * If there are no clients listening for a particular change type, no event is raised.
+     * 
+     * The event data should contain different payloads for each change type (per <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-texteditchangetype">TextEditChangeType</a>):
+     * 
+     * <ul>
+     * <li><b>TextEditChangeType_AutoCorrect</b>: <i>pChangedData</i> should be the new corrected string .</li>
+     * <li><b>TextEditChangeType_Composition</b>: <i>pChangedData</i> should be the updated string in the composition (only the part that changed).</li>
+     * <li><b>TextEditChangeType_CompositionFinalized</b>: <i>pChangedData</i> should be the finalized string of the completed composition (this may be empty if composition was canceled or deleted).</li>
+     * </ul>
      * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The provider node where the text change occurred.
@@ -3833,16 +4084,17 @@ class Accessibility {
      * @param {Pointer<SAFEARRAY>} pChangedData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-workingwithsafearrays">SAFEARRAY</a>*</b>
      * 
      * The event data. Should be assignable as a <b>VAR</b> of type <b>VT_BSTR</b>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiaraisetextedittextchangedevent
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaraisetextedittextchangedevent
      * @since windows8.1
      */
     static UiaRaiseTextEditTextChangedEvent(pProvider, textEditChangeType, pChangedData) {
         result := DllCall("UIAutomationCore.dll\UiaRaiseTextEditTextChangedEvent", "ptr", pProvider, "int", textEditChangeType, "ptr", pChangedData, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3854,29 +4106,32 @@ class Accessibility {
      * The provider node where the change event occurred.
      * @param {Integer} eventIdCount The number of changes that occurred. This is the number of <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ns-uiautomationcore-uiachangeinfo">UiaChangeInfo</a> structures pointed to by the <i>pUiaChanges</i> parameter.
      * @param {Pointer<UiaChangeInfo>} pUiaChanges A collection of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ns-uiautomationcore-uiachangeinfo">UiaChangeInfo</a> structures.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * <a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a> value indicating success or failure.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiaraisechangesevent
+     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a> value indicating success or failure.
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaraisechangesevent
      * @since windows10.0.10240
      */
     static UiaRaiseChangesEvent(pProvider, eventIdCount, pUiaChanges) {
         result := DllCall("UIAutomationCore.dll\UiaRaiseChangesEvent", "ptr", pProvider, "int", eventIdCount, "ptr", pUiaChanges, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Called by providers to initiate a notification event.
+     * @remarks
+     * If your window uses the [`WS_POPUP`](/windows/win32/winmsg/window-styles) style, it must also implement the [Window Control Pattern](/windows/win32/winauto/uiauto-implementingwindow) and handle the [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message (see [How to Expose a Server-Side UI Automation Provider](/windows/win32/winauto/uiauto-howto-expose-serverside-uiautomation-provider) for more details).
      * @param {IRawElementProviderSimple} provider The provider node where the notification event occurred.
      * @param {Integer} notificationKind The type of notification, as a [NotificationKind enumeration](../uiautomationcore/ne-uiautomationcore-notificationkind.md) value.
      * @param {Integer} notificationProcessing The preferred way to process a notification, as a [NotificationProcessing enumeration](../uiautomationcore/ne-uiautomationcore-notificationprocessing.md) value.
      * @param {BSTR} displayString A string to display in the notification message.
      * @param {BSTR} activityId A unique non-localized string to identify an action or group of actions. Use this to pass additional information to the event handler.
      * @returns {HRESULT} If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiaraisenotificationevent
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaraisenotificationevent
      * @since windows10.0.16299
      */
     static UiaRaiseNotificationEvent(provider, notificationKind, notificationProcessing, displayString, activityId) {
@@ -3884,30 +4139,32 @@ class Accessibility {
         activityId := activityId is Win32Handle ? NumGet(activityId, "ptr") : activityId
 
         result := DllCall("UIAutomationCore.dll\UiaRaiseNotificationEvent", "ptr", provider, "int", notificationKind, "int", notificationProcessing, "ptr", displayString, "ptr", activityId, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Called by a provider to notify the Microsoft UI Automation core that a text control has programmatically changed text.
+     * Called by a provider to notify the Microsoft UI Automation core that a text control has programmatically changed text. (UiaRaiseActiveTextPositionChangedEvent)
      * @param {IRawElementProviderSimple} provider Type: <b><a href="https://docs.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The provider node where the position change within the text occurred.
      * @param {ITextRangeProvider} textRange Type: <b><a href="https://docs.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-itextrangeprovider">ITextRangeProvider</a>*</b>
      * 
      * The text range change that occurred, if applicable.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiaraiseactivetextpositionchangedevent
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaraiseactivetextpositionchangedevent
      * @since windows8.1
      */
     static UiaRaiseActiveTextPositionChangedEvent(provider, textRange) {
         result := DllCall("UIAutomationCore.dll\UiaRaiseActiveTextPositionChangedEvent", "ptr", provider, "ptr", textRange, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3941,10 +4198,10 @@ class Accessibility {
      * When this function returns, contains 
      * 				a pointer to the event that is added. 
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiaaddevent
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaaddevent
      * @since windows5.1.2600
      */
     static UiaAddEvent(hnode, eventId, pCallback, scope, pProperties, cProperties, pRequest, phEvent) {
@@ -3954,29 +4211,34 @@ class Accessibility {
         pPropertiesMarshal := pProperties is VarRef ? "int*" : "ptr"
 
         result := DllCall("UIAutomationCore.dll\UiaAddEvent", "ptr", hnode, "int", eventId, pCallbackMarshal, pCallback, "int", scope, pPropertiesMarshal, pProperties, "int", cProperties, "ptr", pRequest, "ptr", phEvent, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Removes a listener for events on a node in the UI Automation tree.
+     * @remarks
+     * The callback pointer, the scope, the node, and the list of properties must match exactly the parameters that were sent to the 
+     * corresponding <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaaddevent">UiaAddEvent</a>.
      * @param {HUIAEVENT} hEvent Type: <b>HUIAEVENT</b>
      * 
      * The event to remove. This value was retrieved from <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaaddevent">UiaAddEvent</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiaremoveevent
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaremoveevent
      * @since windows5.1.2600
      */
     static UiaRemoveEvent(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
         result := DllCall("UIAutomationCore.dll\UiaRemoveEvent", "ptr", hEvent, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -3989,10 +4251,10 @@ class Accessibility {
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The handle of the window to add.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiaeventaddwindow
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaeventaddwindow
      * @since windows5.1.2600
      */
     static UiaEventAddWindow(hEvent, hwnd) {
@@ -4000,8 +4262,9 @@ class Accessibility {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("UIAutomationCore.dll\UiaEventAddWindow", "ptr", hEvent, "ptr", hwnd, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4014,10 +4277,10 @@ class Accessibility {
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The handle of the window to remove.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiaeventremovewindow
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaeventremovewindow
      * @since windows5.1.2600
      */
     static UiaEventRemoveWindow(hEvent, hwnd) {
@@ -4025,8 +4288,9 @@ class Accessibility {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("UIAutomationCore.dll\UiaEventRemoveWindow", "ptr", hEvent, "ptr", hwnd, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4039,18 +4303,19 @@ class Accessibility {
      * @param {Integer} dockPosition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-dockposition">DockPosition</a></b>
      * 
      * The location to dock the control to.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-dockpattern_setdockposition
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-dockpattern_setdockposition
      * @since windows5.1.2600
      */
     static DockPattern_SetDockPosition(hobj, dockPosition) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\DockPattern_SetDockPosition", "ptr", hobj, "int", dockPosition, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4060,18 +4325,19 @@ class Accessibility {
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The <i>control pattern</i> object.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-expandcollapsepattern_collapse
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-expandcollapsepattern_collapse
      * @since windows5.1.2600
      */
     static ExpandCollapsePattern_Collapse(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\ExpandCollapsePattern_Collapse", "ptr", hobj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4081,24 +4347,27 @@ class Accessibility {
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The <i>control pattern</i> object.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-expandcollapsepattern_expand
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-expandcollapsepattern_expand
      * @since windows5.1.2600
      */
     static ExpandCollapsePattern_Expand(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\ExpandCollapsePattern_Expand", "ptr", hobj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Gets the node for an item in a grid.
+     * @remarks
+     * Row 0, column 0 is the first item in a grid.
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The <i>control pattern</i> object.
@@ -4112,45 +4381,47 @@ class Accessibility {
      * 
      * When this function returns, contains a pointer to the node for the cell 
      * 				at the specified location. This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-gridpattern_getitem
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-gridpattern_getitem
      * @since windows5.1.2600
      */
     static GridPattern_GetItem(hobj, row, column, pResult) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\GridPattern_GetItem", "ptr", hobj, "int", row, "int", column, "ptr", pResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Sends a request to activate a control and initiate its single, unambiguous action.
+     * Sends a request to activate a control and initiate its single, unambiguous action. (InvokePattern_Invoke)
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The <i>control pattern</i> object.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-invokepattern_invoke
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-invokepattern_invoke
      * @since windows5.1.2600
      */
     static InvokePattern_Invoke(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\InvokePattern_Invoke", "ptr", hobj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Retrieves the name of a control-specific view.
+     * Retrieves the name of a control-specific view. (MultipleViewPattern_GetViewName)
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The <i>control pattern</i> object.
@@ -4161,18 +4432,19 @@ class Accessibility {
      * 
      * When this function returns, contains a pointer to the string containing the name of the view. 
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-multipleviewpattern_getviewname
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-multipleviewpattern_getviewname
      * @since windows5.1.2600
      */
     static MultipleViewPattern_GetViewName(hobj, viewId, ppStr) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\MultipleViewPattern_GetViewName", "ptr", hobj, "int", viewId, "ptr", ppStr, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4185,18 +4457,19 @@ class Accessibility {
      * @param {Integer} viewId Type: <b>int</b>
      * 
      * The control-specific identifier for the view.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-multipleviewpattern_setcurrentview
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-multipleviewpattern_setcurrentview
      * @since windows5.1.2600
      */
     static MultipleViewPattern_SetCurrentView(hobj, viewId) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\MultipleViewPattern_SetCurrentView", "ptr", hobj, "int", viewId, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4209,39 +4482,44 @@ class Accessibility {
      * @param {Float} val Type: <b>double</b>
      * 
      * The value to set.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-rangevaluepattern_setvalue
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-rangevaluepattern_setvalue
      * @since windows5.1.2600
      */
     static RangeValuePattern_SetValue(hobj, val) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\RangeValuePattern_SetValue", "ptr", hobj, "double", val, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Scrolls the content area of a container object in order to display the UI Automation element within the visible region (viewport) of the container.
+     * @remarks
+     * This method does not guarantee the position of the UI Automation element 
+     *             within the visible region (viewport) of the container.
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The control pattern object.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-scrollitempattern_scrollintoview
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-scrollitempattern_scrollintoview
      * @since windows5.1.2600
      */
     static ScrollItemPattern_ScrollIntoView(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\ScrollItemPattern_ScrollIntoView", "ptr", hobj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4257,24 +4535,30 @@ class Accessibility {
      * @param {Integer} verticalAmount Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-scrollamount">ScrollAmount</a></b>
      * 
      * The amount to scroll the container on the vertical axis, as a percentage.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-scrollpattern_scroll
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-scrollpattern_scroll
      * @since windows5.1.2600
      */
     static ScrollPattern_Scroll(hobj, horizontalAmount, verticalAmount) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\ScrollPattern_Scroll", "ptr", hobj, "int", horizontalAmount, "int", verticalAmount, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Scrolls a container to a specific position horizontally, vertically, or both.
+     * @remarks
+     * The scroll area is normalized to range from 0.0 to 100.0. If the position is set to 0.0, the control 
+     * scrolls to the beginning of the 
+     * visible region, and if the position is set to 100.0, it  scrolls to the end of the visible region. 
+     * Pass -1.0 for the percent parameters if no scrolling occurs on that axis.
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The control pattern object.
@@ -4284,81 +4568,94 @@ class Accessibility {
      * @param {Float} verticalPercent Type: <b>double</b>
      * 
      * The vertical position to scroll to.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-scrollpattern_setscrollpercent
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-scrollpattern_setscrollpercent
      * @since windows5.1.2600
      */
     static ScrollPattern_SetScrollPercent(hobj, horizontalPercent, verticalPercent) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\ScrollPattern_SetScrollPercent", "ptr", hobj, "double", horizontalPercent, "double", verticalPercent, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Adds an unselected element to a selection in a control.
+     * @remarks
+     * In a control that supports multiple selection, this function adds an item to the selection. In a single-selection control,
+     * it deselects the currently selected item and selects the specified item.
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The control pattern object.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-selectionitempattern_addtoselection
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-selectionitempattern_addtoselection
      * @since windows5.1.2600
      */
     static SelectionItemPattern_AddToSelection(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\SelectionItemPattern_AddToSelection", "ptr", hobj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Removes an element from the selection in a selection container.
+     * @remarks
+     * The function has no effect if an attempt is made to remove the last selected element in a control that requires at
+     * least one element to be selected.
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The control pattern object.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-selectionitempattern_removefromselection
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-selectionitempattern_removefromselection
      * @since windows5.1.2600
      */
     static SelectionItemPattern_RemoveFromSelection(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\SelectionItemPattern_RemoveFromSelection", "ptr", hobj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Selects an element in a selection container.
+     * @remarks
+     * All other elements are deselected. 
+     * To select an element without deselecting others, use <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nf-uiautomationcoreapi-selectionitempattern_addtoselection">SelectionItemPattern_AddToSelection</a>.
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The control pattern object.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-selectionitempattern_select
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-selectionitempattern_select
      * @since windows5.1.2600
      */
     static SelectionItemPattern_Select(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\SelectionItemPattern_Select", "ptr", hobj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4368,18 +4665,19 @@ class Accessibility {
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The control pattern object.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-togglepattern_toggle
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-togglepattern_toggle
      * @since windows5.1.2600
      */
     static TogglePattern_Toggle(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\TogglePattern_Toggle", "ptr", hobj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4395,18 +4693,19 @@ class Accessibility {
      * @param {Float} y Type: <b>double</b>
      * 
      * The vertical screen coordinate to move the element to.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-transformpattern_move
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-transformpattern_move
      * @since windows5.1.2600
      */
     static TransformPattern_Move(hobj, x, y) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\TransformPattern_Move", "ptr", hobj, "double", x, "double", y, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4422,18 +4721,19 @@ class Accessibility {
      * @param {Float} height Type: <b>double</b>
      * 
      * The height, in pixels, to resize the element to.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-transformpattern_resize
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-transformpattern_resize
      * @since windows5.1.2600
      */
     static TransformPattern_Resize(hobj, width, height) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\TransformPattern_Resize", "ptr", hobj, "double", width, "double", height, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4447,18 +4747,19 @@ class Accessibility {
      * 
      * The number of degrees to rotate the control. 
      * 				Positive values are clockwise; negative values are counterclockwise.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-transformpattern_rotate
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-transformpattern_rotate
      * @since windows5.1.2600
      */
     static TransformPattern_Rotate(hobj, degrees) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\TransformPattern_Rotate", "ptr", hobj, "double", degrees, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4471,10 +4772,10 @@ class Accessibility {
      * @param {PWSTR} pVal Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * The string to set the element's content to.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-valuepattern_setvalue
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-valuepattern_setvalue
      * @since windows5.1.2600
      */
     static ValuePattern_SetValue(hobj, pVal) {
@@ -4482,8 +4783,9 @@ class Accessibility {
         pVal := pVal is String ? StrPtr(pVal) : pVal
 
         result := DllCall("UIAutomationCore.dll\ValuePattern_SetValue", "ptr", hobj, "ptr", pVal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4493,18 +4795,19 @@ class Accessibility {
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The control pattern object.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-windowpattern_close
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-windowpattern_close
      * @since windows5.1.2600
      */
     static WindowPattern_Close(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\WindowPattern_Close", "ptr", hobj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4517,24 +4820,32 @@ class Accessibility {
      * @param {Integer} state Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-windowvisualstate">WindowVisualState</a></b>
      * 
      * The visual state to set the window to.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-windowpattern_setwindowvisualstate
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-windowpattern_setwindowvisualstate
      * @since windows5.1.2600
      */
     static WindowPattern_SetWindowVisualState(hobj, state) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\WindowPattern_SetWindowVisualState", "ptr", hobj, "int", state, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Causes the calling code to block for the specified time or until the associated process enters an idle state, whichever completes first.
+     * Causes the calling code to block for the specified time or until the associated process enters an idle state, whichever completes first. (WindowPattern_WaitForInputIdle)
+     * @remarks
+     * This method is typically used in conjunction with the handling of a WindowOpenedEvent 
+     *         (<i>Window_WindowOpened_Event_GUID</i>).
+     *         The implementation is dependent on the underlying application framework; 
+     *         therefore this method may return some time after the window is ready for user input. 
+     *         The calling code should not rely on this method to ascertain exactly when the window has become idle. 
+     *         Use the value of <i>pResult</i> to determine if the window is ready for input or if the method timed out.
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The control pattern object.
@@ -4544,10 +4855,10 @@ class Accessibility {
      * @param {Pointer<BOOL>} pResult Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
      * <b>TRUE</b> if the window is ready to accept user input; otherwise <b>FALSE</b>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-windowpattern_waitforinputidle
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-windowpattern_waitforinputidle
      * @since windows5.1.2600
      */
     static WindowPattern_WaitForInputIdle(hobj, milliseconds, pResult) {
@@ -4556,8 +4867,9 @@ class Accessibility {
         pResultMarshal := pResult is VarRef ? "int*" : "ptr"
 
         result := DllCall("UIAutomationCore.dll\WindowPattern_WaitForInputIdle", "ptr", hobj, "int", milliseconds, pResultMarshal, pResult, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4572,10 +4884,10 @@ class Accessibility {
      * When this function returns, contains 
      * 				the text range spanning the currently selected text in the container. 
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textpattern_getselection
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textpattern_getselection
      * @since windows5.1.2600
      */
     static TextPattern_GetSelection(hobj, pRetVal) {
@@ -4584,8 +4896,9 @@ class Accessibility {
         pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("UIAutomationCore.dll\TextPattern_GetSelection", "ptr", hobj, pRetValMarshal, pRetVal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4600,10 +4913,10 @@ class Accessibility {
      * When this function returns, contains
      * 				an array of text ranges spanning the visible text within the text container. 
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textpattern_getvisibleranges
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textpattern_getvisibleranges
      * @since windows5.1.2600
      */
     static TextPattern_GetVisibleRanges(hobj, pRetVal) {
@@ -4612,14 +4925,18 @@ class Accessibility {
         pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("UIAutomationCore.dll\TextPattern_GetVisibleRanges", "ptr", hobj, pRetValMarshal, pRetVal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Gets the text range that a given node spans.
+     * @remarks
+     * As an example of how this function might be used, 
+     * a client can pass in an embedded hyperlink control and receive the range of text that it spans.
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * A control pattern object.
@@ -4630,10 +4947,10 @@ class Accessibility {
      * 
      * When this function returns, contains the text range that the node spans. 
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textpattern_rangefromchild
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textpattern_rangefromchild
      * @since windows5.1.2600
      */
     static TextPattern_RangeFromChild(hobj, hnodeChild, pRetVal) {
@@ -4641,14 +4958,19 @@ class Accessibility {
         hnodeChild := hnodeChild is Win32Handle ? NumGet(hnodeChild, "ptr") : hnodeChild
 
         result := DllCall("UIAutomationCore.dll\TextPattern_RangeFromChild", "ptr", hobj, "ptr", hnodeChild, "ptr", pRetVal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Retrieves the degenerate (empty) text range nearest to the specified screen coordinates.
+     * Retrieves the degenerate (empty) text range nearest to the specified screen coordinates. (TextPattern_RangeFromPoint)
+     * @remarks
+     * A text range that wraps a child object is returned if the screen coordinates are within the coordinates of an image, hyperlink, Microsoft Excel spreadsheet, or other embedded object.
+     * 
+     * Because hidden text is not ignored, this method retrieves a degenerate range from the visible text closest to the specified coordinates.
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * A control pattern object.
@@ -4659,18 +4981,19 @@ class Accessibility {
      * 
      * When this function returns, contains the text range that the node spans. 
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textpattern_rangefrompoint
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textpattern_rangefrompoint
      * @since windows5.1.2600
      */
     static TextPattern_RangeFromPoint(hobj, point, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\TextPattern_RangeFromPoint", "ptr", hobj, "ptr", point, "ptr", pRetVal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4685,18 +5008,19 @@ class Accessibility {
      * When this function returns, contains 
      * 				the text range spanning the entire document contents of the text container. 
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textpattern_get_documentrange
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textpattern_get_documentrange
      * @since windows5.1.2600
      */
     static TextPattern_get_DocumentRange(hobj, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\TextPattern_get_DocumentRange", "ptr", hobj, "ptr", pRetVal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4714,7 +5038,7 @@ class Accessibility {
      * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/WinProg/windows-data-types)**
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textpattern_get_supportedtextselection
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textpattern_get_supportedtextselection
      * @since windows5.1.2600
      */
     static TextPattern_get_SupportedTextSelection(hobj, pRetVal) {
@@ -4723,14 +5047,19 @@ class Accessibility {
         pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
 
         result := DllCall("UIAutomationCore.dll\TextPattern_get_SupportedTextSelection", "ptr", hobj, pRetValMarshal, pRetVal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Copies a text range.
+     * @remarks
+     * The method never returns <b>NULL</b> (Nothing in Microsoft Visual Basic .NET).
+     * 
+     * The new range can be manipulated independently from the original.
      * @param {HUIATEXTRANGE} hobj Type: <b>HUIATEXTRANGE</b>
      * 
      * A text range object.
@@ -4738,18 +5067,19 @@ class Accessibility {
      * 
      * When this function returns, contains the copy. 
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textrange_clone
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textrange_clone
      * @since windows5.1.2600
      */
     static TextRange_Clone(hobj, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\TextRange_Clone", "ptr", hobj, "ptr", pRetVal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4766,10 +5096,10 @@ class Accessibility {
      * 
      * When this function returns, contains <b>TRUE</b> if the two objects span the same text; otherwise <b>FALSE</b>. 
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textrange_compare
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textrange_compare
      * @since windows5.1.2600
      */
     static TextRange_Compare(hobj, range, pRetVal) {
@@ -4779,14 +5109,19 @@ class Accessibility {
         pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
 
         result := DllCall("UIAutomationCore.dll\TextRange_Compare", "ptr", hobj, "ptr", range, pRetValMarshal, pRetVal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Returns a value indicating whether two text ranges have identical endpoints.
+     * @remarks
+     * The returned value is &lt;0 if the caller's endpoint occurs earlier in the text than the target endpoint; 
+     * 			0 if the caller's endpoint is at the same location as the target endpoint; and 
+     * 			&gt;0 if the caller's endpoint occurs later in the text than the target endpoint.
      * @param {HUIATEXTRANGE} hobj Type: <b>HUIATEXTRANGE</b>
      * 
      * A text range object.
@@ -4803,10 +5138,10 @@ class Accessibility {
      * 
      * The address of a variable that receives a pointer to a value that indicates whether two text ranges have identical endpoints.
      * 				 This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textrange_compareendpoints
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textrange_compareendpoints
      * @since windows5.1.2600
      */
     static TextRange_CompareEndpoints(hobj, endpoint, targetRange, targetEndpoint, pRetVal) {
@@ -4816,38 +5151,54 @@ class Accessibility {
         pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
 
         result := DllCall("UIAutomationCore.dll\TextRange_CompareEndpoints", "ptr", hobj, "int", endpoint, "ptr", targetRange, "int", targetEndpoint, pRetValMarshal, pRetVal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Expands the text range to a larger or smaller unit such as Character, Word, Line, or Page.
+     * @remarks
+     * If the range is already an integral number of the specified units, it remains unchanged.
+     * 
+     * If the starting endpoint is not at a <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-textunit">TextUnit</a> boundary, it is moved backward until it is at a boundary. 
+     * 			Subsequently, if the ending endpoint is not at a boundary, or if it is at the same boundary as the starting endpoint, 
+     * 			the ending endpoint is moved forward until it is at a boundary.
+     * 
+     * <div class="alert"><b>Note</b>  It is common for a screen reader to read out a full word, entire paragraph, and so on, 
+     * 			at the insertion point or any virtual cursor position.
+     * </div>
+     * <div> </div>
+     * <b>TextRange_ExpandToEnclosingUnit</b> respects both hidden and visible text. The UI Automationclient can check the is-hidden attribute (Text_IsHidden_Attribute_GUID) for text visibility.
+     * 
+     * <b>TextRange_ExpandToEnclosingUnit</b> defaults up to the next supported <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-textunit">TextUnit</a> if the given <b>TextUnit</b> is not supported by the control.
      * @param {HUIATEXTRANGE} hobj Type: <b>HUIATEXTRANGE</b>
      * 
      * A text range object.
      * @param {Integer} unit Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-textunit">TextUnit</a></b>
      * 
      * The unit that the provider must expand the text range to.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textrange_expandtoenclosingunit
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textrange_expandtoenclosingunit
      * @since windows5.1.2600
      */
     static TextRange_ExpandToEnclosingUnit(hobj, unit) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\TextRange_ExpandToEnclosingUnit", "ptr", hobj, "int", unit, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Gets the value of an text attribute for a text range.
+     * Gets the value of a text attribute for a text range.
      * @param {HUIATEXTRANGE} hobj Type: <b>HUIATEXTRANGE</b>
      * 
      * A text range object.
@@ -4859,18 +5210,19 @@ class Accessibility {
      * When this function returns, contains 
      * 				the value of the attribute for the text range.
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textrange_getattributevalue
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textrange_getattributevalue
      * @since windows5.1.2600
      */
     static TextRange_GetAttributeValue(hobj, attributeId, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\TextRange_GetAttributeValue", "ptr", hobj, "int", attributeId, "ptr", pRetVal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4894,18 +5246,19 @@ class Accessibility {
      * When this function returns, contains 
      * 				the first matching text range.
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textrange_findattribute
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textrange_findattribute
      * @since windows5.1.2600
      */
     static TextRange_FindAttribute(hobj, attributeId, val, backward, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\TextRange_FindAttribute", "ptr", hobj, "int", attributeId, "ptr", val, "int", backward, "ptr", pRetVal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4930,10 +5283,10 @@ class Accessibility {
      * 				the text range for the first span of text that matches the string 
      * 				the client is searching for.
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textrange_findtext
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textrange_findtext
      * @since windows5.1.2600
      */
     static TextRange_FindText(hobj, text, backward, ignoreCase, pRetVal) {
@@ -4941,8 +5294,9 @@ class Accessibility {
         text := text is Win32Handle ? NumGet(text, "ptr") : text
 
         result := DllCall("UIAutomationCore.dll\TextRange_FindText", "ptr", hobj, "ptr", text, "int", backward, "int", ignoreCase, "ptr", pRetVal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -4958,10 +5312,10 @@ class Accessibility {
      * 				an array of rectangle coordinates for the lines of text that the range spans. 
      * 				This parameter is passed uninitialized.
      * 				The SAFEARRAY contains VARIANTs of type VT_I4.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textrange_getboundingrectangles
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textrange_getboundingrectangles
      * @since windows5.1.2600
      */
     static TextRange_GetBoundingRectangles(hobj, pRetVal) {
@@ -4970,14 +5324,19 @@ class Accessibility {
         pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("UIAutomationCore.dll\TextRange_GetBoundingRectangles", "ptr", hobj, pRetValMarshal, pRetVal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Returns the node for the next smallest provider that covers the range.
+     * @remarks
+     * The enclosing element is typically the text provider that supplies the text range. However,
+     * 		if the text provider supports child elements such as tables or hyperlinks, 
+     * 		the enclosing element could be a descendant of the text provider.
      * @param {HUIATEXTRANGE} hobj Type: <b>HUIATEXTRANGE</b>
      * 
      * A text range object.
@@ -4986,24 +5345,28 @@ class Accessibility {
      * When this function returns, contains 
      * 				the node for the next smallest element that encloses the range.
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textrange_getenclosingelement
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textrange_getenclosingelement
      * @since windows5.1.2600
      */
     static TextRange_GetEnclosingElement(hobj, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\TextRange_GetEnclosingElement", "ptr", hobj, "ptr", pRetVal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Returns the text in a text range, up to a specified number of characters.
+     * @remarks
+     * If <i>maxLength</i> is -1, all of the text within the text range is returned. 
+     * If <i>maxLength</i> is larger than the length of the text range, the returned string contains all of the text in the text range.
      * @param {HUIATEXTRANGE} hobj Type: <b>HUIATEXTRANGE</b>
      * 
      * A text range object.
@@ -5015,18 +5378,19 @@ class Accessibility {
      * When this function returns, this parameter contains 
      * 				a pointer to the returned text.
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textrange_gettext
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textrange_gettext
      * @since windows5.1.2600
      */
     static TextRange_GetText(hobj, maxLength, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\TextRange_GetText", "ptr", hobj, "int", maxLength, "ptr", pRetVal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5048,10 +5412,10 @@ class Accessibility {
      * When this function returns, contains 
      * 				the number of units actually moved.
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textrange_move
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textrange_move
      * @since windows5.1.2600
      */
     static TextRange_Move(hobj, unit, count, pRetVal) {
@@ -5060,8 +5424,9 @@ class Accessibility {
         pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
 
         result := DllCall("UIAutomationCore.dll\TextRange_Move", "ptr", hobj, "int", unit, "int", count, pRetValMarshal, pRetVal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5086,10 +5451,10 @@ class Accessibility {
      * When this function returns, contains 
      * 				the number of units the endpoint actually moved.
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textrange_moveendpointbyunit
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textrange_moveendpointbyunit
      * @since windows5.1.2600
      */
     static TextRange_MoveEndpointByUnit(hobj, endpoint, unit, count, pRetVal) {
@@ -5098,8 +5463,9 @@ class Accessibility {
         pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
 
         result := DllCall("UIAutomationCore.dll\TextRange_MoveEndpointByUnit", "ptr", hobj, "int", endpoint, "int", unit, "int", count, pRetValMarshal, pRetVal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5118,10 +5484,10 @@ class Accessibility {
      * @param {Integer} targetEndpoint Type: <b>TextPatternRangeEndpoint</b>
      * 
      * The target endpoint to move to (either the start or the end).
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textrange_moveendpointbyrange
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textrange_moveendpointbyrange
      * @since windows5.1.2600
      */
     static TextRange_MoveEndpointByRange(hobj, endpoint, targetRange, targetEndpoint) {
@@ -5129,8 +5495,9 @@ class Accessibility {
         targetRange := targetRange is Win32Handle ? NumGet(targetRange, "ptr") : targetRange
 
         result := DllCall("UIAutomationCore.dll\TextRange_MoveEndpointByRange", "ptr", hobj, "int", endpoint, "ptr", targetRange, "int", targetEndpoint, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5140,18 +5507,19 @@ class Accessibility {
      * @param {HUIATEXTRANGE} hobj Type: <b>HUIATEXTRANGE</b>
      * 
      * A text range object.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textrange_select
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textrange_select
      * @since windows5.1.2600
      */
     static TextRange_Select(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\TextRange_Select", "ptr", hobj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5161,39 +5529,46 @@ class Accessibility {
      * @param {HUIATEXTRANGE} hobj Type: <b>HUIATEXTRANGE</b>
      * 
      * A text range object.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textrange_addtoselection
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textrange_addtoselection
      * @since windows5.1.2600
      */
     static TextRange_AddToSelection(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\TextRange_AddToSelection", "ptr", hobj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Removes the selected text, corresponding to the calling text range TextPatternRangeEndpoint_Start and TextPatternRangeEndpoint_End endpoints, from an existing collection of selected text in a text container that supports multiple, disjoint selections.
+     * @remarks
+     * The text insertion point will move to the area of the new selection.
+     *             
+     * 
+     * Providing a degenerate text range will move the text insertion point.
      * @param {HUIATEXTRANGE} hobj Type: <b>HUIATEXTRANGE</b>
      * 
      * A text range object.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textrange_removefromselection
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textrange_removefromselection
      * @since windows5.1.2600
      */
     static TextRange_RemoveFromSelection(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\TextRange_RemoveFromSelection", "ptr", hobj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5207,18 +5582,19 @@ class Accessibility {
      * 
      * TRUE to align the top of the text range with the top of the viewport; 
      * 				FALSE to align the bottom of the text range with the bottom of the viewport.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textrange_scrollintoview
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textrange_scrollintoview
      * @since windows5.1.2600
      */
     static TextRange_ScrollIntoView(hobj, alignToTop) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\TextRange_ScrollIntoView", "ptr", hobj, "int", alignToTop, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5233,10 +5609,10 @@ class Accessibility {
      * When this function returns, contains 
      * 				an array of nodes that are children of the text range in the UI Automation tree.
      * 				This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-textrange_getchildren
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-textrange_getchildren
      * @since windows5.1.2600
      */
     static TextRange_GetChildren(hobj, pRetVal) {
@@ -5245,8 +5621,9 @@ class Accessibility {
         pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("UIAutomationCore.dll\TextRange_GetChildren", "ptr", hobj, pRetValMarshal, pRetVal, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5268,10 +5645,10 @@ class Accessibility {
      * @param {Pointer<HUIANODE>} pFound Type: <b>HUIANODE*</b>
      * 
      * The node of the matching element.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-itemcontainerpattern_finditembyproperty
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-itemcontainerpattern_finditembyproperty
      * @since windows6.1
      */
     static ItemContainerPattern_FindItemByProperty(hobj, hnodeStartAfter, propertyId, value, pFound) {
@@ -5279,53 +5656,56 @@ class Accessibility {
         hnodeStartAfter := hnodeStartAfter is Win32Handle ? NumGet(hnodeStartAfter, "ptr") : hnodeStartAfter
 
         result := DllCall("UIAutomationCore.dll\ItemContainerPattern_FindItemByProperty", "ptr", hobj, "ptr", hnodeStartAfter, "int", propertyId, "ptr", value, "ptr", pFound, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Performs a Microsoft Active Accessibility selection.
+     * Performs a Microsoft Active Accessibility selection. (LegacyIAccessiblePattern_Select)
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The <i>control pattern</i> object.
      * @param {Integer} flagsSelect Type: <b>long</b>
      * 
      * Specifies which selection or focus operations are to be performed. This parameter must have a combination of the values described in <a href="https://docs.microsoft.com/windows/desktop/WinAuto/selflag">SELFLAG Constants</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-legacyiaccessiblepattern_select
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-legacyiaccessiblepattern_select
      * @since windows6.1
      */
     static LegacyIAccessiblePattern_Select(hobj, flagsSelect) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\LegacyIAccessiblePattern_Select", "ptr", hobj, "int", flagsSelect, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Performs the Microsoft Active Accessibility default action for the element.
+     * Performs the Microsoft Active Accessibility default action for the element. (LegacyIAccessiblePattern_DoDefaultAction)
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The <i>control pattern</i> object.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-legacyiaccessiblepattern_dodefaultaction
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-legacyiaccessiblepattern_dodefaultaction
      * @since windows6.1
      */
     static LegacyIAccessiblePattern_DoDefaultAction(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\LegacyIAccessiblePattern_DoDefaultAction", "ptr", hobj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5338,10 +5718,10 @@ class Accessibility {
      * @param {PWSTR} szValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * A localized string that contains the value.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-legacyiaccessiblepattern_setvalue
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-legacyiaccessiblepattern_setvalue
      * @since windows6.1
      */
     static LegacyIAccessiblePattern_SetValue(hobj, szValue) {
@@ -5349,8 +5729,9 @@ class Accessibility {
         szValue := szValue is String ? StrPtr(szValue) : szValue
 
         result := DllCall("UIAutomationCore.dll\LegacyIAccessiblePattern_SetValue", "ptr", hobj, "ptr", szValue, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5363,15 +5744,16 @@ class Accessibility {
      * @returns {IAccessible} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a>**</b>
      * 
      * The address of a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface for the accessible object.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-legacyiaccessiblepattern_getiaccessible
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-legacyiaccessiblepattern_getiaccessible
      * @since windows6.1
      */
     static LegacyIAccessiblePattern_GetIAccessible(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\LegacyIAccessiblePattern_GetIAccessible", "ptr", hobj, "ptr*", &pAccessible := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IAccessible(pAccessible)
     }
@@ -5384,18 +5766,19 @@ class Accessibility {
      * @param {Integer} inputType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-synchronizedinputtype">SynchronizedInputType</a></b>
      * 
      * A combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-synchronizedinputtype">SynchronizedInputType</a> enumerated type specifying the type of input for which to listen.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-synchronizedinputpattern_startlistening
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-synchronizedinputpattern_startlistening
      * @since windows6.1
      */
     static SynchronizedInputPattern_StartListening(hobj, inputType) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\SynchronizedInputPattern_StartListening", "ptr", hobj, "int", inputType, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5405,39 +5788,41 @@ class Accessibility {
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The <i>control pattern</i> object.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-synchronizedinputpattern_cancel
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-synchronizedinputpattern_cancel
      * @since windows6.1
      */
     static SynchronizedInputPattern_Cancel(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\SynchronizedInputPattern_Cancel", "ptr", hobj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
-     * Makes the virtual item fully accessible as a UI Automation element.
+     * Makes the virtual item fully accessible as a UI Automation element. (VirtualizedItemPattern_Realize)
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The <i>control pattern</i> object.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK if successful or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-virtualizeditempattern_realize
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-virtualizeditempattern_realize
      * @since windows6.1
      */
     static VirtualizedItemPattern_Realize(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
         result := DllCall("UIAutomationCore.dll\VirtualizedItemPattern_Realize", "ptr", hobj, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5447,10 +5832,10 @@ class Accessibility {
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * The pattern object to be deleted.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if the pattern was successfully deleted; otherwise <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiapatternrelease
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiapatternrelease
      * @since windows5.1.2600
      */
     static UiaPatternRelease(hobj) {
@@ -5465,10 +5850,10 @@ class Accessibility {
      * @param {HUIATEXTRANGE} hobj Type: <b>HUIATEXTRANGE</b>
      * 
      * The text range object to be deleted.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if object was deleted; otherwise <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiatextrangerelease
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiatextrangerelease
      * @since windows5.1.2600
      */
     static UiaTextRangeRelease(hobj) {
@@ -5480,24 +5865,28 @@ class Accessibility {
 
     /**
      * Gets an interface to the UI Automation provider for a window.
+     * @remarks
+     * This function is called by a control when it receives the [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message, to provide UI Automation with the UI Automation provider for the control. The control should pass the <i>wParam</i> and <i>lParam</i> parameters to the <b>UiaReturnRawElementProvider</b> function without filtering them first, because filtering can cause problems with Microsoft Active Accessibility clients. The control's window procedure should return the result of calling <b>UiaReturnRawElementProvider</b>.
+     * 
+     * When Microsoft Active Accessibility clients are listening to events raised by a UI Automation provider, UI Automation maintains a map of the providers that have raised events. When the Microsoft Active Accessibility clients request further information, UI Automation uses the map to route the requests to the appropriate providers. When a window that previously returned providers has been destroyed, you should notify UI Automation by calling the <b>UiaReturnRawElementProvider</b> function as follows: <c>UiaReturnRawElementProvider(hwnd, 0, 0, NULL)</c>. This call tells UI Automation that it can safely remove all map entries that refer to the specified window. This call can save memory because it releases references to the providers being held by the raised-event map. The function returns zero when called with these special parameters. Microsoft recommends making this call from the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-destroy">WM_DESTROY</a> message handler of the window that returns the UI Automation providers.
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The handle of the window containing the element served by the provider.
      * @param {WPARAM} wParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WPARAM</a></b>
      * 
-     * The <i>wParam</i> argument of the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/wm-getobject">WM_GETOBJECT</a> message.
+     * The <i>wParam</i> argument of the [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message.
      * @param {LPARAM} lParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
-     * The <i>lParam</i> argument of the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/wm-getobject">WM_GETOBJECT</a> message.
+     * The <i>lParam</i> argument of the [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message.
      * @param {IRawElementProviderSimple} el Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The UI Automation provider.
-     * @returns {LRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">LRESULT</a></b>
+     * @returns {LRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LRESULT</a></b>
      * 
      * The key for the client process to connect to the server process through UI Automation.
      * 
      * This function returns zero when it is used to notify UI Automation that it is safe to remove the provider raised-event map. For more information, see Remarks.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiareturnrawelementprovider
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiareturnrawelementprovider
      * @since windows5.1.2600
      */
     static UiaReturnRawElementProvider(hwnd, wParam, lParam, el) {
@@ -5509,27 +5898,38 @@ class Accessibility {
 
     /**
      * Gets the host provider for a window.
+     * @remarks
+     * The object retrieved by this function is useful only for responding to calls to the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-irawelementprovidersimple-get_hostrawelementprovider">IRawElementProviderSimple::get_HostRawElementProvider</a> method. You cannot use the object to raise events, provide properties, and so on.  If you need to raise events or provide properties, you must create a provider object that fully implements the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a> interface.
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The window containing the element served by the provider.
      * @returns {IRawElementProviderSimple} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
      * 
      * The host provider for the window.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiahostproviderfromhwnd
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiahostproviderfromhwnd
      * @since windows5.1.2600
      */
     static UiaHostProviderFromHwnd(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("UIAutomationCore.dll\UiaHostProviderFromHwnd", "ptr", hwnd, "ptr*", &ppProvider := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IRawElementProviderSimple(ppProvider)
     }
 
     /**
      * Gets the provider for the entire non-client area of a window, or for a control in the non-client area of a window.
+     * @remarks
+     * This function returns the default Microsoft UI Automation provider for the non-client area of a window.  UI Automation supports the non-client area without any explicit help from the window. You can override and customize the support by using the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a> interface that is retrieved by this function.  
+     * 
+     * This function is particularly useful when you use it with the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-provideroptions">ProviderOptions_RefuseNonClientSupport</a> flag, which disables the UI Automation default provider for the non-client area so that the window can supply  its own provider.
+     * 
+     * 
+     * 
+     * The supported object IDs for controls in the non-client area include <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">OBJID_WINDOW</a><a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">, OBJID_VSCROLL</a>, <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">OBJID_HSCROLL</a>, <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">OBJID_TITLEBAR</a>, <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">OBJID_MENU</a>, and <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">OBJID_SIZEGRIP</a>.  For <b>OBJID_TITLEBAR</b>, use the child ID to distinguish between the entire title bar and the buttons that it contains.
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The window that owns the non-client area or non-client control.
@@ -5542,21 +5942,24 @@ class Accessibility {
      * @returns {IRawElementProviderSimple} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
      * 
      * Receives the provider for the non-client area or non-client control.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiaproviderfornonclient
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaproviderfornonclient
      * @since windows8.0
      */
     static UiaProviderForNonClient(hwnd, idObject, idChild) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("UIAutomationCore.dll\UiaProviderForNonClient", "ptr", hwnd, "int", idObject, "int", idChild, "ptr*", &ppProvider := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IRawElementProviderSimple(ppProvider)
     }
 
     /**
      * Retrieves an IAccessible implementation that provides Microsoft Active Accessibility data on behalf of a Microsoft UI Automation provider.
+     * @remarks
+     * In most cases, this function retrieves a wrapper object, provided by Windows, that implements <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> on behalf of the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a> object.  If the provided <b>IRawElementProviderSimple</b> pointer is itself a wrapper object, this function retrieves the wrapped <b>IAccessible</b> pointer and returns that instead, to prevent the creation of multiple layers of wrappers.
      * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * A pointer to the UI Automation object.
@@ -5567,19 +5970,24 @@ class Accessibility {
      * @returns {IAccessible} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a>**</b>
      * 
      * Receives the pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> implementation for the provider.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiaiaccessiblefromprovider
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaiaccessiblefromprovider
      * @since windows8.0
      */
     static UiaIAccessibleFromProvider(pProvider, dwFlags, pvarChild) {
         result := DllCall("UIAutomationCore.dll\UiaIAccessibleFromProvider", "ptr", pProvider, "uint", dwFlags, "ptr*", &ppAccessible := 0, "ptr", pvarChild, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IAccessible(ppAccessible)
     }
 
     /**
      * Creates a Microsoft UI Automation provider based on the specified Microsoft Active Accessibility object.
+     * @remarks
+     * UI Automation provides backward compatibility for Microsoft Active Accessibility providers by supplying a proxy for them, called the Microsoft Active Accessibility to UI Automation proxy.  This proxy is created automatically when a window responds to a [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message by returning a Microsoft Active Accessibility provider.  Use <b>UiaProviderFromIAccessible</b> when you need to create a Microsoft Active Accessibility to UI Automation proxy manually; for example, when implementing the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-iaccessibleex">IAccessibleEx</a> interface.  
+     * 
+     * Some properties, such as LabeledBy, must be expressed as a UI Automation provider.  An <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-iaccessibleex">IAccessibleEx</a> provider can use <b>UiaProviderFromIAccessible</b> to wrap an <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> object to return it as the value of the LabeledBy property.
      * @param {IAccessible} pAccessible Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a>*</b>
      * 
      * A pointer to the Microsoft Active Accessibility object.
@@ -5590,48 +5998,68 @@ class Accessibility {
      * @returns {IRawElementProviderSimple} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
      * 
      * The new UI Automation provider.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiaproviderfromiaccessible
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaproviderfromiaccessible
      * @since windows8.0
      */
     static UiaProviderFromIAccessible(pAccessible, idChild, dwFlags) {
         result := DllCall("UIAutomationCore.dll\UiaProviderFromIAccessible", "ptr", pAccessible, "int", idChild, "uint", dwFlags, "ptr*", &ppProvider := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IRawElementProviderSimple(ppProvider)
     }
 
     /**
      * Releases all Microsoft UI Automation resources that are held by all providers associated with the calling process.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @remarks
+     * A provider application should use this function to release UI Automation resources before shutting down.
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiadisconnectallproviders
+     * This function cannot be called in response to a call to the <a href="https://docs.microsoft.com/windows/desktop/DevNotes/-sendmessage">SendMessage</a> function. An application cannot make outbound Component Object Model (COM) calls in response to a call to <b>SendMessage</b>, and releasing a provider is typically an outbound COM call.  The <b>UiaDisconnectAllProviders</b> function returns RPC_E_CANTCALLOUT_ININPUTSYNCCALL if the function is called in response to a <b>SendMessage</b> call.  You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-insendmessageex">InSendMessageEx</a> function to determine whether a particular message is being handled in response to a <b>SendMessage</b> call.
+     * 
+     * 
+     * An application that calls <b>UiaDisconnectAllProviders</b> should not respond to a re-entrant [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message by returning a pointer to the provider that it is trying to disconnect.  If the application tries to disconnect a provider, but then calls the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiareturnrawelementprovider">UiaReturnRawElementProvider</a> function with that same provider during the disconnect attempt, the provider might not be fully disconnected.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiadisconnectallproviders
      * @since windows8.0
      */
     static UiaDisconnectAllProviders() {
         result := DllCall("UIAutomationCore.dll\UiaDisconnectAllProviders", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Releases all references that a particular provider holds to Microsoft UI Automation objects.
+     * @remarks
+     * A provider should call this function to clean up UI Automation resources that are associated with a UI element that was destroyed.  The DLL  associated with the UI element can be safely unloaded after the function returns.
+     * 
+     * After this function returns, all client requests that are associated with the disconnected provider receive the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-error-codes">UIA_E_ELEMENTNOTAVAILABLE</a> 
+     * error code.
+     * 
+     * This function cannot be called in response to a call to the <a href="https://docs.microsoft.com/windows/desktop/DevNotes/-sendmessage">SendMessage</a> function. An application cannot make outbound Component Object Model (COM) calls in response to a call to <b>SendMessage</b>, and releasing a provider is typically an outbound COM call.  The <b>UiaDisconnectProvider</b> function returns RPC_E_CANTCALLOUT_ININPUTSYNCCALL if the function is called in response to a <b>SendMessage</b> call.  You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-insendmessageex">InSendMessageEx</a> function to determine whether a particular message is being handled in response to a <b>SendMessage</b> call.
+     * 
+     * 
+     * An application that calls <b>UiaDisconnectProvider</b> should not respond to a re-entrant [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message by returning a pointer to the provider that it is trying to disconnect.  If the application tries to disconnect a provider, but then calls the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiareturnrawelementprovider">UiaReturnRawElementProvider</a> function with that same provider during the disconnect attempt, the provider might not be fully disconnected.
      * @param {IRawElementProviderSimple} pProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The provider to be disconnected.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiadisconnectprovider
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiadisconnectprovider
      * @since windows8.0
      */
     static UiaDisconnectProvider(pProvider) {
         result := DllCall("UIAutomationCore.dll\UiaDisconnectProvider", "ptr", pProvider, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5641,10 +6069,10 @@ class Accessibility {
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle of the window.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if the window has a UI Automation provider implementation; otherwise <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiahasserversideprovider
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiahasserversideprovider
      * @since windows5.1.2600
      */
     static UiaHasServerSideProvider(hwnd) {
@@ -5656,14 +6084,28 @@ class Accessibility {
 
     /**
      * Allows the caller to register a target window to which all pointer input of the specified type is redirected.
+     * @remarks
+     * An application with the UI Access privilege can use this function to register its own window to receive all input of the specified pointer input type. Each desktop allows only one such global redirection target window for each pointer input type at any given time. The first window to successfully register remains in effect until the window is unregistered or destroyed, at which point the role is available to the next qualified caller.
+     * 
+     * While the registration is in effect, all input of the specified pointer type, whether from an input device or injected by an application, is redirected to the registered window. However, when the process that owns the registered window injects input of the specified pointer type, such injected is not redirected but is instead processed normally.
+     * 
+     * An application that wishes to register the same window as a global redirection target for multiple pointer input types must call the <b>RegisterPointerInputTarget</b> function multiple times, once for each pointer input type of interest.
+     * 
+     * If the calling thread does not have the UI Access privilege, this function fails with the last error set to <b>ERROR_ACCESS_DENIED</b>.
+     * 
+     * If the specified pointer input type is not valid, this function fails with the last error set to <b>ERROR_INVALID_PARAMETER</b>.
+     * 
+     * If the calling thread does not own the specified window, this function fails with the last error set to <b>ERROR_ACCESS_DENIED</b>.
+     * 
+     * If the specified window’s desktop already has a registered global redirection target for the specified pointer input type, this function fails with the last error set to <b>ERROR_ACCESS_DENIED</b>.
      * @param {HWND} hwnd The window to register as a global redirection target.
      * 
      * Redirection can cause the foreground window to lose activation (focus). To avoid this, ensure the window is a message-only window or has the <a href="https://docs.microsoft.com/windows/desktop/winmsg/extended-window-styles">WS_EX_NOACTIVATE</a> style set.
      * @param {Integer} pointerType Type of pointer input to be redirected to the specified  window. This is any valid and supported value from the <a href="https://docs.microsoft.com/windows/win32/api/winuser/ne-winuser-tagpointer_input_type">POINTER_INPUT_TYPE</a> enumeration. Note that the generic <b>PT_POINTER</b> type and the <b>PT_MOUSE</b> type are not valid in this parameter.
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-registerpointerinputtarget
+     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-registerpointerinputtarget
      * @since windows8.0
      */
     static RegisterPointerInputTarget(hwnd, pointerType) {
@@ -5672,20 +6114,33 @@ class Accessibility {
         A_LastError := 0
 
         result := DllCall("USER32.dll\RegisterPointerInputTarget", "ptr", hwnd, "int", pointerType, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Allows the caller to unregister a target window to which all pointer input of the specified type is redirected.
+     * @remarks
+     * An application that has successfully called the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerpointerinputtarget">RegisterPointerInputTarget</a> function can call this function to un-register the window from the role of global redirected target for the specified pointer type.
+     * 
+     * An application that has registered the same window as a global redirection target for multiple pointer input types can call the <b>UnregisterPointerInputTarget</b> to un-register the window for one of those types while leaving the window registered for the remaining types.
+     * 
+     * If the calling thread does not have the UI Access privilege, this function fails with the last error set to <b>ERROR_ACCESS_DENIED</b>.
+     * 
+     * If the specified pointer input type is not valid, this function fails with the last error set to <b>ERROR_INVALID_PARAMETER</b>.
+     * 
+     * If the calling thread does not own the specified window, this function fails with the last error set to <b>ERROR_ACCESS_DENIED</b>.
+     * 
+     * If the specified window is not the registered global redirection target for the specified pointer input type on its desktop, this function takes no action and returns success.
      * @param {HWND} hwnd Window to be un-registered as a global redirection target on its desktop.
      * @param {Integer} pointerType Type of pointer input to no longer be redirected to the specified window. This is any valid and supported value from the <a href="https://docs.microsoft.com/windows/win32/api/winuser/ne-winuser-tagpointer_input_type">POINTER_INPUT_TYPE </a> enumeration. Note that the generic <b>PT_POINTER</b> type and the<b> PT_MOUSE</b> type are not valid in this parameter.
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-unregisterpointerinputtarget
+     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-unregisterpointerinputtarget
      * @since windows8.0
      */
     static UnregisterPointerInputTarget(hwnd, pointerType) {
@@ -5694,8 +6149,9 @@ class Accessibility {
         A_LastError := 0
 
         result := DllCall("USER32.dll\UnregisterPointerInputTarget", "ptr", hwnd, "int", pointerType, "int")
-        if(A_LastError)
-            throw OSError()
+        if((!result && A_LastError)) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -5706,7 +6162,7 @@ class Accessibility {
      * @param {Integer} pointerType Not supported.
      * @param {BOOL} fObserve Not supported.
      * @returns {BOOL} Not supported.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-registerpointerinputtargetex
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-registerpointerinputtargetex
      * @since windows10.0.10240
      */
     static RegisterPointerInputTargetEx(hwnd, pointerType, fObserve) {
@@ -5721,7 +6177,7 @@ class Accessibility {
      * @param {HWND} hwnd Not supported.
      * @param {Integer} pointerType Not supported.
      * @returns {BOOL} Not supported.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-unregisterpointerinputtargetex
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-unregisterpointerinputtargetex
      * @since windows10.0.10240
      */
     static UnregisterPointerInputTargetEx(hwnd, pointerType) {
@@ -5734,7 +6190,6 @@ class Accessibility {
     /**
      * Signals the system that a predefined event occurred. If any client applications have registered a hook function for the event, the system calls the client's hook function.
      * @remarks
-     * 
      * Servers call this function to notify the system that an event has occurred. Microsoft Active Accessibility checks to see if any client applications have set hook procedures for the event and, if so, calls the appropriate hook procedures.
      * 
      * If no hook procedures are registered for the event, the performance penalty for calling this function is minor.
@@ -5743,13 +6198,11 @@ class Accessibility {
      * 
      * When the client's hook procedure is called, it receives a number of parameters that describe the event and the object that generated the event. The hook procedure uses the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nf-oleacc-accessibleobjectfromevent">AccessibleObjectFromEvent</a> function to retrieve a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface of the object that generated the event.
      * 
-     * Servers may receive a <a href="https://docs.microsoft.com/windows/desktop/WinAuto/wm-getobject">WM_GETOBJECT</a> message immediately after calling this function. This can happen if there are any in-context clients that call <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nf-oleacc-accessibleobjectfromevent">AccessibleObjectFromEvent</a> in the event callback.
+     * Servers may receive a [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) message immediately after calling this function. This can happen if there are any in-context clients that call <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nf-oleacc-accessibleobjectfromevent">AccessibleObjectFromEvent</a> in the event callback.
      * 
-     * When servers call this function, they must be ready to handle <a href="https://docs.microsoft.com/windows/desktop/WinAuto/wm-getobject">WM_GETOBJECT</a>, return an <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface pointer, and handle any of the <b>IAccessible</b> methods.
+     * When servers call this function, they must be ready to handle [WM_GETOBJECT](/windows/win32/winauto/wm-getobject), return an <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface pointer, and handle any of the <b>IAccessible</b> methods.
      * 
-     * <b>Note to Server Developers:  </b>When you call <b>NotifyWinEvent</b>, if any clients are listening for that event in-context, their event handlers, which typically send <a href="https://docs.microsoft.com/windows/desktop/WinAuto/wm-getobject">WM_GETOBJECT</a> and call <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> methods, will execute before <b>NotifyWinEvent</b> returns. When you call <b>NotifyWinEvent</b>, you should be prepared to handle these calls, if they occur. If you need to do extra setup to allow for this, you should do so before you call <b>NotifyWinEvent</b>, not after.
-     * 
-     * 
+     * <b>Note to Server Developers:  </b>When you call <b>NotifyWinEvent</b>, if any clients are listening for that event in-context, their event handlers, which typically send [WM_GETOBJECT](/windows/win32/winauto/wm-getobject) and call <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> methods, will execute before <b>NotifyWinEvent</b> returns. When you call <b>NotifyWinEvent</b>, you should be prepared to handle these calls, if they occur. If you need to do extra setup to allow for this, you should do so before you call <b>NotifyWinEvent</b>, not after.
      * @param {Integer} event Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Specifies the event that occurred. This value must be one of the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/event-constants">event constants</a>.
@@ -5763,7 +6216,7 @@ class Accessibility {
      * 
      * Identifies whether the event was generated by an object or by a child element of the object. If this value is CHILDID_SELF, the event was generated by the object itself. If not CHILDID_SELF, this value is the child ID of the element that generated the event.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-notifywinevent
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-notifywinevent
      * @since windows5.0
      */
     static NotifyWinEvent(event, hwnd, idObject, idChild) {
@@ -5774,6 +6227,26 @@ class Accessibility {
 
     /**
      * Sets an event hook function for a range of events.
+     * @remarks
+     * This function allows clients to specify which processes and threads they are interested in.
+     * 
+     * If the <i>idProcess</i> parameter is nonzero and <i>idThread</i> is zero, the hook function receives the specified events from all threads in that process. If the <i>idProcess</i> parameter is zero and <i>idThread</i> is nonzero, the hook function receives the specified events only from the thread specified by <i>idThread</i>. If both are zero, the hook function receives the specified events from all threads and processes.
+     * 
+     * Clients can call <b>SetWinEventHook</b> multiple times if they want to register additional hook functions or listen for additional events.
+     * 
+     * The client thread that calls <b>SetWinEventHook</b> must have a message loop in order to receive events.
+     * 
+     * When you use <b>SetWinEventHook</b> to set a callback in managed code, you should use the <a href="https://docs.microsoft.com/dotnet/api/system.runtime.interopservices.gchandle">GCHandle</a> structure to avoid exceptions. This tells the garbage collector not to move the callback.
+     * 
+     * For out-of-context events, the event is delivered on the same thread that called <b>SetWinEventHook</b>. In some situations, even if you request WINEVENT_INCONTEXT events, the events will still be delivered out-of-context. These scenarios include events from console windows and events from processes that have a different bit-depth (64 bit versus 32 bits) than the caller. 
+     * 
+     * 
+     * 
+     * While a hook function processes an event, additional events may be triggered, which may cause the hook function to reenter before the processing for the original event is finished. The problem with reentrancy in hook functions is that events are completed out of sequence unless the hook function handles this situation. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/guarding-against-reentrancy-in-hook-functions">Guarding Against Reentrancy</a>.
+     * 
+     * <b>Windows Store app development</b> If dwFlags is WINEVENT_INCONTEXT AND (idProcess = 0 | idThread = 0), then window hook DLLs are not loaded in-process for the Windows Store app processes and the Windows Runtime broker process unless they are installed by UIAccess processes (accessibility tools). The notification is delivered on the installer's thread.
+     * 
+     * This behavior is similar to what happens when there is an architecture mismatch between the hook DLL and the target application process, for example, when the hook DLL is 32-bit and the application process 64-bit.
      * @param {Integer} eventMin Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/event-constants">event constant</a> for the lowest event value in the range of events that are handled by the hook function. This parameter can be set to <b>EVENT_MIN</b> to indicate the lowest possible event value.
@@ -5861,30 +6334,35 @@ class Accessibility {
      * See Remarks section for information on Windows Store app development.
      * @returns {HWINEVENTHOOK} Type: <b>HWINEVENTHOOK</b>
      * 
-     * If successful, returns an <a href="/windows/desktop/WinAuto/hwineventhook">HWINEVENTHOOK</a> value that identifies this event hook instance. Applications save this return value to use it with the <a href="/windows/desktop/api/winuser/nf-winuser-unhookwinevent">UnhookWinEvent</a> function.
+     * If successful, returns an <a href="https://docs.microsoft.com/windows/desktop/WinAuto/hwineventhook">HWINEVENTHOOK</a> value that identifies this event hook instance. Applications save this return value to use it with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-unhookwinevent">UnhookWinEvent</a> function.
      * 
      * If unsuccessful, returns zero.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setwineventhook
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setwineventhook
      * @since windows5.0
      */
     static SetWinEventHook(eventMin, eventMax, hmodWinEventProc, pfnWinEventProc, idProcess, idThread, dwFlags) {
         hmodWinEventProc := hmodWinEventProc is Win32Handle ? NumGet(hmodWinEventProc, "ptr") : hmodWinEventProc
 
         result := DllCall("USER32.dll\SetWinEventHook", "uint", eventMin, "uint", eventMax, "ptr", hmodWinEventProc, "ptr", pfnWinEventProc, "uint", idProcess, "uint", idThread, "uint", dwFlags, "ptr")
-        return HWINEVENTHOOK({Value: result}, True)
+        resultHandle := HWINEVENTHOOK({Value: result}, True)
+        return resultHandle
     }
 
     /**
      * Determines whether there is an installed WinEvent hook that might be notified of a specified event.
+     * @remarks
+     * This method is guaranteed to never return a false negative. If this method returns <b>FALSE</b>, it means that no hooks in the system would be notified of the event. However, this method may return a false positive. In other words, it may return <b>TRUE</b> even though there are no hooks that would be notified. Thus, it is safe for components to circumvent some work if this method returns <b>FALSE</b>. 
+     * 
+     * Event hooks can be installed at any time, so server developers should not cache the return value for long periods of time.
      * @param {Integer} event Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * The event constant that hooks might be notified of. The function checks whether there is an installed hook for this event constant.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If there is a hook to be notified of the specified event, the return value is <b>TRUE</b>.
      * 
      * If there are no hooks to be notified of the specified event, the return value is <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-iswineventhookinstalled
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-iswineventhookinstalled
      * @since windows5.1.2600
      */
     static IsWinEventHookInstalled(event) {
@@ -5894,10 +6372,16 @@ class Accessibility {
 
     /**
      * Removes an event hook function created by a previous call to SetWinEventHook.
+     * @remarks
+     * This function removes the event hook specified by <i>hWinEventHook</i> that prevents the corresponding callback function from receiving further event notifications. If the client's thread ends, the system automatically calls this function.
+     * 
+     * Call this function from the same thread that installed the event hook. <b>UnhookWinEvent</b> fails if called from a thread different from the call that corresponds to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwineventhook">SetWinEventHook</a>.
+     * 
+     * If WINEVENT_INCONTEXT was specified when this event hook was installed, the system attempts to unload the corresponding DLL from all processes that loaded it. Although unloading does not occur immediately, the hook function is not called after <b>UnhookWinEvent</b> returns. For more information on WINEVENT_INCONTEXT, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/in-context-hook-functions">In-Context Hook Functions</a>.
      * @param {HWINEVENTHOOK} hWinEventHook Type: <b>HWINEVENTHOOK</b>
      * 
      * Handle to the event hook returned in the previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwineventhook">SetWinEventHook</a>.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If successful, returns <b>TRUE</b>; otherwise, returns <b>FALSE</b>.
      * 
@@ -5906,9 +6390,9 @@ class Accessibility {
      * <ul>
      * <li>The <i>hWinEventHook</i> parameter is <b>NULL</b> or not valid.</li>
      * <li>The event hook specified by <i>hWinEventHook</i> was already removed.</li>
-     * <li><b>UnhookWinEvent</b> is called from a thread that is different from the original call to <a href="/windows/desktop/api/winuser/nf-winuser-setwineventhook">SetWinEventHook</a>.</li>
+     * <li><b>UnhookWinEvent</b> is called from a thread that is different from the original call to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwineventhook">SetWinEventHook</a>.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-unhookwinevent
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-unhookwinevent
      * @since windows5.0
      */
     static UnhookWinEvent(hWinEventHook) {

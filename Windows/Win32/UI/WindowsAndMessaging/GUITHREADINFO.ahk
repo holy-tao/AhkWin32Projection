@@ -6,11 +6,8 @@
 /**
  * Contains information about a GUI thread.
  * @remarks
- * 
  * This structure is used with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getguithreadinfo">GetGUIThreadInfo</a> function to retrieve information about the active window or a specified GUI thread.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-guithreadinfo
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-guithreadinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

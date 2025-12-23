@@ -3,7 +3,7 @@
 
 /**
  * MI_Interval represents an interval of time.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_interval
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_interval
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

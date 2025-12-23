@@ -6,16 +6,15 @@
  * Contains information that describes the contents of a device profile file. This header occurs at the beginning of a device profile file.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//icm/ns-icm-profileheader
+ * @see https://learn.microsoft.com/windows/win32/api/icm/ns-icm-profileheader
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  */
 class PROFILEHEADER extends Win32Struct
 {
-    static sizeof => 136
+    static sizeof => 128
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The size of the profile in bytes.
@@ -113,8 +112,8 @@ class PROFILEHEADER extends Win32Struct
      * 
      * <table>
      * <colgroup>
-     * <col style="width: 50%" />
-     * <col style="width: 50%" />
+     * <col />
+     * <col />
      * </colgroup>
      * <thead>
      * <tr class="header">
@@ -226,7 +225,7 @@ class PROFILEHEADER extends Win32Struct
     phIlluminant{
         get {
             if(!this.HasProp("__phIlluminant"))
-                this.__phIlluminant := CIEXYZ(72, this)
+                this.__phIlluminant := CIEXYZ(68, this)
             return this.__phIlluminant
         }
     }
@@ -236,8 +235,8 @@ class PROFILEHEADER extends Win32Struct
      * @type {Integer}
      */
     phCreator {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
@@ -247,7 +246,7 @@ class PROFILEHEADER extends Win32Struct
     phReserved{
         get {
             if(!this.HasProp("__phReservedProxyArray"))
-                this.__phReservedProxyArray := Win32FixedArray(this.ptr + 88, 44, Primitive, "char")
+                this.__phReservedProxyArray := Win32FixedArray(this.ptr + 84, 44, Primitive, "char")
             return this.__phReservedProxyArray
         }
     }

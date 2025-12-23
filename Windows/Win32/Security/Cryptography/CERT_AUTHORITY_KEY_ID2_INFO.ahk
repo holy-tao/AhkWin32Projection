@@ -5,7 +5,7 @@
 
 /**
  * The CERT_AUTHORITY_KEY_ID2_INFO structure identifies the key used to sign a certificate or CRL.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_authority_key_id2_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_authority_key_id2_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

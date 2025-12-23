@@ -5,12 +5,9 @@
 /**
  * Describes features of an effect.
  * @remarks
- * 
  * > [!NOTE]
  * > You shouldn't rely heavily on the input rectangles returned by this structure. They can change due to subtle changes in effect implementations, and due to optimization changes in the effect rendering system.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/ns-d2d1_1-d2d1_effect_input_description
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ns-d2d1_1-d2d1_effect_input_description
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -45,7 +42,7 @@ class D2D1_EFFECT_INPUT_DESCRIPTION extends Win32Struct
     inputRectangle{
         get {
             if(!this.HasProp("__inputRectangle"))
-                this.__inputRectangle := D2D_RECT_F(16, this)
+                this.__inputRectangle := D2D_RECT_F(12, this)
             return this.__inputRectangle
         }
     }

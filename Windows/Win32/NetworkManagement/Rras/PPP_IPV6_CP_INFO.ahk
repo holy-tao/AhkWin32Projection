@@ -3,7 +3,7 @@
 
 /**
  * Contains the result of an IPv6 control protocol negotiation.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-ppp_ipv6_cp_info
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_ipv6_cp_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

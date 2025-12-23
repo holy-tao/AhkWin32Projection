@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The different states that a channel can be in.
  * @remarks
- * 
  * The following are the state transitions for a channel.
  *             
  * 
@@ -19,12 +19,11 @@
  *                 <b>WS_E_INVALID_OPERATION</b> error being returned from
  *                 the function (or crash in the case of <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreechannel">WsFreeChannel</a>).
  *             For information on error codes, see<a href="https://docs.microsoft.com/windows/desktop/wsw/windows-web-services-return-values">Windows Web Services Return Values</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_channel_state
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_channel_state
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_CHANNEL_STATE{
+class WS_CHANNEL_STATE extends Win32Enum{
 
     /**
      * 

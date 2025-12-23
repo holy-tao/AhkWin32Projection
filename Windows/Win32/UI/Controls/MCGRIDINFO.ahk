@@ -5,7 +5,7 @@
 
 /**
  * Contains information about part of a calendar control.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-mcgridinfo
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-mcgridinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -97,7 +97,7 @@ class MCGRIDINFO extends Win32Struct
     stStart{
         get {
             if(!this.HasProp("__stStart"))
-                this.__stStart := SYSTEMTIME(32, this)
+                this.__stStart := SYSTEMTIME(28, this)
             return this.__stStart
         }
     }
@@ -111,7 +111,7 @@ class MCGRIDINFO extends Win32Struct
     stEnd{
         get {
             if(!this.HasProp("__stEnd"))
-                this.__stEnd := SYSTEMTIME(48, this)
+                this.__stEnd := SYSTEMTIME(44, this)
             return this.__stEnd
         }
     }
@@ -125,7 +125,7 @@ class MCGRIDINFO extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(64, this)
+                this.__rc := RECT(60, this)
             return this.__rc
         }
     }

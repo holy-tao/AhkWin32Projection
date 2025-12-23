@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * The interpolation mode to be used with the 2D affine transform effect to scale the image. There are 6 scale modes that range in quality and speed.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effects/ne-d2d1effects-d2d1_2daffinetransform_interpolation_mode
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_2daffinetransform_interpolation_mode
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */
-class D2D1_2DAFFINETRANSFORM_INTERPOLATION_MODE{
+class D2D1_2DAFFINETRANSFORM_INTERPOLATION_MODE extends Win32Enum{
 
     /**
      * Samples the nearest single point and uses that. This mode uses less processing time, but outputs the lowest quality image.

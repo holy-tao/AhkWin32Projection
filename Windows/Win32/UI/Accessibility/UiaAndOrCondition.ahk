@@ -3,7 +3,7 @@
 
 /**
  * Note  This structure is deprecated.  Contains information about a complex condition.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/ns-uiautomationcoreapi-uiaandorcondition
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiaandorcondition
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

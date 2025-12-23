@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the In-Place state values of the Tablet PC Input Panel.
  * @remarks
- * 
  * The system default is for the In-Place Input Panel to appear in the hover state unless Input Panel is already visible in the expanded state, in which case Input Panel remains expanded.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/ne-peninputpanel-inplacestate
+ * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-inplacestate
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InPlaceState{
+class InPlaceState extends Win32Enum{
 
     /**
      * The system decides which In-Place state of the Input Panel is the most appropriate.

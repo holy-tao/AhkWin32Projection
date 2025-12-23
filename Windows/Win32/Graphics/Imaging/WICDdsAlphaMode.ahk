@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the the meaning of pixel color component values contained in the DDS image.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicddsalphamode
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicddsalphamode
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICDdsAlphaMode{
+class WICDdsAlphaMode extends Win32Enum{
 
     /**
      * Alpha behavior is unspecified and must be determined by the reader.

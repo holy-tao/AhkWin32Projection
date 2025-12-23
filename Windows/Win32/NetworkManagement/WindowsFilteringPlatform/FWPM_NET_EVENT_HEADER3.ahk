@@ -5,8 +5,8 @@
 #Include .\FWP_BYTE_BLOB.ahk
 
 /**
- * Contains information common to all events.
- * @see https://docs.microsoft.com/windows/win32/api//fwpmtypes/ns-fwpmtypes-fwpm_net_event_header3
+ * Contains information common to all events. (FWPM_NET_EVENT_HEADER3)
+ * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_header3
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
@@ -73,8 +73,8 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
      * @type {Integer}
      */
     localAddrV4 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -83,7 +83,7 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
     localAddrV6{
         get {
             if(!this.HasProp("__localAddrV6"))
-                this.__localAddrV6 := FWP_BYTE_ARRAY16(24, this)
+                this.__localAddrV6 := FWP_BYTE_ARRAY16(20, this)
             return this.__localAddrV6
         }
     }
@@ -92,8 +92,8 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
      * @type {Integer}
      */
     remoteAddrV4 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -102,7 +102,7 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
     remoteAddrV6{
         get {
             if(!this.HasProp("__remoteAddrV6"))
-                this.__remoteAddrV6 := FWP_BYTE_ARRAY16(40, this)
+                this.__remoteAddrV6 := FWP_BYTE_ARRAY16(36, this)
             return this.__remoteAddrV6
         }
     }
@@ -112,8 +112,8 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
      * @type {Integer}
      */
     localPort {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
+        get => NumGet(this, 52, "ushort")
+        set => NumPut("ushort", value, this, 52)
     }
 
     /**
@@ -121,8 +121,8 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
      * @type {Integer}
      */
     remotePort {
-        get => NumGet(this, 58, "ushort")
-        set => NumPut("ushort", value, this, 58)
+        get => NumGet(this, 54, "ushort")
+        set => NumPut("ushort", value, this, 54)
     }
 
     /**
@@ -130,8 +130,8 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
      * @type {Integer}
      */
     scopeId {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**

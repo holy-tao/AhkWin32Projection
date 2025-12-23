@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values that describe the characteristics of an audio stream.
- * @see https://docs.microsoft.com/windows/win32/api//audioclient/ne-audioclient-audclnt_streamoptions
+ * @see https://learn.microsoft.com/windows/win32/api/audioclient/ne-audioclient-audclnt_streamoptions
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
-class AUDCLNT_STREAMOPTIONS{
+class AUDCLNT_STREAMOPTIONS extends Win32BitflagEnum{
 
     /**
      * No stream options.

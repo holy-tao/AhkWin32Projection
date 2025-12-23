@@ -5,25 +5,22 @@
 /**
  * The DD_MORESURFACECAPS structure defines more driver surface capabilities in addition to those described in DDCORECAPS.
  * @remarks
- * 
  * This structure contains the caps bits added to the <b>DDCAPS.ddsCaps</b> structure in DirectX 6.0. See the DirectDraw SDK documentation for a description of the DDCAPS structure.
  * 
  * <b>Note for Microsoft Windows 98/Me:</b>  DD_MORESURFACECAPS is the definition for Windows 2000 and later versions. Drivers that run on Windows 98/Me use the name DDMORESURFACECAPS, which is aliased in <i>dx95type.h</i>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_moresurfacecaps
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_moresurfacecaps
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */
 class DD_MORESURFACECAPS extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
     static packingSize => 8
 
     class NTExtendedHeapRestrictions extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+        static sizeof => 24
+        static packingSize => 4
 
         /**
          * @type {DDSCAPSEX}
@@ -42,7 +39,7 @@ class DD_MORESURFACECAPS extends Win32Struct
         ddsCapsExAlt{
             get {
                 if(!this.HasProp("__ddsCapsExAlt"))
-                    this.__ddsCapsExAlt := DDSCAPSEX(16, this)
+                    this.__ddsCapsExAlt := DDSCAPSEX(12, this)
                 return this.__ddsCapsExAlt
             }
         }
@@ -75,7 +72,7 @@ class DD_MORESURFACECAPS extends Win32Struct
     ddsCapsMore{
         get {
             if(!this.HasProp("__ddsCapsMore"))
-                this.__ddsCapsMore := DDSCAPSEX(8, this)
+                this.__ddsCapsMore := DDSCAPSEX(4, this)
             return this.__ddsCapsMore
         }
     }
@@ -87,7 +84,7 @@ class DD_MORESURFACECAPS extends Win32Struct
     ddsExtendedHeapRestrictions{
         get {
             if(!this.HasProp("__ddsExtendedHeapRestrictionsProxyArray"))
-                this.__ddsExtendedHeapRestrictionsProxyArray := Win32FixedArray(this.ptr + 24, 1, %this.__Class%.NTExtendedHeapRestrictions, "")
+                this.__ddsExtendedHeapRestrictionsProxyArray := Win32FixedArray(this.ptr + 16, 1, %this.__Class%.NTExtendedHeapRestrictions, "")
             return this.__ddsExtendedHeapRestrictionsProxyArray
         }
     }

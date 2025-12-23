@@ -4,7 +4,6 @@
 /**
  * Represents the histogram output buffer for a single component.
  * @remarks
- * 
  * Histogram output buffers are provided in the *Histograms* field of the [D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS1](ns-d3d12video-d3d12_video_decode_output_stream_arguments1.md) structure.
  * 
  * 
@@ -37,9 +36,7 @@
  * - D3D12_RESOURCE_FLAG_VIDEO_DECODE_REFERENCE_ONLY
  * - D3D12_RESOURCE_FLAG_ALLOW_ONLY_NON_RT_DS_TEXTURE_PLACEMENT
  * - D3D12_RESOURCE_FLAG_ALLOW_ONLY_RT_DS_TEXTURE_PLACEMENT
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_video_decode_output_histogram
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_decode_output_histogram
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

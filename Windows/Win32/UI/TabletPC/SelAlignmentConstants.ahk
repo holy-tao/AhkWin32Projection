@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the alignment of the paragraph relative to the margins of the InkEdit control.
- * @see https://docs.microsoft.com/windows/win32/api//inked/ne-inked-selalignmentconstants
+ * @see https://learn.microsoft.com/windows/win32/api/inked/ne-inked-selalignmentconstants
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class SelAlignmentConstants{
+class SelAlignmentConstants extends Win32Enum{
 
     /**
      * Default. The paragraph is aligned along the left margin.

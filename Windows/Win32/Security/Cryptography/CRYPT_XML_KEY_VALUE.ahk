@@ -8,7 +8,7 @@
 
 /**
  * Contains a single public key that may be useful in validating the signature.
- * @see https://docs.microsoft.com/windows/win32/api//cryptxml/ns-cryptxml-crypt_xml_key_value
+ * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_key_value
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

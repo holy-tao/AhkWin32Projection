@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the moniker's class.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/ne-objidl-mksys
+ * @see https://learn.microsoft.com/windows/win32/api/objidl/ne-objidl-mksys
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class MKSYS{
+class MKSYS extends Win32Enum{
 
     /**
      * Indicates a custom moniker implementation.

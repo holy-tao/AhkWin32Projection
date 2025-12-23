@@ -6,15 +6,15 @@
 
 /**
  * Describes an address for a SCSI device.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clusprop_scsi_address
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_scsi_address
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
 class CLUSPROP_SCSI_ADDRESS extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {CLUSPROP_VALUE}
@@ -33,7 +33,7 @@ class CLUSPROP_SCSI_ADDRESS extends Win32Struct
     Base2{
         get {
             if(!this.HasProp("__Base2"))
-                this.__Base2 := CLUS_SCSI_ADDRESS(16, this)
+                this.__Base2 := CLUS_SCSI_ADDRESS(12, this)
             return this.__Base2
         }
     }

@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * The EVENT_INFO_CLASS enumeration type is used with the EventSetInformation function to specify the configuration operation to be performed on an ETW event provider registration.
- * @see https://docs.microsoft.com/windows/win32/api//evntprov/ne-evntprov-event_info_class
+ * @see https://learn.microsoft.com/windows/win32/api/evntprov/ne-evntprov-event_info_class
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
-class EVENT_INFO_CLASS{
+class EVENT_INFO_CLASS extends Win32Enum{
 
     /**
      * Adds binary tracking information from this provider to each session that
      * collects events from this event provider. The binary tracking data includes the
      * full path to the binary containing the callback that was specified when
      * registering the event provider. This information is useful if the binary
-     * contains
-     * [mc.exe](https://docs.microsoft.com/windows/win32/wes/message-compiler--mc-exe-)-generated
+     * contains [mc.exe](/windows/win32/wes/message-compiler--mc-exe-)-generated
      * decoding resources but is not globally registered. Decoding tools can use the
      * path in the trace to locate the binary and extract the decoding resources.
      * 

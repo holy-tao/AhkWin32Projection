@@ -9,9 +9,9 @@
  */
 class ICMPV4_ADDRESS_MASK_MESSAGE extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {ICMP_MESSAGE}

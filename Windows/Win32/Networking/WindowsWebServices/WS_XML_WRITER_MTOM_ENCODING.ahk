@@ -5,7 +5,7 @@
 
 /**
  * Used to indicate that the reader should emit bytes in MTOM format. The MTOM format will represent bytes written to it as binary mime parts rather than embedded base64 encoded text.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_xml_writer_mtom_encoding
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_mtom_encoding
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -58,7 +58,7 @@ class WS_XML_WRITER_MTOM_ENCODING extends Win32Struct
     }
 
     /**
-     * Specifies the type used by the mime part that contains the xml.  This correpsonds to the "start-info" parameter in the of the MIME Content-Type.
+     * Specifies the type used by the mime part that contains the xml.  This corresponds to the "start-info" parameter in the of the MIME Content-Type.
      * @type {WS_STRING}
      */
     startInfo{

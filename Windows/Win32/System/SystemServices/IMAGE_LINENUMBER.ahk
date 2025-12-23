@@ -7,24 +7,41 @@
  */
 class IMAGE_LINENUMBER extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 6
 
-    static packingSize => 4
+    static packingSize => 2
 
-    /**
-     * @type {Integer}
-     */
-    SymbolTableIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    class _Type_e__Union extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 2
+
+        /**
+         * @type {Integer}
+         */
+        SymbolTableIndex {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        VirtualAddress {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_Type_e__Union}
      */
-    VirtualAddress {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    Type{
+        get {
+            if(!this.HasProp("__Type"))
+                this.__Type := %this.__Class%._Type_e__Union(0, this)
+            return this.__Type
+        }
     }
 
     /**

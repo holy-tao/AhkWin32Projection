@@ -4,7 +4,7 @@
 
 /**
  * A structure that is used to specify the custom proxy for the channel, using the WS_CHANNEL_PROPERTY_CUSTOM_HTTP_PROXY.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_custom_http_proxy
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_custom_http_proxy
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -19,8 +19,12 @@ class WS_CUSTOM_HTTP_PROXY extends Win32Struct
      *                     entry must follow the following EBNF.
      *                 
      * 
-     * <pre class="syntax" xml:space="preserve"><code>
-     * &lt;server&gt;[":"&lt;port&gt;]</code></pre>
+     * 
+     * ``` syntax
+     * 
+     * &lt;server&gt;[":"&lt;port&gt;]
+     * ```
+     * 
      * 
      * <ul>
      * <li>server=Address of the server

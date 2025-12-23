@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Defines the list of notifications that are generated for a groupset.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_change_groupset_v2
+ * The CLUSTER_CHANGE_GROUPSET_V2 enumeration (msclus.h) defines the list of notifications that are generated for a groupset.
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_change_groupset_v2
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_CHANGE_GROUPSET_V2{
+class CLUSTER_CHANGE_GROUPSET_V2 extends Win32Enum{
 
     /**
      * Indicates that a groupset was deleted.

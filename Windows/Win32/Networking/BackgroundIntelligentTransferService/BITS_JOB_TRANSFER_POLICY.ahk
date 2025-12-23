@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify ID values corresponding to BITS properties.
- * @see https://docs.microsoft.com/windows/win32/api//bits5_0/ne-bits5_0-bits_job_transfer_policy
+ * @see https://learn.microsoft.com/windows/win32/api/bits5_0/ne-bits5_0-bits_job_transfer_policy
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */
-class BITS_JOB_TRANSFER_POLICY{
+class BITS_JOB_TRANSFER_POLICY extends Win32Enum{
 
     /**
      * Specifies that the job will be transferred when connectivity is available, regardless of the cost.

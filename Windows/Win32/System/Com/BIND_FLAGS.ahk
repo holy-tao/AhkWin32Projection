@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Controls aspects of moniker binding operations.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/ne-objidl-bind_flags
+ * @see https://learn.microsoft.com/windows/win32/api/objidl/ne-objidl-bind_flags
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class BIND_FLAGS{
+class BIND_FLAGS extends Win32Enum{
 
     /**
      * If this flag is specified, the moniker implementation can interact with the end user. Otherwise, the moniker implementation should not interact with the user in any way, such as by asking for a password for a network volume that needs mounting. If prohibited from interacting with the user when it otherwise would, a moniker implementation can use a different algorithm that does not require user interaction, or it can fail with the error MK_E_MUSTBOTHERUSER.

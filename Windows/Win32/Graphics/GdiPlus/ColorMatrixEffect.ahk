@@ -3,8 +3,6 @@
 #Include .\Effect.ahk
 
 /**
- * The ColorMatrixEffect class enables you to apply an affine transformation to a bitmap.
- * @see https://docs.microsoft.com/windows/win32/api//gdipluseffects/nl-gdipluseffects-colormatrixeffect
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

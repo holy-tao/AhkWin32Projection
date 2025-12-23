@@ -4,7 +4,6 @@
 /**
  * The DD_D3DBUFCALLBACKS structure is used only by drivers that implement driver level allocation of command and vertex buffers.
  * @remarks
- * 
  * Drivers that manage their own command and vertex buffers must fill out a DD_D3DBUFCALLBACKS structure and point the <b>lpD3DBufCallbacks</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_halinfo">DD_HALINFO</a> to it. 
  * 
  * The driver must also support the callback functions reported in the DD_D3DBUFCALLBACKS structure. These <i>XxxD3DBuffer</i> callbacks are each analogous to the <i>DdXxxSurface</i> callback of similar name; they have the same prototypes and are called with the same input parameters. These new callbacks are called only when the surface in question has the DDSCAPS_EXECUTEBUFFER flag set in the surface caps. The buffer creation flags are DDSCAPS_WRITEONLY, DDSCAPS2_VERTEXBUFFER and DDSCAPS2_COMMANDBUFFER. 
@@ -32,9 +31,7 @@
  * </li>
  * </ul>
  * Implicit vertex buffers should not be placed in video memory because they are expected to be read/write. Only explicit vertex buffers with the DDSCAPS_WRITEONLY flag set can be safely placed in video memory.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_d3dbufcallbacks
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_d3dbufcallbacks
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

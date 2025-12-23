@@ -4,7 +4,7 @@
 
 /**
  * Used to set or query the limit on the maximum number of outstanding connections for a URL Group.
- * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_connection_limit_info
+ * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_connection_limit_info
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

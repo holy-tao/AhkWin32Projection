@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the supported normalization forms.
  * @remarks
- * 
  * For more information about the normalization forms, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-unicode-normalization-to-represent-strings">Using Unicode Normalization to Represent Strings</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winnls/ne-winnls-norm_form
+ * @see https://learn.microsoft.com/windows/win32/api/winnls/ne-winnls-norm_form
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */
-class NORM_FORM{
+class NORM_FORM extends Win32Enum{
 
     /**
      * Not supported.

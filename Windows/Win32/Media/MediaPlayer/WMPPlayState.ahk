@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WMPPlayState enumeration type defines the possible operational states of Windows Media Player as it plays a digital media file.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/ne-wmp-wmpplaystate
+ * @see https://learn.microsoft.com/windows/win32/api/wmp/ne-wmp-wmpplaystate
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
-class WMPPlayState{
+class WMPPlayState extends Win32Enum{
 
     /**
      * Windows Media Player is in an undefined state.

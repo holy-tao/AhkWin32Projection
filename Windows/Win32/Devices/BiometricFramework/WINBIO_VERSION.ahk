@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Contains the software version number of a biometric service provider component.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-version
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
@@ -14,6 +14,7 @@ class WINBIO_VERSION extends Win32Struct
     static packingSize => 4
 
     /**
+     * A **DWORD** that contains the major version number.
      * @type {Integer}
      */
     MajorVersion {
@@ -22,6 +23,7 @@ class WINBIO_VERSION extends Win32Struct
     }
 
     /**
+     * A **DWORD** that contains the minor version number.
      * @type {Integer}
      */
     MinorVersion {

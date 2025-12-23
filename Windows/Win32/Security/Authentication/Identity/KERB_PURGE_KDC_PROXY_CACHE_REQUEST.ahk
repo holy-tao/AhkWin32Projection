@@ -10,7 +10,7 @@ class KERB_PURGE_KDC_PROXY_CACHE_REQUEST extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

@@ -4,16 +4,13 @@
 /**
  * Contains the new global debug configuration for XAudio2. Used with the SetDebugConfiguration function.
  * @remarks
- * 
  * Debugging messages can be completely turned off by initializing <b>XAUDIO2_DEBUG_CONFIGURATION</b> to all zeroes.
  * 
  * <div class="alert"><b>Note</b>  For this version of XAudio2, only the <b>XAUDIO2_LOG_ERRORS</b> value is supported on <b>TraceMask</b> or <b>BreakMask</b>. All other members and values are ignored.</div>
  * <div> </div>
  * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xaudio2/ns-xaudio2-xaudio2_debug_configuration
+ * @see https://learn.microsoft.com/windows/win32/api/xaudio2/ns-xaudio2-xaudio2_debug_configuration
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319
  */

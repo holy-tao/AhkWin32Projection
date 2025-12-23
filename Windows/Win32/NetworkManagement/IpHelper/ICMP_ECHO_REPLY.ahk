@@ -5,7 +5,6 @@
 /**
  * Describes the data returned in response to an IPv4 echo request.
  * @remarks
- * 
  * The <b>ICMP_ECHO_REPLY</b> structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmpparsereplies">IcmpParseReplies</a> function to return the response to an IPv4 echo request. On a 64-bit platform, the  <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-icmp_echo_reply32">ICMP_ECHO_REPLY32</a> structure should be used.
  * 
  * For IPv4, some of the possible values for the <b>Status</b> member are specified in 
@@ -14,9 +13,7 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getiperrorstring">GetIpErrorString</a> function can be used to retrieve the IP helper error string for the <b>IP_STATUS</b> error code in the <b>Status</b> member.
  * 
  * The <b>ICMP_ECHO_REPLY</b> structure is defined in the <i>Ipexport.h</i> header file which is automatically included in the <i>Iphlpapi.h</i> header file. The <i>Ipexport.h</i> header file should never be used directly.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ipexport/ns-ipexport-icmp_echo_reply
+ * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-icmp_echo_reply
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

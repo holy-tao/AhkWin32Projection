@@ -12,7 +12,7 @@
  */
 class DIJOYCONFIG_DX5 extends Win32Struct
 {
-    static sizeof => 1168
+    static sizeof => 1160
 
     static packingSize => 8
 
@@ -47,23 +47,23 @@ class DIJOYCONFIG_DX5 extends Win32Struct
      * @type {Integer}
      */
     dwGain {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
+        get => NumGet(this, 128, "uint")
+        set => NumPut("uint", value, this, 128)
     }
 
     /**
      * @type {String}
      */
     wszType {
-        get => StrGet(this.ptr + 140, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 140, 255, "UTF-16")
+        get => StrGet(this.ptr + 132, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 132, 255, "UTF-16")
     }
 
     /**
      * @type {String}
      */
     wszCallout {
-        get => StrGet(this.ptr + 652, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 652, 255, "UTF-16")
+        get => StrGet(this.ptr + 644, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 644, 255, "UTF-16")
     }
 }

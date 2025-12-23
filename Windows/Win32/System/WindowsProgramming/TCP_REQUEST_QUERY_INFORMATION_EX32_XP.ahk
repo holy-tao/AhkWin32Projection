@@ -9,9 +9,9 @@
  */
 class TCP_REQUEST_QUERY_INFORMATION_EX32_XP extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {TDIObjectID}
@@ -30,7 +30,7 @@ class TCP_REQUEST_QUERY_INFORMATION_EX32_XP extends Win32Struct
     Context{
         get {
             if(!this.HasProp("__ContextProxyArray"))
-                this.__ContextProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "uint")
+                this.__ContextProxyArray := Win32FixedArray(this.ptr + 20, 4, Primitive, "uint")
             return this.__ContextProxyArray
         }
     }

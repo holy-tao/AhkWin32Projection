@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The VMRRenderPrefs enumeration type is used with the IVMRFilterConfig::GetRenderingPrefs and IVMRFilterConfig::SetRenderingPrefs methods to get and set basic rendering preferences.
  * @remarks
- * 
  * By default the VMR-7 tries to allocate DirectDraw texture surfaces from Video Memory and falls back to AGP memory if there is no Video Memory remaining to fulfill the allocation. In order for the VMR-7 to use AGP memory, the graphics card must have some basic support for blitting from AGP memory to Video Memory.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-vmrrenderprefs
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-vmrrenderprefs
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class VMRRenderPrefs{
+class VMRRenderPrefs extends Win32Enum{
 
     /**
      * Not implemented; do not use.

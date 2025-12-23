@@ -3,7 +3,7 @@
 
 /**
  * Specifies the error status of the last attempt to create a client context.
- * @see https://docs.microsoft.com/windows/win32/api//sspi/ns-sspi-secpkgcontext_negostatus
+ * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_negostatus
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

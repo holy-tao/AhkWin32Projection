@@ -1,18 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines possible status for new reports of a particular report type.
  * @remarks
- * 
  * These values represent status for new reports. The most recent reports remain available through <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nf-locationapi-ilocation-getreport">ILocation::GetReport</a>, regardless of the reported status. If the status is <b>REPORT_RUNNING</b>, the data in a report is new. Otherwise, <b>ILocation::GetReport</b> provides cached data if cached data is available.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//locationapi/ne-locationapi-location_report_status
+ * @see https://learn.microsoft.com/windows/win32/api/locationapi/ne-locationapi-location_report_status
  * @namespace Windows.Win32.Devices.Geolocation
  * @version v4.0.30319
  */
-class LOCATION_REPORT_STATUS{
+class LOCATION_REPORT_STATUS extends Win32Enum{
 
     /**
      * The requested report type is not supported by the API. No location providers of the requested type are installed.

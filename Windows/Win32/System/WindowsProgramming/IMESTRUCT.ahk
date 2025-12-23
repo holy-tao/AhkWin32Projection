@@ -3,7 +3,7 @@
 
 /**
  * Used by SendIMEMessageEx to specify the subfunction to be executed in the Input Method Editor (IME) message and its parameters. This structure is also used to receive return values from those subfunctions.
- * @see https://docs.microsoft.com/windows/win32/api//ime/ns-ime-imestruct
+ * @see https://learn.microsoft.com/windows/win32/api/ime/ns-ime-imestruct
  * @namespace Windows.Win32.System.WindowsProgramming
  * @version v4.0.30319
  */

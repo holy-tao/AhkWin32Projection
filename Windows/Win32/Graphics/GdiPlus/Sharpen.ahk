@@ -3,8 +3,6 @@
 #Include .\Effect.ahk
 
 /**
- * The Sharpen class enables you to adjust the sharpness of a bitmap.
- * @see https://docs.microsoft.com/windows/win32/api//gdipluseffects/nl-gdipluseffects-sharpen
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

@@ -4,16 +4,13 @@
 /**
  * Used in conjunction with the IOCTL_STORAGE_QUERY_PROPERTY control code to retrieve the storage device descriptor data for a device.
  * @remarks
- * 
  * An application can determine the required buffer size by issuing a 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_storage_query_property">IOCTL_STORAGE_QUERY_PROPERTY</a> control code 
  *     passing a <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-storage_descriptor_header">STORAGE_DESCRIPTOR_HEADER</a> structure 
  *     for the output buffer, and then using the returned <b>Size</b> member of the 
  *     <b>STORAGE_DESCRIPTOR_HEADER</b> structure to allocate 
  *     a buffer of the proper size.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_device_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_device_descriptor
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -13,9 +13,9 @@
  */
 class DOT11_SEND_INVITATION_REQUEST_PARAMETERS extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 88
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {NDIS_OBJECT_HEADER}
@@ -102,7 +102,7 @@ class DOT11_SEND_INVITATION_REQUEST_PARAMETERS extends Win32Struct
     OperatingChannel{
         get {
             if(!this.HasProp("__OperatingChannel"))
-                this.__OperatingChannel := DOT11_WFD_CHANNEL(30, this)
+                this.__OperatingChannel := DOT11_WFD_CHANNEL(26, this)
             return this.__OperatingChannel
         }
     }
@@ -111,8 +111,8 @@ class DOT11_SEND_INVITATION_REQUEST_PARAMETERS extends Win32Struct
      * @type {BOOLEAN}
      */
     bUseSpecifiedOperatingChannel {
-        get => NumGet(this, 35, "char")
-        set => NumPut("char", value, this, 35)
+        get => NumGet(this, 31, "char")
+        set => NumPut("char", value, this, 31)
     }
 
     /**
@@ -121,7 +121,7 @@ class DOT11_SEND_INVITATION_REQUEST_PARAMETERS extends Win32Struct
     GroupID{
         get {
             if(!this.HasProp("__GroupID"))
-                this.__GroupID := DOT11_WFD_GROUP_ID(40, this)
+                this.__GroupID := DOT11_WFD_GROUP_ID(32, this)
             return this.__GroupID
         }
     }
@@ -130,23 +130,23 @@ class DOT11_SEND_INVITATION_REQUEST_PARAMETERS extends Win32Struct
      * @type {BOOLEAN}
      */
     bLocalGO {
-        get => NumGet(this, 88, "char")
-        set => NumPut("char", value, this, 88)
+        get => NumGet(this, 76, "char")
+        set => NumPut("char", value, this, 76)
     }
 
     /**
      * @type {Integer}
      */
     uIEsOffset {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
      * @type {Integer}
      */
     uIEsLength {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 }

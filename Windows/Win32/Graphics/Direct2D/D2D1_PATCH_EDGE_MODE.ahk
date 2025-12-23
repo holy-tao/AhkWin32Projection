@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how to render gradient mesh edges.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/ne-d2d1_3-d2d1_patch_edge_mode
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/ne-d2d1_3-d2d1_patch_edge_mode
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_PATCH_EDGE_MODE{
+class D2D1_PATCH_EDGE_MODE extends Win32Enum{
 
     /**
      * Render this patch edge aliased. Use this value for the internal edges of your gradient mesh.

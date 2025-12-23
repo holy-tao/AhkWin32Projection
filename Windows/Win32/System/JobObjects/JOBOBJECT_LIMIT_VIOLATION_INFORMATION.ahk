@@ -4,13 +4,10 @@
 /**
  * Contains information about resource notification limits that have been exceeded for a job object. This structure is used with the QueryInformationJobObject function with the JobObjectLimitViolationInformation information class.
  * @remarks
- * 
  * When any notification limit specified in a JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION structure is exceeded, the system sends a JOB_OBJECT_MSG_NOTIFICATION_LIMIT message to the I/O completion port associated with the job.
  * 
  * To retrieve information about the limits that were exceeded, the application monitoring the I/O completion port must call the <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-queryinformationjobobject">QueryInformationJobObject</a> function with the <b>JobObjectLimitViolationInformation</b> information class and a pointer to a <b>JOBOBJECT_LIMIT_VIOLATION_INFORMATION</b> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-jobobject_limit_violation_information
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_limit_violation_information
  * @namespace Windows.Win32.System.JobObjects
  * @version v4.0.30319
  */

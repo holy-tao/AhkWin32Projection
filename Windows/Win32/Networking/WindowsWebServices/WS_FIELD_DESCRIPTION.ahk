@@ -3,7 +3,7 @@
 
 /**
  * Represents serialization information about a field within a structure.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_field_description
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_field_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -30,7 +30,7 @@ class WS_FIELD_DESCRIPTION extends Win32Struct
      * This field is required, except in the following case, where it may be <b>NULL</b>.
      *                     If the mapping field is <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_REPEATING_ELEMENT_FIELD_MAPPING</a>, then
      *                     this identifies the local name of the "wrapper" element that is the parent element
-     *                     of the array item elements.  Setting this field (and the ns field) to <b>NULL</b>will omit the wrapper element.  The ns and localName fields must be either both
+     *                     of the array item elements.  Setting this field (and the ns field) to <b>NULL</b> will omit the wrapper element.  The ns and localName fields must be either both
      *                     specified or both <b>NULL</b>.
      * @type {Pointer<WS_XML_STRING>}
      */
@@ -46,7 +46,7 @@ class WS_FIELD_DESCRIPTION extends Win32Struct
      * This field is required, except in the following case, where it may be <b>NULL</b>.
      *                     If the mapping field is <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_REPEATING_ELEMENT_FIELD_MAPPING</a>, then
      *                     this identifies the namespace of the "wrapper" element that is the parent element
-     *                     of the array item elements.  Setting this field (and the localName field) to <b>NULL</b>will omit the wrapper element.  The ns and localName fields must be either both
+     *                     of the array item elements.  Setting this field (and the localName field) to <b>NULL</b> will omit the wrapper element.  The ns and localName fields must be either both
      *                     specified or both <b>NULL</b>.
      * @type {Pointer<WS_XML_STRING>}
      */

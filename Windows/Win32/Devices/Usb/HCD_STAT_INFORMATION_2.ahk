@@ -59,7 +59,7 @@ class HCD_STAT_INFORMATION_2 extends Win32Struct
     Counters{
         get {
             if(!this.HasProp("__Counters"))
-                this.__Counters := HCD_STAT_COUNTERS(32, this)
+                this.__Counters := HCD_STAT_COUNTERS(28, this)
             return this.__Counters
         }
     }
@@ -70,7 +70,7 @@ class HCD_STAT_INFORMATION_2 extends Win32Struct
     IsoCounters{
         get {
             if(!this.HasProp("__IsoCounters"))
-                this.__IsoCounters := HCD_ISO_STAT_COUNTERS(56, this)
+                this.__IsoCounters := HCD_ISO_STAT_COUNTERS(52, this)
             return this.__IsoCounters
         }
     }

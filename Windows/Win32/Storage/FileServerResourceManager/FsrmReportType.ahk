@@ -1,20 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the types of reports that you can generate.
  * @remarks
- * 
  * To specify the values for report types that require a filter (for example, listing files over a specified 
  *     size), call the 
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-setdefaultfilter">IFsrmReportManager::SetDefaultFilter</a> 
  *     method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmreporttype
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmreporttype
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
-class FsrmReportType{
+class FsrmReportType extends Win32Enum{
 
     /**
      * The report type is unknown. Do not use this flag.

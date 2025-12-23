@@ -4,15 +4,15 @@
 
 /**
  * Contains information needed by the IOCTL_CHANGER_SET_POSITION control code to set the changer's robotic transport mechanism to the specified element address.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-changer_set_position
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_set_position
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
 class CHANGER_SET_POSITION extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A 

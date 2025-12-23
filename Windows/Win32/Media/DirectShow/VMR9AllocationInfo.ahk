@@ -4,7 +4,7 @@
 
 /**
  * The VMR9AllocationInfo structure describes the Direct3D surfaces that a VMR-9 Allocator-Presenter object should allocate.
- * @see https://docs.microsoft.com/windows/win32/api//vmr9/ns-vmr9-vmr9allocationinfo
+ * @see https://learn.microsoft.com/windows/win32/api/vmr9/ns-vmr9-vmr9allocationinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -12,7 +12,7 @@ class VMR9AllocationInfo extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies a bitwise combination of flags from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ne-vmr9-vmr9surfaceallocationflags">VMR9SurfaceAllocationFlags</a> enumeration type.

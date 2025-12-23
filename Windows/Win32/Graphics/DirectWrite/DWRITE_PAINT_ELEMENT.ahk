@@ -11,17 +11,17 @@
  */
 class DWRITE_PAINT_ELEMENT extends Win32Struct
 {
-    static sizeof => 240
+    static sizeof => 208
 
-    static packingSize => 8
+    static packingSize => 4
 
     class PAINT_UNION extends Win32Struct {
-        static sizeof => 240
-        static packingSize => 8
+        static sizeof => 204
+        static packingSize => 4
 
         class PAINT_LAYERS extends Win32Struct {
-            static sizeof => 232
-            static packingSize => 8
+            static sizeof => 4
+            static packingSize => 4
     
             /**
              * @type {Integer}
@@ -34,8 +34,8 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         }
     
         class PAINT_SOLID_GLYPH extends Win32Struct {
-            static sizeof => 232
-            static packingSize => 8
+            static sizeof => 32
+            static packingSize => 4
     
             /**
              * @type {Integer}
@@ -51,7 +51,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
             color{
                 get {
                     if(!this.HasProp("__color"))
-                        this.__color := DWRITE_PAINT_COLOR(8, this)
+                        this.__color := DWRITE_PAINT_COLOR(4, this)
                     return this.__color
                 }
             }
@@ -59,8 +59,8 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         }
     
         class PAINT_LINEAR_GRADIENT extends Win32Struct {
-            static sizeof => 232
-            static packingSize => 8
+            static sizeof => 32
+            static packingSize => 4
     
             /**
              * @type {Integer}
@@ -129,8 +129,8 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         }
     
         class PAINT_RADIAL_GRADIENT extends Win32Struct {
-            static sizeof => 232
-            static packingSize => 8
+            static sizeof => 32
+            static packingSize => 4
     
             /**
              * @type {Integer}
@@ -199,8 +199,8 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         }
     
         class PAINT_SWEEP_GRADIENT extends Win32Struct {
-            static sizeof => 232
-            static packingSize => 8
+            static sizeof => 24
+            static packingSize => 4
     
             /**
              * @type {Integer}
@@ -253,8 +253,8 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         }
     
         class PAINT_GLYPH extends Win32Struct {
-            static sizeof => 232
-            static packingSize => 8
+            static sizeof => 4
+            static packingSize => 4
     
             /**
              * @type {Integer}
@@ -267,8 +267,8 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         }
     
         class PAINT_COLOR_GLYPH extends Win32Struct {
-            static sizeof => 232
-            static packingSize => 8
+            static sizeof => 20
+            static packingSize => 4
     
             /**
              * @type {Integer}
@@ -284,7 +284,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
             clipBox{
                 get {
                     if(!this.HasProp("__clipBox"))
-                        this.__clipBox := D2D_RECT_F(8, this)
+                        this.__clipBox := D2D_RECT_F(4, this)
                     return this.__clipBox
                 }
             }
@@ -292,8 +292,8 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         }
     
         class PAINT_COMPOSITE extends Win32Struct {
-            static sizeof => 232
-            static packingSize => 8
+            static sizeof => 4
+            static packingSize => 4
     
             /**
              * @type {Integer}
@@ -431,7 +431,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
     paint{
         get {
             if(!this.HasProp("__paint"))
-                this.__paint := %this.__Class%.PAINT_UNION(8, this)
+                this.__paint := %this.__Class%.PAINT_UNION(4, this)
             return this.__paint
         }
     }

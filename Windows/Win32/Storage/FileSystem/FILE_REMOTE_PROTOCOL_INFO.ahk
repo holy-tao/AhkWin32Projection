@@ -4,25 +4,22 @@
 /**
  * Contains file remote protocol information.
  * @remarks
- * 
  * The <b>FILE_REMOTE_PROTOCOL_INFO</b> 
  *     structure is valid only for use with the 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getfileinformationbyhandleex">GetFileInformationByHandleEx</a> function.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-file_remote_protocol_info
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_remote_protocol_info
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
 class FILE_REMOTE_PROTOCOL_INFO extends Win32Struct
 {
-    static sizeof => 120
+    static sizeof => 116
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _GenericReserved extends Win32Struct {
-        static sizeof => 120
-        static packingSize => 8
+        static sizeof => 32
+        static packingSize => 4
 
         /**
          * @type {Array<UInt32>}
@@ -31,6 +28,98 @@ class FILE_REMOTE_PROTOCOL_INFO extends Win32Struct
             get {
                 if(!this.HasProp("__ReservedProxyArray"))
                     this.__ReservedProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "uint")
+                return this.__ReservedProxyArray
+            }
+        }
+    
+    }
+
+    class _ProtocolSpecific_e__Union extends Win32Struct {
+        static sizeof => 64
+        static packingSize => 4
+
+        class _Smb2 extends Win32Struct {
+            static sizeof => 12
+            static packingSize => 4
+    
+            class _Server extends Win32Struct {
+                static sizeof => 4
+                static packingSize => 4
+        
+                /**
+                 * @type {Integer}
+                 */
+                Capabilities {
+                    get => NumGet(this, 0, "uint")
+                    set => NumPut("uint", value, this, 0)
+                }
+            
+            }
+        
+            class _Share extends Win32Struct {
+                static sizeof => 8
+                static packingSize => 4
+        
+                /**
+                 * @type {Integer}
+                 */
+                Capabilities {
+                    get => NumGet(this, 0, "uint")
+                    set => NumPut("uint", value, this, 0)
+                }
+            
+                /**
+                 * @type {Integer}
+                 */
+                ShareFlags {
+                    get => NumGet(this, 4, "uint")
+                    set => NumPut("uint", value, this, 4)
+                }
+            
+            }
+        
+            /**
+             * @type {_Server}
+             */
+            Server{
+                get {
+                    if(!this.HasProp("__Server"))
+                        this.__Server := %this.__Class%._Server(0, this)
+                    return this.__Server
+                }
+            }
+        
+            /**
+             * @type {_Share}
+             */
+            Share{
+                get {
+                    if(!this.HasProp("__Share"))
+                        this.__Share := %this.__Class%._Share(4, this)
+                    return this.__Share
+                }
+            }
+        
+        }
+    
+        /**
+         * @type {_Smb2}
+         */
+        Smb2{
+            get {
+                if(!this.HasProp("__Smb2"))
+                    this.__Smb2 := %this.__Class%._Smb2(0, this)
+                return this.__Smb2
+            }
+        }
+    
+        /**
+         * @type {Array<UInt32>}
+         */
+        Reserved{
+            get {
+                if(!this.HasProp("__ReservedProxyArray"))
+                    this.__ReservedProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "uint")
                 return this.__ReservedProxyArray
             }
         }
@@ -203,94 +292,20 @@ class FILE_REMOTE_PROTOCOL_INFO extends Win32Struct
     GenericReserved{
         get {
             if(!this.HasProp("__GenericReserved"))
-                this.__GenericReserved := %this.__Class%._GenericReserved(24, this)
+                this.__GenericReserved := %this.__Class%._GenericReserved(20, this)
             return this.__GenericReserved
         }
     }
 
-    class _Smb2 extends Win32Struct {
-        static sizeof => 64
-        static packingSize => 8
-
-        class _Server extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
-    
-            /**
-             * @type {Integer}
-             */
-            Capabilities {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
-        
-        }
-    
-        class _Share extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
-    
-            /**
-             * @type {Integer}
-             */
-            Capabilities {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
-        
-            /**
-             * @type {Integer}
-             */
-            ShareFlags {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
-        
-        }
-    
-        /**
-         * @type {_Server}
-         */
-        Server{
-            get {
-                if(!this.HasProp("__Server"))
-                    this.__Server := %this.__Class%._Server(0, this)
-                return this.__Server
-            }
-        }
-    
-        /**
-         * @type {_Share}
-         */
-        Share{
-            get {
-                if(!this.HasProp("__Share"))
-                    this.__Share := %this.__Class%._Share(8, this)
-                return this.__Share
-            }
-        }
-    
-    }
-
     /**
-     * @type {_Smb2}
+     * 
+     * @type {_ProtocolSpecific_e__Union}
      */
-    Smb2{
+    ProtocolSpecific{
         get {
-            if(!this.HasProp("__Smb2"))
-                this.__Smb2 := %this.__Class%._Smb2(56, this)
-            return this.__Smb2
-        }
-    }
-
-    /**
-     * @type {Array<UInt32>}
-     */
-    Reserved1{
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 56, 16, Primitive, "uint")
-            return this.__Reserved1ProxyArray
+            if(!this.HasProp("__ProtocolSpecific"))
+                this.__ProtocolSpecific := %this.__Class%._ProtocolSpecific_e__Union(52, this)
+            return this.__ProtocolSpecific
         }
     }
 }

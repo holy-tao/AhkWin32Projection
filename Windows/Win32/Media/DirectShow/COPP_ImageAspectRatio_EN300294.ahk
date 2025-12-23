@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the aspect ratio for EN 300 294.
- * @see https://docs.microsoft.com/windows/win32/api//dxva9typ/ne-dxva9typ-copp_imageaspectratio_en300294
+ * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ne-dxva9typ-copp_imageaspectratio_en300294
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class COPP_ImageAspectRatio_EN300294{
+class COPP_ImageAspectRatio_EN300294 extends Win32Enum{
 
     /**
      * Full format 4:3.

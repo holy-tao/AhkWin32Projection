@@ -23,13 +23,13 @@
 
 /**
  * A union of all CIM data types.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_value
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_value
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
 class MI_Value extends Win32Struct
 {
-    static sizeof => 392
+    static sizeof => 384
 
     static packingSize => 8
 

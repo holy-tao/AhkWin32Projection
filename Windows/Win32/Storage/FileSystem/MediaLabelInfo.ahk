@@ -3,7 +3,7 @@
 
 /**
  * The MediaLabelInfo structure conveys information to the RSM database about a tape OMID. The media label library fills in this structure for all media labels the library recognizes.
- * @see https://docs.microsoft.com/windows/win32/api//ntmsmli/ns-ntmsmli-medialabelinfo
+ * @see https://learn.microsoft.com/windows/win32/api/ntmsmli/ns-ntmsmli-medialabelinfo
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

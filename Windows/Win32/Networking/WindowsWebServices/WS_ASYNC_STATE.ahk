@@ -3,7 +3,7 @@
 
 /**
  * Used by WsAsyncExecute to manage the state of an asynchronous operation.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_async_state
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_async_state
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

@@ -6,18 +6,16 @@
 /**
  * The DDCOMPBUFFERINFO structure contains driver-supplied information regarding compression buffers.
  * @remarks
- * 
  * This structure passes this information to the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_getmocompcompbuffdata">DD_GETMOCOMPCOMPBUFFDATA</a> structure.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-ddcompbufferinfo
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-ddcompbufferinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */
 class DDCOMPBUFFERINFO extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 68
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the size in bytes of this DDCOMPBUFFERINFO structure.
@@ -71,7 +69,7 @@ class DDCOMPBUFFERINFO extends Win32Struct
     ddCompCaps{
         get {
             if(!this.HasProp("__ddCompCaps"))
-                this.__ddCompCaps := DDSCAPS2(24, this)
+                this.__ddCompCaps := DDSCAPS2(20, this)
             return this.__ddCompCaps
         }
     }
@@ -83,7 +81,7 @@ class DDCOMPBUFFERINFO extends Win32Struct
     ddPixelFormat{
         get {
             if(!this.HasProp("__ddPixelFormat"))
-                this.__ddPixelFormat := DDPIXELFORMAT(40, this)
+                this.__ddPixelFormat := DDPIXELFORMAT(36, this)
             return this.__ddPixelFormat
         }
     }

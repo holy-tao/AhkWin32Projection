@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies conversion matrix from Y'Cb'Cr' to R'G'B'.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicjpegtransfermatrix
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicjpegtransfermatrix
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICJpegTransferMatrix{
+class WICJpegTransferMatrix extends Win32Enum{
 
     /**
      * Specifies the identity transfer matrix.

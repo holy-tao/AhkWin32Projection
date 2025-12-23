@@ -3,7 +3,7 @@
 
 /**
  * Used when calling WinVerifyTrust to verify a CERT_CONTEXT.
- * @see https://docs.microsoft.com/windows/win32/api//wintrust/ns-wintrust-wintrust_cert_info
+ * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-wintrust_cert_info
  * @namespace Windows.Win32.Security.WinTrust
  * @version v4.0.30319
  */

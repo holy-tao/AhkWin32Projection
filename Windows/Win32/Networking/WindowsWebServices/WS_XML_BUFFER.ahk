@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The opaque type used for a reference to an xml buffer.
+ * @remarks
+ * This object is not thread safe. For more information, see [thread safety](thread-safety.md).
  * @see https://learn.microsoft.com/windows/win32/wsw/ws-xml-buffer
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319

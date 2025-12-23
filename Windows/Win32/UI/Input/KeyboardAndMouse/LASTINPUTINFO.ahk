@@ -4,11 +4,8 @@
 /**
  * Contains the time of the last input.
  * @remarks
- * 
  * This function is useful for input idle detection. For more information on tick counts, see <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-gettickcount">GetTickCount</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-lastinputinfo
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-lastinputinfo
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
  * @version v4.0.30319
  */

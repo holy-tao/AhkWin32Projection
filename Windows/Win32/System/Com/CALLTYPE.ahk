@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the call types used by IMessageFilter::HandleInComingCall.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/ne-objidl-calltype
+ * @see https://learn.microsoft.com/windows/win32/api/objidl/ne-objidl-calltype
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class CALLTYPE{
+class CALLTYPE extends Win32Enum{
 
     /**
      * A top-level call has arrived and the object is not currently waiting for a reply from a previous outgoing call. Calls of this type should always be handled.

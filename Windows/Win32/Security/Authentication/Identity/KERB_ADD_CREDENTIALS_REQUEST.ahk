@@ -6,11 +6,8 @@
 /**
  * Specifies a message to add, remove, or replace an extra server credential for a logon session.
  * @remarks
- * 
  * Calling  the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsacallauthenticationpackage">LsaCallAuthenticationPackage</a> function with this structure affects only the behavior of the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-acceptsecuritycontext">AcceptSecurityContext (Kerberos)</a> function. Using this structure allows multiple physical and virtual servers to share a single identity.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_add_credentials_request
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_add_credentials_request
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

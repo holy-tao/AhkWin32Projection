@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines how Extended Protection is validated.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_extended_protection_scenario
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_extended_protection_scenario
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_EXTENDED_PROTECTION_SCENARIO{
+class WS_EXTENDED_PROTECTION_SCENARIO extends Win32Enum{
 
     /**
      * There is no SSL connection between the client and the server, or the SSL connection is terminated at the server. This is the default.

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The quality level of the transform for the Color management effect.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effects/ne-d2d1effects-d2d1_colormanagement_quality
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_colormanagement_quality
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_COLORMANAGEMENT_QUALITY{
+class D2D1_COLORMANAGEMENT_QUALITY extends Win32Enum{
 
     /**
      * The lowest quality mode. This mode requires feature level 9_1 or above.

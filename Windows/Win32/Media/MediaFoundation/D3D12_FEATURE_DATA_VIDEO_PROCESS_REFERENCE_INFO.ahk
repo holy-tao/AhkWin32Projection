@@ -6,16 +6,15 @@
  * Retrieves the number of past and future reference frames required for the specified deinterlace mode, filter, rate conversion, or auto processing features.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/ns-d3d12video-d3d12_feature_data_video_process_reference_info
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_process_reference_info
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
 class D3D12_FEATURE_DATA_VIDEO_PROCESS_REFERENCE_INFO extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * An integer indicating which physical adapter of the device the operation applies to, in a multi-adapter operation.

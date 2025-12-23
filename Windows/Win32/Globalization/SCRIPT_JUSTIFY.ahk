@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32Enum.ahk
 
 /**
  * Defines glyph characteristic information that an application needs to implement justification.
- * @see https://docs.microsoft.com/windows/win32/api//usp10/ne-usp10-script_justify
+ * @see https://learn.microsoft.com/windows/win32/api/usp10/ne-usp10-script_justify
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */
-class SCRIPT_JUSTIFY{
+class SCRIPT_JUSTIFY extends Win32Enum{
 
     /**
      * Justification cannot be applied at the glyph.

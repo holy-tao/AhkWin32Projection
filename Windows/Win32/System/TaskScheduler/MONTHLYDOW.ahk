@@ -4,7 +4,6 @@
 /**
  * Defines the date(s) that the task runs by month, week, and day of the week.
  * @remarks
- * 
  * The 
  * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-trigger_type_union">TRIGGER_TYPE_UNION</a> union uses an instance of this structure as part of the <b>Type</b> member of the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-task_trigger">TASK_TRIGGER</a> structure definition.
@@ -18,9 +17,7 @@
  * example.rgfDaysOfTheWeek = TASK_FRIDAY | TASK_MONDAY;
  * example.rgfMonths = TASK_JANUARY | TASK_APRIL | TASK_JULY | TASK_OCTOBER;
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mstask/ns-mstask-monthlydow
+ * @see https://learn.microsoft.com/windows/win32/api/mstask/ns-mstask-monthlydow
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */

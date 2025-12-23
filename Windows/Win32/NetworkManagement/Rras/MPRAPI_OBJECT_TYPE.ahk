@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the structure type in a MPRAPI_OBJECT_HEADER structure.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ne-mprapi-mprapi_object_type
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ne-mprapi-mprapi_object_type
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */
-class MPRAPI_OBJECT_TYPE{
+class MPRAPI_OBJECT_TYPE extends Win32Enum{
 
     /**
      * The structure is a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_ex">RAS_CONNECTION_EX</a> structure.

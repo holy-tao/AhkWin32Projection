@@ -5,7 +5,6 @@
 /**
  * The MPEG1WAVEFORMAT structure describes the format of MPEG-1 audio data.
  * @remarks
- * 
  * For MPEG-1 audio, the <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure defined in the <b>wfx</b> member must have the following values.
  * 
  * <table>
@@ -52,17 +51,15 @@
  * <td>Specifies the size of the format data after the <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure, in bytes. For the standard <b>MPEG1WAVEFORMAT</b> structure, this value is 22 bytes.</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mmreg/ns-mmreg-mpeg1waveformat
+ * @see https://learn.microsoft.com/windows/win32/api/mmreg/ns-mmreg-mpeg1waveformat
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
 class MPEG1WAVEFORMAT extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure that contains information about the audio format. See Remarks.
@@ -241,7 +238,7 @@ class MPEG1WAVEFORMAT extends Win32Struct
     }
 
     /**
-     * Sepecifies the de-emphasis required by the decoder:
+     * Specifies the de-emphasis required by the decoder:
      * 
      * <table>
      * <tr>
@@ -347,7 +344,7 @@ class MPEG1WAVEFORMAT extends Win32Struct
     }
 
     /**
-     * Specifies the least signifcant 32 bits of the presentation time stamp (PTS) of the first frame of the audio stream.
+     * Specifies the least significant 32 bits of the presentation time stamp (PTS) of the first frame of the audio stream.
      * @type {Integer}
      */
     dwPTSLow {

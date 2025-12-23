@@ -3,7 +3,7 @@
 
 /**
  * The MPEG_RQST_PACKET structure defines a buffer to receive MPEG-2 section data.
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ns-mpeg2structs-mpeg_rqst_packet
+ * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-mpeg_rqst_packet
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

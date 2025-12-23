@@ -3,7 +3,7 @@
 
 /**
  * A list of Server Principal Names (SPNs) that are used to validate Extended Protection.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_service_security_identities
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_service_security_identities
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

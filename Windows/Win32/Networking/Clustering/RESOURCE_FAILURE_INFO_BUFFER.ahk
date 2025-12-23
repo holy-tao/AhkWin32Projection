@@ -3,16 +3,16 @@
 #Include .\RESOURCE_FAILURE_INFO.ahk
 
 /**
- * Represents a buffer for a resource failure.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ns-msclus-resource_failure_info_buffer
+ * The RESOURCE_FAILURE_INFO_BUFFER structure represents a buffer for a resource failure. (RESOURCE_FAILURE_INFO_BUFFER)
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ns-msclus-resource_failure_info_buffer
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
 class RESOURCE_FAILURE_INFO_BUFFER extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The version of this structure. Set this parameter to <b>RESOURCE_FAILURE_INFO_VERSION_1</b> (0x1).
@@ -30,7 +30,7 @@ class RESOURCE_FAILURE_INFO_BUFFER extends Win32Struct
     Info{
         get {
             if(!this.HasProp("__Info"))
-                this.__Info := RESOURCE_FAILURE_INFO(8, this)
+                this.__Info := RESOURCE_FAILURE_INFO(4, this)
             return this.__Info
         }
     }

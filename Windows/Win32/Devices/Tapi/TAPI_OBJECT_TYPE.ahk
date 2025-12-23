@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The TAPI_OBJECT_TYPE enum is used to indicate the type of TAPI object involved in an event.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-tapi_object_type
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-tapi_object_type
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class TAPI_OBJECT_TYPE{
+class TAPI_OBJECT_TYPE extends Win32Enum{
 
     /**
      * No TAPI object event has occurred.

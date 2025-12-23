@@ -9,9 +9,9 @@
  */
 class WTS_VALIDATION_INFORMATIONW extends Win32Struct
 {
-    static sizeof => 16936
+    static sizeof => 16932
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {PRODUCT_INFOW}

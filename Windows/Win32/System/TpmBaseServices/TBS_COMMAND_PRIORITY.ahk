@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.System.TpmBaseServices
  * @version v4.0.30319
  */
-class TBS_COMMAND_PRIORITY{
+class TBS_COMMAND_PRIORITY extends Win32Enum{
 
     /**
      * @type {Integer (UInt32)}

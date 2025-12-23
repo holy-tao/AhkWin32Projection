@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how to open or create a file.
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ne-mfobjects-mf_file_openmode
+ * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mf_file_openmode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_FILE_OPENMODE{
+class MF_FILE_OPENMODE extends Win32Enum{
 
     /**
      * Open an existing file. Fail if the file does not exist.

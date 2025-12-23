@@ -6,15 +6,15 @@
 
 /**
  * The DVD_MenuAttributes structure contains information about a DVD menu. The IDvdInfo2::GetTitleAttributes method fills in a DVD_MenuAttributes structure for a specified stream.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-dvd_menuattributes
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_menuattributes
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
 class DVD_MenuAttributes extends Win32Struct
 {
-    static sizeof => 152
+    static sizeof => 148
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * An array of <b>TRUE</b>/<b>FALSE</b> values indicating with which DVD regions the disc's authored region is compatible. The eight array indexes (numbered 0-7) correspond to the eight DVD regions (numbered 1-8). This array is only filled in when the menu being queried is the Video Manager Menu (the main menu for the entire disc).
@@ -80,7 +80,7 @@ class DVD_MenuAttributes extends Win32Struct
     SubpictureAttributes{
         get {
             if(!this.HasProp("__SubpictureAttributes"))
-                this.__SubpictureAttributes := DVD_SubpictureAttributes(136, this)
+                this.__SubpictureAttributes := DVD_SubpictureAttributes(132, this)
             return this.__SubpictureAttributes
         }
     }

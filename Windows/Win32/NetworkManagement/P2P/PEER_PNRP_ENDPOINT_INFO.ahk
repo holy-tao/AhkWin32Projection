@@ -4,7 +4,7 @@
 
 /**
  * Contains the IP addresses and data associated with a peer endpoint.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_pnrp_endpoint_info
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_pnrp_endpoint_info
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
@@ -52,7 +52,7 @@ class PEER_PNRP_ENDPOINT_INFO extends Win32Struct
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_data">PEER_DATA</a> structure that contains application-specific data for the peer endpoint (such as a message or an image).
-     * @deprecated
+     * @deprecated 
      * @type {PEER_DATA}
      */
     payload{

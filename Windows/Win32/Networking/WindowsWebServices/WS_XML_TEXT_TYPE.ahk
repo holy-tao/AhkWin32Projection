@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The type of WS_XML_TEXT structure.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_xml_text_type
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_text_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_XML_TEXT_TYPE{
+class WS_XML_TEXT_TYPE extends Win32Enum{
 
     /**
      * Characters encoded as UTF-8 bytes.

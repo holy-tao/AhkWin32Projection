@@ -3,9 +3,8 @@
 #Include .\D3D12_DEPTH_STENCILOP_DESC.ahk
 
 /**
- * Describes depth-stencil state.
+ * Describes depth-stencil state. (D3D12_DEPTH_STENCIL_DESC1)
  * @remarks
- * 
  * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc">D3D12_GRAPHICS_PIPELINE_STATE_DESC</a> object contains a depth-stencil-state structure that controls how depth-stencil testing is performed by the output-merger stage.
  * 
  * This table shows the default values of depth-stencil states.
@@ -91,17 +90,15 @@
  *  
  * 
  * The formats that support stenciling are DXGI_FORMAT_D24_UNORM_S8_UINT and DXGI_FORMAT_D32_FLOAT_S8X24_UINT.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_depth_stencil_desc1
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_depth_stencil_desc1
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
 class D3D12_DEPTH_STENCIL_DESC1 extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 56
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies whether to enable depth testing. Set this member to <b>TRUE</b> to enable depth testing.
@@ -164,7 +161,7 @@ class D3D12_DEPTH_STENCIL_DESC1 extends Win32Struct
     FrontFace{
         get {
             if(!this.HasProp("__FrontFace"))
-                this.__FrontFace := D3D12_DEPTH_STENCILOP_DESC(24, this)
+                this.__FrontFace := D3D12_DEPTH_STENCILOP_DESC(20, this)
             return this.__FrontFace
         }
     }
@@ -176,7 +173,7 @@ class D3D12_DEPTH_STENCIL_DESC1 extends Win32Struct
     BackFace{
         get {
             if(!this.HasProp("__BackFace"))
-                this.__BackFace := D3D12_DEPTH_STENCILOP_DESC(40, this)
+                this.__BackFace := D3D12_DEPTH_STENCILOP_DESC(36, this)
             return this.__BackFace
         }
     }
@@ -186,7 +183,7 @@ class D3D12_DEPTH_STENCIL_DESC1 extends Win32Struct
      * @type {BOOL}
      */
     DepthBoundsTestEnable {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 }

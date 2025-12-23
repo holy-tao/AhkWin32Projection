@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values used in the UiaLookupId function.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/ne-uiautomationcoreapi-automationidentifiertype
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ne-uiautomationcoreapi-automationidentifiertype
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
-class AutomationIdentifierType{
+class AutomationIdentifierType extends Win32Enum{
 
     /**
      * Specifies a property ID.
@@ -45,7 +46,7 @@ class AutomationIdentifierType{
     static AutomationIdentifierType_LandmarkType => 5
 
     /**
-     * Specifies an annotion ID.
+     * Specifies an annotation ID.
      * @type {Integer (Int32)}
      */
     static AutomationIdentifierType_Annotation => 6

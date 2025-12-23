@@ -4,13 +4,13 @@
 
 /**
  * The CERT_SIMPLE_CHAIN structure contains an array of chain elements and a summary trust status for the chain that the array represents.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_simple_chain
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_simple_chain
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
 class CERT_SIMPLE_CHAIN extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -30,7 +30,7 @@ class CERT_SIMPLE_CHAIN extends Win32Struct
     TrustStatus{
         get {
             if(!this.HasProp("__TrustStatus"))
-                this.__TrustStatus := CERT_TRUST_STATUS(8, this)
+                this.__TrustStatus := CERT_TRUST_STATUS(4, this)
             return this.__TrustStatus
         }
     }
@@ -40,8 +40,8 @@ class CERT_SIMPLE_CHAIN extends Win32Struct
      * @type {Integer}
      */
     cElement {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
@@ -49,8 +49,8 @@ class CERT_SIMPLE_CHAIN extends Win32Struct
      * @type {Pointer<Pointer<CERT_CHAIN_ELEMENT>>}
      */
     rgpElement {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -58,8 +58,8 @@ class CERT_SIMPLE_CHAIN extends Win32Struct
      * @type {Pointer<CERT_TRUST_LIST_INFO>}
      */
     pTrustListInfo {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -67,8 +67,8 @@ class CERT_SIMPLE_CHAIN extends Win32Struct
      * @type {BOOL}
      */
     fHasRevocationFreshnessTime {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
@@ -77,12 +77,12 @@ class CERT_SIMPLE_CHAIN extends Win32Struct
      * @type {Integer}
      */
     dwRevocationFreshnessTime {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 48
+        this.cbSize := 40
     }
 }

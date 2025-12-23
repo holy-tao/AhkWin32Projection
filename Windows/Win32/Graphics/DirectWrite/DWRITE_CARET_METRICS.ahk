@@ -3,7 +3,7 @@
 
 /**
  * The DWRITE_CARET_METRICS structure specifies the metrics for caret placement in a font.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/ns-dwrite_1-dwrite_caret_metrics
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_caret_metrics
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

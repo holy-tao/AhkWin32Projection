@@ -5,11 +5,8 @@
 /**
  * The EMRSETICMPROFILE structure contains members for the SetICMProfile enhanced metafile record.
  * @remarks
- * 
  * This structure is to be used during metafile playback.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrseticmprofile
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrseticmprofile
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
@@ -17,7 +14,7 @@ class EMRSETICMPROFILE extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.

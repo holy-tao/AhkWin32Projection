@@ -5,7 +5,7 @@
 
 /**
  * Contains the term or value on which the DHCPv6 server database will be searched.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_search_info_v6
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_search_info_v6
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */
@@ -16,7 +16,7 @@ class DHCP_SEARCH_INFO_V6 extends Win32Struct
     static packingSize => 8
 
     class _DHCP_CLIENT_SEARCH_UNION_V6 extends Win32Struct {
-        static sizeof => 48
+        static sizeof => 40
         static packingSize => 8
 
         /**

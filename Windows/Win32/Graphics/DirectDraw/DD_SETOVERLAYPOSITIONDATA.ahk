@@ -3,7 +3,7 @@
 
 /**
  * The DD_SETOVERLAYPOSITIONDATA structure contains information necessary to change the display coordinates of an overlay surface.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_setoverlaypositiondata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_setoverlaypositiondata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

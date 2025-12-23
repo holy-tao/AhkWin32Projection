@@ -5,7 +5,6 @@
 /**
  * The LINECALLSTATUS structure describes the current status of a call.
  * @remarks
- * 
  * Device-specific extensions should use the DevSpecific (<b>dwDevSpecificSize</b> and <b>dwDevSpecificOffset</b>) variably sized area of this data structure.
  * 
  * The application is sent a 
@@ -13,9 +12,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetcallstatus">lineGetCallStatus</a>.
  * 
  * The members <b>dwCallFeatures2</b> and <b>tStateEntryTime</b> are available only to applications that open the line device with an API version of 2.0 or later.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-linecallstatus
+ * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linecallstatus
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -23,7 +20,7 @@ class LINECALLSTATUS extends Win32Struct
 {
     static sizeof => 56
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Total size allocated to this data structure, in bytes.

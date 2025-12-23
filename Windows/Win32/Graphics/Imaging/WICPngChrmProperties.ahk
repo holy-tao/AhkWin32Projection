@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the Portable Network Graphics (PNG) cHRM chunk metadata properties for CIE XYZ chromaticity.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicpngchrmproperties
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicpngchrmproperties
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICPngChrmProperties{
+class WICPngChrmProperties extends Win32Enum{
 
     /**
      * [VT_UI4] Indicates the whitepoint x value ratio.

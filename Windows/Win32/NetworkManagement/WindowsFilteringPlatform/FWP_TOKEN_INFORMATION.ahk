@@ -3,7 +3,7 @@
 
 /**
  * The FWP_TOKEN_INFORMATION structure defines a set of security identifiers that are used for user-mode classification.
- * @see https://docs.microsoft.com/windows/win32/api//fwptypes/ns-fwptypes-fwp_token_information
+ * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ns-fwptypes-fwp_token_information
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

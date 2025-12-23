@@ -2,13 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains initialization parameters for an Output Protection Manager (OPM) session.
+ * Contains encrypted initialization parameters for an Output Protection Manager (OPM) session. (OPM_ENCRYPTED_INITIALIZATION_PARAMETERS).
  * @remarks
- * 
  * The layout of this structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-amcoppsignature">AMCOPPSignature</a> structure used in Certified Output Protection Protocol (COPP).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//opmapi/ns-opmapi-opm_encrypted_initialization_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/opmapi/ns-opmapi-opm_encrypted_initialization_parameters
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

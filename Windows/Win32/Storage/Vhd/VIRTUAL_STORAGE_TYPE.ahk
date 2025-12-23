@@ -3,7 +3,7 @@
 
 /**
  * Contains the type and provider (vendor) of the virtual storage device.
- * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ns-virtdisk-virtual_storage_type
+ * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-virtual_storage_type
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */

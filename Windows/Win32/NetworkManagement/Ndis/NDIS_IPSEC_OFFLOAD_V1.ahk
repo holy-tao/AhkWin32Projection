@@ -7,13 +7,13 @@
  */
 class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _Supported extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+        static sizeof => 20
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -58,8 +58,8 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
     }
 
     class _IPv4AH extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * This bitfield backs the following members:
@@ -127,8 +127,8 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
     }
 
     class _IPv4ESP extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * This bitfield backs the following members:

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The informational string enumeration which identifies a string embedded in a font file.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_informational_string_id
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_informational_string_id
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_INFORMATIONAL_STRING_ID{
+class DWRITE_INFORMATIONAL_STRING_ID extends Win32Enum{
 
     /**
      * Indicates the string containing the unspecified name ID.

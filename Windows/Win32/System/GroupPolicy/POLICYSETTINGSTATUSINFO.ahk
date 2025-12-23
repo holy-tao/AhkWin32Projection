@@ -4,7 +4,7 @@
 
 /**
  * The POLICYSETTINGSTATUSINFO structure provides information about a policy-setting event.
- * @see https://docs.microsoft.com/windows/win32/api//userenv/ns-userenv-policysettingstatusinfo
+ * @see https://learn.microsoft.com/windows/win32/api/userenv/ns-userenv-policysettingstatusinfo
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -77,7 +77,7 @@ class POLICYSETTINGSTATUSINFO extends Win32Struct
     timeLogged{
         get {
             if(!this.HasProp("__timeLogged"))
-                this.__timeLogged := SYSTEMTIME(40, this)
+                this.__timeLogged := SYSTEMTIME(36, this)
             return this.__timeLogged
         }
     }

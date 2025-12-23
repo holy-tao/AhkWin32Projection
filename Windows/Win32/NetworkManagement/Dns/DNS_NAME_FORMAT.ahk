@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DNS_NAME_FORMAT enumeration specifies name format information for DNS.
- * @see https://docs.microsoft.com/windows/win32/api//windns/ne-windns-dns_name_format
+ * @see https://learn.microsoft.com/windows/win32/api/windns/ne-windns-dns_name_format
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */
-class DNS_NAME_FORMAT{
+class DNS_NAME_FORMAT extends Win32Enum{
 
     /**
      * The name format is a DNS domain.

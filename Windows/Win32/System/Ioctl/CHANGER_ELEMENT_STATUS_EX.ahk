@@ -3,16 +3,16 @@
 #Include .\CHANGER_ELEMENT.ahk
 
 /**
- * Represents the status of the specified element.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-changer_element_status_ex
+ * Represents the status of the specified element. (CHANGER_ELEMENT_STATUS_EX)
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_element_status_ex
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
 class CHANGER_ELEMENT_STATUS_EX extends Win32Struct
 {
-    static sizeof => 160
+    static sizeof => 156
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A 

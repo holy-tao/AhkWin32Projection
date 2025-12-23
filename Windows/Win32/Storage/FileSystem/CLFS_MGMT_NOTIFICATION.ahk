@@ -4,7 +4,7 @@
 
 /**
  * The CLFS_MGMT_NOTIFICATION structure specifies information about the notifications that the client receives.
- * @see https://docs.microsoft.com/windows/win32/api//clfsmgmt/ns-clfsmgmt-clfs_mgmt_notification
+ * @see https://learn.microsoft.com/windows/win32/api/clfsmgmt/ns-clfsmgmt-clfs_mgmt_notification
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

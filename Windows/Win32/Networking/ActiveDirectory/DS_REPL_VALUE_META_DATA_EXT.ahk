@@ -3,8 +3,6 @@
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
- * Contains attribute replication meta data for the DS_REPL_ATTR_VALUE_META_DATA_EXT structure.
- * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ns-ntdsapi-ds_repl_value_meta_data_ext
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -15,7 +13,6 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     static packingSize => 8
 
     /**
-     * Pointer to a null-terminated Unicode string that contains the LDAP display name of the attribute corresponding to this metadata.
      * @type {PWSTR}
      */
     pszAttributeName {
@@ -24,7 +21,6 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     }
 
     /**
-     * Pointer to a null-terminated Unicode string that contains the distinguished name of the object that this attribute belongs to.
      * @type {PWSTR}
      */
     pszObjectDn {
@@ -33,7 +29,6 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     }
 
     /**
-     * Contains the number of bytes in the <b>pbData</b> array.
      * @type {Integer}
      */
     cbData {
@@ -42,9 +37,6 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     }
 
     /**
-     * Pointer to a buffer that contains the attribute replication metadata. The <b>cbData</b> member contains the length, in bytes, of this buffer.
-     * 
-     * Pointer to a buffer that contains the attribute replication metadata. The <b>cbData</b> member contains the length, in bytes, of this buffer.
      * @type {Pointer<Integer>}
      */
     pbData {
@@ -53,7 +45,6 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     }
 
     /**
-     * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time this attribute was deleted.
      * @type {FILETIME}
      */
     ftimeDeleted{
@@ -65,7 +56,6 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     }
 
     /**
-     * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time this attribute was created.
      * @type {FILETIME}
      */
     ftimeCreated{
@@ -77,7 +67,6 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     }
 
     /**
-     * Contains the version of this attribute. Each originating modification of the attribute increases this value by one. Replication of a modification does not affect the version.
      * @type {Integer}
      */
     dwVersion {
@@ -86,19 +75,17 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     }
 
     /**
-     * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time at which the last originating change was made to this attribute. Replication of the change does not affect this value.
      * @type {FILETIME}
      */
     ftimeLastOriginatingChange{
         get {
             if(!this.HasProp("__ftimeLastOriginatingChange"))
-                this.__ftimeLastOriginatingChange := FILETIME(56, this)
+                this.__ftimeLastOriginatingChange := FILETIME(52, this)
             return this.__ftimeLastOriginatingChange
         }
     }
 
     /**
-     * Contains the invocation identifier of the server on which the last change was made to this attribute. Replication of the change does not affect this value.
      * @type {Pointer<Guid>}
      */
     uuidLastOriginatingDsaInvocationID {
@@ -107,7 +94,6 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     }
 
     /**
-     * Contains the update sequence number (USN) on the originating server at which the last change to this attribute was made. Replication of the change does not affect this value.
      * @type {Integer}
      */
     usnOriginatingChange {
@@ -116,7 +102,6 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     }
 
     /**
-     * Contains the USN on the destination server, that is the server from which the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicagetinfo2w">DsReplicaGetInfo2</a> function retrieved the metadata, at which the last change to this attribute was applied. This value is typically different on all servers.
      * @type {Integer}
      */
     usnLocalChange {
@@ -125,7 +110,6 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     }
 
     /**
-     * Pointer to a null-terminated Unicode string that contains the distinguished name of the directory system agent server that originated the last replication.
      * @type {PWSTR}
      */
     pszLastOriginatingDsaDN {
@@ -134,7 +118,6 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     }
 
     /**
-     * TBD
      * @type {Integer}
      */
     dwUserIdentifier {
@@ -143,7 +126,6 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     }
 
     /**
-     * TBD
      * @type {Integer}
      */
     dwPriorLinkState {
@@ -152,7 +134,6 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
     }
 
     /**
-     * TBD
      * @type {Integer}
      */
     dwCurrentLinkState {

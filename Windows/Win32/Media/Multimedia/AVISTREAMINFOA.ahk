@@ -3,22 +3,20 @@
 #Include ..\..\Foundation\RECT.ahk
 
 /**
- * The AVISTREAMINFO structure contains information for a single stream.
+ * The AVISTREAMINFO structure contains information for a single stream. (ANSI)
  * @remarks
- * 
  * > [!NOTE]
  * > The vfw.h header defines AVISTREAMINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vfw/ns-vfw-avistreaminfoa
+ * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-avistreaminfoa
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  * @charset ANSI
  */
 class AVISTREAMINFOA extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 140
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Four-character code indicating the stream type. The following constants have been defined for the data commonly found in AVI streams:
@@ -233,7 +231,7 @@ class AVISTREAMINFOA extends Win32Struct
     rcFrame{
         get {
             if(!this.HasProp("__rcFrame"))
-                this.__rcFrame := RECT(56, this)
+                this.__rcFrame := RECT(52, this)
             return this.__rcFrame
         }
     }
@@ -243,8 +241,8 @@ class AVISTREAMINFOA extends Win32Struct
      * @type {Integer}
      */
     dwEditCount {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 
     /**
@@ -252,8 +250,8 @@ class AVISTREAMINFOA extends Win32Struct
      * @type {Integer}
      */
     dwFormatChangeCount {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -261,7 +259,7 @@ class AVISTREAMINFOA extends Win32Struct
      * @type {String}
      */
     szName {
-        get => StrGet(this.ptr + 80, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 80, 63, "UTF-8")
+        get => StrGet(this.ptr + 76, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 76, 63, "UTF-8")
     }
 }

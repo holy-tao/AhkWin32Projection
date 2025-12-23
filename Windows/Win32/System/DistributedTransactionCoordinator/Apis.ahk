@@ -375,8 +375,9 @@ class DistributedTransactionCoordinator {
         o_ppvObjectMarshal := o_ppvObject is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("XOLEHLP.dll\DtcGetTransactionManager", "ptr", i_pszHost, "ptr", i_pszTmName, "ptr", i_riid, "uint", i_dwReserved1, "ushort", i_wcbReserved2, "ptr", i_pvReserved2, o_ppvObjectMarshal, o_ppvObject, "CDecl int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -399,8 +400,9 @@ class DistributedTransactionCoordinator {
         o_ppvObjectMarshal := o_ppvObject is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("XOLEHLP.dll\DtcGetTransactionManagerC", "ptr", i_pszHost, "ptr", i_pszTmName, "ptr", i_riid, "uint", i_dwReserved1, "ushort", i_wcbReserved2, "ptr", i_pvReserved2, o_ppvObjectMarshal, o_ppvObject, "CDecl int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -423,8 +425,9 @@ class DistributedTransactionCoordinator {
         o_ppvObjectMarshal := o_ppvObject is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("XOLEHLP.dll\DtcGetTransactionManagerExA", "ptr", i_pszHost, "ptr", i_pszTmName, "ptr", i_riid, "uint", i_grfOptions, i_pvConfigParamsMarshal, i_pvConfigParams, o_ppvObjectMarshal, o_ppvObject, "CDecl int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -447,8 +450,9 @@ class DistributedTransactionCoordinator {
         o_ppvObjectMarshal := o_ppvObject is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("XOLEHLP.dll\DtcGetTransactionManagerExW", "ptr", i_pwszHost, "ptr", i_pwszTmName, "ptr", i_riid, "uint", i_grfOptions, i_pvConfigParamsMarshal, i_pvConfigParams, o_ppvObjectMarshal, o_ppvObject, "CDecl int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

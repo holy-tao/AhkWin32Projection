@@ -5,7 +5,6 @@
 /**
  * The SECTION structure represents a short header from an MPEG-2 table section.
  * @remarks
- * 
  * This structure represents an MPEG-2 short header. The section might contain a long header or DSM-CC header, each of which extends the short header:
  * 
  * <ul>
@@ -26,17 +25,40 @@
  * WORD SectionLength = pHeader->SectionLength;
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ns-mpeg2structs-section
+ * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-section
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
 class SECTION extends Win32Struct
 {
-    static sizeof => 6
+    static sizeof => 4
 
-    static packingSize => 2
+    static packingSize => 1
+
+    class _Header_e__Union extends Win32Struct {
+        static sizeof => 2
+        static packingSize => 1
+
+        /**
+         * @type {MPEG_HEADER_BITS_MIDL}
+         */
+        S{
+            get {
+                if(!this.HasProp("__S"))
+                    this.__S := MPEG_HEADER_BITS_MIDL(0, this)
+                return this.__S
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        W {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+    }
 
     /**
      * Specifies the table identifier (TID) of the section.
@@ -48,22 +70,15 @@ class SECTION extends Win32Struct
     }
 
     /**
-     * @type {MPEG_HEADER_BITS_MIDL}
+     * A union that contains the following members.
+     * @type {_Header_e__Union}
      */
-    S{
+    Header{
         get {
-            if(!this.HasProp("__S"))
-                this.__S := MPEG_HEADER_BITS_MIDL(2, this)
-            return this.__S
+            if(!this.HasProp("__Header"))
+                this.__Header := %this.__Class%._Header_e__Union(1, this)
+            return this.__Header
         }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    W {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
     }
 
     /**
@@ -73,7 +88,7 @@ class SECTION extends Win32Struct
     SectionData{
         get {
             if(!this.HasProp("__SectionDataProxyArray"))
-                this.__SectionDataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
+                this.__SectionDataProxyArray := Win32FixedArray(this.ptr + 3, 1, Primitive, "char")
             return this.__SectionDataProxyArray
         }
     }

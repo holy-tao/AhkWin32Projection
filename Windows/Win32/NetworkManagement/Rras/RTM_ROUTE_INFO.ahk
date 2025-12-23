@@ -5,13 +5,13 @@
 
 /**
  * The RTM_ROUTE_INFO structure is used to exchange route information with the routing table manager. Do not change the read-only information.
- * @see https://docs.microsoft.com/windows/win32/api//rtmv2/ns-rtmv2-rtm_route_info
+ * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_route_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */
 class RTM_ROUTE_INFO extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -264,7 +264,7 @@ class RTM_ROUTE_INFO extends Win32Struct
     PrefInfo{
         get {
             if(!this.HasProp("__PrefInfo"))
-                this.__PrefInfo := RTM_PREF_INFO(32, this)
+                this.__PrefInfo := RTM_PREF_INFO(28, this)
             return this.__PrefInfo
         }
     }
@@ -274,8 +274,8 @@ class RTM_ROUTE_INFO extends Win32Struct
      * @type {Integer}
      */
     BelongsToViews {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -283,8 +283,8 @@ class RTM_ROUTE_INFO extends Win32Struct
      * @type {Pointer<Void>}
      */
     EntitySpecificInfo {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -294,7 +294,7 @@ class RTM_ROUTE_INFO extends Win32Struct
     NextHopsList{
         get {
             if(!this.HasProp("__NextHopsList"))
-                this.__NextHopsList := RTM_NEXTHOP_LIST(56, this)
+                this.__NextHopsList := RTM_NEXTHOP_LIST(48, this)
             return this.__NextHopsList
         }
     }

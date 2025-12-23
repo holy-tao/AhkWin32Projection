@@ -1606,6 +1606,8 @@ class Imaging {
 ;@region Methods
     /**
      * Obtains a IWICBitmapSource in the desired pixel format from a given IWICBitmapSource.
+     * @remarks
+     * If the <i>pISrc</i> bitmap is already in the desired format, then <i>pISrc</i> is copied to the destination bitmap pointer and a reference is added. If it is not in the desired format however, <b>WICConvertBitmapSource</b> will instantiate a <i>dstFormat</i> format converter and initialize it with <i>pISrc</i>.
      * @param {Pointer<Guid>} dstFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/wic/-wic-codec-native-pixel-formats">REFWICPixelFormatGUID</a></b>
      * 
      * The pixel format to convert to.
@@ -1615,19 +1617,22 @@ class Imaging {
      * @returns {IWICBitmapSource} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>**</b>
      * 
      * A pointer to the <b>null</b>-initialized destination bitmap pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-wicconvertbitmapsource
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-wicconvertbitmapsource
      * @since windows5.1.2600
      */
     static WICConvertBitmapSource(dstFormat, pISrc) {
         result := DllCall("WindowsCodecs.dll\WICConvertBitmapSource", "ptr", dstFormat, "ptr", pISrc, "ptr*", &ppIDst := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWICBitmapSource(ppIDst)
     }
 
     /**
-     * Returns a IWICBitmapSource that is backed by the pixels of a Windows Graphics Device Interface (GDI) section handle.
+     * Returns a IWICBitmapSource that is backed by the pixels of a Windows Graphics Device Interface (GDI) section handle. (WICCreateBitmapFromSection)
+     * @remarks
+     * The <b>WICCreateBitmapFromSection</b> function calls the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-wiccreatebitmapfromsectionex">WICCreateBitmapFromSectionEx</a> function with the <i>desiredAccessLevel</i> parameter set to <b>WICSectionAccessLevelRead</b>.
      * @param {Integer} width Type: <b>UINT</b>
      * 
      * The width of the bitmap pixels.
@@ -1649,21 +1654,22 @@ class Imaging {
      * @returns {IWICBitmap} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmap">IWICBitmap</a>**</b>
      * 
      * A pointer that receives the bitmap.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-wiccreatebitmapfromsection
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-wiccreatebitmapfromsection
      * @since windows5.1.2600
      */
     static WICCreateBitmapFromSection(width, height, pixelFormat, hSection, stride, offset) {
         hSection := hSection is Win32Handle ? NumGet(hSection, "ptr") : hSection
 
         result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSection", "uint", width, "uint", height, "ptr", pixelFormat, "ptr", hSection, "uint", stride, "uint", offset, "ptr*", &ppIBitmap := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWICBitmap(ppIBitmap)
     }
 
     /**
-     * Returns a IWICBitmapSource that is backed by the pixels of a Windows Graphics Device Interface (GDI) section handle.
+     * Returns a IWICBitmapSource that is backed by the pixels of a Windows Graphics Device Interface (GDI) section handle. (WICCreateBitmapFromSectionEx)
      * @param {Integer} width Type: <b>UINT</b>
      * 
      * The width of the bitmap pixels.
@@ -1688,21 +1694,29 @@ class Imaging {
      * @returns {IWICBitmap} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmap">IWICBitmap</a>**</b>
      * 
      * A pointer that receives the bitmap.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-wiccreatebitmapfromsectionex
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-wiccreatebitmapfromsectionex
      * @since windows6.1
      */
     static WICCreateBitmapFromSectionEx(width, height, pixelFormat, hSection, stride, offset, desiredAccessLevel) {
         hSection := hSection is Win32Handle ? NumGet(hSection, "ptr") : hSection
 
         result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSectionEx", "uint", width, "uint", height, "ptr", pixelFormat, "ptr", hSection, "uint", stride, "uint", offset, "int", desiredAccessLevel, "ptr*", &ppIBitmap := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return IWICBitmap(ppIBitmap)
     }
 
     /**
      * Obtains the short name associated with a given GUID.
+     * @remarks
+     * Windows Imaging Component (WIC) short name mappings can be found within the following registry key:
+     *             <pre><b>HKEY_CLASSES_ROOT</b>
+     *    <b>CLSID</b>
+     *       <b>{FAE3D380-FEA4-4623-8C75-C6B61110B681}</b>
+     *          <b>Namespace</b>
+     *             <b>...</b></pre>
      * @param {Pointer<Guid>} guid Type: <b>REFGUID</b>
      * 
      * The GUID to retrieve the short name for.
@@ -1715,21 +1729,34 @@ class Imaging {
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * The actual size needed to retrieve the entire short name associated with the GUID.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-wicmapguidtoshortname
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-wicmapguidtoshortname
      * @since windows5.1.2600
      */
     static WICMapGuidToShortName(guid, cchName, wzName) {
         wzName := wzName is String ? StrPtr(wzName) : wzName
 
         result := DllCall("WindowsCodecs.dll\WICMapGuidToShortName", "ptr", guid, "uint", cchName, "ptr", wzName, "uint*", &pcchActual := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pcchActual
     }
 
     /**
      * Obtains the GUID associated with the given short name.
+     * @remarks
+     * You can extend the short name mapping by adding to  the following registry key:
+     * 
+     * 
+     * <pre><b>HKEY_CLASSES_ROOT</b>
+     *    <b>CLSID</b>
+     *       <b>{FAE3D380-FEA4-4623-8C75-C6B61110B681}</b>
+     *          <b>Namespace</b>
+     *             <b>...</b></pre>
+     * 
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-howtowriteacodec">How to Write a WIC-Enabled Codec</a>.
      * @param {PWSTR} wzName Type: <b>const WCHAR*</b>
      * 
      * A pointer to the short name.
@@ -1738,22 +1765,36 @@ class Imaging {
      * A pointer that receives the GUID associated with the given short name.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-wicmapshortnametoguid
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-wicmapshortnametoguid
      * @since windows5.1.2600
      */
     static WICMapShortNameToGuid(wzName, pguid) {
         wzName := wzName is String ? StrPtr(wzName) : wzName
 
         result := DllCall("WindowsCodecs.dll\WICMapShortNameToGuid", "ptr", wzName, "ptr", pguid, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Obtains the name associated with a given schema.
+     * @remarks
+     * You can extend the schema name mapping by adding to the following registry key:
+     * 
+     * 
+     * <pre><b>HKEY_CLASSES_ROOT</b>
+     *    <b>CLSID</b>
+     *       <b>{FAE3D380-FEA4-4623-8C75-C6B61110B681}</b>
+     *          <b>Schemas</b>
+     *             <b>BB5ACC38-F216-4CEC-A6C5-5F6E739763A9</b>
+     *                <b>...</b></pre>
+     * 
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-howtowriteacodec">How to Write a WIC-Enabled Codec</a>.
      * @param {Pointer<Guid>} guidMetadataFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/wic/-wic-guids-clsids">REFGUID</a></b>
      * 
      * The metadata format GUID.
@@ -1771,7 +1812,7 @@ class Imaging {
      * @returns {Integer} Type: <b>UINT</b>
      * 
      * The actual buffer size needed to retrieve the entire schema name.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-wicmapschematoname
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-wicmapschematoname
      * @since windows5.1.2600
      */
     static WICMapSchemaToName(guidMetadataFormat, pwzSchema, cchName, wzName) {
@@ -1779,8 +1820,9 @@ class Imaging {
         wzName := wzName is String ? StrPtr(wzName) : wzName
 
         result := DllCall("WindowsCodecs.dll\WICMapSchemaToName", "ptr", guidMetadataFormat, "ptr", pwzSchema, "uint", cchName, "ptr", wzName, "uint*", &pcchActual := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pcchActual
     }
@@ -1801,14 +1843,15 @@ class Imaging {
      * A pointer that receives a metadata format GUID for the given parameters.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-wicmatchmetadatacontent
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-wicmatchmetadatacontent
      * @since windows5.1.2600
      */
     static WICMatchMetadataContent(guidContainerFormat, pguidVendor, pIStream, pguidMetadataFormat) {
         result := DllCall("WindowsCodecs.dll\WICMatchMetadataContent", "ptr", guidContainerFormat, "ptr", pguidVendor, "ptr", pIStream, "ptr", pguidMetadataFormat, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1829,14 +1872,15 @@ class Imaging {
      * A pointer to the stream in which to write the metadata.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-wicserializemetadatacontent
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-wicserializemetadatacontent
      * @since windows5.1.2600
      */
     static WICSerializeMetadataContent(guidContainerFormat, pIWriter, dwPersistOptions, pIStream) {
         result := DllCall("WindowsCodecs.dll\WICSerializeMetadataContent", "ptr", guidContainerFormat, "ptr", pIWriter, "uint", dwPersistOptions, "ptr", pIStream, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1852,13 +1896,14 @@ class Imaging {
      * @returns {Integer} Type: <b>ULARGE_INTEGER*</b>
      * 
      * A pointer that receives the size of the metadata content.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-wicgetmetadatacontentsize
+     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-wicgetmetadatacontentsize
      * @since windows5.1.2600
      */
     static WICGetMetadataContentSize(guidContainerFormat, pIWriter) {
         result := DllCall("WindowsCodecs.dll\WICGetMetadataContentSize", "ptr", guidContainerFormat, "ptr", pIWriter, "uint*", &pcbSize := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pcbSize
     }

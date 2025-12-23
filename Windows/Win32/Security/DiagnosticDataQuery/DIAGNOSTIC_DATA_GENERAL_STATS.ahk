@@ -4,11 +4,8 @@
 /**
  * This resource contains general statistics about a set of diagnostic data records.
  * @remarks
- * 
  * See our [**privacy statement**](/windows/privacy/windows-diagnostic-data) for information about diagnostic data opt-in levels.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_data_general_stats
+ * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_data_general_stats
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
  * @version v4.0.30319
  */

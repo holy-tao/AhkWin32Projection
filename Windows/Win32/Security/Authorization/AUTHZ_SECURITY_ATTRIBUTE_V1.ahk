@@ -3,7 +3,7 @@
 
 /**
  * Defines a security attribute that can be associated with an authorization context.
- * @see https://docs.microsoft.com/windows/win32/api//authz/ns-authz-authz_security_attribute_v1
+ * @see https://learn.microsoft.com/windows/win32/api/authz/ns-authz-authz_security_attribute_v1
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
@@ -12,6 +12,52 @@ class AUTHZ_SECURITY_ATTRIBUTE_V1 extends Win32Struct
     static sizeof => 32
 
     static packingSize => 8
+
+    class _Values_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Integer>}
+         */
+        pInt64 {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Integer>}
+         */
+        pUint64 {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<PWSTR>}
+         */
+        ppString {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<AUTHZ_SECURITY_ATTRIBUTE_FQBN_VALUE>}
+         */
+        pFqbn {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<AUTHZ_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE>}
+         */
+        pOctetString {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
 
     /**
      * A pointer to a name of a security attribute.
@@ -158,42 +204,14 @@ class AUTHZ_SECURITY_ATTRIBUTE_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Integer>}
+     * 
+     * @type {_Values_e__Union}
      */
-    pInt64 {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pUint64 {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<PWSTR>}
-     */
-    ppString {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<AUTHZ_SECURITY_ATTRIBUTE_FQBN_VALUE>}
-     */
-    pFqbn {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<AUTHZ_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE>}
-     */
-    pOctetString {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    Values{
+        get {
+            if(!this.HasProp("__Values"))
+                this.__Values := %this.__Class%._Values_e__Union(24, this)
+            return this.__Values
+        }
     }
 }

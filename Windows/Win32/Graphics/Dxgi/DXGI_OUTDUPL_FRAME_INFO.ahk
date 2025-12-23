@@ -6,7 +6,6 @@
 /**
  * The DXGI_OUTDUPL_FRAME_INFO structure describes the current desktop image.
  * @remarks
- * 
  * A non-zero <b>LastMouseUpdateTime</b> indicates an update to either a mouse pointer position or a mouse pointer position and shape. That is, the mouse pointer position is always valid for a non-zero <b>LastMouseUpdateTime</b>; however, the application must check the value of the <b>PointerShapeBufferSize</b> member to determine whether the shape was updated too.
  * 
  * If only the pointer was updated (that is, the desktop image was not updated), the <b>AccumulatedFrames</b>, <b>TotalMetadataBufferSize</b>, and <b>LastPresentTime</b> members are set to zero.
@@ -17,15 +16,13 @@
  * 
  * <div class="alert"><b>Note</b>  To correct visual effects, an application must process the move region data before it processes the dirty rectangles.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi1_2/ns-dxgi1_2-dxgi_outdupl_frame_info
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ns-dxgi1_2-dxgi_outdupl_frame_info
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
 class DXGI_OUTDUPL_FRAME_INFO extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -83,7 +80,7 @@ class DXGI_OUTDUPL_FRAME_INFO extends Win32Struct
     PointerPosition{
         get {
             if(!this.HasProp("__PointerPosition"))
-                this.__PointerPosition := DXGI_OUTDUPL_POINTER_POSITION(32, this)
+                this.__PointerPosition := DXGI_OUTDUPL_POINTER_POSITION(28, this)
             return this.__PointerPosition
         }
     }
@@ -93,8 +90,8 @@ class DXGI_OUTDUPL_FRAME_INFO extends Win32Struct
      * @type {Integer}
      */
     TotalMetadataBufferSize {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -102,7 +99,7 @@ class DXGI_OUTDUPL_FRAME_INFO extends Win32Struct
      * @type {Integer}
      */
     PointerShapeBufferSize {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

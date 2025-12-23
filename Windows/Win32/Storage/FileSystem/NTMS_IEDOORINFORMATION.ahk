@@ -4,15 +4,12 @@
 /**
  * The NTMS_IEDOORINFORMATION structure defines properties specific to an insert/eject door object.
  * @remarks
- * 
  * The 
  * <b>NTMS_IEDOORINFORMATION</b> structure is included in the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/ntmsapi/ns-ntmsapi-ntms_objectinformationa">NTMS_OBJECTINFORMATION</a> structure.
  * 
  * If the <b>MaxOpenSecs</b> member is zero, an operator request to close the door is generated as soon as the door is open.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ntmsapi/ns-ntmsapi-ntms_iedoorinformation
+ * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_iedoorinformation
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the state of the cross-slide interaction.
- * @see https://docs.microsoft.com/windows/win32/api//interactioncontext/ne-interactioncontext-cross_slide_flags
+ * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ne-interactioncontext-cross_slide_flags
  * @namespace Windows.Win32.UI.InteractionContext
  * @version v4.0.30319
  */
-class CROSS_SLIDE_FLAGS{
+class CROSS_SLIDE_FLAGS extends Win32BitflagEnum{
 
     /**
      * No cross-slide interaction.

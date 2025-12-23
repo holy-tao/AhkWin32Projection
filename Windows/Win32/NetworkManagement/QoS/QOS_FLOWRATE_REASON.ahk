@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The QOS_FLOWRATE_REASON enumeration indicates the reason for a change in a flow's bandwidth.
- * @see https://docs.microsoft.com/windows/win32/api//qos2/ne-qos2-qos_flowrate_reason
+ * @see https://learn.microsoft.com/windows/win32/api/qos2/ne-qos2-qos_flowrate_reason
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */
-class QOS_FLOWRATE_REASON{
+class QOS_FLOWRATE_REASON extends Win32Enum{
 
     /**
      * Indicates that there has not been a change in the flow.

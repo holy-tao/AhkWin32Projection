@@ -9,7 +9,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
 {
     static sizeof => 72
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -128,7 +128,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
 
     class _Range extends Win32Struct {
         static sizeof => 16
-        static packingSize => 8
+        static packingSize => 2
 
         /**
          * @type {Integer}
@@ -198,7 +198,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
 
     class _NotRange extends Win32Struct {
         static sizeof => 16
-        static packingSize => 8
+        static packingSize => 2
 
         /**
          * @type {Integer}

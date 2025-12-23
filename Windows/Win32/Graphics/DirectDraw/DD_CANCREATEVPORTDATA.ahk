@@ -3,7 +3,7 @@
 
 /**
  * The DD_CANCREATEVPORTDATA structure contains the information required for the driver to determine whether a video port extensions (VPE) object can be created.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_cancreatevportdata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_cancreatevportdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

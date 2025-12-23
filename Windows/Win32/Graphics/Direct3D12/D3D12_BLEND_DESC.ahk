@@ -3,9 +3,8 @@
 #Include .\D3D12_RENDER_TARGET_BLEND_DESC.ahk
 
 /**
- * Describes the blend state.
+ * Describes the blend state. (D3D12_BLEND_DESC)
  * @remarks
- * 
  * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc">D3D12_GRAPHICS_PIPELINE_STATE_DESC</a> object contains a blend-state structure that controls blending by the output-merger stage.
  * 
  * Here are the default values for blend state.
@@ -68,9 +67,7 @@
  * When you set the <b>LogicOpEnable</b> member of the first element of the <b>RenderTarget</b> array (<b>RenderTarget</b>[0]) to <b>TRUE</b>, you must also set the <b>BlendEnable</b> member of <b>RenderTarget</b>[0] to <b>FALSE</b>, and the <b>IndependentBlendEnable</b> member of this structure to <b>FALSE</b>. This reflects the limitation in hardware that you can't mix logic operations with blending across multiple render targets, and that when you use a logic operation, you must apply the same logic operation to all render targets.
  * 
  * Note the helper structure, <a href="https://docs.microsoft.com/windows/desktop/direct3d12/cd3dx12-blend-desc">CD3DX12_BLEND_DESC</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_blend_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_blend_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

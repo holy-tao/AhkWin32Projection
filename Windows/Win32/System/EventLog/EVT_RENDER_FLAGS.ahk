@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the values that specify what to render.
- * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_render_flags
+ * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_render_flags
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */
-class EVT_RENDER_FLAGS{
+class EVT_RENDER_FLAGS extends Win32Enum{
 
     /**
      * Render the event properties specified in the rendering context.

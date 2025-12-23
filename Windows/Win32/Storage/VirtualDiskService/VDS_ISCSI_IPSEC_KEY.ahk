@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Not supported.This structure is reserved for future use.
- * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_iscsi_ipsec_key
+ * The VDS_ISCSI_IPSEC_KEY structure (vdshwprv.h) is not supported and is reserved for future use.
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_iscsi_ipsec_key
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

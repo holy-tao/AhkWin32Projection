@@ -5,7 +5,7 @@
 
 /**
  * The DHCP_OPTION_DATA_ELEMENT structure defines a data element present (either singly or as a member of an array) within a DHCP_OPTION_DATA structure.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_option_data_element
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_option_data_element
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */
@@ -16,7 +16,7 @@ class DHCP_OPTION_DATA_ELEMENT extends Win32Struct
     static packingSize => 8
 
     class DHCP_OPTION_ELEMENT_UNION extends Win32Struct {
-        static sizeof => 80
+        static sizeof => 72
         static packingSize => 8
 
         /**

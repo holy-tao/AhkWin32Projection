@@ -4,14 +4,11 @@
 /**
  * Contains information about a reparse point.
  * @remarks
- * 
  * The <b>REPARSE_GUID_DATA_BUFFER</b> structure is 
  *     used by all third-party layered drivers to store data for a reparse point. Each reparse point contains one 
  *     instance of a <b>REPARSE_GUID_DATA_BUFFER</b> 
  *     structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-reparse_guid_data_buffer
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-reparse_guid_data_buffer
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
@@ -22,8 +19,8 @@ class REPARSE_GUID_DATA_BUFFER extends Win32Struct
     static packingSize => 8
 
     class _GenericReparseBuffer extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * @type {Array<Byte>}

@@ -4,7 +4,7 @@
 
 /**
  * A security binding constraint that corresponds to the WS_SSL_TRANSPORT_SECURITY_BINDING.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_ssl_transport_security_binding_constraint
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_ssl_transport_security_binding_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -15,8 +15,8 @@ class WS_SSL_TRANSPORT_SECURITY_BINDING_CONSTRAINT extends Win32Struct
     static packingSize => 8
 
     class _out extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {BOOL}

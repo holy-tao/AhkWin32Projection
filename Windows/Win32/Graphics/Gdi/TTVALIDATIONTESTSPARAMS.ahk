@@ -3,7 +3,7 @@
 
 /**
  * The TTVALIDATIONTESTSPARAMS structure contains parameters for testing a Microsoft OpenType font.
- * @see https://docs.microsoft.com/windows/win32/api//t2embapi/ns-t2embapi-ttvalidationtestsparams
+ * @see https://learn.microsoft.com/windows/win32/api/t2embapi/ns-t2embapi-ttvalidationtestsparams
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
@@ -32,7 +32,7 @@ class TTVALIDATIONTESTSPARAMS extends Win32Struct
     }
 
     /**
-     * Last character point size to test. This value is an largest font size (upper bound) of the font sizes to test.
+     * Last character point size to test. This value is the largest font size (upper bound) of the font sizes to test.
      * @type {Integer}
      */
     lTestToSize {

@@ -4,8 +4,6 @@
 #Include ..\..\Foundation\SIZE.ahk
 
 /**
- * The ENHMETAHEADER3 structure contains enhanced-metafile data including the dimensions of the metafile image, the number of records in the metafile, and the resolution of the device on which the metafile was created.
- * @see https://docs.microsoft.com/windows/win32/api//gdiplusmetaheader/ns-gdiplusmetaheader-enhmetaheader3
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
@@ -13,12 +11,9 @@ class ENHMETAHEADER3 extends Win32Struct
 {
     static sizeof => 88
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
-     * Type: <b>DWORD</b>
-     * 
-     * Record type. Value is always EMR_HEADER.
      * @type {Integer}
      */
     iType {
@@ -27,9 +22,6 @@ class ENHMETAHEADER3 extends Win32Struct
     }
 
     /**
-     * Type: <b>DWORD</b>
-     * 
-     * Structure size, in bytes. This may be greater than the value returned by <b>sizeof</b>(<b>ENHMETAHEADER3</b>).
      * @type {Integer}
      */
     nSize {
@@ -38,9 +30,6 @@ class ENHMETAHEADER3 extends Win32Struct
     }
 
     /**
-     * Type: <b>RECTL</b>
-     * 
-     * Bounding rectangle, in device units, for the image stored in the metafile.
      * @type {RECTL}
      */
     rclBounds{
@@ -52,9 +41,6 @@ class ENHMETAHEADER3 extends Win32Struct
     }
 
     /**
-     * Type: <b>RECTL</b>
-     * 
-     * Rectangle, in 0.01 millimeter units, that surrounds the image stored in the metafile.
      * @type {RECTL}
      */
     rclFrame{
@@ -66,9 +52,6 @@ class ENHMETAHEADER3 extends Win32Struct
     }
 
     /**
-     * Type: <b>DWORD</b>
-     * 
-     * Must be ENHMETA_SIGNATURE.
      * @type {Integer}
      */
     dSignature {
@@ -77,9 +60,6 @@ class ENHMETAHEADER3 extends Win32Struct
     }
 
     /**
-     * Type: <b>DWORD</b>
-     * 
-     * Version number of the metafile format. The current version is 0x10000.
      * @type {Integer}
      */
     nVersion {
@@ -88,9 +68,6 @@ class ENHMETAHEADER3 extends Win32Struct
     }
 
     /**
-     * Type: <b>DWORD</b>
-     * 
-     * Size, in bytes, of the metafile.
      * @type {Integer}
      */
     nBytes {
@@ -99,9 +76,6 @@ class ENHMETAHEADER3 extends Win32Struct
     }
 
     /**
-     * Type: <b>DWORD</b>
-     * 
-     * Number of records in the metafile.
      * @type {Integer}
      */
     nRecords {
@@ -110,9 +84,6 @@ class ENHMETAHEADER3 extends Win32Struct
     }
 
     /**
-     * Type: <b>WORD</b>
-     * 
-     * Number of handles in the metafile handle table. Handle index zero is reserved.
      * @type {Integer}
      */
     nHandles {
@@ -121,9 +92,6 @@ class ENHMETAHEADER3 extends Win32Struct
     }
 
     /**
-     * Type: <b>WORD</b>
-     * 
-     * Reserved. Must be zero.
      * @type {Integer}
      */
     sReserved {
@@ -132,9 +100,6 @@ class ENHMETAHEADER3 extends Win32Struct
     }
 
     /**
-     * Type: <b>DWORD</b>
-     * 
-     * Number of characters in the string that contains the description of the metafile's contents. This member is 0 if the metafile does not have a description string.
      * @type {Integer}
      */
     nDescription {
@@ -143,9 +108,6 @@ class ENHMETAHEADER3 extends Win32Struct
     }
 
     /**
-     * Type: <b>DWORD</b>
-     * 
-     * Offset from the beginning of the <b>ENHMETAHEADER3</b> structure to the string that contains the description of the metafile's contents. This member is 0 if the metafile does not have a description string.
      * @type {Integer}
      */
     offDescription {
@@ -154,9 +116,6 @@ class ENHMETAHEADER3 extends Win32Struct
     }
 
     /**
-     * Type: <b>DWORD</b>
-     * 
-     * Number of entries in the metafile palette.
      * @type {Integer}
      */
     nPalEntries {
@@ -165,9 +124,6 @@ class ENHMETAHEADER3 extends Win32Struct
     }
 
     /**
-     * Type: <b>SIZEL</b>
-     * 
-     * Resolution, in pixels, of the reference device.
      * @type {SIZE}
      */
     szlDevice{
@@ -179,9 +135,6 @@ class ENHMETAHEADER3 extends Win32Struct
     }
 
     /**
-     * Type: <b>SIZEL</b>
-     * 
-     * Resolution, in millimeters, of the reference device.
      * @type {SIZE}
      */
     szlMillimeters{

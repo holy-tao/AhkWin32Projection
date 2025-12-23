@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes whether an opacity mask contains graphics or text. Direct2D uses this information to determine which gamma space to use when blending the opacity mask.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/ne-d2d1-d2d1_opacity_mask_content
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_opacity_mask_content
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_OPACITY_MASK_CONTENT{
+class D2D1_OPACITY_MASK_CONTENT extends Win32Enum{
 
     /**
      * The opacity mask contains graphics. The opacity mask is blended in the gamma 2.2 color space.

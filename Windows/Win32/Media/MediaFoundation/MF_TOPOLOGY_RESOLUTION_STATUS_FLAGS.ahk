@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines status flags for the MF_TOPOLOGY_RESOLUTION_STATUS attribute.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mf_topology_resolution_status_flags
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_topology_resolution_status_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_TOPOLOGY_RESOLUTION_STATUS_FLAGS{
+class MF_TOPOLOGY_RESOLUTION_STATUS_FLAGS extends Win32Enum{
 
     /**
      * The topology was resolved successfully.

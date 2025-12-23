@@ -4,11 +4,8 @@
 /**
  * Contains information describing the network provider returned by the WNetGetNetworkInformation function.
  * @remarks
- * 
  * The <b>NETINFOSTRUCT</b> structure contains information describing the network, such as the version of the network provider software and the network's current status.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winnetwk/ns-winnetwk-netinfostruct
+ * @see https://learn.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netinfostruct
  * @namespace Windows.Win32.NetworkManagement.WNet
  * @version v4.0.30319
  */

@@ -4,7 +4,6 @@
 /**
  * Contains optional compliance state information that is returned by the System Health Validator (SHV).
  * @remarks
- * 
  * If a failure occurs in the system (for example, a component or communication failures), the SHV may return
  *    an <a href="https://docs.microsoft.com/windows/desktop/NAP/sohattributetype-enum">sohAttributeTypeFailureCategory</a> type type-length-value (TLV) object in its <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ns-naptypes-soh">SoHResponse</a> instead
  *    of making a compliance decision. In turn, the NAP system maps the <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ne-naptypes-failurecategory">FailureCategory</a> type returned by the TLV object to compliant or non-compliant within the <b>FailureCategoryMapping</b> structure as follows:
@@ -22,9 +21,7 @@
  * </li>
  * </ul>
  * By default, all categories map to non-compliant (FALSE).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//naptypes/ns-naptypes-failurecategorymapping
+ * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-failurecategorymapping
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319
  */

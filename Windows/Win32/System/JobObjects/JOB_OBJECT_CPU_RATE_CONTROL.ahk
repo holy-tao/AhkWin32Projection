@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.System.JobObjects
  * @version v4.0.30319
  */
-class JOB_OBJECT_CPU_RATE_CONTROL{
+class JOB_OBJECT_CPU_RATE_CONTROL extends Win32BitflagEnum{
 
     /**
      * @type {Integer (UInt32)}

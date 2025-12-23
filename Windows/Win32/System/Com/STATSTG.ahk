@@ -4,7 +4,7 @@
 
 /**
  * Contains statistical data about an open storage, stream, or byte-array object.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/ns-objidl-statstg
+ * @see https://learn.microsoft.com/windows/win32/api/objidl/ns-objidl-statstg
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

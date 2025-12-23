@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The Point class encapsulates a point in a 2-D coordinate system.
- * @see https://docs.microsoft.com/windows/win32/api//gdiplustypes/nl-gdiplustypes-point
+ * Represents an ordered pair of floating-point x- and y-coordinates that defines a point in a two-dimensional plane.
+ * @see https://learn.microsoft.com/windows/win32/api/windows.foundation/ns-windows-foundation-point
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
@@ -14,6 +14,7 @@ class Point extends Win32Struct
     static packingSize => 4
 
     /**
+     * 
      * @type {Integer}
      */
     X {
@@ -22,6 +23,7 @@ class Point extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     Y {

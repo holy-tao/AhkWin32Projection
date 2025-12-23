@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the set of possible EAP method properties.
- * @see https://docs.microsoft.com/windows/win32/api//eaptypes/ne-eaptypes-eap_method_property_type
+ * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ne-eaptypes-eap_method_property_type
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */
-class EAP_METHOD_PROPERTY_TYPE{
+class EAP_METHOD_PROPERTY_TYPE extends Win32Enum{
 
     /**
      * Boolean method property for specifying the support for cipher suite negotiation.

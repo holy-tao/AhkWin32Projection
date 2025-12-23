@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Specifies a proxy property.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_call_property
+ * Specifies a proxy property. (WS_CALL_PROPERTY)
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_call_property
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates flags that modify the property store object retrieved by methods that create a property store, such as IShellItem2::GetPropertyStore or IPropertyStoreFactory::GetPropertyStore.
  * @remarks
- * 
  * If the Shell item is a file, the property store contains the following items. 
  *                 
  *                 
@@ -16,12 +16,11 @@
  * 
  * <div class="alert"><b>Note</b>  GPS_INCLUDEOFFLINEPROPERTIES has been superseded by GPS_OPENSLOWITEM.</div>
  * <div> </div>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//propsys/ne-propsys-getpropertystoreflags
+ * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-getpropertystoreflags
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
-class GETPROPERTYSTOREFLAGS{
+class GETPROPERTYSTOREFLAGS extends Win32BitflagEnum{
 
     /**
      * Meaning to a calling process: Return a read-only property store that contains all properties. Slow items (offline files) are not opened. 

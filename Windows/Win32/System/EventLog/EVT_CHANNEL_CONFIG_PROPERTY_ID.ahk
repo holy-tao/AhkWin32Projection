@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the identifiers that identify the configuration properties of a channel.
- * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_channel_config_property_id
+ * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_channel_config_property_id
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */
-class EVT_CHANNEL_CONFIG_PROPERTY_ID{
+class EVT_CHANNEL_CONFIG_PROPERTY_ID extends Win32Enum{
 
     /**
      * Identifies the <b>enabled</b> attribute of the channel.  The variant type for this property is <b>EvtVarTypeBoolean</b>.

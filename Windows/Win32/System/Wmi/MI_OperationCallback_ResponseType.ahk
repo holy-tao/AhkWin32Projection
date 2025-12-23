@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * If the MI_CallbackMode is MI_CALLBACKMODE_INQUIRE, one of these values can be used in the callback.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ne-mi-mi_operationcallback_responsetype
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ne-mi-mi_operationcallback_responsetype
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class MI_OperationCallback_ResponseType{
+class MI_OperationCallback_ResponseType extends Win32Enum{
 
     /**
      * No to this request only.

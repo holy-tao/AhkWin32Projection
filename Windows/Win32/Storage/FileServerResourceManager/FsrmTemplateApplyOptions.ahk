@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the options for applying template changes to derived objects.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-fsrmtemplateapplyoptions
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmtemplateapplyoptions
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
-class FsrmTemplateApplyOptions{
+class FsrmTemplateApplyOptions extends Win32Enum{
 
     /**
      * Apply template changes to derived objects only if the object's properties match the template's properties.

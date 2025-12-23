@@ -4,7 +4,7 @@
 
 /**
  * An SP_REMOVEDEVICE_PARAMS structure corresponds to the DIF_REMOVE installation request.
- * @see https://docs.microsoft.com/windows/win32/api//setupapi/ns-setupapi-sp_removedevice_params
+ * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_removedevice_params
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */
@@ -12,7 +12,7 @@ class SP_REMOVEDEVICE_PARAMS extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * An install request header that contains the header size and the DIF code for the request. See <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_classinstall_header">SP_CLASSINSTALL_HEADER</a>.

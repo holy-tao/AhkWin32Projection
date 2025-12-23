@@ -4,15 +4,15 @@
 
 /**
  * The EMRSELECTPALETTE structure contains members for the SelectPalette enhanced metafile record. Note that the bForceBackground parameter in SelectPalette is always recorded as TRUE, which causes the palette to be realized as a background palette.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrselectpalette
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrselectpalette
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
 class EMRSELECTPALETTE extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.

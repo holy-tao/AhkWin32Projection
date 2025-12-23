@@ -3,7 +3,7 @@
 
 /**
  * The STREAM_ID_MAP structure describes an elementary stream within an MPEG-2 program stream. Used with the IEnumStreamIdMap interface methods.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-stream_id_map
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-stream_id_map
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

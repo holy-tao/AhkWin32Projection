@@ -4,14 +4,11 @@
 /**
  * Contains statistical information from the NTFS file system.Support for this structure started with Windows 10.
  * @remarks
- * 
  * The MFT, MFT mirror, root index, user index, bitmap, and MFT bitmap are counted as metadata files. The log 
  *     file is not counted as a metadata file.
  * 
  * The number of read and write operations measured is the number of paging operations.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-ntfs_statistics_ex
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-ntfs_statistics_ex
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
@@ -22,8 +19,8 @@ class NTFS_STATISTICS_EX extends Win32Struct
     static packingSize => 8
 
     class _MftWritesUserLevel extends Win32Struct {
-        static sizeof => 496
-        static packingSize => 8
+        static sizeof => 16
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -60,8 +57,8 @@ class NTFS_STATISTICS_EX extends Win32Struct
     }
 
     class _Mft2WritesUserLevel extends Win32Struct {
-        static sizeof => 496
-        static packingSize => 8
+        static sizeof => 16
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -98,8 +95,8 @@ class NTFS_STATISTICS_EX extends Win32Struct
     }
 
     class _BitmapWritesUserLevel extends Win32Struct {
-        static sizeof => 496
-        static packingSize => 8
+        static sizeof => 16
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -136,8 +133,8 @@ class NTFS_STATISTICS_EX extends Win32Struct
     }
 
     class _MftBitmapWritesUserLevel extends Win32Struct {
-        static sizeof => 496
-        static packingSize => 8
+        static sizeof => 16
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -174,7 +171,7 @@ class NTFS_STATISTICS_EX extends Win32Struct
     }
 
     class _Allocate extends Win32Struct {
-        static sizeof => 496
+        static sizeof => 56
         static packingSize => 8
 
         /**
@@ -515,7 +512,7 @@ class NTFS_STATISTICS_EX extends Win32Struct
     BitmapWritesUserLevel{
         get {
             if(!this.HasProp("__BitmapWritesUserLevel"))
-                this.__BitmapWritesUserLevel := %this.__Class%._BitmapWritesUserLevel(200, this)
+                this.__BitmapWritesUserLevel := %this.__Class%._BitmapWritesUserLevel(196, this)
             return this.__BitmapWritesUserLevel
         }
     }
@@ -590,7 +587,7 @@ class NTFS_STATISTICS_EX extends Win32Struct
     MftBitmapWritesUserLevel{
         get {
             if(!this.HasProp("__MftBitmapWritesUserLevel"))
-                this.__MftBitmapWritesUserLevel := %this.__Class%._MftBitmapWritesUserLevel(264, this)
+                this.__MftBitmapWritesUserLevel := %this.__Class%._MftBitmapWritesUserLevel(260, this)
             return this.__MftBitmapWritesUserLevel
         }
     }

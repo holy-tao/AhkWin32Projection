@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Identify a technique for resolving texture coordinates that are outside of the boundaries of a texture.
- * @see https://docs.microsoft.com/windows/win32/api//d3d10/ne-d3d10-d3d10_texture_address_mode
+ * Identify a technique for resolving texture coordinates that are outside of the boundaries of a texture. (D3D10_TEXTURE_ADDRESS_MODE)
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_texture_address_mode
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
-class D3D10_TEXTURE_ADDRESS_MODE{
+class D3D10_TEXTURE_ADDRESS_MODE extends Win32Enum{
 
     /**
      * Tile the texture at every integer junction. For example, for u values between 0 and 3, the texture is repeated three times.

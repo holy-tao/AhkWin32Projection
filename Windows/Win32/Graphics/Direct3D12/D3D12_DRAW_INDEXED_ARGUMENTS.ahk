@@ -4,12 +4,9 @@
 /**
  * Describes parameters for drawing indexed instances.
  * @remarks
- * 
  * The members of this structure serve the same purpose as the parameters of
  *           <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-drawindexedinstanced">DrawIndexedInstanced</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_draw_indexed_arguments
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_draw_indexed_arguments
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

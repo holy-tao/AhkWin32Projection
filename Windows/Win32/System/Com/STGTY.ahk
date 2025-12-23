@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The STGTY enumeration values are used in the type member of the STATSTG structure to indicate the type of the storage element. A storage element is a storage object, a stream object, or a byte-array object (LOCKBYTES).
- * @see https://docs.microsoft.com/windows/win32/api//objidl/ne-objidl-stgty
+ * @see https://learn.microsoft.com/windows/win32/api/objidl/ne-objidl-stgty
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class STGTY{
+class STGTY extends Win32Enum{
 
     /**
      * Indicates that the storage element is a storage object.

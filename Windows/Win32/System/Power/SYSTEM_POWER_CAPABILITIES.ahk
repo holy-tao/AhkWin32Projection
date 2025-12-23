@@ -4,7 +4,7 @@
 
 /**
  * Contains information about the power capabilities of the system.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-system_power_capabilities
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_power_capabilities
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

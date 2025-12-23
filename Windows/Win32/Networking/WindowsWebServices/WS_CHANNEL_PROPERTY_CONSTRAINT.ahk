@@ -4,7 +4,7 @@
 
 /**
  * Specifies constraints for a particular channel property.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_channel_property_constraint
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_channel_property_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -15,7 +15,7 @@ class WS_CHANNEL_PROPERTY_CONSTRAINT extends Win32Struct
     static packingSize => 8
 
     class _out extends Win32Struct {
-        static sizeof => 48
+        static sizeof => 24
         static packingSize => 8
 
         /**

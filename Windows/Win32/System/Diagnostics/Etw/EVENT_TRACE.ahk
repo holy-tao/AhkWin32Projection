@@ -6,12 +6,11 @@
 /**
  * The EVENT_TRACE structure is used to deliver event information to an event trace consumer.
  * @remarks
- * 
- * ETW passes this structure to the 
- * consumer's <a href="https://docs.microsoft.com/windows/desktop/ETW/eventcallback">EventCallback</a> callback function.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//evntrace/ns-evntrace-event_trace
+ * [ProcessTrace](/windows/win32/api/evntrace/nf-evntrace-processtrace) passes this
+ * structure to the consumer's
+ * [EventCallback](/windows/win32/api/evntrace/nc-evntrace-pevent_callback)
+ * callback function.
+ * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-event_trace
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
@@ -22,8 +21,9 @@ class EVENT_TRACE extends Win32Struct
     static packingSize => 8
 
     /**
-     * An 
-     * <a href="https://docs.microsoft.com/windows/desktop/ETW/event-trace-header">EVENT_TRACE_HEADER</a> structure that contains standard event tracing information.
+     * An
+     * [EVENT_TRACE_HEADER](/windows/win32/api/evntrace/ns-evntrace-event_trace_header)
+     * structure that contains standard event tracing information.
      * @type {EVENT_TRACE_HEADER}
      */
     Header{
@@ -35,8 +35,9 @@ class EVENT_TRACE extends Win32Struct
     }
 
     /**
-     * Instance identifier. Contains valid data when the 
-     * provider calls the <a href="https://docs.microsoft.com/windows/desktop/ETW/traceeventinstance">TraceEventInstance</a> function to generate the event. Otherwise, the value is zero.
+     * Instance identifier. Contains valid data when the provider calls the
+     * [TraceEventInstance](/windows/win32/api/evntrace/nf-evntrace-traceeventinstance)
+     * function to generate the event. Otherwise, the value is zero.
      * @type {Integer}
      */
     InstanceId {
@@ -45,8 +46,10 @@ class EVENT_TRACE extends Win32Struct
     }
 
     /**
-     * Instance identifier for a parent event. Contains valid data when the 
-     * provider calls the <a href="https://docs.microsoft.com/windows/desktop/ETW/traceeventinstance">TraceEventInstance</a> function to generate the event. Otherwise, the value is zero.
+     * Instance identifier for a parent event. Contains valid data when the provider
+     * calls the
+     * [TraceEventInstance](/windows/win32/api/evntrace/nf-evntrace-traceeventinstance)
+     * function to generate the event. Otherwise, the value is zero.
      * @type {Integer}
      */
     ParentInstanceId {
@@ -55,8 +58,9 @@ class EVENT_TRACE extends Win32Struct
     }
 
     /**
-     * Class GUID of the parent event. Contains valid data when the 
-     * provider calls the <a href="https://docs.microsoft.com/windows/desktop/ETW/traceeventinstance">TraceEventInstance</a> function to generate the event. Otherwise, the value is zero.
+     * Class GUID of the parent event. Contains valid data when the provider calls the
+     * [TraceEventInstance](/windows/win32/api/evntrace/nf-evntrace-traceeventinstance)
+     * function to generate the event. Otherwise, the value is zero.
      * @type {Pointer<Guid>}
      */
     ParentGuid {
@@ -74,7 +78,7 @@ class EVENT_TRACE extends Win32Struct
     }
 
     /**
-     * Number of bytes to which <b>MofData</b> points.
+     * Number of bytes to which **MofData** points.
      * @type {Integer}
      */
     MofLength {

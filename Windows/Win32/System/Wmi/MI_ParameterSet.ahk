@@ -3,7 +3,7 @@
 
 /**
  * Holds the method parameters of a class definition.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_parameterset
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_parameterset
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

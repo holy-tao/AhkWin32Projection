@@ -4,11 +4,8 @@
 /**
  * Indicates the color contrast description from the DVD highlight (HLI) structure.
  * @remarks
- * 
  * This structure is contained within the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvdmedia/ns-dvdmedia-am_property_sphli">AM_PROPERTY_SPHLI</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dvdmedia/ns-dvdmedia-am_colcon
+ * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-am_colcon
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that specify the location of a docking window represented by the Dock control pattern.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-dockposition
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-dockposition
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
-class DockPosition{
+class DockPosition extends Win32Enum{
 
     /**
      * The window is docked at the top.

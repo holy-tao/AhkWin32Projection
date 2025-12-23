@@ -3,14 +3,14 @@
 #Include ..\..\..\Foundation\FILETIME.ahk
 
 /**
- * The STATPROPSETSTG structure contains information about a property set.
- * @see https://docs.microsoft.com/windows/win32/api//propidlbase/ns-propidlbase-statpropsetstg
+ * The STATPROPSETSTG structure contains information about a property set. (STATPROPSETSTG structure)
+ * @see https://learn.microsoft.com/windows/win32/api/propidlbase/ns-propidlbase-statpropsetstg
  * @namespace Windows.Win32.System.Com.StructuredStorage
  * @version v4.0.30319
  */
 class STATPROPSETSTG extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -50,7 +50,7 @@ class STATPROPSETSTG extends Win32Struct
     mtime{
         get {
             if(!this.HasProp("__mtime"))
-                this.__mtime := FILETIME(24, this)
+                this.__mtime := FILETIME(20, this)
             return this.__mtime
         }
     }
@@ -62,7 +62,7 @@ class STATPROPSETSTG extends Win32Struct
     ctime{
         get {
             if(!this.HasProp("__ctime"))
-                this.__ctime := FILETIME(32, this)
+                this.__ctime := FILETIME(28, this)
             return this.__ctime
         }
     }
@@ -74,7 +74,7 @@ class STATPROPSETSTG extends Win32Struct
     atime{
         get {
             if(!this.HasProp("__atime"))
-                this.__atime := FILETIME(40, this)
+                this.__atime := FILETIME(36, this)
             return this.__atime
         }
     }
@@ -84,7 +84,7 @@ class STATPROPSETSTG extends Win32Struct
      * @type {Integer}
      */
     dwOSVersion {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

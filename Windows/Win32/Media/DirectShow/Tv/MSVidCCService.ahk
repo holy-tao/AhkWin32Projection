@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * This topic applies to Windows XP Service Pack 1 or later.
- * @see https://docs.microsoft.com/windows/win32/api//segment/ne-segment-msvidccservice
+ * @see https://learn.microsoft.com/windows/win32/api/segment/ne-segment-msvidccservice
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
-class MSVidCCService{
+class MSVidCCService extends Win32Enum{
 
     /**
      * No current service

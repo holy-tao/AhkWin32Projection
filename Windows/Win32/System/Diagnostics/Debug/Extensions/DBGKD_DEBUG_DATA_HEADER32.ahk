@@ -10,7 +10,7 @@ class DBGKD_DEBUG_DATA_HEADER32 extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {LIST_ENTRY32}

@@ -4,15 +4,15 @@
 
 /**
  * Represents a cardioid-shaped directivity model for an ISpatialAudioObjectForHrtf.
- * @see https://docs.microsoft.com/windows/win32/api//spatialaudiohrtf/ns-spatialaudiohrtf-spatialaudiohrtfdirectivitycardioid
+ * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/ns-spatialaudiohrtf-spatialaudiohrtfdirectivitycardioid
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
 class SpatialAudioHrtfDirectivityCardioid extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A structure that expresses the direction in which sound is emitted by an <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiohrtf/nn-spatialaudiohrtf-ispatialaudioobjectforhrtf">ISpatialAudioObjectForHrtf</a>.

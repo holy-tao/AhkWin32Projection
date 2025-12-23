@@ -1,18 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of group objects in ADSI.
  * @remarks
- * 
  * Because VBScript cannot read data from a type library, VBScript applications do not understand recognize constants, as defined above. Use the numerical constants, instead, to set the appropriate flags in your VBScript application. To use the symbolic constants as a good programming practice, write explicit declarations of such constants, as done here, in your VBScript application.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/ne-iads-ads_group_type_enum
+ * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_group_type_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class ADS_GROUP_TYPE_ENUM{
+class ADS_GROUP_TYPE_ENUM extends Win32Enum{
 
     /**
      * Specifies a group that can contain accounts from the same domain and other global groups from the same domain. This type of group can be exported to a different domain.

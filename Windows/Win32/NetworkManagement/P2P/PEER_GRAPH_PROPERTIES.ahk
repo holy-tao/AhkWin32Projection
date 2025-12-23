@@ -4,7 +4,6 @@
 /**
  * The PEER_GRAPH_PROPERTIES structure contains data about the policy of a peer graph, ID, scope, and other information.
  * @remarks
- * 
  * An application can force the Peer Graphing Infrastructure to publish presence information by using <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphsetpresence">PeerGraphSetPresence</a>.
  * 
  * Only specific  fields in the <b>PEER_GRAPH_PROPERTIES</b> can be updated when calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphsetproperties">PeerGraphSetProperties</a>. The following members can be updated:
@@ -16,9 +15,7 @@
  * <li><b>cPresenceMax</b></li>
  * </ul>
  * The remaining members cannot be modified.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_graph_properties
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_graph_properties
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

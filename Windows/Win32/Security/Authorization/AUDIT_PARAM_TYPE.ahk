@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the type of audit parameters that are available.
- * @see https://docs.microsoft.com/windows/win32/api//adtgen/ne-adtgen-audit_param_type
+ * @see https://learn.microsoft.com/windows/win32/api/adtgen/ne-adtgen-audit_param_type
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
-class AUDIT_PARAM_TYPE{
+class AUDIT_PARAM_TYPE extends Win32Enum{
 
     /**
      * No audit options.

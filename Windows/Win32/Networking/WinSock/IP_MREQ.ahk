@@ -5,7 +5,6 @@
 /**
  * The ip_mreq structure provides multicast group information for IPv4 addresses.
  * @remarks
- * 
  * The <b>ip_mreq</b> structure is used with IPv4 addresses. The <b>ip_mreq</b> structure is used with the <a href="https://docs.microsoft.com/windows/desktop/WinSock/ipproto-ip-socket-options">IP_ADD_MEMBERSHIP</a> and <b>IP_DROP_MEMBERSHIP</b> socket options. 
  * 
  * The <b>ip_mreq</b> structure and related structures used for IPv4 multicast programming are based on IETF recommendations in sections 4 and 8.1 of RFC 3768. For more information, see <a href="http://tools.ietf.org/html/rfc3678">http://www.ietf.org/rfc/rfc3678.txt</a>.
@@ -34,9 +33,7 @@
  * 
  * <div class="alert"><b>Note</b>  The <b>IP_MREQ</b> and <b>PIP_MREQ</b> derived structures are only defined on the Windows SDK released with Windows Vista and later. The <b>ip_mreq</b> structure should be used on earlier versions of the Windows SDK. </div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ws2ipdef/ns-ws2ipdef-ip_mreq
+ * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-ip_mreq
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

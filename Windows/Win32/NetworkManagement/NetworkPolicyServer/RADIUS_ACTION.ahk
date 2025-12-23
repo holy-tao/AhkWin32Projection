@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The RADIUS_ACTION type enumerates the responses that a NPS Extension DLL can generate in response to an Access-Request.
  * @remarks
- * 
  * Use the values for this enumeration only as the actions for the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/authif/nc-authif-pradius_extension_process">RadiusExtensionProcess</a> and 
  * <a href="https://docs.microsoft.com/windows/desktop/api/authif/nc-authif-pradius_extension_process_ex">RadiusExtensionProcessEx</a> functions.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//authif/ne-authif-radius_action
+ * @see https://learn.microsoft.com/windows/win32/api/authif/ne-authif-radius_action
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class RADIUS_ACTION{
+class RADIUS_ACTION extends Win32Enum{
 
     /**
      * NPS continues to process the request. NPS also continues to call 

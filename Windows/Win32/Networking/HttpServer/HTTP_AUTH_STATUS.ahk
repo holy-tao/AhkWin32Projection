@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the authentication state of a request.
- * @see https://docs.microsoft.com/windows/win32/api//http/ne-http-http_auth_status
+ * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_auth_status
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */
-class HTTP_AUTH_STATUS{
+class HTTP_AUTH_STATUS extends Win32Enum{
 
     /**
      * The request was successfully authenticated for the authentication type indicated in the <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_request_auth_info">HTTP_REQUEST_AUTH_INFO</a> structure.

@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The WiaTransferParams is transmitted to an application during a data transfer by the Windows Image Acquisition (WIA) run-time system to the IWiaTransferCallback::TransferCallback method.
  * @see https://learn.microsoft.com/windows/win32/wia/-wia-wiatransferparams
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
@@ -14,6 +14,39 @@ class WiaTransferParams extends Win32Struct
     static packingSize => 8
 
     /**
+     * Type: **LONG**
+     * 
+     * 
+     * Indicates the status of the data transfer.
+     * 
+     * 
+     * <span id="WIA_TRANSFER_MSG_STATUS"></span><span id="wia_transfer_msg_status"></span>
+     * 
+     * <span id="WIA_TRANSFER_MSG_STATUS"></span><span id="wia_transfer_msg_status"></span>**WIA\_TRANSFER\_MSG\_STATUS**
+     * 
+     * 
+     * 
+     * <span id="WIA_TRANSFER_MSG_END_OF_STREAM"></span><span id="wia_transfer_msg_end_of_stream"></span>
+     * 
+     * <span id="WIA_TRANSFER_MSG_END_OF_STREAM"></span><span id="wia_transfer_msg_end_of_stream"></span>**WIA\_TRANSFER\_MSG\_END\_OF\_STREAM**
+     * 
+     * 
+     * 
+     * <span id="WIA_TRANSFER_MSG_END_OF_TRANSFER"></span><span id="wia_transfer_msg_end_of_transfer"></span>
+     * 
+     * <span id="WIA_TRANSFER_MSG_END_OF_TRANSFER"></span><span id="wia_transfer_msg_end_of_transfer"></span>**WIA\_TRANSFER\_MSG\_END\_OF\_TRANSFER**
+     * 
+     * 
+     * 
+     * <span id="WIA_TRANSFER_MSG_DEVICE_STATUS"></span><span id="wia_transfer_msg_device_status"></span>
+     * 
+     * <span id="WIA_TRANSFER_MSG_DEVICE_STATUS"></span><span id="wia_transfer_msg_device_status"></span>**WIA\_TRANSFER\_MSG\_DEVICE\_STATUS**
+     * 
+     * 
+     * 
+     * <span id="WIA_TRANSFER_MSG_NEW_PAGE"></span><span id="wia_transfer_msg_new_page"></span>
+     * 
+     * <span id="WIA_TRANSFER_MSG_NEW_PAGE"></span><span id="wia_transfer_msg_new_page"></span>**WIA\_TRANSFER\_MSG\_NEW\_PAGE**
      * @type {Integer}
      */
     lMessage {
@@ -22,6 +55,10 @@ class WiaTransferParams extends Win32Struct
     }
 
     /**
+     * Type: **LONG**
+     * 
+     * 
+     * Indicates the progress of the data transfer as a percentage.
      * @type {Integer}
      */
     lPercentComplete {
@@ -30,6 +67,10 @@ class WiaTransferParams extends Win32Struct
     }
 
     /**
+     * Type: **ULONG64**
+     * 
+     * 
+     * Indicates the amount of data transferred.
      * @type {Integer}
      */
     ulTransferredBytes {
@@ -38,6 +79,10 @@ class WiaTransferParams extends Win32Struct
     }
 
     /**
+     * Type: **HRESULT**
+     * 
+     * 
+     * The status, or error state, of the device set by the driver; for example, "warming up".
      * @type {HRESULT}
      */
     hrErrorStatus {

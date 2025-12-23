@@ -3,7 +3,7 @@
 
 /**
  * This structure contains information about the downloaded firmware to activate.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_hw_firmware_activate
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_hw_firmware_activate
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

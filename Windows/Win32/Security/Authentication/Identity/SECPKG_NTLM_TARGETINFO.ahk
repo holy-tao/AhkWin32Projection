@@ -74,7 +74,7 @@ class SECPKG_NTLM_TARGETINFO extends Win32Struct
     MsvAvTimestamp{
         get {
             if(!this.HasProp("__MsvAvTimestamp"))
-                this.__MsvAvTimestamp := FILETIME(56, this)
+                this.__MsvAvTimestamp := FILETIME(52, this)
             return this.__MsvAvTimestamp
         }
     }

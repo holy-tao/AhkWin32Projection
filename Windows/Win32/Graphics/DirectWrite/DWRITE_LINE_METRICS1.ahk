@@ -3,8 +3,8 @@
 #Include .\DWRITE_LINE_METRICS.ahk
 
 /**
- * Contains information about a formatted line of text.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/ns-dwrite_3-dwrite_line_metrics1
+ * Contains information about a formatted line of text. (DWRITE_LINE_METRICS1)
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_line_metrics1
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -12,7 +12,7 @@ class DWRITE_LINE_METRICS1 extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {DWRITE_LINE_METRICS}

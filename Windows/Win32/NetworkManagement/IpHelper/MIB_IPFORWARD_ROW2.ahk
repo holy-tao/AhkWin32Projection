@@ -12,7 +12,6 @@
 /**
  * Stores information about an IP route entry.
  * @remarks
- * 
  * The <b>MIB_IPFORWARD_ROW2</b> structure is defined on Windows Vista and later. 
  * 
  * The <b>GetIpForwardTable2</b> function enumerates the IP route entries on a local system and returns this information in a <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipforward_table2">MIB_IPFORWARD_TABLE2</a> structure as an array of <b>MIB_IPFORWARD_ROW2</b> entries. 
@@ -32,15 +31,13 @@
  * The route metric specified in the <b>Metric</b> member of the  <b>MIB_IPFORWARD_ROW2</b> structure represents just the route metric offset. The complete metric is a combination of this route metric  offset added to the interface metric specified in the <b>Metric</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipinterface_row">MIB_IPINTERFACE_ROW</a> structure of the associated interface.  An application can retrieve the interface metric by calling the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getipinterfaceentry">GetIpInterfaceEntry</a> function.
  * 
  * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//netioapi/ns-netioapi-mib_ipforward_row2
+ * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ipforward_row2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */
 class MIB_IPFORWARD_ROW2 extends Win32Struct
 {
-    static sizeof => 192
+    static sizeof => 168
 
     static packingSize => 8
 
@@ -78,7 +75,7 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
     DestinationPrefix{
         get {
             if(!this.HasProp("__DestinationPrefix"))
-                this.__DestinationPrefix := IP_ADDRESS_PREFIX(24, this)
+                this.__DestinationPrefix := IP_ADDRESS_PREFIX(20, this)
             return this.__DestinationPrefix
         }
     }
@@ -92,7 +89,7 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
     NextHop{
         get {
             if(!this.HasProp("__NextHop"))
-                this.__NextHop := SOCKADDR_INET(96, this)
+                this.__NextHop := SOCKADDR_INET(80, this)
             return this.__NextHop
         }
     }
@@ -105,8 +102,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     SitePrefixLength {
-        get => NumGet(this, 160, "char")
-        set => NumPut("char", value, this, 160)
+        get => NumGet(this, 136, "char")
+        set => NumPut("char", value, this, 136)
     }
 
     /**
@@ -116,8 +113,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     ValidLifetime {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
+        get => NumGet(this, 140, "uint")
+        set => NumPut("uint", value, this, 140)
     }
 
     /**
@@ -127,8 +124,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     PreferredLifetime {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
+        get => NumGet(this, 144, "uint")
+        set => NumPut("uint", value, this, 144)
     }
 
     /**
@@ -139,8 +136,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     Metric {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
+        get => NumGet(this, 148, "uint")
+        set => NumPut("uint", value, this, 148)
     }
 
     /**
@@ -343,7 +340,7 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * </dl>
      * </td>
      * <td width="60%">
-     * A Windows specific entry added as an static route from the routing user interface or a routing command, except these routes do not cause Dial On Demand (DOD).
+     * A Windows specific entry added as a static route from the routing user interface or a routing command, except these routes do not cause Dial On Demand (DOD).
      * 
      * </td>
      * </tr>
@@ -351,8 +348,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     Protocol {
-        get => NumGet(this, 176, "int")
-        set => NumPut("int", value, this, 176)
+        get => NumGet(this, 152, "int")
+        set => NumPut("int", value, this, 152)
     }
 
     /**
@@ -362,8 +359,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {BOOLEAN}
      */
     Loopback {
-        get => NumGet(this, 180, "char")
-        set => NumPut("char", value, this, 180)
+        get => NumGet(this, 156, "char")
+        set => NumPut("char", value, this, 156)
     }
 
     /**
@@ -373,8 +370,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {BOOLEAN}
      */
     AutoconfigureAddress {
-        get => NumGet(this, 181, "char")
-        set => NumPut("char", value, this, 181)
+        get => NumGet(this, 157, "char")
+        set => NumPut("char", value, this, 157)
     }
 
     /**
@@ -384,8 +381,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {BOOLEAN}
      */
     Publish {
-        get => NumGet(this, 182, "char")
-        set => NumPut("char", value, this, 182)
+        get => NumGet(this, 158, "char")
+        set => NumPut("char", value, this, 158)
     }
 
     /**
@@ -395,8 +392,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {BOOLEAN}
      */
     Immortal {
-        get => NumGet(this, 183, "char")
-        set => NumPut("char", value, this, 183)
+        get => NumGet(this, 159, "char")
+        set => NumPut("char", value, this, 159)
     }
 
     /**
@@ -407,8 +404,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     Age {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
+        get => NumGet(this, 160, "uint")
+        set => NumPut("uint", value, this, 160)
     }
 
     /**
@@ -480,7 +477,7 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     Origin {
-        get => NumGet(this, 188, "int")
-        set => NumPut("int", value, this, 188)
+        get => NumGet(this, 164, "int")
+        set => NumPut("int", value, this, 164)
     }
 }

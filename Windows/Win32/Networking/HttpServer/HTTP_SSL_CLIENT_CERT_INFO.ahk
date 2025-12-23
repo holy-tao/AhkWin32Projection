@@ -5,14 +5,11 @@
 /**
  * Contains data about a Secure Sockets Layer (SSL) client certificate that can be used to determine whether the certificate is valid.
  * @remarks
- * 
  * An 
  * <b>HTTP_SSL_CLIENT_CERT_INFO</b> structure is pointed to by the <b>pClientCertInfo</b> member of the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_ssl_info">HTTP_SSL_INFO</a> structure, and is used by the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpreceiveclientcertificate">HttpReceiveClientCertificate</a> function to return data about the client certificate through the <i>pSslClientCertInfo</i> parameter.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_ssl_client_cert_info
+ * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_ssl_client_cert_info
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

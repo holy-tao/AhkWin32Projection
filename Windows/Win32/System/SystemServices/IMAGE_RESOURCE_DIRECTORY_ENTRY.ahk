@@ -9,7 +9,7 @@ class IMAGE_RESOURCE_DIRECTORY_ENTRY extends Win32Struct
 {
     static sizeof => 12
 
-    static packingSize => 6
+    static packingSize => 4
 
     /**
      * This bitfield backs the following members:

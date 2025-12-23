@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the sector types that can be written to CD media.
  * @remarks
- * 
  * Some sector types are not compatible with other sector types within a single image.  The following are typical examples of this condition:
  * 
  * <ul>
@@ -11,13 +11,11 @@
  * <li>If the first track is Mode1, then all tracks must be Mode1.</li>
  * <li>Only the three Mode2 (XA) sectors (Mode 2 Form 0, Mode 2 Form 1, and Mode 2 Form 2) may be mixed within a single disc image, and even then, only with other Mode 2 (XA) sector types.</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/ne-imapi2-imapi_cd_sector_type
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_cd_sector_type
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
-class IMAPI_CD_SECTOR_TYPE{
+class IMAPI_CD_SECTOR_TYPE extends Win32Enum{
 
     /**
      * With this sector type, Audio data has 2352 bytes per sector/frame.  This can be broken down into 588 contiguous samples, each sample being four bytes.  The layout of a single sample matches the 16-bit stereo 44.1KHz WAV file data.  This type of sector has no additional error correcting codes.

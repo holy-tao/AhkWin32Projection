@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a balloon tip associated with a button control.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-editballoontip
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-editballoontip
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

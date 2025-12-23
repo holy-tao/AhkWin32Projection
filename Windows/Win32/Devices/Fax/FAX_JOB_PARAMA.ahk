@@ -3,9 +3,8 @@
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
- * The FAX_JOB_PARAM structure contains the information necessary for the fax server to send an individual fax transmission.
+ * The FAX_JOB_PARAM structure contains the information necessary for the fax server to send an individual fax transmission. (ANSI)
  * @remarks
- * 
  * A fax client application passes the <b>FAX_JOB_PARAM</b> structure in a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxsenddocumenta">FaxSendDocument</a> function to inform the fax server how and when to send the fax transmission. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-sending-a-fax-to-one-recipient-win32-environment-">Sending a Fax to One Recipient (Win32 Environment)</a>.
  * 
  * 
@@ -14,16 +13,14 @@
  * 
  * > [!NOTE]
  * > The winfax.h header defines FAX_JOB_PARAM as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winfax/ns-winfax-fax_job_parama
+ * @see https://learn.microsoft.com/windows/win32/api/winfax/ns-winfax-fax_job_parama
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  * @charset ANSI
  */
 class FAX_JOB_PARAMA extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 136
 
     static packingSize => 8
 
@@ -135,7 +132,7 @@ class FAX_JOB_PARAMA extends Win32Struct
     ScheduleTime{
         get {
             if(!this.HasProp("__ScheduleTime"))
-                this.__ScheduleTime := SYSTEMTIME(72, this)
+                this.__ScheduleTime := SYSTEMTIME(68, this)
             return this.__ScheduleTime
         }
     }
@@ -147,8 +144,8 @@ class FAX_JOB_PARAMA extends Win32Struct
      * @type {Integer}
      */
     DeliveryReportType {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 
     /**
@@ -158,8 +155,8 @@ class FAX_JOB_PARAMA extends Win32Struct
      * @type {PSTR}
      */
     DeliveryReportAddress {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -169,8 +166,8 @@ class FAX_JOB_PARAMA extends Win32Struct
      * @type {PSTR}
      */
     DocumentName {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -180,8 +177,8 @@ class FAX_JOB_PARAMA extends Win32Struct
      * @type {Integer}
      */
     CallHandle {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
@@ -193,7 +190,7 @@ class FAX_JOB_PARAMA extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 120, 3, Primitive, "ptr")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 112, 3, Primitive, "ptr")
             return this.__ReservedProxyArray
         }
     }

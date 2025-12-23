@@ -3,7 +3,7 @@
 
 /**
  * The PCCARD_DES structure is used for specifying either a resource list or a resource requirements list that describes resource usage by a PC Card instance. For more information about resource lists and resource requirements lists, see Hardware Resources.
- * @see https://docs.microsoft.com/windows/win32/api//cfgmgr32/ns-cfgmgr32-pccard_des
+ * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-pccard_des
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

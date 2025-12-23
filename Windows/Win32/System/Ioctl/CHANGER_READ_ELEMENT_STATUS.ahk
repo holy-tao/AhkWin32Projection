@@ -5,15 +5,15 @@
 
 /**
  * Contains information that the IOCTL_CHANGER_GET_ELEMENT_STATUS control code needs to determine the elements whose status is to be retrieved.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-changer_read_element_status
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_read_element_status
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
 class CHANGER_READ_ELEMENT_STATUS extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A
@@ -33,7 +33,7 @@ class CHANGER_READ_ELEMENT_STATUS extends Win32Struct
      * @type {BOOLEAN}
      */
     VolumeTagInfo {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+        get => NumGet(this, 12, "char")
+        set => NumPut("char", value, this, 12)
     }
 }

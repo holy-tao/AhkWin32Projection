@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the direction, relative to Input Panel, that the post insertion correction comb displays.
- * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/ne-peninputpanel-correctionposition
+ * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-correctionposition
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class CorrectionPosition{
+class CorrectionPosition extends Win32Enum{
 
     /**
      * The system decides on the position of the correction comb.

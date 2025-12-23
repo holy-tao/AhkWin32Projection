@@ -5,15 +5,15 @@
 
 /**
  * Holds an extra data block used by IShellLinkDataList. It holds console properties.
- * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-nt_console_props
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-nt_console_props
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
 class NT_CONSOLE_PROPS extends Win32Struct
 {
-    static sizeof => 208
+    static sizeof => 204
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-datablock_header">DATABLOCK_HEADER</a></b>

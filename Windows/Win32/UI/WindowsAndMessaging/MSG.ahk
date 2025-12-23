@@ -5,7 +5,7 @@
 
 /**
  * Contains message information from a thread's message queue.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-msg
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-msg
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */
@@ -76,7 +76,7 @@ class MSG extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * The cursor position, in screen coordinates, when the message was posted.
      * @type {POINT}
@@ -84,7 +84,7 @@ class MSG extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(40, this)
+                this.__pt := POINT(36, this)
             return this.__pt
         }
     }

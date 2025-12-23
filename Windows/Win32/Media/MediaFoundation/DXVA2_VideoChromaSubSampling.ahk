@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes how chroma values are positioned relative to the luma samples in a YUV video frame.
  * @remarks
- * 
  * The following diagrams show the most common arrangements.
  * 
  * <h3><a id="4_4_4_horizontally_and_vertically_cosited._________"></a><a id="4_4_4_HORIZONTALLY_AND_VERTICALLY_COSITED._________"></a>4:4:4 horizontally and vertically cosited.
@@ -39,13 +39,11 @@
  *       
  * 
  * If you are using the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface to describe the video format, chroma siting is specified in the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-chroma-siting-attribute">MF_MT_VIDEO_CHROMA_SITING</a> attribute.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxva2api/ne-dxva2api-dxva2_videochromasubsampling
+ * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ne-dxva2api-dxva2_videochromasubsampling
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class DXVA2_VideoChromaSubSampling{
+class DXVA2_VideoChromaSubSampling extends Win32Enum{
 
     /**
      * Bitmask to validate flag values. This value is not a valid flag.

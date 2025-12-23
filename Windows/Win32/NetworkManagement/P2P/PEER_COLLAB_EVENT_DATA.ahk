@@ -9,6 +9,8 @@
 #Include .\PEER_EVENT_REQUEST_STATUS_CHANGED_DATA.ahk
 
 /**
+ * The PEER_COLLAB_EVENT_DATA structure (p2p.h) contains variant data for each possible peer collaboration network event raised on a peer.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_collab_event_data~r1
  * @namespace Windows.Win32.NetworkManagement.P2P
@@ -21,7 +23,8 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @deprecated
+     * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_collab_event_type">PEER_COLLAB_EVENT_TYPE</a> enumeration value that contains the type of the event whose corresponding data structure appears in the subsequent union arm.
+     * @deprecated 
      * @type {Integer}
      */
     eventType {
@@ -30,7 +33,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_WATCHLIST_CHANGED_DATA}
      */
     watchListChangedData{
@@ -42,7 +45,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_PRESENCE_CHANGED_DATA}
      */
     presenceChangedData{
@@ -54,7 +57,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_APPLICATION_CHANGED_DATA}
      */
     applicationChangedData{
@@ -66,7 +69,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_OBJECT_CHANGED_DATA}
      */
     objectChangedData{
@@ -78,7 +81,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_ENDPOINT_CHANGED_DATA}
      */
     endpointChangedData{
@@ -90,7 +93,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA}
      */
     peopleNearMeChangedData{
@@ -102,7 +105,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_REQUEST_STATUS_CHANGED_DATA}
      */
     requestStatusChangedData{

@@ -4,7 +4,7 @@
 
 /**
  * The RTM_ENTITY_INFO structure is used to exchange client information with the routing table manager.
- * @see https://docs.microsoft.com/windows/win32/api//rtmv2/ns-rtmv2-rtm_entity_info
+ * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_entity_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

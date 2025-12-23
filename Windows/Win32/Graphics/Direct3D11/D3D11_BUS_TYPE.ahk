@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of I/O bus that is used by the graphics adapter.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_bus_type
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_bus_type
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_BUS_TYPE{
+class D3D11_BUS_TYPE extends Win32Enum{
 
     /**
      * Indicates a type of bus other than the types listed here.

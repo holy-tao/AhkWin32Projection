@@ -4,11 +4,8 @@
 /**
  * Describes parameters to be used when changing a partition's type.
  * @remarks
- * 
  * For information about partition types, see <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-create_partition_parameters">CREATE_PARTITION_PARAMETERS</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-change_partition_type_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-change_partition_type_parameters
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -28,8 +25,8 @@ class CHANGE_PARTITION_TYPE_PARAMETERS extends Win32Struct
     }
 
     class _MbrPartInfo extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * @type {Integer}

@@ -4,11 +4,8 @@
 /**
  * The WINHTTP_REQUEST_STATS structure contains a variety of statistics for a request.
  * @remarks
- * 
  * This structure is used with [WinHttpQueryOption](/windows/desktop/api/winhttp/nf-winhttp-winhttpqueryoption) to retrieve statistics for a request by specifying the **WINHTTP\_OPTION\_REQUEST\_STATS** flag.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winhttp/ns-winhttp-winhttp_request_stats
+ * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_request_stats
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */

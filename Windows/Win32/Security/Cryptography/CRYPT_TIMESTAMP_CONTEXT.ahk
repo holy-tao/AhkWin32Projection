@@ -3,7 +3,7 @@
 
 /**
  * Contains both the encoded and decoded representations of a time stamp token.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_timestamp_context
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_timestamp_context
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

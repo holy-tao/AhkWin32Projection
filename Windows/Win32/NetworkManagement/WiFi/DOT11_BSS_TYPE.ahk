@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * Defines a basic service set (BSS) network type.
  * @see https://learn.microsoft.com/windows/win32/NativeWiFi/dot11-bss-type
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
-class DOT11_BSS_TYPE{
+class DOT11_BSS_TYPE extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

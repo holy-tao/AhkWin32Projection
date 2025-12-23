@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Characters are underlined.
- * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-charformata
+ * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-charformata
  * @namespace Windows.Win32.System.SystemServices
  * @version v4.0.30319
  */
-class CFE_UNDERLINE{
+class CFE_UNDERLINE extends Win32BitflagEnum{
 
     /**
      * @type {Integer (UInt32)}

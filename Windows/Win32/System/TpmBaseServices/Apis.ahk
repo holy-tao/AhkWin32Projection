@@ -148,6 +148,12 @@ class TpmBaseServices {
 ;@region Methods
     /**
      * Creates a context handle that can be used to pass commands to TBS.
+     * @remarks
+     * The [TBS_CONTEXT_PARAMS](./ns-tbs-tbs_context_params.md) structure can be provided, with the version field set to TPM_VERSION_12.
+     * Applications interacting with version 2.0 TPM will pass a pointer to a [TBS_CONTEXT_PARAMS2](./ns-tbs-tbs_context_params2.md) structure, with the version field set to TPM_VERSION_20. Set the reserved field to 0, and the <b>includeTPm20</b> field to 1. If the application is prepared to interact with a version 1.2 TPM as well (in case the system has no version 2.0 TPM), set the <b>includeTpm12</b> field to 1.
+     * 
+     * 
+     * If no TPM is present on the system, or the TPM version does not match those requested by the caller, <b>Tbsi_Context_Create</b> will return the TBS_E_TPM_NOT_FOUND (0x8028400) error code.  Application programs must check for both versions and be able to interact with either TPM.
      * @param {Pointer<TBS_CONTEXT_PARAMS>} pContextParams A parameter to a [TBS_CONTEXT_PARAMS](./ns-tbs-tbs_context_params.md) structure that contains the parameters associated with the context.
      * @param {Pointer<Pointer<Void>>} phContext A pointer to a location to store the new context handle.
      * @returns {Integer} If the function succeeds, the function returns TBS_SUCCESS.
@@ -280,7 +286,7 @@ class TpmBaseServices {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tbs/nf-tbs-tbsi_context_create
+     * @see https://learn.microsoft.com/windows/win32/api/tbs/nf-tbs-tbsi_context_create
      * @since windows6.0.6000
      */
     static Tbsi_Context_Create(pContextParams, phContext) {
@@ -305,6 +311,8 @@ class TpmBaseServices {
 
     /**
      * Closes a context handle, which releases resources associated with the context in TBS and closes the binding handle used to communicate with TBS.
+     * @remarks
+     * When the context handle is closed, the structure associated with the context handle is zeroed, which ensures that  subsequent attempts to use the handle will result in an error. All objects that have been created under this context will be flushed.
      * @param {Pointer<Void>} hContext A handle of the context to be closed.
      * @returns {Integer} If the function succeeds, the function returns TBS_SUCCESS.
      * 
@@ -352,7 +360,7 @@ class TpmBaseServices {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tbs/nf-tbs-tbsip_context_close
+     * @see https://learn.microsoft.com/windows/win32/api/tbs/nf-tbs-tbsip_context_close
      * @since windows6.0.6000
      */
     static Tbsip_Context_Close(hContext) {
@@ -479,7 +487,7 @@ class TpmBaseServices {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tbs/nf-tbs-tbsip_submit_command
+     * @see https://learn.microsoft.com/windows/win32/api/tbs/nf-tbs-tbsip_submit_command
      * @since windows6.0.6000
      */
     static Tbsip_Submit_Command(hContext, Locality, Priority, pabCommand, cbCommand, pabResult, pcbResult) {
@@ -492,6 +500,8 @@ class TpmBaseServices {
 
     /**
      * Cancels all outstanding commands for the specified context.
+     * @remarks
+     * When a command is canceled, TBS sends a message to the command that indicates that the command was canceled.
      * @param {Pointer<Void>} hContext A TBS handle to the context whose commands are to be canceled and that was obtained from previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/tbs/nf-tbs-tbsi_context_create">Tbsi_Context_Create</a> function.
      * @returns {Integer} If the function succeeds, the function returns TBS_SUCCESS.
      * 
@@ -551,7 +561,7 @@ class TpmBaseServices {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tbs/nf-tbs-tbsip_cancel_commands
+     * @see https://learn.microsoft.com/windows/win32/api/tbs/nf-tbs-tbsip_cancel_commands
      * @since windows6.0.6000
      */
     static Tbsip_Cancel_Commands(hContext) {
@@ -563,16 +573,18 @@ class TpmBaseServices {
 
     /**
      * Passes a physical presence ACPI command through TBS to the driver.
+     * @remarks
+     * For more information, see <a href="https://trustedcomputinggroup.org">TCG Physical Presence Interface Specification</a>.
      * @param {Pointer<Void>} hContext The context of the ACPI command.
      * @param {Pointer} pabInput A pointer to a buffer that contains the input to the ACPI command.
      * 
      * 
-     * The input to the ACPI command is defined in the <a href="https://trustedcomputinggroup.org/specs/PCClient/Physical_Presence_Interface_1-0_1-0_Final.pdf">TCG Physical Presence Interface Specification</a> at https://www.trustedcomputinggroup.org/specs/PCClient. The buffer should contain <i>Arg2</i> and <i>Arg3</i> values as defined in this document. The values for <i>Arg0</i> and <i>Arg1</i> are static and automatically added. For example, if this method is used for Get Physical Presence Interface Version, then <i>Arg2</i> is the integer value 1 and <i>Arg3</i> is empty, so the buffer should just contain an integer value of 1. If this method is used for "Submit TPM Operation Request to Pre-OS Environment", then <i>Arg2</i> is the integer value 2 and <i>Arg3</i> will be the integer for the specified operation, such as 1 for enable or 2 for disable.
+     * The input to the ACPI command is defined in the <i>TCG Physical Presence Interface Specification</i> at https://www.trustedcomputinggroup.org. The buffer should contain <i>Arg2</i> and <i>Arg3</i> values as defined in this document. The values for <i>Arg0</i> and <i>Arg1</i> are static and automatically added. For example, if this method is used for Get Physical Presence Interface Version, then <i>Arg2</i> is the integer value 1 and <i>Arg3</i> is empty, so the buffer should just contain an integer value of 1. If this method is used for "Submit TPM Operation Request to Pre-OS Environment", then <i>Arg2</i> is the integer value 2 and <i>Arg3</i> will be the integer for the specified operation, such as 1 for enable or 2 for disable.
      * @param {Integer} cbInput The length, in bytes, of the input buffer.
      * @param {Pointer} pabOutput A pointer to a buffer to contain the output of the ACPI command.
      * 
      * 
-     * The buffer will contain the return value from the  command as defined in the <a href="https://trustedcomputinggroup.org/specs/PCClient/Physical_Presence_Interface_1-0_1-0_Final.pdf">TCG Physical Presence Interface Specification</a>.
+     * The buffer will contain the return value from the  command as defined in the <a href="https://trustedcomputinggroup.org">TCG Physical Presence Interface Specification</a>.
      * @param {Pointer<Integer>} pcbOutput A pointer to an unsigned long integer that, on input, specifies the size, in bytes, of the output buffer. If the function succeeds, this parameter, on output, receives the size, in bytes, of the data pointed to by <i>pabOutput</i>. If the function fails, this parameter does not receive a value.
      * @returns {Integer} If the function succeeds, the function returns TBS_SUCCESS.
      * 
@@ -644,7 +656,7 @@ class TpmBaseServices {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tbs/nf-tbs-tbsi_physical_presence_command
+     * @see https://learn.microsoft.com/windows/win32/api/tbs/nf-tbs-tbsi_physical_presence_command
      * @since windows6.0.6000
      */
     static Tbsi_Physical_Presence_Command(hContext, pabInput, cbInput, pabOutput, pcbOutput) {
@@ -657,6 +669,124 @@ class TpmBaseServices {
 
     /**
      * Retrieves the most recent Windows Boot Configuration Log (WBCL), also referred to as a TCG log.
+     * @remarks
+     * The <b>Tbsi_Get_TCG_Log</b> function returns the TCG Event Log for the system, and the buffer size depends on the number of events.
+     * 
+     * <b>Windows 10:  </b><p class="note">The function may return a log that uses a format that is compatible with different hashing algorithms, depending on hardware capabilities and firmware settings. This log formats each event except the first as a TCG_PCR_EVENT2 structure:
+     * 
+     * 
+     * ```
+     * typedef struct {
+     *   TCG_PCRINDEX PCRIndex;
+     *   TCG_EVENTTYPE EventType;
+     *   TPML_DIGEST_VALUES Digests;
+     *   UINT32 EventSize;
+     *   UINT8 Event[EventSize];
+     * } TCG_PCR_EVENT2;
+     * 
+     * typedef struct {
+     *   UINT32 Count;
+     *   TPMT_HA Digests;
+     * } TPML_DIGEST_VALUES;
+     * 
+     * typedef struct {
+     *   UINT16 HashAlg;
+     *   UINT8 Digest[size_varies_with_algorithm];
+     * } TPMT_HA;
+     * 
+     * ```
+     * 
+     * 
+     * <p class="note">The log formats the first event as a <b>TCG_PCR_EVENT</b> structure, which is described later in this Remarks section. The following table describes the values of the members of this structure for this first event.
+     * 
+     * <table>
+     * <tr>
+     * <th>TCG_PCR_EVENT member</th>
+     * <th>Value or description</th>
+     * </tr>
+     * <tr>
+     * <td><b>PCRIndex</b></td>
+     * <td>0</td>
+     * </tr>
+     * <tr>
+     * <td><b>EventType</b></td>
+     * <td>EV_NO_ACTION</td>
+     * </tr>
+     * <tr>
+     * <td><b>Digest</b></td>
+     * <td>20 bytes of zeros</td>
+     * </tr>
+     * <tr>
+     * <td><b>EventSize</b></td>
+     * <td>The size of the <b>Event</b> member</td>
+     * </tr>
+     * <tr>
+     * <td><b>Event</b></td>
+     * <td>Has a type of <b>TCG_EfiSpecIdEventStruct</b></td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * <p class="note">The following shows the syntax of the <b>TCG_EfiSpecIdEventStruct</b> structure that the <b>Event</b> member of the <b>TCG_PCR_EVENT</b> structure uses for the first log event.
+     * 
+     * 
+     * ```
+     * typedef struct {
+     *   BYTE[16] Signature;
+     *   UINT32 PlatformClass;
+     *   UINT8 SpecVersionMinor;
+     *   UINT8 SpecVersionMajor;
+     *   UINT8 SpecErrata;
+     *   UINT8 UintNSize;
+     *   UINT32 NumberOfAlgorithms;
+     *   TCG_EfiSpecIdEventAlgorithmSize DigestSizes[NumberOfAlgorithms];
+     *   UINT8 VendorInfoSize;
+     *   UINT8 VendorInfo[VendorInfoSize];
+     * } TCG_EfiSpecIdEventStruct;
+     * 
+     * typedef struct {
+     *   UINT16 HashAlg;
+     *   UINT16 DigestSize;
+     * } TCG_EfiSpecIdEventAlgorithmSize;
+     * 
+     * ```
+     * 
+     * 
+     * <p class="note">The <b>Signature</b> member of the <b>TCG_EfiSpecIdEventStruct</b> structure is set to a null-terminated ASCII string of "Spec ID Event03" when the log uses the format that is compatible with different hashing algorithms. The <b>DigestSizes</b> array in this first event contains the digest sizes for the different hashing algorithms that the log uses. When a parser inspects an event of type <b>TCG_PCR_EVENT2</b>, the parser can parse the <b>TPML_DIGEST_VALUES</b> member without information about all of the hashing algorithms present. The digest sizes in the first event allow the parser to skip the correct number of bytes for the  digests that are present.
+     * 
+     * <p class="note">If the <b>Signature</b> member is not set to a null-terminated ASCII string of "Spec ID Event03", then the events in the log are of type <b>TCG_PCR_EVENT</b>, and the <b>TCG_EfiSpecIdEventStruct</b> structure does not contain the <b>NumberOfAlgorithms</b> and <b>DigestSizes</b> members.
+     * 
+     *  
+     * 
+     * 
+     * 
+     * <p class="note">The log format that is compatible with different hashing algorithms allows the platform and operating system to use SHA1, SHA256, or other hashing algorithms. If the platform supports the SHA256 hashing algorithm and the uses the log format that is compatible with different hashing algorithms, the platform uses the SHA256 algorithm instead of  SHA1.
+     * 
+     * 
+     * 
+     * 
+     * <b>Windows Vista with SP1 and Windows Server 2008:  </b>The function returns the log directly from the ACPI table and returns the entire ACPI allocated buffer, including the unused buffer after any events.
+     * 
+     * The Windows-defined events in the TCG event log are a tuple of {Type, Length, Value}. You can parse the log using the following TCG_PCR_EVENT structure from the <a href="https://trustedcomputinggroup.org">TCG PC Client spec</a>. You can create a correlation between lists of log events using the information in the <a href="https://www.microsoft.com/download/details.aspx?id=52487&from=http%3A%2F%2Fresearch.microsoft.com%2Fen-us%2Fdownloads%2F74c45746-24ad-4cb7-ba4b-0c6df2f92d5d%2F">TPM PCP Toolkit</a> and the <a href="https://trustedcomputinggroup.org">TPM Main Specification</a>. 
+     * 
+     * 
+     * ```
+     * typedef struct {
+     *   TCG_PCRINDEX PCRIndex;
+     *   TCG_EVENTTYPE EventType;
+     *   TCG_DIGEST Digest;
+     *   UINT32 EventSize;
+     *   UINT8 Event[EventSize];
+     * } TCG_PCR_EVENT;
+     * ```
+     * 
+     * 
+     * 
+     * 
+     * The memory size required for the <i>pOutputBuf</i> parameter should either be the constant in <b>TBS_IN_OUT_BUF_SIZE_MAX</b>, defined in the Tbs.h header file, or it should be obtained by calling the <b>Tbsi_Get_TCG_Log</b> function with a zero length buffer to get the required buffer size.
+     * 
+     * 
+     * <b>Windows Vista with SP1 and Windows Server 2008:  </b>Calling the <b>Tbsi_Get_TCG_Log</b> function with a zero length buffer to get the required buffer size is not supported. We recommend that you use the constant <b>TBS_IN_OUT_BUF_SIZE_MAX</b>, defined in the Tbs.h header file, for the memory size for the <i>pOutputBuf</i> parameter.
      * @param {Pointer<Void>} hContext The TBS handle of the context that is retrieving the log. You get this parameter from a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/tbs/nf-tbs-tbsi_context_create">Tbsi_Context_Create</a> function.
      * @param {Pointer} pOutputBuf A pointer to a buffer to receive  and store the WBCL. This parameter may be NULL to estimate the required buffer when the location pointed to by <i>pcbOutput</i> is also 0 on input.
      * @param {Pointer<Integer>} pOutputBufLen A pointer to an unsigned long integer that, on input, specifies the size, in bytes, of the output buffer.  If the function succeeds, this parameter, on output, receives the size, in bytes, of the data pointed to by <i>pOutputBuf</i>. If the function fails, this parameter does not receive a value.
@@ -768,7 +898,7 @@ class TpmBaseServices {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tbs/nf-tbs-tbsi_get_tcg_log
+     * @see https://learn.microsoft.com/windows/win32/api/tbs/nf-tbs-tbsi_get_tcg_log
      * @since windows6.0.6000
      */
     static Tbsi_Get_TCG_Log(hContext, pOutputBuf, pOutputBufLen) {
@@ -829,7 +959,7 @@ class TpmBaseServices {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tbs/nf-tbs-tbsi_getdeviceinfo
+     * @see https://learn.microsoft.com/windows/win32/api/tbs/nf-tbs-tbsi_getdeviceinfo
      * @since windows8.0
      */
     static Tbsi_GetDeviceInfo(Size, Info) {
@@ -839,6 +969,10 @@ class TpmBaseServices {
 
     /**
      * Retrieves the owner authorization of the TPM if the information is available in the local registry.
+     * @remarks
+     * There are additional authorization values, also known as delegation blobs, derived from the full TPM ownerAuth that allow a subset of the TPM functionality to be executed. The administrator can configure the level of ownerAuth that should be locally stored in the registry through Group Policy and the same can be obtained from this API call.
+     * 
+     * If Active Directory backup of ownerAuth is enabled through Group Policy, the default level of ownerAuth is set as Delegated which means that the full owner auth is removed from the local registry and stored in Active Directory. Only delegation blobs are locally stored in the registry in that case. Although, the level of ownerAuth storage can be explicitly configured to Full resulting in the TPM ownerAuth being locally available in the registry.
      * @param {Pointer<Void>} hContext TBS handle obtained from a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/tbs/nf-tbs-tbsi_context_create">Tbsi_Context_Create</a> function.
      * @param {Integer} ownerauthType Unsigned 32-bit integer indicating the type of owner authentication.
      * 
@@ -972,7 +1106,7 @@ class TpmBaseServices {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tbs/nf-tbs-tbsi_get_ownerauth
+     * @see https://learn.microsoft.com/windows/win32/api/tbs/nf-tbs-tbsi_get_ownerauth
      * @since windows8.0
      */
     static Tbsi_Get_OwnerAuth(hContext, ownerauthType, pOutputBuf, pOutputBufLen) {
@@ -985,6 +1119,14 @@ class TpmBaseServices {
 
     /**
      * Invalidates the PCRs if the ELAM driver detects a policy-violation (a rootkit, for example).
+     * @remarks
+     * This function is callable from kernel mode.
+     * 
+     * You must run this function with administrative rights. This function extends PCR[12] by an unspecified value and increment the event counter in the TPM. Both actions are necessary, so the trust is broken in all quotes that are created from here on forward. Since the PCRs are reset on hibernation and the extend to PCR[12] then will disappear, a gap in the event counter will indicate a broken chain of logs.
+     * 
+     * As a result, the WBCL files will not reflect the current state of the TPM for the remainder of the time that the TPM is powered up and remote systems will not be able to form trust in the security state of the system.  Note that anti-malware systems will probably perform additional remediation or alerts, but the invalidation step is crucial if attestation is supported.
+     * 
+     * When the computer goes to hibernation and subsequently resumes, the previous PCR extent will be lost, and the broken trust will not be reflected in the PCR measurements anymore. To address this, the <b>Tbsi_Revoke_Attestation</b> function also increments the monotonic Event Counter located in the TPM. Further TPM attestation validations will notice a gap in the archived WBCL logs’ boot counter values. Upon discovery of such a gap, attestation validation code should fail the validation, just as it would if other required events were not present in the log. Note that the counter in the TPM cannot be rolled back you can't construct the missing WBCL after the fact.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -1017,7 +1159,7 @@ class TpmBaseServices {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tbs/nf-tbs-tbsi_revoke_attestation
+     * @see https://learn.microsoft.com/windows/win32/api/tbs/nf-tbs-tbsi_revoke_attestation
      * @since windows8.0
      */
     static Tbsi_Revoke_Attestation() {
@@ -1038,8 +1180,9 @@ class TpmBaseServices {
         pfProtectedByTPMMarshal := pfProtectedByTPM is VarRef ? "int*" : "ptr"
 
         result := DllCall("tbs.dll\GetDeviceID", "ptr", pbWindowsAIK, "uint", cbWindowsAIK, pcbResultMarshal, pcbResult, pfProtectedByTPMMarshal, pfProtectedByTPM, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1059,8 +1202,9 @@ class TpmBaseServices {
         pfProtectedByTPMMarshal := pfProtectedByTPM is VarRef ? "int*" : "ptr"
 
         result := DllCall("tbs.dll\GetDeviceIDString", "ptr", pszWindowsAIK, "uint", cchWindowsAIK, pcchResultMarshal, pcchResult, pfProtectedByTPMMarshal, pfProtectedByTPM, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -1077,6 +1221,117 @@ class TpmBaseServices {
 
     /**
      * Gets the Windows Boot Configuration Log (WBCL), also referred to as the TCG log, of the specified type.
+     * @remarks
+     * The <b>Tbsi_Get_TCG_Log_Ex</b> function returns the TCG Event Log for the system, and the buffer size depends on the number of events.
+     * 
+     * The function may return a log that uses a format that is compatible with different hashing algorithms, depending on hardware capabilities and firmware settings. This log formats each event except the first as a TCG_PCR_EVENT2 structure:
+     * 
+     * 
+     * ```
+     * typedef struct {
+     *   TCG_PCRINDEX PCRIndex;
+     *   TCG_EVENTTYPE EventType;
+     *   TPML_DIGEST_VALUES Digests;
+     *   UINT32 EventSize;
+     *   UINT8 Event[EventSize];
+     * } TCG_PCR_EVENT2;
+     * 
+     * typedef struct {
+     *   UINT32 Count;
+     *   TPMT_HA Digests;
+     * } TPML_DIGEST_VALUES;
+     * 
+     * typedef struct {
+     *   UINT16 HashAlg;
+     *   UINT8 Digest[size_varies_with_algorithm];
+     * } TPMT_HA;
+     * 
+     * ```
+     * 
+     * 
+     * The log formats the first event as a <b>TCG_PCR_EVENT</b> structure, which is described later in this Remarks section. The following table describes the values of the members of this structure for this first event.
+     * 
+     * <table>
+     * <tr>
+     * <th>TCG_PCR_EVENT member</th>
+     * <th>Value or description</th>
+     * </tr>
+     * <tr>
+     * <td><b>PCRIndex</b></td>
+     * <td>0</td>
+     * </tr>
+     * <tr>
+     * <td><b>EventType</b></td>
+     * <td>EV_NO_ACTION</td>
+     * </tr>
+     * <tr>
+     * <td><b>Digest</b></td>
+     * <td>20 bytes of zeros</td>
+     * </tr>
+     * <tr>
+     * <td><b>EventSize</b></td>
+     * <td>The size of the <b>Event</b> member</td>
+     * </tr>
+     * <tr>
+     * <td><b>Event</b></td>
+     * <td>Has a type of <b>TCG_EfiSpecIdEventStruct</b></td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * The following shows the syntax of the <b>TCG_EfiSpecIdEventStruct</b> structure that the <b>Event</b> member of the <b>TCG_PCR_EVENT</b> structure uses for the first log event.
+     * 
+     * 
+     * ```
+     * typedef struct {
+     *   BYTE[16] Signature;
+     *   UINT32 PlatformClass;
+     *   UINT8 SpecVersionMinor;
+     *   UINT8 SpecVersionMajor;
+     *   UINT8 SpecErrata;
+     *   UINT8 UintNSize;
+     *   UINT32 NumberOfAlgorithms;
+     *   TCG_EfiSpecIdEventAlgorithmSize DigestSizes[NumberOfAlgorithms];
+     *   UINT8 VendorInfoSize;
+     *   UINT8 VendorInfo[VendorInfoSize];
+     * } TCG_EfiSpecIdEventStruct;
+     * 
+     * typedef struct {
+     *   UINT16 HashAlg;
+     *   UINT16 DigestSize;
+     * } TCG_EfiSpecIdEventAlgorithmSize;
+     * 
+     * ```
+     * 
+     * 
+     * The <b>Signature</b> member of the <b>TCG_EfiSpecIdEventStruct</b> structure is set to a null-terminated ASCII string of "Spec ID Event03" when the log uses the format that is compatible with different hashing algorithms. The <b>DigestSizes</b> array in this first event contains the digest sizes for the different hashing algorithms that the log uses. When a parser inspects an event of type <b>TCG_PCR_EVENT2</b>, the parser can parse the <b>TPML_DIGEST_VALUES</b> member without information about all of the hashing algorithms present. The digest sizes in the first event allow the parser to skip the correct number of bytes for the  digests that are present.
+     * 
+     * If the <b>Signature</b> member is not set to a null-terminated ASCII string of "Spec ID Event03", then the events in the log are of type <b>TCG_PCR_EVENT</b>, and the <b>TCG_EfiSpecIdEventStruct</b> structure does not contain the <b>NumberOfAlgorithms</b> and <b>DigestSizes</b> members.
+     * 
+     *  
+     * 
+     * 
+     * 
+     * The log format that is compatible with different hashing algorithms allows the platform and operating system to use SHA1, SHA256, or other hashing algorithms. If the platform supports the SHA256 hashing algorithm and the uses the log format that is compatible with different hashing algorithms, the platform uses the SHA256 algorithm instead of  SHA1.
+     * 
+     * 
+     * The Windows-defined events in the TCG event log are a tuple of {Type, Length, Value}. You can parse the log using the following TCG_PCR_EVENT structure from the <a href="https://trustedcomputinggroup.org">TCG PC Client spec</a>. You can create a correlation between lists of log events using the information in the <a href="https://www.microsoft.com/download/details.aspx?id=52487&from=http%3A%2F%2Fresearch.microsoft.com%2Fen-us%2Fdownloads%2F74c45746-24ad-4cb7-ba4b-0c6df2f92d5d%2F">TPM PCP Toolkit</a> and the <a href="https://trustedcomputinggroup.org">TPM Main Specification</a>. 
+     * 
+     * 
+     * ```
+     * typedef struct {
+     *   TCG_PCRINDEX PCRIndex;
+     *   TCG_EVENTTYPE EventType;
+     *   TCG_DIGEST Digest;
+     *   UINT32 EventSize;
+     *   UINT8 Event[EventSize];
+     * } TCG_PCR_EVENT;
+     * ```
+     * 
+     * 
+     * 
+     * 
+     * The memory size required for the <i>pOutputBuf</i> parameter should either be the constant in <b>TBS_IN_OUT_BUF_SIZE_MAX</b>, defined in the Tbs.h header file, or it should be obtained by calling the <b>Tbsi_Get_TCG_Log_Ex</b> function with a zero length buffer to get the required buffer size.
      * @param {Integer} logType The type of log to retrieve.
      * 
      * <table>
@@ -1237,7 +1492,7 @@ class TpmBaseServices {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tbs/nf-tbs-tbsi_get_tcg_log_ex
+     * @see https://learn.microsoft.com/windows/win32/api/tbs/nf-tbs-tbsi_get_tcg_log_ex
      * @since windows10.0.17134
      */
     static Tbsi_Get_TCG_Log_Ex(logType, pbOutput, pcbOutput) {

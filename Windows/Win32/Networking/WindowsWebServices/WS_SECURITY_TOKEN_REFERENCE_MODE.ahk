@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * With message and mixed-mode security bindings, the mechanism to use to refer to a security token from signatures, encrypted items and derived tokens.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_security_token_reference_mode
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_token_reference_mode
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_SECURITY_TOKEN_REFERENCE_MODE{
+class WS_SECURITY_TOKEN_REFERENCE_MODE extends Win32Enum{
 
     /**
      * The id of the serialized security token is used to refer to it.  This

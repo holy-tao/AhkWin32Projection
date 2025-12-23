@@ -4,7 +4,7 @@
 
 /**
  * The DD_SURFACE_MORE structure contains additional local data for each individual DirectDrawSurface object.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_surface_more
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_surface_more
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */
@@ -48,7 +48,7 @@ class DD_SURFACE_MORE extends Win32Struct
     ddsCapsEx{
         get {
             if(!this.HasProp("__ddsCapsEx"))
-                this.__ddsCapsEx := DDSCAPSEX(24, this)
+                this.__ddsCapsEx := DDSCAPSEX(20, this)
             return this.__ddsCapsEx
         }
     }
@@ -58,7 +58,7 @@ class DD_SURFACE_MORE extends Win32Struct
      * @type {Integer}
      */
     dwSurfaceHandle {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

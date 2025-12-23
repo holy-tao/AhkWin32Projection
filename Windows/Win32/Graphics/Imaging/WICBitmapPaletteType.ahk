@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of palette used for an indexed image format.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicbitmappalettetype
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicbitmappalettetype
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICBitmapPaletteType{
+class WICBitmapPaletteType extends Win32Enum{
 
     /**
      * An arbitrary custom palette provided by caller.

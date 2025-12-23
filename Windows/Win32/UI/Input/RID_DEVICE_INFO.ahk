@@ -6,7 +6,7 @@
 
 /**
  * Defines the raw input data coming from any device.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-rid_device_info
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rid_device_info
  * @namespace Windows.Win32.UI.Input
  * @version v4.0.30319
  */
@@ -14,7 +14,7 @@ class RID_DEVICE_INFO extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>DWORD</b>

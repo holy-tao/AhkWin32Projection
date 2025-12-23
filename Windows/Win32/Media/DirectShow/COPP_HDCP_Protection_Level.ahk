@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the HDCP protection level.
  * @remarks
- * 
  * Some televisions do not have robust support for switching HDCP protection on and off. Because of this limitation, the graphics driver might leave HDCP enabled when the application sets the protection level to zero. If the application sets the HDCP level to zero, therefore, it might receive a COPP status message indicating that HDCP is still enabled. This is not an error.
  * 
  * For more information about HDCP, see http://www.digital-cp.com/.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxva9typ/ne-dxva9typ-copp_hdcp_protection_level
+ * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ne-dxva9typ-copp_hdcp_protection_level
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class COPP_HDCP_Protection_Level{
+class COPP_HDCP_Protection_Level extends Win32Enum{
 
     /**
      * HDCP protection is not enabled. See Remarks.

@@ -8,15 +8,15 @@
 
 /**
  * The PPP_INFO_3 structure is used to report the results of the various Point-to-Point (PPP) projection operations for a connection.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-ppp_info_3
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_info_3
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */
 class PPP_INFO_3 extends Win32Struct
 {
-    static sizeof => 240
+    static sizeof => 228
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A 
@@ -52,7 +52,7 @@ class PPP_INFO_3 extends Win32Struct
     ipv6{
         get {
             if(!this.HasProp("__ipv6"))
-                this.__ipv6 := PPP_IPV6_CP_INFO(120, this)
+                this.__ipv6 := PPP_IPV6_CP_INFO(116, this)
             return this.__ipv6
         }
     }
@@ -65,7 +65,7 @@ class PPP_INFO_3 extends Win32Struct
     ccp{
         get {
             if(!this.HasProp("__ccp"))
-                this.__ccp := PPP_CCP_INFO(168, this)
+                this.__ccp := PPP_CCP_INFO(164, this)
             return this.__ccp
         }
     }
@@ -78,7 +78,7 @@ class PPP_INFO_3 extends Win32Struct
     lcp{
         get {
             if(!this.HasProp("__lcp"))
-                this.__lcp := PPP_LCP_INFO(192, this)
+                this.__lcp := PPP_LCP_INFO(184, this)
             return this.__lcp
         }
     }

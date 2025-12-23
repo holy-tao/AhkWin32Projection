@@ -5,7 +5,7 @@
 
 /**
  * Data for a single glyph from GetGlyphImageData.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/ns-dwrite_3-dwrite_glyph_image_data
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_glyph_image_data
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -59,7 +59,7 @@ class DWRITE_GLYPH_IMAGE_DATA extends Win32Struct
     pixelSize{
         get {
             if(!this.HasProp("__pixelSize"))
-                this.__pixelSize := D2D_SIZE_U(24, this)
+                this.__pixelSize := D2D_SIZE_U(20, this)
             return this.__pixelSize
         }
     }
@@ -71,7 +71,7 @@ class DWRITE_GLYPH_IMAGE_DATA extends Win32Struct
     horizontalLeftOrigin{
         get {
             if(!this.HasProp("__horizontalLeftOrigin"))
-                this.__horizontalLeftOrigin := POINT(32, this)
+                this.__horizontalLeftOrigin := POINT(28, this)
             return this.__horizontalLeftOrigin
         }
     }
@@ -83,7 +83,7 @@ class DWRITE_GLYPH_IMAGE_DATA extends Win32Struct
     horizontalRightOrigin{
         get {
             if(!this.HasProp("__horizontalRightOrigin"))
-                this.__horizontalRightOrigin := POINT(40, this)
+                this.__horizontalRightOrigin := POINT(36, this)
             return this.__horizontalRightOrigin
         }
     }
@@ -95,7 +95,7 @@ class DWRITE_GLYPH_IMAGE_DATA extends Win32Struct
     verticalTopOrigin{
         get {
             if(!this.HasProp("__verticalTopOrigin"))
-                this.__verticalTopOrigin := POINT(48, this)
+                this.__verticalTopOrigin := POINT(44, this)
             return this.__verticalTopOrigin
         }
     }
@@ -107,7 +107,7 @@ class DWRITE_GLYPH_IMAGE_DATA extends Win32Struct
     verticalBottomOrigin{
         get {
             if(!this.HasProp("__verticalBottomOrigin"))
-                this.__verticalBottomOrigin := POINT(56, this)
+                this.__verticalBottomOrigin := POINT(52, this)
             return this.__verticalBottomOrigin
         }
     }

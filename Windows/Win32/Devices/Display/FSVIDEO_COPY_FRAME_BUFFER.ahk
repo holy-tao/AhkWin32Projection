@@ -9,9 +9,9 @@
  */
 class FSVIDEO_COPY_FRAME_BUFFER extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {FSCNTL_SCREEN_INFO}
@@ -30,7 +30,7 @@ class FSVIDEO_COPY_FRAME_BUFFER extends Win32Struct
     DestScreen{
         get {
             if(!this.HasProp("__DestScreen"))
-                this.__DestScreen := FSCNTL_SCREEN_INFO(16, this)
+                this.__DestScreen := FSCNTL_SCREEN_INFO(12, this)
             return this.__DestScreen
         }
     }

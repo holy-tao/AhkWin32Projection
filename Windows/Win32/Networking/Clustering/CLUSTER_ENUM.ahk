@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Describes the type of cluster objects being enumerated.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_enum
+ * The CLUSTER_ENUM enumeration (msclus.h) describes the type of cluster objects being enumerated.
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_enum
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_ENUM{
+class CLUSTER_ENUM extends Win32Enum{
 
     /**
      * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">nodes</a> in the cluster.

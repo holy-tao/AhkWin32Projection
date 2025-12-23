@@ -6,11 +6,8 @@
 /**
  * Contains notification information for asynchronous remote procedure calls. This notification information can be configured for I/O completion ports (IOC), Windows asynchronous procedure calls (APC), Windows messaging, and Windows event notification.
  * @remarks
- * 
  * Prior to Windows Vista and earlier versions of Windows, the <b>RPC_ASYNC_NOTIFICATION_INFO</b> union was part of the <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/ns-rpcasync-rpc_async_state">RPC_ASYNC_STATE</a> structure. Please see the <b>RPC_ASYNC_STATE</b> topic for additional information.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//rpcasync/ns-rpcasync-rpc_async_notification_info
+ * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ns-rpcasync-rpc_async_notification_info
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */
@@ -21,7 +18,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
     static packingSize => 8
 
     class _APC extends Win32Struct {
-        static sizeof => 80
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -46,7 +43,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
     }
 
     class _IOC extends Win32Struct {
-        static sizeof => 80
+        static sizeof => 32
         static packingSize => 8
 
         /**
@@ -87,7 +84,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
     }
 
     class _IntPtr extends Win32Struct {
-        static sizeof => 80
+        static sizeof => 16
         static packingSize => 8
 
         /**

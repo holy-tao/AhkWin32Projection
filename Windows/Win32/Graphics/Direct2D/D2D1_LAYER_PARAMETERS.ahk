@@ -4,21 +4,21 @@
 #Include Common\D2D_MATRIX_3X2_F.ahk
 
 /**
- * Contains the content bounds, mask information, opacity settings, and other options for a layer resource.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/ns-d2d1-d2d1_layer_parameters
+ * Contains the content bounds, mask information, opacity settings, and other options for a layer resource. (D2D1_LAYER_PARAMETERS)
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_layer_parameters
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
 class D2D1_LAYER_PARAMETERS extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 72
 
     static packingSize => 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-rect-f">D2D1_RECT_F</a></b>
      * 
-     * The content bounds of the layer. Content outside these bounds is not guaranteed to render.
+     * The content bounds of the layer. Content won't render outside these bounds.
      * @type {D2D_RECT_F}
      */
     contentBounds{
@@ -60,7 +60,7 @@ class D2D1_LAYER_PARAMETERS extends Win32Struct
     maskTransform{
         get {
             if(!this.HasProp("__maskTransform"))
-                this.__maskTransform := D2D_MATRIX_3X2_F(32, this)
+                this.__maskTransform := D2D_MATRIX_3X2_F(28, this)
             return this.__maskTransform
         }
     }
@@ -72,8 +72,8 @@ class D2D1_LAYER_PARAMETERS extends Win32Struct
      * @type {Float}
      */
     opacity {
-        get => NumGet(this, 56, "float")
-        set => NumPut("float", value, this, 56)
+        get => NumGet(this, 52, "float")
+        set => NumPut("float", value, this, 52)
     }
 
     /**
@@ -84,8 +84,8 @@ class D2D1_LAYER_PARAMETERS extends Win32Struct
      * @type {ID2D1Brush}
      */
     opacityBrush {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -95,7 +95,7 @@ class D2D1_LAYER_PARAMETERS extends Win32Struct
      * @type {Integer}
      */
     layerOptions {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
     }
 }

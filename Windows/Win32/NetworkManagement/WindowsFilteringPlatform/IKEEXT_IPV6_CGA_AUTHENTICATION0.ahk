@@ -5,17 +5,14 @@
 /**
  * Is used to specify various parameters for IPV6 cryptographically generated address (CGA) authentication.
  * @remarks
- * 
  * <b>IKEEXT_IPV6_CGA_AUTHENTICATION0</b> is a specific implementation of IKEEXT_IPV6_CGA_AUTHENTICATION. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iketypes/ns-iketypes-ikeext_ipv6_cga_authentication0
+ * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_ipv6_cga_authentication0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
 class IKEEXT_IPV6_CGA_AUTHENTICATION0 extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -61,7 +58,7 @@ class IKEEXT_IPV6_CGA_AUTHENTICATION0 extends Win32Struct
     cgaModifier{
         get {
             if(!this.HasProp("__cgaModifier"))
-                this.__cgaModifier := FWP_BYTE_ARRAY16(24, this)
+                this.__cgaModifier := FWP_BYTE_ARRAY16(20, this)
             return this.__cgaModifier
         }
     }
@@ -73,7 +70,7 @@ class IKEEXT_IPV6_CGA_AUTHENTICATION0 extends Win32Struct
      * @type {Integer}
      */
     cgaCollisionCount {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
+        get => NumGet(this, 36, "char")
+        set => NumPut("char", value, this, 36)
     }
 }

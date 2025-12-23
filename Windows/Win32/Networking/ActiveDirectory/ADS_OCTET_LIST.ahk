@@ -4,11 +4,8 @@
 /**
  * The ADS_OCTET_LIST structure is an ADSI representation of an ordered sequence of single-byte strings.
  * @remarks
- * 
  * For more information, see Novell NetWare Directory Services Schema Specification, version 1.1.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/ns-iads-ads_octet_list
+ * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_octet_list
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

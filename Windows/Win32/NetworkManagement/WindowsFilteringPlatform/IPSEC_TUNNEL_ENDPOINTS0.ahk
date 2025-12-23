@@ -2,21 +2,18 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Is used to store end points of a tunnel mode SA.
+ * Is used to store end points of a tunnel mode SA. (IPSEC_TUNNEL_ENDPOINTS0)
  * @remarks
- * 
  * For the unnamed union containing the local tunnel end point address, switch_type(FWP_IP_VERSION), switch_is(ipVersion).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ipsectypes/ns-ipsectypes-ipsec_tunnel_endpoints0
+ * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_tunnel_endpoints0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
 class IPSEC_TUNNEL_ENDPOINTS0 extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * IP version of the addresses.
@@ -33,8 +30,8 @@ class IPSEC_TUNNEL_ENDPOINTS0 extends Win32Struct
      * @type {Integer}
      */
     localV4Address {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
@@ -43,7 +40,7 @@ class IPSEC_TUNNEL_ENDPOINTS0 extends Win32Struct
     localV6Address{
         get {
             if(!this.HasProp("__localV6AddressProxyArray"))
-                this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
+                this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
             return this.__localV6AddressProxyArray
         }
     }
@@ -52,8 +49,8 @@ class IPSEC_TUNNEL_ENDPOINTS0 extends Win32Struct
      * @type {Integer}
      */
     remoteV4Address {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -62,7 +59,7 @@ class IPSEC_TUNNEL_ENDPOINTS0 extends Win32Struct
     remoteV6Address{
         get {
             if(!this.HasProp("__remoteV6AddressProxyArray"))
-                this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 24, 16, Primitive, "char")
+                this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 20, 16, Primitive, "char")
             return this.__remoteV6AddressProxyArray
         }
     }

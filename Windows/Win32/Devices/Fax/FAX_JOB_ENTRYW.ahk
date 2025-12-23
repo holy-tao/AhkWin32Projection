@@ -3,9 +3,8 @@
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
- * The FAX_JOB_ENTRY structure describes one fax job.
+ * The FAX_JOB_ENTRY structure describes one fax job. (Unicode)
  * @remarks
- * 
  * A fax client application passes the <b>FAX_JOB_ENTRY</b> structure in a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxsetjoba">FaxSetJob</a> function.
  * 
  * An application can call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxenumjobsa">FaxEnumJobs</a> function to enumerate all queued and active fax jobs on the fax server of interest. <b>FaxEnumJobs</b> returns an array of <b>FAX_JOB_ENTRY</b> structures. Each structure describes one fax job in detail.
@@ -18,16 +17,14 @@
  * 
  * > [!NOTE]
  * > The winfax.h header defines FAX_JOB_ENTRY as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winfax/ns-winfax-fax_job_entryw
+ * @see https://learn.microsoft.com/windows/win32/api/winfax/ns-winfax-fax_job_entryw
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  * @charset Unicode
  */
 class FAX_JOB_ENTRYW extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 136
 
     static packingSize => 8
 
@@ -214,7 +211,7 @@ class FAX_JOB_ENTRYW extends Win32Struct
     ScheduleTime{
         get {
             if(!this.HasProp("__ScheduleTime"))
-                this.__ScheduleTime := SYSTEMTIME(104, this)
+                this.__ScheduleTime := SYSTEMTIME(100, this)
             return this.__ScheduleTime
         }
     }
@@ -226,8 +223,8 @@ class FAX_JOB_ENTRYW extends Win32Struct
      * @type {Integer}
      */
     DeliveryReportType {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
+        get => NumGet(this, 116, "uint")
+        set => NumPut("uint", value, this, 116)
     }
 
     /**
@@ -237,8 +234,8 @@ class FAX_JOB_ENTRYW extends Win32Struct
      * @type {PWSTR}
      */
     DeliveryReportAddress {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
@@ -248,7 +245,7 @@ class FAX_JOB_ENTRYW extends Win32Struct
      * @type {PWSTR}
      */
     DocumentName {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 }

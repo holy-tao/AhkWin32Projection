@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the HDR properties of a High Efficiency Image Format (HEIF) image.
  * @remarks
- * 
  * Use [IWicMetadataReader::GetValue](/windows/desktop/api/wincodecsdk/nf-wincodecsdk-iwicmetadatareader-getvalue) to retrieve the value of the properties specified with this enumeration. Instantiate the **IWicMetadataReader** instance using the GUID **CLSID_WICMetadataReader**. Call [IWicMetadataReader::GetMetadataFormat](/windows/desktop/api/wincodecsdk/nf-wincodecsdk-iwicmetadatareader-getmetadataformat) and confirm that the value is **GUID_MetadataFormatHeifHDR** to verify that the metadata format is HEIF HDR metadata. 
  * 
  * Not all HEIF HDR images will have all of these properties present in the file, so only those properties that are available will be exposed by the metadata reader. 
@@ -42,13 +42,11 @@
  *     return result;
  * }
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicheifhdrproperties
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicheifhdrproperties
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICHeifHdrProperties{
+class WICHeifHdrProperties extends Win32Enum{
 
     /**
      * [VT_UI2] Specifies the maximum luminance level of the content in Nits.

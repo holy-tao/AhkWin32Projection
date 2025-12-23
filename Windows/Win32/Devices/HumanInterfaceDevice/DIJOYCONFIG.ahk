@@ -9,16 +9,14 @@
 /**
  * The DIJOYCONFIG structure contains information about a joystick's configuration.
  * @remarks
- * 
  * WDM gameports can be found during enumeration by calling <a href="https://docs.microsoft.com/windows/desktop/api/dinputd/nf-dinputd-idirectinputjoyconfig8-gettypeinfo">IDirectInputJoyConfig8::GetTypeInfo</a> method for an enumerated joystick, then studying the flags present in the <b>dwFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dinputd/ns-dinputd-dijoytypeinfo">DIJOYTYPEINFO</a> structure. If the JOY_HWS_ISGAMEPORTBUS flag is set, the currently enumerated object is an available WDM gameport.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dinputd/ns-dinputd-dijoyconfig
+ * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-dijoyconfig
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319
  */
 class DIJOYCONFIG extends Win32Struct
 {
-    static sizeof => 1176
+    static sizeof => 1168
 
     static packingSize => 8
 
@@ -57,8 +55,8 @@ class DIJOYCONFIG extends Win32Struct
      * @type {Integer}
      */
     dwGain {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
+        get => NumGet(this, 128, "uint")
+        set => NumPut("uint", value, this, 128)
     }
 
     /**
@@ -66,8 +64,8 @@ class DIJOYCONFIG extends Win32Struct
      * @type {String}
      */
     wszType {
-        get => StrGet(this.ptr + 140, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 140, 255, "UTF-16")
+        get => StrGet(this.ptr + 132, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 132, 255, "UTF-16")
     }
 
     /**
@@ -75,8 +73,8 @@ class DIJOYCONFIG extends Win32Struct
      * @type {String}
      */
     wszCallout {
-        get => StrGet(this.ptr + 652, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 652, 255, "UTF-16")
+        get => StrGet(this.ptr + 644, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 644, 255, "UTF-16")
     }
 
     /**
@@ -84,7 +82,7 @@ class DIJOYCONFIG extends Win32Struct
      * @type {Pointer<Guid>}
      */
     guidGameport {
-        get => NumGet(this, 1168, "ptr")
-        set => NumPut("ptr", value, this, 1168)
+        get => NumGet(this, 1160, "ptr")
+        set => NumPut("ptr", value, this, 1160)
     }
 }

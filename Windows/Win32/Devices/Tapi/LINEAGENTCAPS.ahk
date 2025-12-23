@@ -3,7 +3,7 @@
 
 /**
  * The LINEAGENTCAPS structure describes the capabilities of an ACD agent. The lineGetAgentCaps function returns the LINEAGENTCAPS structure.
- * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-lineagentcaps
+ * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineagentcaps
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

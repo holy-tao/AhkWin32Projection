@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the log file rollover types.
  * @remarks
- * 
  * The log files are named based on the rollover type and logging format as shown in  the following table.
  * 
  * 
@@ -124,13 +124,11 @@
  * <td>The two digit representation of the numerical sequence.</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//http/ne-http-http_logging_rollover_type
+ * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_logging_rollover_type
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */
-class HTTP_LOGGING_ROLLOVER_TYPE{
+class HTTP_LOGGING_ROLLOVER_TYPE extends Win32Enum{
 
     /**
      * The log files are rolled over when they reach a specified size.

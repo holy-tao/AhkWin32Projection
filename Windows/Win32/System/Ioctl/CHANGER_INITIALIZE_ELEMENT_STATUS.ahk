@@ -5,15 +5,15 @@
 
 /**
  * Represents the status of all media changer elements or the specified elements of a particular type.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-changer_initialize_element_status
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_initialize_element_status
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
 class CHANGER_INITIALIZE_ELEMENT_STATUS extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A 
@@ -45,7 +45,7 @@ class CHANGER_INITIALIZE_ELEMENT_STATUS extends Win32Struct
      * @type {BOOLEAN}
      */
     BarCodeScan {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+        get => NumGet(this, 12, "char")
+        set => NumPut("char", value, this, 12)
     }
 }

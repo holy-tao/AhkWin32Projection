@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Determines how a stroke is removed from an InkDisp object.
  * @remarks
- * 
  * This enumeration is a flag.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkextractflags
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkextractflags
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InkExtractFlags{
+class InkExtractFlags extends Win32Enum{
 
     /**
      * The ink is copied from the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object.

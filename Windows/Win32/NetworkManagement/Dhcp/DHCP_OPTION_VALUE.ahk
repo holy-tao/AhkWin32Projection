@@ -4,7 +4,7 @@
 
 /**
  * The DHCP_OPTION_VALUE structure defines a DHCP option value (just the option data with an associated ID tag).
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_option_value
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_option_value
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

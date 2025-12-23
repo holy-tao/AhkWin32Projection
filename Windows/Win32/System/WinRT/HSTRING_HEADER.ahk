@@ -3,7 +3,7 @@
 
 /**
  * Represents a header for an HSTRING.
- * @see https://docs.microsoft.com/windows/win32/api//hstring/ns-hstring-hstring_header
+ * @see https://learn.microsoft.com/windows/win32/api/hstring/ns-hstring-hstring_header
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */

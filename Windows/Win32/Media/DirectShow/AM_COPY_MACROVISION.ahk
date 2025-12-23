@@ -4,11 +4,8 @@
 /**
  * The AM_COPY_MACROVISION structure specifies the analog copy protection level for an NTSC encoder.
  * @remarks
- * 
  * The AM_PROPERTY_COPY_MACROVISION property of the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/dvd-copy-protection-property-set">DVD Copy Protection</a> property set uses this structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dvdmedia/ns-dvdmedia-am_copy_macrovision
+ * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-am_copy_macrovision
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

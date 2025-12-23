@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specify the conditions for performing the commit operation in the IStorage::Commit and IStream::Commit methods.
  * @remarks
- * 
  * You can specify <b>STGC_DEFAULT</b> or some combination of <b>STGC_OVERWRITE</b>, <b>STGC_ONLYIFCURRENT</b>, and <b>STGC_DANGEROUSLYCOMMITMERELYTODISKCACHE</b> for normal commit operations. You can specify <b>STGC_CONSOLIDATE</b> with any other STGC flags.
  * 
  * Typically, use <b>STGC_ONLYIFCURRENT</b> to protect the storage object in cases where more than one user can edit the object simultaneously.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wtypes/ne-wtypes-stgc
+ * @see https://learn.microsoft.com/windows/win32/api/wtypes/ne-wtypes-stgc
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class STGC{
+class STGC extends Win32BitflagEnum{
 
     /**
      * You can specify this condition with <b>STGC_CONSOLIDATE</b>, or some combination of the other three flags in this list of elements. Use this value to increase the readability of code.

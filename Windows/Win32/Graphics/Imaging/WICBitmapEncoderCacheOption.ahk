@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the cache options available for an encoder.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicbitmapencodercacheoption
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicbitmapencodercacheoption
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICBitmapEncoderCacheOption{
+class WICBitmapEncoderCacheOption extends Win32Enum{
 
     /**
      * The encoder is cached in memory. This option is not supported.

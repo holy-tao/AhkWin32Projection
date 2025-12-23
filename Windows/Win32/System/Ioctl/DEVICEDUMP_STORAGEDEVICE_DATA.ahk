@@ -10,7 +10,7 @@
  */
 class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct
 {
-    static sizeof => 312
+    static sizeof => 304
 
     static packingSize => 8
 
@@ -69,7 +69,7 @@ class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct
     RestrictedData{
         get {
             if(!this.HasProp("__RestrictedData"))
-                this.__RestrictedData := DEVICEDUMP_SUBSECTION_POINTER(280, this)
+                this.__RestrictedData := DEVICEDUMP_SUBSECTION_POINTER(276, this)
             return this.__RestrictedData
         }
     }
@@ -80,7 +80,7 @@ class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct
     PrivateData{
         get {
             if(!this.HasProp("__PrivateData"))
-                this.__PrivateData := DEVICEDUMP_SUBSECTION_POINTER(296, this)
+                this.__PrivateData := DEVICEDUMP_SUBSECTION_POINTER(288, this)
             return this.__PrivateData
         }
     }

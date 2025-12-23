@@ -4,13 +4,10 @@
 /**
  * The WAVEHDR structure defines the header used to identify a waveform-audio buffer.
  * @remarks
- * 
  * Use the WHDR_BEGINLOOP and WHDR_ENDLOOP flags in the <b>dwFlags</b> member to specify the beginning and ending data blocks for looping. To loop on a single block, specify both flags for the same block. Use the <b>dwLoops</b> member in the <b>WAVEHDR</b> structure for the first block in the loop to specify the number of times to play the loop.
  * 
  * The <b>lpData</b>, <b>dwBufferLength</b>, and <b>dwFlags</b> members must be set before calling the <a href="https://docs.microsoft.com/previous-versions/dd743848(v=vs.85)">waveInPrepareHeader</a> or <a href="https://docs.microsoft.com/previous-versions/dd743868(v=vs.85)">waveOutPrepareHeader</a> function. (For either function, the <b>dwFlags</b> member must be set to zero.)
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mmeapi/ns-mmeapi-wavehdr
+ * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-wavehdr
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -57,7 +54,7 @@ class WAVEHDR extends Win32Struct
     }
 
     /**
-     * A bitwise <b>OR</b> of zero of more flags. The following flags are defined:
+     * A bitwise <b>OR</b> of zero or more flags. The following flags are defined:
      * 
      * <table>
      * <tr>

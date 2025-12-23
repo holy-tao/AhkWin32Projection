@@ -23507,17 +23507,23 @@ class HumanInterfaceDevice {
         ppvOutMarshal := ppvOut is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("DINPUT8.dll\DirectInput8Create", "ptr", hinst, "uint", dwVersion, "ptr", riidltf, ppvOutMarshal, ppvOut, "ptr", punkOuter, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * The joyConfigChanged function informs the joystick driver that the configuration has changed and should be reloaded from the registry.
+     * @remarks
+     * This function causes a window message to be sent to all top-level windows. This message may be defined by applications that need to respond to changes in joystick calibration by using <b>RegisterWindowMessage</b> with the following message ID:
+     * 
+     * 
+     * ```cpp
      * @param {Integer} dwFlags Reserved for future use. Must equal zero.
      * @returns {Integer} Returns JOYERR_NOERROR if successful. Returns JOYERR_PARMS if the parameter is non-zero.
-     * @see https://docs.microsoft.com/windows/win32/api//joystickapi/nf-joystickapi-joyconfigchanged
+     * @see https://learn.microsoft.com/windows/win32/api/joystickapi/nf-joystickapi-joyconfigchanged
      * @since windows5.0
      */
     static joyConfigChanged(dwFlags) {
@@ -24138,42 +24144,42 @@ class HumanInterfaceDevice {
     /**
      * 
      * @param {HANDLE} HidDeviceObject 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferLength 
      * @returns {BOOLEAN} 
      */
-    static HidD_GetPhysicalDescriptor(HidDeviceObject, Buffer, BufferLength) {
+    static HidD_GetPhysicalDescriptor(HidDeviceObject, Buffer_R, BufferLength) {
         HidDeviceObject := HidDeviceObject is Win32Handle ? NumGet(HidDeviceObject, "ptr") : HidDeviceObject
 
-        result := DllCall("HID.dll\HidD_GetPhysicalDescriptor", "ptr", HidDeviceObject, "ptr", Buffer, "uint", BufferLength, "char")
+        result := DllCall("HID.dll\HidD_GetPhysicalDescriptor", "ptr", HidDeviceObject, "ptr", Buffer_R, "uint", BufferLength, "char")
         return result
     }
 
     /**
      * 
      * @param {HANDLE} HidDeviceObject 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferLength 
      * @returns {BOOLEAN} 
      */
-    static HidD_GetManufacturerString(HidDeviceObject, Buffer, BufferLength) {
+    static HidD_GetManufacturerString(HidDeviceObject, Buffer_R, BufferLength) {
         HidDeviceObject := HidDeviceObject is Win32Handle ? NumGet(HidDeviceObject, "ptr") : HidDeviceObject
 
-        result := DllCall("HID.dll\HidD_GetManufacturerString", "ptr", HidDeviceObject, "ptr", Buffer, "uint", BufferLength, "char")
+        result := DllCall("HID.dll\HidD_GetManufacturerString", "ptr", HidDeviceObject, "ptr", Buffer_R, "uint", BufferLength, "char")
         return result
     }
 
     /**
      * 
      * @param {HANDLE} HidDeviceObject 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferLength 
      * @returns {BOOLEAN} 
      */
-    static HidD_GetProductString(HidDeviceObject, Buffer, BufferLength) {
+    static HidD_GetProductString(HidDeviceObject, Buffer_R, BufferLength) {
         HidDeviceObject := HidDeviceObject is Win32Handle ? NumGet(HidDeviceObject, "ptr") : HidDeviceObject
 
-        result := DllCall("HID.dll\HidD_GetProductString", "ptr", HidDeviceObject, "ptr", Buffer, "uint", BufferLength, "char")
+        result := DllCall("HID.dll\HidD_GetProductString", "ptr", HidDeviceObject, "ptr", Buffer_R, "uint", BufferLength, "char")
         return result
     }
 
@@ -24181,42 +24187,42 @@ class HumanInterfaceDevice {
      * 
      * @param {HANDLE} HidDeviceObject 
      * @param {Integer} StringIndex 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferLength 
      * @returns {BOOLEAN} 
      */
-    static HidD_GetIndexedString(HidDeviceObject, StringIndex, Buffer, BufferLength) {
+    static HidD_GetIndexedString(HidDeviceObject, StringIndex, Buffer_R, BufferLength) {
         HidDeviceObject := HidDeviceObject is Win32Handle ? NumGet(HidDeviceObject, "ptr") : HidDeviceObject
 
-        result := DllCall("HID.dll\HidD_GetIndexedString", "ptr", HidDeviceObject, "uint", StringIndex, "ptr", Buffer, "uint", BufferLength, "char")
+        result := DllCall("HID.dll\HidD_GetIndexedString", "ptr", HidDeviceObject, "uint", StringIndex, "ptr", Buffer_R, "uint", BufferLength, "char")
         return result
     }
 
     /**
      * 
      * @param {HANDLE} HidDeviceObject 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferLength 
      * @returns {BOOLEAN} 
      */
-    static HidD_GetSerialNumberString(HidDeviceObject, Buffer, BufferLength) {
+    static HidD_GetSerialNumberString(HidDeviceObject, Buffer_R, BufferLength) {
         HidDeviceObject := HidDeviceObject is Win32Handle ? NumGet(HidDeviceObject, "ptr") : HidDeviceObject
 
-        result := DllCall("HID.dll\HidD_GetSerialNumberString", "ptr", HidDeviceObject, "ptr", Buffer, "uint", BufferLength, "char")
+        result := DllCall("HID.dll\HidD_GetSerialNumberString", "ptr", HidDeviceObject, "ptr", Buffer_R, "uint", BufferLength, "char")
         return result
     }
 
     /**
      * 
      * @param {HANDLE} HidDeviceObject 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferLength 
      * @returns {BOOLEAN} 
      */
-    static HidD_GetMsGenreDescriptor(HidDeviceObject, Buffer, BufferLength) {
+    static HidD_GetMsGenreDescriptor(HidDeviceObject, Buffer_R, BufferLength) {
         HidDeviceObject := HidDeviceObject is Win32Handle ? NumGet(HidDeviceObject, "ptr") : HidDeviceObject
 
-        result := DllCall("HID.dll\HidD_GetMsGenreDescriptor", "ptr", HidDeviceObject, "ptr", Buffer, "uint", BufferLength, "char")
+        result := DllCall("HID.dll\HidD_GetMsGenreDescriptor", "ptr", HidDeviceObject, "ptr", Buffer_R, "uint", BufferLength, "char")
         return result
     }
 

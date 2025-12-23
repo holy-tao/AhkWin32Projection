@@ -3,7 +3,7 @@
 
 /**
  * Font property used for filtering font sets and building a font set with explicit properties.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/ns-dwrite_3-dwrite_font_property
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_font_property
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

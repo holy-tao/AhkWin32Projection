@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a chunk that is required to synchronize two sets of data.
- * @see https://docs.microsoft.com/windows/win32/api//msrdc/ns-msrdc-rdcneed
+ * @see https://learn.microsoft.com/windows/win32/api/msrdc/ns-msrdc-rdcneed
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * The APO_FLAG enumeration defines constants that are used as flags by an audio processing object (APO).
- * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/ne-audioenginebaseapo-apo_flag
+ * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/ne-audioenginebaseapo-apo_flag
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
  */
-class APO_FLAG{
+class APO_FLAG extends Win32Enum{
 
     /**
      * Indicates that there are no flags enabled for this APO.

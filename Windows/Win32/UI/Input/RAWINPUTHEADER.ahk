@@ -5,11 +5,8 @@
 /**
  * Contains the header information that is part of the raw input data.
  * @remarks
- * 
- * To get more information on the device, use <b>hDevice</b> in a call to [GetRawInputDeviceInfo](nf-winuser-getrawinputdeviceinfoa.md).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-rawinputheader
+ * To get more information on the device, use <b>hDevice</b> in a call to [GetRawInputDeviceInfo](nf-winuser-getrawinputdeviceinfoa.md). <b>hDevice</b> can be zero if an input is received from a precision touchpad.
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rawinputheader
  * @namespace Windows.Win32.UI.Input
  * @version v4.0.30319
  */

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the end of line character used by an edit control.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ne-commctrl-ec_endofline
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ne-commctrl-ec_endofline
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
-class EC_ENDOFLINE{
+class EC_ENDOFLINE extends Win32Enum{
 
     /**
      * End of line character specified in content.

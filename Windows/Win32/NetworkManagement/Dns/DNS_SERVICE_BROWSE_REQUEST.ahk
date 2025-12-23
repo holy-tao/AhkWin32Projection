@@ -5,8 +5,7 @@
  * Contains the query parameters used in a call to [DnsServiceBrowse](../windns/nf-windns-dnsservicebrowse.md).
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_service_browse_request
+ * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_service_browse_request
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

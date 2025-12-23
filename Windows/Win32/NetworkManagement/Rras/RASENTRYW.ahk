@@ -10,7 +10,7 @@
  */
 class RASENTRYW extends Win32Struct
 {
-    static sizeof => 6728
+    static sizeof => 6720
 
     static packingSize => 8
 
@@ -419,7 +419,7 @@ class RASENTRYW extends Win32Struct
     ipv6addrDns{
         get {
             if(!this.HasProp("__ipv6addrDns"))
-                this.__ipv6addrDns := IN6_ADDR(5616, this)
+                this.__ipv6addrDns := IN6_ADDR(5612, this)
             return this.__ipv6addrDns
         }
     }
@@ -430,7 +430,7 @@ class RASENTRYW extends Win32Struct
     ipv6addrDnsAlt{
         get {
             if(!this.HasProp("__ipv6addrDnsAlt"))
-                this.__ipv6addrDnsAlt := IN6_ADDR(5632, this)
+                this.__ipv6addrDnsAlt := IN6_ADDR(5628, this)
             return this.__ipv6addrDnsAlt
         }
     }
@@ -439,16 +439,16 @@ class RASENTRYW extends Win32Struct
      * @type {Integer}
      */
     dwIPv4InterfaceMetric {
-        get => NumGet(this, 5648, "uint")
-        set => NumPut("uint", value, this, 5648)
+        get => NumGet(this, 5644, "uint")
+        set => NumPut("uint", value, this, 5644)
     }
 
     /**
      * @type {Integer}
      */
     dwIPv6InterfaceMetric {
-        get => NumGet(this, 5652, "uint")
-        set => NumPut("uint", value, this, 5652)
+        get => NumGet(this, 5648, "uint")
+        set => NumPut("uint", value, this, 5648)
     }
 
     /**
@@ -457,7 +457,7 @@ class RASENTRYW extends Win32Struct
     ipv6addr{
         get {
             if(!this.HasProp("__ipv6addr"))
-                this.__ipv6addr := IN6_ADDR(5656, this)
+                this.__ipv6addr := IN6_ADDR(5652, this)
             return this.__ipv6addr
         }
     }
@@ -466,38 +466,46 @@ class RASENTRYW extends Win32Struct
      * @type {Integer}
      */
     dwIPv6PrefixLength {
-        get => NumGet(this, 5672, "uint")
-        set => NumPut("uint", value, this, 5672)
+        get => NumGet(this, 5668, "uint")
+        set => NumPut("uint", value, this, 5668)
     }
 
     /**
      * @type {Integer}
      */
     dwNetworkOutageTime {
-        get => NumGet(this, 5676, "uint")
-        set => NumPut("uint", value, this, 5676)
+        get => NumGet(this, 5672, "uint")
+        set => NumPut("uint", value, this, 5672)
     }
 
     /**
      * @type {String}
      */
     szIDi {
-        get => StrGet(this.ptr + 5680, 256, "UTF-16")
-        set => StrPut(value, this.ptr + 5680, 256, "UTF-16")
+        get => StrGet(this.ptr + 5676, 256, "UTF-16")
+        set => StrPut(value, this.ptr + 5676, 256, "UTF-16")
     }
 
     /**
      * @type {String}
      */
     szIDr {
-        get => StrGet(this.ptr + 6194, 256, "UTF-16")
-        set => StrPut(value, this.ptr + 6194, 256, "UTF-16")
+        get => StrGet(this.ptr + 6190, 256, "UTF-16")
+        set => StrPut(value, this.ptr + 6190, 256, "UTF-16")
     }
 
     /**
      * @type {BOOL}
      */
     fIsImsConfig {
+        get => NumGet(this, 6704, "int")
+        set => NumPut("int", value, this, 6704)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    IdiType {
         get => NumGet(this, 6708, "int")
         set => NumPut("int", value, this, 6708)
     }
@@ -505,24 +513,16 @@ class RASENTRYW extends Win32Struct
     /**
      * @type {Integer}
      */
-    IdiType {
+    IdrType {
         get => NumGet(this, 6712, "int")
         set => NumPut("int", value, this, 6712)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    IdrType {
-        get => NumGet(this, 6716, "int")
-        set => NumPut("int", value, this, 6716)
     }
 
     /**
      * @type {BOOL}
      */
     fDisableIKEv2Fragmentation {
-        get => NumGet(this, 6720, "int")
-        set => NumPut("int", value, this, 6720)
+        get => NumGet(this, 6716, "int")
+        set => NumPut("int", value, this, 6716)
     }
 }

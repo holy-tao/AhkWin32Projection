@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the interaction modes that can be chosen by the user for the Tablet PC Input Panel.
- * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/ne-peninputpanel-interactionmode
+ * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-interactionmode
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InteractionMode{
+class InteractionMode extends Win32Enum{
 
     /**
      * The Input Panel appears next to the text insertion point that currently has focus.

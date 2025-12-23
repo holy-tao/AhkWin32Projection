@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of visual style attribute to set on a window.
- * @see https://docs.microsoft.com/windows/win32/api//uxtheme/ne-uxtheme-windowthemeattributetype
+ * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ne-uxtheme-windowthemeattributetype
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
-class WINDOWTHEMEATTRIBUTETYPE{
+class WINDOWTHEMEATTRIBUTETYPE extends Win32Enum{
 
     /**
      * Non-client area window attributes will be set.

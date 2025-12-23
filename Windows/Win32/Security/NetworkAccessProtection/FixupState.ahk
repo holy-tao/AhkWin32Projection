@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the fix-up state of the System Health Agent (SHA).
- * @see https://docs.microsoft.com/windows/win32/api//naptypes/ne-naptypes-fixupstate
+ * @see https://learn.microsoft.com/windows/win32/api/naptypes/ne-naptypes-fixupstate
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319
  */
-class FixupState{
+class FixupState extends Win32Enum{
 
     /**
      * SHA fix-up is successful.

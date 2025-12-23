@@ -4,8 +4,8 @@
 #Include .\IPSEC_SA_IDLE_TIMEOUT0.ahk
 
 /**
- * Stores the quick mode negotiation policy for tunnel mode IPsec.
- * @see https://docs.microsoft.com/windows/win32/api//ipsectypes/ns-ipsectypes-ipsec_tunnel_policy0
+ * Stores the quick mode negotiation policy for tunnel mode IPsec. (IPSEC_TUNNEL_POLICY0)
+ * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_tunnel_policy0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
@@ -65,7 +65,7 @@ class IPSEC_TUNNEL_POLICY0 extends Win32Struct
     saIdleTimeout{
         get {
             if(!this.HasProp("__saIdleTimeout"))
-                this.__saIdleTimeout := IPSEC_SA_IDLE_TIMEOUT0(56, this)
+                this.__saIdleTimeout := IPSEC_SA_IDLE_TIMEOUT0(52, this)
             return this.__saIdleTimeout
         }
     }

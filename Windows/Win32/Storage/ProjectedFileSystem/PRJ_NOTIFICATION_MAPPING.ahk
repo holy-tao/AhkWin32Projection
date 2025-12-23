@@ -4,7 +4,6 @@
 /**
  * Describes a notification mapping, which is a pairing between a directory (referred to as a &quot;notification root&quot;) and a set of notifications, expressed as a bit mask.
  * @remarks
- * 
  * PRJ_NOTIFICATION_MAPPING describes a "notification mapping", which is a pairing between a directory (referred to as a "notification root") and a set of notifications, expressed as a bit mask, which ProjFS should send for that directory and its descendants. A notification mapping can also be established for a single file. 
  * 
  * 
@@ -18,9 +17,7 @@
  * 
  * 
  * If the provider specifies multiple notification mappings, and some are descendants of others, the mappings must be specified in descending depth. Notification mappings at deeper levels override higher-level ones for their descendants.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/ns-projectedfslib-prj_notification_mapping
+ * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ns-projectedfslib-prj_notification_mapping
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  * @version v4.0.30319
  */

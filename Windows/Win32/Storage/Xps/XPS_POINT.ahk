@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents an x- and y-coordinate pair in two-dimensional space.
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/ns-xpsobjectmodel-xps_point
+ * Represents an x- and y-coordinate pair in two-dimensional space. (XPS_POINT)
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_point
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

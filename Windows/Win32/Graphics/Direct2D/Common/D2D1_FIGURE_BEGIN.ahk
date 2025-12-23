@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates whether a specific ID2D1SimplifiedGeometrySink figure is filled or hollow.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/ne-d2d1-d2d1_figure_begin
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_figure_begin
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */
-class D2D1_FIGURE_BEGIN{
+class D2D1_FIGURE_BEGIN extends Win32Enum{
 
     /**
      * Indicates the figure will be filled by the FillGeometry (<a href="https://docs.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandsink-fillgeometry">ID2D1CommandSink::FillGeometry</a> 

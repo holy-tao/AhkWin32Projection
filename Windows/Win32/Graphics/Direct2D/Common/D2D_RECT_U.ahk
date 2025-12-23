@@ -3,7 +3,7 @@
 
 /**
  * Represents a rectangle defined by the upper-left corner pair of coordinates (left,top) and the lower-right corner pair of coordinates (right, bottom). These coordinates are expressed as a 32-bit integer values.
- * @see https://docs.microsoft.com/windows/win32/api//dcommon/ns-dcommon-d2d_rect_u
+ * @see https://learn.microsoft.com/windows/win32/api/dcommon/ns-dcommon-d2d_rect_u
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */

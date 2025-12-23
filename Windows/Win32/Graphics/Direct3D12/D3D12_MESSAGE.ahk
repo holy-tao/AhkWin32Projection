@@ -2,13 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * A debug message in the Information Queue.
+ * A debug message in the Information Queue. (D3D12_MESSAGE)
  * @remarks
- * 
  * This structure is returned from <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12infoqueue-getmessage">ID3D12InfoQueue::GetMessage</a> as part of the Information Queue feature (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12infoqueue">ID3D12InfoQueue</a>).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/ns-d3d12sdklayers-d3d12_message
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/ns-d3d12sdklayers-d3d12_message
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

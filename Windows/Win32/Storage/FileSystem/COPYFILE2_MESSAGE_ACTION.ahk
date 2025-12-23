@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Returned by the CopyFile2ProgressRoutine callback function to indicate what action should be taken for the pending copy operation.
  * @remarks
- * 
  * To compile an application that uses this enumeration, define the <b>_WIN32_WINNT</b> 
  *     macro as 0x0601 or later. For more information, see 
  *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winbase/ne-winbase-copyfile2_message_action
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/ne-winbase-copyfile2_message_action
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
-class COPYFILE2_MESSAGE_ACTION{
+class COPYFILE2_MESSAGE_ACTION extends Win32Enum{
 
     /**
      * Continue the copy operation.

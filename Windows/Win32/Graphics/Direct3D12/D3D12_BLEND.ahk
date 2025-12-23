@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies blend factors, which modulate values for the pixel shader and render target.
  * @remarks
- * 
  * Source and destination blend operations are specified in a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_render_target_blend_desc">D3D12_RENDER_TARGET_BLEND_DESC</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_blend
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_blend
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_BLEND{
+class D3D12_BLEND extends Win32Enum{
 
     /**
      * The blend factor is (0, 0, 0, 0). No pre-blend operation.
@@ -117,11 +115,17 @@ class D3D12_BLEND{
     static D3D12_BLEND_INV_SRC1_ALPHA => 19
 
     /**
+     * The blend factor is (A, A, A, A), where the constant, A, is taken from the blend factor set with [OMSetBlendFactor](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-omsetblendfactor).
+     * 
+     * To successfully use this constant on a target machine, the [D3D12_FEATURE_DATA_D3D12_OPTIONS13](ns-d3d12-d3d12_feature_data_d3d12_options13.md) returned from [capability querying](/windows/win32/direct3d12/capability-querying) must have its *AlphaBlendFactorSupported* set to `TRUE`.
      * @type {Integer (Int32)}
      */
     static D3D12_BLEND_ALPHA_FACTOR => 20
 
     /**
+     * The blend factor is (1 – A, 1 – A, 1 – A, 1 – A), where the constant, A, is taken from the blend factor set with [OMSetBlendFactor](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-omsetblendfactor).
+     * 
+     * To successfully use this constant on a target machine, the [D3D12_FEATURE_DATA_D3D12_OPTIONS13](ns-d3d12-d3d12_feature_data_d3d12_options13.md) returned from [capability querying](/windows/win32/direct3d12/capability-querying) must have its *AlphaBlendFactorSupported* set to `TRUE`.
      * @type {Integer (Int32)}
      */
     static D3D12_BLEND_INV_ALPHA_FACTOR => 21

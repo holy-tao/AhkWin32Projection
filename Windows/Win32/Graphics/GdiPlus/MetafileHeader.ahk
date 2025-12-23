@@ -6,20 +6,14 @@
 #Include .\ENHMETAHEADER3.ahk
 
 /**
- * A MetafileHeader object stores properties of an associated metafile.
- * @remarks
- * 
- * Metafiles provide a device-independent and application-independent way to share pictures. They contain records that describe a sequence of graphics APIs to invoke in a particular order with their associated graphics data. Metafiles can be recorded by an application and later played back by that application or by another one to reproduce a particular picture. They can also be used to send content to a print spooler. Enhanced metafiles support the ability to provide both Windows GDI+ and Windows Graphics Device Interface (GDI) descriptions of the same picture so that both GDI+ and down-level GDI applications can render it.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//gdiplusmetaheader/nl-gdiplusmetaheader-metafileheader
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */
 class MetafileHeader extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 140
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

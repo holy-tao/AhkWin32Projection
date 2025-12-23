@@ -4,7 +4,6 @@
 /**
  * The LINEMONITORTONE structure describes a tone to be monitored. This is used as an entry in an array. The lineMonitorTones and TSPI_lineMonitorTones functions use this structure.
  * @remarks
- * 
  * This structure may not be extended.
  * 
  * The 
@@ -12,9 +11,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linemonitortones">lineMonitorTones</a> function which monitors these tones and sends a LINE_MONITORTONE message to the application when a detection is made.
  * 
  * A tone with all frequencies set to zero corresponds to silence. An application can thus monitor the call's information stream for silence.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-linemonitortone
+ * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linemonitortone
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

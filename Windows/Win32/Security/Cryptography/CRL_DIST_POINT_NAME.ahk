@@ -4,7 +4,7 @@
 
 /**
  * Identifies a location from which the CRL can be obtained.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crl_dist_point_name
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crl_dist_point_name
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

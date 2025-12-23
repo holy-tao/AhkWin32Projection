@@ -3,9 +3,8 @@
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
- * The NTMS_DRIVEINFORMATION structure defines properties specific to a drive object.
+ * The NTMS_DRIVEINFORMATION structure defines properties specific to a drive object. (Unicode)
  * @remarks
- * 
  * The 
  * <b>NTMS_DRIVEINFORMATION</b> structure is included in the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/ntmsapi/ns-ntmsapi-ntms_objectinformationa">NTMS_OBJECTINFORMATION</a> structure.
@@ -16,9 +15,7 @@
  * 
  * > [!NOTE]
  * > The ntmsapi.h header defines NTMS_DRIVEINFORMATION as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ntmsapi/ns-ntmsapi-ntms_driveinformationw
+ * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_driveinformationw
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  * @charset Unicode
@@ -135,7 +132,7 @@ class NTMS_DRIVEINFORMATIONW extends Win32Struct
     LastCleanedTs{
         get {
             if(!this.HasProp("__LastCleanedTs"))
-                this.__LastCleanedTs := SYSTEMTIME(288, this)
+                this.__LastCleanedTs := SYSTEMTIME(284, this)
             return this.__LastCleanedTs
         }
     }

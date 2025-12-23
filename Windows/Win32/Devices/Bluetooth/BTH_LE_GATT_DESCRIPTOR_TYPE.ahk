@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The BTH_LE_GATT_DESCRIPTOR_TYPE enumeration describes the different types of Bluetooth LE generic attributes (GATT).
- * @see https://docs.microsoft.com/windows/win32/api//bthledef/ne-bthledef-bth_le_gatt_descriptor_type
+ * @see https://learn.microsoft.com/windows/win32/api/bthledef/ne-bthledef-bth_le_gatt_descriptor_type
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */
-class BTH_LE_GATT_DESCRIPTOR_TYPE{
+class BTH_LE_GATT_DESCRIPTOR_TYPE extends Win32Enum{
 
     /**
      * The characteristic value has additional properties that describe how it  can be used, or how it can be accessed.

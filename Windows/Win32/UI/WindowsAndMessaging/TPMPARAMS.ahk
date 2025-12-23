@@ -4,15 +4,15 @@
 
 /**
  * Contains extended parameters for the TrackPopupMenuEx function.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-tpmparams
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-tpmparams
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */
 class TPMPARAMS extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>UINT</b>
@@ -34,13 +34,13 @@ class TPMPARAMS extends Win32Struct
     rcExclude{
         get {
             if(!this.HasProp("__rcExclude"))
-                this.__rcExclude := RECT(8, this)
+                this.__rcExclude := RECT(4, this)
             return this.__rcExclude
         }
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 24
+        this.cbSize := 20
     }
 }

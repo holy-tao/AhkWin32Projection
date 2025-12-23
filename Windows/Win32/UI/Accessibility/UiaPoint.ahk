@@ -3,7 +3,7 @@
 
 /**
  * Contains the coordinates of a point.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ns-uiautomationcore-uiapoint
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ns-uiautomationcore-uiapoint
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

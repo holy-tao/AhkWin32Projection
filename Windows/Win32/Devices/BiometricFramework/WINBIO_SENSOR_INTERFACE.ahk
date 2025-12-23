@@ -4,7 +4,7 @@
 
 /**
  * Contains pointers to your custom sensor adapter functions.
- * @see https://docs.microsoft.com/windows/win32/api//winbio_adapter/ns-winbio_adapter-winbio_sensor_interface
+ * @see https://learn.microsoft.com/windows/win32/api/winbio_adapter/ns-winbio_adapter-winbio_sensor_interface
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

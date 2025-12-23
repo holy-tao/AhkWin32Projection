@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a character set.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-charsetinfo
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-charsetinfo
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */
@@ -12,7 +12,7 @@ class CHARSETINFO extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Character set value.

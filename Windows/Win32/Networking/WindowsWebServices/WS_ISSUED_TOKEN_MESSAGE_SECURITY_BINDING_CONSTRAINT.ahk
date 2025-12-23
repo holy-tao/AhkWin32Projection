@@ -5,7 +5,6 @@
 /**
  * A security binding constraint that can be used to extract information about how to obtain an issued token from an issuing party.
  * @remarks
- * 
  * The information extracted using this binding constraint can be used
  *                 with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsrequestsecuritytoken">WsRequestSecurityToken</a> to obtain an issued token.
  *                 The issued token can then be used with the 
@@ -14,8 +13,7 @@
  * 
  * This binding constraint is typically used in federated security
  *                 scenarios.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_issued_token_message_security_binding_constraint
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_issued_token_message_security_binding_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -26,7 +24,7 @@ class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT extends Win32Struct
     static packingSize => 8
 
     class _out extends Win32Struct {
-        static sizeof => 80
+        static sizeof => 16
         static packingSize => 8
 
         /**

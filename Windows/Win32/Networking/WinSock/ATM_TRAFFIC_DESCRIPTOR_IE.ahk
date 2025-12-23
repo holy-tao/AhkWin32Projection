@@ -8,9 +8,9 @@
  */
 class ATM_TRAFFIC_DESCRIPTOR_IE extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {ATM_TD}
@@ -29,7 +29,7 @@ class ATM_TRAFFIC_DESCRIPTOR_IE extends Win32Struct
     Backward{
         get {
             if(!this.HasProp("__Backward"))
-                this.__Backward := ATM_TD(32, this)
+                this.__Backward := ATM_TD(28, this)
             return this.__Backward
         }
     }
@@ -38,7 +38,7 @@ class ATM_TRAFFIC_DESCRIPTOR_IE extends Win32Struct
      * @type {BOOL}
      */
     BestEffort {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 }

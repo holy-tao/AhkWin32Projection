@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The MBN_BAND_CLASS enumerated type defines the frequency band classes.
  * @remarks
- * 
  * These  values are used by the <b>gsmBandClass</b> and <b>cdmaBandClass</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_interface_caps">MBN_INTERFACE_CAPS</a> structure.  The meanings are dependent upon which member is using them and are detailed in the structure documentation
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ne-mbnapi-mbn_band_class
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_band_class
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
-class MBN_BAND_CLASS{
+class MBN_BAND_CLASS extends Win32Enum{
 
     /**
      * Unknown band class.

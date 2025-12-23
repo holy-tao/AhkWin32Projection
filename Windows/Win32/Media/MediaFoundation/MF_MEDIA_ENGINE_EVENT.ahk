@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines event codes for the Media Engine.
  * @remarks
- * 
  * The application receives Media Engine events through the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaenginenotify-eventnotify">IMFMediaEngineNotify::EventNotify</a> method. The <b>EventNotify</b> method includes two event parameters, <i>param1</i> and <i>param2</i>. The meaning of the parameters depends on the event code. If the event description does not list any parameters, ignore the values of <i>param1</i> and <i>param2</i>.
  * 
  * Values below 1000 correspond to events defined in HTML 5 for media elements.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/ne-mfmediaengine-mf_media_engine_event
+ * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_event
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_MEDIA_ENGINE_EVENT{
+class MF_MEDIA_ENGINE_EVENT extends Win32Enum{
 
     /**
      * The Media Engine has started to load the source. See <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-load">IMFMediaEngine::Load</a>.
@@ -139,7 +137,7 @@ class MF_MEDIA_ENGINE_EVENT{
     static MF_MEDIA_ENGINE_EVENT_TIMEUPDATE => 18
 
     /**
-     * Playback has reached the end of the source. This event is not sent if the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getloop">GetLoop</a>is <b>TRUE</b>.
+     * Playback has reached the end of the source. This event is not sent if the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getloop">GetLoop</a> is <b>TRUE</b>.
      * @type {Integer (Int32)}
      */
     static MF_MEDIA_ENGINE_EVENT_ENDED => 19

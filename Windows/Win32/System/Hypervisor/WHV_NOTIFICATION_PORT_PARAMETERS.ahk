@@ -29,8 +29,8 @@ class WHV_NOTIFICATION_PORT_PARAMETERS extends Win32Struct
     }
 
     class _Event extends Win32Struct {
-        static sizeof => 28
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {Integer}

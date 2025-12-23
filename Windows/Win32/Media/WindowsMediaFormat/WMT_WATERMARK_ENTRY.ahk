@@ -3,7 +3,7 @@
 
 /**
  * The WMT_WATERMARK_ENTRY structure contains information describing a watermarking system.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/ns-wmsdkidl-wmt_watermark_entry
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmt_watermark_entry
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

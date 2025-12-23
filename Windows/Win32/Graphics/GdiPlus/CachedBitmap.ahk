@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * A CachedBitmap object stores a bitmap in a format that is optimized for display on a particular device. To display a cached bitmap, call the Graphics::DrawCachedBitmap method.
- * @see https://docs.microsoft.com/windows/win32/api//gdiplusheaders/nl-gdiplusheaders-cachedbitmap
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

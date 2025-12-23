@@ -4,11 +4,8 @@
 /**
  * The subscription options object stores configuration options used for passing into subscription operations.
  * @remarks
- * 
  * This structure is created by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mi/nf-mi-mi_application_newsubscriptiondeliveryoptions">MI_Application_NewSubscriptionDeliveryOptions</a> function.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_subscriptiondeliveryoptions
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_subscriptiondeliveryoptions
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

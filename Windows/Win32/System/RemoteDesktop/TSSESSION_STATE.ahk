@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the state of a session.
- * @see https://docs.microsoft.com/windows/win32/api//sessdirpublictypes/ne-sessdirpublictypes-tssession_state
+ * @see https://learn.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-tssession_state
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class TSSESSION_STATE{
+class TSSESSION_STATE extends Win32Enum{
 
     /**
      * The session state is not valid.

@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WMPBurnState enumeration type defines the possible operational states of Windows Media Player as it burns a CD.
  * @remarks
- * 
  * Windows Media Player 10 Mobile: This enumeration is not supported.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmp/ne-wmp-wmpburnstate
+ * @see https://learn.microsoft.com/windows/win32/api/wmp/ne-wmp-wmpburnstate
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
-class WMPBurnState{
+class WMPBurnState extends Win32Enum{
 
     /**
      * Not a valid state.

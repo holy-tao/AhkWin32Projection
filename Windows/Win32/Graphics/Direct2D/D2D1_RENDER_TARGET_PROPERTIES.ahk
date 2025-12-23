@@ -5,7 +5,6 @@
 /**
  * Contains rendering options (hardware or software), pixel format, DPI information, remoting options, and Direct3D support requirements for a render target.
  * @remarks
- * 
  * Use this structure when creating a render target, or use it with the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-issupported(constd2d1_render_target_properties_)">ID2D1RenderTarget::IsSupported</a> method to check the properties supported by an existing render target.
  * 
  * As a convenience, Direct2D provides the <a href="https://docs.microsoft.com/windows/win32/api/d2d1helper/nf-d2d1helper-rendertargetproperties">D2D1::RenderTargetProperties</a> helper function for creating <b>D2D1_RENDER_TARGET_PROPERTIES</b> structures. An easy way to create a <b>D2D1_RENDER_TARGET_PROPERTIES</b> structure that works for most render targets is to call the function without specifying any parameters. Doing so creates a <b>D2D1_RENDER_TARGET_PROPERTIES</b> structure that has its fields set to default values. For more information, see   <a href="https://docs.microsoft.com/windows/win32/api/d2d1helper/nf-d2d1helper-rendertargetproperties">D2D1::RenderTargetProperties</a>.
@@ -21,18 +20,15 @@
  * <li>For other render targets, the default DPI is 96.</li>
  * </ul>
  * To use the default DPI setting, both <i>dpiX</i> and <i>dpiY</i> must be set to 0. Setting only one value to 0 causes an  <a href="https://docs.microsoft.com/windows/win32/Direct2D/direct2d-error-codes">E_INVALIDARG</a> error when attempting to create a render target.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/ns-d2d1-d2d1_render_target_properties
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_render_target_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
 class D2D1_RENDER_TARGET_PROPERTIES extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_render_target_type">D2D1_RENDER_TARGET_TYPE</a></b>
@@ -54,7 +50,7 @@ class D2D1_RENDER_TARGET_PROPERTIES extends Win32Struct
     pixelFormat{
         get {
             if(!this.HasProp("__pixelFormat"))
-                this.__pixelFormat := D2D1_PIXEL_FORMAT(8, this)
+                this.__pixelFormat := D2D1_PIXEL_FORMAT(4, this)
             return this.__pixelFormat
         }
     }
@@ -66,8 +62,8 @@ class D2D1_RENDER_TARGET_PROPERTIES extends Win32Struct
      * @type {Float}
      */
     dpiX {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
+        get => NumGet(this, 12, "float")
+        set => NumPut("float", value, this, 12)
     }
 
     /**
@@ -77,8 +73,8 @@ class D2D1_RENDER_TARGET_PROPERTIES extends Win32Struct
      * @type {Float}
      */
     dpiY {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
+        get => NumGet(this, 16, "float")
+        set => NumPut("float", value, this, 16)
     }
 
     /**
@@ -88,8 +84,8 @@ class D2D1_RENDER_TARGET_PROPERTIES extends Win32Struct
      * @type {Integer}
      */
     usage {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -99,7 +95,7 @@ class D2D1_RENDER_TARGET_PROPERTIES extends Win32Struct
      * @type {Integer}
      */
     minLevel {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

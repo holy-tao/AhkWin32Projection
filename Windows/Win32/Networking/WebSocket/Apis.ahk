@@ -28,20 +28,23 @@ class WebSocket {
      * @returns {WEB_SOCKET_HANDLE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a>*</b>
      * 
      * On successful output, pointer to a  newly allocated client-side WebSocket session handle.
-     * @see https://docs.microsoft.com/windows/win32/api//websocket/nf-websocket-websocketcreateclienthandle
+     * @see https://learn.microsoft.com/windows/win32/api/websocket/nf-websocket-websocketcreateclienthandle
      * @since windows8.0
      */
     static WebSocketCreateClientHandle(pProperties, ulPropertyCount) {
         phWebSocket := WEB_SOCKET_HANDLE()
         result := DllCall("websocket.dll\WebSocketCreateClientHandle", "ptr", pProperties, "uint", ulPropertyCount, "ptr", phWebSocket, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return phWebSocket
     }
 
     /**
      * Begins the client-side handshake.
+     * @remarks
+     * To complete the client-side handshake, applications must call <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketendclienthandshake">WebSocketEndClientHandshake</a>. Once the client-server handshake is complete, the application may use the session functions.
      * @param {WEB_SOCKET_HANDLE} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
      * 
      *  WebSocket session handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a>.
@@ -73,8 +76,8 @@ class WebSocket {
      * 
      * If the function succeeds, it returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
-     * @see https://docs.microsoft.com/windows/win32/api//websocket/nf-websocket-websocketbeginclienthandshake
+     * If the function fails, it returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * @see https://learn.microsoft.com/windows/win32/api/websocket/nf-websocket-websocketbeginclienthandshake
      * @since windows8.0
      */
     static WebSocketBeginClientHandshake(hWebSocket, pszSubprotocols, ulSubprotocolCount, pszExtensions, ulExtensionCount, pInitialHeaders, ulInitialHeaderCount, pAdditionalHeaders, pulAdditionalHeaderCount) {
@@ -86,14 +89,17 @@ class WebSocket {
         pulAdditionalHeaderCountMarshal := pulAdditionalHeaderCount is VarRef ? "uint*" : "ptr"
 
         result := DllCall("websocket.dll\WebSocketBeginClientHandshake", "ptr", hWebSocket, pszSubprotocolsMarshal, pszSubprotocols, "uint", ulSubprotocolCount, pszExtensionsMarshal, pszExtensions, "uint", ulExtensionCount, "ptr", pInitialHeaders, "uint", ulInitialHeaderCount, pAdditionalHeadersMarshal, pAdditionalHeaders, pulAdditionalHeaderCountMarshal, pulAdditionalHeaderCount, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Completes the client-side handshake.
+     * @remarks
+     * This function must be called to complete the client-side handshake after a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketbeginclienthandshake">WebSocketBeginClientHandshake</a>. Once the client-server handshake is complete, the application may use the session functions.
      * @param {WEB_SOCKET_HANDLE} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
      * 
      *  WebSocket session handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a>.
@@ -116,7 +122,7 @@ class WebSocket {
      * 
      * If the function succeeds, it returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns one of the following or a <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * If the function fails, it returns one of the following or a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * <table>
      * <tr>
@@ -157,7 +163,7 @@ class WebSocket {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//websocket/nf-websocket-websocketendclienthandshake
+     * @see https://learn.microsoft.com/windows/win32/api/websocket/nf-websocket-websocketendclienthandshake
      * @since windows8.0
      */
     static WebSocketEndClientHandshake(hWebSocket, pResponseHeaders, ulReponseHeaderCount, pulSelectedExtensions, pulSelectedExtensionCount, pulSelectedSubprotocol) {
@@ -168,8 +174,9 @@ class WebSocket {
         pulSelectedSubprotocolMarshal := pulSelectedSubprotocol is VarRef ? "uint*" : "ptr"
 
         result := DllCall("websocket.dll\WebSocketEndClientHandshake", "ptr", hWebSocket, "ptr", pResponseHeaders, "uint", ulReponseHeaderCount, pulSelectedExtensionsMarshal, pulSelectedExtensions, pulSelectedExtensionCountMarshal, pulSelectedExtensionCount, pulSelectedSubprotocolMarshal, pulSelectedSubprotocol, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -185,20 +192,23 @@ class WebSocket {
      * @returns {WEB_SOCKET_HANDLE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a>*</b>
      * 
      * On successful output, pointer to a newly allocated server-side WebSocket session handle.
-     * @see https://docs.microsoft.com/windows/win32/api//websocket/nf-websocket-websocketcreateserverhandle
+     * @see https://learn.microsoft.com/windows/win32/api/websocket/nf-websocket-websocketcreateserverhandle
      * @since windows8.0
      */
     static WebSocketCreateServerHandle(pProperties, ulPropertyCount) {
         phWebSocket := WEB_SOCKET_HANDLE()
         result := DllCall("websocket.dll\WebSocketCreateServerHandle", "ptr", pProperties, "uint", ulPropertyCount, "ptr", phWebSocket, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return phWebSocket
     }
 
     /**
      * Begins the server-side handshake.
+     * @remarks
+     * To complete the server-side handshake, applications must call <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketendserverhandshake">WebSocketEndServerHandshake</a> or any of the session functions. Once the client-server handshake is complete, the application may use the session functions.
      * @param {WEB_SOCKET_HANDLE} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
      * 
      *  WebSocket session handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
@@ -227,7 +237,7 @@ class WebSocket {
      * 
      * If the function succeeds, it returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns one of the following or a <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * If the function fails, it returns one of the following or a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * <table>
      * <tr>
@@ -246,7 +256,7 @@ class WebSocket {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//websocket/nf-websocket-websocketbeginserverhandshake
+     * @see https://learn.microsoft.com/windows/win32/api/websocket/nf-websocket-websocketbeginserverhandshake
      * @since windows8.0
      */
     static WebSocketBeginServerHandshake(hWebSocket, pszSubprotocolSelected, pszExtensionSelected, ulExtensionSelectedCount, pRequestHeaders, ulRequestHeaderCount, pResponseHeaders, pulResponseHeaderCount) {
@@ -258,14 +268,17 @@ class WebSocket {
         pulResponseHeaderCountMarshal := pulResponseHeaderCount is VarRef ? "uint*" : "ptr"
 
         result := DllCall("websocket.dll\WebSocketBeginServerHandshake", "ptr", hWebSocket, "ptr", pszSubprotocolSelected, pszExtensionSelectedMarshal, pszExtensionSelected, "uint", ulExtensionSelectedCount, "ptr", pRequestHeaders, "uint", ulRequestHeaderCount, pResponseHeadersMarshal, pResponseHeaders, pulResponseHeaderCountMarshal, pulResponseHeaderCount, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Completes the server-side handshake.
+     * @remarks
+     * This function may be called to complete the server-side handshake after a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketbeginserverhandshake">WebSocketBeginServerHandshake</a>; however, calling this function is optional and applications may use the session functions without first calling this function. This function  frees all internal handshake related structures and allocates data session buffers. All operations handled by this function will be performed internally even if the function is not called.
      * @param {WEB_SOCKET_HANDLE} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
      * 
      *  WebSocket session handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
@@ -273,22 +286,25 @@ class WebSocket {
      * 
      * If the function succeeds, it returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
-     * @see https://docs.microsoft.com/windows/win32/api//websocket/nf-websocket-websocketendserverhandshake
+     * If the function fails, it returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * @see https://learn.microsoft.com/windows/win32/api/websocket/nf-websocket-websocketendserverhandshake
      * @since windows8.0
      */
     static WebSocketEndServerHandshake(hWebSocket) {
         hWebSocket := hWebSocket is Win32Handle ? NumGet(hWebSocket, "ptr") : hWebSocket
 
         result := DllCall("websocket.dll\WebSocketEndServerHandshake", "ptr", hWebSocket, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Adds a send operation to the protocol component operation queue.
+     * @remarks
+     * After an application sends a <a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_property_type">WEB_SOCKET_CLOSE_BUFFER_TYPE</a> WebSocket buffer successfully, it can only send control frames.
      * @param {WEB_SOCKET_HANDLE} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
      * 
      * WebSocket session handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a> or <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
@@ -308,7 +324,7 @@ class WebSocket {
      * 
      * If the function succeeds, it returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns one of the following or a <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * If the function fails, it returns one of the following or a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * <table>
      * <tr>
@@ -327,7 +343,7 @@ class WebSocket {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//websocket/nf-websocket-websocketsend
+     * @see https://learn.microsoft.com/windows/win32/api/websocket/nf-websocket-websocketsend
      * @since windows8.0
      */
     static WebSocketSend(hWebSocket, BufferType, pBuffer, Context) {
@@ -336,8 +352,9 @@ class WebSocket {
         ContextMarshal := Context is VarRef ? "ptr" : "ptr"
 
         result := DllCall("websocket.dll\WebSocketSend", "ptr", hWebSocket, "int", BufferType, "ptr", pBuffer, ContextMarshal, Context, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -360,7 +377,7 @@ class WebSocket {
      * 
      * If the function succeeds, it returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns one of the following or a <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * If the function fails, it returns one of the following or a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * <table>
      * <tr>
@@ -379,7 +396,7 @@ class WebSocket {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//websocket/nf-websocket-websocketreceive
+     * @see https://learn.microsoft.com/windows/win32/api/websocket/nf-websocket-websocketreceive
      * @since windows8.0
      */
     static WebSocketReceive(hWebSocket, pBuffer, pvContext) {
@@ -388,14 +405,29 @@ class WebSocket {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("websocket.dll\WebSocketReceive", "ptr", hWebSocket, "ptr", pBuffer, pvContextMarshal, pvContext, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Returns an action from a call to WebSocketSend, WebSocketReceive or WebSocketCompleteAction.
+     * @remarks
+     * Each call to <b>WebSocketGetAction</b> must be paired with a call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcompleteaction">WebSocketCompleteAction</a>.
+     * 
+     * If the <i>ulBytesTransferred</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcompleteaction">WebSocketCompleteAction</a> is different than the sum of all buffer lengths for the <a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_action">WEB_SOCKET_SEND_TO_NETWORK_ACTION</a> action or is zero for the <b>WEB_SOCKET_RECEIVE_FROM_NETWORK_ACTION</b> action, the WebSocket application will not send or receive all of the data requested.
+     * 
+     * <b>WebSocketGetAction</b> will return in <i>pAction</i>:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_action">WEB_SOCKET_INDICATE_SEND_COMPLETE_ACTION</a> once an operation queued by  <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketsend">WebSocketSend</a> is completed.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_action">WEB_SOCKET_INDICATE_RECEIVE_COMPLETE_ACTION</a> once an operation queued by <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketreceive">WebSocketReceive</a> is completed.</li>
+     * </ul>
+     * There may be only one outstanding send and receive operation at a time, so the next action will be returned once the previous one has been completed using <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcompleteaction">WebSocketCompleteAction</a>.
      * @param {WEB_SOCKET_HANDLE} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
      * 
      * WebSocket session handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a> or <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
@@ -427,7 +459,7 @@ class WebSocket {
      * 
      * If the function succeeds, it returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns one of the following or a <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * If the function fails, it returns one of the following or a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * <table>
      * <tr>
@@ -457,7 +489,7 @@ class WebSocket {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//websocket/nf-websocket-websocketgetaction
+     * @see https://learn.microsoft.com/windows/win32/api/websocket/nf-websocket-websocketgetaction
      * @since windows8.0
      */
     static WebSocketGetAction(hWebSocket, eActionQueue, pDataBuffers, pulDataBufferCount, pAction, pBufferType, pvApplicationContext, pvActionContext) {
@@ -470,14 +502,25 @@ class WebSocket {
         pvActionContextMarshal := pvActionContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("websocket.dll\WebSocketGetAction", "ptr", hWebSocket, "int", eActionQueue, "ptr", pDataBuffers, pulDataBufferCountMarshal, pulDataBufferCount, pActionMarshal, pAction, pBufferTypeMarshal, pBufferType, pvApplicationContextMarshal, pvApplicationContext, pvActionContextMarshal, pvActionContext, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Completes an action started by WebSocketGetAction.
+     * @remarks
+     * Each call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketgetaction">WebSocketGetAction</a> must be paired with a call to <b>WebSocketCompleteAction</b>. For the following network actions, I/O errors can occur:
+     * 
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_action">WEB_SOCKET_SEND_TO_NETWORK_ACTION</a>: if <i>ulBytesTransferred</i> is different than the sum all buffer lengths returned from <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketgetaction">WebSocketGetAction</a> the current send action is canceled and the next call to <b>WebSocketGetAction</b> will return <b>WEB_SOCKET_INDICATE_SEND_COMPLETE_ACTION</b> even if not all buffers passed to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketsend">WebSocketSend</a> were processed.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_action">WEB_SOCKET_RECEIVE_FROM_NETWORK_ACTION</a>: if <i>ulBytesTransferred</i> is 0, the current receive action is canceled and the next call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketgetaction">WebSocketGetAction</a> will return <b>WEB_SOCKET_INDICATE_RECEIVE_COMPLETE_ACTION</b> even if not all buffers passed to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketreceive">WebSocketReceive</a> were processed.</li>
+     * </ul>
      * @param {WEB_SOCKET_HANDLE} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
      * 
      * WebSocket session handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a> or <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
@@ -488,7 +531,7 @@ class WebSocket {
      * 
      * Number of bytes transferred for the <a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_action">WEB_SOCKET_SEND_TO_NETWORK_ACTION</a> or <b>WEB_SOCKET_RECEIVE_FROM_NETWORK_ACTION</b> actions. This value must be 0 for all other actions.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//websocket/nf-websocket-websocketcompleteaction
+     * @see https://learn.microsoft.com/windows/win32/api/websocket/nf-websocket-websocketcompleteaction
      * @since windows8.0
      */
     static WebSocketCompleteAction(hWebSocket, pvActionContext, ulBytesTransferred) {
@@ -501,11 +544,13 @@ class WebSocket {
 
     /**
      * Aborts a WebSocket session handle created by WebSocketCreateClientHandle or WebSocketCreateServerHandle.
+     * @remarks
+     * <b>WebSocketAbortHandle</b> aborts a <a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a> session handle and any calls to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketsend">WebSocketSend</a> or <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketreceive">WebSocketReceive</a> will return error when called with an aborted handle. <b>WebSocketAbortHandle</b> is a no-op if the WebSocket handshake has not been completed and the session handle has not been initialized. Any send/receive operations that were queued using <b>WebSocketSend</b> or <b>WebSocketReceive</b> will be ready to process using <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketgetaction">WebSocketGetAction</a>, but attempts to queue additional operations using the aborted handle will result in error.
      * @param {WEB_SOCKET_HANDLE} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
      * 
      *  WebSocket session handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a> or <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//websocket/nf-websocket-websocketaborthandle
+     * @see https://learn.microsoft.com/windows/win32/api/websocket/nf-websocket-websocketaborthandle
      * @since windows8.0
      */
     static WebSocketAbortHandle(hWebSocket) {
@@ -516,11 +561,15 @@ class WebSocket {
 
     /**
      * Deletes a WebSocket session handle created by WebSocketCreateClientHandle or WebSocketCreateServerHandle.
+     * @remarks
+     * Any use of a deleted <a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a> session handle may result in an access violation.
+     * 
+     * Before an application deletes a session handle, it must ensure that all operations have been processed. Applications may use <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketaborthandle">WebSocketAbortHandle</a> to abort any queued operations before calling <b>WebSocketDeleteHandle</b>.
      * @param {WEB_SOCKET_HANDLE} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
      * 
      * WebSocket session handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a> or <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//websocket/nf-websocket-websocketdeletehandle
+     * @see https://learn.microsoft.com/windows/win32/api/websocket/nf-websocket-websocketdeletehandle
      * @since windows8.0
      */
     static WebSocketDeleteHandle(hWebSocket) {
@@ -544,8 +593,8 @@ class WebSocket {
      * 
      * If the function succeeds, it returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
-     * @see https://docs.microsoft.com/windows/win32/api//websocket/nf-websocket-websocketgetglobalproperty
+     * If the function fails, it returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * @see https://learn.microsoft.com/windows/win32/api/websocket/nf-websocket-websocketgetglobalproperty
      * @since windows8.0
      */
     static WebSocketGetGlobalProperty(eType, pvValue, ulSize) {
@@ -553,8 +602,9 @@ class WebSocket {
         ulSizeMarshal := ulSize is VarRef ? "uint*" : "ptr"
 
         result := DllCall("websocket.dll\WebSocketGetGlobalProperty", "int", eType, pvValueMarshal, pvValue, ulSizeMarshal, ulSize, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

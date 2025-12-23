@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the possible states of an assessment.
- * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/ne-winsatcominterfacei-winsat_assessment_state
+ * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/ne-winsatcominterfacei-winsat_assessment_state
  * @namespace Windows.Win32.System.AssessmentTool
  * @version v4.0.30319
  */
-class WINSAT_ASSESSMENT_STATE{
+class WINSAT_ASSESSMENT_STATE extends Win32Enum{
 
     /**
      * The minimum enumeration value for this enumeration.

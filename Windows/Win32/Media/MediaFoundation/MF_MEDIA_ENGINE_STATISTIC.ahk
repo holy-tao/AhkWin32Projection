@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies statistics that the Media Engine tracks during playback.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/ne-mfmediaengine-mf_media_engine_statistic
+ * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_statistic
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MF_MEDIA_ENGINE_STATISTIC{
+class MF_MEDIA_ENGINE_STATISTIC extends Win32Enum{
 
     /**
      * The number of rendered video frames. (<b>ULONG</b>, <b>VT_UI4</b>)

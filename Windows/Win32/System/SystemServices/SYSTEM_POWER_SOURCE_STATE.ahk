@@ -8,9 +8,9 @@
  */
 class SYSTEM_POWER_SOURCE_STATE extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 68
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {SYSTEM_BATTERY_STATE}

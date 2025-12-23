@@ -3,7 +3,7 @@
 
 /**
  * Provides disk performance information.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-disk_performance
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_performance
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

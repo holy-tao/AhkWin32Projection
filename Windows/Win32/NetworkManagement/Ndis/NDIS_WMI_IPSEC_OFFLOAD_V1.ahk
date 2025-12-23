@@ -7,13 +7,13 @@
  */
 class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 76
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _Supported extends Win32Struct {
-        static sizeof => 80
-        static packingSize => 8
+        static sizeof => 20
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -58,8 +58,8 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
     }
 
     class _IPv4AH extends Win32Struct {
-        static sizeof => 80
-        static packingSize => 8
+        static sizeof => 24
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -112,8 +112,8 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
     }
 
     class _IPv4ESP extends Win32Struct {
-        static sizeof => 80
-        static packingSize => 8
+        static sizeof => 32
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -198,7 +198,7 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
     IPv4AH{
         get {
             if(!this.HasProp("__IPv4AH"))
-                this.__IPv4AH := %this.__Class%._IPv4AH(24, this)
+                this.__IPv4AH := %this.__Class%._IPv4AH(20, this)
             return this.__IPv4AH
         }
     }
@@ -209,7 +209,7 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
     IPv4ESP{
         get {
             if(!this.HasProp("__IPv4ESP"))
-                this.__IPv4ESP := %this.__Class%._IPv4ESP(48, this)
+                this.__IPv4ESP := %this.__Class%._IPv4ESP(44, this)
             return this.__IPv4ESP
         }
     }

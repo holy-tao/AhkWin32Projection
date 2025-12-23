@@ -3,9 +3,8 @@
 #Include ..\..\Foundation\HMODULE.ahk
 
 /**
- * The ACTCTX structure is used by the CreateActCtx function to create the activation context.
+ * The ACTCTX structure is used by the CreateActCtx function to create the activation context. (ANSI)
  * @remarks
- * 
  * If the file identified by the value of the <b>lpSource</b> member is a PE image file, 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createactctxa">CreateActCtx</a> searches for the manifest in the .manifest file located in the same directory and in the first RT_MANIFEST resource located in the PE image file. To find a specific named resource from the image, set the <b>lpResourceName</b> to the name of the resource, and add the ACTCTX_FLAG_RESOURCE_NAME_VALID to the <b>dwFlags</b> member. Refer to 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-findresourcea">FindResource</a> for more information on specifying resource names.
@@ -20,9 +19,7 @@
  * 
  * > [!NOTE]
  * > The winbase.h header defines ACTCTX as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-actctxa
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-actctxa
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  * @charset ANSI

@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Contains hardware input details that can be used to predict touch targets and help compensate for hardware latency when processing touch and gesture input that contains distance and velocity data.
+ * @remarks
+ * By default, touch prediction is activated. For information on getting pointer data without deactivating touch prediction, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getunpredictedmessagepos">GetUnpredictedMessagePos</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-touchpredictionparameters
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
@@ -14,6 +16,7 @@ class TOUCHPREDICTIONPARAMETERS extends Win32Struct
     static packingSize => 4
 
     /**
+     * The size of this structure, in bytes.
      * @type {Integer}
      */
     cbSize {
@@ -22,6 +25,7 @@ class TOUCHPREDICTIONPARAMETERS extends Win32Struct
     }
 
     /**
+     * Latency in milliseconds.
      * @type {Integer}
      */
     dwLatency {
@@ -30,6 +34,7 @@ class TOUCHPREDICTIONPARAMETERS extends Win32Struct
     }
 
     /**
+     * Sample time in milliseconds (used to calculate velocity).
      * @type {Integer}
      */
     dwSampleTime {
@@ -38,6 +43,7 @@ class TOUCHPREDICTIONPARAMETERS extends Win32Struct
     }
 
     /**
+     * Use timestamps provided by the hardware.
      * @type {Integer}
      */
     bUseHWTimeStamp {

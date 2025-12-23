@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines animation slope characteristics.
- * @see https://docs.microsoft.com/windows/win32/api//uianimation/ne-uianimation-ui_animation_slope
+ * @see https://learn.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_slope
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319
  */
-class UI_ANIMATION_SLOPE{
+class UI_ANIMATION_SLOPE extends Win32Enum{
 
     /**
      * An increasing slope.

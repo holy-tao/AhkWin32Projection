@@ -4,7 +4,7 @@
 
 /**
  * The DD_GETMOCOMPCOMPBUFFDATA structure contains the compressed buffer information.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_getmocompcompbuffdata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_getmocompcompbuffdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

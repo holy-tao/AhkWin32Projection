@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Enumerates characteristics of resource types and resources.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-clus_characteristics
+ * CLUS_CHARACTERISTICS (msclus.h) enumerates characteristics of resource types and resources.
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clus_characteristics
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUS_CHARACTERISTICS{
+class CLUS_CHARACTERISTICS extends Win32Enum{
 
     /**
      * Resources of this type have no known characteristics.

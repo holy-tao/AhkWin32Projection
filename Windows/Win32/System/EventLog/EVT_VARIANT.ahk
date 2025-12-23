@@ -4,7 +4,7 @@
 
 /**
  * Contains event data or property values.
- * @see https://docs.microsoft.com/windows/win32/api//winevt/ns-winevt-evt_variant
+ * @see https://learn.microsoft.com/windows/win32/api/winevt/ns-winevt-evt_variant
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */

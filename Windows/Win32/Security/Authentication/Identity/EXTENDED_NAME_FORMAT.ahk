@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a format for a directory service object name.
- * @see https://docs.microsoft.com/windows/win32/api//secext/ne-secext-extended_name_format
+ * @see https://learn.microsoft.com/windows/win32/api/secext/ne-secext-extended_name_format
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
-class EXTENDED_NAME_FORMAT{
+class EXTENDED_NAME_FORMAT extends Win32Enum{
 
     /**
      * An unknown name type.
@@ -70,13 +71,13 @@ class EXTENDED_NAME_FORMAT{
     static NameDnsDomain => 12
 
     /**
-     * 
+     * The first name or given name of the user. Note: This type is only available for **GetUserNameEx** calls for an Active Directory user.
      * @type {Integer (Int32)}
      */
     static NameGivenName => 13
 
     /**
-     * 
+     * The last name or surname of the user. Note: This type is only available for **GetUserNameEx** calls for an Active Directory user.
      * @type {Integer (Int32)}
      */
     static NameSurname => 14

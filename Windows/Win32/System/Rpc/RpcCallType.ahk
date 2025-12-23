@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the set of RPC call types.
- * @see https://docs.microsoft.com/windows/win32/api//rpcasync/ne-rpcasync-rpccalltype
+ * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ne-rpcasync-rpccalltype
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */
-class RpcCallType{
+class RpcCallType extends Win32Enum{
 
     /**
      * The remote procedure call is invalid.

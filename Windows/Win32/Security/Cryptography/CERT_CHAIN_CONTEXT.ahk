@@ -5,17 +5,14 @@
 /**
  * Contains an array of simple certificate chains and a trust status structure that indicates summary validity data on all of the connected simple chains.
  * @remarks
- * 
  * When a <b>CERT_CHAIN_CONTEXT</b> is built, the first simple chain begins with an end certificate and ends with a self-signed certificate. If that self-signed certificate is not a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">root</a> or otherwise trusted certificate, an attempt is made to build a new chain. <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">CTLs</a> are used to create the new chain beginning with the self-signed certificate from the original chain as the end certificate of the new chain. This process continues building additional simple chains until the first self-signed certificate is a trusted certificate or until an additional simple chain cannot be built.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_chain_context
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_chain_context
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
 class CERT_CHAIN_CONTEXT extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -36,7 +33,7 @@ class CERT_CHAIN_CONTEXT extends Win32Struct
     TrustStatus{
         get {
             if(!this.HasProp("__TrustStatus"))
-                this.__TrustStatus := CERT_TRUST_STATUS(8, this)
+                this.__TrustStatus := CERT_TRUST_STATUS(4, this)
             return this.__TrustStatus
         }
     }
@@ -46,8 +43,8 @@ class CERT_CHAIN_CONTEXT extends Win32Struct
      * @type {Integer}
      */
     cChain {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
@@ -55,8 +52,8 @@ class CERT_CHAIN_CONTEXT extends Win32Struct
      * @type {Pointer<Pointer<CERT_SIMPLE_CHAIN>>}
      */
     rgpChain {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -64,8 +61,8 @@ class CERT_CHAIN_CONTEXT extends Win32Struct
      * @type {Integer}
      */
     cLowerQualityChainContext {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -73,8 +70,8 @@ class CERT_CHAIN_CONTEXT extends Win32Struct
      * @type {Pointer<Pointer<CERT_CHAIN_CONTEXT>>}
      */
     rgpLowerQualityChainContext {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -82,8 +79,8 @@ class CERT_CHAIN_CONTEXT extends Win32Struct
      * @type {BOOL}
      */
     fHasRevocationFreshnessTime {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
@@ -91,8 +88,8 @@ class CERT_CHAIN_CONTEXT extends Win32Struct
      * @type {Integer}
      */
     dwRevocationFreshnessTime {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -100,8 +97,8 @@ class CERT_CHAIN_CONTEXT extends Win32Struct
      * @type {Integer}
      */
     dwCreateFlags {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -109,12 +106,12 @@ class CERT_CHAIN_CONTEXT extends Win32Struct
      * @type {Pointer<Guid>}
      */
     ChainId {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 72
+        this.cbSize := 64
     }
 }

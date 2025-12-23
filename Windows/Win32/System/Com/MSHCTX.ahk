@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the destination context, which is the process in which the unmarshaling is to be done.
- * @see https://docs.microsoft.com/windows/win32/api//wtypesbase/ne-wtypesbase-mshctx
+ * @see https://learn.microsoft.com/windows/win32/api/wtypesbase/ne-wtypesbase-mshctx
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class MSHCTX{
+class MSHCTX extends Win32Enum{
 
     /**
      * The unmarshaling process is local and has shared memory access with the marshaling process.

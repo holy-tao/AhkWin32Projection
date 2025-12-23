@@ -3,7 +3,7 @@
 
 /**
  * This topic applies only to Windows XP Service Pack 1 or later. The STREAMBUFFER_ATTRIBUTE structure describes an attribute on a stream buffer file.
- * @see https://docs.microsoft.com/windows/win32/api//sbe/ns-sbe-streambuffer_attribute
+ * @see https://learn.microsoft.com/windows/win32/api/sbe/ns-sbe-streambuffer_attribute
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

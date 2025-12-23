@@ -10,7 +10,7 @@ class SUB_Q_TRACK_ISRC extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 1
 
     /**
      * @type {SUB_Q_HEADER}

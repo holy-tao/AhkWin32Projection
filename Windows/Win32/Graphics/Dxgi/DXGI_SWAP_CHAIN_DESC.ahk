@@ -6,9 +6,8 @@
 #Include ..\..\Foundation\HWND.ahk
 
 /**
- * Describes a swap chain.
+ * Describes a swap chain. (DXGI_SWAP_CHAIN_DESC)
  * @remarks
- * 
  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiswapchain-getdesc">GetDesc</a> and <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-createswapchain">CreateSwapChain</a> methods.
  * 
  * In full-screen mode, there is a dedicated front buffer; in windowed mode, the desktop is the front buffer.
@@ -18,9 +17,7 @@
  * 
  * For performance information about flipping swap-chain buffers in full-screen application, 
  *       see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/d3d10-graphics-programming-guide-dxgi">Full-Screen Application Performance Hints</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi/ns-dxgi-dxgi_swap_chain_desc
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi/ns-dxgi-dxgi_swap_chain_desc
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
@@ -53,7 +50,7 @@ class DXGI_SWAP_CHAIN_DESC extends Win32Struct
     SampleDesc{
         get {
             if(!this.HasProp("__SampleDesc"))
-                this.__SampleDesc := DXGI_SAMPLE_DESC(32, this)
+                this.__SampleDesc := DXGI_SAMPLE_DESC(28, this)
             return this.__SampleDesc
         }
     }
@@ -66,8 +63,8 @@ class DXGI_SWAP_CHAIN_DESC extends Win32Struct
      * @type {Integer}
      */
     BufferUsage {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -77,8 +74,8 @@ class DXGI_SWAP_CHAIN_DESC extends Win32Struct
      * @type {Integer}
      */
     BufferCount {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**

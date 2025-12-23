@@ -7,7 +7,6 @@
 /**
  * The IFIMETRICS structure defines information for a given typeface that GDI can use.
  * @remarks
- * 
  * Additional information for a typeface can optionally be specified in the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-ifiextra">IFIEXTRA</a> structure.
  * 
  * A driver's <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvqueryfont">DrvQueryFont</a> routine fills out and returns an IFIMETRICS structure to GDI.
@@ -17,15 +16,13 @@
  * The coordinate system in the font/notional space is such that the y coordinate increases in an upward direction and the x coordinate increases to the right.
  * 
  * The IFIMETRICS structure's <b>Align</b> member causes it to be larger for x64 machines than for x32 machines, which has ramifications for binary font format files formatted according to this structure. Starting with Windows Server 2003 SP1, an additional, fixed-size structure has been added to Prntfont.h: <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/prntfont/ns-prntfont-_printifi32">PRINTIFI32</a>. The PRINTIFI32 structure is identical to the IFIMETRICS structure, except that it does not contain an <b>Align</b> member.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-ifimetrics
+ * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-ifimetrics
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
 class IFIMETRICS extends Win32Struct
 {
-    static sizeof => 200
+    static sizeof => 192
 
     static packingSize => 8
 
@@ -709,7 +706,7 @@ class IFIMETRICS extends Win32Struct
     panose{
         get {
             if(!this.HasProp("__panose"))
-                this.__panose := PANOSE(176, this)
+                this.__panose := PANOSE(172, this)
             return this.__panose
         }
     }
@@ -719,7 +716,7 @@ class IFIMETRICS extends Win32Struct
      * @type {Pointer<Void>}
      */
     Align {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
+        get => NumGet(this, 184, "ptr")
+        set => NumPut("ptr", value, this, 184)
     }
 }

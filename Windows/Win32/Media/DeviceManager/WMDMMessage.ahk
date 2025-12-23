@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * The WMDMMessage enumeration type defines message types and states.
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdmmessage
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
-class WMDMMessage{
+class WMDMMessage extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

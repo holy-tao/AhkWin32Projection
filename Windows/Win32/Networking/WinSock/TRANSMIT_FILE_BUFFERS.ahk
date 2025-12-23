@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The TRANSMIT_FILE_BUFFERS structure specifies data to be transmitted before and after file data during a TransmitFile function file transfer operation.
- * @see https://docs.microsoft.com/windows/win32/api//winsock/ns-winsock-transmit_file_buffers
+ * The TRANSMIT_FILE_BUFFERS structure (mswsock.h) specifies data to be transmitted before and after file data during a TransmitFile function file transfer operation.
+ * @see https://learn.microsoft.com/windows/win32/api/mswsock/ns-mswsock-transmit_file_buffers
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

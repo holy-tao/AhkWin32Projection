@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of a local policy for the File History feature. Each local policy has a numeric parameter associated with it.
  * @remarks
- * 
  * To retrieve the value of the numeric parameter for a local policy, use the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhconfigmgr-getlocalpolicy">IFhConfigMgr::GetLocalPolicy</a> method.
  * 
  * To set the value of the numeric parameter for the local policy, use the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhconfigmgr-setlocalpolicy">IFhConfigMgr::SetLocalPolicy</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fhcfg/ne-fhcfg-fh_local_policy_type
+ * @see https://learn.microsoft.com/windows/win32/api/fhcfg/ne-fhcfg-fh_local_policy_type
  * @namespace Windows.Win32.Storage.FileHistory
  * @version v4.0.30319
  */
-class FH_LOCAL_POLICY_TYPE{
+class FH_LOCAL_POLICY_TYPE extends Win32Enum{
 
     /**
      * This local policy specifies how frequently backups are to be performed for the current user. The numeric parameter contains the time, in seconds, from the end of one backup until the start of the next one. The default value of the numeric parameter for this policy is 3600 seconds (1 hour).

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the progress operations to receive notifications for.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicprogressoperation
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicprogressoperation
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICProgressOperation{
+class WICProgressOperation extends Win32Enum{
 
     /**
      * Receive copy pixel operation.

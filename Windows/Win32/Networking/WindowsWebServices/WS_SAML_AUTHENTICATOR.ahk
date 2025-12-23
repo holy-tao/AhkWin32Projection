@@ -3,7 +3,7 @@
 
 /**
  * The abstract base type for all SAML authenticators used on the server side to validate incoming SAML tokens.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_saml_authenticator
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_saml_authenticator
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

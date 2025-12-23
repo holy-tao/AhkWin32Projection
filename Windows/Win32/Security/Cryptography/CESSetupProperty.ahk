@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by the GetProperty and SetProperty methods on the ICertificateEnrollmentServerSetup interface to specify the type of property information to retrieve or set.
- * @see https://docs.microsoft.com/windows/win32/api//casetup/ne-casetup-cessetupproperty
+ * @see https://learn.microsoft.com/windows/win32/api/casetup/ne-casetup-cessetupproperty
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
-class CESSetupProperty{
+class CESSetupProperty extends Win32Enum{
 
     /**
      * The property value specifies whether the server context is <b>ApplicationPoolIdentity</b>.

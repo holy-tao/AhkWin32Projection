@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_BOOTP_IP_RANGE structure defines a suite of IPs for lease to BOOTP-specific clients.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_bootp_ip_range
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_bootp_ip_range
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

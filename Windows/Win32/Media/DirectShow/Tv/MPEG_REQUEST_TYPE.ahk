@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * The MPEG_REQUEST_TYPE enumeration type specifies a request for MPEG-2 data.
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ne-mpeg2structs-mpeg_request_type
+ * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ne-mpeg2structs-mpeg_request_type
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
-class MPEG_REQUEST_TYPE{
+class MPEG_REQUEST_TYPE extends Win32Enum{
 
     /**
      * Unknown request type. Do not use this value.

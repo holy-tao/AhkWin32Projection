@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains symbol server index information.
- * @see https://docs.microsoft.com/windows/win32/api//dbghelp/ns-dbghelp-symsrv_index_info
+ * The SYMSRV_INDEX_INFO structure (dbghelp.h) contains symbol server index information.
+ * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-symsrv_index_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  * @charset ANSI

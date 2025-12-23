@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a hardware message sent to the system message queue. This structure is used to store message information for the JournalPlaybackProc callback function.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-eventmsg
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-eventmsg
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

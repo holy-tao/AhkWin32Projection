@@ -2,13 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The WAVEFORMAT structure describes the format of waveform-audio data. Only format information common to all waveform-audio data formats is included in this structure. This structure has been superseded by the WAVEFORMATEX structure.
+ * The WAVEFORMAT structure describes the format of waveform-audio data. This structure has been superseded by the WAVEFORMATEX structure.
  * @remarks
- * 
  * For formats that require additional information, this structure is included as a member in another structure along with the additional information.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mmeapi/ns-mmeapi-waveformat
+ * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-waveformat
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

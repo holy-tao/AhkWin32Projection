@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the current progress status of a synchronization process. Used by ISyncMgrSyncCallback::ReportProgress.
- * @see https://docs.microsoft.com/windows/win32/api//syncmgr/ne-syncmgr-syncmgr_progress_status
+ * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ne-syncmgr-syncmgr_progress_status
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SYNCMGR_PROGRESS_STATUS{
+class SYNCMGR_PROGRESS_STATUS extends Win32Enum{
 
     /**
      * The progress status is currently being updated by the handler.

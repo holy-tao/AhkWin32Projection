@@ -3,9 +3,8 @@
 #Include .\IMAGE_LOAD_CONFIG_CODE_INTEGRITY.ahk
 
 /**
- * Contains the load configuration data of an image.
+ * Contains the load configuration data of an image. (32 bit)
  * @remarks
- * 
  * If <b>_WIN64</b> is defined, then <b>IMAGE_LOAD_CONFIG_DIRECTORY</b> is defined as <b>IMAGE_LOAD_CONFIG_DIRECTORY64</b>. However, if <b>_WIN64</b> is not defined,  then <b>IMAGE_LOAD_CONFIG_DIRECTORY</b> is defined as <b>IMAGE_LOAD_CONFIG_DIRECTORY32</b>. 
  * 
  * 
@@ -33,17 +32,15 @@
  *     DWORD   SEHandlerCount;
  * } IMAGE_LOAD_CONFIG_DIRECTORY32, *PIMAGE_LOAD_CONFIG_DIRECTORY32;
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-image_load_config_directory32
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_load_config_directory32
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */
 class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
 {
-    static sizeof => 200
+    static sizeof => 196
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The size of the structure. For Windows XP, the size must be specified as 64 for x86 images.
@@ -278,7 +275,7 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
     CodeIntegrity{
         get {
             if(!this.HasProp("__CodeIntegrity"))
-                this.__CodeIntegrity := IMAGE_LOAD_CONFIG_CODE_INTEGRITY(96, this)
+                this.__CodeIntegrity := IMAGE_LOAD_CONFIG_CODE_INTEGRITY(92, this)
             return this.__CodeIntegrity
         }
     }
@@ -288,6 +285,15 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
      * @type {Integer}
      */
     GuardAddressTakenIatEntryTable {
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    GuardAddressTakenIatEntryCount {
         get => NumGet(this, 108, "uint")
         set => NumPut("uint", value, this, 108)
     }
@@ -296,7 +302,7 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
      * 
      * @type {Integer}
      */
-    GuardAddressTakenIatEntryCount {
+    GuardLongJumpTargetTable {
         get => NumGet(this, 112, "uint")
         set => NumPut("uint", value, this, 112)
     }
@@ -305,7 +311,7 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
      * 
      * @type {Integer}
      */
-    GuardLongJumpTargetTable {
+    GuardLongJumpTargetCount {
         get => NumGet(this, 116, "uint")
         set => NumPut("uint", value, this, 116)
     }
@@ -314,7 +320,7 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
      * 
      * @type {Integer}
      */
-    GuardLongJumpTargetCount {
+    DynamicValueRelocTable {
         get => NumGet(this, 120, "uint")
         set => NumPut("uint", value, this, 120)
     }
@@ -323,7 +329,7 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
      * 
      * @type {Integer}
      */
-    DynamicValueRelocTable {
+    CHPEMetadataPointer {
         get => NumGet(this, 124, "uint")
         set => NumPut("uint", value, this, 124)
     }
@@ -332,7 +338,7 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
      * 
      * @type {Integer}
      */
-    CHPEMetadataPointer {
+    GuardRFFailureRoutine {
         get => NumGet(this, 128, "uint")
         set => NumPut("uint", value, this, 128)
     }
@@ -341,7 +347,7 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
      * 
      * @type {Integer}
      */
-    GuardRFFailureRoutine {
+    GuardRFFailureRoutineFunctionPointer {
         get => NumGet(this, 132, "uint")
         set => NumPut("uint", value, this, 132)
     }
@@ -350,7 +356,7 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
      * 
      * @type {Integer}
      */
-    GuardRFFailureRoutineFunctionPointer {
+    DynamicValueRelocTableOffset {
         get => NumGet(this, 136, "uint")
         set => NumPut("uint", value, this, 136)
     }
@@ -359,18 +365,9 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
      * 
      * @type {Integer}
      */
-    DynamicValueRelocTableOffset {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
-    }
-
-    /**
-     * 
-     * @type {Integer}
-     */
     DynamicValueRelocTableSection {
-        get => NumGet(this, 144, "ushort")
-        set => NumPut("ushort", value, this, 144)
+        get => NumGet(this, 140, "ushort")
+        set => NumPut("ushort", value, this, 140)
     }
 
     /**
@@ -378,8 +375,8 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
      * @type {Integer}
      */
     Reserved2 {
-        get => NumGet(this, 146, "ushort")
-        set => NumPut("ushort", value, this, 146)
+        get => NumGet(this, 142, "ushort")
+        set => NumPut("ushort", value, this, 142)
     }
 
     /**
@@ -387,6 +384,15 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
      * @type {Integer}
      */
     GuardRFVerifyStackPointerFunctionPointer {
+        get => NumGet(this, 144, "uint")
+        set => NumPut("uint", value, this, 144)
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    HotPatchTableOffset {
         get => NumGet(this, 148, "uint")
         set => NumPut("uint", value, this, 148)
     }
@@ -395,7 +401,7 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
      * 
      * @type {Integer}
      */
-    HotPatchTableOffset {
+    Reserved3 {
         get => NumGet(this, 152, "uint")
         set => NumPut("uint", value, this, 152)
     }
@@ -404,7 +410,7 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
      * 
      * @type {Integer}
      */
-    Reserved3 {
+    EnclaveConfigurationPointer {
         get => NumGet(this, 156, "uint")
         set => NumPut("uint", value, this, 156)
     }
@@ -413,16 +419,15 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
      * 
      * @type {Integer}
      */
-    EnclaveConfigurationPointer {
+    VolatileMetadataPointer {
         get => NumGet(this, 160, "uint")
         set => NumPut("uint", value, this, 160)
     }
 
     /**
-     * 
      * @type {Integer}
      */
-    VolatileMetadataPointer {
+    GuardEHContinuationTable {
         get => NumGet(this, 164, "uint")
         set => NumPut("uint", value, this, 164)
     }
@@ -430,7 +435,7 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
     /**
      * @type {Integer}
      */
-    GuardEHContinuationTable {
+    GuardEHContinuationCount {
         get => NumGet(this, 168, "uint")
         set => NumPut("uint", value, this, 168)
     }
@@ -438,7 +443,7 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
     /**
      * @type {Integer}
      */
-    GuardEHContinuationCount {
+    GuardXFGCheckFunctionPointer {
         get => NumGet(this, 172, "uint")
         set => NumPut("uint", value, this, 172)
     }
@@ -446,7 +451,7 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
     /**
      * @type {Integer}
      */
-    GuardXFGCheckFunctionPointer {
+    GuardXFGDispatchFunctionPointer {
         get => NumGet(this, 176, "uint")
         set => NumPut("uint", value, this, 176)
     }
@@ -454,7 +459,7 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
     /**
      * @type {Integer}
      */
-    GuardXFGDispatchFunctionPointer {
+    GuardXFGTableDispatchFunctionPointer {
         get => NumGet(this, 180, "uint")
         set => NumPut("uint", value, this, 180)
     }
@@ -462,7 +467,7 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
     /**
      * @type {Integer}
      */
-    GuardXFGTableDispatchFunctionPointer {
+    CastGuardOsDeterminedFailureMode {
         get => NumGet(this, 184, "uint")
         set => NumPut("uint", value, this, 184)
     }
@@ -470,7 +475,7 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
     /**
      * @type {Integer}
      */
-    CastGuardOsDeterminedFailureMode {
+    GuardMemcpyFunctionPointer {
         get => NumGet(this, 188, "uint")
         set => NumPut("uint", value, this, 188)
     }
@@ -478,16 +483,8 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
     /**
      * @type {Integer}
      */
-    GuardMemcpyFunctionPointer {
+    UmaFunctionPointers {
         get => NumGet(this, 192, "uint")
         set => NumPut("uint", value, this, 192)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    UmaFunctionPointers {
-        get => NumGet(this, 196, "uint")
-        set => NumPut("uint", value, this, 196)
     }
 }

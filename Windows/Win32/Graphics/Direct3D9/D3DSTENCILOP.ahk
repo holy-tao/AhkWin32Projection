@@ -1,12 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * Defines stencil-buffer operations.
+ * @remarks
+ * Stencil-buffer entries are integer values ranging from 0 through 2ⁿ - 1, where n is the bit depth of the stencil buffer.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dstencilop
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */
-class D3DSTENCILOP{
+class D3DSTENCILOP extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

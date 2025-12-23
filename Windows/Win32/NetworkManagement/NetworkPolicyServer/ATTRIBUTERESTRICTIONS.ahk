@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the ATTRIBUTERESTRICTIONS enumeration type specify restrictions on how a particular attribute can be used.
- * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-attributerestrictions
+ * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-attributerestrictions
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class ATTRIBUTERESTRICTIONS{
+class ATTRIBUTERESTRICTIONS extends Win32Enum{
 
     /**
      * Specifies whether the attribute is multivalued.

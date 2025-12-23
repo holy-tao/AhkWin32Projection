@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used to specify the geometric blend mode for all Direct2D primitives.
  * @remarks
- * 
  * <h3><a id="Blend_modes"></a><a id="blend_modes"></a><a id="BLEND_MODES"></a>Blend modes</h3>
  * For aliased rendering (except for MIN mode), the output value O is computed by linearly interpolating the value <i>blend(S, D)</i> with the destination pixel value, based on the amount that the primitive covers the destination pixel.
  *           
@@ -59,13 +59,11 @@
  * 
  * <img alt="An illustration of Direct2D primitive blend modes with varying opacity and backgrounds." src="./images/PrimBlendDemo.png"/>
  * An illustration of the primitive blend modes with varying opacity and backgrounds.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/ne-d2d1_1-d2d1_primitive_blend
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ne-d2d1_1-d2d1_primitive_blend
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_PRIMITIVE_BLEND{
+class D2D1_PRIMITIVE_BLEND extends Win32Enum{
 
     /**
      * The standard source-over-destination blend mode.

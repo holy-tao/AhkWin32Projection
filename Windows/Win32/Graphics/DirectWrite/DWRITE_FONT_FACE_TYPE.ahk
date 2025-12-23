@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the file format of a complete font face.
  * @remarks
- * 
  * Font formats that consist of multiple files, such as Type 1 .PFM and .PFB, have a single enum entry.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_font_face_type
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_face_type
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_FONT_FACE_TYPE{
+class DWRITE_FONT_FACE_TYPE extends Win32Enum{
 
     /**
      * OpenType font face with CFF outlines.

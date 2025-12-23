@@ -4,7 +4,7 @@
 
 /**
  * This structure is used to specify a set of constraints for a particular request security token property. Any property constraints that are not specified will use the default constraints.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_request_security_token_property_constraint
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_request_security_token_property_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -15,7 +15,7 @@ class WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT extends Win32Struct
     static packingSize => 8
 
     class _out extends Win32Struct {
-        static sizeof => 48
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -46,7 +46,7 @@ class WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT extends Win32Struct
      *                         of <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_trust_version">WS_TRUST_VERSION_FEBRUARY_2005</a> will be used.
      *                     
      * 
-     * Currently only <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_trust_version">WS_TRUST_VERSION_FEBRUARY_2005</a>is supported in policy, so a property constraint containing the
+     * Currently only <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_trust_version">WS_TRUST_VERSION_FEBRUARY_2005</a> is supported in policy, so a property constraint containing the
      *                         value <b>WS_TRUST_VERSION_FEBRUARY_2005</b> must be specified in
      *                         order for the policy to match.
      *                     

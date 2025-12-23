@@ -3,7 +3,7 @@
 
 /**
  * Used with the CryptMsgGetParam function to get information on a key transport, key agreement, or mail list envelope message recipient.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmsg_cms_recipient_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_cms_recipient_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

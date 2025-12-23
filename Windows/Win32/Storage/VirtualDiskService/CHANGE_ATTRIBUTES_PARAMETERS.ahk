@@ -2,15 +2,12 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Defines the partition parameters of a partition style.
+ * Defines the partition parameters of a partition style. (CHANGE_ATTRIBUTES_PARAMETERS)
  * @remarks
- * 
  * The 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsadvanceddisk-changeattributes">IVdsAdvancedDisk::ChangeAttributes</a> 
  *     method takes this structure as a parameter.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-change_attributes_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-change_attributes_parameters
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -31,8 +28,8 @@ class CHANGE_ATTRIBUTES_PARAMETERS extends Win32Struct
     }
 
     class _MbrPartInfo extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * @type {BOOLEAN}

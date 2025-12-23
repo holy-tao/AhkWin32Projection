@@ -7,14 +7,14 @@
 #Include .\IPSEC_TRAFFIC_STATISTICS0.ahk
 
 /**
- * Is the top-level of the IPsec statistics structures.
- * @see https://docs.microsoft.com/windows/win32/api//ipsectypes/ns-ipsectypes-ipsec_statistics0
+ * Is the top-level of the IPsec statistics structures. (IPSEC_STATISTICS0)
+ * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_statistics0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
 class IPSEC_STATISTICS0 extends Win32Struct
 {
-    static sizeof => 208
+    static sizeof => 200
 
     static packingSize => 8
 
@@ -37,7 +37,7 @@ class IPSEC_STATISTICS0 extends Win32Struct
     espDropPacketStatistics{
         get {
             if(!this.HasProp("__espDropPacketStatistics"))
-                this.__espDropPacketStatistics := IPSEC_ESP_DROP_PACKET_STATISTICS0(32, this)
+                this.__espDropPacketStatistics := IPSEC_ESP_DROP_PACKET_STATISTICS0(28, this)
             return this.__espDropPacketStatistics
         }
     }
@@ -49,7 +49,7 @@ class IPSEC_STATISTICS0 extends Win32Struct
     ahDropPacketStatistics{
         get {
             if(!this.HasProp("__ahDropPacketStatistics"))
-                this.__ahDropPacketStatistics := IPSEC_AH_DROP_PACKET_STATISTICS0(56, this)
+                this.__ahDropPacketStatistics := IPSEC_AH_DROP_PACKET_STATISTICS0(48, this)
             return this.__ahDropPacketStatistics
         }
     }
@@ -61,7 +61,7 @@ class IPSEC_STATISTICS0 extends Win32Struct
     aggregateDropPacketStatistics{
         get {
             if(!this.HasProp("__aggregateDropPacketStatistics"))
-                this.__aggregateDropPacketStatistics := IPSEC_AGGREGATE_DROP_PACKET_STATISTICS0(72, this)
+                this.__aggregateDropPacketStatistics := IPSEC_AGGREGATE_DROP_PACKET_STATISTICS0(64, this)
             return this.__aggregateDropPacketStatistics
         }
     }
@@ -73,7 +73,7 @@ class IPSEC_STATISTICS0 extends Win32Struct
     inboundTrafficStatistics{
         get {
             if(!this.HasProp("__inboundTrafficStatistics"))
-                this.__inboundTrafficStatistics := IPSEC_TRAFFIC_STATISTICS0(112, this)
+                this.__inboundTrafficStatistics := IPSEC_TRAFFIC_STATISTICS0(104, this)
             return this.__inboundTrafficStatistics
         }
     }
@@ -85,7 +85,7 @@ class IPSEC_STATISTICS0 extends Win32Struct
     outboundTrafficStatistics{
         get {
             if(!this.HasProp("__outboundTrafficStatistics"))
-                this.__outboundTrafficStatistics := IPSEC_TRAFFIC_STATISTICS0(160, this)
+                this.__outboundTrafficStatistics := IPSEC_TRAFFIC_STATISTICS0(152, this)
             return this.__outboundTrafficStatistics
         }
     }

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Information about a mapping between an WS_ENDPOINT_ADDRESSand an XML element.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_endpoint_address_description
+ * Information about a mapping between a WS_ENDPOINT_ADDRESS and an XML element.
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_endpoint_address_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

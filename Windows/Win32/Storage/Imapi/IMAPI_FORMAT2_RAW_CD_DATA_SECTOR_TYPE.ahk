@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values that indicate the type of sub-channel data.
  * @remarks
- * 
  * For details on the format of the sub-channel data, see Sub-Channel Field Formats in the latest release of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/ne-imapi2-imapi_format2_raw_cd_data_sector_type
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_format2_raw_cd_data_sector_type
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
-class IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE{
+class IMAPI_FORMAT2_RAW_CD_DATA_SECTOR_TYPE extends Win32Enum{
 
     /**
      * The data contains P and Q sub-channel data.

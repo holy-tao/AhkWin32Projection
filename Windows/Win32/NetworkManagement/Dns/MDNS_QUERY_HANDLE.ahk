@@ -4,11 +4,8 @@
 /**
  * Contains information related to an ongoing MDNS query. Your application must not modify its contents.
  * @remarks
- * 
  * This structure is for internal use only.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-mdns_query_handle
+ * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-mdns_query_handle
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

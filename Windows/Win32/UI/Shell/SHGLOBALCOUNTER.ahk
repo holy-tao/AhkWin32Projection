@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifiers for various global counters, or shared variables. Each global counter can be incremented or decremented using SHGlobalCounterIncrement and SHGlobalCounterDecrement.
  * @remarks
- * 
  * These global counters are shared variables that can help identify whether the state of a Windows component has changed over time. They can be used with these functions: <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shglobalcounterdecrement">SHGlobalCounterDecrement</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shglobalcounterincrement">SHGlobalCounterIncrement</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shglobalcountergetvalue">SHGlobalCounterGetValue</a>.
  * 
  * <h3><a id="Example"></a><a id="example"></a><a id="EXAMPLE"></a>Example</h3>
@@ -33,13 +33,11 @@
  *         }
  *     }
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shlwapi/ne-shlwapi-shglobalcounter
+ * @see https://learn.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-shglobalcounter
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SHGLOBALCOUNTER{
+class SHGLOBALCOUNTER extends Win32Enum{
 
     /**
      * The global counter for use with the <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nn-searchapi-isearchmanager">ISearchManager</a>.

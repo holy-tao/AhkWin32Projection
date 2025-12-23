@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of EAP packet types.
- * @see https://docs.microsoft.com/windows/win32/api//eapmethodtypes/ne-eapmethodtypes-eapcode
+ * @see https://learn.microsoft.com/windows/win32/api/eapmethodtypes/ne-eapmethodtypes-eapcode
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */
-class EapCode{
+class EapCode extends Win32Enum{
 
     /**
      * The lowest possible value for an EAP packet type code.

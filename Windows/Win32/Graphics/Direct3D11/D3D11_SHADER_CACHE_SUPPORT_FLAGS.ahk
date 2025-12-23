@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Describes the level of support for shader caching in the current graphics driver.
+ * Describes the level of support for shader caching in the current graphics driver. (D3D11_SHADER_CACHE_SUPPORT_FLAGS)
  * @remarks
- * 
  * This enum is used by the [D3D11_FEATURE_DATA_SHADER_CACHE](./ns-d3d11-d3d11_feature_data_shader_cache.md) structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_shader_cache_support_flags
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_shader_cache_support_flags
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_SHADER_CACHE_SUPPORT_FLAGS{
+class D3D11_SHADER_CACHE_SUPPORT_FLAGS extends Win32Enum{
 
     /**
      * Indicates that the driver does not support shader caching.

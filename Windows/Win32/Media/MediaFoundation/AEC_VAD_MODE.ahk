@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of voice activity detection (VAD) for the voice capture DSP. This enumeration is used with the MFPKEY_WMAAECMA_FEATR_VAD property.
- * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/ne-wmcodecdsp-aec_vad_mode
+ * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/ne-wmcodecdsp-aec_vad_mode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class AEC_VAD_MODE{
+class AEC_VAD_MODE extends Win32Enum{
 
     /**
      * Voice activity detection is disabled.

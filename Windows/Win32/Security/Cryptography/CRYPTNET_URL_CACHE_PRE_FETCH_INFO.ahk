@@ -4,7 +4,7 @@
 
 /**
  * Contains update information used by the Cryptnet URL Cache (CUC) service to maintain a URL cache entry.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cryptnet_url_cache_pre_fetch_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cryptnet_url_cache_pre_fetch_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
@@ -12,7 +12,7 @@ class CRYPTNET_URL_CACHE_PRE_FETCH_INFO extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The size, in bytes, of this structure.

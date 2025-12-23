@@ -4,7 +4,6 @@
 /**
  * Describes a CPU descriptor handle.
  * @remarks
- * 
  * This structure is returned by the following methods:
  *         
  * 
@@ -58,10 +57,8 @@
  * </li>
  * </ul>
  * 
- * To get the handle increment size use <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/getdescriptorhandleincrementsize">ID3D12Device.GetDescriptorHandleIncrementSize</a>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_cpu_descriptor_handle
+ * To get the handle increment size use <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-getdescriptorhandleincrementsize">ID3D12Device.GetDescriptorHandleIncrementSize</a>
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_cpu_descriptor_handle
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

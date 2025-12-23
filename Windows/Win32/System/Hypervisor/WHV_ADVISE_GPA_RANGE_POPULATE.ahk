@@ -8,9 +8,9 @@
  */
 class WHV_ADVISE_GPA_RANGE_POPULATE extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS}

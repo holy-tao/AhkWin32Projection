@@ -8,9 +8,9 @@
  */
 class NDIS_PNP_CAPABILITIES extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class NDIS_PNP_CAPABILITIES extends Win32Struct
     WakeUpCapabilities{
         get {
             if(!this.HasProp("__WakeUpCapabilities"))
-                this.__WakeUpCapabilities := NDIS_PM_WAKE_UP_CAPABILITIES(8, this)
+                this.__WakeUpCapabilities := NDIS_PM_WAKE_UP_CAPABILITIES(4, this)
             return this.__WakeUpCapabilities
         }
     }

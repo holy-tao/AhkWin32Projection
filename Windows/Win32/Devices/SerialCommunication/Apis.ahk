@@ -444,6 +444,12 @@ class SerialCommunication {
 ;@region Methods
     /**
      * ComDBOpen returns a handle to the COM port database.
+     * @remarks
+     * To close the COM port database, call <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbclose">ComDBClose</a> and supply the handle that was returned by <b>ComDBOpen</b>.
+     * 
+     * <b>ComDBOpen</b> is called from user mode.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/previous-versions/ff546481(v=vs.85)">Opening and Closing the COM Port Database</a>.
      * @param {Pointer<HCOMDB>} PHComDB Pointer, if the routine succeeds, to a handle to the COM port database. Otherwise, the routine sets <i>*PHComDB</i> to <b>HCOMDB_INVALID_HANDLE_VALUE</b>. <i>PHComDB</i> must be non-NULL.
      * @returns {Integer} <b>ComDBOpen</b> returns one of the following status values.
      * 
@@ -475,7 +481,7 @@ class SerialCommunication {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msports/nf-msports-comdbopen
+     * @see https://learn.microsoft.com/windows/win32/api/msports/nf-msports-comdbopen
      */
     static ComDBOpen(PHComDB) {
         result := DllCall("MSPORTS.dll\ComDBOpen", "ptr", PHComDB, "int")
@@ -484,6 +490,12 @@ class SerialCommunication {
 
     /**
      * ComDBClose closes a handle to the COM port database.
+     * @remarks
+     * To open the COM port database, call <b>ComDBOpen</b>.
+     * 
+     * <b>ComDBOpen</b> is called from user mode.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/previous-versions/ff546481(v=vs.85)">Opening and Closing the COM Port Database</a>.
      * @param {HCOMDB} HComDB Handle to the COM port database that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
      * @returns {Integer} <b>ComDBClose</b> returns one of the following status values.
      * 
@@ -515,7 +527,7 @@ class SerialCommunication {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msports/nf-msports-comdbclose
+     * @see https://learn.microsoft.com/windows/win32/api/msports/nf-msports-comdbclose
      */
     static ComDBClose(HComDB) {
         HComDB := HComDB is Win32Handle ? NumGet(HComDB, "ptr") : HComDB
@@ -526,8 +538,24 @@ class SerialCommunication {
 
     /**
      * ComDBGetCurrentPortUsage returns information about the COM port numbers that are currently logged as &quot;in use&quot; in the COM port database.
+     * @remarks
+     * By setting <i>Buffer</i> to <b>NULL</b> and <i>MaxPortsReported</i> to a valid pointer, a caller can determine the current COM port database size, which is the number of COM port numbers that are currently arbitrated in the database. In this case, the routine sets *<i>MaxPortsReported</i> to the database size. <i>ReportType</i> is not used. 
+     * 
+     * If <i>Buffer</i> is non-<b>NULL</b> and <i>ReportType</i> is valid, the routine does the following:
+     * 
+     * <ul>
+     * <li>
+     * If <i>ReportType</i> is CDB_REPORT_BITS, the routine returns a bit array that specifies port number usage. Each bit in the output buffer corresponds to a port number. Using a zero-based index, bit zero of byte zero at <i>Buffer</i> corresponds to COM1, bit 1 corresponds to COM2, and so on. A bit value of 1 indicates that the port number is in use and a value of zero indicates the port number is not in use. The number of port numbers for which the routine returns usage information is the minimum of the current database size and the number of bits in the buffer (<i>BufferSize</i>*8). If <i>MaxPortsReported</i> is non-<b>NULL</b>, the routine also sets *<i>MaxPortsReported</i> to the number of port numbers for which the routine returns usage information. If BufferSize is zero, no port usage information is returned and *<i>MaxPortsReported</i> is set to zero.
+     * 
+     * </li>
+     * <li>
+     * If <i>ReportType</i> is CDB_REPORT_BYTES, the routine returns a byte array that specifies port number usage. Each byte in the returned information corresponds to a different port number. Using a zero-based index, byte zero at <i>Buffer</i> corresponds to COM1, byte 1 corresponds to COM2, and so on. A byte value of 1 indicates the port number is in use and a value of zero indicates the port number is not in use. The number of port numbers for which the routine returns usage information is the minimum of the current database size and <i>BufferSize</i>. The routine does not set *<i>MaxPortsReported</i>. If <i>BufferSize</i> is zero, no port usage information is returned.
+     * 
+     * </li>
+     * </ul>
+     * <b>ComDBGetCurrentPortUsage</b> runs in user mode.
      * @param {HCOMDB} HComDB Handle to the COM port database that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
-     * @param {Pointer} Buffer Pointer to a caller-allocated buffer in which the routine returns information about COM port number. See the Remarks section for more information.
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferSize Specifies the size, in bytes, of a caller-allocated buffer at <i>Buffer</i>.
      * @param {Integer} ReportType Specifies one of the following flags.
      * 
@@ -599,19 +627,25 @@ class SerialCommunication {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msports/nf-msports-comdbgetcurrentportusage
+     * @see https://learn.microsoft.com/windows/win32/api/msports/nf-msports-comdbgetcurrentportusage
      */
-    static ComDBGetCurrentPortUsage(HComDB, Buffer, BufferSize, ReportType, MaxPortsReported) {
+    static ComDBGetCurrentPortUsage(HComDB, Buffer_R, BufferSize, ReportType, MaxPortsReported) {
         HComDB := HComDB is Win32Handle ? NumGet(HComDB, "ptr") : HComDB
 
         MaxPortsReportedMarshal := MaxPortsReported is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MSPORTS.dll\ComDBGetCurrentPortUsage", "ptr", HComDB, "ptr", Buffer, "uint", BufferSize, "uint", ReportType, MaxPortsReportedMarshal, MaxPortsReported, "int")
+        result := DllCall("MSPORTS.dll\ComDBGetCurrentPortUsage", "ptr", HComDB, "ptr", Buffer_R, "uint", BufferSize, "uint", ReportType, MaxPortsReportedMarshal, MaxPortsReported, "int")
         return result
     }
 
     /**
      * ComDBClaimNextFreePort returns the lowest COM port number that is not already in use.
+     * @remarks
+     * <i>Claiming</i> a COM port number in the COM port database logs the port number as "in use". Note that the database does not contain information about the caller or device that claims a port number.
+     * 
+     * <b>ComDBClaimNextFreePort</b> runs in user mode.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/previous-versions/ff546481(v=vs.85)">Obtaining and Releasing a COM Port Number</a>.
      * @param {HCOMDB} HComDB Handle to the COM port database that is returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
      * @param {Pointer<Integer>} ComNumber Pointer to the COM port number that the routine returns to the caller. This pointer must be non-NULL. A port number is an integer that ranges from 1 to COMDB_MAX_PORTS_ARBITRATED.
      * @returns {Integer} <b>ComDBClaimNextFreePort</b> returns one of the following status values.
@@ -688,7 +722,7 @@ class SerialCommunication {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msports/nf-msports-comdbclaimnextfreeport
+     * @see https://learn.microsoft.com/windows/win32/api/msports/nf-msports-comdbclaimnextfreeport
      */
     static ComDBClaimNextFreePort(HComDB, ComNumber) {
         HComDB := HComDB is Win32Handle ? NumGet(HComDB, "ptr") : HComDB
@@ -701,6 +735,12 @@ class SerialCommunication {
 
     /**
      * ComDBClaimPort logs an unused COM port number as &quot;in use&quot; in the COM port database.
+     * @remarks
+     * <i>Claiming</i> a COM port number in the COM port database logs the port number as "in use". Note that the database does not contain information about the caller or device that claims a port number.
+     * 
+     * <b>ComDBClaimPort</b> runs in user mode.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/previous-versions/ff546481(v=vs.85)">Obtaining and Releasing a COM Port Number</a>.
      * @param {HCOMDB} HComDB Handle to the COM port database that is returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
      * @param {Integer} ComNumber Specifies which COM port number the caller attempts to claim. A port number is an integer that can range from 1 to COMDB_MAX_PORTS_ARBITRATED.
      * @param {BOOL} ForceClaim Reserved for internal use only.
@@ -779,7 +819,7 @@ class SerialCommunication {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msports/nf-msports-comdbclaimport
+     * @see https://learn.microsoft.com/windows/win32/api/msports/nf-msports-comdbclaimport
      */
     static ComDBClaimPort(HComDB, ComNumber, ForceClaim, Forced) {
         HComDB := HComDB is Win32Handle ? NumGet(HComDB, "ptr") : HComDB
@@ -792,6 +832,12 @@ class SerialCommunication {
 
     /**
      * ComDBReleasePort releases a COM port number in the COM port database.
+     * @remarks
+     * <i>Releasing</i> a COM port number means to log the port number as "not in use".
+     * 
+     * <b>ComDBReleasePort</b> runs in user mode.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/previous-versions/ff546481(v=vs.85)">Obtaining and Releasing a COM Port Number</a>.
      * @param {HCOMDB} HComDB Handle to the COM port database that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
      * @param {Integer} ComNumber Specifies the COM port number to release. A port number is an integer that ranges from one to COMDB_MAX_PORTS_ARBITRATED.
      * @returns {Integer} <b>ComDBReleasePort</b> returns one of the following status values.
@@ -846,7 +892,7 @@ class SerialCommunication {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msports/nf-msports-comdbreleaseport
+     * @see https://learn.microsoft.com/windows/win32/api/msports/nf-msports-comdbreleaseport
      */
     static ComDBReleasePort(HComDB, ComNumber) {
         HComDB := HComDB is Win32Handle ? NumGet(HComDB, "ptr") : HComDB
@@ -857,6 +903,12 @@ class SerialCommunication {
 
     /**
      * ComDBResizeDatabase resizes the COM port database.
+     * @remarks
+     * Use <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbgetcurrentportusage">ComDBGetCurrentPortUsage</a> to obtain the current database size.
+     * 
+     * <b>ComDBResizeDatabase</b> runs in user mode.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/previous-versions/ff546481(v=vs.85)">Resizing the COM Port Database</a>.
      * @param {HCOMDB} HComDB Handle to the COM port database that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
      * @param {Integer} NewSize Specifies a new size for the COM port database, where the database size is the number of port numbers currently arbitrated in the database. This value must be an integer multiple of 1024, must be greater than the current size, and must be less than or equal to COMDB_MAX_PORTS_ARBITRATED.
      * @returns {Integer} <b>ComDBResizeDatabase</b> returns one of the following status values.
@@ -922,7 +974,7 @@ class SerialCommunication {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msports/nf-msports-comdbresizedatabase
+     * @see https://learn.microsoft.com/windows/win32/api/msports/nf-msports-comdbresizedatabase
      */
     static ComDBResizeDatabase(HComDB, NewSize) {
         HComDB := HComDB is Win32Handle ? NumGet(HComDB, "ptr") : HComDB

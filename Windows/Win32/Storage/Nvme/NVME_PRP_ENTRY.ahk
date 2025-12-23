@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains fields that specify the Page Base Address and Offset (PBAO) of a pointer to a physical memory page.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_prp_entry
  * @namespace Windows.Win32.Storage.Nvme
@@ -41,6 +43,7 @@ class NVME_PRP_ENTRY extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     AsUlonglong {

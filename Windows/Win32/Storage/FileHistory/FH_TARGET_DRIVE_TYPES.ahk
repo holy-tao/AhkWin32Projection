@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of a File History backup target.
- * @see https://docs.microsoft.com/windows/win32/api//fhcfg/ne-fhcfg-fh_target_drive_types
+ * @see https://learn.microsoft.com/windows/win32/api/fhcfg/ne-fhcfg-fh_target_drive_types
  * @namespace Windows.Win32.Storage.FileHistory
  * @version v4.0.30319
  */
-class FH_TARGET_DRIVE_TYPES{
+class FH_TARGET_DRIVE_TYPES extends Win32Enum{
 
     /**
      * The type of the backup target is unknown.

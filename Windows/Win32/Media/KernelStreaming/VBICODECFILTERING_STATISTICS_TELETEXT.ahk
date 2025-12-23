@@ -10,7 +10,7 @@ class VBICODECFILTERING_STATISTICS_TELETEXT extends Win32Struct
 {
     static sizeof => 56
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {VBICODECFILTERING_STATISTICS_COMMON}

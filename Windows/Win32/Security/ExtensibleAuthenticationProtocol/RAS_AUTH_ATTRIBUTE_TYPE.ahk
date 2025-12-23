@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The RAS_AUTH_ATTRIBUTE_TYPE enumerated type specifies attribute values used for session authentication.
- * @see https://docs.microsoft.com/windows/win32/api//raseapif/ne-raseapif-ras_auth_attribute_type
+ * @see https://learn.microsoft.com/windows/win32/api/raseapif/ne-raseapif-ras_auth_attribute_type
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */
-class RAS_AUTH_ATTRIBUTE_TYPE{
+class RAS_AUTH_ATTRIBUTE_TYPE extends Win32Enum{
 
     /**
      * Specifies a value equal to zero, and used as the <b>NULL</b> terminator in any array of 
@@ -363,7 +364,7 @@ class RAS_AUTH_ATTRIBUTE_TYPE{
 
     /**
      * Specifies, to the accounting provider, how the user was authenticated; for example by Windows 2000 Directory Services, RADIUS, or some other authentication provider. The value field in 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/raseapif/ns-raseapif-ras_auth_attribute">RAS_AUTH_ATTRIBUTE</a>for this type is a 32-bit integral value. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/raseapif/ns-raseapif-ras_auth_attribute">RAS_AUTH_ATTRIBUTE</a> for this type is a 32-bit integral value. For more information, see 
      * <a href="https://www.ietf.org/rfc/rfc2866.txt">RFC 2866</a>.
      * @type {Integer (Int32)}
      */

@@ -6,11 +6,8 @@
 /**
  * Contains logon information used in network logons.
  * @remarks
- * 
  * If the <b>UserName</b>, <b>CaseSensitiveChallengeResponse</b>, and <b>CaseInsensitiveChallengeResponse</b> members all contain zero-length strings, an anonymous token will be generated for the logon. This anonymous token gives the user no ability to access protected system resources but does allow access to nonprotected system resources. The server uses this method to support a <b>NULL</b> session.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-msv1_0_lm20_logon
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-msv1_0_lm20_logon
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

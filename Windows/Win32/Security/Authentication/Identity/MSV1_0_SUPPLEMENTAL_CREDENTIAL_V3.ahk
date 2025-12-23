@@ -8,9 +8,9 @@
  */
 class MSV1_0_SUPPLEMENTAL_CREDENTIAL_V3 extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 68
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -53,7 +53,7 @@ class MSV1_0_SUPPLEMENTAL_CREDENTIAL_V3 extends Win32Struct
     CredentialKey{
         get {
             if(!this.HasProp("__CredentialKey"))
-                this.__CredentialKey := MSV1_0_CREDENTIAL_KEY(32, this)
+                this.__CredentialKey := MSV1_0_CREDENTIAL_KEY(28, this)
             return this.__CredentialKey
         }
     }
@@ -64,7 +64,7 @@ class MSV1_0_SUPPLEMENTAL_CREDENTIAL_V3 extends Win32Struct
     ShaPassword{
         get {
             if(!this.HasProp("__ShaPasswordProxyArray"))
-                this.__ShaPasswordProxyArray := Win32FixedArray(this.ptr + 52, 20, Primitive, "char")
+                this.__ShaPasswordProxyArray := Win32FixedArray(this.ptr + 48, 20, Primitive, "char")
             return this.__ShaPasswordProxyArray
         }
     }

@@ -5,15 +5,15 @@
 
 /**
  * Describes the baseline and the midline height.
- * @see https://docs.microsoft.com/windows/win32/api//rectypes/ns-rectypes-lattice_metrics
+ * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-lattice_metrics
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
 class LATTICE_METRICS extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-line_segment">LINE_SEGMENT</a> structure containing the start and end point of the baseline, in ink coordinates.

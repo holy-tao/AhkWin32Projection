@@ -4,7 +4,7 @@
 
 /**
  * Represents information about a NUMA node in a processor group. This structure is used with the GetLogicalProcessorInformationEx function.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-numa_node_relationship
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-numa_node_relationship
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  */

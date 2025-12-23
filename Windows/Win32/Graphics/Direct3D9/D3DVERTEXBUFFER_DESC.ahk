@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Describes a vertex buffer.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dvertexbuffer-desc
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
@@ -14,6 +14,10 @@ class D3DVERTEXBUFFER_DESC extends Win32Struct
     static packingSize => 4
 
     /**
+     * Type: **[D3DFORMAT](d3dformat.md)**
+     * 
+     * 
+     * Member of the [D3DFORMAT](d3dformat.md) enumerated type, describing the surface format of the vertex buffer data.
      * @type {Integer}
      */
     Format {
@@ -22,6 +26,10 @@ class D3DVERTEXBUFFER_DESC extends Win32Struct
     }
 
     /**
+     * Type: **[**D3DRESOURCETYPE**](./d3dresourcetype.md)**
+     * 
+     * 
+     * Member of the [**D3DRESOURCETYPE**](./d3dresourcetype.md) enumerated type, identifying this resource as a vertex buffer.
      * @type {Integer}
      */
     Type {
@@ -30,6 +38,10 @@ class D3DVERTEXBUFFER_DESC extends Win32Struct
     }
 
     /**
+     * Type: **[**DWORD**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Combination of one or more [**D3DUSAGE**](d3dusage.md) flags.
      * @type {Integer}
      */
     Usage {
@@ -38,6 +50,10 @@ class D3DVERTEXBUFFER_DESC extends Win32Struct
     }
 
     /**
+     * Type: **[**D3DPOOL**](./d3dpool.md)**
+     * 
+     * 
+     * Member of the [**D3DPOOL**](./d3dpool.md) enumerated type, specifying the class of memory allocated for this vertex buffer.
      * @type {Integer}
      */
     Pool {
@@ -46,6 +62,10 @@ class D3DVERTEXBUFFER_DESC extends Win32Struct
     }
 
     /**
+     * Type: **[**UINT**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Size of the vertex buffer, in bytes.
      * @type {Integer}
      */
     Size {
@@ -54,6 +74,10 @@ class D3DVERTEXBUFFER_DESC extends Win32Struct
     }
 
     /**
+     * Type: **[**DWORD**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Combination of [D3DFVF](d3dfvf.md) that describes the vertex format of the vertices in this buffer.
      * @type {Integer}
      */
     FVF {

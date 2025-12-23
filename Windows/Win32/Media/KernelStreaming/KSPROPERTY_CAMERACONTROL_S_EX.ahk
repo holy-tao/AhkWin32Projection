@@ -54,7 +54,7 @@ class KSPROPERTY_CAMERACONTROL_S_EX extends Win32Struct
     FocusRect{
         get {
             if(!this.HasProp("__FocusRect"))
-                this.__FocusRect := RECT(32, this)
+                this.__FocusRect := RECT(28, this)
             return this.__FocusRect
         }
     }

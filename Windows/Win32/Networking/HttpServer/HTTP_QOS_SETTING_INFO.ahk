@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a QOS setting.
- * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_qos_setting_info
+ * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_qos_setting_info
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * This structure is used to specify a set of constraints for a particular security property. Any property constraints that are not specified will use the default constraints.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_security_property_constraint
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_property_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -15,7 +15,7 @@ class WS_SECURITY_PROPERTY_CONSTRAINT extends Win32Struct
     static packingSize => 8
 
     class _out extends Win32Struct {
-        static sizeof => 48
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -82,7 +82,7 @@ class WS_SECURITY_PROPERTY_CONSTRAINT extends Win32Struct
      * If this property is not specified, then the default constraint value
      *                         of <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_protection_level">WS_PROTECTION_LEVEL_SIGN_AND_ENCRYPT</a> will be used.
      *                     
-     * <b>WS_SECURITY_PROPERTY_SECURITY_HEADER_LAYOUT</b>This property constraint may be specified when any
+     * <b>WS_SECURITY_PROPERTY_SECURITY_HEADER_LAYOUT</b> This property constraint may be specified when any
      *                         of the following security bindings are specified:
      *                     
      * 

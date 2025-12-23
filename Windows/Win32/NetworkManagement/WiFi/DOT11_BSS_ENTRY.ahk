@@ -8,7 +8,7 @@
  */
 class DOT11_BSS_ENTRY extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -26,7 +26,7 @@ class DOT11_BSS_ENTRY extends Win32Struct
     PhySpecificInfo{
         get {
             if(!this.HasProp("__PhySpecificInfo"))
-                this.__PhySpecificInfo := DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO(8, this)
+                this.__PhySpecificInfo := DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO(4, this)
             return this.__PhySpecificInfo
         }
     }
@@ -37,7 +37,7 @@ class DOT11_BSS_ENTRY extends Win32Struct
     dot11BSSID{
         get {
             if(!this.HasProp("__dot11BSSIDProxyArray"))
-                this.__dot11BSSIDProxyArray := Win32FixedArray(this.ptr + 32, 6, Primitive, "char")
+                this.__dot11BSSIDProxyArray := Win32FixedArray(this.ptr + 20, 6, Primitive, "char")
             return this.__dot11BSSIDProxyArray
         }
     }
@@ -46,46 +46,54 @@ class DOT11_BSS_ENTRY extends Win32Struct
      * @type {Integer}
      */
     dot11BSSType {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
      * @type {Integer}
      */
     lRSSI {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     uLinkQuality {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
      * @type {BOOLEAN}
      */
     bInRegDomain {
-        get => NumGet(this, 52, "char")
-        set => NumPut("char", value, this, 52)
+        get => NumGet(this, 40, "char")
+        set => NumPut("char", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     usBeaconPeriod {
-        get => NumGet(this, 54, "ushort")
-        set => NumPut("ushort", value, this, 54)
+        get => NumGet(this, 42, "ushort")
+        set => NumPut("ushort", value, this, 42)
     }
 
     /**
      * @type {Integer}
      */
     ullTimestamp {
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ullHostTimestamp {
         get => NumGet(this, 56, "uint")
         set => NumPut("uint", value, this, 56)
     }
@@ -93,25 +101,17 @@ class DOT11_BSS_ENTRY extends Win32Struct
     /**
      * @type {Integer}
      */
-    ullHostTimestamp {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
     usCapabilityInformation {
-        get => NumGet(this, 72, "ushort")
-        set => NumPut("ushort", value, this, 72)
+        get => NumGet(this, 64, "ushort")
+        set => NumPut("ushort", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     uBufferLength {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 
     /**
@@ -120,7 +120,7 @@ class DOT11_BSS_ENTRY extends Win32Struct
     ucBuffer{
         get {
             if(!this.HasProp("__ucBufferProxyArray"))
-                this.__ucBufferProxyArray := Win32FixedArray(this.ptr + 80, 1, Primitive, "char")
+                this.__ucBufferProxyArray := Win32FixedArray(this.ptr + 72, 1, Primitive, "char")
             return this.__ucBufferProxyArray
         }
     }

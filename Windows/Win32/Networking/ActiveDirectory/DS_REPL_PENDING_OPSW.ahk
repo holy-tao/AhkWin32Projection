@@ -5,7 +5,7 @@
 
 /**
  * Contains an array of DS_REPL_OP structures, which in turn describe the replication tasks currently executing and queued to execute, as returned by the DsReplicaGetInfo and DsReplicaGetInfo2 functions.
- * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/ns-ntdsapi-ds_repl_pending_opsw
+ * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_pending_opsw
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

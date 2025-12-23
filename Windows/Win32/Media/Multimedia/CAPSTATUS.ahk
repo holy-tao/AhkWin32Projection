@@ -6,17 +6,14 @@
 /**
  * The CAPSTATUS structure defines the current state of the capture window.
  * @remarks
- * 
- * Because the state of a capture window changes in response to various messages, an application should update the information in this structure whenever it needs to enable menu items, determine the actual state of the capture window, or call the video format dialog box. If the application yields during streaming capture, this structure returns the progress of the capture in the <b>dwCurrentVideoFrame</b>, <b>dwCurrentVideoFramesDropped</b>, dwCurre<b></b>ntWaveSamples, and <b>dwCurrentTimeElapsedMS</b> members. Use the <a href="https://docs.microsoft.com/windows/desktop/Multimedia/wm-cap-get-status">WM_CAP_GET_STATUS</a> message or <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-capgetstatus">capGetStatus</a> macro to update the contents of this structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vfw/ns-vfw-capstatus
+ * Because the state of a capture window changes in response to various messages, an application should update the information in this structure whenever it needs to enable menu items, determine the actual state of the capture window, or call the video format dialog box. If the application yields during streaming capture, this structure returns the progress of the capture in the <b>dwCurrentVideoFrame</b>, <b>dwCurrentVideoFramesDropped</b>, <b>dwCurrentWaveSamples</b>, and <b>dwCurrentTimeElapsedMS</b> members. Use the <a href="https://docs.microsoft.com/windows/desktop/Multimedia/wm-cap-get-status">WM_CAP_GET_STATUS</a> message or <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-capgetstatus">capGetStatus</a> macro to update the contents of this structure.
+ * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-capstatus
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */
 class CAPSTATUS extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -72,7 +69,7 @@ class CAPSTATUS extends Win32Struct
     ptScroll{
         get {
             if(!this.HasProp("__ptScroll"))
-                this.__ptScroll := POINT(24, this)
+                this.__ptScroll := POINT(20, this)
             return this.__ptScroll
         }
     }
@@ -82,8 +79,8 @@ class CAPSTATUS extends Win32Struct
      * @type {BOOL}
      */
     fUsingDefaultPalette {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -91,8 +88,8 @@ class CAPSTATUS extends Win32Struct
      * @type {BOOL}
      */
     fAudioHardware {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
@@ -100,8 +97,8 @@ class CAPSTATUS extends Win32Struct
      * @type {BOOL}
      */
     fCapFileExists {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
@@ -109,8 +106,8 @@ class CAPSTATUS extends Win32Struct
      * @type {Integer}
      */
     dwCurrentVideoFrame {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -118,8 +115,8 @@ class CAPSTATUS extends Win32Struct
      * @type {Integer}
      */
     dwCurrentVideoFramesDropped {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -127,8 +124,8 @@ class CAPSTATUS extends Win32Struct
      * @type {Integer}
      */
     dwCurrentWaveSamples {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -136,8 +133,8 @@ class CAPSTATUS extends Win32Struct
      * @type {Integer}
      */
     dwCurrentTimeElapsedMS {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
@@ -147,7 +144,7 @@ class CAPSTATUS extends Win32Struct
     hPalCurrent{
         get {
             if(!this.HasProp("__hPalCurrent"))
-                this.__hPalCurrent := HPALETTE(64, this)
+                this.__hPalCurrent := HPALETTE(56, this)
             return this.__hPalCurrent
         }
     }
@@ -157,8 +154,8 @@ class CAPSTATUS extends Win32Struct
      * @type {BOOL}
      */
     fCapturingNow {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
     }
 
     /**
@@ -166,8 +163,8 @@ class CAPSTATUS extends Win32Struct
      * @type {Integer}
      */
     dwReturn {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 
     /**
@@ -175,8 +172,8 @@ class CAPSTATUS extends Win32Struct
      * @type {Integer}
      */
     wNumVideoAllocated {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -184,7 +181,7 @@ class CAPSTATUS extends Win32Struct
      * @type {Integer}
      */
     wNumAudioAllocated {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
+        get => NumGet(this, 76, "uint")
+        set => NumPut("uint", value, this, 76)
     }
 }

@@ -10,7 +10,7 @@ class VBICODECFILTERING_STATISTICS_CC_PIN extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {VBICODECFILTERING_STATISTICS_COMMON_PIN}

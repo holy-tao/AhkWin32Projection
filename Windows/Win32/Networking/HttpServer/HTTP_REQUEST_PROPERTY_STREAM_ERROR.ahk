@@ -3,7 +3,7 @@
 
 /**
  * The HTTP_REQUEST_PROPERTY_STREAM_ERROR structure represents an HTTP/2 or HTTP/3 stream error code.
- * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_request_property_stream_error
+ * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_request_property_stream_error
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

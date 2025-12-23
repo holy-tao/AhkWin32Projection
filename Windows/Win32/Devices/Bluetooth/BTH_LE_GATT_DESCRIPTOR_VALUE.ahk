@@ -4,7 +4,7 @@
 
 /**
  * The BTH_LE_GATT_DESCRIPTOR_VALUE structure describes a parent characteristic.
- * @see https://docs.microsoft.com/windows/win32/api//bthledef/ns-bthledef-bth_le_gatt_descriptor_value
+ * @see https://learn.microsoft.com/windows/win32/api/bthledef/ns-bthledef-bth_le_gatt_descriptor_value
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */
@@ -36,8 +36,8 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
     }
 
     class _CharacteristicExtendedProperties extends Win32Struct {
-        static sizeof => 48
-        static packingSize => 8
+        static sizeof => 2
+        static packingSize => 1
 
         /**
          * @type {BOOLEAN}
@@ -58,8 +58,8 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
     }
 
     class _ClientCharacteristicConfiguration extends Win32Struct {
-        static sizeof => 48
-        static packingSize => 8
+        static sizeof => 2
+        static packingSize => 1
 
         /**
          * @type {BOOLEAN}
@@ -80,8 +80,8 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
     }
 
     class _ServerCharacteristicConfiguration extends Win32Struct {
-        static sizeof => 48
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * @type {BOOLEAN}

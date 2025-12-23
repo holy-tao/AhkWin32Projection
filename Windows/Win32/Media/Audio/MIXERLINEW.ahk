@@ -2,13 +2,11 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The MIXERLINE structure describes the state and metrics of an audio line.
+ * The MIXERLINE structure describes the state and metrics of an audio line. (MIXERLINEW)
  * @remarks
- * 
  * > [!NOTE]
  * > The mmeapi.h header defines MIXERLINE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mmeapi/ns-mmeapi-mixerlinew
+ * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-mixerlinew
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  * @charset Unicode
@@ -20,8 +18,8 @@ class MIXERLINEW extends Win32Struct
     static packingSize => 8
 
     class _Target extends Win32Struct {
-        static sizeof => 288
-        static packingSize => 8
+        static sizeof => 80
+        static packingSize => 4
 
         /**
          * @type {Integer}

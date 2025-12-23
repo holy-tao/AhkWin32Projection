@@ -2,7 +2,7 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * A vector of 4 FLOAT values (x, y, z, w).
  * @see https://learn.microsoft.com/windows/win32/api/dcommon/ns-dcommon-d2d_vector_4f
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
@@ -14,6 +14,7 @@ class D2D_VECTOR_4F extends Win32Struct
     static packingSize => 4
 
     /**
+     * The x value of the vector.
      * @type {Float}
      */
     x {
@@ -22,6 +23,7 @@ class D2D_VECTOR_4F extends Win32Struct
     }
 
     /**
+     * The y value of the vector.
      * @type {Float}
      */
     y {
@@ -30,6 +32,7 @@ class D2D_VECTOR_4F extends Win32Struct
     }
 
     /**
+     * The z value of the vector.
      * @type {Float}
      */
     z {
@@ -38,6 +41,7 @@ class D2D_VECTOR_4F extends Win32Struct
     }
 
     /**
+     * The w value of the vector.
      * @type {Float}
      */
     w {

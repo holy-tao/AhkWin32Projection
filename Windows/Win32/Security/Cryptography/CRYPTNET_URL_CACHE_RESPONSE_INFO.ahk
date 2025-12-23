@@ -5,7 +5,6 @@
 /**
  * Contains response information used by the Cryptnet URL Cache (CUC) service to maintain a URL cache entry.
  * @remarks
- * 
  * If not specified in the HTTP response headers, the cache service sets the values of the <b>LastModifiedTime</b>, <b>dwMaxAge</b>, <b>pwszETag</b>, and <b>dwProxyId</b> members to zero.
  * 
  * The cache service only allows a strong <b>ETag</b> in the <b>pwszETag</b> member.
@@ -22,8 +21,7 @@
  * <td>0x8000</td>
  * </tr>
  * </table>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cryptnet_url_cache_response_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cryptnet_url_cache_response_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

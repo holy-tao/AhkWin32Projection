@@ -3,7 +3,7 @@
 
 /**
  * Specifies the service metadata documents array. This can be a collection of WSDL/XSD documents represented as an array of WS_STRING.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_service_metadata
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_service_metadata
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

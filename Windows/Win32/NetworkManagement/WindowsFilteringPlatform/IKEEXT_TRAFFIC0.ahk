@@ -4,11 +4,8 @@
 /**
  * Specifies the IKE/Authip traffic.
  * @remarks
- * 
  * <b>IKEEXT_TRAFFIC0</b> is a specific implementation of IKEEXT_TRAFFIC. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iketypes/ns-iketypes-ikeext_traffic0
+ * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_traffic0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
@@ -31,8 +28,8 @@ class IKEEXT_TRAFFIC0 extends Win32Struct
      * @type {Integer}
      */
     localV4Address {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
@@ -41,7 +38,7 @@ class IKEEXT_TRAFFIC0 extends Win32Struct
     localV6Address{
         get {
             if(!this.HasProp("__localV6AddressProxyArray"))
-                this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
+                this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
             return this.__localV6AddressProxyArray
         }
     }
@@ -50,8 +47,8 @@ class IKEEXT_TRAFFIC0 extends Win32Struct
      * @type {Integer}
      */
     remoteV4Address {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -60,7 +57,7 @@ class IKEEXT_TRAFFIC0 extends Win32Struct
     remoteV6Address{
         get {
             if(!this.HasProp("__remoteV6AddressProxyArray"))
-                this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 24, 16, Primitive, "char")
+                this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 20, 16, Primitive, "char")
             return this.__remoteV6AddressProxyArray
         }
     }

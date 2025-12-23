@@ -3,7 +3,7 @@
 
 /**
  * The USER_INFO_1009 structure contains the path for a user's logon script file. This information level is valid only when you call the NetUserSetInfo function.
- * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-user_info_1009
+ * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_1009
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains disk block reassignment data.
+ * Contains disk block reassignment data. (REASSIGN_BLOCKS)
  * @remarks
- * 
  * The <b>REASSIGN_BLOCKS</b> structure only supports 
  *     drives where the Logical Block Address (LBA) is a 4-byte value (typically up to 2 TB). 
  * 
@@ -17,9 +16,7 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_disk_reassign_blocks">IOCTL_DISK_REASSIGN_BLOCKS</a> control code and 
  *     <b>REASSIGN_BLOCKS</b> structure should be used where 
  *     possible.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-reassign_blocks
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-reassign_blocks
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

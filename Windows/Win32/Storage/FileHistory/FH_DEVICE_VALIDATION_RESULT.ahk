@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates whether the storage device or network share can be used as a File History backup target.
- * @see https://docs.microsoft.com/windows/win32/api//fhcfg/ne-fhcfg-fh_device_validation_result
+ * @see https://learn.microsoft.com/windows/win32/api/fhcfg/ne-fhcfg-fh_device_validation_result
  * @namespace Windows.Win32.Storage.FileHistory
  * @version v4.0.30319
  */
-class FH_DEVICE_VALIDATION_RESULT{
+class FH_DEVICE_VALIDATION_RESULT extends Win32Enum{
 
     /**
      * The storage device or network share cannot be used as a backup target, because it is not accessible.

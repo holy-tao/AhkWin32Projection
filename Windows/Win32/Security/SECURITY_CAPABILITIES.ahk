@@ -3,7 +3,7 @@
 
 /**
  * Defines the security capabilities of the app container.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-security_capabilities
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-security_capabilities
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

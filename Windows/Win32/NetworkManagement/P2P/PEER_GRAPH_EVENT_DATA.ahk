@@ -9,7 +9,7 @@
 
 /**
  * The PEER_GRAPH_EVENT_DATA structure contains data associated with a peer event.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_graph_event_data
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_graph_event_data
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
@@ -21,7 +21,7 @@ class PEER_GRAPH_EVENT_DATA extends Win32Struct
 
     /**
      * The type of peer event this data corresponds to. Must be one of the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_graph_event_type">PEER_GRAPH_EVENT_TYPE</a> values. The members that remain are given values based on the peer event type that has occurred.  Not all members contain data.
-     * @deprecated
+     * @deprecated 
      * @type {Integer}
      */
     eventType {
@@ -30,7 +30,7 @@ class PEER_GRAPH_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {Integer}
      */
     dwStatus {
@@ -39,7 +39,7 @@ class PEER_GRAPH_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_INCOMING_DATA}
      */
     incomingData{
@@ -51,7 +51,7 @@ class PEER_GRAPH_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_RECORD_CHANGE_DATA}
      */
     recordChangeData{
@@ -63,7 +63,7 @@ class PEER_GRAPH_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_CONNECTION_CHANGE_DATA}
      */
     connectionChangeData{
@@ -75,7 +75,7 @@ class PEER_GRAPH_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_NODE_CHANGE_DATA}
      */
     nodeChangeData{
@@ -87,7 +87,7 @@ class PEER_GRAPH_EVENT_DATA extends Win32Struct
     }
 
     /**
-     * @deprecated
+     * @deprecated 
      * @type {PEER_EVENT_SYNCHRONIZED_DATA}
      */
     synchronizedData{

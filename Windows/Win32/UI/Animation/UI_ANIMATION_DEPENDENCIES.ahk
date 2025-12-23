@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines which aspects of an interpolator depend on a given input.
  * @remarks
- * 
  * Multiple <b>UI_ANIMATION_DEPENDENCIES</b> values can be combined using a bitwise-OR operation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uianimation/ne-uianimation-ui_animation_dependencies
+ * @see https://learn.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_dependencies
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319
  */
-class UI_ANIMATION_DEPENDENCIES{
+class UI_ANIMATION_DEPENDENCIES extends Win32BitflagEnum{
 
     /**
      * No aspect depends on the input.

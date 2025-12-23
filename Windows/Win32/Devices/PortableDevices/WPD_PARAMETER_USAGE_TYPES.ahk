@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * The WPD\_PARAMETER\_USAGE\_TYPES enumeration type describes how a method parameter is used in a given method.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-parameter-usage-types
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */
-class WPD_PARAMETER_USAGE_TYPES{
+class WPD_PARAMETER_USAGE_TYPES extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

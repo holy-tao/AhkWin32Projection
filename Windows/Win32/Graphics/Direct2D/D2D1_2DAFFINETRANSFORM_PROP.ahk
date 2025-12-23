@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifiers for properties of the 2D affine transform effect.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effects/ne-d2d1effects-d2d1_2daffinetransform_prop
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_2daffinetransform_prop
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_2DAFFINETRANSFORM_PROP{
+class D2D1_2DAFFINETRANSFORM_PROP extends Win32Enum{
 
     /**
      * The interpolation mode used to scale the image. There are 6 scale modes that range in quality and speed.

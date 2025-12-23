@@ -2,23 +2,20 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Specifies parameters to describe IPsec traffic.
+ * Specifies parameters to describe IPsec traffic. (IPSEC_TRAFFIC1)
  * @remarks
- * 
  * The <b>IPSEC_TRAFFIC1</b> type describes the characteristics of the traffic that will match the SA. 
  * 
  * For IPsec transport mode, the <b>localV*Address</b> and  <b>remoteV*Address</b> members specify the IP addresses. The <b>ipsecFilterId</b> member specifies (as part of the transport layer filter conditions) the transport protocol information (such as IP protocol, ports, etc), of the matching traffic. However, if the <b>localPort</b>, <b>remotePort</b>, or <b>ipProtocol</b> member is nonzero, its value will override the corresponding value specified in the transport layer filter. 
  * 
  * For IPsec tunnel mode, the <b>localV*Address</b> and  <b>remoteV*Address</b> members specify the outer IP header tunnel endpoints. The <b>tunnelPolicyId</b> member specifies (as part of the filter conditions specified via <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmipsectunneladd1">FwpmIPsecTunnelAdd1</a>) the inner IP header addresses and transport protocol information of the matching traffic. The <b>localPort</b>, <b>remotePort</b>, and <b>ipProtocol</b> members should not be specified for tunnel mode.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ipsectypes/ns-ipsectypes-ipsec_traffic1
+ * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_traffic1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
 class IPSEC_TRAFFIC1 extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -35,8 +32,8 @@ class IPSEC_TRAFFIC1 extends Win32Struct
      * @type {Integer}
      */
     localV4Address {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
@@ -45,7 +42,7 @@ class IPSEC_TRAFFIC1 extends Win32Struct
     localV6Address{
         get {
             if(!this.HasProp("__localV6AddressProxyArray"))
-                this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
+                this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
             return this.__localV6AddressProxyArray
         }
     }
@@ -54,8 +51,8 @@ class IPSEC_TRAFFIC1 extends Win32Struct
      * @type {Integer}
      */
     remoteV4Address {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -64,7 +61,7 @@ class IPSEC_TRAFFIC1 extends Win32Struct
     remoteV6Address{
         get {
             if(!this.HasProp("__remoteV6AddressProxyArray"))
-                this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 24, 16, Primitive, "char")
+                this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 20, 16, Primitive, "char")
             return this.__remoteV6AddressProxyArray
         }
     }
@@ -76,24 +73,24 @@ class IPSEC_TRAFFIC1 extends Win32Struct
      * @type {Integer}
      */
     trafficType {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
      * @type {Integer}
      */
     ipsecFilterId {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     tunnelPolicyId {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -102,8 +99,8 @@ class IPSEC_TRAFFIC1 extends Win32Struct
      * @type {Integer}
      */
     remotePort {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
+        get => NumGet(this, 48, "ushort")
+        set => NumPut("ushort", value, this, 48)
     }
 
     /**
@@ -112,8 +109,8 @@ class IPSEC_TRAFFIC1 extends Win32Struct
      * @type {Integer}
      */
     localPort {
-        get => NumGet(this, 58, "ushort")
-        set => NumPut("ushort", value, this, 58)
+        get => NumGet(this, 50, "ushort")
+        set => NumPut("ushort", value, this, 50)
     }
 
     /**
@@ -122,8 +119,8 @@ class IPSEC_TRAFFIC1 extends Win32Struct
      * @type {Integer}
      */
     ipProtocol {
-        get => NumGet(this, 60, "char")
-        set => NumPut("char", value, this, 60)
+        get => NumGet(this, 52, "char")
+        set => NumPut("char", value, this, 52)
     }
 
     /**
@@ -131,8 +128,8 @@ class IPSEC_TRAFFIC1 extends Win32Struct
      * @type {Integer}
      */
     localIfLuid {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -140,7 +137,7 @@ class IPSEC_TRAFFIC1 extends Win32Struct
      * @type {Integer}
      */
     realIfProfileId {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 }

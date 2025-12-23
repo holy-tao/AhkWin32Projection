@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Specifies the type of app container creation events for which notifications will be delivered.
- * @see https://docs.microsoft.com/windows/win32/api//networkisolation/ne-networkisolation-inet_firewall_ac_creation_type
+ * The INET_FIREWALL_AC_CREATION_TYPE enumeration specifies the type of app container creation events for which notifications will be delivered.
+ * @see https://learn.microsoft.com/windows/win32/api/netfw/ne-netfw-inet_firewall_ac_creation_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
-class INET_FIREWALL_AC_CREATION_TYPE{
+class INET_FIREWALL_AC_CREATION_TYPE extends Win32Enum{
 
     /**
      * This value is reserved for system use.

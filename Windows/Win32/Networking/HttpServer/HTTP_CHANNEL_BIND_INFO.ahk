@@ -4,15 +4,13 @@
 /**
  * HTTP_CHANNEL_BIND_INFO.
  * @remarks
- * 
  * <div class="alert"><b>Note</b>  <p class="note">This structure is used to set server session or URL group properties by passing it to <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserversessionproperty">HttpSetServerSessionProperty</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpseturlgroupproperty">HttpSetUrlGroupProperty</a>.
  * 
  * <p class="note">The <b>HTTP_CHANNEL_BIND_INFO</b> structure is also returned when server session or URL group properties are queried
  * 
  * </div>
  * <div> </div>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_channel_bind_info
+ * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_channel_bind_info
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

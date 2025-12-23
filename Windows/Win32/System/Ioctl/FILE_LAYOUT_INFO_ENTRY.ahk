@@ -12,7 +12,7 @@ class FILE_LAYOUT_INFO_ENTRY extends Win32Struct
     static packingSize => 8
 
     class _BasicInformation extends Win32Struct {
-        static sizeof => 64
+        static sizeof => 40
         static packingSize => 8
 
         /**

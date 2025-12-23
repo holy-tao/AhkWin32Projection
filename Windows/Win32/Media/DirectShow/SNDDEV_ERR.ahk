@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how the audio device was being accessed when the failure occurred.
- * @see https://docs.microsoft.com/windows/win32/api//audevcod/ne-audevcod-snddev_err
+ * @see https://learn.microsoft.com/windows/win32/api/audevcod/ne-audevcod-snddev_err
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class SNDDEV_ERR{
+class SNDDEV_ERR extends Win32Enum{
 
     /**
      * The audio device attempted to open.

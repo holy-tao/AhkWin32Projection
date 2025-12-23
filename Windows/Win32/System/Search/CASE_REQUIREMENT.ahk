@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the case requirements of keywords, if any, for a query.
  * @remarks
- * 
  * Keywords include Boolean operators such as AND, NOT, and OR.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//structuredquery/ne-structuredquery-case_requirement
+ * @see https://learn.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-case_requirement
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
-class CASE_REQUIREMENT{
+class CASE_REQUIREMENT extends Win32Enum{
 
     /**
      * Keywords are recognized regardless of case.

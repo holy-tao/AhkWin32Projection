@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a network logon session.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-msv1_0_lm20_logon_profile
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-msv1_0_lm20_logon_profile
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

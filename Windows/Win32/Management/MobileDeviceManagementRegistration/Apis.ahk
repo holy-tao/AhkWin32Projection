@@ -348,16 +348,19 @@ class MobileDeviceManagementRegistration {
 ;@region Methods
     /**
      * Retrieves the device registration information.
+     * @remarks
+     * The caller of this function must be running as an elevated process.
      * @param {Integer} DeviceInformationClass Contains the maximum length that can be returned through the <i>pszHyperlink</i> 
      *       parameter.
      * @returns {Pointer<Void>} Details of the device registration.
-     * @see https://docs.microsoft.com/windows/win32/api//mdmregistration/nf-mdmregistration-getdeviceregistrationinfo
+     * @see https://learn.microsoft.com/windows/win32/api/mdmregistration/nf-mdmregistration-getdeviceregistrationinfo
      * @since windows8.1
      */
     static GetDeviceRegistrationInfo(DeviceInformationClass) {
         result := DllCall("MDMRegistration.dll\GetDeviceRegistrationInfo", "int", DeviceInformationClass, "ptr*", &ppDeviceRegistrationInfo := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppDeviceRegistrationInfo
     }
@@ -372,29 +375,33 @@ class MobileDeviceManagementRegistration {
      *       <i>pfIsDeviceRegisteredWithManagement</i> parameter is updated to indicate whether the device 
      *       is registered and the function returns <b>ERROR_SUCCESS</b>.
      * @returns {BOOL} Address of a <b>BOOL</b> indicates whether the device is registered.
-     * @see https://docs.microsoft.com/windows/win32/api//mdmregistration/nf-mdmregistration-isdeviceregisteredwithmanagement
+     * @see https://learn.microsoft.com/windows/win32/api/mdmregistration/nf-mdmregistration-isdeviceregisteredwithmanagement
      * @since windows8.1
      */
     static IsDeviceRegisteredWithManagement(cchUPN, pszUPN) {
         pszUPN := pszUPN is String ? StrPtr(pszUPN) : pszUPN
 
         result := DllCall("MDMRegistration.dll\IsDeviceRegisteredWithManagement", "int*", &pfIsDeviceRegisteredWithManagement := 0, "uint", cchUPN, "ptr", pszUPN, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfIsDeviceRegisteredWithManagement
     }
 
     /**
      * Checks whether MDM registration is allowed by local policy.
+     * @remarks
+     * The caller of this function must be running as an elevated process.
      * @returns {BOOL} Address of a <b>BOOL</b> that receives a value indication whether registration is allowed.
-     * @see https://docs.microsoft.com/windows/win32/api//mdmregistration/nf-mdmregistration-ismanagementregistrationallowed
+     * @see https://learn.microsoft.com/windows/win32/api/mdmregistration/nf-mdmregistration-ismanagementregistrationallowed
      * @since windows8.1
      */
     static IsManagementRegistrationAllowed() {
         result := DllCall("MDMRegistration.dll\IsManagementRegistrationAllowed", "int*", &pfIsManagementRegistrationAllowed := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return pfIsManagementRegistrationAllowed
     }
@@ -405,64 +412,74 @@ class MobileDeviceManagementRegistration {
      */
     static IsMdmUxWithoutAadAllowed() {
         result := DllCall("MDMRegistration.dll\IsMdmUxWithoutAadAllowed", "int*", &isEnrollmentAllowed := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return isEnrollmentAllowed
     }
 
     /**
      * Indicates to the MDM agent that the device is managed externally and is not to be registered with an MDM service.
+     * @remarks
+     * The caller of this function must be running as an elevated process.
      * @param {BOOL} IsManagedExternally If <b>TRUE</b> this device is not to be registered with an MDM service. If 
      *       <b>FALSE</b> this device can be registered with an MDM service.
      * @returns {HRESULT} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. If the function fails, the returned value describes the error. Possible 
      *       values include those listed at 
-     *       <a href="/windows/desktop/MDMReg/mdm-registration-constants">MDM Registration Error Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mdmregistration/nf-mdmregistration-setmanagedexternally
+     *       <a href="https://docs.microsoft.com/windows/desktop/MDMReg/mdm-registration-constants">MDM Registration Error Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mdmregistration/nf-mdmregistration-setmanagedexternally
      * @since windows8.1
      */
     static SetManagedExternally(IsManagedExternally) {
         result := DllCall("MDMRegistration.dll\SetManagedExternally", "int", IsManagedExternally, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Discovers the MDM service.
+     * @remarks
+     * The caller of this function must be running as an elevated process.
      * @param {PWSTR} pszUPN Address of a <b>NULL</b>-terminated Unicode string containing the user principal name 
      *       (UPN) of the user requesting registration.
      * @returns {Pointer<MANAGEMENT_SERVICE_INFO>} Address of a <a href="https://docs.microsoft.com/windows/win32/api/mdmregistration/ns-mdmregistration-management_service_info">MANAGEMENT_SERVICE_INFO</a> 
      *       structure that contains pointers to the URIs of the management and authentication services.
-     * @see https://docs.microsoft.com/windows/win32/api//mdmregistration/nf-mdmregistration-discovermanagementservice
+     * @see https://learn.microsoft.com/windows/win32/api/mdmregistration/nf-mdmregistration-discovermanagementservice
      * @since windows8.1
      */
     static DiscoverManagementService(pszUPN) {
         pszUPN := pszUPN is String ? StrPtr(pszUPN) : pszUPN
 
         result := DllCall("MDMRegistration.dll\DiscoverManagementService", "ptr", pszUPN, "ptr*", &ppMgmtInfo := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppMgmtInfo
     }
 
     /**
      * Registers a device with a MDM service, using Azure Active Directory (AAD) credentials.
+     * @remarks
+     * The caller of this function must be running as an elevated process.
      * @param {HANDLE} UserToken The User to impersonate when attempting to get AAD token
      * @returns {HRESULT} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. If the function fails, the returned value describes the error. Possible 
      *       values include those listed at 
-     *       <a href="/windows/desktop/MDMReg/mdm-registration-constants">MDM Registration Error Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mdmregistration/nf-mdmregistration-registerdevicewithmanagementusingaadcredentials
+     *       <a href="https://docs.microsoft.com/windows/desktop/MDMReg/mdm-registration-constants">MDM Registration Error Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mdmregistration/nf-mdmregistration-registerdevicewithmanagementusingaadcredentials
      * @since windows8.1
      */
     static RegisterDeviceWithManagementUsingAADCredentials(UserToken) {
         UserToken := UserToken is Win32Handle ? NumGet(UserToken, "ptr") : UserToken
 
         result := DllCall("MDMRegistration.dll\RegisterDeviceWithManagementUsingAADCredentials", "ptr", UserToken, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -471,14 +488,15 @@ class MobileDeviceManagementRegistration {
      * Registers a device with a MDM service, using Azure Active Directory (AAD) device credentials.
      * @returns {HRESULT} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. If the function fails, the returned value describes the error. Possible 
      *       values include those listed at 
-     *       <a href="/windows/desktop/MDMReg/mdm-registration-constants">MDM Registration Error Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mdmregistration/nf-mdmregistration-registerdevicewithmanagementusingaaddevicecredentials
+     *       <a href="https://docs.microsoft.com/windows/desktop/MDMReg/mdm-registration-constants">MDM Registration Error Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mdmregistration/nf-mdmregistration-registerdevicewithmanagementusingaaddevicecredentials
      * @since windows8.1
      */
     static RegisterDeviceWithManagementUsingAADDeviceCredentials() {
         result := DllCall("MDMRegistration.dll\RegisterDeviceWithManagementUsingAADDeviceCredentials", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -492,14 +510,17 @@ class MobileDeviceManagementRegistration {
         MDMApplicationID := MDMApplicationID is String ? StrPtr(MDMApplicationID) : MDMApplicationID
 
         result := DllCall("MDMRegistration.dll\RegisterDeviceWithManagementUsingAADDeviceCredentials2", "ptr", MDMApplicationID, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Registers a device with a MDM service, using the [MS-MDE]:\_Mobile Device Enrollment Protocol.
+     * @remarks
+     * The caller of this function must be running as an elevated process.
      * @param {PWSTR} pszUPN Address of a <b>NULL</b>-terminated Unicode string containing the user principal name 
      *       (UPN) of the user requesting the registration.
      * 
@@ -510,8 +531,8 @@ class MobileDeviceManagementRegistration {
      *       a Secure Token Service which the management service will use to validate the user.
      * @returns {HRESULT} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. If the function fails, the returned value describes the error. Possible 
      *       values include those listed at 
-     *       <a href="/windows/desktop/MDMReg/mdm-registration-constants">MDM Registration Error Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mdmregistration/nf-mdmregistration-registerdevicewithmanagement
+     *       <a href="https://docs.microsoft.com/windows/desktop/MDMReg/mdm-registration-constants">MDM Registration Error Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mdmregistration/nf-mdmregistration-registerdevicewithmanagement
      * @since windows8.1
      */
     static RegisterDeviceWithManagement(pszUPN, ppszMDMServiceUri, ppzsAccessToken) {
@@ -520,28 +541,32 @@ class MobileDeviceManagementRegistration {
         ppzsAccessToken := ppzsAccessToken is String ? StrPtr(ppzsAccessToken) : ppzsAccessToken
 
         result := DllCall("MDMRegistration.dll\RegisterDeviceWithManagement", "ptr", pszUPN, "ptr", ppszMDMServiceUri, "ptr", ppzsAccessToken, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Unregisters a device with the MDM service.
+     * @remarks
+     * The caller of this function must be running as an elevated process.
      * @param {PWSTR} enrollmentID 
      * @returns {HRESULT} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. If the function 
      *       fails, the returned value describes the error. Possible 
      *       values include those listed at 
-     *       <a href="/windows/desktop/MDMReg/mdm-registration-constants">MDM Registration Error Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mdmregistration/nf-mdmregistration-unregisterdevicewithmanagement
+     *       <a href="https://docs.microsoft.com/windows/desktop/MDMReg/mdm-registration-constants">MDM Registration Error Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mdmregistration/nf-mdmregistration-unregisterdevicewithmanagement
      * @since windows8.1
      */
     static UnregisterDeviceWithManagement(enrollmentID) {
         enrollmentID := enrollmentID is String ? StrPtr(enrollmentID) : enrollmentID
 
         result := DllCall("MDMRegistration.dll\UnregisterDeviceWithManagement", "ptr", enrollmentID, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -562,7 +587,7 @@ class MobileDeviceManagementRegistration {
      * @returns {HRESULT} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
      * 
      * If the function succeeds, it returns **S_OK**. Otherwise, it returns an [**HRESULT**](/windows/win32/com/structure-of-com-error-codes) [error code](/windows/desktop/com/com-error-codes-10).
-     * @see https://docs.microsoft.com/windows/win32/api//mdmregistration/nf-mdmregistration-getdevicemanagementconfiginfo
+     * @see https://learn.microsoft.com/windows/win32/api/mdmregistration/nf-mdmregistration-getdevicemanagementconfiginfo
      */
     static GetDeviceManagementConfigInfo(providerID, configStringBufferLength, configString) {
         providerID := providerID is String ? StrPtr(providerID) : providerID
@@ -571,8 +596,9 @@ class MobileDeviceManagementRegistration {
         configStringBufferLengthMarshal := configStringBufferLength is VarRef ? "uint*" : "ptr"
 
         result := DllCall("MDMRegistration.dll\GetDeviceManagementConfigInfo", "ptr", providerID, configStringBufferLengthMarshal, configStringBufferLength, "ptr", configString, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -588,50 +614,58 @@ class MobileDeviceManagementRegistration {
      * @returns {HRESULT} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
      * 
      * If the function succeeds, it returns **S_OK**. Otherwise, it returns an [**HRESULT**](/windows/win32/com/structure-of-com-error-codes) [error code](/windows/desktop/com/com-error-codes-10).
-     * @see https://docs.microsoft.com/windows/win32/api//mdmregistration/nf-mdmregistration-setdevicemanagementconfiginfo
+     * @see https://learn.microsoft.com/windows/win32/api/mdmregistration/nf-mdmregistration-setdevicemanagementconfiginfo
      */
     static SetDeviceManagementConfigInfo(providerID, configString) {
         providerID := providerID is String ? StrPtr(providerID) : providerID
         configString := configString is String ? StrPtr(configString) : configString
 
         result := DllCall("MDMRegistration.dll\SetDeviceManagementConfigInfo", "ptr", providerID, "ptr", configString, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Retrieves the management app hyperlink associated with the MDM service.
+     * @remarks
+     * The caller of this function must be running as an elevated process.
      * @param {Integer} cchHyperlink Contains the maximum length that can be returned through the <i>pszHyperlink</i> 
      *       parameter.
      * @param {PWSTR} pszHyperlink Address of a buffer that receives the <b>NULL</b>-terminated Unicode string with the 
      *       hyperlink of the management app associated with the management service.
      * @returns {HRESULT} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. If the function 
      *       fails, the returned value describes the error. Possible values include those listed at 
-     *       <a href="/windows/desktop/MDMReg/mdm-registration-constants">MDM Registration Error Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mdmregistration/nf-mdmregistration-getmanagementapphyperlink
+     *       <a href="https://docs.microsoft.com/windows/desktop/MDMReg/mdm-registration-constants">MDM Registration Error Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mdmregistration/nf-mdmregistration-getmanagementapphyperlink
      * @since windows8.1
      */
     static GetManagementAppHyperlink(cchHyperlink, pszHyperlink) {
         pszHyperlink := pszHyperlink is String ? StrPtr(pszHyperlink) : pszHyperlink
 
         result := DllCall("MDMRegistration.dll\GetManagementAppHyperlink", "uint", cchHyperlink, "ptr", pszHyperlink, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
 
     /**
      * Discovers the MDM service using a candidate server.
+     * @remarks
+     * The caller of this function must be running as an elevated process.
+     * 
+     * This function is not available before Windows Server 2012 R2 Update and Windows 8.1 Update.
      * @param {PWSTR} pszUPN Address of a <b>NULL</b>-terminated Unicode string containing the user principal name 
      *       (UPN) of the user requesting registration.
      * @param {PWSTR} pszDiscoveryServiceCandidate Address of a <b>NULL</b>-terminated Unicode string containing the discovery service 
      *       candidate to use in lieu of automatic discovery.
      * @returns {Pointer<MANAGEMENT_SERVICE_INFO>} Address of a <a href="https://docs.microsoft.com/windows/win32/api/mdmregistration/ns-mdmregistration-management_service_info">MANAGEMENT_SERVICE_INFO</a> 
      *       structure that contains pointers to the URIs of the management and authentication services.
-     * @see https://docs.microsoft.com/windows/win32/api//mdmregistration/nf-mdmregistration-discovermanagementserviceex
+     * @see https://learn.microsoft.com/windows/win32/api/mdmregistration/nf-mdmregistration-discovermanagementserviceex
      * @since windows8.1
      */
     static DiscoverManagementServiceEx(pszUPN, pszDiscoveryServiceCandidate) {
@@ -639,8 +673,9 @@ class MobileDeviceManagementRegistration {
         pszDiscoveryServiceCandidate := pszDiscoveryServiceCandidate is String ? StrPtr(pszDiscoveryServiceCandidate) : pszDiscoveryServiceCandidate
 
         result := DllCall("MDMRegistration.dll\DiscoverManagementServiceEx", "ptr", pszUPN, "ptr", pszDiscoveryServiceCandidate, "ptr*", &ppMgmtInfo := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return ppMgmtInfo
     }
@@ -651,8 +686,9 @@ class MobileDeviceManagementRegistration {
      */
     static RegisterDeviceWithLocalManagement() {
         result := DllCall("MDMLocalManagement.dll\RegisterDeviceWithLocalManagement", "int*", &alreadyRegistered := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return alreadyRegistered
     }
@@ -666,8 +702,9 @@ class MobileDeviceManagementRegistration {
         syncMLRequest := syncMLRequest is String ? StrPtr(syncMLRequest) : syncMLRequest
 
         result := DllCall("MDMLocalManagement.dll\ApplyLocalManagementSyncML", "ptr", syncMLRequest, "ptr*", &syncMLResult := 0, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return syncMLResult
     }
@@ -678,8 +715,9 @@ class MobileDeviceManagementRegistration {
      */
     static UnregisterDeviceWithLocalManagement() {
         result := DllCall("MDMLocalManagement.dll\UnregisterDeviceWithLocalManagement", "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

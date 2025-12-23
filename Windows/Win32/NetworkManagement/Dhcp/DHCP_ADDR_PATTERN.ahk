@@ -3,7 +3,7 @@
 
 /**
  * Contains the information regarding the link-layer address/pattern.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_addr_pattern
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_addr_pattern
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

@@ -5,19 +5,16 @@
 /**
  * The GLYPHMETRICS structure contains information about the placement and orientation of a glyph in a character cell.
  * @remarks
- * 
  * Values in the <b>GLYPHMETRICS</b> structure are specified in device units.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-glyphmetrics
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-glyphmetrics
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
 class GLYPHMETRICS extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The width of the smallest rectangle that completely encloses the glyph (its black box).

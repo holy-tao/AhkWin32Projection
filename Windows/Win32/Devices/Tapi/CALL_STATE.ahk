@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The CALL_STATE enum is used by the ITCallInfo::get_CallState and ITCallStateEvent::get_State methods.
  * @remarks
- * 
  * Following is a table of all valid call state transitions.
  * 
  * <table>
@@ -76,13 +76,11 @@
  * </td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-call_state
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-call_state
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class CALL_STATE{
+class CALL_STATE extends Win32Enum{
 
     /**
      * The call has been created, but 

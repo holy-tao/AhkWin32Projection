@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains the version of the virtual hard disk (VHD) COMPACT_VIRTUAL_DISK_PARAMETERS structure to use in calls to VHD functions.
- * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ne-virtdisk-compact_virtual_disk_version
+ * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-compact_virtual_disk_version
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */
-class COMPACT_VIRTUAL_DISK_VERSION{
+class COMPACT_VIRTUAL_DISK_VERSION extends Win32Enum{
 
     /**
      * 

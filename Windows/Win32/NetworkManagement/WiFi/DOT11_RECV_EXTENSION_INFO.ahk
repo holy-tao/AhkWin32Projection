@@ -9,7 +9,7 @@
  */
 class DOT11_RECV_EXTENSION_INFO extends Win32Struct
 {
-    static sizeof => 120
+    static sizeof => 112
 
     static packingSize => 8
 
@@ -156,7 +156,7 @@ class DOT11_RECV_EXTENSION_INFO extends Win32Struct
     dot11LowestIV48Counter{
         get {
             if(!this.HasProp("__dot11LowestIV48Counter"))
-                this.__dot11LowestIV48Counter := DOT11_IV48_COUNTER(80, this)
+                this.__dot11LowestIV48Counter := DOT11_IV48_COUNTER(76, this)
             return this.__dot11LowestIV48Counter
         }
     }
@@ -165,8 +165,8 @@ class DOT11_RECV_EXTENSION_INFO extends Win32Struct
      * @type {Integer}
      */
     usDot11LeftRWBitMap {
-        get => NumGet(this, 88, "ushort")
-        set => NumPut("ushort", value, this, 88)
+        get => NumGet(this, 84, "ushort")
+        set => NumPut("ushort", value, this, 84)
     }
 
     /**
@@ -175,7 +175,7 @@ class DOT11_RECV_EXTENSION_INFO extends Win32Struct
     dot11HighestIV48Counter{
         get {
             if(!this.HasProp("__dot11HighestIV48Counter"))
-                this.__dot11HighestIV48Counter := DOT11_IV48_COUNTER(96, this)
+                this.__dot11HighestIV48Counter := DOT11_IV48_COUNTER(88, this)
             return this.__dot11HighestIV48Counter
         }
     }
@@ -184,24 +184,24 @@ class DOT11_RECV_EXTENSION_INFO extends Win32Struct
      * @type {Integer}
      */
     usDot11RightRWBitMap {
-        get => NumGet(this, 104, "ushort")
-        set => NumPut("ushort", value, this, 104)
+        get => NumGet(this, 96, "ushort")
+        set => NumPut("ushort", value, this, 96)
     }
 
     /**
      * @type {Integer}
      */
     usNumberOfMPDUsReceived {
-        get => NumGet(this, 106, "ushort")
-        set => NumPut("ushort", value, this, 106)
+        get => NumGet(this, 98, "ushort")
+        set => NumPut("ushort", value, this, 98)
     }
 
     /**
      * @type {Integer}
      */
     usNumberOfFragments {
-        get => NumGet(this, 108, "ushort")
-        set => NumPut("ushort", value, this, 108)
+        get => NumGet(this, 100, "ushort")
+        set => NumPut("ushort", value, this, 100)
     }
 
     /**
@@ -210,7 +210,7 @@ class DOT11_RECV_EXTENSION_INFO extends Win32Struct
     pNdisPackets{
         get {
             if(!this.HasProp("__pNdisPacketsProxyArray"))
-                this.__pNdisPacketsProxyArray := Win32FixedArray(this.ptr + 112, 1, Primitive, "ptr")
+                this.__pNdisPacketsProxyArray := Win32FixedArray(this.ptr + 104, 1, Primitive, "ptr")
             return this.__pNdisPacketsProxyArray
         }
     }

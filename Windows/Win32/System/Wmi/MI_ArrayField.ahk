@@ -3,8 +3,8 @@
 #Include .\MI_Array.ahk
 
 /**
- * Represents a property inside an MI_Instance structure.
- * @see https://docs.microsoft.com/windows/win32/api//mi/ns-mi-mi_arrayfield
+ * Represents a property inside an MI_Instance structure. (MI_ArrayField)
+ * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_arrayfield
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

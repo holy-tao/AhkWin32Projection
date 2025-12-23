@@ -4,15 +4,15 @@
 
 /**
  * Contains information the IOCTL_CHANGER_EXCHANGE_MEDIUM control code uses to move a piece of media to a destination, and the piece of media originally in the first destination to a second destination.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-changer_exchange_medium
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_exchange_medium
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
 class CHANGER_EXCHANGE_MEDIUM extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A 

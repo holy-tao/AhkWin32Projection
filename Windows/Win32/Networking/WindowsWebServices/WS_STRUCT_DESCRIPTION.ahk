@@ -4,13 +4,14 @@
 /**
  * Information about C struct type, and how it maps to an XML element. This is used with WS_STRUCT_TYPE.
  * @remarks
- * 
  * The following is the grammar describing the order of the fields
  *                 within a structure.  The order is defined based on the
  *                 mapping field of each <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_field_description">WS_FIELD_DESCRIPTION</a>.
  *             
  * 
- * <pre class="syntax" xml:space="preserve"><code>
+ * 
+ * ``` syntax
+ * 
  * Fields := TypeAttributeField? AttributeField* ContentFields UnmappedFields*
  * ContentFields := TextContentField | ElementContentFields
  * ElementContentFields := ElementContentField* ? AnyElementField?
@@ -23,7 +24,9 @@
  * TextContentField := WS_TEXT_FIELD_MAPPING
  * UnmappedField := WS_NO_FIELD_MAPPING
  * TypeAttributeField := WS_TYPE_ATTRIBUTE_FIELD_MAPPING
- * AttributeField := WS_ATTRIBUTE_FIELD_MAPPING</code></pre>
+ * AttributeField := WS_ATTRIBUTE_FIELD_MAPPING
+ * ```
+ * 
  * Note that the fields descriptions of a structure are serialized and deserialized in
  *                 the order specified.  The deserialization process is "greedy", that is, as much content
  *                 as will match the definition a specific field description will be consumed before
@@ -48,7 +51,9 @@
  *                 maintained.  For example:
  *             
  * 
- * <pre class="syntax" xml:space="preserve"><code>struct BaseStructure
+ * 
+ * ``` syntax
+ * struct BaseStructure
  * {
  *     const WS_STRUCT_DESCRIPTION* _type;
  *     int baseAttribute;
@@ -72,9 +77,9 @@
  * //    WS_ATTRIBUTE_FIELD_MAPPING            // baseAttribute
  * //    WS_ATTRIBUTE_FIELD_MAPPING            // derivedAttribute
  * //    WS_ELEMENT_FIELD_MAPPING              // baseElement
- * //    WS_ELEMENT_FIELD_MAPPING              // derivedElement</code></pre>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_struct_description
+ * //    WS_ELEMENT_FIELD_MAPPING              // derivedElement
+ * ```
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_struct_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

@@ -60,7 +60,7 @@ class D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO extends Win32Struct
     InputResolution{
         get {
             if(!this.HasProp("__InputResolution"))
-                this.__InputResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(48, this)
+                this.__InputResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(44, this)
             return this.__InputResolution
         }
     }

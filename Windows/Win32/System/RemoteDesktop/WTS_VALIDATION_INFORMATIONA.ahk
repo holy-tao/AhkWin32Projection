@@ -11,7 +11,7 @@ class WTS_VALIDATION_INFORMATIONA extends Win32Struct
 {
     static sizeof => 16672
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {PRODUCT_INFOA}

@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a DFS root or link, including comment, state, time-out, and DFS behaviors specified by property flags.
- * @see https://docs.microsoft.com/windows/win32/api//lmdfs/ns-lmdfs-dfs_info_105
+ * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_105
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319
  */

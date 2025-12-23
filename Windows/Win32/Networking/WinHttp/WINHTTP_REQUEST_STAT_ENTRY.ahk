@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WINHTTP_REQUEST_STAT_ENTRY enumeration lists the available types of request statistics.
  * @remarks
- * 
  * This structure is used with [WinHttpQueryOption](/windows/desktop/api/winhttp/nf-winhttp-winhttpqueryoption) to retrieve statistics for a request by specifying the **WINHTTP\_OPTION\_REQUEST\_STATS** flag.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winhttp/ne-winhttp-winhttp_request_stat_entry
+ * @see https://learn.microsoft.com/windows/win32/api/winhttp/ne-winhttp-winhttp_request_stat_entry
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */
-class WINHTTP_REQUEST_STAT_ENTRY{
+class WINHTTP_REQUEST_STAT_ENTRY extends Win32Enum{
 
     /**
      * The number of connection failures during connection establishment.

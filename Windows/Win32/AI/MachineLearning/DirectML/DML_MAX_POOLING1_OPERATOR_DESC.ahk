@@ -2,14 +2,12 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Computes the maximum value across the elements within the sliding window over the input tensor, and optionally returns the indices of the maximum values selected.
+ * Computes the maximum value across the elements within the sliding window over the input tensor, and optionally returns the indices of the maximum values selected. (DML_MAX_POOLING1_OPERATOR_DESC)
  * @remarks
  * When *OutputIndicesTensor* is set to NULL, this operator is equivalent to [DML_MAX_POOLING_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_max_pooling_operator_desc).
  * 
  * A newer version of this operator, [DML_MAX_POOLING2_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_max_pooling2_operator_desc), was introduced in `DML_FEATURE_LEVEL_2_1`.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_max_pooling1_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_max_pooling1_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

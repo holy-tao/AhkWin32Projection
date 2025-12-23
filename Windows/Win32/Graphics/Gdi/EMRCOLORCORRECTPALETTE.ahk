@@ -4,7 +4,7 @@
 
 /**
  * The EMRCOLORCORRECTPALETTE structure contains members for the ColorCorrectPalette enhanced metafile record.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrcolorcorrectpalette
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrcolorcorrectpalette
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
@@ -12,7 +12,7 @@ class EMRCOLORCORRECTPALETTE extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.

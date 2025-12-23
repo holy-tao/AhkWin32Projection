@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a raw input device.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-rawinputdevicelist
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rawinputdevicelist
  * @namespace Windows.Win32.UI.Input
  * @version v4.0.30319
  */

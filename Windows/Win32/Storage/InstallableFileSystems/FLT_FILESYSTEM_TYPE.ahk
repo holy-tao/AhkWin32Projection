@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.Storage.InstallableFileSystems
  * @version v4.0.30319
  */
-class FLT_FILESYSTEM_TYPE{
+class FLT_FILESYSTEM_TYPE extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

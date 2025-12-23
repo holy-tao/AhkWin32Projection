@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a shader model.
  * @remarks
- * 
  * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_shader_model">D3D12_FEATURE_DATA_SHADER_MODEL</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d_shader_model
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d_shader_model
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D_SHADER_MODEL{
+class D3D_SHADER_MODEL extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}
@@ -25,7 +23,7 @@ class D3D_SHADER_MODEL{
     static D3D_SHADER_MODEL_5_1 => 81
 
     /**
-     * Indicates shader model 6.0.
+     * Indicates shader model 6.0. Compiling a shader model 6.0 shader requires using the DXC compiler (see [DirectX Shader Compiler](https://github.com/Microsoft/DirectXShaderCompiler)), and is not supported by legacy **FXC**.
      * @type {Integer (Int32)}
      */
     static D3D_SHADER_MODEL_6_0 => 96
@@ -49,22 +47,25 @@ class D3D_SHADER_MODEL{
     static D3D_SHADER_MODEL_6_3 => 99
 
     /**
-     * 
+     * Shader model 6.4 support was added in Windows 10, Version 1903, and is required for DirectX Raytracing (DXR).
      * @type {Integer (Int32)}
      */
     static D3D_SHADER_MODEL_6_4 => 100
 
     /**
+     * Shader model 6.5 support was added in Windows 10, Version 2004, and is required for Direct Machine Learning.
      * @type {Integer (Int32)}
      */
     static D3D_SHADER_MODEL_6_5 => 101
 
     /**
+     * Shader model 6.6 support was added in Windows 11 and the DirectX 12 Agility SDK.
      * @type {Integer (Int32)}
      */
     static D3D_SHADER_MODEL_6_6 => 102
 
     /**
+     * Shader model 6.7 support was added in the DirectX 12 Agility SDK v1.6. See [Agility SDK 1.606.3: Shader Model 6.7 is now publicly available!](https://devblogs.microsoft.com/directx/shader-model-6-7/) on the DirectX developer blog.
      * @type {Integer (Int32)}
      */
     static D3D_SHADER_MODEL_6_7 => 103

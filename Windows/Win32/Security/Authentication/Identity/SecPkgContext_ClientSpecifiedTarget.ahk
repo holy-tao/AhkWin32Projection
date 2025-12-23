@@ -3,7 +3,7 @@
 
 /**
  * Specifies the service principal name (SPN) of the initial target when calling the QueryContextAttributes (Digest) function.
- * @see https://docs.microsoft.com/windows/win32/api//sspi/ns-sspi-secpkgcontext_clientspecifiedtarget
+ * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_clientspecifiedtarget
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

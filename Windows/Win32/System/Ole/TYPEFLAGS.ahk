@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The type flags.
  * @remarks
- * 
  * TYPEFLAG_FAPPOBJECT can be used on type descriptions with TypeKind = TKIND_COCLASS, and indicates that the type description specifies an Application object.
  * 
  * Members of the Application object are globally accessible. The <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/nf-oaidl-itypecomp-bind">Bind</a> method of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-itypecomp">ITypeComp</a> instance associated with the library binds to the members of an Application object, just as it does for type descriptions that have TypeKind = TKIND_MODULE.
@@ -19,12 +19,11 @@
  * 
  * 
  * When TYPEFLAG_FCANCREATE is set, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-itypeinfo-createinstance">CreateInstance</a> can create an instance of this type. This is true only for component object classes for which a globally unique identifier (GUID) has been specified.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//oaidl/ne-oaidl-typeflags
+ * @see https://learn.microsoft.com/windows/win32/api/oaidl/ne-oaidl-typeflags
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
-class TYPEFLAGS{
+class TYPEFLAGS extends Win32Enum{
 
     /**
      * A type description that describes an Application object.

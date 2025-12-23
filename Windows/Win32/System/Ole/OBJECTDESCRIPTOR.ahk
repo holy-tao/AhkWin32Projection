@@ -5,13 +5,13 @@
 
 /**
  * Represents the data structure used for the CF_OBJECTDESRIPTOR and CF_LINKSRCDESCRIPTOR file formats.
- * @see https://docs.microsoft.com/windows/win32/api//oleidl/ns-oleidl-objectdescriptor
+ * @see https://learn.microsoft.com/windows/win32/api/oleidl/ns-oleidl-objectdescriptor
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
 class OBJECTDESCRIPTOR extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -49,7 +49,7 @@ class OBJECTDESCRIPTOR extends Win32Struct
     sizel{
         get {
             if(!this.HasProp("__sizel"))
-                this.__sizel := SIZE(24, this)
+                this.__sizel := SIZE(20, this)
             return this.__sizel
         }
     }
@@ -61,7 +61,7 @@ class OBJECTDESCRIPTOR extends Win32Struct
     pointl{
         get {
             if(!this.HasProp("__pointl"))
-                this.__pointl := POINTL(32, this)
+                this.__pointl := POINTL(28, this)
             return this.__pointl
         }
     }
@@ -71,8 +71,8 @@ class OBJECTDESCRIPTOR extends Win32Struct
      * @type {Integer}
      */
     dwStatus {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -80,8 +80,8 @@ class OBJECTDESCRIPTOR extends Win32Struct
      * @type {Integer}
      */
     dwFullUserTypeName {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -89,12 +89,12 @@ class OBJECTDESCRIPTOR extends Win32Struct
      * @type {Integer}
      */
     dwSrcOfCopy {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 56
+        this.cbSize := 48
     }
 }

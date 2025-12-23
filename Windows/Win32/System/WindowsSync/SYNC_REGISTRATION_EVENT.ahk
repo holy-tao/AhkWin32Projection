@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents the different types of synchronization registration events.
- * @see https://docs.microsoft.com/windows/win32/api//syncregistration/ne-syncregistration-sync_registration_event
+ * @see https://learn.microsoft.com/windows/win32/api/syncregistration/ne-syncregistration-sync_registration_event
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
-class SYNC_REGISTRATION_EVENT{
+class SYNC_REGISTRATION_EVENT extends Win32Enum{
 
     /**
      * A synchronization provider registration has been added.

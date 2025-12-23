@@ -5,9 +5,6 @@
 /**
  * The WAVEFORMATEXTENSIBLE structure defines the format of waveform-audio data for formats having more than two channels or higher sample resolutions than allowed by WAVEFORMATEX.
  * @remarks
- * 
- * 
- * 
  * <b>WAVEFORMATEXTENSIBLE</b> can describe any format that can be described by <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a>, but provides additional support for more than two channels, for greater precision in the number of bits per sample, and for new compression schemes.
  * 
  * <b>WAVEFORMATEXTENSIBLE</b> can safely be cast to <b>WAVEFORMATEX</b>, because it simply configures the extra bytes specified by <b>WAVEFORMATEX.cbSize</b>.
@@ -154,13 +151,7 @@
  * <td>KSDATAFORMAT_SUBTYPE_PCM</td>
  * </tr>
  * </table>
- *  
- * 
- * 
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mmreg/ns-mmreg-waveformatextensible
+ * @see https://learn.microsoft.com/windows/win32/api/mmreg/ns-mmreg-waveformatextensible
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -169,6 +160,36 @@ class WAVEFORMATEXTENSIBLE extends Win32Struct
     static sizeof => 40
 
     static packingSize => 8
+
+    class _Samples_e__Union extends Win32Struct {
+        static sizeof => 2
+        static packingSize => 1
+
+        /**
+         * @type {Integer}
+         */
+        wValidBitsPerSample {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        wSamplesPerBlock {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        wReserved {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+    }
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure that specifies the basic format. The <b>wFormatTag</b> member must be WAVE_FORMAT_EXTENSIBLE. The <b>cbSize</b> member must be at least 22.
@@ -183,27 +204,15 @@ class WAVEFORMATEXTENSIBLE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * A union describing the sample format.
+     * @type {_Samples_e__Union}
      */
-    wValidBitsPerSample {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    wSamplesPerBlock {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    wReserved {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
+    Samples{
+        get {
+            if(!this.HasProp("__Samples"))
+                this.__Samples := %this.__Class%._Samples_e__Union(20, this)
+            return this.__Samples
+        }
     }
 
     /**

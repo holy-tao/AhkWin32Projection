@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of access that an application is given to the specified resource(s) at the transition into a render pass.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_render_pass_beginning_access_type
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_render_pass_beginning_access_type
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE{
+class D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE extends Win32Enum{
 
     /**
      * Indicates that your application doesn't have any dependency on the prior contents of the resource(s). You also shouldn't have any expectations about those contents, because a display driver may return the previously-written contents, or it may return uninitialized data. You can be assured that reading from the resource(s) won't hang the GPU, even if you do get undefined data back.

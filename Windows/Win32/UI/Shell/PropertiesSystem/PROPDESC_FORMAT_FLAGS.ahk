@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by property description helper functions, such as PSFormatForDisplay, to indicate the format of a property string.
  * @remarks
- * 
  * These values are defined in propsys.h and propsys.idl.
  * 
  * Typically use one, or a bitwise combination of these flags to specify format. Some flags are mutually exclusive, for example PDFF_SHORTTIME  | PDFF_LONGTIME | PDFF_HIDETIME, is not allowed.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//propsys/ne-propsys-propdesc_format_flags
+ * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-propdesc_format_flags
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
-class PROPDESC_FORMAT_FLAGS{
+class PROPDESC_FORMAT_FLAGS extends Win32BitflagEnum{
 
     /**
      * Use the format settings specified in the property's .propdesc file.

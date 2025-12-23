@@ -66,7 +66,7 @@ class D3DFINDDEVICESEARCH extends Win32Struct
     dpcPrimCaps{
         get {
             if(!this.HasProp("__dpcPrimCaps"))
-                this.__dpcPrimCaps := D3DPRIMCAPS(32, this)
+                this.__dpcPrimCaps := D3DPRIMCAPS(28, this)
             return this.__dpcPrimCaps
         }
     }

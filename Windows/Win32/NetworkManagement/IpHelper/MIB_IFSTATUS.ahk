@@ -4,11 +4,8 @@
 /**
  * Stores status information for a particular interface.
  * @remarks
- * 
  * Note that the <i>Iprtrmib.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Iprtrmib.h</i> header file should never be used directly.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iprtrmib/ns-iprtrmib-mib_ifstatus
+ * @see https://learn.microsoft.com/windows/win32/api/iprtrmib/ns-iprtrmib-mib_ifstatus
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

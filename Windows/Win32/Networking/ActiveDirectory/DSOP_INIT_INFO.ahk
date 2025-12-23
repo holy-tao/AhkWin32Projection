@@ -3,7 +3,7 @@
 
 /**
  * The DSOP_INIT_INFO structure contains data required to initialize an object picker dialog box. This structure is used with the IDsObjectPicker::Initialize method.
- * @see https://docs.microsoft.com/windows/win32/api//objsel/ns-objsel-dsop_init_info
+ * @see https://learn.microsoft.com/windows/win32/api/objsel/ns-objsel-dsop_init_info
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

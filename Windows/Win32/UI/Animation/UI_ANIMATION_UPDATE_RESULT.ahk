@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines results for animation updates.
- * @see https://docs.microsoft.com/windows/win32/api//uianimation/ne-uianimation-ui_animation_update_result
+ * @see https://learn.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_update_result
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319
  */
-class UI_ANIMATION_UPDATE_RESULT{
+class UI_ANIMATION_UPDATE_RESULT extends Win32Enum{
 
     /**
      * No animation variables have changed.

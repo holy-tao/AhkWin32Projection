@@ -4,7 +4,7 @@
 
 /**
  * The EMRCREATEDIBPATTERNBRUSHPT structure contains members for the CreateDIBPatternBrushPt enhanced metafile record. The BITMAPINFO structure is followed by the bitmap bits that form a packed device-independent bitmap (DIB).
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrcreatedibpatternbrushpt
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrcreatedibpatternbrushpt
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
@@ -12,7 +12,7 @@ class EMRCREATEDIBPATTERNBRUSHPT extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.

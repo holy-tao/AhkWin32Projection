@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the tiling behavior of a tile brush.
  * @remarks
- * 
  * The following illustration shows the effect of each tile mode on how a tiled brush fills the output area.
  * 
  * <img alt="An illustration that shows different examples of different tile mode behaviors" src="./images/TileMode.png"/>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/ne-xpsobjectmodel-xps_tile_mode
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_tile_mode
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
-class XPS_TILE_MODE{
+class XPS_TILE_MODE extends Win32Enum{
 
     /**
      * Only the base tile is drawn.

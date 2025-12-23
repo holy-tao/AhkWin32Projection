@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Shader register types.
  * @remarks
- * 
  * The <b>D3D10_SHADER_DEBUG_REGTYPE</b> enumeration is used to specify register types 
  *   in <a href="https://docs.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_outputreg_info">D3D10_SHADER_DEBUG_INPUT_INFO</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_outputreg_info">D3D10_SHADER_DEBUG_OUTPUTREG_INFO</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10_1shader/ne-d3d10_1shader-d3d10_shader_debug_regtype
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/ne-d3d10_1shader-d3d10_shader_debug_regtype
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
-class D3D10_SHADER_DEBUG_REGTYPE{
+class D3D10_SHADER_DEBUG_REGTYPE extends Win32Enum{
 
     /**
      * Input register.

@@ -5,9 +5,8 @@
 #Include ..\..\Foundation\RECT.ahk
 
 /**
- * Contains information that defines a band in a rebar control.
+ * Contains information that defines a band in a rebar control. (Unicode)
  * @remarks
- * 
  * The <b>cxMinChild</b>, <b>cyMinChild</b>, and <b>cx</b> members provide information on dimensions relative to the orientation of the control. That is, for a horizontal rebar control, <b>cxMinChild</b> and <b>cx</b> are horizontal measurements and <b>cyMinChild</b> is a vertical measurement. However, if the control uses the <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-styles">CCS_VERT</a> style, <b>cxMinChild</b> and <b>cx</b> are vertical measurements and <b>cyMinChild</b> is a horizontal measurement. 
  * 
  * 
@@ -15,15 +14,14 @@
  * 
  * > [!NOTE]
  * > The commctrl.h header defines REBARBANDINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-rebarbandinfow
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-rebarbandinfow
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  * @charset Unicode
  */
 class REBARBANDINFOW extends Win32Struct
 {
-    static sizeof => 136
+    static sizeof => 128
 
     static packingSize => 8
 
@@ -552,7 +550,7 @@ class REBARBANDINFOW extends Win32Struct
     rcChevronLocation{
         get {
             if(!this.HasProp("__rcChevronLocation"))
-                this.__rcChevronLocation := RECT(112, this)
+                this.__rcChevronLocation := RECT(108, this)
             return this.__rcChevronLocation
         }
     }
@@ -565,12 +563,12 @@ class REBARBANDINFOW extends Win32Struct
      * @type {Integer}
      */
     uChevronState {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
+        get => NumGet(this, 124, "uint")
+        set => NumPut("uint", value, this, 124)
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 136
+        this.cbSize := 128
     }
 }

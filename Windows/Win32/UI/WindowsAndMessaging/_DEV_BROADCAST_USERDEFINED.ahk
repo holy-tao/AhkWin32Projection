@@ -5,13 +5,11 @@
 /**
  * Contains the user-defined event and optional data associated with the DBT_USERDEFINED device event.
  * @remarks
- * 
  * Because this structure contains variable length fields, use it as a template for creating a pointer to a user-defined structure. Note that the structure must not contain pointers. The following example shows such a user-defined structure.
  * 
  * 
  * ```cpp
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dbt/ns-dbt-_dev_broadcast_userdefined
+ * @see https://learn.microsoft.com/windows/win32/api/dbt/ns-dbt-_dev_broadcast_userdefined
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */
@@ -19,7 +17,7 @@ class _DEV_BROADCAST_USERDEFINED extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Information about the device affected by a 

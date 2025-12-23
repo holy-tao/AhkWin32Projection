@@ -3,7 +3,7 @@
 
 /**
  * The DD_GETBLTSTATUSDATA structure returns the blit status information.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_getbltstatusdata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_getbltstatusdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

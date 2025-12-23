@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * HDV_PCI_PNP_ID structure
  * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvPciPnpId
  * @namespace Windows.Win32.System.Hypervisor
  * @version v4.0.30319
@@ -14,6 +14,7 @@ class HDV_PCI_PNP_ID extends Win32Struct
     static packingSize => 2
 
     /**
+     * Vendor ID (lowest two types of config space).
      * @type {Integer}
      */
     VendorID {
@@ -22,6 +23,7 @@ class HDV_PCI_PNP_ID extends Win32Struct
     }
 
     /**
+     * Device ID (offset 0x4 of config space).
      * @type {Integer}
      */
     DeviceID {
@@ -30,6 +32,7 @@ class HDV_PCI_PNP_ID extends Win32Struct
     }
 
     /**
+     * Device Revision ID (offset 0x8 of config space).
      * @type {Integer}
      */
     RevisionID {
@@ -38,6 +41,7 @@ class HDV_PCI_PNP_ID extends Win32Struct
     }
 
     /**
+     * Programable interface ID (offset 0x9 of config space).
      * @type {Integer}
      */
     ProgIf {
@@ -46,6 +50,7 @@ class HDV_PCI_PNP_ID extends Win32Struct
     }
 
     /**
+     * Sub-class code of device (offset 0xA of config space).
      * @type {Integer}
      */
     SubClass {
@@ -54,6 +59,7 @@ class HDV_PCI_PNP_ID extends Win32Struct
     }
 
     /**
+     * Base class code of device (offset 0xB of config space).
      * @type {Integer}
      */
     BaseClass {
@@ -62,6 +68,7 @@ class HDV_PCI_PNP_ID extends Win32Struct
     }
 
     /**
+     * Subsystem vendor ID of device (offset 0x2C of config space).
      * @type {Integer}
      */
     SubVendorID {
@@ -70,6 +77,7 @@ class HDV_PCI_PNP_ID extends Win32Struct
     }
 
     /**
+     * Subsystem ID of device (offset 0x2E of config space).
      * @type {Integer}
      */
     SubSystemID {

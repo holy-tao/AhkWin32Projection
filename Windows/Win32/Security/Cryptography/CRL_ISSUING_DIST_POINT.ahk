@@ -6,7 +6,7 @@
 
 /**
  * Contains information about the kinds of certificates listed in a certificate revocation list (CRL).
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crl_issuing_dist_point
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crl_issuing_dist_point
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

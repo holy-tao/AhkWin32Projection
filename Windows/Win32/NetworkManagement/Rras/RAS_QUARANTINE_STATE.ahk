@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The RAS_QUARANTINE_STATE enumerated type indicates the quarantine state of a client connection.
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ne-mprapi-ras_quarantine_state
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ne-mprapi-ras_quarantine_state
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */
-class RAS_QUARANTINE_STATE{
+class RAS_QUARANTINE_STATE extends Win32Enum{
 
     /**
      * The connection state is normal.

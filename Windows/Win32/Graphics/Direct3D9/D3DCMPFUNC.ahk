@@ -1,12 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * Defines the supported compare functions.
+ * @remarks
+ * The values in this enumerated type define the supported compare functions for the D3DRS\_ZFUNC, D3DRS\_ALPHAFUNC, and D3DRS\_STENCILFUNC render states.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dcmpfunc
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */
-class D3DCMPFUNC{
+class D3DCMPFUNC extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

@@ -3,7 +3,7 @@
 
 /**
  * Contains the certificate contexts of both a subject and a certificate issuer.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crl_find_issued_for_para
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crl_find_issued_for_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

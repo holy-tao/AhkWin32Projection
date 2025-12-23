@@ -6,7 +6,7 @@
 
 /**
  * Represents X.509 data that is to be encoded in an X509Data named element.
- * @see https://docs.microsoft.com/windows/win32/api//cryptxml/ns-cryptxml-crypt_xml_x509data_item
+ * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_x509data_item
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

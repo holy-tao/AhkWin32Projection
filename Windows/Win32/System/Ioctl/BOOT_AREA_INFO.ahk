@@ -3,7 +3,7 @@
 
 /**
  * Contains the output for the FSCTL_GET_BOOT_AREA_INFO control code.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-boot_area_info
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-boot_area_info
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

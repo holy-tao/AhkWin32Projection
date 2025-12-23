@@ -3,7 +3,7 @@
 
 /**
  * The AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_STATUS structure holds additional Authenticode policy information for chain verification of files.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-authenticode_extra_cert_chain_policy_status
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-authenticode_extra_cert_chain_policy_status
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

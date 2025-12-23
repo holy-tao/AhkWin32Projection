@@ -11,45 +11,62 @@ class NVMEOF_PROPERTY_GET_RESPONSE extends Win32Struct
 
     static packingSize => 8
 
-    class _FourBytes extends Win32Struct {
+    class _VALUE_e__Union extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
 
+        class _FourBytes extends Win32Struct {
+            static sizeof => 8
+            static packingSize => 4
+    
+            /**
+             * @type {Integer}
+             */
+            Value {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            Reserved {
+                get => NumGet(this, 4, "uint")
+                set => NumPut("uint", value, this, 4)
+            }
+        
+        }
+    
+        /**
+         * @type {_FourBytes}
+         */
+        FourBytes{
+            get {
+                if(!this.HasProp("__FourBytes"))
+                    this.__FourBytes := %this.__Class%._FourBytes(0, this)
+                return this.__FourBytes
+            }
+        }
+    
         /**
          * @type {Integer}
          */
-        Value {
+        EightBytes {
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-    
     }
 
     /**
-     * @type {_FourBytes}
+     * @type {_VALUE_e__Union}
      */
-    FourBytes{
+    VALUE{
         get {
-            if(!this.HasProp("__FourBytes"))
-                this.__FourBytes := %this.__Class%._FourBytes(0, this)
-            return this.__FourBytes
+            if(!this.HasProp("__VALUE"))
+                this.__VALUE := %this.__Class%._VALUE_e__Union(0, this)
+            return this.__VALUE
         }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    EightBytes {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
     }
 
     /**

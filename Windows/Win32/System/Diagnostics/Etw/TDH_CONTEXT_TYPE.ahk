@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the context type.
  * @remarks
- * 
  * If you are specifying context information for a legacy ETW event, you only need to specify the TDH_CONTEXT_POINTERSIZE type—the other types are used for WPP events and are ignored for legacy ETW events.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tdh/ne-tdh-tdh_context_type
+ * @see https://learn.microsoft.com/windows/win32/api/tdh/ne-tdh-tdh_context_type
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
-class TDH_CONTEXT_TYPE{
+class TDH_CONTEXT_TYPE extends Win32Enum{
 
     /**
      * Null-terminated Unicode string that contains the name of the .tmf file used for parsing the WPP log. Typically, the .tmf file name is picked up from the event GUID so you do not have to specify the file name.

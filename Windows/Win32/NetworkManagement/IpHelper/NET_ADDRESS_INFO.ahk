@@ -10,23 +10,20 @@
 /**
  * Contains IP address information returned by the ParseNetworkString function.
  * @remarks
- * 
  * The <b>NET_ADDRESS_INFO</b> structure is defined on Windows Vista and later. 
  * 
  * The <b>NET_ADDRESS_INFO</b> structure is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-parsenetworkstring">ParseNetworkString</a> function. 
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">SOCKADDR_IN</a>,  SOCKADDR_IN6, and  SOCKADDR structures are used in the <b>NET_ADDRESS_INFO</b> structure. The SOCKADDR_IN and SOCKADDR structures are defined in the  <i>Ws2def.h</i> header file which is automatically included by the <i>Winsock2.h</i> header file. The SOCKADDR_IN6 structure is defined in the <i>Ws2ipdef.h</i> header file which is automatically included by the <i>Ws2tcpip.h</i> header file. In order to use the <b>NET_ADDRESS_INFO</b> structure, the <i>Winsock2.h</i> and <i>Ws2tcpip.h</i> header files must be included before the <i>Iphlpapi.h</i> header file.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iphlpapi/ns-iphlpapi-net_address_info
+ * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/ns-iphlpapi-net_address_info
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */
 class NET_ADDRESS_INFO extends Win32Struct
 {
-    static sizeof => 536
+    static sizeof => 532
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>NET_ADDRESS_FORMAT</b>
@@ -40,8 +37,8 @@ class NET_ADDRESS_INFO extends Win32Struct
     }
 
     class _NamedAddress extends Win32Struct {
-        static sizeof => 526
-        static packingSize => 8
+        static sizeof => 524
+        static packingSize => 2
 
         /**
          * @type {String}
@@ -67,7 +64,7 @@ class NET_ADDRESS_INFO extends Win32Struct
     NamedAddress{
         get {
             if(!this.HasProp("__NamedAddress"))
-                this.__NamedAddress := %this.__Class%._NamedAddress(8, this)
+                this.__NamedAddress := %this.__Class%._NamedAddress(4, this)
             return this.__NamedAddress
         }
     }
@@ -78,7 +75,7 @@ class NET_ADDRESS_INFO extends Win32Struct
     Ipv4Address{
         get {
             if(!this.HasProp("__Ipv4Address"))
-                this.__Ipv4Address := SOCKADDR_IN(8, this)
+                this.__Ipv4Address := SOCKADDR_IN(4, this)
             return this.__Ipv4Address
         }
     }
@@ -89,7 +86,7 @@ class NET_ADDRESS_INFO extends Win32Struct
     Ipv6Address{
         get {
             if(!this.HasProp("__Ipv6Address"))
-                this.__Ipv6Address := SOCKADDR_IN6(8, this)
+                this.__Ipv6Address := SOCKADDR_IN6(4, this)
             return this.__Ipv6Address
         }
     }
@@ -100,7 +97,7 @@ class NET_ADDRESS_INFO extends Win32Struct
     IpAddress{
         get {
             if(!this.HasProp("__IpAddress"))
-                this.__IpAddress := SOCKADDR(8, this)
+                this.__IpAddress := SOCKADDR(4, this)
             return this.__IpAddress
         }
     }

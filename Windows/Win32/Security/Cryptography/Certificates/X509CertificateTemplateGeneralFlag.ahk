@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains use and modification information about templates and associated certificates.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-x509certificatetemplategeneralflag
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509certificatetemplategeneralflag
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class X509CertificateTemplateGeneralFlag{
+class X509CertificateTemplateGeneralFlag extends Win32Enum{
 
     /**
      * The template should be used to create a certificate request for a computer.

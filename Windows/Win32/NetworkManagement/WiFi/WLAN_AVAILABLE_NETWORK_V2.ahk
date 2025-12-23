@@ -10,9 +10,9 @@
  */
 class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
 {
-    static sizeof => 648
+    static sizeof => 644
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {String}
@@ -138,7 +138,7 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     AccessNetworkOptions{
         get {
             if(!this.HasProp("__AccessNetworkOptions"))
-                this.__AccessNetworkOptions := DOT11_ACCESSNETWORKOPTIONS(625, this)
+                this.__AccessNetworkOptions := DOT11_ACCESSNETWORKOPTIONS(624, this)
             return this.__AccessNetworkOptions
         }
     }
@@ -149,7 +149,7 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     dot11HESSID{
         get {
             if(!this.HasProp("__dot11HESSIDProxyArray"))
-                this.__dot11HESSIDProxyArray := Win32FixedArray(this.ptr + 630, 6, Primitive, "char")
+                this.__dot11HESSIDProxyArray := Win32FixedArray(this.ptr + 629, 6, Primitive, "char")
             return this.__dot11HESSIDProxyArray
         }
     }
@@ -160,7 +160,7 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     VenueInfo{
         get {
             if(!this.HasProp("__VenueInfo"))
-                this.__VenueInfo := DOT11_VENUEINFO(636, this)
+                this.__VenueInfo := DOT11_VENUEINFO(635, this)
             return this.__VenueInfo
         }
     }

@@ -5,6 +5,8 @@
 #Include .\D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER.ahk
 
 /**
+ * Represents input arguments for a call to ID3D12VideoEncodeCommandList2::ResolveEncoderOutputMetadata.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_resolve_metadata_input_arguments
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -17,6 +19,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS extends Win32Struct
     static packingSize => 8
 
     /**
+     * A [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) specifying the codec of the associated encode operation.
      * @type {Integer}
      */
     EncoderCodec {
@@ -25,6 +28,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS extends Win32Struct
     }
 
     /**
+     * A [D3D12_VIDEO_ENCODER_PROFILE_DESC](ns-d3d12video-d3d12_video_encoder_profile_desc.md) specifying the profile for the selected codec in the associated encode operation.
      * @type {D3D12_VIDEO_ENCODER_PROFILE_DESC}
      */
     EncoderProfile{
@@ -36,6 +40,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS extends Win32Struct
     }
 
     /**
+     * A [DXGI_FORMAT](../dxgiformat/ne-dxgiformat-dxgi_format.md) specifying the input format of the associated encode operation.
      * @type {Integer}
      */
     EncoderInputFormat {
@@ -44,17 +49,19 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS extends Win32Struct
     }
 
     /**
+     * A [D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC](ns-d3d12video-d3d12_video_encoder_picture_resolution_desc.md) structure describing the resolution used for the encoding operation.
      * @type {D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC}
      */
     EncodedPictureEffectiveResolution{
         get {
             if(!this.HasProp("__EncodedPictureEffectiveResolution"))
-                this.__EncodedPictureEffectiveResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(32, this)
+                this.__EncodedPictureEffectiveResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(28, this)
             return this.__EncodedPictureEffectiveResolution
         }
     }
 
     /**
+     * A [D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER](ns-d3d12video-d3d12_video_encoder_encode_operation_metadata_buffer.md) representing the associated opaque metadata buffer received from [EncodeFrame](nf-d3d12video-id3d12videoencodecommandlist2-encodeframe.md).
      * @type {D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER}
      */
     HWLayoutMetadata{

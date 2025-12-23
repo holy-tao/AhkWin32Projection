@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the readiness of an object to commit or abort the current transaction.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/ne-comsvcs-transactionvote
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-transactionvote
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
-class TransactionVote{
+class TransactionVote extends Win32Enum{
 
     /**
      * An existing object votes to commit the current transaction.

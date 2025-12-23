@@ -568,13 +568,21 @@ class HttpServer {
 ;@region Methods
     /**
      * The HttpInitialize function initializes the HTTP Server API driver, starts it, if it has not already been started, and allocates data structures for the calling application to support response-queue creation and other operations.
+     * @remarks
+     * Call 
+     * <a href="https://docs.microsoft.com/windows/win32/api/http/nf-http-httpterminate">HttpTerminate</a> when the application completes. All the same flags that were passed to 
+     * <b>HttpInitialize</b> in the <i>Flags</i> parameter must also be passed to 
+     * <b>HttpTerminate</b>. An application can call 
+     * <b>HttpInitialize</b> repeatedly, provided that each call to 
+     * <b>HttpInitialize</b> is later matched by a corresponding call to 
+     * <b>HttpTerminate</b>.
      * @param {HTTPAPI_VERSION} Version HTTP version. This parameter is an 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-httpapi_version">HTTPAPI_VERSION</a> structure. For the current version, declare an instance of the structure and set it to the pre-defined value HTTPAPI_VERSION_1 before passing it to 
+     * <a href="https://docs.microsoft.com/windows/win32/api/http/ns-http-httpapi_version">HTTPAPI_VERSION</a> structure. For the current version, declare an instance of the structure and set it to the pre-defined value **HTTPAPI_VERSION_1** before passing it to 
      * <b>HttpInitialize</b>.
      * @param {Integer} Flags 
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {Integer} If the function succeeds, then the return value is **NO_ERROR**.
      * 
-     * If the function fails, the return value is one of the following error codes.
+     * If the function fails, then the return value is one of the following error codes.
      * 
      * <table>
      * <tr>
@@ -599,12 +607,12 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * A <a href="https://docs.microsoft.com/windows/win32/debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpinitialize
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpinitialize
      * @since windows6.0.6000
      */
     static HttpInitialize(Version, Flags) {
@@ -616,6 +624,14 @@ class HttpServer {
 
     /**
      * Cleans up resources used by the HTTP Server API to process calls by an application.
+     * @remarks
+     * Every call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpinitialize">HttpInitialize</a> should be matched by a corresponding call to 
+     * <b>HttpTerminate</b>. For example, if you call 
+     * <b>HttpInitialize</b> with HTTP_INITIALIZE_SERVER, you must call 
+     * <b>HttpTerminate</b> with HTTP_INITIALIZE_SERVER. If you call 
+     * <b>HttpInitialize</b> twice, once with HTTP_INITIALIZE_SERVER and the second time with HTTP_INITIALIZE_CONFIG, you can call 
+     * <b>HttpTerminate</b> one time with both flags.
      * @param {Integer} Flags 
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -644,12 +660,12 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * A <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpterminate
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpterminate
      * @since windows6.0.6000
      */
     static HttpTerminate(Flags) {
@@ -661,6 +677,14 @@ class HttpServer {
 
     /**
      * Creates an HTTP request queue for the calling application and returns a handle to it.
+     * @remarks
+     * The request queue enables the calling application to receive requests for particular URLs. The calling application uses the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpaddurl">HttpAddUrl</a> function to specify the URL for which it should receive requests.
+     * 
+     * An application should use a single request queue to receive requests. Using multiple request queues from a single process does not increase response time or throughput.
+     * 
+     * When an application has finished receiving requests, it should call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function to close the handle.
      * @param {Pointer<HANDLE>} RequestQueueHandle A pointer to a variable that receives a handle to the request queue.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
      * 
@@ -679,7 +703,7 @@ class HttpServer {
      * </td>
      * <td width="60%">
      * The calling application did not call 
-     * <a href="/windows/desktop/api/http/nf-http-httpinitialize">HttpInitialize</a> before calling this function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpinitialize">HttpInitialize</a> before calling this function.
      * 
      * </td>
      * </tr>
@@ -690,12 +714,12 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * A <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpcreatehttphandle
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpcreatehttphandle
      * @since windows6.0.6000
      */
     static HttpCreateHttpHandle(RequestQueueHandle) {
@@ -707,6 +731,20 @@ class HttpServer {
 
     /**
      * Creates a new request queue or opens an existing request queue.
+     * @remarks
+     * The HTTP Server API supports existing applications using the version 1.0 request queues, however, new development with the HTTP Server API should use <b>HttpCreateRequestQueue</b> to create request queues; <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreatehttphandle">HttpCreateHttpHandle</a> should not be used. The version 2.0 API are only compatible with the version 2.0 request queues created by <b>HttpCreateRequestQueue</b>.
+     * 
+     * The HTTP version 2 request queues require manual configuration; the application must create the URL Groups and associate one or more URL Group with the request queue by calling <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpseturlgroupproperty">HttpSetUrlGroupProperty</a> with the <b>HttpServerBindingProperty</b>. The application configures the request queue by calling <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetrequestqueueproperty">HttpSetRequestQueueProperty</a> with the    desired configuration in the <i>Property</i> parameter. For more information about creating and configuring URL groups, see  <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreateurlgroup">HttpCreateUrlGroup</a> and  <b>HttpSetUrlGroupProperty</b>.
+     * 
+     * Security attributes may be supplied in <i>pSecurityAttributes</i> parameter only when the request queue is created. Only the  application that creates the request queue can set Access Control Lists (ACLs) on the request queue handle to allow processes (other than the creator application) permission to open, receive requests, and send responses on the request queue handle. By default, applications are not allowed to open a request queue unless they have been granted permission in the ACL.
+     * 
+     * The creator process can optionally use the <b>HTTP_CREATE_REQUEST_QUEUE_FLAG_CONTROLLER</b> flag to indicate that it does not want to receive http requests. 
+     * 
+     * <b>HttpCreateRequestQueue</b> allows applications to open an existing request queue with the <b>HTTP_CREATE_REQUEST_QUEUE_FLAG_OPEN_EXISTING</b> flag and retrieve the handle to the request queue. Non-controller applications can use this handle to perform HTTP I/O operations. Only the application that creates the request queue can set properties on it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetrequestqueueproperty">HttpSetRequestQueueProperty</a>.
+     * 
+     * The handle to the request queue created by <b>HttpCreateRequestQueue</b> must be closed by calling <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcloserequestqueue">HttpCloseRequestQueue</a> before the application terminates or when the session is no longer required.
+     * 
+     * Applications must call <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpinitialize">HttpInitialize</a> prior to calling <b>HttpCreateRequestQueue</b>.
      * @param {HTTPAPI_VERSION} Version An HTTPAPI_VERSION structure indicating the request queue version. For  version 2.0, declare an instance of the structure and set it to the predefined value HTTPAPI_VERSION_2 before passing it to <b>HttpCreateRequestQueue</b>.
      * 
      * The version must be 2.0; <b>HttpCreateRequestQueue</b> does not support  version 1.0 request queues.
@@ -716,7 +754,7 @@ class HttpServer {
      * @param {Pointer<SECURITY_ATTRIBUTES>} SecurityAttributes A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that contains the  access permissions for the request queue.
      * 
      * This parameter must be <b>NULL</b> when opening an existing request queue.
-     * @param {Integer} Flags The flags parameter defines the scope of the request queue. This parameter can be one or more of the followng:
+     * @param {Integer} Flags The flags parameter defines the scope of the request queue. This parameter can be one or more of the following:
      * 
      * <table>
      * <tr>
@@ -782,7 +820,7 @@ class HttpServer {
      * 
      * The <b>HTTP_CREATE_REQUEST_QUEUE_FLAG_OPEN_EXISTING</b> can only be set when the application has permission to open an existing request queue. In this case, the <i>pReqQueueHandle</i> parameter must be a valid pointer, and the <i>pName</i> parameter must contain a valid request queue name; it cannot be <b>NULL</b>.
      * 
-     * The <i>pReqQueueHandle</i> parameter returned by <a href="/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a>  is <b>NULL</b>.
+     * The <i>pReqQueueHandle</i> parameter returned by <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a>  is <b>NULL</b>.
      * 
      * </td>
      * </tr>
@@ -815,12 +853,12 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * The application has not called <a href="/windows/desktop/api/http/nf-http-httpinitialize">HttpInitialize</a> prior to calling <a href="/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a>.
+     * The application has not called <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpinitialize">HttpInitialize</a> prior to calling <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpcreaterequestqueue
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpcreaterequestqueue
      * @since windows6.0.6000
      */
     static HttpCreateRequestQueue(Version, Name, SecurityAttributes, Flags, RequestQueueHandle) {
@@ -832,6 +870,8 @@ class HttpServer {
 
     /**
      * Closes the handle to the specified request queue created by HttpCreateRequestQueue.
+     * @remarks
+     * Applications  should not call <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> on the request queue handle; instead, they should call <b>HttpCloseRequestQueue</b> to ensure that all the resources are released.
      * @param {HANDLE} RequestQueueHandle The handle to the request queue that is closed. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>.
@@ -855,7 +895,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpcloserequestqueue
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpcloserequestqueue
      * @since windows6.0.6000
      */
     static HttpCloseRequestQueue(RequestQueueHandle) {
@@ -971,7 +1011,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpsetrequestqueueproperty
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpsetrequestqueueproperty
      * @since windows6.0.6000
      */
     static HttpSetRequestQueueProperty(RequestQueueHandle, Property, PropertyInformation, PropertyInformationLength) {
@@ -1101,7 +1141,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpqueryrequestqueueproperty
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpqueryrequestqueueproperty
      * @since windows6.0.6000
      */
     static HttpQueryRequestQueueProperty(RequestQueueHandle, Property, PropertyInformation, PropertyInformationLength, ReturnLength) {
@@ -1118,7 +1158,7 @@ class HttpServer {
     /**
      * Sets a new property or modifies an existing property on the specified request.
      * @param {HANDLE} RequestQueueHandle The handle to the request queue on which the request was received. A request queue is created and its handle returned by a call to the [HttpCreateRequestQueue](/windows/desktop/api/http/nf-http-httpcreaterequestqueue) function.
-     * @param {Integer} Id The opaque ID of the request. This ID is located in the *RequestId* member of the [HTTP\_REQUEST](/windows/desktop/legacy/aa364545(v=vs.85)) structure returned by [HttpReceiveHttpRequest](/windows/win32/api/http/nf-http-httpreceivehttprequest).
+     * @param {Integer} Id The opaque ID of the request. This ID is located in the *RequestId* member of the [HTTP\_REQUEST](/previous-versions/windows/desktop/legacy/aa364545(v=vs.85)) structure returned by [HttpReceiveHttpRequest](/windows/win32/api/http/nf-http-httpreceivehttprequest).
      * @param {Integer} PropertyId A member of the [HTTP\_REQUEST\_PROPERTY](/windows/desktop/api/http/ne-http-http_request_property) enumeration describing the property type that is set. This must be one of the following:
      * 
      * | **Property** | **Meaning** |
@@ -1128,7 +1168,7 @@ class HttpServer {
      * It must point to one of the following property information types based on the property that is set.
      * 
      * | **Property** | **Configuration Type** |
-     * | HttpRequestPropertyStreamError | [HTTP\_REQUEST\_PROPERTY\_STREAM\_ERROR](/windows/desktop/api/http/ne-http-http_request_property_stream_error) structure |
+     * | HttpRequestPropertyStreamError | [HTTP\_REQUEST\_PROPERTY\_STREAM\_ERROR](/windows/win32/api/http/ns-http-http_request_property_stream_error) structure |
      * @param {Integer} InputPropertySize The length, in bytes, of the buffer pointed to by the *Input* parameter.
      * @param {Pointer<OVERLAPPED>} Overlapped For asynchronous calls, set *pOverlapped* to point to an [OVERLAPPED](/windows/desktop/api/minwinbase/ns-minwinbase-overlapped) structure; for synchronous calls, set it to **NULL**.
      * 
@@ -1136,7 +1176,7 @@ class HttpServer {
      * @returns {Integer} If the function succeeds, it returns **ERROR\_SUCCESS**.
      * 
      * If the function fails, it returns a [system error code](/windows/desktop/Debug/system-error-codes).
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpsetrequestproperty
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpsetrequestproperty
      */
     static HttpSetRequestProperty(RequestQueueHandle, Id, PropertyId, Input, InputPropertySize, Overlapped) {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
@@ -1169,6 +1209,24 @@ class HttpServer {
 
     /**
      * Stops queuing requests for the specified request queue process.
+     * @remarks
+     * <b>HttpShutdownRequestQueue</b> cancels outstanding requests and stops all processing on the request queue process. The following steps are performed when this function is called:
+     * 
+     * 
+     * <ol>
+     * <li>The request queue process is marked  for cleanup and no new requests are routed to the request queue process.</li>
+     * <li>If the calling process is a controller, outstanding <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpwaitfordemandstart">HttpWaitForDemandStart</a> calls are canceled.</li>
+     * <li>Pending <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpreceivehttprequest">HttpReceiveHttpRequest</a> calls from the calling process are canceled.</li>
+     * <li>Requests that are already bound to the calling process are canceled.</li>
+     * <li>The unreceived pending requests that are queued to the request queue process rerouted to another  request queue process. If no other request queue process is available, the pending requests are saved until the request queue is closed, or another non-controller request queue process launches.</li>
+     * <li>Pending <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpwaitfordisconnect">HttpWaitForDisconnect</a> calls initiated by the calling process are canceled.</li>
+     * <li>Outstanding responses indicated by the calling process are not affected, they are properly completed.</li>
+     * </ol>
+     * 
+     * 
+     * Be aware that if the request queue handle is shared by multiple processes,  <b>HttpShutdownRequestQueue</b> limits cleanup to the calling process. Other processes currently working on the request queue are not affected.
+     * 
+     * <b>HttpShutdownRequestQueue</b> can be used by applications to recycle request queue processes. For this purpose, <b>HttpShutdownRequestQueue</b> is called prior to terminating a process that shares the request queue with other processes. After <b>HttpShutdownRequestQueue</b>  returns, the process can be safely terminated or recycled.
      * @param {HANDLE} RequestQueueHandle The handle to the request queue that is shut down. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>
@@ -1194,7 +1252,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpshutdownrequestqueue
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpshutdownrequestqueue
      * @since windows6.0.6000
      */
     static HttpShutdownRequestQueue(RequestQueueHandle) {
@@ -1206,6 +1264,13 @@ class HttpServer {
 
     /**
      * The HttpReceiveClientCertificate function is used by a server application to retrieve a client SSL certificate or channel binding token (CBT).
+     * @remarks
+     * The behavior of the <b>HttpReceiveClientCertificate</b> function varies based on whether a client SSL certificate or a channel binding token is requested.
+     * 
+     * In the case of a synchronous call to the <b>HttpReceiveClientCertificate</b> function , the number of bytes received is returned in the value pointed to by the <i>pBytesReceived</i> parameter.
+     * 
+     * In the case of an asynchronous call to the <b>HttpReceiveClientCertificate</b> function, the number of bytes received is returned by the standard mechanisms used for asynchronous calls. The  <i>lpNumberOfBytesTransferred</i> parameter returned by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverlappedResult</a> function contains the number of bytes received.
      * @param {HANDLE} RequestQueueHandle A handle to the request queue with which the specified SSL client or CBT is associated. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * 
@@ -1316,9 +1381,9 @@ class HttpServer {
      * <td width="60%">
      * The buffer pointed to by the <i>pSslClientCertInfo</i> parameter is not large enough to receive all the data. Only the basic structure has been written and only partially populated.
      * 
-     * When the <i>Flags</i> parameter is 0, the <a href="/windows/desktop/api/http/ns-http-http_ssl_client_cert_info">HTTP_SSL_CLIENT_CERT_INFO</a>structure has been written with the <b>CertEncodedSize</b> member populated. The caller should call the function again with a buffer that is at least the size, in bytes, of  the <b>HTTP_SSL_CLIENT_CERT_INFO</b> structure plus the value of the <b>CertEncodedSize</b> member.
+     * When the <i>Flags</i> parameter is 0, the <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_ssl_client_cert_info">HTTP_SSL_CLIENT_CERT_INFO</a> structure has been written with the <b>CertEncodedSize</b> member populated. The caller should call the function again with a buffer that is at least the size, in bytes, of  the <b>HTTP_SSL_CLIENT_CERT_INFO</b> structure plus the value of the <b>CertEncodedSize</b> member.
      * 
-     * When the <i>Flags</i> parameter is <b>HTTP_RECEIVE_SECURE_CHANNEL_TOKEN</b>, the <a href="/windows/desktop/api/http/ns-http-http_request_channel_bind_status">HTTP_REQUEST_CHANNEL_BIND_STATUS</a>  structure has been written with the <b>ChannelTokenSize</b> member populated. The caller should call the function again with a buffer that is at least the size, in bytes, of the <b>HTTP_REQUEST_CHANNEL_BIND_STATUS</b>  plus  the value of the <b>ChannelTokenSize</b> member.
+     * When the <i>Flags</i> parameter is <b>HTTP_RECEIVE_SECURE_CHANNEL_TOKEN</b>, the <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_request_channel_bind_status">HTTP_REQUEST_CHANNEL_BIND_STATUS</a>  structure has been written with the <b>ChannelTokenSize</b> member populated. The caller should call the function again with a buffer that is at least the size, in bytes, of the <b>HTTP_REQUEST_CHANNEL_BIND_STATUS</b>  plus  the value of the <b>ChannelTokenSize</b> member.
      * 
      * </td>
      * </tr>
@@ -1340,12 +1405,12 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in the <i>WinError.h</i> header file.
+     * A <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in the <i>WinError.h</i> header file.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpreceiveclientcertificate
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpreceiveclientcertificate
      * @since windows6.0.6000
      */
     static HttpReceiveClientCertificate(RequestQueueHandle, ConnectionId, Flags, SslClientCertInfo, SslClientCertInfoSize, BytesReceived, Overlapped) {
@@ -1359,6 +1424,12 @@ class HttpServer {
 
     /**
      * Creates a server session for the specified version.
+     * @remarks
+     * Server sessions own a set of URL Groups. They are top-level configuration containers for configuration information that applies to all of the URL Groups created under them. For more information about configuring a server session, see <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserversessionproperty">HttpSetServerSessionProperty</a>.
+     * 
+     * The HTTP Server API does not support asynchronous I/O for server sessions.
+     * 
+     *  When the server session is no longer required, or before the application terminates, application must delete the server session by calling <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcloseserversession">HttpCloseServerSession</a>. When a server session is deleted all of the associated URL Groups are also automatically deleted.
      * @param {HTTPAPI_VERSION} Version An HTTPAPI_VERSION structure that indicates the version of the server session. For  version 2.0, declare an instance of the structure and set it to the predefined value <b>HTTPAPI_VERSION_2</b> before passing it to <b>HttpCreateServerSession</b>.
      * 
      * The version must be 2.0; <b>HttpCreateServerSession</b> does not support  version 1.0 request queues.
@@ -1395,7 +1466,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpcreateserversession
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpcreateserversession
      * @since windows6.0.6000
      */
     static HttpCreateServerSession(Version, ServerSessionId) {
@@ -1409,6 +1480,8 @@ class HttpServer {
 
     /**
      * Deletes the server session identified by the server session ID.
+     * @remarks
+     * Applications must call <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcloseurlgroup">HttpCloseUrlGroup</a> before calling <b>HttpCloseServerSession</b> to close the all the URL Groups associated with the server session.
      * @param {Integer} ServerSessionId The ID of the server session that is closed.
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>
      * 
@@ -1433,7 +1506,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpcloseserversession
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpcloseserversession
      * @since windows6.0.6000
      */
     static HttpCloseServerSession(ServerSessionId) {
@@ -1443,6 +1516,12 @@ class HttpServer {
 
     /**
      * Queries a server property on the specified server session.
+     * @remarks
+     * Querying the <b>HttpServerLoggingProperty</b> is not supported.
+     * 
+     * The <i>pPropertyInformation</i> parameter points to the configuration structure for the property type that is queried. The <i>PropertyInformationLength</i> parameter specifies the size, in bytes,  of the configuration structure. For example, when querying the <b>HttpServerTimeoutsProperty</b> the <i>pPropertyInformation</i> parameter must point to a buffer that is at least the size of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_timeout_limit_info">HTTP_TIMEOUT_LIMIT_INFO</a> structure.
+     * 
+     *  To specify the HttpServerQosProperty property in the <i>pPropertyInformation</i> parameter, set    <b>QosType</b> to <b>HttpQosSettingTypeBandwidth</b> inside the <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_qos_setting_info">HTTP_QOS_SETTING_INFO</a> structure, and pass a pointer to this structure in the parameter.
      * @param {Integer} ServerSessionId The server session for which the property setting is returned.
      * @param {Integer} Property A member of the  <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HTTP_SERVER_PROPERTY</a> enumeration that describes the property type that is queried. This can be one of the following.
      * 
@@ -1584,7 +1663,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpqueryserversessionproperty
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpqueryserversessionproperty
      * @since windows6.0.6000
      */
     static HttpQueryServerSessionProperty(ServerSessionId, Property, PropertyInformation, PropertyInformationLength, ReturnLength) {
@@ -1596,6 +1675,10 @@ class HttpServer {
 
     /**
      * Sets a new server session property or modifies an existing property on the specified server session.
+     * @remarks
+     * Server sessions are top level configuration containers for configuration data that applies to all of the URL groups created under them. The server session is created with <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreateserversession">HttpCreateServerSession</a>.
+     * 
+     * The <i>pPropertyInformation</i> parameter points to the configuration structure for the property type that is set. The <i>PropertyInformationLength</i> parameter specifies the size, in bytes, of the configuration structure. For example, when setting the <b>HttpServerTimeoutsProperty</b> the <i>pPropertyInformation</i> parameter must point to a buffer that is at least equal to the size of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_timeout_limit_info">HTTP_TIMEOUT_LIMIT_INFO</a> structure.
      * @param {Integer} ServerSessionId The server session for which the property is set.
      * @param {Integer} Property A member of the  <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HTTP_SERVER_PROPERTY</a> enumeration that describes the property type that is set. This can be one of the following.
      * 
@@ -1757,7 +1840,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpsetserversessionproperty
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpsetserversessionproperty
      * @since windows6.0.6000
      */
     static HttpSetServerSessionProperty(ServerSessionId, Property, PropertyInformation, PropertyInformationLength) {
@@ -1767,6 +1850,17 @@ class HttpServer {
 
     /**
      * Registers a given URL so that requests that match it are routed to a specified HTTP Server API request queue.
+     * @remarks
+     * As stated in the <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix Strings</a> topic, the scheme specification of the UrlPrefix to be registered must be either lower-case "http" or lower-case "https". No other substring is valid.
+     * 
+     * Also, it is not possible to register URLs having different schemes on the same port. That is, "http" and "https" schemes cannot coexist on a port.
+     * 
+     * Also be aware that 
+     * <b>HttpAddUrl</b> registers any UrlPrefix passed to it as long as the string is well-formed. Any validation of existence, accessibility, ownership, or other characteristic of the specified URL namespace must be handled by the application.
+     * 
+     * To release the resources allocated as a result of the registration performed by 
+     * <b>HttpAddUrl</b>, make a matching call to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpremoveurl">HttpRemoveUrl</a> function when your application has finished with the namespace involved.
      * @param {HANDLE} RequestQueueHandle The handle to the request queue to which requests for the specified URL are to be routed. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * 
@@ -1801,7 +1895,7 @@ class HttpServer {
      * </td>
      * <td width="60%">
      * The calling application did not call 
-     * <a href="/windows/desktop/api/http/nf-http-httpinitialize">HttpInitialize</a> before calling this function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpinitialize">HttpInitialize</a> before calling this function.
      * 
      * </td>
      * </tr>
@@ -1845,12 +1939,12 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * A <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpaddurl
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpaddurl
      * @since windows6.0.6000
      */
     static HttpAddUrl(RequestQueueHandle, FullyQualifiedUrl) {
@@ -1932,12 +2026,12 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * A <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpremoveurl
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpremoveurl
      * @since windows6.0.6000
      */
     static HttpRemoveUrl(RequestQueueHandle, FullyQualifiedUrl) {
@@ -1950,6 +2044,28 @@ class HttpServer {
 
     /**
      * Creates a URL Group under the specified server session.
+     * @remarks
+     * URL Groups are configuration containers for a set of URLs. They are created under the server session and inherit the configuration settings of the server session. When a configuration parameter is set on the URL Group, it overrides the configuration set on the server session. For more information about the setting configurations for the URL Group, see <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpseturlgroupproperty">HttpSetUrlGroupProperty</a>.
+     * 
+     * After the URL group is created it must be associated with a request queue to receive requests. To associate the URL Group with a request queue, the application calls <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpseturlgroupproperty">HttpSetUrlGroupProperty</a> with the <b>HttpServerBindingProperty</b> property. If this property is not set, matching requests for the URL Group are not delivered to a request queue and the  HTTP Server API generates a 503 response.
+     * 
+     * The URL Group association with a request queue is dynamic. The association with the servers session cannot be changed until either the server session or the URL Group is deleted. When a server session is deleted all of the associated URL Groups are also automatically closed. 
+     * 
+     * The URL Group is initially created as an empty group. URLs must be added to the group by calling <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpaddurltourlgroup">HttpAddUrlToUrlGroup</a>.
+     * 
+     * Application may create multiple URL Groups for the following reasons:<ul>
+     * <li>To set distinct configurations for different portions of URL name space on which it is listening.</li>
+     * <li>To set separate request queues for different portions of URL name space on which it is listening.</li>
+     * </ul>
+     * 
+     * 
+     * Applications should combine URLs into groups as much  as possible; otherwise performance will degrade and increased memory consumption of the system will affect the scalability.
+     * 
+     * The HTTP Server API does not support asynchronous I/O on URL Groups.
+     * 
+     * When the URL group is no longer needed or before the application terminates it must delete the URL Group by calling <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcloseurlgroup">HttpCloseUrlGroup</a>.
+     * 
+     * The URL Group is created with the same version as the server session under which it is created.
      * @param {Integer} ServerSessionId The identifier of the server session under which the URL Group is created.
      * @param {Pointer<Integer>} pUrlGroupId A pointer to the variable that receives the ID of the URL Group.
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>
@@ -1977,7 +2093,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpcreateurlgroup
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpcreateurlgroup
      * @since windows6.0.6000
      */
     static HttpCreateUrlGroup(ServerSessionId, pUrlGroupId) {
@@ -1991,6 +2107,8 @@ class HttpServer {
 
     /**
      * Closes the URL Group identified by the URL Group ID.
+     * @remarks
+     * Applications must call <b>HttpCloseUrlGroup</b> before calling <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcloseserversession">HttpCloseServerSession</a> to close the all URL Groups associated with the server session.
      * @param {Integer} UrlGroupId The ID of the URL Group that is deleted.
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>.
      * 
@@ -2015,7 +2133,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpcloseurlgroup
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpcloseurlgroup
      * @since windows6.0.6000
      */
     static HttpCloseUrlGroup(UrlGroupId) {
@@ -2025,8 +2143,12 @@ class HttpServer {
 
     /**
      * Adds the specified URL to the URL Group identified by the URL Group ID.
+     * @remarks
+     * The HTTP Server API supports existing applications using version 1.0 URL registrations, however, new development with the HTTP Server API should use <b>HttpAddUrlToUrlGroup</b>; <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpaddurl">HttpAddUrl</a> should not be used.
+     * 
+     * An application can add multiple URLs to a URL group using repeated calls to <b>HttpAddUrlToUrlGroup</b>. Requests that match the specified  URL are routed to the request queue associated with the URL group. For more information about how the HTTP Server API matches request URLs to registered URLs, see <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix Strings</a>.
      * @param {Integer} UrlGroupId The group ID for the URL group to which requests for the specified URL are routed. The URL group is created by the <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreateurlgroup">HttpCreateUrlGroup</a> function.
-     * @param {PWSTR} pFullyQualifiedUrl A pointer to a Unicode string that contains a properly formed <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix String</a> that identifies the URL to be registered.
+     * @param {PWSTR} pFullyQualifiedUrl A pointer to a Unicode string that contains a properly formed <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix String</a> that identifies the URL to be registered. If you are not running as an administrator, specify a port number greater than 1024, otherwise you may get an ERROR_ACCESS_DENIED error.
      * @param {Integer} UrlContext The context that is associated with the URL registered in this call. The URL context is returned in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa364545(v=vs.85)">HTTP_REQUEST</a> structure with every request received on the URL specified in the <i>pFullyQualifiedUrl</i> parameter.
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>
      * 
@@ -2075,7 +2197,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpaddurltourlgroup
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpaddurltourlgroup
      * @since windows6.0.6000
      */
     static HttpAddUrlToUrlGroup(UrlGroupId, pFullyQualifiedUrl, UrlContext) {
@@ -2089,6 +2211,10 @@ class HttpServer {
 
     /**
      * Removes the specified URL from the group identified by the URL Group ID.
+     * @remarks
+     * The HTTP Server API supports existing applications using the version 1.0 URL registrations, however, new development with the HTTP Server API should use <b>HttpRemoveUrlFromUrlGroup</b>; do not use <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpremoveurl">HttpRemoveUrl</a>.
+     * 
+     * Applications should remove the URL added to the group by <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpaddurltourlgroup">HttpAddUrlToUrlGroup</a>, when the URL is no longer required.
      * @param {Integer} UrlGroupId The ID of the URL group from which the URL specified in <i>pFullyQualifiedUrl</i> is removed.
      * @param {PWSTR} pFullyQualifiedUrl A pointer to a Unicode string that contains a properly formed <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix String</a> that identifies the URL to be removed.
      * 
@@ -2160,7 +2286,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpremoveurlfromurlgroup
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpremoveurlfromurlgroup
      * @since windows6.0.6000
      */
     static HttpRemoveUrlFromUrlGroup(UrlGroupId, pFullyQualifiedUrl, Flags) {
@@ -2172,6 +2298,8 @@ class HttpServer {
 
     /**
      * Sets a new property or modifies an existing property on the specified URL Group.
+     * @remarks
+     * After the URL Group is created it must be associated with a request queue to receive requests. To associate the URL Group with a request queue, the application calls <b>HttpSetUrlGroupProperty</b> with the <b>HttpServerBindingProperty</b> property. If this property is not set, matching requests for the URL Group are not delivered to a request queue and the  HTTP Server API generates a 503 response.
      * @param {Integer} UrlGroupId The ID of the URL Group for which the property is set.
      * @param {Integer} Property A member of the  <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HTTP_SERVER_PROPERTY</a> enumeration that describes the property type that is modified or set. This can be one of the following:
      * 
@@ -2347,7 +2475,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpseturlgroupproperty
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpseturlgroupproperty
      * @since windows6.0.6000
      */
     static HttpSetUrlGroupProperty(UrlGroupId, Property, PropertyInformation, PropertyInformationLength) {
@@ -2357,6 +2485,8 @@ class HttpServer {
 
     /**
      * Queries a property on the specified URL Group.
+     * @remarks
+     * Querying the <b>HttpServerLoggingProperty</b> is not supported.
      * @param {Integer} UrlGroupId The ID of the URL Group for which the property setting is returned.
      * @param {Integer} Property A member of the  <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HTTP_SERVER_PROPERTY</a> enumeration that describes the property type that is queried. This can be one of the following:
      * 
@@ -2498,7 +2628,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpqueryurlgroupproperty
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpqueryurlgroupproperty
      * @since windows6.0.6000
      */
     static HttpQueryUrlGroupProperty(UrlGroupId, Property, PropertyInformation, PropertyInformationLength, ReturnLength) {
@@ -2517,8 +2647,8 @@ class HttpServer {
      * <div> </div>
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, it returns one of the following or a <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpprepareurl
+     * If the function fails, it returns one of the following or a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpprepareurl
      * @since windows8.0
      */
     static HttpPrepareUrl(Url, PreparedUrl) {
@@ -2534,6 +2664,19 @@ class HttpServer {
 
     /**
      * Retrieves the next available HTTP request from the specified request queue either synchronously or asynchronously.
+     * @remarks
+     * More than one call can be required to retrieve a given request. When the <i>Flags</i> parameter is set to zero, for example, 
+     * <b>HttpReceiveHttpRequest</b> only copies the request header structure into the buffer, and does not attempt to copy any of the entity body. In this case, the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpreceiverequestentitybody">HttpReceiveRequestEntityBody</a> function can be used to retrieve the entity body, or a second call can be made to 
+     * <b>HttpReceiveHttpRequest</b>.
+     * 
+     * Alternatively, the buffer provided by the application may be insufficiently large to receive all or part of the request. To be sure of receiving at least part of the request, it is recommended that an application provide at least a buffer of 4 KB, which accommodates most HTTP requests. Alternately, authentication headers, parsed as unknown headers, can add up to 12 KB to that, so if authentication/authorization is used, a buffer size of at least 16 KB is recommended.
+     * 
+     * If 
+     * <b>HttpReceiveHttpRequest</b> returns <b>ERROR_MORE_DATA</b>, the application continues to make additional calls, identifying the request in each additional call by passing in the <b>HTTP_REQUEST.RequestId</b> value returned by the first call until <b>ERROR_HANDLE_EOF</b> is returned.
+     * 
+     * <div class="alert"><b>Note</b>  The application must examine all relevant request headers, including content-negotiation headers if used, and fail the request as appropriate based on the header content. <b>HttpReceiveHttpRequest</b> ensures only that the header line is properly terminated and does not contain illegal characters.</div>
+     * <div> </div>
      * @param {HANDLE} RequestQueueHandle A handle to the request queue from which to retrieve the next available request. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * 
@@ -2626,12 +2769,12 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * A <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpreceivehttprequest
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpreceivehttprequest
      * @since windows6.0.6000
      */
     static HttpReceiveHttpRequest(RequestQueueHandle, RequestId, Flags, RequestBuffer, RequestBufferLength, BytesReturned, Overlapped) {
@@ -2645,6 +2788,9 @@ class HttpServer {
 
     /**
      * Receives additional entity body data for a specified HTTP request.
+     * @remarks
+     * To retrieve an entire entity body, an application is expected to call 
+     * <b>HttpReceiveRequestEntityBody</b>, passing in new buffers, until the function returns <b>ERROR_HANDLE_EOF</b>. As long as a buffer full of entity-body data is copied successfully and there is still more entity-body data waiting to be retrieved, the function returns <b>NO_ERROR</b>.
      * @param {HANDLE} RequestQueueHandle The handle to the request queue from which to retrieve the specified entity body data. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * 
@@ -2730,7 +2876,7 @@ class HttpServer {
      * </td>
      * <td width="60%">
      * The calling application did not call 
-     * <a href="/windows/desktop/api/http/nf-http-httpinitialize">HttpInitialize</a> before calling this function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpinitialize">HttpInitialize</a> before calling this function.
      * 
      * </td>
      * </tr>
@@ -2741,12 +2887,12 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * A <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpreceiverequestentitybody
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpreceiverequestentitybody
      * @since windows6.0.6000
      */
     static HttpReceiveRequestEntityBody(RequestQueueHandle, RequestId, Flags, EntityBuffer, EntityBufferLength, BytesReturned, Overlapped) {
@@ -2760,6 +2906,17 @@ class HttpServer {
 
     /**
      * Sends an HTTP response to the specified HTTP request.
+     * @remarks
+     * The 
+     * <b>HttpSendHttpResponse</b> function is used to create and send a response header, and the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsendresponseentitybody">HttpSendResponseEntityBody</a> function can be used to send entity-body data as required.
+     * 
+     * If neither a content-length header nor a transfer-encoding header is included with the response, the application must indicate the end of the response by explicitly closing the connection by using the <b>HTTP_SEND_RESPONSE_DISCONNECT</b> flag.
+     * 
+     *  If an application specifies a "Server:" header in a response,  using the <b>HttpHeaderServer</b> identifier in the <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_known_header">HTTP_KNOWN_HEADER</a> structure, that specified value is placed as the first part of the header, followed by a space and then "Microsoft-HTTPAPI/1.0". If no server header is specified, <b>HttpSendHttpResponse</b> supplies "Microsoft-HTTPAPI/1.0" as the server header.
+     * 
+     * <div class="alert"><b>Note</b>  The <b>HttpSendHttpResponse</b> and <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsendresponseentitybody">HttpSendResponseEntityBody</a> function must not be called simultaneously from different threads on the same <i>RequestId</i>.</div>
+     * <div> </div>
      * @param {HANDLE} RequestQueueHandle A handle to the request queue from which the specified request was retrieved. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * 
@@ -2823,7 +2980,7 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * Enables the TCP nagling algorithm for this  send only.
+     * Enables the TCP nagling algorithm for this send only.
      * 
      * <b>Windows Server 2003 with SP1 and Windows XP with SP2:  </b>This flag is not supported.
      * 
@@ -2838,7 +2995,7 @@ class HttpServer {
      * Specifies that for a range request, the full response content is passed and the caller wants the HTTP API to process ranges appropriately.
      * 
      * 
-     * <div class="alert"><b>Note</b>  This flag is only supported for responses to HTTP <i>GET</i> requests and offers a limited subset of functionality. Applications that require full range processing should perform it in user mode and not rely on HTTP.sys. It's usage is discouraged.</div>
+     * <div class="alert"><b>Note</b>  This flag is only supported for responses to HTTP <i>GET</i> requests and offers a limited subset of functionality. Applications that require full range processing should perform it in user mode and not rely on HTTP.sys. Its usage is discouraged.</div>
      * <div> </div>
      * Windows Server 2008 R2 and Windows 7 or later.
      * 
@@ -2912,12 +3069,12 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * A <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpsendhttpresponse
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpsendhttpresponse
      * @since windows6.0.6000
      */
     static HttpSendHttpResponse(RequestQueueHandle, RequestId, Flags, HttpResponse, CachePolicy, BytesSent, Overlapped, LogData) {
@@ -2933,6 +3090,11 @@ class HttpServer {
 
     /**
      * Sends entity-body data associated with an HTTP response.
+     * @remarks
+     * If neither a Content-length header nor a Transfer-encoding header is included in the response headers, the application must indicate the end of the response by explicitly closing the connection using the <b>HTTP_SEND_RESPONSE_DISCONNECT</b> flag.
+     * 
+     * <div class="alert"><b>Note</b>  <b>HttpSendResponseEntityBody</b> (or <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsendhttpresponse">HttpSendHttpResponse</a>) and <b>HttpSendResponseEntityBody</b> must not be called simultaneously from different threads on the same <i>RequestId</i>.</div>
+     * <div> </div>
      * @param {HANDLE} RequestQueueHandle A handle to the request queue from which the specified request was retrieved. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * 
@@ -2992,7 +3154,7 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * Enables the TCP nagling algorithm for this  send only.
+     * Enables the TCP nagling algorithm for this send only.
      * 
      * <b>Windows Vista and later:  </b>This flag is not supported.
      * 
@@ -3083,7 +3245,7 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * There is a call pending to <a href="/windows/desktop/api/http/nf-http-httpsendhttpresponse">HttpSendHttpResponse</a> or <a href="/windows/desktop/api/http/nf-http-httpsendresponseentitybody">HttpSendResponseEntityBody</a> having the same <b>RequestId</b>.
+     * There is a call pending to <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsendhttpresponse">HttpSendHttpResponse</a> or <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsendresponseentitybody">HttpSendResponseEntityBody</a> having the same <b>RequestId</b>.
      * 
      * </td>
      * </tr>
@@ -3094,12 +3256,12 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * A <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpsendresponseentitybody
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpsendresponseentitybody
      * @since windows6.0.6000
      */
     static HttpSendResponseEntityBody(RequestQueueHandle, RequestId, Flags, EntityChunkCount, EntityChunks, BytesSent, Overlapped, LogData) {
@@ -3115,6 +3277,9 @@ class HttpServer {
 
     /**
      * Declares a resource-to-subresource relationship to use for an HTTP server push. HTTP.sys then performs an HTTP 2.0 server push for the given resource, if the underlying protocol, connection, client, and policies allow the push operation.
+     * @remarks
+     * You should call <b>HttpDeclarePush</b> before you send any response bytes that would cause the client to discover the subresource itself.  Failure to observe this order results in a race between the server that is pushing the resource and the client that is  retrieving the resources, which can waste bandwidth.
+     * The server application should only use <b>HttpDeclarePush</b> to push resources that the server application is highly confident are needed and not already cached by the client.  If the server application pushes other resources, unnecessary use of bandwidth and CPU may occur.
      * @param {HANDLE} RequestQueueHandle The handle to an HTTP.sys request queue that the  <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function returned.
      * @param {Integer} RequestId The opaque identifier of the request that is declaring the push operation. The request must be from the specified queue handle.
      * @param {Integer} Verb The HTTP verb to use for the push operation. The HTTP.sys push operation only supports <b>HttpVerbGET</b> and <b>HttpVerbHEAD</b>.
@@ -3127,8 +3292,8 @@ class HttpServer {
      * The push request is not allowed to have an entity body, so you cannot include a non-zero Content-Length  header or any Transfer-Encoding header.
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>.
      * 
-     * If the function fails, it returns a <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpdeclarepush
+     * If the function fails, it returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpdeclarepush
      * @since windows10.0.10240
      */
     static HttpDeclarePush(RequestQueueHandle, RequestId, Verb, Path, Query, Headers) {
@@ -3187,12 +3352,12 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * A <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpwaitfordisconnect
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpwaitfordisconnect
      * @since windows6.0.6000
      */
     static HttpWaitForDisconnect(RequestQueueHandle, ConnectionId, Overlapped) {
@@ -3208,7 +3373,7 @@ class HttpServer {
      * @param {Integer} ConnectionId 
      * @param {Pointer<OVERLAPPED>} Overlapped 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpwaitfordisconnectex
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpwaitfordisconnectex
      */
     static HttpWaitForDisconnectEx(RequestQueueHandle, ConnectionId, Overlapped) {
         static Reserved := 0 ;Reserved parameters must always be NULL
@@ -3221,11 +3386,13 @@ class HttpServer {
 
     /**
      * The HttpCancelHttpRequest function cancels a specified reqest.
+     * @remarks
+     * When the **HttpCancelHttpRequest** function is used to cancel a request, the underlying transport connection used for the request will be closed.
      * @param {HANDLE} RequestQueueHandle A handle to the request queue from which the request came.
      * @param {Integer} RequestId The ID of the request to be canceled.
      * @param {Pointer<OVERLAPPED>} Overlapped For asynchronous calls, set <i>pOverlapped</i> to point to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure; for synchronous calls, set it to <b>NULL</b>.
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpcancelhttprequest
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpcancelhttprequest
      * @since windows6.0.6000
      */
     static HttpCancelHttpRequest(RequestQueueHandle, RequestId, Overlapped) {
@@ -3237,6 +3404,14 @@ class HttpServer {
 
     /**
      * Waits for the arrival of a new request that can be served by a new request queue process.
+     * @remarks
+     * Only the controller process can call <b>HttpWaitForDemandStart</b> to register a demand start notification. The controller process is the process that created the request queue and indicated that it is a controller process by passing the <b>HTTP_CREATE_REQUEST_QUEUE_FLAG_CONTROLLER</b> flag. If a process other than the controlling process calls <b>HttpWaitForDemandStart</b>, the HTTP Server API returns <b>ERROR_INVALID_ID_AUTHORITY</b>.
+     * 
+     * <b>HttpWaitForDemandStart</b> completes when a new request arrives for the specified request queue. At this time, a controller process can use this API to start a new worker process to server pending requests. Delayed start of the worker process allows applications to avoid consuming resources until they are required.
+     * 
+     * The HTTP Server API allows only one outstanding notification registered on a request queue at any time. The HTTP Server API does not enforce limitations on the number of times that <b>HttpWaitForDemandStart</b> can be called on the same request queue consecutively. There is no limit on the number of outstanding processes that are working on the same request queue.
+     * 
+     * The HTTP Server API supports canceling asynchronous <b>HttpWaitForDemandStart</b> calls. Applications can use <a href="https://docs.microsoft.com/windows/desktop/FileIO/cancelioex-func">CancelIoEx</a> with the overlapped structure supplied in the <i>pOverlapped</i> parameter, to cancel an outstanding <b>HttpWaitForDemandStart</b> call.
      * @param {HANDLE} RequestQueueHandle A handle to the request queue on which demand start is registered. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * @param {Pointer<OVERLAPPED>} Overlapped For asynchronous calls, set <i>pOverlapped</i> to point to an 
@@ -3303,7 +3478,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpwaitfordemandstart
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpwaitfordemandstart
      * @since windows6.0.6000
      */
     static HttpWaitForDemandStart(RequestQueueHandle, Overlapped) {
@@ -3319,7 +3494,7 @@ class HttpServer {
      * 
      * The identifier of the feature.
      * @returns {BOOL} `TRUE` if the feature is supported, otherwise `FALSE`.
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpisfeaturesupported
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpisfeaturesupported
      */
     static HttpIsFeatureSupported(FeatureId) {
         result := DllCall("HTTPAPI.dll\HttpIsFeatureSupported", "int", FeatureId, "int")
@@ -3347,7 +3522,7 @@ class HttpServer {
      * 
      * An array of properties to be set on request when delegating.
      * @returns {Integer} A **[ULONG](/windows/win32/winprog/windows-data-types)** containing an [NTSTATUS](/openspecs/windows_protocols/ms-erref/87fba13e-bf06-450e-83b1-9241dc81e781) completion status.
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpdelegaterequestex
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpdelegaterequestex
      */
     static HttpDelegateRequestEx(RequestQueueHandle, DelegateQueueHandle, RequestId, DelegateUrlGroupId, PropertyInfoSetSize, PropertyInfoSet) {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
@@ -3369,7 +3544,7 @@ class HttpServer {
      * 
      * The matching URL group ID.
      * @returns {Integer} A **[ULONG](/windows/win32/winprog/windows-data-types)** containing an [NTSTATUS](/openspecs/windows_protocols/ms-erref/87fba13e-bf06-450e-83b1-9241dc81e781) completion status.
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpfindurlgroupid
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpfindurlgroupid
      */
     static HttpFindUrlGroupId(FullyQualifiedUrl, RequestQueueHandle, UrlGroupId) {
         FullyQualifiedUrl := FullyQualifiedUrl is String ? StrPtr(FullyQualifiedUrl) : FullyQualifiedUrl
@@ -3428,12 +3603,12 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * A <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpflushresponsecache
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpflushresponsecache
      * @since windows6.0.6000
      */
     static HttpFlushResponseCache(RequestQueueHandle, UrlPrefix, Flags, Overlapped) {
@@ -3453,7 +3628,7 @@ class HttpServer {
      * @param {PWSTR} UrlPrefix Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix string</a> that the application uses in subsequent calls to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsendhttpresponse">HttpSendHttpResponse</a> to identify this cache entry. The application must have called <b>HttpAddUrl</b> previously with the same handle as in the <i>ReqQueueHandle</i> parameter, and with  either  this identical UrlPrefix string or a valid prefix of it.
      * 
-     * Like any UrlPrefix, this string must take the form "scheme://host:port/relativeURI"; for example, http://www.mysite.com:80/image1.gif.
+     * Like any UrlPrefix, this string must take the form "scheme://host:port/relativeURI"; for example, `http://www.mysite.com:80/image1.gif`.
      * @param {Pointer<HTTP_DATA_CHUNK>} DataChunk Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_data_chunk">HTTP_DATA_CHUNK</a> structure that specifies an entity body data block to cache under the name pointed to by <i>pUrlPrefix</i>.
      * @param {Pointer<HTTP_CACHE_POLICY>} CachePolicy Pointer to an 
@@ -3496,12 +3671,12 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * A <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpaddfragmenttocache
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpaddfragmenttocache
      * @since windows6.0.6000
      */
     static HttpAddFragmentToCache(RequestQueueHandle, UrlPrefix, DataChunk, CachePolicy, Overlapped) {
@@ -3521,7 +3696,7 @@ class HttpServer {
      * @param {PWSTR} UrlPrefix Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix string</a> that contains the name of the fragment to be retrieved. This must match a UrlPrefix string used in a previous successful call to <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpaddfragmenttocache">HttpAddFragmentToCache</a>.
      * @param {Pointer<HTTP_BYTE_RANGE>} ByteRange Optional pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_byte_range">HTTP_BYTE_RANGE</a> structure that indicates a starting offset in the specified fragment and byte-count to be returned. <b>NULL</b> if not used, in which case the entire fragment is returned.
-     * @param {Pointer} Buffer Pointer to a buffer into which the function copies the requested fragment.
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferLength Size, in bytes, of the <i>pBuffer</i> buffer.
      * @param {Pointer<Integer>} BytesRead Optional pointer to a variable that receives the number of bytes to be written into the output buffer. If <i>BufferLength</i> is less than this number, the call fails with a return of ERROR_INSUFFICIENT_BUFFER, and the value pointed to by <i>pBytesRead</i> can be used to determine the minimum length of buffer required for the call to succeed. 
      * 
@@ -3568,7 +3743,7 @@ class HttpServer {
      * </td>
      * <td width="60%">
      * The buffer pointed to by <i>pBuffer</i> is too small to receive all the requested data; the size of buffer required is pointed to by <i>pBytesRead</i> unless it was <b>NULL</b> or the call was asynchronous. In the case of an asynchronous call, the value pointed to by the <i>lpNumberOfBytesTransferred</i> parameter of the 
-     * <a href="/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverLappedResult</a> function is set to the buffer size required.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverLappedResult</a> function is set to the buffer size required.
      * 
      * </td>
      * </tr>
@@ -3579,26 +3754,28 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * A <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpreadfragmentfromcache
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpreadfragmentfromcache
      * @since windows6.0.6000
      */
-    static HttpReadFragmentFromCache(RequestQueueHandle, UrlPrefix, ByteRange, Buffer, BufferLength, BytesRead, Overlapped) {
+    static HttpReadFragmentFromCache(RequestQueueHandle, UrlPrefix, ByteRange, Buffer_R, BufferLength, BytesRead, Overlapped) {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
         UrlPrefix := UrlPrefix is String ? StrPtr(UrlPrefix) : UrlPrefix
 
         BytesReadMarshal := BytesRead is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("HTTPAPI.dll\HttpReadFragmentFromCache", "ptr", RequestQueueHandle, "ptr", UrlPrefix, "ptr", ByteRange, "ptr", Buffer, "uint", BufferLength, BytesReadMarshal, BytesRead, "ptr", Overlapped, "uint")
+        result := DllCall("HTTPAPI.dll\HttpReadFragmentFromCache", "ptr", RequestQueueHandle, "ptr", UrlPrefix, "ptr", ByteRange, "ptr", Buffer_R, "uint", BufferLength, BytesReadMarshal, BytesRead, "ptr", Overlapped, "uint")
         return result
     }
 
     /**
      * Creates and sets a configuration record for the HTTP Server API configuration store.
+     * @remarks
+     * The configuration parameters set with <b>HttpSetServiceConfiguration</b> are applied to all the HTTP Server API applications on the machine, and persist when the HTTP Server API shuts down, or when the computer is restarted.
      * @param {Integer} ConfigId 
      * @param {Pointer} pConfigInformation A pointer to a buffer that contains the appropriate data to specify the type of record to be set.
      * 
@@ -3761,12 +3938,12 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * A <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpsetserviceconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpsetserviceconfiguration
      * @since windows5.1.2600
      */
     static HttpSetServiceConfiguration(ConfigId, pConfigInformation, ConfigInformationLength) {
@@ -3778,6 +3955,8 @@ class HttpServer {
 
     /**
      * Updates atomically a service configuration parameter that specifies a Transport Layer Security (TLS) certificate in a configuration record within the HTTP Server API configuration store.
+     * @remarks
+     * The configuration parameters that you update with <b>HttpUpdateServiceConfiguration</b> are applied to all the HTTP Server API applications on the machine, and persist when the HTTP Server API shuts down, or when the computer is restarted.
      * @param {Integer} ConfigId 
      * @param {Pointer} ConfigInfo A pointer to a buffer that contains the appropriate data to specify the type of record to update. The  following table shows the type of data the buffer contains for the different possible values of the <i>ConfigId</i> parameter.
      * 
@@ -3892,12 +4071,12 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * A <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpupdateserviceconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpupdateserviceconfiguration
      * @since windows10.0.15063
      */
     static HttpUpdateServiceConfiguration(ConfigId, ConfigInfo, ConfigInfoLength) {
@@ -4104,12 +4283,12 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * A <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpdeleteserviceconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpdeleteserviceconfiguration
      * @since windows6.0.6000
      */
     static HttpDeleteServiceConfiguration(ConfigId, pConfigInformation, ConfigInformationLength) {
@@ -4365,12 +4544,12 @@ class HttpServer {
      * </dl>
      * </td>
      * <td width="60%">
-     * A <a href="/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
+     * A <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpqueryserviceconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpqueryserviceconfiguration
      * @since windows6.0.6000
      */
     static HttpQueryServiceConfiguration(ConfigId, pInput, InputLength, pOutput, OutputLength, pReturnLength) {
@@ -4386,14 +4565,14 @@ class HttpServer {
      * 
      * @param {HTTPAPI_VERSION} Version 
      * @param {Integer} Extension 
-     * @param {Pointer<Void>} Buffer 
+     * @param {Pointer<Void>} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    static HttpGetExtension(Version, Extension, Buffer, BufferSize) {
-        BufferMarshal := Buffer is VarRef ? "ptr" : "ptr"
+    static HttpGetExtension(Version, Extension, Buffer_R, BufferSize) {
+        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("HTTPAPI.dll\HttpGetExtension", "ptr", Version, "uint", Extension, BufferMarshal, Buffer, "uint", BufferSize, "uint")
+        result := DllCall("HTTPAPI.dll\HttpGetExtension", "ptr", Version, "uint", Extension, Buffer_RMarshal, Buffer_R, "uint", BufferSize, "uint")
         return result
     }
 

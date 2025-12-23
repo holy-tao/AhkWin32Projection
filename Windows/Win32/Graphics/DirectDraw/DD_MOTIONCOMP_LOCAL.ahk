@@ -4,7 +4,7 @@
 
 /**
  * The DD_MOTIONCOMP_LOCAL structure contains local data for each individual Microsoft DirectDraw motion compensation object.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_motioncomp_local
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_motioncomp_local
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

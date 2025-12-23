@@ -12,7 +12,7 @@ class STORAGE_REINITIALIZE_MEDIA extends Win32Struct
     static packingSize => 4
 
     class _SanitizeOption extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 4
         static packingSize => 4
 
         /**

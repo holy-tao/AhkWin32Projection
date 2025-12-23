@@ -3,7 +3,7 @@
 
 /**
  * The LINEAGENTACTIVITYENTRY structure describes a single ACD agent activity. The LINEAGENTACTIVITYLIST structure can contain an array of LINEAGENTACTIVITYENTRY structures.
- * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-lineagentactivityentry
+ * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineagentactivityentry
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

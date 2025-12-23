@@ -5,20 +5,17 @@
 /**
  * Contains information about the configuration state of a communications device.
  * @remarks
- * 
  * If the provider subtype is PST_RS232 or PST_PARALLELPORT, the <b>wcProviderData</b> member is omitted. If the provider subtype is PST_MODEM, the <b>wcProviderData</b> member contains a 
  * <a href="https://docs.microsoft.com/windows/desktop/api/mcx/ns-mcx-modemsettings">MODEMSETTINGS</a> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-commconfig
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-commconfig
  * @namespace Windows.Win32.Devices.Communication
  * @version v4.0.30319
  */
 class COMMCONFIG extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 52
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The size of the structure, in bytes. The caller must set this member to <c>sizeof(COMMCONFIG)</c>.

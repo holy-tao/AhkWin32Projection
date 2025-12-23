@@ -3,7 +3,7 @@
 
 /**
  * This structure contains blob information for the EV compensation feedback for the photo captured.
- * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-capturedmetadataexposurecompensation
+ * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-capturedmetadataexposurecompensation
  * @namespace Windows.Win32.Media.Streaming
  * @version v4.0.30319
  */

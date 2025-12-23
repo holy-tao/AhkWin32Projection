@@ -4,7 +4,7 @@
 
 /**
  * Describes the relationship between the specified processor set. This structure is used with the GetLogicalProcessorInformation function.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-system_logical_processor_information
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_logical_processor_information
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  */
@@ -93,8 +93,8 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION extends Win32Struct
     }
 
     class _ProcessorCore extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * @type {Integer}
@@ -107,8 +107,8 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION extends Win32Struct
     }
 
     class _NumaNode extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * @type {Integer}

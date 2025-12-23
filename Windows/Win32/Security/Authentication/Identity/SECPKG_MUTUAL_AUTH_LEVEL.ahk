@@ -3,7 +3,7 @@
 
 /**
  * The SECPKG_MUTUAL_AUTH_LEVEL structure contains the authentication level used by a security package.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/ns-ntsecpkg-secpkg_mutual_auth_level
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_mutual_auth_level
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

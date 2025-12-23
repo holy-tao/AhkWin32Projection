@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains information about a network-service type value. This information may be specific to a namespace.
+ * Contains information about a network-service type value. This information may be specific to a namespace. (ANSI)
  * @remarks
- * 
  * When you use the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/nf-nspapi-setservicea">SetService</a> function to add a network service type to a namespace, a 
  * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-service_type_info_absa">SERVICE_TYPE_INFO_ABS</a> structure is passed as the <b>ServiceSpecificInfo</b> BLOB member of a 
@@ -18,9 +17,7 @@
  * 
  * > [!NOTE]
  * > The nspapi.h header defines SERVICE_TYPE_VALUE_ABS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//nspapi/ns-nspapi-service_type_value_absa
+ * @see https://learn.microsoft.com/windows/win32/api/nspapi/ns-nspapi-service_type_value_absa
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  * @charset ANSI

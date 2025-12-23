@@ -4,7 +4,7 @@
 
 /**
  * Contains the control point and end point for a quadratic Bezier segment.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/ns-d2d1-d2d1_quadratic_bezier_segment
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_quadratic_bezier_segment
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -12,7 +12,7 @@ class D2D1_QUADRATIC_BEZIER_SEGMENT extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>

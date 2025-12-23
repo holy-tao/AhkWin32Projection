@@ -5,13 +5,13 @@
 
 /**
  * Contains information about a date and time picker (DTP) control.
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-datetimepickerinfo
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-datetimepickerinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
 class DATETIMEPICKERINFO extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -35,7 +35,7 @@ class DATETIMEPICKERINFO extends Win32Struct
     rcCheck{
         get {
             if(!this.HasProp("__rcCheck"))
-                this.__rcCheck := RECT(8, this)
+                this.__rcCheck := RECT(4, this)
             return this.__rcCheck
         }
     }
@@ -47,8 +47,8 @@ class DATETIMEPICKERINFO extends Win32Struct
      * @type {Integer}
      */
     stateCheck {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -60,7 +60,7 @@ class DATETIMEPICKERINFO extends Win32Struct
     rcButton{
         get {
             if(!this.HasProp("__rcButton"))
-                this.__rcButton := RECT(32, this)
+                this.__rcButton := RECT(24, this)
             return this.__rcButton
         }
     }
@@ -72,8 +72,8 @@ class DATETIMEPICKERINFO extends Win32Struct
      * @type {Integer}
      */
     stateButton {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -85,7 +85,7 @@ class DATETIMEPICKERINFO extends Win32Struct
     hwndEdit{
         get {
             if(!this.HasProp("__hwndEdit"))
-                this.__hwndEdit := HWND(56, this)
+                this.__hwndEdit := HWND(48, this)
             return this.__hwndEdit
         }
     }
@@ -99,7 +99,7 @@ class DATETIMEPICKERINFO extends Win32Struct
     hwndUD{
         get {
             if(!this.HasProp("__hwndUD"))
-                this.__hwndUD := HWND(64, this)
+                this.__hwndUD := HWND(56, this)
             return this.__hwndUD
         }
     }
@@ -113,13 +113,13 @@ class DATETIMEPICKERINFO extends Win32Struct
     hwndDropDown{
         get {
             if(!this.HasProp("__hwndDropDown"))
-                this.__hwndDropDown := HWND(72, this)
+                this.__hwndDropDown := HWND(64, this)
             return this.__hwndDropDown
         }
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 80
+        this.cbSize := 72
     }
 }

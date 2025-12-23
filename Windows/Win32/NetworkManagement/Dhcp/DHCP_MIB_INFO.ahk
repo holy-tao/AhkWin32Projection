@@ -4,13 +4,13 @@
 
 /**
  * Defines information returned from the DHCP-specific SNMP Management Information Block (MIB) about the current DHCP service.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_mib_info
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_mib_info
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */
 class DHCP_MIB_INFO extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -84,7 +84,7 @@ class DHCP_MIB_INFO extends Win32Struct
     ServerStartTime{
         get {
             if(!this.HasProp("__ServerStartTime"))
-                this.__ServerStartTime := DATE_TIME(32, this)
+                this.__ServerStartTime := DATE_TIME(28, this)
             return this.__ServerStartTime
         }
     }
@@ -94,8 +94,8 @@ class DHCP_MIB_INFO extends Win32Struct
      * @type {Integer}
      */
     Scopes {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -103,7 +103,7 @@ class DHCP_MIB_INFO extends Win32Struct
      * @type {Pointer<SCOPE_MIB_INFO>}
      */
     ScopeInfo {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

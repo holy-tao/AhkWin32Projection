@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the variable type.
- * @see https://docs.microsoft.com/windows/win32/api//oaidl/ne-oaidl-varkind
+ * @see https://learn.microsoft.com/windows/win32/api/oaidl/ne-oaidl-varkind
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class VARKIND{
+class VARKIND extends Win32Enum{
 
     /**
      * The variable is a field or member of the type. It exists at a fixed offset within each instance of the type.

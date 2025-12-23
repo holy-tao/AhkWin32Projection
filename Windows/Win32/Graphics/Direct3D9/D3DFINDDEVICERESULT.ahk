@@ -11,7 +11,7 @@
  */
 class D3DFINDDEVICERESULT extends Win32Struct
 {
-    static sizeof => 528
+    static sizeof => 520
 
     static packingSize => 8
 
@@ -48,7 +48,7 @@ class D3DFINDDEVICERESULT extends Win32Struct
     ddSwDesc{
         get {
             if(!this.HasProp("__ddSwDesc"))
-                this.__ddSwDesc := D3DDEVICEDESC(272, this)
+                this.__ddSwDesc := D3DDEVICEDESC(268, this)
             return this.__ddSwDesc
         }
     }

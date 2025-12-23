@@ -4,7 +4,7 @@
 
 /**
  * The CAPDRIVERCAPS structure defines the capabilities of the capture driver.An application should use the WM_CAP_DRIVER_GET_CAPS message or capDriverGetCaps macro to place a copy of the driver capabilities in a CAPDRIVERCAPS structure whenever the application connects a capture window to a capture driver.
- * @see https://docs.microsoft.com/windows/win32/api//vfw/ns-vfw-capdrivercaps
+ * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-capdrivercaps
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

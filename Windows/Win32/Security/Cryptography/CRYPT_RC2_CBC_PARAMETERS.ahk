@@ -3,7 +3,7 @@
 
 /**
  * Contains information used with szOID_RSA_RC2CBC encryption.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_rc2_cbc_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_rc2_cbc_parameters
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

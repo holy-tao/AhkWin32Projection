@@ -8,9 +8,9 @@
  */
 class WINBIO_SUPPORTED_ALGORITHMS extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -42,7 +42,7 @@ class WINBIO_SUPPORTED_ALGORITHMS extends Win32Struct
     AlgorithmData{
         get {
             if(!this.HasProp("__AlgorithmData"))
-                this.__AlgorithmData := WINBIO_DATA(16, this)
+                this.__AlgorithmData := WINBIO_DATA(12, this)
             return this.__AlgorithmData
         }
     }

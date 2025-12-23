@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the level of confidence that the recognizer has in the recognition result.
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkrecognitionconfidence
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkrecognitionconfidence
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InkRecognitionConfidence{
+class InkRecognitionConfidence extends Win32Enum{
 
     /**
      * The recognizer is confident that the best recognition alternate is correct.

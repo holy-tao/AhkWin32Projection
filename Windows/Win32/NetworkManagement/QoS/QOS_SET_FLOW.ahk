@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The QOS_SET_FLOW enumeration indicates what is being changed about a flow.
- * @see https://docs.microsoft.com/windows/win32/api//qos2/ne-qos2-qos_set_flow
+ * @see https://learn.microsoft.com/windows/win32/api/qos2/ne-qos2-qos_set_flow
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */
-class QOS_SET_FLOW{
+class QOS_SET_FLOW extends Win32Enum{
 
     /**
      * Indicates that the traffic type of the flow will change.

@@ -4,11 +4,8 @@
 /**
  * The USB_POWER_INFO structure is used with the IOCTL_USB_USER_REQUEST I/O control request to retrieve device power state that the host controller power policy specifies for the indicated system power state.
  * @remarks
- * 
  * The <b>USB_POWER_INFO</b> structure is used with the USBUSER_GET_POWER_STATE_MAP user-mode request. For more information about this request, see <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ni-usbuser-ioctl_usb_user_request">IOCTL_USB_USER_REQUEST</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//usbuser/ns-usbuser-usb_power_info
+ * @see https://learn.microsoft.com/windows/win32/api/usbuser/ns-usbuser-usb_power_info
  * @namespace Windows.Win32.Devices.Usb
  * @version v4.0.30319
  */

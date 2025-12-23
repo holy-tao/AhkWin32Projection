@@ -4,11 +4,8 @@
 /**
  * Contains information about the Input Method Editor (IME) composition text in a Microsoft Rich Edit control.
  * @remarks
- * 
  * This structure is used with the <a href="https://msdn.microsoft.com/1516305c-5f87-4ae0-97db-8709c71abacc">EM_GETIMECOMPTEXT</a> message.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-imecomptext
+ * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-imecomptext
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

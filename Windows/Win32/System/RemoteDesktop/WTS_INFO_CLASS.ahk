@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that indicate the type of session information to retrieve in a call to the WTSQuerySessionInformation function.
- * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/ne-wtsapi32-wts_info_class
+ * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/ne-wtsapi32-wts_info_class
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class WTS_INFO_CLASS{
+class WTS_INFO_CLASS extends Win32Enum{
 
     /**
      * A null-terminated string that contains the name of the initial program that Remote Desktop Services runs when the 
@@ -128,6 +129,8 @@ class WTS_INFO_CLASS{
 
     /**
      * This value returns <b>FALSE</b>. If you call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information, <b>GetLastError</b> returns <b>ERROR_NOT_SUPPORTED</b>.
+     * 
+     * To caculate session idle time, use the <a href="https://learn.microsoft.com/en-us/windows/win32/api/wtsapi32/ns-wtsapi32-wtsinfoa">LastInputTime</a> structure field.
      * 
      * <b>Windows Server 2008 and Windows Vista:  </b>This value is not used.
      * @type {Integer (Int32)}

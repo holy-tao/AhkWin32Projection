@@ -3,7 +3,7 @@
 
 /**
  * The ADS_EMAIL structure is an ADSI representation of the EMail Address attribute syntax.
- * @see https://docs.microsoft.com/windows/win32/api//iads/ns-iads-ads_email
+ * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_email
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

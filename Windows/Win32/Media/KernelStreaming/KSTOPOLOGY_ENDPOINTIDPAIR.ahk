@@ -8,9 +8,9 @@
  */
 class KSTOPOLOGY_ENDPOINTIDPAIR extends Win32Struct
 {
-    static sizeof => 1056
+    static sizeof => 1048
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {KSTOPOLOGY_ENDPOINTID}
@@ -29,7 +29,7 @@ class KSTOPOLOGY_ENDPOINTIDPAIR extends Win32Struct
     CaptureEndpoint{
         get {
             if(!this.HasProp("__CaptureEndpoint"))
-                this.__CaptureEndpoint := KSTOPOLOGY_ENDPOINTID(528, this)
+                this.__CaptureEndpoint := KSTOPOLOGY_ENDPOINTID(524, this)
             return this.__CaptureEndpoint
         }
     }

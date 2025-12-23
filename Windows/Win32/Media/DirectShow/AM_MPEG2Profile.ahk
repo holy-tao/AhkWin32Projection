@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates an MPEG-2 video profile as specified in the MPEG-2 video standard (ISO13818-2).
  * @remarks
- * 
  * DVD video decoders should support <b>AM_MPEG2Profile_Simple</b> or <b>AM_MPEG2Profile_Main</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dvdmedia/ne-dvdmedia-am_mpeg2profile
+ * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ne-dvdmedia-am_mpeg2profile
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class AM_MPEG2Profile{
+class AM_MPEG2Profile extends Win32Enum{
 
     /**
      * Simple profile.

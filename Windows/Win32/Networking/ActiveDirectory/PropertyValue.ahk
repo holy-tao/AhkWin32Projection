@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Used to represent the value of an IADsPropertyEntry object in a predefined data type.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadspropertyvalue
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319

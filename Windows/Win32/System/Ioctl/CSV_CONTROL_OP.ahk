@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the type of CSV control operation to use with the FSCTL_CSV_CONTROL control code.
  * @remarks
- * 
  * An alternative to calling the [FSCTL_CSV_CONTROL](ni-winioctl-fsctl_csv_control.md) control code with this enumeration is to use the [CSV_CONTROL_PARAM](ns-winioctl-csv_control_param.md) structure, which encapsulates a member of this enumeration type.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ne-winioctl-csv_control_op
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-csv_control_op
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
-class CSV_CONTROL_OP{
+class CSV_CONTROL_OP extends Win32Enum{
 
     /**
      * Start file redirection.

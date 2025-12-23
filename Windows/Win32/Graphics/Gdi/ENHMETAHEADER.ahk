@@ -5,15 +5,15 @@
 
 /**
  * The ENHMETAHEADER structure contains enhanced-metafile data such as the dimensions of the picture stored in the enhanced metafile, the count of records in the enhanced metafile, the resolution of the device on which the picture was created, and so on.This structure is always the first record in an enhanced metafile.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-enhmetaheader
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-enhmetaheader
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
 class ENHMETAHEADER extends Win32Struct
 {
-    static sizeof => 112
+    static sizeof => 108
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The record type. This member must specify the value assigned to the EMR_HEADER constant.
@@ -209,7 +209,7 @@ class ENHMETAHEADER extends Win32Struct
     szlMicrometers{
         get {
             if(!this.HasProp("__szlMicrometers"))
-                this.__szlMicrometers := SIZE(104, this)
+                this.__szlMicrometers := SIZE(100, this)
             return this.__szlMicrometers
         }
     }

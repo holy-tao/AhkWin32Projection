@@ -4,11 +4,8 @@
 /**
  * Provides information about a single property of the event or filter.
  * @remarks
- * 
  * Filters do not support maps, structures, or arrays.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tdh/ns-tdh-event_property_info
+ * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-event_property_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
@@ -16,7 +13,7 @@ class EVENT_PROPERTY_INFO extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Flags that indicate if the property is contained in a structure or array. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ne-tdh-property_flags">PROPERTY_FLAGS</a> enumeration.
@@ -38,7 +35,7 @@ class EVENT_PROPERTY_INFO extends Win32Struct
 
     class _nonStructType extends Win32Struct {
         static sizeof => 8
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -68,7 +65,7 @@ class EVENT_PROPERTY_INFO extends Win32Struct
 
     class _structType extends Win32Struct {
         static sizeof => 8
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -98,7 +95,7 @@ class EVENT_PROPERTY_INFO extends Win32Struct
 
     class _customSchemaType extends Win32Struct {
         static sizeof => 8
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}

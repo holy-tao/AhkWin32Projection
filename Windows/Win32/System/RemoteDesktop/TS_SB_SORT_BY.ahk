@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies sort order. It is used as a parameter in the EnumerateTargets method.
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/ne-sbtsv-ts_sb_sort_by
+ * @see https://learn.microsoft.com/windows/win32/api/sbtsv/ne-sbtsv-ts_sb_sort_by
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
-class TS_SB_SORT_BY{
+class TS_SB_SORT_BY extends Win32Enum{
 
     /**
      * Do not sort.

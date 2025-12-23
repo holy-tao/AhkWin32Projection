@@ -3,7 +3,7 @@
 
 /**
  * Represents an update sequence number (USN) change journal, its records, and its capacity. This structure is the output buffer for the FSCTL_QUERY_USN_JOURNAL control code.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-usn_journal_data_v2
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_journal_data_v2
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

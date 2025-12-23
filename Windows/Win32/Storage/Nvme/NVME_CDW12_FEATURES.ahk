@@ -3,6 +3,8 @@
 #Include .\NVME_CDW12_FEATURE_HOST_MEMORY_BUFFER.ahk
 
 /**
+ * Contains parameters for the Set Features command that sets the attributes of the specified feature.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw12_features
  * @namespace Windows.Win32.Storage.Nvme
@@ -10,11 +12,12 @@
  */
 class NVME_CDW12_FEATURES extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
+     * Specifies an [NVME_CDW12_FEATURE_HOST_MEMORY_BUFFER](ns-nvme-nvme_cdw12_feature_host_memory_buffer.md) structure containing a value that indicates the size of the host memory buffer.
      * @type {NVME_CDW12_FEATURE_HOST_MEMORY_BUFFER}
      */
     HostMemoryBuffer{
@@ -26,6 +29,7 @@ class NVME_CDW12_FEATURES extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     AsUlong {

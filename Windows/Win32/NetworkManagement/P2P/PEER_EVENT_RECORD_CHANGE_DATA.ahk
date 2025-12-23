@@ -3,7 +3,7 @@
 
 /**
  * Points to the PEER_EVENT_RECORD_CHANGE_DATA structure if one of the following peer events is triggered.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_event_record_change_data
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_event_record_change_data
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
@@ -24,7 +24,7 @@ class PEER_EVENT_RECORD_CHANGE_DATA extends Win32Struct
 
     /**
      * Specifies the type of change to a record or record type.
-     * @deprecated
+     * @deprecated 
      * @type {Integer}
      */
     changeType {

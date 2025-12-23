@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies values that identify the type of action to complete on a Ribbon framework View.
- * @see https://docs.microsoft.com/windows/win32/api//uiribbon/ne-uiribbon-ui_viewverb
+ * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ne-uiribbon-ui_viewverb
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
-class UI_VIEWVERB{
+class UI_VIEWVERB extends Win32Enum{
 
     /**
      * Create a View.

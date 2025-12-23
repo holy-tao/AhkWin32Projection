@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The UICloseReasonType enumeration type specifies the reason that a user-interface dialog for a smart card was closed.
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/ne-bdaiface-uiclosereasontype
+ * @see https://learn.microsoft.com/windows/win32/api/bdaiface/ne-bdaiface-uiclosereasontype
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class UICloseReasonType{
+class UICloseReasonType extends Win32Enum{
 
     /**
      * Not ready.

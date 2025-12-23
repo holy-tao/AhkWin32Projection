@@ -4,7 +4,7 @@
 
 /**
  * The ICDRAWSUGGEST structure contains compression parameters used with the ICM_DRAW_SUGGESTFORMAT message to suggest an appropriate input format.
- * @see https://docs.microsoft.com/windows/win32/api//vfw/ns-vfw-icdrawsuggest
+ * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-icdrawsuggest
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

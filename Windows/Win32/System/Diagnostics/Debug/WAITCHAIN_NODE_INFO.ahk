@@ -3,7 +3,7 @@
 
 /**
  * Represents a node in a wait chain.
- * @see https://docs.microsoft.com/windows/win32/api//wct/ns-wct-waitchain_node_info
+ * @see https://learn.microsoft.com/windows/win32/api/wct/ns-wct-waitchain_node_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */
@@ -62,8 +62,8 @@ class WAITCHAIN_NODE_INFO extends Win32Struct
     }
 
     class _ThreadObject extends Win32Struct {
-        static sizeof => 272
-        static packingSize => 8
+        static sizeof => 16
+        static packingSize => 4
 
         /**
          * @type {Integer}

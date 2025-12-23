@@ -4,11 +4,8 @@
 /**
  * Contains private data for the IDirectXVideoDecoder::Execute method.
  * @remarks
- * 
  * This structure corresponds to parameters of the <b>IAMVideoAccelerator::Execute</b> method in DirectX Video Acceleration (DXVA) version 1.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxva2api/ns-dxva2api-dxva2_decodeextensiondata
+ * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_decodeextensiondata
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

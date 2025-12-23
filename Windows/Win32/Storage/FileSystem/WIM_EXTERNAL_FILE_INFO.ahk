@@ -3,7 +3,7 @@
 
 /**
  * Defines metadata specific to files provided by WOF_PROVIDER_WIM.
- * @see https://docs.microsoft.com/windows/win32/api//wofapi/ns-wofapi-wim_external_file_info
+ * @see https://learn.microsoft.com/windows/win32/api/wofapi/ns-wofapi-wim_external_file_info
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

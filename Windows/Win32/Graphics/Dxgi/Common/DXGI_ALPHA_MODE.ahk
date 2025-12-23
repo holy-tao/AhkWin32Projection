@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the alpha value, transparency behavior, of a surface.
  * @remarks
- * 
  * For more information about alpha mode, see <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-d2d1_alpha_mode">D2D1_ALPHA_MODE</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi1_2/ne-dxgi1_2-dxgi_alpha_mode
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ne-dxgi1_2-dxgi_alpha_mode
  * @namespace Windows.Win32.Graphics.Dxgi.Common
  * @version v4.0.30319
  */
-class DXGI_ALPHA_MODE{
+class DXGI_ALPHA_MODE extends Win32Enum{
 
     /**
      * Indicates that the transparency behavior is not specified.

@@ -1,22 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the possible states of a Transmission Control Protocol (TCP) connection.
  * @remarks
- * 
  * A TCP connection progresses from one state to another in response to
  *   events.  The events are the user calls OPEN, SEND, RECEIVE, CLOSE,
  *   ABORT, and STATUS; the incoming segments, particularly those
  *   containing the SYN, ACK, RST and FIN flags; and timeouts.
  * 
  * For more information about TCP connection states, see <a href="https://tools.ietf.org/html/rfc793">RFC 793</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mstcpip/ne-mstcpip-tcpstate
+ * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ne-mstcpip-tcpstate
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
-class TCPSTATE{
+class TCPSTATE extends Win32Enum{
 
     /**
      * The TCP connection has no connection state at all. This state represents the state when there is no Transmission Control Block (TCB), and therefore,

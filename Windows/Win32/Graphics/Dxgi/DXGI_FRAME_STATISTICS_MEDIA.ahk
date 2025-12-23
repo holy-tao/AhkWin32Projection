@@ -4,11 +4,8 @@
 /**
  * Used to verify system approval for the app's custom present duration (custom refresh rate).
  * @remarks
- * 
  * This structure is used with the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_3/nf-dxgi1_3-idxgiswapchainmedia-getframestatisticsmedia">GetFrameStatisticsMedia</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi1_3/ns-dxgi1_3-dxgi_frame_statistics_media
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/ns-dxgi1_3-dxgi_frame_statistics_media
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

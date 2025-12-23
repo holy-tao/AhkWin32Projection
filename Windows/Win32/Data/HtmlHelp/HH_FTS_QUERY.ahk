@@ -3,7 +3,7 @@
 
 /**
  * Use this structure for full-text search.
- * @see https://docs.microsoft.com/windows/win32/api//htmlhelp/ns-htmlhelp-hh_fts_query
+ * @see https://learn.microsoft.com/windows/win32/api/htmlhelp/ns-htmlhelp-hh_fts_query
  * @namespace Windows.Win32.Data.HtmlHelp
  * @version v4.0.30319
  */

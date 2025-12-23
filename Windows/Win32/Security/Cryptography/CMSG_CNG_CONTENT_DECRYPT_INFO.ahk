@@ -7,7 +7,7 @@
 
 /**
  * Contains all the relevant information passed between CryptMsgControl and object identifier (OID) installable functions for the import and decryption of a Cryptography API:\_Next Generation (CNG) content encryption key (CEK).
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmsg_cng_content_decrypt_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_cng_content_decrypt_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

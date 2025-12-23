@@ -3,7 +3,7 @@
 
 /**
  * Provides information about the disk cache.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-disk_cache_information
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_cache_information
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
@@ -11,7 +11,7 @@ class DISK_CACHE_INFORMATION extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 6
+    static packingSize => 4
 
     /**
      * Indicates whether the device is capable of saving any parameters in nonvolatile storage.
@@ -78,7 +78,7 @@ class DISK_CACHE_INFORMATION extends Win32Struct
 
     class _ScalarPrefetch extends Win32Struct {
         static sizeof => 6
-        static packingSize => 6
+        static packingSize => 2
 
         /**
          * @type {Integer}
@@ -107,8 +107,8 @@ class DISK_CACHE_INFORMATION extends Win32Struct
     }
 
     class _BlockPrefetch extends Win32Struct {
-        static sizeof => 6
-        static packingSize => 6
+        static sizeof => 4
+        static packingSize => 2
 
         /**
          * @type {Integer}
@@ -134,7 +134,7 @@ class DISK_CACHE_INFORMATION extends Win32Struct
     ScalarPrefetch{
         get {
             if(!this.HasProp("__ScalarPrefetch"))
-                this.__ScalarPrefetch := %this.__Class%._ScalarPrefetch(18, this)
+                this.__ScalarPrefetch := %this.__Class%._ScalarPrefetch(16, this)
             return this.__ScalarPrefetch
         }
     }
@@ -145,7 +145,7 @@ class DISK_CACHE_INFORMATION extends Win32Struct
     BlockPrefetch{
         get {
             if(!this.HasProp("__BlockPrefetch"))
-                this.__BlockPrefetch := %this.__Class%._BlockPrefetch(18, this)
+                this.__BlockPrefetch := %this.__Class%._BlockPrefetch(16, this)
             return this.__BlockPrefetch
         }
     }

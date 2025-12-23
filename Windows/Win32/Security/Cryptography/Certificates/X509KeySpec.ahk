@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the intended use of a key for a legacy cryptographic service provider (CSP).
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-x509keyspec
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509keyspec
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class X509KeySpec{
+class X509KeySpec extends Win32Enum{
 
     /**
      * The intended use is not identified. This value is set if the provider that supports the key is a  Cryptography API: Next Generation (CNG) key storage provider (KSP).

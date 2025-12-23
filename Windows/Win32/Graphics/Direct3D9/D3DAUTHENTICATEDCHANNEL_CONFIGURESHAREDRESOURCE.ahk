@@ -5,7 +5,7 @@
 #Include .\D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT.ahk
 
 /**
- * 
+ * Contains input data for a D3DAUTHENTICATEDCONFIGURE\_SHAREDRESOURCE command.
  * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-configuresharedresource
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
@@ -17,6 +17,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURESHAREDRESOURCE extends Win32Struct
     static packingSize => 8
 
     /**
+     * A [**D3DAUTHENTICATEDCHANNEL\_CONFIGURE\_INPUT**](d3dauthenticatedchannel-configure-input.md) structure that contains the command GUID and other data.
      * @type {D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT}
      */
     Parameters{
@@ -28,6 +29,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURESHAREDRESOURCE extends Win32Struct
     }
 
     /**
+     * A [**D3DAUTHENTICATEDCHANNEL\_PROCESSIDENTIFIERTYPE**](d3dauthenticatedchannel-processidentifiertype.md) value that specifies the type of process. To specify the Desktop Window Manager (DWM) process, set this member to **PROCESSIDTYPE\_DWM**. Otherwise, set this member to **PROCESSIDTYPE\_HANDLE** and set the **ProcessHandle** member to a valid handle.
      * @type {Integer}
      */
     ProcessIdentiferType {
@@ -36,6 +38,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURESHAREDRESOURCE extends Win32Struct
     }
 
     /**
+     * A process handle. If the **ProcessIdentifier** member equals **PROCESSTIDTYPE\_HANDLE**, the **ProcessHandle** member specifies a handle to a process. Otherwise, the value is ignored.
      * @type {HANDLE}
      */
     ProcessHandle{
@@ -47,6 +50,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURESHAREDRESOURCE extends Win32Struct
     }
 
     /**
+     * If **TRUE**, the specified process has access to restricted shared resources.
      * @type {BOOL}
      */
     AllowAccess {

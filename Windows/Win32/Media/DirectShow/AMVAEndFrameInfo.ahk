@@ -4,11 +4,8 @@
 /**
  * The AMVAEndFrameInfo structure contains information for the IAMVideoAccelerator::EndFrame method.
  * @remarks
- * 
  * The buffer pointed to by <b>pMiscData</b> cannot contain pointer values, because their addresses will not be valid in kernel mode, where frame processing occurs.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//amva/ns-amva-amvaendframeinfo
+ * @see https://learn.microsoft.com/windows/win32/api/amva/ns-amva-amvaendframeinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

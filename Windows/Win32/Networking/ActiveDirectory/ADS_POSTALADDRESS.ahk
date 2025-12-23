@@ -3,7 +3,7 @@
 
 /**
  * The ADS_POSTALADDRESS structure is an ADSI representation of the Postal Address attribute.
- * @see https://docs.microsoft.com/windows/win32/api//iads/ns-iads-ads_postaladdress
+ * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_postaladdress
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

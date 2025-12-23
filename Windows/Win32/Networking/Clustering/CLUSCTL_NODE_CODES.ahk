@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Enumerates node control codes.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-clusctl_node_codes
+ * The CLUSCTL_NODE_CODES enumeration (msclus.h) enumerates node control codes.
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusctl_node_codes
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSCTL_NODE_CODES{
+class CLUSCTL_NODE_CODES extends Win32Enum{
 
     /**
      * See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-node-unknown">CLUSCTL_NODE_UNKNOWN</a>.

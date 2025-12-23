@@ -2,13 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Specifies the subresource from a 1D texture to use in a render-target view.
+ * Specifies the subresource from a 1D texture to use in a render-target view. (D3D11_TEX1D_RTV)
  * @remarks
- * 
  * This structure is one member of a render-target-view description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_render_target_view_desc">D3D11_RENDER_TARGET_VIEW_DESC</a>).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_tex1d_rtv
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_tex1d_rtv
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

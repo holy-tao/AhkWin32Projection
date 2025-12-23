@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Describes the type of notification returned.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_change
+ * The CLUSTER_CHANGE enumeration (msclus.h) describes the type of notification returned.
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_change
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_CHANGE{
+class CLUSTER_CHANGE extends Win32Enum{
 
     /**
      * The queue receives a notification when a node changes state. For a list of possible node state values, see 

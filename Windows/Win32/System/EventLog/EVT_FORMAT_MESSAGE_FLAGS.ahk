@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the values that specify the message string from the event to format.
- * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_format_message_flags
+ * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_format_message_flags
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */
-class EVT_FORMAT_MESSAGE_FLAGS{
+class EVT_FORMAT_MESSAGE_FLAGS extends Win32Enum{
 
     /**
      * Format the event's message string.

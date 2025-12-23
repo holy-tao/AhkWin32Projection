@@ -10,7 +10,7 @@
  */
 class SPVTEXTFRAG extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 96
 
     static packingSize => 8
 
@@ -37,23 +37,23 @@ class SPVTEXTFRAG extends Win32Struct
      * @type {PWSTR}
      */
     pTextStart {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * @type {Integer}
      */
     ulTextLen {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
      * @type {Integer}
      */
     ulTextSrcOffset {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
+        get => NumGet(this, 92, "uint")
+        set => NumPut("uint", value, this, 92)
     }
 }

@@ -7,13 +7,13 @@
  */
 class NDIS_TCP_LARGE_SEND_OFFLOAD_V2 extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _IPv4 extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+        static sizeof => 12
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -42,8 +42,8 @@ class NDIS_TCP_LARGE_SEND_OFFLOAD_V2 extends Win32Struct
     }
 
     class _IPv6 extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+        static sizeof => 16
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -115,7 +115,7 @@ class NDIS_TCP_LARGE_SEND_OFFLOAD_V2 extends Win32Struct
     IPv6{
         get {
             if(!this.HasProp("__IPv6"))
-                this.__IPv6 := %this.__Class%._IPv6(16, this)
+                this.__IPv6 := %this.__Class%._IPv6(12, this)
             return this.__IPv6
         }
     }

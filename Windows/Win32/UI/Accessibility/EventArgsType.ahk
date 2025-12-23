@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that specify the event type described by a UiaEventArgs structure.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/ne-uiautomationcoreapi-eventargstype
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ne-uiautomationcoreapi-eventargstype
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
-class EventArgsType{
+class EventArgsType extends Win32Enum{
 
     /**
      * A simple event that does not provide data in the event arguments.

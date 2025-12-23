@@ -4,15 +4,15 @@
 
 /**
  * Various statistics common to IKE, Authip, and IKEv2.
- * @see https://docs.microsoft.com/windows/win32/api//iketypes/ns-iketypes-ikeext_common_statistics1
+ * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_common_statistics1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
 class IKEEXT_COMMON_STATISTICS1 extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * IPv4 common statistics.

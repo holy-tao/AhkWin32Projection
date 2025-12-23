@@ -8,9 +8,9 @@
  */
 class SECPKG_POST_LOGON_USER_INFO extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class SECPKG_POST_LOGON_USER_INFO extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(8, this)
+                this.__LogonId := LUID(4, this)
             return this.__LogonId
         }
     }
@@ -37,7 +37,7 @@ class SECPKG_POST_LOGON_USER_INFO extends Win32Struct
     LinkedLogonId{
         get {
             if(!this.HasProp("__LinkedLogonId"))
-                this.__LinkedLogonId := LUID(16, this)
+                this.__LinkedLogonId := LUID(12, this)
             return this.__LinkedLogonId
         }
     }

@@ -6,15 +6,15 @@
 
 /**
  * Describes a security descriptor.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clusprop_security_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_security_descriptor
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
 class CLUSPROP_SECURITY_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {CLUSPROP_VALUE}
@@ -33,7 +33,7 @@ class CLUSPROP_SECURITY_DESCRIPTOR extends Win32Struct
     sd{
         get {
             if(!this.HasProp("__sd"))
-                this.__sd := SECURITY_DESCRIPTOR_RELATIVE(16, this)
+                this.__sd := SECURITY_DESCRIPTOR_RELATIVE(12, this)
             return this.__sd
         }
     }
@@ -44,7 +44,7 @@ class CLUSPROP_SECURITY_DESCRIPTOR extends Win32Struct
     rgbSecurityDescriptor{
         get {
             if(!this.HasProp("__rgbSecurityDescriptorProxyArray"))
-                this.__rgbSecurityDescriptorProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__rgbSecurityDescriptorProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
             return this.__rgbSecurityDescriptorProxyArray
         }
     }

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the different data types of WinML tensors.
- * @see https://docs.microsoft.com/windows/win32/api//winml/ne-winml-winml_tensor_data_type
+ * @see https://learn.microsoft.com/windows/win32/api/winml/ne-winml-winml_tensor_data_type
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  * @version v4.0.30319
  */
-class WINML_TENSOR_DATA_TYPE{
+class WINML_TENSOR_DATA_TYPE extends Win32Enum{
 
     /**
      * Tensor data type undefined.

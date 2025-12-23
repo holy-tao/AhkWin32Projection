@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Each metadata property is of type WS_METADATA_PROPERTY, is identified by an ID, and has an associated value. If a property is not specified when the metadata is created, then its default value is used.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_metadata_property_id
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_metadata_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_METADATA_PROPERTY_ID{
+class WS_METADATA_PROPERTY_ID extends Win32Enum{
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmetadataproperty">WsGetMetadataProperty</a>.
@@ -115,7 +116,7 @@ class WS_METADATA_PROPERTY_ID{
      *                 
      * 
      * Setting this value to <b>FALSE</b> may cause an application to use
-     *                     an address returned from <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmissingmetadatadocumentaddress">WsGetMissingMetadataDocumentAddress</a>that is from a host that it is not willing to accept metadata from.
+     *                     an address returned from <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmissingmetadatadocumentaddress">WsGetMissingMetadataDocumentAddress</a> that is from a host that it is not willing to accept metadata from.
      * @type {Integer (Int32)}
      */
     static WS_METADATA_PROPERTY_VERIFY_HOST_NAMES => 7

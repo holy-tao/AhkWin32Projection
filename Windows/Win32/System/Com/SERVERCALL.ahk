@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the status of server call.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/ne-objidl-servercall
+ * @see https://learn.microsoft.com/windows/win32/api/objidl/ne-objidl-servercall
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class SERVERCALL{
+class SERVERCALL extends Win32Enum{
 
     /**
      * The object may be able to process the call.

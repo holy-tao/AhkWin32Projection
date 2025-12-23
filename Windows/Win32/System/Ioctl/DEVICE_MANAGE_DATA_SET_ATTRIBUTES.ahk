@@ -4,12 +4,9 @@
 /**
  * Input structure for the IOCTL_STORAGE_MANAGE_DATA_SET_ATTRIBUTES control code.
  * @remarks
- * 
  * The total length of the buffer that contains this structure must be at least 
  *     <c>(sizeof(DEVICE_MANAGE_DATA_SET_ATTRIBUTES) + ParameterBlockLength + DataSetRangesLength)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-device_manage_data_set_attributes
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_manage_data_set_attributes
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

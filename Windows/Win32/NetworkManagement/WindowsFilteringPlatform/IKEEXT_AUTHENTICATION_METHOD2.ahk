@@ -11,8 +11,8 @@
 #Include .\IKEEXT_EAP_AUTHENTICATION0.ahk
 
 /**
- * Specifies various parameters for IKE/Authip authentication.
- * @see https://docs.microsoft.com/windows/win32/api//iketypes/ns-iketypes-ikeext_authentication_method2
+ * Specifies various parameters for IKE/Authip authentication. (IKEEXT_AUTHENTICATION_METHOD2)
+ * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_authentication_method2
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

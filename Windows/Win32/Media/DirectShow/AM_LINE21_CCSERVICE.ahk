@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the closed captioning service.
  * @remarks
- * 
  * The Line 21 decoder supports CC1 and CC2 only.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//il21dec/ne-il21dec-am_line21_ccservice
+ * @see https://learn.microsoft.com/windows/win32/api/il21dec/ne-il21dec-am_line21_ccservice
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class AM_LINE21_CCSERVICE{
+class AM_LINE21_CCSERVICE extends Win32Enum{
 
     /**
      * No current service.

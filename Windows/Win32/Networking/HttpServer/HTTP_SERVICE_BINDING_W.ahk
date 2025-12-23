@@ -4,7 +4,7 @@
 
 /**
  * HTTP_SERVICE_BINDING_W.
- * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_service_binding_w
+ * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_binding_w
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  * @charset Unicode

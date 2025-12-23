@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies how the user's credentials will be used.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mfnetauthenticationflags
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfnetauthenticationflags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFNetAuthenticationFlags{
+class MFNetAuthenticationFlags extends Win32Enum{
 
     /**
      * The credentials will be used to authenticate with a proxy.

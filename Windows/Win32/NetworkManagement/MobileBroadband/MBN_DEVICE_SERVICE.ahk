@@ -4,7 +4,7 @@
 
 /**
  * The MBN_DEVICE_SERVICE structure provides information about a Mobile Broadband device service.
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/ns-mbnapi-mbn_device_service
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ns-mbnapi-mbn_device_service
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PHONE_HOOK_SWITCH_STATE enum provides indicators of the phone hookswitch status.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/ne-tapi3if-phone_hook_switch_state
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-phone_hook_switch_state
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
-class PHONE_HOOK_SWITCH_STATE{
+class PHONE_HOOK_SWITCH_STATE extends Win32Enum{
 
     /**
      * Indicates that the phone is onhook.

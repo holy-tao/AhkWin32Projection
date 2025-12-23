@@ -3,7 +3,7 @@
 
 /**
  * Contains the specified value to which the end of the file should be set.
- * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-file_end_of_file_info
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_end_of_file_info
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

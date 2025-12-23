@@ -5,7 +5,6 @@
 /**
  * The PEER_OBJECT structure contains application-specific run-time information that can be shared with trusted contacts within a peer collaboration network.
  * @remarks
- * 
  * Peer objects are run-time data items associated with a particular application, such as a picture or avatar, a certificate, or a specific description. Each peer object must be smaller than 16K in size.
  * 
  * Trusted contacts watching this peer object will have a PEER_EVENT_OBJECT_CHANGED event raised on them signaling this peer object's change in status.
@@ -13,9 +12,7 @@
  * Peer object information is contained in the <b>data</b> member of this structure and  represented as a byte buffer with a maximum size of 16K.
  * 
  * The lifetime of a peer object is tied to the lifetime of the application that registered it.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_object
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_object
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
@@ -36,7 +33,7 @@ class PEER_OBJECT extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_data">PEER_DATA</a> structure that contains information which describes the peer object.
-     * @deprecated
+     * @deprecated 
      * @type {PEER_DATA}
      */
     data{

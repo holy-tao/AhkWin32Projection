@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains the options for the WebAuthNGetPlatformCredentialsList function.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_get_credentials_options
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -14,6 +16,7 @@ class WEBAUTHN_GET_CREDENTIALS_OPTIONS extends Win32Struct
     static packingSize => 8
 
     /**
+     * Version of this structure, to allow for modifications in the future. This field is required and should be set to **CURRENT_VERSION**.
      * @type {Integer}
      */
     dwVersion {
@@ -22,6 +25,7 @@ class WEBAUTHN_GET_CREDENTIALS_OPTIONS extends Win32Struct
     }
 
     /**
+     * The Id of the relying party that is making the request. This field is _optional_.
      * @type {PWSTR}
      */
     pwszRpId {
@@ -30,6 +34,7 @@ class WEBAUTHN_GET_CREDENTIALS_OPTIONS extends Win32Struct
     }
 
     /**
+     * Is browser in-private mode. This field is _optional_ and defaults to **FALSE**.
      * @type {BOOL}
      */
     bBrowserInPrivateMode {

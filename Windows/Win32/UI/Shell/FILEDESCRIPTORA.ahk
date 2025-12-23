@@ -5,9 +5,8 @@
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
- * Describes the properties of a file that is being copied by means of the clipboard during a Microsoft ActiveX drag-and-drop operation.
+ * Describes the properties of a file that is being copied by means of the clipboard during a Microsoft ActiveX drag-and-drop operation. (ANSI)
  * @remarks
- * 
  * If the <a href="https://docs.microsoft.com/windows/desktop/shell/clipboard">CFSTR_FILECONTENTS</a> format that corresponds to this structure contains the file as a global memory object, <b>nFileSizeHigh</b> and <b>nFileSizeLow</b> specify the size of the associated memory block. If they are set, they can also be used if a user-interface needs to be displayed. For example, if a file is about to be overwritten, you would typically use information from this structure to display a dialog box containing the size, data, and name of the file.
  * 
  * To create a zero-length file, set the <b>FD_FILESIZE</b> flag in the <b>dwFlags</b>, and set <b>nFileSizeHigh</b> and <b>nFileSizeLow</b> to zero. The <a href="https://docs.microsoft.com/windows/desktop/shell/clipboard">CFSTR_FILECONTENTS</a> format should represent the file as either a stream or global memory object (<a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-tymed">TYMED_ISTREAM</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-tymed">TYMED_HGLOBAL</a>).
@@ -17,15 +16,14 @@
  * 
  * > [!NOTE]
  * > The shlobj_core.h header defines FILEDESCRIPTOR as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-filedescriptora
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-filedescriptora
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  * @charset ANSI
  */
 class FILEDESCRIPTORA extends Win32Struct
 {
-    static sizeof => 336
+    static sizeof => 328
 
     static packingSize => 8
 
@@ -64,7 +62,7 @@ class FILEDESCRIPTORA extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162807(v=vs.85)">POINTL</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a></b>
      * 
      * The screen coordinates of the file object.
      * @type {POINTL}
@@ -97,7 +95,7 @@ class FILEDESCRIPTORA extends Win32Struct
     ftCreationTime{
         get {
             if(!this.HasProp("__ftCreationTime"))
-                this.__ftCreationTime := FILETIME(40, this)
+                this.__ftCreationTime := FILETIME(36, this)
             return this.__ftCreationTime
         }
     }
@@ -111,7 +109,7 @@ class FILEDESCRIPTORA extends Win32Struct
     ftLastAccessTime{
         get {
             if(!this.HasProp("__ftLastAccessTime"))
-                this.__ftLastAccessTime := FILETIME(48, this)
+                this.__ftLastAccessTime := FILETIME(44, this)
             return this.__ftLastAccessTime
         }
     }
@@ -125,7 +123,7 @@ class FILEDESCRIPTORA extends Win32Struct
     ftLastWriteTime{
         get {
             if(!this.HasProp("__ftLastWriteTime"))
-                this.__ftLastWriteTime := FILETIME(56, this)
+                this.__ftLastWriteTime := FILETIME(52, this)
             return this.__ftLastWriteTime
         }
     }
@@ -137,8 +135,8 @@ class FILEDESCRIPTORA extends Win32Struct
      * @type {Integer}
      */
     nFileSizeHigh {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
@@ -148,8 +146,8 @@ class FILEDESCRIPTORA extends Win32Struct
      * @type {Integer}
      */
     nFileSizeLow {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -159,7 +157,7 @@ class FILEDESCRIPTORA extends Win32Struct
      * @type {String}
      */
     cFileName {
-        get => StrGet(this.ptr + 72, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 72, 259, "UTF-8")
+        get => StrGet(this.ptr + 68, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 68, 259, "UTF-8")
     }
 }

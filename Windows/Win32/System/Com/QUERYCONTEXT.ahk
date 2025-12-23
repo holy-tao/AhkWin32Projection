@@ -4,15 +4,15 @@
 
 /**
  * Contains a list of attributes used to look up a class implementation.
- * @see https://docs.microsoft.com/windows/win32/api//wtypes/ns-wtypes-querycontext
+ * @see https://learn.microsoft.com/windows/win32/api/wtypes/ns-wtypes-querycontext
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
 class QUERYCONTEXT extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The execution context.
@@ -30,7 +30,7 @@ class QUERYCONTEXT extends Win32Struct
     Platform{
         get {
             if(!this.HasProp("__Platform"))
-                this.__Platform := CSPLATFORM(8, this)
+                this.__Platform := CSPLATFORM(4, this)
             return this.__Platform
         }
     }
@@ -40,8 +40,8 @@ class QUERYCONTEXT extends Win32Struct
      * @type {Integer}
      */
     Locale {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -49,8 +49,8 @@ class QUERYCONTEXT extends Win32Struct
      * @type {Integer}
      */
     dwVersionHi {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -58,7 +58,7 @@ class QUERYCONTEXT extends Win32Struct
      * @type {Integer}
      */
     dwVersionLo {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 }

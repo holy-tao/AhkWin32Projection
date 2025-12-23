@@ -4,15 +4,15 @@
 
 /**
  * Contains different levels of policy-related settings for a remote desktop connection.
- * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ns-wtsdefs-wrds_setting
+ * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wrds_setting
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
 class WRDS_SETTING extends Win32Struct
 {
-    static sizeof => 128
+    static sizeof => 124
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wrds_settings_1">WRDS_SETTINGS_1</a> structure.

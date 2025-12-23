@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used with the MachineRole member of the DSROLE_PRIMARY_DOMAIN_INFO_BASIC structure to specify the computer role.
- * @see https://docs.microsoft.com/windows/win32/api//dsrole/ne-dsrole-dsrole_machine_role
+ * @see https://learn.microsoft.com/windows/win32/api/dsrole/ne-dsrole-dsrole_machine_role
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
-class DSROLE_MACHINE_ROLE{
+class DSROLE_MACHINE_ROLE extends Win32Enum{
 
     /**
      * The computer is a workstation that is not a member of a domain.

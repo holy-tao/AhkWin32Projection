@@ -8,9 +8,9 @@
  */
 class DRMWAVEFORMAT extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {WAVEFORMATEX}
@@ -45,7 +45,7 @@ class DRMWAVEFORMAT extends Win32Struct
     wfxSecure{
         get {
             if(!this.HasProp("__wfxSecure"))
-                this.__wfxSecure := WAVEFORMATEX(32, this)
+                this.__wfxSecure := WAVEFORMATEX(28, this)
             return this.__wfxSecure
         }
     }

@@ -49,7 +49,7 @@ class WHV_X64_IO_PORT_ACCESS_CONTEXT extends Win32Struct
     AccessInfo{
         get {
             if(!this.HasProp("__AccessInfo"))
-                this.__AccessInfo := WHV_X64_IO_PORT_ACCESS_INFO(24, this)
+                this.__AccessInfo := WHV_X64_IO_PORT_ACCESS_INFO(20, this)
             return this.__AccessInfo
         }
     }
@@ -58,8 +58,8 @@ class WHV_X64_IO_PORT_ACCESS_CONTEXT extends Win32Struct
      * @type {Integer}
      */
     PortNumber {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
+        get => NumGet(this, 28, "ushort")
+        set => NumPut("ushort", value, this, 28)
     }
 
     /**
@@ -68,7 +68,7 @@ class WHV_X64_IO_PORT_ACCESS_CONTEXT extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 34, 3, Primitive, "ushort")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 30, 3, Primitive, "ushort")
             return this.__Reserved2ProxyArray
         }
     }

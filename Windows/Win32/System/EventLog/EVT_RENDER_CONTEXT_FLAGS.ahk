@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the values that specify the type of information to access from the event.
  * @remarks
- * 
  * You cannot specify the EvtRenderContextValues flag with the EvtRenderContextSystem or EvtRenderContextUser flag.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_render_context_flags
+ * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_render_context_flags
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */
-class EVT_RENDER_CONTEXT_FLAGS{
+class EVT_RENDER_CONTEXT_FLAGS extends Win32Enum{
 
     /**
      * Render specific properties from the event.

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines types of sensor device connections.
- * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/ne-sensorsapi-sensorconnectiontype
+ * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/ne-sensorsapi-sensorconnectiontype
  * @namespace Windows.Win32.Devices.Sensors
  * @version v4.0.30319
  */
-class SensorConnectionType{
+class SensorConnectionType extends Win32Enum{
 
     /**
      * The sensor device is built into the computer.

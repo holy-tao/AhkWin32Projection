@@ -1,12 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * Defines the basis type of a high-order patch surface.
+ * @remarks
+ * The members of **D3DBASISTYPE** specify the formulation to be used in evaluating the high-order patch surface primitive during tessellation.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dbasistype
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */
-class D3DBASISTYPE{
+class D3DBASISTYPE extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

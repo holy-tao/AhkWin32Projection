@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the status of a DRM handshake between a tuner and the user's computer.
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/ne-bdaiface-bda_drmpairingerror
+ * @see https://learn.microsoft.com/windows/win32/api/bdaiface/ne-bdaiface-bda_drmpairingerror
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class BDA_DrmPairingError{
+class BDA_DrmPairingError extends Win32Enum{
 
     /**
      * The handshake was successful.

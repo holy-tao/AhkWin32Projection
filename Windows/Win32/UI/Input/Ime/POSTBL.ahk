@@ -3,7 +3,7 @@
 
 /**
  * An entry in the public POS (Part of Speech) table.
- * @see https://docs.microsoft.com/windows/win32/api//msime/ns-msime-postbl
+ * @see https://learn.microsoft.com/windows/win32/api/msime/ns-msime-postbl
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */

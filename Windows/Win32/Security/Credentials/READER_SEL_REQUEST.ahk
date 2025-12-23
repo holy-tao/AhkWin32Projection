@@ -7,9 +7,9 @@
  */
 class READER_SEL_REQUEST extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -36,8 +36,8 @@ class READER_SEL_REQUEST extends Win32Struct
     }
 
     class _ReaderAndContainerParameter extends Win32Struct {
-        static sizeof => 28
-        static packingSize => 8
+        static sizeof => 24
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -90,8 +90,8 @@ class READER_SEL_REQUEST extends Win32Struct
     }
 
     class _SerialNumberParameter extends Win32Struct {
-        static sizeof => 28
-        static packingSize => 8
+        static sizeof => 12
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -125,7 +125,7 @@ class READER_SEL_REQUEST extends Win32Struct
     ReaderAndContainerParameter{
         get {
             if(!this.HasProp("__ReaderAndContainerParameter"))
-                this.__ReaderAndContainerParameter := %this.__Class%._ReaderAndContainerParameter(16, this)
+                this.__ReaderAndContainerParameter := %this.__Class%._ReaderAndContainerParameter(12, this)
             return this.__ReaderAndContainerParameter
         }
     }
@@ -136,7 +136,7 @@ class READER_SEL_REQUEST extends Win32Struct
     SerialNumberParameter{
         get {
             if(!this.HasProp("__SerialNumberParameter"))
-                this.__SerialNumberParameter := %this.__Class%._SerialNumberParameter(16, this)
+                this.__SerialNumberParameter := %this.__Class%._SerialNumberParameter(12, this)
             return this.__SerialNumberParameter
         }
     }

@@ -4,15 +4,15 @@
 
 /**
  * Describes a physical storage adapter.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_physical_adapter_data
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_physical_adapter_data
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
 class STORAGE_PHYSICAL_ADAPTER_DATA extends Win32Struct
 {
-    static sizeof => 136
+    static sizeof => 132
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the adapter ID.
@@ -48,7 +48,7 @@ class STORAGE_PHYSICAL_ADAPTER_DATA extends Win32Struct
     SpecVersion{
         get {
             if(!this.HasProp("__SpecVersion"))
-                this.__SpecVersion := STORAGE_SPEC_VERSION(16, this)
+                this.__SpecVersion := STORAGE_SPEC_VERSION(12, this)
             return this.__SpecVersion
         }
     }
@@ -60,7 +60,7 @@ class STORAGE_PHYSICAL_ADAPTER_DATA extends Win32Struct
     Vendor{
         get {
             if(!this.HasProp("__VendorProxyArray"))
-                this.__VendorProxyArray := Win32FixedArray(this.ptr + 24, 8, Primitive, "char")
+                this.__VendorProxyArray := Win32FixedArray(this.ptr + 20, 8, Primitive, "char")
             return this.__VendorProxyArray
         }
     }
@@ -72,7 +72,7 @@ class STORAGE_PHYSICAL_ADAPTER_DATA extends Win32Struct
     Model{
         get {
             if(!this.HasProp("__ModelProxyArray"))
-                this.__ModelProxyArray := Win32FixedArray(this.ptr + 32, 40, Primitive, "char")
+                this.__ModelProxyArray := Win32FixedArray(this.ptr + 28, 40, Primitive, "char")
             return this.__ModelProxyArray
         }
     }
@@ -84,7 +84,7 @@ class STORAGE_PHYSICAL_ADAPTER_DATA extends Win32Struct
     FirmwareRevision{
         get {
             if(!this.HasProp("__FirmwareRevisionProxyArray"))
-                this.__FirmwareRevisionProxyArray := Win32FixedArray(this.ptr + 72, 16, Primitive, "char")
+                this.__FirmwareRevisionProxyArray := Win32FixedArray(this.ptr + 68, 16, Primitive, "char")
             return this.__FirmwareRevisionProxyArray
         }
     }
@@ -96,7 +96,7 @@ class STORAGE_PHYSICAL_ADAPTER_DATA extends Win32Struct
     PhysicalLocation{
         get {
             if(!this.HasProp("__PhysicalLocationProxyArray"))
-                this.__PhysicalLocationProxyArray := Win32FixedArray(this.ptr + 88, 32, Primitive, "char")
+                this.__PhysicalLocationProxyArray := Win32FixedArray(this.ptr + 84, 32, Primitive, "char")
             return this.__PhysicalLocationProxyArray
         }
     }
@@ -106,8 +106,8 @@ class STORAGE_PHYSICAL_ADAPTER_DATA extends Win32Struct
      * @type {BOOLEAN}
      */
     ExpanderConnected {
-        get => NumGet(this, 120, "char")
-        set => NumPut("char", value, this, 120)
+        get => NumGet(this, 116, "char")
+        set => NumPut("char", value, this, 116)
     }
 
     /**
@@ -117,7 +117,7 @@ class STORAGE_PHYSICAL_ADAPTER_DATA extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 121, 3, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 117, 3, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }
@@ -129,7 +129,7 @@ class STORAGE_PHYSICAL_ADAPTER_DATA extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 124, 3, Primitive, "uint")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 120, 3, Primitive, "uint")
             return this.__Reserved1ProxyArray
         }
     }

@@ -3,7 +3,7 @@
 
 /**
  * The USERNAME_TARGET_CREDENTIAL_INFO structure contains a reference to a credential.
- * @see https://docs.microsoft.com/windows/win32/api//wincred/ns-wincred-username_target_credential_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincred/ns-wincred-username_target_credential_info
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319
  */

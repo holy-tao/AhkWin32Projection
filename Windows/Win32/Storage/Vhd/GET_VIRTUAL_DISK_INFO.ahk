@@ -4,7 +4,7 @@
 
 /**
  * Contains virtual hard disk (VHD) information.
- * @see https://docs.microsoft.com/windows/win32/api//virtdisk/ns-virtdisk-get_virtual_disk_info
+ * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-get_virtual_disk_info
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */
@@ -28,7 +28,7 @@ class GET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     class _Size extends Win32Struct {
-        static sizeof => 28
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -66,8 +66,8 @@ class GET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     class _ParentLocation extends Win32Struct {
-        static sizeof => 28
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {BOOL}
@@ -88,8 +88,8 @@ class GET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     class _PhysicalDisk extends Win32Struct {
-        static sizeof => 28
-        static packingSize => 8
+        static sizeof => 12
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -118,8 +118,8 @@ class GET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     class _ChangeTrackingState extends Win32Struct {
-        static sizeof => 28
-        static packingSize => 8
+        static sizeof => 12
+        static packingSize => 4
 
         /**
          * @type {BOOL}

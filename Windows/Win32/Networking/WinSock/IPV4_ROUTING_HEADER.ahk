@@ -8,9 +8,9 @@
  */
 class IPV4_ROUTING_HEADER extends Win32Struct
 {
-    static sizeof => 4
+    static sizeof => 3
 
-    static packingSize => 2
+    static packingSize => 1
 
     /**
      * @type {IPV4_OPTION_HEADER}

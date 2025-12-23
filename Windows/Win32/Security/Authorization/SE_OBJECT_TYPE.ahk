@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that correspond to the types of Windows objects that support security.
- * @see https://docs.microsoft.com/windows/win32/api//accctrl/ne-accctrl-se_object_type
+ * @see https://learn.microsoft.com/windows/win32/api/accctrl/ne-accctrl-se_object_type
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
-class SE_OBJECT_TYPE{
+class SE_OBJECT_TYPE extends Win32Enum{
 
     /**
      * Unknown object type.

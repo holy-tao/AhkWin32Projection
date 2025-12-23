@@ -4,7 +4,7 @@
 
 /**
  * Contains the security descriptor for a DFS link's reparse point.
- * @see https://docs.microsoft.com/windows/win32/api//lmdfs/ns-lmdfs-dfs_info_150
+ * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_150
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319
  */

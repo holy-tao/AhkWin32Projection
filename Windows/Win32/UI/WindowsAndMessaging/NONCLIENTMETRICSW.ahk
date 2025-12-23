@@ -3,9 +3,8 @@
 #Include ..\..\Graphics\Gdi\LOGFONTW.ahk
 
 /**
- * Contains the scalable metrics associated with the nonclient area of a nonminimized window.
+ * Contains the scalable metrics associated with the nonclient area of a nonminimized window. (Unicode)
  * @remarks
- * 
  * If the <b>iPaddedBorderWidth</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-nonclientmetricsa">NONCLIENTMETRICS</a> structure is present, this structure is 4 bytes larger than for an application that is compiled with <b>_WIN32_WINNT</b> less than or equal to 0x0502. For more information about conditional compilation, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
  * 
  * <b>Windows Server 2003 and Windows XP/2000:  </b>If an application  that is compiled for Windows Server 2008 or Windows Vista must also run on Windows Server 2003 or Windows XP/2000, use the <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getversionexa">GetVersionEx</a> function to check the operating system version at run time and, if the application is running on Windows Server 2003 or Windows XP/2000, subtract the size of the <b>iPaddedBorderWidth</b> member from the <b>cbSize</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-nonclientmetricsa">NONCLIENTMETRICS</a> structure before calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-systemparametersinfoa">SystemParametersInfo</a> function. 
@@ -16,18 +15,16 @@
  * 
  * > [!NOTE]
  * > The winuser.h header defines NONCLIENTMETRICS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-nonclientmetricsw
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-nonclientmetricsw
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  * @charset Unicode
  */
 class NONCLIENTMETRICSW extends Win32Struct
 {
-    static sizeof => 520
+    static sizeof => 504
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The size of the structure, in bytes. The caller must set this to <c>sizeof(NONCLIENTMETRICS)</c>. For   information about application compatibility, see Remarks.
@@ -120,7 +117,7 @@ class NONCLIENTMETRICSW extends Win32Struct
     lfSmCaptionFont{
         get {
             if(!this.HasProp("__lfSmCaptionFont"))
-                this.__lfSmCaptionFont := LOGFONTW(128, this)
+                this.__lfSmCaptionFont := LOGFONTW(124, this)
             return this.__lfSmCaptionFont
         }
     }
@@ -130,8 +127,8 @@ class NONCLIENTMETRICSW extends Win32Struct
      * @type {Integer}
      */
     iMenuWidth {
-        get => NumGet(this, 220, "int")
-        set => NumPut("int", value, this, 220)
+        get => NumGet(this, 216, "int")
+        set => NumPut("int", value, this, 216)
     }
 
     /**
@@ -139,8 +136,8 @@ class NONCLIENTMETRICSW extends Win32Struct
      * @type {Integer}
      */
     iMenuHeight {
-        get => NumGet(this, 224, "int")
-        set => NumPut("int", value, this, 224)
+        get => NumGet(this, 220, "int")
+        set => NumPut("int", value, this, 220)
     }
 
     /**
@@ -150,7 +147,7 @@ class NONCLIENTMETRICSW extends Win32Struct
     lfMenuFont{
         get {
             if(!this.HasProp("__lfMenuFont"))
-                this.__lfMenuFont := LOGFONTW(232, this)
+                this.__lfMenuFont := LOGFONTW(224, this)
             return this.__lfMenuFont
         }
     }
@@ -162,7 +159,7 @@ class NONCLIENTMETRICSW extends Win32Struct
     lfStatusFont{
         get {
             if(!this.HasProp("__lfStatusFont"))
-                this.__lfStatusFont := LOGFONTW(328, this)
+                this.__lfStatusFont := LOGFONTW(316, this)
             return this.__lfStatusFont
         }
     }
@@ -174,7 +171,7 @@ class NONCLIENTMETRICSW extends Win32Struct
     lfMessageFont{
         get {
             if(!this.HasProp("__lfMessageFont"))
-                this.__lfMessageFont := LOGFONTW(424, this)
+                this.__lfMessageFont := LOGFONTW(408, this)
             return this.__lfMessageFont
         }
     }
@@ -186,12 +183,12 @@ class NONCLIENTMETRICSW extends Win32Struct
      * @type {Integer}
      */
     iPaddedBorderWidth {
-        get => NumGet(this, 516, "int")
-        set => NumPut("int", value, this, 516)
+        get => NumGet(this, 500, "int")
+        set => NumPut("int", value, this, 500)
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 520
+        this.cbSize := 504
     }
 }

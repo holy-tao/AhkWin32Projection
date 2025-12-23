@@ -11,51 +11,68 @@ class KSCAMERA_EXTENDEDPROP_VALUE extends Win32Struct
 
     static packingSize => 8
 
-    /**
-     * @type {Float}
-     */
-    dbl {
-        get => NumGet(this, 0, "double")
-        set => NumPut("double", value, this, 0)
+    class _Value_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Float}
+         */
+        dbl {
+            get => NumGet(this, 0, "double")
+            set => NumPut("double", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ull {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ul {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ratio {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        l {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ll {
+            get => NumGet(this, 0, "int64")
+            set => NumPut("int64", value, this, 0)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_Value_e__Union}
      */
-    ull {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ul {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ratio {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    l {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ll {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
+    Value{
+        get {
+            if(!this.HasProp("__Value"))
+                this.__Value := %this.__Class%._Value_e__Union(0, this)
+            return this.__Value
+        }
     }
 }

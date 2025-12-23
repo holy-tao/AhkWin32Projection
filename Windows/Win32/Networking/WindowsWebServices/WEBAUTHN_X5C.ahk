@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * The X.509 certificate chain.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_x5c
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -14,6 +16,7 @@ class WEBAUTHN_X5C extends Win32Struct
     static packingSize => 8
 
     /**
+     * The length of X.509 encoded certificate.
      * @type {Integer}
      */
     cbData {
@@ -22,6 +25,7 @@ class WEBAUTHN_X5C extends Win32Struct
     }
 
     /**
+     * The X.509 encoded certificate bytes.
      * @type {Pointer<Integer>}
      */
     pbData {

@@ -4,15 +4,15 @@
 
 /**
  * Specifies the target rectangle for blitting, when using Microsoft DirectX Video Acceleration High Definition (DXVA-HD).
- * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ns-dxvahd-dxvahd_blt_state_target_rect_data
+ * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_blt_state_target_rect_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
 class DXVAHD_BLT_STATE_TARGET_RECT_DATA extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies whether to use the target rectangle. The default state value is <b>FALSE</b>.
@@ -59,7 +59,7 @@ class DXVAHD_BLT_STATE_TARGET_RECT_DATA extends Win32Struct
     TargetRect{
         get {
             if(!this.HasProp("__TargetRect"))
-                this.__TargetRect := RECT(8, this)
+                this.__TargetRect := RECT(4, this)
             return this.__TargetRect
         }
     }

@@ -3,7 +3,7 @@
 
 /**
  * The MANAGEDAPPLICATION structure contains information about an application. The function GetManagedApplications returns an array of MANAGEDAPPLICATION structures.
- * @see https://docs.microsoft.com/windows/win32/api//appmgmt/ns-appmgmt-managedapplication
+ * @see https://learn.microsoft.com/windows/win32/api/appmgmt/ns-appmgmt-managedapplication
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */

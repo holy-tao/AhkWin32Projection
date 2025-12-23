@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains information obtained during Point-to-Point (PPP) negotiation for Secure Socket Tunneling Protocol (SSTP), Point-to-Point Tunneling Protocol (PPTP), and Layer 2 Tunneling Protocol (L2TP).
- * @see https://docs.microsoft.com/windows/win32/api//mprapi/ns-mprapi-ppp_projection_info
+ * Contains information obtained during Point-to-Point (PPP) negotiation for Secure Socket Tunneling Protocol (SSTP), Point-to-Point Tunneling Protocol (PPTP), and Layer 2 Tunneling Protocol (L2TP). (PPP_PROJECTION_INFO)
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_projection_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

@@ -5,21 +5,18 @@
 /**
  * The DISPLAYCONFIG_SOURCE_MODE structure represents a point or an offset in a two-dimensional space.
  * @remarks
- * 
  * The arrangement of source surfaces on the desktop is controlled by the <b>position</b> member, which specifies the position in desktop coordinates of the upper-left corner of the source surface. The source surface that is positioned at (0, 0) is considered the primary. GDI has strict rules about how the source surfaces can be arranged in the desktop space. For example, there cannot be any gaps between source surfaces, and there can be no overlaps.
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setdisplayconfig">SetDisplayConfig</a> function attempts to rearrange source surfaces in order to enforce these layout rules. The caller must make every effort to lay out the source surfaces correctly because  GDI  rearranges the sources in an undefined manner to enforce the layout rules. The resultant layout may not be what the caller wanted to achieve.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-displayconfig_source_mode
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_source_mode
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
 class DISPLAYCONFIG_SOURCE_MODE extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The width in pixels of the source mode.
@@ -55,7 +52,7 @@ class DISPLAYCONFIG_SOURCE_MODE extends Win32Struct
     position{
         get {
             if(!this.HasProp("__position"))
-                this.__position := POINTL(16, this)
+                this.__position := POINTL(12, this)
             return this.__position
         }
     }

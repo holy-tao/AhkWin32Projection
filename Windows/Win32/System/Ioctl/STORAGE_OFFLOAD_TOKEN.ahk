@@ -3,7 +3,7 @@
 
 /**
  * The token used to represent a portion of a file used in by offload read and write operations.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_offload_token
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_offload_token
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
@@ -11,7 +11,7 @@ class STORAGE_OFFLOAD_TOKEN extends Win32Struct
 {
     static sizeof => 512
 
-    static packingSize => 8
+    static packingSize => 1
 
     /**
      * A 32-bit unsigned integer which defines the type of <b>Token</b>.
@@ -51,7 +51,7 @@ class STORAGE_OFFLOAD_TOKEN extends Win32Struct
 
     class _StorageOffloadZeroDataToken extends Win32Struct {
         static sizeof => 504
-        static packingSize => 8
+        static packingSize => 1
 
         /**
          * @type {Array<Byte>}

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Enumerates the types of service notifications sent by the NapAgent service.
- * @see https://docs.microsoft.com/windows/win32/api//naptypes/ne-naptypes-napnotifytype
+ * @see https://learn.microsoft.com/windows/win32/api/naptypes/ne-naptypes-napnotifytype
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319
  */
-class NapNotifyType{
+class NapNotifyType extends Win32Enum{
 
     /**
      * Not used.

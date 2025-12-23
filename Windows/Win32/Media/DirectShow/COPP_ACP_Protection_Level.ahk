@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the ACP protection level.
- * @see https://docs.microsoft.com/windows/win32/api//dxva9typ/ne-dxva9typ-copp_acp_protection_level
+ * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ne-dxva9typ-copp_acp_protection_level
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class COPP_ACP_Protection_Level{
+class COPP_ACP_Protection_Level extends Win32Enum{
 
     /**
      * Level 0.

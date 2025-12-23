@@ -4,7 +4,6 @@
 /**
  * Contains the result of a call to an asynchronous function. This structure is used with InternetStatusCallback.
  * @remarks
- * 
  * The value of 
  * <b>dwResult</b> is determined by the value of  
  * <i>dwInternetStatus</i> in  the status callback function.
@@ -32,9 +31,7 @@
  * 
  * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wininet/ns-wininet-internet_async_result
+ * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-internet_async_result
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
  */

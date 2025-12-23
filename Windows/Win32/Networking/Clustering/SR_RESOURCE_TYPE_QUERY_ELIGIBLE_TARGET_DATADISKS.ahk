@@ -3,7 +3,7 @@
 
 /**
  * Describes a set of retrieved data disks that can be used as target sites for replication.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-sr_resource_type_query_eligible_target_datadisks
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-sr_resource_type_query_eligible_target_datadisks
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

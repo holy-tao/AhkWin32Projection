@@ -3,7 +3,7 @@
 
 /**
  * Defines the GUID and name for a provider.
- * @see https://docs.microsoft.com/windows/win32/api//tdh/ns-tdh-trace_provider_info
+ * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-trace_provider_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

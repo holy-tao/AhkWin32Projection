@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * States for the Extended Mode (EM) negotiation exchanges that are part of the Authenticated Internet Protocol (AuthIP) protocol.
- * @see https://docs.microsoft.com/windows/win32/api//iketypes/ne-iketypes-ikeext_em_sa_state
+ * @see https://learn.microsoft.com/windows/win32/api/iketypes/ne-iketypes-ikeext_em_sa_state
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class IKEEXT_EM_SA_STATE{
+class IKEEXT_EM_SA_STATE extends Win32Enum{
 
     /**
      * Initial state.  No Extended Mode packets have been sent to the peer.

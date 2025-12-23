@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The DL_ADDRESS_TYPE enumerated type.
- * @see https://docs.microsoft.com/windows/win32/api//fwpmtypes/ne-fwpmtypes-dl_address_type
+ * The DL_ADDRESS_TYPE enumeration (fwpmtypes.h) specifies the type of datalink layer address.
+ * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ne-fwpmtypes-dl_address_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
-class DL_ADDRESS_TYPE{
+class DL_ADDRESS_TYPE extends Win32Enum{
 
     /**
      * Specifies a unicast datalink layer address.

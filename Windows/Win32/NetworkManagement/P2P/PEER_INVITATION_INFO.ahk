@@ -4,7 +4,7 @@
 
 /**
  * The PEER_INVITATION_INFO structure defines information about an invitation to join a peer group.
- * @see https://docs.microsoft.com/windows/win32/api//p2p/ns-p2p-peer_invitation_info
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_invitation_info
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
@@ -277,7 +277,7 @@ class PEER_INVITATION_INFO extends Win32Struct
 
     /**
      * <b>Windows Vista or later.</b>           The <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_group_authentication_scheme">PEER_GROUP_AUTHENTICATION_SCHEME</a> enumeration value that indicates the type of authentication used to validate the peer group invitee.
-     * @deprecated
+     * @deprecated 
      * @type {Integer}
      */
     authScheme {

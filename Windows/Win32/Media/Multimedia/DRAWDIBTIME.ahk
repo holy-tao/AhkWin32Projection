@@ -3,7 +3,7 @@
 
 /**
  * The DRAWDIBTIME structure contains elapsed timing information for performing a set of DrawDib operations. The DrawDibTime function resets the count and the elapsed time value for each operation each time it is called.
- * @see https://docs.microsoft.com/windows/win32/api//vfw/ns-vfw-drawdibtime
+ * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-drawdibtime
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

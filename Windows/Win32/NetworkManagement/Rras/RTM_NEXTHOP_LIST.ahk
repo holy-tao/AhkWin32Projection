@@ -3,7 +3,7 @@
 
 /**
  * The RTM_NEXTHOP_LIST structure contains a list of next hops used to determine equal-cost paths in a route.
- * @see https://docs.microsoft.com/windows/win32/api//rtmv2/ns-rtmv2-rtm_nexthop_list
+ * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_nexthop_list
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

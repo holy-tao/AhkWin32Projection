@@ -3,7 +3,7 @@
 
 /**
  * Contains the clipboard format definition for CFSTR_FILE_ATTRIBUTES_ARRAY.
- * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-file_attributes_array
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-file_attributes_array
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

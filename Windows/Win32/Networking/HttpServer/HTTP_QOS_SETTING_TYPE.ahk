@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the type of a QOS setting contained in a HTTP_QOS_SETTING_INFO structure.
- * @see https://docs.microsoft.com/windows/win32/api//http/ne-http-http_qos_setting_type
+ * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_qos_setting_type
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */
-class HTTP_QOS_SETTING_TYPE{
+class HTTP_QOS_SETTING_TYPE extends Win32Enum{
 
     /**
      * The setting is a bandwidth limit represented by a <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_bandwidth_limit_info">HTTP_BANDWIDTH_LIMIT_INFO</a> structure.

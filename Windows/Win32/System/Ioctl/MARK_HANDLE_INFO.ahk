@@ -5,7 +5,6 @@
 /**
  * Contains information that is used to mark a specified file or directory, and its update sequence number (USN) change journal record with data about changes.
  * @remarks
- * 
  * To retrieve a handle to a volume, call 
  *      <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> with the 
  *      <i>lpFileName</i> parameter set to a string in the following form:
@@ -14,9 +13,7 @@
  * 
  * In the preceding string, <i>X</i> is the letter identifying the drive on which the volume 
  *      appears.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-mark_handle_info
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-mark_handle_info
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

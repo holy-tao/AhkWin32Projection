@@ -5,19 +5,16 @@
 /**
  * Represents the state of a controller.
  * @remarks
- * 
  * The <i>dwPacketNumber</i> member is incremented only if the status of the controller has changed since the controller was last polled.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xinput/ns-xinput-xinput_state
+ * @see https://learn.microsoft.com/windows/win32/api/xinput/ns-xinput-xinput_state
  * @namespace Windows.Win32.UI.Input.XboxController
  * @version v4.0.30319
  */
 class XINPUT_STATE extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * State packet number. The packet number indicates whether there have been any changes in the state of the controller. If the <i>dwPacketNumber</i> member is the same in sequentially returned <b>XINPUT_STATE</b> structures, the controller state has not changed.
@@ -35,7 +32,7 @@ class XINPUT_STATE extends Win32Struct
     Gamepad{
         get {
             if(!this.HasProp("__Gamepad"))
-                this.__Gamepad := XINPUT_GAMEPAD(8, this)
+                this.__Gamepad := XINPUT_GAMEPAD(4, this)
             return this.__Gamepad
         }
     }

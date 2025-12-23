@@ -3,7 +3,7 @@
 
 /**
  * The PNRP_CLOUD_ID structure contains the values that define a network cloud.
- * @see https://docs.microsoft.com/windows/win32/api//pnrpdef/ns-pnrpdef-pnrp_cloud_id
+ * @see https://learn.microsoft.com/windows/win32/api/pnrpdef/ns-pnrpdef-pnrp_cloud_id
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

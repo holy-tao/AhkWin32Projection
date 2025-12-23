@@ -5,9 +5,8 @@
 #Include .\IMAGE_OPTIONAL_HEADER32.ahk
 
 /**
- * Represents the PE header format.
+ * Represents the PE header format. (32 bit)
  * @remarks
- * 
  * The actual structure in WinNT.h is named <b>IMAGE_NT_HEADERS32</b> and <b>IMAGE_NT_HEADERS</b> is defined as <b>IMAGE_NT_HEADERS32</b>. However, if _WIN64 is defined,  then <b>IMAGE_NT_HEADERS</b> is defined as <b>IMAGE_NT_HEADERS64</b>.
  * 
  * 
@@ -18,15 +17,13 @@
  *     IMAGE_OPTIONAL_HEADER64 OptionalHeader;
  * } IMAGE_NT_HEADERS64, *PIMAGE_NT_HEADERS64;
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-image_nt_headers32
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_nt_headers32
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */
 class IMAGE_NT_HEADERS32 extends Win32Struct
 {
-    static sizeof => 256
+    static sizeof => 248
 
     static packingSize => 8
 
@@ -47,7 +44,7 @@ class IMAGE_NT_HEADERS32 extends Win32Struct
     FileHeader{
         get {
             if(!this.HasProp("__FileHeader"))
-                this.__FileHeader := IMAGE_FILE_HEADER(8, this)
+                this.__FileHeader := IMAGE_FILE_HEADER(4, this)
             return this.__FileHeader
         }
     }
@@ -60,7 +57,7 @@ class IMAGE_NT_HEADERS32 extends Win32Struct
     OptionalHeader{
         get {
             if(!this.HasProp("__OptionalHeader"))
-                this.__OptionalHeader := IMAGE_OPTIONAL_HEADER32(32, this)
+                this.__OptionalHeader := IMAGE_OPTIONAL_HEADER32(24, this)
             return this.__OptionalHeader
         }
     }

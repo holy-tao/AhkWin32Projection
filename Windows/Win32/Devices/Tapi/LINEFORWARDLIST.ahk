@@ -5,14 +5,11 @@
 /**
  * The LINEFORWARDLIST structure describes a list of forwarding instructions. This structure can contain an array of LINEFORWARD structures. The lineForward and TSPI_lineForward functions use the LINEFORWARDLIST structure.
  * @remarks
- * 
  * This structure may not be extended.
  * 
  * The 
  * <b>LINEFORWARDLIST</b> structure defines the forwarding parameters requested for forwarding calls on an address or on all addresses on a line.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tapi/ns-tapi-lineforwardlist
+ * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineforwardlist
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

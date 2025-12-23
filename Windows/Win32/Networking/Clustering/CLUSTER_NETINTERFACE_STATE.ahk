@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Enumerates the possible values of the state of a network interface.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-cluster_netinterface_state
+ * The CLUSTER_NETINTERFACE_STATE enumeration (msclus.h) enumerates the possible values of the state of a network interface.
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_netinterface_state
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSTER_NETINTERFACE_STATE{
+class CLUSTER_NETINTERFACE_STATE extends Win32Enum{
 
     /**
      * The operation was not successful. For more information about the error, call the function 

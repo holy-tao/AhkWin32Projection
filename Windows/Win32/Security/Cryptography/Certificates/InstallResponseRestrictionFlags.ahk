@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains flags that identify the restrictions placed on the local installation of a certificate chain.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/ne-certenroll-installresponserestrictionflags
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-installresponserestrictionflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
-class InstallResponseRestrictionFlags{
+class InstallResponseRestrictionFlags extends Win32Enum{
 
     /**
      * Does not allow the installation of untrusted certificates or certificates for which there is no corresponding request.

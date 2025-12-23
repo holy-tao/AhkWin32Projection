@@ -4,11 +4,8 @@
 /**
  * Contains information about an ELS service.
  * @remarks
- * 
  * Structures of this type are created in an application call to <a href="https://docs.microsoft.com/windows/desktop/api/elscore/nf-elscore-mappinggetservices">MappingGetServices</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//elscore/ns-elscore-mapping_service_info
+ * @see https://learn.microsoft.com/windows/win32/api/elscore/ns-elscore-mapping_service_info
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

@@ -8,13 +8,13 @@
  */
 class IMAGE_AUX_SYMBOL_EX extends Win32Struct
 {
-    static sizeof => 120
+    static sizeof => 104
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _Sym extends Win32Struct {
-        static sizeof => 120
-        static packingSize => 8
+        static sizeof => 20
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -46,8 +46,8 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
     }
 
     class _File extends Win32Struct {
-        static sizeof => 120
-        static packingSize => 8
+        static sizeof => 20
+        static packingSize => 1
 
         /**
          * @type {Array<Byte>}
@@ -63,8 +63,8 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
     }
 
     class _Section extends Win32Struct {
-        static sizeof => 120
-        static packingSize => 8
+        static sizeof => 20
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -144,8 +144,8 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
     }
 
     class _CRC extends Win32Struct {
-        static sizeof => 120
-        static packingSize => 8
+        static sizeof => 20
+        static packingSize => 4
 
         /**
          * @type {Integer}

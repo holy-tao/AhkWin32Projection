@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains information about the status of a command.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_command_status
  * @namespace Windows.Win32.Storage.Nvme
@@ -77,6 +79,7 @@ class NVME_COMMAND_STATUS extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     AsUshort {

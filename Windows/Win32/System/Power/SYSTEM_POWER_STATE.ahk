@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values that are used to specify system power states.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-system_power_state
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-system_power_state
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */
-class SYSTEM_POWER_STATE{
+class SYSTEM_POWER_STATE extends Win32Enum{
 
     /**
      * Unspecified system power state.

@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The GCP_RESULTS structure contains information about characters in a string. This structure receives the results of the GetCharacterPlacement function. For some languages, the first element in the arrays may contain more, language-dependent information.
+ * The GCP_RESULTS structure contains information about characters in a string. This structure receives the results of the GetCharacterPlacement function. For some languages, the first element in the arrays may contain more, language-dependent information. (ANSI)
  * @remarks
- * 
  * Whether the <b>lpGlyphs</b>, <b>lpOutString</b>, or neither is required depends on the results of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getfontlanguageinfo">GetFontLanguageInfo</a> call.
  * 
  * In the case of a font for a language such as English, in which none of the GCP_DBCS, GCP_REORDER, GCP_GLYPHSHAPE, GCP_LIGATE, GCP_DIACRITIC, or GCP_KASHIDA flags are returned, neither of the arrays is required for proper operation. (Though not required, they can still be used. If the <b>lpOutString</b> array is used, it will be exactly the same as the <i>lpInputString</i> passed to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharacterplacementa">GetCharacterPlacement</a>.) Note, however, that if GCP_MAXEXTENT is used, then <b>lpOutString</b> will contain the truncated string if it is used, NOT an exact copy of the original.
@@ -19,9 +18,7 @@
  * 
  * > [!NOTE]
  * > The wingdi.h header defines GCP_RESULTS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-gcp_resultsa
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-gcp_resultsa
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  * @charset ANSI
@@ -66,9 +63,12 @@ class GCP_RESULTSA extends Win32Struct
      * 
      * The distances in this array are in display order. To find the distance for the <i>i</i><sup>th</sup> character in the original string, use the <b>lpOrder</b> array as follows:
      * 
-     * <pre class="syntax" xml:space="preserve"><code>
+     * 
+     * ``` syntax
+     * 
      * width = lpDx[lpOrder[i]];
-     * </code></pre>
+     * 
+     * ```
      * @type {Pointer<Integer>}
      */
     lpDx {
@@ -81,9 +81,12 @@ class GCP_RESULTSA extends Win32Struct
      * 
      * The values in this array are in input order. To find the caret position value for the <i>i</i><sup>th</sup> character in the original string, use the array as follows:
      * 
-     * <pre class="syntax" xml:space="preserve"><code>
+     * 
+     * ``` syntax
+     * 
      * position = lpCaretPos[i];
-     * </code></pre>
+     * 
+     * ```
      * @type {Pointer<Integer>}
      */
     lpCaretPos {

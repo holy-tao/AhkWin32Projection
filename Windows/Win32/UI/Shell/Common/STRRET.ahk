@@ -3,7 +3,7 @@
 
 /**
  * Contains strings returned from the IShellFolder interface methods.
- * @see https://docs.microsoft.com/windows/win32/api//shtypes/ns-shtypes-strret
+ * @see https://learn.microsoft.com/windows/win32/api/shtypes/ns-shtypes-strret
  * @namespace Windows.Win32.UI.Shell.Common
  * @version v4.0.30319
  */

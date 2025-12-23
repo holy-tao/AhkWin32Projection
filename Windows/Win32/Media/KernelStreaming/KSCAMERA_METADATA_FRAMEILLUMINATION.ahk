@@ -10,7 +10,7 @@ class KSCAMERA_METADATA_FRAMEILLUMINATION extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {KSCAMERA_METADATA_ITEMHEADER}

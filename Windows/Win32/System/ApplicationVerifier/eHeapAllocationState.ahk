@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the current heap allocation state.
- * @see https://docs.microsoft.com/windows/win32/api//avrfsdk/ne-avrfsdk-eheapallocationstate
+ * @see https://learn.microsoft.com/windows/win32/api/avrfsdk/ne-avrfsdk-eheapallocationstate
  * @namespace Windows.Win32.System.ApplicationVerifier
  * @version v4.0.30319
  */
-class eHeapAllocationState{
+class eHeapAllocationState extends Win32Enum{
 
     /**
      * Specifies the full-page heap arrangement is being used.

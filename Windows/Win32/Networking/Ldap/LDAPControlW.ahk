@@ -3,9 +3,8 @@
 #Include .\LDAP_BERVAL.ahk
 
 /**
- * Represents both client-side and server controls.
+ * Represents both client-side and server controls. (Unicode)
  * @remarks
- * 
  * Effective with LDAP 3, you can extend LDAP operations through the use of controls. Server controls can be sent to the server or returned to the client with any LDAP message. Client controls extend the behavior of the LDAP API on the client-side only and are never sent to the server. A supported control is stored as an object identifier (OID) in the Directory Service root.
  * 
  * The <b>ldctl_iscritical</b> member enables an extended operation to succeed when the server or client does not support the control. If the value of this field is zero, the server and/or client ignores the control if it is not supported and carries out the operation. If the value is nonzero the operation is carried out only if the control is recognized by the server and/or client.
@@ -18,9 +17,7 @@
  * 
  * > [!NOTE]
  * > The winldap.h header defines LDAPControl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winldap/ns-winldap-ldapcontrolw
+ * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapcontrolw
  * @namespace Windows.Win32.Networking.Ldap
  * @version v4.0.30319
  * @charset Unicode

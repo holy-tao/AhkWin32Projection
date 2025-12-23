@@ -8,9 +8,9 @@
  */
 class KSDS3D_ITD_PARAMS_MSG extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 56
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class KSDS3D_ITD_PARAMS_MSG extends Win32Struct
     LeftParams{
         get {
             if(!this.HasProp("__LeftParams"))
-                this.__LeftParams := KSDS3D_ITD_PARAMS(8, this)
+                this.__LeftParams := KSDS3D_ITD_PARAMS(4, this)
             return this.__LeftParams
         }
     }
@@ -37,7 +37,7 @@ class KSDS3D_ITD_PARAMS_MSG extends Win32Struct
     RightParams{
         get {
             if(!this.HasProp("__RightParams"))
-                this.__RightParams := KSDS3D_ITD_PARAMS(32, this)
+                this.__RightParams := KSDS3D_ITD_PARAMS(28, this)
             return this.__RightParams
         }
     }
@@ -46,7 +46,7 @@ class KSDS3D_ITD_PARAMS_MSG extends Win32Struct
      * @type {Integer}
      */
     Reserved {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 }

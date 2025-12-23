@@ -8,11 +8,8 @@
 /**
  * Specifies a bitmap for the enhanced video renderer (EVR) to alpha-blend with the video.
  * @remarks
- * 
  * To specify a GDI bitmap, create a device context and call <b>SelectObject</b> to select the bitmap into the DC. Then set the <b>hdc</b> member of the structure equal to the handle to the DC and set the <b>GetBitmapFromDC</b> member to <b>TRUE</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//evr9/ns-evr9-mfvideoalphabitmap
+ * @see https://learn.microsoft.com/windows/win32/api/evr9/ns-evr9-mfvideoalphabitmap
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -21,6 +18,31 @@ class MFVideoAlphaBitmap extends Win32Struct
     static sizeof => 64
 
     static packingSize => 8
+
+    class _bitmap_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {HDC}
+         */
+        hdc{
+            get {
+                if(!this.HasProp("__hdc"))
+                    this.__hdc := HDC(0, this)
+                return this.__hdc
+            }
+        }
+    
+        /**
+         * @type {IDirect3DSurface9}
+         */
+        pDDS {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
 
     /**
      * If <b>TRUE</b>, the <b>hdc</b> member is used. Otherwise, the <b>pDDs</b> member is used.
@@ -32,22 +54,15 @@ class MFVideoAlphaBitmap extends Win32Struct
     }
 
     /**
-     * @type {HDC}
+     * A union that contains the following members.
+     * @type {_bitmap_e__Union}
      */
-    hdc{
+    bitmap{
         get {
-            if(!this.HasProp("__hdc"))
-                this.__hdc := HDC(8, this)
-            return this.__hdc
+            if(!this.HasProp("__bitmap"))
+                this.__bitmap := %this.__Class%._bitmap_e__Union(8, this)
+            return this.__bitmap
         }
-    }
-
-    /**
-     * @type {IDirect3DSurface9}
-     */
-    pDDS {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
     }
 
     /**

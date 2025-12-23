@@ -3,7 +3,7 @@
 
 /**
  * The DWRITE_JUSTIFICATION_OPPORTUNITY structure specifies justification info per glyph.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/ns-dwrite_1-dwrite_justification_opportunity
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_justification_opportunity
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

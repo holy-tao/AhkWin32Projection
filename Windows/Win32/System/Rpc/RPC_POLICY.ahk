@@ -4,7 +4,6 @@
 /**
  * The RPC_POLICY structure contains flags that determine binding on multihomed computers, and port allocations when using the ncacn_ip_tcp and ncadg_ip_udp protocols.
  * @remarks
- * 
  * You can use the <b>RPC_Policy</b> structure to set policies for remote procedure calls at run time. These policies include:
  * 
  * <ul>
@@ -17,9 +16,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/Midl/ncadg-ip-udp">ncadg_ip_udp</a>) connections. For more information, see 
  * <a href="https://docs.microsoft.com/windows/desktop/Rpc/configuring-the-windows-xp-2000-nt-registry-for-port-allocations-and-selective-binding">Configuring the Registry for Port Allocations and Selective Binding</a>.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//rpcdce/ns-rpcdce-rpc_policy
+ * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_policy
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */

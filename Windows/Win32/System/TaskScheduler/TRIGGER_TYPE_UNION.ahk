@@ -8,12 +8,9 @@
 /**
  * Defines the invocation schedule of the trigger within the Type member of a TASK_TRIGGER structure.
  * @remarks
- * 
  * The <b>TriggerType</b> member of the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-task_trigger">TASK_TRIGGER</a> structure defines which fields of this union are used.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mstask/ns-mstask-trigger_type_union
+ * @see https://learn.microsoft.com/windows/win32/api/mstask/ns-mstask-trigger_type_union
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -21,7 +18,7 @@ class TRIGGER_TYPE_UNION extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A 

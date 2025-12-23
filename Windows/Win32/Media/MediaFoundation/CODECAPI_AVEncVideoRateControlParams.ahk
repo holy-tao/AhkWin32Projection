@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Specifies the video rate control parameters for a video encoder.
  * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avencvideoratecontrolparams
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319

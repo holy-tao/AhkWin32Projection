@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a similarity mapped view.
- * @see https://docs.microsoft.com/windows/win32/api//msrdc/ns-msrdc-similaritymappedviewinfo
+ * @see https://learn.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similaritymappedviewinfo
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */

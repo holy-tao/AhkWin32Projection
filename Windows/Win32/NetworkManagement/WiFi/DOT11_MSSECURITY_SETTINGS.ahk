@@ -9,7 +9,7 @@
  */
 class DOT11_MSSECURITY_SETTINGS extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -43,7 +43,7 @@ class DOT11_MSSECURITY_SETTINGS extends Win32Struct
     eapMethodType{
         get {
             if(!this.HasProp("__eapMethodType"))
-                this.__eapMethodType := EAP_METHOD_TYPE(16, this)
+                this.__eapMethodType := EAP_METHOD_TYPE(12, this)
             return this.__eapMethodType
         }
     }
@@ -52,15 +52,15 @@ class DOT11_MSSECURITY_SETTINGS extends Win32Struct
      * @type {Integer}
      */
     dwEapConnectionDataLen {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
      * @type {Pointer<Integer>}
      */
     pEapConnectionData {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

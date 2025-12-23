@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Controls how much error information is included in a fault. Since the error object may contain sensitive data as part of the error string, it is not always appropriate to include the error strings information in all faults.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_fault_disclosure
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_fault_disclosure
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_FAULT_DISCLOSURE{
+class WS_FAULT_DISCLOSURE extends Win32Enum{
 
     /**
      * Use a generic fault string for all errors.

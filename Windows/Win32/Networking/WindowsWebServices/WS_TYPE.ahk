@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The types supported for serialization.
  * @remarks
- * 
  * Many of the <b>WS_TYPE</b>s have a corresponding type description structure
  *                 which allows for additional information used to serialize or deserialize the
  *                 type.
  *             
  * 
- * For example, the <b>WS_INT32_TYPE</b> has a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_int32_description">WS_INT32_DESCRIPTION</a>structure which allows for constraints on the deserialized values.  This is an optional
+ * For example, the <b>WS_INT32_TYPE</b> has a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_int32_description">WS_INT32_DESCRIPTION</a> structure which allows for constraints on the deserialized values.  This is an optional
  *                 type description (if not specified, the full 32-bit integer space is allowed).
  *             
  * 
@@ -21,12 +21,11 @@
  * Type description pointers accompany <b>WS_TYPE</b> in the various APIs and structures 
  *                 that are based on serialization.  This should be <b>NULL</b> or non-<b>NULL</b> based on whether or not
  *                 the type description is not defined, optional or required.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_type
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_TYPE{
+class WS_TYPE extends Win32Enum{
 
     /**
      * Used when serializing a <b>BOOL</b> value.
@@ -1282,8 +1281,8 @@ class WS_TYPE{
      * <a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_reader_encoding_type">WS_FIELD_NILLABLE</a> | <b>WS_FIELD_OPTIONAL</b> | <b>WS_FIELD_NILLABLE_ITEM</b></li>
      * </ul>
      * A nil value is represented by setting the chars field to <b>NULL</b> and specifying a length of 0.
-     *                     A nil string is distinquished from an empty string based on whether or not the chars field 
-     *                     is <b>NULL</b> or not when the length is zero.
+     *                     A nil string is distinguished from an empty string based on whether or not the chars field 
+     *                     is <b>NULL</b> when the length is zero.
      *                 
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
@@ -1445,8 +1444,8 @@ class WS_TYPE{
      * <a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_reader_encoding_type">WS_FIELD_NILLABLE</a> | <b>WS_FIELD_OPTIONAL</b> | <b>WS_FIELD_NILLABLE_ITEM</b></li>
      * </ul>
      * A nil value is represented by setting the bytes field to <b>NULL</b> and specifying a length of 0.  
-     *                     A nil array is distinquished from an empty array based on whether or not the bytes field is 
-     *                     <b>NULL</b> or not when the length is zero.
+     *                     A nil array is distinguished from an empty array based on whether or not the bytes field is 
+     *                     <b>NULL</b> when the length is zero.
      *                 
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
@@ -1526,8 +1525,8 @@ class WS_TYPE{
      * <a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_reader_encoding_type">WS_FIELD_NILLABLE</a> | <b>WS_FIELD_OPTIONAL</b> | <b>WS_FIELD_NILLABLE_ITEM</b></li>
      * </ul>
      * A nil value is represented by setting the bytes field to <b>NULL</b> and specifying a length of 0.  
-     *                     A nil string is distinquished from an empty string based on whether or not the bytes field is 
-     *                     <b>NULL</b> or not when the length is zero.
+     *                     A nil string is distinguished from an empty string based on whether or not the bytes field is 
+     *                     <b>NULL</b> when the length is zero.
      *                 
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> may be specified for this type.
@@ -1695,7 +1694,9 @@ class WS_TYPE{
      *                         name and namespace when the buffer is written.  For example:
      *                     
      * 
-     * <pre class="syntax" xml:space="preserve"><code>
+     * 
+     * ``` syntax
+     * 
      * // Element in WS_XML_BUFFER
      * &lt;PrefixInBuffer:LocalNameInBuffer xmlns:PrefixInBuffer="namespace-in-buffer" other-attributes&gt;
      * text-and-or-element-content
@@ -1704,7 +1705,9 @@ class WS_TYPE{
      * // Element that is written
      * &lt;NewPrefix:NewLocalName xmlns:NewPrefix="new-namespace" other-attributes&gt;
      * text-and-or-element-content
-     * &lt;/NewPrefix:NewLocalName&gt;</code></pre>
+     * &lt;/NewPrefix:NewLocalName&gt;
+     * ```
+     * 
      * To avoid problems with namespace collisions, it is a best practice to follow one of the
      *                         following rules when selecting a namespace for the element in the buffer:
      *                     
@@ -1730,7 +1733,7 @@ class WS_TYPE{
      * <li>
      * When used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_REPEATING_ELEMENT_FIELD_MAPPING</a>, each
      *                         of the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-buffer">WS_XML_BUFFER</a>s that are serialized in the array
-     *                         has the same convention as with <b>WS_ELEMENT_FIELD_MAPPING</b>described above (each WS_XML_BUFFER represents a single element
+     *                         has the same convention as with <b>WS_ELEMENT_FIELD_MAPPING</b> described above (each WS_XML_BUFFER represents a single element
      *                         in the XML content).
      *                     
      * 
@@ -1762,12 +1765,16 @@ class WS_TYPE{
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_field_description">WS_FIELD_DESCRIPTION</a>.
      *                 
      * 
-     * <pre class="syntax" xml:space="preserve"><code>
+     * 
+     * ``` syntax
+     * 
      * struct
      * {
      *     ULONG count;    // array length, in characters
      *     WCHAR* chars;   // array of unicode characters
-     * } value;</code></pre>
+     * } value;
+     * ```
+     * 
      * The fields can be anywhere in the contained structure and in any order, since
      *                     their offsets within the structure are specified separately as part of the
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_field_description">WS_FIELD_DESCRIPTION</a>.
@@ -1836,8 +1843,8 @@ class WS_TYPE{
      * <a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_reader_encoding_type">WS_FIELD_NILLABLE</a> | <b>WS_FIELD_OPTIONAL</b> | <b>WS_FIELD_NILLABLE_ITEM</b></li>
      * </ul>
      * A nil string is represented by setting the chars field to <b>NULL</b> and specifying a length of 0.
-     *                     A nil string is distinquished from an empty string based on whether or not the chars field is
-     *                     <b>NULL</b> or not (in both cases the length is zero).
+     *                     A nil string is distinguished from an empty string based on whether or not the chars field is
+     *                     <b>NULL</b> (in both cases the length is zero).
      *                 
      * 
      * This type does not support specifying a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a>.
@@ -1852,12 +1859,16 @@ class WS_TYPE{
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_field_description">WS_FIELD_DESCRIPTION</a>.
      *                 
      * 
-     * <pre class="syntax" xml:space="preserve"><code>
+     * 
+     * ``` syntax
+     * 
      * struct
      * {
      *     ULONG count; // array length, in bytes
      *     BYTE* bytes; // array of utf8 characters
-     * } value;</code></pre>
+     * } value;
+     * ```
+     * 
      * The fields can be anywhere in the contained structure and in any order, since
      *                     their offsets within the structure are specified separately as part of the
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_field_description">WS_FIELD_DESCRIPTION</a>.
@@ -1911,8 +1922,8 @@ class WS_TYPE{
      * <a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_reader_encoding_type">WS_FIELD_NILLABLE</a> | <b>WS_FIELD_OPTIONAL</b></li>
      * </ul>
      * A nil string is represented by setting the bytes field to <b>NULL</b> and specifying a length of 0.
-     *                     A nil string is distinquished from an empty string based on whether or not the bytes field is
-     *                     <b>NULL</b> or not (in both cases the length is zero).
+     *                     A nil string is distinguished from an empty string based on whether or not the bytes field is
+     *                     <b>NULL</b> (in both cases the length is zero).
      *                 
      * 
      * This type does not support specifying a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a>.
@@ -1927,12 +1938,16 @@ class WS_TYPE{
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_field_description">WS_FIELD_DESCRIPTION</a>.
      *                 
      * 
-     * <pre class="syntax" xml:space="preserve"><code>
+     * 
+     * ``` syntax
+     * 
      * struct
      * {
      *     ULONG count;    // array length, in bytes
      *     BYTE* bytes;    // array of bytes
-     * } value;</code></pre>
+     * } value;
+     * ```
+     * 
      * The fields can be anywhere in the contained structure and in any order, since
      *                     their offsets within the structure are specified separately as part of the 
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_field_description">WS_FIELD_DESCRIPTION</a>.
@@ -1983,8 +1998,8 @@ class WS_TYPE{
      * <a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_reader_encoding_type">WS_FIELD_NILLABLE</a> | <b>WS_FIELD_OPTIONAL</b></li>
      * </ul>
      * A nil array is represented by setting the array pointer field to <b>NULL</b> and specifying a length of 0.
-     *                     A nil array is distinquished from an empty array based on whether or not the array pointer field is
-     *                     <b>NULL</b> or not (in both cases the length is zero).
+     *                     A nil array is distinguished from an empty array based on whether or not the array pointer field is
+     *                     <b>NULL</b> (in both cases the length is zero).
      *                 
      * 
      * This type does not support specifying a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a>.
@@ -2382,7 +2397,7 @@ class WS_TYPE{
      * <li>If <a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_reader_encoding_type">WS_FIELD_POINTER</a> is not specified, then the field will
      *                         be set to the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_default_value">WS_DEFAULT_VALUE</a> if allowed for the type and 
      *                         specified, otherwise it will be set to all zeros.  The size of the field is specified as part of
-     *                         the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_void_description">WS_VOID_DESCRIPTION</a>.  If a <b>WS_VOID_DESCRIPTION</b>is not specified, the field is interpreted as being size 0.
+     *                         the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_void_description">WS_VOID_DESCRIPTION</a>.  If a <b>WS_VOID_DESCRIPTION</b> is not specified, the field is interpreted as being size 0.
      *                     </li>
      * </ul>
      * </li>
@@ -2556,7 +2571,9 @@ class WS_TYPE{
      * Used when serializing a set of choices which correspond to a tagged union.
      *                 
      * 
-     * <pre class="syntax" xml:space="preserve"><code>
+     * 
+     * ``` syntax
+     * 
      * enum EnumType
      * {
      * // values identifying each choice
@@ -2569,7 +2586,9 @@ class WS_TYPE{
      * {
      * // values corresponding to each choice
      * } value;
-     * };</code></pre>
+     * };
+     * ```
+     * 
      * This type requires a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_union_description">WS_UNION_DESCRIPTION</a> type description
      *                     to be supplied which provides information about the choices and
      *                     their corresponding serialized form.

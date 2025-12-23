@@ -5,7 +5,7 @@
 #Include .\JET_BKLOGTIME.ahk
 
 /**
- * 
+ * Learn more about: JET_BKINFO structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-bkinfo-structure2
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319
@@ -14,7 +14,7 @@ class JET_BKINFO extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {JET_LGPOS}

@@ -3,7 +3,7 @@
 
 /**
  * The MIDL_STUB_DESC structure is a MIDL-generated structure that contains information about the interface stub regarding RPC calls between the client and server.
- * @see https://docs.microsoft.com/windows/win32/api//rpcndr/ns-rpcndr-midl_stub_desc
+ * @see https://learn.microsoft.com/windows/win32/api/rpcndr/ns-rpcndr-midl_stub_desc
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */
@@ -12,6 +12,36 @@ class MIDL_STUB_DESC extends Win32Struct
     static sizeof => 152
 
     static packingSize => 8
+
+    class _IMPLICIT_HANDLE_INFO_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<Pointer<Void>>}
+         */
+        pAutoHandle {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<Pointer<Void>>}
+         */
+        pPrimitiveHandle {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+        /**
+         * @type {Pointer<GENERIC_BINDING_INFO>}
+         */
+        pGenericBindingInfo {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
 
     /**
      * For a nonobject RPC interface on the server-side, it points to an RPC server interface structure. On the client-side, it points to an RPC client interface structure. It is null for an object interface.
@@ -41,27 +71,15 @@ class MIDL_STUB_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Pointer<Void>>}
+     * The union contains one of the following handles.
+     * @type {_IMPLICIT_HANDLE_INFO_e__Union}
      */
-    pAutoHandle {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<Pointer<Void>>}
-     */
-    pPrimitiveHandle {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer<GENERIC_BINDING_INFO>}
-     */
-    pGenericBindingInfo {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    IMPLICIT_HANDLE_INFO{
+        get {
+            if(!this.HasProp("__IMPLICIT_HANDLE_INFO"))
+                this.__IMPLICIT_HANDLE_INFO := %this.__Class%._IMPLICIT_HANDLE_INFO_e__Union(24, this)
+            return this.__IMPLICIT_HANDLE_INFO
+        }
     }
 
     /**

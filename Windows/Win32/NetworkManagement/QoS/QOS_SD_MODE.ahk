@@ -4,15 +4,15 @@
 
 /**
  * The QOS object QOS_SD_MODE defines the behavior of the traffic control-packet shaper component.
- * @see https://docs.microsoft.com/windows/win32/api//qos/ns-qos-qos_sd_mode
+ * @see https://learn.microsoft.com/windows/win32/api/qos/ns-qos-qos_sd_mode
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */
 class QOS_SD_MODE extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The QOS object 

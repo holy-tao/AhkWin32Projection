@@ -13,8 +13,8 @@ class HYBRID_INFORMATION extends Win32Struct
     static packingSize => 8
 
     class _Attributes extends Win32Struct {
-        static sizeof => 88
-        static packingSize => 8
+        static sizeof => 4
+        static packingSize => 4
 
         /**
          * This bitfield backs the following members:
@@ -73,12 +73,12 @@ class HYBRID_INFORMATION extends Win32Struct
     }
 
     class _Priorities extends Win32Struct {
-        static sizeof => 88
+        static sizeof => 40
         static packingSize => 8
 
         class _SupportedCommands extends Win32Struct {
-            static sizeof => 40
-            static packingSize => 8
+            static sizeof => 16
+            static packingSize => 4
     
             /**
              * This bitfield backs the following members:
@@ -223,7 +223,7 @@ class HYBRID_INFORMATION extends Win32Struct
         SupportedCommands{
             get {
                 if(!this.HasProp("__SupportedCommands"))
-                    this.__SupportedCommands := %this.__Class%._SupportedCommands(16, this)
+                    this.__SupportedCommands := %this.__Class%._SupportedCommands(12, this)
                 return this.__SupportedCommands
             }
         }

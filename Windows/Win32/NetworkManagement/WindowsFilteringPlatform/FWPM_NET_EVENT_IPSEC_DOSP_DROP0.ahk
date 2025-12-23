@@ -4,19 +4,16 @@
 /**
  * Contains information that describes an IPsec DoS Protection drop event.
  * @remarks
- * 
  * <b>FWPM_NET_EVENT_IPSEC_DOSP_DROP0</b> is a specific implementation of FWPM_NET_EVENT_IPSEC_DOSP_DROP. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fwpmtypes/ns-fwpmtypes-fwpm_net_event_ipsec_dosp_drop0
+ * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_ipsec_dosp_drop0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
 class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Internet Protocol (IP) version.
@@ -33,8 +30,8 @@ class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct
      * @type {Integer}
      */
     publicHostV4Addr {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
@@ -43,7 +40,7 @@ class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct
     publicHostV6Addr{
         get {
             if(!this.HasProp("__publicHostV6AddrProxyArray"))
-                this.__publicHostV6AddrProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
+                this.__publicHostV6AddrProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
             return this.__publicHostV6AddrProxyArray
         }
     }
@@ -52,8 +49,8 @@ class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct
      * @type {Integer}
      */
     internalHostV4Addr {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -62,7 +59,7 @@ class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct
     internalHostV6Addr{
         get {
             if(!this.HasProp("__internalHostV6AddrProxyArray"))
-                this.__internalHostV6AddrProxyArray := Win32FixedArray(this.ptr + 24, 16, Primitive, "char")
+                this.__internalHostV6AddrProxyArray := Win32FixedArray(this.ptr + 20, 16, Primitive, "char")
             return this.__internalHostV6AddrProxyArray
         }
     }
@@ -72,8 +69,8 @@ class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct
      * @type {Integer}
      */
     failureStatus {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
@@ -81,7 +78,7 @@ class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct
      * @type {Integer}
      */
     direction {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 }

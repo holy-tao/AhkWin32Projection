@@ -5,12 +5,10 @@
 /**
  * Specifies information for a plug-in request.
  * @remarks
- * 
  * Operations must signal the callback for the operation to indicate it has been shut down. Operations are canceled in a hierarchical way to ensure that all follow-on operations are canceled before the top-level operations. A plug-in has two ways of handling the cancellation of an operation.   First, the plug-in can check the <b>shutdownNotification</b> Boolean value
  * if it iterates through a set of results.  Second, if the plug-in is more 
  * asynchronous in nature, the <b>shutdownNotificationHandle</b> can be used when queuing asynchronous notification threads.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wsman/ns-wsman-wsman_plugin_request
+ * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_plugin_request
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */

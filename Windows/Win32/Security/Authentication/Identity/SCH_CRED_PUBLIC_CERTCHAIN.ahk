@@ -4,10 +4,8 @@
 /**
  * The SCH_CRED_PUBLIC_CERTCHAIN structure contains a single certificate. A certification chain can be built from this certificate.
  * @remarks
- * 
  * This structure does not directly support certificate chains. If a server needs to use certificate chains, the intermediate certificates can be placed in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority's</a> (CA) <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> and Schannel will automatically pick them up from there.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//schannel/ns-schannel-sch_cred_public_certchain
+ * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-sch_cred_public_certchain
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

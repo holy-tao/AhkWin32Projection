@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the threading behavior of a callback (for example, a WS_ASYNC_CALLBACK).
  * @remarks
- * 
  * Whether a callback will be invoked long or short is up to the caller implementation.
  *                 The channel and listener implementations provide a way to control this for async callbacks
  *                 via the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_property_id">WS_CHANNEL_PROPERTY_ASYNC_CALLBACK_MODEL</a> and 
  *                 <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_listener_property_id">WS_LISTENER_PROPERTY_ASYNC_CALLBACK_MODEL</a> properties.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ne-webservices-ws_callback_model
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_callback_model
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
-class WS_CALLBACK_MODEL{
+class WS_CALLBACK_MODEL extends Win32Enum{
 
     /**
      * This value is used to indicate that a callback is invoked short.

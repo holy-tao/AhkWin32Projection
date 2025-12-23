@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that specify the supported text selection attribute.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-supportedtextselection
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-supportedtextselection
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
-class SupportedTextSelection{
+class SupportedTextSelection extends Win32Enum{
 
     /**
      * Does not support text selections.

@@ -4,15 +4,15 @@
 
 /**
  * Contains information used to query the ticket cache.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_query_tkt_cache_request
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_query_tkt_cache_request
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */
 class KERB_QUERY_TKT_CACHE_REQUEST extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-kerb_protocol_message_type">KERB_PROTOCOL_MESSAGE_TYPE</a> value identifying the type of request being made. This member must be set to <b>KerbQueryTicketCacheMessage</b> or <b>KerbRetrieveTicketMessage</b>. 
@@ -35,7 +35,7 @@ class KERB_QUERY_TKT_CACHE_REQUEST extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(8, this)
+                this.__LogonId := LUID(4, this)
             return this.__LogonId
         }
     }

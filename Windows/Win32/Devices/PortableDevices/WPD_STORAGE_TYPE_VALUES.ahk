@@ -1,12 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * The WPD\_STORAGE\_TYPE\_VALUES enumeration type describes the different Windows Portable Device storage types.
+ * @remarks
+ * None.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-storage-type-values
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */
-class WPD_STORAGE_TYPE_VALUES{
+class WPD_STORAGE_TYPE_VALUES extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

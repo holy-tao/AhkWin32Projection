@@ -5,15 +5,15 @@
 
 /**
  * The GLYPHBITS structure is used to define a glyph bitmap.
- * @see https://docs.microsoft.com/windows/win32/api//winddi/ns-winddi-glyphbits
+ * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-glyphbits
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
 class GLYPHBITS extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-pointl">POINTL</a> structure that defines the origin of the character in the bitmap.

@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Contains information about a digital signature.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-signature-info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
@@ -14,6 +14,7 @@ class SIGNER_SIGNATURE_INFO extends Win32Struct
     static packingSize => 8
 
     /**
+     * The size, in bytes, of the structure.
      * @type {Integer}
      */
     cbSize {
@@ -22,6 +23,7 @@ class SIGNER_SIGNATURE_INFO extends Win32Struct
     }
 
     /**
+     * The hash algorithm used for the digital signature.
      * @type {Integer}
      */
     algidHash {
@@ -30,6 +32,14 @@ class SIGNER_SIGNATURE_INFO extends Win32Struct
     }
 
     /**
+     * Specifies whether the signature has [*Authenticode*](../secgloss/a-gly.md) attributes. This member can be one or more of the following values.
+     * 
+     * 
+     * 
+     * | Value                                                                                                                                                                                                                                      | Meaning                                                                                                                                   |
+     * |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+     * | <span id="SIGNER_AUTHCODE_ATTR"></span><span id="signer_authcode_attr"></span><dl> <dt>**SIGNER\_AUTHCODE\_ATTR**</dt> <dt>1</dt> </dl> | The signature has [*Authenticode*](../secgloss/a-gly.md) attributes.<br/>           |
+     * | <span id="SIGNER_NO_ATTR"></span><span id="signer_no_attr"></span><dl> <dt>**SIGNER\_NO\_ATTR**</dt> <dt>0</dt> </dl>                   | The signature does not have [*Authenticode*](../secgloss/a-gly.md) attributes.<br/> |
      * @type {Integer}
      */
     dwAttrChoice {
@@ -46,6 +56,7 @@ class SIGNER_SIGNATURE_INFO extends Win32Struct
     }
 
     /**
+     * Authenticated user-supplied attributes added to the digital signature.
      * @type {Pointer<CRYPT_ATTRIBUTES>}
      */
     psAuthenticated {
@@ -54,6 +65,7 @@ class SIGNER_SIGNATURE_INFO extends Win32Struct
     }
 
     /**
+     * Unauthenticated user-supplied attributes added to the digital signature.
      * @type {Pointer<CRYPT_ATTRIBUTES>}
      */
     psUnauthenticated {

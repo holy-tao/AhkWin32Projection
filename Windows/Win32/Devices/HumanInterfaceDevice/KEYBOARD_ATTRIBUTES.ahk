@@ -6,23 +6,20 @@
 /**
  * KEYBOARD_ATTRIBUTES specifies the attributes of a keyboard.
  * @remarks
- * 
  * This structure is used with a [IOCTL_KEYBOARD_QUERY_ATTRIBUTES IOCTL](ni-ntddkbd-ioctl_keyboard_query_attributes.md) request to return information about the attributes that a keyboard supports.
  * 
  * For more information about keyboard types, subtypes, scan code modes, and related keyboard layouts, see [Keyboard and mouse HID client drivers](/windows-hardware/drivers/hid/keyboard-and-mouse-hid-client-drivers) in our drivers documentation.
  * 
  * More details can also be found in the *kbd.h*, *ntdd8042.h* and *ntddkbd.h* headers in the Windows SDK, the [USB HID to PS/2 Scan Code Translation Table](https://download.microsoft.com/download/1/6/1/161ba512-40e2-4cc9-843a-923143f3456c/translate.pdf) specification from Microsoft, and the [Keyboard Layout Samples](/samples/microsoft/windows-driver-samples/keyboard-layout-samples/).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ntddkbd/ns-ntddkbd-keyboard_attributes
+ * @see https://learn.microsoft.com/windows/win32/api/ntddkbd/ns-ntddkbd-keyboard_attributes
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319
  */
 class KEYBOARD_ATTRIBUTES extends Win32Struct
 {
-    static sizeof => 30
+    static sizeof => 28
 
-    static packingSize => 6
+    static packingSize => 4
 
     /**
      * Specifies the keyboard type and subtype in a KEYBOARD_ID structure:
@@ -95,7 +92,7 @@ class KEYBOARD_ATTRIBUTES extends Win32Struct
     KeyRepeatMinimum{
         get {
             if(!this.HasProp("__KeyRepeatMinimum"))
-                this.__KeyRepeatMinimum := KEYBOARD_TYPEMATIC_PARAMETERS(18, this)
+                this.__KeyRepeatMinimum := KEYBOARD_TYPEMATIC_PARAMETERS(16, this)
             return this.__KeyRepeatMinimum
         }
     }
@@ -107,7 +104,7 @@ class KEYBOARD_ATTRIBUTES extends Win32Struct
     KeyRepeatMaximum{
         get {
             if(!this.HasProp("__KeyRepeatMaximum"))
-                this.__KeyRepeatMaximum := KEYBOARD_TYPEMATIC_PARAMETERS(24, this)
+                this.__KeyRepeatMaximum := KEYBOARD_TYPEMATIC_PARAMETERS(22, this)
             return this.__KeyRepeatMaximum
         }
     }

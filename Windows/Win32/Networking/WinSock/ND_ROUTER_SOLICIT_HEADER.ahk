@@ -11,7 +11,7 @@ class ND_ROUTER_SOLICIT_HEADER extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {ICMP_MESSAGE}

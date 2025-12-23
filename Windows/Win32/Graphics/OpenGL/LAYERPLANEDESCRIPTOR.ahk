@@ -4,11 +4,8 @@
 /**
  * The LAYERPLANEDESCRIPTOR structure describes the pixel format of a drawing surface.
  * @remarks
- * 
  * Please notice, as documented above, that certain layer plane properties are not supported in the current implementation. The implementation is the Microsoft GDI software implementation of OpenGL. Hardware manufacturers that enhance parts of OpenGL may support some layer plane properties not supported by the generic implementation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-layerplanedescriptor
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-layerplanedescriptor
  * @namespace Windows.Win32.Graphics.OpenGL
  * @version v4.0.30319
  */

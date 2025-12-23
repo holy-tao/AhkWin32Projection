@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the PROTOCOLPROPERTIES enumeration type enumerate properties of an authentication protocol.
- * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-protocolproperties
+ * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-protocolproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class PROTOCOLPROPERTIES{
+class PROTOCOLPROPERTIES extends Win32Enum{
 
     /**
      * The value is reserved for system use.

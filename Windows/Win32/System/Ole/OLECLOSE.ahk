@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates whether an object should be saved before closing.
- * @see https://docs.microsoft.com/windows/win32/api//oleidl/ne-oleidl-oleclose
+ * @see https://learn.microsoft.com/windows/win32/api/oleidl/ne-oleidl-oleclose
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
-class OLECLOSE{
+class OLECLOSE extends Win32Enum{
 
     /**
      * The object should be saved if it is dirty.

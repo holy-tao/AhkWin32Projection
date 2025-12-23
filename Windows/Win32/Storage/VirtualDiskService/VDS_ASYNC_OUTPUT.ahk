@@ -2,15 +2,12 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Defines the output of an async object. Output elements vary depending on the operation type.
+ * The VDS_ASYNC_OUTPUT structure (vdshwprv.h) defines the output of an async object. Output elements vary depending on the operation type.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsasync-wait">IVdsAsync::Wait</a> method returns this structure 
  *     and adds a reference to any contained object produced by each method. 
  *     Callers must release the reference to the contained object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ns-vds-vds_async_output
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_async_output
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -137,7 +134,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     }
 
     class _cv extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 8
         static packingSize => 8
 
         /**
@@ -151,7 +148,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     }
 
     class _bvp extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 8
         static packingSize => 8
 
         /**
@@ -165,7 +162,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     }
 
     class _sv extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 8
         static packingSize => 8
 
         /**
@@ -179,7 +176,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     }
 
     class _cl extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 8
         static packingSize => 8
 
         /**
@@ -193,7 +190,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     }
 
     class _ct extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 8
         static packingSize => 8
 
         /**
@@ -207,7 +204,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     }
 
     class _cpg extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 8
         static packingSize => 8
 
         /**
@@ -221,7 +218,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     }
 
     class _cvd extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 8
         static packingSize => 8
 
         /**

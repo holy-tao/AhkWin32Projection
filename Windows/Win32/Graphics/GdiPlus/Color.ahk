@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * A Color object stores a 32-bit value that represents a color.
+ * Note This section describes functionality designed for use by online stores. | Color Element
  * @remarks
+ * The default value for **MediaPlayer** is \#7C9AD6. The default value for **MediaPlayerText** is \#FFFFFF.
  * 
- * The alpha component, the most significant 8 bits, specifies the transparency of a color. All four component values range from 0 to 255. An alpha component value of 0 specifies that the color is transparent, and an alpha value of 255 specifies that the color is opaque. Alpha component values from 1 through 254 specify the degree to which the color is blended with the background when the color is rendered. The red, green, and blue color component values range from 0 to 255 and determine the intensity of the color. The <a href="https://docs.microsoft.com/windows/desktop/api/gdipluscolor/nf-gdipluscolor-color-makeargb">Color::MakeARGB</a> method is used to encapsulate the four color components into a single 32-bit value.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//gdipluscolor/nl-gdipluscolor-color
+ * Be sure to use colors that make it easy for the user to read the button text. For example, you should avoid using white button text on light colored buttons.
+ * @see https://learn.microsoft.com/windows/win32/WMP/color-element
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

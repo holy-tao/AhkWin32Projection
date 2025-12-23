@@ -3,7 +3,7 @@
 
 /**
  * Contains a certificate hash and display information for the certificate.
- * @see https://docs.microsoft.com/windows/win32/api//winefs/ns-winefs-encryption_certificate_hash
+ * @see https://learn.microsoft.com/windows/win32/api/winefs/ns-winefs-encryption_certificate_hash
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

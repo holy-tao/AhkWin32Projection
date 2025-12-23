@@ -4,15 +4,15 @@
 
 /**
  * This topic applies to Windows XP Service Pack 1 or later. The VMRVideoDesc structure describes a video stream to be deinterlaced.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ns-strmif-vmrvideodesc
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-vmrvideodesc
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
 class VMRVideoDesc extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Size of the structure, in bytes.
@@ -60,26 +60,25 @@ class VMRVideoDesc extends Win32Struct
     }
 
     /**
-     * A [VMRFrequency](/windows/desktop/api/strmif/ns-strmif-vmrfrequency) structure that specifies the input frequency. For NTSC TV, the frequency would be expressed as 30,000:1001.
+     * A [VMRFrequency](/windows/win32/api/strmif/ns-strmif-vmrfrequency structure that specifies the input frequency. For NTSC TV, the frequency would be expressed as 30,000:1001.
      * @type {VMRFrequency}
      */
     InputSampleFreq{
         get {
             if(!this.HasProp("__InputSampleFreq"))
-                this.__InputSampleFreq := VMRFrequency(24, this)
+                this.__InputSampleFreq := VMRFrequency(20, this)
             return this.__InputSampleFreq
         }
     }
 
     /**
-     * A 
-     *               [VMRFrequency](/windows/desktop/api/strmif/ns-strmif-vmrfrequency) structure that specifies the output frequency. For NTSC TV, the frequency would be expressed as 60,000:1001.
+     * A [VMRFrequency](/windows/win32/api/strmif/ns-strmif-vmrfrequency) structure that specifies the output frequency. For NTSC TV, the frequency would be expressed as 60,000:1001.
      * @type {VMRFrequency}
      */
     OutputFrameFreq{
         get {
             if(!this.HasProp("__OutputFrameFreq"))
-                this.__OutputFrameFreq := VMRFrequency(32, this)
+                this.__OutputFrameFreq := VMRFrequency(28, this)
             return this.__OutputFrameFreq
         }
     }

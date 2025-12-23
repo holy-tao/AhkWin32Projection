@@ -3,7 +3,7 @@
 
 /**
  * The MMCBUTTON structure contains values used in creating buttons on a toolbar. This structure is similar to the TBBUTTON structure discussed in the Platform Software Development Kit (SDK) topics related to common controls.
- * @see https://docs.microsoft.com/windows/win32/api//mmc/ns-mmc-mmcbutton
+ * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmcbutton
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

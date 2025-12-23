@@ -5,15 +5,15 @@
 
 /**
  * Describes signed LONG data.
- * @see https://docs.microsoft.com/windows/win32/api//clusapi/ns-clusapi-clusprop_long
+ * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_long
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
 class CLUSPROP_LONG extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {CLUSPROP_VALUE}
@@ -31,7 +31,7 @@ class CLUSPROP_LONG extends Win32Struct
      * @type {Integer}
      */
     l {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 }

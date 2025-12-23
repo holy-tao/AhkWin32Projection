@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Specifies which mouse button was pressed.
+ * Specifies which mouse button was pressed. (InkMouseButton)
  * @remarks
- * 
  * In C++, explicit casting is required when trying to set more than one flag at a time. A compilation error occurs if explicit casting is not used.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkmousebutton
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkmousebutton
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InkMouseButton{
+class InkMouseButton extends Win32Enum{
 
     /**
      * The left mouse button was pressed.

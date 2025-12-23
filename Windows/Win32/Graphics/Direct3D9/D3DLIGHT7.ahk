@@ -9,9 +9,9 @@
  */
 class D3DLIGHT7 extends Win32Struct
 {
-    static sizeof => 112
+    static sizeof => 104
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -27,7 +27,7 @@ class D3DLIGHT7 extends Win32Struct
     dcvDiffuse{
         get {
             if(!this.HasProp("__dcvDiffuse"))
-                this.__dcvDiffuse := D3DCOLORVALUE(8, this)
+                this.__dcvDiffuse := D3DCOLORVALUE(4, this)
             return this.__dcvDiffuse
         }
     }
@@ -38,7 +38,7 @@ class D3DLIGHT7 extends Win32Struct
     dcvSpecular{
         get {
             if(!this.HasProp("__dcvSpecular"))
-                this.__dcvSpecular := D3DCOLORVALUE(24, this)
+                this.__dcvSpecular := D3DCOLORVALUE(20, this)
             return this.__dcvSpecular
         }
     }
@@ -49,7 +49,7 @@ class D3DLIGHT7 extends Win32Struct
     dcvAmbient{
         get {
             if(!this.HasProp("__dcvAmbient"))
-                this.__dcvAmbient := D3DCOLORVALUE(40, this)
+                this.__dcvAmbient := D3DCOLORVALUE(36, this)
             return this.__dcvAmbient
         }
     }
@@ -60,7 +60,7 @@ class D3DLIGHT7 extends Win32Struct
     dvPosition{
         get {
             if(!this.HasProp("__dvPosition"))
-                this.__dvPosition := D3DVECTOR(56, this)
+                this.__dvPosition := D3DVECTOR(52, this)
             return this.__dvPosition
         }
     }
@@ -71,7 +71,7 @@ class D3DLIGHT7 extends Win32Struct
     dvDirection{
         get {
             if(!this.HasProp("__dvDirection"))
-                this.__dvDirection := D3DVECTOR(72, this)
+                this.__dvDirection := D3DVECTOR(64, this)
             return this.__dvDirection
         }
     }
@@ -80,6 +80,22 @@ class D3DLIGHT7 extends Win32Struct
      * @type {Float}
      */
     dvRange {
+        get => NumGet(this, 76, "float")
+        set => NumPut("float", value, this, 76)
+    }
+
+    /**
+     * @type {Float}
+     */
+    dvFalloff {
+        get => NumGet(this, 80, "float")
+        set => NumPut("float", value, this, 80)
+    }
+
+    /**
+     * @type {Float}
+     */
+    dvAttenuation0 {
         get => NumGet(this, 84, "float")
         set => NumPut("float", value, this, 84)
     }
@@ -87,7 +103,7 @@ class D3DLIGHT7 extends Win32Struct
     /**
      * @type {Float}
      */
-    dvFalloff {
+    dvAttenuation1 {
         get => NumGet(this, 88, "float")
         set => NumPut("float", value, this, 88)
     }
@@ -95,7 +111,7 @@ class D3DLIGHT7 extends Win32Struct
     /**
      * @type {Float}
      */
-    dvAttenuation0 {
+    dvAttenuation2 {
         get => NumGet(this, 92, "float")
         set => NumPut("float", value, this, 92)
     }
@@ -103,7 +119,7 @@ class D3DLIGHT7 extends Win32Struct
     /**
      * @type {Float}
      */
-    dvAttenuation1 {
+    dvTheta {
         get => NumGet(this, 96, "float")
         set => NumPut("float", value, this, 96)
     }
@@ -111,24 +127,8 @@ class D3DLIGHT7 extends Win32Struct
     /**
      * @type {Float}
      */
-    dvAttenuation2 {
+    dvPhi {
         get => NumGet(this, 100, "float")
         set => NumPut("float", value, this, 100)
-    }
-
-    /**
-     * @type {Float}
-     */
-    dvTheta {
-        get => NumGet(this, 104, "float")
-        set => NumPut("float", value, this, 104)
-    }
-
-    /**
-     * @type {Float}
-     */
-    dvPhi {
-        get => NumGet(this, 108, "float")
-        set => NumPut("float", value, this, 108)
     }
 }

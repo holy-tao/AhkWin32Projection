@@ -67,7 +67,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG extends Win
     FrameResolution{
         get {
             if(!this.HasProp("__FrameResolution"))
-                this.__FrameResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(48, this)
+                this.__FrameResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(44, this)
             return this.__FrameResolution
         }
     }

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the reasons a restart of the system is needed.
- * @see https://docs.microsoft.com/windows/win32/api//restartmanager/ne-restartmanager-rm_reboot_reason
+ * @see https://learn.microsoft.com/windows/win32/api/restartmanager/ne-restartmanager-rm_reboot_reason
  * @namespace Windows.Win32.System.RestartManager
  * @version v4.0.30319
  */
-class RM_REBOOT_REASON{
+class RM_REBOOT_REASON extends Win32Enum{
 
     /**
      * A system restart is not required.

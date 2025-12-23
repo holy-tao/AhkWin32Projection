@@ -3,7 +3,7 @@
 
 /**
  * Is the base structure for all CNG key BLOBs.
- * @see https://docs.microsoft.com/windows/win32/api//bcrypt/ns-bcrypt-bcrypt_key_blob
+ * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_key_blob
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

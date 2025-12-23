@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the size of the bitmap to use to represent the WinSAT score.
- * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/ne-winsatcominterfacei-winsat_bitmap_size
+ * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/ne-winsatcominterfacei-winsat_bitmap_size
  * @namespace Windows.Win32.System.AssessmentTool
  * @version v4.0.30319
  */
-class WINSAT_BITMAP_SIZE{
+class WINSAT_BITMAP_SIZE extends Win32Enum{
 
     /**
      * Use a 32 x 24 bitmap (size is in pixels).

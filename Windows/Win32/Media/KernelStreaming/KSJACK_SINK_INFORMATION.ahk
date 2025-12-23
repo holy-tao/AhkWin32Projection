@@ -4,7 +4,7 @@
 
 /**
  * The KSJACK_SINK_INFORMATION structure stores information about an audio jack sink.
- * @see https://docs.microsoft.com/windows/win32/api//devicetopology/ns-devicetopology-ksjack_sink_information
+ * @see https://learn.microsoft.com/windows/win32/api/devicetopology/ns-devicetopology-ksjack_sink_information
  * @namespace Windows.Win32.Media.KernelStreaming
  * @version v4.0.30319
  */
@@ -12,7 +12,7 @@ class KSJACK_SINK_INFORMATION extends Win32Struct
 {
     static sizeof => 96
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the type of connection. The connection type values are defined in the  <a href="https://docs.microsoft.com/windows/win32/api/devicetopology/ne-devicetopology-ksjack_sink_connectiontype">KSJACK_SINK_CONNECTIONTYPE</a> enumeration.

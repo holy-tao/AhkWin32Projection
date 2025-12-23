@@ -3,7 +3,7 @@
 
 /**
  * Contains parameters that describe the licensing behavior of a class factory that supports licensing. The structure is filled by calling the IClassFactory2::GetLicInfo method.
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/ns-ocidl-licinfo
+ * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-licinfo
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

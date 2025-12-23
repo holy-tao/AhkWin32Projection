@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether to set or get a monitor's red, green, or blue drive.
- * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_drive_type
+ * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_drive_type
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
-class MC_DRIVE_TYPE{
+class MC_DRIVE_TYPE extends Win32Enum{
 
     /**
      * Red drive.

@@ -4,13 +4,10 @@
 /**
  * Describes general characteristics of an XAPO. Used with IXAPO::GetRegistrationProperties, CXAPOParametersBase::CXAPOParametersBase, and CXAPOBase::CXAPOBase.
  * @remarks
- * 
  * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
  * Windows 10 (XAudio2.9); 
  *             Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xapo/ns-xapo-xapo_registration_properties
+ * @see https://learn.microsoft.com/windows/win32/api/xapo/ns-xapo-xapo_registration_properties
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319
  */

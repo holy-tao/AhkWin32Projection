@@ -5,11 +5,8 @@
 /**
  * The TRUSTED_PASSWORD_INFO structure is used to query or set the password for a trusted domain.
  * @remarks
- * 
  * When you have finished using the <b>TRUSTED_PASSWORD_INFO</b> structure, clear the sensitive information from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-trusted_password_info
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-trusted_password_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

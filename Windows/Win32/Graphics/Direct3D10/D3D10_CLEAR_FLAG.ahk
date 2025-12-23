@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the parts of the depth stencil to clear. Usually used with ID3D10Device::ClearDepthStencilView.
  * @remarks
- * 
  * These flags can be bitwise ORed together.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10/ne-d3d10-d3d10_clear_flag
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_clear_flag
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
-class D3D10_CLEAR_FLAG{
+class D3D10_CLEAR_FLAG extends Win32Enum{
 
     /**
      * Clear the depth buffer.

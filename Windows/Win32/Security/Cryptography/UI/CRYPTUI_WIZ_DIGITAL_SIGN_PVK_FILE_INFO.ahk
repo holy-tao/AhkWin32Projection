@@ -3,7 +3,7 @@
 
 /**
  * Used with the CRYPTUI_WIZ_DIGITAL_SIGN_INFO structure to contain information about the PVK file used by the digital signature wizard.
- * @see https://docs.microsoft.com/windows/win32/api//cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_pvk_file_info
+ * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_pvk_file_info
  * @namespace Windows.Win32.Security.Cryptography.UI
  * @version v4.0.30319
  */

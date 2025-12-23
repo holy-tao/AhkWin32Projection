@@ -5,11 +5,8 @@
 /**
  * This structure allows a ID2D1Bitmap1 to be created with bitmap options and color context information available.
  * @remarks
- * 
  * If both <b>dpiX</b> and <b>dpiY</b> are 0, the dpi of the bitmap will be set to the desktop dpi if the device context is a windowed context, or 96 dpi for any other device context.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/ns-d2d1_1-d2d1_bitmap_properties1
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ns-d2d1_1-d2d1_bitmap_properties1
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

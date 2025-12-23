@@ -3,7 +3,7 @@
 
 /**
  * Stores time-out values for connections and data.
- * @see https://docs.microsoft.com/windows/win32/api//searchapi/ns-searchapi-timeout_info
+ * @see https://learn.microsoft.com/windows/win32/api/searchapi/ns-searchapi-timeout_info
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

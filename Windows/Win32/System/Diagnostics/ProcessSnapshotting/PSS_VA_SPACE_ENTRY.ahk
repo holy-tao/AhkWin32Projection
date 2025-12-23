@@ -4,11 +4,8 @@
 /**
  * Holds the MEMORY_BASIC_INFORMATION returned by PssWalkSnapshot for a virtual address (VA) region.
  * @remarks
- * 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psswalksnapshot">PssWalkSnapshot</a> returns a <b>PSS_VA_SPACE_ENTRY</b> structure when the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_walk_information_class">PSS_WALK_INFORMATION_CLASS</a> member that the caller provides it is <b>PSS_WALK_VA_SPACE</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//processsnapshot/ns-processsnapshot-pss_va_space_entry
+ * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/ns-processsnapshot-pss_va_space_entry
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
  * @version v4.0.30319
  */

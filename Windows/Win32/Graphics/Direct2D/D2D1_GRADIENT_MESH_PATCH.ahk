@@ -6,12 +6,10 @@
 /**
  * Represents a tensor patch with 16 control points, 4 corner colors, and boundary flags. An ID2D1GradientMesh is made up of 1 or more gradient mesh patches. Use the GradientMeshPatch function or the GradientMeshPatchFromCoonsPatch function to create one.
  * @remarks
- * 
  * The following image shows the numbering of control points on a tensor grid.
  * 
  * <img alt="Number of control points on a tensor grid" src="./images/tensorpatch.png"/>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/ns-d2d1_3-d2d1_gradient_mesh_patch
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/ns-d2d1_3-d2d1_gradient_mesh_patch
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -19,7 +17,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
 {
     static sizeof => 208
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The coordinate-space location of the control point in column 0 and row 0 of the tensor grid.

@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Device context options.
  * @remarks
- * 
  * This enumeration is used by <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-gettype">ID3D11DeviceContext::GetType</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ne-d3d11-d3d11_device_context_type
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_device_context_type
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
-class D3D11_DEVICE_CONTEXT_TYPE{
+class D3D11_DEVICE_CONTEXT_TYPE extends Win32Enum{
 
     /**
      * The device context is an immediate context.

@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies flags that, when used in a bitwise OR operation, describe the contents of each channel of an audio stream in a karaoke title.
  * @remarks
- * 
  * This enumeration is used in the [DVD_KaraokeAttributes](/windows/desktop/api/strmif/ns-strmif-dvd_karaokeattributes) structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-dvd_karaoke_contents
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_karaoke_contents
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class DVD_KARAOKE_CONTENTS{
+class DVD_KARAOKE_CONTENTS extends Win32Enum{
 
     /**
      * The channel contains guide vocal 1.

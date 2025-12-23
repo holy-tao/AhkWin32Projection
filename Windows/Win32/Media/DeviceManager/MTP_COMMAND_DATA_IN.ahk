@@ -4,12 +4,11 @@
 /**
  * The MTP_COMMAND_DATA_IN structure contains Media Transport Protocol (MTP) custom commands that are sent to the device by using the IWMDMDevice3::DeviceIoControl method.
  * @remarks
- * 
  * The input buffer is expected to contain an appropriately filled out <b>MTP_COMMAND_DATA_IN</b> structure. On exit, the device driver will fill out the <b>MTP_COMMAND_DATA_OUT</b> structure and save it to the output buffer. Therefore, any request must have an input buffer of at least SIZEOF_REQUIRED_COMMAND_DATA_IN bytes, which is defined as
  * 
- * <pre class="syntax" xml:space="preserve"><code>
  * 
- * @see https://docs.microsoft.com/windows/win32/api//mtpext/ns-mtpext-mtp_command_data_in
+ * ``` syntax
+ * @see https://learn.microsoft.com/windows/win32/api/mtpext/ns-mtpext-mtp_command_data_in
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */

@@ -5,7 +5,6 @@
 /**
  * The DEVMODEW structure is used for specifying characteristics of display and print devices in the Unicode (wide) character set.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows-hardware/drivers/display/the-devmodew-structure">DEVMODEW structure</a> is the Unicode version of the <a href="https://docs.microsoft.com/previous-versions//ms535771(v=vs.85)">DEVMODE </a> structure (described in the Microsoft Windows SDK documentation). While applications can use either the ANSI or Unicode version of the structure, drivers are required to use the Unicode version.
  * 
  * For printer drivers, the DEVMODEW structure is used for specifying printer characteristics required by a print document. It is also used for specifying a printer's default characteristics.
@@ -36,18 +35,16 @@
  * 
  * > [!NOTE]
  * > The wingdi.h header defines DEVMODE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-devmodew
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodew
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  * @charset Unicode
  */
 class DEVMODEW extends Win32Struct
 {
-    static sizeof => 224
+    static sizeof => 220
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * For a display, specifies the name of the display driver's DLL; for example, "perm3dd" for the 3Dlabs Permedia3 display driver.
@@ -111,6 +108,22 @@ class DEVMODEW extends Win32Struct
      * @type {Integer}
      */
     dmOrientation {
+        get => NumGet(this, 76, "short")
+        set => NumPut("short", value, this, 76)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dmPaperSize {
+        get => NumGet(this, 78, "short")
+        set => NumPut("short", value, this, 78)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dmPaperLength {
         get => NumGet(this, 80, "short")
         set => NumPut("short", value, this, 80)
     }
@@ -118,7 +131,7 @@ class DEVMODEW extends Win32Struct
     /**
      * @type {Integer}
      */
-    dmPaperSize {
+    dmPaperWidth {
         get => NumGet(this, 82, "short")
         set => NumPut("short", value, this, 82)
     }
@@ -126,7 +139,7 @@ class DEVMODEW extends Win32Struct
     /**
      * @type {Integer}
      */
-    dmPaperLength {
+    dmScale {
         get => NumGet(this, 84, "short")
         set => NumPut("short", value, this, 84)
     }
@@ -134,7 +147,7 @@ class DEVMODEW extends Win32Struct
     /**
      * @type {Integer}
      */
-    dmPaperWidth {
+    dmCopies {
         get => NumGet(this, 86, "short")
         set => NumPut("short", value, this, 86)
     }
@@ -142,7 +155,7 @@ class DEVMODEW extends Win32Struct
     /**
      * @type {Integer}
      */
-    dmScale {
+    dmDefaultSource {
         get => NumGet(this, 88, "short")
         set => NumPut("short", value, this, 88)
     }
@@ -150,25 +163,9 @@ class DEVMODEW extends Win32Struct
     /**
      * @type {Integer}
      */
-    dmCopies {
+    dmPrintQuality {
         get => NumGet(this, 90, "short")
         set => NumPut("short", value, this, 90)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dmDefaultSource {
-        get => NumGet(this, 92, "short")
-        set => NumPut("short", value, this, 92)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dmPrintQuality {
-        get => NumGet(this, 94, "short")
-        set => NumPut("short", value, this, 94)
     }
 
     /**
@@ -177,7 +174,7 @@ class DEVMODEW extends Win32Struct
     dmPosition{
         get {
             if(!this.HasProp("__dmPosition"))
-                this.__dmPosition := POINTL(80, this)
+                this.__dmPosition := POINTL(76, this)
             return this.__dmPosition
         }
     }
@@ -186,16 +183,16 @@ class DEVMODEW extends Win32Struct
      * @type {Integer}
      */
     dmDisplayOrientation {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 
     /**
      * @type {Integer}
      */
     dmDisplayFixedOutput {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
@@ -205,8 +202,8 @@ class DEVMODEW extends Win32Struct
      * @type {Integer}
      */
     dmColor {
-        get => NumGet(this, 96, "short")
-        set => NumPut("short", value, this, 96)
+        get => NumGet(this, 92, "short")
+        set => NumPut("short", value, this, 92)
     }
 
     /**
@@ -214,8 +211,8 @@ class DEVMODEW extends Win32Struct
      * @type {Integer}
      */
     dmDuplex {
-        get => NumGet(this, 98, "short")
-        set => NumPut("short", value, this, 98)
+        get => NumGet(this, 94, "short")
+        set => NumPut("short", value, this, 94)
     }
 
     /**
@@ -225,8 +222,8 @@ class DEVMODEW extends Win32Struct
      * @type {Integer}
      */
     dmYResolution {
-        get => NumGet(this, 100, "short")
-        set => NumPut("short", value, this, 100)
+        get => NumGet(this, 96, "short")
+        set => NumPut("short", value, this, 96)
     }
 
     /**
@@ -236,8 +233,8 @@ class DEVMODEW extends Win32Struct
      * @type {Integer}
      */
     dmTTOption {
-        get => NumGet(this, 102, "short")
-        set => NumPut("short", value, this, 102)
+        get => NumGet(this, 98, "short")
+        set => NumPut("short", value, this, 98)
     }
 
     /**
@@ -245,8 +242,8 @@ class DEVMODEW extends Win32Struct
      * @type {Integer}
      */
     dmCollate {
-        get => NumGet(this, 104, "short")
-        set => NumPut("short", value, this, 104)
+        get => NumGet(this, 100, "short")
+        set => NumPut("short", value, this, 100)
     }
 
     /**
@@ -256,8 +253,8 @@ class DEVMODEW extends Win32Struct
      * @type {String}
      */
     dmFormName {
-        get => StrGet(this.ptr + 106, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 106, 31, "UTF-16")
+        get => StrGet(this.ptr + 102, 31, "UTF-16")
+        set => StrPut(value, this.ptr + 102, 31, "UTF-16")
     }
 
     /**
@@ -267,8 +264,8 @@ class DEVMODEW extends Win32Struct
      * @type {Integer}
      */
     dmLogPixels {
-        get => NumGet(this, 170, "ushort")
-        set => NumPut("ushort", value, this, 170)
+        get => NumGet(this, 166, "ushort")
+        set => NumPut("ushort", value, this, 166)
     }
 
     /**
@@ -278,8 +275,8 @@ class DEVMODEW extends Win32Struct
      * @type {Integer}
      */
     dmBitsPerPel {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
+        get => NumGet(this, 168, "uint")
+        set => NumPut("uint", value, this, 168)
     }
 
     /**
@@ -289,8 +286,8 @@ class DEVMODEW extends Win32Struct
      * @type {Integer}
      */
     dmPelsWidth {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
+        get => NumGet(this, 172, "uint")
+        set => NumPut("uint", value, this, 172)
     }
 
     /**
@@ -300,6 +297,14 @@ class DEVMODEW extends Win32Struct
      * @type {Integer}
      */
     dmPelsHeight {
+        get => NumGet(this, 176, "uint")
+        set => NumPut("uint", value, this, 176)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dmDisplayFlags {
         get => NumGet(this, 180, "uint")
         set => NumPut("uint", value, this, 180)
     }
@@ -307,17 +312,9 @@ class DEVMODEW extends Win32Struct
     /**
      * @type {Integer}
      */
-    dmDisplayFlags {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
-    }
-
-    /**
-     * @type {Integer}
-     */
     dmNup {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
+        get => NumGet(this, 180, "uint")
+        set => NumPut("uint", value, this, 180)
     }
 
     /**
@@ -327,8 +324,8 @@ class DEVMODEW extends Win32Struct
      * @type {Integer}
      */
     dmDisplayFrequency {
-        get => NumGet(this, 188, "uint")
-        set => NumPut("uint", value, this, 188)
+        get => NumGet(this, 184, "uint")
+        set => NumPut("uint", value, this, 184)
     }
 
     /**
@@ -336,8 +333,8 @@ class DEVMODEW extends Win32Struct
      * @type {Integer}
      */
     dmICMMethod {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
+        get => NumGet(this, 188, "uint")
+        set => NumPut("uint", value, this, 188)
     }
 
     /**
@@ -345,8 +342,8 @@ class DEVMODEW extends Win32Struct
      * @type {Integer}
      */
     dmICMIntent {
-        get => NumGet(this, 196, "uint")
-        set => NumPut("uint", value, this, 196)
+        get => NumGet(this, 192, "uint")
+        set => NumPut("uint", value, this, 192)
     }
 
     /**
@@ -354,8 +351,8 @@ class DEVMODEW extends Win32Struct
      * @type {Integer}
      */
     dmMediaType {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
+        get => NumGet(this, 196, "uint")
+        set => NumPut("uint", value, this, 196)
     }
 
     /**
@@ -363,6 +360,15 @@ class DEVMODEW extends Win32Struct
      * @type {Integer}
      */
     dmDitherType {
+        get => NumGet(this, 200, "uint")
+        set => NumPut("uint", value, this, 200)
+    }
+
+    /**
+     * Is reserved for system use and should be ignored by the driver.
+     * @type {Integer}
+     */
+    dmReserved1 {
         get => NumGet(this, 204, "uint")
         set => NumPut("uint", value, this, 204)
     }
@@ -371,7 +377,7 @@ class DEVMODEW extends Win32Struct
      * Is reserved for system use and should be ignored by the driver.
      * @type {Integer}
      */
-    dmReserved1 {
+    dmReserved2 {
         get => NumGet(this, 208, "uint")
         set => NumPut("uint", value, this, 208)
     }
@@ -380,7 +386,7 @@ class DEVMODEW extends Win32Struct
      * Is reserved for system use and should be ignored by the driver.
      * @type {Integer}
      */
-    dmReserved2 {
+    dmPanningWidth {
         get => NumGet(this, 212, "uint")
         set => NumPut("uint", value, this, 212)
     }
@@ -389,17 +395,8 @@ class DEVMODEW extends Win32Struct
      * Is reserved for system use and should be ignored by the driver.
      * @type {Integer}
      */
-    dmPanningWidth {
+    dmPanningHeight {
         get => NumGet(this, 216, "uint")
         set => NumPut("uint", value, this, 216)
-    }
-
-    /**
-     * Is reserved for system use and should be ignored by the driver.
-     * @type {Integer}
-     */
-    dmPanningHeight {
-        get => NumGet(this, 220, "uint")
-        set => NumPut("uint", value, this, 220)
     }
 }

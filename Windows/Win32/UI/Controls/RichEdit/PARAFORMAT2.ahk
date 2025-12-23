@@ -3,16 +3,16 @@
 #Include .\PARAFORMAT.ahk
 
 /**
- * Contains information about paragraph formatting attributes in a rich edit control.
- * @see https://docs.microsoft.com/windows/win32/api//richedit/ns-richedit-paraformat2
+ * Contains information about paragraph formatting attributes in a rich edit control. (PARAFORMAT2)
+ * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-paraformat2
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
 class PARAFORMAT2 extends Win32Struct
 {
-    static sizeof => 192
+    static sizeof => 188
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {PARAFORMAT}

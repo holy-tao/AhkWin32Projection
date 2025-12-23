@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a dialog box that might exist in a Video for Windows compression (codec) driver.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-vfwcompressdialogs
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-vfwcompressdialogs
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class VfwCompressDialogs{
+class VfwCompressDialogs extends Win32Enum{
 
     /**
      * Configure dialog box.

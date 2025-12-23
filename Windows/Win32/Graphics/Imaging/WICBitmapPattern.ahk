@@ -3,7 +3,7 @@
 
 /**
  * Contains members that identify a pattern within an image file which can be used to identify a particular format.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ns-wincodec-wicbitmappattern
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicbitmappattern
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

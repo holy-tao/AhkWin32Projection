@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the outcomes (results) that KTM can assign to a transaction.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-transaction_outcome
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-transaction_outcome
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
-class TRANSACTION_OUTCOME{
+class TRANSACTION_OUTCOME extends Win32Enum{
 
     /**
      * The transaction has not yet been committed or rolled back.

@@ -74,7 +74,7 @@ class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS extends Win32Struct
     MinimumConfigTimeout{
         get {
             if(!this.HasProp("__MinimumConfigTimeout"))
-                this.__MinimumConfigTimeout := DOT11_WFD_CONFIGURATION_TIMEOUT(30, this)
+                this.__MinimumConfigTimeout := DOT11_WFD_CONFIGURATION_TIMEOUT(29, this)
             return this.__MinimumConfigTimeout
         }
     }
@@ -85,7 +85,7 @@ class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS extends Win32Struct
     GroupBSSID{
         get {
             if(!this.HasProp("__GroupBSSIDProxyArray"))
-                this.__GroupBSSIDProxyArray := Win32FixedArray(this.ptr + 32, 6, Primitive, "char")
+                this.__GroupBSSIDProxyArray := Win32FixedArray(this.ptr + 31, 6, Primitive, "char")
             return this.__GroupBSSIDProxyArray
         }
     }
@@ -94,8 +94,8 @@ class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS extends Win32Struct
      * @type {BOOLEAN}
      */
     bUseGroupBSSID {
-        get => NumGet(this, 38, "char")
-        set => NumPut("char", value, this, 38)
+        get => NumGet(this, 37, "char")
+        set => NumPut("char", value, this, 37)
     }
 
     /**
@@ -104,7 +104,7 @@ class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS extends Win32Struct
     OperatingChannel{
         get {
             if(!this.HasProp("__OperatingChannel"))
-                this.__OperatingChannel := DOT11_WFD_CHANNEL(40, this)
+                this.__OperatingChannel := DOT11_WFD_CHANNEL(38, this)
             return this.__OperatingChannel
         }
     }
@@ -113,23 +113,23 @@ class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS extends Win32Struct
      * @type {BOOLEAN}
      */
     bUseSpecifiedOperatingChannel {
-        get => NumGet(this, 45, "char")
-        set => NumPut("char", value, this, 45)
+        get => NumGet(this, 43, "char")
+        set => NumPut("char", value, this, 43)
     }
 
     /**
      * @type {Integer}
      */
     uIEsOffset {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
      * @type {Integer}
      */
     uIEsLength {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 }

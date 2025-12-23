@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The VMR9Mode enumeration type specifies the rendering mode of the Video Mixing Renderer 9 (VMR-9) filter.
  * @remarks
- * 
  * For a description of the various VMR-9 modes, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/vmr-modes-of-operation">VMR Modes of Operation</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vmr9/ne-vmr9-vmr9mode
+ * @see https://learn.microsoft.com/windows/win32/api/vmr9/ne-vmr9-vmr9mode
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class VMR9Mode{
+class VMR9Mode extends Win32Enum{
 
     /**
      * Windowed mode.

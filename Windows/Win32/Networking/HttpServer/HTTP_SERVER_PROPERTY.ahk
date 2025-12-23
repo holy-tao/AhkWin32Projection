@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the properties that are configured by the HTTP Server API on a URL group, server session, or request queue.
  * @remarks
- * 
  * The <b>HTTP_SERVER_PROPERTY</b> enumeration types are used to set or query the configurations on a server session, URL group, or request queue. A member of this enumeration together with the  associated configuration structure is used by <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpqueryrequestqueueproperty">HttpQueryRequestQueueProperty</a>, <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpqueryserversessionproperty">HttpQueryServerSessionProperty</a>, <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpqueryurlgroupproperty">HttpQueryUrlGroupProperty</a>, <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetrequestqueueproperty">HttpSetRequestQueueProperty</a>, <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserversessionproperty">HttpSetServerSessionProperty</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpseturlgroupproperty">HttpSetUrlGroupProperty</a> to define the configuration parameters.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//http/ne-http-http_server_property
+ * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_server_property
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */
-class HTTP_SERVER_PROPERTY{
+class HTTP_SERVER_PROPERTY extends Win32Enum{
 
     /**
      * The authentication property enables server-side authentication for a URL group, or  server session using the Basic, NTLM, Negotiate, and Digest authentication schemes.

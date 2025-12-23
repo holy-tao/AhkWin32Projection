@@ -3,7 +3,7 @@
 
 /**
  * Describes conflict ID information structure.
- * @see https://docs.microsoft.com/windows/win32/api//syncmgr/ns-syncmgr-syncmgr_conflict_id_info
+ * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ns-syncmgr-syncmgr_conflict_id_info
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

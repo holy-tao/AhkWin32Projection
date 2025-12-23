@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * The WMDM\_SESSION\_TYPE enumeration type defines the session type.
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-session-type
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
-class WMDM_SESSION_TYPE{
+class WMDM_SESSION_TYPE extends Win32Enum{
 
     /**
      * @type {Integer (Int32)}

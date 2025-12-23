@@ -8,9 +8,9 @@
  */
 class GNSS_GEOFENCES_TRACKINGSTATUS_DATA extends Win32Struct
 {
-    static sizeof => 536
+    static sizeof => 532
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -42,7 +42,7 @@ class GNSS_GEOFENCES_TRACKINGSTATUS_DATA extends Win32Struct
     StatusTimeStamp{
         get {
             if(!this.HasProp("__StatusTimeStamp"))
-                this.__StatusTimeStamp := FILETIME(16, this)
+                this.__StatusTimeStamp := FILETIME(12, this)
             return this.__StatusTimeStamp
         }
     }
@@ -53,7 +53,7 @@ class GNSS_GEOFENCES_TRACKINGSTATUS_DATA extends Win32Struct
     Unused{
         get {
             if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 24, 512, Primitive, "char")
+                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 20, 512, Primitive, "char")
             return this.__UnusedProxyArray
         }
     }

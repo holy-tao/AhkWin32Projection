@@ -5,7 +5,7 @@
 
 /**
  * The CERT_ACCESS_DESCRIPTION structure is a member of a CERT_AUTHORITY_INFO_ACCESS structure.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_access_description
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_access_description
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -4,11 +4,8 @@
 /**
  * Defines a call stack on a 32-bit computer.
  * @remarks
- * 
  * The <b>DataSize</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_header_extended_data_item">EVENT_HEADER_EXTENDED_DATA_ITEM</a> contains the size of this structure. To determine the number of addresses in the array, subtract <c>sizeof(ULONG64)</code> from <b>DataSize</b> and then divide by <code>sizeof(ULONG)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//evntcons/ns-evntcons-event_extended_item_stack_trace32
+ * @see https://learn.microsoft.com/windows/win32/api/evntcons/ns-evntcons-event_extended_item_stack_trace32
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

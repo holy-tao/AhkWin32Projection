@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the possible values that specify when to start subscribing to events.
  * @remarks
- * 
  * The EvtSubscribeToFutureEvents, EvtSubscribeStartAtOldestRecord, and EvtSubscribeStartAfterBookmark flags are mutually exclusive.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winevt/ne-winevt-evt_subscribe_flags
+ * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_subscribe_flags
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */
-class EVT_SUBSCRIBE_FLAGS{
+class EVT_SUBSCRIBE_FLAGS extends Win32Enum{
 
     /**
      * Subscribe to only future events that match the query criteria.

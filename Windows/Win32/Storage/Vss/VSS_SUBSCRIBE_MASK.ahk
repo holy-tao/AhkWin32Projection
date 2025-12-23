@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the events that the writer is willing to receive.
  * @remarks
- * 
  * A bit mask (or bitwise OR) of <b>VSS_SUBSCRIBE_MASK</b> 
  *     values is used as an argument only to 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-subscribe">CVssWriter::Subscribe</a>.
@@ -11,13 +11,11 @@
  * Currently, the only supported <b>VSS_SUBSCRIBE_MASK</b> 
  *     bit mask is ( <b>VSS_SM_BACKUP_EVENTS_FLAG</b> | 
  *     <b>VSS_SM_RESTORE_EVENTS_FLAG</b>).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vswriter/ne-vswriter-vss_subscribe_mask
+ * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_subscribe_mask
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_SUBSCRIBE_MASK{
+class VSS_SUBSCRIBE_MASK extends Win32Enum{
 
     /**
      * This enumeration value is reserved for future use. 

@@ -3,7 +3,7 @@
 
 /**
  * Files exempted from Windows app package encryption.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/ns-appxpackaging-appx_encrypted_exemptions
+ * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ns-appxpackaging-appx_encrypted_exemptions
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

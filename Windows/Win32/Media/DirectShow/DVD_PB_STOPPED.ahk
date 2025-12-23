@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DVD_PB_STOPPED enumeration value has flags that indicate why DVD playback stopped. This flag is sent in the lParam1 parameter of the EC_DVD_PLAYBACK_STOPPED event.
- * @see https://docs.microsoft.com/windows/win32/api//dvdevcod/ne-dvdevcod-dvd_pb_stopped
+ * @see https://learn.microsoft.com/windows/win32/api/dvdevcod/ne-dvdevcod-dvd_pb_stopped
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class DVD_PB_STOPPED{
+class DVD_PB_STOPPED extends Win32Enum{
 
     /**
      * Unspecified reason.

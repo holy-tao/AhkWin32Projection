@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
-class PDH_SELECT_DATA_SOURCE_FLAGS{
+class PDH_SELECT_DATA_SOURCE_FLAGS extends Win32Enum{
 
     /**
      * @type {Integer (UInt32)}

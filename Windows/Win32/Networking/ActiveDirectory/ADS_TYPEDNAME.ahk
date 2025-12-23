@@ -3,7 +3,7 @@
 
 /**
  * Represents an ADSI representation of Typed Name attribute syntax.
- * @see https://docs.microsoft.com/windows/win32/api//iads/ns-iads-ads_typedname
+ * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_typedname
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

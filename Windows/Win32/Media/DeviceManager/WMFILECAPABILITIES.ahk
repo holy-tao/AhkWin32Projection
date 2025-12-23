@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * The WMFILECAPABILITIES structure describes the MIME type.
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmfilecapabilities
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
@@ -14,6 +14,7 @@ class WMFILECAPABILITIES extends Win32Struct
     static packingSize => 8
 
     /**
+     * MIME type.
      * @type {PWSTR}
      */
     pwszMimeType {
@@ -22,6 +23,7 @@ class WMFILECAPABILITIES extends Win32Struct
     }
 
     /**
+     * 
      * @type {Integer}
      */
     dwReserved {

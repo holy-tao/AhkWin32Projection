@@ -2,16 +2,12 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains configuration information for an installed service. It is used by the QueryServiceConfig function.
+ * Contains configuration information for an installed service. It is used by the QueryServiceConfig function. (ANSI)
  * @remarks
- * 
  * The configuration information for a service is initially specified when the service is created by a call to the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function. The information can be modified by calling the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-changeserviceconfiga">ChangeServiceConfig</a> function.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsvc/ns-winsvc-query_service_configa
+ * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-query_service_configa
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  * @charset ANSI

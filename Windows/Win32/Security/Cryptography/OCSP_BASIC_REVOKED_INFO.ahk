@@ -4,15 +4,15 @@
 
 /**
  * Contains the reason a certificate was revoked.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-ocsp_basic_revoked_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ocsp_basic_revoked_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
 class OCSP_BASIC_REVOKED_INFO extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Date that the certificate was revoked. For more information, see the <b>RevocationDate</b> member description for <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_entry">CRL_ENTRY</a>.

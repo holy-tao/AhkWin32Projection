@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * These flags are associated with certain PROPVARIANT structure comparisons.
- * @see https://docs.microsoft.com/windows/win32/api//propvarutil/ne-propvarutil-propvar_compare_unit
+ * @see https://learn.microsoft.com/windows/win32/api/propvarutil/ne-propvarutil-propvar_compare_unit
  * @namespace Windows.Win32.System.Com.StructuredStorage
  * @version v4.0.30319
  */
-class PROPVAR_COMPARE_UNIT{
+class PROPVAR_COMPARE_UNIT extends Win32Enum{
 
     /**
      * The default unit.

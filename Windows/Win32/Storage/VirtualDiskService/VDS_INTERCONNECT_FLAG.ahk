@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Defines the set of interconnect types that subsystems can support.
+ * The VDS_INTERCONNECT_FLAG enumeration (vdshwprv.h) defines the set of interconnect types that subsystems can support.
  * @remarks
- * 
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_INTERCONNECT_FLAG</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_INTERCONNECT_FLAG</b> enumeration constant.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_interconnect_flag
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_interconnect_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_INTERCONNECT_FLAG{
+class VDS_INTERCONNECT_FLAG extends Win32Enum{
 
     /**
      * The subsystem supports a PCI RAID interconnect.

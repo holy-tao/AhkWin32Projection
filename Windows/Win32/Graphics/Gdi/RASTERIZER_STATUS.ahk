@@ -3,7 +3,7 @@
 
 /**
  * The RASTERIZER_STATUS structure contains information about whether TrueType is installed. This structure is filled when an application calls the GetRasterizerCaps function.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-rasterizer_status
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-rasterizer_status
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

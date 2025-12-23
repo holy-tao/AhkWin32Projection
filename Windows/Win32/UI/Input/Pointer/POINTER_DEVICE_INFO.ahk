@@ -5,7 +5,7 @@
 
 /**
  * Contains information about a pointer device. An array of these structures is returned from the GetPointerDevices function. A single structure is returned from a call to the GetPointerDevice function.
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-pointer_device_info
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-pointer_device_info
  * @namespace Windows.Win32.UI.Input.Pointer
  * @version v4.0.30319
  */

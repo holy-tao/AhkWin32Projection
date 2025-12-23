@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values that are used with the FindFirstFileEx function to specify the type of filtering to perform.
- * @see https://docs.microsoft.com/windows/win32/api//minwinbase/ne-minwinbase-findex_search_ops
+ * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ne-minwinbase-findex_search_ops
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
-class FINDEX_SEARCH_OPS{
+class FINDEX_SEARCH_OPS extends Win32Enum{
 
     /**
      * The search for a file that matches a specified file name.

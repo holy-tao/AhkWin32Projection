@@ -12,7 +12,7 @@ class STORAGE_HW_CRYPTO_DESCRIPTOR extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {STORAGE_DESCRIPTOR_HEADER}

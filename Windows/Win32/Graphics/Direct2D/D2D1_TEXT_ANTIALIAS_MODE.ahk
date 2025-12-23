@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the antialiasing mode used for drawing text.
  * @remarks
- * 
  * This enumeration is used with the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-settextantialiasmode">SetTextAntialiasMode</a> of an <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1rendertarget">ID2D1RenderTarget</a> to specify how text and glyphs are antialiased.
  * 
  *  By default, Direct2D renders text in ClearType mode. Factors that 
@@ -26,13 +26,11 @@
  * 
  * antialiasing mode is grayscale.</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/ne-d2d1-d2d1_text_antialias_mode
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_text_antialias_mode
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
-class D2D1_TEXT_ANTIALIAS_MODE{
+class D2D1_TEXT_ANTIALIAS_MODE extends Win32Enum{
 
     /**
      * Use the system default. See Remarks.

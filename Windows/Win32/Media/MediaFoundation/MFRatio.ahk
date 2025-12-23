@@ -3,7 +3,7 @@
 
 /**
  * Represents a ratio.
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ns-mfobjects-mfratio
+ * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfratio
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

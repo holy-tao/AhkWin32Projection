@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the NTSAMPROPERTIES enumeration type specify properties related to the NT Security Accounts Manager (SAM).
- * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-ntsamproperties
+ * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-ntsamproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class NTSAMPROPERTIES{
+class NTSAMPROPERTIES extends Win32Enum{
 
     /**
      * Specifies whether to allow NT LAN Manager (NTLM) authentication.

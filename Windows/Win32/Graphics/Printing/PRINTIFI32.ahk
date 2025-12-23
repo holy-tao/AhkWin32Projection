@@ -10,9 +10,9 @@
  */
 class PRINTIFI32 extends Win32Struct
 {
-    static sizeof => 192
+    static sizeof => 184
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -499,7 +499,7 @@ class PRINTIFI32 extends Win32Struct
     panose{
         get {
             if(!this.HasProp("__panose"))
-                this.__panose := PANOSE(176, this)
+                this.__panose := PANOSE(172, this)
             return this.__panose
         }
     }

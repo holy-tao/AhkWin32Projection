@@ -10,14 +10,14 @@
 #Include .\WRDS_CONNECTION_SETTING.ahk
 
 /**
- * Contains connection setting information for a remote session.
- * @see https://docs.microsoft.com/windows/win32/api//wtsdefs/ns-wtsdefs-wrds_connection_settings
+ * Contains connection setting information for a remote session. (WRDS_CONNECTION_SETTINGS)
+ * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wrds_connection_settings
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
 class WRDS_CONNECTION_SETTINGS extends Win32Struct
 {
-    static sizeof => 3784
+    static sizeof => 3760
 
     static packingSize => 8
 

@@ -4,7 +4,7 @@
 
 /**
  * The HTTP_BANDWIDTH_LIMIT_INFO structure is used to set or query the bandwidth throttling limit. This structure must be used when setting or querying the HttpServerBandwidthProperty on a URL Group or server session.
- * @see https://docs.microsoft.com/windows/win32/api//http/ns-http-http_bandwidth_limit_info
+ * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_bandwidth_limit_info
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

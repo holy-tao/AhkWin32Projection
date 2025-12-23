@@ -3,7 +3,7 @@
 
 /**
  * Provides information about the stylus.
- * @see https://docs.microsoft.com/windows/win32/api//rtscom/ns-rtscom-stylusinfo
+ * @see https://learn.microsoft.com/windows/win32/api/rtscom/ns-rtscom-stylusinfo
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

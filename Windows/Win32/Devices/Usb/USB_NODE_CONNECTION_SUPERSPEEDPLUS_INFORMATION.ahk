@@ -8,9 +8,9 @@
  */
 class USB_NODE_CONNECTION_SUPERSPEEDPLUS_INFORMATION extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -53,7 +53,7 @@ class USB_NODE_CONNECTION_SUPERSPEEDPLUS_INFORMATION extends Win32Struct
     TxSuperSpeedPlus{
         get {
             if(!this.HasProp("__TxSuperSpeedPlus"))
-                this.__TxSuperSpeedPlus := USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED(24, this)
+                this.__TxSuperSpeedPlus := USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED(20, this)
             return this.__TxSuperSpeedPlus
         }
     }
@@ -62,7 +62,7 @@ class USB_NODE_CONNECTION_SUPERSPEEDPLUS_INFORMATION extends Win32Struct
      * @type {Integer}
      */
     TxLaneCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 }

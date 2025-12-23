@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DNS_CHARSET enumeration specifies the character set used.
- * @see https://docs.microsoft.com/windows/win32/api//windns/ne-windns-dns_charset
+ * @see https://learn.microsoft.com/windows/win32/api/windns/ne-windns-dns_charset
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */
-class DNS_CHARSET{
+class DNS_CHARSET extends Win32Enum{
 
     /**
      * The character set is unknown.

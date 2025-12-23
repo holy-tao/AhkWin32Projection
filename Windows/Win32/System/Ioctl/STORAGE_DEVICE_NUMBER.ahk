@@ -4,11 +4,8 @@
 /**
  * Contains information about a device. This structure is used by the IOCTL_STORAGE_GET_DEVICE_NUMBER control code.
  * @remarks
- * 
  * The values in the <b>STORAGE_DEVICE_NUMBER</b> structure are guaranteed to remain unchanged until the device is removed or the system is restarted. They are not guaranteed to be persistent across device or system restarts.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-storage_device_number
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_device_number
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

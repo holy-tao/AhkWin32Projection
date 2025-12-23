@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains the list of options for a particular Internet connection.
+ * Contains the list of options for a particular Internet connection. (ANSI)
  * @remarks
- * 
  * In Microsoft Internet Explorer 5, only the ANSI versions of 
  * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetqueryoptiona">InternetQueryOption</a> and 
  * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetoptiona">InternetSetOption</a> will work with the 
@@ -19,9 +18,7 @@
  * 
  * > [!NOTE]
  * > The wininet.h header defines INTERNET_PER_CONN_OPTION_LIST as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wininet/ns-wininet-internet_per_conn_option_lista
+ * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-internet_per_conn_option_lista
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
  * @charset ANSI

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that specify the value of the CapStyle text attribute.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-capstyle
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-capstyle
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
-class CapStyle{
+class CapStyle extends Win32Enum{
 
     /**
      * None.

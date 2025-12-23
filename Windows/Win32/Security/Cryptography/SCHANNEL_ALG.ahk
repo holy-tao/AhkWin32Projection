@@ -3,7 +3,7 @@
 
 /**
  * The SCHANNEL_ALG structure contains algorithm and key size information. It is used as the structure passed as pbData in CryptSetKeyParam when dwParam is set to KP_SCHANNEL_ALG.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-schannel_alg
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-schannel_alg
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

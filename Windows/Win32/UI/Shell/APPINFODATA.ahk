@@ -3,7 +3,7 @@
 
 /**
  * Provides information about a published application to the Add/Remove Programs Control Panel utility.
- * @see https://docs.microsoft.com/windows/win32/api//shappmgr/ns-shappmgr-appinfodata
+ * @see https://learn.microsoft.com/windows/win32/api/shappmgr/ns-shappmgr-appinfodata
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

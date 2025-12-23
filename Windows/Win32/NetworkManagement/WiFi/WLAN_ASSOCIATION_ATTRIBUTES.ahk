@@ -4,15 +4,15 @@
 
 /**
  * Contains association attributes for a connection.
- * @see https://docs.microsoft.com/windows/win32/api//wlanapi/ns-wlanapi-wlan_association_attributes
+ * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_association_attributes
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
 class WLAN_ASSOCIATION_ATTRIBUTES extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 68
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-ssid">DOT11_SSID</a> structure that contains the SSID of the association.

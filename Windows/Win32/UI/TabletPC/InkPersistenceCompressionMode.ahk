@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines values for the compression modes that are used to save the InkDisp object to a serialized format.
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/ne-msinkaut-inkpersistencecompressionmode
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkpersistencecompressionmode
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
-class InkPersistenceCompressionMode{
+class InkPersistenceCompressionMode extends Win32Enum{
 
     /**
      * The default. Provides the best tradeoff between save-time and storage for the typical application.

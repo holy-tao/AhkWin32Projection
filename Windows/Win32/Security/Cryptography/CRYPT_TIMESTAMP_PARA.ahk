@@ -4,7 +4,7 @@
 
 /**
  * Defines additional parameters for the time stamp request.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-crypt_timestamp_para
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_timestamp_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

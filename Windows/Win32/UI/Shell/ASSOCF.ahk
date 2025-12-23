@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
+ * Provides information to the IQueryAssociations interface methods.
  * @see https://learn.microsoft.com/windows/win32/shell/ASSOCF_str
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class ASSOCF{
+class ASSOCF extends Win32BitflagEnum{
 
     /**
      * @type {Integer (UInt32)}

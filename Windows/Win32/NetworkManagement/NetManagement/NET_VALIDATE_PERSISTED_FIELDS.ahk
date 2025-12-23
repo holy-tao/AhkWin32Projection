@@ -5,13 +5,10 @@
 /**
  * The NET_VALIDATE_PERSISTED_FIELDS structure contains information about a user's password properties.
  * @remarks
- * 
  * Note that it is the application's responsibility to save all changed persistent data as well as any user object information. The next time the application calls <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netvalidatepasswordpolicy">NetValidatePasswordPolicy</a> on the same instance of the user object, the application must provide the required fields from the persistent information.
  * 
  * The <a href="https://docs.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-net_validate_authentication_input_arg">NET_VALIDATE_AUTHENTICATION_INPUT_ARG</a>, <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-net_validate_password_change_input_arg">NET_VALIDATE_PASSWORD_CHANGE_INPUT_ARG</a>, <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-net_validate_password_reset_input_arg">NET_VALIDATE_PASSWORD_RESET_INPUT_ARG</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-net_validate_output_arg">NET_VALIDATE_OUTPUT_ARG</a> structures contain a <b>NET_VALIDATE_PERSISTED_FIELDS</b> structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//lmaccess/ns-lmaccess-net_validate_persisted_fields
+ * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-net_validate_persisted_fields
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */
@@ -108,7 +105,7 @@ class NET_VALIDATE_PERSISTED_FIELDS extends Win32Struct
     PasswordLastSet{
         get {
             if(!this.HasProp("__PasswordLastSet"))
-                this.__PasswordLastSet := FILETIME(8, this)
+                this.__PasswordLastSet := FILETIME(4, this)
             return this.__PasswordLastSet
         }
     }
@@ -122,7 +119,7 @@ class NET_VALIDATE_PERSISTED_FIELDS extends Win32Struct
     BadPasswordTime{
         get {
             if(!this.HasProp("__BadPasswordTime"))
-                this.__BadPasswordTime := FILETIME(16, this)
+                this.__BadPasswordTime := FILETIME(12, this)
             return this.__BadPasswordTime
         }
     }
@@ -136,7 +133,7 @@ class NET_VALIDATE_PERSISTED_FIELDS extends Win32Struct
     LockoutTime{
         get {
             if(!this.HasProp("__LockoutTime"))
-                this.__LockoutTime := FILETIME(24, this)
+                this.__LockoutTime := FILETIME(20, this)
             return this.__LockoutTime
         }
     }
@@ -148,8 +145,8 @@ class NET_VALIDATE_PERSISTED_FIELDS extends Win32Struct
      * @type {Integer}
      */
     BadPasswordCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -159,8 +156,8 @@ class NET_VALIDATE_PERSISTED_FIELDS extends Win32Struct
      * @type {Integer}
      */
     PasswordHistoryLength {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**

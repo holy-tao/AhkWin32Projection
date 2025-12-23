@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the units of a time span.
- * @see https://docs.microsoft.com/windows/win32/api//celib/ne-celib-enum_period
+ * @see https://learn.microsoft.com/windows/win32/api/celib/ne-celib-enum_period
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */
-class ENUM_PERIOD{
+class ENUM_PERIOD extends Win32Enum{
 
     /**
      * 

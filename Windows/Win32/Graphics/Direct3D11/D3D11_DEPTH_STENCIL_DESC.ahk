@@ -3,9 +3,8 @@
 #Include .\D3D11_DEPTH_STENCILOP_DESC.ahk
 
 /**
- * Describes depth-stencil state.
+ * Describes depth-stencil state. (D3D11_DEPTH_STENCIL_DESC)
  * @remarks
- * 
  * Pass a pointer to <b>D3D11_DEPTH_STENCIL_DESC</b> to the  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createdepthstencilstate">ID3D11Device::CreateDepthStencilState</a> method to create the depth-stencil state object.
  * 
  * Depth-stencil state controls how depth-stencil testing is performed by the output-merger stage.
@@ -89,17 +88,15 @@
  *  
  * 
  * The formats that support stenciling are DXGI_FORMAT_D24_UNORM_S8_UINT and DXGI_FORMAT_D32_FLOAT_S8X24_UINT.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/ns-d3d11-d3d11_depth_stencil_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_depth_stencil_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
 class D3D11_DEPTH_STENCIL_DESC extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 52
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
@@ -176,7 +173,7 @@ class D3D11_DEPTH_STENCIL_DESC extends Win32Struct
     FrontFace{
         get {
             if(!this.HasProp("__FrontFace"))
-                this.__FrontFace := D3D11_DEPTH_STENCILOP_DESC(24, this)
+                this.__FrontFace := D3D11_DEPTH_STENCILOP_DESC(20, this)
             return this.__FrontFace
         }
     }
@@ -190,7 +187,7 @@ class D3D11_DEPTH_STENCIL_DESC extends Win32Struct
     BackFace{
         get {
             if(!this.HasProp("__BackFace"))
-                this.__BackFace := D3D11_DEPTH_STENCILOP_DESC(40, this)
+                this.__BackFace := D3D11_DEPTH_STENCILOP_DESC(36, this)
             return this.__BackFace
         }
     }

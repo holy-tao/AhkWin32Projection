@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the possible access denied remediation (ADR) client error types.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmenums/ne-fsrmenums-adrclienterrortype
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-adrclienterrortype
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
-class AdrClientErrorType{
+class AdrClientErrorType extends Win32Enum{
 
     /**
      * The ADR client error type is unknown.

@@ -3,7 +3,7 @@
 
 /**
  * This structure is returned by GetSystemCpuSetInformation. It is used to enumerate the CPU Sets on the system and determine their current state.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-system_cpu_set_information
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_cpu_set_information
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  */
@@ -157,16 +157,16 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
          * @type {Integer}
          */
         Reserved {
-            get => NumGet(this, 14, "uint")
-            set => NumPut("uint", value, this, 14)
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
         }
     
         /**
          * @type {Integer}
          */
         SchedulingClass {
-            get => NumGet(this, 14, "char")
-            set => NumPut("char", value, this, 14)
+            get => NumGet(this, 12, "char")
+            set => NumPut("char", value, this, 12)
         }
     
         /**

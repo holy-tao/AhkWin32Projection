@@ -11,7 +11,6 @@
 /**
  * Stores information about a neighbor IP address.
  * @remarks
- * 
  * The <b>MIB_IPNET_ROW2</b> structure is defined on Windows Vista and later. 
  * 
  * The <b>GetIpNetTable2</b> function enumerates the neighbor IP addresses on a local system and returns this information in an <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipnet_table2">MIB_IPNET_TABLE2</a> structure. 
@@ -21,17 +20,37 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getipnetentry2">GetIpNetEntry2</a> function retrieves a single neighbor IP address and returns this information in a <b>MIB_IPNET_ROW2</b> structure.
  * 
  * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//netioapi/ns-netioapi-mib_ipnet_row2
+ * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ipnet_row2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */
 class MIB_IPNET_ROW2 extends Win32Struct
 {
-    static sizeof => 136
+    static sizeof => 128
 
     static packingSize => 8
+
+    class _ReachabilityTime_e__Union extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        LastReachable {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        LastUnreachable {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ws2ipdef/ns-ws2ipdef-sockaddr_inet">SOCKADDR_INET</a></b>
@@ -54,8 +73,8 @@ class MIB_IPNET_ROW2 extends Win32Struct
      * @type {Integer}
      */
     InterfaceIndex {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -67,7 +86,7 @@ class MIB_IPNET_ROW2 extends Win32Struct
     InterfaceLuid{
         get {
             if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(72, this)
+                this.__InterfaceLuid := NET_LUID_LH(64, this)
             return this.__InterfaceLuid
         }
     }
@@ -81,7 +100,7 @@ class MIB_IPNET_ROW2 extends Win32Struct
     PhysicalAddress{
         get {
             if(!this.HasProp("__PhysicalAddressProxyArray"))
-                this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 88, 32, Primitive, "char")
+                this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 80, 32, Primitive, "char")
             return this.__PhysicalAddressProxyArray
         }
     }
@@ -93,8 +112,8 @@ class MIB_IPNET_ROW2 extends Win32Struct
      * @type {Integer}
      */
     PhysicalAddressLength {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
     }
 
     /**
@@ -210,8 +229,8 @@ class MIB_IPNET_ROW2 extends Win32Struct
      * @type {Integer}
      */
     State {
-        get => NumGet(this, 124, "int")
-        set => NumPut("int", value, this, 124)
+        get => NumGet(this, 116, "int")
+        set => NumPut("int", value, this, 116)
     }
 
     /**
@@ -221,8 +240,8 @@ class MIB_IPNET_ROW2 extends Win32Struct
      * @type {Integer}
      */
     _bitfield {
-        get => NumGet(this, 128, "char")
-        set => NumPut("char", value, this, 128)
+        get => NumGet(this, 120, "char")
+        set => NumPut("char", value, this, 120)
     }
 
     /**
@@ -245,23 +264,19 @@ class MIB_IPNET_ROW2 extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 128, "char")
-        set => NumPut("char", value, this, 128)
+        get => NumGet(this, 120, "char")
+        set => NumPut("char", value, this, 120)
     }
 
     /**
-     * @type {Integer}
+     * 
+     * @type {_ReachabilityTime_e__Union}
      */
-    LastReachable {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LastUnreachable {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
+    ReachabilityTime{
+        get {
+            if(!this.HasProp("__ReachabilityTime"))
+                this.__ReachabilityTime := %this.__Class%._ReachabilityTime_e__Union(124, this)
+            return this.__ReachabilityTime
+        }
     }
 }

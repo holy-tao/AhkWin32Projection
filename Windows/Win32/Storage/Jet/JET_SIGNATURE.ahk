@@ -3,16 +3,16 @@
 #Include .\JET_LOGTIME.ahk
 
 /**
- * 
+ * Learn more about: JET_SIGNATURE Structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-signature-structure
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319
  */
 class JET_SIGNATURE extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -28,7 +28,7 @@ class JET_SIGNATURE extends Win32Struct
     logtimeCreate{
         get {
             if(!this.HasProp("__logtimeCreate"))
-                this.__logtimeCreate := JET_LOGTIME(8, this)
+                this.__logtimeCreate := JET_LOGTIME(4, this)
             return this.__logtimeCreate
         }
     }
@@ -39,7 +39,7 @@ class JET_SIGNATURE extends Win32Struct
     szComputerName{
         get {
             if(!this.HasProp("__szComputerNameProxyArray"))
-                this.__szComputerNameProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
+                this.__szComputerNameProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
             return this.__szComputerNameProxyArray
         }
     }

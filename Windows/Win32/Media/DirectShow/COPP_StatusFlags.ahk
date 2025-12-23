@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the status of a Certified Output Protection Protocol (COPP) session.
  * @remarks
- * 
  * If COPP_LinkLost is returned, the application should release the current instance of the VMR, create a new instance of the VMR, and establish a new COPP session (including key exchange and certificate validation).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxva9typ/ne-dxva9typ-copp_statusflags
+ * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ne-dxva9typ-copp_statusflags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class COPP_StatusFlags{
+class COPP_StatusFlags extends Win32Enum{
 
     /**
      * Normal status.

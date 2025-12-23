@@ -3,7 +3,7 @@
 
 /**
  * Receives item data in response to a call to SHGetDataFromIDList.
- * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-shdescriptionid
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-shdescriptionid
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

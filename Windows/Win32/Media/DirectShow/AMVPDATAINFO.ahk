@@ -5,7 +5,7 @@
 
 /**
  * The AMVPDATAINFO structure specifies the data-specific characteristics of the VP input stream.
- * @see https://docs.microsoft.com/windows/win32/api//vptype/ns-vptype-amvpdatainfo
+ * @see https://learn.microsoft.com/windows/win32/api/vptype/ns-vptype-amvpdatainfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -13,7 +13,7 @@ class AMVPDATAINFO extends Win32Struct
 {
     static sizeof => 80
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Size of the structure, in bytes.

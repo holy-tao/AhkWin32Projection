@@ -3,7 +3,7 @@
 
 /**
  * Extra parameters for notifications.
- * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/ns-projectedfslib-prj_notification_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ns-projectedfslib-prj_notification_parameters
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  * @version v4.0.30319
  */
@@ -14,7 +14,7 @@ class PRJ_NOTIFICATION_PARAMETERS extends Win32Struct
     static packingSize => 4
 
     class _PostCreate extends Win32Struct {
-        static sizeof => 12
+        static sizeof => 4
         static packingSize => 4
 
         /**
@@ -28,7 +28,7 @@ class PRJ_NOTIFICATION_PARAMETERS extends Win32Struct
     }
 
     class _FileRenamed extends Win32Struct {
-        static sizeof => 12
+        static sizeof => 4
         static packingSize => 4
 
         /**
@@ -42,8 +42,8 @@ class PRJ_NOTIFICATION_PARAMETERS extends Win32Struct
     }
 
     class _FileDeletedOnHandleClose extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 4
+        static sizeof => 1
+        static packingSize => 1
 
         /**
          * @type {BOOLEAN}

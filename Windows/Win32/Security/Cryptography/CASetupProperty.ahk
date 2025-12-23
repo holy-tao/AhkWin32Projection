@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies a property type for setup and configuration of a certification authority (CA) role when using the ICertSrvSetup interface.
- * @see https://docs.microsoft.com/windows/win32/api//casetup/ne-casetup-casetupproperty
+ * @see https://learn.microsoft.com/windows/win32/api/casetup/ne-casetup-casetupproperty
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
-class CASetupProperty{
+class CASetupProperty extends Win32Enum{
 
     /**
      * A value that specifies a property type that is not valid.

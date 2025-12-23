@@ -3,7 +3,7 @@
 
 /**
  * The KERNINGPAIR structure defines a kerning pair.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-kerningpair
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-kerningpair
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

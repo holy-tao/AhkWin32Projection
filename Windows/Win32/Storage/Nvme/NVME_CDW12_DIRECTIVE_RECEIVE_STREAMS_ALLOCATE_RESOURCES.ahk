@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains a parameter for requesting namespace streams that is used for allocating stream resources in the Directive Receive command.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw12_directive_receive_streams_allocate_resources
  * @namespace Windows.Win32.Storage.Nvme
@@ -33,6 +35,7 @@ class NVME_CDW12_DIRECTIVE_RECEIVE_STREAMS_ALLOCATE_RESOURCES extends Win32Struc
     }
 
     /**
+     * 
      * @type {Integer}
      */
     AsUlong {

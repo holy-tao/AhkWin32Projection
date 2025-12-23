@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents the degree to which a font has been stretched compared to a font's normal aspect ratio.
  * @remarks
- * 
  * A font stretch describes the degree to which a font form is stretched from its normal aspect ratio, which is the original width to height ratio specified for the glyphs in the font. 
  * The following illustration shows an example of Normal and Condensed stretches for the Rockwell Bold typeface.
  * 
@@ -11,13 +11,11 @@
  * 
  * <div class="alert"><b>Note</b>  Values other than the ones defined in the enumeration are considered to be invalid, and are rejected by font API functions.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/ne-dwrite-dwrite_font_stretch
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_FONT_STRETCH{
+class DWRITE_FONT_STRETCH extends Win32Enum{
 
     /**
      * Predefined font stretch : Not known (0).

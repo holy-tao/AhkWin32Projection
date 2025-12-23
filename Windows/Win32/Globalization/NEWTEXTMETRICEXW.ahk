@@ -4,22 +4,20 @@
 #Include .\FONTSIGNATURE.ahk
 
 /**
- * The NEWTEXTMETRICEX structure contains information about a physical font.
+ * The NEWTEXTMETRICEX structure contains information about a physical font. (Unicode)
  * @remarks
- * 
  * > [!NOTE]
  * > The wingdi.h header defines NEWTEXTMETRICEX as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-newtextmetricexw
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-newtextmetricexw
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  * @charset Unicode
  */
 class NEWTEXTMETRICEXW extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 100
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-newtextmetrica">NEWTEXTMETRIC</a> structure.
@@ -40,7 +38,7 @@ class NEWTEXTMETRICEXW extends Win32Struct
     ntmFontSig{
         get {
             if(!this.HasProp("__ntmFontSig"))
-                this.__ntmFontSig := FONTSIGNATURE(80, this)
+                this.__ntmFontSig := FONTSIGNATURE(76, this)
             return this.__ntmFontSig
         }
     }

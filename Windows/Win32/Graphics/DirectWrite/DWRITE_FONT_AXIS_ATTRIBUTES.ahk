@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify attributes for a font axis.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/ne-dwrite_3-dwrite_font_axis_attributes
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_font_axis_attributes
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_FONT_AXIS_ATTRIBUTES{
+class DWRITE_FONT_AXIS_ATTRIBUTES extends Win32BitflagEnum{
 
     /**
      * Specifies no attributes.

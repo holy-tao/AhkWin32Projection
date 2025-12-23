@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicate the activation policy of the object and are used in the IPointerInactive::GetActivationPolicy method.
  * @remarks
- * 
  * For more information on using the <b>POINTERINACTIVE_ACTIVATEONENTRY</b> and <b>POINTERINACTIVE_DEACTIVATEONLEAVE</b> values, see the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipointerinactive-getactivationpolicy">IPointerInactive::GetActivationPolicy</a> method.
  * 
  * <b>The POINTERINACTIVE_ACTIVATEONDRAG</b> value can be used to support drag and drop operations on an inactive object. An inactive object has no window to register itself as a potential drop target. Most containers ignore embedded, inactive objects as drop targets because of the overhead associated with activating them.
@@ -18,13 +18,11 @@
  * 
  * 
  * If the drop occurs on the embedded object, the object is UI-activated and will get UI-deactivated when the focus changes again. If the drop does not occur on the object, the container should deactivate the object the next time it gets a call to its own <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-dragenter">IDropTarget::DragEnter</a>. It is possible for the drop to occur on a third active object without an intervening call to the container's IDropTarget::DragEnter. In this case, the container should try to deactivate the object as soon as it can, for example, when it UI-activates another object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/ne-ocidl-pointerinactive
+ * @see https://learn.microsoft.com/windows/win32/api/ocidl/ne-ocidl-pointerinactive
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
-class POINTERINACTIVE{
+class POINTERINACTIVE extends Win32Enum{
 
     /**
      * The object should be in-place activated when the mouse enters it during a mouse move operation.

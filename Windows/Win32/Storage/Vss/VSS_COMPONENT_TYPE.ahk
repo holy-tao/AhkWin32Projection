@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specify the type of component being used with a shadow copy backup operation.
  * @remarks
- * 
  * A writer sets a component's type when it adds the component to its Writer Metadata Document using 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-addcomponent">IVssCreateWriterMetadata::AddComponent</a>.
  * 
@@ -25,13 +25,11 @@
  * <li>Examining the <b>Type</b> member of the 
  *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/ns-vsbackup-vss_componentinfo">VSS_COMPONENTINFO</a> object</li>
  * </ol>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vswriter/ne-vswriter-vss_component_type
+ * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_component_type
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_COMPONENT_TYPE{
+class VSS_COMPONENT_TYPE extends Win32Enum{
 
     /**
      * Undefined component type. 

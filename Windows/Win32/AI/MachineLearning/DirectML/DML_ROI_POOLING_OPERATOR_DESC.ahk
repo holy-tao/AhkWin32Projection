@@ -4,7 +4,7 @@
 
 /**
  * Performs a MaxPool function across the input tensor (according to regions of interest, or ROIs).
- * @see https://docs.microsoft.com/windows/win32/api//directml/ns-directml-dml_roi_pooling_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_roi_pooling_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
@@ -67,7 +67,7 @@ class DML_ROI_POOLING_OPERATOR_DESC extends Win32Struct
     PooledSize{
         get {
             if(!this.HasProp("__PooledSize"))
-                this.__PooledSize := DML_SIZE_2D(32, this)
+                this.__PooledSize := DML_SIZE_2D(28, this)
             return this.__PooledSize
         }
     }

@@ -31,8 +31,9 @@ class Diagnostics {
         wszTAPDllName := wszTAPDllName is String ? StrPtr(wszTAPDllName) : wszTAPDllName
 
         result := DllCall("Windows.UI.Xaml.dll\InitializeXamlDiagnostic", "ptr", endPointName, "uint", pid, "ptr", wszDllXamlDiagnostics, "ptr", wszTAPDllName, "ptr", tapClsid, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }
@@ -46,7 +47,7 @@ class Diagnostics {
      * @param {Guid} tapClsid The COM CLSID of the DLL to be injected in the process.
      * @param {PWSTR} wszInitializationData Initialization data for Xaml Diagnostics.
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-initializexamldiagnosticsex
+     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-initializexamldiagnosticsex
      * @since windows10.0.15063
      */
     static InitializeXamlDiagnosticsEx(endPointName, pid, wszDllXamlDiagnostics, wszTAPDllName, tapClsid, wszInitializationData) {
@@ -56,8 +57,9 @@ class Diagnostics {
         wszInitializationData := wszInitializationData is String ? StrPtr(wszInitializationData) : wszInitializationData
 
         result := DllCall("Windows.UI.Xaml.dll\InitializeXamlDiagnosticsEx", "ptr", endPointName, "uint", pid, "ptr", wszDllXamlDiagnostics, "ptr", wszTAPDllName, "ptr", tapClsid, "ptr", wszInitializationData, "int")
-        if(result != 0)
-            throw OSError(result)
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
         return result
     }

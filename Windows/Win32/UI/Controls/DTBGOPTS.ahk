@@ -4,7 +4,7 @@
 
 /**
  * Defines the options for the DrawThemeBackgroundEx function.
- * @see https://docs.microsoft.com/windows/win32/api//uxtheme/ns-uxtheme-dtbgopts
+ * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ns-uxtheme-dtbgopts
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -12,7 +12,7 @@ class DTBGOPTS extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>

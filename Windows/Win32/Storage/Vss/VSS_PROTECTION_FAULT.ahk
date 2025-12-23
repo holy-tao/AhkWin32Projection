@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the set of shadow copy protection faults.
- * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/ne-vsmgmt-vss_protection_fault
+ * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/ne-vsmgmt-vss_protection_fault
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_PROTECTION_FAULT{
+class VSS_PROTECTION_FAULT extends Win32Enum{
 
     /**
      * No shadow copy protection fault has occurred.

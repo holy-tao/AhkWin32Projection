@@ -4,12 +4,9 @@
 /**
  * The RPC_IF_ID structure contains the interface UUID and major and minor version numbers of an interface.
  * @remarks
- * 
  * An interface identification is a subset of the data contained in the interface-specification structure. Routines that require an interface identification structure show a data type of 
  * <b>RPC_IF_ID</b>. In those routines, the application is responsible for providing memory for the structure.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//rpcdce/ns-rpcdce-rpc_if_id
+ * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_if_id
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */

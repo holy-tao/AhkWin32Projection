@@ -7,19 +7,16 @@
 /**
  * Specifies the provider address's DAD (duplicate address detection) status change, which causes the Windows Network Virtualization (WNV) driver to generate a WnvObjectChangeType notification that specifies the WnvProviderAddressType object type containing this structure.
  * @remarks
- * 
  * For a detailed description of network virtualization concepts and terminology, refer to <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/jj134230(v=ws.11)">Hyper-V Network Virtualization Overview</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wnvapi/ns-wnvapi-wnv_provider_address_change_param
+ * @see https://learn.microsoft.com/windows/win32/api/wnvapi/ns-wnvapi-wnv_provider_address_change_param
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
  * @version v4.0.30319
  */
 class WNV_PROVIDER_ADDRESS_CHANGE_PARAM extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>ADDRESS_FAMILY</b>
@@ -41,7 +38,7 @@ class WNV_PROVIDER_ADDRESS_CHANGE_PARAM extends Win32Struct
     PA{
         get {
             if(!this.HasProp("__PA"))
-                this.__PA := WNV_IP_ADDRESS(8, this)
+                this.__PA := WNV_IP_ADDRESS(4, this)
             return this.__PA
         }
     }
@@ -115,7 +112,7 @@ class WNV_PROVIDER_ADDRESS_CHANGE_PARAM extends Win32Struct
      * @type {Integer}
      */
     AddressState {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 }

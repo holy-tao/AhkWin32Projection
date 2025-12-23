@@ -3,7 +3,7 @@
 
 /**
  * Specifies the list of blocked UserAgent sub-string's. This is used with the WS_LISTENER_PROPERTY_DISALLOWED_USER_AGENT listener property.
- * @see https://docs.microsoft.com/windows/win32/api//webservices/ns-webservices-ws_disallowed_user_agent_substrings
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_disallowed_user_agent_substrings
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

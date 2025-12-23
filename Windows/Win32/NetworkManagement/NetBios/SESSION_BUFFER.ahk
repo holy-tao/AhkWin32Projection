@@ -3,7 +3,7 @@
 
 /**
  * The SESSION_BUFFER structure contains information about a local network session. One or more SESSION_BUFFER structures follows a SESSION_HEADER structure when an application specifies the NCBSSTAT command in the ncb_command member of the NCB structure.
- * @see https://docs.microsoft.com/windows/win32/api//nb30/ns-nb30-session_buffer
+ * @see https://learn.microsoft.com/windows/win32/api/nb30/ns-nb30-session_buffer
  * @namespace Windows.Win32.NetworkManagement.NetBios
  * @version v4.0.30319
  */

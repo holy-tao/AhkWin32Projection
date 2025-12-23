@@ -5,7 +5,7 @@
 
 /**
  * The EMRSETCOLORADJUSTMENT structure contains members for the SetColorAdjustment enhanced metafile record.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrsetcoloradjustment
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrsetcoloradjustment
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
@@ -13,7 +13,7 @@ class EMRSETCOLORADJUSTMENT extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.

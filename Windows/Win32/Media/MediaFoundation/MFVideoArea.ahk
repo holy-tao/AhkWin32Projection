@@ -5,7 +5,7 @@
 
 /**
  * Specifies a rectangular area within a video frame.
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ns-mfobjects-mfvideoarea
+ * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfvideoarea
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -13,7 +13,7 @@ class MFVideoArea extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfoffset">MFOffset</a> structure that contains the x-coordinate of the upper-left corner of the rectangle. This coordinate might have a fractional value.
@@ -40,7 +40,7 @@ class MFVideoArea extends Win32Struct
     }
 
     /**
-     * A <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that contains the width and height of the rectangle.
+     * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that contains the width and height of the rectangle.
      * @type {SIZE}
      */
     Area{

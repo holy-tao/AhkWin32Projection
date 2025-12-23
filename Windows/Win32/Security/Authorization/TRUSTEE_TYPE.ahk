@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Values that indicate the type of trustee identified by a TRUSTEE structure.
- * @see https://docs.microsoft.com/windows/win32/api//accctrl/ne-accctrl-trustee_type
+ * @see https://learn.microsoft.com/windows/win32/api/accctrl/ne-accctrl-trustee_type
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
-class TRUSTEE_TYPE{
+class TRUSTEE_TYPE extends Win32Enum{
 
     /**
      * The trustee type is unknown, but it may be valid.

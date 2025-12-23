@@ -6,23 +6,20 @@
 /**
  * Contains information about the placement of a window on the screen.
  * @remarks
- * 
  * If the window is a top-level window that does not have the <b>WS_EX_TOOLWINDOW</b> window style, then the coordinates represented by the following members are in workspace coordinates: <b>ptMinPosition</b>, <b>ptMaxPosition</b>, and <b>rcNormalPosition</b>. Otherwise, these members are in screen coordinates.
  * 
  * Workspace coordinates differ from screen coordinates in that they take the locations and sizes of application toolbars (including the taskbar) into account. Workspace coordinate (0,0) is the upper-left corner of the workspace area, the area of the screen not being used by application toolbars.
  * 
  * The coordinates used in a <b>WINDOWPLACEMENT</b> structure should be used only by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindowplacement">GetWindowPlacement</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowplacement">SetWindowPlacement</a> functions. Passing workspace coordinates to functions which expect screen coordinates (such as <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowpos">SetWindowPos</a>) will result in the window appearing in the wrong location. For example, if the taskbar is at the top of the screen, saving window coordinates using <b>GetWindowPlacement</b> and restoring them using <b>SetWindowPos</b> causes the window to appear to "creep" up the screen.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winuser/ns-winuser-windowplacement
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-windowplacement
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */
 class WINDOWPLACEMENT extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>UINT</b>
@@ -60,7 +57,7 @@ class WINDOWPLACEMENT extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * The coordinates of the window's upper-left corner when the window is minimized.
      * @type {POINT}
@@ -68,13 +65,13 @@ class WINDOWPLACEMENT extends Win32Struct
     ptMinPosition{
         get {
             if(!this.HasProp("__ptMinPosition"))
-                this.__ptMinPosition := POINT(16, this)
+                this.__ptMinPosition := POINT(12, this)
             return this.__ptMinPosition
         }
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * The coordinates of the window's upper-left corner when the window is maximized.
      * @type {POINT}
@@ -82,7 +79,7 @@ class WINDOWPLACEMENT extends Win32Struct
     ptMaxPosition{
         get {
             if(!this.HasProp("__ptMaxPosition"))
-                this.__ptMaxPosition := POINT(24, this)
+                this.__ptMaxPosition := POINT(20, this)
             return this.__ptMaxPosition
         }
     }
@@ -96,7 +93,7 @@ class WINDOWPLACEMENT extends Win32Struct
     rcNormalPosition{
         get {
             if(!this.HasProp("__rcNormalPosition"))
-                this.__rcNormalPosition := RECT(32, this)
+                this.__rcNormalPosition := RECT(28, this)
             return this.__rcNormalPosition
         }
     }

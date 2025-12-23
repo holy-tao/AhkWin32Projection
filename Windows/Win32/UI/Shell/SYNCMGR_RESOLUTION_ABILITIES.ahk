@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates abilities and the conflict resolution activity to follow. Used with ISyncMgrResolutionHandler::QueryAbilities.
- * @see https://docs.microsoft.com/windows/win32/api//syncmgr/ne-syncmgr-syncmgr_resolution_abilities
+ * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ne-syncmgr-syncmgr_resolution_abilities
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class SYNCMGR_RESOLUTION_ABILITIES{
+class SYNCMGR_RESOLUTION_ABILITIES extends Win32Enum{
 
     /**
      * The resolution handler supports merging items and will produce a merged file to keep.

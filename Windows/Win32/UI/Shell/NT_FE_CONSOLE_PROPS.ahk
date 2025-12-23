@@ -4,15 +4,15 @@
 
 /**
  * Holds an extra data block used by IShellLinkDataList. It holds the console's code page.
- * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-nt_fe_console_props
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-nt_fe_console_props
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
 class NT_FE_CONSOLE_PROPS extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-datablock_header">DATABLOCK_HEADER</a></b>

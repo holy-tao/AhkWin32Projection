@@ -4,7 +4,7 @@
 
 /**
  * Specifies the client details for every inbound request.
- * @see https://docs.microsoft.com/windows/win32/api//wsman/ns-wsman-wsman_sender_details
+ * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_sender_details
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */
@@ -86,7 +86,7 @@ class WSMAN_SENDER_DETAILS extends Win32Struct
     }
 
     /**
-     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_certificate_details">WSMAN_CERTIFICATE_DETAILS</a> structure that specifies the details of the client's certificate. This parameter is valid only if the <i>authenticationMechanism</i>is set to ClientCertificate.
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_certificate_details">WSMAN_CERTIFICATE_DETAILS</a> structure that specifies the details of the client's certificate. This parameter is valid only if the <i>authenticationMechanism</i> is set to ClientCertificate.
      * @type {Pointer<WSMAN_CERTIFICATE_DETAILS>}
      */
     certificateDetails {

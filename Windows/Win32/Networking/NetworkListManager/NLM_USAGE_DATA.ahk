@@ -5,19 +5,16 @@
 /**
  * NLM_USAGE_DATA structure stores information that indicates the data usage of a plan.
  * @remarks
- * 
  * If usage is not supplied, <b>UsageInMegabytes</b> is set to <b>NLM_UNKNOWN_DATAPLAN_STATUS</b> (0xFFFFFFFF), and <b>LastSyncTime</b> is set to 0.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/ns-netlistmgr-nlm_usage_data
+ * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ns-netlistmgr-nlm_usage_data
  * @namespace Windows.Win32.Networking.NetworkListManager
  * @version v4.0.30319
  */
 class NLM_USAGE_DATA extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The data usage of a plan, represented in megabytes.
@@ -35,7 +32,7 @@ class NLM_USAGE_DATA extends Win32Struct
     LastSyncTime{
         get {
             if(!this.HasProp("__LastSyncTime"))
-                this.__LastSyncTime := FILETIME(8, this)
+                this.__LastSyncTime := FILETIME(4, this)
             return this.__LastSyncTime
         }
     }

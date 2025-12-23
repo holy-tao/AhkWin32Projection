@@ -3,7 +3,7 @@
 
 /**
  * Specifies the version of the TBS context implementation.
- * @see https://docs.microsoft.com/windows/win32/api//tbs/ns-tbs-tbs_context_params
+ * @see https://learn.microsoft.com/windows/win32/api/tbs/ns-tbs-tbs_context_params
  * @namespace Windows.Win32.System.TpmBaseServices
  * @version v4.0.30319
  */

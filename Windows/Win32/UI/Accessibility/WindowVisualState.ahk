@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Contains values that specify the visual state of a window.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ne-uiautomationcore-windowvisualstate
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-windowvisualstate
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
-class WindowVisualState{
+class WindowVisualState extends Win32Enum{
 
     /**
      * The window is normal (restored).

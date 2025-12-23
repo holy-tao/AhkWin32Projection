@@ -4,9 +4,8 @@
 #Include ..\NMHDR.ahk
 
 /**
- * Contains information about a WM_NOTIFY message sent to an OFNHookProc hook procedure for an Open or Save As dialog box. The lParam parameter of the WM_NOTIFY message is a pointer to an OFNOTIFY structure.
+ * Contains information about a WM_NOTIFY message sent to an OFNHookProc hook procedure for an Open or Save As dialog box. The lParam parameter of the WM_NOTIFY message is a pointer to an OFNOTIFY structure. (ANSI)
  * @remarks
- * 
  * Not all of the <b>Open</b> and <b>Save As</b> notification messages use the <b>OFNOTIFY</b> structure. The <a href="https://docs.microsoft.com/windows/desktop/dlgbox/cdn-includeitem">CDN_INCLUDEITEM</a> notification message uses the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-ofnotifyexa">OFNOTIFYEX</a> structure. 
  * 
  * 
@@ -15,9 +14,7 @@
  * 
  * > [!NOTE]
  * > The commdlg.h header defines OFNOTIFY as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//commdlg/ns-commdlg-ofnotifya
+ * @see https://learn.microsoft.com/windows/win32/api/commdlg/ns-commdlg-ofnotifya
  * @namespace Windows.Win32.UI.Controls.Dialogs
  * @version v4.0.30319
  * @charset ANSI

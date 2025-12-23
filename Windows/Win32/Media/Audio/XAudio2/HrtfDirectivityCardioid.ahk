@@ -4,15 +4,15 @@
 
 /**
  * Describes a cardioid directivity pattern.
- * @see https://docs.microsoft.com/windows/win32/api//hrtfapoapi/ns-hrtfapoapi-hrtfdirectivitycardioid
+ * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/ns-hrtfapoapi-hrtfdirectivitycardioid
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319
  */
 class HrtfDirectivityCardioid extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Descriptor for the cardioid pattern. The type parameter must be set to HrtfDirectivityType.Cardioid.

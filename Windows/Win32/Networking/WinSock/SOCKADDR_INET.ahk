@@ -9,7 +9,6 @@
 /**
  * Contains an IPv4, an IPv6 address, or an address family.
  * @remarks
- * 
  * The <b>SOCKADDR_INET</b> union is defined on Windows Vista and later. 
  * 
  * The <b>SOCKADDR_INET</b> union is a convenience structure for accessing an IPv4 address, an IPv6 address, or the IP address family without having to cast  the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure.
@@ -17,17 +16,15 @@
  * The <b>SOCKADDR_INET</b> union is the data type of the <b>Prefix</b> member in the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-ip_address_prefix">IP_ADDRESS_PREFIX</a> structure  
  * 
  * Note that the <i>Ws2ipdef.h</i> header file is automatically included in <i>Ws2tcpip.h</i> header file, and should never be used directly.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ws2ipdef/ns-ws2ipdef-sockaddr_inet
+ * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-sockaddr_inet
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
 class SOCKADDR_INET extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 56
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>SOCKADDR_IN</b>

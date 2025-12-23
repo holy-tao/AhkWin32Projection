@@ -4,13 +4,13 @@
 
 /**
  * The DD_SETCOLORKEYDATA structure contains information necessary to set the color key value for the specified surface.
- * @see https://docs.microsoft.com/windows/win32/api//ddrawint/ns-ddrawint-dd_setcolorkeydata
+ * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_setcolorkeydata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */
 class DD_SETCOLORKEYDATA extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -48,7 +48,7 @@ class DD_SETCOLORKEYDATA extends Win32Struct
     ckNew{
         get {
             if(!this.HasProp("__ckNew"))
-                this.__ckNew := DDCOLORKEY(24, this)
+                this.__ckNew := DDCOLORKEY(20, this)
             return this.__ckNew
         }
     }
@@ -58,8 +58,8 @@ class DD_SETCOLORKEYDATA extends Win32Struct
      * @type {HRESULT}
      */
     ddRVal {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -67,7 +67,7 @@ class DD_SETCOLORKEYDATA extends Win32Struct
      * @type {Pointer<Void>}
      */
     SetColorKey {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

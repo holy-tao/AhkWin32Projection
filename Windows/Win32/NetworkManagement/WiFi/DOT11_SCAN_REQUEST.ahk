@@ -8,9 +8,9 @@
  */
 class DOT11_SCAN_REQUEST extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 84
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -37,7 +37,7 @@ class DOT11_SCAN_REQUEST extends Win32Struct
     dot11SSID{
         get {
             if(!this.HasProp("__dot11SSID"))
-                this.__dot11SSID := DOT11_SSID(16, this)
+                this.__dot11SSID := DOT11_SSID(12, this)
             return this.__dot11SSID
         }
     }
@@ -46,30 +46,38 @@ class DOT11_SCAN_REQUEST extends Win32Struct
      * @type {Integer}
      */
     dot11ScanType {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
      * @type {BOOLEAN}
      */
     bRestrictedScan {
-        get => NumGet(this, 56, "char")
-        set => NumPut("char", value, this, 56)
+        get => NumGet(this, 52, "char")
+        set => NumPut("char", value, this, 52)
     }
 
     /**
      * @type {BOOLEAN}
      */
     bUseRequestIE {
-        get => NumGet(this, 57, "char")
-        set => NumPut("char", value, this, 57)
+        get => NumGet(this, 53, "char")
+        set => NumPut("char", value, this, 53)
     }
 
     /**
      * @type {Integer}
      */
     uRequestIDsOffset {
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    uNumOfRequestIDs {
         get => NumGet(this, 60, "uint")
         set => NumPut("uint", value, this, 60)
     }
@@ -77,7 +85,7 @@ class DOT11_SCAN_REQUEST extends Win32Struct
     /**
      * @type {Integer}
      */
-    uNumOfRequestIDs {
+    uPhyTypesOffset {
         get => NumGet(this, 64, "uint")
         set => NumPut("uint", value, this, 64)
     }
@@ -85,7 +93,7 @@ class DOT11_SCAN_REQUEST extends Win32Struct
     /**
      * @type {Integer}
      */
-    uPhyTypesOffset {
+    uNumOfPhyTypes {
         get => NumGet(this, 68, "uint")
         set => NumPut("uint", value, this, 68)
     }
@@ -93,7 +101,7 @@ class DOT11_SCAN_REQUEST extends Win32Struct
     /**
      * @type {Integer}
      */
-    uNumOfPhyTypes {
+    uIEsOffset {
         get => NumGet(this, 72, "uint")
         set => NumPut("uint", value, this, 72)
     }
@@ -101,17 +109,9 @@ class DOT11_SCAN_REQUEST extends Win32Struct
     /**
      * @type {Integer}
      */
-    uIEsOffset {
+    uIEsLength {
         get => NumGet(this, 76, "uint")
         set => NumPut("uint", value, this, 76)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    uIEsLength {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
     }
 
     /**
@@ -120,7 +120,7 @@ class DOT11_SCAN_REQUEST extends Win32Struct
     ucBuffer{
         get {
             if(!this.HasProp("__ucBufferProxyArray"))
-                this.__ucBufferProxyArray := Win32FixedArray(this.ptr + 84, 1, Primitive, "char")
+                this.__ucBufferProxyArray := Win32FixedArray(this.ptr + 80, 1, Primitive, "char")
             return this.__ucBufferProxyArray
         }
     }

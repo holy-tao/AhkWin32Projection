@@ -6,19 +6,16 @@
 /**
  * The DXGI_OUTDUPL_DESC structure describes the dimension of the output and the surface that contains the desktop image. The format of the desktop image is always DXGI_FORMAT_B8G8R8A8_UNORM.
  * @remarks
- * 
  * This structure is used by <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-getdesc">GetDesc</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi1_2/ns-dxgi1_2-dxgi_outdupl_desc
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ns-dxgi1_2-dxgi_outdupl_desc
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
 class DXGI_OUTDUPL_DESC extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb173064(v=vs.85)">DXGI_MODE_DESC</a> structure that describes the display mode of the duplicated output.
@@ -37,8 +34,8 @@ class DXGI_OUTDUPL_DESC extends Win32Struct
      * @type {Integer}
      */
     Rotation {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -46,7 +43,7 @@ class DXGI_OUTDUPL_DESC extends Win32Struct
      * @type {BOOL}
      */
     DesktopImageInSystemMemory {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 }

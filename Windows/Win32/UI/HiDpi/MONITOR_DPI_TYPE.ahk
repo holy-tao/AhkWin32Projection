@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the dots per inch (dpi) setting for a monitor.
  * @remarks
- * 
  * All of these settings are affected by the <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-process_dpi_awareness">PROCESS_DPI_AWARENESS</a> of your application
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shellscalingapi/ne-shellscalingapi-monitor_dpi_type
+ * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/ne-shellscalingapi-monitor_dpi_type
  * @namespace Windows.Win32.UI.HiDpi
  * @version v4.0.30319
  */
-class MONITOR_DPI_TYPE{
+class MONITOR_DPI_TYPE extends Win32Enum{
 
     /**
      * The effective DPI. This value should be used when determining the correct scale factor for scaling UI elements. This incorporates the scale factor set by the user for this specific display.

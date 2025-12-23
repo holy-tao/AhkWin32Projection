@@ -4,11 +4,8 @@
 /**
  * Describes a trace step, which is an instruction.
  * @remarks
- * 
  * This API requires the Windows Software Development Kit (SDK) for Windows 8.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11shadertracing/ns-d3d11shadertracing-d3d11_trace_step
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/ns-d3d11shadertracing-d3d11_trace_step
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

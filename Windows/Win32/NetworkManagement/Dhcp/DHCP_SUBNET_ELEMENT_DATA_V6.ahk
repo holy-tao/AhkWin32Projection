@@ -3,7 +3,7 @@
 
 /**
  * Contains definitions for the elements of the IPv6 prefix, such as IPv6 reservation, IPv6 exclusion range, and IPv6 range.
- * @see https://docs.microsoft.com/windows/win32/api//dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_data_v6
+ * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_data_v6
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */
@@ -14,7 +14,7 @@ class DHCP_SUBNET_ELEMENT_DATA_V6 extends Win32Struct
     static packingSize => 8
 
     class DHCP_SUBNET_ELEMENT_UNION_V6 extends Win32Struct {
-        static sizeof => 32
+        static sizeof => 24
         static packingSize => 8
 
         /**

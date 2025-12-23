@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines flags that control how the DVD Navigator Filter filter handles command synchronization.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-dvd_cmd_flags
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_cmd_flags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class DVD_CMD_FLAGS{
+class DVD_CMD_FLAGS extends Win32Enum{
 
     /**
      * The DVD Navigator will not flush its buffers when it issues the command, will not send any events, and will not to block the thread of execution on any method call.

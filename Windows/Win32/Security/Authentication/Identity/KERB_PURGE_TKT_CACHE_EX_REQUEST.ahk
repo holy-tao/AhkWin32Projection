@@ -10,7 +10,7 @@
  */
 class KERB_PURGE_TKT_CACHE_EX_REQUEST extends Win32Struct
 {
-    static sizeof => 120
+    static sizeof => 112
 
     static packingSize => 8
 
@@ -28,7 +28,7 @@ class KERB_PURGE_TKT_CACHE_EX_REQUEST extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(8, this)
+                this.__LogonId := LUID(4, this)
             return this.__LogonId
         }
     }
@@ -37,8 +37,8 @@ class KERB_PURGE_TKT_CACHE_EX_REQUEST extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
@@ -47,7 +47,7 @@ class KERB_PURGE_TKT_CACHE_EX_REQUEST extends Win32Struct
     TicketTemplate{
         get {
             if(!this.HasProp("__TicketTemplate"))
-                this.__TicketTemplate := KERB_TICKET_CACHE_INFO_EX(24, this)
+                this.__TicketTemplate := KERB_TICKET_CACHE_INFO_EX(16, this)
             return this.__TicketTemplate
         }
     }

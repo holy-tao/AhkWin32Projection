@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether the original source of the input video was film or video. This enumeration is used with the AVEncVideoSourceFilmContent property.
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencvideofilmcontent
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencvideofilmcontent
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVEncVideoFilmContent{
+class eAVEncVideoFilmContent extends Win32Enum{
 
     /**
      * The original source was video.

@@ -7,22 +7,19 @@
 /**
  * Specifies the parameters of the event (receiving an incoming Internet Control Message Protocol redirect packet) that causes the Windows Network Virtualization (WNV) driver to generate a WnvRedirectType notification.
  * @remarks
- * 
  * Hyper-V Network Virtualization uses an Internet Control Message Protocol
  * (ICMP) redirect message to indicate a change in the virtual machine's provider address in the case of a live migration of a virtual machine.
  * 
  * For a detailed description of network virtualization concepts and terminology, refer to <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/jj134230(v=ws.11)">Hyper-V Network Virtualization Overview</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wnvapi/ns-wnvapi-wnv_redirect_param
+ * @see https://learn.microsoft.com/windows/win32/api/wnvapi/ns-wnvapi-wnv_redirect_param
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
  * @version v4.0.30319
  */
 class WNV_REDIRECT_PARAM extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>ADDRESS_FAMILY</b>
@@ -77,7 +74,7 @@ class WNV_REDIRECT_PARAM extends Win32Struct
     CA{
         get {
             if(!this.HasProp("__CA"))
-                this.__CA := WNV_IP_ADDRESS(16, this)
+                this.__CA := WNV_IP_ADDRESS(12, this)
             return this.__CA
         }
     }
@@ -91,7 +88,7 @@ class WNV_REDIRECT_PARAM extends Win32Struct
     PA{
         get {
             if(!this.HasProp("__PA"))
-                this.__PA := WNV_IP_ADDRESS(32, this)
+                this.__PA := WNV_IP_ADDRESS(28, this)
             return this.__PA
         }
     }
@@ -105,7 +102,7 @@ class WNV_REDIRECT_PARAM extends Win32Struct
     NewPA{
         get {
             if(!this.HasProp("__NewPA"))
-                this.__NewPA := WNV_IP_ADDRESS(48, this)
+                this.__NewPA := WNV_IP_ADDRESS(44, this)
             return this.__NewPA
         }
     }

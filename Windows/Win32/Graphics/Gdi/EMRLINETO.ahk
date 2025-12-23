@@ -5,7 +5,7 @@
 
 /**
  * The EMRLINETO and EMRMOVETOEX structures contains members for the LineTo and MoveToEx enhanced metafile records.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrlineto
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrlineto
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
@@ -13,7 +13,7 @@ class EMRLINETO extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Base structure for all record types.

@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the kind of change affecting an item when a source sink notifies a client that an item has been changed.
  * @remarks
- * 
  * SEARCH_CHANGE_ADD, SEARCH_CHANGE_DELETE, and SEARCH_CHANGE_MODIFY are mutually exclusive. Only one of them can be used at a time. However, any one of them can be combined with the remaining flags.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//searchapi/ne-searchapi-search_kind_of_change
+ * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-search_kind_of_change
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
-class SEARCH_KIND_OF_CHANGE{
+class SEARCH_KIND_OF_CHANGE extends Win32Enum{
 
     /**
      * An item was added.

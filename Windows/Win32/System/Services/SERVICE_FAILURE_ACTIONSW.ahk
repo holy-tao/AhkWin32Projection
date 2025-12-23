@@ -2,9 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents the action the service controller should take on each failure of a service. A service is considered failed when it terminates without reporting a status of SERVICE_STOPPED to the service controller.
+ * Represents the action the service controller should take on each failure of a service. A service is considered failed when it terminates without reporting a status of SERVICE_STOPPED to the service controller. (Unicode)
  * @remarks
- * 
  * The service control manager counts the number of times each service has failed since the system booted. The count is reset to 0 if the service has not failed for <b>dwResetPeriod</b> seconds. When the service fails for the <i>N</i>th time, the service controller performs the action specified in element [<i>N</i>-1] of the <b>lpsaActions</b> array. If <i>N</i> is greater than <i>cActions</i>, the service controller repeats the last action in the array.
  * 
  * 
@@ -13,9 +12,7 @@
  * 
  * > [!NOTE]
  * > The winsvc.h header defines SERVICE_FAILURE_ACTIONS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsvc/ns-winsvc-service_failure_actionsw
+ * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_failure_actionsw
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  * @charset Unicode

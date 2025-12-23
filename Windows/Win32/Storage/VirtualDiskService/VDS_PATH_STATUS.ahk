@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Defines the set of valid status values for a port.
+ * The VDS_PATH_STATUS enumeration (vdshwprv.h) defines the set of valid status values for a port.
  * @remarks
- * 
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_PATH_STATUS</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_PATH_STATUS</b> enumeration constant.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vds/ne-vds-vds_path_status
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_path_status
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
-class VDS_PATH_STATUS{
+class VDS_PATH_STATUS extends Win32Enum{
 
     /**
      * The path status is unknown.

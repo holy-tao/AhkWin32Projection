@@ -5,18 +5,15 @@
 /**
  * The INTERNET_COOKIE2 structure contains the constituent parts of a cookie. This structure is used with the InternetGetCookieEx2 and InternetSetCookieEx2 functions.
  * @remarks
- * 
  * > [!NOTE]
  * > WinINet does not support server implementations. In addition, it should not be used from a service. For server implementations or services use [Microsoft Windows HTTP Services (WinHTTP)](/windows/desktop/winhttp/winhttp-start-page).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wininet/ns-wininet-internet_cookie2
+ * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-internet_cookie2
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
  */
 class INTERNET_COOKIE2 extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -83,7 +80,7 @@ class INTERNET_COOKIE2 extends Win32Struct
     ftExpires{
         get {
             if(!this.HasProp("__ftExpires"))
-                this.__ftExpires := FILETIME(40, this)
+                this.__ftExpires := FILETIME(36, this)
             return this.__ftExpires
         }
     }
@@ -93,7 +90,7 @@ class INTERNET_COOKIE2 extends Win32Struct
      * @type {BOOL}
      */
     fExpiresSet {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 }

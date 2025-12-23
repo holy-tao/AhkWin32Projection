@@ -8,7 +8,7 @@
 
 /**
  * Stores the state associated with a connection object.
- * @see https://docs.microsoft.com/windows/win32/api//fwpmtypes/ns-fwpmtypes-fwpm_connection0
+ * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_connection0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
@@ -44,8 +44,8 @@ class FWPM_CONNECTION0 extends Win32Struct
      * @type {Integer}
      */
     localV4Address {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
@@ -54,7 +54,7 @@ class FWPM_CONNECTION0 extends Win32Struct
     localV6Address{
         get {
             if(!this.HasProp("__localV6AddressProxyArray"))
-                this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
+                this.__localV6AddressProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
             return this.__localV6AddressProxyArray
         }
     }
@@ -63,8 +63,8 @@ class FWPM_CONNECTION0 extends Win32Struct
      * @type {Integer}
      */
     remoteV4Address {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -73,7 +73,7 @@ class FWPM_CONNECTION0 extends Win32Struct
     remoteV6Address{
         get {
             if(!this.HasProp("__remoteV6AddressProxyArray"))
-                this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "char")
+                this.__remoteV6AddressProxyArray := Win32FixedArray(this.ptr + 28, 16, Primitive, "char")
             return this.__remoteV6AddressProxyArray
         }
     }

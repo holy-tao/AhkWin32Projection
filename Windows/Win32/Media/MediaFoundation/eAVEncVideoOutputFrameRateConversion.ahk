@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether the encoder converts the frame rate, if the output frame rate does not match the input frame rate. This enumeration is used with the AVEncVideoOutputFrameRateConversion property.
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavencvideooutputframerateconversion
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavencvideooutputframerateconversion
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVEncVideoOutputFrameRateConversion{
+class eAVEncVideoOutputFrameRateConversion extends Win32Enum{
 
     /**
      * Disable frame rate conversion.

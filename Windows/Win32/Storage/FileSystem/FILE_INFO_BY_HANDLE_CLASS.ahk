@@ -1,21 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the type of file information that GetFileInformationByHandleEx should retrieve or SetFileInformationByHandle should set.
  * @remarks
- * 
  * As noted in the preceding section, some file information classes are valid only for use with 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getfileinformationbyhandleex">GetFileInformationByHandleEx</a>. Others are 
  *     valid only for use with 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-setfileinformationbyhandle">SetFileInformationByHandle</a>. Where neither 
  *     function is mentioned, the information class is valid with both functions.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//minwinbase/ne-minwinbase-file_info_by_handle_class
+ * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ne-minwinbase-file_info_by_handle_class
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
-class FILE_INFO_BY_HANDLE_CLASS{
+class FILE_INFO_BY_HANDLE_CLASS extends Win32Enum{
 
     /**
      * Minimal information for the file should be retrieved or set. Used for file handles. See 

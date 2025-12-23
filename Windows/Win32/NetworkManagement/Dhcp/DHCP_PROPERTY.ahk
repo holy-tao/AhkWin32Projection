@@ -13,7 +13,7 @@ class DHCP_PROPERTY extends Win32Struct
     static packingSize => 8
 
     class _DHCP_PROPERTY_VALUE_UNION extends Win32Struct {
-        static sizeof => 40
+        static sizeof => 32
         static packingSize => 8
 
         /**

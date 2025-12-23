@@ -9,9 +9,9 @@
  */
 class SOCKADDR_IN6 extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

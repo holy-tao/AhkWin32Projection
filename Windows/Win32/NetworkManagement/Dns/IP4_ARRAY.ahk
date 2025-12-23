@@ -3,7 +3,7 @@
 
 /**
  * The IP4_ARRAY structure stores an array of IPv4 addresses.
- * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-ip4_array
+ * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-ip4_array
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

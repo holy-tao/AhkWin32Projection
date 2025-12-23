@@ -4,7 +4,7 @@
 
 /**
  * DRT_EVENT_DATA.
- * @see https://docs.microsoft.com/windows/win32/api//drt/ns-drt-drt_event_data
+ * @see https://learn.microsoft.com/windows/win32/api/drt/ns-drt-drt_event_data
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */
@@ -78,7 +78,7 @@ class DRT_EVENT_DATA extends Win32Struct
     }
 
     class _registrationStateChange extends Win32Struct {
-        static sizeof => 40
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -103,11 +103,11 @@ class DRT_EVENT_DATA extends Win32Struct
     }
 
     class _statusChange extends Win32Struct {
-        static sizeof => 40
+        static sizeof => 24
         static packingSize => 8
 
         class _bootstrapAddresses extends Win32Struct {
-            static sizeof => 24
+            static sizeof => 16
             static packingSize => 8
     
             /**

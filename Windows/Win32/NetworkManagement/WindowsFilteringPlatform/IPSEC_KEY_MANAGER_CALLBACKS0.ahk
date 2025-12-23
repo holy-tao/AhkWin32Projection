@@ -4,11 +4,8 @@
 /**
  * Specifies the set of callbacks which should be invoked by IPsec at various stages of SA negotiation.
  * @remarks
- * 
  * If the <b>IPSEC_KEY_MANAGER_FLAG_DICTATE_KEY</b> flag is set, all three callbacks must be specified; otherwise, only the <b>keyNotify</b> callback should be specified.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fwpmu/ns-fwpmu-ipsec_key_manager_callbacks0
+ * @see https://learn.microsoft.com/windows/win32/api/fwpmu/ns-fwpmu-ipsec_key_manager_callbacks0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

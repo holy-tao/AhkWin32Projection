@@ -6,17 +6,14 @@
 /**
  * Describes a resource, such as a texture, including a mip region. This structure is used in several methods.
  * @remarks
- * 
  * For remarks, see [D3D12_RESOURCE_DESC1](./ns-d3d12-d3d12_resource_desc.md).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_resource_desc1
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_desc1
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
 class D3D12_RESOURCE_DESC1 extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -90,7 +87,7 @@ class D3D12_RESOURCE_DESC1 extends Win32Struct
     SampleDesc{
         get {
             if(!this.HasProp("__SampleDesc"))
-                this.__SampleDesc := DXGI_SAMPLE_DESC(40, this)
+                this.__SampleDesc := DXGI_SAMPLE_DESC(36, this)
             return this.__SampleDesc
         }
     }
@@ -100,8 +97,8 @@ class D3D12_RESOURCE_DESC1 extends Win32Struct
      * @type {Integer}
      */
     Layout {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
@@ -109,8 +106,8 @@ class D3D12_RESOURCE_DESC1 extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -120,7 +117,7 @@ class D3D12_RESOURCE_DESC1 extends Win32Struct
     SamplerFeedbackMipRegion{
         get {
             if(!this.HasProp("__SamplerFeedbackMipRegion"))
-                this.__SamplerFeedbackMipRegion := D3D12_MIP_REGION(56, this)
+                this.__SamplerFeedbackMipRegion := D3D12_MIP_REGION(52, this)
             return this.__SamplerFeedbackMipRegion
         }
     }

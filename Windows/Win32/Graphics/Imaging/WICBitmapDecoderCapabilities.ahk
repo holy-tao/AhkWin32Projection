@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the capabilities of the decoder.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicbitmapdecodercapabilities
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicbitmapdecodercapabilities
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICBitmapDecoderCapabilities{
+class WICBitmapDecoderCapabilities extends Win32Enum{
 
     /**
      * Decoder recognizes the image was encoded with an encoder produced by the same vendor.

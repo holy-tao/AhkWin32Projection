@@ -4,7 +4,6 @@
 /**
  * Contains information about files in the specified directory.
  * @remarks
- * 
  * No specific access rights are required to query this information.
  * 
  * File reference numbers, also called file IDs, are guaranteed to be unique only within a static file system. 
@@ -19,9 +18,7 @@
  * This <b>FILE_ID_BOTH_DIR_INFO</b> structure must be 
  *     aligned on a <b>DWORDLONG</b> (8-byte) boundary. If a buffer contains two or more of these structures, the 
  *     <b>NextEntryOffset</b> value in each entry, except the last, falls on an 8-byte boundary.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winbase/ns-winbase-file_id_both_dir_info
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_id_both_dir_info
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

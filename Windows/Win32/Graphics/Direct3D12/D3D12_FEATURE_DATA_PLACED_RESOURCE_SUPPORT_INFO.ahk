@@ -10,7 +10,7 @@ class D3D12_FEATURE_DATA_PLACED_RESOURCE_SUPPORT_INFO extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

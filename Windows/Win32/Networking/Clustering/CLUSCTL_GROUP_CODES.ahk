@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * Enumerates groupcontrol codes.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ne-msclus-clusctl_group_codes
+ * The CLUSCTL_GROUP_CODES enumeration (msclus.h) enumerates group control codes.
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusctl_group_codes
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
-class CLUSCTL_GROUP_CODES{
+class CLUSCTL_GROUP_CODES extends Win32Enum{
 
     /**
      * See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-group-unknown">CLUSCTL_GROUP_UNKNOWN</a>.

@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a custom event.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/ns-uiautomationcore-uiautomationeventinfo
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ns-uiautomationcore-uiautomationeventinfo
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

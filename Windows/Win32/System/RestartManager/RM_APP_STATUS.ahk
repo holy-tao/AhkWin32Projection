@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Describes the current status of an application that is acted upon by the Restart Manager.
  * @remarks
- * 
  * The constants  of <b>RM_APP_STATUS</b> can be combined with OR operators. The combination describes the history of actions taken by Restart Manager on the application.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//restartmanager/ne-restartmanager-rm_app_status
+ * @see https://learn.microsoft.com/windows/win32/api/restartmanager/ne-restartmanager-rm_app_status
  * @namespace Windows.Win32.System.RestartManager
  * @version v4.0.30319
  */
-class RM_APP_STATUS{
+class RM_APP_STATUS extends Win32Enum{
 
     /**
      * The application is in a state that is not described by any other enumerated state.

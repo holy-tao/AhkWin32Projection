@@ -5,7 +5,7 @@
 
 /**
  * The DISPLAYCONFIG_DESKTOP_IMAGE_INFO structure contains information about the image displayed on the desktop.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-displayconfig_desktop_image_info
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_desktop_image_info
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */
@@ -13,7 +13,7 @@ class DISPLAYCONFIG_DESKTOP_IMAGE_INFO extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-pointl">POINTL</a> structure that specifies the size of the VidPn source surface that is being displayed on the monitor.

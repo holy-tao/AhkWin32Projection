@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The PROFILEPROPERTIES enumeration type enumerates properties associated with a profile.
- * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-profileproperties
+ * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-profileproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class PROFILEPROPERTIES{
+class PROFILEPROPERTIES extends Win32Enum{
 
     /**
      * The attributes associated with the profile.

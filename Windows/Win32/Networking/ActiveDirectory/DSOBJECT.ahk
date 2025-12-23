@@ -3,7 +3,7 @@
 
 /**
  * Contains directory object data.
- * @see https://docs.microsoft.com/windows/win32/api//dsclient/ns-dsclient-dsobject
+ * @see https://learn.microsoft.com/windows/win32/api/dsclient/ns-dsclient-dsobject
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

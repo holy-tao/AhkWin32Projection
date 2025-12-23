@@ -3,7 +3,7 @@
 
 /**
  * Returns information about the signature validation status, summary status information about a SignedInfo element, or summary status information about an array of Reference elements.
- * @see https://docs.microsoft.com/windows/win32/api//cryptxml/ns-cryptxml-crypt_xml_status
+ * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_status
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

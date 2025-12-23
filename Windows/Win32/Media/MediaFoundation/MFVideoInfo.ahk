@@ -8,7 +8,6 @@
 /**
  * Contains video format information that applies to both compressed and uncompressed formats.This structure is used in the MFVIDEOFORMAT structure.
  * @remarks
- * 
  * Developers are encouraged to use media type attributes instead of using the <b>MFVideoInfo</b> structure. The following table lists the attributes that correspond to the members of this structure.
  * 
  * <table>
@@ -99,9 +98,7 @@
  * <td>See <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfvideoflags">MFVideoFlags</a>.</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/ns-mfobjects-mfvideoinfo
+ * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfvideoinfo
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -223,7 +220,7 @@ class MFVideoInfo extends Win32Struct
     GeometricAperture{
         get {
             if(!this.HasProp("__GeometricAperture"))
-                this.__GeometricAperture := MFVideoArea(56, this)
+                this.__GeometricAperture := MFVideoArea(52, this)
             return this.__GeometricAperture
         }
     }
@@ -235,7 +232,7 @@ class MFVideoInfo extends Win32Struct
     MinimumDisplayAperture{
         get {
             if(!this.HasProp("__MinimumDisplayAperture"))
-                this.__MinimumDisplayAperture := MFVideoArea(72, this)
+                this.__MinimumDisplayAperture := MFVideoArea(68, this)
             return this.__MinimumDisplayAperture
         }
     }
@@ -247,7 +244,7 @@ class MFVideoInfo extends Win32Struct
     PanScanAperture{
         get {
             if(!this.HasProp("__PanScanAperture"))
-                this.__PanScanAperture := MFVideoArea(88, this)
+                this.__PanScanAperture := MFVideoArea(84, this)
             return this.__PanScanAperture
         }
     }

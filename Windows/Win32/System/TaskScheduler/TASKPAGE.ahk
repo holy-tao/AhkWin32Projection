@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the type of task page to be retrieved.
- * @see https://docs.microsoft.com/windows/win32/api//mstask/ne-mstask-taskpage
+ * @see https://learn.microsoft.com/windows/win32/api/mstask/ne-mstask-taskpage
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
-class TASKPAGE{
+class TASKPAGE extends Win32Enum{
 
     /**
      * Specifies the Task page for the task. This page provides the following UI elements: 

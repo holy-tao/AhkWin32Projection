@@ -3,7 +3,7 @@
 
 /**
  * Describes the object's properties and methods.
- * @see https://docs.microsoft.com/windows/win32/api//oleauto/ns-oleauto-interfacedata
+ * @see https://learn.microsoft.com/windows/win32/api/oleauto/ns-oleauto-interfacedata
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

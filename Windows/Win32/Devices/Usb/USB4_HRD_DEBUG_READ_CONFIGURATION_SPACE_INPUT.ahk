@@ -10,7 +10,7 @@ class USB4_HRD_DEBUG_READ_CONFIGURATION_SPACE_INPUT extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {USB4_HRD_DEBUG_ROUTE_STRING}

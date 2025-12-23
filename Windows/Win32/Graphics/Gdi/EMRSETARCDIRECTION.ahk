@@ -4,15 +4,15 @@
 
 /**
  * The EMRSETARCDIRECTION structure contains members for the SetArcDirection enhanced metafile record.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrsetarcdirection
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrsetarcdirection
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
 class EMRSETARCDIRECTION extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.

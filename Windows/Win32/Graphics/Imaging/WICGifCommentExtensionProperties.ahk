@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the comment extension metadata properties for a Graphics Interchange Format (GIF) image.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/ne-wincodec-wicgifcommentextensionproperties
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicgifcommentextensionproperties
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
-class WICGifCommentExtensionProperties{
+class WICGifCommentExtensionProperties extends Win32Enum{
 
     /**
      * [VT_LPSTR] Indicates the comment text.

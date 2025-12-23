@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the shape in which sound is emitted by an ISpatialAudioObjectForHrtf.
- * @see https://docs.microsoft.com/windows/win32/api//spatialaudiohrtf/ne-spatialaudiohrtf-spatialaudiohrtfdirectivitytype
+ * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/ne-spatialaudiohrtf-spatialaudiohrtfdirectivitytype
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
-class SpatialAudioHrtfDirectivityType{
+class SpatialAudioHrtfDirectivityType extends Win32Enum{
 
     /**
      * The sound is emitted in all directions.

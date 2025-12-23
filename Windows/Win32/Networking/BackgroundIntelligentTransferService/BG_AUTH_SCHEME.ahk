@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify the authentication scheme to use when a proxy or server requests user authentication.
  * @remarks
- * 
  * BITS supports Passport authentication for explicit credentials only, not implicit credentials tied to the account.
  * 
  * The following table shows the authentication requests that BITS does not support.
@@ -14,13 +14,11 @@
  * |Any authentication scheme on the server when the proxy requires Digest authentication.|Not supported|Not supported|
  * |Negotiate authentication on the server when the proxy requires Basic authentication.|Not supported||
  * |Using HTTPS when the proxy requires Digest authentication.|Not supported||
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bits1_5/ne-bits1_5-bg_auth_scheme
+ * @see https://learn.microsoft.com/windows/win32/api/bits1_5/ne-bits1_5-bg_auth_scheme
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */
-class BG_AUTH_SCHEME{
+class BG_AUTH_SCHEME extends Win32Enum{
 
     /**
      * <em>Basic</em> is a scheme in which the user name and password are sent in clear-text to the server or proxy.

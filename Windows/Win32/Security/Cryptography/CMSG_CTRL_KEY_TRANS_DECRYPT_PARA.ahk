@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a key transport message recipient.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cmsg_ctrl_key_trans_decrypt_para
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_ctrl_key_trans_decrypt_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

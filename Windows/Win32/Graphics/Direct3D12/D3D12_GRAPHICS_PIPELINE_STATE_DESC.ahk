@@ -14,7 +14,6 @@
 /**
  * Describes a graphics pipeline state object.
  * @remarks
- * 
  * This structure is used by the <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-creategraphicspipelinestate">CreateGraphicsPipelineState</a> method.
  *       
  * 
@@ -52,15 +51,13 @@
  * <li>Whether the sample count and quality are supported for the render target/depth stencil formats.
  *           </li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
 class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
 {
-    static sizeof => 408
+    static sizeof => 400
 
     static packingSize => 8
 
@@ -173,7 +170,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
     RasterizerState{
         get {
             if(!this.HasProp("__RasterizerState"))
-                this.__RasterizerState := D3D12_RASTERIZER_DESC(200, this)
+                this.__RasterizerState := D3D12_RASTERIZER_DESC(196, this)
             return this.__RasterizerState
         }
     }
@@ -185,7 +182,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
     DepthStencilState{
         get {
             if(!this.HasProp("__DepthStencilState"))
-                this.__DepthStencilState := D3D12_DEPTH_STENCIL_DESC(248, this)
+                this.__DepthStencilState := D3D12_DEPTH_STENCIL_DESC(240, this)
             return this.__DepthStencilState
         }
     }
@@ -197,7 +194,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
     InputLayout{
         get {
             if(!this.HasProp("__InputLayout"))
-                this.__InputLayout := D3D12_INPUT_LAYOUT_DESC(304, this)
+                this.__InputLayout := D3D12_INPUT_LAYOUT_DESC(296, this)
             return this.__InputLayout
         }
     }
@@ -207,8 +204,8 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
      * @type {Integer}
      */
     IBStripCutValue {
-        get => NumGet(this, 320, "int")
-        set => NumPut("int", value, this, 320)
+        get => NumGet(this, 312, "int")
+        set => NumPut("int", value, this, 312)
     }
 
     /**
@@ -216,8 +213,8 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
      * @type {Integer}
      */
     PrimitiveTopologyType {
-        get => NumGet(this, 324, "int")
-        set => NumPut("int", value, this, 324)
+        get => NumGet(this, 316, "int")
+        set => NumPut("int", value, this, 316)
     }
 
     /**
@@ -225,8 +222,8 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
      * @type {Integer}
      */
     NumRenderTargets {
-        get => NumGet(this, 328, "uint")
-        set => NumPut("uint", value, this, 328)
+        get => NumGet(this, 320, "uint")
+        set => NumPut("uint", value, this, 320)
     }
 
     /**
@@ -236,7 +233,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
     RTVFormats{
         get {
             if(!this.HasProp("__RTVFormatsProxyArray"))
-                this.__RTVFormatsProxyArray := Win32FixedArray(this.ptr + 332, 8, Primitive, "int")
+                this.__RTVFormatsProxyArray := Win32FixedArray(this.ptr + 324, 8, Primitive, "int")
             return this.__RTVFormatsProxyArray
         }
     }
@@ -246,8 +243,8 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
      * @type {Integer}
      */
     DSVFormat {
-        get => NumGet(this, 364, "int")
-        set => NumPut("int", value, this, 364)
+        get => NumGet(this, 356, "int")
+        set => NumPut("int", value, this, 356)
     }
 
     /**
@@ -257,7 +254,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
     SampleDesc{
         get {
             if(!this.HasProp("__SampleDesc"))
-                this.__SampleDesc := DXGI_SAMPLE_DESC(368, this)
+                this.__SampleDesc := DXGI_SAMPLE_DESC(360, this)
             return this.__SampleDesc
         }
     }
@@ -269,8 +266,8 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
      * @type {Integer}
      */
     NodeMask {
-        get => NumGet(this, 376, "uint")
-        set => NumPut("uint", value, this, 376)
+        get => NumGet(this, 368, "uint")
+        set => NumPut("uint", value, this, 368)
     }
 
     /**
@@ -280,7 +277,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
     CachedPSO{
         get {
             if(!this.HasProp("__CachedPSO"))
-                this.__CachedPSO := D3D12_CACHED_PIPELINE_STATE(384, this)
+                this.__CachedPSO := D3D12_CACHED_PIPELINE_STATE(376, this)
             return this.__CachedPSO
         }
     }
@@ -290,7 +287,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 400, "int")
-        set => NumPut("int", value, this, 400)
+        get => NumGet(this, 392, "int")
+        set => NumPut("int", value, this, 392)
     }
 }

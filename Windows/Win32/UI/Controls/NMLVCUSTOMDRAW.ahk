@@ -9,17 +9,15 @@
 /**
  * Contains information specific to an NM_CUSTOMDRAW (list view) notification code sent by a list-view control.
  * @remarks
- * 
  * <div class="alert"><b>Note</b>  Comctl32.dll version 6 is not redistributable but it is included in Windows or later. To use Comctl32.dll version 6, specify it in a manifest. For more information on manifests, see <a href="https://docs.microsoft.com/windows/desktop/Controls/cookbook-overview">Enabling Visual Styles</a>.</div>
  * <div> </div>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-nmlvcustomdraw
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmlvcustomdraw
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
 class NMLVCUSTOMDRAW extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 136
 
     static packingSize => 8
 
@@ -160,7 +158,7 @@ class NMLVCUSTOMDRAW extends Win32Struct
     rcText{
         get {
             if(!this.HasProp("__rcText"))
-                this.__rcText := RECT(120, this)
+                this.__rcText := RECT(116, this)
             return this.__rcText
         }
     }
@@ -173,7 +171,7 @@ class NMLVCUSTOMDRAW extends Win32Struct
      * @type {Integer}
      */
     uAlign {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
+        get => NumGet(this, 132, "uint")
+        set => NumPut("uint", value, this, 132)
     }
 }

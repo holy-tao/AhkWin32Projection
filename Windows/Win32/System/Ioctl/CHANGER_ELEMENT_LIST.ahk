@@ -4,15 +4,15 @@
 
 /**
  * Represents a range of elements of a single type, typically for an operation such as getting or initializing the status of multiple elements.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-changer_element_list
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_element_list
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */
 class CHANGER_ELEMENT_LIST extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A 

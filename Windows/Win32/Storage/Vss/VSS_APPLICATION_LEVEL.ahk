@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Indicates the application level, the point in the course of the creation of a shadow copy that a writer is notified of a freeze.
  * @remarks
- * 
  * <b>VSS_APPLICATION_LEVEL</b> is provided to allow 
  *     application developers to control at what point a writer will receive a Freeze event. This may be important if one 
  *     writer uses or depends on another writer.
@@ -20,13 +20,11 @@
  * The application level of a writer is set by 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-initialize">CVssWriter::Initialize</a> and retrieved by 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-getcurrentlevel">CVssWriter::GetCurrentLevel</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vss/ne-vss-vss_application_level
+ * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_application_level
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_APPLICATION_LEVEL{
+class VSS_APPLICATION_LEVEL extends Win32Enum{
 
     /**
      * The level at which this writer's freeze state will occur is not known. This indicates an application 

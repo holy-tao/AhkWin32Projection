@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the CLIENTPROPERTIES type enumerate the properties of a RADIUS client. The SDO computer is the RADIUS server.
- * @see https://docs.microsoft.com/windows/win32/api//sdoias/ne-sdoias-clientproperties
+ * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-clientproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
-class CLIENTPROPERTIES{
+class CLIENTPROPERTIES extends Win32Enum{
 
     /**
      * Specifies whether the RADIUS server checks for a digital signature.

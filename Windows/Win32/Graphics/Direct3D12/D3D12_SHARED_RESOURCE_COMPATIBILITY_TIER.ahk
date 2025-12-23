@@ -1,17 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines constants that specify a cross-API sharing support tier.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/ne-d3d12-d3d12_shared_resource_compatibility_tier
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_shared_resource_compatibility_tier
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
-class D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER{
+class D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER extends Win32Enum{
 
     /**
+     * Related to [D3D11_SHARED_RESOURCE_TIER::D3D11_SHARED_RESOURCE_TIER_1](/windows/win32/api/d3d11/ne-d3d11-d3d11_shared_resource_tier).
+     * 
      * Specifies that the most basic level of cross-API sharing is supported, including the following resource data formats.
      * 
      * * DXGI_FORMAT_R8G8B8A8_UNORM
@@ -27,7 +29,9 @@ class D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER{
     static D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_0 => 0
 
     /**
-     * Specifies that cross-API sharing functionality of Tier 0 is supported, plus the following formats.
+     * Related to [D3D11_SHARED_RESOURCE_TIER::D3D11_SHARED_RESOURCE_TIER_2](/windows/win32/api/d3d11/ne-d3d11-d3d11_shared_resource_tier).
+     * 
+     * Specifies that cross-API sharing functionality of **D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_0** is supported, plus the following formats.
      * 
      * * DXGI_FORMAT_R16G16B16A16_TYPELESS
      * * DXGI_FORMAT_R10G10B10A2_TYPELESS
@@ -47,7 +51,9 @@ class D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER{
     static D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_1 => 1
 
     /**
-     * Specifies that cross-API sharing functionality of Tier 1 is supported, plus the following formats.
+     * Related to [D3D11_SHARED_RESOURCE_TIER::D3D11_SHARED_RESOURCE_TIER_3](/windows/win32/api/d3d11/ne-d3d11-d3d11_shared_resource_tier).
+     * 
+     * Specifies that cross-API sharing functionality of **D3D12_SHARED_RESOURCE_COMPATIBILITY_TIER_1** is supported, plus the following formats.
      * 
      * * DXGI_FORMAT_NV12 (also see [Extended NV12 texture support](/windows/win32/direct3d11/direct3d-11-4-features#extended-nv12-texture-support))
      * @type {Integer (Int32)}

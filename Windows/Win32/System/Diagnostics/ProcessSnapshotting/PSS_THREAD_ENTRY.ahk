@@ -5,11 +5,8 @@
 /**
  * Holds thread information returned by PssWalkSnapshotPssWalkSnapshot.
  * @remarks
- * 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psswalksnapshot">PssWalkSnapshot</a> returns a <b>PSS_THREAD_ENTRY</b> structure when the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_walk_information_class">PSS_WALK_INFORMATION_CLASS</a> member that the caller provides it is <b>PSS_WALK_THREADS</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//processsnapshot/ns-processsnapshot-pss_thread_entry
+ * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/ns-processsnapshot-pss_thread_entry
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
  * @version v4.0.30319
  */
@@ -107,7 +104,7 @@ class PSS_THREAD_ENTRY extends Win32Struct
     CreateTime{
         get {
             if(!this.HasProp("__CreateTime"))
-                this.__CreateTime := FILETIME(56, this)
+                this.__CreateTime := FILETIME(52, this)
             return this.__CreateTime
         }
     }
@@ -119,7 +116,7 @@ class PSS_THREAD_ENTRY extends Win32Struct
     ExitTime{
         get {
             if(!this.HasProp("__ExitTime"))
-                this.__ExitTime := FILETIME(64, this)
+                this.__ExitTime := FILETIME(60, this)
             return this.__ExitTime
         }
     }
@@ -131,7 +128,7 @@ class PSS_THREAD_ENTRY extends Win32Struct
     KernelTime{
         get {
             if(!this.HasProp("__KernelTime"))
-                this.__KernelTime := FILETIME(72, this)
+                this.__KernelTime := FILETIME(68, this)
             return this.__KernelTime
         }
     }
@@ -143,7 +140,7 @@ class PSS_THREAD_ENTRY extends Win32Struct
     UserTime{
         get {
             if(!this.HasProp("__UserTime"))
-                this.__UserTime := FILETIME(80, this)
+                this.__UserTime := FILETIME(76, this)
             return this.__UserTime
         }
     }

@@ -1,12 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Represents the different process mitigation policies.
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ne-winnt-process_mitigation_policy
+ * @remarks
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-process_mitigation_policy
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */
-class PROCESS_MITIGATION_POLICY{
+class PROCESS_MITIGATION_POLICY extends Win32Enum{
 
     /**
      * The data execution prevention (DEP) policy of the process.
@@ -75,25 +78,25 @@ class PROCESS_MITIGATION_POLICY{
     static ProcessImageLoadPolicy => 10
 
     /**
-     * 
+     * The system call filter policy of the process.
      * @type {Integer (Int32)}
      */
     static ProcessSystemCallFilterPolicy => 11
 
     /**
-     * 
+     * The payload restriction policy of the process.
      * @type {Integer (Int32)}
      */
     static ProcessPayloadRestrictionPolicy => 12
 
     /**
-     * 
+     * The child process policy of the process.
      * @type {Integer (Int32)}
      */
     static ProcessChildProcessPolicy => 13
 
     /**
-     * 
+     * The side channel isolation policy of the process.
      * @type {Integer (Int32)}
      */
     static ProcessSideChannelIsolationPolicy => 14
@@ -105,16 +108,19 @@ class PROCESS_MITIGATION_POLICY{
     static ProcessUserShadowStackPolicy => 15
 
     /**
+     * The RedirectionGuard policy of the process.
      * @type {Integer (Int32)}
      */
     static ProcessRedirectionTrustPolicy => 16
 
     /**
+     * The user pointer authentication policy of the process.
      * @type {Integer (Int32)}
      */
     static ProcessUserPointerAuthPolicy => 17
 
     /**
+     * The Structured Exception Handling Overwrite Protection (SEHOP) policy of the process.
      * @type {Integer (Int32)}
      */
     static ProcessSEHOPPolicy => 18

@@ -3,7 +3,7 @@
 
 /**
  * Defines an array of CRYPT_XML_REFERENCE structures.
- * @see https://docs.microsoft.com/windows/win32/api//cryptxml/ns-cryptxml-crypt_xml_references
+ * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_references
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

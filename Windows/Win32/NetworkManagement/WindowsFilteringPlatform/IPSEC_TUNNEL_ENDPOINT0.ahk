@@ -4,21 +4,18 @@
 /**
  * Used to store address information for an end point of a tunnel mode SA.
  * @remarks
- * 
  * For the unnamed union containing the tunnel end point address, switch_type(FWP_IP_VERSION), switch_is(ipVersion).
  * 
  * <b>IPSEC_TUNNEL_ENDPOINT0</b> is a specific implementation of IPSEC_TUNNEL_ENDPOINT. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ipsectypes/ns-ipsectypes-ipsec_tunnel_endpoint0
+ * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_tunnel_endpoint0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
 class IPSEC_TUNNEL_ENDPOINT0 extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: [FWP_IP_VERSION](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_ip_version)</b>
@@ -35,8 +32,8 @@ class IPSEC_TUNNEL_ENDPOINT0 extends Win32Struct
      * @type {Integer}
      */
     v4Address {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
@@ -45,7 +42,7 @@ class IPSEC_TUNNEL_ENDPOINT0 extends Win32Struct
     v6Address{
         get {
             if(!this.HasProp("__v6AddressProxyArray"))
-                this.__v6AddressProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
+                this.__v6AddressProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
             return this.__v6AddressProxyArray
         }
     }

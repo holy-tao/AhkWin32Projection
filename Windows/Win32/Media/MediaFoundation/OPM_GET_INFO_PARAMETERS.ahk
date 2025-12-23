@@ -4,9 +4,8 @@
 #Include .\OPM_RANDOM_NUMBER.ahk
 
 /**
- * Contains parameters for the IOPMVideoOutput::GetInformation method.
+ * OPM_GET_INFO_PARAMETERS (opmapi.h) contains parameters for the IOPMVideoOutput::GetInformation method.
  * @remarks
- * 
  * Initialize this structure as follows:
  * 
  * <ol>
@@ -15,9 +14,7 @@
  * <li>Use the OMAC 1 algorithm to calculate a message authentication code (MAC) for the block of data that appears after the <b>omac</b> member (excluding the <b>omac</b> member).</li>
  * <li>Copy the MAC to the <b>omac</b> member.</li>
  * </ol>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//opmapi/ns-opmapi-opm_get_info_parameters
+ * @see https://learn.microsoft.com/windows/win32/api/opmapi/ns-opmapi-opm_get_info_parameters
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

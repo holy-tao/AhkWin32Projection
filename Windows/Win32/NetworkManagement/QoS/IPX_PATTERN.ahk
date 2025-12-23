@@ -3,19 +3,19 @@
 
 /**
  * The IPX_PATTERN structure applies a specific pattern or corresponding mask for the IPX protocol. The IPX_PATTERN structure designation is used by the traffic control interface in the application of packet filters.
- * @see https://docs.microsoft.com/windows/win32/api//traffic/ns-traffic-ipx_pattern
+ * @see https://learn.microsoft.com/windows/win32/api/traffic/ns-traffic-ipx_pattern
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */
 class IPX_PATTERN extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _Src extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+        static sizeof => 12
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -65,7 +65,7 @@ class IPX_PATTERN extends Win32Struct
     Dest{
         get {
             if(!this.HasProp("__Dest"))
-                this.__Dest := %this.__Class%._Src(16, this)
+                this.__Dest := %this.__Class%._Src(12, this)
             return this.__Dest
         }
     }

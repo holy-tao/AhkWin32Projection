@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The WIAVIDEO_STATE enumeration is used to specify the current state of a video stream.
- * @see https://docs.microsoft.com/windows/win32/api//wiavideo/ne-wiavideo-wiavideo_state
+ * @see https://learn.microsoft.com/windows/win32/api/wiavideo/ne-wiavideo-wiavideo_state
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */
-class WIAVIDEO_STATE{
+class WIAVIDEO_STATE extends Win32Enum{
 
     /**
      * No video stream exists. Call <a href="https://docs.microsoft.com/windows/desktop/api/wiavideo/nf-wiavideo-iwiavideo-createvideobywiadevid">IWiaVideo::CreateVideoByWiaDevID</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wiavideo/nf-wiavideo-iwiavideo-createvideobydevnum">IWiaVideo::CreateVideoByDevNum</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/wiavideo/nf-wiavideo-iwiavideo-createvideobyname">IWiaVideo::CreateVideoByName</a> to create a video.

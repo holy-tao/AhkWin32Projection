@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the behavior of the IMFMediaSession::SetTopology method.
  * @remarks
- * 
  * These flags are optional, and are not mutually exclusive. If no flags are set, the Media Session resolves the topology and then adds it to the queue of pending presentations.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/ne-mfidl-mfsession_settopology_flags
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsession_settopology_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFSESSION_SETTOPOLOGY_FLAGS{
+class MFSESSION_SETTOPOLOGY_FLAGS extends Win32Enum{
 
     /**
      * Stop the current presentation, clear all pending presentations, and immediately queue the new topology (specified by the <i>pTopology</i> parameter).

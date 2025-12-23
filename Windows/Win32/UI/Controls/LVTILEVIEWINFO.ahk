@@ -6,19 +6,16 @@
 /**
  * Provides information about a list-view control when it is displayed in tile view.
  * @remarks
- * 
  * By default, the dimensions of tiles are determined automatically. To apply a fixed size, supply the correct value or values in <b>sizeTile</b> and set the appropriate flag in <b>dwFlags</b>. Allow enough vertical space for all lines of the label to be displayed. If a line does not fit in the allowed horizontal space, it is terminated with an ellipsis.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-lvtileviewinfo
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvtileviewinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
 class LVTILEVIEWINFO extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -50,7 +47,7 @@ class LVTILEVIEWINFO extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a></b>
      * 
      * Size of an individual tile. Values for dimensions not specified as fixed in <b>dwFlags</b> are ignored.
      * @type {SIZE}
@@ -58,7 +55,7 @@ class LVTILEVIEWINFO extends Win32Struct
     sizeTile{
         get {
             if(!this.HasProp("__sizeTile"))
-                this.__sizeTile := SIZE(16, this)
+                this.__sizeTile := SIZE(12, this)
             return this.__sizeTile
         }
     }
@@ -70,8 +67,8 @@ class LVTILEVIEWINFO extends Win32Struct
      * @type {Integer}
      */
     cLines {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -84,13 +81,13 @@ class LVTILEVIEWINFO extends Win32Struct
     rcLabelMargin{
         get {
             if(!this.HasProp("__rcLabelMargin"))
-                this.__rcLabelMargin := RECT(32, this)
+                this.__rcLabelMargin := RECT(24, this)
             return this.__rcLabelMargin
         }
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 48
+        this.cbSize := 40
     }
 }

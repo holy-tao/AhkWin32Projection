@@ -4,11 +4,8 @@
 /**
  * The AVIMAINHEADER structure defines global information in an AVI file.
  * @remarks
- * 
  * The header file Vfw.h defines a <b>MainAVIHeader</b> structure that is equivalent to this structure, but omits the <b>fcc</b> and <b>cb</b> members.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//aviriff/ns-aviriff-avimainheader
+ * @see https://learn.microsoft.com/windows/win32/api/aviriff/ns-aviriff-avimainheader
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

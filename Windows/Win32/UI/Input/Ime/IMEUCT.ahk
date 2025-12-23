@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Type of user comment in a IMEWRD structure.
- * @see https://docs.microsoft.com/windows/win32/api//msime/ne-msime-imeuct
+ * @see https://learn.microsoft.com/windows/win32/api/msime/ne-msime-imeuct
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */
-class IMEUCT{
+class IMEUCT extends Win32Enum{
 
     /**
      * No comment string is specified.

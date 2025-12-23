@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Represents information about the Failover attempts for a resource. This structure is used by the RESOURCE_FAILURE_INFO_BUFFER structure.
- * @see https://docs.microsoft.com/windows/win32/api//msclus/ns-msclus-resource_failure_info
+ * The RESOURCE_FAILURE_INFO structure represents information about the Failover attempts for a resource and is used by the RESOURCE_FAILURE_INFO_BUFFER structure.
+ * @see https://learn.microsoft.com/windows/win32/api/msclus/ns-msclus-resource_failure_info
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

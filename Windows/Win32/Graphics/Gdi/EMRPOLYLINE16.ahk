@@ -6,7 +6,7 @@
 
 /**
  * The EMRPOLYLINE16, EMRPOLYBEZIER16, EMRPOLYGON16, EMRPOLYBEZIERTO16, and EMRPOLYLINETO16 structures contain members for the Polyline, PolyBezier, Polygon, PolyBezierTo, and PolylineTo enhanced metafile records.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrpolyline16
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrpolyline16
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

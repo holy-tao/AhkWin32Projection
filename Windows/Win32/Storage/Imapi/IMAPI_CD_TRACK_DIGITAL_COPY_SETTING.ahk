@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Defines the digital copy setting values available for a given track.
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/ne-imapi2-imapi_cd_track_digital_copy_setting
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_cd_track_digital_copy_setting
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
-class IMAPI_CD_TRACK_DIGITAL_COPY_SETTING{
+class IMAPI_CD_TRACK_DIGITAL_COPY_SETTING extends Win32Enum{
 
     /**
      * Digital copies of the given track are allowed.

@@ -3,7 +3,7 @@
 
 /**
  * Holds an extra data block used by IShellLinkDataList. It holds expandable environment strings for the icon or target.
- * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/ns-shlobj_core-exp_sz_link
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-exp_sz_link
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

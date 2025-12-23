@@ -3,7 +3,7 @@
 
 /**
  * Contains more detailed information about an image logotype.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-cert_logotype_image_info
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_logotype_image_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

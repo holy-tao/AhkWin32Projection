@@ -3,7 +3,7 @@
 
 /**
  * The DSMCC_FILTER_OPTIONS structure specifies additional filtering criteria for the DSM-CC portions of the section header.
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2structs/ns-mpeg2structs-dsmcc_filter_options
+ * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-dsmcc_filter_options
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

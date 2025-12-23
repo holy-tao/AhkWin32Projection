@@ -5,15 +5,15 @@
 
 /**
  * The EMREXTCREATEPEN structure contains members for the ExtCreatePen enhanced metafile record. If the record contains a BITMAPINFO structure, it is followed by the bitmap bits that form a packed device-independent bitmap (DIB).
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrextcreatepen
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrextcreatepen
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */
 class EMREXTCREATEPEN extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 56
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.
@@ -79,7 +79,7 @@ class EMREXTCREATEPEN extends Win32Struct
     elp{
         get {
             if(!this.HasProp("__elp"))
-                this.__elp := EXTLOGPEN32(32, this)
+                this.__elp := EXTLOGPEN32(28, this)
             return this.__elp
         }
     }

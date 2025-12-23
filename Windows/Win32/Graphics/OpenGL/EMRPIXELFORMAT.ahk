@@ -5,7 +5,7 @@
 
 /**
  * The EMRPIXELFORMAT structure contains the members for the SetPixelFormat enhanced metafile record. The pixel format information in ENHMETAHEADER refers to this structure.
- * @see https://docs.microsoft.com/windows/win32/api//wingdi/ns-wingdi-emrpixelformat
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrpixelformat
  * @namespace Windows.Win32.Graphics.OpenGL
  * @version v4.0.30319
  */
@@ -13,7 +13,7 @@ class EMRPIXELFORMAT extends Win32Struct
 {
     static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.

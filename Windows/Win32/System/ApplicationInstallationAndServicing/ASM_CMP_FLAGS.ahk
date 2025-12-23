@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The values of the ASM_CMP_FLAGS enumeration are used by the IsEqual method to specify which portions of two assembly names to compare.
- * @see https://docs.microsoft.com/windows/win32/api//winsxs/ne-winsxs-asm_cmp_flags
+ * @see https://learn.microsoft.com/windows/win32/api/winsxs/ne-winsxs-asm_cmp_flags
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */
-class ASM_CMP_FLAGS{
+class ASM_CMP_FLAGS extends Win32Enum{
 
     /**
      * Compare the name portion of the assembly names.

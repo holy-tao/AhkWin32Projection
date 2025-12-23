@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * A 4x4 row-major matrix.
  * @see https://learn.microsoft.com/windows/win32/direct3d10/d3d10-d3dmatrix
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
@@ -11,7 +11,7 @@ class D3DMATRIX extends Win32Struct
 {
     static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Float}

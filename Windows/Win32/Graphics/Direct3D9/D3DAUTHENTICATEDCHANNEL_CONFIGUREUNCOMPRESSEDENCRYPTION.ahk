@@ -5,7 +5,7 @@
 #Include .\D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT.ahk
 
 /**
- * 
+ * Contains input data for the D3DAUTHENTICATEDCONFIGURE\_ENCRYPTIONWHENACCESSIBLE command.
  * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-configureuncompressedencryption
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
@@ -17,6 +17,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGUREUNCOMPRESSEDENCRYPTION extends Win32Struc
     static packingSize => 8
 
     /**
+     * A [**D3DAUTHENTICATEDCHANNEL\_CONFIGURE\_INPUT**](d3dauthenticatedchannel-configure-input.md) structure that contains the command GUID and other data.
      * @type {D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT}
      */
     Parameters{
@@ -28,6 +29,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGUREUNCOMPRESSEDENCRYPTION extends Win32Struc
     }
 
     /**
+     * A GUID that specifies the type of encryption to apply.
      * @type {Pointer<Guid>}
      */
     EncryptionGuid {

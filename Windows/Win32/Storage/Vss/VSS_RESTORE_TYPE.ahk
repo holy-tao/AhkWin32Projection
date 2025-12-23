@@ -1,21 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by a requester to indicate the type of restore operation it is about to perform.
  * @remarks
- * 
  * A requester can optionally set the type of a restore operation using 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-setrestorestate">IVssBackupComponents::SetRestoreState</a>.
  * 
  * A writer can retrieve the type of a restore operation by calling 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-getrestoretype">CVssWriter::GetRestoreType</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vss/ne-vss-vss_restore_type
+ * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_restore_type
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
-class VSS_RESTORE_TYPE{
+class VSS_RESTORE_TYPE extends Win32Enum{
 
     /**
      * No restore type is defined. 

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the type description being bound to.
- * @see https://docs.microsoft.com/windows/win32/api//oaidl/ne-oaidl-desckind
+ * @see https://learn.microsoft.com/windows/win32/api/oaidl/ne-oaidl-desckind
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
-class DESCKIND{
+class DESCKIND extends Win32Enum{
 
     /**
      * No match was found.

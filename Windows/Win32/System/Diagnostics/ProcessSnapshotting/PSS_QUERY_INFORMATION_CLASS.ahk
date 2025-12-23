@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies what information PssQuerySnapshot function returns.
- * @see https://docs.microsoft.com/windows/win32/api//processsnapshot/ne-processsnapshot-pss_query_information_class
+ * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/ne-processsnapshot-pss_query_information_class
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
  * @version v4.0.30319
  */
-class PSS_QUERY_INFORMATION_CLASS{
+class PSS_QUERY_INFORMATION_CLASS extends Win32Enum{
 
     /**
      * Returns a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ns-processsnapshot-pss_process_information">PSS_PROCESS_INFORMATION</a> structure, with information about the original process.

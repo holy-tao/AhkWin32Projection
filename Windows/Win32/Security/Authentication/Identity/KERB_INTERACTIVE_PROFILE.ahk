@@ -4,7 +4,7 @@
 
 /**
  * The KERB_INTERACTIVE_PROFILE structure contains information about an interactive logon profile. This structure is used by the LsaLogonUser function.
- * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/ns-ntsecapi-kerb_interactive_profile
+ * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_interactive_profile
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

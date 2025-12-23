@@ -5,7 +5,7 @@
 
 /**
  * The RTM_DEST_INFO structure is used to exchange destination information with clients registered with the routing table manager.
- * @see https://docs.microsoft.com/windows/win32/api//rtmv2/ns-rtmv2-rtm_dest_info
+ * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_dest_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */
@@ -43,7 +43,7 @@ class RTM_DEST_INFO extends Win32Struct
     LastChanged{
         get {
             if(!this.HasProp("__LastChanged"))
-                this.__LastChanged := FILETIME(32, this)
+                this.__LastChanged := FILETIME(28, this)
             return this.__LastChanged
         }
     }
@@ -53,8 +53,8 @@ class RTM_DEST_INFO extends Win32Struct
      * @type {Integer}
      */
     BelongsToViews {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -62,8 +62,8 @@ class RTM_DEST_INFO extends Win32Struct
      * @type {Integer}
      */
     NumberOfViews {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**

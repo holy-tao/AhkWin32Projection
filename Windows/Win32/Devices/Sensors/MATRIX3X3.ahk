@@ -8,9 +8,9 @@
  */
 class MATRIX3X3 extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Float}
@@ -101,7 +101,7 @@ class MATRIX3X3 extends Win32Struct
     V2{
         get {
             if(!this.HasProp("__V2"))
-                this.__V2 := VEC3D(16, this)
+                this.__V2 := VEC3D(12, this)
             return this.__V2
         }
     }
@@ -112,7 +112,7 @@ class MATRIX3X3 extends Win32Struct
     V3{
         get {
             if(!this.HasProp("__V3"))
-                this.__V3 := VEC3D(32, this)
+                this.__V3 := VEC3D(24, this)
             return this.__V3
         }
     }

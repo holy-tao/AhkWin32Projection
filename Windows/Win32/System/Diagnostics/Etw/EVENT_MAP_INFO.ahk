@@ -4,7 +4,7 @@
 
 /**
  * Defines the metadata about the event map.
- * @see https://docs.microsoft.com/windows/win32/api//tdh/ns-tdh-event_map_info
+ * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-event_map_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

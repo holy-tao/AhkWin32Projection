@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Identifies the target.
- * @see https://docs.microsoft.com/windows/win32/api//dwmapi/ne-dwmapi-dwmtransition_ownedwindow_target
+ * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ne-dwmapi-dwmtransition_ownedwindow_target
  * @namespace Windows.Win32.Graphics.Dwm
  * @version v4.0.30319
  */
-class DWMTRANSITION_OWNEDWINDOW_TARGET{
+class DWMTRANSITION_OWNEDWINDOW_TARGET extends Win32Enum{
 
     /**
      * Indicates no animation.

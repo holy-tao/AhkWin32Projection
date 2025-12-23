@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The VMRDeinterlaceTech enumeration type describes the algorithm used for deinterlacing a video stream. The flags are not mutually exclusive; drivers can set a combination of flags.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/ne-strmif-vmrdeinterlacetech
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-vmrdeinterlacetech
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
-class VMRDeinterlaceTech{
+class VMRDeinterlaceTech extends Win32Enum{
 
     /**
      * The algorithm is unknown or proprietary.

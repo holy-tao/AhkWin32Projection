@@ -5,8 +5,7 @@
  * A resource that represents a category, defined by an identifier and a name. A category is an organizational construct to categorize records for a given producer. For example, "Browsing Data" could be a category for the producer "Microsoft Edge".
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_data_event_category_description
+ * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_data_event_category_description
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
  * @version v4.0.30319
  */

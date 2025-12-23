@@ -11,7 +11,7 @@
  */
 class DMUS_REGION extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -94,7 +94,7 @@ class DMUS_REGION extends Win32Struct
     WSMP{
         get {
             if(!this.HasProp("__WSMP"))
-                this.__WSMP := WSMPL(40, this)
+                this.__WSMP := WSMPL(36, this)
             return this.__WSMP
         }
     }
@@ -105,7 +105,7 @@ class DMUS_REGION extends Win32Struct
     WLOOP{
         get {
             if(!this.HasProp("__WLOOPProxyArray"))
-                this.__WLOOPProxyArray := Win32FixedArray(this.ptr + 64, 1, WLOOP, "")
+                this.__WLOOPProxyArray := Win32FixedArray(this.ptr + 56, 1, WLOOP, "")
             return this.__WLOOPProxyArray
         }
     }

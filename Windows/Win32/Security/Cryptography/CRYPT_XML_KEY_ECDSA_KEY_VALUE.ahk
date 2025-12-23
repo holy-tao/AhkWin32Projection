@@ -5,7 +5,7 @@
 
 /**
  * Defines an Elliptic Curve Digital Signature Algorithm (ECDSA) key value. The CRYPT_XML_KEY_ECDSA_KEY_VALUE structure is used as an element of the key value union in the CRYPT_XML_KEY_VALUE structure.
- * @see https://docs.microsoft.com/windows/win32/api//cryptxml/ns-cryptxml-crypt_xml_key_ecdsa_key_value
+ * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_key_ecdsa_key_value
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

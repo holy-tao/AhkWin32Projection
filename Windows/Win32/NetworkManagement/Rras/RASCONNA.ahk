@@ -95,7 +95,7 @@ class RASCONNA extends Win32Struct
     luid{
         get {
             if(!this.HasProp("__luid"))
-                this.__luid := LUID(704, this)
+                this.__luid := LUID(700, this)
             return this.__luid
         }
     }

@@ -4,13 +4,10 @@
 /**
  * The DNS_LOC_DATA structure represents a DNS location (LOC) resource record (RR) as specified in RFC 1876.
  * @remarks
- * 
  * The 
  * <b>DNS_LOC_DATA</b> structure is used in conjunction with the 
  * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure to programmatically manage DNS entries.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//windns/ns-windns-dns_loc_data
+ * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_loc_data
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

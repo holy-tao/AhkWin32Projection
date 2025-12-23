@@ -5,19 +5,16 @@
 /**
  * The IPSEC_DOSP_STATE_ENUM_TEMPLATE0 structure.
  * @remarks
- * 
  * <b>IPSEC_DOSP_STATE_ENUM_TEMPLATE0</b> is a specific implementation of IPSEC_DOSP_STATE_ENUM_TEMPLATE. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ipsectypes/ns-ipsectypes-ipsec_dosp_state_enum_template0
+ * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_dosp_state_enum_template0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */
 class IPSEC_DOSP_STATE_ENUM_TEMPLATE0 extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 34
 
-    static packingSize => 8
+    static packingSize => 1
 
     /**
      * An [FWP_V6_ADDR_AND_MASK](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_v6_addr_and_mask) structure that specifies the public IPv6 address.
@@ -38,7 +35,7 @@ class IPSEC_DOSP_STATE_ENUM_TEMPLATE0 extends Win32Struct
     internalV6AddrMask{
         get {
             if(!this.HasProp("__internalV6AddrMask"))
-                this.__internalV6AddrMask := FWP_V6_ADDR_AND_MASK(24, this)
+                this.__internalV6AddrMask := FWP_V6_ADDR_AND_MASK(17, this)
             return this.__internalV6AddrMask
         }
     }

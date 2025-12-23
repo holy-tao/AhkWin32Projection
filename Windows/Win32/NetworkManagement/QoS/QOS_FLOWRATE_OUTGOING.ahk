@@ -3,7 +3,7 @@
 
 /**
  * The QOS_FLOWRATE_OUTGOING structure is used to set flow rate information in the QOSSetFlow function.
- * @see https://docs.microsoft.com/windows/win32/api//qos2/ns-qos2-qos_flowrate_outgoing
+ * @see https://learn.microsoft.com/windows/win32/api/qos2/ns-qos2-qos_flowrate_outgoing
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

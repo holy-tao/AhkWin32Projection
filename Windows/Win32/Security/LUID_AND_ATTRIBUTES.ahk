@@ -5,19 +5,16 @@
 /**
  * Represents a locally unique identifier (LUID) and its attributes.
  * @remarks
- * 
  * An <b>LUID_AND_ATTRIBUTES</b> structure can represent an LUID whose attributes change frequently, such as when the LUID is used to represent privileges in the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-privilege_set">PRIVILEGE_SET</a> structure. Privileges are represented by LUIDs and have attributes indicating whether they are currently enabled or disabled.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winnt/ns-winnt-luid_and_attributes
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-luid_and_attributes
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */
 class LUID_AND_ATTRIBUTES extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-luid">LUID</a> value.

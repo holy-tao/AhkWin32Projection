@@ -5,14 +5,11 @@
 /**
  * The QOS_DIFFSERV traffic control object is used to specify filters for the packet scheduler when it operates in Differentiated Services Mode.
  * @remarks
- * 
  * The 
  * <b>QOS_DIFFSERV</b> object is used to specify the set of Diffserv rules that apply to the specified flow, all of which are specified in the <b>DiffservRule</b> member. Each Diffserv rule has an InboundDSField value, which signifies the DSCP on the Inbound packet. The Diffserv Rules also have OutboundDSCP and UserPriority values for conforming and nonconforming packets. These indicate the DSCP and 802.1p values that go out on the forwarded packet. Note that the DSCP or UserPriority mapping based on ServiceType or 
  * <b>QOS_DS_CLASS</b> or 
  * <b>QOS_TRAFFIC_CLASS</b> is not used in this mode.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//qosobjs/ns-qosobjs-qos_diffserv
+ * @see https://learn.microsoft.com/windows/win32/api/qosobjs/ns-qosobjs-qos_diffserv
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */
@@ -20,7 +17,7 @@ class QOS_DIFFSERV extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The QOS object 

@@ -4,14 +4,12 @@
 /**
  * Describes a 5-by-4 floating point matrix.
  * @remarks
- * 
  * The <b>D2D1_MATRIX_5X4_F</b> structure is type defined from a <b>D2D_MATRIX_5X4_F</b> structure in D2d1_1.h.
  * 
  * ```cpp
  * typedef D2D_MATRIX_5X4_F D2D1_MATRIX_5X4_F;
  * ```
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dcommon/ns-dcommon-d2d_matrix_5x4_f
+ * @see https://learn.microsoft.com/windows/win32/api/dcommon/ns-dcommon-d2d_matrix_5x4_f
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */
@@ -19,7 +17,7 @@ class D2D_MATRIX_5X4_F extends Win32Struct
 {
     static sizeof => 80
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Float}

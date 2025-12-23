@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The NtmsObjectsTypes enumeration type specifies the types of RSM objects.
  * @remarks
- * 
  * The following table show the relationship of RSM objects.
  * 
  * <table>
@@ -124,13 +124,11 @@
  * <td>Side</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ntmsapi/ne-ntmsapi-ntmsobjectstypes
+ * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ne-ntmsapi-ntmsobjectstypes
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
-class NtmsObjectsTypes{
+class NtmsObjectsTypes extends Win32Enum{
 
     /**
      * Unknown  object.

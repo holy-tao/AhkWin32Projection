@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The MSP_EVENT_INFO structure defines the type of event returned by the GetEvent method.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3/ns-tapi3-msp_event_info
+ * The MSP_EVENT_INFO (msp.h) structure defines the type of event returned by the GetEvent method.
+ * @see https://learn.microsoft.com/windows/win32/api/msp/ns-msp-msp_event_info
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -41,7 +41,7 @@ class MSP_EVENT_INFO extends Win32Struct
     }
 
     class _MSP_ADDRESS_EVENT_INFO extends Win32Struct {
-        static sizeof => 32
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -109,8 +109,8 @@ class MSP_EVENT_INFO extends Win32Struct
     }
 
     class _MSP_TSP_DATA extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+        static sizeof => 8
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -134,7 +134,7 @@ class MSP_EVENT_INFO extends Win32Struct
     }
 
     class _MSP_PRIVATE_EVENT_INFO extends Win32Struct {
-        static sizeof => 32
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -202,7 +202,7 @@ class MSP_EVENT_INFO extends Win32Struct
     }
 
     class _MSP_ASR_TERMINAL_EVENT_INFO extends Win32Struct {
-        static sizeof => 32
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -224,7 +224,7 @@ class MSP_EVENT_INFO extends Win32Struct
     }
 
     class _MSP_TTS_TERMINAL_EVENT_INFO extends Win32Struct {
-        static sizeof => 32
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -246,7 +246,7 @@ class MSP_EVENT_INFO extends Win32Struct
     }
 
     class _MSP_TONE_TERMINAL_EVENT_INFO extends Win32Struct {
-        static sizeof => 32
+        static sizeof => 16
         static packingSize => 8
 
         /**

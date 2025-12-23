@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * The DWRITE_PANOSE_WEIGHT enumeration contains values that specify the weight of characters.
  * @remarks
- * 
  * The <b>DWRITE_PANOSE_WEIGHT</b> values roughly correspond to the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a> values by using (panose_weight - 2) * 100 = font_weight.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/ne-dwrite_1-dwrite_panose_weight
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_panose_weight
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_PANOSE_WEIGHT{
+class DWRITE_PANOSE_WEIGHT extends Win32Enum{
 
     /**
      * Any weight.

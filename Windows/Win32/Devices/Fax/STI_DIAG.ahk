@@ -8,9 +8,9 @@
  */
 class STI_DIAG extends Win32Struct
 {
-    static sizeof => 544
+    static sizeof => 540
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

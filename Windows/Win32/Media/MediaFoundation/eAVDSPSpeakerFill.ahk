@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies whether speaker fill is enabled in an audio decoder or digital signal processor (DSP).
  * @remarks
- * 
  * Speaker fill is a DSP process that converts mono or stereo audio into multichannel audio.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavdspspeakerfill
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavdspspeakerfill
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVDSPSpeakerFill{
+class eAVDSPSpeakerFill extends Win32Enum{
 
     /**
      * Speaker fill is disabled.

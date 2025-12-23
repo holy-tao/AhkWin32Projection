@@ -4,11 +4,8 @@
 /**
  * Contains information about the display of groups in a list-view control.
  * @remarks
- * 
  * The width of a border determines the margins of the area within which items are placed. The top border is highlighted when the user moves the cursor over it, and when the user clicks on this border in a list that allows multiple selection, all items in the group are selected.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//commctrl/ns-commctrl-lvgroupmetrics
+ * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvgroupmetrics
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

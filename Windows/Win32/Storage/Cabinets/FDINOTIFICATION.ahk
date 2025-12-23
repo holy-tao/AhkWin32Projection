@@ -3,7 +3,7 @@
 
 /**
  * The FDINOTIFICATION structure to provide information to FNFDINOTIFY.
- * @see https://docs.microsoft.com/windows/win32/api//fdi/ns-fdi-fdinotification
+ * @see https://learn.microsoft.com/windows/win32/api/fdi/ns-fdi-fdinotification
  * @namespace Windows.Win32.Storage.Cabinets
  * @version v4.0.30319
  */

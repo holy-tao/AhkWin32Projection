@@ -4,10 +4,8 @@
 /**
  * Specifies the major version, minor version, and buffer size of the WNV_NOTIFICATION_PARAM structure that is passed to the WnvRequestNotification function.
  * @remarks
- * 
  * There is currently only one version number: "1.0".
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wnvapi/ns-wnvapi-wnv_object_header
+ * @see https://learn.microsoft.com/windows/win32/api/wnvapi/ns-wnvapi-wnv_object_header
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Defines the isolation status of the machine or the connection.
- * @see https://docs.microsoft.com/windows/win32/api//naptypes/ns-naptypes-isolationinfo
+ * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-isolationinfo
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319
  */
@@ -31,7 +31,7 @@ class IsolationInfo extends Win32Struct
     probEndTime{
         get {
             if(!this.HasProp("__probEndTime"))
-                this.__probEndTime := FILETIME(8, this)
+                this.__probEndTime := FILETIME(4, this)
             return this.__probEndTime
         }
     }

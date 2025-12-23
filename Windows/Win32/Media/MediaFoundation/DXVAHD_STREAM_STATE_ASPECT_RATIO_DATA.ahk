@@ -5,21 +5,18 @@
 /**
  * Specifies the pixel aspect ratio (PAR) for the source and destination rectangles.
  * @remarks
- * 
  * Pixel aspect ratios of the form 0/<i>n</i> and <i>n</i>/0 are not valid.
  * 
  * If the <b>Enable</b> member is <b>FALSE</b>, the device ignores the values of <b>SourceAspectRatio</b> and <b>DestinationAspectRatio</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxvahd/ns-dxvahd-dxvahd_stream_state_aspect_ratio_data
+ * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_state_aspect_ratio_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
 class DXVAHD_STREAM_STATE_ASPECT_RATIO_DATA extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * <b>If TRUE</b>, the <b>SourceAspectRatio</b> and <b>DestinationAspectRatio</b> members contain valid values<b></b>. Otherwise, the pixel aspect ratios are unspecified.
@@ -37,7 +34,7 @@ class DXVAHD_STREAM_STATE_ASPECT_RATIO_DATA extends Win32Struct
     SourceAspectRatio{
         get {
             if(!this.HasProp("__SourceAspectRatio"))
-                this.__SourceAspectRatio := DXVAHD_RATIONAL(8, this)
+                this.__SourceAspectRatio := DXVAHD_RATIONAL(4, this)
             return this.__SourceAspectRatio
         }
     }
@@ -49,7 +46,7 @@ class DXVAHD_STREAM_STATE_ASPECT_RATIO_DATA extends Win32Struct
     DestinationAspectRatio{
         get {
             if(!this.HasProp("__DestinationAspectRatio"))
-                this.__DestinationAspectRatio := DXVAHD_RATIONAL(16, this)
+                this.__DestinationAspectRatio := DXVAHD_RATIONAL(12, this)
             return this.__DestinationAspectRatio
         }
     }

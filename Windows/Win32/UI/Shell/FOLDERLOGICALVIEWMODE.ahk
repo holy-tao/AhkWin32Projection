@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Used by IFolderViewSettings::GetViewMode and ISearchFolderItemFactory::SetFolderLogicalViewMode to describe the view mode.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/ne-shobjidl_core-folderlogicalviewmode
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-folderlogicalviewmode
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
-class FOLDERLOGICALVIEWMODE{
+class FOLDERLOGICALVIEWMODE extends Win32Enum{
 
     /**
      * The view is not specified.

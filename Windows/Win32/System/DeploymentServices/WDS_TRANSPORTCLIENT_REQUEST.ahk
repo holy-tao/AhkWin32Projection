@@ -3,7 +3,7 @@
 
 /**
  * This structure is used by the WdsTransportClientStartSession function.
- * @see https://docs.microsoft.com/windows/win32/api//wdstci/ns-wdstci-wds_transportclient_request
+ * @see https://learn.microsoft.com/windows/win32/api/wdstci/ns-wdstci-wds_transportclient_request
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

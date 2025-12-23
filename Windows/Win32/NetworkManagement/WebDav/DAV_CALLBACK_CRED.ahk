@@ -6,11 +6,8 @@
 /**
  * Stores user credential information that was retrieved by the DavAuthCallback callback function.
  * @remarks
- * 
  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/nc-davclnt-pfndavauthcallback">DavAuthCallback</a> callback function.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//davclnt/ns-davclnt-dav_callback_cred
+ * @see https://learn.microsoft.com/windows/win32/api/davclnt/ns-davclnt-dav_callback_cred
  * @namespace Windows.Win32.NetworkManagement.WebDav
  * @version v4.0.30319
  */

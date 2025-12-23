@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Define the security authentication levels.
- * @see https://docs.microsoft.com/windows/win32/api//wbemdisp/ne-wbemdisp-wbemauthenticationlevelenum
+ * @see https://learn.microsoft.com/windows/win32/api/wbemdisp/ne-wbemdisp-wbemauthenticationlevelenum
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
-class WbemAuthenticationLevelEnum{
+class WbemAuthenticationLevelEnum extends Win32Enum{
 
     /**
      * 

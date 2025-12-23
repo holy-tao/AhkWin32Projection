@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specify whether DWRITE_FONT_METRICS::lineGap value should be part of the line metrics.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/ne-dwrite_3-dwrite_font_line_gap_usage
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_font_line_gap_usage
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
-class DWRITE_FONT_LINE_GAP_USAGE{
+class DWRITE_FONT_LINE_GAP_USAGE extends Win32Enum{
 
     /**
      * The usage of the font line gap depends on the method used for text layout.

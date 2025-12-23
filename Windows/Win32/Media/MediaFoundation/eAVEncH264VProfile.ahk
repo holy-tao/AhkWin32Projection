@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies an H.264 video profile.
  * @remarks
- * 
  * These values are used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-mpeg2-profile-attribute">MF_MT_MPEG2_PROFILE</a> attribute.
  * 
  * These values are also used with <a href="https://docs.microsoft.com/windows/desktop/medfound/camera-encoder-h264-uvc-1-5">H.264 UVC 1.5 camera encoders</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//codecapi/ne-codecapi-eavench264vprofile
+ * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavench264vprofile
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class eAVEncH264VProfile{
+class eAVEncH264VProfile extends Win32Enum{
 
     /**
      * The profile is unknown or not specified.

@@ -3,7 +3,7 @@
 
 /**
  * Contains information used to verify a disk extent.
- * @see https://docs.microsoft.com/windows/win32/api//winioctl/ns-winioctl-verify_information
+ * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-verify_information
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

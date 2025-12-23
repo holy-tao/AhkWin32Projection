@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies the current playback state.
- * @see https://docs.microsoft.com/windows/win32/api//mfplay/ne-mfplay-mfp_mediaplayer_state
+ * @see https://learn.microsoft.com/windows/win32/api/mfplay/ne-mfplay-mfp_mediaplayer_state
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
-class MFP_MEDIAPLAYER_STATE{
+class MFP_MEDIAPLAYER_STATE extends Win32Enum{
 
     /**
      * Initial state. No media items have been set on the player object.

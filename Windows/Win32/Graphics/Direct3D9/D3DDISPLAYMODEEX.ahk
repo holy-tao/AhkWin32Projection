@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
+ * Information about the properties of a display mode.
+ * @remarks
+ * This structure is used in various methods to create and manage Direct3D 9Ex devices ([**IDirect3DDevice9Ex**](/windows/desktop/api/d3d9/nn-d3d9-idirect3ddevice9ex)) and swapchains ([**IDirect3DSwapChain9Ex**](/windows/desktop/api/d3d9/nn-d3d9-idirect3dswapchain9ex)).
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddisplaymodeex
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
@@ -14,6 +16,10 @@ class D3DDISPLAYMODEEX extends Win32Struct
     static packingSize => 4
 
     /**
+     * Type: **[**UINT**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * The size of this structure. This should always be set to sizeof(D3DDISPLAYMODEEX).
      * @type {Integer}
      */
     Size {
@@ -22,6 +28,10 @@ class D3DDISPLAYMODEEX extends Win32Struct
     }
 
     /**
+     * Type: **[**UINT**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Width of the display mode.
      * @type {Integer}
      */
     Width {
@@ -30,6 +40,10 @@ class D3DDISPLAYMODEEX extends Win32Struct
     }
 
     /**
+     * Type: **[**UINT**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Height of the display mode.
      * @type {Integer}
      */
     Height {
@@ -38,6 +52,10 @@ class D3DDISPLAYMODEEX extends Win32Struct
     }
 
     /**
+     * Type: **[**UINT**](../winprog/windows-data-types.md)**
+     * 
+     * 
+     * Refresh rate of the display mode.
      * @type {Integer}
      */
     RefreshRate {
@@ -46,6 +64,10 @@ class D3DDISPLAYMODEEX extends Win32Struct
     }
 
     /**
+     * Type: **[D3DFORMAT](d3dformat.md)**
+     * 
+     * 
+     * Format of the display mode. See [D3DFORMAT](d3dformat.md).
      * @type {Integer}
      */
     Format {
@@ -54,6 +76,10 @@ class D3DDISPLAYMODEEX extends Win32Struct
     }
 
     /**
+     * Type: **[**D3DSCANLINEORDERING**](./d3dscanlineordering.md)**
+     * 
+     * 
+     * Indicates whether the scanline order is progressive or interlaced. See [**D3DSCANLINEORDERING**](./d3dscanlineordering.md).
      * @type {Integer}
      */
     ScanLineOrdering {

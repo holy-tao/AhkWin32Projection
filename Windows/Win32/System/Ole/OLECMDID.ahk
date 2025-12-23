@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Enum.ahk
 
 /**
  * Specifies which standard command is to be executed. A single value from this enumeration is passed in the nCmdID argument of IOleCommandTarget::Exec.
  * @remarks
- * 
  * In OLE Compound Documents technology, an object that is being edited in-place disables the <b>Zoom</b> control on its toolbar and the <b>Zoom</b> command on its <b>View</b> menu, because, the <b>Zoom</b> command applies logically to the container document, not to the object. The OLECMDID_ZOOM and OLECMDID_GETZOOMRANGE commands notify the container's frame object of the zoom range it should use to display a document object in its user interface. The container frame is the client-side object that implements <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceframe">IOleInPlaceFrame</a> and, optionally, <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nn-docobj-iolecommandtarget">IOleCommandTarget</a>.
  * 
  * 
@@ -76,13 +76,11 @@
  * NULL) // pointer to command output
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//docobj/ne-docobj-olecmdid
+ * @see https://learn.microsoft.com/windows/win32/api/docobj/ne-docobj-olecmdid
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
-class OLECMDID{
+class OLECMDID extends Win32Enum{
 
     /**
      * <b>File</b> menu, <b>Open</b> command

@@ -3,7 +3,7 @@
 
 /**
  * Specifies the parameters that are passed in for EV policy validation. Applications use this structure to pass hints to the API that indicate which of the policy qualifier flags of the extended validation certificates are important to the application.
- * @see https://docs.microsoft.com/windows/win32/api//wincrypt/ns-wincrypt-ev_extra_cert_chain_policy_para
+ * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ev_extra_cert_chain_policy_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
